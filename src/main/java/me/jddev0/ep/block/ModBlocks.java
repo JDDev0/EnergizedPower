@@ -90,21 +90,4 @@ public class ModBlocks {
     public static void register(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);
     }
-
-    public static void addCreative(CreativeModeTabEvent.BuildContents event) {
-        if(event.getTab() == ModCreativeModeTab.ENERGIZED_POWER_TAB) {
-            event.accept(SILICON_BLOCK_ITEM);
-            event.accept(AUTO_CRAFTER_ITEM);
-            event.accept(SOLAR_PANEL_ITEM_1);
-            event.accept(SOLAR_PANEL_ITEM_2);
-            event.accept(SOLAR_PANEL_ITEM_3);
-            event.accept(SOLAR_PANEL_ITEM_4);
-            event.accept(SOLAR_PANEL_ITEM_5);
-            event.accept(COAL_ENGINE_ITEM);
-            event.accept(LIGHTNING_GENERATOR_ITEM);
-            event.accept(ENERGIZER_ITEM);
-            event.accept(BASIC_MACHINE_FRAME_ITEM);
-            event.accept(ADVANCED_MACHINE_FRAME_ITEM);
-        }
-    }
 }

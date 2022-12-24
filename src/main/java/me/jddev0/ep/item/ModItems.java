@@ -23,13 +23,4 @@ public class ModItems {
     public static void register(IEventBus modEventBus) {
         ITEMS.register(modEventBus);
     }
-
-    public static void addCreative(CreativeModeTabEvent.BuildContents event) {
-        if(event.getTab() == ModCreativeModeTab.ENERGIZED_POWER_TAB) {
-            event.accept(ENERGIZED_COPPER_INGOT);
-            event.accept(SILICON);
-            event.accept(BASIC_SOLAR_CELL);
-            event.accept(ADVANCED_SOLAR_CELL);
-        }
-    }
 }

@@ -54,8 +54,28 @@ public class EnergizedPowerMod {
     }
 
     private void addCreativeTab(CreativeModeTabEvent.BuildContents event) {
-        ModItems.addCreative(event);
-        ModBlocks.addCreative(event);
+        if(event.getTab() == ModCreativeModeTab.ENERGIZED_POWER_TAB) {
+            event.accept(ModBlocks.COAL_ENGINE_ITEM);
+            event.accept(ModBlocks.LIGHTNING_GENERATOR_ITEM);
+            event.accept(ModBlocks.SOLAR_PANEL_ITEM_1);
+            event.accept(ModBlocks.SOLAR_PANEL_ITEM_2);
+            event.accept(ModBlocks.SOLAR_PANEL_ITEM_3);
+            event.accept(ModBlocks.SOLAR_PANEL_ITEM_4);
+            event.accept(ModBlocks.SOLAR_PANEL_ITEM_5);
+
+            event.accept(ModBlocks.AUTO_CRAFTER_ITEM);
+            event.accept(ModBlocks.ENERGIZER_ITEM);
+
+            event.accept(ModItems.BASIC_SOLAR_CELL);
+            event.accept(ModItems.ADVANCED_SOLAR_CELL);
+
+            event.accept(ModBlocks.BASIC_MACHINE_FRAME_ITEM);
+            event.accept(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM);
+
+            event.accept(ModBlocks.SILICON_BLOCK_ITEM);
+            event.accept(ModItems.SILICON);
+            event.accept(ModItems.ENERGIZED_COPPER_INGOT);
+        }
     }
 
     @SubscribeEvent
