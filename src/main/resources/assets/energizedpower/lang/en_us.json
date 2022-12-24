@@ -53,5 +53,7 @@
   "tooltip.energizedpower.energy_meter.content.txt": "%d FE / %d FE",
   "tooltip.energizedpower.shift_details.txt": "Press [SHIFT] for details",
 
-  "itemGroup.energizedpower.tab": "Energized Power"
+  "itemGroup.energizedpower.tab": "Energized Power",
+
+  "entity.minecraft.villager.energizedpower.electrician": "Electrician"
 }

@@ -10,6 +10,7 @@ import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.CoalEngineScreen;
 import me.jddev0.ep.screen.EnergizerScreen;
 import me.jddev0.ep.screen.ModMenuTypes;
+import me.jddev0.ep.villager.ModVillager;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -36,6 +37,7 @@ public class EnergizedPowerMod {
         ModBlockEntities.register(modEventBus);
         ModRecipes.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+        ModVillager.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
