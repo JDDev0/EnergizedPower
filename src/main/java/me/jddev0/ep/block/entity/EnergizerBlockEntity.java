@@ -52,7 +52,7 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
         }
     };
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
-    private LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
+    private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, i -> i == 0, i -> i == 1));
     //TODO side inventory (REMOVE if needed)
     /*
