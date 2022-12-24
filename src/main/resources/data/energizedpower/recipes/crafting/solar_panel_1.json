@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "forge:glass_panes/colorless"
+    },
+    "R": {
+      "tag": "forge:dusts/redstone"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "B": {
+      "item": "energizedpower:basic_solar_cell"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "BRB",
+    "ICI"
+  ],
+  "result": {
+    "item": "energizedpower:solar_panel_1"
+  }
+}

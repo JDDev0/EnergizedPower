@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "tag": "forge:silicon"
+    },
+    "Q": {
+      "tag": "forge:gems/quartz"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "C": {
+      "tag": "forge:ingots/copper"
+    }
+  },
+  "pattern": [
+    " C ",
+    "SQS",
+    " I "
+  ],
+  "result": {
+    "item": "energizedpower:basic_solar_cell"
+  }
+}

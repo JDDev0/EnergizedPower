@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "energizedpower:silicon_block",
+
+    "energizedpower:auto_crafter",
+
+    "energizedpower:solar_panel_1",
+    "energizedpower:solar_panel_2",
+    "energizedpower:solar_panel_3",
+    "energizedpower:solar_panel_4",
+    "energizedpower:solar_panel_5",
+
+    "energizedpower:coal_engine",
+
+    "energizedpower:lightning_generator",
+
+    "energizedpower:energizer",
+
+    "energizedpower:basic_machine_frame",
+    "energizedpower:advanced_machine_frame"
+  ]
+}

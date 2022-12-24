@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "#up",
+    "down": "energizedpower:block/advanced_machine_frame_top",
+    "east": "energizedpower:block/advanced_machine_frame_side",
+    "north": "energizedpower:block/advanced_machine_frame_side",
+    "south": "energizedpower:block/advanced_machine_frame_side",
+    "up": "energizedpower:block/advanced_machine_frame_top",
+    "west": "energizedpower:block/advanced_machine_frame_side"
+  }
+}

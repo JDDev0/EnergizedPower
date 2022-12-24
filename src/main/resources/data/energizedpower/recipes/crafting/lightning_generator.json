@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "R": {
+      "tag": "forge:dusts/redstone"
+    },
+    "E": {
+      "item": "energizedpower:energized_copper_ingot"
+    },
+    "c": {
+      "tag": "forge:ingots/copper"
+    },
+    "C": {
+      "tag": "forge:storage_blocks/copper"
+    },
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    }
+  },
+  "pattern": [
+    "RcR",
+    "IAI",
+    "ECE"
+  ],
+  "result": {
+    "item": "energizedpower:lightning_generator"
+  }
+}

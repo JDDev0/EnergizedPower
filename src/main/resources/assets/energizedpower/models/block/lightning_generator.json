@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "#up",
+    "up": "energizedpower:block/lightning_generator_top",
+    "down": "energizedpower:block/lightning_generator_bottom",
+    "east": "energizedpower:block/lightning_generator_side",
+    "north": "energizedpower:block/lightning_generator_side",
+    "south": "energizedpower:block/lightning_generator_side",
+    "west": "energizedpower:block/lightning_generator_side"
+  }
+}

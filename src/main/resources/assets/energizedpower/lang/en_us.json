@@ -1,0 +1,57 @@
+{
+  "item.energizedpower.energized_copper_ingot": "Energized Copper Ingot",
+
+  "item.energizedpower.silicon": "Silicon",
+
+  "item.energizedpower.basic_solar_cell": "Basic Solar Cell",
+  "item.energizedpower.advanced_solar_cell": "Advanced Solar Cell",
+
+  "block.energizedpower.silicon_block": "Block of Silicon",
+  "item.energizedpower.silicon_block": "Block of Silicon",
+
+  "block.energizedpower.auto_crafter": "Auto Crafter",
+  "item.energizedpower.auto_crafter": "Auto Crafter",
+
+  "block.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
+  "item.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
+  "block.energizedpower.solar_panel_2": "Solar Panel (Tier II)",
+  "item.energizedpower.solar_panel_2": "Solar Panel (Tier II)",
+  "block.energizedpower.solar_panel_3": "Solar Panel (Tier III)",
+  "item.energizedpower.solar_panel_3": "Solar Panel (Tier III)",
+  "block.energizedpower.solar_panel_4": "Solar Panel (Tier IV)",
+  "item.energizedpower.solar_panel_4": "Solar Panel (Tier IV)",
+  "block.energizedpower.solar_panel_5": "Solar Panel (Tier V)",
+  "item.energizedpower.solar_panel_5": "Solar Panel (Tier V)",
+
+  "tooltip.energizedpower.solar_panel.txt.shift.1": "This block produces %d FE/t during the day.",
+  "tooltip.energizedpower.solar_panel.txt.shift.2": "The efficiency depends on the current time",
+
+  "block.energizedpower.coal_engine": "Coal Engine",
+  "item.energizedpower.coal_engine": "Coal Engine",
+  "container.energizedpower.coal_engine": "Coal Engine",
+
+  "tooltip.energizedpower.coal_engine.txt": "This items will produce %d FE until burned",
+
+  "block.energizedpower.lightning_generator": "Lightning Generator",
+  "item.energizedpower.lightning_generator": "Lightning Generator",
+
+  "tooltip.energizedpower.lightning_generator.txt.shift.1": "This block produces 1000000 FE per lightning strike.",
+  "tooltip.energizedpower.lightning_generator.txt.shift.2": "A lightning rod block must be place above this block for it to function",
+
+  "block.energizedpower.energizer": "Energizer",
+  "item.energizedpower.energizer": "Energizer",
+  "container.energizedpower.energizer": "Energizer",
+
+  "tooltip.energizedpower.energizer.txt": "This recipe requires %d FE to finish",
+
+  "block.energizedpower.basic_machine_frame": "Basic Machine Frame",
+  "item.energizedpower.basic_machine_frame": "Basic Machine Frame",
+
+  "block.energizedpower.advanced_machine_frame": "Advanced Machine Frame",
+  "item.energizedpower.advanced_machine_frame": "Advanced Machine Frame",
+
+  "tooltip.energizedpower.energy_meter.content.txt": "%d FE / %d FE",
+  "tooltip.energizedpower.shift_details.txt": "Press [SHIFT] for details",
+
+  "itemGroup.energizedpower.tab": "Energized Power"
+}

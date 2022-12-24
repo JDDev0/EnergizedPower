@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "E": {
+      "item": "energizedpower:energized_copper_ingot"
+    },
+    "R": {
+      "tag": "forge:dusts/redstone"
+    },
+    "B": {
+      "item": "energizedpower:basic_solar_cell"
+    }
+  },
+  "pattern": [
+    "EIE",
+    "RBR",
+    "EIE"
+  ],
+  "result": {
+    "item": "energizedpower:advanced_solar_cell"
+  }
+}

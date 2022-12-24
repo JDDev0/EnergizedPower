@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hit_by_lightning_bolt=false": {
+      "model": "energizedpower:block/lightning_generator"
+    },
+    "hit_by_lightning_bolt=true": {
+      "model": "energizedpower:block/lightning_generator_on"
+    }
+  }
+}

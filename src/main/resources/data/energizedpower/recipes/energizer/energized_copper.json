@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:energizer",
+  "ingredient": {
+    "item": "minecraft:copper_ingot"
+  },
+  "energy": 8192,
+  "output": {
+    "item": "energizedpower:energized_copper_ingot"
+  }
+}

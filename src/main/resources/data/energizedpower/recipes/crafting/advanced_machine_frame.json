@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "tag": "forge:silicon"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "E": {
+      "item": "energizedpower:energized_copper_ingot"
+    },
+    "B": {
+      "item": "energizedpower:basic_machine_frame"
+    }
+  },
+  "pattern": [
+    "ESE",
+    "IBI",
+    "ESE"
+  ],
+  "result": {
+    "item": "energizedpower:advanced_machine_frame"
+  }
+}

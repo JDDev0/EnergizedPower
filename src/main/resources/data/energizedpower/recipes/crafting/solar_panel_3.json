@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "forge:glass_panes/colorless"
+    },
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "s": {
+      "tag": "forge:silicon"
+    },
+    "S": {
+      "item": "energizedpower:solar_panel_2"
+    },
+    "B": {
+      "item": "energizedpower:basic_solar_cell"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "SBS",
+    "sCs"
+  ],
+  "result": {
+    "item": "energizedpower:solar_panel_3"
+  }
+}
