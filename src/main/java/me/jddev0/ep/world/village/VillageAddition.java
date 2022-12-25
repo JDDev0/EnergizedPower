@@ -22,8 +22,8 @@ public class VillageAddition {
         Registry<StructureTemplatePool> templatePoolRegistry = event.getServer().registryAccess().registry(Registries.TEMPLATE_POOL).orElseThrow();
 
         addVillageHouse(templatePoolRegistry, "plains", "electrician_1", 5);
+        addVillageHouse(templatePoolRegistry, "snowy", "electrician_1", 5);
 
-        //TODO snowy village
         //TODO savanna village
         //TODO taiga village
         //TODO desert village
