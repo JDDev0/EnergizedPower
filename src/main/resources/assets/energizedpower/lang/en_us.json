@@ -6,6 +6,10 @@
   "item.energizedpower.basic_solar_cell": "Basic Solar Cell",
   "item.energizedpower.advanced_solar_cell": "Advanced Solar Cell",
 
+  "item.energizedpower.energized_power_book": "Energized Power Book",
+  "book.energizedpower.page.0": "This is a test text value!",
+  "book.energizedpower.page.1": "This is the second page... [WIP]",
+
   "block.energizedpower.silicon_block": "Block of Silicon",
   "item.energizedpower.silicon_block": "Block of Silicon",
 

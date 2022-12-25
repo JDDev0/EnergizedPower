@@ -5,7 +5,7 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySync2SCPacket;
+import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.CoalEngineMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -76,7 +76,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
             protected void onChange() {
                 setChanged();
 
-                ModMessages.sendToAllPlayers(new EnergySync2SCPacket(energy, capacity, getBlockPos()));
+                ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
             }
         };
         data = new ContainerData() {

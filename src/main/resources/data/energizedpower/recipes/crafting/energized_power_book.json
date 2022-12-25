@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "silicon",
+  "ingredients": [
+    {
+      "item": "minecraft:book"
+    },
+    {
+      "item": "energizedpower:basic_machine_frame"
+    }
+  ],
+  "result": {
+    "item": "energizedpower:energized_power_book"
+  }
+}

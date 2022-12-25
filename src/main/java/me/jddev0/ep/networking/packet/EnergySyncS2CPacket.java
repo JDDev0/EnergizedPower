@@ -12,18 +12,18 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class EnergySync2SCPacket {
+public class EnergySyncS2CPacket {
     private final int energy;
     private final int capacity;
     private final BlockPos pos;
 
-    public EnergySync2SCPacket(int energy, int capacity, BlockPos pos) {
+    public EnergySyncS2CPacket(int energy, int capacity, BlockPos pos) {
         this.energy = energy;
         this.capacity = capacity;
         this.pos = pos;
     }
 
-    public EnergySync2SCPacket(FriendlyByteBuf buffer) {
+    public EnergySyncS2CPacket(FriendlyByteBuf buffer) {
         energy = buffer.readInt();
         capacity = buffer.readInt();
         pos = buffer.readBlockPos();

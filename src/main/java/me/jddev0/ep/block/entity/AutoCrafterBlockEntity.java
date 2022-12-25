@@ -3,7 +3,7 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySync2SCPacket;
+import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -29,7 +29,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements EnergyStorage
             protected void onChange() {
                 setChanged();
 
-                ModMessages.sendToAllPlayers(new EnergySync2SCPacket(energy, capacity, getBlockPos()));
+                ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
             }
         };
     }

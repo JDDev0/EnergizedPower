@@ -19,6 +19,9 @@ public class ModItems {
     public static final RegistryObject<Item> ADVANCED_SOLAR_CELL = ITEMS.register("advanced_solar_cell",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> ENERGIZED_POWER_BOOK = ITEMS.register("energized_power_book",
+            () -> new EnergizedPowerBookItem(new Item.Properties().stacksTo(1)));
+
     public static void register(IEventBus modEventBus) {
         ITEMS.register(modEventBus);
     }

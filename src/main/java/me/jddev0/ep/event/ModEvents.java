@@ -3,12 +3,30 @@ package me.jddev0.ep.event;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.item.EnergizedPowerBookItem;
 import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.OpenEnergizedPowerBookS2CPacket;
 import me.jddev0.ep.villager.ModVillager;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.BookViewScreen;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.block.LecternBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.LecternBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -88,5 +106,46 @@ public class ModEvents {
     private static void addOffer(Int2ObjectMap<List<VillagerTrades.ItemListing>> trades, int minLevel,
                                  ItemStack costA, ItemStack costB, ItemStack result, int maxUses, int xp, float priceMultiplier) {
         trades.get(minLevel).add((trader, rand) -> new MerchantOffer(costA, costB, result, maxUses, xp, priceMultiplier));
+    }
+
+    @SubscribeEvent
+    public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
+        BlockPos blockPos = event.getPos();
+        BlockEntity blockEntity = event.getLevel().getBlockEntity(blockPos);
+
+        if(!(blockEntity instanceof LecternBlockEntity))
+            return;
+
+        LecternBlockEntity lecternBlockEntity = (LecternBlockEntity)blockEntity;
+
+        BlockState blockState = event.getLevel().getBlockState(blockPos);
+        if(!blockState.getValue(LecternBlock.HAS_BOOK))
+            return;
+
+        ItemStack bookItemStack = lecternBlockEntity.getBook();
+        if(!bookItemStack.is(ModItems.ENERGIZED_POWER_BOOK.get()))
+            return;
+
+        Item bookItem = bookItemStack.getItem();
+        if(!(bookItem instanceof EnergizedPowerBookItem))
+            return;
+
+        Player player = event.getEntity();
+
+        if(player.isSecondaryUseActive()) {
+            if(event.getHand() != InteractionHand.MAIN_HAND || event.getItemStack() != ItemStack.EMPTY || player.getItemInHand(InteractionHand.OFF_HAND) != ItemStack.EMPTY)
+                return;
+
+            lecternBlockEntity.setBook(ItemStack.EMPTY);
+            LecternBlock.resetBookState(event.getLevel(), blockPos, blockState, false);
+            if(!player.getInventory().add(bookItemStack))
+                player.drop(bookItemStack, false);
+        }else {
+            if(!event.getLevel().isClientSide)
+                ModMessages.sendToPlayer(new OpenEnergizedPowerBookS2CPacket(), (ServerPlayer)player);
+        }
+
+        event.setCanceled(true);
+        event.setCancellationResult(InteractionResult.SUCCESS);
     }
 }
