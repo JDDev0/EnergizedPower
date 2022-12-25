@@ -21,12 +21,12 @@ public class VillageAddition {
     public static void addVillageHouses(ServerAboutToStartEvent event) {
         Registry<StructureTemplatePool> templatePoolRegistry = event.getServer().registryAccess().registry(Registries.TEMPLATE_POOL).orElseThrow();
 
+        //Electrician 1
+        addVillageHouse(templatePoolRegistry, "desert", "electrician_1", 5);
         addVillageHouse(templatePoolRegistry, "plains", "electrician_1", 5);
         addVillageHouse(templatePoolRegistry, "savanna", "electrician_1", 5);
         addVillageHouse(templatePoolRegistry, "snowy", "electrician_1", 5);
         addVillageHouse(templatePoolRegistry, "taiga", "electrician_1", 5);
-
-        //TODO desert village
     }
 
     private static void addVillageHouse(Registry<StructureTemplatePool> templatePoolRegistry, String villageType,
