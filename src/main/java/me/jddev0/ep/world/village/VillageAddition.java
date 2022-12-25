@@ -23,9 +23,9 @@ public class VillageAddition {
 
         addVillageHouse(templatePoolRegistry, "plains", "electrician_1", 5);
         addVillageHouse(templatePoolRegistry, "snowy", "electrician_1", 5);
+        addVillageHouse(templatePoolRegistry, "taiga", "electrician_1", 5);
 
         //TODO savanna village
-        //TODO taiga village
         //TODO desert village
     }
 
