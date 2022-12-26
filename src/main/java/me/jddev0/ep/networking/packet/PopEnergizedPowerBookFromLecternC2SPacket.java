@@ -34,7 +34,6 @@ public class PopEnergizedPowerBookFromLecternC2SPacket {
             if(!player.mayBuild())
                 return;
 
-
             BlockEntity blockEntity = player.getLevel().getBlockEntity(pos);
 
             if(blockEntity instanceof LecternBlockEntity) {
