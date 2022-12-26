@@ -1,25 +1,25 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.screen.EnergizedPowerBookScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class OpenEnergizedPowerBookS2CPacket {
+public class PopEnergizedPowerBookFromLecternC2SPacket {
     private final BlockPos pos;
 
-    public OpenEnergizedPowerBookS2CPacket(BlockPos pos) {
+    public PopEnergizedPowerBookFromLecternC2SPacket(BlockPos pos) {
         this.pos = pos;
     }
 
-    public OpenEnergizedPowerBookS2CPacket(FriendlyByteBuf buffer) {
+    public PopEnergizedPowerBookFromLecternC2SPacket(FriendlyByteBuf buffer) {
         pos = buffer.readBlockPos();
     }
 
@@ -30,20 +30,25 @@ public class OpenEnergizedPowerBookS2CPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(pos);
+            ServerPlayer player = context.getSender();
+            if(!player.mayBuild())
+                return;
+
+
+            BlockEntity blockEntity = player.getLevel().getBlockEntity(pos);
 
             if(blockEntity instanceof LecternBlockEntity) {
                 LecternBlockEntity lecternBlockEntity = (LecternBlockEntity)blockEntity;
 
-                showBookViewScreen(lecternBlockEntity);
+                ItemStack itemStack = lecternBlockEntity.getBook();
+
+                lecternBlockEntity.setBook(ItemStack.EMPTY);
+                LecternBlock.resetBookState(player.getLevel(), pos, player.getLevel().getBlockState(pos), false);
+                if(!player.getInventory().add(itemStack))
+                    player.drop(itemStack, false);
             }
         });
 
         return true;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private void showBookViewScreen(LecternBlockEntity lecternBlockEntity) {
-        Minecraft.getInstance().setScreen(new EnergizedPowerBookScreen(lecternBlockEntity));
     }
 }

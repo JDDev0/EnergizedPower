@@ -1,9 +1,8 @@
 package me.jddev0.ep.item;
 
+import me.jddev0.ep.screen.EnergizedPowerBookScreen;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.inventory.BookViewScreen;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -21,26 +20,10 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
         super(props);
     }
 
-    public static ItemStack createWrittenBook() {
-        ItemStack itemStack = new ItemStack(Items.WRITTEN_BOOK);
-
-        itemStack.addTagElement("author", StringTag.valueOf("JDDev0"));
-        itemStack.addTagElement("filtered_title", StringTag.valueOf("Energized Power Book"));
-        itemStack.addTagElement("title", StringTag.valueOf("Energized Power Book"));
-
-        ListTag pages = new ListTag();
-        for(int i = 0;i < 2;i++)
-            pages.add(StringTag.valueOf(Component.Serializer.toJson(Component.translatable("book.energizedpower.page." + i))));
-
-        itemStack.addTagElement("filtered_pages", pages);
-        itemStack.addTagElement("pages", pages);
-
-        return itemStack;
-    }
-
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
-        super.appendHoverText(createWrittenBook(), level, components, tooltipFlag);
+        components.add(Component.translatable("book.byAuthor", "JDDev0").withStyle(ChatFormatting.GRAY));
+        components.add(Component.translatable("book.generation.0").withStyle(ChatFormatting.GRAY));
     }
 
     @Override
@@ -55,7 +38,7 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
 
     @OnlyIn(Dist.CLIENT)
     private void showBookViewScreen() {
-        Minecraft.getInstance().setScreen(new BookViewScreen(new BookViewScreen.WrittenBookAccess(EnergizedPowerBookItem.createWrittenBook())));
+        Minecraft.getInstance().setScreen(new EnergizedPowerBookScreen());
     }
 
     @Override

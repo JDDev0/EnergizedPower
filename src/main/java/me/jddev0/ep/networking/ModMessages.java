@@ -3,6 +3,7 @@ package me.jddev0.ep.networking;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.networking.packet.OpenEnergizedPowerBookS2CPacket;
+import me.jddev0.ep.networking.packet.PopEnergizedPowerBookFromLecternC2SPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -38,6 +39,12 @@ public class ModMessages {
                 decoder(OpenEnergizedPowerBookS2CPacket::new).
                 encoder(OpenEnergizedPowerBookS2CPacket::toBytes).
                 consumerMainThread(OpenEnergizedPowerBookS2CPacket::handle).
+                add();
+
+        net.messageBuilder(PopEnergizedPowerBookFromLecternC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+                decoder(PopEnergizedPowerBookFromLecternC2SPacket::new).
+                encoder(PopEnergizedPowerBookFromLecternC2SPacket::toBytes).
+                consumerMainThread(PopEnergizedPowerBookFromLecternC2SPacket::handle).
                 add();
     }
 

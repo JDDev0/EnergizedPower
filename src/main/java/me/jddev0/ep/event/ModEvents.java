@@ -132,18 +132,8 @@ public class ModEvents {
 
         Player player = event.getEntity();
 
-        if(player.isSecondaryUseActive()) {
-            if(event.getHand() != InteractionHand.MAIN_HAND || event.getItemStack() != ItemStack.EMPTY || player.getItemInHand(InteractionHand.OFF_HAND) != ItemStack.EMPTY)
-                return;
-
-            lecternBlockEntity.setBook(ItemStack.EMPTY);
-            LecternBlock.resetBookState(event.getLevel(), blockPos, blockState, false);
-            if(!player.getInventory().add(bookItemStack))
-                player.drop(bookItemStack, false);
-        }else {
-            if(!event.getLevel().isClientSide)
-                ModMessages.sendToPlayer(new OpenEnergizedPowerBookS2CPacket(), (ServerPlayer)player);
-        }
+        if(!event.getLevel().isClientSide)
+            ModMessages.sendToPlayer(new OpenEnergizedPowerBookS2CPacket(blockPos), (ServerPlayer)player);
 
         event.setCanceled(true);
         event.setCancellationResult(InteractionResult.SUCCESS);
