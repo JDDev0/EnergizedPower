@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "forge:storage_blocks/iron"
+    },
+    "R": {
+      "tag": "forge:storage_blocks/redstone"
+    },
+    "E": {
+      "item": "energizedpower:energized_copper_ingot"
+    },
+    "C": {
+      "tag": "forge:storage_blocks/copper"
+    },
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    }
+  },
+  "pattern": [
+    "ERE",
+    "IAI",
+    "ECE"
+  ],
+  "result": {
+    "item": "energizedpower:charging_station"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "#up",
+    "up": "energizedpower:block/charging_station_top_on",
+    "down": "energizedpower:block/charging_station_bottom",
+    "east": "energizedpower:block/charging_station_side_on",
+    "north": "energizedpower:block/charging_station_side_on",
+    "south": "energizedpower:block/charging_station_side_on",
+    "west": "energizedpower:block/charging_station_side_on"
+  }
+}

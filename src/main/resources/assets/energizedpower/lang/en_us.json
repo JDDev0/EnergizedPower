@@ -57,6 +57,12 @@
   "item.energizedpower.energizer": "Energizer",
   "container.energizedpower.energizer": "Energizer",
 
+  "block.energizedpower.charging_station": "Charging Station",
+  "item.energizedpower.charging_station": "Charging Station",
+  "container.energizedpower.charging_station": "Charging Station",
+
+  "tooltip.energizedpower.charging_station.txt.shift.1": "The charging station can be used to charge items inside a player inventory.",
+
   "tooltip.energizedpower.energizer.txt": "This recipe requires %d FE to finish",
 
   "block.energizedpower.basic_machine_frame": "Basic Machine Frame",

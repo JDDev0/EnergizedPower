@@ -68,6 +68,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.AUTO_CRAFTER_ITEM);
             event.accept(ModBlocks.CHARGER_ITEM);
             event.accept(ModBlocks.ENERGIZER_ITEM);
+            event.accept(ModBlocks.CHARGING_STATION_ITEM);
 
             event.accept(ModItems.BASIC_SOLAR_CELL);
             event.accept(ModItems.ADVANCED_SOLAR_CELL);
