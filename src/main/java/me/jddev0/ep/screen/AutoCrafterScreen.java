@@ -18,7 +18,6 @@ import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class AutoCrafterScreen extends AbstractContainerScreen<AutoCrafterMenu> {
-    //TODO
     private static final ResourceLocation TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/auto_crafter.png");
 
     public AutoCrafterScreen(AutoCrafterMenu menu, Inventory inventory, Component component) {
