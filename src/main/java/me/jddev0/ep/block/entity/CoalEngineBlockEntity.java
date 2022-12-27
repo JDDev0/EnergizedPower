@@ -50,7 +50,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
     };
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, i -> true, i -> {
+            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
                 if(i != 0)
                     return false;
 

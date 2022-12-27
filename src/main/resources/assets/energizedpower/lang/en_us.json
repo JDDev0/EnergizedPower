@@ -22,6 +22,7 @@
 
   "block.energizedpower.charger": "Charger",
   "item.energizedpower.charger": "Charger",
+  "container.energizedpower.charger": "Charger",
 
   "tooltip.energizedpower.charger.txt.shift.1": "The charger can be used to craft energized copper ingots.",
   "tooltip.energizedpower.charger.txt.shift.2": "It's very expensive :P",

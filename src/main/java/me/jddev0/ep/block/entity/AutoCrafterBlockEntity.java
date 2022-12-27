@@ -60,7 +60,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     };
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, i -> true, i -> isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i))));
+            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i))));
 
     private final SimpleContainer patternSlots = new SimpleContainer(3 * 3) {
         @Override

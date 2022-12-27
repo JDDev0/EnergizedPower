@@ -4,17 +4,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 public class InputOutputItemHandler implements IItemHandlerModifiable {
     private final IItemHandlerModifiable handler;
-    private final Predicate<Integer> isInput;
-    private final Predicate<Integer> isOutput;
+    private final BiPredicate<Integer, ItemStack> canInput;
+    private final Predicate<Integer> canOutput;
 
-    public InputOutputItemHandler(IItemHandlerModifiable handler, Predicate<Integer> isInput, Predicate<Integer> isOutput) {
+    public InputOutputItemHandler(IItemHandlerModifiable handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
         this.handler = handler;
-        this.isInput = isInput;
-        this.isOutput = isOutput;
+        this.canInput = canInput;
+        this.canOutput = canOutput;
     }
 
     @Override
@@ -34,12 +35,12 @@ public class InputOutputItemHandler implements IItemHandlerModifiable {
 
     @Override
     public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-        return isInput.test(slot)?handler.insertItem(slot, stack, simulate):stack;
+        return canInput.test(slot, stack)?handler.insertItem(slot, stack, simulate):stack;
     }
 
     @Override
     public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
-        return isOutput.test(slot)?handler.extractItem(slot, amount, simulate):ItemStack.EMPTY;
+        return canOutput.test(slot)?handler.extractItem(slot, amount, simulate):ItemStack.EMPTY;
    }
 
     @Override
@@ -49,6 +50,6 @@ public class InputOutputItemHandler implements IItemHandlerModifiable {
 
     @Override
     public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-        return isInput.test(slot) && handler.isItemValid(slot, stack);
+        return canInput.test(slot, stack) && handler.isItemValid(slot, stack);
     }
 }

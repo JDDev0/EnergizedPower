@@ -16,6 +16,10 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("auto_crafter", () -> BlockEntityType.Builder.of(AutoCrafterBlockEntity::new,
                     ModBlocks.AUTO_CRAFTER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<ChargerBlockEntity>> CHARGER_ENTITY =
+            BLOCK_ENTITIES.register("charger", () -> BlockEntityType.Builder.of(ChargerBlockEntity::new,
+                    ModBlocks.CHARGER.get()).build(null));
+
     private static RegistryObject<BlockEntityType<SolarPanelBlockEntity>> createSolarPanelBlockEntity(String name,
     RegistryObject<SolarPanelBlock> blockRegistryObject) {
         return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new SolarPanelBlockEntity(blockPos, state,
