@@ -17,6 +17,8 @@ public class ModMenuTypes {
         return MENUS.register(name, () -> IForgeMenuType.create(factory));
     }
 
+    public static final RegistryObject<MenuType<AutoCrafterMenu>> AUTO_CRAFTER_MENU = registerMenuType("auto_crafter_menu",
+            AutoCrafterMenu::new);
     public static final RegistryObject<MenuType<EnergizerMenu>> ENERGIZER_MENU = registerMenuType("energizer",
             EnergizerMenu::new);
     public static final RegistryObject<MenuType<CoalEngineMenu>> COAL_ENGINE_MENU = registerMenuType("coal_engine",

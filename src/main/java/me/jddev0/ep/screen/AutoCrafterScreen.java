@@ -17,11 +17,15 @@ import java.util.List;
 import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
-public class EnergizerScreen extends AbstractContainerScreen<EnergizerMenu> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/energizer.png");
+public class AutoCrafterScreen extends AbstractContainerScreen<AutoCrafterMenu> {
+    //TODO
+    private static final ResourceLocation TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/auto_crafter.png");
 
-    public EnergizerScreen(EnergizerMenu menu, Inventory inventory, Component component) {
+    public AutoCrafterScreen(AutoCrafterMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
+
+        imageHeight = 206;
+        inventoryLabelY = imageHeight - 94;
     }
 
     @Override
@@ -41,7 +45,6 @@ public class EnergizerScreen extends AbstractContainerScreen<EnergizerMenu> {
         renderProgressArrow(poseStack, x, y);
         renderEnergyMeter(poseStack, x, y);
         renderEnergyRequirementBar(poseStack, x, y);
-        renderActiveOverlay(poseStack, x, y);
     }
 
     private void renderProgressArrow(PoseStack poseStack, int x, int y) {
@@ -57,13 +60,7 @@ public class EnergizerScreen extends AbstractContainerScreen<EnergizerMenu> {
     private void renderEnergyRequirementBar(PoseStack poseStack, int x, int y) {
         int pos = menu.getEnergyRequirementBarPos();
         if(pos > 0)
-            blit(poseStack, x + 8, y + 17 + 52 - pos, 176, 119, 16, 1);
-    }
-
-    private void renderActiveOverlay(PoseStack poseStack, int x, int y) {
-        if(menu.isCrafting()) {
-            blit(poseStack, x + 31, y + 18, 176, 69, 50, 50);
-        }
+            blit(poseStack, x + 8, y + 17 + 52 - pos, 176, 69, 16, 1);
     }
 
     @Override

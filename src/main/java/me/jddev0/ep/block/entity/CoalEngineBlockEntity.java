@@ -236,7 +236,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
                 blockEntity.progress++;
                 setChanged(level, blockPos, state);
 
-                if(blockEntity.progress == blockEntity.maxProgress) {
+                if(blockEntity.progress >= blockEntity.maxProgress) {
                     blockEntity.resetProgress(blockPos, state);
                 }
             }else {

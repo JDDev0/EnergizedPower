@@ -7,9 +7,7 @@ import me.jddev0.ep.item.ModCreativeModeTab;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.ModRecipes;
-import me.jddev0.ep.screen.CoalEngineScreen;
-import me.jddev0.ep.screen.EnergizerScreen;
-import me.jddev0.ep.screen.ModMenuTypes;
+import me.jddev0.ep.screen.*;
 import me.jddev0.ep.villager.ModVillager;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
@@ -91,6 +89,7 @@ public class EnergizedPowerMod {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            MenuScreens.register(ModMenuTypes.AUTO_CRAFTER_MENU.get(), AutoCrafterScreen::new);
             MenuScreens.register(ModMenuTypes.ENERGIZER_MENU.get(), EnergizerScreen::new);
             MenuScreens.register(ModMenuTypes.COAL_ENGINE_MENU.get(), CoalEngineScreen::new);
         }

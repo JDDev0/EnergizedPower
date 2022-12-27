@@ -31,7 +31,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> AUTO_CRAFTER = BLOCKS.register("auto_crafter",
             () -> new AutoCrafterBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> AUTO_CRAFTER_ITEM = createBlockItem("auto_crafter", AUTO_CRAFTER);
+    public static final RegistryObject<Item> AUTO_CRAFTER_ITEM = ModItems.ITEMS.register("auto_crafter",
+            () -> new AutoCrafterBlock.Item(AUTO_CRAFTER.get(), new Item.Properties()));
 
 
     private static RegistryObject<Item> createSolarPanelBlockItem(String name, RegistryObject<SolarPanelBlock> blockRegistryObject) {

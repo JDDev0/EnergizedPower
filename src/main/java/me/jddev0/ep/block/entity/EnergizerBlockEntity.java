@@ -237,7 +237,7 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
                 blockEntity.progress++;
                 setChanged(level, blockPos, state);
 
-                if(blockEntity.progress == blockEntity.maxProgress) {
+                if(blockEntity.progress >= blockEntity.maxProgress) {
                     craftItem(blockPos, state, blockEntity);
                 }
             }else {
@@ -286,10 +286,10 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
 
         Optional<EnergizerRecipe> recipe = level.getRecipeManager().getRecipeFor(EnergizerRecipe.Type.INSTANCE, inventory, level);
 
-        return recipe.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertAmountIntoOutputSlot(inventory, recipe.get().getResultItem());
+        return recipe.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, recipe.get().getResultItem());
     }
 
-    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
+    private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
         return inventory.getItem(1).isEmpty() || inventory.getItem(1).getItem() == itemStack.getItem();
     }
 

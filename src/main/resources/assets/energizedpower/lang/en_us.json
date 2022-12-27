@@ -16,6 +16,9 @@
 
   "block.energizedpower.auto_crafter": "Auto Crafter",
   "item.energizedpower.auto_crafter": "Auto Crafter",
+  "container.energizedpower.auto_crafter": "Auto Crafter",
+
+  "tooltip.energizedpower.auto_crafter.txt.shift.1": "This block uses %d FE/t per ingredient.",
 
   "block.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
   "item.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
