@@ -222,6 +222,9 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
                 if(blockEntity.energyConsumptionLeft == -1)
                     blockEntity.energyConsumptionLeft = ENERGY_REQUIREMENT_FOR_ENERGIZED_COPPER_INGOT;
 
+                if(blockEntity.energyStorage.getEnergy() == 0)
+                    return;
+
                 energyConsumptionPerTick = Math.min(blockEntity.energyConsumptionLeft, Math.min(blockEntity.energyStorage.getMaxReceive(),
                         blockEntity.energyStorage.getEnergy()));
 
@@ -236,6 +239,10 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
                     return;
 
                 blockEntity.energyConsumptionLeft = energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored();
+
+                if(blockEntity.energyStorage.getEnergy() == 0)
+                    return;
+
                 energyConsumptionPerTick = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getMaxReceive(),
                         blockEntity.energyStorage.getEnergy()), false);
             }
@@ -245,7 +252,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
 
             setChanged(level, blockPos, state);
 
-            if(energyConsumptionPerTick <= 0) {
+            if(blockEntity.energyConsumptionLeft <= 0) {
                 if(isCopperIngot)
                     blockEntity.itemHandler.setStackInSlot(0, new ItemStack(ModItems.ENERGIZED_COPPER_INGOT.get()));
 
