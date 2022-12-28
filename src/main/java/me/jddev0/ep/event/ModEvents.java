@@ -4,6 +4,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.EnergizedPowerBookItem;
+import me.jddev0.ep.item.EnergyAnalyzerItem;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.OpenEnergizedPowerBookS2CPacket;
@@ -11,6 +12,7 @@ import me.jddev0.ep.villager.ModVillager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.BookViewScreen;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.IntTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -55,10 +57,16 @@ public class ModEvents {
                     new ItemStack(ModItems.BASIC_SOLAR_CELL.get(), 2),
                     new ItemStack(Items.EMERALD, 3),
                     5, 5, .02f);
-            addOffer(trades, 2,
-                    new ItemStack(Items.EMERALD, 9),
-                    new ItemStack(ModItems.ENERGY_ANALYZER.get(), 1),
-                    10, 8, .02f);
+            {
+
+                ItemStack energyAnalyzer = new ItemStack(ModItems.ENERGY_ANALYZER.get());
+                energyAnalyzer.getOrCreateTag().put("energy", IntTag.valueOf(16 * EnergyAnalyzerItem.ENERGY_CONSUMPTION_PER_USE));
+
+                addOffer(trades, 2,
+                        new ItemStack(Items.EMERALD, 9),
+                        energyAnalyzer,
+                        10, 8, .02f);
+            }
 
             //Level 3
             addOffer(trades, 3,
