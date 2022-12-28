@@ -19,6 +19,8 @@ The electrician villager profession and house are added.
 
 There is also a guide book (Currently WIP)
 
+*Feel free to include this mod in your ModPack :-)*
+
 **WARNING**: This mod is currently in alpha. Many features are still beeing developed and some important features are missing (e.g. there is no possibility to get energy from producers to consumers within this mod, other mods with cables must be used)
 
 ## Supported versions:
