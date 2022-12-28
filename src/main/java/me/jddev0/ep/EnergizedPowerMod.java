@@ -56,6 +56,7 @@ public class EnergizedPowerMod {
     private void addCreativeTab(CreativeModeTabEvent.BuildContents event) {
         if(event.getTab() == ModCreativeModeTab.ENERGIZED_POWER_TAB) {
             event.accept(ModItems.ENERGIZED_POWER_BOOK);
+            event.accept(ModItems.ENERGY_ANALYZER);
 
             event.accept(ModBlocks.COAL_ENGINE_ITEM);
             event.accept(ModBlocks.LIGHTNING_GENERATOR_ITEM);

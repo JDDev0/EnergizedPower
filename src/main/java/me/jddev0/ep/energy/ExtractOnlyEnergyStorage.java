@@ -2,9 +2,8 @@ package me.jddev0.ep.energy;
 
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.Tag;
-import net.minecraftforge.energy.IEnergyStorage;
 
-public class ExtractOnlyEnergyStorage implements IEnergyStorage {
+public class ExtractOnlyEnergyStorage implements IEnergizedPowerEnergyStorage {
     protected int energy;
     protected int capacity;
     protected int maxExtract;
@@ -17,28 +16,34 @@ public class ExtractOnlyEnergyStorage implements IEnergyStorage {
         this.maxExtract = maxExtract;
     }
 
+    @Override
     public int getEnergy() {
         return energy;
     }
 
+    @Override
     public void setEnergy(int energy) {
         onChange();
         this.energy = energy;
     }
 
+    @Override
     public void setEnergyWithoutUpdate(int energy) {
         this.energy = energy;
     }
 
+    @Override
     public int getCapacity() {
         return capacity;
     }
 
+    @Override
     public void setCapacity(int capacity) {
         onChange();
         this.capacity = capacity;
     }
 
+    @Override
     public void setCapacityWithoutUpdate(int capacity) {
         this.capacity = capacity;
     }
@@ -98,10 +103,12 @@ public class ExtractOnlyEnergyStorage implements IEnergyStorage {
         return false;
     }
 
+    @Override
     public Tag saveNBT() {
         return IntTag.valueOf(energy);
     }
 
+    @Override
     public void loadNBT(Tag tag) {
         if(!(tag instanceof IntTag))
             throw new IllegalArgumentException("Tag must be of type IntTag!");

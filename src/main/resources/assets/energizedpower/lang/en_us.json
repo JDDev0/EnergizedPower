@@ -11,6 +11,16 @@
   "book.energizedpower.page.0": "This is a test text value!",
   "book.energizedpower.page.1": "This is the second page... [WIP]",
 
+  "item.energizedpower.energy_analyzer": "Energy Analyzer",
+  "tooltip.energizedpower.energy_analyzer.txt.shift.1": "Click on an energy block to retrieve information.",
+  "tooltip.energizedpower.energy_analyzer.txt.shift.2": "%d FE will be consumed per use",
+  "txt.energizedpower.energy_analyzer.no_energy_left": "The Energy Analyzer has not enough power (%d FE are required).",
+  "txt.energizedpower.energy_analyzer.no_block_entity": "This block is no energy block.",
+  "txt.energizedpower.energy_analyzer.no_energy_block": "This block is no (FE) energy block.",
+  "txt.energizedpower.energy_analyzer.energy_output": "Energy: %d FE / %d FE.",
+  "txt.energizedpower.energy_analyzer.energy_can_receive": "This block consumes energy.",
+  "txt.energizedpower.energy_analyzer.energy_can_extract": "This block produces energy.",
+
   "block.energizedpower.silicon_block": "Block of Silicon",
   "item.energizedpower.silicon_block": "Block of Silicon",
 
