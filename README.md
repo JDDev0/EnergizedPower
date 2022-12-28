@@ -10,6 +10,8 @@ This mod adds the following machines:
 - Charging Station
 - Energizer
 
+All machines support auto-insert and auto-extract of items from all block faces.
+
 There are also blocks for producing energy:
 - Coal Engine
 - Lightning Generator
