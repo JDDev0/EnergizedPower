@@ -56,8 +56,8 @@ public class ModEvents {
                     new ItemStack(Items.EMERALD, 3),
                     5, 5, .02f);
             addOffer(trades, 2,
-                    new ItemStack(Items.EMERALD, 29),
-                    new ItemStack(ModItems.ENERGIZED_COPPER_INGOT.get(), 1),
+                    new ItemStack(Items.EMERALD, 9),
+                    new ItemStack(ModItems.ENERGY_ANALYZER.get(), 1),
                     10, 8, .02f);
 
             //Level 3
