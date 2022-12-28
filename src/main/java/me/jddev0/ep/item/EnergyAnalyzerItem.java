@@ -25,8 +25,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class EnergyAnalyzerItem extends Item {
-
     public static final int ENERGY_CONSUMPTION_PER_USE = 8;
+    public static final int ENERGY_CAPACITY = 2048;
 
     private static int getEnergy(ItemStack itemStack) {
         return itemStack.getCapability(ForgeCapabilities.ENERGY).orElse(null).getEnergyStored();
@@ -137,6 +137,6 @@ public class EnergyAnalyzerItem extends Item {
 
     @Override
     public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        return new ItemCapabilityEnergy(stack, stack.getTag(), new ReceiveOnlyEnergyStorage(0, 2048, 256));
+        return new ItemCapabilityEnergy(stack, stack.getTag(), new ReceiveOnlyEnergyStorage(0, ENERGY_CAPACITY, 256));
     }
 }

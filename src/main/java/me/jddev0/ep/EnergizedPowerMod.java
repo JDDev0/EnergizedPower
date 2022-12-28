@@ -3,6 +3,7 @@ package me.jddev0.ep;
 import com.mojang.logging.LogUtils;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.item.EnergyAnalyzerItem;
 import me.jddev0.ep.item.ModCreativeModeTab;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.networking.ModMessages;
@@ -10,6 +11,8 @@ import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.*;
 import me.jddev0.ep.villager.ModVillager;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.nbt.IntTag;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CreativeModeTabEvent;
@@ -57,6 +60,11 @@ public class EnergizedPowerMod {
         if(event.getTab() == ModCreativeModeTab.ENERGIZED_POWER_TAB) {
             event.accept(ModItems.ENERGIZED_POWER_BOOK);
             event.accept(ModItems.ENERGY_ANALYZER);
+            {
+                ItemStack energyAnalyzerFullyCharged = new ItemStack(ModItems.ENERGY_ANALYZER.get());
+                energyAnalyzerFullyCharged.getOrCreateTag().put("energy", IntTag.valueOf(EnergyAnalyzerItem.ENERGY_CAPACITY));
+                event.accept(energyAnalyzerFullyCharged);
+            }
 
             event.accept(ModBlocks.COAL_ENGINE_ITEM);
             event.accept(ModBlocks.LIGHTNING_GENERATOR_ITEM);
