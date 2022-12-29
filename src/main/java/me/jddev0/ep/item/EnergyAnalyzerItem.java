@@ -2,6 +2,7 @@ package me.jddev0.ep.item;
 
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
+import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -35,8 +36,8 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
 
         if(Screen.hasShiftDown()) {
             components.add(Component.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.1").withStyle(ChatFormatting.GRAY));
-            components.add(Component.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.2", ENERGY_CONSUMPTION_PER_USE).
-                    withStyle(ChatFormatting.GRAY));
+            components.add(Component.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.2",
+                    EnergyUtils.getEnergyWithPrefix(ENERGY_CONSUMPTION_PER_USE)).withStyle(ChatFormatting.GRAY));
         }else {
             components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
         }
@@ -59,8 +60,8 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
 
         if(getEnergy(stack) < ENERGY_CONSUMPTION_PER_USE) {
             useItem(stack, useOnContext.getPlayer(), List.of(
-                    Component.translatable("txt.energizedpower.energy_analyzer.no_energy_left", ENERGY_CONSUMPTION_PER_USE).
-                            withStyle(ChatFormatting.RED)
+                    Component.translatable("txt.energizedpower.energy_analyzer.no_energy_left",
+                            EnergyUtils.getEnergyWithPrefix(ENERGY_CONSUMPTION_PER_USE)).withStyle(ChatFormatting.RED)
             ));
 
             return InteractionResult.SUCCESS;
@@ -91,16 +92,15 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
 
         IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
 
-        components.add(Component.translatable("txt.energizedpower.energy_analyzer.energy_output", energyStorage.getEnergyStored(),
-                energyStorage.getMaxEnergyStored()).withStyle(ChatFormatting.GOLD));
+        components.add(Component.translatable("txt.energizedpower.energy_analyzer.energy_output",
+                EnergyUtils.getEnergyWithPrefix(energyStorage.getEnergyStored()),
+                EnergyUtils.getEnergyWithPrefix(energyStorage.getMaxEnergyStored())).withStyle(ChatFormatting.GOLD));
 
         if(energyStorage.canReceive())
-            components.add(Component.translatable("txt.energizedpower.energy_analyzer.energy_can_receive", energyStorage.getEnergyStored(),
-                    energyStorage.getMaxEnergyStored()).withStyle(ChatFormatting.GOLD));
+            components.add(Component.translatable("txt.energizedpower.energy_analyzer.energy_can_receive").withStyle(ChatFormatting.GOLD));
 
         if(energyStorage.canExtract())
-            components.add(Component.translatable("txt.energizedpower.energy_analyzer.energy_can_extract", energyStorage.getEnergyStored(),
-                    energyStorage.getMaxEnergyStored()).withStyle(ChatFormatting.GOLD));
+            components.add(Component.translatable("txt.energizedpower.energy_analyzer.energy_can_extract").withStyle(ChatFormatting.GOLD));
 
         useItem(stack, useOnContext.getPlayer(), components);
 

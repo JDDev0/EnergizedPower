@@ -2,6 +2,7 @@ package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -84,8 +85,8 @@ public class AutoCrafterBlock extends BaseEntityBlock {
         @Override
         public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
             if(Screen.hasShiftDown()) {
-                components.add(Component.translatable("tooltip.energizedpower.auto_crafter.txt.shift.1", AutoCrafterBlockEntity.ENERGY_CONSUMPTION_PER_ITEM).
-                        withStyle(ChatFormatting.GRAY));
+                components.add(Component.translatable("tooltip.energizedpower.auto_crafter.txt.shift.1",
+                        EnergyUtils.getEnergyWithPrefix(AutoCrafterBlockEntity.ENERGY_CONSUMPTION_PER_ITEM)).withStyle(ChatFormatting.GRAY));
             }else {
                 components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }

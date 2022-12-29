@@ -1,6 +1,7 @@
 package me.jddev0.ep.item.energy;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
+import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -49,7 +50,8 @@ public class EnergizedPowerEnergyItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
-        components.add(Component.translatable("tooltip.energizedpower.energy_meter.content.txt", getEnergy(itemStack), getCapacity(itemStack)).
+        components.add(Component.translatable("tooltip.energizedpower.energy_meter.content.txt",
+                        EnergyUtils.getEnergyWithPrefix(getEnergy(itemStack)), EnergyUtils.getEnergyWithPrefix(getCapacity(itemStack))).
                 withStyle(ChatFormatting.GRAY));
     }
 

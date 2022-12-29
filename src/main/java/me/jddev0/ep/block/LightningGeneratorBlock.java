@@ -1,6 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.LightningGeneratorBlockEntity;
+import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -25,6 +26,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class LightningGeneratorBlock extends BaseEntityBlock {
+    public static final int ENERGY_PER_LIGHTNING_STRIKE = 1000000;
+
     public static final BooleanProperty HIT_BY_LIGHTNING_BOLT = BooleanProperty.create("hit_by_lightning_bolt");
 
     private static final int ACTIVATION_TICKS = 8;
@@ -96,7 +99,8 @@ public class LightningGeneratorBlock extends BaseEntityBlock {
         @Override
         public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
             if(Screen.hasShiftDown()) {
-                components.add(Component.translatable("tooltip.energizedpower.lightning_generator.txt.shift.1").withStyle(ChatFormatting.GRAY));
+                components.add(Component.translatable("tooltip.energizedpower.lightning_generator.txt.shift.1",
+                        EnergyUtils.getEnergyWithPrefix(ENERGY_PER_LIGHTNING_STRIKE)).withStyle(ChatFormatting.GRAY));
                 components.add(Component.translatable("tooltip.energizedpower.lightning_generator.txt.shift.2").withStyle(ChatFormatting.GRAY));
             }else {
                 components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));

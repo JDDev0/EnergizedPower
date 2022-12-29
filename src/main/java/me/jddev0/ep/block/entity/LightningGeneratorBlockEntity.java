@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.LightningGeneratorBlock;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
@@ -23,7 +24,7 @@ public class LightningGeneratorBlockEntity extends BlockEntity implements Energy
     public LightningGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.LIGHTING_GENERATOR_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ExtractOnlyEnergyStorage(0, 1000000, 65536) {
+        energyStorage = new ExtractOnlyEnergyStorage(0, LightningGeneratorBlock.ENERGY_PER_LIGHTNING_STRIKE, 65536) {
             @Override
             protected void onChange() {
                 setChanged();

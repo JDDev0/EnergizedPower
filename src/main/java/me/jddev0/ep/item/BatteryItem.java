@@ -2,6 +2,7 @@ package me.jddev0.ep.item;
 
 import me.jddev0.ep.energy.ReceiveAndExtractEnergyStorage;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
+import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -27,8 +28,8 @@ public class BatteryItem extends EnergizedPowerEnergyItem {
         super.appendHoverText(itemStack, level, components, tooltipFlag);
 
         if(Screen.hasShiftDown()) {
-            components.add(Component.translatable("tooltip.energizedpower.battery.txt.shift.1", tier.getMaxTransfer()).
-                    withStyle(ChatFormatting.GRAY));
+            components.add(Component.translatable("tooltip.energizedpower.battery.txt.shift.1",
+                            EnergyUtils.getEnergyWithPrefix(tier.getMaxTransfer())).withStyle(ChatFormatting.GRAY));
         }else {
             components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
         }

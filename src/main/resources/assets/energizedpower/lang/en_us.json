@@ -19,15 +19,15 @@
   "item.energizedpower.battery_6": "Battery (Tier VI)",
   "item.energizedpower.battery_7": "Battery (Tier VII)",
   "item.energizedpower.battery_8": "Battery (Tier VIII)",
-  "tooltip.energizedpower.battery.txt.shift.1": "This battery can transfer %d FE/t.",
+  "tooltip.energizedpower.battery.txt.shift.1": "This battery can transfer %s/t.",
 
   "item.energizedpower.energy_analyzer": "Energy Analyzer",
   "tooltip.energizedpower.energy_analyzer.txt.shift.1": "Click on an energy block to retrieve information.",
-  "tooltip.energizedpower.energy_analyzer.txt.shift.2": "%d FE will be consumed per use",
-  "txt.energizedpower.energy_analyzer.no_energy_left": "The Energy Analyzer has not enough power (%d FE are required).",
+  "tooltip.energizedpower.energy_analyzer.txt.shift.2": "%s will be consumed per use",
+  "txt.energizedpower.energy_analyzer.no_energy_left": "The Energy Analyzer has not enough power (%s are required).",
   "txt.energizedpower.energy_analyzer.no_block_entity": "This block is no energy block.",
   "txt.energizedpower.energy_analyzer.no_energy_block": "This block is no (FE) energy block.",
-  "txt.energizedpower.energy_analyzer.energy_output": "Energy: %d FE / %d FE.",
+  "txt.energizedpower.energy_analyzer.energy_output": "Energy: %s / %s.",
   "txt.energizedpower.energy_analyzer.energy_can_receive": "This block consumes energy.",
   "txt.energizedpower.energy_analyzer.energy_can_extract": "This block produces energy.",
 
@@ -38,11 +38,12 @@
   "item.energizedpower.auto_crafter": "Auto Crafter",
   "container.energizedpower.auto_crafter": "Auto Crafter",
 
-  "tooltip.energizedpower.auto_crafter.txt.shift.1": "This block uses %d FE/t per ingredient.",
+  "tooltip.energizedpower.auto_crafter.txt.shift.1": "This block uses %s/t per ingredient.",
 
   "block.energizedpower.charger": "Charger",
   "item.energizedpower.charger": "Charger",
   "container.energizedpower.charger": "Charger",
+  "tooltip.energizedpower.charger.item_energy_left.txt": "This item needs %s to be fully charged.",
 
   "tooltip.energizedpower.charger.txt.shift.1": "The charger can be used to craft energized copper ingots.",
   "tooltip.energizedpower.charger.txt.shift.2": "It's very expensive :P",
@@ -58,19 +59,19 @@
   "block.energizedpower.solar_panel_5": "Solar Panel (Tier V)",
   "item.energizedpower.solar_panel_5": "Solar Panel (Tier V)",
 
-  "tooltip.energizedpower.solar_panel.txt.shift.1": "This block produces %d FE/t during the day.",
+  "tooltip.energizedpower.solar_panel.txt.shift.1": "This block produces %s/t during the day.",
   "tooltip.energizedpower.solar_panel.txt.shift.2": "The efficiency depends on the current time",
 
   "block.energizedpower.coal_engine": "Coal Engine",
   "item.energizedpower.coal_engine": "Coal Engine",
   "container.energizedpower.coal_engine": "Coal Engine",
 
-  "tooltip.energizedpower.coal_engine.txt": "This items will produce %d FE until burned",
+  "tooltip.energizedpower.coal_engine.txt": "This items will produce %s until burned",
 
   "block.energizedpower.lightning_generator": "Lightning Generator",
   "item.energizedpower.lightning_generator": "Lightning Generator",
 
-  "tooltip.energizedpower.lightning_generator.txt.shift.1": "This block produces 1000000 FE per lightning strike.",
+  "tooltip.energizedpower.lightning_generator.txt.shift.1": "This block produces %s per lightning strike.",
   "tooltip.energizedpower.lightning_generator.txt.shift.2": "A lightning rod block must be place above this block for it to function",
 
   "block.energizedpower.energizer": "Energizer",
@@ -83,15 +84,14 @@
 
   "tooltip.energizedpower.charging_station.txt.shift.1": "The charging station can be used to charge items inside a player inventory.",
 
-  "tooltip.energizedpower.energizer.txt": "This recipe requires %d FE to finish",
-
   "block.energizedpower.basic_machine_frame": "Basic Machine Frame",
   "item.energizedpower.basic_machine_frame": "Basic Machine Frame",
 
   "block.energizedpower.advanced_machine_frame": "Advanced Machine Frame",
   "item.energizedpower.advanced_machine_frame": "Advanced Machine Frame",
 
-  "tooltip.energizedpower.energy_meter.content.txt": "%d FE / %d FE",
+  "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
+  "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "This recipe requires %s to finish.",
   "tooltip.energizedpower.shift_details.txt": "Press [SHIFT] for details",
 
   "itemGroup.energizedpower.tab": "Energized Power",

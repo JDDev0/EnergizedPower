@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -76,9 +77,11 @@ public class CoalEngineScreen extends AbstractContainerScreen<CoalEngineMenu> {
 
         if(isHovering(8, 17, 16, 52, mouseX, mouseY)) {
             List<Component> components = new ArrayList<>(2);
-            components.add(Component.translatable("tooltip.energizedpower.energy_meter.content.txt", menu.getEnergy(), menu.getCapacity()));
+            components.add(Component.translatable("tooltip.energizedpower.energy_meter.content.txt",
+                    EnergyUtils.getEnergyWithPrefix(menu.getEnergy()), EnergyUtils.getEnergyWithPrefix(menu.getCapacity())));
             if(menu.getEnergyProduction() > 0) {
-                components.add(Component.translatable("tooltip.energizedpower.coal_engine.txt", menu.getEnergyProduction()).withStyle(ChatFormatting.YELLOW));
+                components.add(Component.translatable("tooltip.energizedpower.coal_engine.txt",
+                        EnergyUtils.getEnergyWithPrefix(menu.getEnergyProduction())).withStyle(ChatFormatting.YELLOW));
             }
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
