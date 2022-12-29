@@ -26,7 +26,7 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
     public static final int ENERGY_CAPACITY = 2048;
 
     public EnergyAnalyzerItem(Properties props) {
-        super(props, () -> new ReceiveOnlyEnergyStorage(0, ENERGY_CAPACITY, 256));
+        super(props, () -> new ReceiveOnlyEnergyStorage(0, ENERGY_CAPACITY, 32));
     }
 
     @Override

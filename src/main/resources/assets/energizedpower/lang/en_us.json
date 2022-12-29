@@ -11,6 +11,16 @@
   "book.energizedpower.page.0": "This is a test text value!",
   "book.energizedpower.page.1": "This is the second page... [WIP]",
 
+  "item.energizedpower.battery_1": "Battery (Tier I)",
+  "item.energizedpower.battery_2": "Battery (Tier II)",
+  "item.energizedpower.battery_3": "Battery (Tier III)",
+  "item.energizedpower.battery_4": "Battery (Tier IV)",
+  "item.energizedpower.battery_5": "Battery (Tier V)",
+  "item.energizedpower.battery_6": "Battery (Tier VI)",
+  "item.energizedpower.battery_7": "Battery (Tier VII)",
+  "item.energizedpower.battery_8": "Battery (Tier VIII)",
+  "tooltip.energizedpower.battery.txt.shift.1": "This battery can transfer %d FE/t.",
+
   "item.energizedpower.energy_analyzer": "Energy Analyzer",
   "tooltip.energizedpower.energy_analyzer.txt.shift.1": "Click on an energy block to retrieve information.",
   "tooltip.energizedpower.energy_analyzer.txt.shift.2": "%d FE will be consumed per use",
@@ -81,7 +91,7 @@
   "block.energizedpower.advanced_machine_frame": "Advanced Machine Frame",
   "item.energizedpower.advanced_machine_frame": "Advanced Machine Frame",
 
-  "tooltip.energizedpower.energy_item.content.txt": "%d FE / %d FE",
+  "tooltip.energizedpower.energy_meter.content.txt": "%d FE / %d FE",
   "tooltip.energizedpower.shift_details.txt": "Press [SHIFT] for details",
 
   "itemGroup.energizedpower.tab": "Energized Power",
