@@ -1,0 +1,255 @@
+package me.jddev0.ep.block.entity;
+
+import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
+import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
+import me.jddev0.ep.screen.UnchargerMenu;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.Containers;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+    private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
+        @Override
+        protected void onContentsChanged(int slot) {
+            setChanged();
+        }
+
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            if(slot == 0) {
+                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+                if(!energyStorageLazyOptional.isPresent())
+                    return false;
+
+                IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
+                if(!energyStorage.canExtract())
+                    return false;
+
+                return energyStorage.extractEnergy(UnchargerBlockEntity.this.energyStorage.getMaxExtract(), true) > 0;
+            }
+
+            return super.isItemValid(slot, stack);
+        }
+
+        @Override
+        public int getSlotLimit(int slot) {
+            return 1;
+        }
+    };
+    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+    private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
+            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
+                if(i != 0)
+                    return false;
+
+                ItemStack stack = itemHandler.getStackInSlot(i);
+                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+                if(!energyStorageLazyOptional.isPresent())
+                    return true;
+
+                IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
+                if(!energyStorage.canExtract())
+                    return true;
+
+                return energyStorage.extractEnergy(UnchargerBlockEntity.this.energyStorage.getMaxExtract(), true) == 0;
+            }));
+
+    private final ExtractOnlyEnergyStorage energyStorage;
+
+    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+
+    protected  final ContainerData data;
+    private int energyProductionLeft = -1;
+
+    public UnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
+        super(ModBlockEntities.UNCHARGER_ENTITY.get(), blockPos, blockState);
+
+        energyStorage = new ExtractOnlyEnergyStorage(0, 8192, 512) {
+            @Override
+            protected void onChange() {
+                setChanged();
+
+                ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
+            }
+        };
+        data = new ContainerData() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1 -> -1;
+                    case 2 -> UnchargerBlockEntity.this.energyStorage.getEnergy();
+                    case 3 -> UnchargerBlockEntity.this.energyStorage.getCapacity();
+                    case 4 -> UnchargerBlockEntity.this.energyProductionLeft;
+                    case 5 -> 1;
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 2 -> UnchargerBlockEntity.this.energyStorage.setEnergyWithoutUpdate(value);
+                    case 3 -> UnchargerBlockEntity.this.energyStorage.setCapacityWithoutUpdate(value);
+                    case 0, 1, 4, 5 -> {}
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 6;
+            }
+        };
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable("container.energizedpower.uncharger");
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        return new UnchargerMenu(id, inventory, this, this.data);
+    }
+
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if(cap == ForgeCapabilities.ITEM_HANDLER) {
+            if(side == null)
+                return lazyItemHandler.cast();
+
+            return lazyItemHandlerSided.cast();
+        }else if(cap == ForgeCapabilities.ENERGY) {
+            return lazyEnergyStorage.cast();
+        }
+
+        return super.getCapability(cap, side);
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+
+        lazyItemHandler = LazyOptional.of(() -> itemHandler);
+        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+
+        lazyItemHandler.invalidate();
+        lazyEnergyStorage.invalidate();
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag nbt) {
+        nbt.put("inventory", itemHandler.serializeNBT());
+        nbt.put("energy", energyStorage.saveNBT());
+
+        nbt.put("recipe.energy_production_left", IntTag.valueOf(energyProductionLeft));
+
+        super.saveAdditional(nbt);
+    }
+
+    @Override
+    public void load(@NotNull CompoundTag nbt) {
+        super.load(nbt);
+
+        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+        energyStorage.loadNBT(nbt.get("energy"));
+
+        energyProductionLeft = nbt.getInt("recipe.energy_production_left");
+    }
+
+    public void drops(Level level, BlockPos worldPosition) {
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+        for(int i = 0;i < itemHandler.getSlots();i++)
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+
+        Containers.dropContents(level, worldPosition, inventory);
+    }
+
+    public static void tick(Level level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {
+        if(level.isClientSide)
+            return;
+
+        //Fix for players on server
+        blockEntity.energyStorage.setCapacity(blockEntity.energyStorage.getCapacity());
+
+        if(blockEntity.hasRecipe()) {
+            ItemStack stack = blockEntity.itemHandler.getStackInSlot(0);
+
+            LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+            if(!energyStorageLazyOptional.isPresent())
+                return;
+
+            IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
+            if(!energyStorage.canExtract())
+                return;
+
+            blockEntity.energyProductionLeft = energyStorage.getEnergyStored();
+
+            int energyProductionPerTick = energyStorage.extractEnergy(Math.min(blockEntity.energyStorage.getMaxExtract(),
+                    blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getEnergy()), false);
+
+            blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() + energyProductionPerTick);
+            blockEntity.energyProductionLeft -= energyProductionPerTick;
+
+            setChanged(level, blockPos, state);
+
+            if(blockEntity.energyProductionLeft <= 0)
+                blockEntity.resetProgress();
+        }else {
+            blockEntity.resetProgress();
+            setChanged(level, blockPos, state);
+        }
+    }
+
+    private void resetProgress() {
+        energyProductionLeft = -1;
+    }
+
+    private boolean hasRecipe() {
+        ItemStack stack = itemHandler.getStackInSlot(0);
+        return stack.getCapability(ForgeCapabilities.ENERGY).isPresent();
+    }
+
+    @Override
+    public void setEnergy(int energy) {
+        energyStorage.setEnergyWithoutUpdate(energy);
+    }
+
+    @Override
+    public void setCapacity(int capacity) {
+        energyStorage.setCapacityWithoutUpdate(capacity);
+    }
+
+    public int getCapacity() {
+        return energyStorage.getCapacity();
+    }
+}

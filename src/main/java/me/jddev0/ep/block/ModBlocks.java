@@ -40,6 +40,11 @@ public class ModBlocks {
     public static final RegistryObject<Item> CHARGER_ITEM = ModItems.ITEMS.register("charger",
             () -> new ChargerBlock.Item(CHARGER.get(), new Item.Properties()));
 
+    public static final RegistryObject<Block> UNCHARGER = BLOCKS.register("uncharger",
+            () -> new UnchargerBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> UNCHARGER_ITEM = createBlockItem("uncharger", UNCHARGER);
+
 
     private static RegistryObject<Item> createSolarPanelBlockItem(String name, RegistryObject<SolarPanelBlock> blockRegistryObject) {
         return ModItems.ITEMS.register(name, () -> new SolarPanelBlock.Item(blockRegistryObject.get(), new Item.Properties(),

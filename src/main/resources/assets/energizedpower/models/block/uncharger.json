@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "#up",
+    "down": "energizedpower:block/uncharger_bottom",
+    "east": "energizedpower:block/uncharger_side",
+    "north": "energizedpower:block/uncharger_side",
+    "south": "energizedpower:block/uncharger_side",
+    "up": "energizedpower:block/uncharger_top",
+    "west": "energizedpower:block/uncharger_side"
+  }
+}

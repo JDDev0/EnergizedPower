@@ -45,6 +45,11 @@
   "container.energizedpower.charger": "Charger",
   "tooltip.energizedpower.charger.item_energy_left.txt": "This item needs %s to be fully charged.",
 
+  "block.energizedpower.uncharger": "Uncharger",
+  "item.energizedpower.uncharger": "Uncharger",
+  "container.energizedpower.uncharger": "Uncharger",
+  "tooltip.energizedpower.uncharger.item_energy_left.txt": "This item has %s left.",
+
   "tooltip.energizedpower.charger.txt.shift.1": "The charger can be used to craft energized copper ingots.",
   "tooltip.energizedpower.charger.txt.shift.2": "It's very expensive :P",
 
