@@ -33,7 +33,7 @@ public class ChargingStationBlockEntity extends BlockEntity implements EnergySto
     public ChargingStationBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CHARGING_STATION_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, 65536, 8192) {
+        energyStorage = new ReceiveOnlyEnergyStorage(0, 262144, 16384) {
             @Override
             protected void onChange() {
                 setChanged();
