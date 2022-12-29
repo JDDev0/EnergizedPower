@@ -96,7 +96,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
     protected  final ContainerData data;
     private int energyConsumptionLeft = -1;
 
-    public static final int ENERGY_REQUIREMENT_FOR_ENERGIZED_COPPER_INGOT = 32768;
+    public static final int ENERGY_REQUIREMENT_FOR_ENERGIZED_COPPER_INGOT = 131072;
 
     public ChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CHARGER_ENTITY.get(), blockPos, blockState);
