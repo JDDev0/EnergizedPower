@@ -10,12 +10,15 @@
     },
     "R": {
       "tag": "forge:dusts/redstone"
+    },
+    "B": {
+      "item": "energizedpower:battery_3"
     }
   },
   "pattern": [
     "S S",
-    "CCC",
-    "CRC"
+    "CRC",
+    "CBC"
   ],
   "result": {
     "item": "energizedpower:energy_analyzer"
