@@ -72,6 +72,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     private final ContainerListener updatePatternListener = container -> updateRecipe();
     private boolean hasRecipeLoaded = false;
     private CraftingRecipe craftingRecipe;
+    private CraftingContainer oldCopyOfRecipe;
     private final AbstractContainerMenu dummyContainerMenu = new AbstractContainerMenu(null, -1) {
         @Override
         public ItemStack quickMoveStack(Player player, int index) {
@@ -305,19 +306,19 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         if(level == null)
             return;
 
-        CraftingContainer copyOfPatternSlots = new CraftingContainer(dummyContainerMenu, 3, 3);
-        for(int i = 0;i < patternSlots.getContainerSize();i++)
-            copyOfPatternSlots.setItem(i, patternSlots.getItem(i));
-
         CraftingRecipe oldRecipe = null;
         ItemStack oldResult = null;
-        if(hasRecipeLoaded && craftingRecipe != null) {
+        if(hasRecipeLoaded && craftingRecipe != null && oldCopyOfRecipe != null) {
             oldRecipe = craftingRecipe;
 
-            oldResult = craftingRecipe instanceof CustomRecipe?craftingRecipe.assemble(copyOfPatternSlots):craftingRecipe.getResultItem();
+            oldResult = craftingRecipe instanceof CustomRecipe?craftingRecipe.assemble(oldCopyOfRecipe):craftingRecipe.getResultItem();
         }
 
         hasRecipeLoaded = true;
+
+        CraftingContainer copyOfPatternSlots = new CraftingContainer(dummyContainerMenu, 3, 3);
+        for(int i = 0;i < patternSlots.getContainerSize();i++)
+            copyOfPatternSlots.setItem(i, patternSlots.getItem(i));
 
         Optional<CraftingRecipe> recipe = level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, copyOfPatternSlots, level);
         if(recipe.isPresent()) {
@@ -327,13 +328,18 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
 
             patternResultSlots.setItem(0, resultItemStack);
 
-            if(oldRecipe == null || craftingRecipe != oldRecipe || oldResult == null ||
-                    !ItemStack.isSameItemSameTags(resultItemStack, oldResult))
+            if(oldRecipe != null && oldResult != null && oldCopyOfRecipe != null && (craftingRecipe != oldRecipe || !ItemStack.isSameItemSameTags(resultItemStack, oldResult)))
                 resetProgress();
+
+            oldCopyOfRecipe = new CraftingContainer(dummyContainerMenu, 3, 3);
+            for(int i = 0;i < patternSlots.getContainerSize();i++)
+                oldCopyOfRecipe.setItem(i, copyOfPatternSlots.getItem(i).copy());
         }else {
             craftingRecipe = null;
 
             patternResultSlots.setItem(0, ItemStack.EMPTY);
+
+            oldCopyOfRecipe = null;
         }
     }
 
