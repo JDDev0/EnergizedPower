@@ -81,7 +81,7 @@
   "block.energizedpower.advanced_machine_frame": "Advanced Machine Frame",
   "item.energizedpower.advanced_machine_frame": "Advanced Machine Frame",
 
-  "tooltip.energizedpower.energy_meter.content.txt": "%d FE / %d FE",
+  "tooltip.energizedpower.energy_item.content.txt": "%d FE / %d FE",
   "tooltip.energizedpower.shift_details.txt": "Press [SHIFT] for details",
 
   "itemGroup.energizedpower.tab": "Energized Power",

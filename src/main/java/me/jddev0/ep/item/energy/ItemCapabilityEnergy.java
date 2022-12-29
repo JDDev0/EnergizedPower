@@ -1,4 +1,4 @@
-package me.jddev0.ep.item;
+package me.jddev0.ep.item.energy;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import net.minecraft.core.Direction;
