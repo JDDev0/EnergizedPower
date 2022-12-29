@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "i": {
+      "tag": "forge:nuggets/iron"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "c": {
+      "tag": "minecraft:coals"
+    },
+    "B": {
+      "item": "energizedpower:battery_1"
+    }
+  },
+  "pattern": [
+    "i i",
+    "CBC",
+    "IcI"
+  ],
+  "result": {
+    "item": "energizedpower:battery_2"
+  }
+}

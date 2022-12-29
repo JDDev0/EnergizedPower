@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "i": {
+      "tag": "forge:nuggets/iron"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "R": {
+      "tag": "forge:dusts/redstone"
+    },
+    "S": {
+      "tag": "forge:silicon"
+    },
+    "B": {
+      "item": "energizedpower:battery_4"
+    }
+  },
+  "pattern": [
+    "i i",
+    "SBS",
+    "IRI"
+  ],
+  "result": {
+    "item": "energizedpower:battery_5"
+  }
+}
