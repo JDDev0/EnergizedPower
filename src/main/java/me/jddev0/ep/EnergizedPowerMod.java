@@ -107,6 +107,7 @@ public class EnergizedPowerMod {
             addEmptyAndFullyChargedItem(event, ModItems.BATTERY_8, BatteryItem.Tier.BATTERY_8.getCapacity());
 
             event.accept(ModBlocks.SILICON_BLOCK_ITEM);
+            event.accept(ModItems.CABLE_INSULATOR);
             event.accept(ModItems.SILICON);
             event.accept(ModItems.ENERGIZED_COPPER_INGOT);
         }
