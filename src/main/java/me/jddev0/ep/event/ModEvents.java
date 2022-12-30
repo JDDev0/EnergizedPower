@@ -12,6 +12,8 @@ import me.jddev0.ep.villager.ModVillager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -178,6 +180,8 @@ public class ModEvents {
                     new ItemStack(ModItems.CABLE_INSULATOR.get(), 18), 0, 0, 0);
             itemEntity.setPickUpDelay(20);
             level.addFreshEntity(itemEntity);
+
+            level.playSound(null, blockPos, SoundEvents.SHEEP_SHEAR, SoundSource.BLOCKS, 1.f, 1.f);
         }
 
         event.setCanceled(true);
