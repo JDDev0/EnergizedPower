@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "energizedpower:cable_insulator"
+    },
+    "C": {
+      "tag": "forge:ingots/copper"
+    }
+  },
+  "pattern": [
+    "ICI",
+    "ICI",
+    "ICI"
+  ],
+  "result": {
+    "item": "energizedpower:copper_cable"
+  }
+}
