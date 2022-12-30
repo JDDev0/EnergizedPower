@@ -38,6 +38,7 @@ public class CableBlockEntity extends BlockEntity {
     public static BlockEntityType<CableBlockEntity> getEntityTypeFromTier(CableBlock.Tier tier) {
         return switch(tier) {
             case TIER_COPPER -> ModBlockEntities.COPPER_CABLE_ENTITY.get();
+            case TIER_ENERGIZED_COPPER -> ModBlockEntities.ENERGIZED_COPPER_CABLE_ENTITY.get();
         };
     }
 
@@ -105,7 +106,8 @@ public class CableBlockEntity extends BlockEntity {
 
         for(Direction direction:Direction.values()) {
             BlockPos testPos = blockPos.relative(direction);
-            if(level.getBlockState(testPos).is(ModBlocks.COPPER_CABLE.get())) { //TODO also check for energized copper cable
+            BlockState testBlockState = level.getBlockState(testPos);
+            if(testBlockState.is(ModBlocks.COPPER_CABLE.get()) || testBlockState.is(ModBlocks.ENERGIZED_COPPER_CABLE.get())) {
                 blockEntity.cableBlocks.add(testPos);
 
                 continue;
