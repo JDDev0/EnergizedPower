@@ -15,6 +15,7 @@
     "ICI"
   ],
   "result": {
-    "item": "energizedpower:copper_cable"
+    "item": "energizedpower:copper_cable",
+    "count": 6
   }
 }
