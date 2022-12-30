@@ -8,6 +8,7 @@ This mod adds the following machines:
 - Auto Crafter
 - Charger
 - Charging Station
+- Uncharger
 - Energizer
 
 All machines support auto-insert and auto-extract of items from all block faces.
@@ -16,6 +17,11 @@ There are also blocks for producing energy:
 - Coal Engine
 - Lightning Generator
 - Solar Panels (5 Tiers)
+
+This mod adds the following items:
+- Batteries (8 Tiers)
+- Energy Analyzer
+- Cable (Copper, Energized Copper)
 
 The electrician villager profession and house are added.
 
