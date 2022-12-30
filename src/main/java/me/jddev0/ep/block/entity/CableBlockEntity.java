@@ -19,10 +19,10 @@ import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class CableBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
+public class CableBlockEntity extends BlockEntity {
     private final CableBlock.Tier tier;
 
-    private final ExtractOnlyEnergyStorage energyStorage;
+    private final IEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
     public static BlockEntityType<CableBlockEntity> getEntityTypeFromTier(CableBlock.Tier tier) {
@@ -37,12 +37,35 @@ public class CableBlockEntity extends BlockEntity implements EnergyStoragePacket
         this.tier = tier;
 
         //TODO custom energy storage
-        energyStorage = new ExtractOnlyEnergyStorage(0, 0, tier.getMaxTransfer()) {
+        energyStorage = new IEnergyStorage() {
             @Override
-            protected void onChange() {
-                setChanged();
+            public int receiveEnergy(int maxReceive, boolean simulate) {
+                return 0;
+            }
 
-                ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
+            @Override
+            public int extractEnergy(int maxExtract, boolean simulate) {
+                return 0;
+            }
+
+            @Override
+            public int getEnergyStored() {
+                return 0;
+            }
+
+            @Override
+            public int getMaxEnergyStored() {
+                return 0;
+            }
+
+            @Override
+            public boolean canExtract() {
+                return false;
+            }
+
+            @Override
+            public boolean canReceive() {
+                return false;
             }
         };
     }
@@ -83,7 +106,7 @@ public class CableBlockEntity extends BlockEntity implements EnergyStoragePacket
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("energy", energyStorage.saveNBT());
+        //TODO
 
         super.saveAdditional(nbt);
     }
@@ -92,16 +115,6 @@ public class CableBlockEntity extends BlockEntity implements EnergyStoragePacket
     public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
 
-        energyStorage.loadNBT(nbt.get("energy"));
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        energyStorage.setEnergyWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        energyStorage.setCapacityWithoutUpdate(capacity);
+        //TODO
     }
 }
