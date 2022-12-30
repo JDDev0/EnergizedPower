@@ -55,8 +55,8 @@
   "tooltip.energizedpower.charger.txt.shift.1": "The charger can be used to craft energized copper ingots.",
   "tooltip.energizedpower.charger.txt.shift.2": "It's very expensive :P",
 
-  "block.energizedpower.copper_cable": "Copper cable",
-  "item.energizedpower.copper_cable": "Copper cable",
+  "block.energizedpower.copper_cable": "Copper Cable",
+  "item.energizedpower.copper_cable": "Copper Cable",
 
   "tooltip.energizedpower.cable.txt.shift.1": "This cable can transfer %s/t.",
 
