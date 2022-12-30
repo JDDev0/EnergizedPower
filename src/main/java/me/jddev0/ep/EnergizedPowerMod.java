@@ -76,6 +76,7 @@ public class EnergizedPowerMod {
             event.accept(ModItems.ENERGIZED_POWER_BOOK);
             addEmptyAndFullyChargedItem(event, ModItems.ENERGY_ANALYZER, EnergyAnalyzerItem.ENERGY_CAPACITY);
 
+            event.accept(ModBlocks.COPPER_CABLE_ITEM);
             event.accept(ModBlocks.COAL_ENGINE_ITEM);
             event.accept(ModBlocks.LIGHTNING_GENERATOR_ITEM);
             event.accept(ModBlocks.SOLAR_PANEL_ITEM_1);

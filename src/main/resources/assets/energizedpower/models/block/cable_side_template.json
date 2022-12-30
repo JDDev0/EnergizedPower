@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:block/thin_block",
+  "elements": [
+    {
+      "name": "cable_core",
+      "from": [ 6, 6, 0 ],
+      "to": [ 10, 10, 6 ],
+      "faces": {
+        "down":  { "uv": [ 0, 0, 4, 6 ], "texture": "#cable" },
+        "up":    { "uv": [ 0, 0, 4, 6 ], "texture": "#cable" },
+        "north": { "uv": [ 0, 12, 4, 16 ], "texture": "#cable" },
+        "south": { "uv": [ 0, 12, 4, 16 ], "texture": "#cable" },
+        "west":  { "uv": [ 0, 0, 4, 6 ], "texture": "#cable" },
+        "east":  { "uv": [ 0, 0, 4, 6 ], "texture": "#cable" }
+      }
+    }
+  ]
+}

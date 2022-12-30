@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.SolarPanelBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -11,6 +12,10 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, EnergizedPowerMod.MODID);
+
+    public static final RegistryObject<BlockEntityType<CableBlockEntity>> COPPER_CABLE_ENTITY =
+            BLOCK_ENTITIES.register("copper_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_COPPER), ModBlocks.COPPER_CABLE.get()).build(null));;
 
     public static final RegistryObject<BlockEntityType<AutoCrafterBlockEntity>> AUTO_CRAFTER_ENTITY =
             BLOCK_ENTITIES.register("auto_crafter", () -> BlockEntityType.Builder.of(AutoCrafterBlockEntity::new,

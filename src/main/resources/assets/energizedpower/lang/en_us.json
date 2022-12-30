@@ -53,6 +53,11 @@
   "tooltip.energizedpower.charger.txt.shift.1": "The charger can be used to craft energized copper ingots.",
   "tooltip.energizedpower.charger.txt.shift.2": "It's very expensive :P",
 
+  "block.energizedpower.copper_cable": "Copper cable",
+  "item.energizedpower.copper_cable": "Copper cable",
+
+  "tooltip.energizedpower.cable.txt.shift.1": "This cable can transfer %s/t.",
+
   "block.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
   "item.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
   "block.energizedpower.solar_panel_2": "Solar Panel (Tier II)",

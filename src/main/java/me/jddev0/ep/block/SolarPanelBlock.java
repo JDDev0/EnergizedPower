@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class SolarPanelBlock extends BaseEntityBlock {
-    private static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D);
+    private static final VoxelShape SHAPE = Block.box(0.d, 0.d, 0.d, 16.d, 4.d, 16.d);
 
     private final Tier tier;
 
