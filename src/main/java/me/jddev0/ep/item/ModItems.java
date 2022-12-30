@@ -23,7 +23,7 @@ public class ModItems {
             () -> new EnergizedPowerBookItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> CABLE_INSULATOR = ITEMS.register("cable_insulator",
-            () -> new Item(new Item.Properties()));
+            () -> new CableInsulatorItem(new Item.Properties()));
 
     public static final RegistryObject<Item> BATTERY_1 = ITEMS.register("battery_1",
             () -> new BatteryItem(BatteryItem.Tier.BATTERY_1));

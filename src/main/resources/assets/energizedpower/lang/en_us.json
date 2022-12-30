@@ -22,6 +22,7 @@
   "tooltip.energizedpower.battery.txt.shift.1": "This battery can transfer %s/t.",
 
   "item.energizedpower.cable_insulator": "Cable Insulator",
+  "tooltip.energizedpower.cable_insulator.txt.shift.1": "This item can be crafted by clicking on a wool block with shears.",
 
   "item.energizedpower.energy_analyzer": "Energy Analyzer",
   "tooltip.energizedpower.energy_analyzer.txt.shift.1": "Click on an energy block to retrieve information.",
@@ -59,6 +60,7 @@
   "item.energizedpower.copper_cable": "Copper Cable",
 
   "tooltip.energizedpower.cable.txt.shift.1": "This cable can transfer %s/t.",
+  "tooltip.energizedpower.cable.txt.shift.2": "Cable insulators can be crafted by clicking on a wool block with shears.",
 
   "block.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
   "item.energizedpower.solar_panel_1": "Solar Panel (Tier I)",

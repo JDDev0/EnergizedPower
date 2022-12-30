@@ -155,6 +155,8 @@ public class CableBlock extends BaseEntityBlock {
             if(Screen.hasShiftDown()) {
                 components.add(Component.translatable("tooltip.energizedpower.cable.txt.shift.1",
                         EnergyUtils.getEnergyWithPrefix(tier.getMaxTransfer())).withStyle(ChatFormatting.GRAY));
+                components.add(Component.translatable("tooltip.energizedpower.cable.txt.shift.2").
+                        withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
             }else {
                 components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
