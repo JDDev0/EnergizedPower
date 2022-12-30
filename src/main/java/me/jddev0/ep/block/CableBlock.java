@@ -125,6 +125,13 @@ public class CableBlock extends BaseEntityBlock {
                 setValue(EAST, shouldConnectTo(level, selfPos, Direction.EAST)).
                 setValue(WEST, shouldConnectTo(level, selfPos, Direction.WEST))
         );
+
+
+        BlockEntity blockEntity = level.getBlockEntity(selfPos);
+        if(blockEntity == null || !(blockEntity instanceof CableBlockEntity))
+            return;
+
+        CableBlockEntity.updateConnections(level, selfPos, selfState, (CableBlockEntity)blockEntity);
     }
 
     private boolean shouldConnectTo(Level level, BlockPos selfPos, Direction direction) {

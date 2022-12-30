@@ -2,10 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.CableBlock;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
-import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
+import me.jddev0.ep.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -32,8 +29,11 @@ public class CableBlockEntity extends BlockEntity {
     private final IEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
+    private boolean loaded;
+
     private final Map<Pair<BlockPos, Direction>, IEnergyStorage> producers = new HashMap<>();
     private final Map<Pair<BlockPos, Direction>, IEnergyStorage> consumers = new HashMap<>();
+    private final List<BlockPos> cableBlocks = new LinkedList<>();
 
     public static BlockEntityType<CableBlockEntity> getEntityTypeFromTier(CableBlock.Tier tier) {
         return switch(tier) {
@@ -45,8 +45,6 @@ public class CableBlockEntity extends BlockEntity {
         super(getEntityTypeFromTier(tier), blockPos, blockState);
 
         this.tier = tier;
-
-        //TODO update producer and consumer list (sync maps with other cable blocks)
 
         energyStorage = new IEnergyStorage() {
             @Override
@@ -85,30 +83,176 @@ public class CableBlockEntity extends BlockEntity {
         return tier;
     }
 
-    public static void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving,
-                                       CableBlockEntity blockEntity) {
-        if(level.isClientSide)
-            return;
-
-        //TODO update producer and consumer list (sync maps with other cable blocks)
-    }
-
-    public static void tick(Level level, BlockPos blockPos, BlockState state, CableBlockEntity blockEntity) {
-        if(level.isClientSide)
-            return;
-
-        int transferLeft = blockEntity.tier.getMaxTransfer();
-
-
-        //TODO
-    }
-
     public Map<Pair<BlockPos, Direction>, IEnergyStorage> getProducers() {
         return producers;
     }
 
     public Map<Pair<BlockPos, Direction>, IEnergyStorage> getConsumers() {
         return consumers;
+    }
+
+    public List<BlockPos> getCableBlocks() {
+        return cableBlocks;
+    }
+
+    public static void updateConnections(Level level, BlockPos blockPos, BlockState state, CableBlockEntity blockEntity) {
+        if(level.isClientSide)
+            return;
+
+        blockEntity.producers.clear();
+        blockEntity.consumers.clear();
+        blockEntity.cableBlocks.clear();
+
+        for(Direction direction:Direction.values()) {
+            BlockPos testPos = blockPos.relative(direction);
+            if(level.getBlockState(testPos).is(ModBlocks.COPPER_CABLE.get())) { //TODO also check for energized copper cable
+                blockEntity.cableBlocks.add(testPos);
+
+                continue;
+            }
+
+            BlockEntity testBlockEntity = level.getBlockEntity(testPos);
+            if(testBlockEntity == null)
+                continue;
+
+            LazyOptional<IEnergyStorage> energyStorageLazyOptional = testBlockEntity.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite());
+            if(!energyStorageLazyOptional.isPresent())
+                continue;
+
+            IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
+            if(energyStorage.canExtract())
+                blockEntity.producers.put(Pair.of(testPos, direction.getOpposite()), energyStorage);
+
+            if(energyStorage.canReceive())
+                blockEntity.consumers.put(Pair.of(testPos, direction.getOpposite()), energyStorage);
+        }
+    }
+
+    public static List<IEnergyStorage> getConnectedConsumers(Level level, BlockPos blockPos, List<BlockPos> checkedCables) {
+        List<IEnergyStorage> consumers = new LinkedList<>();
+
+        if(checkedCables.contains(blockPos))
+            return consumers;
+        checkedCables.add(blockPos);
+
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(blockEntity == null || !(blockEntity instanceof CableBlockEntity))
+            return consumers;
+
+        CableBlockEntity cableBlockEntity = (CableBlockEntity)blockEntity;
+        consumers.addAll(cableBlockEntity.consumers.values());
+
+        cableBlockEntity.getCableBlocks().forEach(pos -> consumers.addAll(getConnectedConsumers(level, pos, checkedCables)));
+
+        return consumers;
+    }
+
+    public static void tick(Level level, BlockPos blockPos, BlockState state, CableBlockEntity blockEntity) {
+        if(level.isClientSide)
+            return;
+
+        if(!blockEntity.loaded) {
+            updateConnections(level, blockPos, state, blockEntity);
+
+            blockEntity.loaded = true;
+        }
+
+        final int MAX_TRANSFER = blockEntity.tier.getMaxTransfer();
+        List<IEnergyStorage> energyProduction = new LinkedList<>();
+        List<Integer> energyProductionValues = new LinkedList<>();
+
+        int productionSum = 0;
+        for(IEnergyStorage energyStorage:blockEntity.producers.values()) {
+            int extracted = energyStorage.extractEnergy(MAX_TRANSFER, true);
+            energyProduction.add(energyStorage);
+            energyProductionValues.add(extracted);
+            productionSum += extracted;
+        }
+
+        if(productionSum <= 0)
+            return;
+
+        List<IEnergyStorage> energyConsumption = new LinkedList<>();
+        List<Integer> energyConsumptionValues = new LinkedList<>();
+
+        List<IEnergyStorage> consumers = getConnectedConsumers(level, blockPos, new LinkedList<>());
+
+        int consumptionSum = 0;
+        for(IEnergyStorage energyStorage:consumers) {
+            int received = energyStorage.receiveEnergy(MAX_TRANSFER, true);
+            energyConsumption.add(energyStorage);
+            energyConsumptionValues.add(received);
+            consumptionSum += received;
+        }
+
+        if(consumptionSum <= 0)
+            return;
+
+        int transferLeft = Math.min(Math.min(MAX_TRANSFER, productionSum), consumptionSum);
+
+        List<Integer> energyProductionDistributed = new LinkedList<>();
+        for(int i = 0;i < energyProduction.size();i++)
+            energyProductionDistributed.add(0);
+
+        int productionLeft = transferLeft;
+        int divisor = energyProduction.size();
+        outer:
+        while(productionLeft > 0) {
+            int productionPerProducer = productionLeft / divisor;
+            if(productionPerProducer == 0) {
+                divisor = Math.max(1, divisor - 1);
+                productionPerProducer = productionLeft / divisor;
+            }
+
+            for(int i = 0;i < energyProductionValues.size();i++) {
+                int productionDistributed = energyProductionDistributed.get(i);
+                int productionOfProducerLeft = energyProductionValues.get(i) - productionDistributed;
+
+                int productionDistributedNew = Math.min(productionPerProducer, Math.min(productionOfProducerLeft, productionLeft));
+                energyProductionDistributed.set(i, productionDistributed + productionDistributedNew);
+                productionLeft -= productionDistributedNew;
+                if(productionLeft == 0)
+                    break outer;
+            }
+        }
+
+        for(int i = 0;i < energyProduction.size();i++) {
+            int energy = energyProductionDistributed.get(i);
+            if(energy > 0)
+                energyProduction.get(i).extractEnergy(energy, false);
+        }
+
+        List<Integer> energyConsumptionDistributed = new LinkedList<>();
+        for(int i = 0;i < energyConsumption.size();i++)
+            energyConsumptionDistributed.add(0);
+
+        int consumptionLeft = transferLeft;
+        divisor = energyConsumption.size();
+        outer:
+        while(consumptionLeft > 0) {
+            int consumptionPerConsumer = consumptionLeft / divisor;
+            if(consumptionPerConsumer == 0) {
+                divisor = Math.max(1, divisor - 1);
+                consumptionPerConsumer = consumptionLeft / divisor;
+            }
+
+            for(int i = 0;i < energyConsumptionValues.size();i++) {
+                int consumptionDistributed = energyConsumptionDistributed.get(i);
+                int consumptionOfConsumerLeft = energyConsumptionValues.get(i) - consumptionDistributed;
+
+                int consumptionDistributedNew = Math.min(consumptionOfConsumerLeft, Math.min(consumptionPerConsumer, consumptionLeft));
+                energyConsumptionDistributed.set(i, consumptionDistributed + consumptionDistributedNew);
+                consumptionLeft -= consumptionDistributedNew;
+                if(consumptionLeft == 0)
+                    break outer;
+            }
+        }
+
+        for(int i = 0;i < energyConsumption.size();i++) {
+            int energy = energyConsumptionDistributed.get(i);
+            if(energy > 0)
+                energyConsumption.get(i).receiveEnergy(energy, false);
+        }
     }
 
     @Override
