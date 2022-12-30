@@ -106,7 +106,8 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
             protected void onChange() {
                 setChanged();
 
-                ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
+                if(level != null && !level.isClientSide())
+                    ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
             }
         };
         data = new ContainerData() {

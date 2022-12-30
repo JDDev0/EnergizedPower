@@ -82,7 +82,8 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
             protected void onChange() {
                 setChanged();
 
-                ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
+                if(level != null && !level.isClientSide())
+                    ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
             }
         };
         data = new ContainerData() {

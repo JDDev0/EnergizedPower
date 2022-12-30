@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity;
 
+import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
@@ -9,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,11 +21,19 @@ import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 public class CableBlockEntity extends BlockEntity {
     private final CableBlock.Tier tier;
 
     private final IEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+
+    private final Map<Pair<BlockPos, Direction>, IEnergyStorage> producers = new HashMap<>();
+    private final Map<Pair<BlockPos, Direction>, IEnergyStorage> consumers = new HashMap<>();
 
     public static BlockEntityType<CableBlockEntity> getEntityTypeFromTier(CableBlock.Tier tier) {
         return switch(tier) {
@@ -36,7 +46,8 @@ public class CableBlockEntity extends BlockEntity {
 
         this.tier = tier;
 
-        //TODO custom energy storage
+        //TODO update producer and consumer list (sync maps with other cable blocks)
+
         energyStorage = new IEnergyStorage() {
             @Override
             public int receiveEnergy(int maxReceive, boolean simulate) {
@@ -74,11 +85,30 @@ public class CableBlockEntity extends BlockEntity {
         return tier;
     }
 
+    public static void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving,
+                                       CableBlockEntity blockEntity) {
+        if(level.isClientSide)
+            return;
+
+        //TODO update producer and consumer list (sync maps with other cable blocks)
+    }
+
     public static void tick(Level level, BlockPos blockPos, BlockState state, CableBlockEntity blockEntity) {
         if(level.isClientSide)
             return;
 
+        int transferLeft = blockEntity.tier.getMaxTransfer();
+
+
         //TODO
+    }
+
+    public Map<Pair<BlockPos, Direction>, IEnergyStorage> getProducers() {
+        return producers;
+    }
+
+    public Map<Pair<BlockPos, Direction>, IEnergyStorage> getConsumers() {
+        return consumers;
     }
 
     @Override

@@ -38,7 +38,8 @@ public class ChargingStationBlockEntity extends BlockEntity implements EnergySto
             protected void onChange() {
                 setChanged();
 
-                ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
+                if(level != null && !level.isClientSide())
+                    ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
             }
         };
     }
