@@ -22,6 +22,7 @@ This mod adds the following items:
 - Batteries (8 Tiers)
 - Energy Analyzer
 - Cable (Copper, Energized Copper)
+- Inventory Coal Engine
 
 The electrician villager profession and house are added.
 
