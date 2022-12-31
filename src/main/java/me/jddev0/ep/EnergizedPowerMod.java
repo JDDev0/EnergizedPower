@@ -38,8 +38,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
-import javax.annotation.Nullable;
-
 @Mod(EnergizedPowerMod.MODID)
 public class EnergizedPowerMod {
     public static final String MODID = "energizedpower";
