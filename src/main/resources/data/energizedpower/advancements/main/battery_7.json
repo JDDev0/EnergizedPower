@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:battery_7"
     },
-    "title": "You said you need more Power?",
-    "description": "Tier VII: A quarter million FE of storage capacity! Can we do better?",
+    "title": {
+      "translate": "advancements.energizedpower.battery_7.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.battery_7.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

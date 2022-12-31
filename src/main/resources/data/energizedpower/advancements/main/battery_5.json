@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:battery_5"
     },
-    "title": "The best normal copper can do",
-    "description": "Tier V: You will need to energize the next battery tier...",
+    "title": {
+      "translate": "advancements.energizedpower.battery_5.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.battery_5.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

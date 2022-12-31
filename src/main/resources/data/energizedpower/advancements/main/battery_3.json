@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:battery_3"
     },
-    "title": "More Energy",
-    "description": "Tier III: Twice the power of Tier II",
+    "title": {
+      "translate": "advancements.energizedpower.battery_3.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.battery_3.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

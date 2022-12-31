@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:auto_crafter"
     },
-    "title": "Automation is the future!",
-    "description": "Who needs manual crafting tables when this block can do it automatically.",
+    "title": {
+      "translate": "advancements.energizedpower.auto_crafter.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.auto_crafter.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

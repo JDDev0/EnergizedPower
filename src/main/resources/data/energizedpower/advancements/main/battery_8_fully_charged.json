@@ -5,8 +5,12 @@
       "item": "energizedpower:battery_8",
       "nbt": "{\"energy\": 1048576}"
     },
-    "title": "Master of Energy Storage",
-    "description": "You have fully charged your 1 million FE battery!",
+    "title": {
+      "translate": "advancements.energizedpower.battery_8_fully_charged.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.battery_8_fully_charged.description"
+    },
     "frame": "challenge",
     "show_toast": true,
     "announce_to_chat": true

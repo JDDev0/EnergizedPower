@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:solar_panel_3"
     },
-    "title": "Solar Power Employee!",
-    "description": "Tier III - The best of the basic solar panels",
+    "title": {
+      "translate": "advancements.energizedpower.solar_panel_3.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.solar_panel_3.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

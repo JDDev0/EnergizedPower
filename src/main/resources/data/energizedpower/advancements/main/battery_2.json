@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:battery_2"
     },
-    "title": "Energy x4",
-    "description": "This battery can store as much energy as 4 Tier I batteries.",
+    "title": {
+      "translate": "advancements.energizedpower.battery_2.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.battery_2.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

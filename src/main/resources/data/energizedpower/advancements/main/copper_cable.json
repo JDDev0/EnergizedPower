@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:copper_cable"
     },
-    "title": "Energy Transport!",
-    "description": "Transport energy with cables.",
+    "title": {
+      "translate": "advancements.energizedpower.copper_cable.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.copper_cable.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:charging_station"
     },
-    "title": "Wireless charging!",
-    "description": "Charge energy items wirelessly.",
+    "title": {
+      "translate": "advancements.energizedpower.charging_station.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.charging_station.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

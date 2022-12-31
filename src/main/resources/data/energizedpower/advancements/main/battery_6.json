@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:battery_6"
     },
-    "title": "Energized Batteries",
-    "description": "Tier VI: You have energized your battery for even more storage capacity.",
+    "title": {
+      "translate": "advancements.energizedpower.battery_6.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.battery_6.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

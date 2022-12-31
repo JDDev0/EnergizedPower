@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:basic_solar_cell"
     },
-    "title": "Solar Power Basics!",
-    "description": "Your first solar cell of two required for your first solar panel.",
+    "title": {
+      "translate": "advancements.energizedpower.basic_solar_cell.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.basic_solar_cell.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

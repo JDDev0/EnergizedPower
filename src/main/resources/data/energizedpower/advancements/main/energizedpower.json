@@ -3,8 +3,12 @@
     "icon": {
       "item": "minecraft:copper_ingot"
     },
-    "title": "Energized Power",
-    "description": "This is the start of your energized power journey.",
+    "title": {
+      "translate": "advancements.energizedpower.energizedpower.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.energizedpower.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": false,

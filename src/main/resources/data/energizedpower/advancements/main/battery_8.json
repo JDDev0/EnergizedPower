@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:battery_8"
     },
-    "title": "I need more POWER!",
-    "description": "This is the best battery of this mod (It can store more than 1 million FE)",
+    "title": {
+      "translate": "advancements.energizedpower.battery_8.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.battery_8.description"
+    },
     "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true

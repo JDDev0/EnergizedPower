@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:silicon"
     },
-    "title": "Silicon",
-    "description": "This ingredient is used in nearly all items and blocks of this mod.",
+    "title": {
+      "translate": "advancements.energizedpower.silicon.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.silicon.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

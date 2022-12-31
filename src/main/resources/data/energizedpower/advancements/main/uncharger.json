@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:uncharger"
     },
-    "title": "Give it back!",
-    "description": "Uncharges your energy items.",
+    "title": {
+      "translate": "advancements.energizedpower.uncharger.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.uncharger.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

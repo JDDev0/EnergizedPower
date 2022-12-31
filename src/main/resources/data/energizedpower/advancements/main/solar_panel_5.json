@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:solar_panel_5"
     },
-    "title": "Solar Power Employer!",
-    "description": "Tier V - You have got the best solar panel!",
+    "title": {
+      "translate": "advancements.energizedpower.solar_panel_5.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.solar_panel_5.description"
+    },
     "frame": "challenge",
     "show_toast": true,
     "announce_to_chat": true

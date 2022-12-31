@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:advanced_machine_frame"
     },
-    "title": "Advanced Machines",
-    "description": "More advanced machines need this base crafting item.",
+    "title": {
+      "translate": "advancements.energizedpower.advanced_machine_frame.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.advanced_machine_frame.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

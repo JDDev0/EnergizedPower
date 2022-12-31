@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:battery_1"
     },
-    "title": "Batteries!",
-    "description": "Stores energy in item form.",
+    "title": {
+      "translate": "advancements.energizedpower.battery_1.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.battery_1.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

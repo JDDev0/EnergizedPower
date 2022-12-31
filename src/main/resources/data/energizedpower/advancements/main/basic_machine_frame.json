@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:basic_machine_frame"
     },
-    "title": "The Foundation of Machines",
-    "description": "This is the base crafting item for every basic machine.",
+    "title": {
+      "translate": "advancements.energizedpower.basic_machine_frame.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.basic_machine_frame.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

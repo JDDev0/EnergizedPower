@@ -5,8 +5,12 @@
       "item": "energizedpower:inventory_coal_engine",
       "nbt": "{\"active\": true, \"working\": true}"
     },
-    "title": "Inventory Power",
-    "description": "Produce and distribute energy in your inventory.",
+    "title": {
+      "translate": "advancements.energizedpower.inventory_coal_engine.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.inventory_coal_engine.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

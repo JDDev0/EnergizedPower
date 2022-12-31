@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:energized_power_book"
     },
-    "title": "Endless Knowledge",
-    "description": "A guide book for this mod.",
+    "title": {
+      "translate": "advancements.energizedpower.energized_power_book.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.energized_power_book.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

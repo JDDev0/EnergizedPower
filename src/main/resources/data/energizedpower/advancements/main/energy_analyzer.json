@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:energy_analyzer"
     },
-    "title": "Master of Analysis",
-    "description": "Analyze every energy block - even if they have no GUI interface!",
+    "title": {
+      "translate": "advancements.energizedpower.energy_analyzer.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.energy_analyzer.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

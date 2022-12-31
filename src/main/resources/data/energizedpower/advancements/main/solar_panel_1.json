@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:solar_panel_1"
     },
-    "title": "Solar Power Student!",
-    "description": "The Tier I solar panel...",
+    "title": {
+      "translate": "advancements.energizedpower.solar_panel_1.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.solar_panel_1.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

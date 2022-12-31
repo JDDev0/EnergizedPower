@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:energized_copper_cable"
     },
-    "title": "Too much Power to handle!",
-    "description": "Cable with very high Power throughput!",
+    "title": {
+      "translate": "advancements.energizedpower.energized_copper_cable.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.energized_copper_cable.description"
+    },
     "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true

@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:cable_insulator"
     },
-    "title": "The Jacket for your Cable!",
-    "description": "Cover your cables with this ingredient. (Can be crafted by clicking on wool with shears [Dispenser can be used too])",
+    "title": {
+      "translate": "advancements.energizedpower.cable_insulator.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.cable_insulator.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

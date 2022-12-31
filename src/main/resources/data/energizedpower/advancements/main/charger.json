@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:charger"
     },
-    "title": "Charge it!",
-    "description": "Charge your energy items with this block.",
+    "title": {
+      "translate": "advancements.energizedpower.charger.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.charger.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

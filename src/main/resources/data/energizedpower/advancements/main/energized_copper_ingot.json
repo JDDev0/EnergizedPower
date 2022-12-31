@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:energized_copper_ingot"
     },
-    "title": "Energized",
-    "description": "Energized Copper is better Copper.",
+    "title": {
+      "translate": "advancements.energizedpower.energized_copper_ingot.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.energized_copper_ingot.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

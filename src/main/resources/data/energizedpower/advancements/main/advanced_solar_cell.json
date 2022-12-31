@@ -4,8 +4,12 @@
     "icon": {
       "item": "energizedpower:advanced_solar_cell"
     },
-    "title": "Advanced Solar Power!",
-    "description": "Required for advanced solar panels...",
+    "title": {
+      "translate": "advancements.energizedpower.advanced_solar_cell.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.advanced_solar_cell.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true

@@ -122,5 +122,104 @@
 
   "itemGroup.energizedpower.tab": "Energized Power",
 
-  "entity.minecraft.villager.energizedpower.electrician": "Electrician"
+  "entity.minecraft.villager.energizedpower.electrician": "Electrician",
+
+  "advancements.energizedpower.advanced_machine_frame.title": "Advanced Machines",
+  "advancements.energizedpower.advanced_machine_frame.description": "More advanced machines need this base crafting item.",
+
+  "advancements.energizedpower.advanced_solar_cell.title": "Advanced Solar Power",
+  "advancements.energizedpower.advanced_solar_cell.description": "Required for advanced solar panels...",
+
+  "advancements.energizedpower.auto_crafter.title": "Automation is the future",
+  "advancements.energizedpower.auto_crafter.description": "Who needs manual crafting tables when this block can do it automatically?",
+
+  "advancements.energizedpower.basic_machine_frame.title": "The Foundation of Machines",
+  "advancements.energizedpower.basic_machine_frame.description": "This is the base crafting item for every basic machine.",
+
+  "advancements.energizedpower.basic_solar_cell.title": "Solar Power Basics",
+  "advancements.energizedpower.basic_solar_cell.description": "Your first solar cell of two required for your first solar panel.",
+
+  "advancements.energizedpower.battery_1.title": "Batteries",
+  "advancements.energizedpower.battery_1.description": "Stores energy in item form.",
+
+  "advancements.energizedpower.battery_2.title": "Energy x4",
+  "advancements.energizedpower.battery_2.description": "This battery can store as much energy as 4 Tier I batteries.",
+
+  "advancements.energizedpower.battery_3.title": "More Energy",
+  "advancements.energizedpower.battery_3.description": "Tier III: Twice the power of Tier II",
+
+  "advancements.energizedpower.battery_4.title": "You ask for even more Energy",
+  "advancements.energizedpower.battery_4.description": "Well this is Tier IV - only four to go",
+
+  "advancements.energizedpower.battery_5.title": "The best normal copper can do",
+  "advancements.energizedpower.battery_5.description": "Tier V: You will need to energize the next battery tier...",
+
+  "advancements.energizedpower.battery_6.title": "Energized Batteries",
+  "advancements.energizedpower.battery_6.description": "Tier VI: You have energized your battery for even more storage capacity.",
+
+  "advancements.energizedpower.battery_7.title": "You said you need more Power?",
+  "advancements.energizedpower.battery_7.description": "Tier VII: A quarter million FE of storage capacity! Can we do better?",
+
+  "advancements.energizedpower.battery_8.title": "I need more POWER",
+  "advancements.energizedpower.battery_8.description": "This is the best battery of this mod (It can store more than 1 million FE)",
+
+  "advancements.energizedpower.battery_8_fully_charged.title": "Master of Energy Storage",
+  "advancements.energizedpower.battery_8_fully_charged.description": "You have fully charged your 1 million FE battery!",
+
+  "advancements.energizedpower.cable_insulator.title": "The Jacket for your Cable",
+  "advancements.energizedpower.cable_insulator.description": "Cover your cables with this ingredient. (Can be crafted by clicking on wool with shears [Dispenser can be used too])",
+
+  "advancements.energizedpower.charger.title": "Charge it",
+  "advancements.energizedpower.charger.description": "Charge your energy items with this block.",
+
+  "advancements.energizedpower.charging_station.title": "Wireless charging",
+  "advancements.energizedpower.charging_station.description": "Charge energy items wirelessly.",
+
+  "advancements.energizedpower.coal_engine.title": "Powered by Coal",
+  "advancements.energizedpower.coal_engine.description": "Producing energy by burning stuff might not be the most efficient but good enough for the moment.",
+
+  "advancements.energizedpower.copper_cable.title": "Energy Transport",
+  "advancements.energizedpower.copper_cable.description": "Transport energy with cables.",
+
+  "advancements.energizedpower.energized_copper_cable.title": "Too much Power to handle",
+  "advancements.energizedpower.energized_copper_cable.description": "Cable with very high Power throughput!",
+
+  "advancements.energizedpower.energized_copper_ingot.title": "Energized",
+  "advancements.energizedpower.energized_copper_ingot.description": "Energized Copper is better Copper.",
+
+  "advancements.energizedpower.energized_power_book.title": "Endless Knowledge",
+  "advancements.energizedpower.energized_power_book.description": "A guide book for this mod.",
+
+  "advancements.energizedpower.energizedpower.title": "Energized Power",
+  "advancements.energizedpower.energizedpower.description": "This is the start of your energized power journey.",
+
+  "advancements.energizedpower.energizer.title": "More efficient energizing",
+  "advancements.energizedpower.energizer.description": "This machine can energize your copper ingots much faster and more efficient than the charger.",
+
+  "advancements.energizedpower.energy_analyzer.title": "Master of Analysis",
+  "advancements.energizedpower.energy_analyzer.description": "Analyze every energy block - even if they have no GUI interface!",
+
+  "advancements.energizedpower.inventory_coal_engine.title": "Inventory Power",
+  "advancements.energizedpower.inventory_coal_engine.description": "Produce and distribute energy in your inventory.",
+
+  "advancements.energizedpower.silicon.title": "Silicon",
+  "advancements.energizedpower.silicon.description": "This ingredient is used in nearly all items and blocks of this mod.",
+
+  "advancements.energizedpower.solar_panel_1.title": "Solar Power Student",
+  "advancements.energizedpower.solar_panel_1.description": "The Tier I solar panel...",
+
+  "advancements.energizedpower.solar_panel_2.title": "Solar Power Intern",
+  "advancements.energizedpower.solar_panel_2.description": "Tier II is better than Tier I",
+
+  "advancements.energizedpower.solar_panel_3.title": "Solar Power Employee",
+  "advancements.energizedpower.solar_panel_3.description": "Tier III - The best of the basic solar panels",
+
+  "advancements.energizedpower.solar_panel_4.title": "Solar Power Manager",
+  "advancements.energizedpower.solar_panel_4.description": "Tier IV: Only one to go!",
+
+  "advancements.energizedpower.solar_panel_5.title": "Solar Power Employer",
+  "advancements.energizedpower.solar_panel_5.description": "Tier V - You have got the best solar panel!",
+
+  "advancements.energizedpower.uncharger.title": "Give it back!",
+  "advancements.energizedpower.uncharger.description": "Uncharges your energy items."
 }
