@@ -30,7 +30,7 @@ There is also a guide book (Currently WIP)
 
 *Feel free to include this mod in your ModPack :-)*
 
-**WARNING**: This mod is currently in alpha. Many features are still being developed and some important features are missing
+**WARNING**: This mod is currently in alpha. Many features are still being developed
 
 ## Supported versions:
 - 1.19.3 (a1.0.x)
