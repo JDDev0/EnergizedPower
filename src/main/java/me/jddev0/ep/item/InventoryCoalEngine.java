@@ -179,7 +179,7 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
             }
         }
 
-        //Find new burning item
+        //Find and burn new fuel item
 
         //i: 0 - 8 -> Hotbar (Ignore)
         for(int i = 9;i < inventory.getContainerSize();i++) {
@@ -201,9 +201,8 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
             else
                 itemStack.getOrCreateTag().putInt("max_progress", (int)Math.ceil((float)energyProduction / MAX_EXTRACT));
 
-            int newCount = testItemStack.getCount() - 1;
             ItemStack newItemStack = testItemStack.copy();
-            newItemStack.setCount(newCount);
+            newItemStack.shrink(1);
             inventory.setItem(i, newItemStack);
 
             if(testItemStack.hasCraftingRemainingItem()) {
