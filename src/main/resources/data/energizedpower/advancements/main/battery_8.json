@@ -1,0 +1,30 @@
+{
+  "parent":  "energizedpower:main/battery_7",
+  "display": {
+    "icon": {
+      "item": "energizedpower:battery_8"
+    },
+    "title": "I need more POWER!",
+    "description": "This is the best battery of this mod (It can store more than 1 million FE)",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_battery_8": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:battery_8" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_battery_8"
+    ]
+  ]
+}

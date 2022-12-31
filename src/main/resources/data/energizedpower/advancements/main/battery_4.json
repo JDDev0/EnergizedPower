@@ -1,0 +1,30 @@
+{
+  "parent":  "energizedpower:main/battery_3",
+  "display": {
+    "icon": {
+      "item": "energizedpower:battery_4"
+    },
+    "title": "You ask for even more Energy",
+    "description": "Well this is Tier IV - only four to go",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_battery_4": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:battery_4" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_battery_4"
+    ]
+  ]
+}

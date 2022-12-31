@@ -1,0 +1,30 @@
+{
+  "parent":  "energizedpower:main/energized_copper_ingot",
+  "display": {
+    "icon": {
+      "item": "energizedpower:advanced_machine_frame"
+    },
+    "title": "Advanced Machines",
+    "description": "More advanced machines need this base crafting item.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_advanced_machine_frame": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:advanced_machine_frame" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_advanced_machine_frame"
+    ]
+  ]
+}

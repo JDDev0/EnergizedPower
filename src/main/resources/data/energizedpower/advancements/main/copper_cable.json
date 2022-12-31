@@ -1,0 +1,30 @@
+{
+  "parent":  "energizedpower:main/cable_insulator",
+  "display": {
+    "icon": {
+      "item": "energizedpower:copper_cable"
+    },
+    "title": "Energy Transport!",
+    "description": "Transport energy with cables.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_copper_cable": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:copper_cable" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_copper_cable"
+    ]
+  ]
+}

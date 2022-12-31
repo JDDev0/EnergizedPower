@@ -1,0 +1,30 @@
+{
+  "parent":  "energizedpower:main/energizedpower",
+  "display": {
+    "icon": {
+      "item": "energizedpower:battery_1"
+    },
+    "title": "Batteries!",
+    "description": "Stores energy in item form.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_battery_1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:battery_1" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_battery_1"
+    ]
+  ]
+}

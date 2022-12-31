@@ -1,0 +1,30 @@
+{
+  "parent":  "energizedpower:main/solar_panel_2",
+  "display": {
+    "icon": {
+      "item": "energizedpower:solar_panel_3"
+    },
+    "title": "Solar Power Employee!",
+    "description": "Tier III - The best of the basic solar panels",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_solar_panel_3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:solar_panel_3" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_solar_panel_3"
+    ]
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "parent":  "energizedpower:main/energized_copper_ingot",
+  "display": {
+    "icon": {
+      "item": "energizedpower:energized_copper_cable"
+    },
+    "title": "Too much Power to handle!",
+    "description": "Cable with very high Power throughput!",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_energized_copper_cable": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:energized_copper_cable" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_energized_copper_cable"
+    ]
+  ]
+}

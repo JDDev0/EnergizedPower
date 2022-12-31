@@ -1,0 +1,30 @@
+{
+  "parent":  "energizedpower:main/advanced_machine_frame",
+  "display": {
+    "icon": {
+      "item": "energizedpower:energizer"
+    },
+    "title": "More efficient energizing!",
+    "description": "This machine can energize your copper ingots much faster and more efficient than the charger.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_energizer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:energizer" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_energizer"
+    ]
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:copper_ingot"
+    },
+    "title": "Energized Power",
+    "description": "This is the start of your energized power journey.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "background": "energizedpower:textures/block/basic_machine_frame_side.png"
+  },
+  "criteria": {
+    "has_copper": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ingots/copper"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_copper"
+    ]
+  ]
+}

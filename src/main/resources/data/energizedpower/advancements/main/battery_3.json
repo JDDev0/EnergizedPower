@@ -1,0 +1,30 @@
+{
+  "parent":  "energizedpower:main/battery_2",
+  "display": {
+    "icon": {
+      "item": "energizedpower:battery_3"
+    },
+    "title": "More Energy",
+    "description": "Tier III: Twice the power of Tier II",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_battery_3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:battery_3" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_battery_3"
+    ]
+  ]
+}

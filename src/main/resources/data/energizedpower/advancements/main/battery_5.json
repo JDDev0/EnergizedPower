@@ -1,0 +1,30 @@
+{
+  "parent":  "energizedpower:main/battery_4",
+  "display": {
+    "icon": {
+      "item": "energizedpower:battery_5"
+    },
+    "title": "The best normal copper can do",
+    "description": "Tier V: You will need to energize the next battery tier...",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_battery_5": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:battery_5" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_battery_5"
+    ]
+  ]
+}

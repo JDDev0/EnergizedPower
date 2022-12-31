@@ -1,0 +1,30 @@
+{
+  "parent":  "energizedpower:main/charger",
+  "display": {
+    "icon": {
+      "item": "energizedpower:energized_copper_ingot"
+    },
+    "title": "Energized",
+    "description": "Energized Copper is better Copper.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_energized_copper_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:energized_copper_ingot" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_energized_copper_ingot"
+    ]
+  ]
+}

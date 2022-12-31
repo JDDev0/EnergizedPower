@@ -1,0 +1,30 @@
+{
+  "parent":  "energizedpower:main/battery_1",
+  "display": {
+    "icon": {
+      "item": "energizedpower:battery_2"
+    },
+    "title": "Energy x4",
+    "description": "This battery can store as much energy as 4 Tier I batteries.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_battery_2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:battery_2" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_battery_2"
+    ]
+  ]
+}

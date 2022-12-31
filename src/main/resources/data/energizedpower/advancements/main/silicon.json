@@ -1,0 +1,30 @@
+{
+  "parent":  "energizedpower:main/energizedpower",
+  "display": {
+    "icon": {
+      "item": "energizedpower:silicon"
+    },
+    "title": "Silicon",
+    "description": "This ingredient is used in nearly all items and blocks of this mod.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_silicon": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:silicon"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_silicon"
+    ]
+  ]
+}

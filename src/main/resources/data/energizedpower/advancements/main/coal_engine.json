@@ -1,0 +1,30 @@
+{
+  "parent":  "energizedpower:main/basic_machine_frame",
+  "display": {
+    "icon": {
+      "item": "energizedpower:coal_engine"
+    },
+    "title": "Powered by Coal!",
+    "description": "Producing energy by burning stuff might not be the most efficient but good enough for the moment.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_coal_engine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:coal_engine" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_coal_engine"
+    ]
+  ]
+}

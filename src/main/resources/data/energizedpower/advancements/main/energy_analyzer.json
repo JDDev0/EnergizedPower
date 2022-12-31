@@ -1,0 +1,30 @@
+{
+  "parent":  "energizedpower:main/battery_3",
+  "display": {
+    "icon": {
+      "item": "energizedpower:energy_analyzer"
+    },
+    "title": "Master of Analysis",
+    "description": "Analyze every energy block - even if they have no GUI interface!",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_energy_analyzer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:energy_analyzer" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_energy_analyzer"
+    ]
+  ]
+}

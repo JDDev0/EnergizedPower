@@ -1,0 +1,30 @@
+{
+  "parent":  "energizedpower:main/silicon",
+  "display": {
+    "icon": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "title": "The Foundation of Machines",
+    "description": "This is the base crafting item for every basic machine.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_basic_machine_frame": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:basic_machine_frame" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_basic_machine_frame"
+    ]
+  ]
+}

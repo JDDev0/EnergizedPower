@@ -1,0 +1,30 @@
+{
+  "parent":  "energizedpower:main/battery_6",
+  "display": {
+    "icon": {
+      "item": "energizedpower:battery_7"
+    },
+    "title": "You said you need more Power?",
+    "description": "Tier VII: A quarter million FE of storage capacity! Can we do better?",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_battery_7": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:battery_7" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_battery_7"
+    ]
+  ]
+}
