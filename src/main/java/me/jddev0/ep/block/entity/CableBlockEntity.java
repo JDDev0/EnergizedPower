@@ -166,6 +166,9 @@ public class CableBlockEntity extends BlockEntity {
         int productionSum = 0;
         for(IEnergyStorage energyStorage:blockEntity.producers.values()) {
             int extracted = energyStorage.extractEnergy(MAX_TRANSFER, true);
+            if(extracted <= 0)
+                continue;
+
             energyProduction.add(energyStorage);
             energyProductionValues.add(extracted);
             productionSum += extracted;
@@ -182,6 +185,9 @@ public class CableBlockEntity extends BlockEntity {
         int consumptionSum = 0;
         for(IEnergyStorage energyStorage:consumers) {
             int received = energyStorage.receiveEnergy(MAX_TRANSFER, true);
+            if(received <= 0)
+                continue;
+
             energyConsumption.add(energyStorage);
             energyConsumptionValues.add(received);
             consumptionSum += received;

@@ -11,6 +11,18 @@
   "book.energizedpower.page.0": "This is a test text value!",
   "book.energizedpower.page.1": "This is the second page... [WIP]",
 
+  "item.energizedpower.cable_insulator": "Cable Insulator",
+  "tooltip.energizedpower.cable_insulator.txt.shift.1": "This item can be crafted by clicking on a wool block with shears.",
+
+  "item.energizedpower.inventory_coal_engine": "Inventory Coal Engine",
+  "tooltip.energizedpower.inventory_coal_engine.status": "Status: ",
+  "tooltip.energizedpower.inventory_coal_engine.status.activated": "Activated",
+  "tooltip.energizedpower.inventory_coal_engine.status.deactivated": "Deactivated",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.1": "Activation status can be changed by using this item on air",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.2": "If active items will be taken from the inventory but not from the hotbar.",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning": "Currently burning: ",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.energy_production_left": "Energy Production Left: %s",
+
   "item.energizedpower.battery_1": "Battery (Tier I)",
   "item.energizedpower.battery_2": "Battery (Tier II)",
   "item.energizedpower.battery_3": "Battery (Tier III)",
@@ -20,9 +32,6 @@
   "item.energizedpower.battery_7": "Battery (Tier VII)",
   "item.energizedpower.battery_8": "Battery (Tier VIII)",
   "tooltip.energizedpower.battery.txt.shift.1": "This battery can transfer %s/t.",
-
-  "item.energizedpower.cable_insulator": "Cable Insulator",
-  "tooltip.energizedpower.cable_insulator.txt.shift.1": "This item can be crafted by clicking on a wool block with shears.",
 
   "item.energizedpower.energy_analyzer": "Energy Analyzer",
   "tooltip.energizedpower.energy_analyzer.txt.shift.1": "Click on an energy block to retrieve information.",

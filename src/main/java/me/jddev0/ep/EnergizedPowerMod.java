@@ -3,24 +3,22 @@ package me.jddev0.ep;
 import com.mojang.logging.LogUtils;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.ModBlockEntities;
-import me.jddev0.ep.item.BatteryItem;
-import me.jddev0.ep.item.EnergyAnalyzerItem;
-import me.jddev0.ep.item.ModCreativeModeTab;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.item.*;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.*;
 import me.jddev0.ep.villager.ModVillager;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
 import net.minecraft.nbt.IntTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -39,6 +37,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
+
+import javax.annotation.Nullable;
 
 @Mod(EnergizedPowerMod.MODID)
 public class EnergizedPowerMod {
@@ -145,8 +145,7 @@ public class EnergizedPowerMod {
             event.accept(ModItems.BASIC_SOLAR_CELL);
             event.accept(ModItems.ADVANCED_SOLAR_CELL);
 
-            event.accept(ModBlocks.BASIC_MACHINE_FRAME_ITEM);
-            event.accept(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM);
+            addEmptyAndFullyChargedItem(event, ModItems.INVENTORY_COAL_ENGINE, InventoryCoalEngine.CAPACITY);
 
             addEmptyAndFullyChargedItem(event, ModItems.BATTERY_1, BatteryItem.Tier.BATTERY_1.getCapacity());
             addEmptyAndFullyChargedItem(event, ModItems.BATTERY_2, BatteryItem.Tier.BATTERY_2.getCapacity());
@@ -156,6 +155,9 @@ public class EnergizedPowerMod {
             addEmptyAndFullyChargedItem(event, ModItems.BATTERY_6, BatteryItem.Tier.BATTERY_6.getCapacity());
             addEmptyAndFullyChargedItem(event, ModItems.BATTERY_7, BatteryItem.Tier.BATTERY_7.getCapacity());
             addEmptyAndFullyChargedItem(event, ModItems.BATTERY_8, BatteryItem.Tier.BATTERY_8.getCapacity());
+
+            event.accept(ModBlocks.BASIC_MACHINE_FRAME_ITEM);
+            event.accept(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM);
 
             event.accept(ModBlocks.SILICON_BLOCK_ITEM);
             event.accept(ModItems.CABLE_INSULATOR);
@@ -178,6 +180,19 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.UNCHARGER_MENU.get(), UnchargerScreen::new);
             MenuScreens.register(ModMenuTypes.ENERGIZER_MENU.get(), EnergizerScreen::new);
             MenuScreens.register(ModMenuTypes.COAL_ENGINE_MENU.get(), CoalEngineScreen::new);
+
+            event.enqueueWork(() -> {
+                ItemProperties.registerGeneric(new ResourceLocation(MODID, "active"), (itemStack, level, entity, seed) -> {
+                    Item item = itemStack.getItem();
+                    return (item instanceof ActivatableItem && ((ActivatableItem)item).isActive(itemStack))?1.f:0.f;
+                });
+            });
+            event.enqueueWork(() -> {
+                ItemProperties.registerGeneric(new ResourceLocation(MODID, "working"), (itemStack, level, entity, seed) -> {
+                    Item item = itemStack.getItem();
+                    return (item instanceof WorkingItem && ((WorkingItem)item).isWorking(itemStack))?1.f:0.f;
+                });
+            });
         }
     }
 }

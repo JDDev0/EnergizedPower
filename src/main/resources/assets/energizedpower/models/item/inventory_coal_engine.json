@@ -1,0 +1,16 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "energizedpower:item/inventory_coal_engine"
+  },
+  "overrides": [
+    {
+      "predicate": { "energizedpower:active": 1.0 },
+      "model": "energizedpower:item/inventory_coal_engine_active"
+    },
+    {
+      "predicate": { "energizedpower:active": 1.0, "energizedpower:working": 1.0 },
+      "model": "energizedpower:item/inventory_coal_engine_on"
+    }
+  ]
+}

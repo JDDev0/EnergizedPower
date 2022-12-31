@@ -25,6 +25,9 @@ public class ModItems {
     public static final RegistryObject<Item> CABLE_INSULATOR = ITEMS.register("cable_insulator",
             () -> new CableInsulatorItem(new Item.Properties()));
 
+    public static final RegistryObject<Item> INVENTORY_COAL_ENGINE = ITEMS.register("inventory_coal_engine",
+            () -> new InventoryCoalEngine(new Item.Properties().stacksTo(1)));
+
     public static final RegistryObject<Item> BATTERY_1 = ITEMS.register("battery_1",
             () -> new BatteryItem(BatteryItem.Tier.BATTERY_1));
     public static final RegistryObject<Item> BATTERY_2 = ITEMS.register("battery_2",
