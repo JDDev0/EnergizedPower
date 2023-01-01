@@ -30,7 +30,7 @@ public class ChargingStationBlock extends BaseEntityBlock {
     public ChargingStationBlock(Properties props) {
         super(props);
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(CHARGING, Boolean.FALSE));
+        this.registerDefaultState(this.stateDefinition.any().setValue(CHARGING, false));
     }
 
     @Nullable

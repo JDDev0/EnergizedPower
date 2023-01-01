@@ -243,7 +243,7 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
                 }
             }else {
                 blockEntity.hasEnoughEnergy = false;
-                level.setBlock(blockPos, state.setValue(EnergizerBlock.LIT, Boolean.FALSE), 3);
+                level.setBlock(blockPos, state.setValue(EnergizerBlock.LIT, false), 3);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);
@@ -256,7 +256,7 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
         energyConsumptionLeft = -1;
         hasEnoughEnergy = true;
 
-        level.setBlock(blockPos, state.setValue(EnergizerBlock.LIT, Boolean.FALSE), 3);
+        level.setBlock(blockPos, state.setValue(EnergizerBlock.LIT, false), 3);
     }
 
     private static void craftItem(BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {

@@ -31,7 +31,7 @@ public class EnergizerBlock extends BaseEntityBlock {
     protected EnergizerBlock(Properties props) {
         super(props);
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, Boolean.FALSE));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false));
     }
 
     @Nullable

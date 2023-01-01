@@ -59,8 +59,8 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     public CableBlock(Tier tier) {
         super(tier.getProperties());
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(UP, Boolean.FALSE).setValue(DOWN, Boolean.FALSE).
-                setValue(NORTH, Boolean.FALSE).setValue(SOUTH, Boolean.FALSE).setValue(EAST, Boolean.FALSE).setValue(WEST, Boolean.FALSE).
+        this.registerDefaultState(this.stateDefinition.any().setValue(UP, false).setValue(DOWN, false).
+                setValue(NORTH, false).setValue(SOUTH, false).setValue(EAST, false).setValue(WEST, false).
                 setValue(WATERLOGGED, false));
 
         this.tier = tier;

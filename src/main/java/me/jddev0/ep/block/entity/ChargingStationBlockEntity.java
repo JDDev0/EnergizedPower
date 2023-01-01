@@ -118,7 +118,7 @@ public class ChargingStationBlockEntity extends BlockEntity implements EnergySto
 
         if(energyPerTickLeft == energyPerTick) {
             if(!level.getBlockState(blockPos).hasProperty(ChargingStationBlock.CHARGING) || level.getBlockState(blockPos).getValue(ChargingStationBlock.CHARGING))
-                level.setBlock(blockPos, state.setValue(ChargingStationBlock.CHARGING, Boolean.FALSE), 3);
+                level.setBlock(blockPos, state.setValue(ChargingStationBlock.CHARGING, false), 3);
         }else {
             if(!level.getBlockState(blockPos).hasProperty(ChargingStationBlock.CHARGING) || !level.getBlockState(blockPos).getValue(ChargingStationBlock.CHARGING))
                 level.setBlock(blockPos, state.setValue(ChargingStationBlock.CHARGING, Boolean.TRUE), 3);

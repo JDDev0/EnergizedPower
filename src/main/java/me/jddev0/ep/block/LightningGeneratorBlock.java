@@ -35,7 +35,7 @@ public class LightningGeneratorBlock extends BaseEntityBlock {
     public LightningGeneratorBlock(Properties props) {
         super(props);
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(HIT_BY_LIGHTNING_BOLT, Boolean.FALSE));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HIT_BY_LIGHTNING_BOLT, false));
     }
 
     @Nullable
@@ -81,7 +81,7 @@ public class LightningGeneratorBlock extends BaseEntityBlock {
 
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos blockPos, RandomSource randomSource) {
-        level.setBlock(blockPos, state.setValue(HIT_BY_LIGHTNING_BOLT, Boolean.FALSE), 3);
+        level.setBlock(blockPos, state.setValue(HIT_BY_LIGHTNING_BOLT, false), 3);
     }
 
     @Override

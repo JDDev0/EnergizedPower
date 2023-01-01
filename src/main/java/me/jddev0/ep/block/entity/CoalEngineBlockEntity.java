@@ -256,7 +256,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
         energyProductionLeft = -1;
         hasEnoughCapacityForProduction = true;
 
-        level.setBlock(blockPos, state.setValue(CoalEngineBlock.LIT, Boolean.FALSE), 3);
+        level.setBlock(blockPos, state.setValue(CoalEngineBlock.LIT, false), 3);
     }
 
     private static boolean hasRecipe(CoalEngineBlockEntity blockEntity) {
