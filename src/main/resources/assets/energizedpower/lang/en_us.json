@@ -8,8 +8,6 @@
 
   "item.energizedpower.energized_power_book": "Energized Power Book",
   "book.energizedpower.front.cover.text": "This is the guide book for this mod!",
-  "book.energizedpower.page.0": "This is a test text value!",
-  "book.energizedpower.page.1": "This is the second page... [WIP]",
 
   "item.energizedpower.cable_insulator": "Cable Insulator",
   "tooltip.energizedpower.cable_insulator.txt.shift.1": "This item can be crafted by clicking on a wool block with shears.",
@@ -139,6 +137,7 @@
   "advancements.energizedpower.basic_solar_cell.title": "Solar Power Basics",
   "advancements.energizedpower.basic_solar_cell.description": "Your first solar cell of two required for your first solar panel.",
 
+
   "advancements.energizedpower.battery_1.title": "Batteries",
   "advancements.energizedpower.battery_1.description": "Stores energy in item form.",
 
@@ -221,5 +220,31 @@
   "advancements.energizedpower.solar_panel_5.description": "Tier V - You have got the best solar panel!",
 
   "advancements.energizedpower.uncharger.title": "Give it back!",
-  "advancements.energizedpower.uncharger.description": "Uncharges your energy items."
+  "advancements.energizedpower.uncharger.description": "Uncharges your energy items.",
+
+
+  "book.energizedpower.page.welcome": "Welcome to Energized Power! This mod adds many items and machines related to energy. This mod adds the electrician villager profession which can be found in the electrician house in every vanilla village type.",
+
+  "book.energizedpower.page.chapter.resources.title": "Resources",
+  "book.energizedpower.page.chapter.resources": "Chapter resources... [WIP]",
+  "book.energizedpower.page.cable_insulator": "Cable insulator... [WIP]",
+  "book.energizedpower.page.silicon": "Silicon... [WIP]",
+  "book.energizedpower.page.energized_copper_ingot": "Energized Copper Ingot... [WIP]",
+
+  "book.energizedpower.page.chapter.energy_items.title": "Energy Items",
+  "book.energizedpower.page.chapter.energy_items": "Energy Items... [WIP]",
+  "book.energizedpower.page.inventory_coal_engine": "Inventory Coal Engine... [WIP]",
+  "book.energizedpower.page.energy_analyzer": "Energy Analyzer... [WIP]",
+  "book.energizedpower.page.batteries": "Batteries... [WIP]",
+
+  "book.energizedpower.page.chapter.energy_blocks.title": "Energy Blocks",
+  "book.energizedpower.page.chapter.energy_blocks": "Energy Blocks... [WIP]",
+  "book.energizedpower.page.cables": "Cables... [WIP]",
+  "book.energizedpower.page.machine_frames": "Machine Frames... [WIP]",
+  "book.energizedpower.page.solar_panels": "Solar Panels... [WIP]",
+  "book.energizedpower.page.coal_engine": "Coal Engine... [WIP]",
+  "book.energizedpower.page.auto_crafter": "Auto Crafter... [WIP]",
+  "book.energizedpower.page.charger_uncharger": "Charger/Uncharger... [WIP]",
+  "book.energizedpower.page.charging_station": "Charging Station... [WIP]",
+  "book.energizedpower.page.energizer": "Energizer... [WIP]"
 }

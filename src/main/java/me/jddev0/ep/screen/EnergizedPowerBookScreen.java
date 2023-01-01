@@ -5,6 +5,16 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.PopEnergizedPowerBookFromLecternC2SPacket;
+import me.jddev0.ep.screen.book.chapter.WelcomePage;
+import me.jddev0.ep.screen.book.chapter.energy.blocks.*;
+import me.jddev0.ep.screen.book.chapter.energy.items.BatteriesPage;
+import me.jddev0.ep.screen.book.chapter.energy.items.EnergyAnalyzerPage;
+import me.jddev0.ep.screen.book.chapter.energy.items.EnergyItemsChapterPage;
+import me.jddev0.ep.screen.book.chapter.energy.items.InventoryCoalEnginePage;
+import me.jddev0.ep.screen.book.chapter.resources.CableInsulatorPage;
+import me.jddev0.ep.screen.book.chapter.resources.EnergizedCopperIngotPage;
+import me.jddev0.ep.screen.book.chapter.resources.ResourcesChapterPage;
+import me.jddev0.ep.screen.book.chapter.resources.SiliconPage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.GameNarrator;
 import net.minecraft.client.gui.components.Button;
@@ -35,9 +45,29 @@ public class EnergizedPowerBookScreen extends Screen {
 
     private final LecternBlockEntity lecternBlockEntity;
 
+    //TODO load from assets json [Use texture path and string ids instead]
     private final static List<PageContent> content = List.of(
-            () -> Component.translatable("book.energizedpower.page." + 0),
-            () -> Component.translatable("book.energizedpower.page." + 1)
+            new WelcomePage(),
+
+            new ResourcesChapterPage(),
+            new CableInsulatorPage(),
+            new SiliconPage(),
+            new EnergizedCopperIngotPage(),
+
+            new EnergyItemsChapterPage(),
+            new InventoryCoalEnginePage(),
+            new EnergyAnalyzerPage(),
+            new BatteriesPage(),
+
+            new EnergyBlocksChapterPage(),
+            new CablesPage(),
+            new MachineFramesPage(),
+            new SolarPanelsPage(),
+            new CoalEnginePage(),
+            new AutoCrafterPage(),
+            new ChargerUnchargerPage(),
+            new ChargingStationPage(),
+            new EnergizerPage()
     );
     private int currentPage;
     private Component currentPageNumberOutput = CommonComponents.EMPTY;
@@ -218,16 +248,32 @@ public class EnergizedPowerBookScreen extends Screen {
 
             return;
         }else if(currentPage == getPageCount() - 1) {
-            renderEnergizedPowerIngot(poseStack, -1);
+            renderImageCentered(poseStack, ENERGIZED_COPPER_INGOT, -1);
 
             super.render(poseStack, mouseX, mouseY, partialTicks);
 
             return;
         }
 
+        int yOffset = 0;
+
+        //TODO title
+        //TODO add line breaks (Maybe list of cached page components)
+
+        //TODO add link components to get to other pages
+
+        ResourceLocation image = content.get(currentPage - 1).getItemImage();
+        if(image != null) {
+            renderImageCentered(poseStack, image, yOffset + 15);
+
+            yOffset += 60;
+        }
+
+        //TODO add 3d rendering for block id
+
         for(int i = 0;i < cachedPageComponents.size();i++) {
             FormattedCharSequence formattedCharSequence = cachedPageComponents.get(i);
-            font.draw(poseStack, formattedCharSequence, startX + 36.f, 20.f + 9 * i, 0);
+            font.draw(poseStack, formattedCharSequence, startX + 36.f, 20.f + yOffset + 9 * i, 0);
         }
 
         Style style = getComponentStyleAt(mouseX, mouseY);
@@ -258,16 +304,16 @@ public class EnergizedPowerBookScreen extends Screen {
             font.draw(poseStack, formattedCharSequence, startX + 36.f, 120.f + 9 * i, 0);
         }
 
-        renderEnergizedPowerIngot(poseStack, 48);
+        renderImageCentered(poseStack, ENERGIZED_COPPER_INGOT, 48);
     }
 
-    private void renderEnergizedPowerIngot(PoseStack poseStack, int y) {
+    private void renderImageCentered(PoseStack poseStack, ResourceLocation image, int y) {
         float scaleFactor = .25f;
 
         if(y == -1) //Centered
             y = (int)((192 - 256 * scaleFactor) * .5f) + 2;
 
-        RenderSystem.setShaderTexture(0, ENERGIZED_COPPER_INGOT);
+        RenderSystem.setShaderTexture(0, image);
         poseStack.scale(scaleFactor, scaleFactor, 1.f);
         blit(poseStack, (int)((width / scaleFactor - 256) * .5f), (int)(y / scaleFactor), 0, 0, 256, 256);
         poseStack.scale(1/scaleFactor, 1/scaleFactor, 1.f);
@@ -300,7 +346,19 @@ public class EnergizedPowerBookScreen extends Screen {
 
     @OnlyIn(Dist.CLIENT)
     @FunctionalInterface
-    private interface PageContent {
+    public interface PageContent {
+        default Component getTitleComponent() {
+            return null;
+        }
+
         Component getPageContent();
+
+        default ResourceLocation getItemImage() {
+            return null;
+        }
+
+        default ResourceLocation getBlockId() {
+            return null;
+        }
     }
 }
