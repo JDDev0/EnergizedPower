@@ -13,6 +13,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -22,6 +23,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -34,13 +37,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class CableBlock extends BaseEntityBlock {
+public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty UP = BlockStateProperties.UP;
     public static final BooleanProperty DOWN = BlockStateProperties.DOWN;
     public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
     public static final BooleanProperty SOUTH = BlockStateProperties.SOUTH;
     public static final BooleanProperty EAST = BlockStateProperties.EAST;
     public static final BooleanProperty WEST = BlockStateProperties.WEST;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     private static final VoxelShape SHAPE_CORE = Block.box(6.d, 6.d, 6.d, 10.d, 10.d, 10.d);
     private static final VoxelShape SHAPE_UP = Block.box(6.d, 10.d, 6.d, 10.d, 16.d, 10.d);
@@ -56,7 +60,8 @@ public class CableBlock extends BaseEntityBlock {
         super(tier.getProperties());
 
         this.registerDefaultState(this.stateDefinition.any().setValue(UP, Boolean.FALSE).setValue(DOWN, Boolean.FALSE).
-                setValue(NORTH, Boolean.FALSE).setValue(SOUTH, Boolean.FALSE).setValue(EAST, Boolean.FALSE).setValue(WEST, Boolean.FALSE));
+                setValue(NORTH, Boolean.FALSE).setValue(SOUTH, Boolean.FALSE).setValue(EAST, Boolean.FALSE).setValue(WEST, Boolean.FALSE).
+                setValue(WATERLOGGED, false));
 
         this.tier = tier;
     }
@@ -70,6 +75,7 @@ public class CableBlock extends BaseEntityBlock {
     public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
         Level level = blockPlaceContext.getLevel();
         BlockPos selfPos = blockPlaceContext.getClickedPos();
+        FluidState fluidState = level.getFluidState(selfPos);
 
         return defaultBlockState().
                 setValue(UP, shouldConnectTo(level, selfPos, Direction.UP)).
@@ -77,7 +83,8 @@ public class CableBlock extends BaseEntityBlock {
                 setValue(NORTH, shouldConnectTo(level, selfPos, Direction.NORTH)).
                 setValue(SOUTH, shouldConnectTo(level, selfPos, Direction.SOUTH)).
                 setValue(EAST, shouldConnectTo(level, selfPos, Direction.EAST)).
-                setValue(WEST, shouldConnectTo(level, selfPos, Direction.WEST));
+                setValue(WEST, shouldConnectTo(level, selfPos, Direction.WEST)).
+                setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
     }
 
     @Override
@@ -106,8 +113,21 @@ public class CableBlock extends BaseEntityBlock {
     }
 
     @Override
+    public FluidState getFluidState(BlockState state) {
+        return state.getValue(WATERLOGGED)?Fluids.WATER.getSource(false):super.getFluidState(state);
+    }
+
+    @Override
+    public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos selfPos, BlockPos facingPos) {
+        if(state.getValue(WATERLOGGED))
+            level.scheduleTick(selfPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+
+        return super.updateShape(state, facing, facingState, level, selfPos, facingPos);
+    }
+
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
-        stateBuilder.add(UP).add(DOWN).add(NORTH).add(SOUTH).add(EAST).add(WEST);
+        stateBuilder.add(UP).add(DOWN).add(NORTH).add(SOUTH).add(EAST).add(WEST).add(WATERLOGGED);
     }
 
     @Override
@@ -117,13 +137,16 @@ public class CableBlock extends BaseEntityBlock {
         if(level.isClientSide())
             return;
 
+        FluidState fluidState = level.getFluidState(selfPos);
+
         level.setBlockAndUpdate(selfPos, defaultBlockState().
                 setValue(UP, shouldConnectTo(level, selfPos, Direction.UP)).
                 setValue(DOWN, shouldConnectTo(level, selfPos, Direction.DOWN)).
                 setValue(NORTH, shouldConnectTo(level, selfPos, Direction.NORTH)).
                 setValue(SOUTH, shouldConnectTo(level, selfPos, Direction.SOUTH)).
                 setValue(EAST, shouldConnectTo(level, selfPos, Direction.EAST)).
-                setValue(WEST, shouldConnectTo(level, selfPos, Direction.WEST))
+                setValue(WEST, shouldConnectTo(level, selfPos, Direction.WEST)).
+                setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER)
         );
 
 
