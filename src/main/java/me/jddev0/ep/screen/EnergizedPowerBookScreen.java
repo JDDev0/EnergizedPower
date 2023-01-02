@@ -1,5 +1,7 @@
 package me.jddev0.ep.screen;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
@@ -7,17 +9,50 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.PopEnergizedPowerBookFromLecternC2SPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.GameNarrator;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.block.BlockColor;
+import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.ModelBlockRenderer;
+import net.minecraft.client.renderer.block.model.BlockModel;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.ModelManager;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.ChunkRenderTypeSet;
+import net.minecraftforge.client.RenderTypeHelper;
+import net.minecraftforge.client.model.data.ModelData;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,7 +72,6 @@ public class EnergizedPowerBookScreen extends Screen {
 
     private final LecternBlockEntity lecternBlockEntity;
 
-    //TODO load from assets json [Use texture path and string ids instead]
     public static List<PageContent> pages = new LinkedList<>();
     private int currentPage;
     private Component currentPageNumberOutput = CommonComponents.EMPTY;
@@ -129,10 +163,14 @@ public class EnergizedPowerBookScreen extends Screen {
         return switch(keyCode) {
             case 266 -> {
                 backButton.onPress();
+                minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.f));
+
                 yield true;
             }
             case 267 -> {
                 forwardButton.onPress();
+                minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.f));
+
                 yield true;
             }
 
@@ -228,7 +266,6 @@ public class EnergizedPowerBookScreen extends Screen {
         int yOffset = 0;
 
         //TODO title
-        //TODO add line breaks (Maybe list of cached page components)
 
         //TODO add link components to get to other pages
 
@@ -239,7 +276,12 @@ public class EnergizedPowerBookScreen extends Screen {
             yOffset += 60;
         }
 
-        //TODO add 3d rendering for block id
+        ResourceLocation block = pages.get(currentPage - 1).getBlockResourceLocation();
+        if(block != null) {
+            renderBlockCentered(poseStack, block, yOffset + 15);
+
+            yOffset += 60;
+        }
 
         for(int i = 0;i < cachedPageComponents.size();i++) {
             FormattedCharSequence formattedCharSequence = cachedPageComponents.get(i);
@@ -289,11 +331,47 @@ public class EnergizedPowerBookScreen extends Screen {
         poseStack.scale(1/scaleFactor, 1/scaleFactor, 1.f);
     }
 
+    private void renderBlockCentered(PoseStack poseStack, ResourceLocation blockResourceLocation, int y) {
+        if(y == -1) //Centered
+            y = (int)((192 - 64) * .5f) + 2;
+
+        Block block = ForgeRegistries.BLOCKS.getValue(blockResourceLocation);
+        ItemStack itemStack = new ItemStack(block);
+
+        ItemRenderer itemRenderer = minecraft.getItemRenderer();
+        TextureManager textureManager = minecraft.getTextureManager();
+
+        BakedModel bakedModel = itemRenderer.getModel(itemStack, null, null, 0);
+
+        textureManager.getTexture(InventoryMenu.BLOCK_ATLAS).setFilter(false, false);
+        RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
+
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+
+        RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
+
+        poseStack.pushPose();
+        poseStack.translate((int)(width * .5f), y + 64.f * .5f, 50.f);
+        poseStack.scale(64.f, -64.f, 1.f);
+
+        MultiBufferSource.BufferSource bufferSource = minecraft.renderBuffers().bufferSource();
+        Lighting.setupForEntityInInventory();
+
+        itemRenderer.render(itemStack, ItemTransforms.TransformType.GUI, false, poseStack, bufferSource,
+                LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, bakedModel);
+
+        bufferSource.endBatch();
+        RenderSystem.enableDepthTest();
+
+        poseStack.popPose();
+    }
+
     private Style getComponentStyleAt(double x, double y) {
         if(cachedPageComponents.isEmpty())
             return null;
 
-        int componentX = Mth.floor(x - (width - 192) / 2. - 36.);
+        int componentX = Mth.floor(x - (width - 192) * .5 - 36.);
         int componentY = Mth.floor(y - 20.);
         if(componentX < 0 || componentY < 0)
             return null;
