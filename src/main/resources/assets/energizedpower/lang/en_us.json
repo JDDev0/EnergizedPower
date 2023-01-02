@@ -272,6 +272,9 @@
   "book.energizedpower.page.machine_frames.2": "There are two machine frames: Basic and Advanced",
   "book.energizedpower.page.machine_frames.3": "The Basic Machine Frame can be used to get an electrician villager.",
 
+  "book.energizedpower.page.solar_cells.1": "Solar Cells are the base crafting item for every solar panel.",
+  "book.energizedpower.page.solar_cells.2": "There are two solar cells: Basic and Advanced",
+
   "book.energizedpower.page.solar_panels.1": "Solar Panels produce energy during the day. The efficiency depends on the time and on the weather.",
   "book.energizedpower.page.solar_panels.2": "There are 5 Solar Panel Tiers.",
   "book.energizedpower.page.solar_panels.3": "Tier IV and Tier V require Energized Copper Ingots.",
