@@ -30,7 +30,5 @@ There is also a guide book
 
 *Feel free to include this mod in your ModPack :-)*
 
-**WARNING**: This mod is currently in beta.
-
 ## Supported versions:
 - 1.19.3 (Mod versions: 1.0.x)
