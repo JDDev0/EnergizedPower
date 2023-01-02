@@ -49,8 +49,8 @@ public class ModEvents {
                     new ItemStack(Items.EMERALD, 1),
                     25, 1, .02f);
             addOffer(trades, 1,
-                    new ItemStack(ModItems.SILICON.get(), 9),
-                    new ItemStack(Items.EMERALD, 4),
+                    new ItemStack(ModItems.SILICON.get(), 3),
+                    new ItemStack(Items.EMERALD, 2),
                     15, 2, .02f);
 
             //Level 2
@@ -60,13 +60,14 @@ public class ModEvents {
                     5, 5, .02f);
             {
 
-                ItemStack energyAnalyzer = new ItemStack(ModItems.ENERGY_ANALYZER.get());
-                energyAnalyzer.getOrCreateTag().put("energy", IntTag.valueOf(16 * EnergyAnalyzerItem.ENERGY_CONSUMPTION_PER_USE));
+                ItemStack energyAnalyzer = new ItemStack(ModItems.BATTERY_2.get());
+                energyAnalyzer.getOrCreateTag().put("energy", IntTag.valueOf(128));
 
                 addOffer(trades, 2,
-                        new ItemStack(Items.EMERALD, 9),
+                        new ItemStack(Items.EMERALD, 6),
+                        new ItemStack(Items.COPPER_INGOT, 4),
                         energyAnalyzer,
-                        10, 8, .02f);
+                        3, 8, .02f);
             }
 
             //Level 3
@@ -75,35 +76,41 @@ public class ModEvents {
                     new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get(), 1),
                     new ItemStack(ModBlocks.AUTO_CRAFTER_ITEM.get(), 1),
                     5, 10, .02f);
-            addOffer(trades, 3,
-                    new ItemStack(Items.EMERALD, 8),
-                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get(), 1),
-                    new ItemStack(ModBlocks.COAL_ENGINE_ITEM.get(), 1),
-                    5, 14, .02f);
+            {
+
+                ItemStack energyAnalyzer = new ItemStack(ModItems.ENERGY_ANALYZER.get());
+                energyAnalyzer.getOrCreateTag().put("energy", IntTag.valueOf(16 * EnergyAnalyzerItem.ENERGY_CONSUMPTION_PER_USE));
+
+                addOffer(trades, 3,
+                        new ItemStack(Items.EMERALD, 16),
+                        new ItemStack(Items.COPPER_INGOT, 12),
+                        energyAnalyzer,
+                        1, 12, .02f);
+            }
 
             //Level 4
             addOffer(trades, 4,
                     new ItemStack(Items.EMERALD, 8),
                     new ItemStack(ModItems.BASIC_SOLAR_CELL.get(), 2),
                     new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_1.get(), 1),
-                    5, 19, .02f);
+                    3, 19, .02f);
             addOffer(trades, 4,
-                    new ItemStack(Items.EMERALD, 47),
-                    new ItemStack(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM.get(), 1),
-                    new ItemStack(ModBlocks.ENERGIZER_ITEM.get(), 1),
-                    2, 26, .02f);
+                    new ItemStack(Items.EMERALD, 14),
+                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get(), 1),
+                    new ItemStack(ModBlocks.COAL_ENGINE_ITEM.get(), 1),
+                    2, 24, .02f);
 
             //Level 5
             addOffer(trades, 5,
                     new ItemStack(Items.EMERALD, 59),
                     new ItemStack(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM.get(), 1),
                     new ItemStack(ModBlocks.LIGHTNING_GENERATOR_ITEM.get(), 1),
-                    2, 30, .02f);
+                    1, 30, .02f);
             addOffer(trades, 5,
                     new ItemStack(Items.EMERALD, 24),
                     new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_1.get(), 2),
                     new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_2.get(), 1),
-                    5, 41, .02f);
+                    3, 41, .02f);
         }
     }
 
