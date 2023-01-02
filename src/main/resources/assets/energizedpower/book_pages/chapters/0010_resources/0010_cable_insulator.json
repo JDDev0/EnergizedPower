@@ -1,0 +1,29 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.cable_insulator.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "translate": "book.energizedpower.page.cable_insulator.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "translate": "book.energizedpower.page.cable_insulator.3",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "image": "energizedpower:textures/item/cable_insulator.png"
+}

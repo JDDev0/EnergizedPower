@@ -1,0 +1,15 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.chapter.resources.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "title": {
+    "translate": "book.energizedpower.page.chapter.resources.title",
+    "color": "gold",
+    "bold": true
+  }
+}

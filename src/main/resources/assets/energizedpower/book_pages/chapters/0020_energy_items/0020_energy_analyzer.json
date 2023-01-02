@@ -1,0 +1,20 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.energy_analyzer.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "translate": "book.energizedpower.page.energy_analyzer.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "image": "energizedpower:textures/item/energy_analyzer.png"
+}

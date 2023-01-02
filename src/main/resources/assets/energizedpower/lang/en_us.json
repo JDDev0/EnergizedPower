@@ -223,28 +223,59 @@
   "advancements.energizedpower.uncharger.description": "Uncharges your energy items.",
 
 
-  "book.energizedpower.page.welcome": "Welcome to Energized Power! This mod adds many items and machines related to energy. This mod adds the electrician villager profession which can be found in the electrician house in every vanilla village type.",
+  "book.energizedpower.page.welcome.title": "Welcome to Energized Power!",
+  "book.energizedpower.page.welcome.1": "This mod adds many items and machines related to energy.",
+  "book.energizedpower.page.welcome.2": "The electrician villager which can be found in the electrician house was also added.",
+  "book.energizedpower.page.welcome.3": "The electrician house can be found in every vanilla village type.",
+
 
   "book.energizedpower.page.chapter.resources.title": "Resources",
-  "book.energizedpower.page.chapter.resources": "Chapter resources... [WIP]",
-  "book.energizedpower.page.cable_insulator": "Cable insulator... [WIP]",
-  "book.energizedpower.page.silicon": "Silicon... [WIP]",
-  "book.energizedpower.page.energized_copper_ingot": "Energized Copper Ingot... [WIP]",
+  "book.energizedpower.page.chapter.resources.1": "Chapter resources... [WIP]",
+
+  "book.energizedpower.page.cable_insulator.1": "The cable insulator is required for cable crafting recipes.",
+  "book.energizedpower.page.cable_insulator.2": "It can be crafted by clicking on a wool block with shears.",
+  "book.energizedpower.page.cable_insulator.3": "It can also be crafted with a dispenser.",
+
+  "book.energizedpower.page.silicon.1": "Silicon is an ingredient used in many crafting recipes of this mod.",
+  "book.energizedpower.page.silicon.2": "It can be crafted by smelting or blasting nether quartz.",
+
+  "book.energizedpower.page.energized_copper_ingot.1": "Energized Copper Ingots are required for advanced machines like the energizer.",
+  "book.energizedpower.page.energized_copper_ingot.2": "The energizer is crafted with this ingot, isn't it?",
+  "book.energizedpower.page.energized_copper_ingot.3": "The charger can be used.",
+  "book.energizedpower.page.energized_copper_ingot.4": " [But it's expensive]",
+
 
   "book.energizedpower.page.chapter.energy_items.title": "Energy Items",
   "book.energizedpower.page.chapter.energy_items": "Energy Items... [WIP]",
-  "book.energizedpower.page.inventory_coal_engine": "Inventory Coal Engine... [WIP]",
-  "book.energizedpower.page.energy_analyzer": "Energy Analyzer... [WIP]",
-  "book.energizedpower.page.batteries": "Batteries... [WIP]",
+
+  "book.energizedpower.page.inventory_coal_engine.1": "This item can produce and distribute energy in your inventory.",
+  "book.energizedpower.page.inventory_coal_engine.2": "It can be activated by clicking in the air.",
+  "book.energizedpower.page.inventory_coal_engine.3": "Fuel will then automatically be taken from the inventory.",
+  "book.energizedpower.page.inventory_coal_engine.4": " [The hotbar is excluded]",
+
+  "book.energizedpower.page.energy_analyzer.1": "The Energy Analyzer can be used to get energy statics. Mainly used for energy blocks without a GUI.",
+  "book.energizedpower.page.energy_analyzer.2": "It can be used by clicking on energy blocks.",
+
+  "book.energizedpower.page.batteries.1": "Batteries can store energy.",
+  "book.energizedpower.page.batteries.2": "They can be charged by the charger or with inventory generators and they can be uncharged by the uncharger.",
+
 
   "book.energizedpower.page.chapter.energy_blocks.title": "Energy Blocks",
   "book.energizedpower.page.chapter.energy_blocks": "Energy Blocks... [WIP]",
+
   "book.energizedpower.page.cables": "Cables... [WIP]",
+
   "book.energizedpower.page.machine_frames": "Machine Frames... [WIP]",
+
   "book.energizedpower.page.solar_panels": "Solar Panels... [WIP]",
+
   "book.energizedpower.page.coal_engine": "Coal Engine... [WIP]",
+
   "book.energizedpower.page.auto_crafter": "Auto Crafter... [WIP]",
+
   "book.energizedpower.page.charger_uncharger": "Charger/Uncharger... [WIP]",
+
   "book.energizedpower.page.charging_station": "Charging Station... [WIP]",
+
   "book.energizedpower.page.energizer": "Energizer... [WIP]"
 }

@@ -1,0 +1,36 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.welcome.title",
+      "color": "gold",
+      "bold": true
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "translate": "book.energizedpower.page.welcome.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "translate": "book.energizedpower.page.welcome.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "translate": "book.energizedpower.page.welcome.3",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ]
+}

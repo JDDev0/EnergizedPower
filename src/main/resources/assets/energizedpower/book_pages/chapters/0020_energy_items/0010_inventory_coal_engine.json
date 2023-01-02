@@ -1,0 +1,36 @@
+{
+  "content":  [
+    {
+      "translate": "book.energizedpower.page.inventory_coal_engine.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": " "
+    },
+    {
+      "translate": "book.energizedpower.page.inventory_coal_engine.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": " "
+    },
+    {
+      "translate": "book.energizedpower.page.inventory_coal_engine.3",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "translate": "book.energizedpower.page.inventory_coal_engine.4",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform"
+    }
+  ],
+  "image": "energizedpower:textures/item/inventory_coal_engine_on.png"
+}

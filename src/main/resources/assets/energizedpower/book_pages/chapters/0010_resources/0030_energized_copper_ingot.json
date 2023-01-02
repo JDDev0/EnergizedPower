@@ -1,0 +1,37 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.energized_copper_ingot.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "translate": "book.energizedpower.page.energized_copper_ingot.2",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "translate": "book.energizedpower.page.energized_copper_ingot.3",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "translate": "book.energizedpower.page.energized_copper_ingot.4",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform"
+    }
+  ],
+  "image": "energizedpower:textures/item/energized_copper_ingot.png"
+}
