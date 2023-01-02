@@ -33,4 +33,4 @@ There is also a guide book
 **WARNING**: This mod is currently in beta.
 
 ## Supported versions:
-- 1.19.3 (a1.0.x, b1.0.x)
+- 1.19.3 (Mod versions: 1.0.x)
