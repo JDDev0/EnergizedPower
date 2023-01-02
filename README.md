@@ -26,7 +26,7 @@ This mod adds the following items:
 
 The electrician villager profession and house are added.
 
-There is also a guide book (Currently WIP)
+There is also a guide book
 
 *Feel free to include this mod in your ModPack :-)*
 
