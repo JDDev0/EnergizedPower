@@ -1,14 +1,11 @@
 package me.jddev0.ep;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.mojang.logging.LogUtils;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.behavior.ModBlockBehaviors;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.item.*;
+import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.*;
@@ -16,11 +13,7 @@ import me.jddev0.ep.villager.ModVillager;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.nbt.IntTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
-import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -36,12 +29,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
-
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Mod(EnergizedPowerMod.MODID)
 public class EnergizedPowerMod {
@@ -161,75 +148,7 @@ public class EnergizedPowerMod {
 
         @SubscribeEvent
         public static void loadBookPages(RegisterClientReloadListenersEvent event) {
-            event.registerReloadListener(new SimpleJsonResourceReloadListener(new GsonBuilder().create(), "book_pages") {
-                @Override
-                protected void apply(Map<ResourceLocation, JsonElement> elements, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
-                    List<EnergizedPowerBookScreen.PageContent> pages = new LinkedList<>();
-
-                    List<Map.Entry<ResourceLocation, JsonElement>> elementEntries = elements.entrySet().stream().
-                            sorted(Comparator.comparing(o -> o.getKey().getPath())).
-                            collect(Collectors.toList());
-
-                    for(Map.Entry<ResourceLocation, JsonElement> elementEntry:elementEntries) {
-                        ResourceLocation resourceLocation = elementEntry.getKey();
-                        JsonElement element = elementEntry.getValue();
-
-                        try {
-                            if(!element.isJsonObject()) {
-                                LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': Element must be a JSON Object",
-                                        resourceLocation.getPath(), resourceLocation.getNamespace()));
-
-                                continue;
-                            }
-
-                            JsonObject object = element.getAsJsonObject();
-
-                            Component titleComponent = null;
-                            if(object.has("title"))
-                                titleComponent = Component.Serializer.fromJson(object.get("title"));
-
-                            Component contentComponent;
-                            if(object.has("content"))
-                                contentComponent = Component.Serializer.fromJson(object.get("content"));
-                            else
-                                contentComponent = Component.empty();
-
-                            ResourceLocation imageResourceLocation = null;
-                            if(object.has("image")) {
-                                JsonElement imageElement = object.get("image");
-                                if(!imageElement.isJsonPrimitive() || !imageElement.getAsJsonPrimitive().isString()) {
-                                    LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': image must be a string primitive",
-                                            resourceLocation.getPath(), resourceLocation.getNamespace()));
-
-                                    continue;
-                                }
-
-                                imageResourceLocation = ResourceLocation.tryParse(imageElement.getAsJsonPrimitive().getAsString());
-                            }
-
-                            ResourceLocation blockResourceLocation = null;
-                            if(object.has("block")) {
-                                JsonElement imageElement = object.get("block");
-                                if(!imageElement.isJsonPrimitive() || !imageElement.getAsJsonPrimitive().isString()) {
-                                    LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': block must be a string primitive",
-                                            resourceLocation.getPath(), resourceLocation.getNamespace()));
-
-                                    continue;
-                                }
-
-                                blockResourceLocation = ResourceLocation.tryParse(imageElement.getAsJsonPrimitive().getAsString());
-                            }
-
-                            pages.add(new EnergizedPowerBookScreen.PageContent(titleComponent, contentComponent, imageResourceLocation, blockResourceLocation));
-                        }catch(Exception e) {
-                            LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s'",
-                                    resourceLocation.getPath(), resourceLocation.getNamespace()), e);
-                        }
-                    }
-
-                    EnergizedPowerBookScreen.pages = pages;
-                }
-            });
+            event.registerReloadListener(new EnergizedPowerBookReloadListener());
         }
     }
 }
