@@ -230,7 +230,7 @@
 
 
   "book.energizedpower.page.chapter.resources.title": "Resources",
-  "book.energizedpower.page.chapter.resources.1": "Chapter resources... [WIP]",
+  "book.energizedpower.page.chapter.resources.1": "Resources are required for crafting items.",
 
   "book.energizedpower.page.cable_insulator.1": "The cable insulator is required for cable crafting recipes.",
   "book.energizedpower.page.cable_insulator.2": "It can be crafted by clicking on a wool block with shears.",
@@ -246,7 +246,7 @@
 
 
   "book.energizedpower.page.chapter.energy_items.title": "Energy Items",
-  "book.energizedpower.page.chapter.energy_items": "Energy Items... [WIP]",
+  "book.energizedpower.page.chapter.energy_items": "Items which can produce, consume, or store energy.",
 
   "book.energizedpower.page.inventory_coal_engine.1": "This item can produce and distribute energy in your inventory.",
   "book.energizedpower.page.inventory_coal_engine.2": "It can be activated by clicking in the air.",
@@ -261,7 +261,7 @@
 
 
   "book.energizedpower.page.chapter.energy_blocks.title": "Energy Blocks",
-  "book.energizedpower.page.chapter.energy_blocks": "Energy Blocks... [WIP]",
+  "book.energizedpower.page.chapter.energy_blocks": "Blocks producing, powered by, or transporting energy.",
 
   "book.energizedpower.page.cables.1": "Cables are used to transport energy from producer blocks to consumer blocks.",
   "book.energizedpower.page.cables.2": "There are two types of cables:",

@@ -1,9 +1,9 @@
 {
-  "content": {
-    "translate": "book.energizedpower.page.chapter.energy_items"
-  },
   "title": {
     "translate": "book.energizedpower.page.chapter.energy_items.title",
     "color": "gold"
+  },
+  "content": {
+    "translate": "book.energizedpower.page.chapter.energy_items"
   }
 }

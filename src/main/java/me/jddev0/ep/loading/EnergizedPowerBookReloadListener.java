@@ -50,15 +50,13 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
 
                 JsonObject object = element.getAsJsonObject();
 
-                Component titleComponent = null;
+                Component chapterTitleComponent = null;
                 if(object.has("title"))
-                    titleComponent = Component.Serializer.fromJson(object.get("title"));
+                    chapterTitleComponent = Component.Serializer.fromJson(object.get("title"));
 
-                Component contentComponent;
+                Component contentComponent = null;
                 if(object.has("content"))
                     contentComponent = Component.Serializer.fromJson(object.get("content"));
-                else
-                    contentComponent = Component.empty();
 
                 ResourceLocation imageResourceLocation = null;
                 if(object.has("image")) {
@@ -86,7 +84,7 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
                     blockResourceLocation = ResourceLocation.tryParse(imageElement.getAsJsonPrimitive().getAsString());
                 }
 
-                pages.add(new EnergizedPowerBookScreen.PageContent(titleComponent, contentComponent, imageResourceLocation, blockResourceLocation));
+                pages.add(new EnergizedPowerBookScreen.PageContent(chapterTitleComponent, contentComponent, imageResourceLocation, blockResourceLocation));
             }catch(Exception e) {
                 LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s'",
                         resourceLocation.getPath(), resourceLocation.getNamespace()), e);
