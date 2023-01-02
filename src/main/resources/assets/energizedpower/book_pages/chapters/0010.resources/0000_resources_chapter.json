@@ -1,0 +1,16 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.chapter.resources"
+    },
+    {
+      "text": "Example config with multiple components [TODO remove]",
+      "italic": true,
+      "color": "green"
+    }
+  ],
+  "title": {
+    "translate": "book.energizedpower.page.chapter.resources.title",
+    "color": "gold"
+  }
+}

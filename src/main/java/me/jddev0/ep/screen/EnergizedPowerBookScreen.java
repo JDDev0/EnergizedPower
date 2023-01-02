@@ -5,16 +5,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.PopEnergizedPowerBookFromLecternC2SPacket;
-import me.jddev0.ep.screen.book.chapter.WelcomePage;
-import me.jddev0.ep.screen.book.chapter.energy.blocks.*;
-import me.jddev0.ep.screen.book.chapter.energy.items.BatteriesPage;
-import me.jddev0.ep.screen.book.chapter.energy.items.EnergyAnalyzerPage;
-import me.jddev0.ep.screen.book.chapter.energy.items.EnergyItemsChapterPage;
-import me.jddev0.ep.screen.book.chapter.energy.items.InventoryCoalEnginePage;
-import me.jddev0.ep.screen.book.chapter.resources.CableInsulatorPage;
-import me.jddev0.ep.screen.book.chapter.resources.EnergizedCopperIngotPage;
-import me.jddev0.ep.screen.book.chapter.resources.ResourcesChapterPage;
-import me.jddev0.ep.screen.book.chapter.resources.SiliconPage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.GameNarrator;
 import net.minecraft.client.gui.components.Button;
@@ -29,7 +19,9 @@ import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
@@ -46,29 +38,7 @@ public class EnergizedPowerBookScreen extends Screen {
     private final LecternBlockEntity lecternBlockEntity;
 
     //TODO load from assets json [Use texture path and string ids instead]
-    private final static List<PageContent> content = List.of(
-            new WelcomePage(),
-
-            new ResourcesChapterPage(),
-            new CableInsulatorPage(),
-            new SiliconPage(),
-            new EnergizedCopperIngotPage(),
-
-            new EnergyItemsChapterPage(),
-            new InventoryCoalEnginePage(),
-            new EnergyAnalyzerPage(),
-            new BatteriesPage(),
-
-            new EnergyBlocksChapterPage(),
-            new CablesPage(),
-            new MachineFramesPage(),
-            new SolarPanelsPage(),
-            new CoalEnginePage(),
-            new AutoCrafterPage(),
-            new ChargerUnchargerPage(),
-            new ChargingStationPage(),
-            new EnergizerPage()
-    );
+    public static List<PageContent> pages = new LinkedList<>();
     private int currentPage;
     private Component currentPageNumberOutput = CommonComponents.EMPTY;
     private boolean isCurrentPageCached;
@@ -113,7 +83,7 @@ public class EnergizedPowerBookScreen extends Screen {
     }
 
     private int getPageCount() {
-        return content.size() + 2;  //"+ 2": Front cover and back cover are not in the content list
+        return pages.size() + 2;  //"+ 2": Front cover and back cover are not in the content list
     }
 
     private void pageForward() {
@@ -229,7 +199,7 @@ public class EnergizedPowerBookScreen extends Screen {
                 cachedPageComponents = Collections.emptyList();
             }else {
                 //Front cover and back cover are not included
-                cachedPageComponents = font.split(content.get(currentPage - 1).getPageContent(), 114);
+                cachedPageComponents = font.split(pages.get(currentPage - 1).getPageComponent(), 114);
             }
             //First page is front cover (Number = 0)
             //Last page is back cover (Number = page count - 1)
@@ -262,7 +232,7 @@ public class EnergizedPowerBookScreen extends Screen {
 
         //TODO add link components to get to other pages
 
-        ResourceLocation image = content.get(currentPage - 1).getItemImage();
+        ResourceLocation image = pages.get(currentPage - 1).getImageResourceLocation();
         if(image != null) {
             renderImageCentered(poseStack, image, yOffset + 15);
 
@@ -345,20 +315,33 @@ public class EnergizedPowerBookScreen extends Screen {
     }
 
     @OnlyIn(Dist.CLIENT)
-    @FunctionalInterface
-    public interface PageContent {
-        default Component getTitleComponent() {
-            return null;
+    public static class PageContent {
+        private final Component titleComponent;
+        private final Component pageComponent;
+        private final ResourceLocation imageResourceLocation;
+        private final ResourceLocation blockResourceLocation;
+
+        public PageContent(Component titleComponent, Component pageComponent, ResourceLocation imageResourceLocation, ResourceLocation blockResourceLocation) {
+            this.titleComponent = titleComponent;
+            this.pageComponent = pageComponent;
+            this.imageResourceLocation = imageResourceLocation;
+            this.blockResourceLocation = blockResourceLocation;
         }
 
-        Component getPageContent();
-
-        default ResourceLocation getItemImage() {
-            return null;
+        public Component getTitleComponent() {
+            return titleComponent;
         }
 
-        default ResourceLocation getBlockId() {
-            return null;
+        public Component getPageComponent() {
+            return pageComponent;
+        }
+
+        public ResourceLocation getImageResourceLocation() {
+            return imageResourceLocation;
+        }
+
+        public ResourceLocation getBlockResourceLocation() {
+            return blockResourceLocation;
         }
     }
 }
