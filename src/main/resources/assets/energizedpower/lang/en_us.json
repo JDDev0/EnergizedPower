@@ -263,19 +263,28 @@
   "book.energizedpower.page.chapter.energy_blocks.title": "Energy Blocks",
   "book.energizedpower.page.chapter.energy_blocks": "Energy Blocks... [WIP]",
 
-  "book.energizedpower.page.cables": "Cables... [WIP]",
+  "book.energizedpower.page.cables.1": "Cables are used to transport energy from producer blocks to consumer blocks.",
+  "book.energizedpower.page.cables.2": "There are two types of cables:",
+  "book.energizedpower.page.cables.3": "• Copper Cable",
+  "book.energizedpower.page.cables.4": "• Energized Copper Cable",
 
-  "book.energizedpower.page.machine_frames": "Machine Frames... [WIP]",
+  "book.energizedpower.page.machine_frames.1": "Machine Frames are the base crafting block for every machine.",
+  "book.energizedpower.page.machine_frames.2": "There are two machine frames: Basic and Advanced",
+  "book.energizedpower.page.machine_frames.3": "The Basic Machine Frame can be used to get an electrician villager.",
 
-  "book.energizedpower.page.solar_panels": "Solar Panels... [WIP]",
+  "book.energizedpower.page.solar_panels.1": "Solar Panels produce energy during the day. The efficiency depends on the time and on the weather.",
+  "book.energizedpower.page.solar_panels.2": "There are 5 Solar Panel Tiers.",
+  "book.energizedpower.page.solar_panels.3": "Tier IV and Tier V require Energized Copper Ingots.",
 
-  "book.energizedpower.page.coal_engine": "Coal Engine... [WIP]",
+  "book.energizedpower.page.coal_engine.1": "The Coal Engine produces energy by burning items.",
+  "book.energizedpower.page.coal_engine.2": "Remainder items can be extracted automatically.",
 
-  "book.energizedpower.page.auto_crafter": "Auto Crafter... [WIP]",
+  "book.energizedpower.page.auto_crafter.1": "The Auto Crafter crafts items automatically.",
+  "book.energizedpower.page.auto_crafter.2": "The recipe can be set by using the pattern slots.",
 
-  "book.energizedpower.page.charger_uncharger": "Charger/Uncharger... [WIP]",
+  "book.energizedpower.page.charger_uncharger": "The Charger can charge items and the Uncharger can uncharge items.",
 
-  "book.energizedpower.page.charging_station": "Charging Station... [WIP]",
+  "book.energizedpower.page.charging_station": "The Charging Station can charge items wirelessly.",
 
-  "book.energizedpower.page.energizer": "Energizer... [WIP]"
+  "book.energizedpower.page.energizer": "The Energizer can energize items very efficiently."
 }

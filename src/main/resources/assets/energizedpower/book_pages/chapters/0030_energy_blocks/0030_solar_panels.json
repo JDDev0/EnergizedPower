@@ -1,6 +1,30 @@
 {
-  "content": {
-    "translate": "book.energizedpower.page.solar_panels"
-  },
+  "content": [
+    {
+      "translate": "book.energizedpower.page.solar_panels.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "translate": "book.energizedpower.page.solar_panels.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "translate": "book.energizedpower.page.solar_panels.3",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform"
+    }
+  ],
   "block": "energizedpower:solar_panel_1"
 }

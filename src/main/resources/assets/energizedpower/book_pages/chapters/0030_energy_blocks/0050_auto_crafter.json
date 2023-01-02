@@ -1,6 +1,21 @@
 {
-  "content": {
-    "translate": "book.energizedpower.page.auto_crafter"
-  },
+  "content": [
+    {
+      "translate": "book.energizedpower.page.auto_crafter.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "translate": "book.energizedpower.page.auto_crafter.2",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform"
+    }
+  ],
   "block": "energizedpower:auto_crafter"
 }

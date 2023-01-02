@@ -1,6 +1,38 @@
 {
-  "content": {
-    "translate": "book.energizedpower.page.cables"
-  },
+  "content": [
+    {
+      "translate": "book.energizedpower.page.cables.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "translate": "book.energizedpower.page.cables.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "translate": "book.energizedpower.page.cables.3",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "translate": "book.energizedpower.page.cables.4",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
   "block": "energizedpower:copper_cable"
 }

@@ -1,6 +1,8 @@
 {
   "content": {
-    "translate": "book.energizedpower.page.charger_uncharger"
+    "translate": "book.energizedpower.page.charger_uncharger",
+    "bold": true,
+    "font": "uniform"
   },
   "block": "energizedpower:charger"
 }

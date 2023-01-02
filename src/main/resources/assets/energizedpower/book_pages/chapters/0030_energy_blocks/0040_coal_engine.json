@@ -1,6 +1,21 @@
 {
-  "content": {
-    "translate": "book.energizedpower.page.coal_engine"
-  },
+  "content": [
+    {
+      "translate": "book.energizedpower.page.coal_engine.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "translate": "book.energizedpower.page.coal_engine.2",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform"
+    }
+  ],
   "block": "energizedpower:coal_engine"
 }
