@@ -160,16 +160,21 @@ public class EnergizedPowerBookScreen extends Screen {
         if(super.keyPressed(keyCode, scanCode, modifiers))
             return true;
 
+        int oldCurrentPage = currentPage;
         return switch(keyCode) {
             case 266 -> {
                 backButton.onPress();
-                minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.f));
+
+                if(currentPage != oldCurrentPage)
+                    minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.f));
 
                 yield true;
             }
             case 267 -> {
                 forwardButton.onPress();
-                minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.f));
+
+                if(currentPage != oldCurrentPage)
+                    minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.f));
 
                 yield true;
             }
