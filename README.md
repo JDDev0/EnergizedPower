@@ -18,10 +18,11 @@ There are also blocks for producing energy:
 - Lightning Generator
 - Solar Panels (5 Tiers)
 
+Energy can be transported with Copper Cables and Energized Copper Cables
+
 This mod adds the following items:
 - Batteries (8 Tiers)
 - Energy Analyzer
-- Cable (Copper, Energized Copper)
 - Inventory Coal Engine
 
 The electrician villager profession and house are added.
