@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:crusher",
+  "ingredient": {
+    "tag": "forge:cobblestone/normal"
+  },
+  "output": {
+    "item": "minecraft:gravel"
+  }
+}

@@ -81,6 +81,7 @@ public class EnergizedPowerMod {
 
             event.accept(ModBlocks.COPPER_CABLE_ITEM);
             event.accept(ModBlocks.ENERGIZED_COPPER_CABLE_ITEM);
+
             event.accept(ModBlocks.COAL_ENGINE_ITEM);
             event.accept(ModBlocks.LIGHTNING_GENERATOR_ITEM);
             event.accept(ModBlocks.SOLAR_PANEL_ITEM_1);
@@ -90,6 +91,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.SOLAR_PANEL_ITEM_5);
 
             event.accept(ModBlocks.AUTO_CRAFTER_ITEM);
+            event.accept(ModBlocks.CRUSHER_ITEM);
             event.accept(ModBlocks.CHARGER_ITEM);
             event.accept(ModBlocks.UNCHARGER_ITEM);
             event.accept(ModBlocks.ENERGIZER_ITEM);
@@ -129,6 +131,7 @@ public class EnergizedPowerMod {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             MenuScreens.register(ModMenuTypes.AUTO_CRAFTER_MENU.get(), AutoCrafterScreen::new);
+            MenuScreens.register(ModMenuTypes.CRUSHER_MENU.get(), CrusherScreen::new);
             MenuScreens.register(ModMenuTypes.CHARGER_MENU.get(), ChargerScreen::new);
             MenuScreens.register(ModMenuTypes.UNCHARGER_MENU.get(), UnchargerScreen::new);
             MenuScreens.register(ModMenuTypes.ENERGIZER_MENU.get(), EnergizerScreen::new);

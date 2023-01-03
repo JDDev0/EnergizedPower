@@ -45,6 +45,11 @@ public final class ModBlocks {
     public static final RegistryObject<Item> AUTO_CRAFTER_ITEM = ModItems.ITEMS.register("auto_crafter",
             () -> new AutoCrafterBlock.Item(AUTO_CRAFTER.get(), new Item.Properties()));
 
+    public static final RegistryObject<Block> CRUSHER = BLOCKS.register("crusher",
+            () -> new CrusherBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> CRUSHER_ITEM = createBlockItem("crusher", CRUSHER);
+
     public static final RegistryObject<Block> CHARGER = BLOCKS.register("charger",
             () -> new ChargerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));

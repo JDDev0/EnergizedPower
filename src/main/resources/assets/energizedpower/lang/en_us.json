@@ -92,6 +92,10 @@
 
   "tooltip.energizedpower.coal_engine.txt": "This items will produce %s until burned",
 
+  "block.energizedpower.crusher": "Crusher",
+  "item.energizedpower.crusher": "Crusher",
+  "container.energizedpower.crusher": "Crusher",
+
   "block.energizedpower.lightning_generator": "Lightning Generator",
   "item.energizedpower.lightning_generator": "Lightning Generator",
 
@@ -122,6 +126,7 @@
 
   "entity.minecraft.villager.energizedpower.electrician": "Electrician",
 
+
   "advancements.energizedpower.advanced_machine_frame.title": "Advanced Machines",
   "advancements.energizedpower.advanced_machine_frame.description": "More advanced machines need this base crafting item.",
 
@@ -131,12 +136,14 @@
   "advancements.energizedpower.auto_crafter.title": "Automation is the future",
   "advancements.energizedpower.auto_crafter.description": "Who needs manual crafting tables when this block can do it automatically?",
 
+  "advancements.energizedpower.crusher.title": "Crush it",
+  "advancements.energizedpower.crusher.description": "Crush Stone, Sandstone, Cobblestone, Gravel, or other blocks.",
+
   "advancements.energizedpower.basic_machine_frame.title": "The Foundation of Machines",
   "advancements.energizedpower.basic_machine_frame.description": "This is the base crafting item for every basic machine.",
 
   "advancements.energizedpower.basic_solar_cell.title": "Solar Power Basics",
   "advancements.energizedpower.basic_solar_cell.description": "Your first solar cell of two required for your first solar panel.",
-
 
   "advancements.energizedpower.battery_1.title": "Batteries",
   "advancements.energizedpower.battery_1.description": "Stores energy in item form.",
@@ -284,6 +291,8 @@
 
   "book.energizedpower.page.auto_crafter.1": "The Auto Crafter crafts items automatically.",
   "book.energizedpower.page.auto_crafter.2": "The recipe can be set by using the pattern slots.",
+
+  "book.energizedpower.page.crusher": "The Crusher can crush blocks like Stone, Sandstone, Cobblestone, and Gravel.",
 
   "book.energizedpower.page.charger_uncharger": "The Charger can charge items and the Uncharger can uncharge items.",
 

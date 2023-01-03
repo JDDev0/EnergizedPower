@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "#up",
+    "down": "energizedpower:block/crusher_bottom",
+    "east": "energizedpower:block/crusher_side",
+    "north": "energizedpower:block/crusher_side",
+    "south": "energizedpower:block/crusher_side",
+    "up": "energizedpower:block/crusher_top",
+    "west": "energizedpower:block/crusher_side"
+  }
+}

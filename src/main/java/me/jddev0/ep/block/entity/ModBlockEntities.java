@@ -26,6 +26,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("auto_crafter", () -> BlockEntityType.Builder.of(AutoCrafterBlockEntity::new,
                     ModBlocks.AUTO_CRAFTER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<CrusherBlockEntity>> CRUSHER_ENTITY =
+            BLOCK_ENTITIES.register("crusher", () -> BlockEntityType.Builder.of(CrusherBlockEntity::new,
+                    ModBlocks.CRUSHER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<ChargerBlockEntity>> CHARGER_ENTITY =
             BLOCK_ENTITIES.register("charger", () -> BlockEntityType.Builder.of(ChargerBlockEntity::new,
                     ModBlocks.CHARGER.get()).build(null));

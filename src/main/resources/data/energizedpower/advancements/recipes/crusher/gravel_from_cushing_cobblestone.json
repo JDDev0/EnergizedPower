@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cobblestone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:cobblestone/normal"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "energizedpower:crusher/gravel_from_crushing_cobblestone"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_cobblestone",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "energizedpower:crusher/gravel_from_crushing_cobblestone"
+    ]
+  }
+}

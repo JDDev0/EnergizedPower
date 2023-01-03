@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_sandstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "minecraft:sandstone" ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "energizedpower:crusher/sand_from_crushing_sandstone"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_sandstone",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "energizedpower:crusher/sand_from_crushing_sandstone"
+    ]
+  }
+}

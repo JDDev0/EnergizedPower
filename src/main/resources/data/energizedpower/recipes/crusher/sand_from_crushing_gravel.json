@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:crusher",
+  "ingredient": {
+    "tag": "forge:gravel"
+  },
+  "output": {
+    "item": "minecraft:sand"
+  }
+}

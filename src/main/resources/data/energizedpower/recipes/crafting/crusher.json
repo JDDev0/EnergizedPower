@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "s": {
+      "tag": "forge:silicon"
+    },
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "B": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "S": {
+      "item": "minecraft:stonecutter"
+    }
+  },
+  "pattern": [
+    "CsC",
+    "SBS",
+    "CIC"
+  ],
+  "result": {
+    "item": "energizedpower:crusher"
+  }
+}
