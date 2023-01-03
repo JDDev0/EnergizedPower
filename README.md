@@ -18,7 +18,7 @@ There are also blocks for producing energy:
 - Lightning Generator
 - Solar Panels (5 Tiers)
 
-Energy can be transported with Copper Cables and Energized Copper Cables
+Energy can be transported with Copper Cables and Energized Copper Cables.
 
 This mod adds the following items:
 - Batteries (8 Tiers)
