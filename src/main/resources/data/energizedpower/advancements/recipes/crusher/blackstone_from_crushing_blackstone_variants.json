@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_blackstone_bricks": {
+    "has_blackstone_variants": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -14,19 +14,19 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "energizedpower:crusher/blackstone_from_crushing_blackstone_bricks"
+        "recipe": "energizedpower:crusher/blackstone_from_crushing_blackstone_variants"
       }
     }
   },
   "requirements": [
     [
-      "has_blackstone_bricks",
+      "has_blackstone_variants",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "energizedpower:crusher/blackstone_from_crushing_blackstone_bricks"
+      "energizedpower:crusher/blackstone_from_crushing_blackstone_variants"
     ]
   }
 }
