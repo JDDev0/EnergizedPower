@@ -1,0 +1,14 @@
+{
+  "type": "energizedpower:crusher",
+  "ingredient": [
+    {
+      "item": "minecraft:smooth_basalt"
+    },
+    {
+      "item": "minecraft:polished_basalt"
+    }
+  ],
+  "output": {
+    "item": "minecraft:basalt"
+  }
+}
