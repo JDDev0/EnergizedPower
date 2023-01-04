@@ -6,6 +6,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 ## Features
 This mod adds the following machines:
 - Auto Crafter
+- Crusher
 - Charger
 - Charging Station
 - Uncharger
