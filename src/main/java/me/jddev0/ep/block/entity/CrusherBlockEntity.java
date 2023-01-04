@@ -7,6 +7,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.recipe.CrusherRecipe;
 import me.jddev0.ep.screen.CrusherMenu;
+import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -44,7 +45,7 @@ public class CrusherBlockEntity extends BlockEntity implements MenuProvider, Ene
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             return switch(slot) {
-                case 0 -> true;
+                case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, CrusherRecipe.Type.INSTANCE, stack);
                 case 1 -> false;
                 default -> super.isItemValid(slot, stack);
             };

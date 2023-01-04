@@ -8,6 +8,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.recipe.EnergizerRecipe;
 import me.jddev0.ep.screen.EnergizerMenu;
+import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -44,8 +45,8 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
 
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return switch(slot) {
-                case 0 -> true;
+            return switch (slot) {
+                case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, EnergizerRecipe.Type.INSTANCE, stack);
                 case 1 -> false;
                 default -> super.isItemValid(slot, stack);
             };
