@@ -198,7 +198,8 @@ public class CrusherBlockEntity extends BlockEntity implements MenuProvider, Ene
             if(recipe.isEmpty())
                 return;
 
-            blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK * blockEntity.maxProgress;
+            if(blockEntity.energyConsumptionLeft < 0)
+                blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK * blockEntity.maxProgress;
 
             if(ENERGY_USAGE_PER_TICK <= blockEntity.energyStorage.getEnergy()) {
                 blockEntity.hasEnoughEnergy = true;
