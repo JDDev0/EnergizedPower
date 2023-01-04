@@ -2,6 +2,7 @@ package me.jddev0.ep.recipe;
 
 import com.google.gson.JsonObject;
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.block.ModBlocks;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -64,6 +65,11 @@ public class ChargerRecipe implements Recipe<SimpleContainer> {
         NonNullList<Ingredient> ingredients = NonNullList.createWithCapacity(1);
         ingredients.add(0, input);
         return ingredients;
+    }
+
+    @Override
+    public ItemStack getToastSymbol() {
+        return new ItemStack(ModBlocks.CHARGER.get());
     }
 
     @Override
