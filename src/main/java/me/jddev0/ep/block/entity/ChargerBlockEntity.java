@@ -6,7 +6,9 @@ import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
+import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.screen.ChargerMenu;
+import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -33,6 +35,8 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+
 public class ChargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
     private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
         @Override
@@ -43,7 +47,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             if(slot == 0) {
-                if(stack.is(Tags.Items.INGOTS_COPPER))
+                if(level == null || RecipeUtils.isIngredientOfAny(level, ChargerRecipe.Type.INSTANCE, stack))
                     return true;
 
                 LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
@@ -72,10 +76,10 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
                     return false;
 
                 ItemStack stack = itemHandler.getStackInSlot(i);
-                if(stack.is(ModItems.ENERGIZED_COPPER_INGOT.get()))
+                if(level != null && RecipeUtils.isResultOfAny(level, ChargerRecipe.Type.INSTANCE, stack))
                     return true;
 
-                if(stack.is(Tags.Items.INGOTS_COPPER))
+                if(level == null || RecipeUtils.isIngredientOfAny(level, ChargerRecipe.Type.INSTANCE, stack))
                     return false;
 
                 LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
@@ -95,8 +99,6 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
 
     protected  final ContainerData data;
     private int energyConsumptionLeft = -1;
-
-    public static final int ENERGY_REQUIREMENT_FOR_ENERGIZED_COPPER_INGOT = 131072;
 
     public ChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CHARGER_ENTITY.get(), blockPos, blockState);
@@ -218,18 +220,21 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
         if(blockEntity.hasRecipe()) {
             ItemStack stack = blockEntity.itemHandler.getStackInSlot(0);
             int energyConsumptionPerTick = 0;
-            boolean isCopperIngot = false;
-            if(stack.is(Tags.Items.INGOTS_COPPER)) {
+
+            SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
+            for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
+                inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
+
+            Optional<ChargerRecipe> recipe = level.getRecipeManager().getRecipeFor(ChargerRecipe.Type.INSTANCE, inventory, level);
+            if(recipe.isPresent()) {
                 if(blockEntity.energyConsumptionLeft == -1)
-                    blockEntity.energyConsumptionLeft = ENERGY_REQUIREMENT_FOR_ENERGIZED_COPPER_INGOT;
+                    blockEntity.energyConsumptionLeft = recipe.get().getEnergyConsumption();
 
                 if(blockEntity.energyStorage.getEnergy() == 0)
                     return;
 
                 energyConsumptionPerTick = Math.min(blockEntity.energyConsumptionLeft, Math.min(blockEntity.energyStorage.getMaxReceive(),
                         blockEntity.energyStorage.getEnergy()));
-
-                isCopperIngot = true;
             }else {
                 LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
                 if(!energyStorageLazyOptional.isPresent())
@@ -254,8 +259,8 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
             setChanged(level, blockPos, state);
 
             if(blockEntity.energyConsumptionLeft <= 0) {
-                if(isCopperIngot)
-                    blockEntity.itemHandler.setStackInSlot(0, new ItemStack(ModItems.ENERGIZED_COPPER_INGOT.get()));
+                recipe.ifPresent(chargerRecipe ->
+                        blockEntity.itemHandler.setStackInSlot(0, new ItemStack(chargerRecipe.getResultItem().getItem())));
 
                 blockEntity.resetProgress();
             }

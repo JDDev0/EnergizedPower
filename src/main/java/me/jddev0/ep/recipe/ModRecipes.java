@@ -15,6 +15,9 @@ public final class ModRecipes {
     public static final RegistryObject<RecipeSerializer<EnergizerRecipe>> ENERGIZER_SERIALIZER = SERIALIZERS.register("energizer",
             () -> EnergizerRecipe.Serializer.INSTANCE);
 
+    public static final RegistryObject<RecipeSerializer<ChargerRecipe>> CHARGER_SERIALIZER = SERIALIZERS.register("charger",
+            () -> ChargerRecipe.Serializer.INSTANCE);
+
     public static final RegistryObject<RecipeSerializer<CrusherRecipe>> CRUSHER_SERIALIZER = SERIALIZERS.register("crusher",
             () -> CrusherRecipe.Serializer.INSTANCE);
 
