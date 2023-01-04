@@ -1,0 +1,17 @@
+{
+  "type": "energizedpower:crusher",
+  "ingredient":  [
+    {
+      "item": "minecraft:smooth_red_sandstone"
+    },
+    {
+      "item": "minecraft:cut_red_sandstone"
+    },
+    {
+      "item": "minecraft:chiseled_red_sandstone"
+    }
+  ],
+  "output": {
+    "item": "minecraft:red_sand"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "energizedpower:crusher",
+  "ingredient":  [
+    {
+      "item": "minecraft:smooth_sandstone"
+    },
+    {
+      "item": "minecraft:cut_sandstone"
+    },
+    {
+      "item": "minecraft:chiseled_sandstone"
+    }
+  ],
+  "output": {
+    "item": "minecraft:sand"
+  }
+}

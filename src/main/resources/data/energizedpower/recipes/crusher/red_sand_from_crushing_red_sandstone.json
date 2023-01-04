@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:crusher",
+  "ingredient": {
+    "item": "minecraft:red_sandstone"
+  },
+  "output": {
+    "item": "minecraft:red_sand"
+  }
+}
