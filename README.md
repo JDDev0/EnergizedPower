@@ -34,4 +34,6 @@ There is also a guide book
 *Feel free to include this mod in your ModPack :-)*
 
 ## Supported versions:
-- 1.19.3 (Mod versions: 1.0.x)
+Mod version: MC version
+- 1.0.x: 1.19.3
+- 1.1.x: 1.19.3
