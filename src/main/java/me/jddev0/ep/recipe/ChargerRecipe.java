@@ -96,7 +96,7 @@ public class ChargerRecipe implements Recipe<SimpleContainer> {
 
         @Override
         public ChargerRecipe fromJson(ResourceLocation recipeID, JsonObject json) {
-            Ingredient input = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "ingredient"));
+            Ingredient input = Ingredient.fromJson(json.get("ingredient"));
             int energyConsumption = GsonHelper.getAsInt(json, "energy");
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 

@@ -90,7 +90,7 @@ public class CrusherRecipe implements Recipe<SimpleContainer> {
 
         @Override
         public CrusherRecipe fromJson(ResourceLocation recipeID, JsonObject json) {
-            Ingredient input = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "ingredient"));
+            Ingredient input = Ingredient.fromJson(json.get("ingredient"));
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 
             return new CrusherRecipe(recipeID, output, input);
