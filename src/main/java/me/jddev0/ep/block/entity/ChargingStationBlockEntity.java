@@ -9,12 +9,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.Capability;
@@ -27,6 +29,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ChargingStationBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
+    public static final int MAX_CHARGING_DISTANCE = 7;
+
     private final ReceiveOnlyEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
@@ -86,9 +90,12 @@ public class ChargingStationBlockEntity extends BlockEntity implements EnergySto
         if(level.isClientSide)
             return;
 
-        List<Player> players = level.getEntitiesOfClass(Player.class, AABB.of(BoundingBox.fromCorners(
-                new Vec3i(blockPos.getX() - 1, blockPos.getY() - 1, blockPos.getZ() - 1),
-                new Vec3i(blockPos.getX() + 1, blockPos.getY() + 1, blockPos.getZ() + 1))));
+        List<Player> players = level.getEntities(EntityTypeTest.forClass(Player.class), AABB.of(BoundingBox.fromCorners(
+                new Vec3i(blockPos.getX() - MAX_CHARGING_DISTANCE, blockPos.getY() - MAX_CHARGING_DISTANCE,
+                        blockPos.getZ() - MAX_CHARGING_DISTANCE),
+                new Vec3i(blockPos.getX() + MAX_CHARGING_DISTANCE, blockPos.getY() + MAX_CHARGING_DISTANCE,
+                        blockPos.getZ() + MAX_CHARGING_DISTANCE))), EntitySelector.NO_SPECTATORS.
+                and(entity -> entity.distanceToSqr(blockPos.getCenter()) <= MAX_CHARGING_DISTANCE*MAX_CHARGING_DISTANCE));
 
         int energyPerTick = Math.min(blockEntity.energyStorage.getMaxReceive(), blockEntity.energyStorage.getEnergy());
         int energyPerTickLeft = energyPerTick;
