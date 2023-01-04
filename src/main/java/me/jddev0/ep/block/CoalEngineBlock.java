@@ -31,7 +31,7 @@ import java.util.function.ToIntFunction;
 
 public class CoalEngineBlock extends BaseEntityBlock {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public static final ToIntFunction<BlockState> LIGHT_EMISSION =
             (state) -> state.getValue(BlockStateProperties.LIT) ? 13 : 0;
@@ -126,7 +126,6 @@ public class CoalEngineBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.COAL_ENGINE_ENTITY.get(),
-                CoalEngineBlockEntity::tick);
+        return createTickerHelper(type, ModBlockEntities.COAL_ENGINE_ENTITY.get(), CoalEngineBlockEntity::tick);
     }
 }

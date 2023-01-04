@@ -25,6 +25,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<CrusherMenu>> CRUSHER_MENU = registerMenuType("crusher_menu",
             CrusherMenu::new);
 
+    public static final RegistryObject<MenuType<BlockPlacerMenu>> BLOCK_PLACER_MENU = registerMenuType("block_placer_menu",
+            BlockPlacerMenu::new);
+
     public static final RegistryObject<MenuType<ChargerMenu>> CHARGER_MENU = registerMenuType("charger_menu",
             ChargerMenu::new);
 

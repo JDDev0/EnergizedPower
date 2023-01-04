@@ -30,6 +30,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("crusher", () -> BlockEntityType.Builder.of(CrusherBlockEntity::new,
                     ModBlocks.CRUSHER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<BlockPlacerBlockEntity>> BLOCK_PLACER_ENTITY =
+            BLOCK_ENTITIES.register("block_placer", () -> BlockEntityType.Builder.of(BlockPlacerBlockEntity::new,
+                    ModBlocks.BLOCK_PLACER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<ChargerBlockEntity>> CHARGER_ENTITY =
             BLOCK_ENTITIES.register("charger", () -> BlockEntityType.Builder.of(ChargerBlockEntity::new,
                     ModBlocks.CHARGER.get()).build(null));

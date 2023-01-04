@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "energizedpower:block/block_placer_vertical"
+    },
+    "facing=down": {
+      "model": "energizedpower:block/block_placer_vertical",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "energizedpower:block/block_placer",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "energizedpower:block/block_placer"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/block_placer",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/block_placer",
+      "y": 270
+    }
+  }
+}

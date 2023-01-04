@@ -53,13 +53,14 @@
   "block.energizedpower.charger": "Charger",
   "item.energizedpower.charger": "Charger",
   "container.energizedpower.charger": "Charger",
+
   "tooltip.energizedpower.charger.item_energy_left.txt": "This item needs %s to be fully charged.",
 
   "block.energizedpower.uncharger": "Uncharger",
   "item.energizedpower.uncharger": "Uncharger",
   "container.energizedpower.uncharger": "Uncharger",
-  "tooltip.energizedpower.uncharger.item_energy_left.txt": "This item has %s left.",
 
+  "tooltip.energizedpower.uncharger.item_energy_left.txt": "This item has %s left.",
   "tooltip.energizedpower.charger.txt.shift.1": "The charger can be used to craft energized copper ingots.",
   "tooltip.energizedpower.charger.txt.shift.2": "It's very expensive :P",
 
@@ -95,6 +96,12 @@
   "block.energizedpower.crusher": "Crusher",
   "item.energizedpower.crusher": "Crusher",
   "container.energizedpower.crusher": "Crusher",
+
+  "block.energizedpower.block_placer": "Block Placer",
+  "item.energizedpower.block_placer": "Block Placer",
+  "container.energizedpower.block_placer": "Block Placer",
+
+  "tooltip.energizedpower.block_placer.block_energy_left.txt": "This block still needs %s to be placed.",
 
   "block.energizedpower.lightning_generator": "Lightning Generator",
   "item.energizedpower.lightning_generator": "Lightning Generator",
@@ -138,6 +145,9 @@
 
   "advancements.energizedpower.crusher.title": "Crush it",
   "advancements.energizedpower.crusher.description": "Crush Stone, Sandstone, Cobblestone, Gravel, or other blocks.",
+
+  "advancements.energizedpower.block_placer.title": "Place the block",
+  "advancements.energizedpower.block_placer.description": "Blocks are placed automatically in the world.",
 
   "advancements.energizedpower.basic_machine_frame.title": "The Foundation of Machines",
   "advancements.energizedpower.basic_machine_frame.description": "This is the base crafting item for every basic machine.",
@@ -293,6 +303,9 @@
   "book.energizedpower.page.auto_crafter.2": "The recipe can be set by using the pattern slots.",
 
   "book.energizedpower.page.crusher": "The Crusher can crush blocks like Stone, Sandstone, Cobblestone, and Gravel.",
+
+  "book.energizedpower.page.block_placer.1": "The Block Placer can place all blocks (Even doors and seeds).",
+  "book.energizedpower.page.block_placer.2": "Blocks will only be placed if possible.",
 
   "book.energizedpower.page.charger_uncharger": "The Charger can charge items and the Uncharger can uncharge items.",
 

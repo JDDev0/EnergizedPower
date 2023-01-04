@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "tag": "forge:storage_blocks/silicon"
+    },
+    "C": {
+      "tag": "forge:storage_blocks/copper"
+    },
+    "I": {
+      "tag": "forge:storage_blocks/iron"
+    },
+    "B": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "D": {
+      "item": "minecraft:dispenser"
+    }
+  },
+  "pattern": [
+    "IDS",
+    "DBD",
+    "SDC"
+  ],
+  "result": {
+    "item": "energizedpower:block_placer"
+  }
+}

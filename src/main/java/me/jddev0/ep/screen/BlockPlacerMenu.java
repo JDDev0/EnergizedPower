@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.block.entity.ChargerBlockEntity;
+import me.jddev0.ep.block.entity.BlockPlacerBlockEntity;
 import me.jddev0.ep.energy.EnergyStorageMenuPacketUpdate;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,20 +13,20 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class ChargerMenu extends AbstractContainerMenu implements EnergyStorageMenuPacketUpdate {
-    private final ChargerBlockEntity blockEntity;
+public class BlockPlacerMenu extends AbstractContainerMenu implements EnergyStorageMenuPacketUpdate {
+    private final BlockPlacerBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
 
-    public ChargerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
+    public BlockPlacerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(6));
     }
 
-    public ChargerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
-        super(ModMenuTypes.CHARGER_MENU.get(), id);
+    public BlockPlacerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
+        super(ModMenuTypes.BLOCK_PLACER_MENU.get(), id);
 
         checkContainerSize(inv, 1);
-        this.blockEntity = (ChargerBlockEntity)blockEntity;
+        this.blockEntity = (BlockPlacerBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
 
@@ -52,6 +52,17 @@ public class ChargerMenu extends AbstractContainerMenu implements EnergyStorageM
 
     int getEnergyRequirement() {
         return data.get(4);
+    }
+
+    /**
+     * @return Same as isCrafting but energy requirements are ignored
+     */
+    public boolean isCraftingActive() {
+        return data.get(0) > 0;
+    }
+
+    public boolean isCrafting() {
+        return data.get(0) > 0 && data.get(5) == 1;
     }
 
     public int getScaledEnergyMeterPos() {
@@ -105,7 +116,7 @@ public class ChargerMenu extends AbstractContainerMenu implements EnergyStorageM
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, ModBlocks.CHARGER.get());
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, ModBlocks.BLOCK_PLACER.get());
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

@@ -1,0 +1,21 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.block_placer.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "translate": "book.energizedpower.page.block_placer.2",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform"
+    }
+  ],
+  "block": "energizedpower:block_placer"
+}

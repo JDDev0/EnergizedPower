@@ -52,8 +52,7 @@ public class ChargingStationBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.CHARGING_STATION_ENTITY.get(),
-                ChargingStationBlockEntity::tick);
+        return createTickerHelper(type, ModBlockEntities.CHARGING_STATION_ENTITY.get(), ChargingStationBlockEntity::tick);
     }
 
     @Override
