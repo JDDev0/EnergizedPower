@@ -36,6 +36,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class CrusherBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+    private static final int ENERGY_USAGE_PER_TICK = 8;
+
     private final ItemStackHandler itemHandler = new ItemStackHandler(2) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -196,20 +198,13 @@ public class CrusherBlockEntity extends BlockEntity implements MenuProvider, Ene
             if(recipe.isEmpty())
                 return;
 
-            int energyConsumption = 512;
-            if(blockEntity.progress == 0)
-                blockEntity.energyConsumptionLeft = energyConsumption;
+            blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK * blockEntity.maxProgress;
 
-            //TODO improve (alternate values +/- 1 per x recipes instead of changing last energy consumption tick)
-            int energyConsumptionPerTick = (int)Math.ceil((float)energyConsumption / blockEntity.maxProgress);
-            if(blockEntity.progress == blockEntity.maxProgress - 1)
-                energyConsumptionPerTick = blockEntity.energyConsumptionLeft;
-
-            if(energyConsumptionPerTick <= blockEntity.energyStorage.getEnergy()) {
+            if(ENERGY_USAGE_PER_TICK <= blockEntity.energyStorage.getEnergy()) {
                 blockEntity.hasEnoughEnergy = true;
 
-                blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
-                blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
+                blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - ENERGY_USAGE_PER_TICK);
+                blockEntity.energyConsumptionLeft -= ENERGY_USAGE_PER_TICK;
 
                 blockEntity.progress++;
                 setChanged(level, blockPos, state);
