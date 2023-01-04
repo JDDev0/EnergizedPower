@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mossy_stone_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "minecraft:mossy_stone_bricks" ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "energizedpower:crusher/mossy_cobblestone_from_crushing_mossy_stone_bricks"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_mossy_stone_bricks",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "energizedpower:crusher/mossy_cobblestone_from_crushing_mossy_stone_bricks"
+    ]
+  }
+}

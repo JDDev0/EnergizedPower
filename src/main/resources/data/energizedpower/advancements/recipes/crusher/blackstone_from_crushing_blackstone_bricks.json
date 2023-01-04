@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_stone_bricks_or_smooth_stone": {
+    "has_blackstone_bricks": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -20,7 +20,7 @@
   },
   "requirements": [
     [
-      "has_stone_bricks_or_smooth_stone",
+      "has_blackstone_bricks",
       "has_the_recipe"
     ]
   ],

@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:crusher",
+  "ingredient": {
+    "item": "minecraft:mossy_stone_bricks"
+  },
+  "output": {
+    "item": "minecraft:mossy_cobblestone"
+  }
+}
