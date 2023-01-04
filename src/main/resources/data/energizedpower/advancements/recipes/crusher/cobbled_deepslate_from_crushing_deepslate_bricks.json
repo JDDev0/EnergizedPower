@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_deepslate_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "minecraft:deepslate_bricks", "minecraft:chiseled_deepslate", "minecraft:cracked_deepslate_bricks", "minecraft:deepslate_tiles", "minecraft:cracked_deepslate_tiles", "minecraft:polished_deepslate" ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "energizedpower:crusher/cobbled_deepslate_from_crushing_deepslate_bricks"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_deepslate_bricks",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "energizedpower:crusher/cobbled_deepslate_from_crushing_deepslate_bricks"
+    ]
+  }
+}

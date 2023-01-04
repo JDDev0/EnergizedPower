@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_stone_bricks_or_smooth_stone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "minecraft:polished_blackstone", "minecraft:polished_blackstone_bricks", "minecraft:chiseled_polished_blackstone", "minecraft:cracked_polished_blackstone_bricks", "minecraft:gilded_blackstone" ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "energizedpower:crusher/blackstone_from_crushing_blackstone_bricks"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_stone_bricks_or_smooth_stone",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "energizedpower:crusher/blackstone_from_crushing_blackstone_bricks"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_stone_bricks_or_smooth_stone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "minecraft:stone_bricks", "minecraft:chiseled_stone_bricks", "minecraft:cracked_stone_bricks", "minecraft:smooth_stone" ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "energizedpower:crusher/cobblestone_from_crushing_stone_bricks_and_smooth_stone"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_stone_bricks_or_smooth_stone",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "energizedpower:crusher/cobblestone_from_crushing_stone_bricks_and_smooth_stone"
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "energizedpower:crusher",
+  "ingredient": [
+    {
+      "item": "minecraft:polished_blackstone"
+    },
+    {
+      "item": "minecraft:polished_blackstone_bricks"
+    },
+    {
+      "item": "minecraft:chiseled_polished_blackstone"
+    },
+    {
+      "item": "minecraft:cracked_polished_blackstone_bricks"
+    },
+    {
+      "item": "minecraft:gilded_blackstone"
+    }
+  ],
+  "output": {
+    "item": "minecraft:blackstone"
+  }
+}
