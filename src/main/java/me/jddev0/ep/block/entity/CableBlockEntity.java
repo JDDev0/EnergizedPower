@@ -17,10 +17,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CableBlockEntity extends BlockEntity {
     private final CableBlock.Tier tier;
@@ -132,18 +129,27 @@ public class CableBlockEntity extends BlockEntity {
     public static List<IEnergyStorage> getConnectedConsumers(Level level, BlockPos blockPos, List<BlockPos> checkedCables) {
         List<IEnergyStorage> consumers = new LinkedList<>();
 
-        if(checkedCables.contains(blockPos))
-            return consumers;
-        checkedCables.add(blockPos);
+        LinkedList<BlockPos> cableBlocksLeft = new LinkedList<>();
+        cableBlocksLeft.add(blockPos);
 
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(blockEntity == null || !(blockEntity instanceof CableBlockEntity))
-            return consumers;
+        while(cableBlocksLeft.size() > 0) {
+            BlockPos checkPos = cableBlocksLeft.pop();
 
-        CableBlockEntity cableBlockEntity = (CableBlockEntity)blockEntity;
-        consumers.addAll(cableBlockEntity.consumers.values());
+            BlockEntity blockEntity = level.getBlockEntity(checkPos);
+            if(!(blockEntity instanceof CableBlockEntity))
+                continue;
 
-        cableBlockEntity.getCableBlocks().forEach(pos -> consumers.addAll(getConnectedConsumers(level, pos, checkedCables)));
+            CableBlockEntity cableBlockEntity = (CableBlockEntity)blockEntity;
+            cableBlockEntity.getCableBlocks().forEach(pos -> {
+                if(!checkedCables.contains(pos)) {
+                    checkedCables.add(pos);
+
+                    cableBlocksLeft.add(pos);
+                }
+            });
+
+            consumers.addAll(cableBlockEntity.getConsumers().values());
+        }
 
         return consumers;
     }
