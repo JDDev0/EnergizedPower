@@ -7,7 +7,7 @@
       "font": "uniform"
     },
     {
-      "text": "\n\n"
+      "text": " "
     },
     {
       "translate": "book.energizedpower.page.cables.2",
@@ -16,21 +16,13 @@
       "font": "uniform"
     },
     {
-      "text": "\n"
+      "text": " "
     },
     {
       "translate": "book.energizedpower.page.cables.3",
       "color": "black",
-      "bold": true,
-      "font": "uniform"
-    },
-    {
-      "text": "\n"
-    },
-    {
-      "translate": "book.energizedpower.page.cables.4",
-      "color": "black",
-      "bold": true,
+      "bold": false,
+      "italic": true,
       "font": "uniform"
     }
   ],
