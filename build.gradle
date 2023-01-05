@@ -118,6 +118,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories {
     // Put repositories for dependencies here
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
+    maven { url "https://maven.shedaniel.me" }
 
     // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
     flatDir {
@@ -133,6 +134,10 @@ dependencies {
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // implementation fg.deobf("com.tterrag.registrate:Registrate:MC${mc_version}-${registrate_version}") // Adds registrate as a dependency
+    // REI integration
+    compileOnly 'me.shedaniel.cloth:basic-math:0.6.1'
+    compileOnly fg.deobf("dev.architectury:architectury-forge:6.2.46")
+    compileOnly fg.deobf('me.shedaniel:RoughlyEnoughItems-forge:10.0.581')
 
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
