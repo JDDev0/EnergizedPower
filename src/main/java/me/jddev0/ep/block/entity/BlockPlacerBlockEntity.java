@@ -36,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    private static final int ENERGY_USAGE_PER_TICK = 128;
+    private static final int ENERGY_USAGE_PER_TICK = 32;
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
         @Override
