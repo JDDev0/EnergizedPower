@@ -102,16 +102,19 @@ public class CableBlockEntity extends BlockEntity {
 
         for(Direction direction:Direction.values()) {
             BlockPos testPos = blockPos.relative(direction);
-            BlockState testBlockState = level.getBlockState(testPos);
-            if(testBlockState.is(ModBlocks.COPPER_CABLE.get()) || testBlockState.is(ModBlocks.ENERGIZED_COPPER_CABLE.get())) {
-                blockEntity.cableBlocks.add(testPos);
-
-                continue;
-            }
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
             if(testBlockEntity == null)
                 continue;
+
+            if(testBlockEntity instanceof CableBlockEntity cableBlockEntity) {
+                if(cableBlockEntity.getTier() != blockEntity.getTier()) //Do not connect to different cable tiers
+                    continue;
+
+                blockEntity.cableBlocks.add(testPos);
+
+                continue;
+            }
 
             LazyOptional<IEnergyStorage> energyStorageLazyOptional = testBlockEntity.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite());
             if(!energyStorageLazyOptional.isPresent())

@@ -163,6 +163,9 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
         if(blockEntity == null)
             return false;
 
+        if(blockEntity instanceof CableBlockEntity cableBlockEntity && cableBlockEntity.getTier() != this.getTier())
+            return false;
+
         LazyOptional<IEnergyStorage> energyStorageLazyOptional = blockEntity.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite());
         return energyStorageLazyOptional.isPresent();
     }
