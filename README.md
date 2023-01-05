@@ -40,3 +40,4 @@ There is also a guide book
 Mod version: MC version
 - 1.0.x: 1.19.3
 - 1.1.x: 1.19.3
+- 1.2.x: 1.19.3
