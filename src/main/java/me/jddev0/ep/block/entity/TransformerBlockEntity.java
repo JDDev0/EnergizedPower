@@ -1,11 +1,7 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.CableBlock;
-import me.jddev0.ep.block.LightningGeneratorBlock;
 import me.jddev0.ep.block.TransformerBlock;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
-import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.energy.ReceiveAndExtractEnergyStorage;
 import me.jddev0.ep.energy.ReceiveExtractEnergyHandler;
 import me.jddev0.ep.networking.ModMessages;
@@ -20,15 +16,15 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TransformerBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
+    public static final int MAX_ENERGY_TRANSFER = 1048576;
+
     private final TransformerBlock.Type type;
 
-    private final ReceiveAndExtractEnergyStorage energyStorage = new ReceiveAndExtractEnergyStorage(0,
-            CableBlock.Tier.TIER_ENERGIZED_COPPER.getMaxTransfer(), CableBlock.Tier.TIER_ENERGIZED_COPPER.getMaxTransfer()) {
+    private final ReceiveAndExtractEnergyStorage energyStorage = new ReceiveAndExtractEnergyStorage(0, MAX_ENERGY_TRANSFER, MAX_ENERGY_TRANSFER) {
         @Override
         protected void onChange() {
             setChanged();
