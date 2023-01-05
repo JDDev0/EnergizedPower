@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "energizedpower:transformer_1_to_n",
+  "ingredients": [
+    {
+      "item": "energizedpower:transformer_n_to_1"
+    }
+  ],
+  "result": {
+    "item": "energizedpower:transformer_1_to_n"
+  }
+}

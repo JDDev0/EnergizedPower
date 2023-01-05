@@ -82,6 +82,9 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.COPPER_CABLE_ITEM);
             event.accept(ModBlocks.ENERGIZED_COPPER_CABLE_ITEM);
 
+            event.accept(ModBlocks.TRANSFORMER_1_TO_N_ITEM);
+            event.accept(ModBlocks.TRANSFORMER_N_TO_1_ITEM);
+
             event.accept(ModBlocks.COAL_ENGINE_ITEM);
             event.accept(ModBlocks.LIGHTNING_GENERATOR_ITEM);
             event.accept(ModBlocks.SOLAR_PANEL_ITEM_1);

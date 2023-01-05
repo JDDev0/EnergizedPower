@@ -1,0 +1,31 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.transformers_1.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "translate": "book.energizedpower.page.transformers_1.2",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "translate": "book.energizedpower.page.transformers_1.3",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform"
+    }
+  ],
+  "block": "energizedpower:transformer_1_to_n"
+}

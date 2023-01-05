@@ -55,15 +55,6 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1));
-    //TODO side inventory (REMOVE if needed)
-    /*
-    private LazyOptional<IItemHandler> lazyItemHandlerUp = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, i -> i == 0, i -> false));
-    private LazyOptional<IItemHandler> lazyItemHandlerDown = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, i -> false, i -> i == 1));
-    private LazyOptional<IItemHandler> lazyItemHandlerSides = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, i -> i == 0, i -> i == 1));
-     */
 
     private final ReceiveOnlyEnergyStorage energyStorage;
 
@@ -137,17 +128,6 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
                 return lazyItemHandler.cast();
 
             return lazyItemHandlerSided.cast();
-
-            //TODO side inventory (REMOVE if needed)
-             /*
-            if(side == Direction.UP)
-                return lazyItemHandlerUp.cast();
-
-            if(side == Direction.DOWN)
-                return lazyItemHandlerDown.cast();
-
-            return lazyItemHandlerSides.cast();
-            */
         }else if(cap == ForgeCapabilities.ENERGY) {
             return lazyEnergyStorage.cast();
         }

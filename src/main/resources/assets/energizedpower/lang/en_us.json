@@ -73,6 +73,16 @@
   "tooltip.energizedpower.cable.txt.shift.1": "This cable can transfer %s/t.",
   "tooltip.energizedpower.cable.txt.shift.2": "Cable insulators can be crafted by clicking on a wool block with shears.",
 
+
+  "block.energizedpower.transformer_1_to_n": "Transformer (1 to n)",
+  "item.energizedpower.transformer_1_to_n": "Transformer (1 to n)",
+
+  "block.energizedpower.transformer_n_to_1": "Transformer (n to 1)",
+  "item.energizedpower.transformer_n_to_1": "Transformer (n to 1)",
+
+  "tooltip.energizedpower.transformer.txt.shift.1": "This block can be used to connect different types of cables.",
+
+
   "block.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
   "item.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
   "block.energizedpower.solar_panel_2": "Solar Panel (Tier II)",
@@ -200,6 +210,9 @@
   "advancements.energizedpower.energized_copper_cable.title": "Too much Power to handle",
   "advancements.energizedpower.energized_copper_cable.description": "Cable with very high Power throughput!",
 
+  "advancements.energizedpower.transformers.title": "Transformers",
+  "advancements.energizedpower.transformers.description": "Can connect to different types of cables.",
+
   "advancements.energizedpower.energized_copper_ingot.title": "Energized",
   "advancements.energizedpower.energized_copper_ingot.description": "Energized Copper is better Copper.",
 
@@ -283,6 +296,14 @@
   "book.energizedpower.page.cables.1": "Cables are used to transport energy from producer blocks to consumer blocks.",
   "book.energizedpower.page.cables.2": "There are two types of cables: Copper Cable, Energized Copper Cable.",
   "book.energizedpower.page.cables.3": "A transformer is required to connect cables of different tiers.",
+
+  "book.energizedpower.page.transformers_1.1": "Transformers can be used to connect different types of cables.",
+  "book.energizedpower.page.transformers_1.2": "The larger, darker, diamond shaped sides are inputs.",
+  "book.energizedpower.page.transformers_1.3": "The smaller, brighter, square shaped sides are outputs.",
+
+  "book.energizedpower.page.transformers_2.1": "There are two types of transformers: 1 to n (1 input, 5 outputs), n to 1 (1 output, 5 inputs).",
+  "book.energizedpower.page.transformers_2.2": "Transformers can be used to reduce lag of cable networks by using them periodically instead of a cable block.",
+  "book.energizedpower.page.transformers_2.3": "Transformers can also be used to connect energized power cables to other mods' cables.",
 
   "book.energizedpower.page.machine_frames.1": "Machine Frames are the base crafting block for every machine.",
   "book.energizedpower.page.machine_frames.2": "There are two machine frames: Basic and Advanced",

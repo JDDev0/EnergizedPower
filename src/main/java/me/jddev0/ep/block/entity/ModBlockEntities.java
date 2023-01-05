@@ -4,6 +4,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.SolarPanelBlock;
+import me.jddev0.ep.block.TransformerBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -57,6 +58,15 @@ public final class ModBlockEntities {
             createSolarPanelBlockEntity("solar_panel_4", ModBlocks.SOLAR_PANEL_4);
     public static final RegistryObject<BlockEntityType<SolarPanelBlockEntity>> SOLAR_PANEL_ENTITY_5 =
             createSolarPanelBlockEntity("solar_panel_5", ModBlocks.SOLAR_PANEL_5);
+
+    public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> TRANSFORMER_1_TO_N_ENTITY =
+            BLOCK_ENTITIES.register("transformer_1_to_n", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Type.TYPE_1_TO_N),
+                    ModBlocks.UNCHARGER.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> TRANSFORMER_N_TO_1_ENTITY =
+            BLOCK_ENTITIES.register("transformer_n_to_1", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Type.TYPE_N_TO_1),
+                    ModBlocks.UNCHARGER.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<CoalEngineBlockEntity>> COAL_ENGINE_ENTITY =
             BLOCK_ENTITIES.register("coal_engine", () -> BlockEntityType.Builder.of(CoalEngineBlockEntity::new,

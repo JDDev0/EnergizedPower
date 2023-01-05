@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "energizedpower:block/transformer_n_to_1",
+      "x": 270
+    },
+    "facing=down": {
+      "model": "energizedpower:block/transformer_n_to_1",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "energizedpower:block/transformer_n_to_1",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "energizedpower:block/transformer_n_to_1"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/transformer_n_to_1",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/transformer_n_to_1",
+      "y": 270
+    }
+  }
+}
