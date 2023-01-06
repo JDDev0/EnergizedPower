@@ -50,7 +50,7 @@ public class CrusherCategory implements DisplayCategory<CrusherDisplay> {
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().
                 entries(display.getInputEntries().get(0)));
-        widgets.add(Widgets.createSlot(new Point(x + 76, y + 5)).disableBackground().markOutput().
+        widgets.add(Widgets.createSlot(new Point(x + 77, y + 5)).disableBackground().markOutput().
                 entries(display.getOutputEntries().get(0)));
 
         return widgets;
