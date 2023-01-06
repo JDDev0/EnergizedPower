@@ -85,6 +85,10 @@ public class TransformerBlock extends BaseEntityBlock {
         public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
             if(Screen.hasShiftDown()) {
                 components.add(Component.translatable("tooltip.energizedpower.transformer.txt.shift.1").withStyle(ChatFormatting.GRAY));
+                components.add(Component.translatable("tooltip.energizedpower.transformer.txt.shift.2").
+                        withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+                components.add(Component.translatable("tooltip.energizedpower.transformer.txt.shift.3").
+                        withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
             }else {
                 components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }

@@ -81,6 +81,8 @@
   "item.energizedpower.transformer_n_to_1": "Transformer (n to 1)",
 
   "tooltip.energizedpower.transformer.txt.shift.1": "This block can be used to connect different types of cables.",
+  "tooltip.energizedpower.transformer.txt.shift.2": "The larger, darker, diamond shaped sides are inputs.",
+  "tooltip.energizedpower.transformer.txt.shift.3": "The smaller, brighter, square shaped sides are outputs.",
 
 
   "block.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
