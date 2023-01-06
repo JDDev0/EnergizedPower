@@ -309,6 +309,7 @@
   "book.energizedpower.page.transformers_2.2": "Transformers can be used to reduce lag of cable networks by using them periodically instead of a cable block.",
   "book.energizedpower.page.transformers_2.3": "Transformers can also be used to connect energized power cables to other mods' cables.",
   "book.energizedpower.page.transformers_2.4": "Transformers can be used as battery blocks.",
+  "book.energizedpower.page.transformers_2.5": "Transformers can be used to extract energy from AE2 energy tunnels.",
 
   "book.energizedpower.page.machine_frames.1": "Machine Frames are the base crafting block for every machine.",
   "book.energizedpower.page.machine_frames.2": "There are two machine frames: Basic and Advanced",
