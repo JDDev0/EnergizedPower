@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "energizedpower:copper_cable",
+    "energizedpower:energized_copper_cable",
+    "energizedpower:transformer_1_to_n",
+    "energizedpower:transformer_n_to_1"
+  ]
+}
