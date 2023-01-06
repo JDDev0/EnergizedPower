@@ -1,5 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
+import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.recipe.CrusherRecipe;
 import me.jddev0.ep.recipe.EnergizerRecipe;
@@ -11,6 +12,7 @@ import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
+import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.forge.REIPluginClient;
 
 @REIPluginClient
@@ -23,10 +25,13 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
     @Override
     public void registerCategories(CategoryRegistry registry) {
         registry.add(new ChargerCategory());
-        registry.add(new CrusherCategory());
-        registry.add(new EnergizerCategory());
+        registry.addWorkstations(ChargerCategory.CATEGORY, EntryStacks.of(ModBlocks.CHARGER_ITEM.get()));
 
-        //TODO
+        registry.add(new CrusherCategory());
+        registry.addWorkstations(CrusherCategory.CATEGORY, EntryStacks.of(ModBlocks.CRUSHER_ITEM.get()));
+
+        registry.add(new EnergizerCategory());
+        registry.addWorkstations(EnergizerCategory.CATEGORY, EntryStacks.of(ModBlocks.ENERGIZER_ITEM.get()));
     }
 
     @Override
@@ -34,8 +39,6 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.registerRecipeFiller(ChargerRecipe.class, ChargerRecipe.Type.INSTANCE, ChargerDisplay::new);
         registry.registerRecipeFiller(CrusherRecipe.class, CrusherRecipe.Type.INSTANCE, CrusherDisplay::new);
         registry.registerRecipeFiller(EnergizerRecipe.class, EnergizerRecipe.Type.INSTANCE, EnergizerDisplay::new);
-
-        //TODO
     }
 
     @Override
