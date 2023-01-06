@@ -145,6 +145,8 @@
 
   "entity.minecraft.villager.energizedpower.electrician": "Electrician",
 
+  "recipes.energizedpower.in_world_crafting": "In-World Crafting",
+
 
   "advancements.energizedpower.advanced_machine_frame.title": "Advanced Machines",
   "advancements.energizedpower.advanced_machine_frame.description": "More advanced machines need this base crafting item.",
