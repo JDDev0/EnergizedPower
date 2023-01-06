@@ -42,10 +42,10 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
 
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return switch(slot) {
-                case 0 -> ForgeHooks.getBurnTime(stack, null) > 0;
-                default -> super.isItemValid(slot, stack);
-            };
+            if(slot == 0)
+                return ForgeHooks.getBurnTime(stack, null) > 0;
+
+            return super.isItemValid(slot, stack);
         }
     };
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();

@@ -24,7 +24,7 @@ import java.util.List;
 public class TransformerBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
-    private Type type;
+    private final Type type;
     protected TransformerBlock(Properties props, Type type) {
         super(props);
 
@@ -96,6 +96,6 @@ public class TransformerBlock extends BaseEntityBlock {
     }
 
     public enum Type {
-        TYPE_1_TO_N, TYPE_N_TO_1;
+        TYPE_1_TO_N, TYPE_N_TO_1
     }
 }
