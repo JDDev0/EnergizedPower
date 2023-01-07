@@ -120,6 +120,7 @@ public class EnergizedPowerMod {
 
             event.accept(ModBlocks.SILICON_BLOCK_ITEM);
             event.accept(ModItems.CABLE_INSULATOR);
+            event.accept(ModItems.SAWDUST);
             event.accept(ModItems.SILICON);
             event.accept(ModItems.ENERGIZED_COPPER_INGOT);
         }
