@@ -120,6 +120,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM);
 
             event.accept(ModBlocks.SILICON_BLOCK_ITEM);
+            event.accept(ModBlocks.SAWDUST_BLOCK_ITEM);
             event.accept(ModItems.CABLE_INSULATOR);
             event.accept(ModItems.SAWDUST);
             event.accept(ModItems.SILICON);

@@ -1,0 +1,20 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.sawdust.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n\n"
+    },
+    {
+      "translate": "book.energizedpower.page.sawdust.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "image": "energizedpower:textures/item/sawdust.png"
+}
