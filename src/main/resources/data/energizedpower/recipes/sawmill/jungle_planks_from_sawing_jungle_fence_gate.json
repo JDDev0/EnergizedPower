@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:jungle_fence_gate"
+  },
+  "output": {
+    "item": "minecraft:jungle_planks",
+    "count": 2
+  },
+  "sawdustAmount": 3
+}

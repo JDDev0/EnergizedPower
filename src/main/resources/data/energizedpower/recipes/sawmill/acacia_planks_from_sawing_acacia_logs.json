@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "tag": "minecraft:acacia_logs"
+  },
+  "output": {
+    "item": "minecraft:acacia_planks",
+    "count": 4
+  },
+  "sawdustAmount": 2
+}

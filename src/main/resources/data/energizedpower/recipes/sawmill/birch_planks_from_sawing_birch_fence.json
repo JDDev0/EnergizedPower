@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:birch_fence"
+  },
+  "output": {
+    "item": "minecraft:birch_planks",
+    "count": 1
+  },
+  "sawdustAmount": 2
+}

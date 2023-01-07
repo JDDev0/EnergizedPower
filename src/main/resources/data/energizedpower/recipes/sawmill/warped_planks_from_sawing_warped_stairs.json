@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:warped_stairs"
+  },
+  "output": {
+    "item": "minecraft:warped_planks",
+    "count": 1
+  },
+  "sawdustAmount": 2
+}

@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:jungle_sign"
+  },
+  "output": {
+    "item": "minecraft:jungle_planks",
+    "count": 2
+  },
+  "sawdustAmount": 1
+}

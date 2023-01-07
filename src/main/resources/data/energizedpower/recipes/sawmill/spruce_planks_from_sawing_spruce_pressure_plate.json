@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:spruce_pressure_plate"
+  },
+  "output": {
+    "item": "minecraft:spruce_planks",
+    "count": 2
+  },
+  "sawdustAmount": 1
+}

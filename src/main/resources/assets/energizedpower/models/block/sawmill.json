@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "#up",
+    "down": "energizedpower:block/sawmill_bottom",
+    "east": "energizedpower:block/sawmill_side",
+    "north": "energizedpower:block/sawmill_side",
+    "south": "energizedpower:block/sawmill_side",
+    "up": "energizedpower:block/sawmill_top",
+    "west": "energizedpower:block/sawmill_side"
+  }
+}

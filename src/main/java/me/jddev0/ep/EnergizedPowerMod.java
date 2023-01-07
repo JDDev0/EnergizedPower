@@ -95,6 +95,7 @@ public class EnergizedPowerMod {
 
             event.accept(ModBlocks.AUTO_CRAFTER_ITEM);
             event.accept(ModBlocks.CRUSHER_ITEM);
+            event.accept(ModBlocks.SAWMILL_ITEM);
             event.accept(ModBlocks.BLOCK_PLACER_ITEM);
             event.accept(ModBlocks.CHARGER_ITEM);
             event.accept(ModBlocks.UNCHARGER_ITEM);
@@ -137,6 +138,7 @@ public class EnergizedPowerMod {
         public static void onClientSetup(FMLClientSetupEvent event) {
             MenuScreens.register(ModMenuTypes.AUTO_CRAFTER_MENU.get(), AutoCrafterScreen::new);
             MenuScreens.register(ModMenuTypes.CRUSHER_MENU.get(), CrusherScreen::new);
+            MenuScreens.register(ModMenuTypes.SAWMILL_MENU.get(), SawmillScreen::new);
             MenuScreens.register(ModMenuTypes.BLOCK_PLACER_MENU.get(), BlockPlacerScreen::new);
             MenuScreens.register(ModMenuTypes.CHARGER_MENU.get(), ChargerScreen::new);
             MenuScreens.register(ModMenuTypes.UNCHARGER_MENU.get(), UnchargerScreen::new);

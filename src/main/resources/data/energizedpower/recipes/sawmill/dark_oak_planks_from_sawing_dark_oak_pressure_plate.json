@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:dark_oak_pressure_plate"
+  },
+  "output": {
+    "item": "minecraft:dark_oak_planks",
+    "count": 2
+  },
+  "sawdustAmount": 1
+}

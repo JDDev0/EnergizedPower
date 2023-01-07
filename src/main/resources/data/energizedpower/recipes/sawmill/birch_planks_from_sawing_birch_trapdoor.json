@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:birch_trapdoor"
+  },
+  "output": {
+    "item": "minecraft:birch_planks",
+    "count": 3
+  },
+  "sawdustAmount": 2
+}

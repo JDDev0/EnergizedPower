@@ -21,6 +21,9 @@ public final class ModRecipes {
     public static final RegistryObject<RecipeSerializer<CrusherRecipe>> CRUSHER_SERIALIZER = SERIALIZERS.register("crusher",
             () -> CrusherRecipe.Serializer.INSTANCE);
 
+    public static final RegistryObject<RecipeSerializer<SawmillRecipe>> SAWMILL_SERIALIZER = SERIALIZERS.register("sawmill",
+            () -> SawmillRecipe.Serializer.INSTANCE);
+
     public static void register(IEventBus modEventBus) {
         SERIALIZERS.register(modEventBus);
     }
