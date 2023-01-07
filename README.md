@@ -7,6 +7,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 This mod adds the following machines:
 - Auto Crafter
 - Crusher
+- Sawmill
 - Block Placer
 - Charger
 - Charging Station
