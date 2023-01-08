@@ -1,0 +1,360 @@
+{
+  "item.energizedpower.energized_copper_ingot": "Energetisierter Kupferbarren",
+
+  "item.energizedpower.silicon": "Silizium",
+
+  "item.energizedpower.sawdust": "Sägemehl",
+
+  "item.energizedpower.basic_solar_cell": "Basis Solarzelle",
+  "item.energizedpower.advanced_solar_cell": "Fortgeschrittene Solarzelle",
+
+  "item.energizedpower.energized_power_book": "Energized Power Buch",
+  "book.energizedpower.front.cover.text": "Das ist das Guide-Buch für diese Mod!",
+
+  "item.energizedpower.cable_insulator": "Kabelinsulator",
+  "tooltip.energizedpower.cable_insulator.txt.shift.1": "Dieses Item kann durch das Klicken auf einen Wolleblock mit einer Schere hergestellt werden.",
+
+  "item.energizedpower.inventory_coal_engine": "Inventar Kohlegenerator",
+  "tooltip.energizedpower.inventory_coal_engine.status": "Status: ",
+  "tooltip.energizedpower.inventory_coal_engine.status.activated": "Aktiviert",
+  "tooltip.energizedpower.inventory_coal_engine.status.deactivated": "Deaktiviert",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.1": "Der Aktivierungs-Status kann durch das verwenden des Items in der Luft geändert werden",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.2": "Wenn der Generator aktiviert ist, werden Items automatisch vom Inventar verbrannt, Items in der Hotbar werden nicht verbrannt.",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning": "Brennt gerade: ",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.energy_production_left": "Übrige Energie-Produktion: %s",
+
+  "item.energizedpower.battery_1": "Batterie (MK I)",
+  "item.energizedpower.battery_2": "Batterie (MK II)",
+  "item.energizedpower.battery_3": "Batterie (MK III)",
+  "item.energizedpower.battery_4": "Batterie (MK IV)",
+  "item.energizedpower.battery_5": "Batterie (MK V)",
+  "item.energizedpower.battery_6": "Batterie (MK VI)",
+  "item.energizedpower.battery_7": "Batterie (MK VII)",
+  "item.energizedpower.battery_8": "Batterie (MK VIII)",
+  "tooltip.energizedpower.battery.txt.shift.1": "Diese Batterie kann %s/t aufnehmen und abgeben.",
+
+  "item.energizedpower.energy_analyzer": "Energie-Analyzierer",
+  "tooltip.energizedpower.energy_analyzer.txt.shift.1": "Drücke auf einen Energie-Block um Informationen zu erhalten.",
+  "tooltip.energizedpower.energy_analyzer.txt.shift.2": "%s werden pro Benutzung verwendet",
+  "txt.energizedpower.energy_analyzer.no_energy_left": "Der Energie-Analyzierer hat nicht genug Strom (%s sind erforderlich).",
+  "txt.energizedpower.energy_analyzer.no_block_entity": "Dieser Block ist kein Energie-Block.",
+  "txt.energizedpower.energy_analyzer.no_energy_block": "Dieser Block ist kein (FE-)Energie-Block.",
+  "txt.energizedpower.energy_analyzer.energy_output": "Energie: %s / %s.",
+  "txt.energizedpower.energy_analyzer.energy_can_receive": "Dieser Block konsumiert Energie.",
+  "txt.energizedpower.energy_analyzer.energy_can_extract": "Dieser Block produziert Energie.",
+
+  "block.energizedpower.silicon_block": "Siliziumblock",
+  "item.energizedpower.silicon_block": "Siliziumblock",
+
+  "block.energizedpower.sawdust_block": "Sägemehlblock",
+  "item.energizedpower.sawdust_block": "Sägemehlblock",
+
+  "block.energizedpower.auto_crafter": "Automatische Werkbank",
+  "item.energizedpower.auto_crafter": "Automatische Werkbank",
+  "container.energizedpower.auto_crafter": "Automatische Werkbank",
+
+  "tooltip.energizedpower.auto_crafter.txt.shift.1": "Dieser Block verbraucht %s/t pro Zutat.",
+
+  "block.energizedpower.charger": "Lader",
+  "item.energizedpower.charger": "Lader",
+  "container.energizedpower.charger": "Lader",
+
+  "tooltip.energizedpower.charger.txt.shift.1": "Der Lader kann Kupferbarren energetisieren.",
+  "tooltip.energizedpower.charger.txt.shift.2": "Es ist aber sehr stromintensiv :P",
+
+  "tooltip.energizedpower.charger.item_energy_left.txt": "Dieses Item braucht noch %s, um vollständig geladen zu sein.",
+
+  "block.energizedpower.uncharger": "Entlader",
+  "item.energizedpower.uncharger": "Entlader",
+  "container.energizedpower.uncharger": "Entlader",
+
+  "tooltip.energizedpower.uncharger.item_energy_left.txt": "Dieses Item hat noch %s.",
+
+  "block.energizedpower.copper_cable": "Kupferkabel",
+  "item.energizedpower.copper_cable": "Kupferkabel",
+
+  "block.energizedpower.energized_copper_cable": "Energetisiertes Kupferkabel",
+  "item.energizedpower.energized_copper_cable": "Energetisiertes Kupferkabel",
+
+  "tooltip.energizedpower.cable.txt.shift.1": "Dieses Kabel kann %s/t transferieren.",
+  "tooltip.energizedpower.cable.txt.shift.2": "Kabelinsulatoren können durch das Klicken auf einen Wolleblock mit einer Schere hergestellt werden.",
+
+
+  "block.energizedpower.transformer_1_to_n": "Trafo (1 zu n)",
+  "item.energizedpower.transformer_1_to_n": "Trafo (1 zu n)",
+
+  "block.energizedpower.transformer_n_to_1": "Trafo (n zu 1)",
+  "item.energizedpower.transformer_n_to_1": "Trafo (n zu 1)",
+
+  "tooltip.energizedpower.transformer.txt.shift.1": "Dieser Block kann verschiedene Kabeltypen verbinden.",
+  "tooltip.energizedpower.transformer.txt.shift.2": "Die größeren, dunkleren, Rauten-förmigen Seiten sind Eingänge.",
+  "tooltip.energizedpower.transformer.txt.shift.3": "Die kleineren, helleren, Quadrat-förmigen Seiten sind Ausgänge.",
+
+
+  "block.energizedpower.solar_panel_1": "Solarpanel (MK I)",
+  "item.energizedpower.solar_panel_1": "Solarpanel (MK I)",
+  "block.energizedpower.solar_panel_2": "Solarpanel (MK II)",
+  "item.energizedpower.solar_panel_2": "Solarpanel (MK II)",
+  "block.energizedpower.solar_panel_3": "Solarpanel (MK III)",
+  "item.energizedpower.solar_panel_3": "Solarpanel (MK III)",
+  "block.energizedpower.solar_panel_4": "Solarpanel (MK IV)",
+  "item.energizedpower.solar_panel_4": "Solarpanel (MK IV)",
+  "block.energizedpower.solar_panel_5": "Solarpanel (MK V)",
+  "item.energizedpower.solar_panel_5": "Solarpanel (MK V)",
+
+  "tooltip.energizedpower.solar_panel.txt.shift.1": "Dieses Panel kann %s/t während es hell ist produzieren.",
+  "tooltip.energizedpower.solar_panel.txt.shift.2": "Die Effizienz hängt von der aktullen Zeit und dem Wetter ab",
+
+  "block.energizedpower.coal_engine": "Kohlegenerator",
+  "item.energizedpower.coal_engine": "Kohlegenerator",
+  "container.energizedpower.coal_engine": "Kohlegenerator",
+
+  "tooltip.energizedpower.coal_engine.txt": "Dieses Item wird noch %s produizeren",
+
+  "block.energizedpower.crusher": "Zerkleinerer",
+  "item.energizedpower.crusher": "Zerkleinerer",
+  "container.energizedpower.crusher": "Zerkleinerer",
+
+  "block.energizedpower.sawmill": "Sägewerk",
+  "item.energizedpower.sawmill": "Sägewerk",
+  "container.energizedpower.sawmill": "Sägewerk",
+
+  "block.energizedpower.block_placer": "Blockplatzierer",
+  "item.energizedpower.block_placer": "Blockplatzierer",
+  "container.energizedpower.block_placer": "Blockplatzierer",
+
+  "tooltip.energizedpower.block_placer.block_energy_left.txt": "Der Block muss noch %s konsumieren, um plaziert werden zu können.",
+
+  "block.energizedpower.lightning_generator": "Blitz-Generator",
+  "item.energizedpower.lightning_generator": "Blitz-Generator",
+
+  "tooltip.energizedpower.lightning_generator.txt.shift.1": "Der Block produziert %s pro Blitzeinschlag.",
+  "tooltip.energizedpower.lightning_generator.txt.shift.2": "Ein Blitzableiter muss über diesen Block platziert werden",
+
+  "block.energizedpower.energizer": "Energetisierer",
+  "item.energizedpower.energizer": "Energetisierer",
+  "container.energizedpower.energizer": "Energetisierer",
+
+  "block.energizedpower.charging_station": "Ladestation",
+  "item.energizedpower.charging_station": "Ladestation",
+  "container.energizedpower.charging_station": "Ladestation",
+
+  "tooltip.energizedpower.charging_station.txt.shift.1": "Die Ladestation kann benutzt werden, um Items in einem Spielerinventar zu laden.",
+
+  "block.energizedpower.basic_machine_frame": "Basis Maschinenrahmen",
+  "item.energizedpower.basic_machine_frame": "Basis Maschinenrahmen",
+
+  "block.energizedpower.advanced_machine_frame": "Fortgeschrittener Maschinenrahmen",
+  "item.energizedpower.advanced_machine_frame": "Fortgeschrittener Maschinenrahmen",
+
+  "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
+  "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "Dieses Rezept benötigt noch %s um fertiggestellt zu werden.",
+  "tooltip.energizedpower.shift_details.txt": "Drücke [SHIFT] für Informationen",
+
+  "itemGroup.energizedpower.tab": "Energized Power",
+
+  "entity.minecraft.villager.energizedpower.electrician": "Elektroniker",
+
+  "recipes.energizedpower.in_world_crafting": "In-Welt Herstellung",
+
+
+  "advancements.energizedpower.advanced_machine_frame.title": "Fortgeschrittene Maschinen",
+  "advancements.energizedpower.advanced_machine_frame.description": "Forgeschrittenere Machinen benötigen dieses Basis-Crafting-Item.",
+
+  "advancements.energizedpower.advanced_solar_cell.title": "Fortgeschrittener Solar-Strom",
+  "advancements.energizedpower.advanced_solar_cell.description": "Erforderlich für fortgeschrittene Solar Panels...",
+
+  "advancements.energizedpower.auto_crafter.title": "Automatisierung ist die Zukunft",
+  "advancements.energizedpower.auto_crafter.description": "Wer braucht schon manuelles Herstellen, wenn dieser Block das automatisch kann?",
+
+  "advancements.energizedpower.crusher.title": "Zerkleinere es",
+  "advancements.energizedpower.crusher.description": "Zerkleinere Stein, Sandstein, Bruchstein, Kies oder andere Blöcke.",
+
+  "advancements.energizedpower.sawmill.title": "Sägen",
+  "advancements.energizedpower.sawmill.description": "Sägt Holz.",
+
+  "advancements.energizedpower.block_placer.title": "Platziere den Block",
+  "advancements.energizedpower.block_placer.description": "Blöcke werden automatisch in der Welt platziert.",
+
+  "advancements.energizedpower.basic_machine_frame.title": "Die Grundlage für Machinen",
+  "advancements.energizedpower.basic_machine_frame.description": "Das ist das Basis-Crafting-Item für jede Maschine.",
+
+  "advancements.energizedpower.basic_solar_cell.title": "Solarstrom Basics",
+  "advancements.energizedpower.basic_solar_cell.description": "Deine erste Solarzelle von zwei, die für dein erstes Panel erforderlich sind.",
+
+  "advancements.energizedpower.battery_1.title": "Batterien",
+  "advancements.energizedpower.battery_1.description": "Speichert Stromg in Item-Form.",
+
+  "advancements.energizedpower.battery_2.title": "Energie x4",
+  "advancements.energizedpower.battery_2.description": "Diese Batterie kann 4 mal so viel Strom wie die MK 1 Batterie speichern.",
+
+  "advancements.energizedpower.battery_3.title": "Mehr Energie",
+  "advancements.energizedpower.battery_3.description": "MK III: Doppelt so viel Strom, wie die Batterie MK II",
+
+  "advancements.energizedpower.battery_4.title": "Du hast nach noch mehr Stromg gefragt",
+  "advancements.energizedpower.battery_4.description": "Ja, das ist eine MK IV Batterie, jetzt gibt es nur mehr 4 bessere Batterien",
+
+  "advancements.energizedpower.battery_5.title": "Das Beste, was Kupfer zu bieten hat",
+  "advancements.energizedpower.battery_5.description": "MK V: Die nächstbessere Batterie kann nur mehr durch Energetisierung hergestellt werden...",
+
+  "advancements.energizedpower.battery_6.title": "Energetisierte Batterie",
+  "advancements.energizedpower.battery_6.description": "MK VI: Du hast deine Batterie also Energetisiert, um noch mehr Strom speichern zu können.",
+
+  "advancements.energizedpower.battery_7.title": "Du hast gesagt, dass du noch mehr Stromg brauchst?",
+  "advancements.energizedpower.battery_7.description": "MK VII: Eine viertel Millionen FE Speicherkapazität! Können wir eine noch bessere Batterie herstellen?",
+
+  "advancements.energizedpower.battery_8.title": "Ich brauche mehr STROM",
+  "advancements.energizedpower.battery_8.description": "Das ist die beste Batterie der Mod (Sie kann 1 Millionen FE speichern)",
+
+  "advancements.energizedpower.battery_8_fully_charged.title": "Meister der Energiespeicherung",
+  "advancements.energizedpower.battery_8_fully_charged.description": "Du hast deine Batterie mit 1 Millionen FE geladen!",
+
+  "advancements.energizedpower.cable_insulator.title": "Die Jacke für dein Kabel",
+  "advancements.energizedpower.cable_insulator.description": "Bedecke deine Kabel mit diesem Insulator.",
+
+  "advancements.energizedpower.charger.title": "Lade es",
+  "advancements.energizedpower.charger.description": "Lade deine Energie-Items mit diesen Block.",
+
+  "advancements.energizedpower.charging_station.title": "Wireless Charging",
+  "advancements.energizedpower.charging_station.description": "Lade deine Items wireless.",
+
+  "advancements.energizedpower.coal_engine.title": "Durch Kohle angetrieben",
+  "advancements.energizedpower.coal_engine.description": "Die Stromproduktion durch Verbrennung is nicht das Effizienterste, aber es reicht für den Moment.",
+
+  "advancements.energizedpower.copper_cable.title": "Energie-Transport",
+  "advancements.energizedpower.copper_cable.description": "Transportiere Strom mit Kabel.",
+
+  "advancements.energizedpower.energized_copper_cable.title": "Zu viel Strom",
+  "advancements.energizedpower.energized_copper_cable.description": "Kabel mit sehr hohem Energietransfer!",
+
+  "advancements.energizedpower.transformers.title": "Trafos",
+  "advancements.energizedpower.transformers.description": "Trafos können verschiedene Kabeltypen verbinden.",
+
+  "advancements.energizedpower.energized_copper_ingot.title": "Energetisiert",
+  "advancements.energizedpower.energized_copper_ingot.description": "Energetisiertes Kupfer ist besser als Kupfer.",
+
+  "advancements.energizedpower.energized_power_book.title": "Unendliches Wissen",
+  "advancements.energizedpower.energized_power_book.description": "Ein Guide-Buch für diese Mod.",
+
+  "advancements.energizedpower.energizedpower.title": "Energized Power",
+  "advancements.energizedpower.energizedpower.description": "Das ist der Start deiner Energized Power-Reise.",
+
+  "advancements.energizedpower.energizer.title": "Effizenteres Energetisieren",
+  "advancements.energizedpower.energizer.description": "Diese Maschine kann Kupferbarren viel schneller und effizenter Energetisieren als der Lader.",
+
+  "advancements.energizedpower.energy_analyzer.title": "Meister der Analyse",
+  "advancements.energizedpower.energy_analyzer.description": "Analysiere Energie-Blöcke - auch diese, ohne GUI-Interface!",
+
+  "advancements.energizedpower.inventory_coal_engine.title": "Inventar-Strom",
+  "advancements.energizedpower.inventory_coal_engine.description": "Produziere und verteile Energie in deinem Inventar.",
+
+  "advancements.energizedpower.silicon.title": "Silizium",
+  "advancements.energizedpower.silicon.description": "Dieses Item wird in fast allen Items und Blöcken dieser Mod verwendet.",
+
+  "advancements.energizedpower.solar_panel_1.title": "Solarstrom-Student",
+  "advancements.energizedpower.solar_panel_1.description": "Ein MK I Solarpanel...",
+
+  "advancements.energizedpower.solar_panel_2.title": "Solarstrom-Praktikant",
+  "advancements.energizedpower.solar_panel_2.description": "MK II ist besser als MK I",
+
+  "advancements.energizedpower.solar_panel_3.title": "Solarstrom-Angestellter",
+  "advancements.energizedpower.solar_panel_3.description": "MK III - Das beste der Basis-Solarpanels",
+
+  "advancements.energizedpower.solar_panel_4.title": "Solarstrom-Manager",
+  "advancements.energizedpower.solar_panel_4.description": "MK IV: Nur noch ein Panel ist besser!",
+
+  "advancements.energizedpower.solar_panel_5.title": "Solarstrom-Arbeitgeber",
+  "advancements.energizedpower.solar_panel_5.description": "MK V - Du hast das beste Solarpanel!",
+
+  "advancements.energizedpower.uncharger.title": "Gib sie zurück!",
+  "advancements.energizedpower.uncharger.description": "Entläd deine Energie-Items.",
+
+
+  "book.energizedpower.page.welcome.title": "Wilkommen zu Energized Power!",
+  "book.energizedpower.page.welcome.1": "Diese Mod fügt viele Items und Maschinen hinzu, die etwas mit Strom zu tun haben.",
+  "book.energizedpower.page.welcome.2": "Der Elektriker- Dorfbewohner, welcher im Elektriker-Haus gefunden werden kann, wurde hinzugefügt.",
+  "book.energizedpower.page.welcome.3": "Dieses Haus kann in allen Dörfern gefunden werden.",
+
+
+  "book.energizedpower.page.chapter.resources.title": "Ressourcen",
+  "book.energizedpower.page.chapter.resources.1": "Ressourcen sind für das Craften von Items erforderlich.",
+
+  "book.energizedpower.page.cable_insulator.1": "Der Kabelinsulator ist für das herstellen von Kabeln erforderlich.",
+  "book.energizedpower.page.cable_insulator.2": "Er kann durch das Klicken auf einen Wolleblock mit einer Schere hergestellt werden.",
+  "book.energizedpower.page.cable_insulator.3": "Auch mit Werfer möglich",
+
+  "book.energizedpower.page.silicon.1": "Silizium ist ein Item, dass für viele Rezepte dieser Mod benötigt wird.",
+  "book.energizedpower.page.silicon.2": "Es kann durch das Schmeltzen von Netherquarz herstellt werden.",
+
+  "book.energizedpower.page.sawdust.1": "Sägemehl wird in dem Sägewerk hergestellt und kann zu Sägemehlblöcken vercrafted werden.",
+  "book.energizedpower.page.sawdust.2": "Sägemehlblöcke können zu Holzkohle geschmolzen werden.",
+
+  "book.energizedpower.page.energized_copper_ingot.1": "Energetisierte Kupferbarren sind für fortgeschrittene Maschinen erforderlich.",
+  "book.energizedpower.page.energized_copper_ingot.2": "Der Energetisierer braucht es auch!",
+  "book.energizedpower.page.energized_copper_ingot.3": "Der Lader kann diese Barren auch herstellen.",
+  "book.energizedpower.page.energized_copper_ingot.4": " [Es ist aber sehr energieintensiv]",
+
+
+  "book.energizedpower.page.chapter.energy_items.title": "Energie-Items",
+  "book.energizedpower.page.chapter.energy_items": "Items, die Energie produzieren, verbrauchen oder speichern.",
+
+  "book.energizedpower.page.inventory_coal_engine.1": "Dieses Item kann Strom in deinem Inventar produzieren und verteilen.",
+  "book.energizedpower.page.inventory_coal_engine.2": "Es kann durch das Klicken in Luft aktiviert werden.",
+  "book.energizedpower.page.inventory_coal_engine.3": "Treibstoff wird automatisch aus dem Inventar entnommen.",
+  "book.energizedpower.page.inventory_coal_engine.4": " [Die Hotbar ist ausgenommen]",
+
+  "book.energizedpower.page.energy_analyzer.1": "Der Energie-Analyzierer kann genutzt werden, um Energie-Statistiken (Auch diese, ohne GUI) von Blöcken zu erhalten.",
+  "book.energizedpower.page.energy_analyzer.2": "Es wird durch das Klicken auf Blöcken verwendet.",
+
+  "book.energizedpower.page.batteries.1": "Batterien speichern Strom.",
+  "book.energizedpower.page.batteries.2": "Sie können im Lader oder durch den Inventar-Kohlegenerator geladen werden und mit dem Entlader entladen werden.",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.title": "Energie-Blöcke",
+  "book.energizedpower.page.chapter.energy_blocks": "Blöcke, die Energie produzieren, verbrauchen oder verteilen.",
+
+  "book.energizedpower.page.cables.1": "Kabel werden für den Transport von Energie genutzt.",
+  "book.energizedpower.page.cables.2": "Es gibt zwei Kabelarten: Kupferkabel, Energetisierte Kupferkabel.",
+  "book.energizedpower.page.cables.3": "Ein Trafo ist erforderlich, wenn man Kabel von verschiedenen Typen verbinden will.",
+
+  "book.energizedpower.page.transformers_1.1": "Trafos können Kabel von verschiedenen Typen verbinden.",
+  "book.energizedpower.page.transformers_1.2": "Die größeren, dunkleren, Rauten-förmigen Seiten sind Eingänge.",
+  "book.energizedpower.page.transformers_1.3": "Die kleineren, helleren, Quadrat-förmigen Seiten sind Ausgänge.",
+
+  "book.energizedpower.page.transformers_2.1": "Es gibt zwei Trafotypen: 1 zu n (1 Eingang, 5 Ausgänge), n zu 1 (1 Ausgang, 5 Eingänge).",
+  "book.energizedpower.page.transformers_2.2": "Trafos können Lags-Reduzieren, indem sie manchmal statt einem Kabel-Block plaziert werden.",
+  "book.energizedpower.page.transformers_2.3": "Trafos können Kabel von dieser Mod mit Kabel von anderen verbinden.",
+  "book.energizedpower.page.transformers_2.4": "Trafos können als Batterie- Block genutzt werden.",
+  "book.energizedpower.page.transformers_2.5": "Trafos können Energie aus AE2-FE- P2P-Tunnel extrahieren.",
+
+  "book.energizedpower.page.machine_frames.1": "Maschinenrahmen sind der Basis-Crafting-Block für alle Maschinen.",
+  "book.energizedpower.page.machine_frames.2": "Es gibt zwei Maschinenrahmen: Basis und fortgeschritten",
+  "book.energizedpower.page.machine_frames.3": "Der Basis Maschinenrahmen ist die Werkstation des Elektriker-Dorfbewohners.",
+
+  "book.energizedpower.page.solar_cells.1": "Solarzellen sind die Basis-Crafting-Items für jedes Solarpanel.",
+  "book.energizedpower.page.solar_cells.2": "Es gibt zwei Typen: Basis und fortgeschritten",
+
+  "book.energizedpower.page.solar_panels.1": "Solarpanels produizeren während dem Tag Energie. Die Effizienz hängt von der Zeit und dem Wetter ab.",
+  "book.energizedpower.page.solar_panels.2": "Es gibt 5 Solarpanel-Typen.",
+  "book.energizedpower.page.solar_panels.3": "MK IV und MK V benötigen energetisierte Kupferbarren.",
+
+  "book.energizedpower.page.coal_engine.1": "Der Kohlegenerator produziert Energie indem er Items verbrennt.",
+  "book.energizedpower.page.coal_engine.2": "Zurückbleibende Items (z.B. Lavaeimer: Eimer) können automatisch extrahiert werden.",
+
+  "book.energizedpower.page.auto_crafter.1": "Die automatische Werkbank stellt Items automatisch her.",
+  "book.energizedpower.page.auto_crafter.2": "Die Rezepte können in den Pattern-Feldern definiert werden.",
+
+  "book.energizedpower.page.crusher": "Der Zerkleinerer kann Items wie Sand, Sandstein, Bruchstein und Kies zerkleinern.",
+
+  "book.energizedpower.page.sawmill.1": "Das Sägewerk sägt Holz-Blöcke und -Items.",
+  "book.energizedpower.page.sawmill.2": "Sägemehl wird dabei produziert und kann zu Sägemehlblöcken verarbeitet werden. Diese können dann als Treibstoff verwendet werden.",
+
+  "book.energizedpower.page.block_placer.1": "Der Blockplatzierer kann Blöcke plazieren (Sogar Türen und Samen).",
+  "book.energizedpower.page.block_placer.2": "Blöcke werden nur platziert, wenn es möglich ist.",
+
+  "book.energizedpower.page.charger_uncharger": "Der Lader kann Items laden und der Entlader kann Items entladen.",
+
+  "book.energizedpower.page.charging_station": "Die Ladestation kann Items wireless laden.",
+
+  "book.energizedpower.page.energizer": "Der Energetisierer kann Items sehr effizient energetiesiren."
+}
