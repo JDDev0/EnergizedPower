@@ -28,8 +28,11 @@ public final class ItemStackUtils {
                 }
             }
 
-            if(!inserted)
-                combinedItemStacks.add(itemStack.copyWithCount(amountLeft));
+            if(!inserted) {
+                ItemStack itemStackCopy = itemStack.copy();
+                itemStackCopy.setCount(amountLeft);
+                combinedItemStacks.add(itemStackCopy);
+            }
         }
 
         return combinedItemStacks;

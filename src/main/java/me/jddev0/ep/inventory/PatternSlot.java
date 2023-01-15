@@ -38,7 +38,9 @@ public class PatternSlot extends Slot {
         if(!itemStack.isEmpty()) {
             ItemStack selfItem = getItem();
             if(selfItem.isEmpty() || !ItemStack.isSame(itemStack, selfItem) || !ItemStack.tagMatches(itemStack, selfItem)) {
-                set(itemStack.copyWithCount(1));
+                ItemStack itemStackCopy = itemStack.copy();
+                itemStackCopy.setCount(1);
+                set(itemStackCopy);
             }else {
                 selfItem.grow(1);
                 set(selfItem);

@@ -3,9 +3,12 @@ package me.jddev0.ep.item.energy;
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -33,6 +36,18 @@ public class EnergizedPowerEnergyItem extends Item {
         super(props);
 
         this.energyStorageProvider = energyStorageProvider;
+    }
+
+    @Override
+    public void fillItemCategory(CreativeModeTab category, NonNullList<ItemStack> items) {
+        if(allowedIn(category)) {
+            items.add(new ItemStack(this));
+
+            ItemStack itemStackFullyCharged = new ItemStack(this);
+            itemStackFullyCharged.getOrCreateTag().put("energy", IntTag.valueOf(energyStorageProvider.get().getCapacity()));
+
+            items.add(itemStackFullyCharged);
+        }
     }
 
     public boolean isBarVisible(ItemStack stack) {

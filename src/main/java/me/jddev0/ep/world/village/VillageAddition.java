@@ -3,7 +3,6 @@ package me.jddev0.ep.world.village;
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.EnergizedPowerMod;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
@@ -19,7 +18,7 @@ import java.util.List;
 public class VillageAddition {
     @SubscribeEvent
     public static void addVillageHouses(ServerAboutToStartEvent event) {
-        Registry<StructureTemplatePool> templatePoolRegistry = event.getServer().registryAccess().registry(Registries.TEMPLATE_POOL).orElseThrow();
+        Registry<StructureTemplatePool> templatePoolRegistry = event.getServer().registryAccess().registry(Registry.TEMPLATE_POOL_REGISTRY).orElseThrow();
 
         //Electrician 1
         addVillageHouse(templatePoolRegistry, "desert", "electrician_1", 5);

@@ -76,14 +76,13 @@ public class EnergizedPowerBookScreen extends Screen {
     private void createMenuControls() {
         boolean showTakeButton = lecternBlockEntity != null && minecraft.player.mayBuild();
 
-        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, button -> onClose()).
-                bounds(width / 2 - 100, 196, showTakeButton?98:200, 20).build());
+        addRenderableWidget(new Button(width / 2 - 100, 196, showTakeButton?98:200, 20, CommonComponents.GUI_DONE, button -> onClose()));
 
         if(showTakeButton)
-            addRenderableWidget(Button.builder(Component.translatable("lectern.take_book"), button -> {
+            addRenderableWidget(new Button(width / 2 + 2, 196, 98, 20, Component.translatable("lectern.take_book"), button -> {
                 ModMessages.sendToServer(new PopEnergizedPowerBookFromLecternC2SPacket(lecternBlockEntity.getBlockPos()));
                 onClose();
-            }).bounds(width / 2 + 2, 196, 98, 20).build());
+            }));
     }
 
     private void createPageControlButtons() {

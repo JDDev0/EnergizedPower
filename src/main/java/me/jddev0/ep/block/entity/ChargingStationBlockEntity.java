@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -95,7 +96,7 @@ public class ChargingStationBlockEntity extends BlockEntity implements EnergySto
                         blockPos.getZ() - MAX_CHARGING_DISTANCE),
                 new Vec3i(blockPos.getX() + MAX_CHARGING_DISTANCE, blockPos.getY() + MAX_CHARGING_DISTANCE,
                         blockPos.getZ() + MAX_CHARGING_DISTANCE))), EntitySelector.NO_SPECTATORS.
-                and(entity -> entity.distanceToSqr(blockPos.getCenter()) <= MAX_CHARGING_DISTANCE*MAX_CHARGING_DISTANCE));
+                and(entity -> entity.distanceToSqr(new Vec3(blockPos.getX() - .5, blockPos.getY() - .5, blockPos.getZ() - .5)) <= MAX_CHARGING_DISTANCE*MAX_CHARGING_DISTANCE));
 
         int energyPerTick = Math.min(blockEntity.energyStorage.getMaxReceive(), blockEntity.energyStorage.getEnergy());
         int energyPerTickLeft = energyPerTick;

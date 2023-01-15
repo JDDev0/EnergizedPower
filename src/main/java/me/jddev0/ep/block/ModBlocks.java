@@ -1,6 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.item.ModCreativeModeTab;
 import me.jddev0.ep.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -23,7 +24,7 @@ public final class ModBlocks {
         return ModItems.ITEMS.register(name, () -> new BlockItem(blockRegistryObject.get(), props));
     }
     private static RegistryObject<Item> createBlockItem(String name, RegistryObject<Block> blockRegistryObject) {
-        return createBlockItem(name, blockRegistryObject, new Item.Properties());
+        return createBlockItem(name, blockRegistryObject, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB));
     }
 
     public static final RegistryObject<Block> SILICON_BLOCK = BLOCKS.register("silicon_block",
@@ -39,30 +40,30 @@ public final class ModBlocks {
     public static final RegistryObject<CableBlock> COPPER_CABLE = BLOCKS.register("copper_cable",
             () -> new CableBlock(CableBlock.Tier.TIER_COPPER));
     public static final RegistryObject<Item> COPPER_CABLE_ITEM = ModItems.ITEMS.register("copper_cable",
-            () -> new CableBlock.Item(COPPER_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_COPPER));
+            () -> new CableBlock.Item(COPPER_CABLE.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), CableBlock.Tier.TIER_COPPER));
     public static final RegistryObject<CableBlock> ENERGIZED_COPPER_CABLE = BLOCKS.register("energized_copper_cable",
             () -> new CableBlock(CableBlock.Tier.TIER_ENERGIZED_COPPER));
     public static final RegistryObject<Item> ENERGIZED_COPPER_CABLE_ITEM = ModItems.ITEMS.register("energized_copper_cable",
-            () -> new CableBlock.Item(ENERGIZED_COPPER_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_ENERGIZED_COPPER));
+            () -> new CableBlock.Item(ENERGIZED_COPPER_CABLE.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), CableBlock.Tier.TIER_ENERGIZED_COPPER));
 
     public static final RegistryObject<TransformerBlock> TRANSFORMER_1_TO_N = BLOCKS.register("transformer_1_to_n",
             () -> new TransformerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
                     TransformerBlock.Type.TYPE_1_TO_N));
     public static final RegistryObject<Item> TRANSFORMER_1_TO_N_ITEM = ModItems.ITEMS.register("transformer_1_to_n",
-            () -> new TransformerBlock.Item(TRANSFORMER_1_TO_N.get(), new Item.Properties(), TransformerBlock.Type.TYPE_1_TO_N));
+            () -> new TransformerBlock.Item(TRANSFORMER_1_TO_N.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), TransformerBlock.Type.TYPE_1_TO_N));
     public static final RegistryObject<TransformerBlock> TRANSFORMER_N_TO_1 = BLOCKS.register("transformer_n_to_1",
             () -> new TransformerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
                     TransformerBlock.Type.TYPE_N_TO_1));
     public static final RegistryObject<Item> TRANSFORMER_N_TO_1_ITEM = ModItems.ITEMS.register("transformer_n_to_1",
-            () -> new TransformerBlock.Item(TRANSFORMER_N_TO_1.get(), new Item.Properties(), TransformerBlock.Type.TYPE_N_TO_1));
+            () -> new TransformerBlock.Item(TRANSFORMER_N_TO_1.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), TransformerBlock.Type.TYPE_N_TO_1));
 
     public static final RegistryObject<Block> AUTO_CRAFTER = BLOCKS.register("auto_crafter",
             () -> new AutoCrafterBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final RegistryObject<Item> AUTO_CRAFTER_ITEM = ModItems.ITEMS.register("auto_crafter",
-            () -> new AutoCrafterBlock.Item(AUTO_CRAFTER.get(), new Item.Properties()));
+            () -> new AutoCrafterBlock.Item(AUTO_CRAFTER.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Block> CRUSHER = BLOCKS.register("crusher",
             () -> new CrusherBlock(BlockBehaviour.Properties.of(Material.METAL).
@@ -83,7 +84,7 @@ public final class ModBlocks {
             () -> new ChargerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final RegistryObject<Item> CHARGER_ITEM = ModItems.ITEMS.register("charger",
-            () -> new ChargerBlock.Item(CHARGER.get(), new Item.Properties()));
+            () -> new ChargerBlock.Item(CHARGER.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Block> UNCHARGER = BLOCKS.register("uncharger",
             () -> new UnchargerBlock(BlockBehaviour.Properties.of(Material.METAL).
@@ -92,7 +93,7 @@ public final class ModBlocks {
 
 
     private static RegistryObject<Item> createSolarPanelBlockItem(String name, RegistryObject<SolarPanelBlock> blockRegistryObject) {
-        return ModItems.ITEMS.register(name, () -> new SolarPanelBlock.Item(blockRegistryObject.get(), new Item.Properties(),
+        return ModItems.ITEMS.register(name, () -> new SolarPanelBlock.Item(blockRegistryObject.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB),
                 blockRegistryObject.get().getTier()));
     }
     public static final RegistryObject<SolarPanelBlock> SOLAR_PANEL_1 = BLOCKS.register("solar_panel_1",
@@ -125,7 +126,7 @@ public final class ModBlocks {
             () -> new LightningGeneratorBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final RegistryObject<Item> LIGHTNING_GENERATOR_ITEM = ModItems.ITEMS.register("lightning_generator",
-            () -> new LightningGeneratorBlock.Item(LIGHTNING_GENERATOR.get(), new Item.Properties()));
+            () -> new LightningGeneratorBlock.Item(LIGHTNING_GENERATOR.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Block> ENERGIZER = BLOCKS.register("energizer",
             () -> new EnergizerBlock(BlockBehaviour.Properties.of(Material.METAL).
@@ -136,7 +137,7 @@ public final class ModBlocks {
             () -> new ChargingStationBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final RegistryObject<Item> CHARGING_STATION_ITEM = ModItems.ITEMS.register("charging_station",
-            () -> new ChargingStationBlock.Item(CHARGING_STATION.get(), new Item.Properties()));
+            () -> new ChargingStationBlock.Item(CHARGING_STATION.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Block> BASIC_MACHINE_FRAME = BLOCKS.register("basic_machine_frame",
             () -> new Block(BlockBehaviour.Properties.of(Material.METAL).
