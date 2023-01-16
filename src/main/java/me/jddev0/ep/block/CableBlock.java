@@ -7,6 +7,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -30,8 +31,8 @@ import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
@@ -166,7 +167,7 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
         if(blockEntity instanceof CableBlockEntity cableBlockEntity && cableBlockEntity.getTier() != this.getTier())
             return false;
 
-        LazyOptional<IEnergyStorage> energyStorageLazyOptional = blockEntity.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite());
+        LazyOptional<IEnergyStorage> energyStorageLazyOptional = blockEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite());
         return energyStorageLazyOptional.isPresent();
     }
 
@@ -186,12 +187,12 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
         @Override
         public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
             if(Screen.hasShiftDown()) {
-                components.add(Component.translatable("tooltip.energizedpower.cable.txt.shift.1",
+                components.add(new TranslatableComponent("tooltip.energizedpower.cable.txt.shift.1",
                         EnergyUtils.getEnergyWithPrefix(tier.getMaxTransfer())).withStyle(ChatFormatting.GRAY));
-                components.add(Component.translatable("tooltip.energizedpower.cable.txt.shift.2").
+                components.add(new TranslatableComponent("tooltip.energizedpower.cable.txt.shift.2").
                         withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
             }else {
-                components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+                components.add(new TranslatableComponent("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
         }
     }

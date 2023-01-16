@@ -13,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -26,9 +27,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -49,7 +51,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
                 if(level == null || RecipeUtils.isIngredientOfAny(level, ChargerRecipe.Type.INSTANCE, stack))
                     return true;
 
-                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(CapabilityEnergy.ENERGY);
                 if(!energyStorageLazyOptional.isPresent())
                     return false;
 
@@ -81,7 +83,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
                 if(level == null || RecipeUtils.isIngredientOfAny(level, ChargerRecipe.Type.INSTANCE, stack))
                     return false;
 
-                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(CapabilityEnergy.ENERGY);
                 if(!energyStorageLazyOptional.isPresent())
                     return true;
 
@@ -142,7 +144,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.charger");
+        return new TranslatableComponent("container.energizedpower.charger");
     }
 
     @Nullable
@@ -153,12 +155,12 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ForgeCapabilities.ITEM_HANDLER) {
+        if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             if(side == null)
                 return lazyItemHandler.cast();
 
             return lazyItemHandlerSided.cast();
-        }else if(cap == ForgeCapabilities.ENERGY) {
+        }else if(cap == CapabilityEnergy.ENERGY) {
             return lazyEnergyStorage.cast();
         }
 
@@ -235,7 +237,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
                 energyConsumptionPerTick = Math.min(blockEntity.energyConsumptionLeft, Math.min(blockEntity.energyStorage.getMaxReceive(),
                         blockEntity.energyStorage.getEnergy()));
             }else {
-                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(CapabilityEnergy.ENERGY);
                 if(!energyStorageLazyOptional.isPresent())
                     return;
 
@@ -275,7 +277,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
 
     private boolean hasRecipe() {
         ItemStack stack = itemHandler.getStackInSlot(0);
-        return stack.getCapability(ForgeCapabilities.ENERGY).isPresent() || stack.is(Tags.Items.INGOTS_COPPER);
+        return stack.getCapability(CapabilityEnergy.ENERGY).isPresent() || stack.is(Tags.Items.INGOTS_COPPER);
     }
 
     @Override

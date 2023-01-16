@@ -12,6 +12,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -25,9 +26,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -114,7 +116,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.coal_engine");
+        return new TranslatableComponent("container.energizedpower.coal_engine");
     }
 
     @Nullable
@@ -125,12 +127,12 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ForgeCapabilities.ITEM_HANDLER) {
+        if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             if(side == null)
                 return lazyItemHandler.cast();
 
             return lazyItemHandlerSided.cast();
-        }else if(cap == ForgeCapabilities.ENERGY) {
+        }else if(cap == CapabilityEnergy.ENERGY) {
             return lazyEnergyStorage.cast();
         }
 
@@ -220,8 +222,8 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
                 if(blockEntity.progress == 0) {
                     //Remove item instantly else the item could be removed before finished and energy was cheated
 
-                    if(item.hasCraftingRemainingItem())
-                        blockEntity.itemHandler.setStackInSlot(0, item.getCraftingRemainingItem());
+                    if(item.hasContainerItem())
+                        blockEntity.itemHandler.setStackInSlot(0, item.getContainerItem());
                     else
                         blockEntity.itemHandler.extractItem(0, 1, false);
                 }
@@ -269,7 +271,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
         if(ForgeHooks.getBurnTime(item, null) <= 0)
             return false;
 
-        return !item.hasCraftingRemainingItem() || item.getCount() == 1;
+        return !item.hasContainerItem() || item.getCount() == 1;
     }
 
     @Override

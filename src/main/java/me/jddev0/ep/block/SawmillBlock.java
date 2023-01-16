@@ -57,7 +57,7 @@ public class SawmillBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof SawmillBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (SawmillBlockEntity)blockEntity, blockPos);
+        NetworkHooks.openGui((ServerPlayer)player, (SawmillBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }

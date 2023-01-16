@@ -10,6 +10,7 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class InWorldCategory implements DisplayCategory<InWorldDisplay> {
 
     @Override
     public Component getTitle() {
-        return Component.translatable("recipes.energizedpower.in_world_crafting");
+        return new TranslatableComponent("recipes.energizedpower.in_world_crafting");
     }
 
     @Override

@@ -8,7 +8,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.PopEnergizedPowerBookFromLecternC2SPacket;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.GameNarrator;
+import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
@@ -53,7 +53,7 @@ public class EnergizedPowerBookScreen extends Screen {
 
     public static List<PageContent> pages = new LinkedList<>();
     private int currentPage;
-    private Component currentPageNumberOutput = CommonComponents.EMPTY;
+    private Component currentPageNumberOutput = TextComponent.EMPTY;
     private boolean isCurrentPageCached;
     private List<FormattedCharSequence> cachedPageComponents = Collections.emptyList();
 
@@ -62,7 +62,7 @@ public class EnergizedPowerBookScreen extends Screen {
     }
 
     public EnergizedPowerBookScreen(LecternBlockEntity lecternBlockEntity) {
-        super(GameNarrator.NO_TITLE);
+        super(NarratorChatListener.NO_TITLE);
 
         this.lecternBlockEntity = lecternBlockEntity;
     }
@@ -79,7 +79,7 @@ public class EnergizedPowerBookScreen extends Screen {
         addRenderableWidget(new Button(width / 2 - 100, 196, showTakeButton?98:200, 20, CommonComponents.GUI_DONE, button -> onClose()));
 
         if(showTakeButton)
-            addRenderableWidget(new Button(width / 2 + 2, 196, 98, 20, Component.translatable("lectern.take_book"), button -> {
+            addRenderableWidget(new Button(width / 2 + 2, 196, 98, 20, new TranslatableComponent("lectern.take_book"), button -> {
                 ModMessages.sendToServer(new PopEnergizedPowerBookFromLecternC2SPacket(lecternBlockEntity.getBlockPos()));
                 onClose();
             }));
@@ -215,7 +215,7 @@ public class EnergizedPowerBookScreen extends Screen {
 
         if(!isCurrentPageCached) {
             if(currentPage == 0) {
-                cachedPageComponents = font.split(Component.translatable("book.energizedpower.front.cover.text").withStyle(ChatFormatting.GRAY), 114);
+                cachedPageComponents = font.split(new TranslatableComponent("book.energizedpower.front.cover.text").withStyle(ChatFormatting.GRAY), 114);
             }else if(currentPage == getPageCount() - 1) {
                 cachedPageComponents = Collections.emptyList();
             }else {
@@ -225,7 +225,7 @@ public class EnergizedPowerBookScreen extends Screen {
             }
             //First page is front cover (Number = 0)
             //Last page is back cover (Number = page count - 1)
-            currentPageNumberOutput = Component.translatable("book.pageIndicator", currentPage, Math.max(getPageCount() - 1, 1));
+            currentPageNumberOutput = new TranslatableComponent("book.pageIndicator", currentPage, Math.max(getPageCount() - 1, 1));
         }
 
         isCurrentPageCached = true;
@@ -311,14 +311,14 @@ public class EnergizedPowerBookScreen extends Screen {
 
         float scaleFactor = 1.35f;
 
-        Component component = Component.literal("Energized Power").withStyle(ChatFormatting.GOLD);
+        Component component = new TextComponent("Energized Power").withStyle(ChatFormatting.GOLD);
         int textWidth = font.width(component);
 
         poseStack.scale(scaleFactor, scaleFactor, 1.f);
         font.draw(poseStack, component, (width / scaleFactor - textWidth) * .5f, 30 / scaleFactor, 0);
         poseStack.scale(1/scaleFactor, 1/scaleFactor, 1.f);
 
-        component = Component.translatable("book.byAuthor", "JDDev0").withStyle(ChatFormatting.GOLD);
+        component = new TranslatableComponent("book.byAuthor", "JDDev0").withStyle(ChatFormatting.GOLD);
         textWidth = font.width(component);
         font.draw(poseStack, component, (width - textWidth) * .5f, 192 - 45.f, 0);
 

@@ -5,7 +5,6 @@ import me.jddev0.ep.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -23,6 +22,8 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Random;
 
 public class EnergizerBlock extends BaseEntityBlock {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
@@ -68,7 +69,7 @@ public class EnergizerBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof EnergizerBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (EnergizerBlockEntity)blockEntity, blockPos);
+        NetworkHooks.openGui((ServerPlayer)player, (EnergizerBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }
@@ -94,7 +95,7 @@ public class EnergizerBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos blockPos, RandomSource randomSource) {
+    public void animateTick(BlockState state, Level level, BlockPos blockPos, Random randomSource) {
         if(state.getValue(LIT)) {
             //TODO animate (See lightning generator)
         }

@@ -135,14 +135,14 @@ public class ModEvents {
 
     private static void handlePlayerLecternInteraction(PlayerInteractEvent.RightClickBlock event) {
         BlockPos blockPos = event.getPos();
-        BlockEntity blockEntity = event.getLevel().getBlockEntity(blockPos);
+        BlockEntity blockEntity = event.getWorld().getBlockEntity(blockPos);
 
         if(!(blockEntity instanceof LecternBlockEntity))
             return;
 
         LecternBlockEntity lecternBlockEntity = (LecternBlockEntity)blockEntity;
 
-        BlockState blockState = event.getLevel().getBlockState(blockPos);
+        BlockState blockState = event.getWorld().getBlockState(blockPos);
         if(!blockState.getValue(LecternBlock.HAS_BOOK))
             return;
 
@@ -154,9 +154,9 @@ public class ModEvents {
         if(!(bookItem instanceof EnergizedPowerBookItem))
             return;
 
-        Player player = event.getEntity();
+        Player player = (Player)event.getEntity();
 
-        if(!event.getLevel().isClientSide)
+        if(!event.getWorld().isClientSide)
             ModMessages.sendToPlayer(new OpenEnergizedPowerBookS2CPacket(blockPos), (ServerPlayer)player);
 
         event.setCanceled(true);
@@ -168,16 +168,16 @@ public class ModEvents {
         if(!itemStack.is(Tags.Items.SHEARS))
             return;
 
-        Level level = event.getLevel();
+        Level level = event.getWorld();
 
         BlockPos blockPos = event.getPos();
         BlockState blockState = level.getBlockState(blockPos);
         if(!blockState.is(BlockTags.WOOL))
             return;
 
-        Player player = event.getEntity();
+        Player player = (Player)event.getEntity();
 
-        if(!event.getLevel().isClientSide) {
+        if(!event.getWorld().isClientSide) {
             if(!player.isCreative())
                 itemStack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(event.getHand()));
 

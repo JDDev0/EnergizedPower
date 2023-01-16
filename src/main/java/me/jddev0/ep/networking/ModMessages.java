@@ -34,19 +34,19 @@ public final class ModMessages {
         net.messageBuilder(EnergySyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT).
                 decoder(EnergySyncS2CPacket::new).
                 encoder(EnergySyncS2CPacket::toBytes).
-                consumerMainThread(EnergySyncS2CPacket::handle).
+                consumer(EnergySyncS2CPacket::handle).
                 add();
 
         net.messageBuilder(OpenEnergizedPowerBookS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT).
                 decoder(OpenEnergizedPowerBookS2CPacket::new).
                 encoder(OpenEnergizedPowerBookS2CPacket::toBytes).
-                consumerMainThread(OpenEnergizedPowerBookS2CPacket::handle).
+                consumer(OpenEnergizedPowerBookS2CPacket::handle).
                 add();
 
         net.messageBuilder(PopEnergizedPowerBookFromLecternC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
                 decoder(PopEnergizedPowerBookFromLecternC2SPacket::new).
                 encoder(PopEnergizedPowerBookFromLecternC2SPacket::toBytes).
-                consumerMainThread(PopEnergizedPowerBookFromLecternC2SPacket::handle).
+                consumer(PopEnergizedPowerBookFromLecternC2SPacket::handle).
                 add();
     }
 

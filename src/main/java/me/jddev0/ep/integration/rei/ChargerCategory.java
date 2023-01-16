@@ -13,6 +13,8 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ public class ChargerCategory implements DisplayCategory<ChargerDisplay> {
 
     @Override
     public Component getTitle() {
-        return Component.translatable("container.energizedpower.charger");
+        return new TranslatableComponent("container.energizedpower.charger");
     }
 
     @Override
@@ -60,7 +62,7 @@ public class ChargerCategory implements DisplayCategory<ChargerDisplay> {
                 entries(display.getOutputEntries().get(0)));
 
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
-                Component.literal(EnergyUtils.getEnergyWithPrefix(display.recipe().getEnergyConsumption())).withStyle(ChatFormatting.YELLOW)).
+                new TextComponent(EnergyUtils.getEnergyWithPrefix(display.recipe().getEnergyConsumption())).withStyle(ChatFormatting.YELLOW)).
                 noShadow().rightAligned());
 
         return widgets;

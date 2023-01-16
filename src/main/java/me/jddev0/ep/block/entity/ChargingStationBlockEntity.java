@@ -21,8 +21,8 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -51,7 +51,7 @@ public class ChargingStationBlockEntity extends BlockEntity implements EnergySto
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ForgeCapabilities.ENERGY) {
+        if(cap == CapabilityEnergy.ENERGY) {
             return lazyEnergyStorage.cast();
         }
 
@@ -110,7 +110,7 @@ public class ChargingStationBlockEntity extends BlockEntity implements EnergySto
             for(int i = 0;i < inventory.getContainerSize();i++) {
                 ItemStack itemStack = inventory.getItem(i);
 
-                LazyOptional<IEnergyStorage> energyStorageLazyOptional = itemStack.getCapability(ForgeCapabilities.ENERGY);
+                LazyOptional<IEnergyStorage> energyStorageLazyOptional = itemStack.getCapability(CapabilityEnergy.ENERGY);
                 if(!energyStorageLazyOptional.isPresent())
                     continue;
 

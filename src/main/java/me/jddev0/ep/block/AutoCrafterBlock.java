@@ -7,6 +7,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -65,7 +66,7 @@ public class AutoCrafterBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof AutoCrafterBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (AutoCrafterBlockEntity)blockEntity, blockPos);
+        NetworkHooks.openGui((ServerPlayer)player, (AutoCrafterBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }
@@ -84,10 +85,10 @@ public class AutoCrafterBlock extends BaseEntityBlock {
         @Override
         public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
             if(Screen.hasShiftDown()) {
-                components.add(Component.translatable("tooltip.energizedpower.auto_crafter.txt.shift.1",
+                components.add(new TranslatableComponent("tooltip.energizedpower.auto_crafter.txt.shift.1",
                         EnergyUtils.getEnergyWithPrefix(AutoCrafterBlockEntity.ENERGY_CONSUMPTION_PER_ITEM)).withStyle(ChatFormatting.GRAY));
             }else {
-                components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+                components.add(new TranslatableComponent("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
         }
     }

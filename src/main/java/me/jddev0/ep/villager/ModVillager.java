@@ -15,14 +15,13 @@ public final class ModVillager {
     private ModVillager() {}
 
     public static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(ForgeRegistries.POI_TYPES, EnergizedPowerMod.MODID);
-    public static final DeferredRegister<VillagerProfession> VILLAGER_PROFESSIONS = DeferredRegister.create(ForgeRegistries.VILLAGER_PROFESSIONS, EnergizedPowerMod.MODID);
+    public static final DeferredRegister<VillagerProfession> VILLAGER_PROFESSIONS = DeferredRegister.create(ForgeRegistries.PROFESSIONS, EnergizedPowerMod.MODID);
 
     public static final RegistryObject<PoiType> BASIC_MACHINE_FRAME_POI = POI_TYPES.register("basic_machine_frame_poi",
-            () -> new PoiType(ImmutableSet.of(ModBlocks.BASIC_MACHINE_FRAME.get().defaultBlockState()), 1, 1));
+            () -> new PoiType("basic_machine_frame_poi", ImmutableSet.of(ModBlocks.BASIC_MACHINE_FRAME.get().defaultBlockState()), 1, 1));
 
     public static final RegistryObject<VillagerProfession> ELECTRICIAN_PROFESSION = VILLAGER_PROFESSIONS.register("electrician",
-            () -> new VillagerProfession("electrician", poiType -> poiType.get() == BASIC_MACHINE_FRAME_POI.get(),
-                    poiType -> poiType.get() == BASIC_MACHINE_FRAME_POI.get(), ImmutableSet.of(), ImmutableSet.of(), SoundEvents.VILLAGER_WORK_TOOLSMITH));
+            () -> new VillagerProfession("electrician", BASIC_MACHINE_FRAME_POI.get(), ImmutableSet.of(), ImmutableSet.of(), SoundEvents.VILLAGER_WORK_TOOLSMITH));
 
     public static void register(IEventBus modEventBus) {
         POI_TYPES.register(modEventBus);

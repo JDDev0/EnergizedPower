@@ -7,6 +7,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -16,8 +17,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,29 +39,29 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
 
         boolean active = isActive(itemStack);
 
-        components.add(Component.translatable("tooltip.energizedpower.inventory_coal_engine.status").withStyle(ChatFormatting.GRAY).
-                append(Component.translatable("tooltip.energizedpower.inventory_coal_engine.status." +
+        components.add(new TranslatableComponent("tooltip.energizedpower.inventory_coal_engine.status").withStyle(ChatFormatting.GRAY).
+                append(new TranslatableComponent("tooltip.energizedpower.inventory_coal_engine.status." +
                         (active?"activated":"deactivated")).withStyle(active?ChatFormatting.GREEN:ChatFormatting.RED)));
 
         if(Screen.hasShiftDown()) {
             int energyProductionLeft = getEnergyProductionLeft(itemStack);
             ItemStack item = getCurrentBurningItem(itemStack);
             if(energyProductionLeft > 0 && item != null) {
-                components.add(Component.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning").
+                components.add(new TranslatableComponent("tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning").
                         withStyle(ChatFormatting.GRAY).
                         append(item.getDisplayName()));
 
-                components.add(Component.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.energy_production_left",
+                components.add(new TranslatableComponent("tooltip.energizedpower.inventory_coal_engine.txt.shift.energy_production_left",
                                 EnergyUtils.getEnergyWithPrefix(energyProductionLeft)).
                         withStyle(ChatFormatting.GRAY));
             }
 
-            components.add(Component.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.1").
+            components.add(new TranslatableComponent("tooltip.energizedpower.inventory_coal_engine.txt.shift.1").
                     withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
-            components.add(Component.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.2").
+            components.add(new TranslatableComponent("tooltip.energizedpower.inventory_coal_engine.txt.shift.2").
                     withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }else {
-            components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+            components.add(new TranslatableComponent("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
         }
     }
 
@@ -74,7 +75,7 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
 
             ItemStack testItemStack = inventory.getItem(i);
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = testItemStack.getCapability(ForgeCapabilities.ENERGY);
+            LazyOptional<IEnergyStorage> energyStorageLazyOptional = testItemStack.getCapability(CapabilityEnergy.ENERGY);
             if(!energyStorageLazyOptional.isPresent())
                 continue;
 
@@ -205,8 +206,8 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
             newItemStack.shrink(1);
             inventory.setItem(i, newItemStack);
 
-            if(testItemStack.hasCraftingRemainingItem()) {
-                ItemStack craftingRemainingItem = testItemStack.getCraftingRemainingItem();
+            if(testItemStack.hasContainerItem()) {
+                ItemStack craftingRemainingItem = testItemStack.getContainerItem();
 
                 if(inventory.add(craftingRemainingItem))
                     player.drop(craftingRemainingItem, false);

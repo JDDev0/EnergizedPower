@@ -65,7 +65,7 @@ public class BlockPlacerBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof BlockPlacerBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (BlockPlacerBlockEntity)blockEntity, blockPos);
+        NetworkHooks.openGui((ServerPlayer)player, (BlockPlacerBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }

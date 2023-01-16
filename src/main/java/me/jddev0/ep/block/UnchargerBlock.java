@@ -57,7 +57,7 @@ public class UnchargerBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof UnchargerBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (UnchargerBlockEntity)blockEntity, blockPos);
+        NetworkHooks.openGui((ServerPlayer)player, (UnchargerBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }

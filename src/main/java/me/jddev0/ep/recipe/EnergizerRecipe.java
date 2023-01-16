@@ -11,6 +11,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 public class EnergizerRecipe implements Recipe<SimpleContainer> {
     private final ResourceLocation id;
@@ -123,6 +124,27 @@ public class EnergizerRecipe implements Recipe<SimpleContainer> {
             recipe.input.toNetwork(buffer);
             buffer.writeInt(recipe.energyConsumption);
             buffer.writeItemStack(recipe.output, false);
+        }
+
+        @Override
+        public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
+            return INSTANCE;
+        }
+
+        @Nullable
+        @Override
+        public ResourceLocation getRegistryName() {
+            return ID;
+        }
+
+        @Override
+        public Class<RecipeSerializer<?>> getRegistryType() {
+            return Serializer.castClass(RecipeSerializer.class);
+        }
+
+        @SuppressWarnings("unchecked")
+        private static <G> Class<G> castClass(Class<?> cls) {
+            return (Class<G>)cls;
         }
     }
 }

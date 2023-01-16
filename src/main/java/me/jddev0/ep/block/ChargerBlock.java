@@ -6,6 +6,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -64,7 +65,7 @@ public class ChargerBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof ChargerBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (ChargerBlockEntity)blockEntity, blockPos);
+        NetworkHooks.openGui((ServerPlayer)player, (ChargerBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }
@@ -83,12 +84,12 @@ public class ChargerBlock extends BaseEntityBlock {
         @Override
         public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
             if(Screen.hasShiftDown()) {
-                components.add(Component.translatable("tooltip.energizedpower.charger.txt.shift.1").
+                components.add(new TranslatableComponent("tooltip.energizedpower.charger.txt.shift.1").
                         withStyle(ChatFormatting.GRAY));
-                components.add(Component.translatable("tooltip.energizedpower.charger.txt.shift.2").
+                components.add(new TranslatableComponent("tooltip.energizedpower.charger.txt.shift.2").
                         withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
             }else {
-                components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+                components.add(new TranslatableComponent("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
         }
     }

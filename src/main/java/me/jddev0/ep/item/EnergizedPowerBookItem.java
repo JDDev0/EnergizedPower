@@ -4,6 +4,7 @@ import me.jddev0.ep.screen.EnergizedPowerBookScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -22,8 +23,8 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
-        components.add(Component.translatable("book.byAuthor", "JDDev0").withStyle(ChatFormatting.GRAY));
-        components.add(Component.translatable("book.generation.0").withStyle(ChatFormatting.GRAY));
+        components.add(new TranslatableComponent("book.byAuthor", "JDDev0").withStyle(ChatFormatting.GRAY));
+        components.add(new TranslatableComponent("book.generation.0").withStyle(ChatFormatting.GRAY));
     }
 
     @Override

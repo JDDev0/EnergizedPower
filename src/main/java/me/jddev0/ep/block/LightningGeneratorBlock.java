@@ -8,9 +8,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ParticleUtils;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Random;
 
 public class LightningGeneratorBlock extends BaseEntityBlock {
     public static final int ENERGY_PER_LIGHTNING_STRIKE = 1000000;
@@ -80,12 +81,12 @@ public class LightningGeneratorBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel level, BlockPos blockPos, RandomSource randomSource) {
+    public void tick(BlockState state, ServerLevel level, BlockPos blockPos, Random randomSource) {
         level.setBlock(blockPos, state.setValue(HIT_BY_LIGHTNING_BOLT, false), 3);
     }
 
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos blockPos, RandomSource randomSource) {
+    public void animateTick(BlockState state, Level level, BlockPos blockPos, Random randomSource) {
         if(state.getValue(HIT_BY_LIGHTNING_BOLT)) {
             ParticleUtils.spawnParticlesOnBlockFaces(level, blockPos, ParticleTypes.ELECTRIC_SPARK, UniformInt.of(2, 5));
         }
@@ -99,11 +100,11 @@ public class LightningGeneratorBlock extends BaseEntityBlock {
         @Override
         public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
             if(Screen.hasShiftDown()) {
-                components.add(Component.translatable("tooltip.energizedpower.lightning_generator.txt.shift.1",
+                components.add(new TranslatableComponent("tooltip.energizedpower.lightning_generator.txt.shift.1",
                         EnergyUtils.getEnergyWithPrefix(ENERGY_PER_LIGHTNING_STRIKE)).withStyle(ChatFormatting.GRAY));
-                components.add(Component.translatable("tooltip.energizedpower.lightning_generator.txt.shift.2").withStyle(ChatFormatting.GRAY));
+                components.add(new TranslatableComponent("tooltip.energizedpower.lightning_generator.txt.shift.2").withStyle(ChatFormatting.GRAY));
             }else {
-                components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+                components.add(new TranslatableComponent("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
         }
     }

@@ -14,6 +14,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -26,9 +27,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -114,7 +116,7 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.sawmill");
+        return new TranslatableComponent("container.energizedpower.sawmill");
     }
 
     @Nullable
@@ -125,12 +127,12 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ForgeCapabilities.ITEM_HANDLER) {
+        if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             if(side == null)
                 return lazyItemHandler.cast();
 
             return lazyItemHandlerSided.cast();
-        }else if(cap == ForgeCapabilities.ENERGY) {
+        }else if(cap == CapabilityEnergy.ENERGY) {
             return lazyEnergyStorage.cast();
         }
 

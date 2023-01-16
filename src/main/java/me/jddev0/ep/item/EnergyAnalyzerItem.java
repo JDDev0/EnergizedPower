@@ -7,6 +7,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -14,8 +16,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,11 +37,11 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
         super.appendHoverText(itemStack, level, components, tooltipFlag);
 
         if(Screen.hasShiftDown()) {
-            components.add(Component.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.1").withStyle(ChatFormatting.GRAY));
-            components.add(Component.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.2",
+            components.add(new TranslatableComponent("tooltip.energizedpower.energy_analyzer.txt.shift.1").withStyle(ChatFormatting.GRAY));
+            components.add(new TranslatableComponent("tooltip.energizedpower.energy_analyzer.txt.shift.2",
                     EnergyUtils.getEnergyWithPrefix(ENERGY_CONSUMPTION_PER_USE)).withStyle(ChatFormatting.GRAY));
         }else {
-            components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+            components.add(new TranslatableComponent("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
         }
     }
 
@@ -48,8 +50,8 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
             setEnergy(itemStack, getEnergy(itemStack) - ENERGY_CONSUMPTION_PER_USE);
 
         for(Component component:lines)
-            player.sendSystemMessage(component);
-        player.sendSystemMessage(Component.empty());
+            player.sendMessage(component, player.getUUID());
+        player.sendMessage(TextComponent.EMPTY, player.getUUID());
     }
 
     @Override
@@ -60,7 +62,7 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
 
         if(getEnergy(stack) < ENERGY_CONSUMPTION_PER_USE) {
             useItem(stack, useOnContext.getPlayer(), List.of(
-                    Component.translatable("txt.energizedpower.energy_analyzer.no_energy_left",
+                    new TranslatableComponent("txt.energizedpower.energy_analyzer.no_energy_left",
                             EnergyUtils.getEnergyWithPrefix(ENERGY_CONSUMPTION_PER_USE)).withStyle(ChatFormatting.RED)
             ));
 
@@ -74,16 +76,16 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(blockEntity == null) {
-            components.add(Component.translatable("txt.energizedpower.energy_analyzer.no_block_entity").withStyle(ChatFormatting.RED));
+            components.add(new TranslatableComponent("txt.energizedpower.energy_analyzer.no_block_entity").withStyle(ChatFormatting.RED));
 
             useItem(stack, useOnContext.getPlayer(), components);
 
             return InteractionResult.SUCCESS;
         }
 
-        LazyOptional<IEnergyStorage> energyStorageLazyOptional = blockEntity.getCapability(ForgeCapabilities.ENERGY);
+        LazyOptional<IEnergyStorage> energyStorageLazyOptional = blockEntity.getCapability(CapabilityEnergy.ENERGY);
         if(!energyStorageLazyOptional.isPresent()) {
-            components.add(Component.translatable("txt.energizedpower.energy_analyzer.no_energy_block").withStyle(ChatFormatting.RED));
+            components.add(new TranslatableComponent("txt.energizedpower.energy_analyzer.no_energy_block").withStyle(ChatFormatting.RED));
 
             useItem(stack, useOnContext.getPlayer(), components);
 
@@ -92,15 +94,15 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
 
         IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
 
-        components.add(Component.translatable("txt.energizedpower.energy_analyzer.energy_output",
+        components.add(new TranslatableComponent("txt.energizedpower.energy_analyzer.energy_output",
                 EnergyUtils.getEnergyWithPrefix(energyStorage.getEnergyStored()),
                 EnergyUtils.getEnergyWithPrefix(energyStorage.getMaxEnergyStored())).withStyle(ChatFormatting.GOLD));
 
         if(energyStorage.canReceive())
-            components.add(Component.translatable("txt.energizedpower.energy_analyzer.energy_can_receive").withStyle(ChatFormatting.GOLD));
+            components.add(new TranslatableComponent("txt.energizedpower.energy_analyzer.energy_can_receive").withStyle(ChatFormatting.GOLD));
 
         if(energyStorage.canExtract())
-            components.add(Component.translatable("txt.energizedpower.energy_analyzer.energy_can_extract").withStyle(ChatFormatting.GOLD));
+            components.add(new TranslatableComponent("txt.energizedpower.energy_analyzer.energy_can_extract").withStyle(ChatFormatting.GOLD));
 
         useItem(stack, useOnContext.getPlayer(), components);
 

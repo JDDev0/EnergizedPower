@@ -8,7 +8,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -27,6 +26,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Random;
 import java.util.function.ToIntFunction;
 
 public class CoalEngineBlock extends BaseEntityBlock {
@@ -76,7 +76,7 @@ public class CoalEngineBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof CoalEngineBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (CoalEngineBlockEntity)blockEntity, blockPos);
+        NetworkHooks.openGui((ServerPlayer)player, (CoalEngineBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }
@@ -102,7 +102,7 @@ public class CoalEngineBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos blockPos, RandomSource randomSource) {
+    public void animateTick(BlockState state, Level level, BlockPos blockPos, Random randomSource) {
         if(state.getValue(LIT)) {
             double d0 = (double)blockPos.getX() + 0.5D;
             double d1 = (double)blockPos.getY();

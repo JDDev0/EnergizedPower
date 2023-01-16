@@ -7,14 +7,15 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.energy.CapabilityEnergy;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -23,13 +24,13 @@ import java.util.function.Supplier;
 public class EnergizedPowerEnergyItem extends Item {
     private final Supplier<IEnergizedPowerEnergyStorage> energyStorageProvider;
     protected static int getEnergy(ItemStack itemStack) {
-        return itemStack.getCapability(ForgeCapabilities.ENERGY).orElse(null).getEnergyStored();
+        return itemStack.getCapability(CapabilityEnergy.ENERGY).orElse(null).getEnergyStored();
     }
     protected static void setEnergy(ItemStack itemStack, int energy) {
-        ((ItemCapabilityEnergy)itemStack.getCapability(ForgeCapabilities.ENERGY).orElse(null)).setEnergy(energy);
+        ((ItemCapabilityEnergy)itemStack.getCapability(CapabilityEnergy.ENERGY).orElse(null)).setEnergy(energy);
     }
     protected static int getCapacity(ItemStack itemStack) {
-        return itemStack.getCapability(ForgeCapabilities.ENERGY).orElse(null).getMaxEnergyStored();
+        return itemStack.getCapability(CapabilityEnergy.ENERGY).orElse(null).getMaxEnergyStored();
     }
 
     public EnergizedPowerEnergyItem(Properties props, Supplier<IEnergizedPowerEnergyStorage> energyStorageProvider) {
@@ -40,7 +41,7 @@ public class EnergizedPowerEnergyItem extends Item {
 
     @Override
     public void fillItemCategory(CreativeModeTab category, NonNullList<ItemStack> items) {
-        if(allowedIn(category)) {
+        if(allowdedIn(category)) {
             items.add(new ItemStack(this));
 
             ItemStack itemStackFullyCharged = new ItemStack(this);
@@ -65,7 +66,7 @@ public class EnergizedPowerEnergyItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
-        components.add(Component.translatable("tooltip.energizedpower.energy_meter.content.txt",
+        components.add(new TranslatableComponent("tooltip.energizedpower.energy_meter.content.txt",
                         EnergyUtils.getEnergyWithPrefix(getEnergy(itemStack)), EnergyUtils.getEnergyWithPrefix(getCapacity(itemStack))).
                 withStyle(ChatFormatting.GRAY));
     }

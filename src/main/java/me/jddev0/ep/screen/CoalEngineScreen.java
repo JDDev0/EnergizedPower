@@ -8,6 +8,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
@@ -77,10 +78,10 @@ public class CoalEngineScreen extends AbstractContainerScreen<CoalEngineMenu> {
 
         if(isHovering(8, 17, 16, 52, mouseX, mouseY)) {
             List<Component> components = new ArrayList<>(2);
-            components.add(Component.translatable("tooltip.energizedpower.energy_meter.content.txt",
+            components.add(new TranslatableComponent("tooltip.energizedpower.energy_meter.content.txt",
                     EnergyUtils.getEnergyWithPrefix(menu.getEnergy()), EnergyUtils.getEnergyWithPrefix(menu.getCapacity())));
             if(menu.getEnergyProduction() > 0) {
-                components.add(Component.translatable("tooltip.energizedpower.coal_engine.txt",
+                components.add(new TranslatableComponent("tooltip.energizedpower.coal_engine.txt",
                         EnergyUtils.getEnergyWithPrefix(menu.getEnergyProduction())).withStyle(ChatFormatting.YELLOW));
             }
 

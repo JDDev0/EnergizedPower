@@ -11,6 +11,7 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class SawmillCategory implements DisplayCategory<SawmillDisplay> {
 
     @Override
     public Component getTitle() {
-        return Component.translatable("container.energizedpower.sawmill");
+        return new TranslatableComponent("container.energizedpower.sawmill");
     }
 
     @Override

@@ -57,7 +57,7 @@ public class CrusherBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof CrusherBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (CrusherBlockEntity)blockEntity, blockPos);
+        NetworkHooks.openGui((ServerPlayer)player, (CrusherBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }

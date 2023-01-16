@@ -6,7 +6,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.RandomSource;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Random;
 
 public class ChargingStationBlock extends BaseEntityBlock {
     public static final BooleanProperty CHARGING = BooleanProperty.create("charging");
@@ -56,7 +57,7 @@ public class ChargingStationBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos blockPos, RandomSource randomSource) {
+    public void animateTick(BlockState state, Level level, BlockPos blockPos, Random randomSource) {
         if(state.getValue(CHARGING)) {
             //TODO
         }
@@ -70,9 +71,9 @@ public class ChargingStationBlock extends BaseEntityBlock {
         @Override
         public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
             if(Screen.hasShiftDown()) {
-                components.add(Component.translatable("tooltip.energizedpower.charging_station.txt.shift.1").withStyle(ChatFormatting.GRAY));
+                components.add(new TranslatableComponent("tooltip.energizedpower.charging_station.txt.shift.1").withStyle(ChatFormatting.GRAY));
             }else {
-                components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+                components.add(new TranslatableComponent("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
         }
     }
