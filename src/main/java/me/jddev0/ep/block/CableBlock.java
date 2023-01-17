@@ -34,8 +34,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
@@ -121,7 +121,7 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     @Override
     public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos selfPos, BlockPos facingPos) {
         if(state.getValue(WATERLOGGED))
-            level.scheduleTick(selfPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            level.getLiquidTicks().scheduleTick(selfPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 
         return super.updateShape(state, facing, facingState, level, selfPos, facingPos);
     }

@@ -3,9 +3,9 @@ package me.jddev0.ep.recipe;
 import me.jddev0.ep.EnergizedPowerMod;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
 public final class ModRecipes {
     private ModRecipes() {}

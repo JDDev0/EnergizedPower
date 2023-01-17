@@ -9,8 +9,9 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class ItemCapabilityEnergy implements ICapabilityProvider, IEnergyStorage {
     private final ItemStack itemStack;
@@ -28,7 +29,7 @@ public class ItemCapabilityEnergy implements ICapabilityProvider, IEnergyStorage
     }
 
     @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+    public @Nonnull <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if(cap == CapabilityEnergy.ENERGY) {
             return lazyEnergyStorage.cast();
         }

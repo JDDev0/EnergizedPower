@@ -14,6 +14,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -33,9 +35,9 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class ChargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
@@ -46,7 +48,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
         }
 
         @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+        public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
             if(slot == 0) {
                 if(level == null || RecipeUtils.isIngredientOfAny(level, ChargerRecipe.Type.INSTANCE, stack))
                     return true;
@@ -154,7 +156,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
     }
 
     @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+    public @Nonnull <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             if(side == null)
                 return lazyItemHandler.cast();
@@ -184,17 +186,17 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
+    public CompoundTag save(CompoundTag nbt) {
         nbt.put("inventory", itemHandler.serializeNBT());
         nbt.put("energy", energyStorage.saveNBT());
 
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
-        super.saveAdditional(nbt);
+        return super.save(nbt);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
+    public void load(@Nonnull CompoundTag nbt) {
         super.load(nbt);
 
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
@@ -277,7 +279,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
 
     private boolean hasRecipe() {
         ItemStack stack = itemHandler.getStackInSlot(0);
-        return stack.getCapability(CapabilityEnergy.ENERGY).isPresent() || stack.is(Tags.Items.INGOTS_COPPER);
+        return stack.getCapability(CapabilityEnergy.ENERGY).isPresent() || stack.is(ItemTags.createOptional(new ResourceLocation("forge", "ingots/copper")));
     }
 
     @Override

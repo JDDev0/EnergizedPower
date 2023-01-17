@@ -4,12 +4,12 @@ import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.EnergizedPowerMod;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
-import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
-import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
-import net.minecraftforge.event.server.ServerAboutToStartEvent;
+import net.minecraft.world.level.levelgen.feature.structures.SinglePoolElement;
+import net.minecraft.world.level.levelgen.feature.structures.StructurePoolElement;
+import net.minecraft.world.level.levelgen.feature.structures.StructureTemplatePool;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fmlserverevents.FMLServerAboutToStartEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = EnergizedPowerMod.MODID)
 public class VillageAddition {
     @SubscribeEvent
-    public static void addVillageHouses(ServerAboutToStartEvent event) {
+    public static void addVillageHouses(FMLServerAboutToStartEvent event) {
         Registry<StructureTemplatePool> templatePoolRegistry = event.getServer().registryAccess().registry(Registry.TEMPLATE_POOL_REGISTRY).orElseThrow();
 
         //Electrician 1

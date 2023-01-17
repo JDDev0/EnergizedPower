@@ -16,12 +16,14 @@ import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import me.shedaniel.rei.forge.REIPluginClient;
+import me.shedaniel.rei.forge.REIPlugin;
 import net.minecraft.client.gui.screens.inventory.DispenserScreen;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.Tags;
 
-@REIPluginClient
+@REIPlugin(Dist.CLIENT)
 public class EnergizedPowerREIPlugin implements REIClientPlugin {
     @Override
     public String getPluginProviderName() {
@@ -44,7 +46,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
 
 
         registry.add(new InWorldCategory());
-        registry.addWorkstations(InWorldCategory.CATEGORY, EntryIngredients.ofItemTag(Tags.Items.SHEARS));
+        registry.addWorkstations(InWorldCategory.CATEGORY, EntryIngredients.ofIngredient(Ingredient.of(Tags.Items.SHEARS)));
 
         registry.add(new DispenserCategory());
         registry.addWorkstations(DispenserCategory.CATEGORY, EntryIngredients.of(Items.DISPENSER));

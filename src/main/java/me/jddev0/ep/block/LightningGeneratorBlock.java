@@ -21,8 +21,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -75,7 +75,7 @@ public class LightningGeneratorBlock extends BaseEntityBlock {
             return;
 
         level.setBlock(selfPos, selfState.setValue(HIT_BY_LIGHTNING_BOLT, Boolean.TRUE), 3);
-        level.scheduleTick(selfPos, this, ACTIVATION_TICKS);
+        level.getBlockTicks().scheduleTick(selfPos, this, ACTIVATION_TICKS);
 
         ((LightningGeneratorBlockEntity)blockEntity).onLightningStrike();
     }

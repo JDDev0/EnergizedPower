@@ -24,9 +24,9 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ChargingStationBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
@@ -50,7 +50,7 @@ public class ChargingStationBlockEntity extends BlockEntity implements EnergySto
     }
 
     @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+    public @Nonnull <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if(cap == CapabilityEnergy.ENERGY) {
             return lazyEnergyStorage.cast();
         }
@@ -73,14 +73,14 @@ public class ChargingStationBlockEntity extends BlockEntity implements EnergySto
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
+    public CompoundTag save(CompoundTag nbt) {
         nbt.put("energy", energyStorage.saveNBT());
 
-        super.saveAdditional(nbt);
+        return super.save(nbt);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
+    public void load(@Nonnull CompoundTag nbt) {
         super.load(nbt);
 
         energyStorage.loadNBT(nbt.get("energy"));

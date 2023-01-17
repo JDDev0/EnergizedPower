@@ -2,8 +2,8 @@ package me.jddev0.ep.block.entity.handler;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
@@ -19,12 +19,12 @@ public class InputOutputItemHandler implements IItemHandlerModifiable {
     }
 
     @Override
-    public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+    public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
         handler.setStackInSlot(slot, stack);
     }
 
     @Override
-    public @NotNull ItemStack getStackInSlot(int slot) {
+    public @Nonnull ItemStack getStackInSlot(int slot) {
         return handler.getStackInSlot(slot);
     }
 
@@ -34,12 +34,12 @@ public class InputOutputItemHandler implements IItemHandlerModifiable {
     }
 
     @Override
-    public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+    public @Nonnull ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
         return canInput.test(slot, stack)?handler.insertItem(slot, stack, simulate):stack;
     }
 
     @Override
-    public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
+    public @Nonnull ItemStack extractItem(int slot, int amount, boolean simulate) {
         return canOutput.test(slot)?handler.extractItem(slot, amount, simulate):ItemStack.EMPTY;
    }
 
@@ -49,7 +49,7 @@ public class InputOutputItemHandler implements IItemHandlerModifiable {
     }
 
     @Override
-    public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+    public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
         return canInput.test(slot, stack) && handler.isItemValid(slot, stack);
     }
 }

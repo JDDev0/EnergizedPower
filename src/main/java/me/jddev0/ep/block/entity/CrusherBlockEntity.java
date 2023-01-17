@@ -32,9 +32,9 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class CrusherBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
@@ -47,7 +47,7 @@ public class CrusherBlockEntity extends BlockEntity implements MenuProvider, Ene
         }
 
         @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+        public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
             return switch(slot) {
                 case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, CrusherRecipe.Type.INSTANCE, stack);
                 case 1 -> false;
@@ -125,7 +125,7 @@ public class CrusherBlockEntity extends BlockEntity implements MenuProvider, Ene
     }
 
     @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+    public @Nonnull <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             if(side == null)
                 return lazyItemHandler.cast();
@@ -155,18 +155,18 @@ public class CrusherBlockEntity extends BlockEntity implements MenuProvider, Ene
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
+    public CompoundTag save(CompoundTag nbt) {
         nbt.put("inventory", itemHandler.serializeNBT());
         nbt.put("energy", energyStorage.saveNBT());
 
         nbt.put("recipe.progress", IntTag.valueOf(progress));
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
-        super.saveAdditional(nbt);
+        return super.save(nbt);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
+    public void load(@Nonnull CompoundTag nbt) {
         super.load(nbt);
 
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));

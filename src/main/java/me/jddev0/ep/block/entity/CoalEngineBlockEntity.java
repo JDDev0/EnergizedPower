@@ -32,8 +32,9 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
     private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
@@ -43,7 +44,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
         }
 
         @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+        public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
             if(slot == 0)
                 return ForgeHooks.getBurnTime(stack, null) > 0;
 
@@ -126,7 +127,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
     }
 
     @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+    public @Nonnull <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             if(side == null)
                 return lazyItemHandler.cast();
@@ -156,7 +157,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
+    public CompoundTag save(CompoundTag nbt) {
         nbt.put("inventory", itemHandler.serializeNBT());
         nbt.put("energy", energyStorage.saveNBT());
 
@@ -164,11 +165,11 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
         nbt.put("recipe.max_progress", IntTag.valueOf(maxProgress));
         nbt.put("recipe.energy_production_left", IntTag.valueOf(energyProductionLeft));
 
-        super.saveAdditional(nbt);
+        return super.save(nbt);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
+    public void load(@Nonnull CompoundTag nbt) {
         super.load(nbt);
 
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));

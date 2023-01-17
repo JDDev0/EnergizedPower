@@ -35,9 +35,9 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -53,7 +53,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         }
 
         @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+        public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
             if(slot < 0 || slot >= 18)
                 return super.isItemValid(slot, stack);
 
@@ -154,7 +154,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+    public @Nonnull <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             if(side == null)
                 return lazyItemHandler.cast();
@@ -184,7 +184,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
+    public CompoundTag save(CompoundTag nbt) {
         nbt.put("inventory", itemHandler.serializeNBT());
         nbt.put("pattern", savePatternContainer());
         nbt.put("energy", energyStorage.saveNBT());
@@ -192,7 +192,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         nbt.put("recipe.progress", IntTag.valueOf(progress));
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
-        super.saveAdditional(nbt);
+        return super.save(nbt);
     }
 
     private Tag savePatternContainer() {
@@ -210,7 +210,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
+    public void load(@Nonnull CompoundTag nbt) {
         super.load(nbt);
 
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
