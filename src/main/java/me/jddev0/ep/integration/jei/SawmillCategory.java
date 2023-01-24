@@ -28,7 +28,7 @@ public class SawmillCategory implements IRecipeCategory<SawmillRecipe> {
         ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/sawmill.png");
         background = helper.createDrawable(texture, 42, 30, 109, 26);
 
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.CRUSHER_ITEM.get()));
+        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.SAWMILL_ITEM.get()));
     }
 
     @Override
