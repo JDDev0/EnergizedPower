@@ -1,154 +1,169 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.item.ModItems;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.Block;
+import net.minecraft.block.MapColor;
+import net.minecraft.block.Material;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.Identifier;
 
 public final class ModBlocks {
     private ModBlocks() {}
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, EnergizedPowerMod.MODID);
+    public static final Block SILICON_BLOCK = registerBlock("silicon_block",
+            new Block(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item SILICON_BLOCK_ITEM = createBlockItem("silicon_block", SILICON_BLOCK);
 
-    private static RegistryObject<Item> createBlockItem(String name, RegistryObject<Block> blockRegistryObject, Item.Properties props) {
-        return ModItems.ITEMS.register(name, () -> new BlockItem(blockRegistryObject.get(), props));
+    public static final Block SAWDUST_BLOCK = registerBlock("sawdust_block",
+            new Block(FabricBlockSettings.of(Material.WOOD, MapColor.OAK_TAN).
+                    requiresTool().strength(2.0f, 3.0f).sounds(BlockSoundGroup.WOOD)));
+    public static final Item SAWDUST_BLOCK_ITEM = createBlockItem("sawdust_block", SAWDUST_BLOCK);
+
+
+    private static Item createCableBlockItem(String name, CableBlock block) {
+        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
+                new CableBlock.Item(block, new FabricItemSettings(), block.getTier()));
     }
-    private static RegistryObject<Item> createBlockItem(String name, RegistryObject<Block> blockRegistryObject) {
-        return createBlockItem(name, blockRegistryObject, new Item.Properties());
+    public static final CableBlock COPPER_CABLE = registerBlock("copper_cable",
+            new CableBlock(CableBlock.Tier.TIER_COPPER));
+    public static final Item COPPER_CABLE_ITEM = createCableBlockItem("copper_cable", COPPER_CABLE);
+    public static final CableBlock ENERGIZED_COPPER_CABLE = registerBlock("energized_copper_cable",
+            new CableBlock(CableBlock.Tier.TIER_ENERGIZED_COPPER));
+    public static final Item ENERGIZED_COPPER_CABLE_ITEM = createCableBlockItem("energized_copper_cable",
+            ENERGIZED_COPPER_CABLE);
+
+    private static Item createTransformerBlockItem(String name, TransformerBlock block) {
+        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
+                new TransformerBlock.Item(block, new FabricItemSettings(), block.getTransformerType()));
     }
-
-    public static final RegistryObject<Block> SILICON_BLOCK = BLOCKS.register("silicon_block",
-            () -> new Block(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> SILICON_BLOCK_ITEM = createBlockItem("silicon_block", SILICON_BLOCK);
-
-    public static final RegistryObject<Block> SAWDUST_BLOCK = BLOCKS.register("sawdust_block",
-            () -> new Block(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOD).
-                    strength(2.0f, 3.0f).sound(SoundType.WOOD)));
-    public static final RegistryObject<Item> SAWDUST_BLOCK_ITEM = createBlockItem("sawdust_block", SAWDUST_BLOCK);
-
-    public static final RegistryObject<CableBlock> COPPER_CABLE = BLOCKS.register("copper_cable",
-            () -> new CableBlock(CableBlock.Tier.TIER_COPPER));
-    public static final RegistryObject<Item> COPPER_CABLE_ITEM = ModItems.ITEMS.register("copper_cable",
-            () -> new CableBlock.Item(COPPER_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_COPPER));
-    public static final RegistryObject<CableBlock> ENERGIZED_COPPER_CABLE = BLOCKS.register("energized_copper_cable",
-            () -> new CableBlock(CableBlock.Tier.TIER_ENERGIZED_COPPER));
-    public static final RegistryObject<Item> ENERGIZED_COPPER_CABLE_ITEM = ModItems.ITEMS.register("energized_copper_cable",
-            () -> new CableBlock.Item(ENERGIZED_COPPER_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_ENERGIZED_COPPER));
-
-    public static final RegistryObject<TransformerBlock> TRANSFORMER_1_TO_N = BLOCKS.register("transformer_1_to_n",
-            () -> new TransformerBlock(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
+    public static final TransformerBlock TRANSFORMER_1_TO_N = registerBlock("transformer_1_to_n",
+            new TransformerBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
                     TransformerBlock.Type.TYPE_1_TO_N));
-    public static final RegistryObject<Item> TRANSFORMER_1_TO_N_ITEM = ModItems.ITEMS.register("transformer_1_to_n",
-            () -> new TransformerBlock.Item(TRANSFORMER_1_TO_N.get(), new Item.Properties(), TransformerBlock.Type.TYPE_1_TO_N));
-    public static final RegistryObject<TransformerBlock> TRANSFORMER_N_TO_1 = BLOCKS.register("transformer_n_to_1",
-            () -> new TransformerBlock(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
+    public static final Item TRANSFORMER_1_TO_N_ITEM = createTransformerBlockItem("transformer_1_to_n",
+            TRANSFORMER_1_TO_N);
+    public static final TransformerBlock TRANSFORMER_N_TO_1 = registerBlock("transformer_n_to_1",
+            new TransformerBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
                     TransformerBlock.Type.TYPE_N_TO_1));
-    public static final RegistryObject<Item> TRANSFORMER_N_TO_1_ITEM = ModItems.ITEMS.register("transformer_n_to_1",
-            () -> new TransformerBlock.Item(TRANSFORMER_N_TO_1.get(), new Item.Properties(), TransformerBlock.Type.TYPE_N_TO_1));
+    public static final Item TRANSFORMER_N_TO_1_ITEM = createTransformerBlockItem("transformer_n_to_1",
+            TRANSFORMER_N_TO_1);
 
-    public static final RegistryObject<Block> AUTO_CRAFTER = BLOCKS.register("auto_crafter",
-            () -> new AutoCrafterBlock(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> AUTO_CRAFTER_ITEM = ModItems.ITEMS.register("auto_crafter",
-            () -> new AutoCrafterBlock.Item(AUTO_CRAFTER.get(), new Item.Properties()));
+    public static final Block AUTO_CRAFTER = registerBlock("auto_crafter",
+            new AutoCrafterBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item AUTO_CRAFTER_ITEM = createBlockItem("auto_crafter",
+            new AutoCrafterBlock.Item(AUTO_CRAFTER, new FabricItemSettings()));
 
-    public static final RegistryObject<Block> CRUSHER = BLOCKS.register("crusher",
-            () -> new CrusherBlock(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> CRUSHER_ITEM = createBlockItem("crusher", CRUSHER);
+    public static final Block CRUSHER = registerBlock("crusher",
+            new CrusherBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item CRUSHER_ITEM = createBlockItem("crusher", CRUSHER);
 
-    public static final RegistryObject<Block> SAWMILL = BLOCKS.register("sawmill",
-            () -> new SawmillBlock(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> SAWMILL_ITEM = createBlockItem("sawmill", SAWMILL);
+    public static final Block SAWMILL = registerBlock("sawmill",
+            new SawmillBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item SAWMILL_ITEM = createBlockItem("sawmill", SAWMILL);
 
-    public static final RegistryObject<Block> BLOCK_PLACER = BLOCKS.register("block_placer",
-            () -> new BlockPlacerBlock(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> BLOCK_PLACER_ITEM = createBlockItem("block_placer", BLOCK_PLACER);
+    public static final Block BLOCK_PLACER = registerBlock("block_placer",
+            new BlockPlacerBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item BLOCK_PLACER_ITEM = createBlockItem("block_placer", BLOCK_PLACER);
 
-    public static final RegistryObject<Block> CHARGER = BLOCKS.register("charger",
-            () -> new ChargerBlock(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> CHARGER_ITEM = ModItems.ITEMS.register("charger",
-            () -> new ChargerBlock.Item(CHARGER.get(), new Item.Properties()));
+    public static final Block CHARGER = registerBlock("charger",
+            new ChargerBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item CHARGER_ITEM = createBlockItem("charger",
+            new ChargerBlock.Item(CHARGER, new FabricItemSettings()));
 
-    public static final RegistryObject<Block> UNCHARGER = BLOCKS.register("uncharger",
-            () -> new UnchargerBlock(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> UNCHARGER_ITEM = createBlockItem("uncharger", UNCHARGER);
+    public static final Block UNCHARGER = registerBlock("uncharger",
+            new UnchargerBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item UNCHARGER_ITEM = createBlockItem("uncharger", UNCHARGER);
 
 
-    private static RegistryObject<Item> createSolarPanelBlockItem(String name, RegistryObject<SolarPanelBlock> blockRegistryObject) {
-        return ModItems.ITEMS.register(name, () -> new SolarPanelBlock.Item(blockRegistryObject.get(), new Item.Properties(),
-                blockRegistryObject.get().getTier()));
+    private static Item createSolarPanelBlockItem(String name, SolarPanelBlock block) {
+        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
+                new SolarPanelBlock.Item(block, new FabricItemSettings(), block.getTier()));
     }
-    public static final RegistryObject<SolarPanelBlock> SOLAR_PANEL_1 = BLOCKS.register("solar_panel_1",
-            () -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_1));
-    public static final RegistryObject<Item> SOLAR_PANEL_ITEM_1 = createSolarPanelBlockItem("solar_panel_1", SOLAR_PANEL_1);
+    public static final SolarPanelBlock SOLAR_PANEL_1 = registerBlock("solar_panel_1",
+            new SolarPanelBlock(SolarPanelBlock.Tier.TIER_1));
+    public static final Item SOLAR_PANEL_ITEM_1 = createSolarPanelBlockItem("solar_panel_1", SOLAR_PANEL_1);
 
-    public static final RegistryObject<SolarPanelBlock> SOLAR_PANEL_2 = BLOCKS.register("solar_panel_2",
-            () -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_2));
-    public static final RegistryObject<Item> SOLAR_PANEL_ITEM_2 = createSolarPanelBlockItem("solar_panel_2", SOLAR_PANEL_2);
+    public static final SolarPanelBlock SOLAR_PANEL_2 = registerBlock("solar_panel_2",
+            new SolarPanelBlock(SolarPanelBlock.Tier.TIER_2));
+    public static final Item SOLAR_PANEL_ITEM_2 = createSolarPanelBlockItem("solar_panel_2", SOLAR_PANEL_2);
 
-    public static final RegistryObject<SolarPanelBlock> SOLAR_PANEL_3 = BLOCKS.register("solar_panel_3",
-            () -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_3));
-    public static final RegistryObject<Item> SOLAR_PANEL_ITEM_3 = createSolarPanelBlockItem("solar_panel_3", SOLAR_PANEL_3);
+    public static final SolarPanelBlock SOLAR_PANEL_3 = registerBlock("solar_panel_3",
+            new SolarPanelBlock(SolarPanelBlock.Tier.TIER_3));
+    public static final Item SOLAR_PANEL_ITEM_3 = createSolarPanelBlockItem("solar_panel_3", SOLAR_PANEL_3);
 
-    public static final RegistryObject<SolarPanelBlock> SOLAR_PANEL_4 = BLOCKS.register("solar_panel_4",
-            () -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_4));
-    public static final RegistryObject<Item> SOLAR_PANEL_ITEM_4 = createSolarPanelBlockItem("solar_panel_4", SOLAR_PANEL_4);
+    public static final SolarPanelBlock SOLAR_PANEL_4 = registerBlock("solar_panel_4",
+            new SolarPanelBlock(SolarPanelBlock.Tier.TIER_4));
+    public static final Item SOLAR_PANEL_ITEM_4 = createSolarPanelBlockItem("solar_panel_4", SOLAR_PANEL_4);
 
-    public static final RegistryObject<SolarPanelBlock> SOLAR_PANEL_5 = BLOCKS.register("solar_panel_5",
-            () -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_5));
-    public static final RegistryObject<Item> SOLAR_PANEL_ITEM_5 = createSolarPanelBlockItem("solar_panel_5", SOLAR_PANEL_5);
+    public static final SolarPanelBlock SOLAR_PANEL_5 = registerBlock("solar_panel_5",
+            new SolarPanelBlock(SolarPanelBlock.Tier.TIER_5));
+    public static final Item SOLAR_PANEL_ITEM_5 = createSolarPanelBlockItem("solar_panel_5", SOLAR_PANEL_5);
 
-    public static final RegistryObject<Block> COAL_ENGINE = BLOCKS.register("coal_engine",
-            () -> new CoalEngineBlock(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).
-                    lightLevel(CoalEngineBlock.LIGHT_EMISSION)));
-    public static final RegistryObject<Item> COAL_ENGINE_ITEM = createBlockItem("coal_engine", COAL_ENGINE);
+    public static final Block COAL_ENGINE = registerBlock("coal_engine",
+            new CoalEngineBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL).
+                    luminance(CoalEngineBlock.LIGHT_EMISSION)));
+    public static final Item COAL_ENGINE_ITEM = createBlockItem("coal_engine", COAL_ENGINE);
 
-    public static final RegistryObject<Block> LIGHTNING_GENERATOR = BLOCKS.register("lightning_generator",
-            () -> new LightningGeneratorBlock(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> LIGHTNING_GENERATOR_ITEM = ModItems.ITEMS.register("lightning_generator",
-            () -> new LightningGeneratorBlock.Item(LIGHTNING_GENERATOR.get(), new Item.Properties()));
+    public static final Block LIGHTNING_GENERATOR = registerBlock("lightning_generator",
+            new LightningGeneratorBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item LIGHTNING_GENERATOR_ITEM = createBlockItem("lightning_generator",
+            new LightningGeneratorBlock.Item(LIGHTNING_GENERATOR, new FabricItemSettings()));
 
-    public static final RegistryObject<Block> ENERGIZER = BLOCKS.register("energizer",
-            () -> new EnergizerBlock(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> ENERGIZER_ITEM = createBlockItem("energizer", ENERGIZER);
+    public static final Block ENERGIZER = registerBlock("energizer",
+            new EnergizerBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item ENERGIZER_ITEM = createBlockItem("energizer", ENERGIZER);
 
-    public static final RegistryObject<Block> CHARGING_STATION = BLOCKS.register("charging_station",
-            () -> new ChargingStationBlock(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> CHARGING_STATION_ITEM = ModItems.ITEMS.register("charging_station",
-            () -> new ChargingStationBlock.Item(CHARGING_STATION.get(), new Item.Properties()));
+    public static final Block CHARGING_STATION = registerBlock("charging_station",
+            new ChargingStationBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item CHARGING_STATION_ITEM = createBlockItem("charging_station",
+            new ChargingStationBlock.Item(CHARGING_STATION, new FabricItemSettings()));
 
-    public static final RegistryObject<Block> BASIC_MACHINE_FRAME = BLOCKS.register("basic_machine_frame",
-            () -> new Block(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> BASIC_MACHINE_FRAME_ITEM = createBlockItem("basic_machine_frame", BASIC_MACHINE_FRAME);
+    public static final Block BASIC_MACHINE_FRAME = registerBlock("basic_machine_frame",
+            new Block(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item BASIC_MACHINE_FRAME_ITEM = createBlockItem("basic_machine_frame", BASIC_MACHINE_FRAME);
 
-    public static final RegistryObject<Block> ADVANCED_MACHINE_FRAME = BLOCKS.register("advanced_machine_frame",
-            () -> new Block(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> ADVANCED_MACHINE_FRAME_ITEM = createBlockItem("advanced_machine_frame", ADVANCED_MACHINE_FRAME);
+    public static final Block ADVANCED_MACHINE_FRAME = registerBlock("advanced_machine_frame",
+            new Block(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item ADVANCED_MACHINE_FRAME_ITEM = createBlockItem("advanced_machine_frame", ADVANCED_MACHINE_FRAME);
 
-    public static void register(IEventBus modEventBus) {
-        BLOCKS.register(modEventBus);
+    private static <T extends Block> T registerBlock(String name, T block) {
+        return Registry.register(Registries.BLOCK, new Identifier(EnergizedPowerMod.MODID, name), block);
+    }
+
+    private static Item createBlockItem(String name, Item item) {
+        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name), item);
+    }
+
+    private static Item createBlockItem(String name, Block block, FabricItemSettings props) {
+        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
+                new BlockItem(block, props));
+    }
+
+    private static Item createBlockItem(String name, Block block) {
+        return createBlockItem(name, block, new FabricItemSettings());
+    }
+
+    public static void register() {
+
     }
 }

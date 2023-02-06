@@ -11,9 +11,9 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +29,13 @@ public class EnergizerCategory implements DisplayCategory<EnergizerDisplay> {
     }
 
     @Override
-    public Component getTitle() {
-        return Component.translatable("container.energizedpower.energizer");
+    public Text getTitle() {
+        return Text.translatable("container.energizedpower.energizer");
     }
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModBlocks.ENERGIZER.get());
+        return EntryStacks.of(ModBlocks.ENERGIZER);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class EnergizerCategory implements DisplayCategory<EnergizerDisplay> {
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/energizer.png");
+        Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/energizer.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 31, 18, 114, 50));
 
         widgets.add(Widgets.createSlot(new Point(x + 17, y + 17)).disableBackground().markInput().
@@ -56,7 +56,7 @@ public class EnergizerCategory implements DisplayCategory<EnergizerDisplay> {
                 entries(display.getOutputEntries().get(0)));
 
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
-                        Component.literal(EnergyUtils.getEnergyWithPrefix(display.recipe().getEnergyConsumption())).withStyle(ChatFormatting.YELLOW)).
+                        Text.literal(EnergyUtils.getEnergyWithPrefix(display.recipe().getEnergyConsumption())).formatted(Formatting.YELLOW)).
                 noShadow().rightAligned());
 
         return widgets;

@@ -1,33 +1,33 @@
 package me.jddev0.ep.util;
 
-import net.minecraft.world.Container;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.world.World;
 
 import java.util.List;
 
 public final class RecipeUtils {
     private RecipeUtils() {}
 
-    public static <C extends Container, T extends Recipe<C>> boolean isIngredientOfAny(Level level, RecipeType<T> recipeType, ItemStack itemStack) {
-        List<T> recipes = level.getRecipeManager().getAllRecipesFor(recipeType);
+    public static <C extends Inventory, T extends Recipe<C>> boolean isIngredientOfAny(World level, RecipeType<T> recipeType, ItemStack itemStack) {
+        List<T> recipes = level.getRecipeManager().listAllOfType(recipeType);
 
         return recipes.stream().map(Recipe::getIngredients).
                 anyMatch(ingredients -> ingredients.stream().anyMatch(ingredient -> ingredient.test(itemStack)));
     }
 
-    public static <C extends Container, T extends Recipe<C>> boolean isResultOfAny(Level level, RecipeType<T> recipeType, ItemStack itemStack) {
-        List<T> recipes = level.getRecipeManager().getAllRecipesFor(recipeType);
+    public static <C extends Inventory, T extends Recipe<C>> boolean isResultOfAny(World level, RecipeType<T> recipeType, ItemStack itemStack) {
+        List<T> recipes = level.getRecipeManager().listAllOfType(recipeType);
 
-        return recipes.stream().map(Recipe::getResultItem).anyMatch(stack -> ItemStack.isSameItemSameTags(stack, itemStack));
+        return recipes.stream().map(Recipe::getOutput).anyMatch(stack -> ItemStack.areEqual(stack, itemStack));
     }
 
-    public static <C extends Container, T extends Recipe<C>> boolean isRemainderOfAny(Level level, RecipeType<T> recipeType, C container, ItemStack itemStack) {
-        List<T> recipes = level.getRecipeManager().getAllRecipesFor(recipeType);
+    public static <C extends Inventory, T extends Recipe<C>> boolean isRemainderOfAny(World level, RecipeType<T> recipeType, C container, ItemStack itemStack) {
+        List<T> recipes = level.getRecipeManager().listAllOfType(recipeType);
 
-        return recipes.stream().map(recipe -> recipe.getRemainingItems(container)).
-                anyMatch(remainingItems -> remainingItems.stream().anyMatch(item -> ItemStack.isSameItemSameTags(item, itemStack)));
+        return recipes.stream().map(recipe -> recipe.getRemainder(container)).
+                anyMatch(remainingItems -> remainingItems.stream().anyMatch(item -> ItemStack.areEqual(item, itemStack)));
     }
 }

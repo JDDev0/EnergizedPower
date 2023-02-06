@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "s": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     },
     "C": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:copper_ingots"
     },
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:iron_ingots"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"

@@ -2,67 +2,31 @@ package me.jddev0.ep.networking.packet;
 
 import me.jddev0.ep.energy.EnergyStorageMenuPacketUpdate;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.network.NetworkEvent;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.network.PacketByteBuf;
 
-import java.util.function.Supplier;
+public final class EnergySyncS2CPacket {
+    private EnergySyncS2CPacket() {}
 
-public class EnergySyncS2CPacket {
-    private final int energy;
-    private final int capacity;
-    private final BlockPos pos;
+    public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+        long energy = buf.readLong();
+        long capacity = buf.readLong();
+        BlockEntity blockEntity = client.world.getBlockEntity(buf.readBlockPos());
 
-    public EnergySyncS2CPacket(int energy, int capacity, BlockPos pos) {
-        this.energy = energy;
-        this.capacity = capacity;
-        this.pos = pos;
-    }
+        if(blockEntity instanceof EnergyStoragePacketUpdate energyStorage) {
+            if(client.player.currentScreenHandler instanceof EnergyStorageMenuPacketUpdate energyStorageMenu) {
+                if(energyStorageMenu.getBlockEntity() != blockEntity)
+                    return;
 
-    public EnergySyncS2CPacket(FriendlyByteBuf buffer) {
-        energy = buffer.readInt();
-        capacity = buffer.readInt();
-        pos = buffer.readBlockPos();
-    }
-
-    public void toBytes(FriendlyByteBuf buffer) {
-        buffer.writeInt(energy);
-        buffer.writeInt(capacity);
-        buffer.writeBlockPos(pos);
-    }
-
-    public boolean handle(Supplier<NetworkEvent.Context> supplier) {
-        NetworkEvent.Context context = supplier.get();
-        context.enqueueWork(() -> {
-            BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(pos);
-
-            //BlockEntity
-            if(blockEntity instanceof EnergyStoragePacketUpdate) {
-                EnergyStoragePacketUpdate energyStorage = (EnergyStoragePacketUpdate)blockEntity;
+                energyStorageMenu.setEnergy(energy);
+                energyStorageMenu.setCapacity(capacity);
+            }else {
                 energyStorage.setEnergy(energy);
                 energyStorage.setCapacity(capacity);
             }
-
-            //Menu
-            if(!(blockEntity instanceof MenuProvider))
-                return;
-
-            AbstractContainerMenu menu = Minecraft.getInstance().player.containerMenu;
-            if(!(menu instanceof EnergyStorageMenuPacketUpdate))
-                return;
-
-            EnergyStorageMenuPacketUpdate energyStorageMenu = (EnergyStorageMenuPacketUpdate)menu;
-            if(!energyStorageMenu.getBlockEntity().getBlockPos().equals(pos))
-                return;
-
-            energyStorageMenu.setEnergy(energy);
-            energyStorageMenu.setCapacity(capacity);
-        });
-
-        return true;
+        }
     }
 }

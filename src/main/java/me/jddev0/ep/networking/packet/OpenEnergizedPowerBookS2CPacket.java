@@ -1,49 +1,28 @@
 package me.jddev0.ep.networking.packet;
 
 import me.jddev0.ep.screen.EnergizedPowerBookScreen;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.LecternBlockEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkEvent;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.LecternBlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.network.PacketByteBuf;
 
-import java.util.function.Supplier;
+public final class OpenEnergizedPowerBookS2CPacket {
+    private OpenEnergizedPowerBookS2CPacket() {}
 
-public class OpenEnergizedPowerBookS2CPacket {
-    private final BlockPos pos;
+    public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+        BlockEntity blockEntity = client.world.getBlockEntity(buf.readBlockPos());
 
-    public OpenEnergizedPowerBookS2CPacket(BlockPos pos) {
-        this.pos = pos;
+        if(blockEntity instanceof LecternBlockEntity lecternBlockEntity) {
+            showBookViewScreen(client, lecternBlockEntity);
+        }
     }
 
-    public OpenEnergizedPowerBookS2CPacket(FriendlyByteBuf buffer) {
-        pos = buffer.readBlockPos();
-    }
-
-    public void toBytes(FriendlyByteBuf buffer) {
-        buffer.writeBlockPos(pos);
-    }
-
-    public boolean handle(Supplier<NetworkEvent.Context> supplier) {
-        NetworkEvent.Context context = supplier.get();
-        context.enqueueWork(() -> {
-            BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(pos);
-
-            if(blockEntity instanceof LecternBlockEntity) {
-                LecternBlockEntity lecternBlockEntity = (LecternBlockEntity)blockEntity;
-
-                showBookViewScreen(lecternBlockEntity);
-            }
-        });
-
-        return true;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private void showBookViewScreen(LecternBlockEntity lecternBlockEntity) {
-        Minecraft.getInstance().setScreen(new EnergizedPowerBookScreen(lecternBlockEntity));
+    @Environment(EnvType.CLIENT)
+    private static void showBookViewScreen(MinecraftClient client, LecternBlockEntity lecternBlockEntity) {
+        client.execute(() -> client.setScreen(new EnergizedPowerBookScreen(lecternBlockEntity)));
     }
 }

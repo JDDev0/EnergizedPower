@@ -12,14 +12,14 @@ public record ChargerDisplay(ChargerRecipe recipe) implements Display {
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(
-                EntryIngredients.ofIngredient(recipe.getInput())
+                EntryIngredients.ofIngredient(recipe.getInputItem())
         );
     }
 
     @Override
     public List<EntryIngredient> getOutputEntries() {
         return List.of(
-                EntryIngredients.of(recipe.getOutput())
+                EntryIngredients.of(recipe.getOutputItem())
         );
     }
 

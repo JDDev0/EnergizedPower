@@ -1,71 +1,74 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.energy.EnergyStorageMenuPacketUpdate;
+import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.PatternResultSlot;
 import me.jddev0.ep.inventory.PatternSlot;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.SlotItemHandler;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ArrayPropertyDelegate;
+import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.slot.Slot;
+import net.minecraft.world.World;
 
-public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStorageMenuPacketUpdate {
+public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageMenuPacketUpdate {
     private final AutoCrafterBlockEntity blockEntity;
-    private final Level level;
-    private final ContainerData data;
+    private final Inventory inv;
+    private final World level;
+    private final PropertyDelegate data;
 
-    private final Container patternSlots;
+    private final Inventory patternSlots;
 
-    private final Container patternResultSlots;
+    private final Inventory patternResultSlots;
 
-    public AutoCrafterMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainer(9), new SimpleContainer(1), new SimpleContainerData(6));
+    public AutoCrafterMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
+        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(18),
+                new SimpleInventory(9), new SimpleInventory(1), new ArrayPropertyDelegate(6));
     }
 
-    public AutoCrafterMenu(int id, Inventory inv, BlockEntity blockEntity, Container patternSlots, Container patternResultSlots, ContainerData data) {
-        super(ModMenuTypes.AUTO_CRAFTER_MENU.get(), id);
+    public AutoCrafterMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, Inventory patternSlots,
+                           Inventory patternResultSlots, PropertyDelegate data) {
+        super(ModMenuTypes.AUTO_CRAFTER_MENU, id);
+
+        this.blockEntity = (AutoCrafterBlockEntity)blockEntity;
 
         this.patternSlots = patternSlots;
         this.patternResultSlots = patternResultSlots;
 
-        checkContainerSize(inv, 18 + 3*3 + 1);
-        this.blockEntity = (AutoCrafterBlockEntity)blockEntity;
-        this.level = inv.player.level;
+        this.inv = inv;
+        checkSize(this.inv, 18);
+        this.level = playerInventory.player.world;
+        this.inv.onOpen(playerInventory.player);
         this.data = data;
 
-        this.data.set(3, this.blockEntity.getCapacity());
+        addPlayerInventory(playerInventory);
+        addPlayerHotbar(playerInventory);
 
-        addPlayerInventory(inv);
-        addPlayerHotbar(inv);
-
-        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
-            addSlot(new SlotItemHandler(itemHandler, 0, 8, 75));
-            addSlot(new SlotItemHandler(itemHandler, 1, 26, 75));
-            addSlot(new SlotItemHandler(itemHandler, 2, 44, 75));
-            addSlot(new SlotItemHandler(itemHandler, 3, 62, 75));
-            addSlot(new SlotItemHandler(itemHandler, 4, 80, 75));
-            addSlot(new SlotItemHandler(itemHandler, 5, 98, 75));
-            addSlot(new SlotItemHandler(itemHandler, 6, 116, 75));
-            addSlot(new SlotItemHandler(itemHandler, 7, 134, 75));
-            addSlot(new SlotItemHandler(itemHandler, 8, 152, 75));
-            addSlot(new SlotItemHandler(itemHandler, 9, 8, 93));
-            addSlot(new SlotItemHandler(itemHandler, 10, 26, 93));
-            addSlot(new SlotItemHandler(itemHandler, 11, 44, 93));
-            addSlot(new SlotItemHandler(itemHandler, 12, 62, 93));
-            addSlot(new SlotItemHandler(itemHandler, 13, 80, 93));
-            addSlot(new SlotItemHandler(itemHandler, 14, 98, 93));
-            addSlot(new SlotItemHandler(itemHandler, 15, 116, 93));
-            addSlot(new SlotItemHandler(itemHandler, 16, 134, 93));
-            addSlot(new SlotItemHandler(itemHandler, 17, 152, 93));
-        });
+        addSlot(new ConstraintInsertSlot(this.inv, 0, 8, 75));
+        addSlot(new ConstraintInsertSlot(this.inv, 1, 26, 75));
+        addSlot(new ConstraintInsertSlot(this.inv, 2, 44, 75));
+        addSlot(new ConstraintInsertSlot(this.inv, 3, 62, 75));
+        addSlot(new ConstraintInsertSlot(this.inv, 4, 80, 75));
+        addSlot(new ConstraintInsertSlot(this.inv, 5, 98, 75));
+        addSlot(new ConstraintInsertSlot(this.inv, 6, 116, 75));
+        addSlot(new ConstraintInsertSlot(this.inv, 7, 134, 75));
+        addSlot(new ConstraintInsertSlot(this.inv, 8, 152, 75));
+        addSlot(new ConstraintInsertSlot(this.inv, 9, 8, 93));
+        addSlot(new ConstraintInsertSlot(this.inv, 10, 26, 93));
+        addSlot(new ConstraintInsertSlot(this.inv, 11, 44, 93));
+        addSlot(new ConstraintInsertSlot(this.inv, 12, 62, 93));
+        addSlot(new ConstraintInsertSlot(this.inv, 13, 80, 93));
+        addSlot(new ConstraintInsertSlot(this.inv, 14, 98, 93));
+        addSlot(new ConstraintInsertSlot(this.inv, 15, 116, 93));
+        addSlot(new ConstraintInsertSlot(this.inv, 16, 134, 93));
+        addSlot(new ConstraintInsertSlot(this.inv, 17, 152, 93));
 
         for(int i = 0;i < 3;i++)
             for(int j = 0;j < 3;j++)
@@ -73,7 +76,7 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
 
         addSlot(new PatternResultSlot(patternResultSlots, 0, 124, 35, () -> true));
 
-        addDataSlots(this.data);
+        addProperties(this.data);
     }
 
     int getEnergy() {
@@ -124,44 +127,44 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
+    public ItemStack quickMove(PlayerEntity player, int index) {
         Slot sourceSlot = slots.get(index);
-        if(sourceSlot == null || !sourceSlot.hasItem())
+        if(sourceSlot == null || !sourceSlot.hasStack())
             return ItemStack.EMPTY;
 
-        ItemStack sourceItem = sourceSlot.getItem();
+        ItemStack sourceItem = sourceSlot.getStack();
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into tile inventory
             //"+ 18": Ignore 3x3 crafting grid and result slot
-            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 18, false)) {
+            if(!insertItem(sourceItem, 4 * 9, 4 * 9 + 18, false)) {
                 return ItemStack.EMPTY;
             }
         }else if(index < 4 * 9 + 18) {
             //Tile inventory slot -> Merge into player inventory
-            if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
+            if(!insertItem(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }
         }else if(index < 4 * 9 + 18 + 3*3 + 1) {
             return ItemStack.EMPTY;
-        }else{
+        }else {
             throw new IllegalArgumentException("Invalid slot index");
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.set(ItemStack.EMPTY);
+            sourceSlot.setStack(ItemStack.EMPTY);
         else
-            sourceSlot.setChanged();
+            sourceSlot.markDirty();
 
-        sourceSlot.onTake(player, sourceItem);
+        sourceSlot.onTakeItem(player, sourceItem);
 
         return sourceItemCopy;
     }
 
     @Override
-    public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, ModBlocks.AUTO_CRAFTER.get());
+    public boolean canUse(PlayerEntity player) {
+        return inv.canPlayerUse(player);
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
@@ -184,12 +187,12 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
     }
 
     @Override
-    public void setEnergy(int energy) {
-        data.set(2, energy);
+    public void setEnergy(long energy) {
+        data.set(2, (int)energy);
     }
 
     @Override
-    public void setCapacity(int capacity) {
-        data.set(3, capacity);
+    public void setCapacity(long capacity) {
+        data.set(3, (int)capacity);
     }
 }

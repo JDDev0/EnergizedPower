@@ -2,48 +2,51 @@ package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.BlockPlacerBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class BlockPlacerBlock extends BaseEntityBlock {
-    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+public class BlockPlacerBlock extends BlockWithEntity {
+    public static final DirectionProperty FACING = Properties.FACING;
 
-    protected BlockPlacerBlock(Properties props) {
+    protected BlockPlacerBlock(FabricBlockSettings props) {
         super(props);
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+        this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
     }
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
+    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
         return new BlockPlacerBlockEntity(blockPos, state);
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
+    public void onStateReplaced(BlockState state, World level, BlockPos blockPos, BlockState newState, boolean isMoving) {
         if(state.getBlock() == newState.getBlock())
             return;
 
@@ -53,46 +56,46 @@ public class BlockPlacerBlock extends BaseEntityBlock {
 
         ((BlockPlacerBlockEntity)blockEntity).drops(level, blockPos);
 
-        super.onRemove(state, level, blockPos, newState, isMoving);
+        super.onStateReplaced(state, level, blockPos, newState, isMoving);
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos blockPos, Player player, InteractionHand handItem, BlockHitResult hit) {
-        if(level.isClientSide())
-            return InteractionResult.sidedSuccess(level.isClientSide());
+    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, Hand handItem, BlockHitResult hit) {
+        if(level.isClient())
+            return ActionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof BlockPlacerBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (BlockPlacerBlockEntity)blockEntity, blockPos);
+        player.openHandledScreen((BlockPlacerBlockEntity)blockEntity);
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return ActionResult.SUCCESS;
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
+    public BlockState getPlacementState(ItemPlacementContext context) {
+        return this.getDefaultState().with(FACING, context.getPlayerLookDirection().getOpposite());
     }
 
     @Override
-    public BlockState rotate(BlockState state, Rotation rotation) {
-        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
     }
 
     @Override
-    public BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation(state.getValue(FACING)));
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        return state.rotate(mirror.getRotation(state.get(FACING)));
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
+    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(FACING);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.BLOCK_PLACER_ENTITY.get(), BlockPlacerBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, ModBlockEntities.BLOCK_PLACER_ENTITY, BlockPlacerBlockEntity::tick);
     }
 }

@@ -4,16 +4,16 @@
   "group": "energizedpower:transformer_1_to_n",
   "key": {
     "S": {
-      "tag": "forge:storage_blocks/silicon"
+      "tag": "c:silicon_blocks"
     },
     "C": {
-      "tag": "forge:storage_blocks/copper"
+      "tag": "c:copper_blocks"
     },
     "I": {
-      "tag": "forge:storage_blocks/iron"
+      "tag": "c:iron_blocks"
     },
     "R": {
-      "tag": "forge:storage_blocks/redstone"
+      "tag": "c:redstone_blocks"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"

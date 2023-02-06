@@ -2,38 +2,35 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
-import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Mth;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.LightType;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.base.LimitingEnergyStorage;
+import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 public class SolarPanelBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
     private final SolarPanelBlock.Tier tier;
 
-    private final ExtractOnlyEnergyStorage energyStorage;
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+    final LimitingEnergyStorage energyStorage;
+    private final SimpleEnergyStorage internalEnergyStorage;
 
     public static BlockEntityType<SolarPanelBlockEntity> getEntityTypeFromTier(SolarPanelBlock.Tier tier) {
         return switch(tier) {
-            case TIER_1 -> ModBlockEntities.SOLAR_PANEL_ENTITY_1.get();
-            case TIER_2 -> ModBlockEntities.SOLAR_PANEL_ENTITY_2.get();
-            case TIER_3 -> ModBlockEntities.SOLAR_PANEL_ENTITY_3.get();
-            case TIER_4 -> ModBlockEntities.SOLAR_PANEL_ENTITY_4.get();
-            case TIER_5 -> ModBlockEntities.SOLAR_PANEL_ENTITY_5.get();
+            case TIER_1 -> ModBlockEntities.SOLAR_PANEL_ENTITY_1;
+            case TIER_2 -> ModBlockEntities.SOLAR_PANEL_ENTITY_2;
+            case TIER_3 -> ModBlockEntities.SOLAR_PANEL_ENTITY_3;
+            case TIER_4 -> ModBlockEntities.SOLAR_PANEL_ENTITY_4;
+            case TIER_5 -> ModBlockEntities.SOLAR_PANEL_ENTITY_5;
         };
     }
 
@@ -42,89 +39,75 @@ public class SolarPanelBlockEntity extends BlockEntity implements EnergyStorageP
 
         this.tier = tier;
 
-        int fePerTick = tier.getFePerTick();
-        int maxTransfer = fePerTick * 4; //4 times max production
-        int capacity = fePerTick * 20 * 8; //8 seconds of max production
-        energyStorage = new ExtractOnlyEnergyStorage(0, capacity, maxTransfer) {
+        long fePerTick = tier.getFePerTick();
+        long maxTransfer = fePerTick * 4; //4 times max production
+        long capacity = fePerTick * 20 * 8; //8 seconds of max production
+        internalEnergyStorage = new SimpleEnergyStorage(capacity, capacity, capacity) {
             @Override
-            protected void onChange() {
-                setChanged();
+            protected void onFinalCommit() {
+                markDirty();
 
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
+                if(world != null && !world.isClient()) {
+                    PacketByteBuf buffer = PacketByteBufs.create();
+                    buffer.writeLong(amount);
+                    buffer.writeLong(capacity);
+                    buffer.writeBlockPos(getPos());
+
+                    ModMessages.broadcastServerPacket(world.getServer(), ModMessages.ENERGY_SYNC_ID, buffer);
+                }
             }
         };
+        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, 0, maxTransfer);
     }
 
     public SolarPanelBlock.Tier getTier() {
         return tier;
     }
 
-    public static void tick(Level level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {
-        if(level.isClientSide)
+    public static void tick(World level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {
+        if(level.isClient())
             return;
 
-        int i = 4 * (level.getBrightness(LightLayer.SKY, blockPos) - level.getSkyDarken()); //(0 - 15) * 4 => (0 - 60)
-        float f = level.getSunAngle(1.0F);
+        int i = 4 * (level.getLightLevel(LightType.SKY, blockPos) - level.getAmbientDarkness()); //(0 - 15) * 4 => (0 - 60)
+        float f = level.getSkyAngleRadians(1.0F);
         if(i > 0) {
             float f1 = f < (float)Math.PI ? 0.0F : ((float)Math.PI * 2F);
 
             f += (f1 - f) * 0.2F;
 
-            i = Math.round((float)i * Mth.cos(f));
+            i = Math.round((float)i * MathHelper.cos(f));
         }
 
-        i = Mth.clamp(i, 0, 60);
+        i = MathHelper.clamp(i, 0, 60);
 
-        blockEntity.energyStorage.setEnergy(Math.min(blockEntity.energyStorage.getCapacity(),
-                blockEntity.energyStorage.getEnergy() + (int)(i/60.f * blockEntity.getTier().getFePerTick())));
-    }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ForgeCapabilities.ENERGY) {
-            if(side == null || side == Direction.DOWN)
-                return lazyEnergyStorage.cast();
+        try(Transaction transaction = Transaction.openOuter()) {
+            blockEntity.internalEnergyStorage.insert((long)(i/60.f * blockEntity.getTier().getFePerTick()),
+                    transaction);
+            transaction.commit();
         }
-
-        return super.getCapability(cap, side);
     }
 
     @Override
-    public void onLoad() {
-        super.onLoad();
+    protected void writeNbt(NbtCompound nbt) {
+        nbt.putLong("energy", internalEnergyStorage.amount);
 
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
+        super.writeNbt(nbt);
     }
 
     @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
+    public void readNbt(@NotNull NbtCompound nbt) {
+        super.readNbt(nbt);
 
-        lazyEnergyStorage.invalidate();
+        internalEnergyStorage.amount = nbt.getLong("energy");
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("energy", energyStorage.saveNBT());
-
-        super.saveAdditional(nbt);
+    public void setEnergy(long energy) {
+        internalEnergyStorage.amount = energy;
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
-
-        energyStorage.loadNBT(nbt.get("energy"));
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        energyStorage.setEnergyWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        energyStorage.setCapacityWithoutUpdate(capacity);
+    public void setCapacity(long capacity) {
+        //Does nothing (capacity is final)
     }
 }

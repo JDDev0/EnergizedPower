@@ -1,48 +1,51 @@
 package me.jddev0.ep.item;
 
 import me.jddev0.ep.screen.EnergizedPowerBookScreen;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.WrittenBookItem;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class EnergizedPowerBookItem extends WrittenBookItem {
-    public EnergizedPowerBookItem(Item.Properties props) {
+    public EnergizedPowerBookItem(FabricItemSettings props) {
         super(props);
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
-        components.add(Component.translatable("book.byAuthor", "JDDev0").withStyle(ChatFormatting.GRAY));
-        components.add(Component.translatable("book.generation.0").withStyle(ChatFormatting.GRAY));
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        tooltip.add(Text.translatable("book.byAuthor", "JDDev0").formatted(Formatting.GRAY));
+        tooltip.add(Text.translatable("book.generation.0").formatted(Formatting.GRAY));
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        ItemStack itemStack = player.getItemInHand(interactionHand);
+    public TypedActionResult<ItemStack> use(World level, PlayerEntity player, Hand interactionHand) {
+        ItemStack itemStack = player.getStackInHand(interactionHand);
 
-        if(level.isClientSide)
+        if(level.isClient())
             showBookViewScreen();
 
-        return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+        return TypedActionResult.success(itemStack, level.isClient());
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     private void showBookViewScreen() {
-        Minecraft.getInstance().setScreen(new EnergizedPowerBookScreen());
+        MinecraftClient.getInstance().setScreen(new EnergizedPowerBookScreen());
     }
 
     @Override
-    public boolean isFoil(ItemStack itemStack) {
+    public boolean hasGlint(ItemStack itemStack) {
         return false;
     }
 }

@@ -13,15 +13,15 @@ public record SawmillDisplay(SawmillRecipe recipe) implements Display {
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(
-                EntryIngredients.ofIngredient(recipe.getInput())
+                EntryIngredients.ofIngredient(recipe.getInputItem())
         );
     }
 
     @Override
     public List<EntryIngredient> getOutputEntries() {
         return List.of(
-                EntryIngredients.of(recipe.getOutput()),
-                EntryIngredients.of(ModItems.SAWDUST.get(), recipe.getSawdustAmount())
+                EntryIngredients.of(recipe.getOutputItem()),
+                EntryIngredients.of(ModItems.SAWDUST, recipe.getSawdustAmount())
         );
     }
 

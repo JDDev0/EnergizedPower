@@ -6,7 +6,7 @@
       "item": "energizedpower:cable_insulator"
     },
     "C": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:copper_ingots"
     }
   },
   "pattern": [

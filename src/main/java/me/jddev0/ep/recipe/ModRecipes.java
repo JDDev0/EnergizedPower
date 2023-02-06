@@ -1,30 +1,44 @@
 package me.jddev0.ep.recipe;
 
 import me.jddev0.ep.EnergizedPowerMod;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
 
 public final class ModRecipes {
     private ModRecipes() {}
 
-    public static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, EnergizedPowerMod.MODID);
+    public static final RecipeSerializer<EnergizerRecipe> ENERGIZER_SERIALIZER = createSerializer("energizer",
+            EnergizerRecipe.Serializer.INSTANCE);
+    public static final RecipeType<EnergizerRecipe> ENERGIZER_TYPE = createRecipeType("energizer",
+            EnergizerRecipe.Type.INSTANCE);
 
-    public static final RegistryObject<RecipeSerializer<EnergizerRecipe>> ENERGIZER_SERIALIZER = SERIALIZERS.register("energizer",
-            () -> EnergizerRecipe.Serializer.INSTANCE);
+    public static final RecipeSerializer<ChargerRecipe> CHARGER_SERIALIZER = createSerializer("charger",
+            ChargerRecipe.Serializer.INSTANCE);
+    public static final RecipeType<ChargerRecipe> CHARGER_TYPE = createRecipeType("charger",
+            ChargerRecipe.Type.INSTANCE);
 
-    public static final RegistryObject<RecipeSerializer<ChargerRecipe>> CHARGER_SERIALIZER = SERIALIZERS.register("charger",
-            () -> ChargerRecipe.Serializer.INSTANCE);
+    public static final RecipeSerializer<CrusherRecipe> CRUSHER_SERIALIZER = createSerializer("crusher",
+            CrusherRecipe.Serializer.INSTANCE);
+    public static final RecipeType<CrusherRecipe> CRUSHER_TYPE = createRecipeType("crusher",
+            CrusherRecipe.Type.INSTANCE);
 
-    public static final RegistryObject<RecipeSerializer<CrusherRecipe>> CRUSHER_SERIALIZER = SERIALIZERS.register("crusher",
-            () -> CrusherRecipe.Serializer.INSTANCE);
+    public static final RecipeSerializer<SawmillRecipe> SAWMILL_SERIALIZER = createSerializer("sawmill",
+            SawmillRecipe.Serializer.INSTANCE);
+    public static final RecipeType<SawmillRecipe> SAWMILL_TYPE = createRecipeType("sawmill",
+            SawmillRecipe.Type.INSTANCE);
 
-    public static final RegistryObject<RecipeSerializer<SawmillRecipe>> SAWMILL_SERIALIZER = SERIALIZERS.register("sawmill",
-            () -> SawmillRecipe.Serializer.INSTANCE);
+    private static <T extends Recipe<?>> RecipeSerializer<T> createSerializer(String name, RecipeSerializer<T> instance) {
+        return Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(EnergizedPowerMod.MODID, name), instance);
+    }
+    private static <T extends Recipe<?>> RecipeType<T> createRecipeType(String name, RecipeType<T> instance) {
+        return Registry.register(Registries.RECIPE_TYPE, new Identifier(EnergizedPowerMod.MODID, name), instance);
+    }
 
-    public static void register(IEventBus modEventBus) {
-        SERIALIZERS.register(modEventBus);
+    public static void register() {
+
     }
 }

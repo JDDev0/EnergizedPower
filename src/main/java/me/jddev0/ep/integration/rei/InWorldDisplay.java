@@ -1,12 +1,12 @@
 package me.jddev0.ep.integration.rei;
 
 import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.tags.ItemTags;
-import net.minecraftforge.common.Tags;
+import net.minecraft.registry.tag.ItemTags;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class InWorldDisplay implements Display {
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(
-                EntryIngredients.ofItemTag(Tags.Items.SHEARS),
+                EntryIngredients.ofItemTag(CommonItemTags.SHEARS),
                 EntryIngredients.ofItemTag(ItemTags.WOOL)
         );
     }
@@ -22,7 +22,7 @@ public class InWorldDisplay implements Display {
     @Override
     public List<EntryIngredient> getOutputEntries() {
         return List.of(
-                EntryIngredients.of(ModItems.CABLE_INSULATOR.get(), 18)
+                EntryIngredients.of(ModItems.CABLE_INSULATOR, 18)
         );
     }
 

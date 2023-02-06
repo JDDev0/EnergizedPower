@@ -2,77 +2,81 @@ package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.ChargingStationBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ChargingStationBlock extends BaseEntityBlock {
-    public static final BooleanProperty CHARGING = BooleanProperty.create("charging");
+public class ChargingStationBlock extends BlockWithEntity {
+    public static final BooleanProperty CHARGING = BooleanProperty.of("charging");
 
     private static final int ACTIVATION_TICKS = 8;
 
-    public ChargingStationBlock(Properties props) {
+    public ChargingStationBlock(FabricBlockSettings props) {
         super(props);
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(CHARGING, false));
+        this.setDefaultState(this.getStateManager().getDefaultState().with(CHARGING, false));
     }
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
+    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
         return new ChargingStationBlockEntity(blockPos, state);
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
+    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(CHARGING);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.CHARGING_STATION_ENTITY.get(), ChargingStationBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, ModBlockEntities.CHARGING_STATION_ENTITY, ChargingStationBlockEntity::tick);
     }
 
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos blockPos, RandomSource randomSource) {
-        if(state.getValue(CHARGING)) {
+    public void randomDisplayTick(BlockState state, World level, BlockPos blockPos, Random randomSource) {
+        if(state.get(CHARGING)) {
             //TODO
         }
     }
 
     public static class Item extends BlockItem {
-        public Item(Block block, Properties props) {
+        public Item(Block block, FabricItemSettings props) {
             super(block, props);
         }
 
         @Override
-        public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
+        public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
             if(Screen.hasShiftDown()) {
-                components.add(Component.translatable("tooltip.energizedpower.charging_station.txt.shift.1").withStyle(ChatFormatting.GRAY));
+                tooltip.add(Text.translatable("tooltip.energizedpower.charging_station.txt.shift.1").formatted(Formatting.GRAY));
             }else {
-                components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+                tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
         }
     }

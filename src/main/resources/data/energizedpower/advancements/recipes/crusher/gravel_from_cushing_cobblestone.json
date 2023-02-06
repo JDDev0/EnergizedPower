@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:cobblestone/normal"
+            "items": [ "minecraft:cobblestone" ]
           }
         ]
       }

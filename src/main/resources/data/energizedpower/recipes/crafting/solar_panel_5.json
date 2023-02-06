@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "G": {
-      "tag": "forge:glass_panes/colorless"
+      "tag": "c:glass_panes_colorless"
     },
     "Q": {
-      "tag": "forge:gems/quartz"
+      "tag": "c:quartz"
     },
     "C": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:copper_ingots"
     },
     "S": {
       "item": "energizedpower:solar_panel_4"

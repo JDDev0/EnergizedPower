@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:silicon"
+            "tag": "c:silicon"
           }
         ]
       }

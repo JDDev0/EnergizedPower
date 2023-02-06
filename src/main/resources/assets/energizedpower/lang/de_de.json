@@ -38,7 +38,7 @@
   "tooltip.energizedpower.energy_analyzer.txt.shift.2": "%s werden pro Benutzung verwendet",
   "txt.energizedpower.energy_analyzer.no_energy_left": "Der Energie-Analyzierer hat nicht genug Strom (%s sind erforderlich).",
   "txt.energizedpower.energy_analyzer.no_block_entity": "Dieser Block ist kein Energie-Block.",
-  "txt.energizedpower.energy_analyzer.no_energy_block": "Dieser Block ist kein (FE-)Energie-Block.",
+  "txt.energizedpower.energy_analyzer.no_energy_block": "Dieser Block ist kein (E-)Energie-Block.",
   "txt.energizedpower.energy_analyzer.energy_output": "Energie: %s / %s.",
   "txt.energizedpower.energy_analyzer.energy_can_receive": "Dieser Block konsumiert Energie.",
   "txt.energizedpower.energy_analyzer.energy_can_extract": "Dieser Block produziert Energie.",
@@ -153,7 +153,7 @@
 
   "itemGroup.energizedpower.tab": "Energized Power",
 
-  "entity.minecraft.villager.energizedpower.electrician": "Elektroniker",
+  "entity.minecraft.villager.electrician": "Elektroniker",
 
   "recipes.energizedpower.in_world_crafting": "In-Welt Herstellung",
 

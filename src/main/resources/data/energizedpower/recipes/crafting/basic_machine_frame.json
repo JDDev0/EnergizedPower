@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "forge:storage_blocks/silicon"
+      "tag": "c:silicon_blocks"
     },
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:iron_ingots"
     },
     "C": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:copper_ingots"
     }
   },
   "pattern": [

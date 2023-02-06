@@ -2,59 +2,62 @@ package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.CoalEngineBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.ToIntFunction;
 
-public class CoalEngineBlock extends BaseEntityBlock {
-    public static final BooleanProperty LIT = BlockStateProperties.LIT;
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+public class CoalEngineBlock extends BlockWithEntity {
+    public static final BooleanProperty LIT = Properties.LIT;
+    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 
     public static final ToIntFunction<BlockState> LIGHT_EMISSION =
-            (state) -> state.getValue(BlockStateProperties.LIT) ? 13 : 0;
+            (state) -> state.get(Properties.LIT) ? 13 : 0;
 
-    protected CoalEngineBlock(Properties props) {
+    protected CoalEngineBlock(FabricBlockSettings props) {
         super(props);
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false));
+        this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(LIT, false));
     }
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
+    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
         return new CoalEngineBlockEntity(blockPos, state);
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
+    public void onStateReplaced(BlockState state, World level, BlockPos blockPos, BlockState newState, boolean isMoving) {
         if(state.getBlock() == newState.getBlock())
             return;
 
@@ -64,60 +67,60 @@ public class CoalEngineBlock extends BaseEntityBlock {
 
         ((CoalEngineBlockEntity)blockEntity).drops(level, blockPos);
 
-        super.onRemove(state, level, blockPos, newState, isMoving);
+        super.onStateReplaced(state, level, blockPos, newState, isMoving);
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos blockPos, Player player, InteractionHand handItem, BlockHitResult hit) {
-        if(level.isClientSide())
-            return InteractionResult.sidedSuccess(level.isClientSide());
+    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, Hand handItem, BlockHitResult hit) {
+        if(level.isClient())
+            return ActionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof CoalEngineBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (CoalEngineBlockEntity)blockEntity, blockPos);
+        player.openHandledScreen((CoalEngineBlockEntity)blockEntity);
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return ActionResult.SUCCESS;
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+    public BlockState getPlacementState(ItemPlacementContext context) {
+        return this.getDefaultState().with(FACING, context.getPlayerFacing().getOpposite());
     }
 
     @Override
-    public BlockState rotate(BlockState state, Rotation rotation) {
-        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
     }
 
     @Override
-    public BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation(state.getValue(FACING)));
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        return state.rotate(mirror.getRotation(state.get(FACING)));
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
+    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(FACING, LIT);
     }
 
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos blockPos, RandomSource randomSource) {
-        if(state.getValue(LIT)) {
+    public void randomDisplayTick(BlockState state, World level, BlockPos blockPos, Random randomSource) {
+        if(state.get(LIT)) {
             double d0 = (double)blockPos.getX() + 0.5D;
             double d1 = (double)blockPos.getY();
             double d2 = (double)blockPos.getZ() + 0.5D;
             if (randomSource.nextDouble() < 0.1D) {
-                level.playLocalSound(d0, d1, d2, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
+                level.playSound(d0, d1, d2, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
             }
 
-            Direction direction = state.getValue(FACING);
+            Direction direction = state.get(FACING);
             Direction.Axis direction$axis = direction.getAxis();
             double d3 = 0.52D;
             double d4 = randomSource.nextDouble() * 0.6D - 0.3D;
-            double d5 = direction$axis == Direction.Axis.X ? (double)direction.getStepX() * d3 : d4;
+            double d5 = direction$axis == Direction.Axis.X ? (double)direction.getOffsetX() * d3 : d4;
             double d6 = randomSource.nextDouble() * 6.0D / 16.0D;
-            double d7 = direction$axis == Direction.Axis.Z ? (double)direction.getStepZ() * d3 : d4;
+            double d7 = direction$axis == Direction.Axis.Z ? (double)direction.getOffsetZ() * d3 : d4;
             level.addParticle(ParticleTypes.SMOKE, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
             level.addParticle(ParticleTypes.FLAME, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
         }
@@ -125,7 +128,7 @@ public class CoalEngineBlock extends BaseEntityBlock {
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.COAL_ENGINE_ENTITY.get(), CoalEngineBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, ModBlockEntities.COAL_ENGINE_ENTITY, CoalEngineBlockEntity::tick);
     }
 }

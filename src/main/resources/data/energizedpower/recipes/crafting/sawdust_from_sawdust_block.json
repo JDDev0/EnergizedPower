@@ -1,7 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "group": "silicon",
   "ingredients": [
     {
       "item": "energizedpower:sawdust_block"

@@ -1,6 +1,6 @@
 package me.jddev0.ep.energy;
 
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntity;
 
 /**
  * Used for EnergySyncS2CPacket

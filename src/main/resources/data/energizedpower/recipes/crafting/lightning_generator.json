@@ -3,19 +3,19 @@
   "category": "misc",
   "key": {
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:iron_ingots"
     },
     "R": {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:redstone_dusts"
     },
     "E": {
       "item": "energizedpower:energized_copper_ingot"
     },
     "c": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:copper_ingots"
     },
     "C": {
-      "tag": "forge:storage_blocks/copper"
+      "tag": "c:copper_blocks"
     },
     "A": {
       "item": "energizedpower:advanced_machine_frame"

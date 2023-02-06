@@ -2,40 +2,39 @@ package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.UnchargerBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class UnchargerBlock extends BaseEntityBlock {
-    public UnchargerBlock(Properties props) {
+public class UnchargerBlock extends BlockWithEntity {
+    public UnchargerBlock(FabricBlockSettings props) {
         super(props);
     }
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
+    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
         return new UnchargerBlockEntity(blockPos, state);
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
+    public void onStateReplaced(BlockState state, World level, BlockPos blockPos, BlockState newState, boolean isMoving) {
         if(state.getBlock() == newState.getBlock())
             return;
 
@@ -45,27 +44,26 @@ public class UnchargerBlock extends BaseEntityBlock {
 
         ((UnchargerBlockEntity)blockEntity).drops(level, blockPos);
 
-        super.onRemove(state, level, blockPos, newState, isMoving);
+        super.onStateReplaced(state, level, blockPos, newState, isMoving);
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos blockPos, Player player, InteractionHand handItem, BlockHitResult hit) {
-        if(level.isClientSide())
-            return InteractionResult.sidedSuccess(level.isClientSide());
+    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, Hand handItem, BlockHitResult hit) {
+        if(level.isClient())
+            return ActionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof UnchargerBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (UnchargerBlockEntity)blockEntity, blockPos);
+        player.openHandledScreen((UnchargerBlockEntity)blockEntity);
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return ActionResult.SUCCESS;
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.UNCHARGER_ENTITY.get(),
-                UnchargerBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, ModBlockEntities.UNCHARGER_ENTITY, UnchargerBlockEntity::tick);
     }
 }

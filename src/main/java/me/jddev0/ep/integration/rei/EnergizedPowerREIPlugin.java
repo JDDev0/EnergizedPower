@@ -5,6 +5,7 @@ import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.recipe.CrusherRecipe;
 import me.jddev0.ep.recipe.EnergizerRecipe;
 import me.jddev0.ep.recipe.SawmillRecipe;
+import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.screen.ChargerScreen;
 import me.jddev0.ep.screen.CrusherScreen;
 import me.jddev0.ep.screen.EnergizerScreen;
@@ -16,12 +17,9 @@ import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import me.shedaniel.rei.forge.REIPluginClient;
-import net.minecraft.client.gui.screens.inventory.DispenserScreen;
-import net.minecraft.world.item.Items;
-import net.minecraftforge.common.Tags;
+import net.minecraft.client.gui.screen.ingame.Generic3x3ContainerScreen;
+import net.minecraft.item.Items;
 
-@REIPluginClient
 public class EnergizedPowerREIPlugin implements REIClientPlugin {
     @Override
     public String getPluginProviderName() {
@@ -31,20 +29,20 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
     @Override
     public void registerCategories(CategoryRegistry registry) {
         registry.add(new ChargerCategory());
-        registry.addWorkstations(ChargerCategory.CATEGORY, EntryStacks.of(ModBlocks.CHARGER_ITEM.get()));
+        registry.addWorkstations(ChargerCategory.CATEGORY, EntryStacks.of(ModBlocks.CHARGER_ITEM));
 
         registry.add(new CrusherCategory());
-        registry.addWorkstations(CrusherCategory.CATEGORY, EntryStacks.of(ModBlocks.CRUSHER_ITEM.get()));
+        registry.addWorkstations(CrusherCategory.CATEGORY, EntryStacks.of(ModBlocks.CRUSHER_ITEM));
 
         registry.add(new SawmillCategory());
-        registry.addWorkstations(SawmillCategory.CATEGORY, EntryStacks.of(ModBlocks.SAWMILL_ITEM.get()));
+        registry.addWorkstations(SawmillCategory.CATEGORY, EntryStacks.of(ModBlocks.SAWMILL_ITEM));
 
         registry.add(new EnergizerCategory());
-        registry.addWorkstations(EnergizerCategory.CATEGORY, EntryStacks.of(ModBlocks.ENERGIZER_ITEM.get()));
+        registry.addWorkstations(EnergizerCategory.CATEGORY, EntryStacks.of(ModBlocks.ENERGIZER_ITEM));
 
 
         registry.add(new InWorldCategory());
-        registry.addWorkstations(InWorldCategory.CATEGORY, EntryIngredients.ofItemTag(Tags.Items.SHEARS));
+        registry.addWorkstations(InWorldCategory.CATEGORY, EntryIngredients.ofItemTag(CommonItemTags.SHEARS));
 
         registry.add(new DispenserCategory());
         registry.addWorkstations(DispenserCategory.CATEGORY, EntryIngredients.of(Items.DISPENSER));
@@ -75,10 +73,9 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.registerContainerClickArea(new Rectangle(89, 34, 24, 17),
                 EnergizerScreen.class, EnergizerCategory.CATEGORY);
 
-
         registry.registerContainerClickArea(new Rectangle(7, 16, 54, 54),
-                DispenserScreen.class, DispenserCategory.CATEGORY);
+                Generic3x3ContainerScreen.class, DispenserCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(115, 16, 54, 54),
-                DispenserScreen.class, DispenserCategory.CATEGORY);
+                Generic3x3ContainerScreen.class, DispenserCategory.CATEGORY);
     }
 }

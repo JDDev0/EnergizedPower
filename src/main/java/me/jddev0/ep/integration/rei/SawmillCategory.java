@@ -10,8 +10,8 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +27,13 @@ public class SawmillCategory implements DisplayCategory<SawmillDisplay> {
     }
 
     @Override
-    public Component getTitle() {
-        return Component.translatable("container.energizedpower.sawmill");
+    public Text getTitle() {
+        return Text.translatable("container.energizedpower.sawmill");
     }
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModBlocks.SAWMILL.get());
+        return EntryStacks.of(ModBlocks.SAWMILL);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class SawmillCategory implements DisplayCategory<SawmillDisplay> {
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/sawmill.png");
+        Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/sawmill.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 42, 30, 109, 26));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().

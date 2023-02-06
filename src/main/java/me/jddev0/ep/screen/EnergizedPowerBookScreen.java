@@ -1,68 +1,71 @@
 package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.PopEnergizedPowerBookFromLecternC2SPacket;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.GameNarrator;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.PageButton;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.util.Mth;
-import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.LecternBlockEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.minecraft.block.Block;
+import net.minecraft.block.entity.LecternBlockEntity;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.PageTurnWidget;
+import net.minecraft.client.render.DiffuseLighting;
+import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.item.ItemRenderer;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.texture.TextureManager;
+import net.minecraft.client.util.NarratorManager;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.screen.PlayerScreenHandler;
+import net.minecraft.screen.ScreenTexts;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.text.OrderedText;
+import net.minecraft.text.Style;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public class EnergizedPowerBookScreen extends Screen {
-    public static final ResourceLocation TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/energized_power_book.png");
-    public static final ResourceLocation FRONT_COVER = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/book/front_cover.png");
-    public static final ResourceLocation BACK_COVER = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/book/back_cover.png");
+    public static final Identifier TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/energized_power_book.png");
+    public static final Identifier FRONT_COVER = new Identifier(EnergizedPowerMod.MODID, "textures/gui/book/front_cover.png");
+    public static final Identifier BACK_COVER = new Identifier(EnergizedPowerMod.MODID, "textures/gui/book/back_cover.png");
 
-    public static final ResourceLocation ENERGIZED_COPPER_INGOT = new ResourceLocation(EnergizedPowerMod.MODID, "textures/item/energized_copper_ingot.png");
+    public static final Identifier ENERGIZED_COPPER_INGOT = new Identifier(EnergizedPowerMod.MODID, "textures/item/energized_copper_ingot.png");
 
-    private PageButton forwardButton;
-    private PageButton backButton;
+    private PageTurnWidget forwardButton;
+    private PageTurnWidget backButton;
 
     private final LecternBlockEntity lecternBlockEntity;
 
     public static List<PageContent> pages = new LinkedList<>();
     private int currentPage;
-    private Component currentPageNumberOutput = CommonComponents.EMPTY;
+    private Text currentPageNumberOutput = Text.empty();
     private boolean isCurrentPageCached;
-    private List<FormattedCharSequence> cachedPageComponents = Collections.emptyList();
+    private List<OrderedText> cachedPageComponents = Collections.emptyList();
 
     public EnergizedPowerBookScreen() {
         this(null);
     }
 
     public EnergizedPowerBookScreen(LecternBlockEntity lecternBlockEntity) {
-        super(GameNarrator.NO_TITLE);
+        super(NarratorManager.EMPTY);
 
         this.lecternBlockEntity = lecternBlockEntity;
     }
@@ -74,23 +77,23 @@ public class EnergizedPowerBookScreen extends Screen {
     }
 
     private void createMenuControls() {
-        boolean showTakeButton = lecternBlockEntity != null && minecraft.player.mayBuild();
+        boolean showTakeButton = lecternBlockEntity != null && client.player.canModifyBlocks();
 
-        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, button -> onClose()).
-                bounds(width / 2 - 100, 196, showTakeButton?98:200, 20).build());
+        addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, button -> close()).
+                dimensions(width / 2 - 100, 196, showTakeButton?98:200, 20).build());
 
         if(showTakeButton)
-            addRenderableWidget(Button.builder(Component.translatable("lectern.take_book"), button -> {
-                ModMessages.sendToServer(new PopEnergizedPowerBookFromLecternC2SPacket(lecternBlockEntity.getBlockPos()));
-                onClose();
-            }).bounds(width / 2 + 2, 196, 98, 20).build());
+            addDrawableChild(ButtonWidget.builder(Text.translatable("lectern.take_book"), button -> {
+                ClientPlayNetworking.send(ModMessages.POP_ENERGIZED_POWER_BOOK_FROM_LECTERN_ID, PacketByteBufs.create().writeBlockPos(lecternBlockEntity.getPos()));
+                close();
+            }).dimensions(width / 2 + 2, 196, 98, 20).build());
     }
 
     private void createPageControlButtons() {
         int startX = (width - 192) / 2;
 
-        forwardButton = addRenderableWidget(new PageButton(startX + 116, 159, true, button -> pageForward(), true));
-        backButton = addRenderableWidget(new PageButton(startX + 43, 159, false, button -> pageBack(), true));
+        forwardButton = addDrawableChild(new PageTurnWidget(startX + 116, 159, true, button -> pageForward(), true));
+        backButton = addDrawableChild(new PageTurnWidget(startX + 43, 159, false, button -> pageBack(), true));
 
         updateButtonVisibility();
     }
@@ -145,7 +148,7 @@ public class EnergizedPowerBookScreen extends Screen {
                 backButton.onPress();
 
                 if(currentPage != oldCurrentPage)
-                    minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.f));
+                    client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.f));
 
                 yield true;
             }
@@ -153,7 +156,7 @@ public class EnergizedPowerBookScreen extends Screen {
                 forwardButton.onPress();
 
                 if(currentPage != oldCurrentPage)
-                    minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.f));
+                    client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.f));
 
                 yield true;
             }
@@ -166,7 +169,7 @@ public class EnergizedPowerBookScreen extends Screen {
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
         if(mouseButton == 0) {
             Style style = getComponentStyleAt(mouseX, mouseY);
-            if(style != null && handleComponentClicked(style))
+            if(style != null && handleTextClick(style))
                 return true;
         }
 
@@ -174,7 +177,7 @@ public class EnergizedPowerBookScreen extends Screen {
     }
 
     @Override
-    public boolean handleComponentClicked(Style style) {
+    public boolean handleTextClick(Style style) {
         ClickEvent clickEvent = style.getClickEvent();
         if(clickEvent == null)
             return false;
@@ -187,52 +190,52 @@ public class EnergizedPowerBookScreen extends Screen {
             }
         }
 
-        boolean flag = super.handleComponentClicked(style);
+        boolean flag = super.handleTextClick(style);
         if(flag && clickEvent.getAction() == ClickEvent.Action.RUN_COMMAND)
-            onClose();
+            close();
 
         return flag;
     }
 
     @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(MatrixStack poseStack, int mouseX, int mouseY, float partialTicks) {
         renderBackground(poseStack);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         int startX = (width - 192) / 2;
         if(currentPage == 0) {
             RenderSystem.setShaderTexture(0, FRONT_COVER);
-            blit(poseStack, startX, 2, 0, 0, 192, 192);
+            drawTexture(poseStack, startX, 2, 0, 0, 192, 192);
             RenderSystem.setShaderTexture(0, TEXTURE);
         }else if(currentPage == getPageCount() - 1) {
             RenderSystem.setShaderTexture(0, BACK_COVER);
-            blit(poseStack, startX, 2, 0, 0, 192, 192);
+            drawTexture(poseStack, startX, 2, 0, 0, 192, 192);
             RenderSystem.setShaderTexture(0, TEXTURE);
         }else {
             RenderSystem.setShaderTexture(0, TEXTURE);
-            blit(poseStack, startX, 2, 0, 0, 192, 192);
+            drawTexture(poseStack, startX, 2, 0, 0, 192, 192);
         }
 
         if(!isCurrentPageCached) {
             if(currentPage == 0) {
-                cachedPageComponents = font.split(Component.translatable("book.energizedpower.front.cover.text").withStyle(ChatFormatting.GRAY), 114);
+                cachedPageComponents = textRenderer.wrapLines(Text.translatable("book.energizedpower.front.cover.text").formatted(Formatting.GRAY), 114);
             }else if(currentPage == getPageCount() - 1) {
                 cachedPageComponents = Collections.emptyList();
             }else {
                 //Front cover and back cover are not included
                 if(pages.get(currentPage - 1).getPageComponent() != null)
-                    cachedPageComponents = font.split(pages.get(currentPage - 1).getPageComponent(), 114);
+                    cachedPageComponents = textRenderer.wrapLines(pages.get(currentPage - 1).getPageComponent(), 114);
             }
             //First page is front cover (Number = 0)
             //Last page is back cover (Number = page count - 1)
-            currentPageNumberOutput = Component.translatable("book.pageIndicator", currentPage, Math.max(getPageCount() - 1, 1));
+            currentPageNumberOutput = Text.translatable("book.pageIndicator", currentPage, Math.max(getPageCount() - 1, 1));
         }
 
         isCurrentPageCached = true;
 
-        int textWidth = font.width(currentPageNumberOutput);
-        font.draw(poseStack, currentPageNumberOutput, (width - textWidth) / 2.f, 185, 0xFFFFFFFF);
+        int textWidth = textRenderer.getWidth(currentPageNumberOutput);
+        textRenderer.draw(poseStack, currentPageNumberOutput, (width - textWidth) / 2.f, 185, 0xFFFFFFFF);
 
         if(currentPage == 0) {
             renderFrontCover(poseStack);
@@ -250,15 +253,15 @@ public class EnergizedPowerBookScreen extends Screen {
 
         int yOffset = 0;
 
-        ResourceLocation image = pages.get(currentPage - 1).getImageResourceLocation();
-        ResourceLocation block = pages.get(currentPage - 1).getBlockResourceLocation();
+        Identifier image = pages.get(currentPage - 1).getImageResourceLocation();
+        Identifier block = pages.get(currentPage - 1).getBlockResourceLocation();
 
-        Component chapterTitleComponent = pages.get(currentPage - 1).getChapterTitleComponent();
+        Text chapterTitleComponent = pages.get(currentPage - 1).getChapterTitleComponent();
         if(chapterTitleComponent != null) {
             float scaleFactor = 1.5f;
 
-            yOffset = (int)((192 / scaleFactor - font.lineHeight -
-                    (cachedPageComponents == null?0:((cachedPageComponents.size() + 1) * font.lineHeight / scaleFactor))) * .5f);
+            yOffset = (int)((192 / scaleFactor - textRenderer.fontHeight -
+                    (cachedPageComponents == null?0:((cachedPageComponents.size() + 1) * textRenderer.fontHeight / scaleFactor))) * .5f);
 
             if(image != null)
                 yOffset -= 60 * .5f / scaleFactor;
@@ -267,7 +270,7 @@ public class EnergizedPowerBookScreen extends Screen {
                 yOffset -= 60 * .5f / scaleFactor;
 
             poseStack.scale(scaleFactor, scaleFactor, 1.f);
-            font.draw(poseStack, chapterTitleComponent, (width / scaleFactor - font.width(chapterTitleComponent)) * .5f,
+            textRenderer.draw(poseStack, chapterTitleComponent, (width / scaleFactor - textRenderer.getWidth(chapterTitleComponent)) * .5f,
                     yOffset, 0);
             poseStack.scale(1/scaleFactor, 1/scaleFactor, 1.f);
 
@@ -288,50 +291,50 @@ public class EnergizedPowerBookScreen extends Screen {
 
         if(cachedPageComponents != null) {
             for(int i = 0;i < cachedPageComponents.size();i++) {
-                FormattedCharSequence formattedCharSequence = cachedPageComponents.get(i);
+                OrderedText formattedCharSequence = cachedPageComponents.get(i);
 
                 float x;
                 if(chapterTitleComponent == null)
                     x = startX + 36.f;
                 else
-                    x = (width - font.width(formattedCharSequence)) * .5f;
+                    x = (width - textRenderer.getWidth(formattedCharSequence)) * .5f;
 
-                font.draw(poseStack, formattedCharSequence, x, 20.f + yOffset + 9 * i, 0);
+                textRenderer.draw(poseStack, formattedCharSequence, x, 20.f + yOffset + 9 * i, 0);
             }
 
             Style style = getComponentStyleAt(mouseX, mouseY);
             if(style != null)
-                renderComponentHoverEffect(poseStack, style, mouseX, mouseY);
+                renderTextHoverEffect(poseStack, style, mouseX, mouseY);
         }
 
         super.render(poseStack, mouseX, mouseY, partialTicks);
     }
 
-    private void renderFrontCover(PoseStack poseStack) {
+    private void renderFrontCover(MatrixStack poseStack) {
         int startX = (width - 192) / 2;
 
         float scaleFactor = 1.35f;
 
-        Component component = Component.literal("Energized Power").withStyle(ChatFormatting.GOLD);
-        int textWidth = font.width(component);
+        Text component = Text.literal("Energized Power").formatted(Formatting.GOLD);
+        int textWidth = textRenderer.getWidth(component);
 
         poseStack.scale(scaleFactor, scaleFactor, 1.f);
-        font.draw(poseStack, component, (width / scaleFactor - textWidth) * .5f, 30 / scaleFactor, 0);
+        textRenderer.draw(poseStack, component, (width / scaleFactor - textWidth) * .5f, 30 / scaleFactor, 0);
         poseStack.scale(1/scaleFactor, 1/scaleFactor, 1.f);
 
-        component = Component.translatable("book.byAuthor", "JDDev0").withStyle(ChatFormatting.GOLD);
-        textWidth = font.width(component);
-        font.draw(poseStack, component, (width - textWidth) * .5f, 192 - 45.f, 0);
+        component = Text.translatable("book.byAuthor", "JDDev0").formatted(Formatting.GOLD);
+        textWidth = textRenderer.getWidth(component);
+        textRenderer.draw(poseStack, component, (width - textWidth) * .5f, 192 - 45.f, 0);
 
         for(int i = 0;i < cachedPageComponents.size();i++) {
-            FormattedCharSequence formattedCharSequence = cachedPageComponents.get(i);
-            font.draw(poseStack, formattedCharSequence, startX + 36.f, 120.f + 9 * i, 0);
+            OrderedText formattedCharSequence = cachedPageComponents.get(i);
+            textRenderer.draw(poseStack, formattedCharSequence, startX + 36.f, 120.f + 9 * i, 0);
         }
 
         renderImageCentered(poseStack, ENERGIZED_COPPER_INGOT, 48);
     }
 
-    private void renderImageCentered(PoseStack poseStack, ResourceLocation image, int y) {
+    private void renderImageCentered(MatrixStack poseStack, Identifier image, int y) {
         float scaleFactor = .25f;
 
         if(y == -1) //Centered
@@ -339,52 +342,52 @@ public class EnergizedPowerBookScreen extends Screen {
 
         RenderSystem.setShaderTexture(0, image);
         poseStack.scale(scaleFactor, scaleFactor, 1.f);
-        blit(poseStack, (int)((width / scaleFactor - 256) * .5f), (int)(y / scaleFactor), 0, 0, 256, 256);
+        drawTexture(poseStack, (int)((width / scaleFactor - 256) * .5f), (int)(y / scaleFactor), 0, 0, 256, 256);
         poseStack.scale(1/scaleFactor, 1/scaleFactor, 1.f);
     }
 
-    private void renderBlockCentered(PoseStack poseStack, ResourceLocation blockResourceLocation, int y) {
+    private void renderBlockCentered(MatrixStack poseStack, Identifier blockResourceLocation, int y) {
         if(y == -1) //Centered
             y = (int)((192 - 64) * .5f) + 2;
 
-        Block block = ForgeRegistries.BLOCKS.getValue(blockResourceLocation);
+        Block block = Registries.BLOCK.get(blockResourceLocation);
         ItemStack itemStack = new ItemStack(block);
 
-        ItemRenderer itemRenderer = minecraft.getItemRenderer();
-        TextureManager textureManager = minecraft.getTextureManager();
+        ItemRenderer itemRenderer = client.getItemRenderer();
+        TextureManager textureManager = client.getTextureManager();
 
         BakedModel bakedModel = itemRenderer.getModel(itemStack, null, null, 0);
 
-        textureManager.getTexture(InventoryMenu.BLOCK_ATLAS).setFilter(false, false);
-        RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
+        textureManager.getTexture(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).setFilter(false, false);
+        RenderSystem.setShaderTexture(0, PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
 
         RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+        RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
 
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
 
-        poseStack.pushPose();
+        poseStack.push();
         poseStack.translate((int)(width * .5f), y + 64.f * .5f, 50.f);
         poseStack.scale(64.f, -64.f, 1.f);
 
-        MultiBufferSource.BufferSource bufferSource = minecraft.renderBuffers().bufferSource();
-        Lighting.setupForEntityInInventory();
+        VertexConsumerProvider.Immediate bufferSource = client.getBufferBuilders().getEntityVertexConsumers();
+        DiffuseLighting.method_34742();
 
-        itemRenderer.render(itemStack, ItemTransforms.TransformType.GUI, false, poseStack, bufferSource,
-                LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, bakedModel);
+        itemRenderer.renderItem(itemStack, ModelTransformation.Mode.GUI, false, poseStack, bufferSource,
+                15728880, OverlayTexture.DEFAULT_UV, bakedModel);
 
-        bufferSource.endBatch();
+        bufferSource.draw();
         RenderSystem.enableDepthTest();
 
-        poseStack.popPose();
+        poseStack.pop();
     }
 
     private Style getComponentStyleAt(double x, double y) {
         if(cachedPageComponents.isEmpty())
             return null;
 
-        int componentX = Mth.floor(x - (width - 192) * .5 - 36.);
-        int componentY = Mth.floor(y - 20.);
+        int componentX = MathHelper.floor(x - (width - 192) * .5 - 36.);
+        int componentY = MathHelper.floor(y - 20.);
         if(componentX < 0 || componentY < 0)
             return null;
 
@@ -396,41 +399,41 @@ public class EnergizedPowerBookScreen extends Screen {
         if(componentIndex >= cachedPageComponents.size())
             return null;
 
-        return minecraft.font.getSplitter().componentStyleAtWidth(cachedPageComponents.get(componentIndex), componentX);
+        return client.textRenderer.getTextHandler().getStyleAt(cachedPageComponents.get(componentIndex), componentX);
     }
 
     @Override
-    public boolean isPauseScreen() {
+    public boolean shouldPause() {
         return lecternBlockEntity == null;
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Environment(EnvType.CLIENT)
     public static class PageContent {
-        private final Component chapterTitleComponent;
-        private final Component pageComponent;
-        private final ResourceLocation imageResourceLocation;
-        private final ResourceLocation blockResourceLocation;
+        private final Text chapterTitleComponent;
+        private final Text pageComponent;
+        private final Identifier imageResourceLocation;
+        private final Identifier blockResourceLocation;
 
-        public PageContent(Component chapterTitleComponent, Component pageComponent, ResourceLocation imageResourceLocation, ResourceLocation blockResourceLocation) {
+        public PageContent(Text chapterTitleComponent, Text pageComponent, Identifier imageResourceLocation, Identifier blockResourceLocation) {
             this.chapterTitleComponent = chapterTitleComponent;
             this.pageComponent = pageComponent;
             this.imageResourceLocation = imageResourceLocation;
             this.blockResourceLocation = blockResourceLocation;
         }
 
-        public Component getChapterTitleComponent() {
+        public Text getChapterTitleComponent() {
             return chapterTitleComponent;
         }
 
-        public Component getPageComponent() {
+        public Text getPageComponent() {
             return pageComponent;
         }
 
-        public ResourceLocation getImageResourceLocation() {
+        public Identifier getImageResourceLocation() {
             return imageResourceLocation;
         }
 
-        public ResourceLocation getBlockResourceLocation() {
+        public Identifier getBlockResourceLocation() {
             return blockResourceLocation;
         }
     }

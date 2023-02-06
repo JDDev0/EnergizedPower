@@ -2,108 +2,109 @@ package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.LightningGeneratorBlockEntity;
 import me.jddev0.ep.util.EnergyUtils;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.ParticleUtils;
-import net.minecraft.util.RandomSource;
-import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.util.ParticleUtil;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class LightningGeneratorBlock extends BaseEntityBlock {
+public class LightningGeneratorBlock extends BlockWithEntity {
     public static final int ENERGY_PER_LIGHTNING_STRIKE = 1000000;
 
-    public static final BooleanProperty HIT_BY_LIGHTNING_BOLT = BooleanProperty.create("hit_by_lightning_bolt");
+    public static final BooleanProperty HIT_BY_LIGHTNING_BOLT = BooleanProperty.of("hit_by_lightning_bolt");
 
     private static final int ACTIVATION_TICKS = 8;
 
-    public LightningGeneratorBlock(Properties props) {
+    public LightningGeneratorBlock(FabricBlockSettings props) {
         super(props);
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(HIT_BY_LIGHTNING_BOLT, false));
+        this.setDefaultState(this.getStateManager().getDefaultState().with(HIT_BY_LIGHTNING_BOLT, false));
     }
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
+    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
         return new LightningGeneratorBlockEntity(blockPos, state);
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
+    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(HIT_BY_LIGHTNING_BOLT);
     }
 
     @Override
-    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
-        super.neighborChanged(selfState, level, selfPos, fromBlock, fromPos, isMoving);
+    public void neighborUpdate(BlockState selfState, World level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
+        super.neighborUpdate(selfState, level, selfPos, fromBlock, fromPos, isMoving);
 
-        if(level.isClientSide())
+        if(level.isClient())
             return;
 
-        if(!selfPos.above().equals(fromPos) || !(fromBlock instanceof LightningRodBlock))
+        if(!selfPos.up().equals(fromPos) || !(fromBlock instanceof LightningRodBlock))
             return;
 
         BlockState fromState = level.getBlockState(fromPos);
-        if(!fromState.hasProperty(LightningRodBlock.POWERED) || !fromState.getValue(LightningRodBlock.POWERED) ||
-        !fromState.hasProperty(LightningRodBlock.POWERED) || fromState.getValue(DirectionalBlock.FACING) != Direction.UP)
+        if(!fromState.contains(LightningRodBlock.POWERED) || !fromState.get(LightningRodBlock.POWERED) ||
+        !fromState.contains(LightningRodBlock.POWERED) || fromState.get(FacingBlock.FACING) != Direction.UP)
             return;
 
         BlockEntity blockEntity = level.getBlockEntity(selfPos);
         if(!(blockEntity instanceof LightningGeneratorBlockEntity))
             return;
 
-        level.setBlock(selfPos, selfState.setValue(HIT_BY_LIGHTNING_BOLT, Boolean.TRUE), 3);
-        level.scheduleTick(selfPos, this, ACTIVATION_TICKS);
+        level.setBlockState(selfPos, selfState.with(HIT_BY_LIGHTNING_BOLT, Boolean.TRUE), 3);
+        level.scheduleBlockTick(selfPos, this, ACTIVATION_TICKS);
 
         ((LightningGeneratorBlockEntity)blockEntity).onLightningStrike();
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel level, BlockPos blockPos, RandomSource randomSource) {
-        level.setBlock(blockPos, state.setValue(HIT_BY_LIGHTNING_BOLT, false), 3);
+    public void scheduledTick(BlockState state, ServerWorld level, BlockPos blockPos, Random randomSource) {
+        level.setBlockState(blockPos, state.with(HIT_BY_LIGHTNING_BOLT, false), 3);
     }
 
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos blockPos, RandomSource randomSource) {
-        if(state.getValue(HIT_BY_LIGHTNING_BOLT)) {
-            ParticleUtils.spawnParticlesOnBlockFaces(level, blockPos, ParticleTypes.ELECTRIC_SPARK, UniformInt.of(2, 5));
+    public void randomDisplayTick(BlockState state, World level, BlockPos blockPos, Random randomSource) {
+        if(state.get(HIT_BY_LIGHTNING_BOLT)) {
+            ParticleUtil.spawnParticle(level, blockPos, ParticleTypes.ELECTRIC_SPARK, UniformIntProvider.create(2, 5));
         }
     }
 
     public static class Item extends BlockItem {
-        public Item(Block block, Properties props) {
+        public Item(Block block, FabricItemSettings props) {
             super(block, props);
         }
 
         @Override
-        public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
+        public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
             if(Screen.hasShiftDown()) {
-                components.add(Component.translatable("tooltip.energizedpower.lightning_generator.txt.shift.1",
-                        EnergyUtils.getEnergyWithPrefix(ENERGY_PER_LIGHTNING_STRIKE)).withStyle(ChatFormatting.GRAY));
-                components.add(Component.translatable("tooltip.energizedpower.lightning_generator.txt.shift.2").withStyle(ChatFormatting.GRAY));
+                tooltip.add(Text.translatable("tooltip.energizedpower.lightning_generator.txt.shift.1",
+                        EnergyUtils.getEnergyWithPrefix(ENERGY_PER_LIGHTNING_STRIKE)).formatted(Formatting.GRAY));
+                tooltip.add(Text.translatable("tooltip.energizedpower.lightning_generator.txt.shift.2").formatted(Formatting.GRAY));
             }else {
-                components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+                tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
         }
     }

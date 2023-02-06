@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "S": {
-      "tag": "forge:dusts/wood"
+      "tag": "c:saw_dusts"
     }
   },
   "pattern": [

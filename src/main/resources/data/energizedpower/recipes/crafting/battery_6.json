@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "I": {
-      "tag": "forge:nuggets/iron"
+      "tag": "c:iron_nuggets"
     },
     "E": {
       "item": "energizedpower:energized_copper_ingot"

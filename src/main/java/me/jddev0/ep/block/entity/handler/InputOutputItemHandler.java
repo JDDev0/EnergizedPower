@@ -1,55 +1,126 @@
 package me.jddev0.ep.block.entity.handler;
 
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.SidedInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.Direction;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.Set;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
-public class InputOutputItemHandler implements IItemHandlerModifiable {
-    private final IItemHandlerModifiable handler;
+public class InputOutputItemHandler implements SidedInventory {
+    private final SidedInventory handler;
     private final BiPredicate<Integer, ItemStack> canInput;
     private final Predicate<Integer> canOutput;
 
-    public InputOutputItemHandler(IItemHandlerModifiable handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
+    public InputOutputItemHandler(SidedInventory handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
         this.handler = handler;
         this.canInput = canInput;
         this.canOutput = canOutput;
     }
 
     @Override
-    public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-        handler.setStackInSlot(slot, stack);
+    public int[] getAvailableSlots(Direction side) {
+        return handler.getAvailableSlots(side);
     }
 
     @Override
-    public @NotNull ItemStack getStackInSlot(int slot) {
-        return handler.getStackInSlot(slot);
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        return canInput.test(slot, stack) && handler.isValid(slot, stack) && handler.canInsert(slot, stack, dir);
     }
 
     @Override
-    public int getSlots() {
-        return handler.getSlots();
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        return canOutput.test(slot) && handler.canExtract(slot, stack, dir);
     }
 
     @Override
-    public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-        return canInput.test(slot, stack)?handler.insertItem(slot, stack, simulate):stack;
+    public int size() {
+        return handler.size();
     }
 
     @Override
-    public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
-        return canOutput.test(slot)?handler.extractItem(slot, amount, simulate):ItemStack.EMPTY;
-   }
-
-    @Override
-    public int getSlotLimit(int slot) {
-        return handler.getSlotLimit(slot);
+    public boolean isEmpty() {
+        return handler.isEmpty();
     }
 
     @Override
-    public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-        return canInput.test(slot, stack) && handler.isItemValid(slot, stack);
+    public ItemStack getStack(int slot) {
+        return handler.getStack(slot);
+    }
+
+    @Override
+    public ItemStack removeStack(int slot, int amount) {
+        if(canOutput.test(slot))
+            return handler.removeStack(slot, amount);
+
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public ItemStack removeStack(int slot) {
+        if(canOutput.test(slot))
+            return handler.removeStack(slot);
+
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public void setStack(int slot, ItemStack stack) {
+        if(canInput.test(slot, stack))
+            handler.setStack(slot, stack);
+    }
+
+    @Override
+    public void markDirty() {
+        handler.markDirty();
+    }
+
+    @Override
+    public boolean canPlayerUse(PlayerEntity player) {
+        return handler.canPlayerUse(player);
+    }
+
+    @Override
+    public void clear() {
+        handler.clear();
+    }
+
+    @Override
+    public int getMaxCountPerStack() {
+        return handler.getMaxCountPerStack();
+    }
+
+    @Override
+    public void onOpen(PlayerEntity player) {
+        handler.onOpen(player);
+    }
+
+    @Override
+    public void onClose(PlayerEntity player) {
+        handler.onClose(player);
+    }
+
+    @Override
+    public boolean isValid(int slot, ItemStack stack) {
+        return handler.isValid(slot, stack);
+    }
+
+    @Override
+    public int count(Item item) {
+        return handler.count(item);
+    }
+
+    @Override
+    public boolean containsAny(Set<Item> items) {
+        return handler.containsAny(items);
+    }
+
+    @Override
+    public boolean containsAny(Predicate<ItemStack> predicate) {
+        return handler.containsAny(predicate);
     }
 }

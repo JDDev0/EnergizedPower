@@ -5,90 +5,132 @@ import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.block.TransformerBlock;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.minecraft.block.Block;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
+import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorage;
+
+import java.util.function.BiFunction;
 
 public final class ModBlockEntities {
     private ModBlockEntities() {}
 
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, EnergizedPowerMod.MODID);
+    public static final BlockEntityType<CableBlockEntity> COPPER_CABLE_ENTITY = registerEnergyStorage(
+            createBlockEntity("copper_cable", ModBlocks.COPPER_CABLE, (blockPos, state) ->
+                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_COPPER)),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
+    public static final BlockEntityType<CableBlockEntity> ENERGIZED_COPPER_CABLE_ENTITY = registerEnergyStorage(
+            createBlockEntity("energized_copper_cable", ModBlocks.ENERGIZED_COPPER_CABLE, (blockPos, state) ->
+                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_ENERGIZED_COPPER)),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
 
-    public static final RegistryObject<BlockEntityType<CableBlockEntity>> COPPER_CABLE_ENTITY =
-            BLOCK_ENTITIES.register("copper_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_COPPER), ModBlocks.COPPER_CABLE.get()).build(null));
-    public static final RegistryObject<BlockEntityType<CableBlockEntity>> ENERGIZED_COPPER_CABLE_ENTITY =
-            BLOCK_ENTITIES.register("energized_copper_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_ENERGIZED_COPPER), ModBlocks.ENERGIZED_COPPER_CABLE.get()).build(null));
+    public static final BlockEntityType<AutoCrafterBlockEntity> AUTO_CRAFTER_ENTITY = registerEnergyStorage(
+            createBlockEntity("auto_crafter", ModBlocks.AUTO_CRAFTER, AutoCrafterBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
 
-    public static final RegistryObject<BlockEntityType<AutoCrafterBlockEntity>> AUTO_CRAFTER_ENTITY =
-            BLOCK_ENTITIES.register("auto_crafter", () -> BlockEntityType.Builder.of(AutoCrafterBlockEntity::new,
-                    ModBlocks.AUTO_CRAFTER.get()).build(null));
+    public static final BlockEntityType<CrusherBlockEntity> CRUSHER_ENTITY = registerEnergyStorage(
+            createBlockEntity("crusher", ModBlocks.CRUSHER, CrusherBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
 
-    public static final RegistryObject<BlockEntityType<CrusherBlockEntity>> CRUSHER_ENTITY =
-            BLOCK_ENTITIES.register("crusher", () -> BlockEntityType.Builder.of(CrusherBlockEntity::new,
-                    ModBlocks.CRUSHER.get()).build(null));
+    public static final BlockEntityType<SawmillBlockEntity> SAWMILL_ENTITY = registerEnergyStorage(
+            createBlockEntity("sawmill", ModBlocks.SAWMILL, SawmillBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
 
-    public static final RegistryObject<BlockEntityType<SawmillBlockEntity>> SAWMILL_ENTITY =
-            BLOCK_ENTITIES.register("sawmill", () -> BlockEntityType.Builder.of(SawmillBlockEntity::new,
-                    ModBlocks.SAWMILL.get()).build(null));
+    public static final BlockEntityType<BlockPlacerBlockEntity> BLOCK_PLACER_ENTITY = registerEnergyStorage(
+            createBlockEntity("block_placer", ModBlocks.BLOCK_PLACER, BlockPlacerBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
 
-    public static final RegistryObject<BlockEntityType<BlockPlacerBlockEntity>> BLOCK_PLACER_ENTITY =
-            BLOCK_ENTITIES.register("block_placer", () -> BlockEntityType.Builder.of(BlockPlacerBlockEntity::new,
-                    ModBlocks.BLOCK_PLACER.get()).build(null));
+    public static final BlockEntityType<ChargerBlockEntity> CHARGER_ENTITY = registerEnergyStorage(
+            createBlockEntity("charger", ModBlocks.CHARGER, ChargerBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
 
-    public static final RegistryObject<BlockEntityType<ChargerBlockEntity>> CHARGER_ENTITY =
-            BLOCK_ENTITIES.register("charger", () -> BlockEntityType.Builder.of(ChargerBlockEntity::new,
-                    ModBlocks.CHARGER.get()).build(null));
+    public static final BlockEntityType<UnchargerBlockEntity> UNCHARGER_ENTITY = registerEnergyStorage(
+            createBlockEntity("uncharger", ModBlocks.UNCHARGER, UnchargerBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
 
-    public static final RegistryObject<BlockEntityType<UnchargerBlockEntity>> UNCHARGER_ENTITY =
-            BLOCK_ENTITIES.register("uncharger", () -> BlockEntityType.Builder.of(UnchargerBlockEntity::new,
-                    ModBlocks.UNCHARGER.get()).build(null));
-
-    private static RegistryObject<BlockEntityType<SolarPanelBlockEntity>> createSolarPanelBlockEntity(String name,
-    RegistryObject<SolarPanelBlock> blockRegistryObject) {
-        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new SolarPanelBlockEntity(blockPos, state,
-                        blockRegistryObject.get().getTier()), blockRegistryObject.get()).build(null));
+    private static BlockEntityType<SolarPanelBlockEntity> createSolarPanelBlockEntity(String name, SolarPanelBlock block) {
+        return createBlockEntity(name, block, (blockPos, state) -> new SolarPanelBlockEntity(blockPos, state, block.getTier()));
     }
-    public static final RegistryObject<BlockEntityType<SolarPanelBlockEntity>> SOLAR_PANEL_ENTITY_1 =
-            createSolarPanelBlockEntity("solar_panel_1", ModBlocks.SOLAR_PANEL_1);
-    public static final RegistryObject<BlockEntityType<SolarPanelBlockEntity>> SOLAR_PANEL_ENTITY_2 =
-            createSolarPanelBlockEntity("solar_panel_2", ModBlocks.SOLAR_PANEL_2);
-    public static final RegistryObject<BlockEntityType<SolarPanelBlockEntity>> SOLAR_PANEL_ENTITY_3 =
-            createSolarPanelBlockEntity("solar_panel_3", ModBlocks.SOLAR_PANEL_3);
-    public static final RegistryObject<BlockEntityType<SolarPanelBlockEntity>> SOLAR_PANEL_ENTITY_4 =
-            createSolarPanelBlockEntity("solar_panel_4", ModBlocks.SOLAR_PANEL_4);
-    public static final RegistryObject<BlockEntityType<SolarPanelBlockEntity>> SOLAR_PANEL_ENTITY_5 =
-            createSolarPanelBlockEntity("solar_panel_5", ModBlocks.SOLAR_PANEL_5);
+    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_1 = registerEnergyStorage(
+            createSolarPanelBlockEntity("solar_panel_1", ModBlocks.SOLAR_PANEL_1),
+            (blockEntity, direction) -> (direction == null || direction == Direction.DOWN)?blockEntity.energyStorage:null
+    );
+    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_2 = registerEnergyStorage(
+            createSolarPanelBlockEntity("solar_panel_2", ModBlocks.SOLAR_PANEL_2),
+            (blockEntity, direction) -> (direction == null || direction == Direction.DOWN)?blockEntity.energyStorage:null
+    );
+    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_3 = registerEnergyStorage(
+            createSolarPanelBlockEntity("solar_panel_3", ModBlocks.SOLAR_PANEL_3),
+            (blockEntity, direction) -> (direction == null || direction == Direction.DOWN)?blockEntity.energyStorage:null
+    );
+    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_4 = registerEnergyStorage(
+            createSolarPanelBlockEntity("solar_panel_4", ModBlocks.SOLAR_PANEL_4),
+            (blockEntity, direction) -> (direction == null || direction == Direction.DOWN)?blockEntity.energyStorage:null
+    );
+    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_5 = registerEnergyStorage(
+            createSolarPanelBlockEntity("solar_panel_5", ModBlocks.SOLAR_PANEL_5),
+        (blockEntity, direction) -> (direction == null || direction == Direction.DOWN)?blockEntity.energyStorage:null
+    );
 
-    public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> TRANSFORMER_1_TO_N_ENTITY =
-            BLOCK_ENTITIES.register("transformer_1_to_n", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Type.TYPE_1_TO_N),
-                    ModBlocks.UNCHARGER.get()).build(null));
-    public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> TRANSFORMER_N_TO_1_ENTITY =
-            BLOCK_ENTITIES.register("transformer_n_to_1", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Type.TYPE_N_TO_1),
-                    ModBlocks.UNCHARGER.get()).build(null));
+    public static final BlockEntityType<TransformerBlockEntity> TRANSFORMER_1_TO_N_ENTITY = registerEnergyStorage(
+            createBlockEntity("transformer_1_to_n", ModBlocks.TRANSFORMER_1_TO_N, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Type.TYPE_1_TO_N)),
+            TransformerBlockEntity::getEnergyStorageForDirection
+    );
+    public static final BlockEntityType<TransformerBlockEntity> TRANSFORMER_N_TO_1_ENTITY = registerEnergyStorage(
+            createBlockEntity("transformer_n_to_1", ModBlocks.TRANSFORMER_N_TO_1, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Type.TYPE_N_TO_1)),
+            TransformerBlockEntity::getEnergyStorageForDirection
+    );
 
-    public static final RegistryObject<BlockEntityType<CoalEngineBlockEntity>> COAL_ENGINE_ENTITY =
-            BLOCK_ENTITIES.register("coal_engine", () -> BlockEntityType.Builder.of(CoalEngineBlockEntity::new,
-                    ModBlocks.COAL_ENGINE.get()).build(null));
+    public static final BlockEntityType<CoalEngineBlockEntity> COAL_ENGINE_ENTITY = registerEnergyStorage(
+            createBlockEntity("coal_engine", ModBlocks.COAL_ENGINE, CoalEngineBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
 
-    public static final RegistryObject<BlockEntityType<LightningGeneratorBlockEntity>> LIGHTING_GENERATOR_ENTITY =
-            BLOCK_ENTITIES.register("lightning_generator", () -> BlockEntityType.Builder.of(LightningGeneratorBlockEntity::new,
-                    ModBlocks.LIGHTNING_GENERATOR.get()).build(null));
+    public static final BlockEntityType<LightningGeneratorBlockEntity> LIGHTING_GENERATOR_ENTITY = registerEnergyStorage(
+            createBlockEntity("lightning_generator", ModBlocks.LIGHTNING_GENERATOR, LightningGeneratorBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
 
-    public static final RegistryObject<BlockEntityType<EnergizerBlockEntity>> ENERGIZER_ENTITY =
-            BLOCK_ENTITIES.register("energizer", () -> BlockEntityType.Builder.of(EnergizerBlockEntity::new,
-                    ModBlocks.ENERGIZER.get()).build(null));
+    public static final BlockEntityType<EnergizerBlockEntity> ENERGIZER_ENTITY = registerEnergyStorage(
+            createBlockEntity("energizer", ModBlocks.ENERGIZER, EnergizerBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
 
-    public static final RegistryObject<BlockEntityType<ChargingStationBlockEntity>> CHARGING_STATION_ENTITY =
-            BLOCK_ENTITIES.register("charging_station", () -> BlockEntityType.Builder.of(ChargingStationBlockEntity::new,
-                    ModBlocks.CHARGING_STATION.get()).build(null));
+    public static final BlockEntityType<ChargingStationBlockEntity> CHARGING_STATION_ENTITY = registerEnergyStorage(
+            createBlockEntity("charging_station", ModBlocks.CHARGING_STATION, ChargingStationBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
 
-    public static void register(IEventBus modEventBus) {
-        BLOCK_ENTITIES.register(modEventBus);
+    @SuppressWarnings("unchecked")
+    private static <T extends BlockEntity> BlockEntityType<T> createBlockEntity(String name, Block block,
+            FabricBlockEntityTypeBuilder.Factory<? extends T> factory) {
+        return (BlockEntityType<T>)Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(EnergizedPowerMod.MODID, name),
+                FabricBlockEntityTypeBuilder.create(factory, block).build(null));
+    }
+
+    private static <T extends BlockEntity> BlockEntityType<T> registerEnergyStorage(BlockEntityType<T> blockEntityType,
+            BiFunction<? super T, Direction, @Nullable EnergyStorage> provider) {
+        EnergyStorage.SIDED.registerForBlockEntity(provider, blockEntityType);
+        return blockEntityType;
+    }
+
+    public static void register() {
+
     }
 }

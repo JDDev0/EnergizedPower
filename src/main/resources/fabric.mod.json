@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "energizedpower",
+	"version": "${version}",
+	"name": "Energized Power",
+	"description": "This is a technology mod with many machines.",
+	"authors": [
+		"JDDev0"
+	],
+	"contact": {
+		"homepage": "https://github.com/JDDev0/EnergizedPower",
+		"sources": "https://github.com/JDDev0/EnergizedPower",
+		"issues": "https://github.com/JDDev0/EnergizedPower/issues",
+		"email": "jddev0@dorneger.at"
+	},
+	"license": "MIT",
+	"icon": "assets/energizedpower/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"me.jddev0.ep.EnergizedPowerMod"
+		],
+		"client": [
+			"me.jddev0.ep.EnergizedPowerModClient"
+		]
+	},
+	"mixins": [
+		"energizedpower.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.13",
+		"minecraft": "~1.19.3",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"ae2": "*",
+		"jei": "*",
+		"rei": "*"
+	}
+}

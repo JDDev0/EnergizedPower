@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "I": {
-      "tag": "forge:nuggets/iron"
+      "tag": "c:iron_nuggets"
     },
     "E": {
       "item": "energizedpower:energized_copper_ingot"
     },
     "S": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     },
     "B": {
       "item": "energizedpower:battery_6"

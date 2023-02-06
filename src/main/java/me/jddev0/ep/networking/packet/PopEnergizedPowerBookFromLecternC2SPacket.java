@@ -1,52 +1,36 @@
 package me.jddev0.ep.networking.packet;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.LecternBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.LecternBlockEntity;
-import net.minecraftforge.network.NetworkEvent;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.block.LecternBlock;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.LecternBlockEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.chunk.WorldChunk;
 
-import java.util.function.Supplier;
+public final class PopEnergizedPowerBookFromLecternC2SPacket {
+    private PopEnergizedPowerBookFromLecternC2SPacket() {}
 
-public class PopEnergizedPowerBookFromLecternC2SPacket {
-    private final BlockPos pos;
+    public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
+                               PacketByteBuf buf, PacketSender responseSender) {
+        if(!player.canModifyBlocks())
+            return;
 
-    public PopEnergizedPowerBookFromLecternC2SPacket(BlockPos pos) {
-        this.pos = pos;
-    }
+        BlockPos pos = buf.readBlockPos();
 
-    public PopEnergizedPowerBookFromLecternC2SPacket(FriendlyByteBuf buffer) {
-        pos = buffer.readBlockPos();
-    }
+        BlockEntity blockEntity = player.getWorld().getWorldChunk(pos).getBlockEntity(pos, WorldChunk.CreationType.IMMEDIATE);
 
-    public void toBytes(FriendlyByteBuf buffer) {
-        buffer.writeBlockPos(pos);
-    }
+        if(blockEntity instanceof LecternBlockEntity lecternBlockEntity) {
+            ItemStack itemStack = lecternBlockEntity.getBook();
 
-    public boolean handle(Supplier<NetworkEvent.Context> supplier) {
-        NetworkEvent.Context context = supplier.get();
-        context.enqueueWork(() -> {
-            ServerPlayer player = context.getSender();
-            if(!player.mayBuild())
-                return;
-
-            BlockEntity blockEntity = player.getLevel().getBlockEntity(pos);
-
-            if(blockEntity instanceof LecternBlockEntity) {
-                LecternBlockEntity lecternBlockEntity = (LecternBlockEntity)blockEntity;
-
-                ItemStack itemStack = lecternBlockEntity.getBook();
-
-                lecternBlockEntity.setBook(ItemStack.EMPTY);
-                LecternBlock.resetBookState(player.getLevel(), pos, player.getLevel().getBlockState(pos), false);
-                if(!player.getInventory().add(itemStack))
-                    player.drop(itemStack, false);
-            }
-        });
-
-        return true;
+            lecternBlockEntity.setBook(ItemStack.EMPTY);
+            LecternBlock.setHasBook(player.getWorld(), pos, player.getWorld().getBlockState(pos), false);
+            if(!player.getInventory().insertStack(itemStack))
+                player.dropItem(itemStack, false);
+        }
     }
 }

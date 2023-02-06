@@ -3,33 +3,33 @@ package me.jddev0.ep.recipe;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
-import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.Level;
+import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.*;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
+import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.world.World;
 
-public class EnergizerRecipe implements Recipe<SimpleContainer> {
-    private final ResourceLocation id;
+public class EnergizerRecipe implements Recipe<SimpleInventory> {
+    private final Identifier id;
     private final ItemStack output;
     private final Ingredient input;
     private final int energyConsumption;
 
-    public EnergizerRecipe(ResourceLocation id, ItemStack output, Ingredient input, int energyNeeds) {
+    public EnergizerRecipe(Identifier id, ItemStack output, Ingredient input, int energyNeeds) {
         this.id = id;
         this.output = output;
         this.input = input;
         this.energyConsumption = energyNeeds;
     }
 
-    public ItemStack getOutput() {
+    public ItemStack getOutputItem() {
         return output;
     }
 
-    public Ingredient getInput() {
+    public Ingredient getInputItem() {
         return input;
     }
 
@@ -38,42 +38,42 @@ public class EnergizerRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(SimpleContainer container, Level level) {
-        if(level.isClientSide)
+    public boolean matches(SimpleInventory container, World level) {
+        if(level.isClient())
             return false;
 
-        return input.test(container.getItem(0));
+        return input.test(container.getStack(0));
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container) {
+    public ItemStack craft(SimpleInventory container) {
         return output;
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
+    public boolean fits(int width, int height) {
         return true;
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getOutput() {
         return output.copy();
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
-        NonNullList<Ingredient> ingredients = NonNullList.createWithCapacity(1);
+    public DefaultedList<Ingredient> getIngredients() {
+        DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(1);
         ingredients.add(0, input);
         return ingredients;
     }
 
     @Override
-    public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.ENERGIZER.get());
+    public ItemStack createIcon() {
+        return new ItemStack(ModBlocks.ENERGIZER_ITEM);
     }
 
     @Override
-    public ResourceLocation getId() {
+    public Identifier getId() {
         return id;
     }
 
@@ -98,31 +98,31 @@ public class EnergizerRecipe implements Recipe<SimpleContainer> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "energizer");
+        public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "energizer");
 
         @Override
-        public EnergizerRecipe fromJson(ResourceLocation recipeID, JsonObject json) {
+        public EnergizerRecipe read(Identifier recipeID, JsonObject json) {
             Ingredient input = Ingredient.fromJson(json.get("ingredient"));
-            int energyConsumption = GsonHelper.getAsInt(json, "energy");
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
+            int energyConsumption = JsonHelper.getInt(json, "energy");
+            ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "output"));
 
             return new EnergizerRecipe(recipeID, output, input, energyConsumption);
         }
 
         @Override
-        public EnergizerRecipe fromNetwork(ResourceLocation recipeID, FriendlyByteBuf buffer) {
-            Ingredient input = Ingredient.fromNetwork(buffer);
+        public EnergizerRecipe read(Identifier recipeID, PacketByteBuf buffer) {
+            Ingredient input = Ingredient.fromPacket(buffer);
             int energyConsumption = buffer.readInt();
-            ItemStack output = buffer.readItem();
+            ItemStack output = buffer.readItemStack();
 
             return new EnergizerRecipe(recipeID, output, input, energyConsumption);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buffer, EnergizerRecipe recipe) {
-            recipe.input.toNetwork(buffer);
+        public void write(PacketByteBuf buffer, EnergizerRecipe recipe) {
+            recipe.input.write(buffer);
             buffer.writeInt(recipe.energyConsumption);
-            buffer.writeItemStack(recipe.output, false);
+            buffer.writeItemStack(recipe.output);
         }
     }
 }

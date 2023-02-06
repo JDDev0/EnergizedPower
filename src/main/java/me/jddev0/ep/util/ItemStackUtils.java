@@ -1,6 +1,6 @@
 package me.jddev0.ep.util;
 
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.item.ItemStack;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,12 +14,12 @@ public final class ItemStackUtils {
             boolean inserted = false;
             int amountLeft = itemStack.getCount();
             for(ItemStack combinedItemStack:combinedItemStacks) {
-                if(ItemStack.isSame(itemStack, combinedItemStack) && ItemStack.tagMatches(itemStack, combinedItemStack) &&
-                        combinedItemStack.getMaxStackSize() > combinedItemStack.getCount()) {
-                    int amount = Math.min(amountLeft, combinedItemStack.getMaxStackSize() - combinedItemStack.getCount());
+                if(ItemStack.areItemsEqual(itemStack, combinedItemStack) && ItemStack.areNbtEqual(itemStack, combinedItemStack) &&
+                        combinedItemStack.getMaxCount() > combinedItemStack.getCount()) {
+                    int amount = Math.min(amountLeft, combinedItemStack.getMaxCount() - combinedItemStack.getCount());
                     amountLeft -= amount;
 
-                    combinedItemStack.grow(amount);
+                    combinedItemStack.increment(amount);
 
                     if(amountLeft == 0) {
                         inserted = true;

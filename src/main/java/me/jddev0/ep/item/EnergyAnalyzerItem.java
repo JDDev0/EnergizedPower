@@ -1,109 +1,108 @@
 package me.jddev0.ep.item;
 
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.EnergyUtils;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorage;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
-    public static final int ENERGY_CONSUMPTION_PER_USE = 8;
-    public static final int ENERGY_CAPACITY = 2048;
+    public static final long ENERGY_CONSUMPTION_PER_USE = 8;
+    public static final long ENERGY_CAPACITY = 2048;
 
-    public EnergyAnalyzerItem(Properties props) {
-        super(props, () -> new ReceiveOnlyEnergyStorage(0, ENERGY_CAPACITY, 32));
+    public EnergyAnalyzerItem(FabricItemSettings props) {
+        super(props, ENERGY_CAPACITY, 32, 0);
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
-        super.appendHoverText(itemStack, level, components, tooltipFlag);
+    public void appendTooltip(ItemStack itemStack, @Nullable World level, List<Text> tooltip, TooltipContext context) {
+        super.appendTooltip(itemStack, level, tooltip, context);
 
         if(Screen.hasShiftDown()) {
-            components.add(Component.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.1").withStyle(ChatFormatting.GRAY));
-            components.add(Component.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.2",
-                    EnergyUtils.getEnergyWithPrefix(ENERGY_CONSUMPTION_PER_USE)).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Text.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.1").formatted(Formatting.GRAY));
+            tooltip.add(Text.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.2",
+                    EnergyUtils.getEnergyWithPrefix(ENERGY_CONSUMPTION_PER_USE)).formatted(Formatting.GRAY));
         }else {
-            components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+            tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
         }
     }
 
-    private void useItem(ItemStack itemStack, Player player, List<Component> lines) {
+    private void useItem(ItemStack itemStack, PlayerEntity player, List<Text> lines) {
         if(getEnergy(itemStack) >= ENERGY_CONSUMPTION_PER_USE)
             setEnergy(itemStack, getEnergy(itemStack) - ENERGY_CONSUMPTION_PER_USE);
 
-        for(Component component:lines)
-            player.sendSystemMessage(component);
-        player.sendSystemMessage(Component.empty());
+        for(Text component:lines)
+            player.sendMessage(component);
+        player.sendMessage(Text.empty());
     }
 
     @Override
-    public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext useOnContext) {
-        Level level = useOnContext.getLevel();
-        if(level.isClientSide)
-            return InteractionResult.SUCCESS;
+    public ActionResult useOnBlock(ItemUsageContext useOnContext) {
+        World level = useOnContext.getWorld();
+        if(level.isClient())
+            return ActionResult.SUCCESS;
+
+        ItemStack stack = useOnContext.getStack();
 
         if(getEnergy(stack) < ENERGY_CONSUMPTION_PER_USE) {
             useItem(stack, useOnContext.getPlayer(), List.of(
-                    Component.translatable("txt.energizedpower.energy_analyzer.no_energy_left",
-                            EnergyUtils.getEnergyWithPrefix(ENERGY_CONSUMPTION_PER_USE)).withStyle(ChatFormatting.RED)
+                    Text.translatable("txt.energizedpower.energy_analyzer.no_energy_left",
+                            EnergyUtils.getEnergyWithPrefix(ENERGY_CONSUMPTION_PER_USE)).formatted(Formatting.RED)
             ));
 
-            return InteractionResult.SUCCESS;
+            return ActionResult.SUCCESS;
         }
 
-        BlockPos blockPos = useOnContext.getClickedPos();
+        BlockPos blockPos = useOnContext.getBlockPos();
 
-        List<Component> components = new LinkedList<>();
-        components.add(level.getBlockState(blockPos).getBlock().getName().withStyle(ChatFormatting.UNDERLINE, ChatFormatting.AQUA));
+        List<Text> components = new LinkedList<>();
+        components.add(level.getBlockState(blockPos).getBlock().getName().formatted(Formatting.UNDERLINE, Formatting.AQUA));
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(blockEntity == null) {
-            components.add(Component.translatable("txt.energizedpower.energy_analyzer.no_block_entity").withStyle(ChatFormatting.RED));
+            components.add(Text.translatable("txt.energizedpower.energy_analyzer.no_block_entity").formatted(Formatting.RED));
 
             useItem(stack, useOnContext.getPlayer(), components);
 
-            return InteractionResult.SUCCESS;
+            return ActionResult.SUCCESS;
         }
 
-        LazyOptional<IEnergyStorage> energyStorageLazyOptional = blockEntity.getCapability(ForgeCapabilities.ENERGY);
-        if(!energyStorageLazyOptional.isPresent()) {
-            components.add(Component.translatable("txt.energizedpower.energy_analyzer.no_energy_block").withStyle(ChatFormatting.RED));
+        EnergyStorage energyStorage = EnergyStorage.SIDED.find(level, blockPos, null);
+
+        if(energyStorage == null) {
+            components.add(Text.translatable("txt.energizedpower.energy_analyzer.no_energy_block").formatted(Formatting.RED));
 
             useItem(stack, useOnContext.getPlayer(), components);
 
-            return InteractionResult.SUCCESS;
+            return ActionResult.SUCCESS;
         }
 
-        IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
+        components.add(Text.translatable("txt.energizedpower.energy_analyzer.energy_output",
+                EnergyUtils.getEnergyWithPrefix(energyStorage.getAmount()),
+                EnergyUtils.getEnergyWithPrefix(energyStorage.getCapacity())).formatted(Formatting.GOLD));
 
-        components.add(Component.translatable("txt.energizedpower.energy_analyzer.energy_output",
-                EnergyUtils.getEnergyWithPrefix(energyStorage.getEnergyStored()),
-                EnergyUtils.getEnergyWithPrefix(energyStorage.getMaxEnergyStored())).withStyle(ChatFormatting.GOLD));
+        if(energyStorage.supportsInsertion())
+            components.add(Text.translatable("txt.energizedpower.energy_analyzer.energy_can_receive").formatted(Formatting.GOLD));
 
-        if(energyStorage.canReceive())
-            components.add(Component.translatable("txt.energizedpower.energy_analyzer.energy_can_receive").withStyle(ChatFormatting.GOLD));
-
-        if(energyStorage.canExtract())
-            components.add(Component.translatable("txt.energizedpower.energy_analyzer.energy_can_extract").withStyle(ChatFormatting.GOLD));
+        if(energyStorage.supportsExtraction())
+            components.add(Text.translatable("txt.energizedpower.energy_analyzer.energy_can_extract").formatted(Formatting.GOLD));
 
         useItem(stack, useOnContext.getPlayer(), components);
 
-        return InteractionResult.SUCCESS;
+        return ActionResult.SUCCESS;
     }
 }

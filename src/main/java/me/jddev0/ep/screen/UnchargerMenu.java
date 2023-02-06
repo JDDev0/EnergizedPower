@@ -1,45 +1,49 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.UnchargerBlockEntity;
 import me.jddev0.ep.energy.EnergyStorageMenuPacketUpdate;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.SlotItemHandler;
+import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ArrayPropertyDelegate;
+import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.slot.Slot;
+import net.minecraft.world.World;
 
-public class UnchargerMenu extends AbstractContainerMenu implements EnergyStorageMenuPacketUpdate {
+public class UnchargerMenu extends ScreenHandler implements EnergyStorageMenuPacketUpdate {
     private final UnchargerBlockEntity blockEntity;
-    private final Level level;
-    private final ContainerData data;
+    private final Inventory inv;
+    private final World level;
+    private final PropertyDelegate data;
 
-    public UnchargerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(6));
+    public UnchargerMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
+        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1),
+                new ArrayPropertyDelegate(6));
     }
 
-    public UnchargerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
-        super(ModMenuTypes.UNCHARGER_MENU.get(), id);
+    public UnchargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
+        super(ModMenuTypes.UNCHARGER_MENU, id);
 
-        checkContainerSize(inv, 1);
         this.blockEntity = (UnchargerBlockEntity)blockEntity;
-        this.level = inv.player.level;
+
+        this.inv = inv;
+        checkSize(this.inv, 1);
+        this.level = playerInventory.player.world;
+        this.inv.onOpen(playerInventory.player);
         this.data = data;
 
-        this.data.set(3, this.blockEntity.getCapacity());
+        addPlayerInventory(playerInventory);
+        addPlayerHotbar(playerInventory);
 
-        addPlayerInventory(inv);
-        addPlayerHotbar(inv);
+        addSlot(new ConstraintInsertSlot(this.inv, 0, 80, 35));
 
-        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
-            addSlot(new SlotItemHandler(itemHandler, 0, 80, 35));
-        });
-
-        addDataSlots(this.data);
+        addProperties(this.data);
     }
 
     int getEnergy() {
@@ -72,22 +76,22 @@ public class UnchargerMenu extends AbstractContainerMenu implements EnergyStorag
     }
 
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
+    public ItemStack quickMove(PlayerEntity player, int index) {
         Slot sourceSlot = slots.get(index);
-        if(sourceSlot == null || !sourceSlot.hasItem())
+        if(sourceSlot == null || !sourceSlot.hasStack())
             return ItemStack.EMPTY;
 
-        ItemStack sourceItem = sourceSlot.getItem();
+        ItemStack sourceItem = sourceSlot.getStack();
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into tile inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
+            if(!insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 return ItemStack.EMPTY;
             }
         }else if(index < 4 * 9 + 1) {
             //Tile inventory slot -> Merge into player inventory
-            if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
+            if(!insertItem(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }
         }else {
@@ -95,18 +99,18 @@ public class UnchargerMenu extends AbstractContainerMenu implements EnergyStorag
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.set(ItemStack.EMPTY);
+            sourceSlot.setStack(ItemStack.EMPTY);
         else
-            sourceSlot.setChanged();
+            sourceSlot.markDirty();
 
-        sourceSlot.onTake(player, sourceItem);
+        sourceSlot.onTakeItem(player, sourceItem);
 
         return sourceItemCopy;
     }
 
     @Override
-    public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, ModBlocks.UNCHARGER.get());
+    public boolean canUse(PlayerEntity player) {
+        return inv.canPlayerUse(player);
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
@@ -129,12 +133,12 @@ public class UnchargerMenu extends AbstractContainerMenu implements EnergyStorag
     }
 
     @Override
-    public void setEnergy(int energy) {
-        data.set(2, energy);
+    public void setEnergy(long energy) {
+        data.set(2, (int)energy);
     }
 
     @Override
-    public void setCapacity(int capacity) {
-        data.set(3, capacity);
+    public void setCapacity(long capacity) {
+        data.set(3, (int)capacity);
     }
 }

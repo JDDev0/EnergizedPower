@@ -1,47 +1,45 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.EnergizedPowerMod;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.network.IContainerFactory;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.util.Identifier;
 
 public final class ModMenuTypes {
     private ModMenuTypes() {}
 
-    public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, EnergizedPowerMod.MODID);
+    public static final ScreenHandlerType<AutoCrafterMenu> AUTO_CRAFTER_MENU = createScreenHandlerType("auto_crafter",
+            new ExtendedScreenHandlerType<>(AutoCrafterMenu::new));
 
-    private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory) {
-        return MENUS.register(name, () -> IForgeMenuType.create(factory));
+    public static final ScreenHandlerType<CrusherMenu> CRUSHER_MENU = createScreenHandlerType("crusher",
+            new ExtendedScreenHandlerType<>(CrusherMenu::new));
+
+    public static final ScreenHandlerType<SawmillMenu> SAWMILL_MENU = createScreenHandlerType("sawmill",
+            new ExtendedScreenHandlerType<>(SawmillMenu::new));
+
+    public static final ScreenHandlerType<BlockPlacerMenu> BLOCK_PLACER_MENU = createScreenHandlerType("block_placer",
+            new ExtendedScreenHandlerType<>(BlockPlacerMenu::new));
+
+    public static final ScreenHandlerType<ChargerMenu> CHARGER_MENU = createScreenHandlerType("charger",
+            new ExtendedScreenHandlerType<>(ChargerMenu::new));
+
+    public static final ScreenHandlerType<UnchargerMenu> UNCHARGER_MENU = createScreenHandlerType("uncharger",
+            new ExtendedScreenHandlerType<>(UnchargerMenu::new));
+
+    public static final ScreenHandlerType<EnergizerMenu> ENERGIZER_MENU = createScreenHandlerType("energizer",
+            new ExtendedScreenHandlerType<>(EnergizerMenu::new));
+
+    public static final ScreenHandlerType<CoalEngineMenu> COAL_ENGINE_MENU = createScreenHandlerType("coal_engine",
+            new ExtendedScreenHandlerType<>(CoalEngineMenu::new));
+
+    private static <T extends ScreenHandler> ScreenHandlerType<T> createScreenHandlerType(String name, ScreenHandlerType<T> screenHandlerType) {
+        return Registry.register(Registries.SCREEN_HANDLER, new Identifier(EnergizedPowerMod.MODID, name), screenHandlerType);
     }
 
-    public static final RegistryObject<MenuType<AutoCrafterMenu>> AUTO_CRAFTER_MENU = registerMenuType("auto_crafter_menu",
-            AutoCrafterMenu::new);
+    public static void register() {
 
-    public static final RegistryObject<MenuType<CrusherMenu>> CRUSHER_MENU = registerMenuType("crusher_menu",
-            CrusherMenu::new);
-
-    public static final RegistryObject<MenuType<SawmillMenu>> SAWMILL_MENU = registerMenuType("sawmill_menu",
-            SawmillMenu::new);
-
-    public static final RegistryObject<MenuType<BlockPlacerMenu>> BLOCK_PLACER_MENU = registerMenuType("block_placer_menu",
-            BlockPlacerMenu::new);
-
-    public static final RegistryObject<MenuType<ChargerMenu>> CHARGER_MENU = registerMenuType("charger_menu",
-            ChargerMenu::new);
-
-    public static final RegistryObject<MenuType<UnchargerMenu>> UNCHARGER_MENU = registerMenuType("uncharger_menu",
-            UnchargerMenu::new);
-    public static final RegistryObject<MenuType<EnergizerMenu>> ENERGIZER_MENU = registerMenuType("energizer",
-            EnergizerMenu::new);
-    public static final RegistryObject<MenuType<CoalEngineMenu>> COAL_ENGINE_MENU = registerMenuType("coal_engine",
-            CoalEngineMenu::new);
-
-    public static void register(IEventBus modEventBus) {
-        MENUS.register(modEventBus);
     }
 }

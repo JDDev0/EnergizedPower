@@ -2,66 +2,62 @@ package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.CableBlockEntity;
 import me.jddev0.ep.util.EnergyUtils;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorage;
 
 import java.util.List;
 
-public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
-    public static final BooleanProperty UP = BlockStateProperties.UP;
-    public static final BooleanProperty DOWN = BlockStateProperties.DOWN;
-    public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
-    public static final BooleanProperty SOUTH = BlockStateProperties.SOUTH;
-    public static final BooleanProperty EAST = BlockStateProperties.EAST;
-    public static final BooleanProperty WEST = BlockStateProperties.WEST;
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+public class CableBlock extends BlockWithEntity implements Waterloggable {
+    public static final BooleanProperty UP = Properties.UP;
+    public static final BooleanProperty DOWN = Properties.DOWN;
+    public static final BooleanProperty NORTH = Properties.NORTH;
+    public static final BooleanProperty SOUTH = Properties.SOUTH;
+    public static final BooleanProperty EAST = Properties.EAST;
+    public static final BooleanProperty WEST = Properties.WEST;
+    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
-    private static final VoxelShape SHAPE_CORE = Block.box(6.d, 6.d, 6.d, 10.d, 10.d, 10.d);
-    private static final VoxelShape SHAPE_UP = Block.box(6.d, 10.d, 6.d, 10.d, 16.d, 10.d);
-    private static final VoxelShape SHAPE_DOWN = Block.box(6.d, 0.d, 6.d, 10.d, 6.d, 10.d);
-    private static final VoxelShape SHAPE_NORTH = Block.box(6.d, 6.d, 0.d, 10.d, 10.d, 6.d);
-    private static final VoxelShape SHAPE_SOUTH = Block.box(6.d, 6.d, 10.d, 10.d, 10.d, 16.d);
-    private static final VoxelShape SHAPE_EAST = Block.box(10.d, 6.d, 6.d, 16.d, 10.d, 10.d);
-    private static final VoxelShape SHAPE_WEST = Block.box(0.d, 6.d, 6.d, 6.d, 10.d, 10.d);
+    private static final VoxelShape SHAPE_CORE = Block.createCuboidShape(6.d, 6.d, 6.d, 10.d, 10.d, 10.d);
+    private static final VoxelShape SHAPE_UP = Block.createCuboidShape(6.d, 10.d, 6.d, 10.d, 16.d, 10.d);
+    private static final VoxelShape SHAPE_DOWN = Block.createCuboidShape(6.d, 0.d, 6.d, 10.d, 6.d, 10.d);
+    private static final VoxelShape SHAPE_NORTH = Block.createCuboidShape(6.d, 6.d, 0.d, 10.d, 10.d, 6.d);
+    private static final VoxelShape SHAPE_SOUTH = Block.createCuboidShape(6.d, 6.d, 10.d, 10.d, 10.d, 16.d);
+    private static final VoxelShape SHAPE_EAST = Block.createCuboidShape(10.d, 6.d, 6.d, 16.d, 10.d, 10.d);
+    private static final VoxelShape SHAPE_WEST = Block.createCuboidShape(0.d, 6.d, 6.d, 6.d, 10.d, 10.d);
 
     private final Tier tier;
 
     public CableBlock(Tier tier) {
         super(tier.getProperties());
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(UP, false).setValue(DOWN, false).
-                setValue(NORTH, false).setValue(SOUTH, false).setValue(EAST, false).setValue(WEST, false).
-                setValue(WATERLOGGED, false));
+        this.setDefaultState(this.getStateManager().getDefaultState().with(UP, false).with(DOWN, false).
+                with(NORTH, false).with(SOUTH, false).with(EAST, false).with(WEST, false).
+                with(WATERLOGGED, false));
 
         this.tier = tier;
     }
@@ -72,81 +68,81 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
-        Level level = blockPlaceContext.getLevel();
-        BlockPos selfPos = blockPlaceContext.getClickedPos();
+    public BlockState getPlacementState(ItemPlacementContext blockPlaceContext) {
+        World level = blockPlaceContext.getWorld();
+        BlockPos selfPos = blockPlaceContext.getBlockPos();
         FluidState fluidState = level.getFluidState(selfPos);
 
-        return defaultBlockState().
-                setValue(UP, shouldConnectTo(level, selfPos, Direction.UP)).
-                setValue(DOWN, shouldConnectTo(level, selfPos, Direction.DOWN)).
-                setValue(NORTH, shouldConnectTo(level, selfPos, Direction.NORTH)).
-                setValue(SOUTH, shouldConnectTo(level, selfPos, Direction.SOUTH)).
-                setValue(EAST, shouldConnectTo(level, selfPos, Direction.EAST)).
-                setValue(WEST, shouldConnectTo(level, selfPos, Direction.WEST)).
-                setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+        return getDefaultState().
+                with(UP, shouldConnectTo(level, selfPos, Direction.UP)).
+                with(DOWN, shouldConnectTo(level, selfPos, Direction.DOWN)).
+                with(NORTH, shouldConnectTo(level, selfPos, Direction.NORTH)).
+                with(SOUTH, shouldConnectTo(level, selfPos, Direction.SOUTH)).
+                with(EAST, shouldConnectTo(level, selfPos, Direction.EAST)).
+                with(WEST, shouldConnectTo(level, selfPos, Direction.WEST)).
+                with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
     }
 
     @Override
-    public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+    public VoxelShape getOutlineShape(BlockState blockState, BlockView blockGetter, BlockPos blockPos, ShapeContext collisionContext) {
         VoxelShape shape = SHAPE_CORE;
 
-        if(blockState.getValue(UP))
-            shape = Shapes.or(shape, SHAPE_UP);
+        if(blockState.get(UP))
+            shape = VoxelShapes.union(shape, SHAPE_UP);
 
-        if(blockState.getValue(DOWN))
-            shape = Shapes.or(shape, SHAPE_DOWN);
+        if(blockState.get(DOWN))
+            shape = VoxelShapes.union(shape, SHAPE_DOWN);
 
-        if(blockState.getValue(NORTH))
-            shape = Shapes.or(shape, SHAPE_NORTH);
+        if(blockState.get(NORTH))
+            shape = VoxelShapes.union(shape, SHAPE_NORTH);
 
-        if(blockState.getValue(SOUTH))
-            shape = Shapes.or(shape, SHAPE_SOUTH);
+        if(blockState.get(SOUTH))
+            shape = VoxelShapes.union(shape, SHAPE_SOUTH);
 
-        if(blockState.getValue(EAST))
-            shape = Shapes.or(shape, SHAPE_EAST);
+        if(blockState.get(EAST))
+            shape = VoxelShapes.union(shape, SHAPE_EAST);
 
-        if(blockState.getValue(WEST))
-            shape = Shapes.or(shape, SHAPE_WEST);
+        if(blockState.get(WEST))
+            shape = VoxelShapes.union(shape, SHAPE_WEST);
 
         return shape;
     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.getValue(WATERLOGGED)?Fluids.WATER.getSource(false):super.getFluidState(state);
+        return state.get(WATERLOGGED)?Fluids.WATER.getStill(false):super.getFluidState(state);
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos selfPos, BlockPos facingPos) {
-        if(state.getValue(WATERLOGGED))
-            level.scheduleTick(selfPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction facing, BlockState facingState, WorldAccess level, BlockPos selfPos, BlockPos facingPos) {
+        if(state.get(WATERLOGGED))
+            level.scheduleFluidTick(selfPos, Fluids.WATER, Fluids.WATER.getTickRate(level));
 
-        return super.updateShape(state, facing, facingState, level, selfPos, facingPos);
+        return super.getStateForNeighborUpdate(state, facing, facingState, level, selfPos, facingPos);
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
+    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(UP).add(DOWN).add(NORTH).add(SOUTH).add(EAST).add(WEST).add(WATERLOGGED);
     }
 
     @Override
-    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
-        super.neighborChanged(selfState, level, selfPos, fromBlock, fromPos, isMoving);
+    public void neighborUpdate(BlockState selfState, World level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
+        super.neighborUpdate(selfState, level, selfPos, fromBlock, fromPos, isMoving);
 
-        if(level.isClientSide())
+        if(level.isClient())
             return;
 
         FluidState fluidState = level.getFluidState(selfPos);
 
-        level.setBlockAndUpdate(selfPos, defaultBlockState().
-                setValue(UP, shouldConnectTo(level, selfPos, Direction.UP)).
-                setValue(DOWN, shouldConnectTo(level, selfPos, Direction.DOWN)).
-                setValue(NORTH, shouldConnectTo(level, selfPos, Direction.NORTH)).
-                setValue(SOUTH, shouldConnectTo(level, selfPos, Direction.SOUTH)).
-                setValue(EAST, shouldConnectTo(level, selfPos, Direction.EAST)).
-                setValue(WEST, shouldConnectTo(level, selfPos, Direction.WEST)).
-                setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER)
+        level.setBlockState(selfPos, getDefaultState().
+                with(UP, shouldConnectTo(level, selfPos, Direction.UP)).
+                with(DOWN, shouldConnectTo(level, selfPos, Direction.DOWN)).
+                with(NORTH, shouldConnectTo(level, selfPos, Direction.NORTH)).
+                with(SOUTH, shouldConnectTo(level, selfPos, Direction.SOUTH)).
+                with(EAST, shouldConnectTo(level, selfPos, Direction.EAST)).
+                with(WEST, shouldConnectTo(level, selfPos, Direction.WEST)).
+                with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER)
         );
 
 
@@ -157,8 +153,8 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
         CableBlockEntity.updateConnections(level, selfPos, selfState, (CableBlockEntity)blockEntity);
     }
 
-    private boolean shouldConnectTo(Level level, BlockPos selfPos, Direction direction) {
-        BlockPos toPos = selfPos.relative(direction);
+    private boolean shouldConnectTo(World level, BlockPos selfPos, Direction direction) {
+        BlockPos toPos = selfPos.offset(direction);
         BlockEntity blockEntity = level.getBlockEntity(toPos);
         if(blockEntity == null)
             return false;
@@ -166,14 +162,31 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
         if(blockEntity instanceof CableBlockEntity cableBlockEntity && cableBlockEntity.getTier() != this.getTier())
             return false;
 
-        LazyOptional<IEnergyStorage> energyStorageLazyOptional = blockEntity.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite());
-        return energyStorageLazyOptional.isPresent();
+        EnergyStorage energyStorage = EnergyStorage.SIDED.find(level, toPos, direction.getOpposite());
+        return energyStorage != null;
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
+        return new CableBlockEntity(blockPos, state, tier);
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, CableBlockEntity.getEntityTypeFromTier(tier), CableBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
         private final Tier tier;
 
-        public Item(Block block, Properties props, Tier tier) {
+        public Item(Block block, FabricItemSettings props, Tier tier) {
             super(block, props);
 
             this.tier = tier;
@@ -184,46 +197,29 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
         }
 
         @Override
-        public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
+        public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
             if(Screen.hasShiftDown()) {
-                components.add(Component.translatable("tooltip.energizedpower.cable.txt.shift.1",
-                        EnergyUtils.getEnergyWithPrefix(tier.getMaxTransfer())).withStyle(ChatFormatting.GRAY));
-                components.add(Component.translatable("tooltip.energizedpower.cable.txt.shift.2").
-                        withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+                tooltip.add(Text.translatable("tooltip.energizedpower.cable.txt.shift.1",
+                        EnergyUtils.getEnergyWithPrefix(tier.getMaxTransfer())).formatted(Formatting.GRAY));
+                tooltip.add(Text.translatable("tooltip.energizedpower.cable.txt.shift.2").
+                        formatted(Formatting.GRAY, Formatting.ITALIC));
             }else {
-                components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+                tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
         }
     }
 
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
-        return new CableBlockEntity(blockPos, state, tier);
-    }
-
-    @Override
-    public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
-    }
-
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, CableBlockEntity.getEntityTypeFromTier(tier), CableBlockEntity::tick);
-    }
-
     public enum Tier {
         TIER_COPPER("copper_cable", 1024,
-                BlockBehaviour.Properties.of(Material.WOOL, MaterialColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
+                FabricBlockSettings.of(Material.WOOL, MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
         TIER_ENERGIZED_COPPER("energized_copper_cable", 262144,
-                BlockBehaviour.Properties.of(Material.WOOL, MaterialColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL));
+                FabricBlockSettings.of(Material.WOOL, MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL));
 
         private final String resourceId;
         private final int maxTransfer;
-        private final Properties props;
+        private final FabricBlockSettings props;
 
-        Tier(String resourceId, int maxTransfer, Properties props) {
+        Tier(String resourceId, int maxTransfer, FabricBlockSettings props) {
             this.resourceId = resourceId;
             this.maxTransfer = maxTransfer;
             this.props = props;
@@ -237,7 +233,7 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
             return maxTransfer;
         }
 
-        public Properties getProperties() {
+        public FabricBlockSettings getProperties() {
             return props;
         }
     }

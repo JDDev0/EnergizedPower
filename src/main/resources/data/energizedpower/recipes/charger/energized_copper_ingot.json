@@ -1,7 +1,7 @@
 {
   "type": "energizedpower:charger",
   "ingredient": {
-    "item": "minecraft:copper_ingot"
+    "tag": "c:copper_ingots"
   },
   "energy": 524288,
   "output": {

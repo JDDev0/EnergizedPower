@@ -2,87 +2,73 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.LightningGeneratorBlock;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
-import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.base.LimitingEnergyStorage;
+import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 public class LightningGeneratorBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
-    private final ExtractOnlyEnergyStorage energyStorage;
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+
+    final LimitingEnergyStorage energyStorage;
+    private final SimpleEnergyStorage internalEnergyStorage;
 
     public LightningGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.LIGHTING_GENERATOR_ENTITY.get(), blockPos, blockState);
+        super(ModBlockEntities.LIGHTING_GENERATOR_ENTITY, blockPos, blockState);
 
-        energyStorage = new ExtractOnlyEnergyStorage(0, LightningGeneratorBlock.ENERGY_PER_LIGHTNING_STRIKE, 65536) {
+        internalEnergyStorage = new SimpleEnergyStorage(LightningGeneratorBlock.ENERGY_PER_LIGHTNING_STRIKE,
+                LightningGeneratorBlock.ENERGY_PER_LIGHTNING_STRIKE, LightningGeneratorBlock.ENERGY_PER_LIGHTNING_STRIKE) {
             @Override
-            protected void onChange() {
-                setChanged();
+            protected void onFinalCommit() {
+                markDirty();
 
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
+                if(world != null && !world.isClient()) {
+                    PacketByteBuf buffer = PacketByteBufs.create();
+                    buffer.writeLong(amount);
+                    buffer.writeLong(capacity);
+                    buffer.writeBlockPos(getPos());
+
+                    ModMessages.broadcastServerPacket(world.getServer(), ModMessages.ENERGY_SYNC_ID, buffer);
+                }
             }
         };
+        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, 0, 65536);
     }
 
     public void onLightningStrike() {
-        energyStorage.setEnergy(energyStorage.getCapacity());
-    }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ForgeCapabilities.ENERGY) {
-            return lazyEnergyStorage.cast();
+        try(Transaction transaction = Transaction.openOuter()) {
+            internalEnergyStorage.insert(LightningGeneratorBlock.ENERGY_PER_LIGHTNING_STRIKE, transaction);
+            transaction.commit();
         }
-
-        return super.getCapability(cap, side);
     }
 
     @Override
-    public void onLoad() {
-        super.onLoad();
+    protected void writeNbt(NbtCompound nbt) {
+        nbt.putLong("energy", internalEnergyStorage.amount);
 
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
+        super.writeNbt(nbt);
     }
 
     @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
+    public void readNbt(@NotNull NbtCompound nbt) {
+        super.readNbt(nbt);
 
-        lazyEnergyStorage.invalidate();
+        internalEnergyStorage.amount = nbt.getLong("energy");
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("energy", energyStorage.saveNBT());
-
-        super.saveAdditional(nbt);
+    public void setEnergy(long energy) {
+        internalEnergyStorage.amount = energy;
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
-
-        energyStorage.loadNBT(nbt.get("energy"));
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        energyStorage.setEnergyWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        energyStorage.setCapacityWithoutUpdate(capacity);
+    public void setCapacity(long capacity) {
+        //Does nothing (capacity is final)
     }
 }

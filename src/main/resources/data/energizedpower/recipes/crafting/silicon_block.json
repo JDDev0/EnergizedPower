@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "S": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     }
   },
   "pattern": [
