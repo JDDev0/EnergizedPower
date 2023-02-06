@@ -1,5 +1,5 @@
 # EnergizedPower
-This is a technology Forge MC mod with many machines.<br>
+This is a technology MC Forge/Fabric MC mod with many machines.<br>
 Download on CurseForge: [Energized Power](https://www.curseforge.com/minecraft/mc-mods/energized-power)<br>
 Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power)
 
