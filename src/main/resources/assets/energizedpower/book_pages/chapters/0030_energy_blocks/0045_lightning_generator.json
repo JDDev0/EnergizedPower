@@ -1,0 +1,21 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.lightning_generator.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "translate": "book.energizedpower.page.lightning_generator.2",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform"
+    }
+  ],
+  "block": "energizedpower:lightning_generator"
+}
