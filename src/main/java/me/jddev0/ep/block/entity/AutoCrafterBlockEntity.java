@@ -409,13 +409,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 }
 
                 if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.areNbtEqual(itemStack, testItemStack)) {
-                    int insertableCount = Math.max(Math.min(internalInventory.getMaxCountPerStack(),
-                            internalInventory.getStack(i).getMaxCount()) - internalInventory.getStack(i).getCount(),
-                            itemStack.getCount());
-                    if(insertableCount > 0) {
-                        internalInventory.setStack(i, internalInventory.getStack(i).copyWithCount(insertableCount));
+                    int amount = Math.min(itemStack.getCount(), testItemStack.getMaxCount() - testItemStack.getCount());
+                    if(amount > 0) {
+                        internalInventory.setStack(i, internalInventory.getStack(i).copyWithCount(testItemStack.getCount() + amount));
 
-                        itemStack.setCount(itemStack.getCount() - insertableCount);
+                        itemStack.setCount(itemStack.getCount() - amount);
                     }
                 }
             }
