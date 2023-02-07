@@ -35,6 +35,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorageUtil;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
@@ -76,6 +77,18 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
                 }
 
                 return super.isValid(slot, stack);
+            }
+
+            @Override
+            public void setStack(int slot, ItemStack stack) {
+                if(slot == 0) {
+                    ItemStack itemStack = getStack(slot);
+                    if(world != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.areItemsEqual(stack, itemStack) ||
+                            !ItemStack.areNbtEqual(stack, itemStack)))
+                        resetProgress(pos, world.getBlockState(pos));
+                }
+
+                super.setStack(slot, stack);
             }
 
             @Override
