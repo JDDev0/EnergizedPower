@@ -28,7 +28,7 @@ public class EnergizedPowerMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ModItems.register(); //TODO fix last x E will not be extracted/inserted from/to energy items (Fabric bug?)
+		ModItems.register();
 		ModBlocks.register();
 		ModBlockEntities.register();
 		ModRecipes.register();

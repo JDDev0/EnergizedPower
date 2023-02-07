@@ -82,10 +82,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
                     if(energyStorage == null)
                         return false;
 
-                    if(!energyStorage.supportsInsertion())
-                        return false;
-
-                    return energyStorage.getAmount() < energyStorage.getCapacity();
+                    return energyStorage.supportsInsertion();
                 }
 
                 return super.isValid(slot, stack);

@@ -73,10 +73,7 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
                     if(energyStorage == null)
                         return false;
 
-                    if(!energyStorage.supportsExtraction())
-                        return false;
-
-                    return energyStorage.getAmount() > 0;
+                    return energyStorage.supportsExtraction();
                 }
 
                 return super.isValid(slot, stack);
