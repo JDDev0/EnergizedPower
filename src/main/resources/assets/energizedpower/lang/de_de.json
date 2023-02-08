@@ -40,6 +40,7 @@
   "txt.energizedpower.energy_analyzer.no_energy_left": "Der Energie-Analyzierer hat nicht genug Strom (%s sind erforderlich).",
   "txt.energizedpower.energy_analyzer.no_block_entity": "Dieser Block ist kein Energie-Block.",
   "txt.energizedpower.energy_analyzer.no_energy_block": "Dieser Block ist kein (E-)Energie-Block.",
+  "txt.energizedpower.energy_analyzer.no_energy_block_side": "Diese Block-Seite ist keine (E-)Energie-Block-Seite.",
   "txt.energizedpower.energy_analyzer.energy_output": "Energie: %s / %s.",
   "txt.energizedpower.energy_analyzer.energy_can_receive": "Dieser Block konsumiert Energie.",
   "txt.energizedpower.energy_analyzer.energy_can_extract": "Dieser Block produziert Energie.",

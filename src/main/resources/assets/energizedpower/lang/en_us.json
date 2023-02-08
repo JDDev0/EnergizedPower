@@ -40,6 +40,7 @@
   "txt.energizedpower.energy_analyzer.no_energy_left": "The Energy Analyzer has not enough power (%s are required).",
   "txt.energizedpower.energy_analyzer.no_block_entity": "This block is no energy block.",
   "txt.energizedpower.energy_analyzer.no_energy_block": "This block is no (E) energy block.",
+  "txt.energizedpower.energy_analyzer.no_energy_block_side": "This block face is no (E) energy block face.",
   "txt.energizedpower.energy_analyzer.energy_output": "Energy: %s / %s.",
   "txt.energizedpower.energy_analyzer.energy_can_receive": "This block consumes energy.",
   "txt.energizedpower.energy_analyzer.energy_can_extract": "This block produces energy.",
