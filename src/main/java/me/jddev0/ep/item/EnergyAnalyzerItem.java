@@ -14,6 +14,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
@@ -50,6 +51,26 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
         player.sendMessage(Text.empty());
     }
 
+    private void addOutputTextForEnergyStorage(List<Text> components, @Nullable EnergyStorage energyStorage, boolean blockFaceSpecificInformation) {
+        if(energyStorage == null) {
+            components.add(Text.translatable("txt.energizedpower.energy_analyzer.no_energy_block").formatted(Formatting.RED));
+
+            return;
+        }
+
+        components.add(Text.translatable("txt.energizedpower.energy_analyzer.energy_output",
+                EnergyUtils.getEnergyWithPrefix(energyStorage.getAmount()),
+                EnergyUtils.getEnergyWithPrefix(energyStorage.getCapacity())).formatted(Formatting.GOLD));
+
+        if(energyStorage.supportsInsertion())
+            components.add(Text.translatable("txt.energizedpower.energy_analyzer.energy_can_receive" + (blockFaceSpecificInformation?"_side":"")).
+                    formatted(Formatting.GOLD));
+
+        if(energyStorage.supportsExtraction())
+            components.add(Text.translatable("txt.energizedpower.energy_analyzer.energy_can_extract" + (blockFaceSpecificInformation?"_side":"")).
+                    formatted(Formatting.GOLD));
+    }
+
     @Override
     public ActionResult useOnBlock(ItemUsageContext useOnContext) {
         World level = useOnContext.getWorld();
@@ -81,25 +102,10 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
             return ActionResult.SUCCESS;
         }
 
-        EnergyStorage energyStorage = EnergyStorage.SIDED.find(level, blockPos, null);
+        addOutputTextForEnergyStorage(components, EnergyStorage.SIDED.find(level, blockPos, null), false);
 
-        if(energyStorage == null) {
-            components.add(Text.translatable("txt.energizedpower.energy_analyzer.no_energy_block").formatted(Formatting.RED));
-
-            useItem(stack, useOnContext.getPlayer(), components);
-
-            return ActionResult.SUCCESS;
-        }
-
-        components.add(Text.translatable("txt.energizedpower.energy_analyzer.energy_output",
-                EnergyUtils.getEnergyWithPrefix(energyStorage.getAmount()),
-                EnergyUtils.getEnergyWithPrefix(energyStorage.getCapacity())).formatted(Formatting.GOLD));
-
-        if(energyStorage.supportsInsertion())
-            components.add(Text.translatable("txt.energizedpower.energy_analyzer.energy_can_receive").formatted(Formatting.GOLD));
-
-        if(energyStorage.supportsExtraction())
-            components.add(Text.translatable("txt.energizedpower.energy_analyzer.energy_can_extract").formatted(Formatting.GOLD));
+        components.add(Text.translatable("txt.energizedpower.energy_analyzer.output_side_information").formatted(Formatting.BLUE));
+        addOutputTextForEnergyStorage(components, EnergyStorage.SIDED.find(level, blockPos, useOnContext.getSide()), true);
 
         useItem(stack, useOnContext.getPlayer(), components);
 
