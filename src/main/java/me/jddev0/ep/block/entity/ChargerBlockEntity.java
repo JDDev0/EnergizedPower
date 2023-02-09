@@ -24,7 +24,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -289,7 +288,16 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
 
     private boolean hasRecipe() {
         ItemStack stack = itemHandler.getStackInSlot(0);
-        return stack.getCapability(ForgeCapabilities.ENERGY).isPresent() || stack.is(Tags.Items.INGOTS_COPPER);
+        if(stack.getCapability(ForgeCapabilities.ENERGY).isPresent())
+            return true;
+
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+        for(int i = 0;i < itemHandler.getSlots();i++)
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+
+        Optional<ChargerRecipe> recipe = level.getRecipeManager().getRecipeFor(ChargerRecipe.Type.INSTANCE, inventory, level);
+
+        return recipe.isPresent();
     }
 
     @Override
