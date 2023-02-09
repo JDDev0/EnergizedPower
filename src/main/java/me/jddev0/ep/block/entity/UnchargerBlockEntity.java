@@ -49,10 +49,7 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
                     return false;
 
                 IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-                if(!energyStorage.canExtract())
-                    return false;
-
-                return energyStorage.extractEnergy(UnchargerBlockEntity.this.energyStorage.getMaxExtract(), true) > 0;
+                return energyStorage.canExtract();
             }
 
             return super.isItemValid(slot, stack);

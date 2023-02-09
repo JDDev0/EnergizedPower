@@ -55,10 +55,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
                     return false;
 
                 IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-                if(!energyStorage.canReceive())
-                    return false;
-
-                return energyStorage.receiveEnergy(ChargerBlockEntity.this.energyStorage.getMaxReceive(), true) > 0;
+                return energyStorage.canReceive();
             }
 
             return super.isItemValid(slot, stack);
