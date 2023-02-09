@@ -256,6 +256,11 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
                                         new Direction[] { Direction.EAST, Direction.SOUTH, Direction.UP, Direction.DOWN, Direction.NORTH, Direction.WEST };
                             };
                         }
+
+                        @Override
+                        public boolean replacingClickedOnBlock() {
+                            return false;
+                        }
                     });
 
                     if(result == InteractionResult.FAIL) {
