@@ -54,6 +54,26 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
         player.sendMessage(TextComponent.EMPTY, player.getUUID());
     }
 
+    private void addOutputTextForEnergyStorage(List<Component> components, @Nullable IEnergyStorage energyStorage, boolean blockFaceSpecificInformation) {
+        if(energyStorage == null) {
+            components.add(new TranslatableComponent("txt.energizedpower.energy_analyzer.no_energy_block").withStyle(ChatFormatting.RED));
+
+            return;
+        }
+
+        components.add(new TranslatableComponent("txt.energizedpower.energy_analyzer.energy_output",
+                EnergyUtils.getEnergyWithPrefix(energyStorage.getEnergyStored()),
+                EnergyUtils.getEnergyWithPrefix(energyStorage.getMaxEnergyStored())).withStyle(ChatFormatting.GOLD));
+
+        if(energyStorage.canReceive())
+            components.add(new TranslatableComponent("txt.energizedpower.energy_analyzer.energy_can_receive" + (blockFaceSpecificInformation?"_side":"")).
+                    withStyle(ChatFormatting.GOLD));
+
+        if(energyStorage.canExtract())
+            components.add(new TranslatableComponent("txt.energizedpower.energy_analyzer.energy_can_extract" + (blockFaceSpecificInformation?"_side":"")).
+                    withStyle(ChatFormatting.GOLD));
+    }
+
     @Override
     public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext useOnContext) {
         Level level = useOnContext.getLevel();
@@ -84,25 +104,11 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
         }
 
         LazyOptional<IEnergyStorage> energyStorageLazyOptional = blockEntity.getCapability(CapabilityEnergy.ENERGY);
-        if(!energyStorageLazyOptional.isPresent()) {
-            components.add(new TranslatableComponent("txt.energizedpower.energy_analyzer.no_energy_block").withStyle(ChatFormatting.RED));
+        addOutputTextForEnergyStorage(components, energyStorageLazyOptional.isPresent()?energyStorageLazyOptional.orElse(null):null, false);
 
-            useItem(stack, useOnContext.getPlayer(), components);
-
-            return InteractionResult.SUCCESS;
-        }
-
-        IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-
-        components.add(new TranslatableComponent("txt.energizedpower.energy_analyzer.energy_output",
-                EnergyUtils.getEnergyWithPrefix(energyStorage.getEnergyStored()),
-                EnergyUtils.getEnergyWithPrefix(energyStorage.getMaxEnergyStored())).withStyle(ChatFormatting.GOLD));
-
-        if(energyStorage.canReceive())
-            components.add(new TranslatableComponent("txt.energizedpower.energy_analyzer.energy_can_receive").withStyle(ChatFormatting.GOLD));
-
-        if(energyStorage.canExtract())
-            components.add(new TranslatableComponent("txt.energizedpower.energy_analyzer.energy_can_extract").withStyle(ChatFormatting.GOLD));
+        components.add(new TranslatableComponent("txt.energizedpower.energy_analyzer.output_side_information").withStyle(ChatFormatting.BLUE));
+        LazyOptional<IEnergyStorage> energyStorageLazyOptionalSided = blockEntity.getCapability(CapabilityEnergy.ENERGY, useOnContext.getClickedFace());
+        addOutputTextForEnergyStorage(components, energyStorageLazyOptionalSided.isPresent()?energyStorageLazyOptionalSided.orElse(null):null, true);
 
         useItem(stack, useOnContext.getPlayer(), components);
 
