@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#forge:storage_blocks/silicon"
+    "#forge:storage_blocks/silicon",
+    "#forge:storage_blocks/copper"
   ]
 }

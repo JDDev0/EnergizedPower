@@ -56,7 +56,7 @@ public class EnergySyncS2CPacket {
                 return;
 
             EnergyStorageMenuPacketUpdate energyStorageMenu = (EnergyStorageMenuPacketUpdate)menu;
-            if(!energyStorageMenu.getBlockEntity().getBlockPos().equals(pos))
+            if(!energyStorageMenu.getBlockEntity().equals(pos))
                 return;
 
             energyStorageMenu.setEnergy(energy);
