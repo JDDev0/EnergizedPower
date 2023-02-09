@@ -268,6 +268,11 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
                                         new Direction[] { Direction.EAST, Direction.SOUTH, Direction.UP, Direction.DOWN, Direction.NORTH, Direction.WEST };
                             };
                         }
+
+                        @Override
+                        public boolean canReplaceExisting() {
+                            return false;
+                        }
                     });
 
                     if(result == ActionResult.FAIL) {
