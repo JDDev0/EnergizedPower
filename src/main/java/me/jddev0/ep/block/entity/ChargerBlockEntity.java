@@ -64,6 +64,20 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
         }
 
         @Override
+        public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            if(slot == 0) {
+                ItemStack itemStack = getStackInSlot(slot);
+                if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSame(stack, itemStack) ||
+                        (!ItemStack.tagMatches(stack, itemStack) &&
+                                //Only check if NBT data is equal if one of stack or itemStack is no energy item
+                                !(stack.getCapability(ForgeCapabilities.ENERGY).isPresent() && itemStack.getCapability(ForgeCapabilities.ENERGY).isPresent()))))
+                    resetProgress();
+            }
+
+            super.setStackInSlot(slot, stack);
+        }
+
+        @Override
         public int getSlotLimit(int slot) {
             return 1;
         }
