@@ -1,7 +1,7 @@
 {
   "type": "energizedpower:energizer",
   "ingredient": {
-    "item": "minecraft:copper_ingot"
+    "tag": "forge:ingots/copper"
   },
   "energy": 8192,
   "output": {
