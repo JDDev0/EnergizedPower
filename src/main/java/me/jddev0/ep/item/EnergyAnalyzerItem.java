@@ -56,7 +56,8 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
 
     private void addOutputTextForEnergyStorage(List<Component> components, @Nullable IEnergyStorage energyStorage, boolean blockFaceSpecificInformation) {
         if(energyStorage == null) {
-            components.add(new TranslatableComponent("txt.energizedpower.energy_analyzer.no_energy_block").withStyle(ChatFormatting.RED));
+            components.add(new TranslatableComponent("txt.energizedpower.energy_analyzer.no_energy_block" + (blockFaceSpecificInformation?"_side":"")).
+                    withStyle(ChatFormatting.RED));
 
             return;
         }
