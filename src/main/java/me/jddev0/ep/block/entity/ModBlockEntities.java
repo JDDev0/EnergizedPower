@@ -66,11 +66,11 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> TRANSFORMER_1_TO_N_ENTITY =
             BLOCK_ENTITIES.register("transformer_1_to_n", () -> BlockEntityType.Builder.of((blockPos, state) ->
                             new TransformerBlockEntity(blockPos, state, TransformerBlock.Type.TYPE_1_TO_N),
-                    ModBlocks.UNCHARGER.get()).build(null));
+                    ModBlocks.TRANSFORMER_1_TO_N.get()).build(null));
     public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> TRANSFORMER_N_TO_1_ENTITY =
             BLOCK_ENTITIES.register("transformer_n_to_1", () -> BlockEntityType.Builder.of((blockPos, state) ->
                             new TransformerBlockEntity(blockPos, state, TransformerBlock.Type.TYPE_N_TO_1),
-                    ModBlocks.UNCHARGER.get()).build(null));
+                    ModBlocks.TRANSFORMER_N_TO_1.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<CoalEngineBlockEntity>> COAL_ENGINE_ENTITY =
             BLOCK_ENTITIES.register("coal_engine", () -> BlockEntityType.Builder.of(CoalEngineBlockEntity::new,
