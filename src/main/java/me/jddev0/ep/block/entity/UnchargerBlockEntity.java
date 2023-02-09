@@ -59,6 +59,20 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
         }
 
         @Override
+        public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
+            if(slot == 0) {
+                ItemStack itemStack = getStackInSlot(slot);
+                if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSame(stack, itemStack) ||
+                        (!ItemStack.tagMatches(stack, itemStack) &&
+                                //Only check if NBT data is equal if one of stack or itemStack is no energy item
+                                !(stack.getCapability(CapabilityEnergy.ENERGY).isPresent() && itemStack.getCapability(CapabilityEnergy.ENERGY).isPresent()))))
+                    resetProgress();
+            }
+
+            super.setStackInSlot(slot, stack);
+        }
+
+        @Override
         public int getSlotLimit(int slot) {
             return 1;
         }
