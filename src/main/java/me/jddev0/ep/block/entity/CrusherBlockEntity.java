@@ -52,6 +52,17 @@ public class CrusherBlockEntity extends BlockEntity implements MenuProvider, Ene
                 default -> super.isItemValid(slot, stack);
             };
         }
+
+        @Override
+        public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            if(slot == 0) {
+                ItemStack itemStack = getStackInSlot(slot);
+                if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameTags(stack, itemStack))
+                    resetProgress(worldPosition, level.getBlockState(worldPosition));
+            }
+
+            super.setStackInSlot(slot, stack);
+        }
     };
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
