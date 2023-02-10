@@ -34,7 +34,6 @@
 		"fabric-api": "*"
 	},
 	"suggests": {
-		"ae2": "*",
 		"jei": "*",
 		"rei": "*"
 	}
