@@ -76,7 +76,7 @@ public class UnchargerMenu extends ScreenHandler implements EnergyStorageMenuPac
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int index) {
+    public ItemStack transferSlot(PlayerEntity player, int index) {
         Slot sourceSlot = slots.get(index);
         if(sourceSlot == null || !sourceSlot.hasStack())
             return ItemStack.EMPTY;

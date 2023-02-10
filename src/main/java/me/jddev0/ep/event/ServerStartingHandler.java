@@ -5,13 +5,12 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.mixin.world.village.StructurePoolElementGetterSetter;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.structure.pool.SinglePoolElement;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ import java.util.List;
 public class ServerStartingHandler implements ServerLifecycleEvents.ServerStarting {
     @Override
     public void onServerStarting(MinecraftServer server) {
-        Registry<StructurePool> templatePoolRegistry = server.getRegistryManager().get(RegistryKeys.TEMPLATE_POOL);
+        Registry<StructurePool> templatePoolRegistry = server.getRegistryManager().get(Registry.STRUCTURE_POOL_KEY);
 
         //Electrician 1
         addVillageHouse(templatePoolRegistry, "desert", "electrician_1", 5);

@@ -12,6 +12,9 @@ public final class EnergySyncS2CPacket {
     private EnergySyncS2CPacket() {}
 
     public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+        if(client.world == null)
+            return;
+
         long energy = buf.readLong();
         long capacity = buf.readLong();
         BlockEntity blockEntity = client.world.getBlockEntity(buf.readBlockPos());

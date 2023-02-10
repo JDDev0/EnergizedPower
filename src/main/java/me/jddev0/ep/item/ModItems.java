@@ -3,38 +3,37 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.EnergizedPowerMod;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 public final class ModItems {
     private ModItems() {}
 
     public static Item registerItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name), item);
+        return Registry.register(Registry.ITEM, new Identifier(EnergizedPowerMod.MODID, name), item);
     }
 
     public static final Item ENERGIZED_COPPER_INGOT = registerItem("energized_copper_ingot",
-            new Item(new FabricItemSettings()));
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final Item SILICON = registerItem("silicon",
-            new Item(new FabricItemSettings()));
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Item SAWDUST = registerItem("sawdust",
-            new Item(new FabricItemSettings()));
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Item BASIC_SOLAR_CELL = registerItem("basic_solar_cell",
-            new Item(new FabricItemSettings()));
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final Item ADVANCED_SOLAR_CELL = registerItem("advanced_solar_cell",
-            new Item(new FabricItemSettings()));
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Item ENERGIZED_POWER_BOOK = registerItem("energized_power_book",
-            new EnergizedPowerBookItem(new FabricItemSettings().maxCount(1)));
+            new EnergizedPowerBookItem(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxCount(1)));
 
     public static final Item CABLE_INSULATOR = registerItem("cable_insulator",
-            new CableInsulatorItem(new FabricItemSettings()));
+            new CableInsulatorItem(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Item INVENTORY_COAL_ENGINE = registerItem("inventory_coal_engine",
-            new InventoryCoalEngine(new FabricItemSettings().maxCount(1)));
+            new InventoryCoalEngine(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxCount(1)));
 
     public static final Item BATTERY_1 = registerItem("battery_1",
             new BatteryItem(BatteryItem.Tier.BATTERY_1));
@@ -54,7 +53,7 @@ public final class ModItems {
             new BatteryItem(BatteryItem.Tier.BATTERY_8));
 
     public static final Item ENERGY_ANALYZER = registerItem("energy_analyzer",
-            new EnergyAnalyzerItem(new FabricItemSettings().maxCount(1)));
+            new EnergyAnalyzerItem(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxCount(1)));
 
     public static void register() {
 

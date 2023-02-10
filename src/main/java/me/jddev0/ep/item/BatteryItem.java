@@ -17,7 +17,7 @@ public class BatteryItem extends EnergizedPowerEnergyItem {
     private final Tier tier;
 
     public BatteryItem(Tier tier) {
-        super(new FabricItemSettings().maxCount(1), tier.getCapacity(), tier.getMaxTransfer(), tier.getMaxTransfer());
+        super(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxCount(1), tier.getCapacity(), tier.getMaxTransfer(), tier.getMaxTransfer());
 
         this.tier = tier;
     }

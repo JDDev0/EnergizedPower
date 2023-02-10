@@ -1,6 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.item.ModCreativeModeTab;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -8,10 +9,9 @@ import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 public final class ModBlocks {
     private ModBlocks() {}
@@ -28,8 +28,8 @@ public final class ModBlocks {
 
 
     private static Item createCableBlockItem(String name, CableBlock block) {
-        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
-                new CableBlock.Item(block, new FabricItemSettings(), block.getTier()));
+        return Registry.register(Registry.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
+                new CableBlock.Item(block, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), block.getTier()));
     }
     public static final CableBlock COPPER_CABLE = registerBlock("copper_cable",
             new CableBlock(CableBlock.Tier.TIER_COPPER));
@@ -40,8 +40,8 @@ public final class ModBlocks {
             ENERGIZED_COPPER_CABLE);
 
     private static Item createTransformerBlockItem(String name, TransformerBlock block) {
-        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
-                new TransformerBlock.Item(block, new FabricItemSettings(), block.getTransformerType()));
+        return Registry.register(Registry.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
+                new TransformerBlock.Item(block, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), block.getTransformerType()));
     }
     public static final TransformerBlock TRANSFORMER_1_TO_N = registerBlock("transformer_1_to_n",
             new TransformerBlock(FabricBlockSettings.of(Material.METAL).
@@ -60,7 +60,7 @@ public final class ModBlocks {
             new AutoCrafterBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item AUTO_CRAFTER_ITEM = createBlockItem("auto_crafter",
-            new AutoCrafterBlock.Item(AUTO_CRAFTER, new FabricItemSettings()));
+            new AutoCrafterBlock.Item(AUTO_CRAFTER, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block CRUSHER = registerBlock("crusher",
             new CrusherBlock(FabricBlockSettings.of(Material.METAL).
@@ -81,7 +81,7 @@ public final class ModBlocks {
             new ChargerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item CHARGER_ITEM = createBlockItem("charger",
-            new ChargerBlock.Item(CHARGER, new FabricItemSettings()));
+            new ChargerBlock.Item(CHARGER, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block UNCHARGER = registerBlock("uncharger",
             new UnchargerBlock(FabricBlockSettings.of(Material.METAL).
@@ -90,8 +90,8 @@ public final class ModBlocks {
 
 
     private static Item createSolarPanelBlockItem(String name, SolarPanelBlock block) {
-        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
-                new SolarPanelBlock.Item(block, new FabricItemSettings(), block.getTier()));
+        return Registry.register(Registry.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
+                new SolarPanelBlock.Item(block, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), block.getTier()));
     }
     public static final SolarPanelBlock SOLAR_PANEL_1 = registerBlock("solar_panel_1",
             new SolarPanelBlock(SolarPanelBlock.Tier.TIER_1));
@@ -123,7 +123,7 @@ public final class ModBlocks {
             new LightningGeneratorBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item LIGHTNING_GENERATOR_ITEM = createBlockItem("lightning_generator",
-            new LightningGeneratorBlock.Item(LIGHTNING_GENERATOR, new FabricItemSettings()));
+            new LightningGeneratorBlock.Item(LIGHTNING_GENERATOR, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block ENERGIZER = registerBlock("energizer",
             new EnergizerBlock(FabricBlockSettings.of(Material.METAL).
@@ -134,7 +134,7 @@ public final class ModBlocks {
             new ChargingStationBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item CHARGING_STATION_ITEM = createBlockItem("charging_station",
-            new ChargingStationBlock.Item(CHARGING_STATION, new FabricItemSettings()));
+            new ChargingStationBlock.Item(CHARGING_STATION, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block BASIC_MACHINE_FRAME = registerBlock("basic_machine_frame",
             new Block(FabricBlockSettings.of(Material.METAL).
@@ -147,20 +147,20 @@ public final class ModBlocks {
     public static final Item ADVANCED_MACHINE_FRAME_ITEM = createBlockItem("advanced_machine_frame", ADVANCED_MACHINE_FRAME);
 
     private static <T extends Block> T registerBlock(String name, T block) {
-        return Registry.register(Registries.BLOCK, new Identifier(EnergizedPowerMod.MODID, name), block);
+        return Registry.register(Registry.BLOCK, new Identifier(EnergizedPowerMod.MODID, name), block);
     }
 
     private static Item createBlockItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name), item);
+        return Registry.register(Registry.ITEM, new Identifier(EnergizedPowerMod.MODID, name), item);
     }
 
     private static Item createBlockItem(String name, Block block, FabricItemSettings props) {
-        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
+        return Registry.register(Registry.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
                 new BlockItem(block, props));
     }
 
     private static Item createBlockItem(String name, Block block) {
-        return createBlockItem(name, block, new FabricItemSettings());
+        return createBlockItem(name, block, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB));
     }
 
     public static void register() {

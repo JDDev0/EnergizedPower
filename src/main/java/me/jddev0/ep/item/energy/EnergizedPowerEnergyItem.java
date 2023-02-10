@@ -4,9 +4,12 @@ import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtLong;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -26,6 +29,18 @@ public class EnergizedPowerEnergyItem extends Item implements SimpleEnergyItem {
         this.capacity = capacity;
         this.maxReceive = maxReceive;
         this.maxExtract = maxExtract;
+    }
+
+    @Override
+    public void appendStacks(ItemGroup category, DefaultedList<ItemStack> items) {
+        if(isIn(category)) {
+            items.add(new ItemStack(this));
+
+            ItemStack itemStackFullyCharged = new ItemStack(this);
+            itemStackFullyCharged.getOrCreateNbt().put("energy", NbtLong.of(capacity));
+
+            items.add(itemStackFullyCharged);
+        }
     }
 
     protected long getEnergy(ItemStack itemStack) {

@@ -25,7 +25,6 @@ import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.NarratorManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.sound.SoundEvents;
@@ -36,6 +35,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.registry.Registry;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -79,14 +79,14 @@ public class EnergizedPowerBookScreen extends Screen {
     private void createMenuControls() {
         boolean showTakeButton = lecternBlockEntity != null && client.player.canModifyBlocks();
 
-        addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, button -> close()).
-                dimensions(width / 2 - 100, 196, showTakeButton?98:200, 20).build());
+        addDrawableChild(new ButtonWidget(width / 2 - 100, 196, showTakeButton?98:200, 20,
+                ScreenTexts.DONE, button -> close()));
 
         if(showTakeButton)
-            addDrawableChild(ButtonWidget.builder(Text.translatable("lectern.take_book"), button -> {
+            addDrawableChild(new ButtonWidget(width / 2 + 2, 196, 98, 20, Text.translatable("lectern.take_book"), button -> {
                 ClientPlayNetworking.send(ModMessages.POP_ENERGIZED_POWER_BOOK_FROM_LECTERN_ID, PacketByteBufs.create().writeBlockPos(lecternBlockEntity.getPos()));
                 close();
-            }).dimensions(width / 2 + 2, 196, 98, 20).build());
+            }));
     }
 
     private void createPageControlButtons() {
@@ -200,7 +200,7 @@ public class EnergizedPowerBookScreen extends Screen {
     @Override
     public void render(MatrixStack poseStack, int mouseX, int mouseY, float partialTicks) {
         renderBackground(poseStack);
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         int startX = (width - 192) / 2;
@@ -350,7 +350,7 @@ public class EnergizedPowerBookScreen extends Screen {
         if(y == -1) //Centered
             y = (int)((192 - 64) * .5f) + 2;
 
-        Block block = Registries.BLOCK.get(blockResourceLocation);
+        Block block = Registry.BLOCK.get(blockResourceLocation);
         ItemStack itemStack = new ItemStack(block);
 
         ItemRenderer itemRenderer = client.getItemRenderer();

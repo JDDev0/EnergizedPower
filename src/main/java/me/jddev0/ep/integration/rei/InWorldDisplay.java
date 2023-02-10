@@ -6,7 +6,7 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.tag.ItemTags;
 
 import java.util.List;
 

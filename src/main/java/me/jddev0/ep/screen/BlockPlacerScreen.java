@@ -32,7 +32,7 @@ public class BlockPlacerScreen extends HandledScreen<BlockPlacerMenu> {
 
     @Override
     protected void drawBackground(MatrixStack poseStack, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         RenderSystem.setShaderTexture(0, TEXTURE);
         int x = (width - backgroundWidth) / 2;

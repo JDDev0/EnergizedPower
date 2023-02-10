@@ -12,10 +12,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtInt;
 import net.minecraft.nbt.NbtLong;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
@@ -39,7 +38,7 @@ public final class ModVillager {
     }
 
     private static VillagerProfession registerProfession(String name, VillagerProfession profession) {
-        return Registry.register(Registries.VILLAGER_PROFESSION, new Identifier(EnergizedPowerMod.MODID, name), profession);
+        return Registry.register(Registry.VILLAGER_PROFESSION, new Identifier(EnergizedPowerMod.MODID, name), profession);
     }
 
     public static void register() {

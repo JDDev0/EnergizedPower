@@ -17,10 +17,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.TypeFilter;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import team.reborn.energy.api.EnergyStorage;
@@ -83,7 +80,7 @@ public class ChargingStationBlockEntity extends BlockEntity implements EnergySto
                         blockPos.getZ() - MAX_CHARGING_DISTANCE),
                 new Vec3i(blockPos.getX() + MAX_CHARGING_DISTANCE, blockPos.getY() + MAX_CHARGING_DISTANCE,
                         blockPos.getZ() + MAX_CHARGING_DISTANCE))), EntityPredicates.EXCEPT_SPECTATOR.
-                and(entity -> entity.squaredDistanceTo(blockPos.toCenterPos()) <= MAX_CHARGING_DISTANCE*MAX_CHARGING_DISTANCE));
+                and(entity -> entity.squaredDistanceTo(new Vec3d(blockPos.getX() - .5, blockPos.getY() - .5, blockPos.getZ() - .5)) <= MAX_CHARGING_DISTANCE*MAX_CHARGING_DISTANCE));
 
         long energyPerTick = Math.min(MAX_RECEIVE, blockEntity.internalEnergyStorage.amount);
         long energyPerTickLeft = energyPerTick;

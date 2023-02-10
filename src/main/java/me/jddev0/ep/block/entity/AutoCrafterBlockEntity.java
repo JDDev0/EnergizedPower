@@ -63,7 +63,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     private CraftingInventory oldCopyOfRecipe;
     private final ScreenHandler dummyContainerMenu = new ScreenHandler(null, -1) {
         @Override
-        public ItemStack quickMove(PlayerEntity player, int index) {
+        public ItemStack transferSlot(PlayerEntity player, int index) {
             return null;
         }
         @Override
@@ -411,7 +411,9 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.areNbtEqual(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getMaxCount() - testItemStack.getCount());
                     if(amount > 0) {
-                        internalInventory.setStack(i, internalInventory.getStack(i).copyWithCount(testItemStack.getCount() + amount));
+                        ItemStack itemStackCopy = internalInventory.getStack(i).copy();
+                        itemStackCopy.setCount(testItemStack.getCount() + amount);
+                        internalInventory.setStack(i, itemStackCopy);
 
                         itemStack.setCount(itemStack.getCount() - amount);
                     }

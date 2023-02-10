@@ -9,10 +9,9 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
@@ -120,7 +119,7 @@ public final class ModBlockEntities {
     @SuppressWarnings("unchecked")
     private static <T extends BlockEntity> BlockEntityType<T> createBlockEntity(String name, Block block,
             FabricBlockEntityTypeBuilder.Factory<? extends T> factory) {
-        return (BlockEntityType<T>)Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(EnergizedPowerMod.MODID, name),
+        return (BlockEntityType<T>)Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(EnergizedPowerMod.MODID, name),
                 FabricBlockEntityTypeBuilder.create(factory, block).build(null));
     }
 
