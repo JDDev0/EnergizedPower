@@ -8,7 +8,7 @@ This mod adds the following machines:
 - Auto Crafter
 - Crusher
 - Sawmill
-- Block Placer
+- Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
 - Charger
 - Charging Station
 - Uncharger
