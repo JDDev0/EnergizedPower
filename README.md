@@ -35,6 +35,8 @@ The electrician villager profession and house are added.
 
 There is also a guide book
 
+**The fabric edition of this mod requires the Fabric API.**
+
 *Feel free to include this mod in your ModPack :-)*
 
 ## Supported versions:
