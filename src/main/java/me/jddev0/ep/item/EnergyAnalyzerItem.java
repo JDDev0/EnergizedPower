@@ -9,7 +9,9 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -33,11 +35,11 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
         super.appendTooltip(itemStack, level, tooltip, context);
 
         if(Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.1").formatted(Formatting.GRAY));
-            tooltip.add(Text.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.2",
+            tooltip.add(new TranslatableText("tooltip.energizedpower.energy_analyzer.txt.shift.1").formatted(Formatting.GRAY));
+            tooltip.add(new TranslatableText("tooltip.energizedpower.energy_analyzer.txt.shift.2",
                     EnergyUtils.getEnergyWithPrefix(ENERGY_CONSUMPTION_PER_USE)).formatted(Formatting.GRAY));
         }else {
-            tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            tooltip.add(new TranslatableText("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
         }
     }
 
@@ -46,28 +48,28 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
             setEnergy(itemStack, getEnergy(itemStack) - ENERGY_CONSUMPTION_PER_USE);
 
         for(Text component:lines)
-            player.sendMessage(component);
-        player.sendMessage(Text.empty());
+            player.sendSystemMessage(component, player.getUuid());
+        player.sendSystemMessage(LiteralText.EMPTY, player.getUuid());
     }
 
     private void addOutputTextForEnergyStorage(List<Text> components, @Nullable EnergyStorage energyStorage, boolean blockFaceSpecificInformation) {
         if(energyStorage == null) {
-            components.add(Text.translatable("txt.energizedpower.energy_analyzer.no_energy_block" + (blockFaceSpecificInformation?"_side":"")).
+            components.add(new TranslatableText("txt.energizedpower.energy_analyzer.no_energy_block" + (blockFaceSpecificInformation?"_side":"")).
                     formatted(Formatting.RED));
 
             return;
         }
 
-        components.add(Text.translatable("txt.energizedpower.energy_analyzer.energy_output",
+        components.add(new TranslatableText("txt.energizedpower.energy_analyzer.energy_output",
                 EnergyUtils.getEnergyWithPrefix(energyStorage.getAmount()),
                 EnergyUtils.getEnergyWithPrefix(energyStorage.getCapacity())).formatted(Formatting.GOLD));
 
         if(energyStorage.supportsInsertion())
-            components.add(Text.translatable("txt.energizedpower.energy_analyzer.energy_can_receive" + (blockFaceSpecificInformation?"_side":"")).
+            components.add(new TranslatableText("txt.energizedpower.energy_analyzer.energy_can_receive" + (blockFaceSpecificInformation?"_side":"")).
                     formatted(Formatting.GOLD));
 
         if(energyStorage.supportsExtraction())
-            components.add(Text.translatable("txt.energizedpower.energy_analyzer.energy_can_extract" + (blockFaceSpecificInformation?"_side":"")).
+            components.add(new TranslatableText("txt.energizedpower.energy_analyzer.energy_can_extract" + (blockFaceSpecificInformation?"_side":"")).
                     formatted(Formatting.GOLD));
     }
 
@@ -81,7 +83,7 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
 
         if(getEnergy(stack) < ENERGY_CONSUMPTION_PER_USE) {
             useItem(stack, useOnContext.getPlayer(), List.of(
-                    Text.translatable("txt.energizedpower.energy_analyzer.no_energy_left",
+                    new TranslatableText("txt.energizedpower.energy_analyzer.no_energy_left",
                             EnergyUtils.getEnergyWithPrefix(ENERGY_CONSUMPTION_PER_USE)).formatted(Formatting.RED)
             ));
 
@@ -95,7 +97,7 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(blockEntity == null) {
-            components.add(Text.translatable("txt.energizedpower.energy_analyzer.no_block_entity").formatted(Formatting.RED));
+            components.add(new TranslatableText("txt.energizedpower.energy_analyzer.no_block_entity").formatted(Formatting.RED));
 
             useItem(stack, useOnContext.getPlayer(), components);
 
@@ -104,7 +106,7 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
 
         addOutputTextForEnergyStorage(components, EnergyStorage.SIDED.find(level, blockPos, null), false);
 
-        components.add(Text.translatable("txt.energizedpower.energy_analyzer.output_side_information").formatted(Formatting.BLUE));
+        components.add(new TranslatableText("txt.energizedpower.energy_analyzer.output_side_information").formatted(Formatting.BLUE));
         addOutputTextForEnergyStorage(components, EnergyStorage.SIDED.find(level, blockPos, useOnContext.getSide()), true);
 
         useItem(stack, useOnContext.getPlayer(), components);

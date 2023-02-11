@@ -11,7 +11,9 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
@@ -30,7 +32,7 @@ public class ChargerCategory implements DisplayCategory<ChargerDisplay> {
 
     @Override
     public Text getTitle() {
-        return Text.translatable("container.energizedpower.charger");
+        return new TranslatableText("container.energizedpower.charger");
     }
 
     @Override
@@ -60,7 +62,7 @@ public class ChargerCategory implements DisplayCategory<ChargerDisplay> {
                 entries(display.getOutputEntries().get(0)));
 
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
-                Text.literal(EnergyUtils.getEnergyWithPrefix(display.recipe().getEnergyConsumption())).formatted(Formatting.YELLOW)).
+                new LiteralText(EnergyUtils.getEnergyWithPrefix(display.recipe().getEnergyConsumption())).formatted(Formatting.YELLOW)).
                 noShadow().rightAligned());
 
         return widgets;

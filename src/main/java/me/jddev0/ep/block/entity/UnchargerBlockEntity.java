@@ -4,6 +4,7 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryBlockEntityWrapper;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.mixin.inventory.SimpleInventoryStacksGetterSetter;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.UnchargerMenu;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -25,6 +26,7 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -69,7 +71,7 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
                     if(!EnergyStorageUtil.isEnergyStorage(stack))
                         return false;
 
-                    EnergyStorage energyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.withConstant(stack));
+                    EnergyStorage energyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.withInitial(stack));
                     if(energyStorage == null)
                         return false;
 
@@ -187,7 +189,7 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.uncharger");
+        return new TranslatableText("container.energizedpower.uncharger");
     }
 
     @Nullable
@@ -203,7 +205,7 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
+        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), ((SimpleInventoryStacksGetterSetter)internalInventory).getStacks()));
         nbt.putLong("energy", internalEnergyStorage.amount);
 
         nbt.put("recipe.energy_production_left", NbtLong.of(energyProductionLeft));
@@ -215,14 +217,14 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
     public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
 
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
+        Inventories.readNbt(nbt.getCompound("inventory"), ((SimpleInventoryStacksGetterSetter)internalInventory).getStacks());
         internalEnergyStorage.amount = nbt.getLong("energy");
 
         energyProductionLeft = nbt.getLong("recipe.energy_production_left");
     }
 
     public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory.stacks);
+        ItemScatterer.spawn(level, worldPosition, ((SimpleInventoryStacksGetterSetter)internalInventory).getStacks());
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {

@@ -18,7 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import team.reborn.energy.api.base.SimpleEnergyItem;
+import team.reborn.energy.api.base.SimpleBatteryItem;
 
 public class EnergizedPowerMod implements ModInitializer {
 	public static final String MODID = "energizedpower";
@@ -45,7 +45,7 @@ public class EnergizedPowerMod implements ModInitializer {
 
 	private ItemStack getChargedItemStack(Item item, long energy) {
 		ItemStack itemStack = new ItemStack(item);
-		itemStack.getOrCreateNbt().put(SimpleEnergyItem.ENERGY_KEY, NbtLong.of(energy));
+		itemStack.getOrCreateNbt().put(SimpleBatteryItem.ENERGY_KEY, NbtLong.of(energy));
 
 		return itemStack;
 	}

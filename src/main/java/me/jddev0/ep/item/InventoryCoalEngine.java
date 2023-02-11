@@ -15,6 +15,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -40,29 +41,29 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
 
         boolean active = isActive(itemStack);
 
-        tooltip.add(Text.translatable("tooltip.energizedpower.inventory_coal_engine.status").formatted(Formatting.GRAY).
-                append(Text.translatable("tooltip.energizedpower.inventory_coal_engine.status." +
+        tooltip.add(new TranslatableText("tooltip.energizedpower.inventory_coal_engine.status").formatted(Formatting.GRAY).
+                append(new TranslatableText("tooltip.energizedpower.inventory_coal_engine.status." +
                         (active?"activated":"deactivated")).formatted(active?Formatting.GREEN:Formatting.RED)));
 
         if(Screen.hasShiftDown()) {
             int energyProductionLeft = getEnergyProductionLeft(itemStack);
             ItemStack item = getCurrentBurningItem(itemStack);
             if(energyProductionLeft > 0 && item != null) {
-                tooltip.add(Text.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning").
+                tooltip.add(new TranslatableText("tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning").
                         formatted(Formatting.GRAY).
                         append(item.getName()));
 
-                tooltip.add(Text.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.energy_production_left",
+                tooltip.add(new TranslatableText("tooltip.energizedpower.inventory_coal_engine.txt.shift.energy_production_left",
                                 EnergyUtils.getEnergyWithPrefix(energyProductionLeft)).
                         formatted(Formatting.GRAY));
             }
 
-            tooltip.add(Text.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.1").
+            tooltip.add(new TranslatableText("tooltip.energizedpower.inventory_coal_engine.txt.shift.1").
                     formatted(Formatting.GRAY, Formatting.ITALIC));
-            tooltip.add(Text.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.2").
+            tooltip.add(new TranslatableText("tooltip.energizedpower.inventory_coal_engine.txt.shift.2").
                     formatted(Formatting.GRAY, Formatting.ITALIC));
         }else {
-            tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            tooltip.add(new TranslatableText("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
         }
     }
 
@@ -162,7 +163,7 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
             ItemStack getCurrentBurningItem = getCurrentBurningItem(itemStack);
             if(progress >= 0 && maxProgress > 0 && progress < maxProgress && getCurrentBurningItem != null) {
                 int energyProductionPerTick = energyProductionLeft / (maxProgress - progress);
-                if(getEnergyCapacity(itemStack) - getEnergy(itemStack) < energyProductionPerTick) {
+                if(getEnergyCapacity() - getEnergy(itemStack) < energyProductionPerTick) {
                     //Not enough energy storage for production
                     if(isWorking(itemStack))
                         itemStack.getOrCreateNbt().putBoolean("working", false);

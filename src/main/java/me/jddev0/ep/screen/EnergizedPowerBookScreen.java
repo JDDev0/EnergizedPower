@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.LecternBlockEntity;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.PageTurnWidget;
 import net.minecraft.client.render.DiffuseLighting;
@@ -26,12 +27,8 @@ import net.minecraft.client.util.NarratorManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.PlayerScreenHandler;
-import net.minecraft.screen.ScreenTexts;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.text.OrderedText;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
+import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
@@ -56,7 +53,7 @@ public class EnergizedPowerBookScreen extends Screen {
 
     public static List<PageContent> pages = new LinkedList<>();
     private int currentPage;
-    private Text currentPageNumberOutput = Text.empty();
+    private Text currentPageNumberOutput = LiteralText.EMPTY;
     private boolean isCurrentPageCached;
     private List<OrderedText> cachedPageComponents = Collections.emptyList();
 
@@ -83,7 +80,7 @@ public class EnergizedPowerBookScreen extends Screen {
                 ScreenTexts.DONE, button -> close()));
 
         if(showTakeButton)
-            addDrawableChild(new ButtonWidget(width / 2 + 2, 196, 98, 20, Text.translatable("lectern.take_book"), button -> {
+            addDrawableChild(new ButtonWidget(width / 2 + 2, 196, 98, 20, new TranslatableText("lectern.take_book"), button -> {
                 ClientPlayNetworking.send(ModMessages.POP_ENERGIZED_POWER_BOOK_FROM_LECTERN_ID, PacketByteBufs.create().writeBlockPos(lecternBlockEntity.getPos()));
                 close();
             }));
@@ -219,7 +216,7 @@ public class EnergizedPowerBookScreen extends Screen {
 
         if(!isCurrentPageCached) {
             if(currentPage == 0) {
-                cachedPageComponents = textRenderer.wrapLines(Text.translatable("book.energizedpower.front.cover.text").formatted(Formatting.GRAY), 114);
+                cachedPageComponents = textRenderer.wrapLines(new TranslatableText("book.energizedpower.front.cover.text").formatted(Formatting.GRAY), 114);
             }else if(currentPage == getPageCount() - 1) {
                 cachedPageComponents = Collections.emptyList();
             }else {
@@ -229,7 +226,7 @@ public class EnergizedPowerBookScreen extends Screen {
             }
             //First page is front cover (Number = 0)
             //Last page is back cover (Number = page count - 1)
-            currentPageNumberOutput = Text.translatable("book.pageIndicator", currentPage, Math.max(getPageCount() - 1, 1));
+            currentPageNumberOutput = new TranslatableText("book.pageIndicator", currentPage, Math.max(getPageCount() - 1, 1));
         }
 
         isCurrentPageCached = true;
@@ -315,14 +312,14 @@ public class EnergizedPowerBookScreen extends Screen {
 
         float scaleFactor = 1.35f;
 
-        Text component = Text.literal("Energized Power").formatted(Formatting.GOLD);
+        Text component = new LiteralText("Energized Power").formatted(Formatting.GOLD);
         int textWidth = textRenderer.getWidth(component);
 
         poseStack.scale(scaleFactor, scaleFactor, 1.f);
         textRenderer.draw(poseStack, component, (width / scaleFactor - textWidth) * .5f, 30 / scaleFactor, 0);
         poseStack.scale(1/scaleFactor, 1/scaleFactor, 1.f);
 
-        component = Text.translatable("book.byAuthor", "JDDev0").formatted(Formatting.GOLD);
+        component = new TranslatableText("book.byAuthor", "JDDev0").formatted(Formatting.GOLD);
         textWidth = textRenderer.getWidth(component);
         textRenderer.draw(poseStack, component, (width - textWidth) * .5f, 192 - 45.f, 0);
 

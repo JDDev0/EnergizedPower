@@ -7,6 +7,7 @@ import me.jddev0.ep.item.EnergyAnalyzerItem;
 import me.jddev0.ep.item.ModItems;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
+import net.fabricmc.fabric.mixin.object.builder.VillagerProfessionAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -29,8 +30,8 @@ public final class ModVillager {
             ModBlocks.BASIC_MACHINE_FRAME);
 
     public static final VillagerProfession ELECTRICIAN_PROFESSION = registerProfession("electrician",
-            new VillagerProfession("electrician", poiType -> poiType.value() == BASIC_MACHINE_FRAME_POI,
-                    poiType -> poiType.value() == BASIC_MACHINE_FRAME_POI, ImmutableSet.of(), ImmutableSet.of(), SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH));
+            VillagerProfessionAccessor.create("electrician", BASIC_MACHINE_FRAME_POI, ImmutableSet.of(), ImmutableSet.of(),
+                    SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH));
 
     private static PointOfInterestType registerPOI(String name, Block block) {
         return PointOfInterestHelper.register(new Identifier(EnergizedPowerMod.MODID, name), 1, 1,

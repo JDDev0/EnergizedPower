@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.WrittenBookItem;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -25,8 +26,8 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("book.byAuthor", "JDDev0").formatted(Formatting.GRAY));
-        tooltip.add(Text.translatable("book.generation.0").formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText("book.byAuthor", "JDDev0").formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText("book.generation.0").formatted(Formatting.GRAY));
     }
 
     @Override

@@ -11,6 +11,7 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.block.Blocks;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class InWorldCategory implements DisplayCategory<InWorldDisplay> {
 
     @Override
     public Text getTitle() {
-        return Text.translatable("recipes.energizedpower.in_world_crafting");
+        return new TranslatableText("recipes.energizedpower.in_world_crafting");
     }
 
     @Override

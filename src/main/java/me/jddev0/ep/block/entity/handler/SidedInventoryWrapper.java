@@ -98,9 +98,4 @@ public abstract class SidedInventoryWrapper implements SidedInventory {
     public boolean containsAny(Set<Item> items) {
         return handler.containsAny(items);
     }
-
-    @Override
-    public boolean containsAny(Predicate<ItemStack> predicate) {
-        return handler.containsAny(predicate);
-    }
 }

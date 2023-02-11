@@ -8,16 +8,17 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtLong;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import team.reborn.energy.api.base.SimpleEnergyItem;
+import team.reborn.energy.api.base.SimpleBatteryItem;
 
 import java.util.List;
 
-public class EnergizedPowerEnergyItem extends Item implements SimpleEnergyItem {
+public class EnergizedPowerEnergyItem extends Item implements SimpleBatteryItem {
     private final long capacity;
     private final long maxReceive;
     private final long maxExtract;
@@ -47,21 +48,21 @@ public class EnergizedPowerEnergyItem extends Item implements SimpleEnergyItem {
         return getStoredEnergy(itemStack);
     }
     protected void setEnergy(ItemStack itemStack, long energy) {
-        SimpleEnergyItem.setStoredEnergyUnchecked(itemStack, energy);
+        SimpleBatteryItem.setStoredEnergyUnchecked(itemStack, energy);
     }
 
     @Override
-    public long getEnergyCapacity(ItemStack itemStack) {
+    public long getEnergyCapacity() {
         return capacity;
     }
 
     @Override
-    public long getEnergyMaxInput(ItemStack stack) {
+    public long getEnergyMaxInput() {
         return maxReceive;
     }
 
     @Override
-    public long getEnergyMaxOutput(ItemStack stack) {
+    public long getEnergyMaxOutput() {
         return maxExtract;
     }
 
@@ -72,19 +73,19 @@ public class EnergizedPowerEnergyItem extends Item implements SimpleEnergyItem {
 
     @Override
     public int getItemBarStep(ItemStack stack) {
-        return Math.round(getEnergy(stack) * 13.f / getEnergyCapacity(stack));
+        return Math.round(getEnergy(stack) * 13.f / getEnergyCapacity());
     }
 
     @Override
     public int getItemBarColor(ItemStack stack) {
-        float f = Math.max(0.f, getEnergy(stack) / (float)getEnergyCapacity(stack));
+        float f = Math.max(0.f, getEnergy(stack) / (float)getEnergyCapacity());
         return MathHelper.hsvToRgb(f * .33f, 1.f, 1.f);
     }
 
     @Override
     public void appendTooltip(ItemStack itemStack, @Nullable World level, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("tooltip.energizedpower.energy_meter.content.txt",
-                        EnergyUtils.getEnergyWithPrefix(getEnergy(itemStack)), EnergyUtils.getEnergyWithPrefix(getEnergyCapacity(itemStack))).
+        tooltip.add(new TranslatableText("tooltip.energizedpower.energy_meter.content.txt",
+                        EnergyUtils.getEnergyWithPrefix(getEnergy(itemStack)), EnergyUtils.getEnergyWithPrefix(getEnergyCapacity())).
                 formatted(Formatting.GRAY));
     }
 }

@@ -10,6 +10,7 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
@@ -82,10 +83,10 @@ public class EnergizerScreen extends HandledScreen<EnergizerMenu> {
 
         if(isPointWithinBounds(8, 17, 16, 52, mouseX, mouseY)) {
             List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.energy_meter.content.txt",
+            components.add(new TranslatableText("tooltip.energizedpower.energy_meter.content.txt",
                     EnergyUtils.getEnergyWithPrefix(handler.getEnergy()), EnergyUtils.getEnergyWithPrefix(handler.getCapacity())));
             if(handler.getEnergyRequirement() > 0) {
-                components.add(Text.translatable("tooltip.energizedpower.recipe.energy_required_to_finish.txt",
+                components.add(new TranslatableText("tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                         EnergyUtils.getEnergyWithPrefix(handler.getEnergyRequirement())).formatted(Formatting.YELLOW));
             }
 

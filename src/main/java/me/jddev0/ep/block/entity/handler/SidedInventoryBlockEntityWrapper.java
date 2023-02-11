@@ -102,9 +102,4 @@ public interface SidedInventoryBlockEntityWrapper extends SidedInventory {
     default boolean containsAny(Set<Item> items) {
         return getHandler().containsAny(items);
     }
-
-    @Override
-    default boolean containsAny(Predicate<ItemStack> predicate) {
-        return getHandler().containsAny(predicate);
-    }
 }

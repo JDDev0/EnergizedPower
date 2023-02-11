@@ -5,6 +5,7 @@ import me.jddev0.ep.block.entity.handler.SidedInventoryBlockEntityWrapper;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.mixin.inventory.SimpleInventoryStacksGetterSetter;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.SawmillRecipe;
 import me.jddev0.ep.screen.SawmillMenu;
@@ -28,6 +29,7 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -161,7 +163,7 @@ public class SawmillBlockEntity extends BlockEntity implements ExtendedScreenHan
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.sawmill");
+        return new TranslatableText("container.energizedpower.sawmill");
     }
 
     @Nullable
@@ -177,7 +179,7 @@ public class SawmillBlockEntity extends BlockEntity implements ExtendedScreenHan
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
+        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), ((SimpleInventoryStacksGetterSetter)internalInventory).getStacks()));
         nbt.putLong("energy", internalEnergyStorage.amount);
 
         nbt.put("recipe.progress", NbtInt.of(progress));
@@ -190,7 +192,7 @@ public class SawmillBlockEntity extends BlockEntity implements ExtendedScreenHan
     public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
 
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
+        Inventories.readNbt(nbt.getCompound("inventory"), ((SimpleInventoryStacksGetterSetter)internalInventory).getStacks());
         internalEnergyStorage.amount = nbt.getLong("energy");
 
         progress = nbt.getInt("recipe.progress");
@@ -198,7 +200,7 @@ public class SawmillBlockEntity extends BlockEntity implements ExtendedScreenHan
     }
 
     public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory.stacks);
+        ItemScatterer.spawn(level, worldPosition, ((SimpleInventoryStacksGetterSetter)internalInventory).getStacks());
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, SawmillBlockEntity blockEntity) {

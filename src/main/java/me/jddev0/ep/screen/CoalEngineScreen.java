@@ -10,6 +10,7 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
@@ -77,10 +78,10 @@ public class CoalEngineScreen extends HandledScreen<CoalEngineMenu> {
 
         if(isPointWithinBounds(8, 17, 16, 52, mouseX, mouseY)) {
             List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.energy_meter.content.txt",
+            components.add(new TranslatableText("tooltip.energizedpower.energy_meter.content.txt",
                     EnergyUtils.getEnergyWithPrefix(handler.getEnergy()), EnergyUtils.getEnergyWithPrefix(handler.getCapacity())));
             if(handler.getEnergyProduction() > 0) {
-                components.add(Text.translatable("tooltip.energizedpower.coal_engine.txt",
+                components.add(new TranslatableText("tooltip.energizedpower.coal_engine.txt",
                         EnergyUtils.getEnergyWithPrefix(handler.getEnergyProduction())).formatted(Formatting.YELLOW));
             }
 

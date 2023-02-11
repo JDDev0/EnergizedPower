@@ -11,6 +11,7 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.block.Blocks;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class DispenserCategory implements DisplayCategory<DispenserDisplay> {
 
     @Override
     public Text getTitle() {
-        return Text.translatable("container.dispenser");
+        return new TranslatableText("container.dispenser");
     }
 
     @Override

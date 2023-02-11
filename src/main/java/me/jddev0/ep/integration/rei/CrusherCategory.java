@@ -11,6 +11,7 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class CrusherCategory implements DisplayCategory<CrusherDisplay> {
 
     @Override
     public Text getTitle() {
-        return Text.translatable("container.energizedpower.crusher");
+        return new TranslatableText("container.energizedpower.crusher");
     }
 
     @Override

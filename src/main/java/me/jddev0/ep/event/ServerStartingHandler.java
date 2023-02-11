@@ -33,7 +33,7 @@ public class ServerStartingHandler implements ServerLifecycleEvents.ServerStarti
         if(pool == null)
             return;
 
-        ObjectArrayList<StructurePoolElement> elements = ((StructurePoolElementGetterSetter)pool).getElements();
+        List<StructurePoolElement> elements = ((StructurePoolElementGetterSetter)pool).getElements();
         List<Pair<StructurePoolElement, Integer>> elementCounts = ((StructurePoolElementGetterSetter)pool).getElementCounts();
 
         SinglePoolElement element = SinglePoolElement.ofLegacySingle(String.format("%s:village/%s/houses/%s", EnergizedPowerMod.MODID, villageType, buildingName)).

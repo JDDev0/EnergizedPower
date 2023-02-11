@@ -3,7 +3,8 @@
 	"package": "me.jddev0.ep.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"world.village.StructurePoolElementGetterSetter"
+		"world.village.StructurePoolElementGetterSetter",
+		"inventory.SimpleInventoryStacksGetterSetter"
 	],
 	"injectors": {
 		"defaultRequire": 1

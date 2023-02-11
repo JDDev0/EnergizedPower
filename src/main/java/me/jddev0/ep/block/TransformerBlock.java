@@ -17,6 +17,7 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Formatting;
@@ -90,13 +91,13 @@ public class TransformerBlock extends BlockWithEntity {
         @Override
         public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
             if(Screen.hasShiftDown()) {
-                tooltip.add(Text.translatable("tooltip.energizedpower.transformer.txt.shift.1").formatted(Formatting.GRAY));
-                tooltip.add(Text.translatable("tooltip.energizedpower.transformer.txt.shift.2").
+                tooltip.add(new TranslatableText("tooltip.energizedpower.transformer.txt.shift.1").formatted(Formatting.GRAY));
+                tooltip.add(new TranslatableText("tooltip.energizedpower.transformer.txt.shift.2").
                         formatted(Formatting.GRAY, Formatting.ITALIC));
-                tooltip.add(Text.translatable("tooltip.energizedpower.transformer.txt.shift.3").
+                tooltip.add(new TranslatableText("tooltip.energizedpower.transformer.txt.shift.3").
                         formatted(Formatting.GRAY, Formatting.ITALIC));
             }else {
-                tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+                tooltip.add(new TranslatableText("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
         }
     }

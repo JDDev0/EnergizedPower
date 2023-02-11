@@ -42,12 +42,12 @@ dependencies {
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 
 	// Team Reborn: Fabric energy
-	include modApi('teamreborn:energy:2.3.0') {
+	include modApi('teamreborn:energy:2.2.0') {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 
 	// REI integration
-	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:9.1.587"
+	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:8.3.588"
 }
 
 processResources {
