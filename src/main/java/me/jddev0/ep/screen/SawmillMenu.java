@@ -23,7 +23,7 @@ public class SawmillMenu extends ScreenHandler implements EnergyStorageMenuPacke
     private final PropertyDelegate data;
 
     public SawmillMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(3),
+        this(id, inv.player.world.getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(3),
                 new ArrayPropertyDelegate(6));
     }
 

@@ -218,13 +218,13 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
+    public NbtCompound writeNbt(NbtCompound nbt) {
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), ((SimpleInventoryStacksGetterSetter)internalInventory).getStacks()));
         nbt.putLong("energy", internalEnergyStorage.amount);
 
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
-        super.writeNbt(nbt);
+        return super.writeNbt(nbt);
     }
 
     @Override

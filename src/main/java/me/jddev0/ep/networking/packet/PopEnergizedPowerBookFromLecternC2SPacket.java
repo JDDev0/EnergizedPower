@@ -22,13 +22,13 @@ public final class PopEnergizedPowerBookFromLecternC2SPacket {
 
         BlockPos pos = buf.readBlockPos();
 
-        BlockEntity blockEntity = player.getWorld().getWorldChunk(pos).getBlockEntity(pos, WorldChunk.CreationType.IMMEDIATE);
+        BlockEntity blockEntity = player.world.getWorldChunk(pos).getBlockEntity(pos, WorldChunk.CreationType.IMMEDIATE);
 
         if(blockEntity instanceof LecternBlockEntity lecternBlockEntity) {
             ItemStack itemStack = lecternBlockEntity.getBook();
 
             lecternBlockEntity.setBook(ItemStack.EMPTY);
-            LecternBlock.setHasBook(player.getWorld(), pos, player.getWorld().getBlockState(pos), false);
+            LecternBlock.setHasBook(player.world, pos, player.world.getBlockState(pos), false);
             if(!player.getInventory().insertStack(itemStack))
                 player.dropItem(itemStack, false);
         }

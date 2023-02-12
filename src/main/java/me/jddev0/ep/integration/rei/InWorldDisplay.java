@@ -6,6 +6,7 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.tag.ItemTags;
 
 import java.util.List;
@@ -14,8 +15,8 @@ public class InWorldDisplay implements Display {
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(
-                EntryIngredients.ofItemTag(CommonItemTags.SHEARS),
-                EntryIngredients.ofItemTag(ItemTags.WOOL)
+                EntryIngredients.ofIngredient(Ingredient.fromTag(CommonItemTags.SHEARS)),
+                EntryIngredients.ofIngredient(Ingredient.fromTag(ItemTags.WOOL))
         );
     }
 

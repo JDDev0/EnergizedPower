@@ -29,7 +29,7 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageMenuP
     private final Inventory patternResultSlots;
 
     public AutoCrafterMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(18),
+        this(id, inv.player.world.getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(18),
                 new SimpleInventory(9), new SimpleInventory(1), new ArrayPropertyDelegate(6));
     }
 

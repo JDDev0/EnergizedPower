@@ -76,7 +76,7 @@ public class LightningGeneratorBlock extends BlockWithEntity {
             return;
 
         level.setBlockState(selfPos, selfState.with(HIT_BY_LIGHTNING_BOLT, Boolean.TRUE), 3);
-        level.createAndScheduleBlockTick(selfPos, this, ACTIVATION_TICKS);
+        level.getBlockTickScheduler().schedule(selfPos, this, ACTIVATION_TICKS);
 
         ((LightningGeneratorBlockEntity)blockEntity).onLightningStrike();
     }

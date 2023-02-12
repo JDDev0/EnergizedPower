@@ -190,7 +190,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
+    public NbtCompound writeNbt(NbtCompound nbt) {
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), ((SimpleInventoryStacksGetterSetter)internalInventory).getStacks()));
         nbt.put("pattern", savePatternContainer());
         nbt.putLong("energy", internalEnergyStorage.amount);
@@ -198,7 +198,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         nbt.put("recipe.progress", NbtInt.of(progress));
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
-        super.writeNbt(nbt);
+        return super.writeNbt(nbt);
     }
 
     private NbtElement savePatternContainer() {

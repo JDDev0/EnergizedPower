@@ -217,8 +217,8 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
             newItemStack.decrement(1);
             inventory.setStack(i, newItemStack);
 
-            if(testItemStack.getRecipeRemainder() != null) {
-                ItemStack craftingRemainingItem = testItemStack.getRecipeRemainder();
+            if(testItemStack.getItem().getRecipeRemainder() != null) {
+                ItemStack craftingRemainingItem = new ItemStack(testItemStack.getItem().getRecipeRemainder());
 
                 if(inventory.insertStack(craftingRemainingItem))
                     player.dropItem(craftingRemainingItem, false);

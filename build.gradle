@@ -4,8 +4,8 @@ plugins {
 	
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -47,7 +47,7 @@ dependencies {
 	}
 
 	// REI integration
-	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:8.3.588"
+	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:6.5.433"
 }
 
 processResources {
@@ -59,7 +59,9 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.encoding = "UTF-8"
+
+	it.options.release = 16
 }
 
 java {

@@ -23,7 +23,7 @@ public class BlockPlacerMenu extends ScreenHandler implements EnergyStorageMenuP
     private final PropertyDelegate data;
 
     public BlockPlacerMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1),
+        this(id, inv.player.world.getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1),
                 new ArrayPropertyDelegate(6));
     }
 

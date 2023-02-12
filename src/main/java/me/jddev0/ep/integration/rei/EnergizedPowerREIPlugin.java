@@ -19,6 +19,7 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.client.gui.screen.ingame.Generic3x3ContainerScreen;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
 
 public class EnergizedPowerREIPlugin implements REIClientPlugin {
     @Override
@@ -42,7 +43,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
 
 
         registry.add(new InWorldCategory());
-        registry.addWorkstations(InWorldCategory.CATEGORY, EntryIngredients.ofItemTag(CommonItemTags.SHEARS));
+        registry.addWorkstations(InWorldCategory.CATEGORY, EntryIngredients.ofIngredient(Ingredient.fromTag(CommonItemTags.SHEARS)));
 
         registry.add(new DispenserCategory());
         registry.addWorkstations(DispenserCategory.CATEGORY, EntryIngredients.of(Items.DISPENSER));

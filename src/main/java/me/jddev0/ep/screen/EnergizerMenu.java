@@ -23,7 +23,7 @@ public class EnergizerMenu extends ScreenHandler implements EnergyStorageMenuPac
     private final PropertyDelegate data;
 
     public EnergizerMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(2),
+        this(id, inv.player.world.getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(2),
                 new ArrayPropertyDelegate(6));
     }
 

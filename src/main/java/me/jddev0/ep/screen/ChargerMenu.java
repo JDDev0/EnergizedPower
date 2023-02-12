@@ -24,7 +24,7 @@ public class ChargerMenu extends ScreenHandler implements EnergyStorageMenuPacke
     private final PropertyDelegate data;
 
     public ChargerMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1),
+        this(id, inv.player.world.getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1),
                 new ArrayPropertyDelegate(6));
     }
 

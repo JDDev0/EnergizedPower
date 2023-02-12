@@ -57,10 +57,10 @@ public class ChargingStationBlockEntity extends BlockEntity implements EnergySto
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
+    public NbtCompound writeNbt(NbtCompound nbt) {
         nbt.putLong("energy", internalEnergyStorage.amount);
 
-        super.writeNbt(nbt);
+        return super.writeNbt(nbt);
     }
 
     @Override

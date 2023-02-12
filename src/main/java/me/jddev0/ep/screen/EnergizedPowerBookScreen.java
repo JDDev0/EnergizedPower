@@ -77,12 +77,12 @@ public class EnergizedPowerBookScreen extends Screen {
         boolean showTakeButton = lecternBlockEntity != null && client.player.canModifyBlocks();
 
         addDrawableChild(new ButtonWidget(width / 2 - 100, 196, showTakeButton?98:200, 20,
-                ScreenTexts.DONE, button -> close()));
+                ScreenTexts.DONE, button -> client.setScreen(null)));
 
         if(showTakeButton)
             addDrawableChild(new ButtonWidget(width / 2 + 2, 196, 98, 20, new TranslatableText("lectern.take_book"), button -> {
                 ClientPlayNetworking.send(ModMessages.POP_ENERGIZED_POWER_BOOK_FROM_LECTERN_ID, PacketByteBufs.create().writeBlockPos(lecternBlockEntity.getPos()));
-                close();
+                client.setScreen(null);
             }));
     }
 
@@ -189,7 +189,7 @@ public class EnergizedPowerBookScreen extends Screen {
 
         boolean flag = super.handleTextClick(style);
         if(flag && clickEvent.getAction() == ClickEvent.Action.RUN_COMMAND)
-            close();
+            client.setScreen(null);
 
         return flag;
     }
@@ -353,7 +353,7 @@ public class EnergizedPowerBookScreen extends Screen {
         ItemRenderer itemRenderer = client.getItemRenderer();
         TextureManager textureManager = client.getTextureManager();
 
-        BakedModel bakedModel = itemRenderer.getModel(itemStack, null, null, 0);
+        BakedModel bakedModel = itemRenderer.getHeldItemModel(itemStack, null, null, 0);
 
         textureManager.getTexture(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).setFilter(false, false);
         RenderSystem.setShaderTexture(0, PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
@@ -400,7 +400,7 @@ public class EnergizedPowerBookScreen extends Screen {
     }
 
     @Override
-    public boolean shouldPause() {
+    public boolean isPauseScreen() {
         return lecternBlockEntity == null;
     }
 

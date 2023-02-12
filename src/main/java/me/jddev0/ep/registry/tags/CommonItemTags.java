@@ -1,12 +1,12 @@
 package me.jddev0.ep.registry.tags;
 
+import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.item.Item;
-import net.minecraft.tag.TagKey;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public final class CommonItemTags {
     private CommonItemTags() {}
 
-    public static final TagKey<Item> SHEARS = TagKey.of(Registry.ITEM_KEY, new Identifier("c", "shears"));
+    public static final Tag<Item> SHEARS = TagFactory.ITEM.create(new Identifier("c", "shears"));
 }

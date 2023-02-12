@@ -169,7 +169,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
+    public NbtCompound writeNbt(NbtCompound nbt) {
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), ((SimpleInventoryStacksGetterSetter)internalInventory).getStacks()));
         nbt.putLong("energy", internalEnergyStorage.amount);
 
@@ -177,7 +177,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
         nbt.put("recipe.max_progress", NbtInt.of(maxProgress));
         nbt.put("recipe.energy_production_left", NbtLong.of(energyProductionLeft));
 
-        super.writeNbt(nbt);
+        return super.writeNbt(nbt);
     }
 
     @Override
@@ -224,8 +224,8 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
                 if(blockEntity.progress == 0) {
                     //Remove item instantly else the item could be removed before finished and energy was cheated
 
-                    if(item.getRecipeRemainder() != null)
-                        blockEntity.internalInventory.setStack(0, item.getRecipeRemainder());
+                    if(item.getItem().getRecipeRemainder() != null)
+                        blockEntity.internalInventory.setStack(0, new ItemStack(item.getItem().getRecipeRemainder()));
                     else
                         blockEntity.internalInventory.removeStack(0, 1);
                 }
@@ -273,7 +273,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
         if(AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(item.getItem(), -1) <= 0)
             return false;
 
-        return item.getRecipeRemainder() == null || item.getCount() == 1;
+        return item.getItem().getRecipeRemainder() == null || item.getCount() == 1;
     }
 
     @Override
