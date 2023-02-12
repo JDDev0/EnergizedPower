@@ -22,6 +22,9 @@
 		],
 		"client": [
 			"me.jddev0.ep.EnergizedPowerModClient"
+		],
+		"rei_client": [
+			"me.jddev0.ep.integration.rei.EnergizedPowerREIPlugin"
 		]
 	},
 	"mixins": [
