@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:energizer",
+  "ingredient": {
+    "tag": "forge:ingots/gold"
+  },
+  "energy": 32768,
+  "output": {
+    "item": "energizedpower:energized_gold_ingot"
+  }
+}
