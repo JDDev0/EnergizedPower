@@ -138,7 +138,7 @@ dependencies {
     // REI integration
     compileOnly 'me.shedaniel.cloth:basic-math:0.6.1'
     compileOnly fg.deobf("dev.architectury:architectury-forge:4.10.88")
-    compileOnly fg.deobf('me.shedaniel:RoughlyEnoughItems-forge:8.3.583')
+    compileOnly fg.deobf('me.shedaniel:RoughlyEnoughItems-forge:8.3.588')
 
     // JEI integration
     compileOnly fg.deobf("mezz.jei:jei-1.18.2-common-api:10.2.1.283")
