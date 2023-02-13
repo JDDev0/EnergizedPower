@@ -14,6 +14,10 @@ public final class ModItems {
 
     public static final RegistryObject<Item> ENERGIZED_COPPER_INGOT = ITEMS.register("energized_copper_ingot",
             () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> ENERGIZED_GOLD_INGOT = ITEMS.register("energized_gold_ingot",
+            () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> SILICON = ITEMS.register("silicon",
             () -> new Item(new Item.Properties()));
 

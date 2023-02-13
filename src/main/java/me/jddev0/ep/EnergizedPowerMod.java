@@ -125,6 +125,7 @@ public class EnergizedPowerMod {
             event.accept(ModItems.SAWDUST);
             event.accept(ModItems.SILICON);
             event.accept(ModItems.ENERGIZED_COPPER_INGOT);
+            event.accept(ModItems.ENERGIZED_GOLD_INGOT);
         }
     }
 
