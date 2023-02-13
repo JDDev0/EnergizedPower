@@ -1,5 +1,5 @@
 {
-  "parent":  "energizedpower:main/advanced_machine_frame",
+  "parent":  "energizedpower:main/energized_gold_ingot",
   "display": {
     "icon": {
       "item": "energizedpower:charging_station"
