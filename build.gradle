@@ -4,7 +4,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
 
-version = '1.18.2-1.3.7'
+version = '1.18.2-1.3.8'
 group = 'me.jddev0.energizedpower' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'energizedpower'
 
@@ -139,6 +139,7 @@ dependencies {
     compileOnly 'me.shedaniel.cloth:basic-math:0.6.1'
     compileOnly fg.deobf("dev.architectury:architectury-forge:4.10.88")
     compileOnly fg.deobf('me.shedaniel:RoughlyEnoughItems-forge:8.3.588')
+    compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:8.+"
 
     // JEI integration
     compileOnly fg.deobf("mezz.jei:jei-1.18.2-common-api:10.2.1.283")

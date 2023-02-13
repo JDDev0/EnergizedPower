@@ -11,6 +11,7 @@ import me.jddev0.ep.screen.ChargerScreen;
 import me.jddev0.ep.screen.CrusherScreen;
 import me.jddev0.ep.screen.EnergizerScreen;
 import me.jddev0.ep.screen.SawmillScreen;
+import me.shedaniel.rei.plugincompatibilities.api.REIPluginCompatIgnore;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.*;
@@ -27,6 +28,7 @@ import net.minecraftforge.common.Tags;
 import java.util.Arrays;
 
 @JeiPlugin
+@REIPluginCompatIgnore
 public class EnergizedPowerJEIPlugin implements IModPlugin {
     @Override
     public ResourceLocation getPluginUid() {
