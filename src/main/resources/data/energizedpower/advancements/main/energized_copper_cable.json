@@ -10,7 +10,6 @@
     "description": {
       "translate": "advancements.energizedpower.energized_copper_cable.description"
     },
-    "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true
   },
