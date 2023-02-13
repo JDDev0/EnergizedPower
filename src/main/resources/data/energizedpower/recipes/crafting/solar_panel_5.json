@@ -8,8 +8,8 @@
     "Q": {
       "tag": "forge:gems/quartz"
     },
-    "C": {
-      "tag": "forge:ingots/copper"
+    "E": {
+      "item": "energizedpower:energized_gold_ingot"
     },
     "S": {
       "item": "energizedpower:solar_panel_4"
@@ -21,7 +21,7 @@
   "pattern": [
     "GGG",
     "SQS",
-    "ACA"
+    "AEA"
   ],
   "result": {
     "item": "energizedpower:solar_panel_5"
