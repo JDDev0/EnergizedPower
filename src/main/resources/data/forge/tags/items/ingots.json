@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "energizedpower:energized_copper_ingot"
+    "energizedpower:energized_copper_ingot",
+    "energizedpower:energized_gold_ingot"
   ]
 }
