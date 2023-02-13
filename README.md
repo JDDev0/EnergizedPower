@@ -39,6 +39,10 @@ There is also a guide book
 
 *Feel free to include this mod in your ModPack :-)*
 
+## Credits
+
+- Energized Copper Ingot and Energized Gold Ingot textures ([flashbulbs](https://github.com/flashbulbs)).
+
 ## Supported versions:
 Mod version: MC version
 - 1.0.x: 1.19.3
