@@ -45,10 +45,16 @@ public final class ModBlocks {
             () -> new CableBlock(CableBlock.Tier.TIER_GOLD));
     public static final RegistryObject<Item> GOLD_CABLE_ITEM = ModItems.ITEMS.register("gold_cable",
             () -> new CableBlock.Item(GOLD_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_GOLD));
+
     public static final RegistryObject<CableBlock> ENERGIZED_COPPER_CABLE = BLOCKS.register("energized_copper_cable",
             () -> new CableBlock(CableBlock.Tier.TIER_ENERGIZED_COPPER));
     public static final RegistryObject<Item> ENERGIZED_COPPER_CABLE_ITEM = ModItems.ITEMS.register("energized_copper_cable",
             () -> new CableBlock.Item(ENERGIZED_COPPER_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_ENERGIZED_COPPER));
+
+    public static final RegistryObject<CableBlock> ENERGIZED_GOLD_CABLE = BLOCKS.register("energized_gold_cable",
+            () -> new CableBlock(CableBlock.Tier.TIER_ENERGIZED_GOLD));
+    public static final RegistryObject<Item> ENERGIZED_GOLD_CABLE_ITEM = ModItems.ITEMS.register("energized_gold_cable",
+            () -> new CableBlock.Item(ENERGIZED_GOLD_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_ENERGIZED_GOLD));
 
     public static final RegistryObject<TransformerBlock> TRANSFORMER_1_TO_N = BLOCKS.register("transformer_1_to_n",
             () -> new TransformerBlock(BlockBehaviour.Properties.of(Material.METAL).

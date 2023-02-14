@@ -85,6 +85,9 @@
   "block.energizedpower.energized_copper_cable": "Energized Copper Cable",
   "item.energizedpower.energized_copper_cable": "Energized Copper Cable",
 
+  "block.energizedpower.energized_gold_cable": "Energized Golden Cable",
+  "item.energizedpower.energized_gold_cable": "Energized Golden Cable",
+
   "tooltip.energizedpower.cable.txt.shift.1": "This cable can transfer %s/t.",
   "tooltip.energizedpower.cable.txt.shift.2": "Cable insulators can be crafted by clicking on a wool block with shears.",
 
