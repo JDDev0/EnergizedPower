@@ -85,6 +85,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.ENERGIZED_GOLD_CABLE_ITEM);
 
             event.accept(ModBlocks.TRANSFORMER_1_TO_N_ITEM);
+            event.accept(ModBlocks.TRANSFORMER_3_TO_3_ITEM);
             event.accept(ModBlocks.TRANSFORMER_N_TO_1_ITEM);
 
             event.accept(ModBlocks.COAL_ENGINE_ITEM);
