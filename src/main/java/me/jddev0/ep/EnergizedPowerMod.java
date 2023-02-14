@@ -80,6 +80,7 @@ public class EnergizedPowerMod {
             addEmptyAndFullyChargedItem(event, ModItems.ENERGY_ANALYZER, EnergyAnalyzerItem.ENERGY_CAPACITY);
 
             event.accept(ModBlocks.COPPER_CABLE_ITEM);
+            event.accept(ModBlocks.GOLD_CABLE_ITEM);
             event.accept(ModBlocks.ENERGIZED_COPPER_CABLE_ITEM);
 
             event.accept(ModBlocks.TRANSFORMER_1_TO_N_ITEM);
