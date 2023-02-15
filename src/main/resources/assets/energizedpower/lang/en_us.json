@@ -312,6 +312,8 @@
   "book.energizedpower.page.energized_copper_ingot.3": "The charger can be used to craft this ingot.",
   "book.energizedpower.page.energized_copper_ingot.4": " [But it's expensive]",
 
+  "book.energizedpower.page.energized_gold_ingot.1": "Energized Gold Ingots are used for the most advanced machines (e.g. Charging Station).",
+
 
   "book.energizedpower.page.chapter.energy_items.title": "Energy Items",
   "book.energizedpower.page.chapter.energy_items": "Items which can produce, consume, or store energy.",
