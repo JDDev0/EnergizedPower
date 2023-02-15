@@ -1,0 +1,11 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.saw_blade.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "image": "energizedpower:textures/item/saw_blade.png"
+}
