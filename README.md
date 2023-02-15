@@ -41,7 +41,10 @@ There is also a guide book
 
 ## Credits
 
-- Energized Copper Ingot and Energized Gold Ingot textures ([flashbulbs](https://github.com/flashbulbs)).
+- Energized Copper/Gold Ingot textures ([flashbulbs](https://github.com/flashbulbs)).
+- Battery textures ([flashbulbs](https://github.com/flashbulbs)).
+- Silicon texture ([flashbulbs](https://github.com/flashbulbs)).
+- Energy Analyzer texture ([flashbulbs](https://github.com/flashbulbs)).
 
 ## Supported versions:
 Mod version: MC version
