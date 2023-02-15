@@ -241,6 +241,9 @@
   "advancements.energizedpower.copper_cable.title": "Energy Transport",
   "advancements.energizedpower.copper_cable.description": "Transport energy with cables.",
 
+  "advancements.energizedpower.gold_cable.title": "The more power, the better",
+  "advancements.energizedpower.gold_cable.description": "More power with a better cable.",
+
   "advancements.energizedpower.energized_copper_cable.title": "Too much Power to handle",
   "advancements.energizedpower.energized_copper_cable.description": "Cable with very high Power throughput!",
 
