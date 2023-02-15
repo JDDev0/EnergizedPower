@@ -120,7 +120,7 @@
   "item.energizedpower.solar_panel_5": "Solarpanel (MK V)",
 
   "tooltip.energizedpower.solar_panel.txt.shift.1": "Dieses Panel kann %s/t während es hell ist produzieren.",
-  "tooltip.energizedpower.solar_panel.txt.shift.2": "Die Effizienz hängt von der aktullen Zeit und dem Wetter ab",
+  "tooltip.energizedpower.solar_panel.txt.shift.2": "Die Effizienz hängt von der aktuellen Zeit und dem Wetter ab",
 
   "block.energizedpower.coal_engine": "Kohlegenerator",
   "item.energizedpower.coal_engine": "Kohlegenerator",
@@ -140,7 +140,7 @@
   "item.energizedpower.block_placer": "Blockplatzierer",
   "container.energizedpower.block_placer": "Blockplatzierer",
 
-  "tooltip.energizedpower.block_placer.block_energy_left.txt": "Der Block muss noch %s konsumieren, um plaziert werden zu können.",
+  "tooltip.energizedpower.block_placer.block_energy_left.txt": "Der Block muss noch %s konsumieren, um platziert werden zu können.",
 
   "block.energizedpower.lightning_generator": "Blitz-Generator",
   "item.energizedpower.lightning_generator": "Blitz-Generator",
@@ -176,7 +176,7 @@
 
 
   "advancements.energizedpower.advanced_machine_frame.title": "Fortgeschrittene Maschinen",
-  "advancements.energizedpower.advanced_machine_frame.description": "Forgeschrittenere Machinen benötigen dieses Basis-Crafting-Item.",
+  "advancements.energizedpower.advanced_machine_frame.description": "Fortgeschrittenere Maschinen benötigen dieses Basis-Crafting-Item.",
 
   "advancements.energizedpower.advanced_solar_cell.title": "Fortgeschrittener Solar-Strom",
   "advancements.energizedpower.advanced_solar_cell.description": "Erforderlich für fortgeschrittene Solar Panels...",
@@ -193,7 +193,7 @@
   "advancements.energizedpower.block_placer.title": "Platziere den Block",
   "advancements.energizedpower.block_placer.description": "Blöcke werden automatisch in der Welt platziert.",
 
-  "advancements.energizedpower.basic_machine_frame.title": "Die Grundlage für Machinen",
+  "advancements.energizedpower.basic_machine_frame.title": "Die Grundlage für Maschinen",
   "advancements.energizedpower.basic_machine_frame.description": "Das ist das Basis-Crafting-Item für jede Maschine.",
 
   "advancements.energizedpower.basic_solar_cell.title": "Solarstrom Basics",
@@ -208,11 +208,11 @@
   "advancements.energizedpower.battery_3.title": "Mehr Energie",
   "advancements.energizedpower.battery_3.description": "MK III: Doppelt so viel Strom, wie die Batterie MK II",
 
-  "advancements.energizedpower.battery_4.title": "Du hast nach noch mehr Stromg gefragt",
+  "advancements.energizedpower.battery_4.title": "Du hast nach noch mehr Strom gefragt",
   "advancements.energizedpower.battery_4.description": "Ja, das ist eine MK IV Batterie, jetzt gibt es nur mehr 4 bessere Batterien",
 
   "advancements.energizedpower.battery_5.title": "Das Beste, was Kupfer zu bieten hat",
-  "advancements.energizedpower.battery_5.description": "MK V: Die nächstbessere Batterie kann nur mehr durch Energetisierung hergestellt werden...",
+  "advancements.energizedpower.battery_5.description": "MK V: Die nächst-bessere Batterie kann nur mehr durch Energetisierung hergestellt werden...",
 
   "advancements.energizedpower.battery_6.title": "Energetisierte Batterie",
   "advancements.energizedpower.battery_6.description": "MK VI: Du hast deine Batterie also Energetisiert, um noch mehr Strom speichern zu können.",
@@ -236,7 +236,7 @@
   "advancements.energizedpower.charging_station.description": "Lade deine Items wireless.",
 
   "advancements.energizedpower.coal_engine.title": "Durch Kohle angetrieben",
-  "advancements.energizedpower.coal_engine.description": "Die Stromproduktion durch Verbrennung is nicht das Effizienterste, aber es reicht für den Moment.",
+  "advancements.energizedpower.coal_engine.description": "Die Stromproduktion durch Verbrennung is nicht das Effizienteste, aber es reicht für den Moment.",
 
   "advancements.energizedpower.copper_cable.title": "Energie-Transport",
   "advancements.energizedpower.copper_cable.description": "Transportiere Strom mit Kabel.",
@@ -290,7 +290,7 @@
   "advancements.energizedpower.uncharger.description": "Entläd deine Energie-Items.",
 
 
-  "book.energizedpower.page.welcome.title": "Wilkommen zu Energized Power!",
+  "book.energizedpower.page.welcome.title": "Willkommen zu Energized Power!",
   "book.energizedpower.page.welcome.1": "Diese Mod fügt viele Items und Maschinen hinzu, die etwas mit Strom zu tun haben.",
   "book.energizedpower.page.welcome.2": "Der Elektriker- Dorfbewohner, welcher im Elektriker-Haus gefunden werden kann, wurde hinzugefügt.",
   "book.energizedpower.page.welcome.3": "Dieses Haus kann in allen Dörfern gefunden werden.",
@@ -306,7 +306,7 @@
   "book.energizedpower.page.saw_blade.1": "Das Sägeblatt ist eine Zutat, die gebraucht wird, um das Sägewerk zu craften.",
 
   "book.energizedpower.page.silicon.1": "Silizium ist ein Item, dass für viele Rezepte dieser Mod benötigt wird.",
-  "book.energizedpower.page.silicon.2": "Es kann durch das Schmeltzen von Netherquarz herstellt werden.",
+  "book.energizedpower.page.silicon.2": "Es kann durch das Schmelzen von Netherquarz herstellt werden.",
 
   "book.energizedpower.page.sawdust.1": "Sägemehl wird in dem Sägewerk als Nebenprodukt hergestellt und kann zu Sägemehlblöcken gecraftet werden.",
   "book.energizedpower.page.sawdust.2": "Sägemehlblöcke können zu Holzkohle geschmolzen werden.",
@@ -358,7 +358,7 @@
   "book.energizedpower.page.solar_cells.1": "Solarzellen sind die Basis-Crafting-Items für jedes Solarpanel.",
   "book.energizedpower.page.solar_cells.2": "Es gibt zwei Typen: Basis und fortgeschritten",
 
-  "book.energizedpower.page.solar_panels.1": "Solarpanels produizeren während dem Tag Energie. Die Effizienz hängt von der Zeit und dem Wetter ab.",
+  "book.energizedpower.page.solar_panels.1": "Solarpanels produzieren während dem Tag Energie. Die Effizienz hängt von der Zeit und dem Wetter ab.",
   "book.energizedpower.page.solar_panels.2": "Es gibt 5 Solarpanel-Typen.",
   "book.energizedpower.page.solar_panels.3": "MK IV und MK V benötigen energetisierte Kupferbarren.",
 
@@ -376,12 +376,12 @@
   "book.energizedpower.page.sawmill.1": "Das Sägewerk sägt Holz-Blöcke und -Items.",
   "book.energizedpower.page.sawmill.2": "Sägemehl wird dabei produziert und kann zu Sägemehlblöcken verarbeitet werden. Diese können dann als Treibstoff verwendet werden.",
 
-  "book.energizedpower.page.block_placer.1": "Der Blockplatzierer kann Blöcke plazieren (Sogar Türen und Samen).",
+  "book.energizedpower.page.block_placer.1": "Der Blockplatzierer kann Blöcke platzieren (Sogar Türen und Samen).",
   "book.energizedpower.page.block_placer.2": "Blöcke werden nur platziert, wenn es möglich ist.",
 
   "book.energizedpower.page.charger_uncharger": "Der Lader kann Items laden und der Entlader kann Items entladen.",
 
   "book.energizedpower.page.charging_station": "Die Ladestation kann Items wireless laden.",
 
-  "book.energizedpower.page.energizer": "Der Energetisierer kann Items sehr effizient energetiesiren."
+  "book.energizedpower.page.energizer": "Der Energetisierer kann Items sehr effizient energetisieren."
 }
