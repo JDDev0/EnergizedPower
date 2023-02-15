@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "tag": "forge:nuggets/iron"
+    "G": {
+      "tag": "forge:nuggets/gold"
     },
     "E": {
       "item": "energizedpower:energized_gold_ingot"
@@ -16,7 +16,7 @@
     }
   },
   "pattern": [
-    "I I",
+    "G G",
     "EBE",
     "SBS"
   ],
