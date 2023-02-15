@@ -24,7 +24,7 @@ There are also blocks for producing energy:
 Energy can be transported with Copper Cables and Energized Copper Cables.
 
 Transformers can be used to connect different types of cables.
-There are two types of transformers (1 to n: 1 input, 5 outputs) and (n to 1: 1 output, 5 inputs).
+There are three types of transformers (1 to n: 1 input, 5 outputs), (3 to 3: 3 inputs, 3 outputs), and (n to 1: 1 output, 5 inputs).
 
 This mod adds the following items:
 - Batteries (8 Tiers)
