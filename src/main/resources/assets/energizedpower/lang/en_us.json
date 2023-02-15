@@ -247,6 +247,9 @@
   "advancements.energizedpower.energized_copper_cable.title": "Too much Power to handle",
   "advancements.energizedpower.energized_copper_cable.description": "Cable with very high Power throughput!",
 
+  "advancements.energizedpower.energized_gold_cable.title": "Power, power, power",
+  "advancements.energizedpower.energized_gold_cable.description": "This cable is the best of the best.",
+
   "advancements.energizedpower.transformers.title": "Transformers",
   "advancements.energizedpower.transformers.description": "Can connect to different types of cables.",
 
