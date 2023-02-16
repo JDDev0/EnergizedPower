@@ -344,7 +344,7 @@
   "book.energizedpower.page.chapter.energy_blocks": "Blocks producing, powered by, or transporting energy.",
 
   "book.energizedpower.page.cables.1": "Cables are used to transport energy from producer blocks to consumer blocks.",
-  "book.energizedpower.page.cables.2": "There are two types of cables: Copper Cable, Energized Copper Cable.",
+  "book.energizedpower.page.cables.2": "There are four types of cables.",
   "book.energizedpower.page.cables.3": "A transformer is required to connect cables of different tiers.",
 
   "book.energizedpower.page.transformers_1.1": "Transformers can be used to connect different types of cables.",
