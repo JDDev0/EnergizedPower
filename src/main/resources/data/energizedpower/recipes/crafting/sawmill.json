@@ -3,6 +3,9 @@
   "category": "misc",
   "key": {
     "S": {
+      "item": "energizedpower:saw_blade"
+    },
+    "s": {
       "tag": "c:silicon"
     },
     "I": {
@@ -16,9 +19,9 @@
     }
   },
   "pattern": [
-    "SCS",
-    "IBI",
-    "SCS"
+    "sSs",
+    "CBC",
+    "sIs"
   ],
   "result": {
     "item": "energizedpower:sawmill"
