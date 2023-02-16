@@ -7,12 +7,10 @@ import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.recipe.CrusherRecipe;
 import me.jddev0.ep.recipe.EnergizerRecipe;
 import me.jddev0.ep.recipe.SawmillRecipe;
-import me.jddev0.ep.screen.ChargerScreen;
-import me.jddev0.ep.screen.CrusherScreen;
-import me.jddev0.ep.screen.EnergizerScreen;
-import me.jddev0.ep.screen.SawmillScreen;
+import me.jddev0.ep.screen.*;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.DispenserScreen;
@@ -46,6 +44,11 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         );
     }
 
+    public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
+        registration.addRecipeTransferHandler(new AutoCrafterTransferHandler(registration.getTransferHelper()),
+                RecipeTypes.CRAFTING);
+    }
+
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
@@ -68,6 +71,8 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.AUTO_CRAFTER_ITEM.get()), RecipeTypes.CRAFTING);
+
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.CHARGER_ITEM.get()), ChargerCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.CRUSHER_ITEM.get()), CrusherCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.SAWMILL_ITEM.get()), SawmillCategory.TYPE);
@@ -79,6 +84,8 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
+        registration.addRecipeClickArea(AutoCrafterScreen.class, 89, 34, 24, 17, RecipeTypes.CRAFTING);
+
         registration.addRecipeClickArea(ChargerScreen.class, 25, 16, 40, 54, ChargerCategory.TYPE);
         registration.addRecipeClickArea(ChargerScreen.class, 111, 16, 58, 54, ChargerCategory.TYPE);
 
