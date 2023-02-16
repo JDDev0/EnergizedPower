@@ -212,7 +212,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
     public enum Tier {
         TIER_COPPER("copper_cable", 1024,
                 FabricBlockSettings.of(Material.WOOL, MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
-        TIER_ENERGIZED_COPPER("energized_copper_cable", 262144,
+        TIER_ENERGIZED_COPPER("energized_copper_cable", 131072,
                 FabricBlockSettings.of(Material.WOOL, MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL));
 
         private final String resourceId;
