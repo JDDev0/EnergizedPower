@@ -351,7 +351,7 @@
   "book.energizedpower.page.transformers_1.2": "Die größeren, dunkleren, Rauten-förmigen Seiten sind Eingänge.",
   "book.energizedpower.page.transformers_1.3": "Die kleineren, helleren, Quadrat-förmigen Seiten sind Ausgänge.",
 
-  "book.energizedpower.page.transformers_2.1": "Es gibt zwei Trafotypen: 1 zu n (1 Eingang, 5 Ausgänge), n zu 1 (1 Ausgang, 5 Eingänge).",
+  "book.energizedpower.page.transformers_2.1": "Es gibt drei Trafotypen: 1 zu n, 3 zu 3 und n zu 1.",
   "book.energizedpower.page.transformers_2.2": "Trafos können Lags-Reduzieren, indem sie manchmal statt einem Kabel-Block plaziert werden.",
   "book.energizedpower.page.transformers_2.3": "Trafos können Kabel von dieser Mod mit Kabel von anderen verbinden.",
   "book.energizedpower.page.transformers_2.4": "Trafos können als Batterie- Block genutzt werden.",
