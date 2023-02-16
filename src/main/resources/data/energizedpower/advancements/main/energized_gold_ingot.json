@@ -1,0 +1,34 @@
+{
+  "parent":  "energizedpower:main/energizer",
+  "display": {
+    "icon": {
+      "item": "energizedpower:energized_gold_ingot"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.energized_gold_ingot.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.energized_gold_ingot.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_energized_gold_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:energized_gold_ingot" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_energized_gold_ingot"
+    ]
+  ]
+}
