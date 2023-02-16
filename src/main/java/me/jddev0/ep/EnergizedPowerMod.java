@@ -108,6 +108,7 @@ public class EnergizedPowerMod implements ModInitializer {
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.SAWDUST);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.SILICON);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.ENERGIZED_COPPER_INGOT);
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.ENERGIZED_GOLD_INGOT);
 	}
 
 	private void addToCreativeTab(ItemGroup group, Item item) {

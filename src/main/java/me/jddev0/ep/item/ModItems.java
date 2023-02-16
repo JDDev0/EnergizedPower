@@ -16,6 +16,10 @@ public final class ModItems {
 
     public static final Item ENERGIZED_COPPER_INGOT = registerItem("energized_copper_ingot",
             new Item(new FabricItemSettings()));
+
+    public static final Item ENERGIZED_GOLD_INGOT = registerItem("energized_gold_ingot",
+            new Item(new FabricItemSettings()));
+
     public static final Item SILICON = registerItem("silicon",
             new Item(new FabricItemSettings()));
 
