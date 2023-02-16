@@ -303,6 +303,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         hasEnoughEnergy = true;
     }
 
+    public void resetProgressAndMarkAsChanged() {
+        resetProgress();
+        setChanged(level, getBlockPos(), getBlockState());
+    }
+
     private void updateRecipe() {
         if(level == null)
             return;
