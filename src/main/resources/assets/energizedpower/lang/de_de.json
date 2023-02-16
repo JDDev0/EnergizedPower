@@ -95,6 +95,9 @@
   "block.energizedpower.transformer_1_to_n": "Trafo (1 zu n)",
   "item.energizedpower.transformer_1_to_n": "Trafo (1 zu n)",
 
+  "block.energizedpower.transformer_3_to_3": "Trafo (3 zu 3)",
+  "item.energizedpower.transformer_3_to_3": "Trafo (3 zu 3)",
+
   "block.energizedpower.transformer_n_to_1": "Trafo (n zu 1)",
   "item.energizedpower.transformer_n_to_1": "Trafo (n zu 1)",
 

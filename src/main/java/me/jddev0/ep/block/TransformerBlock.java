@@ -102,6 +102,6 @@ public class TransformerBlock extends BlockWithEntity {
     }
 
     public enum Type {
-        TYPE_1_TO_N, TYPE_N_TO_1
+        TYPE_1_TO_N, TYPE_3_TO_3, TYPE_N_TO_1
     }
 }
