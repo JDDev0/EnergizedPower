@@ -16,6 +16,8 @@
   "item.energizedpower.cable_insulator": "Cable Insulator",
   "tooltip.energizedpower.cable_insulator.txt.shift.1": "This item can be crafted by clicking on a wool block with shears.",
 
+  "item.energizedpower.saw_blade": "Saw Blade",
+
   "item.energizedpower.inventory_coal_engine": "Inventory Coal Engine",
   "tooltip.energizedpower.inventory_coal_engine.status": "Status: ",
   "tooltip.energizedpower.inventory_coal_engine.status.activated": "Activated",

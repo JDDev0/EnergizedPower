@@ -16,6 +16,8 @@
   "item.energizedpower.cable_insulator": "Kabelinsulator",
   "tooltip.energizedpower.cable_insulator.txt.shift.1": "Dieses Item kann durch das Klicken auf einen Wolleblock mit einer Schere hergestellt werden.",
 
+  "item.energizedpower.saw_blade": "Sägeblatt",
+
   "item.energizedpower.inventory_coal_engine": "Inventar Kohlegenerator",
   "tooltip.energizedpower.inventory_coal_engine.status": "Status: ",
   "tooltip.energizedpower.inventory_coal_engine.status.activated": "Aktiviert",

@@ -37,6 +37,9 @@ public final class ModItems {
     public static final Item CABLE_INSULATOR = registerItem("cable_insulator",
             new CableInsulatorItem(new FabricItemSettings()));
 
+    public static final Item SAW_BLADE = registerItem("saw_blade",
+            new Item(new FabricItemSettings()));
+
     public static final Item INVENTORY_COAL_ENGINE = registerItem("inventory_coal_engine",
             new InventoryCoalEngine(new FabricItemSettings().maxCount(1)));
 
