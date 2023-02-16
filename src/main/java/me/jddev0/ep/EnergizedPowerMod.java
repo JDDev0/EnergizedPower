@@ -108,7 +108,7 @@ public class EnergizedPowerMod implements ModInitializer {
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.SILICON_BLOCK_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.SAWDUST_BLOCK_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.CABLE_INSULATOR);
-        addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.SAW_BLADE);
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.SAW_BLADE);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.SAWDUST);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.SILICON);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.ENERGIZED_COPPER_INGOT);
