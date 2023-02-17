@@ -25,6 +25,9 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<CableBlockEntity>> ENERGIZED_COPPER_CABLE_ENTITY =
             BLOCK_ENTITIES.register("energized_copper_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
                     new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_ENERGIZED_COPPER), ModBlocks.ENERGIZED_COPPER_CABLE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<CableBlockEntity>> ENERGIZED_GOLD_CABLE_ENTITY =
+            BLOCK_ENTITIES.register("energized_gold_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_ENERGIZED_GOLD), ModBlocks.ENERGIZED_GOLD_CABLE.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<AutoCrafterBlockEntity>> AUTO_CRAFTER_ENTITY =
             BLOCK_ENTITIES.register("auto_crafter", () -> BlockEntityType.Builder.of(AutoCrafterBlockEntity::new,

@@ -220,6 +220,8 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
         TIER_GOLD("gold_cable", 16384,
                 BlockBehaviour.Properties.of(Material.WOOL, MaterialColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
         TIER_ENERGIZED_COPPER("energized_copper_cable", 131072,
+                BlockBehaviour.Properties.of(Material.WOOL, MaterialColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
+        TIER_ENERGIZED_GOLD("energized_gold_cable", 524288,
                 BlockBehaviour.Properties.of(Material.WOOL, MaterialColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL));
 
         private final String resourceId;

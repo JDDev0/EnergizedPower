@@ -85,6 +85,9 @@
   "block.energizedpower.energized_copper_cable": "Energetisiertes Kupferkabel",
   "item.energizedpower.energized_copper_cable": "Energetisiertes Kupferkabel",
 
+  "block.energizedpower.energized_gold_cable": "Energetisiertes Goldkabel",
+  "item.energizedpower.energized_gold_cable": "Energetisiertes Goldkabel",
+
   "tooltip.energizedpower.cable.txt.shift.1": "Dieses Kabel kann %s/t transferieren.",
   "tooltip.energizedpower.cable.txt.shift.2": "Kabelinsulatoren können durch das Klicken auf einen Wolleblock mit einer Schere hergestellt werden.",
 
