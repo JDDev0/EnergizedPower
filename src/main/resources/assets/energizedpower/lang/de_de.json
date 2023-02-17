@@ -301,6 +301,14 @@
   "book.energizedpower.page.welcome.2": "Der Elektriker- Dorfbewohner, welcher im Elektriker-Haus gefunden werden kann, wurde hinzugefügt.",
   "book.energizedpower.page.welcome.3": "Dieses Haus kann in allen Dörfern gefunden werden.",
 
+  "book.energizedpower.page.credits.title": "Credits",
+  "book.energizedpower.page.credits.subtitle": "Danke für die Mitarbeit an Energized Power!",
+  "book.energizedpower.page.credits.link.tooltip": "Link öffnen",
+  "book.energizedpower.page.credits.1": "Energetisierte Kupfer-/Goldbarren (Texturen)",
+  "book.energizedpower.page.credits.2": "Batterie (Texturen)",
+  "book.energizedpower.page.credits.3": "Silizium (Textur)",
+  "book.energizedpower.page.credits.4": "Energie-Analyzierer (Textur)",
+
 
   "book.energizedpower.page.chapter.resources.title": "Ressourcen",
   "book.energizedpower.page.chapter.resources.1": "Ressourcen sind für das Craften von Items erforderlich.",
