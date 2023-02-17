@@ -1,0 +1,7 @@
+{
+  "parent": "energizedpower:block/cable_core_template",
+  "textures": {
+    "particle": "energizedpower:block/gold_cable",
+    "cable": "energizedpower:block/gold_cable"
+  }
+}
