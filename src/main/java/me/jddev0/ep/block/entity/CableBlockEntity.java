@@ -35,6 +35,7 @@ public class CableBlockEntity extends BlockEntity {
             case TIER_COPPER -> ModBlockEntities.COPPER_CABLE_ENTITY.get();
             case TIER_GOLD -> ModBlockEntities.GOLD_CABLE_ENTITY.get();
             case TIER_ENERGIZED_COPPER -> ModBlockEntities.ENERGIZED_COPPER_CABLE_ENTITY.get();
+            case TIER_ENERGIZED_GOLD -> ModBlockEntities.ENERGIZED_GOLD_CABLE_ENTITY.get();
         };
     }
 

@@ -52,6 +52,11 @@ public final class ModBlocks {
     public static final RegistryObject<Item> ENERGIZED_COPPER_CABLE_ITEM = ModItems.ITEMS.register("energized_copper_cable",
             () -> new CableBlock.Item(ENERGIZED_COPPER_CABLE.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), CableBlock.Tier.TIER_ENERGIZED_COPPER));
 
+    public static final RegistryObject<CableBlock> ENERGIZED_GOLD_CABLE = BLOCKS.register("energized_gold_cable",
+            () -> new CableBlock(CableBlock.Tier.TIER_ENERGIZED_GOLD));
+    public static final RegistryObject<Item> ENERGIZED_GOLD_CABLE_ITEM = ModItems.ITEMS.register("energized_gold_cable",
+            () -> new CableBlock.Item(ENERGIZED_GOLD_CABLE.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), CableBlock.Tier.TIER_ENERGIZED_GOLD));
+
     public static final RegistryObject<TransformerBlock> TRANSFORMER_1_TO_N = BLOCKS.register("transformer_1_to_n",
             () -> new TransformerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
