@@ -4,40 +4,40 @@
       "translate": "book.energizedpower.page.transformers_2.1",
       "color": "black",
       "bold": true,
-      "font": "uniform"
-    },
-    {
-      "text": "\n"
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
     },
     {
       "translate": "book.energizedpower.page.transformers_2.2",
       "color": "black",
       "bold": false,
       "italic": true,
-      "font": "uniform"
-    },
-    {
-      "text": "\n"
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
     },
     {
       "translate": "book.energizedpower.page.transformers_2.3",
       "color": "black",
       "bold": false,
       "italic": true,
-      "font": "uniform"
-    },
-    {
-      "text": "\n"
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
     },
     {
       "translate": "book.energizedpower.page.transformers_2.4",
       "color": "black",
       "bold": false,
       "italic": true,
-      "font": "uniform"
-    },
-    {
-      "text": " "
+      "font": "uniform",
+      "extra": [
+        " "
+      ]
     },
     {
       "translate": "book.energizedpower.page.transformers_2.5",
