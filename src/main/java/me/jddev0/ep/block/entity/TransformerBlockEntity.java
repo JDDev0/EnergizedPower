@@ -42,6 +42,7 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
     public static BlockEntityType<TransformerBlockEntity> getEntityTypeFromType(TransformerBlock.Type type) {
         return switch(type) {
             case TYPE_1_TO_N -> ModBlockEntities.TRANSFORMER_1_TO_N_ENTITY.get();
+            case TYPE_3_TO_3 -> ModBlockEntities.TRANSFORMER_3_TO_3_ENTITY.get();
             case TYPE_N_TO_1 -> ModBlockEntities.TRANSFORMER_N_TO_1_ENTITY.get();
         };
     }
@@ -64,16 +65,27 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
 
             Direction facing = getBlockState().getValue(TransformerBlock.FACING);
 
-            LazyOptional<IEnergyStorage> singleSide = type == TransformerBlock.Type.TYPE_1_TO_N?
-                    lazyEnergyStorageSidedReceive:lazyEnergyStorageSidedExtract;
+            switch(type) {
+                case TYPE_1_TO_N, TYPE_N_TO_1 -> {
+                    LazyOptional<IEnergyStorage> singleSide = type == TransformerBlock.Type.TYPE_1_TO_N?
+                            lazyEnergyStorageSidedReceive:lazyEnergyStorageSidedExtract;
 
-            LazyOptional<IEnergyStorage> multipleSide = type == TransformerBlock.Type.TYPE_1_TO_N?
-                    lazyEnergyStorageSidedExtract:lazyEnergyStorageSidedReceive;
+                    LazyOptional<IEnergyStorage> multipleSide = type == TransformerBlock.Type.TYPE_1_TO_N?
+                            lazyEnergyStorageSidedExtract:lazyEnergyStorageSidedReceive;
 
-            if(facing == side)
-                return singleSide.cast();
+                    if(facing == side)
+                        return singleSide.cast();
 
-            return multipleSide.cast();
+                    return multipleSide.cast();
+                }
+                case TYPE_3_TO_3 -> {
+                   if(facing.getCounterClockWise(Direction.Axis.X) == side || facing.getCounterClockWise(Direction.Axis.Y) == side
+                           || facing.getCounterClockWise(Direction.Axis.Z) == side)
+                       return lazyEnergyStorageSidedReceive.cast();
+                   else
+                       return lazyEnergyStorageSidedExtract.cast();
+                }
+            }
         }
 
         return super.getCapability(cap, side);
