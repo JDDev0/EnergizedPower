@@ -173,6 +173,7 @@
   "entity.minecraft.villager.electrician": "Electrician",
 
   "recipes.energizedpower.in_world_crafting": "In-World Crafting",
+  "recipes.energizedpower.transfer.too_large": "This recipe is to large for this container!",
 
 
   "advancements.energizedpower.advanced_machine_frame.title": "Advanced Machines",
