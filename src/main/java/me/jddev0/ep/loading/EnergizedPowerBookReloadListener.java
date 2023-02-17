@@ -3,7 +3,6 @@ package me.jddev0.ep.loading;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.screen.EnergizedPowerBookScreen;
@@ -35,20 +34,20 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
 
     @Override
     protected void apply(Map<Identifier, JsonElement> elements, ResourceManager resourceManager, Profiler profilerFiller) {
-        List<Pair<Identifier, EnergizedPowerBookScreen.PageContent>> pages = new LinkedList<>();
+        List<EnergizedPowerBookScreen.PageContent> pages = new LinkedList<>();
 
         List<Map.Entry<Identifier, JsonElement>> elementEntries = elements.entrySet().stream().
                 sorted(Comparator.comparing(o -> o.getKey().getPath())).
                 collect(Collectors.toList());
 
         for(Map.Entry<Identifier, JsonElement> elementEntry:elementEntries) {
-            Identifier resourceLocation = elementEntry.getKey();
+            Identifier pageId = elementEntry.getKey();
             JsonElement element = elementEntry.getValue();
 
             try {
                 if(!element.isJsonObject()) {
                     LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': Element must be a JSON Object",
-                            resourceLocation.getPath(), resourceLocation.getNamespace()));
+                            pageId.getPath(), pageId.getNamespace()));
 
                     continue;
                 }
@@ -61,7 +60,7 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
 
                     if(!pageToRemoveElement.isJsonPrimitive() || !pageToRemoveElement.getAsJsonPrimitive().isString()) {
                         LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': remove must be a string primitive",
-                                resourceLocation.getPath(), resourceLocation.getNamespace()));
+                                pageId.getPath(), pageId.getNamespace()));
 
                         continue;
                     }
@@ -71,7 +70,7 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
 
                     boolean containsKeyFlag = false;
                     for(int i = pages.size() - 1;i >= 0;i--) {
-                        if(pages.get(i).getFirst().equals(pageToRemove)) {
+                        if(pages.get(i).getPageId().equals(pageToRemove)) {
                             containsKeyFlag = true;
                             pages.remove(i);
 
@@ -81,7 +80,7 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
 
                     if(!containsKeyFlag) {
                         LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': page to be removed was not found",
-                                resourceLocation.getPath(), resourceLocation.getNamespace()));
+                                pageId.getPath(), pageId.getNamespace()));
 
                         continue;
                     }
@@ -102,7 +101,7 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
                     JsonElement imageElement = object.get("image");
                     if(!imageElement.isJsonPrimitive() || !imageElement.getAsJsonPrimitive().isString()) {
                         LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': image must be a string primitive",
-                                resourceLocation.getPath(), resourceLocation.getNamespace()));
+                                pageId.getPath(), pageId.getNamespace()));
 
                         continue;
                     }
@@ -115,7 +114,7 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
                     JsonElement imageElement = object.get("block");
                     if(!imageElement.isJsonPrimitive() || !imageElement.getAsJsonPrimitive().isString()) {
                         LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': block must be a string primitive",
-                                resourceLocation.getPath(), resourceLocation.getNamespace()));
+                                pageId.getPath(), pageId.getNamespace()));
 
                         continue;
                     }
@@ -123,13 +122,13 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
                     blockResourceLocation = Identifier.tryParse(imageElement.getAsJsonPrimitive().getAsString());
                 }
 
-                pages.add(Pair.of(resourceLocation, new EnergizedPowerBookScreen.PageContent(chapterTitleComponent, contentComponent, imageResourceLocation, blockResourceLocation)));
+                pages.add(new EnergizedPowerBookScreen.PageContent(pageId, chapterTitleComponent, contentComponent, imageResourceLocation, blockResourceLocation));
             }catch(Exception e) {
                 LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s'",
-                        resourceLocation.getPath(), resourceLocation.getNamespace()), e);
+                        pageId.getPath(), pageId.getNamespace()), e);
             }
         }
 
-        EnergizedPowerBookScreen.pages = new ArrayList<>(pages.stream().map(Pair::getSecond).collect(Collectors.toList()));
+        EnergizedPowerBookScreen.pages = new ArrayList<>(pages);
     }
 }
