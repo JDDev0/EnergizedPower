@@ -407,6 +407,46 @@ public class EnergizedPowerBookScreen extends Screen {
 
         int componentX = MathHelper.floor(x - (width - 192) * .5 - 36.);
         int componentY = MathHelper.floor(y - 20.);
+
+        //Translate for chapter pages and pages with graphics
+        if(currentPage > 0 && currentPage < getPageCount() - 1) { //Ignore front and back cover pages
+            Identifier image = pages.get(currentPage - 1).getImageResourceLocation();
+            Identifier block = pages.get(currentPage - 1).getBlockResourceLocation();
+
+            Text chapterTitleComponent = pages.get(currentPage - 1).getChapterTitleComponent();
+            if(chapterTitleComponent != null) {
+                float scaleFactor = 1.5f;
+
+                componentY = -(int)((192 / scaleFactor - textRenderer.fontHeight -
+                        (cachedPageComponents == null?0:((cachedPageComponents.size() + 1) * textRenderer.fontHeight / scaleFactor))) * .5f);
+
+                if(image != null)
+                    componentY += 60 * .5f / scaleFactor;
+
+                if(block != null)
+                    componentY += 60 * .5f / scaleFactor;
+
+                componentY *= scaleFactor;
+
+                componentY += MathHelper.floor(y - 20.);
+            }
+
+            if(image != null)
+                componentY -= 60;
+
+            if(block != null)
+                componentY -= 60;
+
+            if(chapterTitleComponent != null) {
+                int componentIndex = componentY / 9;
+                if(componentIndex < 0 || componentIndex >= cachedPageComponents.size())
+                    return null;
+
+                OrderedText formattedCharSequence = cachedPageComponents.get(componentIndex);
+                componentX = MathHelper.floor(x - (width - textRenderer.getWidth(formattedCharSequence)) * .5f);
+            }
+        }
+
         if(componentX < 0 || componentY < 0)
             return null;
 
