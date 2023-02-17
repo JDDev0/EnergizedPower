@@ -404,6 +404,46 @@ public class EnergizedPowerBookScreen extends Screen {
 
         int componentX = Mth.floor(x - (width - 192) * .5 - 36.);
         int componentY = Mth.floor(y - 20.);
+
+        //Translate for chapter pages and pages with graphics
+        if(currentPage > 0 && currentPage < getPageCount() - 1) { //Ignore front and back cover pages
+            ResourceLocation image = pages.get(currentPage - 1).getImageResourceLocation();
+            ResourceLocation block = pages.get(currentPage - 1).getBlockResourceLocation();
+
+            Component chapterTitleComponent = pages.get(currentPage - 1).getChapterTitleComponent();
+            if(chapterTitleComponent != null) {
+                float scaleFactor = 1.5f;
+
+                componentY = -(int)((192 / scaleFactor - font.lineHeight -
+                        (cachedPageComponents == null?0:((cachedPageComponents.size() + 1) * font.lineHeight / scaleFactor))) * .5f);
+
+                if(image != null)
+                    componentY += 60 * .5f / scaleFactor;
+
+                if(block != null)
+                    componentY += 60 * .5f / scaleFactor;
+
+                componentY *= scaleFactor;
+
+                componentY += Mth.floor(y - 20.);
+            }
+
+            if(image != null)
+                componentY -= 60;
+
+            if(block != null)
+                componentY -= 60;
+
+            if(chapterTitleComponent != null) {
+                int componentIndex = componentY / 9;
+                if(componentIndex < 0 || componentIndex >= cachedPageComponents.size())
+                    return null;
+
+                FormattedCharSequence formattedCharSequence = cachedPageComponents.get(componentIndex);
+                componentX = Mth.floor(x - (width - font.width(formattedCharSequence)) * .5f);
+            }
+        }
+
         if(componentX < 0 || componentY < 0)
             return null;
 
