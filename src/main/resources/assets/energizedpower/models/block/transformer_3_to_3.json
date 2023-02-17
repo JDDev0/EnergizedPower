@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "#up",
+    "down": "energizedpower:block/transformer_output",
+    "east": "energizedpower:block/transformer_output",
+    "north": "energizedpower:block/transformer_input",
+    "south": "energizedpower:block/transformer_output",
+    "up": "energizedpower:block/transformer_input",
+    "west": "energizedpower:block/transformer_input"
+  }
+}

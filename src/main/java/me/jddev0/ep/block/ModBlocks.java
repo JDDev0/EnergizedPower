@@ -63,6 +63,14 @@ public final class ModBlocks {
                     TransformerBlock.Type.TYPE_1_TO_N));
     public static final RegistryObject<Item> TRANSFORMER_1_TO_N_ITEM = ModItems.ITEMS.register("transformer_1_to_n",
             () -> new TransformerBlock.Item(TRANSFORMER_1_TO_N.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), TransformerBlock.Type.TYPE_1_TO_N));
+
+    public static final RegistryObject<TransformerBlock> TRANSFORMER_3_TO_3 = BLOCKS.register("transformer_3_to_3",
+            () -> new TransformerBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
+                    TransformerBlock.Type.TYPE_3_TO_3));
+    public static final RegistryObject<Item> TRANSFORMER_3_TO_3_ITEM = ModItems.ITEMS.register("transformer_3_to_3",
+            () -> new TransformerBlock.Item(TRANSFORMER_3_TO_3.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), TransformerBlock.Type.TYPE_3_TO_3));
+
     public static final RegistryObject<TransformerBlock> TRANSFORMER_N_TO_1 = BLOCKS.register("transformer_n_to_1",
             () -> new TransformerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
