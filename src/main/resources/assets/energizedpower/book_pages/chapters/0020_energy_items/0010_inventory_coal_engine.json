@@ -4,19 +4,19 @@
       "translate": "book.energizedpower.page.inventory_coal_engine.1",
       "color": "black",
       "bold": true,
-      "font": "uniform"
-    },
-    {
-      "text": " "
+      "font": "uniform",
+      "extra": [
+        " "
+      ]
     },
     {
       "translate": "book.energizedpower.page.inventory_coal_engine.2",
       "color": "black",
       "bold": true,
-      "font": "uniform"
-    },
-    {
-      "text": " "
+      "font": "uniform",
+      "extra": [
+        " "
+      ]
     },
     {
       "translate": "book.energizedpower.page.inventory_coal_engine.3",
