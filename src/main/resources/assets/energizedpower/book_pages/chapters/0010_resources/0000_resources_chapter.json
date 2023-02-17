@@ -1,14 +1,10 @@
 {
   "title": {
     "translate": "book.energizedpower.page.chapter.resources.title",
-    "color": "gold",
-    "bold": true
+    "color": "gold"
   },
   "content": {
-    "translate": "book.energizedpower.page.chapter.resources.1",
-    "color": "black",
-    "bold": true,
-    "font": "uniform"
+    "translate": "book.energizedpower.page.chapter.resources.1"
   },
   "image": "minecraft:textures/item/copper_ingot.png"
 }
