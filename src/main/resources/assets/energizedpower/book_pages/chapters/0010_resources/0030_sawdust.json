@@ -4,10 +4,10 @@
       "translate": "book.energizedpower.page.sawdust.1",
       "color": "black",
       "bold": true,
-      "font": "uniform"
-    },
-    {
-      "text": "\n\n"
+      "font": "uniform",
+      "extra": [
+        "\n\n"
+      ]
     },
     {
       "translate": "book.energizedpower.page.sawdust.2",
