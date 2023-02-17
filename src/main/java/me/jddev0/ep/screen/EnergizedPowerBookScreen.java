@@ -183,7 +183,26 @@ public class EnergizedPowerBookScreen extends Screen {
             try {
                 return setPage(Integer.parseInt(clickEvent.getValue()) - 1);
             }catch(NumberFormatException e) {
-                return false;
+                String pageIdString = clickEvent.getValue();
+
+                ResourceLocation pageId = ResourceLocation.tryParse(pageIdString);
+                if(pageId == null)
+                    return false;
+
+                boolean containsKeyFlag = false;
+                int i = 0;
+                for(;i < pages.size();i++) {
+                    if(pages.get(i).getPageId().equals(pageId)) {
+                        containsKeyFlag = true;
+
+                        break;
+                    }
+                }
+
+                if(!containsKeyFlag)
+                    return false;
+
+                return setPage(i + 1); //"+ 1": Front cover is not contained in the pages list
             }
         }
 
@@ -406,16 +425,23 @@ public class EnergizedPowerBookScreen extends Screen {
 
     @OnlyIn(Dist.CLIENT)
     public static class PageContent {
+        private final ResourceLocation pageId;
         private final Component chapterTitleComponent;
         private final Component pageComponent;
         private final ResourceLocation imageResourceLocation;
         private final ResourceLocation blockResourceLocation;
 
-        public PageContent(Component chapterTitleComponent, Component pageComponent, ResourceLocation imageResourceLocation, ResourceLocation blockResourceLocation) {
+        public PageContent(ResourceLocation pageId, Component chapterTitleComponent, Component pageComponent,
+                           ResourceLocation imageResourceLocation, ResourceLocation blockResourceLocation) {
+            this.pageId = pageId;
             this.chapterTitleComponent = chapterTitleComponent;
             this.pageComponent = pageComponent;
             this.imageResourceLocation = imageResourceLocation;
             this.blockResourceLocation = blockResourceLocation;
+        }
+
+        public ResourceLocation getPageId() {
+            return pageId;
         }
 
         public Component getChapterTitleComponent() {
