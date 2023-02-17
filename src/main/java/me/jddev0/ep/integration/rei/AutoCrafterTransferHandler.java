@@ -11,6 +11,7 @@ import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.EntryType;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 
@@ -29,7 +30,7 @@ public class AutoCrafterTransferHandler implements TransferHandler {
             return Result.createNotApplicable();
 
         if(!recipe.canCraftInDimensions(3, 3))
-            return null; //TODO error
+            return Result.createFailed(Component.translatable("recipes.energizedpower.transfer.too_large"));
 
         if(!context.isActuallyCrafting())
             return Result.createSuccessful().blocksFurtherHandling();

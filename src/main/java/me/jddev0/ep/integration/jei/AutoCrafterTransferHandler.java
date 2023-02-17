@@ -11,6 +11,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
@@ -46,7 +47,7 @@ public class AutoCrafterTransferHandler implements IRecipeTransferHandler<AutoCr
     @Override
     public @Nullable IRecipeTransferError transferRecipe(AutoCrafterMenu container, CraftingRecipe recipe, IRecipeSlotsView recipeSlots, Player player, boolean maxTransfer, boolean doTransfer) {
         if(!recipe.canCraftInDimensions(3, 3))
-            return null;
+            return helper.createUserErrorWithTooltip(Component.translatable("recipes.energizedpower.transfer.too_large"));
 
         if(!doTransfer)
             return null;
