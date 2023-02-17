@@ -4,19 +4,19 @@
       "translate": "book.energizedpower.page.machine_frames.1",
       "color": "black",
       "bold": true,
-      "font": "uniform"
-    },
-    {
-      "text": "\n"
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
     },
     {
       "translate": "book.energizedpower.page.machine_frames.2",
       "color": "black",
       "bold": true,
-      "font": "uniform"
-    },
-    {
-      "text": "\n"
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
     },
     {
       "translate": "book.energizedpower.page.machine_frames.3",
