@@ -1,0 +1,36 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.electrician.title",
+      "color": "gold",
+      "bold": true,
+      "extra": [
+        "\n\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.electrician.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.electrician.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.electrician.3",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ]
+}
