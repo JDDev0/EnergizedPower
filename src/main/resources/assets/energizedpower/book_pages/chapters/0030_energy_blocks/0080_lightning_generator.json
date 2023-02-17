@@ -4,10 +4,10 @@
       "translate": "book.energizedpower.page.lightning_generator.1",
       "color": "black",
       "bold": true,
-      "font": "uniform"
-    },
-    {
-      "text": "\n"
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
     },
     {
       "translate": "book.energizedpower.page.lightning_generator.2",

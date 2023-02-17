@@ -4,19 +4,19 @@
       "translate": "book.energizedpower.page.cables.1",
       "color": "black",
       "bold": true,
-      "font": "uniform"
-    },
-    {
-      "text": " "
+      "font": "uniform",
+      "extra": [
+        " "
+      ]
     },
     {
       "translate": "book.energizedpower.page.cables.2",
       "color": "black",
       "bold": true,
-      "font": "uniform"
-    },
-    {
-      "text": " "
+      "font": "uniform",
+      "extra": [
+        " "
+      ]
     },
     {
       "translate": "book.energizedpower.page.cables.3",

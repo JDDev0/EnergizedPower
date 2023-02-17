@@ -3,19 +3,19 @@
     {
       "translate": "book.energizedpower.page.credits.title",
       "color": "gold",
-      "bold": true
-    },
-    {
-      "text": "\n"
+      "bold": true,
+      "extra": [
+        "\n"
+      ]
     },
     {
       "translate": "book.energizedpower.page.credits.subtitle",
       "color": "dark_green",
       "bold": true,
-      "font": "uniform"
-    },
-    {
-      "text": "\n"
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
     },
     {
       "text": "\n• ",
@@ -24,23 +24,13 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.credits.1",
-          "color": "black",
-          "bold": true,
-          "font": "uniform"
+          "translate": "book.energizedpower.page.credits.1"
         },
-        {
-          "text": ": ",
-          "color": "black",
-          "bold": true,
-          "font": "uniform"
-        },
+        ": ",
         {
           "text": "flashbulbs",
           "color": "blue",
-          "bold": true,
           "underlined": true,
-          "font": "uniform",
           "clickEvent": {
             "action": "open_url",
             "value": "https://github.com/flashbulbs"
@@ -61,23 +51,13 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.credits.2",
-          "color": "black",
-          "bold": true,
-          "font": "uniform"
+          "translate": "book.energizedpower.page.credits.2"
         },
-        {
-          "text": ": ",
-          "color": "black",
-          "bold": true,
-          "font": "uniform"
-        },
+        ": ",
         {
           "text": "flashbulbs",
           "color": "blue",
-          "bold": true,
           "underlined": true,
-          "font": "uniform",
           "clickEvent": {
             "action": "open_url",
             "value": "https://github.com/flashbulbs"
@@ -98,23 +78,13 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.credits.3",
-          "color": "black",
-          "bold": true,
-          "font": "uniform"
+          "translate": "book.energizedpower.page.credits.3"
         },
-        {
-          "text": ": ",
-          "color": "black",
-          "bold": true,
-          "font": "uniform"
-        },
+        ": ",
         {
           "text": "flashbulbs",
           "color": "blue",
-          "bold": true,
           "underlined": true,
-          "font": "uniform",
           "clickEvent": {
             "action": "open_url",
             "value": "https://github.com/flashbulbs"
@@ -135,23 +105,13 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.credits.4",
-          "color": "black",
-          "bold": true,
-          "font": "uniform"
+          "translate": "book.energizedpower.page.credits.4"
         },
-        {
-          "text": ": ",
-          "color": "black",
-          "bold": true,
-          "font": "uniform"
-        },
+        ": ",
         {
           "text": "flashbulbs",
           "color": "blue",
-          "bold": true,
           "underlined": true,
-          "font": "uniform",
           "clickEvent": {
             "action": "open_url",
             "value": "https://github.com/flashbulbs"
