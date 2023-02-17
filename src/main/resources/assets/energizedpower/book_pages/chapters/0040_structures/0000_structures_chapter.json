@@ -3,8 +3,33 @@
     "translate": "book.energizedpower.page.chapter.structures.title",
     "color": "gold"
   },
-  "content": {
-    "translate": "book.energizedpower.page.chapter.structures"
-  },
+  "content": [
+    {
+      "translate": "book.energizedpower.page.chapter.structures"
+    },
+    {
+      "text": "\n\n",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "translate": "book.energizedpower.page.table_of_contents.title",
+          "color": "dark_green",
+          "underlined": true,
+          "clickEvent": {
+            "action": "change_page",
+            "value": "energizedpower:chapters/0000_welcome/0020_table_of_contents"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.tooltip.page"
+            }
+          }
+        }
+      ]
+    }
+  ],
   "block": "energizedpower:basic_machine_frame"
 }
