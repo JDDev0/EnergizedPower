@@ -298,8 +298,6 @@
 
   "book.energizedpower.page.welcome.title": "Welcome to Energized Power!",
   "book.energizedpower.page.welcome.1": "This mod adds many items and machines related to energy.",
-  "book.energizedpower.page.welcome.2": "The electrician villager which can be found in the electrician house was also added.",
-  "book.energizedpower.page.welcome.3": "The electrician house can be found in every vanilla village type.",
 
   "book.energizedpower.page.credits.title": "Credits",
   "book.energizedpower.page.credits.subtitle": "Thank you for contributing to Energized Power!",
@@ -367,7 +365,6 @@
 
   "book.energizedpower.page.machine_frames.1": "Machine Frames are the base crafting block for every machine.",
   "book.energizedpower.page.machine_frames.2": "There are two machine frames: Basic and Advanced",
-  "book.energizedpower.page.machine_frames.3": "The Basic Machine Frame can be used to get an electrician villager.",
 
   "book.energizedpower.page.solar_cells.1": "Solar Cells are the base crafting item for every solar panel.",
   "book.energizedpower.page.solar_cells.2": "There are two solar cells: Basic and Advanced",
@@ -397,5 +394,14 @@
 
   "book.energizedpower.page.charging_station": "The Charging Station can charge items wirelessly.",
 
-  "book.energizedpower.page.energizer": "The Energizer can energize items very efficiently."
+  "book.energizedpower.page.energizer": "The Energizer can energize items very efficiently.",
+
+
+  "book.energizedpower.page.chapter.structures.title": "Structures",
+  "book.energizedpower.page.chapter.structures": "Structures which are being generated in your world.",
+
+  "book.energizedpower.page.electrician.title": "Electrician Villager",
+  "book.energizedpower.page.electrician.1": "The electrician villager can be found in the electrician house.",
+  "book.energizedpower.page.electrician.2": "The electrician house can be found in every vanilla village type.",
+  "book.energizedpower.page.electrician.3": "The Basic Machine Frame can be used to get an electrician villager."
 }
