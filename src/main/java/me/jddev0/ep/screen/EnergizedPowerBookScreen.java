@@ -186,7 +186,26 @@ public class EnergizedPowerBookScreen extends Screen {
             try {
                 return setPage(Integer.parseInt(clickEvent.getValue()) - 1);
             }catch(NumberFormatException e) {
-                return false;
+                String pageIdString = clickEvent.getValue();
+
+                Identifier pageId = Identifier.tryParse(pageIdString);
+                if(pageId == null)
+                    return false;
+
+                boolean containsKeyFlag = false;
+                int i = 0;
+                for(;i < pages.size();i++) {
+                    if(pages.get(i).getPageId().equals(pageId)) {
+                        containsKeyFlag = true;
+
+                        break;
+                    }
+                }
+
+                if(!containsKeyFlag)
+                    return false;
+
+                return setPage(i + 1); //"+ 1": Front cover is not contained in the pages list
             }
         }
 
@@ -409,16 +428,23 @@ public class EnergizedPowerBookScreen extends Screen {
 
     @Environment(EnvType.CLIENT)
     public static class PageContent {
+        private final Identifier pageId;
         private final Text chapterTitleComponent;
         private final Text pageComponent;
         private final Identifier imageResourceLocation;
         private final Identifier blockResourceLocation;
 
-        public PageContent(Text chapterTitleComponent, Text pageComponent, Identifier imageResourceLocation, Identifier blockResourceLocation) {
+        public PageContent(Identifier pageId, Text chapterTitleComponent, Text pageComponent,
+                           Identifier imageResourceLocation, Identifier blockResourceLocation) {
+            this.pageId = pageId;
             this.chapterTitleComponent = chapterTitleComponent;
             this.pageComponent = pageComponent;
             this.imageResourceLocation = imageResourceLocation;
             this.blockResourceLocation = blockResourceLocation;
+        }
+
+        public Identifier getPageId() {
+            return pageId;
         }
 
         public Text getChapterTitleComponent() {
