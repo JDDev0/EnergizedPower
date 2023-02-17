@@ -8,6 +8,7 @@ import me.jddev0.ep.recipe.CrusherRecipe;
 import me.jddev0.ep.recipe.EnergizerRecipe;
 import me.jddev0.ep.recipe.SawmillRecipe;
 import me.jddev0.ep.screen.*;
+import me.shedaniel.rei.plugincompatibilities.api.REIPluginCompatIgnore;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
@@ -25,6 +26,7 @@ import net.minecraftforge.common.Tags;
 import java.util.Arrays;
 
 @JeiPlugin
+@REIPluginCompatIgnore
 public class EnergizedPowerJEIPlugin implements IModPlugin {
     @Override
     public ResourceLocation getPluginUid() {
