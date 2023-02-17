@@ -1,0 +1,169 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.credits.title",
+      "color": "gold",
+      "bold": true
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "translate": "book.energizedpower.page.credits.subtitle",
+      "color": "dark_green",
+      "bold": true,
+      "font": "uniform"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "\n• ",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "translate": "book.energizedpower.page.credits.1",
+          "color": "black",
+          "bold": true,
+          "font": "uniform"
+        },
+        {
+          "text": ": ",
+          "color": "black",
+          "bold": true,
+          "font": "uniform"
+        },
+        {
+          "text": "flashbulbs",
+          "color": "blue",
+          "bold": true,
+          "underlined": true,
+          "font": "uniform",
+          "clickEvent": {
+            "action": "open_url",
+            "value": "https://github.com/flashbulbs"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.page.credits.link.tooltip"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "text": "\n• ",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "translate": "book.energizedpower.page.credits.2",
+          "color": "black",
+          "bold": true,
+          "font": "uniform"
+        },
+        {
+          "text": ": ",
+          "color": "black",
+          "bold": true,
+          "font": "uniform"
+        },
+        {
+          "text": "flashbulbs",
+          "color": "blue",
+          "bold": true,
+          "underlined": true,
+          "font": "uniform",
+          "clickEvent": {
+            "action": "open_url",
+            "value": "https://github.com/flashbulbs"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.page.credits.link.tooltip"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "text": "\n• ",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "translate": "book.energizedpower.page.credits.3",
+          "color": "black",
+          "bold": true,
+          "font": "uniform"
+        },
+        {
+          "text": ": ",
+          "color": "black",
+          "bold": true,
+          "font": "uniform"
+        },
+        {
+          "text": "flashbulbs",
+          "color": "blue",
+          "bold": true,
+          "underlined": true,
+          "font": "uniform",
+          "clickEvent": {
+            "action": "open_url",
+            "value": "https://github.com/flashbulbs"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.page.credits.link.tooltip"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "text": "\n• ",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "translate": "book.energizedpower.page.credits.4",
+          "color": "black",
+          "bold": true,
+          "font": "uniform"
+        },
+        {
+          "text": ": ",
+          "color": "black",
+          "bold": true,
+          "font": "uniform"
+        },
+        {
+          "text": "flashbulbs",
+          "color": "blue",
+          "bold": true,
+          "underlined": true,
+          "font": "uniform",
+          "clickEvent": {
+            "action": "open_url",
+            "value": "https://github.com/flashbulbs"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.page.credits.link.tooltip"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
