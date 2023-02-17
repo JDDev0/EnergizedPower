@@ -107,22 +107,22 @@ public class CoalEngineBlock extends BlockWithEntity {
     @Override
     public void randomDisplayTick(BlockState state, World level, BlockPos blockPos, Random randomSource) {
         if(state.get(LIT)) {
-            double d0 = (double)blockPos.getX() + 0.5D;
-            double d1 = (double)blockPos.getY();
-            double d2 = (double)blockPos.getZ() + 0.5D;
-            if (randomSource.nextDouble() < 0.1D) {
-                level.playSound(d0, d1, d2, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
-            }
+            double x = blockPos.getX() + .5;
+            double y = blockPos.getY();
+            double z = blockPos.getZ() + .5;
+
+            if(randomSource.nextDouble() < .1)
+                level.playSound(x, y, z, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.f, 1.f, false);
 
             Direction direction = state.get(FACING);
-            Direction.Axis direction$axis = direction.getAxis();
-            double d3 = 0.52D;
-            double d4 = randomSource.nextDouble() * 0.6D - 0.3D;
-            double d5 = direction$axis == Direction.Axis.X ? (double)direction.getOffsetX() * d3 : d4;
-            double d6 = randomSource.nextDouble() * 6.0D / 16.0D;
-            double d7 = direction$axis == Direction.Axis.Z ? (double)direction.getOffsetZ() * d3 : d4;
-            level.addParticle(ParticleTypes.SMOKE, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
-            level.addParticle(ParticleTypes.FLAME, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
+            double dxz = randomSource.nextDouble() * .6 - .3;
+
+            double dx = direction.getAxis() == Direction.Axis.X?direction.getOffsetX() * .52:dxz;
+            double dy = randomSource.nextDouble() * 6. / 16.;
+            double dz = direction.getAxis() == Direction.Axis.Z?direction.getOffsetZ() * .52:dxz;
+
+            level.addParticle(ParticleTypes.SMOKE, x + dx, y + dy, z + dz, 0., 0., 0.);
+            level.addParticle(ParticleTypes.FLAME, x + dx, y + dy, z + dz, 0., 0., 0.);
         }
     }
 

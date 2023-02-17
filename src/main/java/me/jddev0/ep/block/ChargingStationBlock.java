@@ -15,11 +15,13 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -62,7 +64,22 @@ public class ChargingStationBlock extends BlockWithEntity {
     @Override
     public void randomDisplayTick(BlockState state, World level, BlockPos blockPos, Random randomSource) {
         if(state.get(CHARGING)) {
-            //TODO
+            double x = blockPos.getX() + .5;
+            double y = blockPos.getY() + .9;
+            double z = blockPos.getZ() + .5;
+
+            for(Direction direction:Direction.values()) {
+                if(direction.getAxis() == Direction.Axis.Y)
+                    continue;
+
+                double dxz = randomSource.nextDouble() * .3 - .15;
+
+                double dx = direction.getAxis() == Direction.Axis.X?direction.getOffsetX() * .35:dxz;
+                double dy = randomSource.nextDouble() * .2;
+                double dz = direction.getAxis() == Direction.Axis.Z?direction.getOffsetZ() * .35:dxz;
+
+                level.addParticle(ParticleTypes.ELECTRIC_SPARK, x + dx, y + dy, z + dz, 0., 0., 0.);
+            }
         }
     }
 
