@@ -16,11 +16,13 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.forge.REIPluginClient;
 import me.shedaniel.rei.plugin.common.BuiltinPlugin;
+import me.shedaniel.rei.plugincompatibilities.api.REIPluginCompatIgnore;
 import net.minecraft.client.gui.screens.inventory.DispenserScreen;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
 
 @REIPluginClient
+@REIPluginCompatIgnore
 public class EnergizedPowerREIPlugin implements REIClientPlugin {
     @Override
     public String getPluginProviderName() {
