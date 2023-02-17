@@ -1,0 +1,10 @@
+{
+  "title": {
+    "translate": "book.energizedpower.page.chapter.structures.title",
+    "color": "gold"
+  },
+  "content": {
+    "translate": "book.energizedpower.page.chapter.structures"
+  },
+  "block": "energizedpower:basic_machine_frame"
+}
