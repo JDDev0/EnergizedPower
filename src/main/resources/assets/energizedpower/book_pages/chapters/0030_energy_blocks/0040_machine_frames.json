@@ -13,16 +13,6 @@
       "translate": "book.energizedpower.page.machine_frames.2",
       "color": "black",
       "bold": true,
-      "font": "uniform",
-      "extra": [
-        "\n"
-      ]
-    },
-    {
-      "translate": "book.energizedpower.page.machine_frames.3",
-      "color": "black",
-      "bold": false,
-      "italic": true,
       "font": "uniform"
     }
   ],
