@@ -79,6 +79,10 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageMenuP
         addProperties(this.data);
     }
 
+    public Inventory getPatternSlots() {
+        return patternSlots;
+    }
+
     int getEnergy() {
         return data.get(2);
     }
