@@ -17,11 +17,13 @@ public final class ModItems {
 
     public static final RegistryObject<Item> ENERGIZED_GOLD_INGOT = ITEMS.register("energized_gold_ingot",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final RegistryObject<Item> SILICON = ITEMS.register("silicon",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> SAWDUST = ITEMS.register("sawdust",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final RegistryObject<Item> BASIC_SOLAR_CELL = ITEMS.register("basic_solar_cell",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> ADVANCED_SOLAR_CELL = ITEMS.register("advanced_solar_cell",
@@ -32,6 +34,9 @@ public final class ModItems {
 
     public static final RegistryObject<Item> CABLE_INSULATOR = ITEMS.register("cable_insulator",
             () -> new CableInsulatorItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
+    public static final RegistryObject<Item> SAW_BLADE = ITEMS.register("saw_blade",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> INVENTORY_COAL_ENGINE = ITEMS.register("inventory_coal_engine",
             () -> new InventoryCoalEngine(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
