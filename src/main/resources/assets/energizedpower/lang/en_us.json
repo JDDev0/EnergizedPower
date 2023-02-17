@@ -296,16 +296,21 @@
   "advancements.energizedpower.uncharger.description": "Uncharges your energy items.",
 
 
+  "book.energizedpower.tooltip.link": "Open link",
+  "book.energizedpower.tooltip.page": "Go to page",
+
+
   "book.energizedpower.page.welcome.title": "Welcome to Energized Power!",
   "book.energizedpower.page.welcome.1": "This mod adds many items and machines related to energy.",
 
   "book.energizedpower.page.credits.title": "Credits",
   "book.energizedpower.page.credits.subtitle": "Thank you for contributing to Energized Power!",
-  "book.energizedpower.page.credits.link.tooltip": "Open Link",
   "book.energizedpower.page.credits.1": "Energized Copper/Gold Ingot textures",
   "book.energizedpower.page.credits.2": "Battery textures",
   "book.energizedpower.page.credits.3": "Silicon texture",
   "book.energizedpower.page.credits.4": "Energy Analyzer texture",
+
+  "book.energizedpower.page.table_of_contents.title": "Table of Contents",
 
 
   "book.energizedpower.page.chapter.resources.title": "Resources",
