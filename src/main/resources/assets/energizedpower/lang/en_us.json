@@ -301,6 +301,14 @@
   "book.energizedpower.page.welcome.2": "The electrician villager which can be found in the electrician house was also added.",
   "book.energizedpower.page.welcome.3": "The electrician house can be found in every vanilla village type.",
 
+  "book.energizedpower.page.credits.title": "Credits",
+  "book.energizedpower.page.credits.subtitle": "Thank you for contributing to Energized Power!",
+  "book.energizedpower.page.credits.link.tooltip": "Open Link",
+  "book.energizedpower.page.credits.1": "Energized Copper/Gold Ingot textures",
+  "book.energizedpower.page.credits.2": "Battery textures",
+  "book.energizedpower.page.credits.3": "Silicon texture",
+  "book.energizedpower.page.credits.4": "Energy Analyzer texture",
+
 
   "book.energizedpower.page.chapter.resources.title": "Resources",
   "book.energizedpower.page.chapter.resources.1": "Resources are required for crafting items.",
