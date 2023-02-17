@@ -4,19 +4,19 @@
       "translate": "book.energizedpower.page.cable_insulator.1",
       "color": "black",
       "bold": true,
-      "font": "uniform"
-    },
-    {
-      "text": "\n\n"
+      "font": "uniform",
+      "extra": [
+        "\n\n"
+      ]
     },
     {
       "translate": "book.energizedpower.page.cable_insulator.2",
       "color": "black",
       "bold": true,
-      "font": "uniform"
-    },
-    {
-      "text": "\n"
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
     },
     {
       "translate": "book.energizedpower.page.cable_insulator.3",
