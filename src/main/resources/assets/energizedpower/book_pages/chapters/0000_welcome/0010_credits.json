@@ -38,7 +38,7 @@
           "hoverEvent": {
             "action": "show_text",
             "contents": {
-              "translate": "book.energizedpower.page.credits.link.tooltip"
+              "translate": "book.energizedpower.tooltip.link"
             }
           }
         }
@@ -65,7 +65,7 @@
           "hoverEvent": {
             "action": "show_text",
             "contents": {
-              "translate": "book.energizedpower.page.credits.link.tooltip"
+              "translate": "book.energizedpower.tooltip.link"
             }
           }
         }
@@ -92,7 +92,7 @@
           "hoverEvent": {
             "action": "show_text",
             "contents": {
-              "translate": "book.energizedpower.page.credits.link.tooltip"
+              "translate": "book.energizedpower.tooltip.link"
             }
           }
         }
@@ -119,7 +119,7 @@
           "hoverEvent": {
             "action": "show_text",
             "contents": {
-              "translate": "book.energizedpower.page.credits.link.tooltip"
+              "translate": "book.energizedpower.tooltip.link"
             }
           }
         }
