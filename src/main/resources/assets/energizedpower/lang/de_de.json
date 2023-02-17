@@ -298,8 +298,6 @@
 
   "book.energizedpower.page.welcome.title": "Willkommen zu Energized Power!",
   "book.energizedpower.page.welcome.1": "Diese Mod fügt viele Items und Maschinen hinzu, die etwas mit Strom zu tun haben.",
-  "book.energizedpower.page.welcome.2": "Der Elektriker- Dorfbewohner, welcher im Elektriker-Haus gefunden werden kann, wurde hinzugefügt.",
-  "book.energizedpower.page.welcome.3": "Dieses Haus kann in allen Dörfern gefunden werden.",
 
   "book.energizedpower.page.credits.title": "Credits",
   "book.energizedpower.page.credits.subtitle": "Danke für die Mitarbeit an Energized Power!",
@@ -367,7 +365,6 @@
 
   "book.energizedpower.page.machine_frames.1": "Maschinenrahmen sind der Basis-Crafting-Block für alle Maschinen.",
   "book.energizedpower.page.machine_frames.2": "Es gibt zwei Maschinenrahmen: Basis und fortgeschritten",
-  "book.energizedpower.page.machine_frames.3": "Der Basis Maschinenrahmen ist die Werkstation des Elektriker-Dorfbewohners.",
 
   "book.energizedpower.page.solar_cells.1": "Solarzellen sind die Basis-Crafting-Items für jedes Solarpanel.",
   "book.energizedpower.page.solar_cells.2": "Es gibt zwei Typen: Basis und fortgeschritten",
@@ -397,5 +394,14 @@
 
   "book.energizedpower.page.charging_station": "Die Ladestation kann Items wireless laden.",
 
-  "book.energizedpower.page.energizer": "Der Energetisierer kann Items sehr effizient energetisieren."
+  "book.energizedpower.page.energizer": "Der Energetisierer kann Items sehr effizient energetisieren.",
+
+
+  "book.energizedpower.page.chapter.structures.title": "Strukturen",
+  "book.energizedpower.page.chapter.structures": "Strukturen, die in deiner Welt generiert werden.",
+
+  "book.energizedpower.page.electrician.title": "Elektriker- Dorfbewohner",
+  "book.energizedpower.page.electrician.1": "Der Elektriker- Dorfbewohner kann im Elektriker-Haus gefunden werden.",
+  "book.energizedpower.page.electrician.2": "Dieses Haus kann in allen Dörfern gefunden werden.",
+  "book.energizedpower.page.electrician.3": "Der Basis Maschinenrahmen ist die Werkstation des Elektriker-Dorfbewohners."
 }
