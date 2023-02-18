@@ -308,6 +308,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         hasEnoughEnergy = true;
     }
 
+    public void resetProgressAndMarkAsChanged() {
+        resetProgress();
+        markDirty(world, getPos(), getCachedState());
+    }
+
     private void updateRecipe() {
         if(world == null)
             return;
