@@ -5,6 +5,8 @@ import me.jddev0.ep.block.entity.ModBlockEntities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.BlockItem;
@@ -59,7 +61,22 @@ public class ChargingStationBlock extends BaseEntityBlock {
     @Override
     public void animateTick(BlockState state, Level level, BlockPos blockPos, Random randomSource) {
         if(state.getValue(CHARGING)) {
-            //TODO
+            double x = blockPos.getX() + .5;
+            double y = blockPos.getY() + .9;
+            double z = blockPos.getZ() + .5;
+
+            for(Direction direction:Direction.values()) {
+                if(direction.getAxis() == Direction.Axis.Y)
+                    continue;
+
+                double dxz = randomSource.nextDouble() * .3 - .15;
+
+                double dx = direction.getAxis() == Direction.Axis.X?direction.getStepX() * .35:dxz;
+                double dy = randomSource.nextDouble() * .2;
+                double dz = direction.getAxis() == Direction.Axis.Z?direction.getStepZ() * .35:dxz;
+
+                level.addParticle(ParticleTypes.ELECTRIC_SPARK, x + dx, y + dy, z + dz, 0., 0., 0.);
+            }
         }
     }
 

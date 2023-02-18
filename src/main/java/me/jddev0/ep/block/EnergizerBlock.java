@@ -4,6 +4,7 @@ import me.jddev0.ep.block.entity.EnergizerBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -97,7 +98,25 @@ public class EnergizerBlock extends BaseEntityBlock {
     @Override
     public void animateTick(BlockState state, Level level, BlockPos blockPos, Random randomSource) {
         if(state.getValue(LIT)) {
-            //TODO animate (See lightning generator)
+            double x = blockPos.getX() + .5;
+            double y = blockPos.getY() + .4;
+            double z = blockPos.getZ() + .5;
+
+            Direction facing = state.getValue(FACING);
+            for(Direction direction:Direction.values()) {
+                if(direction.getAxis() == Direction.Axis.Y)
+                    continue;
+
+                for(int i = 0;i < (direction == facing?2:1);i++) {
+                    double dxz = randomSource.nextDouble() * .6 - .3;
+
+                    double dx = direction.getAxis() == Direction.Axis.X?direction.getStepX() * .52:dxz;
+                    double dy = randomSource.nextDouble() * 6. / 16.;
+                    double dz = direction.getAxis() == Direction.Axis.Z?direction.getStepZ() * .52:dxz;
+
+                    level.addParticle(ParticleTypes.ELECTRIC_SPARK, x + dx, y + dy, z + dz, 0., 0., 0.);
+                }
+            }
         }
     }
 
