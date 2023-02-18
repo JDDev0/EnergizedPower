@@ -1,0 +1,24 @@
+{
+  "parent": "energizedpower:block/gold_cable_core",
+  "display": {
+    "gui": {
+      "rotation": [ 30, 45, 0 ],
+      "scale": [ 1.5, 1.5, 1.5 ]
+    },
+    "ground": {
+      "scale": [ 1, 1, 1 ]
+    },
+    "fixed": {
+      "scale": [ 1, 1, 1 ]
+    },
+    "firstperson_righthand": {
+      "scale": [ 1, 1, 1 ]
+    },
+    "firstperson_lefthand": {
+      "scale": [ 1, 1, 1 ]
+    },
+    "thirdperson_righthand": {
+      "scale": [ 1, 1, 1 ]
+    }
+  }
+}

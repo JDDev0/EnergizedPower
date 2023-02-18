@@ -25,6 +25,11 @@ public final class ModBlockEntities {
                     new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_COPPER)),
             (blockEntity, direction) -> blockEntity.energyStorage
     );
+    public static final BlockEntityType<CableBlockEntity> GOLD_CABLE_ENTITY = registerEnergyStorage(
+            createBlockEntity("gold_cable", ModBlocks.GOLD_CABLE, (blockPos, state) ->
+                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_GOLD)),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
     public static final BlockEntityType<CableBlockEntity> ENERGIZED_COPPER_CABLE_ENTITY = registerEnergyStorage(
             createBlockEntity("energized_copper_cable", ModBlocks.ENERGIZED_COPPER_CABLE, (blockPos, state) ->
                     new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_ENERGIZED_COPPER)),
