@@ -59,6 +59,14 @@ public final class ModBlocks {
                     TransformerBlock.Type.TYPE_1_TO_N));
     public static final Item TRANSFORMER_1_TO_N_ITEM = createTransformerBlockItem("transformer_1_to_n",
             TRANSFORMER_1_TO_N);
+
+    public static final TransformerBlock TRANSFORMER_3_TO_3 = registerBlock("transformer_3_to_3",
+            new TransformerBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
+                    TransformerBlock.Type.TYPE_3_TO_3));
+    public static final Item TRANSFORMER_3_TO_3_ITEM = createTransformerBlockItem("transformer_3_to_3",
+            TRANSFORMER_3_TO_3);
+
     public static final TransformerBlock TRANSFORMER_N_TO_1 = registerBlock("transformer_n_to_1",
             new TransformerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),

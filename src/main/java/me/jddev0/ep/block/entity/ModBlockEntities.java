@@ -100,6 +100,11 @@ public final class ModBlockEntities {
                     new TransformerBlockEntity(blockPos, state, TransformerBlock.Type.TYPE_1_TO_N)),
             TransformerBlockEntity::getEnergyStorageForDirection
     );
+    public static final BlockEntityType<TransformerBlockEntity> TRANSFORMER_3_TO_3_ENTITY = registerEnergyStorage(
+            createBlockEntity("transformer_3_to_3", ModBlocks.TRANSFORMER_3_TO_3, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Type.TYPE_3_TO_3)),
+            TransformerBlockEntity::getEnergyStorageForDirection
+    );
     public static final BlockEntityType<TransformerBlockEntity> TRANSFORMER_N_TO_1_ENTITY = registerEnergyStorage(
             createBlockEntity("transformer_n_to_1", ModBlocks.TRANSFORMER_N_TO_1, (blockPos, state) ->
                     new TransformerBlockEntity(blockPos, state, TransformerBlock.Type.TYPE_N_TO_1)),
