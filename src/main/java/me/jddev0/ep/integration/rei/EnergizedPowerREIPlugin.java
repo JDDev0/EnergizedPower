@@ -5,18 +5,17 @@ import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.recipe.CrusherRecipe;
 import me.jddev0.ep.recipe.EnergizerRecipe;
 import me.jddev0.ep.recipe.SawmillRecipe;
-import me.jddev0.ep.screen.ChargerScreen;
-import me.jddev0.ep.screen.CrusherScreen;
-import me.jddev0.ep.screen.EnergizerScreen;
-import me.jddev0.ep.screen.SawmillScreen;
+import me.jddev0.ep.screen.*;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
+import me.shedaniel.rei.api.client.registry.transfer.TransferHandlerRegistry;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.forge.REIPlugin;
+import me.shedaniel.rei.plugin.common.BuiltinPlugin;
 import net.minecraft.client.gui.screens.inventory.DispenserScreen;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -32,6 +31,8 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
 
     @Override
     public void registerCategories(CategoryRegistry registry) {
+        registry.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(ModBlocks.AUTO_CRAFTER_ITEM.get()));
+
         registry.add(new ChargerCategory());
         registry.addWorkstations(ChargerCategory.CATEGORY, EntryStacks.of(ModBlocks.CHARGER_ITEM.get()));
 
@@ -53,6 +54,11 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
     }
 
     @Override
+    public void registerTransferHandlers(TransferHandlerRegistry registry) {
+        registry.register(new AutoCrafterTransferHandler());
+    }
+
+    @Override
     public void registerDisplays(DisplayRegistry registry) {
         registry.registerRecipeFiller(ChargerRecipe.class, ChargerRecipe.Type.INSTANCE, ChargerDisplay::new);
         registry.registerRecipeFiller(CrusherRecipe.class, CrusherRecipe.Type.INSTANCE, CrusherDisplay::new);
@@ -65,6 +71,9 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
 
     @Override
     public void registerScreens(ScreenRegistry registry) {
+        registry.registerContainerClickArea(new Rectangle(89, 34, 24, 17),
+                AutoCrafterScreen.class, BuiltinPlugin.CRAFTING);
+
         registry.registerContainerClickArea(new Rectangle(25, 16, 40, 54),
                 ChargerScreen.class, ChargerCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(111, 16, 58, 54),

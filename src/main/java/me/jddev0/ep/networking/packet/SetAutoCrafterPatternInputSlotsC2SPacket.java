@@ -19,7 +19,11 @@ public class SetAutoCrafterPatternInputSlotsC2SPacket {
 
     public SetAutoCrafterPatternInputSlotsC2SPacket(BlockPos pos, List<ItemStack> itemStacks) {
         this.pos = pos;
-        this.itemStacks = itemStacks;
+
+        this.itemStacks = new ArrayList<>(itemStacks);
+
+        while(this.itemStacks.size() < 9)
+            this.itemStacks.add(ItemStack.EMPTY);
     }
 
     public SetAutoCrafterPatternInputSlotsC2SPacket(FriendlyByteBuf buffer) {
