@@ -79,6 +79,9 @@
   "block.energizedpower.copper_cable": "Kupferkabel",
   "item.energizedpower.copper_cable": "Kupferkabel",
 
+  "block.energizedpower.gold_cable": "Goldkabel",
+  "item.energizedpower.gold_cable": "Goldkabel",
+
   "block.energizedpower.energized_copper_cable": "Energetisiertes Kupferkabel",
   "item.energizedpower.energized_copper_cable": "Energetisiertes Kupferkabel",
 
