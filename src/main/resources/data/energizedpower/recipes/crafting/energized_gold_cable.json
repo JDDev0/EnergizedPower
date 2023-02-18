@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "energizedpower:cable_insulator"
+    },
+    "E": {
+      "item": "energizedpower:energized_gold_ingot"
+    }
+  },
+  "pattern": [
+    "IEI",
+    "IEI",
+    "IEI"
+  ],
+  "result": {
+    "item": "energizedpower:energized_gold_cable",
+    "count": 3
+  }
+}
