@@ -38,10 +38,16 @@ public final class ModBlocks {
     public static final CableBlock GOLD_CABLE = registerBlock("gold_cable",
             new CableBlock(CableBlock.Tier.TIER_GOLD));
     public static final Item GOLD_CABLE_ITEM = createCableBlockItem("gold_cable", GOLD_CABLE);
+
     public static final CableBlock ENERGIZED_COPPER_CABLE = registerBlock("energized_copper_cable",
             new CableBlock(CableBlock.Tier.TIER_ENERGIZED_COPPER));
     public static final Item ENERGIZED_COPPER_CABLE_ITEM = createCableBlockItem("energized_copper_cable",
             ENERGIZED_COPPER_CABLE);
+
+    public static final CableBlock ENERGIZED_GOLD_CABLE = registerBlock("energized_gold_cable",
+            new CableBlock(CableBlock.Tier.TIER_ENERGIZED_GOLD));
+    public static final Item ENERGIZED_GOLD_CABLE_ITEM = createCableBlockItem("energized_gold_cable",
+            ENERGIZED_GOLD_CABLE);
 
     private static Item createTransformerBlockItem(String name, TransformerBlock block) {
         return Registry.register(Registry.ITEM, new Identifier(EnergizedPowerMod.MODID, name),

@@ -1,0 +1,31 @@
+{
+  "multipart": [
+    {
+      "apply": { "model": "energizedpower:block/energized_gold_cable_core" }
+    },
+    {
+      "when": { "up": "true" },
+      "apply": { "model": "energizedpower:block/energized_gold_cable_side", "x": 270 }
+    },
+    {
+      "when": { "down": "true" },
+      "apply": { "model": "energizedpower:block/energized_gold_cable_side", "x": 90 }
+    },
+    {
+      "when": { "north": "true" },
+      "apply": { "model": "energizedpower:block/energized_gold_cable_side" }
+    },
+    {
+      "when": { "south": "true" },
+      "apply": { "model": "energizedpower:block/energized_gold_cable_side", "x": 180 }
+    },
+    {
+      "when": { "east": "true" },
+      "apply": { "model": "energizedpower:block/energized_gold_cable_side", "y": 90}
+    },
+    {
+      "when": { "west": "true" },
+      "apply": { "model": "energizedpower:block/energized_gold_cable_side", "y": 270}
+    }
+  ]
+}
