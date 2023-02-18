@@ -76,6 +76,10 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
         addDataSlots(this.data);
     }
 
+    public Container getPatternSlots() {
+        return patternSlots;
+    }
+
     int getEnergy() {
         return data.get(2);
     }
