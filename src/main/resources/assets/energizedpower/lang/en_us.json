@@ -95,6 +95,9 @@
   "block.energizedpower.transformer_1_to_n": "Transformer (1 to n)",
   "item.energizedpower.transformer_1_to_n": "Transformer (1 to n)",
 
+  "block.energizedpower.transformer_3_to_3": "Transformer (3 to 3)",
+  "item.energizedpower.transformer_3_to_3": "Transformer (3 to 3)",
+
   "block.energizedpower.transformer_n_to_1": "Transformer (n to 1)",
   "item.energizedpower.transformer_n_to_1": "Transformer (n to 1)",
 

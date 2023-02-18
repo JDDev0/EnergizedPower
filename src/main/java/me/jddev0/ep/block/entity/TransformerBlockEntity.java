@@ -29,6 +29,7 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
     public static BlockEntityType<TransformerBlockEntity> getEntityTypeFromType(TransformerBlock.Type type) {
         return switch(type) {
             case TYPE_1_TO_N -> ModBlockEntities.TRANSFORMER_1_TO_N_ENTITY;
+            case TYPE_3_TO_3 -> ModBlockEntities.TRANSFORMER_3_TO_3_ENTITY;
             case TYPE_N_TO_1 -> ModBlockEntities.TRANSFORMER_N_TO_1_ENTITY;
         };
     }
@@ -67,13 +68,24 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
 
         Direction facing = getCachedState().get(TransformerBlock.FACING);
 
-        EnergyStorage singleSide = type == TransformerBlock.Type.TYPE_1_TO_N?energyStorageInsert:energyStorageExtract;
-        EnergyStorage multipleSide = type == TransformerBlock.Type.TYPE_1_TO_N?energyStorageExtract:energyStorageInsert;
+        return switch(type) {
+            case TYPE_1_TO_N, TYPE_N_TO_1 -> {
+                EnergyStorage singleSide = type == TransformerBlock.Type.TYPE_1_TO_N?energyStorageInsert:energyStorageExtract;
+                EnergyStorage multipleSide = type == TransformerBlock.Type.TYPE_1_TO_N?energyStorageExtract:energyStorageInsert;
 
-        if(facing == side)
-            return singleSide;
+                if(facing == side)
+                    yield singleSide;
 
-        return multipleSide;
+                yield multipleSide;
+            }
+            case TYPE_3_TO_3 -> {
+                if(facing.rotateCounterclockwise(Direction.Axis.X) == side || facing.rotateCounterclockwise(Direction.Axis.Y) == side
+                        || facing.rotateCounterclockwise(Direction.Axis.Z) == side)
+                    yield energyStorageInsert;
+                else
+                    yield energyStorageExtract;
+            }
+        };
     }
 
     @Override
