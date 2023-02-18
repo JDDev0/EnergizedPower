@@ -48,6 +48,7 @@ dependencies {
 
 	// REI integration
 	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:9.1.587"
+	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:9.1.587"
 }
 
 processResources {

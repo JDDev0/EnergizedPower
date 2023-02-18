@@ -4,6 +4,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.networking.packet.OpenEnergizedPowerBookS2CPacket;
 import me.jddev0.ep.networking.packet.PopEnergizedPowerBookFromLecternC2SPacket;
+import me.jddev0.ep.networking.packet.SetAutoCrafterPatternInputSlotsC2SPacket;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -16,6 +17,7 @@ public final class ModMessages {
     public static Identifier ENERGY_SYNC_ID = new Identifier(EnergizedPowerMod.MODID, "energy_sync");
     public static Identifier OPEN_ENERGIZED_POWER_BOOK_ID = new Identifier(EnergizedPowerMod.MODID, "open_energized_power_book");
     public static Identifier POP_ENERGIZED_POWER_BOOK_FROM_LECTERN_ID = new Identifier(EnergizedPowerMod.MODID, "pop_energized_power_book_from_lectern");
+    public static Identifier SET_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID = new Identifier(EnergizedPowerMod.MODID, "set_auto_crafter_pattern_input_slots_id");
 
     private ModMessages() {}
 
@@ -27,6 +29,8 @@ public final class ModMessages {
 
     public static void registerPacketsC2S() {
         ServerPlayNetworking.registerGlobalReceiver(POP_ENERGIZED_POWER_BOOK_FROM_LECTERN_ID, PopEnergizedPowerBookFromLecternC2SPacket::receive);
+
+        ServerPlayNetworking.registerGlobalReceiver(SET_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID, SetAutoCrafterPatternInputSlotsC2SPacket::receive);
     }
 
     public static void broadcastServerPacket(MinecraftServer server, Identifier channelName, PacketByteBuf buf) {
