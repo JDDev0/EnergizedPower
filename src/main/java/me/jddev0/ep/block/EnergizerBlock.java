@@ -12,6 +12,7 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
@@ -100,7 +101,25 @@ public class EnergizerBlock extends BlockWithEntity {
     @Override
     public void randomDisplayTick(BlockState state, World level, BlockPos blockPos, Random randomSource) {
         if(state.get(LIT)) {
-            //TODO animate (See lightning generator)
+            double x = blockPos.getX() + .5;
+            double y = blockPos.getY() + .4;
+            double z = blockPos.getZ() + .5;
+
+            Direction facing = state.get(FACING);
+            for(Direction direction:Direction.values()) {
+                if(direction.getAxis() == Direction.Axis.Y)
+                    continue;
+
+                for(int i = 0;i < (direction == facing?2:1);i++) {
+                    double dxz = randomSource.nextDouble() * .6 - .3;
+
+                    double dx = direction.getAxis() == Direction.Axis.X?direction.getOffsetX() * .52:dxz;
+                    double dy = randomSource.nextDouble() * 6. / 16.;
+                    double dz = direction.getAxis() == Direction.Axis.Z?direction.getOffsetZ() * .52:dxz;
+
+                    level.addParticle(ParticleTypes.ELECTRIC_SPARK, x + dx, y + dy, z + dz, 0., 0., 0.);
+                }
+            }
         }
     }
 
