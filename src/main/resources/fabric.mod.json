@@ -23,7 +23,7 @@
 		"client": [
 			"me.jddev0.ep.EnergizedPowerModClient"
 		],
-		"rei_client": [
+		"rei_plugins": [
 			"me.jddev0.ep.integration.rei.EnergizedPowerREIPlugin"
 		]
 	},
