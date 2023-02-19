@@ -4,36 +4,53 @@ Download on CurseForge: [Energized Power](https://www.curseforge.com/minecraft/m
 Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power)
 
 ## Features
-This mod adds the following machines:
-- Auto Crafter
-- Crusher
-- Sawmill
-- Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
-- Charger
-- Charging Station
-- Uncharger
-- Energizer
 
-All machines support auto-insert and auto-extract of items from all block faces.
+### Machines
 
-There are also blocks for producing energy:
-- Coal Engine
-- Lightning Generator
-- Solar Panels (5 Tiers)
+* Auto Crafter
+* Crusher
+* Sawmill
+* Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
+* Charger
+* Uncharger
+* Charging Station
+* Energizer
+* Coal Engine
+* Lightning Generator
+* Solar Panels (5 Tiers)
+* Transformers (Can be used to connect different tiers of cables) (1 to n, 3 to 3, and n to 1)
 
-Energy can be transported with Copper Cables and Energized Copper Cables.
+Every machine supports auto-insert and auto-extract of items from all block faces.
 
-Transformers can be used to connect different types of cables.
-There are three types of transformers (1 to n: 1 input, 5 outputs), (3 to 3: 3 inputs, 3 outputs), and (n to 1: 1 output, 5 inputs).
+### Energy transportation
 
-This mod adds the following items:
-- Batteries (8 Tiers)
-- Energy Analyzer
-- Inventory Coal Engine
+* Cables (4 Tiers: Copper, Gold, Energized Copper, and Energized Gold)
 
-The electrician villager profession and house are added.
+### Energy Items
 
-There is also a guide book
+* Energy Analyzer (Can be used to debug energy blocks)
+* Batteries (8 Tiers)
+* Inventory Coal Engine
+
+### Integrations
+
+* JEI and REI support (*Forge edition only*)
+
+### World generation
+
+* Electrician villager
+* Electrician villager house (Can be found in every vanilla village)
+
+### Guide book
+
+* The Energized Power Book contains information for all the blocks and items of this mod
+
+### Translations
+
+* English
+* German
+
+## Information
 
 **The fabric edition of this mod requires the Fabric API.**
 
