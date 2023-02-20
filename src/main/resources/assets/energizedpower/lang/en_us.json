@@ -269,6 +269,9 @@
   "advancements.energizedpower.energizer.title": "More efficient energizing",
   "advancements.energizedpower.energizer.description": "This machine can energize your copper ingots much faster and more efficient than the charger.",
 
+  "advancements.energizedpower.lightning_generator.title": "Cloud power",
+  "advancements.energizedpower.lightning_generator.description": "Enables you to extract energy from lightning bolts.",
+
   "advancements.energizedpower.energy_analyzer.title": "Master of Analysis",
   "advancements.energizedpower.energy_analyzer.description": "Analyze every energy block - even if they have no GUI interface!",
 
