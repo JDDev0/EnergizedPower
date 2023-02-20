@@ -269,6 +269,9 @@
   "advancements.energizedpower.energizer.title": "Effizenteres Energetisieren",
   "advancements.energizedpower.energizer.description": "Diese Maschine kann Kupferbarren viel schneller und effizenter Energetisieren als der Lader.",
 
+  "advancements.energizedpower.lightning_generator.title": "Cloud-Strom",
+  "advancements.energizedpower.lightning_generator.description": "Es ermöglicht dir Energie von Blitzen zu extrahieren.",
+
   "advancements.energizedpower.energy_analyzer.title": "Meister der Analyse",
   "advancements.energizedpower.energy_analyzer.description": "Analysiere Energie-Blöcke - auch diese, ohne GUI-Interface!",
 
