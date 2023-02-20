@@ -303,6 +303,9 @@
 
   "book.energizedpower.page.welcome.title": "Welcome to Energized Power!",
   "book.energizedpower.page.welcome.1": "This mod adds many items and machines related to energy.",
+  "book.energizedpower.page.welcome.2": "Official Energized Power wiki",
+  "book.energizedpower.page.welcome.3": "You have found a bug or want to suggest a feature? Do it here",
+  "book.energizedpower.page.welcome.3.link": "Issues",
 
   "book.energizedpower.page.credits.title": "Credits",
   "book.energizedpower.page.credits.subtitle": "Thank you for contributing to Energized Power!",
