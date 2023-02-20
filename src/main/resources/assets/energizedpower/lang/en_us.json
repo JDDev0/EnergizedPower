@@ -103,7 +103,7 @@
   "block.energizedpower.transformer_n_to_1": "Transformer (n to 1)",
   "item.energizedpower.transformer_n_to_1": "Transformer (n to 1)",
 
-  "tooltip.energizedpower.transformer.txt.shift.1": "This block can be used to connect different types of cables.",
+  "tooltip.energizedpower.transformer.txt.shift.1": "This block can be used to connect different tiers of cables.",
   "tooltip.energizedpower.transformer.txt.shift.2": "The larger, darker, diamond shaped sides are inputs.",
   "tooltip.energizedpower.transformer.txt.shift.3": "The smaller, brighter, square shaped sides are outputs.",
 
@@ -252,7 +252,7 @@
   "advancements.energizedpower.energized_gold_cable.description": "This cable is the best of the best.",
 
   "advancements.energizedpower.transformers.title": "Transformers",
-  "advancements.energizedpower.transformers.description": "Can connect to different types of cables.",
+  "advancements.energizedpower.transformers.description": "Can connect to different tiers of cables.",
 
   "advancements.energizedpower.energized_copper_ingot.title": "Energized",
   "advancements.energizedpower.energized_copper_ingot.description": "Energized Copper is better Copper.",
@@ -365,7 +365,7 @@
   "book.energizedpower.page.cables.2": "There are four types of cables.",
   "book.energizedpower.page.cables.3": "A transformer is required to connect cables of different tiers.",
 
-  "book.energizedpower.page.transformers_1.1": "Transformers can be used to connect different types of cables.",
+  "book.energizedpower.page.transformers_1.1": "Transformers can be used to connect different tiers of cables.",
   "book.energizedpower.page.transformers_1.2": "The larger, darker, diamond shaped sides are inputs.",
   "book.energizedpower.page.transformers_1.3": "The smaller, brighter, square shaped sides are outputs.",
 
