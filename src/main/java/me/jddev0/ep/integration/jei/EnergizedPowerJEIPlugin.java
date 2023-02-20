@@ -44,6 +44,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         );
     }
 
+    @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
         registration.addRecipeTransferHandler(new AutoCrafterTransferHandler(registration.getTransferHelper()),
                 VanillaRecipeCategoryUid.CRAFTING);
