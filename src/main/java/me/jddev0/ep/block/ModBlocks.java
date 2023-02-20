@@ -32,8 +32,8 @@ public final class ModBlocks {
     public static final RegistryObject<Item> SILICON_BLOCK_ITEM = createBlockItem("silicon_block", SILICON_BLOCK);
 
     public static final RegistryObject<Block> SAWDUST_BLOCK = BLOCKS.register("sawdust_block",
-            () -> new Block(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOD).
-                    strength(2.0f, 3.0f).sound(SoundType.WOOD)));
+            () -> new SimpleFlammableBlock(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOD).
+                    strength(2.0f, 3.0f).sound(SoundType.WOOD), 5, 20));
     public static final RegistryObject<Item> SAWDUST_BLOCK_ITEM = createBlockItem("sawdust_block", SAWDUST_BLOCK);
 
     public static final RegistryObject<CableBlock> COPPER_CABLE = BLOCKS.register("copper_cable",
