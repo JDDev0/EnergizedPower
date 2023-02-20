@@ -13,6 +13,57 @@
       "color": "black",
       "bold": true,
       "font": "uniform"
+    },
+    {
+      "text": "\n",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "translate": "book.energizedpower.page.welcome.2",
+          "color": "blue",
+          "underlined": true,
+          "clickEvent": {
+            "action": "open_url",
+            "value": "https://github.com/JDDev0/EnergizedPower/wiki"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.tooltip.link"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "text": "\n",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "translate": "book.energizedpower.page.welcome.3",
+          "color": "black"
+        },
+        ": ",
+        {
+          "translate": "book.energizedpower.page.welcome.3.link",
+          "color": "blue",
+          "underlined": true,
+          "clickEvent": {
+            "action": "open_url",
+            "value": "https://github.com/JDDev0/EnergizedPower/issues"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.tooltip.link"
+            }
+          }
+        }
+      ]
     }
   ]
 }
