@@ -34,7 +34,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 ### Integrations
 
-* JEI (*Forge edition only*) and REI support
+* JEI (*Forge edition only*), EMI (*Fabric edition only*) , and REI support
 
 ### World generation
 
