@@ -175,6 +175,13 @@
   "recipes.energizedpower.in_world_crafting": "In-World Crafting",
   "recipes.energizedpower.transfer.too_large": "This recipe is to large for this container!",
 
+  "emi.category.energizedpower.charger": "Charger",
+  "emi.category.energizedpower.crusher": "Crusher",
+  "emi.category.energizedpower.sawmill": "Sawmill",
+  "emi.category.energizedpower.energizer": "Energizer",
+  "emi.category.energizedpower.dispenser": "Dispenser",
+  "emi.category.energizedpower.in_world_crafting": "In-World Crafting",
+
 
   "advancements.energizedpower.advanced_machine_frame.title": "Advanced Machines",
   "advancements.energizedpower.advanced_machine_frame.description": "More advanced machines need this base crafting item.",
