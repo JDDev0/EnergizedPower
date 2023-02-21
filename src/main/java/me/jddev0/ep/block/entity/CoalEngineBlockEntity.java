@@ -224,7 +224,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
                 if(blockEntity.progress == 0) {
                     //Remove item instantly else the item could be removed before finished and energy was cheated
 
-                    if(item.getRecipeRemainder() != null)
+                    if(!item.getRecipeRemainder().isEmpty())
                         blockEntity.internalInventory.setStack(0, item.getRecipeRemainder());
                     else
                         blockEntity.internalInventory.removeStack(0, 1);
@@ -273,7 +273,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
         if(AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(item.getItem(), -1) <= 0)
             return false;
 
-        return item.getRecipeRemainder() == null || item.getCount() == 1;
+        return item.getRecipeRemainder().isEmpty() || item.getCount() == 1;
     }
 
     @Override
