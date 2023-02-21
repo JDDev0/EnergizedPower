@@ -49,7 +49,7 @@ public class UnchargerScreen extends AbstractContainerScreen<UnchargerMenu> {
     }
 
     private void renderEnergyRequirementBar(PoseStack poseStack, int x, int y) {
-        int pos = menu.getEnergyRequirementBarPos();
+        int pos = menu.getEnergyProductionBarPos();
         if(pos > 0)
             blit(poseStack, x + 8, y + 17 + 52 - pos, 176, 52, 16, 1);
     }
