@@ -8,6 +8,7 @@ import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.SawmillRecipe;
 import me.jddev0.ep.screen.SawmillMenu;
+import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -129,10 +130,10 @@ public class SawmillBlockEntity extends BlockEntity implements ExtendedScreenHan
                 return switch(index) {
                     case 0 -> SawmillBlockEntity.this.progress;
                     case 1 -> SawmillBlockEntity.this.maxProgress;
-                    case 2 -> (int)SawmillBlockEntity.this.internalEnergyStorage.amount;
-                    case 3 -> (int)SawmillBlockEntity.this.internalEnergyStorage.capacity;
-                    case 4 -> (int)SawmillBlockEntity.this.energyConsumptionLeft;
-                    case 5 -> hasEnoughEnergy?1:0;
+                    case 2, 3, 4, 5 -> ByteUtils.get2Bytes(SawmillBlockEntity.this.internalEnergyStorage.amount, index - 2);
+                    case 6, 7, 8, 9 -> ByteUtils.get2Bytes(SawmillBlockEntity.this.internalEnergyStorage.capacity, index - 6);
+                    case 10, 11, 12, 13 -> ByteUtils.get2Bytes(SawmillBlockEntity.this.energyConsumptionLeft, index - 10);
+                    case 14 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -142,14 +143,15 @@ public class SawmillBlockEntity extends BlockEntity implements ExtendedScreenHan
                 switch(index) {
                     case 0 -> SawmillBlockEntity.this.progress = value;
                     case 1 -> SawmillBlockEntity.this.maxProgress = value;
-                    case 2 -> SawmillBlockEntity.this.internalEnergyStorage.amount = value;
-                    case 3, 4, 5 -> {}
+                    case 2, 3, 4, 5 -> SawmillBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
+                            SawmillBlockEntity.this.internalEnergyStorage.amount, (short)value, index - 2);
+                    case 6, 7, 8, 9, 10, 11, 12, 13, 14 -> {}
                 }
             }
 
             @Override
             public int size() {
-                return 6;
+                return 15;
             }
         };
     }
