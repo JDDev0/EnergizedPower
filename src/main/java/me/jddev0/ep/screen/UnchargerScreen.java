@@ -50,7 +50,7 @@ public class UnchargerScreen extends HandledScreen<UnchargerMenu> {
     }
 
     private void renderEnergyRequirementBar(MatrixStack poseStack, int x, int y) {
-        int pos = handler.getEnergyRequirementBarPos();
+        int pos = handler.getEnergyProductionBarPos();
         if(pos > 0)
             drawTexture(poseStack, x + 8, y + 17 + 52 - pos, 176, 52, 16, 1);
     }

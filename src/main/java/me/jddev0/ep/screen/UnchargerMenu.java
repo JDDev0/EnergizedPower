@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.entity.UnchargerBlockEntity;
 import me.jddev0.ep.energy.EnergyStorageMenuPacketUpdate;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -24,7 +25,7 @@ public class UnchargerMenu extends ScreenHandler implements EnergyStorageMenuPac
 
     public UnchargerMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
         this(id, inv.player.world.getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1),
-                new ArrayPropertyDelegate(6));
+                new ArrayPropertyDelegate(15));
     }
 
     public UnchargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
@@ -46,33 +47,33 @@ public class UnchargerMenu extends ScreenHandler implements EnergyStorageMenuPac
         addProperties(this.data);
     }
 
-    int getEnergy() {
-        return data.get(2);
+    long getEnergy() {
+        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3), (short)data.get(4), (short)data.get(5));
     }
 
-    int getCapacity() {
-        return data.get(3);
+    long getCapacity() {
+        return ByteUtils.from2ByteChunks((short)data.get(6), (short)data.get(7), (short)data.get(8), (short)data.get(9));
     }
 
-    int getEnergyProduction() {
-        return data.get(4);
+    long getEnergyProduction() {
+        return ByteUtils.from2ByteChunks((short)data.get(10), (short)data.get(11), (short)data.get(12), (short)data.get(13));
     }
 
     public int getScaledEnergyMeterPos() {
-        int energy = getEnergy();
-        int capacity = getCapacity();
+        long energy = getEnergy();
+        long capacity = getCapacity();
         int energyBarSize = 52;
 
-        return (energy == 0 || capacity == 0)?0:Math.max(1, energy * energyBarSize / capacity);
+        return (int)((energy == 0 || capacity == 0)?0:Math.max(1, energy * energyBarSize / capacity));
     }
 
-    public int getEnergyRequirementBarPos() {
-        int energyProduction = getEnergyProduction();
-        int energy = getEnergy();
-        int capacity = getCapacity();
+    public int getEnergyProductionBarPos() {
+        long energyProduction = getEnergyProduction();
+        long energy = getEnergy();
+        long capacity = getCapacity();
         int energyBarSize = 52;
 
-        return (energyProduction <= 0 || capacity == 0)?0:(Math.min(energy + energyProduction, capacity - 1) * energyBarSize / capacity + 1);
+        return (int)((energyProduction <= 0 || capacity == 0)?0:(Math.min(energy + energyProduction, capacity - 1) * energyBarSize / capacity + 1));
     }
 
     @Override
@@ -134,11 +135,13 @@ public class UnchargerMenu extends ScreenHandler implements EnergyStorageMenuPac
 
     @Override
     public void setEnergy(long energy) {
-        data.set(2, (int)energy);
+        for(int i = 0;i < 4;i++)
+            data.set(i + 2, ByteUtils.get2Bytes(energy, i));
     }
 
     @Override
     public void setCapacity(long capacity) {
-        data.set(3, (int)capacity);
+        for(int i = 0;i < 4;i++)
+            data.set(i + 6, ByteUtils.get2Bytes(capacity, i));
     }
 }

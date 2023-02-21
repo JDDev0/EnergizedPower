@@ -5,6 +5,7 @@ import me.jddev0.ep.energy.EnergyStorageMenuPacketUpdate;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.PatternResultSlot;
 import me.jddev0.ep.inventory.PatternSlot;
+import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -30,7 +31,7 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageMenuP
 
     public AutoCrafterMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
         this(id, inv.player.world.getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(18),
-                new SimpleInventory(9), new SimpleInventory(1), new ArrayPropertyDelegate(6));
+                new SimpleInventory(9), new SimpleInventory(1), new ArrayPropertyDelegate(15));
     }
 
     public AutoCrafterMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, Inventory patternSlots,
@@ -83,16 +84,16 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageMenuP
         return patternSlots;
     }
 
-    int getEnergy() {
-        return data.get(2);
+    long getEnergy() {
+        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3), (short)data.get(4), (short)data.get(5));
     }
 
-    int getCapacity() {
-        return data.get(3);
+    long getCapacity() {
+        return ByteUtils.from2ByteChunks((short)data.get(6), (short)data.get(7), (short)data.get(8), (short)data.get(9));
     }
 
-    int getEnergyRequirement() {
-        return data.get(4);
+    long getEnergyRequirement() {
+        return ByteUtils.from2ByteChunks((short)data.get(10), (short)data.get(11), (short)data.get(12), (short)data.get(13));
     }
 
     /**
@@ -103,7 +104,7 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageMenuP
     }
 
     public boolean isCrafting() {
-        return data.get(0) > 0 && data.get(5) == 1;
+        return data.get(0) > 0 && data.get(14) == 1;
     }
 
     public int getScaledProgressArrowSize() {
@@ -115,19 +116,19 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageMenuP
     }
 
     public int getScaledEnergyMeterPos() {
-        int energy = getEnergy();
-        int capacity = getCapacity();
+        long energy = getEnergy();
+        long capacity = getCapacity();
         int energyBarSize = 52;
 
-        return (energy == 0 || capacity == 0)?0:Math.max(1, energy * energyBarSize / capacity);
+        return (int)((energy == 0 || capacity == 0)?0:Math.max(1, energy * energyBarSize / capacity));
     }
 
     public int getEnergyRequirementBarPos() {
-        int energyRequirement = getEnergyRequirement();
-        int capacity = getCapacity();
+        long energyRequirement = getEnergyRequirement();
+        long capacity = getCapacity();
         int energyBarSize = 52;
 
-        return (energyRequirement <= 0 || capacity == 0)?0:(Math.min(energyRequirement, capacity - 1) * energyBarSize / capacity + 1);
+        return (int)((energyRequirement <= 0 || capacity == 0)?0:(Math.min(energyRequirement, capacity - 1) * energyBarSize / capacity + 1));
     }
 
     @Override
@@ -192,11 +193,13 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageMenuP
 
     @Override
     public void setEnergy(long energy) {
-        data.set(2, (int)energy);
+        for(int i = 0;i < 4;i++)
+            data.set(i + 2, ByteUtils.get2Bytes(energy, i));
     }
 
     @Override
     public void setCapacity(long capacity) {
-        data.set(3, (int)capacity);
+        for(int i = 0;i < 4;i++)
+            data.set(i + 6, ByteUtils.get2Bytes(capacity, i));
     }
 }
