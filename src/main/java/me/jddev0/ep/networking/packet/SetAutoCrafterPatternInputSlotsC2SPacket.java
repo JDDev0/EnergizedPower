@@ -24,23 +24,24 @@ public final class SetAutoCrafterPatternInputSlotsC2SPacket {
     public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
                                PacketByteBuf buf, PacketSender responseSender) {
         BlockPos pos = buf.readBlockPos();
-
         List<ItemStack> itemStacks = new ArrayList<>(9);
         for(int i = 0;i < 9;i++)
             itemStacks.add(buf.readItemStack());
 
-        BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
-        if(!(blockEntity instanceof AutoCrafterBlockEntity autoCrafterBlockEntity))
-            return;
+        server.execute(() -> {
+            BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
+            if(!(blockEntity instanceof AutoCrafterBlockEntity autoCrafterBlockEntity))
+                return;
 
-        ScreenHandler menu = player.currentScreenHandler;
+            ScreenHandler menu = player.currentScreenHandler;
 
-        if(!(menu instanceof AutoCrafterMenu autoCrafterMenu))
-            return;
+            if(!(menu instanceof AutoCrafterMenu autoCrafterMenu))
+                return;
 
-        for(int i = 0;i < itemStacks.size();i++)
-            autoCrafterMenu.getPatternSlots().setStack(i, itemStacks.get(i));
+            for(int i = 0;i < itemStacks.size();i++)
+                autoCrafterMenu.getPatternSlots().setStack(i, itemStacks.get(i));
 
-        autoCrafterBlockEntity.resetProgressAndMarkAsChanged();
+            autoCrafterBlockEntity.resetProgressAndMarkAsChanged();
+        });
     }
 }

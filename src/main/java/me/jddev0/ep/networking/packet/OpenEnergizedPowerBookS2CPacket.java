@@ -9,16 +9,21 @@ import net.minecraft.block.entity.LecternBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.math.BlockPos;
 
 public final class OpenEnergizedPowerBookS2CPacket {
     private OpenEnergizedPowerBookS2CPacket() {}
 
     public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
-        BlockEntity blockEntity = client.world.getBlockEntity(buf.readBlockPos());
+        BlockPos pos = buf.readBlockPos();
 
-        if(blockEntity instanceof LecternBlockEntity lecternBlockEntity) {
-            showBookViewScreen(client, lecternBlockEntity);
-        }
+        client.execute(() -> {
+            BlockEntity blockEntity = client.world.getBlockEntity(pos);
+
+            if(blockEntity instanceof LecternBlockEntity lecternBlockEntity) {
+                showBookViewScreen(client, lecternBlockEntity);
+            }
+        });
     }
 
     @Environment(EnvType.CLIENT)
