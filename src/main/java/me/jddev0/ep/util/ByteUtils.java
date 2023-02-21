@@ -12,11 +12,11 @@ public final class ByteUtils {
     }
 
     public static int with2Bytes(int value, short c, int index) {
-        return value & ~(0xFFFF << (16 * index)) | ((c & 0xFFFF) << (16 * index));
+        return (value & ~(0xFFFF << (16 * index))) | ((c & 0xFFFF) << (16 * index));
     }
 
     public static long with2Bytes(long value, short c, int index) {
-        return value & ~(((long)0xFFFF) << (16 * index)) | (((long)c & 0xFFFF) << (16 * index));
+        return (value & ~(((long)0xFFFF) << (16 * index))) | (((long)c & 0xFFFF) << (16 * index));
     }
 
     public static int from2ByteChunks(short c1, short c2) {
