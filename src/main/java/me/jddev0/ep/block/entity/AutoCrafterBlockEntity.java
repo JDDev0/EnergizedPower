@@ -6,6 +6,7 @@ import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.AutoCrafterMenu;
+import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -141,10 +142,10 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 return switch(index) {
                     case 0 -> AutoCrafterBlockEntity.this.progress;
                     case 1 -> AutoCrafterBlockEntity.this.maxProgress;
-                    case 2 -> (int)AutoCrafterBlockEntity.this.internalEnergyStorage.amount;
-                    case 3 -> (int)AutoCrafterBlockEntity.this.internalEnergyStorage.capacity;
-                    case 4 -> (int)AutoCrafterBlockEntity.this.energyConsumptionLeft;
-                    case 5 -> hasEnoughEnergy?1:0;
+                    case 2, 3, 4, 5 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.internalEnergyStorage.amount, index - 2);
+                    case 6, 7, 8, 9 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.internalEnergyStorage.capacity, index - 6);
+                    case 10, 11, 12, 13 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.energyConsumptionLeft, index - 10);
+                    case 14 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -154,14 +155,15 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 switch(index) {
                     case 0 -> AutoCrafterBlockEntity.this.progress = value;
                     case 1 -> AutoCrafterBlockEntity.this.maxProgress = value;
-                    case 2 -> AutoCrafterBlockEntity.this.internalEnergyStorage.amount = value;
-                    case 3, 4, 5 -> {}
+                    case 2, 3, 4, 5 -> AutoCrafterBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
+                            AutoCrafterBlockEntity.this.internalEnergyStorage.amount, (short)value, index - 2);
+                    case 6, 7, 8, 9, 10, 11, 12, 13, 14 -> {}
                 }
             }
 
             @Override
             public int size() {
-                return 6;
+                return 15;
             }
         };
     }
