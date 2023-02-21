@@ -5,6 +5,7 @@ import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.energy.EnergyStorageMenuPacketUpdate;
 import me.jddev0.ep.inventory.PatternResultSlot;
 import me.jddev0.ep.inventory.PatternSlot;
+import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -27,7 +28,7 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
     private final Container patternResultSlots;
 
     public AutoCrafterMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainer(9), new SimpleContainer(1), new SimpleContainerData(6));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainer(9), new SimpleContainer(1), new SimpleContainerData(9));
     }
 
     public AutoCrafterMenu(int id, Inventory inv, BlockEntity blockEntity, Container patternSlots, Container patternResultSlots, ContainerData data) {
@@ -40,8 +41,6 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
         this.blockEntity = (AutoCrafterBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
-
-        this.data.set(3, this.blockEntity.getCapacity());
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
@@ -81,15 +80,15 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
     }
 
     int getEnergy() {
-        return data.get(2);
+        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
     }
 
     int getCapacity() {
-        return data.get(3);
+        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
     }
 
     int getEnergyRequirement() {
-        return data.get(4);
+        return ByteUtils.from2ByteChunks((short)data.get(6), (short)data.get(7));
     }
 
     /**
@@ -100,7 +99,7 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
     }
 
     public boolean isCrafting() {
-        return data.get(0) > 0 && data.get(5) == 1;
+        return data.get(0) > 0 && data.get(8) == 1;
     }
 
     public int getScaledProgressArrowSize() {
@@ -189,11 +188,13 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
 
     @Override
     public void setEnergy(int energy) {
-        data.set(2, energy);
+        for(int i = 0;i < 2;i++)
+            data.set(i + 2, ByteUtils.get2Bytes(energy, i));
     }
 
     @Override
     public void setCapacity(int capacity) {
-        data.set(3, capacity);
+        for(int i = 0;i < 2;i++)
+            data.set(i + 4, ByteUtils.get2Bytes(capacity, i));
     }
 }

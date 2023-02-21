@@ -8,6 +8,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.recipe.SawmillRecipe;
 import me.jddev0.ep.screen.SawmillMenu;
+import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -97,10 +98,10 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
                 return switch(index) {
                     case 0 -> SawmillBlockEntity.this.progress;
                     case 1 -> SawmillBlockEntity.this.maxProgress;
-                    case 2 -> SawmillBlockEntity.this.energyStorage.getEnergy();
-                    case 3 -> SawmillBlockEntity.this.energyStorage.getCapacity();
-                    case 4 -> SawmillBlockEntity.this.energyConsumptionLeft;
-                    case 5 -> hasEnoughEnergy?1:0;
+                    case 2, 3 -> ByteUtils.get2Bytes(SawmillBlockEntity.this.energyStorage.getEnergy(), index - 2);
+                    case 4, 5 -> ByteUtils.get2Bytes(SawmillBlockEntity.this.energyStorage.getCapacity(), index - 4);
+                    case 6, 7 -> ByteUtils.get2Bytes(SawmillBlockEntity.this.energyConsumptionLeft, index - 6);
+                    case 8 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -110,15 +111,19 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
                 switch(index) {
                     case 0 -> SawmillBlockEntity.this.progress = value;
                     case 1 -> SawmillBlockEntity.this.maxProgress = value;
-                    case 2 -> SawmillBlockEntity.this.energyStorage.setEnergyWithoutUpdate(value);
-                    case 3 -> SawmillBlockEntity.this.energyStorage.setCapacityWithoutUpdate(value);
-                    case 4, 5 -> {}
+                    case 2, 3 -> SawmillBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
+                            SawmillBlockEntity.this.energyStorage.getEnergy(), (short)value, index - 2
+                    ));
+                    case 4, 5 -> SawmillBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
+                            SawmillBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 4
+                    ));
+                    case 6, 7, 8 -> {}
                 }
             }
 
             @Override
             public int getCount() {
-                return 6;
+                return 9;
             }
         };
     }
@@ -197,9 +202,6 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
     public static void tick(Level level, BlockPos blockPos, BlockState state, SawmillBlockEntity blockEntity) {
         if(level.isClientSide)
             return;
-
-        //Fix for players on server
-        blockEntity.energyStorage.setCapacity(blockEntity.energyStorage.getCapacity());
 
         if(hasRecipe(blockEntity)) {
             SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());

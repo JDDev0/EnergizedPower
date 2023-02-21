@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.CoalEngineBlockEntity;
 import me.jddev0.ep.energy.EnergyStorageMenuPacketUpdate;
+import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -19,7 +20,7 @@ public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStora
     private final ContainerData data;
 
     public CoalEngineMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(6));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
     }
 
     public CoalEngineMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
@@ -29,8 +30,6 @@ public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStora
         this.blockEntity = (CoalEngineBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
-
-        this.data.set(3, this.blockEntity.getCapacity());
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
@@ -43,15 +42,15 @@ public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStora
     }
 
     int getEnergy() {
-        return data.get(2);
+        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
     }
 
     int getCapacity() {
-        return data.get(3);
+        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
     }
 
     int getEnergyProduction() {
-        return data.get(4);
+        return ByteUtils.from2ByteChunks((short)data.get(6), (short)data.get(7));
     }
 
     /**
@@ -62,7 +61,7 @@ public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStora
     }
 
     public boolean isProducing() {
-        return data.get(0) > 0 && data.get(5) == 1;
+        return data.get(0) > 0 && data.get(8) == 1;
     }
 
     public int getScaledProgressFlameSize() {
@@ -149,11 +148,13 @@ public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStora
 
     @Override
     public void setEnergy(int energy) {
-        data.set(2, energy);
+        for(int i = 0;i < 2;i++)
+            data.set(i + 2, ByteUtils.get2Bytes(energy, i));
     }
 
     @Override
     public void setCapacity(int capacity) {
-        data.set(3, capacity);
+        for(int i = 0;i < 2;i++)
+            data.set(i + 4, ByteUtils.get2Bytes(capacity, i));
     }
 }

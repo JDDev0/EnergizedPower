@@ -6,6 +6,7 @@ import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.UnchargerMenu;
+import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -113,10 +114,10 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
             public int get(int index) {
                 return switch(index) {
                     case 0, 1 -> -1;
-                    case 2 -> UnchargerBlockEntity.this.energyStorage.getEnergy();
-                    case 3 -> UnchargerBlockEntity.this.energyStorage.getCapacity();
-                    case 4 -> UnchargerBlockEntity.this.energyProductionLeft;
-                    case 5 -> 1;
+                    case 2, 3 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.energyStorage.getEnergy(), index - 2);
+                    case 4, 5 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.energyStorage.getCapacity(), index - 4);
+                    case 6, 7 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.energyProductionLeft, index - 6);
+                    case 8 -> 1;
                     default -> 0;
                 };
             }
@@ -124,15 +125,19 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
             @Override
             public void set(int index, int value) {
                 switch(index) {
-                    case 2 -> UnchargerBlockEntity.this.energyStorage.setEnergyWithoutUpdate(value);
-                    case 3 -> UnchargerBlockEntity.this.energyStorage.setCapacityWithoutUpdate(value);
-                    case 0, 1, 4, 5 -> {}
+                    case 2, 3 -> UnchargerBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
+                            UnchargerBlockEntity.this.energyStorage.getEnergy(), (short)value, index - 2
+                    ));
+                    case 4, 5 -> UnchargerBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
+                            UnchargerBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 4
+                    ));
+                    case 0, 1, 6, 7, 8 -> {}
                 }
             }
 
             @Override
             public int getCount() {
-                return 6;
+                return 9;
             }
         };
     }
@@ -209,9 +214,6 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
     public static void tick(Level level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {
         if(level.isClientSide)
             return;
-
-        //Fix for players on server
-        blockEntity.energyStorage.setCapacity(blockEntity.energyStorage.getCapacity());
 
         if(blockEntity.hasRecipe()) {
             ItemStack stack = blockEntity.itemHandler.getStackInSlot(0);

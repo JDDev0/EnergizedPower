@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.EnergizerBlockEntity;
 import me.jddev0.ep.energy.EnergyStorageMenuPacketUpdate;
+import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -19,7 +20,7 @@ public class EnergizerMenu extends AbstractContainerMenu implements EnergyStorag
     private final ContainerData data;
 
     public EnergizerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(6));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
     }
 
     public EnergizerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
@@ -29,8 +30,6 @@ public class EnergizerMenu extends AbstractContainerMenu implements EnergyStorag
         this.blockEntity = (EnergizerBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
-
-        this.data.set(3, this.blockEntity.getCapacity());
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
@@ -44,15 +43,15 @@ public class EnergizerMenu extends AbstractContainerMenu implements EnergyStorag
     }
 
     int getEnergy() {
-        return data.get(2);
+        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
     }
 
     int getCapacity() {
-        return data.get(3);
+        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
     }
 
     int getEnergyRequirement() {
-        return data.get(4);
+        return ByteUtils.from2ByteChunks((short)data.get(6), (short)data.get(7));
     }
 
     /**
@@ -63,7 +62,7 @@ public class EnergizerMenu extends AbstractContainerMenu implements EnergyStorag
     }
 
     public boolean isCrafting() {
-        return data.get(0) > 0 && data.get(5) == 1;
+        return data.get(0) > 0 && data.get(8) == 1;
     }
 
     public int getScaledProgressArrowSize() {
@@ -150,11 +149,13 @@ public class EnergizerMenu extends AbstractContainerMenu implements EnergyStorag
 
     @Override
     public void setEnergy(int energy) {
-        data.set(2, energy);
+        for(int i = 0;i < 2;i++)
+            data.set(i + 2, ByteUtils.get2Bytes(energy, i));
     }
 
     @Override
     public void setCapacity(int capacity) {
-        data.set(3, capacity);
+        for(int i = 0;i < 2;i++)
+            data.set(i + 4, ByteUtils.get2Bytes(capacity, i));
     }
 }

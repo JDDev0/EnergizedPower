@@ -7,6 +7,7 @@ import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.CoalEngineMenu;
+import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -86,10 +87,10 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
                 return switch(index) {
                     case 0 -> CoalEngineBlockEntity.this.progress;
                     case 1 -> CoalEngineBlockEntity.this.maxProgress;
-                    case 2 -> CoalEngineBlockEntity.this.energyStorage.getEnergy();
-                    case 3 -> CoalEngineBlockEntity.this.energyStorage.getCapacity();
-                    case 4 -> CoalEngineBlockEntity.this.energyProductionLeft;
-                    case 5 -> hasEnoughCapacityForProduction?1:0;
+                    case 2, 3 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.energyStorage.getEnergy(), index - 2);
+                    case 4, 5 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.energyStorage.getCapacity(), index - 4);
+                    case 6, 7 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.energyProductionLeft, index - 6);
+                    case 8 -> hasEnoughCapacityForProduction?1:0;
                     default -> 0;
                 };
             }
@@ -99,15 +100,19 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
                 switch(index) {
                     case 0 -> CoalEngineBlockEntity.this.progress = value;
                     case 1 -> CoalEngineBlockEntity.this.maxProgress = value;
-                    case 2 -> CoalEngineBlockEntity.this.energyStorage.setEnergyWithoutUpdate(value);
-                    case 3 -> CoalEngineBlockEntity.this.energyStorage.setCapacityWithoutUpdate(value);
-                    case 4, 5 -> {}
+                    case 2, 3 -> CoalEngineBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
+                            CoalEngineBlockEntity.this.energyStorage.getEnergy(), (short)value, index - 2
+                    ));
+                    case 4, 5 -> CoalEngineBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
+                            CoalEngineBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 4
+                    ));
+                    case 6, 7, 8 -> {}
                 }
             }
 
             @Override
             public int getCount() {
-                return 6;
+                return 9;
             }
         };
     }
@@ -188,9 +193,6 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
     public static void tick(Level level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
         if(level.isClientSide)
             return;
-
-        //Fix for players on server
-        blockEntity.energyStorage.setCapacity(blockEntity.energyStorage.getCapacity());
 
         if(blockEntity.maxProgress > 0 || hasRecipe(blockEntity)) {
             SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
