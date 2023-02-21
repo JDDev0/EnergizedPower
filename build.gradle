@@ -22,6 +22,10 @@ repositories {
 		url "https://maven.shedaniel.me"
 	}
 
+	maven {
+		url "https://maven.terraformersmc.com/"
+	}
+
 	flatDir {
 		dir 'libs'
 	}
@@ -49,6 +53,9 @@ dependencies {
 	// REI integration
 	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:9.1.587"
 	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:9.1.587"
+
+	// EMI integration
+	modCompileOnly "dev.emi:emi:0.6.5+1.19.2:api"
 }
 
 processResources {

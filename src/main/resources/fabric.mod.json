@@ -25,6 +25,9 @@
 		],
 		"rei_client": [
 			"me.jddev0.ep.integration.rei.EnergizedPowerREIPlugin"
+		],
+		"emi": [
+			"me.jddev0.ep.integration.emi.EnergizedPowerEMIPlugin"
 		]
 	},
 	"mixins": [
