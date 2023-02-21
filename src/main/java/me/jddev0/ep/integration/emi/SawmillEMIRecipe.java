@@ -28,7 +28,14 @@ public class SawmillEMIRecipe implements EmiRecipe {
     public SawmillEMIRecipe(SawmillRecipe recipe) {
         this.id = recipe.getId();
         this.input = List.of(EmiIngredient.of(recipe.getInputItem()));
-        this.output = List.of(EmiStack.of(recipe.getOutputItem()), EmiStack.of(new ItemStack(ModItems.SAWDUST, recipe.getSawdustAmount())));
+
+        EmiStack emiOutputItem = EmiStack.of(recipe.getOutputItem());
+
+        int sawdustAmount = recipe.getSawdustAmount();
+        if(sawdustAmount == 0)
+            this.output = List.of(emiOutputItem);
+        else
+            this.output = List.of(emiOutputItem, EmiStack.of(new ItemStack(ModItems.SAWDUST, sawdustAmount)));
     }
 
     @Override
@@ -68,7 +75,7 @@ public class SawmillEMIRecipe implements EmiRecipe {
 
         widgets.addSlot(input.get(0), 0, 4).drawBack(false);
         widgets.addSlot(output.get(0), 64, 4).drawBack(false).recipeContext(this);
-        if(!output.get(1).isEmpty())
+        if(output.size() == 2)
             widgets.addSlot(output.get(1), 91, 4).drawBack(false).recipeContext(this);
     }
 }
