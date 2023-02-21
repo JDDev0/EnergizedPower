@@ -6,6 +6,7 @@ import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.AutoCrafterMenu;
+import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -116,10 +117,10 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                 return switch(index) {
                     case 0 -> AutoCrafterBlockEntity.this.progress;
                     case 1 -> AutoCrafterBlockEntity.this.maxProgress;
-                    case 2 -> AutoCrafterBlockEntity.this.energyStorage.getEnergy();
-                    case 3 -> AutoCrafterBlockEntity.this.energyStorage.getCapacity();
-                    case 4 -> AutoCrafterBlockEntity.this.energyConsumptionLeft;
-                    case 5 -> hasEnoughEnergy?1:0;
+                    case 2, 3 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.energyStorage.getEnergy(), index - 2);
+                    case 4, 5 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.energyStorage.getCapacity(), index - 4);
+                    case 6, 7 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.energyConsumptionLeft, index - 6);
+                    case 8 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -129,15 +130,19 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                 switch(index) {
                     case 0 -> AutoCrafterBlockEntity.this.progress = value;
                     case 1 -> AutoCrafterBlockEntity.this.maxProgress = value;
-                    case 2 -> AutoCrafterBlockEntity.this.energyStorage.setEnergyWithoutUpdate(value);
-                    case 3 -> AutoCrafterBlockEntity.this.energyStorage.setCapacityWithoutUpdate(value);
-                    case 4, 5 -> {}
+                    case 2, 3 -> AutoCrafterBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
+                            AutoCrafterBlockEntity.this.energyStorage.getEnergy(), (short)value, index - 2
+                    ));
+                    case 4, 5 -> AutoCrafterBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
+                            AutoCrafterBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 4
+                    ));
+                    case 6, 7, 8 -> {}
                 }
             }
 
             @Override
             public int getCount() {
-                return 6;
+                return 9;
             }
         };
     }
@@ -256,9 +261,6 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             if(blockEntity.craftingRecipe == null)
                 blockEntity.resetProgress();
         }
-
-        //Fix for players on server
-        blockEntity.energyStorage.setCapacity(blockEntity.energyStorage.getCapacity());
 
         if(blockEntity.craftingRecipe != null && (blockEntity.progress > 0 || (blockEntity.canInsertIntoOutputSlot() && blockEntity.canExtractItemsFromInput()))) {
             if(!blockEntity.canInsertIntoOutputSlot() || !blockEntity.canExtractItemsFromInput())

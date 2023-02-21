@@ -7,6 +7,7 @@ import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.BlockPlacerMenu;
+import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -103,10 +104,10 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
                 return switch(index) {
                     case 0 -> BlockPlacerBlockEntity.this.progress;
                     case 1 -> BlockPlacerBlockEntity.this.maxProgress;
-                    case 2 -> BlockPlacerBlockEntity.this.energyStorage.getEnergy();
-                    case 3 -> BlockPlacerBlockEntity.this.energyStorage.getCapacity();
-                    case 4 -> BlockPlacerBlockEntity.this.energyConsumptionLeft;
-                    case 5 -> hasEnoughEnergy?1:0;
+                    case 2, 3 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.energyStorage.getEnergy(), index - 2);
+                    case 4, 5 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.energyStorage.getCapacity(), index - 4);
+                    case 6, 7 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.energyConsumptionLeft, index - 6);
+                    case 8 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -116,15 +117,19 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
                 switch(index) {
                     case 0 -> BlockPlacerBlockEntity.this.progress = value;
                     case 1 -> BlockPlacerBlockEntity.this.maxProgress = value;
-                    case 2 -> BlockPlacerBlockEntity.this.energyStorage.setEnergyWithoutUpdate(value);
-                    case 3 -> BlockPlacerBlockEntity.this.energyStorage.setCapacityWithoutUpdate(value);
-                    case 4, 5 -> {}
+                    case 2, 3 -> BlockPlacerBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
+                            BlockPlacerBlockEntity.this.energyStorage.getEnergy(), (short)value, index - 2
+                    ));
+                    case 4, 5 -> BlockPlacerBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
+                            BlockPlacerBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 4
+                    ));
+                    case 6, 7, 8 -> {}
                 }
             }
 
             @Override
             public int getCount() {
-                return 6;
+                return 9;
             }
         };
     }
@@ -203,9 +208,6 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
     public static void tick(Level level, BlockPos blockPos, BlockState state, BlockPlacerBlockEntity blockEntity) {
         if(level.isClientSide)
             return;
-
-        //Fix for players on server
-        blockEntity.energyStorage.setCapacity(blockEntity.energyStorage.getCapacity());
 
         if(hasRecipe(blockEntity)) {
             if(blockEntity.energyConsumptionLeft < 0)
