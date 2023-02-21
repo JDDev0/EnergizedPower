@@ -9,6 +9,7 @@ import me.jddev0.ep.mixin.inventory.SimpleInventoryStacksGetterSetter;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.EnergizerRecipe;
 import me.jddev0.ep.screen.EnergizerMenu;
+import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -130,10 +131,10 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
                 return switch(index) {
                     case 0 -> EnergizerBlockEntity.this.progress;
                     case 1 -> EnergizerBlockEntity.this.maxProgress;
-                    case 2 -> (int)EnergizerBlockEntity.this.internalEnergyStorage.amount;
-                    case 3 -> (int)EnergizerBlockEntity.this.internalEnergyStorage.capacity;
-                    case 4 -> (int)EnergizerBlockEntity.this.energyConsumptionLeft;
-                    case 5 -> hasEnoughEnergy?1:0;
+                    case 2, 3, 4, 5 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.internalEnergyStorage.amount, index - 2);
+                    case 6, 7, 8, 9 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.internalEnergyStorage.capacity, index - 6);
+                    case 10, 11, 12, 13 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.energyConsumptionLeft, index - 10);
+                    case 14 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -143,14 +144,15 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
                 switch(index) {
                     case 0 -> EnergizerBlockEntity.this.progress = value;
                     case 1 -> EnergizerBlockEntity.this.maxProgress = value;
-                    case 2 -> EnergizerBlockEntity.this.internalEnergyStorage.amount = value;
-                    case 3, 4, 5 -> {}
+                    case 2, 3, 4, 5 -> EnergizerBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
+                            EnergizerBlockEntity.this.internalEnergyStorage.amount, (short)value, index - 2);
+                    case 6, 7, 8, 9, 10, 11, 12, 13, 14 -> {}
                 }
             }
 
             @Override
             public int size() {
-                return 6;
+                return 15;
             }
         };
     }
