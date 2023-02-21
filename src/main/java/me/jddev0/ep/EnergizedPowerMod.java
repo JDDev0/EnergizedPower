@@ -13,6 +13,7 @@ import me.jddev0.ep.villager.ModVillager;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtLong;
@@ -41,6 +42,8 @@ public class EnergizedPowerMod implements ModInitializer {
 
 		PlayerInteractHandler.EVENT.register(new PlayerInteractHandler());
 		ServerLifecycleEvents.SERVER_STARTING.register(new ServerStartingHandler());
+
+		FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.SAWDUST_BLOCK, 5, 20);
 	}
 
 	private ItemStack getChargedItemStack(Item item, long energy) {
