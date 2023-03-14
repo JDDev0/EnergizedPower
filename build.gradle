@@ -46,7 +46,7 @@ dependencies {
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 
 	// Team Reborn: Fabric energy
-	include modApi('teamreborn:energy:2.3.0') {
+	include modApi('teamreborn:energy:3.0.0') {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 
