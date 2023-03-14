@@ -7,6 +7,7 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
@@ -46,7 +47,7 @@ public class ChargerRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack craft(SimpleInventory container) {
+    public ItemStack craft(SimpleInventory container, DynamicRegistryManager registryManage) {
         return output;
     }
 
@@ -56,7 +57,7 @@ public class ChargerRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getOutput() {
+    public ItemStack getOutput(DynamicRegistryManager registryManage) {
         return output.copy();
     }
 

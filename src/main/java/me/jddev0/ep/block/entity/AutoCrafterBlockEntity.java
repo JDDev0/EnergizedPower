@@ -322,7 +322,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         if(hasRecipeLoaded && craftingRecipe != null && oldCopyOfRecipe != null) {
             oldRecipe = craftingRecipe;
 
-            oldResult = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(oldCopyOfRecipe):craftingRecipe.getOutput();
+            oldResult = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(oldCopyOfRecipe, world.getRegistryManager()):
+                    craftingRecipe.getOutput(world.getRegistryManager());
         }
 
         hasRecipeLoaded = true;
@@ -335,7 +336,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         if(recipe.isPresent()) {
             craftingRecipe = recipe.get();
 
-            ItemStack resultItemStack = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(copyOfPatternSlots):craftingRecipe.getOutput();
+            ItemStack resultItemStack = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(copyOfPatternSlots, world.getRegistryManager()):
+                    craftingRecipe.getOutput(world.getRegistryManager());
 
             patternResultSlots.setStack(0, resultItemStack);
 
@@ -392,7 +394,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         for(int i = 0;i < patternSlots.size();i++)
             copyOfPatternSlots.setStack(i, patternSlots.getStack(i));
 
-        ItemStack resultItemStack = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(copyOfPatternSlots):craftingRecipe.getOutput();
+        ItemStack resultItemStack = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(copyOfPatternSlots, world.getRegistryManager()):
+                craftingRecipe.getOutput(world.getRegistryManager());
 
         outputItemStacks.add(resultItemStack);
 
@@ -492,7 +495,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
 
 
         List<ItemStack> outputItemStacks = new ArrayList<>(10);
-        ItemStack resultItemStack = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(copyOfPatternSlots):craftingRecipe.getOutput();
+        ItemStack resultItemStack = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(copyOfPatternSlots, world.getRegistryManager()):
+                craftingRecipe.getOutput(world.getRegistryManager());
 
         if(!resultItemStack.isEmpty())
             outputItemStacks.add(resultItemStack);
@@ -557,7 +561,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         for(int i = 0;i < patternSlots.size();i++)
             copyOfPatternSlots.setStack(i, patternSlots.getStack(i));
 
-        ItemStack resultItemStack = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(copyOfPatternSlots):craftingRecipe.getOutput();
+        ItemStack resultItemStack = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(copyOfPatternSlots, world.getRegistryManager()):
+                craftingRecipe.getOutput(world.getRegistryManager());
 
         if(ItemStack.areItemsEqual(itemStack, resultItemStack) && ItemStack.areNbtEqual(itemStack, resultItemStack))
             return true;

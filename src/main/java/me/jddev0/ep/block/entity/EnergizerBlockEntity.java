@@ -266,7 +266,7 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
             return;
 
         blockEntity.internalInventory.removeStack(0, 1);
-        blockEntity.internalInventory.setStack(1, new ItemStack(recipe.get().getOutput().getItem(),
+        blockEntity.internalInventory.setStack(1, new ItemStack(recipe.get().getOutput(level.getRegistryManager()).getItem(),
                 blockEntity.internalInventory.getStack(1).getCount() + 1));
 
         blockEntity.resetProgress(blockPos, state);
@@ -278,7 +278,7 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
         Optional<EnergizerRecipe> recipe = level.getRecipeManager().getFirstMatch(EnergizerRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
 
         return recipe.isPresent() && canInsertAmountIntoOutputSlot(blockEntity.internalInventory) &&
-                canInsertItemIntoOutputSlot(blockEntity.internalInventory, recipe.get().getOutput());
+                canInsertItemIntoOutputSlot(blockEntity.internalInventory, recipe.get().getOutput(level.getRegistryManager()));
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleInventory inventory, ItemStack itemStack) {

@@ -292,7 +292,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
 
             if(blockEntity.energyConsumptionLeft <= 0) {
                 recipe.ifPresent(chargerRecipe ->
-                        blockEntity.internalInventory.setStack(0, new ItemStack(chargerRecipe.getOutput().getItem())));
+                        blockEntity.internalInventory.setStack(0, new ItemStack(chargerRecipe.getOutput(level.getRegistryManager()).getItem())));
 
                 blockEntity.resetProgress();
             }

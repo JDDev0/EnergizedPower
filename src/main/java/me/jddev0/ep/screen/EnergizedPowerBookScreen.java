@@ -20,6 +20,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.NarratorManager;
@@ -392,7 +393,7 @@ public class EnergizedPowerBookScreen extends Screen {
         VertexConsumerProvider.Immediate bufferSource = client.getBufferBuilders().getEntityVertexConsumers();
         DiffuseLighting.method_34742();
 
-        itemRenderer.renderItem(itemStack, ModelTransformation.Mode.GUI, false, poseStack, bufferSource,
+        itemRenderer.renderItem(itemStack, ModelTransformationMode.GUI, false, poseStack, bufferSource,
                 15728880, OverlayTexture.DEFAULT_UV, bakedModel);
 
         bufferSource.draw();

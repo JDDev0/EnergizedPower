@@ -253,7 +253,7 @@ public class CrusherBlockEntity extends BlockEntity implements ExtendedScreenHan
             return;
 
         blockEntity.internalInventory.removeStack(0, 1);
-        blockEntity.internalInventory.setStack(1, new ItemStack(recipe.get().getOutput().getItem(),
+        blockEntity.internalInventory.setStack(1, new ItemStack(recipe.get().getOutput(level.getRegistryManager()).getItem(),
                 blockEntity.internalInventory.getStack(1).getCount() + 1));
 
         blockEntity.resetProgress(blockPos, state);
@@ -265,7 +265,7 @@ public class CrusherBlockEntity extends BlockEntity implements ExtendedScreenHan
         Optional<CrusherRecipe> recipe = level.getRecipeManager().getFirstMatch(CrusherRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
 
         return recipe.isPresent() && canInsertAmountIntoOutputSlot(blockEntity.internalInventory) &&
-                canInsertItemIntoOutputSlot(blockEntity.internalInventory, recipe.get().getOutput());
+                canInsertItemIntoOutputSlot(blockEntity.internalInventory, recipe.get().getOutput(level.getRegistryManager()));
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleInventory inventory, ItemStack itemStack) {
