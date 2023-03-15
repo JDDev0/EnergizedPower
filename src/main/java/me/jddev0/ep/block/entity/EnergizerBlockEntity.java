@@ -266,7 +266,7 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
             return;
 
         blockEntity.itemHandler.extractItem(0, 1, false);
-        blockEntity.itemHandler.setStackInSlot(1, new ItemStack(recipe.get().getResultItem().getItem(),
+        blockEntity.itemHandler.setStackInSlot(1, new ItemStack(recipe.get().getResultItem(level.registryAccess()).getItem(),
                 blockEntity.itemHandler.getStackInSlot(1).getCount() + 1));
 
         blockEntity.resetProgress(blockPos, state);
@@ -281,7 +281,8 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
 
         Optional<EnergizerRecipe> recipe = level.getRecipeManager().getRecipeFor(EnergizerRecipe.Type.INSTANCE, inventory, level);
 
-        return recipe.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, recipe.get().getResultItem());
+        return recipe.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory,
+                recipe.get().getResultItem(level.registryAccess()));
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {

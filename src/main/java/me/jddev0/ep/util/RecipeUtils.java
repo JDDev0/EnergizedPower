@@ -21,7 +21,7 @@ public final class RecipeUtils {
     public static <C extends Container, T extends Recipe<C>> boolean isResultOfAny(Level level, RecipeType<T> recipeType, ItemStack itemStack) {
         List<T> recipes = level.getRecipeManager().getAllRecipesFor(recipeType);
 
-        return recipes.stream().map(Recipe::getResultItem).anyMatch(stack -> ItemStack.isSameItemSameTags(stack, itemStack));
+        return recipes.stream().map(recipe -> recipe.getResultItem(level.registryAccess())).anyMatch(stack -> ItemStack.isSameItemSameTags(stack, itemStack));
     }
 
     public static <C extends Container, T extends Recipe<C>> boolean isRemainderOfAny(Level level, RecipeType<T> recipeType, C container, ItemStack itemStack) {

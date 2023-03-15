@@ -254,7 +254,7 @@ public class CrusherBlockEntity extends BlockEntity implements MenuProvider, Ene
             return;
 
         blockEntity.itemHandler.extractItem(0, 1, false);
-        blockEntity.itemHandler.setStackInSlot(1, new ItemStack(recipe.get().getResultItem().getItem(),
+        blockEntity.itemHandler.setStackInSlot(1, new ItemStack(recipe.get().getResultItem(level.registryAccess()).getItem(),
                 blockEntity.itemHandler.getStackInSlot(1).getCount() + 1));
 
         blockEntity.resetProgress(blockPos, state);
@@ -269,7 +269,8 @@ public class CrusherBlockEntity extends BlockEntity implements MenuProvider, Ene
 
         Optional<CrusherRecipe> recipe = level.getRecipeManager().getRecipeFor(CrusherRecipe.Type.INSTANCE, inventory, level);
 
-        return recipe.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, recipe.get().getResultItem());
+        return recipe.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory,
+                recipe.get().getResultItem(level.registryAccess()));
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {

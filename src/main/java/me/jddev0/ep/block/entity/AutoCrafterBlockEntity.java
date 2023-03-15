@@ -319,7 +319,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         if(hasRecipeLoaded && craftingRecipe != null && oldCopyOfRecipe != null) {
             oldRecipe = craftingRecipe;
 
-            oldResult = craftingRecipe instanceof CustomRecipe?craftingRecipe.assemble(oldCopyOfRecipe):craftingRecipe.getResultItem();
+            oldResult = craftingRecipe instanceof CustomRecipe?craftingRecipe.assemble(oldCopyOfRecipe, level.registryAccess()):
+                    craftingRecipe.getResultItem(level.registryAccess());
         }
 
         hasRecipeLoaded = true;
@@ -332,7 +333,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         if(recipe.isPresent()) {
             craftingRecipe = recipe.get();
 
-            ItemStack resultItemStack = craftingRecipe instanceof CustomRecipe?craftingRecipe.assemble(copyOfPatternSlots):craftingRecipe.getResultItem();
+            ItemStack resultItemStack = craftingRecipe instanceof CustomRecipe?craftingRecipe.assemble(copyOfPatternSlots, level.registryAccess()):
+                    craftingRecipe.getResultItem(level.registryAccess());
 
             patternResultSlots.setItem(0, resultItemStack);
 
@@ -389,7 +391,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         for(int i = 0;i < patternSlots.getContainerSize();i++)
             copyOfPatternSlots.setItem(i, patternSlots.getItem(i));
 
-        ItemStack resultItemStack = craftingRecipe instanceof CustomRecipe?craftingRecipe.assemble(copyOfPatternSlots):craftingRecipe.getResultItem();
+        ItemStack resultItemStack = craftingRecipe instanceof CustomRecipe?craftingRecipe.assemble(copyOfPatternSlots, level.registryAccess()):
+                craftingRecipe.getResultItem(level.registryAccess());
 
         outputItemStacks.add(resultItemStack);
 
@@ -488,7 +491,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
 
 
         List<ItemStack> outputItemStacks = new ArrayList<>(10);
-        ItemStack resultItemStack = craftingRecipe instanceof CustomRecipe?craftingRecipe.assemble(copyOfPatternSlots):craftingRecipe.getResultItem();
+        ItemStack resultItemStack = craftingRecipe instanceof CustomRecipe?craftingRecipe.assemble(copyOfPatternSlots, level.registryAccess()):
+                craftingRecipe.getResultItem(level.registryAccess());
 
         if(!resultItemStack.isEmpty())
             outputItemStacks.add(resultItemStack);
@@ -553,7 +557,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         for(int i = 0;i < patternSlots.getContainerSize();i++)
             copyOfPatternSlots.setItem(i, patternSlots.getItem(i));
 
-        ItemStack resultItemStack = craftingRecipe instanceof CustomRecipe?craftingRecipe.assemble(copyOfPatternSlots):craftingRecipe.getResultItem();
+        ItemStack resultItemStack = craftingRecipe instanceof CustomRecipe?craftingRecipe.assemble(copyOfPatternSlots, level.registryAccess()):
+                craftingRecipe.getResultItem(level.registryAccess());
 
         if(ItemStack.isSameItemSameTags(itemStack, resultItemStack))
             return true;

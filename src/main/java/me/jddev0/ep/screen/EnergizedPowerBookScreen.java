@@ -27,6 +27,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
@@ -389,7 +390,7 @@ public class EnergizedPowerBookScreen extends Screen {
         MultiBufferSource.BufferSource bufferSource = minecraft.renderBuffers().bufferSource();
         Lighting.setupForEntityInInventory();
 
-        itemRenderer.render(itemStack, ItemTransforms.TransformType.GUI, false, poseStack, bufferSource,
+        itemRenderer.render(itemStack, ItemDisplayContext.GUI, false, poseStack, bufferSource,
                 LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, bakedModel);
 
         bufferSource.endBatch();

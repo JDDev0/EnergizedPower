@@ -255,8 +255,8 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
             return;
 
         blockEntity.itemHandler.extractItem(0, 1, false);
-        blockEntity.itemHandler.setStackInSlot(1, new ItemStack(recipe.get().getResultItem().getItem(),
-                blockEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().getResultItem().getCount()));
+        blockEntity.itemHandler.setStackInSlot(1, new ItemStack(recipe.get().getResultItem(level.registryAccess()).getItem(),
+                blockEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().getResultItem(level.registryAccess()).getCount()));
         blockEntity.itemHandler.setStackInSlot(2, new ItemStack(ModItems.SAWDUST.get(),
                 blockEntity.itemHandler.getStackInSlot(2).getCount() + recipe.get().getSawdustAmount()));
 
@@ -272,8 +272,8 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
 
         Optional<SawmillRecipe> recipe = level.getRecipeManager().getRecipeFor(SawmillRecipe.Type.INSTANCE, inventory, level);
 
-        return recipe.isPresent() && canInsertAmountIntoOutputSlot(inventory, recipe.get().getResultItem().getCount()) &&
-                canInsertItemIntoOutputSlot(inventory, recipe.get().getResultItem()) &&
+        return recipe.isPresent() && canInsertAmountIntoOutputSlot(inventory, recipe.get().getResultItem(level.registryAccess()).getCount()) &&
+                canInsertItemIntoOutputSlot(inventory, recipe.get().getResultItem(level.registryAccess())) &&
                 canInsertSawdust(inventory, recipe.get().getSawdustAmount());
     }
 
