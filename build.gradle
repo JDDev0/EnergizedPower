@@ -131,15 +131,15 @@ dependencies {
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft', it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.19.4-45.0.1'
+    minecraft 'net.minecraftforge:forge:1.19.4-45.0.8'
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // implementation fg.deobf("com.tterrag.registrate:Registrate:MC${mc_version}-${registrate_version}") // Adds registrate as a dependency
     // REI integration
     compileOnly 'me.shedaniel.cloth:basic-math:0.6.1'
-    compileOnly fg.deobf("dev.architectury:architectury-forge:6.2.46")
-    compileOnly fg.deobf('me.shedaniel:RoughlyEnoughItems-forge:10.0.581')
-    compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:9.+"
+    compileOnly fg.deobf("dev.architectury:architectury-forge:8.1.73")
+    compileOnly fg.deobf('me.shedaniel:RoughlyEnoughItems-forge:11.0.597')
+    compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:10.+"
 
     // JEI integration
     compileOnly fg.deobf("mezz.jei:jei-1.19.3-common-api:12.0.2.2")
