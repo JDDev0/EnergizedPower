@@ -92,7 +92,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 if(slot < 0 || slot >= 18)
                     return super.isValid(slot, stack);
 
-                return true;
+                //Slot 0, 1, and 2 are for output items only
+                return slot >= 3;
             }
 
             @Override
@@ -117,7 +118,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
             public boolean canExtract(int slot, ItemStack stack, Direction dir) {
                 return true;
             }
-        }, (i, stack) -> true, i -> isOutputOrCraftingRemainderOfInput(internalInventory.getStack(i)));
+        }, (i, stack) -> i >= 3, i -> isOutputOrCraftingRemainderOfInput(internalInventory.getStack(i)));
 
         internalEnergyStorage = new SimpleEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
