@@ -143,7 +143,8 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageMenuP
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into tile inventory
             //"+ 18": Ignore 3x3 crafting grid and result slot
-            if(!insertItem(sourceItem, 4 * 9, 4 * 9 + 18, false)) {
+            if(!insertItem(sourceItem, 4 * 9 + 3, 4 * 9 + 18, false)) {
+                //"+3" instead of nothing: Do not allow adding to first 3 output item only slot
                 return ItemStack.EMPTY;
             }
         }else if(index < 4 * 9 + 18) {
