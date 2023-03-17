@@ -1,11 +1,14 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.LightningGeneratorBlockEntity;
+import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.util.ParticleUtil;
@@ -83,6 +86,12 @@ public class LightningGeneratorBlock extends BlockWithEntity {
     @Override
     public void scheduledTick(BlockState state, ServerWorld level, BlockPos blockPos, Random randomSource) {
         level.setBlockState(blockPos, state.with(HIT_BY_LIGHTNING_BOLT, false), 3);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, ModBlockEntities.LIGHTING_GENERATOR_ENTITY, LightningGeneratorBlockEntity::tick);
     }
 
     @Override
