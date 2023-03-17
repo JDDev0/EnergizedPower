@@ -78,6 +78,32 @@ public class SolarPanelBlockEntity extends BlockEntity implements EnergyStorageP
 
         blockEntity.energyStorage.setEnergy(Math.min(blockEntity.energyStorage.getCapacity(),
                 blockEntity.energyStorage.getEnergy() + (int)(i/60.f * blockEntity.getTier().getFePerTick())));
+
+        transferEnergy(level, blockPos, state, blockEntity);
+    }
+
+    private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {
+        if(level.isClientSide)
+            return;
+
+        //Transfer energy
+        BlockPos testPos = blockPos.relative(Direction.DOWN);
+
+        BlockEntity testBlockEntity = level.getBlockEntity(testPos);
+        if(testBlockEntity == null)
+            return;
+
+        LazyOptional<IEnergyStorage> energyStorageLazyOptional = testBlockEntity.getCapability(ForgeCapabilities.ENERGY, Direction.DOWN.getOpposite());
+        if(!energyStorageLazyOptional.isPresent())
+            return;
+
+        IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
+        if(!energyStorage.canReceive())
+            return;
+
+        int amount = energyStorage.receiveEnergy(blockEntity.energyStorage.getEnergy(), false);
+        if(amount > 0)
+            energyStorage.extractEnergy(amount, false);
     }
 
     @Override
