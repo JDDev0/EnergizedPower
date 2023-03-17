@@ -34,7 +34,12 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+    public static final int MAX_EXTRACT = 256;
+
     private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -72,7 +77,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
     public CoalEngineBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.COAL_ENGINE_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ExtractOnlyEnergyStorage(0, 2048, 256) {
+        energyStorage = new ExtractOnlyEnergyStorage(0, 2048, MAX_EXTRACT) {
             @Override
             protected void onChange() {
                 setChanged();
@@ -249,6 +254,74 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
         }else {
             blockEntity.resetProgress(blockPos, state);
             setChanged(level, blockPos, state);
+        }
+
+        transferEnergy(level, blockPos, state, blockEntity);
+    }
+
+    private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
+        if(level.isClientSide)
+            return;
+
+        List<IEnergyStorage> consumerItems = new LinkedList<>();
+        List<Integer> consumerEnergyValues = new LinkedList<>();
+        int consumptionSum = 0;
+        for(Direction direction:Direction.values()) {
+            BlockPos testPos = blockPos.relative(direction);
+
+            BlockEntity testBlockEntity = level.getBlockEntity(testPos);
+            if(testBlockEntity == null)
+                continue;
+
+            LazyOptional<IEnergyStorage> energyStorageLazyOptional = testBlockEntity.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite());
+            if(!energyStorageLazyOptional.isPresent())
+                continue;
+
+            IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
+            if(!energyStorage.canReceive())
+                continue;
+
+            int received = energyStorage.receiveEnergy(Math.min(MAX_EXTRACT, blockEntity.energyStorage.getEnergy()), true);
+            if(received <= 0)
+                continue;
+
+            consumptionSum += received;
+            consumerItems.add(energyStorage);
+            consumerEnergyValues.add(received);
+        }
+
+        List<Integer> consumerEnergyDistributed = new LinkedList<>();
+        for(int i = 0;i < consumerItems.size();i++)
+            consumerEnergyDistributed.add(0);
+
+        int consumptionLeft = Math.min(MAX_EXTRACT, Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
+        blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
+
+        int divisor = consumerItems.size();
+        outer:
+        while(consumptionLeft > 0) {
+            int consumptionPerConsumer = consumptionLeft / divisor;
+            if(consumptionPerConsumer == 0) {
+                divisor = Math.max(1, divisor - 1);
+                consumptionPerConsumer = consumptionLeft / divisor;
+            }
+
+            for(int i = 0;i < consumerEnergyValues.size();i++) {
+                int consumptionDistributed = consumerEnergyDistributed.get(i);
+                int consumptionOfConsumerLeft = consumerEnergyValues.get(i) - consumptionDistributed;
+
+                int consumptionDistributedNew = Math.min(consumptionOfConsumerLeft, Math.min(consumptionPerConsumer, consumptionLeft));
+                consumerEnergyDistributed.set(i, consumptionDistributed + consumptionDistributedNew);
+                consumptionLeft -= consumptionDistributedNew;
+                if(consumptionLeft == 0)
+                    break outer;
+            }
+        }
+
+        for(int i = 0;i < consumerItems.size();i++) {
+            int energy = consumerEnergyDistributed.get(i);
+            if(energy > 0)
+                consumerItems.get(i).receiveEnergy(energy, false);
         }
     }
 
