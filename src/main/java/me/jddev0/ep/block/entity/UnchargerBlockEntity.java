@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -39,6 +40,8 @@ import team.reborn.energy.api.EnergyStorageUtil;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, SidedInventoryBlockEntityWrapper {
@@ -233,6 +236,11 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
         if(level.isClient())
             return;
 
+        tickRecipe(level, blockPos, state, blockEntity);
+        transferEnergy(level, blockPos, state, blockEntity);
+    }
+
+    public static void tickRecipe(World level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {
         if(blockEntity.hasRecipe()) {
             ItemStack stack = blockEntity.internalInventory.getStack(0);
 
@@ -258,6 +266,81 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
         }else {
             blockEntity.resetProgress();
             markDirty(level, blockPos, state);
+        }
+    }
+
+    private static void transferEnergy(World level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {
+        if(level.isClient())
+            return;
+
+        List<EnergyStorage> consumerItems = new LinkedList<>();
+        List<Long> consumerEnergyValues = new LinkedList<>();
+        int consumptionSum = 0;
+        for(Direction direction:Direction.values()) {
+            BlockPos testPos = blockPos.offset(direction);
+
+            BlockEntity testBlockEntity = level.getBlockEntity(testPos);
+            if(testBlockEntity == null)
+                continue;
+
+            EnergyStorage energyStorage = EnergyStorage.SIDED.find(level, testPos, direction.getOpposite());
+            if(energyStorage == null)
+                continue;
+
+            if(!energyStorage.supportsInsertion())
+                continue;
+
+            try(Transaction transaction = Transaction.openOuter()) {
+                long received = energyStorage.insert(Math.min(MAX_EXTRACT, blockEntity.internalEnergyStorage.amount), transaction);
+
+                if(received <= 0)
+                    continue;
+
+                consumptionSum += received;
+                consumerItems.add(energyStorage);
+                consumerEnergyValues.add(received);
+            }
+        }
+
+        List<Long> consumerEnergyDistributed = new LinkedList<>();
+        for(int i = 0;i < consumerItems.size();i++)
+            consumerEnergyDistributed.add(0L);
+
+        long consumptionLeft = Math.min(MAX_EXTRACT, Math.min(blockEntity.internalEnergyStorage.amount, consumptionSum));
+        try(Transaction transaction = Transaction.openOuter()) {
+            blockEntity.internalEnergyStorage.extract(consumptionLeft, transaction);
+            transaction.commit();
+        }
+
+        int divisor = consumerItems.size();
+        outer:
+        while(consumptionLeft > 0) {
+            long consumptionPerConsumer = consumptionLeft / divisor;
+            if(consumptionPerConsumer == 0) {
+                divisor = Math.max(1, divisor - 1);
+                consumptionPerConsumer = consumptionLeft / divisor;
+            }
+
+            for(int i = 0;i < consumerEnergyValues.size();i++) {
+                long consumptionDistributed = consumerEnergyDistributed.get(i);
+                long consumptionOfConsumerLeft = consumerEnergyValues.get(i) - consumptionDistributed;
+
+                long consumptionDistributedNew = Math.min(consumptionOfConsumerLeft, Math.min(consumptionPerConsumer, consumptionLeft));
+                consumerEnergyDistributed.set(i, consumptionDistributed + consumptionDistributedNew);
+                consumptionLeft -= consumptionDistributedNew;
+                if(consumptionLeft == 0)
+                    break outer;
+            }
+        }
+
+        for(int i = 0;i < consumerItems.size();i++) {
+            long energy = consumerEnergyDistributed.get(i);
+            if(energy > 0) {
+                try(Transaction transaction = Transaction.openOuter()) {
+                    consumerItems.get(i).insert(energy, transaction);
+                    transaction.commit();
+                }
+            }
         }
     }
 
