@@ -102,7 +102,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements EnergyStorageP
 
         int amount = energyStorage.receiveEnergy(blockEntity.energyStorage.getEnergy(), false);
         if(amount > 0)
-            energyStorage.extractEnergy(amount, false);
+            blockEntity.energyStorage.extractEnergy(amount, false);
     }
 
     @Override
