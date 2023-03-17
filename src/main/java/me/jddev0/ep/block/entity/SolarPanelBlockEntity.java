@@ -11,10 +11,12 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
+import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
@@ -83,6 +85,32 @@ public class SolarPanelBlockEntity extends BlockEntity implements EnergyStorageP
         try(Transaction transaction = Transaction.openOuter()) {
             blockEntity.internalEnergyStorage.insert((long)(i/60.f * blockEntity.getTier().getFePerTick()),
                     transaction);
+            transaction.commit();
+        }
+
+        transferEnergy(level, blockPos, state, blockEntity);
+    }
+
+    private static void transferEnergy(World level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {
+        if(level.isClient())
+            return;
+
+        BlockPos testPos = blockPos.offset(Direction.DOWN);
+
+        BlockEntity testBlockEntity = level.getBlockEntity(testPos);
+        if(testBlockEntity == null)
+            return;
+
+        EnergyStorage energyStorage = EnergyStorage.SIDED.find(level, testPos, Direction.DOWN.getOpposite());
+        if(energyStorage == null)
+            return;
+
+        if(!energyStorage.supportsInsertion())
+            return;
+
+        try(Transaction transaction = Transaction.openOuter()) {
+            long amount = energyStorage.insert(blockEntity.internalEnergyStorage.amount, transaction);
+            blockEntity.energyStorage.extract(amount, transaction);
             transaction.commit();
         }
     }
