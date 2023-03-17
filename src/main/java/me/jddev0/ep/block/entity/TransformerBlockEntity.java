@@ -4,6 +4,7 @@ import me.jddev0.ep.block.TransformerBlock;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -11,11 +12,14 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class TransformerBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
     public static final long MAX_ENERGY_TRANSFER = 1048576;
@@ -100,6 +104,112 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
         super.readNbt(nbt);
 
         internalEnergyStorage.amount = nbt.getLong("energy");
+    }
+
+    public static void tick(World level, BlockPos blockPos, BlockState state, TransformerBlockEntity blockEntity) {
+        if(level.isClient())
+            return;
+
+        transferEnergy(level, blockPos, state, blockEntity);
+    }
+
+    private static void transferEnergy(World level, BlockPos blockPos, BlockState state, TransformerBlockEntity blockEntity) {
+        if(level.isClient())
+            return;
+
+        List<Direction> outputDirections = new LinkedList<>();
+        Direction facing = state.get(TransformerBlock.FACING);
+        for(Direction side:Direction.values()) {
+            switch(blockEntity.getTransformerType()) {
+                case TYPE_1_TO_N, TYPE_N_TO_1 -> {
+                    boolean isOutputSingleSide = blockEntity.getTransformerType() != TransformerBlock.Type.TYPE_1_TO_N;
+                    boolean isOutputMultipleSide = blockEntity.getTransformerType() == TransformerBlock.Type.TYPE_1_TO_N;
+
+                    if(facing == side) {
+                        if(isOutputSingleSide)
+                            outputDirections.add(side);
+                    }else {
+                        if(isOutputMultipleSide)
+                            outputDirections.add(side);
+                    }
+                }
+                case TYPE_3_TO_3 -> {
+                    if(!(facing.rotateCounterclockwise(Direction.Axis.X) == side || facing.rotateCounterclockwise(Direction.Axis.Y) == side
+                            || facing.rotateCounterclockwise(Direction.Axis.Z) == side))
+                        outputDirections.add(side);
+                }
+            }
+        }
+
+        List<EnergyStorage> consumerItems = new LinkedList<>();
+        List<Long> consumerEnergyValues = new LinkedList<>();
+        int consumptionSum = 0;
+        for(Direction direction:outputDirections) {
+            BlockPos testPos = blockPos.offset(direction);
+
+            BlockEntity testBlockEntity = level.getBlockEntity(testPos);
+            if(testBlockEntity == null)
+                continue;
+
+            EnergyStorage energyStorage = EnergyStorage.SIDED.find(level, testPos, direction.getOpposite());
+            if(energyStorage == null)
+                continue;
+
+            if(!energyStorage.supportsInsertion())
+                continue;
+
+            try(Transaction transaction = Transaction.openOuter()) {
+                long received = energyStorage.insert(Math.min(MAX_ENERGY_TRANSFER, blockEntity.internalEnergyStorage.amount), transaction);
+
+                if(received <= 0)
+                    continue;
+
+                consumptionSum += received;
+                consumerItems.add(energyStorage);
+                consumerEnergyValues.add(received);
+            }
+        }
+
+        List<Long> consumerEnergyDistributed = new LinkedList<>();
+        for(int i = 0;i < consumerItems.size();i++)
+            consumerEnergyDistributed.add(0L);
+
+        long consumptionLeft = Math.min(MAX_ENERGY_TRANSFER, Math.min(blockEntity.internalEnergyStorage.amount, consumptionSum));
+        try(Transaction transaction = Transaction.openOuter()) {
+            blockEntity.internalEnergyStorage.extract(consumptionLeft, transaction);
+            transaction.commit();
+        }
+
+        int divisor = consumerItems.size();
+        outer:
+        while(consumptionLeft > 0) {
+            long consumptionPerConsumer = consumptionLeft / divisor;
+            if(consumptionPerConsumer == 0) {
+                divisor = Math.max(1, divisor - 1);
+                consumptionPerConsumer = consumptionLeft / divisor;
+            }
+
+            for(int i = 0;i < consumerEnergyValues.size();i++) {
+                long consumptionDistributed = consumerEnergyDistributed.get(i);
+                long consumptionOfConsumerLeft = consumerEnergyValues.get(i) - consumptionDistributed;
+
+                long consumptionDistributedNew = Math.min(consumptionOfConsumerLeft, Math.min(consumptionPerConsumer, consumptionLeft));
+                consumerEnergyDistributed.set(i, consumptionDistributed + consumptionDistributedNew);
+                consumptionLeft -= consumptionDistributedNew;
+                if(consumptionLeft == 0)
+                    break outer;
+            }
+        }
+
+        for(int i = 0;i < consumerItems.size();i++) {
+            long energy = consumerEnergyDistributed.get(i);
+            if(energy > 0) {
+                try(Transaction transaction = Transaction.openOuter()) {
+                    consumerItems.get(i).insert(energy, transaction);
+                    transaction.commit();
+                }
+            }
+        }
     }
 
     @Override
