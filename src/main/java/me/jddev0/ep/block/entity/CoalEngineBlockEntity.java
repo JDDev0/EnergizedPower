@@ -284,10 +284,10 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
 
             EnergyStorage energyStorage = EnergyStorage.SIDED.find(level, testPos, direction.getOpposite());
             if(energyStorage == null)
-                return;
+                continue;
 
             if(!energyStorage.supportsInsertion())
-                return;
+                continue;
 
             try(Transaction transaction = Transaction.openOuter()) {
                 long received = energyStorage.insert(Math.min(MAX_EXTRACT, blockEntity.internalEnergyStorage.amount), transaction);
