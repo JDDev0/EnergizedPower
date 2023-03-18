@@ -56,12 +56,13 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             if(slot < 0 || slot >= 18)
                 return super.isItemValid(slot, stack);
 
-            return true;
+            //Slot 0, 1, and 2 are for output items only
+            return slot >= 3;
         }
     };
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i))));
+            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 3, i -> isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i))));
 
     private final SimpleContainer patternSlots = new SimpleContainer(3 * 3) {
         @Override
@@ -413,11 +414,14 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                 }
 
                 if(ItemStack.isSameItemSameTags(itemStack, testItemStack)) {
-                    ItemStack ret = itemHandler.insertItem(i, itemStack, false);
-                    if(ret.isEmpty())
-                            break;
+                    int amount = Math.min(itemStack.getCount(), testItemStack.getMaxStackSize() - testItemStack.getCount());
+                    if(amount > 0) {
+                        ItemStack itemStackCopy = itemHandler.getStackInSlot(i).copy();
+                        itemStackCopy.setCount(testItemStack.getCount() + amount);
+                        itemHandler.setStackInSlot(i, itemStackCopy);
 
-                    itemStack.setCount(ret.getCount());
+                        itemStack.setCount(itemStack.getCount() - amount);
+                    }
                 }
             }
 
@@ -425,7 +429,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             if(emptyIndices.isEmpty())
                 continue; //Should not happen
 
-            itemHandler.insertItem(emptyIndices.remove(0), itemStack, false);
+            itemHandler.setStackInSlot(emptyIndices.remove(0), itemStack);
         }
 
         resetProgress();
