@@ -86,7 +86,6 @@ public class SolarPanelBlockEntity extends BlockEntity implements EnergyStorageP
         if(level.isClientSide)
             return;
 
-        //Transfer energy
         BlockPos testPos = blockPos.relative(Direction.DOWN);
 
         BlockEntity testBlockEntity = level.getBlockEntity(testPos);
