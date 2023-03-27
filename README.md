@@ -63,6 +63,10 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - Silicon texture ([flashbulbs](https://github.com/flashbulbs)).
 - Energy Analyzer texture ([flashbulbs](https://github.com/flashbulbs)).
 
+## Tutorial
+
+A tutorial world showcasing all the features of this mod can be downloaded on CurseForge: [Energized Power [Tutorial World]](https://www.curseforge.com/minecraft/worlds/energized-power-tutorial-world).
+
 ## Supported versions:
 Mod version: MC version
 - 1.0.x: 1.19.3
