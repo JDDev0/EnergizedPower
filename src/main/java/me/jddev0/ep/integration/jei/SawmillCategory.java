@@ -67,7 +67,7 @@ public class SawmillCategory implements IRecipeCategory<SawmillRecipe> {
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).addItemStack(recipe.getOutput());
 
-        if(recipe.getSawdustAmount() > 0)
-            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 92, 5).addItemStack(new ItemStack(ModItems.SAWDUST.get(), recipe.getSawdustAmount()));
+        if(!recipe.getSecondaryOutput().isEmpty())
+            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 92, 5).addItemStack(recipe.getSecondaryOutput());
     }
 }
