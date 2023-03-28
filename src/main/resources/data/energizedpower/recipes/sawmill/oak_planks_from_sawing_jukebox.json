@@ -1,0 +1,14 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:jukebox"
+  },
+  "output": {
+    "item": "minecraft:oak_planks",
+    "count": 8
+  },
+  "secondaryOutput": {
+    "item": "minecraft:diamond",
+    "count": 1
+  }
+}
