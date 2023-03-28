@@ -1,0 +1,14 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:note_block"
+  },
+  "output": {
+    "item": "minecraft:oak_planks",
+    "count": 8
+  },
+  "secondaryOutput": {
+    "item": "minecraft:redstone",
+    "count": 1
+  }
+}
