@@ -1,6 +1,5 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.recipe.SawmillRecipe;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
@@ -21,7 +20,7 @@ public record SawmillDisplay(SawmillRecipe recipe) implements Display {
     public List<EntryIngredient> getOutputEntries() {
         return List.of(
                 EntryIngredients.of(recipe.getOutput()),
-                EntryIngredients.of(ModItems.SAWDUST.get(), recipe.getSawdustAmount())
+                EntryIngredients.of(recipe.getSecondaryOutput())
         );
     }
 

@@ -3,6 +3,7 @@ package me.jddev0.ep.recipe;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.item.ModItems;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -15,26 +16,30 @@ import net.minecraft.world.level.Level;
 public class SawmillRecipe implements Recipe<SimpleContainer> {
     private final ResourceLocation id;
     private final ItemStack output;
+    private final ItemStack secondaryOutput;
     private final Ingredient input;
-    private final int sawdustAmount;
 
     public SawmillRecipe(ResourceLocation id, ItemStack output, Ingredient input, int sawdustAmount) {
+        this(id, output, new ItemStack(ModItems.SAWDUST.get(), sawdustAmount), input);
+    }
+
+    public SawmillRecipe(ResourceLocation id, ItemStack output, ItemStack secondaryOutput, Ingredient input) {
         this.id = id;
         this.output = output;
         this.input = input;
-        this.sawdustAmount = sawdustAmount;
+        this.secondaryOutput = secondaryOutput;
     }
 
     public ItemStack getOutput() {
         return output;
     }
 
-    public Ingredient getInput() {
-        return input;
+    public ItemStack getSecondaryOutput() {
+        return secondaryOutput;
     }
 
-    public int getSawdustAmount() {
-        return sawdustAmount;
+    public Ingredient getInput() {
+        return input;
     }
 
     @Override
@@ -104,8 +109,13 @@ public class SawmillRecipe implements Recipe<SimpleContainer> {
         public SawmillRecipe fromJson(ResourceLocation recipeID, JsonObject json) {
             Ingredient input = Ingredient.fromJson(json.get("ingredient"));
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-            int sawdustAmount = json.get("sawdustAmount").getAsInt();
 
+            if(json.has("secondaryOutput")) {
+                ItemStack secondaryOutput = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "secondaryOutput"));
+                return new SawmillRecipe(recipeID, output, secondaryOutput, input);
+            }
+
+            int sawdustAmount = json.get("sawdustAmount").getAsInt();
             return new SawmillRecipe(recipeID, output, input, sawdustAmount);
         }
 
@@ -113,16 +123,16 @@ public class SawmillRecipe implements Recipe<SimpleContainer> {
         public SawmillRecipe fromNetwork(ResourceLocation recipeID, FriendlyByteBuf buffer) {
             Ingredient input = Ingredient.fromNetwork(buffer);
             ItemStack output = buffer.readItem();
-            int sawdustAmount = buffer.readInt();
+            ItemStack secondaryOutput = buffer.readItem();
 
-            return new SawmillRecipe(recipeID, output, input, sawdustAmount);
+            return new SawmillRecipe(recipeID, output, secondaryOutput, input);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, SawmillRecipe recipe) {
             recipe.input.toNetwork(buffer);
             buffer.writeItemStack(recipe.output, false);
-            buffer.writeInt(recipe.sawdustAmount);
+            buffer.writeItemStack(recipe.secondaryOutput, false);
         }
     }
 }
