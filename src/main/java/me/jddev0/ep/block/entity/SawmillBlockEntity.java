@@ -256,8 +256,9 @@ public class SawmillBlockEntity extends BlockEntity implements ExtendedScreenHan
         blockEntity.internalInventory.removeStack(0, 1);
         blockEntity.internalInventory.setStack(1, new ItemStack(recipe.get().getOutput().getItem(),
                 blockEntity.internalInventory.getStack(1).getCount() + recipe.get().getOutput().getCount()));
-        blockEntity.internalInventory.setStack(2, new ItemStack(ModItems.SAWDUST,
-                blockEntity.internalInventory.getStack(2).getCount() + recipe.get().getSawdustAmount()));
+        if(!recipe.get().getSecondaryOutput().isEmpty())
+            blockEntity.internalInventory.setStack(2, new ItemStack(recipe.get().getSecondaryOutput().getItem(),
+                    blockEntity.internalInventory.getStack(2).getCount() + recipe.get().getSecondaryOutput().getCount()));
 
         blockEntity.resetProgress(blockPos, state);
     }
@@ -269,7 +270,8 @@ public class SawmillBlockEntity extends BlockEntity implements ExtendedScreenHan
 
         return recipe.isPresent() && canInsertAmountIntoOutputSlot(blockEntity.internalInventory, recipe.get().getOutput().getCount()) &&
                 canInsertItemIntoOutputSlot(blockEntity.internalInventory, recipe.get().getOutput()) &&
-                canInsertSawdust(blockEntity.internalInventory, recipe.get().getSawdustAmount());
+                (recipe.get().getSecondaryOutput().isEmpty() || (canInsertAmountIntoSecondaryOutputSlot(blockEntity.internalInventory, recipe.get().getSecondaryOutput().getCount()) &&
+                        canInsertItemIntoSecondaryOutputSlot(blockEntity.internalInventory, recipe.get().getSecondaryOutput())));
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleInventory inventory, ItemStack itemStack) {
@@ -278,6 +280,14 @@ public class SawmillBlockEntity extends BlockEntity implements ExtendedScreenHan
 
     private static boolean canInsertAmountIntoOutputSlot(SimpleInventory inventory, int count) {
         return inventory.getStack(1).getMaxCount() >= inventory.getStack(1).getCount() + count;
+    }
+
+    private static boolean canInsertItemIntoSecondaryOutputSlot(SimpleInventory inventory, ItemStack itemStack) {
+        return inventory.getStack(2).isEmpty() || inventory.getStack(2).getItem() == itemStack.getItem();
+    }
+
+    private static boolean canInsertAmountIntoSecondaryOutputSlot(SimpleInventory inventory, int count) {
+        return inventory.getStack(2).getMaxCount() >= inventory.getStack(2).getCount() + count;
     }
 
     private static boolean canInsertSawdust(SimpleInventory inventory, int amount) {
