@@ -1,0 +1,14 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:fletching_table"
+  },
+  "output": {
+    "item": "minecraft:oak_planks",
+    "count": 4
+  },
+  "secondaryOutput": {
+    "item": "minecraft:flint",
+    "count": 2
+  }
+}
