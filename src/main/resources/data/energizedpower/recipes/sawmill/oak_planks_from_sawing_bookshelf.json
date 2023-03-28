@@ -1,0 +1,14 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:bookshelf"
+  },
+  "output": {
+    "item": "minecraft:oak_planks",
+    "count": 6
+  },
+  "secondaryOutput": {
+    "item": "minecraft:book",
+    "count": 3
+  }
+}
