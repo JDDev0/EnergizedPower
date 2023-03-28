@@ -21,7 +21,7 @@ public record SawmillDisplay(SawmillRecipe recipe) implements Display {
     public List<EntryIngredient> getOutputEntries() {
         return List.of(
                 EntryIngredients.of(recipe.getOutputItem()),
-                EntryIngredients.of(ModItems.SAWDUST, recipe.getSawdustAmount())
+                EntryIngredients.of(recipe.getSecondaryOutput())
         );
     }
 
