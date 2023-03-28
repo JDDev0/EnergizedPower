@@ -31,11 +31,10 @@ public class SawmillEMIRecipe implements EmiRecipe {
 
         EmiStack emiOutputItem = EmiStack.of(recipe.getOutputItem());
 
-        int sawdustAmount = recipe.getSawdustAmount();
-        if(sawdustAmount == 0)
+        if(recipe.getSecondaryOutput().isEmpty())
             this.output = List.of(emiOutputItem);
         else
-            this.output = List.of(emiOutputItem, EmiStack.of(new ItemStack(ModItems.SAWDUST, sawdustAmount)));
+            this.output = List.of(emiOutputItem, EmiStack.of(recipe.getSecondaryOutput()));
     }
 
     @Override
