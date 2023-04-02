@@ -312,10 +312,13 @@
 
   "book.energizedpower.page.credits.title": "Credits",
   "book.energizedpower.page.credits.subtitle": "Thank you for contributing to Energized Power!",
-  "book.energizedpower.page.credits.1": "Energized Copper/Gold Ingot textures",
-  "book.energizedpower.page.credits.2": "Battery textures",
-  "book.energizedpower.page.credits.3": "Silicon texture",
-  "book.energizedpower.page.credits.4": "Energy Analyzer texture",
+
+  "book.energizedpower.page.credits_1.1": "Energized Copper/Gold Ingot textures",
+  "book.energizedpower.page.credits_1.2": "Battery textures",
+  "book.energizedpower.page.credits_1.3": "Silicon texture",
+  "book.energizedpower.page.credits_1.4": "Energy Analyzer texture",
+
+  "book.energizedpower.page.credits_2.1": "Chinese (Simplified) translation",
 
   "book.energizedpower.page.table_of_contents.title": "Table of Contents",
 
