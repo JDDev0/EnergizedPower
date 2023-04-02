@@ -49,6 +49,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 * English
 * German
+* Chinese (Simplified)
 
 ## Information
 
@@ -62,6 +63,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - Battery textures ([flashbulbs](https://github.com/flashbulbs)).
 - Silicon texture ([flashbulbs](https://github.com/flashbulbs)).
 - Energy Analyzer texture ([flashbulbs](https://github.com/flashbulbs)).
+- Chinese (Simplified) translation: ([HanJiang-cn](https://github.com/HanJiang-cn)).
 
 ## Tutorial
 
