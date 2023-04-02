@@ -319,10 +319,13 @@
 
   "book.energizedpower.page.credits.title": "Credits",
   "book.energizedpower.page.credits.subtitle": "Danke für die Mitarbeit an Energized Power!",
-  "book.energizedpower.page.credits.1": "Energetisierte Kupfer-/Goldbarren (Texturen)",
-  "book.energizedpower.page.credits.2": "Batterie (Texturen)",
-  "book.energizedpower.page.credits.3": "Silizium (Textur)",
-  "book.energizedpower.page.credits.4": "Energie-Analyzierer (Textur)",
+
+  "book.energizedpower.page.credits_1.1": "Energetisierte Kupfer-/Goldbarren (Texturen)",
+  "book.energizedpower.page.credits_1.2": "Batterie (Texturen)",
+  "book.energizedpower.page.credits_1.3": "Silizium (Textur)",
+  "book.energizedpower.page.credits_1.4": "Energie-Analyzierer (Textur)",
+
+  "book.energizedpower.page.credits_2.1": "Chinesisch (Vereinfacht)-Übersetzung",
 
   "book.energizedpower.page.table_of_contents.title": "Inhaltsverzeichnis",
 
