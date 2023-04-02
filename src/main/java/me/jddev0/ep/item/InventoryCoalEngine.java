@@ -182,7 +182,8 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
         //Find and burn new fuel item
 
         //i: 0 - 8 -> Hotbar (Ignore)
-        for(int i = 9;i < inventory.getContainerSize();i++) {
+        //"< items.size()": Ignore armor and offhand slots
+        for(int i = 9;i < inventory.items.size();i++) {
             if(i == slot)
                 continue;
 
