@@ -1,0 +1,48 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.credits.title",
+      "color": "gold",
+      "bold": true,
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.credits.subtitle",
+      "color": "dark_green",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "text": "\n• ",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "translate": "book.energizedpower.page.credits_2.1"
+        },
+        ": ",
+        {
+          "text": "HanJiang-cn",
+          "color": "blue",
+          "underlined": true,
+          "clickEvent": {
+            "action": "open_url",
+            "value": "https://github.com/HanJiang-cn"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.tooltip.link"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

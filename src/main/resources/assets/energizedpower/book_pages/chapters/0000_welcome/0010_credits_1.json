@@ -24,7 +24,7 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.credits.1"
+          "translate": "book.energizedpower.page.credits_1.1"
         },
         ": ",
         {
@@ -51,7 +51,7 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.credits.2"
+          "translate": "book.energizedpower.page.credits_1.2"
         },
         ": ",
         {
@@ -78,7 +78,7 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.credits.3"
+          "translate": "book.energizedpower.page.credits_1.3"
         },
         ": ",
         {
@@ -105,7 +105,7 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.credits.4"
+          "translate": "book.energizedpower.page.credits_1.4"
         },
         ": ",
         {
