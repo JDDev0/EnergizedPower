@@ -1,0 +1,425 @@
+{
+  "item.energizedpower.energized_copper_ingot": "充能铜锭",
+
+  "item.energizedpower.energized_gold_ingot": "充能金锭",
+
+  "item.energizedpower.silicon": "硅",
+
+  "item.energizedpower.sawdust": "锯末",
+
+  "item.energizedpower.basic_solar_cell": "基本太阳能单元",
+  "item.energizedpower.advanced_solar_cell": "高级太阳能单元",
+
+  "item.energizedpower.energized_power_book": "Energized Power 书",
+  "book.energizedpower.front.cover.text": "这个是这个模组的指南书！",
+
+  "item.energizedpower.cable_insulator": "电缆绝缘体",
+  "tooltip.energizedpower.cable_insulator.txt.shift.1": "This item can be crafted by clicking on a wool block with shears.",
+
+  "item.energizedpower.saw_blade": "锯片",
+
+  "item.energizedpower.inventory_coal_engine": "Inventory Coal Engine",
+  "tooltip.energizedpower.inventory_coal_engine.status": "状态: ",
+  "tooltip.energizedpower.inventory_coal_engine.status.activated": "已激活",
+  "tooltip.energizedpower.inventory_coal_engine.status.activated": "已激活",
+  "tooltip.energizedpower.inventory_coal_engine.status.activated": "已激活",
+  "tooltip.energizedpower.inventory_coal_engine.status.activated": "已激活",
+  "tooltip.energizedpower.inventory_coal_engine.status.activated": "已激活",
+  "tooltip.energizedpower.inventory_coal_engine.status.deactivated": "未激活",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.1": "状态的切换是在空中右击。",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.2": "If active items will be taken from the inventory but not from the hotbar.",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning": "目前在燃烧：",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.energy_production_left": "左边能量产出：%s",
+
+  "item.energizedpower.battery_1": "电池（等级 I）",
+  "item.energizedpower.battery_2": "电池（等级 II）",
+  "item.energizedpower.battery_3": "电池（等级 III）",
+  "item.energizedpower.battery_4": "电池（等级 IV）",
+  "item.energizedpower.battery_5": "电池（等级 V）",
+  "item.energizedpower.battery_6": "电池（等级 VI）",
+  "item.energizedpower.battery_7": "电池（等级 VII）",
+  "item.energizedpower.battery_8": "电池（等级 VIII）",
+  "tooltip.energizedpower.battery.txt.shift.1": "该电池可以传输 %s/t.",
+
+  "item.energizedpower.energy_analyzer": "能量分析仪",
+  "tooltip.energizedpower.energy_analyzer.txt.shift.1": "点击一个能量方块来查看该方块的信息。",
+  "tooltip.energizedpower.energy_analyzer.txt.shift.2": "每使用一次将消耗掉 %s ",
+  "txt.energizedpower.energy_analyzer.output_side_information": "被点击的区块面信息：",
+  "txt.energizedpower.energy_analyzer.no_energy_left": "能量分析仪没有足够的能量（需要 %s）。",
+  "txt.energizedpower.energy_analyzer.no_block_entity": "该区块没有能量方块。",
+  "txt.energizedpower.energy_analyzer.no_energy_block": "该区块没有（FE）能量块。",
+  "txt.energizedpower.energy_analyzer.no_energy_block_side": "这个区块面是没有（FE）能量区块面的。",
+  "txt.energizedpower.energy_analyzer.energy_output": "能量：%s / %s。",
+  "txt.energizedpower.energy_analyzer.energy_can_receive": "该方块会消耗能量。",
+  "txt.energizedpower.energy_analyzer.energy_can_extract": "该方块产生能量。",
+  "txt.energizedpower.energy_analyzer.energy_can_receive_side": "该区块面消耗能源。",
+  "txt.energizedpower.energy_analyzer.energy_can_extract_side": "该区块面产生能量。",
+
+  "block.energizedpower.silicon_block": "硅块",
+  "item.energizedpower.silicon_block": "硅块",
+
+  "block.energizedpower.sawdust_block": "压实锯末块",
+  "item.energizedpower.sawdust_block": "压实锯末块",
+
+  "block.energizedpower.auto_crafter": "自动合成机",
+  "item.energizedpower.auto_crafter": "自动合成机",
+  "container.energizedpower.auto_crafter": "自动合成机",
+
+  "tooltip.energizedpower.auto_crafter.txt.shift.1": "该方块使用每一种物品的 %s/t。",
+
+  "block.energizedpower.charger": "充能站",
+  "item.energizedpower.charger": "充能站",
+  "container.energizedpower.charger": "充能站",
+
+  "tooltip.energizedpower.charger.txt.shift.1": "充能站用来制作充能铜锭",
+  "tooltip.energizedpower.charger.txt.shift.2": "这个非常昂贵 :P",
+
+  "tooltip.energizedpower.charger.item_energy_left.txt": "这个物品需要 %s 才能充满。",
+
+  "block.energizedpower.uncharger": "放能站",
+  "item.energizedpower.uncharger": "放能站",
+  "container.energizedpower.uncharger": "放能站",
+
+  "tooltip.energizedpower.uncharger.item_energy_left.txt": "该物品还剩下 %s。",
+
+  "block.energizedpower.copper_cable": "绝缘铜质导线",
+  "item.energizedpower.copper_cable": "绝缘铜质导线",
+
+  "block.energizedpower.gold_cable": "金电缆",
+  "item.energizedpower.gold_cable": "金电缆",
+
+  "block.energizedpower.energized_copper_cable": "充能绝缘铜质导线",
+  "item.energizedpower.energized_copper_cable": "充能绝缘铜质导线",
+
+  "block.energizedpower.energized_gold_cable": "充能绝缘金质电缆",
+  "item.energizedpower.energized_gold_cable": "充能绝缘金质电缆",
+
+  "tooltip.energizedpower.cable.txt.shift.1": "这条电缆可以传输 %s/t。",
+  "tooltip.energizedpower.cable.txt.shift.2": "Cable insulators can be crafted by clicking on a wool block with shears.",
+
+
+  "block.energizedpower.transformer_1_to_n": "变压器（1 对 n）",
+  "item.energizedpower.transformer_1_to_n": "变压器（1 对 n）",
+
+  "block.energizedpower.transformer_3_to_3": "变压器（3 对 3）",
+  "item.energizedpower.transformer_3_to_3": "变压器（3 对 3）",
+
+  "block.energizedpower.transformer_n_to_1": "变压器（n 对 1）",
+  "item.energizedpower.transformer_n_to_1": "变压器（n 对 1）",
+
+  "tooltip.energizedpower.transformer.txt.shift.1": "本方块可以链接不同类型的电缆。",
+  "tooltip.energizedpower.transformer.txt.shift.2": "输入面是深色的，有一个较大的菱形。",
+  "tooltip.energizedpower.transformer.txt.shift.3": "输出面是较浅的，有一个较小的正方形。",
+
+
+  "block.energizedpower.solar_panel_1": "太阳能电池板（I级）",
+  "item.energizedpower.solar_panel_1": "太阳能电池板（I级）",
+  "block.energizedpower.solar_panel_2": "太阳能电池板（II级）",
+  "item.energizedpower.solar_panel_2": "太阳能电池板（II级）",
+  "block.energizedpower.solar_panel_3": "太阳能电池板（III级）",
+  "item.energizedpower.solar_panel_3": "太阳能电池板（III级）",
+  "block.energizedpower.solar_panel_4": "太阳能电池板（IV级）",
+  "item.energizedpower.solar_panel_4": "太阳能电池板（IV级）",
+  "block.energizedpower.solar_panel_5": "太阳能电池板（V级）",
+  "item.energizedpower.solar_panel_5": "太阳能电池板（V级）",
+
+  "tooltip.energizedpower.solar_panel.txt.shift.1": "该方块在白天生产 %s/t。",
+  "tooltip.energizedpower.solar_panel.txt.shift.2": "该方块的效率取决于当前的时间。",
+
+  "block.energizedpower.coal_engine": "煤炭发动机",
+  "item.energizedpower.coal_engine": "煤炭发动机",
+  "container.energizedpower.coal_engine": "煤炭发动机",
+
+  "tooltip.energizedpower.coal_engine.txt": "这个物品将产生 %s，直到被烧毁。",
+
+  "block.energizedpower.crusher": "粉碎机",
+  "item.energizedpower.crusher": "粉碎机",
+  "container.energizedpower.crusher": "粉碎机",
+
+  "block.energizedpower.sawmill": "锯木机",
+  "item.energizedpower.sawmill": "锯木机",
+  "container.energizedpower.sawmill": "锯木机",
+
+  "block.energizedpower.block_placer": "方块放置器",
+  "item.energizedpower.block_placer": "方块放置器",
+  "container.energizedpower.block_placer": "方块放置器",
+
+  "tooltip.energizedpower.block_placer.block_energy_left.txt": "该方块需要 %s 来放置方块。",
+
+  "block.energizedpower.lightning_generator": "人造闪电发生器",
+  "item.energizedpower.lightning_generator": "人造闪电发生器",
+
+  "tooltip.energizedpower.lightning_generator.txt.shift.1": "该区块每次遭到电击时，都会产生 %s的能量。",
+  "tooltip.energizedpower.lightning_generator.txt.shift.2": "必须将避雷针防置在该方块时才会生效。",
+
+  "block.energizedpower.energizer": "物品充能站",
+  "item.energizedpower.energizer": "物品充能站",
+  "container.energizedpower.energizer": "物品充能站",
+
+  "block.energizedpower.charging_station": "无线充能站",
+  "item.energizedpower.charging_station": "无线充能站",
+  "container.energizedpower.charging_station": "无线充能站",
+
+  "tooltip.energizedpower.charging_station.txt.shift.1": "无线充电站可以为玩家物品栏内的物品充能。",
+
+  "block.energizedpower.basic_machine_frame": "基础机器框架",
+  "item.energizedpower.basic_machine_frame": "基础机器框架",
+
+  "block.energizedpower.advanced_machine_frame": "高级机器框架",
+  "item.energizedpower.advanced_machine_frame": "高级机器框架",
+
+  "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
+  "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "这个配方需要 %s 才能合成。",
+  "tooltip.energizedpower.shift_details.txt": "按[SHIFT]查看详情",
+
+  "itemGroup.energizedpower.tab": "Energized Power",
+
+  "entity.minecraft.villager.energizedpower.electrician": "电工",
+
+  "recipes.energizedpower.in_world_crafting": "世界工匠",
+  "recipes.energizedpower.transfer.too_large": "这配方对于这个容器太大了！",
+
+
+  "advancements.energizedpower.advanced_machine_frame.title": "高级机器",
+  "advancements.energizedpower.advanced_machine_frame.description": "更高级的机器需要这个制作基础。",
+
+  "advancements.energizedpower.advanced_solar_cell.title": "高级太阳能",
+  "advancements.energizedpower.advanced_solar_cell.description": "高级太阳能电池板需要...",
+
+  "advancements.energizedpower.auto_crafter.title": "未来自动化",
+  "advancements.energizedpower.auto_crafter.description": "如果这个方块可以自动制作，谁还愿意手动制作？",
+
+  "advancements.energizedpower.crusher.title": "粉碎",
+  "advancements.energizedpower.crusher.description": "石头，砂岩，圆石，沙砾，或其他方块。",
+
+  "advancements.energizedpower.sawmill.title": "锯削",
+  "advancements.energizedpower.sawmill.description": "锯木头。",
+
+  "advancements.energizedpower.block_placer.title": "放置方块",
+  "advancements.energizedpower.block_placer.description": "方块被自动放置在世界中。",
+
+  "advancements.energizedpower.basic_machine_frame.title": "机器根基",
+  "advancements.energizedpower.basic_machine_frame.description": "这是制作每个机器的基本物品。",
+
+  "advancements.energizedpower.basic_solar_cell.title": "太阳能基本知识",
+  "advancements.energizedpower.basic_solar_cell.description": "你的第一块太阳能电池板需要的两块太阳能单元。",
+
+  "advancements.energizedpower.battery_1.title": "能量单元",
+  "advancements.energizedpower.battery_1.description": "以物品形式存储能量。",
+
+  "advancements.energizedpower.battery_2.title": "能量x4",
+  "advancements.energizedpower.battery_2.description": "这个电池可以储存与4个等级为一的电池能量。",
+
+  "advancements.energizedpower.battery_3.title": "更多能量",
+  "advancements.energizedpower.battery_3.description": "第 III 级：是 II 级的两倍。",
+
+  "advancements.energizedpower.battery_4.title": "要要更多能量",
+  "advancements.energizedpower.battery_4.description": "这是第 IV 级 - 就还有四级。",
+
+  "advancements.energizedpower.battery_5.title": "铜的好事",
+  "advancements.energizedpower.battery_5.description": "V 级：你要给下一个电池充能...",
+
+  "advancements.energizedpower.battery_6.title": "充能电池",
+  "advancements.energizedpower.battery_6.description": "VI 级：你已经给你的电池充能了，这样可以获得更多的存储能量。",
+
+  "advancements.energizedpower.battery_7.title": "需要更多能量？",
+  "advancements.energizedpower.battery_7.description": "VII 级：25万FE的存储容量! 我们能做得更好？",
+
+  "advancements.energizedpower.battery_8.title": "需要更多能量",
+  "advancements.energizedpower.battery_8.description": "这是本模组最好的电池（它可以存储超过100万FE）。",
+
+  "advancements.energizedpower.battery_8_fully_charged.title": "储能专家",
+  "advancements.energizedpower.battery_8_fully_charged.description": "你居然将你的100万FE电池充满了电！",
+
+  "advancements.energizedpower.cable_insulator.title": "电缆外套",
+  "advancements.energizedpower.cable_insulator.description": "Cover your cables with this ingredient. (Can be crafted by clicking on wool with shears [Dispenser can be used too])",
+
+  "advancements.energizedpower.charger.title": "充能",
+  "advancements.energizedpower.charger.description": "用这个方块为你的物品充能。",
+
+  "advancements.energizedpower.charging_station.title": "无线充能",
+  "advancements.energizedpower.charging_station.description": "物品充能使用无线方式。",
+
+  "advancements.energizedpower.coal_engine.title": "煤的力量",
+  "advancements.energizedpower.coal_engine.description": "通过烧东西来生产能量虽然不是最有好的，但目前来说已经最好的。",
+
+  "advancements.energizedpower.copper_cable.title": "能量传输",
+  "advancements.energizedpower.copper_cable.description": "用电缆传输能量。",
+
+  "advancements.energizedpower.gold_cable.title": "功率越大越好",
+  "advancements.energizedpower.gold_cable.description": "用更好的电缆提供更多的能量。",
+
+  "advancements.energizedpower.energized_copper_cable.title": "功率太大",
+  "advancements.energizedpower.energized_copper_cable.description": "具有非常高的能量吞吐量的电缆!",
+
+  "advancements.energizedpower.energized_gold_cable.title": "能量，能量，能量",
+  "advancements.energizedpower.energized_gold_cable.description": "这条电缆是最好的。",
+
+  "advancements.energizedpower.transformers.title": "变压器",
+  "advancements.energizedpower.transformers.description": "可以连接到不同类型的电缆。",
+
+  "advancements.energizedpower.energized_copper_ingot.title": "充满能量",
+  "advancements.energizedpower.energized_copper_ingot.description": "充能铜锭是更好的铜锭。",
+
+  "advancements.energizedpower.energized_gold_ingot.title": "闪亮的金属锭",
+  "advancements.energizedpower.energized_gold_ingot.description": "能量化的金锭非常有光泽。",
+
+  "advancements.energizedpower.energized_power_book.title": "无穷知识",
+  "advancements.energizedpower.energized_power_book.description": "这是关于这个模组的指南手册。",
+
+  "advancements.energizedpower.energizedpower.title": "Energized Power",
+  "advancements.energizedpower.energizedpower.description": "这是你开始 energized power 路途的起点。",
+
+  "advancements.energizedpower.energizer.title": "更高效的传输",
+  "advancements.energizedpower.energizer.description": "这台机器比充电器更快，高效地将你的铜锭能量化。",
+
+  "advancements.energizedpower.lightning_generator.title": "云的力量",
+  "advancements.energizedpower.lightning_generator.description": "可以从闪电中获取能量。",
+
+  "advancements.energizedpower.energy_analyzer.title": "分析大师",
+  "advancements.energizedpower.energy_analyzer.description": "分析每一个方块 - 即使它们没有 GUI 界面!",
+
+  "advancements.energizedpower.inventory_coal_engine.title": "Inventory Power",
+  "advancements.energizedpower.inventory_coal_engine.description": "Produce and distribute energy in your inventory.",
+
+  "advancements.energizedpower.silicon.title": "硅",
+  "advancements.energizedpower.silicon.description": "这个物品几乎是这个模组的所有物品和机器的材料。",
+
+  "advancements.energizedpower.solar_panel_1.title": "太阳能学徒",
+  "advancements.energizedpower.solar_panel_1.description": "I 级太阳能电池板...",
+
+  "advancements.energizedpower.solar_panel_2.title": "太阳能实习生",
+  "advancements.energizedpower.solar_panel_2.description": "II 级的比 I 级更好。",
+
+  "advancements.energizedpower.solar_panel_3.title": "太阳能员工",
+  "advancements.energizedpower.solar_panel_3.description": "III 级--基本太阳能电池板中最好的。",
+
+  "advancements.energizedpower.solar_panel_4.title": "太阳能经理",
+  "advancements.energizedpower.solar_panel_4.description": "IV 级：只剩一个了!",
+
+  "advancements.energizedpower.solar_panel_5.title": "太阳能雇主",
+  "advancements.energizedpower.solar_panel_5.description": "V 级 - 你得到了最好的太阳能电池板!",
+
+  "advancements.energizedpower.uncharger.title": "还给我!",
+  "advancements.energizedpower.uncharger.description": "将物品中的能量释放出来",
+
+
+  "book.energizedpower.tooltip.link": "打开链接",
+  "book.energizedpower.tooltip.page": "跳页",
+
+
+  "book.energizedpower.page.welcome.title": "欢迎来到 Energized Power!",
+  "book.energizedpower.page.welcome.1": "这个 MOD 增加了许多与能源相关的物品和机器。",
+  "book.energizedpower.page.welcome.2": "官方的 Energized Power wiki",
+  "book.energizedpower.page.welcome.3": "你发现了一个 Bug 或想提建议？去这里",
+  "book.energizedpower.page.welcome.3.link": "报告漏洞",
+
+  "book.energizedpower.page.credits.title": "鸣谢",
+  "book.energizedpower.page.credits.subtitle": "感谢你为 Energized Power 做的贡献!",
+  "book.energizedpower.page.credits_1.1": "充能铜/金锭的纹理",
+  "book.energizedpower.page.credits_1.2": "电池纹理",
+  "book.energizedpower.page.credits_1.3": "硅的纹理",
+  "book.energizedpower.page.credits_1.4": "能量分析仪纹理",
+  
+  "book.energizedpower.page.credits_2.1": "简体中文翻译",
+
+  "book.energizedpower.page.table_of_contents.title": "目录",
+
+
+  "book.energizedpower.page.chapter.resources.title": "物品",
+  "book.energizedpower.page.chapter.resources.1": "制作物品需要物品",
+
+  "book.energizedpower.page.cable_insulator.1": "电缆绝缘体是在制作电缆是所需要的。",
+  "book.energizedpower.page.cable_insulator.2": "It can be crafted by clicking on a wool block with shears.",
+  "book.energizedpower.page.cable_insulator.3": "It can also be crafted with a dispenser.",
+
+  "book.energizedpower.page.saw_blade.1": "锯片是制作锯木机的材料。",
+
+  "book.energizedpower.page.silicon.1": "硅几乎是这个模组的所有物品和机器的材料。",
+  "book.energizedpower.page.silicon.2": "可以通过熔炼或高温烧炼下界石英来制作。",
+
+  "book.energizedpower.page.sawdust.1": "锯末是锯木机产出的副产品，锯末可以来制作锯末块。",
+  "book.energizedpower.page.sawdust.2": "锯末块可以烧制成木炭。",
+
+  "book.energizedpower.page.energized_copper_ingot.1": "充能铜锭是充能站这样高级的机器需要的。",
+  "book.energizedpower.page.energized_copper_ingot.2": "充能站是用这个锭做的，那倒不是吗？",
+  "book.energizedpower.page.energized_copper_ingot.3": "充电站可以用来制作这种锭的。",
+  "book.energizedpower.page.energized_copper_ingot.4": " [但它很昂贵]",
+
+  "book.energizedpower.page.energized_gold_ingot.1": "充能金锭应用于高级的机器（e.g.充电站）。",
+
+
+  "book.energizedpower.page.chapter.energy_items.title": "能量物品",
+  "book.energizedpower.page.chapter.energy_items": "能够产生、消耗或储存能量的物品。",
+
+  "book.energizedpower.page.inventory_coal_engine.1": "这个物品可以在你的物品栏中生产和分配能量。",
+  "book.energizedpower.page.inventory_coal_engine.2": "状态的切换是在空中右击。",
+  "book.energizedpower.page.inventory_coal_engine.3": "然后，燃料将自动从物品栏中获取。",
+  "book.energizedpower.page.inventory_coal_engine.4": " [快捷键并不可以]",
+
+  "book.energizedpower.page.energy_analyzer.1": "能量分析仪可以获取静力分析能量。主要是为没用 GUI 的机器。",
+  "book.energizedpower.page.energy_analyzer.2": "用这个点击方块来使用。",
+
+  "book.energizedpower.page.batteries.1": "电池可以储存能量。",
+  "book.energizedpower.page.batteries.2": "电池可以通过无线充电站或充能站来充电，也可以使用放能站将其中的能量释放到网络中。",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.title": "能量方块",
+  "book.energizedpower.page.chapter.energy_blocks": "可以生产能源、由能源驱动或运输能源的方块。",
+
+  "book.energizedpower.page.cables.1": "电缆是将从生能源的方块向由能源驱动输送能源的方块。",
+  "book.energizedpower.page.cables.2": "共有四种类型的电缆。",
+  "book.energizedpower.page.cables.3": "如果有不同类型的电缆，需要变压器来连接这些电缆。",
+
+  "book.energizedpower.page.transformers_1.1": "变压器用于连接不同类型的电缆。",
+  "book.energizedpower.page.transformers_1.2": "输入面是深色的，有一个较大的菱形。",
+  "book.energizedpower.page.transformers_1.3": "输出面是较浅的，有一个较小的正方形。",
+
+  "book.energizedpower.page.transformers_2.1": "一共有三种类型的变压器：1对n，3对3，以及 n对1。",
+  "book.energizedpower.page.transformers_2.2": "使用变压器可以减轻电缆网络的延迟；要适当的使用变压器来代替电缆。",
+  "book.energizedpower.page.transformers_2.3": "变压器可以连接充能的电缆和其它类型的电缆。",
+  "book.energizedpower.page.transformers_2.4": "变压器可以当作一个电池组。",
+  "book.energizedpower.page.transformers_2.5": "变压器可以连接 AE2 中的电缆来获取能量。",
+
+  "book.energizedpower.page.machine_frames.1": "机器框架是每个机器的基本方块。",
+  "book.energizedpower.page.machine_frames.2": "一共有两种机器框架：基本机器框架和高级机器框架。",
+
+  "book.energizedpower.page.solar_cells.1": "太阳能单元是制作太阳能电池板的基本物品。",
+  "book.energizedpower.page.solar_cells.2": "一共有两种太阳能电池板：基本太阳能单元和高级太阳能单元。",
+
+  "book.energizedpower.page.solar_panels.1": "太阳能电池板在白天产生能量。太阳能电池板的效率取决于那天的时间和天气情况。",
+  "book.energizedpower.page.solar_panels.2": "一共有5种太阳能电池板。",
+  "book.energizedpower.page.solar_panels.3": "IV 级和 V 级的太阳能电池板需要充能铜锭。",
+
+  "book.energizedpower.page.coal_engine.1": "煤炭发动机通过燃烧物品产生能量。",
+  "book.energizedpower.page.coal_engine.2": "剩余的物品将自动拿出。",
+
+  "book.energizedpower.page.lightning_generator.1": "人造闪电发生器在每次雷击时产生大量的能量。",
+  "book.energizedpower.page.lightning_generator.2": "必须将避雷针防置在该方块时才会生效。",
+
+  "book.energizedpower.page.auto_crafter.1": "自动合成机会自动合成物品。",
+  "book.energizedpower.page.auto_crafter.2": "可以通过使用自动合成机中的合成槽来放置配方。",
+
+  "book.energizedpower.page.crusher": "粉碎机可以粉碎石头、砂岩、圆石和沙砾等方块。",
+
+  "book.energizedpower.page.sawmill.1": "锯木机可以据原木和一些物品。",
+  "book.energizedpower.page.sawmill.2": "锯末是锯木机生产出的副产品，可以合成锯末块用于燃料。",
+
+  "book.energizedpower.page.block_placer.1": "方块放置器可以放置所有的方块（甚至可以是门和种子）。",
+  "book.energizedpower.page.block_placer.2": "只有在可以放置方块的情况下才会放置方块。",
+
+  "book.energizedpower.page.charger_uncharger": "充能站可以为物品充能，放能站可以将物品中的能量释放到网络中。",
+
+  "book.energizedpower.page.charging_station": "无线充能站可以在一定的范围内为玩家物品栏中的物品充能。",
+
+  "book.energizedpower.page.energizer": "Energizer 可以很好地给物品充能。",
+
+
+  "book.energizedpower.page.chapter.structures.title": "结构",
+  "book.energizedpower.page.chapter.structures": "在你的世界中产生的结构。",
+
+  "book.energizedpower.page.electrician.title": "电工村民",
+  "book.energizedpower.page.electrician.1": "电工村民可以在电工房中找到。",
+  "book.energizedpower.page.electrician.2": "电工房在每个原版村庄中都能找到。",
+  "book.energizedpower.page.electrician.3": "使用基本机器框架可以召唤一个电工村民。"
+}
