@@ -290,11 +290,6 @@ public class SawmillBlockEntity extends BlockEntity implements ExtendedScreenHan
         return inventory.getStack(2).getMaxCount() >= inventory.getStack(2).getCount() + count;
     }
 
-    private static boolean canInsertSawdust(SimpleInventory inventory, int amount) {
-        ItemStack itemStack = inventory.getStack(2);
-        return itemStack.isEmpty() || (itemStack.isOf(ModItems.SAWDUST) && itemStack.getCount() + amount <= itemStack.getMaxCount());
-    }
-
     @Override
     public void setEnergy(long energy) {
         internalEnergyStorage.amount = energy;
