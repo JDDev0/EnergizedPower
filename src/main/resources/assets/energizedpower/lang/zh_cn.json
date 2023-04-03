@@ -43,8 +43,8 @@
   "txt.energizedpower.energy_analyzer.output_side_information": "被点击的区块面信息：",
   "txt.energizedpower.energy_analyzer.no_energy_left": "能量分析仪没有足够的能量（需要 %s）。",
   "txt.energizedpower.energy_analyzer.no_block_entity": "该区块没有能量方块。",
-  "txt.energizedpower.energy_analyzer.no_energy_block": "该区块没有（FE）能量块。",
-  "txt.energizedpower.energy_analyzer.no_energy_block_side": "这个区块面是没有（FE）能量区块面的。",
+  "txt.energizedpower.energy_analyzer.no_energy_block": "该区块没有（E）能量块。",
+  "txt.energizedpower.energy_analyzer.no_energy_block_side": "这个区块面是没有（E）能量区块面的。",
   "txt.energizedpower.energy_analyzer.energy_output": "能量：%s / %s。",
   "txt.energizedpower.energy_analyzer.energy_can_receive": "该方块会消耗能量。",
   "txt.energizedpower.energy_analyzer.energy_can_extract": "该方块产生能量。",
@@ -219,13 +219,13 @@
   "advancements.energizedpower.battery_6.description": "VI 级：你已经给你的电池充能了，这样可以获得更多的存储能量。",
 
   "advancements.energizedpower.battery_7.title": "需要更多能量？",
-  "advancements.energizedpower.battery_7.description": "VII 级：25万FE的存储容量! 我们能做得更好？",
+  "advancements.energizedpower.battery_7.description": "VII 级：25万E的存储容量! 我们能做得更好？",
 
   "advancements.energizedpower.battery_8.title": "需要更多能量",
-  "advancements.energizedpower.battery_8.description": "这是本模组最好的电池（它可以存储超过100万FE）。",
+  "advancements.energizedpower.battery_8.description": "这是本模组最好的电池（它可以存储超过100万E）。",
 
   "advancements.energizedpower.battery_8_fully_charged.title": "储能专家",
-  "advancements.energizedpower.battery_8_fully_charged.description": "你居然将你的100万FE电池充满了电！",
+  "advancements.energizedpower.battery_8_fully_charged.description": "你居然将你的100万E电池充满了电！",
 
   "advancements.energizedpower.cable_insulator.title": "电缆外套",
   "advancements.energizedpower.cable_insulator.description": "Cover your cables with this ingredient. (Can be crafted by clicking on wool with shears [Dispenser can be used too])",
