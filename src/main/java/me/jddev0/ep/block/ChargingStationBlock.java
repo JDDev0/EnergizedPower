@@ -27,7 +27,6 @@ import java.util.List;
 public class ChargingStationBlock extends BaseEntityBlock {
     public static final BooleanProperty CHARGING = BooleanProperty.create("charging");
 
-    private static final int ACTIVATION_TICKS = 8;
 
     public ChargingStationBlock(Properties props) {
         super(props);
