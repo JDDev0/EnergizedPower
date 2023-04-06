@@ -155,7 +155,8 @@ public final class ModBlocks {
 
     public static final RegistryObject<Block> CHARGING_STATION = BLOCKS.register("charging_station",
             () -> new ChargingStationBlock(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).
+                    lightLevel(ChargingStationBlock.LIGHT_EMISSION)));
     public static final RegistryObject<Item> CHARGING_STATION_ITEM = ModItems.ITEMS.register("charging_station",
             () -> new ChargingStationBlock.Item(CHARGING_STATION.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
