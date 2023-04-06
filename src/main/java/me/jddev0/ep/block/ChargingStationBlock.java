@@ -35,7 +35,6 @@ public class ChargingStationBlock extends BlockWithEntity {
     public static final ToIntFunction<BlockState> LIGHT_EMISSION =
             (state) -> state.get(CHARGING) ? 8 : 0;
 
-    private static final int ACTIVATION_TICKS = 8;
 
     public ChargingStationBlock(FabricBlockSettings props) {
         super(props);
