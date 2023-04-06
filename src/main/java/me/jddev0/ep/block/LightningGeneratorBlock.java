@@ -27,11 +27,15 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.ToIntFunction;
 
 public class LightningGeneratorBlock extends BaseEntityBlock {
     public static final int ENERGY_PER_LIGHTNING_STRIKE = 1000000;
 
     public static final BooleanProperty HIT_BY_LIGHTNING_BOLT = BooleanProperty.create("hit_by_lightning_bolt");
+
+    public static final ToIntFunction<BlockState> LIGHT_EMISSION =
+            (state) -> state.getValue(HIT_BY_LIGHTNING_BOLT) ? 15 : 0;
 
     private static final int ACTIVATION_TICKS = 8;
 
