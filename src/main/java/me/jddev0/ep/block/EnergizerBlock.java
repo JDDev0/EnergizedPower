@@ -29,9 +29,14 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.ToIntFunction;
+
 public class EnergizerBlock extends BaseEntityBlock {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+
+    public static final ToIntFunction<BlockState> LIGHT_EMISSION =
+            (state) -> state.getValue(BlockStateProperties.LIT) ? 8 : 0;
 
     protected EnergizerBlock(Properties props) {
         super(props);
