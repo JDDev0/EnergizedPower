@@ -23,10 +23,13 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.ToIntFunction;
 
 public class ChargingStationBlock extends BaseEntityBlock {
     public static final BooleanProperty CHARGING = BooleanProperty.create("charging");
 
+    public static final ToIntFunction<BlockState> LIGHT_EMISSION =
+            (state) -> state.getValue(CHARGING) ? 8 : 0;
 
     public ChargingStationBlock(Properties props) {
         super(props);
