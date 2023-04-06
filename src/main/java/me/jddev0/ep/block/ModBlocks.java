@@ -149,7 +149,8 @@ public final class ModBlocks {
 
     public static final RegistryObject<Block> ENERGIZER = BLOCKS.register("energizer",
             () -> new EnergizerBlock(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).
+                    lightLevel(EnergizerBlock.LIGHT_EMISSION)));
     public static final RegistryObject<Item> ENERGIZER_ITEM = createBlockItem("energizer", ENERGIZER);
 
     public static final RegistryObject<Block> CHARGING_STATION = BLOCKS.register("charging_station",
