@@ -425,5 +425,8 @@
   "book.energizedpower.page.electrician.title": "Electrician Villager",
   "book.energizedpower.page.electrician.1": "The electrician villager can be found in the electrician house.",
   "book.energizedpower.page.electrician.2": "The electrician house can be found in every vanilla village type.",
-  "book.energizedpower.page.electrician.3": "The Basic Machine Frame can be used to get an electrician villager."
+  "book.energizedpower.page.electrician.3": "The Basic Machine Frame can be used to get an electrician villager.",
+
+  "book.energizedpower.page.factory.title": "Factory Building",
+  "book.energizedpower.page.factory.1": "The factory building contains some machines and something interesting in the center of the building. It can be found in Forest and Flower Forest biomes."
 }

@@ -418,5 +418,8 @@
   "book.energizedpower.page.electrician.title": "电工村民",
   "book.energizedpower.page.electrician.1": "电工村民可以在电工房中找到。",
   "book.energizedpower.page.electrician.2": "电工房在每个原版村庄中都能找到。",
-  "book.energizedpower.page.electrician.3": "使用基本机器框架可以召唤一个电工村民。"
+  "book.energizedpower.page.electrician.3": "使用基本机器框架可以召唤一个电工村民。",
+
+  "book.energizedpower.page.factory.title": "Factory Building",
+  "book.energizedpower.page.factory.1": "The factory building contains some machines and something interesting in the center of the building. It can be found in Forest and Flower Forest biomes."
 }
