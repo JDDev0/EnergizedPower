@@ -418,5 +418,8 @@
   "book.energizedpower.page.electrician.title": "Elektriker- Dorfbewohner",
   "book.energizedpower.page.electrician.1": "Der Elektriker- Dorfbewohner kann im Elektriker-Haus gefunden werden.",
   "book.energizedpower.page.electrician.2": "Dieses Haus kann in allen Dörfern gefunden werden.",
-  "book.energizedpower.page.electrician.3": "Der Basis Maschinenrahmen ist die Werkstation des Elektriker-Dorfbewohners."
+  "book.energizedpower.page.electrician.3": "Der Basis Maschinenrahmen ist die Werkstation des Elektriker-Dorfbewohners.",
+
+  "book.energizedpower.page.factory.title": "Fabrikgebäude",
+  "book.energizedpower.page.factory.1": "Das Fabrikgebäude enthält ein paar Maschinen und etwas Interessantes in der Mitte des Gebäude. Es kann in Wald- und Blumen-Wald- Biomen gefunden werden."
 }
