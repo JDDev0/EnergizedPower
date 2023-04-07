@@ -89,6 +89,48 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     }
 
     @Override
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        switch(rotation) {
+            case CLOCKWISE_90:
+                return state.
+                        setValue(NORTH, state.getValue(WEST)).
+                        setValue(SOUTH, state.getValue(EAST)).
+                        setValue(EAST, state.getValue(NORTH)).
+                        setValue(WEST, state.getValue(SOUTH));
+            case CLOCKWISE_180:
+                return state.
+                        setValue(NORTH, state.getValue(SOUTH)).
+                        setValue(SOUTH, state.getValue(NORTH)).
+                        setValue(EAST, state.getValue(WEST)).
+                        setValue(WEST, state.getValue(EAST));
+            case COUNTERCLOCKWISE_90:
+                return state.
+                        setValue(NORTH, state.getValue(EAST)).
+                        setValue(SOUTH, state.getValue(WEST)).
+                        setValue(EAST, state.getValue(SOUTH)).
+                        setValue(WEST, state.getValue(NORTH));
+            default:
+                return state;
+        }
+    }
+
+    @Override
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        switch(mirror) {
+            case LEFT_RIGHT:
+                return state.
+                        setValue(NORTH, state.getValue(SOUTH)).
+                        setValue(SOUTH, state.getValue(NORTH));
+            case FRONT_BACK:
+                return state.
+                        setValue(EAST, state.getValue(WEST)).
+                        setValue(WEST, state.getValue(EAST));
+            default:
+                return state;
+        }
+    }
+
+    @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         VoxelShape shape = SHAPE_CORE;
 
