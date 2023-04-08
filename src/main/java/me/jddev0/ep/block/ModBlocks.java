@@ -139,7 +139,8 @@ public final class ModBlocks {
 
     public static final Block LIGHTNING_GENERATOR = registerBlock("lightning_generator",
             new LightningGeneratorBlock(FabricBlockSettings.of(Material.METAL).
-                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL).
+                    luminance(LightningGeneratorBlock.LIGHT_EMISSION)));
     public static final Item LIGHTNING_GENERATOR_ITEM = createBlockItem("lightning_generator",
             new LightningGeneratorBlock.Item(LIGHTNING_GENERATOR, new FabricItemSettings()));
 
