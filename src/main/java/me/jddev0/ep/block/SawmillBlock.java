@@ -35,6 +35,20 @@ public class SawmillBlock extends BaseEntityBlock {
     }
 
     @Override
+    public boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos) {
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof SawmillBlockEntity sawmillBlockEntity))
+            return super.getAnalogOutputSignal(state, level, blockPos);
+
+        return sawmillBlockEntity.getRedstoneOutput();
+    }
+
+    @Override
     public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
         if(state.getBlock() == newState.getBlock())
             return;

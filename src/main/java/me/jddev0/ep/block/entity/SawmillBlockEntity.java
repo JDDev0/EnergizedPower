@@ -9,6 +9,7 @@ import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.recipe.SawmillRecipe;
 import me.jddev0.ep.screen.SawmillMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -139,6 +140,10 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         return new SawmillMenu(id, inventory, this, this.data);
+    }
+
+    public int getRedstoneOutput() {
+        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
     @Override
