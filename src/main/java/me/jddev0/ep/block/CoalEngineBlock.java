@@ -37,7 +37,7 @@ public class CoalEngineBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 
     public static final ToIntFunction<BlockState> LIGHT_EMISSION =
-            (state) -> state.get(Properties.LIT) ? 13 : 0;
+            (state) -> state.get(LIT) ? 13 : 0;
 
     protected CoalEngineBlock(FabricBlockSettings props) {
         super(props);

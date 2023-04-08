@@ -36,7 +36,7 @@ public class EnergizerBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 
     public static final ToIntFunction<BlockState> LIGHT_EMISSION =
-            (state) -> state.get(Properties.LIT) ? 8 : 0;
+            (state) -> state.get(LIT) ? 8 : 0;
 
     protected EnergizerBlock(FabricBlockSettings props) {
         super(props);
