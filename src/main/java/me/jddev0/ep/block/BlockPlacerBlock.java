@@ -43,6 +43,20 @@ public class BlockPlacerBlock extends BaseEntityBlock {
     }
 
     @Override
+    public boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState block, Level level, BlockPos blockPos) {
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof BlockPlacerBlockEntity blockPlacerBlockEntity))
+            return super.getAnalogOutputSignal(block, level, blockPos);
+
+        return blockPlacerBlockEntity.getRedstoneOutput();
+    }
+
+    @Override
     public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
         if(state.getBlock() == newState.getBlock())
             return;
