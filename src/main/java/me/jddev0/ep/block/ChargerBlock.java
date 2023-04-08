@@ -45,6 +45,20 @@ public class ChargerBlock extends BlockWithEntity {
     }
 
     @Override
+    public boolean hasComparatorOutput(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getComparatorOutput(BlockState state, World level, BlockPos blockPos) {
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof ChargerBlockEntity chargerBlockEntity))
+            return super.getComparatorOutput(state, level, blockPos);
+
+        return chargerBlockEntity.getRedstoneOutput();
+    }
+
+    @Override
     public void onStateReplaced(BlockState state, World level, BlockPos blockPos, BlockState newState, boolean isMoving) {
         if(state.getBlock() == newState.getBlock())
             return;
