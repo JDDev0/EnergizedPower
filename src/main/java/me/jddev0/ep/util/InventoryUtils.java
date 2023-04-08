@@ -15,11 +15,11 @@ public final class InventoryUtils {
         for(int i = 0;i < size;i++) {
             ItemStack item = itemHandler.getStackInSlot(i);
             if(!item.isEmpty()) {
-                fullnessPercentSum += (float)item.getCount() / Math.min(item.getMaxStackSize(), itemHandler.getSlotLimit(0));
+                fullnessPercentSum += (float)item.getCount() / Math.min(item.getMaxStackSize(), itemHandler.getSlotLimit(i));
                 isEmptyFlag = false;
             }
         }
 
-        return Mth.floor(fullnessPercentSum / size * 14.f) + (isEmptyFlag?0:1);
+        return Math.max(Mth.floor(fullnessPercentSum / size * 14.f) + (isEmptyFlag?0:1), 15);
     }
 }
