@@ -35,6 +35,20 @@ public class CrusherBlock extends BaseEntityBlock {
     }
 
     @Override
+    public boolean hasAnalogOutputSignal(BlockState p_60457_) {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos) {
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof CrusherBlockEntity crusherBlockEntity))
+            return super.getAnalogOutputSignal(state, level, blockPos);
+
+        return crusherBlockEntity.getRedstoneOutput();
+    }
+
+    @Override
     public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
         if(state.getBlock() == newState.getBlock())
             return;
