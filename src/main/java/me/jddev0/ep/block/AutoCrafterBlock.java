@@ -48,10 +48,10 @@ public class AutoCrafterBlock extends BaseEntityBlock {
     }
 
     @Override
-    public int getAnalogOutputSignal(BlockState block, Level level, BlockPos blockPos) {
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof AutoCrafterBlockEntity autoCrafterBlockEntity))
-            return super.getAnalogOutputSignal(block, level, blockPos);
+            return super.getAnalogOutputSignal(state, level, blockPos);
 
         return autoCrafterBlockEntity.getRedstoneOutput();
     }
