@@ -8,6 +8,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.CoalEngineMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -133,6 +134,10 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         return new CoalEngineMenu(id, inventory, this, this.data);
+    }
+
+    public int getRedstoneOutput() {
+        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
     @Override
