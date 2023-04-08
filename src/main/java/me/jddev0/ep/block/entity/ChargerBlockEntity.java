@@ -204,6 +204,10 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
         return Text.translatable("container.energizedpower.charger");
     }
 
+    public int getRedstoneOutput() {
+        return ScreenHandler.calculateComparatorOutput(internalInventory);
+    }
+
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
