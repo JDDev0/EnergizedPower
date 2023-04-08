@@ -34,6 +34,20 @@ public class CrusherBlock extends BlockWithEntity {
     }
 
     @Override
+    public boolean hasComparatorOutput(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getComparatorOutput(BlockState state, World level, BlockPos blockPos) {
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof CrusherBlockEntity crusherBlockEntity))
+            return super.getComparatorOutput(state, level, blockPos);
+
+        return crusherBlockEntity.getRedstoneOutput();
+    }
+
+    @Override
     public void onStateReplaced(BlockState state, World level, BlockPos blockPos, BlockState newState, boolean isMoving) {
         if(state.getBlock() == newState.getBlock())
             return;
