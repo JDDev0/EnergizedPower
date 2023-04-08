@@ -185,6 +185,10 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         return new AutoCrafterMenu(id, this, inventory, internalInventory, patternSlots, patternResultSlots, data);
     }
 
+    public int getRedstoneOutput() {
+        return ScreenHandler.calculateComparatorOutput(internalInventory);
+    }
+
     @Override
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
         buf.writeBlockPos(pos);
