@@ -174,6 +174,10 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
         return Text.translatable("container.energizedpower.block_placer");
     }
 
+    public int getRedstoneOutput() {
+        return ScreenHandler.calculateComparatorOutput(internalInventory);
+    }
+
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
