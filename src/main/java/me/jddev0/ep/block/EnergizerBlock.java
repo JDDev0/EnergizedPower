@@ -28,9 +28,14 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.ToIntFunction;
+
 public class EnergizerBlock extends BlockWithEntity {
     public static final BooleanProperty LIT = Properties.LIT;
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+
+    public static final ToIntFunction<BlockState> LIGHT_EMISSION =
+            (state) -> state.get(Properties.LIT) ? 8 : 0;
 
     protected EnergizerBlock(FabricBlockSettings props) {
         super(props);
