@@ -8,6 +8,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.BlockPlacerMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -143,6 +144,10 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         return new BlockPlacerMenu(id, inventory, this, this.data);
+    }
+
+    public int getRedstoneOutput() {
+        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
     @Override
