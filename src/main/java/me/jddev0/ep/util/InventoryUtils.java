@@ -20,6 +20,6 @@ public final class InventoryUtils {
             }
         }
 
-        return Math.max(Mth.floor(fullnessPercentSum / size * 14.f) + (isEmptyFlag?0:1), 15);
+        return Math.min(Mth.floor(fullnessPercentSum / size * 14.f) + (isEmptyFlag?0:1), 15);
     }
 }
