@@ -43,6 +43,20 @@ public class ChargerBlock extends BaseEntityBlock {
     }
 
     @Override
+    public boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos) {
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof ChargerBlockEntity chargerBlockEntity))
+            return super.getAnalogOutputSignal(state, level, blockPos);
+
+        return chargerBlockEntity.getRedstoneOutput();
+    }
+
+    @Override
     public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
         if(state.getBlock() == newState.getBlock())
             return;
