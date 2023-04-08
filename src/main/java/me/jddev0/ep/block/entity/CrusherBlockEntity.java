@@ -167,6 +167,10 @@ public class CrusherBlockEntity extends BlockEntity implements ExtendedScreenHan
         return new TranslatableText("container.energizedpower.crusher");
     }
 
+    public int getRedstoneOutput() {
+        return ScreenHandler.calculateComparatorOutput(internalInventory);
+    }
+
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
