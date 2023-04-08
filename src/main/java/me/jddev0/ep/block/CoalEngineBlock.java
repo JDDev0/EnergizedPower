@@ -54,7 +54,7 @@ public class CoalEngineBlock extends BaseEntityBlock {
     }
 
     @Override
-    public boolean hasAnalogOutputSignal(BlockState p_60457_) {
+    public boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
