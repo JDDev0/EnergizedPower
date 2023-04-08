@@ -163,6 +163,10 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
         return Text.translatable("container.energizedpower.coal_engine");
     }
 
+    public int getRedstoneOutput() {
+        return ScreenHandler.calculateComparatorOutput(internalInventory);
+    }
+
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
