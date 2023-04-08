@@ -151,7 +151,8 @@ public final class ModBlocks {
 
     public static final Block CHARGING_STATION = registerBlock("charging_station",
             new ChargingStationBlock(FabricBlockSettings.of(Material.METAL).
-                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL).
+                    luminance(ChargingStationBlock.LIGHT_EMISSION)));
     public static final Item CHARGING_STATION_ITEM = createBlockItem("charging_station",
             new ChargingStationBlock.Item(CHARGING_STATION, new FabricItemSettings()));
 
