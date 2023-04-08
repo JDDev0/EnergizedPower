@@ -145,7 +145,8 @@ public final class ModBlocks {
 
     public static final Block ENERGIZER = registerBlock("energizer",
             new EnergizerBlock(FabricBlockSettings.of(Material.METAL).
-                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL).
+                    luminance(EnergizerBlock.LIGHT_EMISSION)));
     public static final Item ENERGIZER_ITEM = createBlockItem("energizer", ENERGIZER);
 
     public static final Block CHARGING_STATION = registerBlock("charging_station",
