@@ -34,6 +34,20 @@ public class UnchargerBlock extends BlockWithEntity {
     }
 
     @Override
+    public boolean hasComparatorOutput(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getComparatorOutput(BlockState state, World level, BlockPos blockPos) {
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof UnchargerBlockEntity unchargerBlockEntity))
+            return super.getComparatorOutput(state, level, blockPos);
+
+        return unchargerBlockEntity.getRedstoneOutput();
+    }
+
+    @Override
     public void onStateReplaced(BlockState state, World level, BlockPos blockPos, BlockState newState, boolean isMoving) {
         if(state.getBlock() == newState.getBlock())
             return;
