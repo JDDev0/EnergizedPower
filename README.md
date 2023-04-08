@@ -59,11 +59,14 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 ## Credits
 
-- Energized Copper/Gold Ingot textures ([flashbulbs](https://github.com/flashbulbs)).
-- Battery textures ([flashbulbs](https://github.com/flashbulbs)).
-- Silicon texture ([flashbulbs](https://github.com/flashbulbs)).
-- Energy Analyzer texture ([flashbulbs](https://github.com/flashbulbs)).
-- Chinese (Simplified) translation: ([HanJiang-cn](https://github.com/HanJiang-cn)).
+- Energized Copper/Gold Ingot textures ([flashbulbs](https://github.com/flashbulbs))
+- Battery textures ([flashbulbs](https://github.com/flashbulbs))
+- Silicon texture ([flashbulbs](https://github.com/flashbulbs))
+- Energy Analyzer texture ([flashbulbs](https://github.com/flashbulbs))
+- Chinese (Simplified) translation: ([HanJiang-cn](https://github.com/HanJiang-cn))
+
+## Tutorial
+A tutorial world showcasing all the features of this mod can be downloaded on CurseForge: [Energized Power [Tutorial World]](https://www.curseforge.com/minecraft/worlds/energized-power-tutorial-world)
 
 ## Supported versions:
 Mod version: MC version
