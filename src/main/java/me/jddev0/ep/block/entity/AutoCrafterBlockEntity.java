@@ -7,6 +7,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -157,6 +158,10 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         return new AutoCrafterMenu(id, inventory, this, patternSlots, patternResultSlots, data);
+    }
+
+    public int getRedstoneOutput() {
+        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
     @Override
