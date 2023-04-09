@@ -28,7 +28,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
-
 import java.util.function.ToIntFunction;
 
 public class EnergizerBlock extends BlockWithEntity {
