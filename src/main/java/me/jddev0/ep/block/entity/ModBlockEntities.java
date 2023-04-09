@@ -6,6 +6,9 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.block.TransformerBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -43,32 +46,50 @@ public final class ModBlockEntities {
     );
 
     public static final BlockEntityType<AutoCrafterBlockEntity> AUTO_CRAFTER_ENTITY = registerEnergyStorage(
-            createBlockEntity("auto_crafter", ModBlocks.AUTO_CRAFTER, AutoCrafterBlockEntity::new),
+            registerInventoryStorage(
+                    createBlockEntity("auto_crafter", ModBlocks.AUTO_CRAFTER, AutoCrafterBlockEntity::new),
+                    (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)
+            ),
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
     public static final BlockEntityType<CrusherBlockEntity> CRUSHER_ENTITY = registerEnergyStorage(
-            createBlockEntity("crusher", ModBlocks.CRUSHER, CrusherBlockEntity::new),
+            registerInventoryStorage(
+                    createBlockEntity("crusher", ModBlocks.CRUSHER, CrusherBlockEntity::new),
+                    (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)
+            ),
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
     public static final BlockEntityType<SawmillBlockEntity> SAWMILL_ENTITY = registerEnergyStorage(
-            createBlockEntity("sawmill", ModBlocks.SAWMILL, SawmillBlockEntity::new),
+            registerInventoryStorage(
+                    createBlockEntity("sawmill", ModBlocks.SAWMILL, SawmillBlockEntity::new),
+                    (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)
+            ),
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
     public static final BlockEntityType<BlockPlacerBlockEntity> BLOCK_PLACER_ENTITY = registerEnergyStorage(
-            createBlockEntity("block_placer", ModBlocks.BLOCK_PLACER, BlockPlacerBlockEntity::new),
+            registerInventoryStorage(
+                    createBlockEntity("block_placer", ModBlocks.BLOCK_PLACER, BlockPlacerBlockEntity::new),
+                    (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)
+            ),
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
     public static final BlockEntityType<ChargerBlockEntity> CHARGER_ENTITY = registerEnergyStorage(
-            createBlockEntity("charger", ModBlocks.CHARGER, ChargerBlockEntity::new),
+            registerInventoryStorage(
+                createBlockEntity("charger", ModBlocks.CHARGER, ChargerBlockEntity::new),
+                    (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)
+            ),
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
     public static final BlockEntityType<UnchargerBlockEntity> UNCHARGER_ENTITY = registerEnergyStorage(
-            createBlockEntity("uncharger", ModBlocks.UNCHARGER, UnchargerBlockEntity::new),
+            registerInventoryStorage(
+                    createBlockEntity("uncharger", ModBlocks.UNCHARGER, UnchargerBlockEntity::new),
+                    (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)
+            ),
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
@@ -113,7 +134,10 @@ public final class ModBlockEntities {
     );
 
     public static final BlockEntityType<CoalEngineBlockEntity> COAL_ENGINE_ENTITY = registerEnergyStorage(
-            createBlockEntity("coal_engine", ModBlocks.COAL_ENGINE, CoalEngineBlockEntity::new),
+            registerInventoryStorage(
+                    createBlockEntity("coal_engine", ModBlocks.COAL_ENGINE, CoalEngineBlockEntity::new),
+                    (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)
+            ),
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
@@ -123,7 +147,10 @@ public final class ModBlockEntities {
     );
 
     public static final BlockEntityType<EnergizerBlockEntity> ENERGIZER_ENTITY = registerEnergyStorage(
-            createBlockEntity("energizer", ModBlocks.ENERGIZER, EnergizerBlockEntity::new),
+            registerInventoryStorage(
+                    createBlockEntity("energizer", ModBlocks.ENERGIZER, EnergizerBlockEntity::new),
+                    (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)
+            ),
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
@@ -137,6 +164,12 @@ public final class ModBlockEntities {
             FabricBlockEntityTypeBuilder.Factory<? extends T> factory) {
         return (BlockEntityType<T>)Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(EnergizedPowerMod.MODID, name),
                 FabricBlockEntityTypeBuilder.create(factory, block).build(null));
+    }
+
+    private static <T extends BlockEntity> BlockEntityType<T> registerInventoryStorage(BlockEntityType<T> blockEntityType,
+           BiFunction<? super T, Direction, @Nullable Storage<ItemVariant>> provider) {
+        ItemStorage.SIDED.registerForBlockEntity(provider, blockEntityType);
+        return blockEntityType;
     }
 
     private static <T extends BlockEntity> BlockEntityType<T> registerEnergyStorage(BlockEntityType<T> blockEntityType,
