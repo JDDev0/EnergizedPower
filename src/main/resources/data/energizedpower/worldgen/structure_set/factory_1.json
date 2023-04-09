@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "energizedpower:factory_1",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 2096632789,
+    "spacing": 50,
+    "separation": 25,
+    "type": "minecraft:random_spread"
+  }
+}
