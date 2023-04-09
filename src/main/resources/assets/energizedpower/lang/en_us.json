@@ -428,5 +428,8 @@
   "book.energizedpower.page.electrician.3": "The Basic Machine Frame can be used to get an electrician villager.",
 
   "book.energizedpower.page.factory.title": "Factory Building",
-  "book.energizedpower.page.factory.1": "The factory building contains some machines and something interesting in the center of the building. It can be found in Forest and Flower Forest biomes."
+  "book.energizedpower.page.factory.1": "The factory building contains some machines and something interesting in the center of the building. It can be found in Forest and Flower Forest biomes.",
+
+  "book.energizedpower.page.small_solar_farm.title": "Small Solar Farm",
+  "book.energizedpower.page.small_solar_farm.1": "The small solar farm is a structure with some Solar Panels producing energy. It can be found in Desert, Badlands, and Savanna biomes."
 }
