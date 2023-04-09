@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity.handler;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -54,24 +55,17 @@ public class InputOutputItemHandler implements SidedInventory {
 
     @Override
     public ItemStack removeStack(int slot, int amount) {
-        if(canOutput.test(slot))
-            return handler.removeStack(slot, amount);
-
-        return ItemStack.EMPTY;
+        return handler.removeStack(slot, amount);
     }
 
     @Override
     public ItemStack removeStack(int slot) {
-        if(canOutput.test(slot))
-            return handler.removeStack(slot);
-
-        return ItemStack.EMPTY;
+        return handler.removeStack(slot);
     }
 
     @Override
     public void setStack(int slot, ItemStack stack) {
-        if(canInput.test(slot, stack))
-            handler.setStack(slot, stack);
+        handler.setStack(slot, stack);
     }
 
     @Override
@@ -122,5 +116,10 @@ public class InputOutputItemHandler implements SidedInventory {
     @Override
     public boolean containsAny(Predicate<ItemStack> predicate) {
         return handler.containsAny(predicate);
+    }
+
+    @Override
+    public boolean canTransferTo(Inventory hopperInventory, int slot, ItemStack stack) {
+        return handler.canTransferTo(hopperInventory, slot, stack);
     }
 }

@@ -103,4 +103,9 @@ public abstract class SidedInventoryWrapper implements SidedInventory {
     public boolean containsAny(Predicate<ItemStack> predicate) {
         return handler.containsAny(predicate);
     }
+
+    @Override
+    public boolean canTransferTo(Inventory hopperInventory, int slot, ItemStack stack) {
+        return handler.canTransferTo(hopperInventory, slot, stack);
+    }
 }
