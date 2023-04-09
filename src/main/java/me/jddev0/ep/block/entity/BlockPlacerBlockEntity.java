@@ -1,8 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.BlockPlacerBlock;
+import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
-import me.jddev0.ep.block.entity.handler.SidedInventoryBlockEntityWrapper;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
@@ -16,7 +16,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.SidedInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.AutomaticItemPlacementContext;
 import net.minecraft.item.BlockItem;
@@ -41,11 +40,12 @@ import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 import java.util.stream.IntStream;
 
-public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, SidedInventoryBlockEntityWrapper {
+public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
     public static final long CAPACITY = 2048;
     public static final long MAX_RECEIVE = 128;
     private static final long ENERGY_USAGE_PER_TICK = 32;
 
+    final CachedSidedInventoryStorage<BlockPlacerBlockEntity> cachedSidedInventoryStorage;
     final InputOutputItemHandler inventory;
     private final SimpleInventory internalInventory;
 
@@ -114,6 +114,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
                 return true;
             }
         }, (i, stack) -> true, i -> false);
+        cachedSidedInventoryStorage = new CachedSidedInventoryStorage<>(inventory);
 
         internalEnergyStorage = new SimpleEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
@@ -162,11 +163,6 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
                 return 15;
             }
         };
-    }
-
-    @Override
-    public SidedInventory getHandler() {
-        return inventory;
     }
 
     @Override
