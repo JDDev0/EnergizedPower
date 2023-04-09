@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
-import me.jddev0.ep.block.entity.handler.SidedInventoryBlockEntityWrapper;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.mixin.inventory.SimpleInventoryStacksGetterSetter;
@@ -18,7 +18,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.SidedInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -44,10 +43,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, SidedInventoryBlockEntityWrapper {
+public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
     public static final long CAPACITY = 8192;
     public static final long MAX_EXTRACT = 512;
 
+    final CachedSidedInventoryStorage<UnchargerBlockEntity> cachedSidedInventoryStorage;
     final InputOutputItemHandler inventory;
     private final SimpleInventory internalInventory;
 
@@ -140,6 +140,7 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
 
             return energyStorage.getAmount() == 0;
         });
+        cachedSidedInventoryStorage = new CachedSidedInventoryStorage<>(inventory);
 
         internalEnergyStorage = new SimpleEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
@@ -185,11 +186,6 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
                 return 15;
             }
         };
-    }
-
-    @Override
-    public SidedInventory getHandler() {
-        return inventory;
     }
 
     @Override

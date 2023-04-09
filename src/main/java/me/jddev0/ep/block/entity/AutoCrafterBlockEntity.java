@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
-import me.jddev0.ep.block.entity.handler.SidedInventoryBlockEntityWrapper;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.mixin.inventory.SimpleInventoryStacksGetterSetter;
@@ -42,11 +42,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, SidedInventoryBlockEntityWrapper {
+public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
     public static final long CAPACITY = 2048;
     public static final long MAX_RECEIVE = 256;
     public final static long ENERGY_CONSUMPTION_PER_ITEM = 2;
 
+    final CachedSidedInventoryStorage<AutoCrafterBlockEntity> cachedSidedInventoryStorage;
     final InputOutputItemHandler inventory;
     private final SimpleInventory internalInventory;
 
@@ -121,6 +122,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 return true;
             }
         }, (i, stack) -> i >= 3, i -> isOutputOrCraftingRemainderOfInput(internalInventory.getStack(i)));
+        cachedSidedInventoryStorage = new CachedSidedInventoryStorage<>(inventory);
 
         internalEnergyStorage = new SimpleEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
@@ -169,11 +171,6 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 return 15;
             }
         };
-    }
-
-    @Override
-    public SidedInventory getHandler() {
-        return inventory;
     }
 
     @Override

@@ -1,8 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.EnergizerBlock;
+import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
-import me.jddev0.ep.block.entity.handler.SidedInventoryBlockEntityWrapper;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.mixin.inventory.SimpleInventoryStacksGetterSetter;
@@ -19,7 +19,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.SidedInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -43,10 +42,11 @@ import team.reborn.energy.api.base.SimpleEnergyStorage;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, SidedInventoryBlockEntityWrapper {
+public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
     public static final long CAPACITY = 65536;
     public static final long MAX_RECEIVE = 1024;
 
+    final CachedSidedInventoryStorage<EnergizerBlockEntity> cachedSidedInventoryStorage;
     final InputOutputItemHandler inventory;
     private final SimpleInventory internalInventory;
 
@@ -107,6 +107,7 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
                 return true;
             }
         }, (i, stack) -> i == 0, i -> i == 1);
+        cachedSidedInventoryStorage = new CachedSidedInventoryStorage<>(inventory);
 
         internalEnergyStorage = new SimpleEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
@@ -155,11 +156,6 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
                 return 15;
             }
         };
-    }
-
-    @Override
-    public SidedInventory getHandler() {
-        return inventory;
     }
 
     @Override
