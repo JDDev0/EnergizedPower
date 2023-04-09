@@ -421,5 +421,8 @@
   "book.energizedpower.page.electrician.3": "Der Basis Maschinenrahmen ist die Werkstation des Elektriker-Dorfbewohners.",
 
   "book.energizedpower.page.factory.title": "Fabrikgebäude",
-  "book.energizedpower.page.factory.1": "Das Fabrikgebäude enthält ein paar Maschinen und etwas Interessantes in der Mitte des Gebäude. Es kann in Wald- und Blumen-Wald- Biomen gefunden werden."
+  "book.energizedpower.page.factory.1": "Das Fabrikgebäude enthält ein paar Maschinen und etwas Interessantes in der Mitte des Gebäude. Es kann in Wald- und Blumen-Wald- Biomen gefunden werden.",
+
+  "book.energizedpower.page.small_solar_farm.title": "Kleiner Solarpark",
+  "book.energizedpower.page.small_solar_farm.1": "Der kleine Solarpark ist eine Struktur mit einigen Solarpanels, die Energie produzieren. Es kann in Wüsten-, Tafelberg- und Savannen-Biomen gefunden werden."
 }

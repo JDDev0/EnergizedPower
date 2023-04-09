@@ -1,0 +1,18 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.small_solar_farm.title",
+      "color": "gold",
+      "bold": true,
+      "extra": [
+        "\n\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.small_solar_farm.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ]
+}
