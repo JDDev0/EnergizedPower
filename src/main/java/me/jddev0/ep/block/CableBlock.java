@@ -21,6 +21,8 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -82,6 +84,48 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
                 with(EAST, shouldConnectTo(level, selfPos, Direction.EAST)).
                 with(WEST, shouldConnectTo(level, selfPos, Direction.WEST)).
                 with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+    }
+
+    @Override
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        switch(rotation) {
+            case CLOCKWISE_90:
+                return state.
+                        with(NORTH, state.get(WEST)).
+                        with(SOUTH, state.get(EAST)).
+                        with(EAST, state.get(NORTH)).
+                        with(WEST, state.get(SOUTH));
+            case CLOCKWISE_180:
+                return state.
+                        with(NORTH, state.get(SOUTH)).
+                        with(SOUTH, state.get(NORTH)).
+                        with(EAST, state.get(WEST)).
+                        with(WEST, state.get(EAST));
+            case COUNTERCLOCKWISE_90:
+                return state.
+                        with(NORTH, state.get(EAST)).
+                        with(SOUTH, state.get(WEST)).
+                        with(EAST, state.get(SOUTH)).
+                        with(WEST, state.get(NORTH));
+            default:
+                return state;
+        }
+    }
+
+    @Override
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        switch(mirror) {
+            case LEFT_RIGHT:
+                return state.
+                        with(NORTH, state.get(SOUTH)).
+                        with(SOUTH, state.get(NORTH));
+            case FRONT_BACK:
+                return state.
+                        with(EAST, state.get(WEST)).
+                        with(WEST, state.get(EAST));
+            default:
+                return state;
+        }
     }
 
     @Override
