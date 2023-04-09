@@ -41,6 +41,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 * Electrician villager
 * Electrician villager house (Can be found in every vanilla village)
 * Factory building (Can be found in Forest and Flower Forest biomes)
+* Small solar farm (Can be found in Desert, Badlands, and Savanna biomes)
 
 ### Guide book
 
