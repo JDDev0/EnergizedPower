@@ -6,13 +6,13 @@
       "tag": "forge:storage_blocks/silicon"
     },
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "forge:plates/iron"
     },
     "R": {
       "tag": "forge:dusts/redstone"
     },
     "E": {
-      "tag": "forge:ingots/energized_copper"
+      "tag": "forge:plates/energized_copper"
     },
     "A": {
       "item": "energizedpower:advanced_machine_frame"
