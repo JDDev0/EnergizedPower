@@ -3,6 +3,8 @@
   "values": [
     "energizedpower:copper_plate",
     "energizedpower:iron_plate",
-    "energizedpower:gold_plate"
+    "energizedpower:gold_plate",
+
+    "energizedpower:energized_copper_plate"
   ]
 }
