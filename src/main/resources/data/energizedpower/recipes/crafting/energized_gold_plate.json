@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "forge:tools/hammers"
+    },
+    {
+      "tag": "forge:ingots/energized_gold"
+    }
+  ],
+  "result": {
+    "item": "energizedpower:energized_gold_plate"
+  }
+}
