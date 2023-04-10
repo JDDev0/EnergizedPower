@@ -57,6 +57,8 @@
   "txt.energizedpower.energy_analyzer.energy_can_receive_side": "该区块面消耗能源。",
   "txt.energizedpower.energy_analyzer.energy_can_extract_side": "该区块面产生能量。",
 
+  "item.energizedpower.iron_hammer": "Iron Hammer",
+
   "block.energizedpower.silicon_block": "硅块",
   "item.energizedpower.silicon_block": "硅块",
 

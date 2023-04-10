@@ -78,6 +78,7 @@ public class EnergizedPowerMod {
         if(event.getTab() == ModCreativeModeTab.ENERGIZED_POWER_TAB) {
             event.accept(ModItems.ENERGIZED_POWER_BOOK);
             addEmptyAndFullyChargedItem(event, ModItems.ENERGY_ANALYZER, EnergyAnalyzerItem.ENERGY_CAPACITY);
+            event.accept(ModItems.IRON_HAMMER);
 
             event.accept(ModBlocks.COPPER_CABLE_ITEM);
             event.accept(ModBlocks.GOLD_CABLE_ITEM);
