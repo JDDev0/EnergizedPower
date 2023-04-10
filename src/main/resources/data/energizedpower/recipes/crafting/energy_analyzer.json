@@ -6,7 +6,7 @@
       "tag": "forge:silicon"
     },
     "C": {
-      "tag": "forge:ingots/copper"
+      "tag": "forge:plates/copper"
     },
     "R": {
       "tag": "forge:dusts/redstone"
