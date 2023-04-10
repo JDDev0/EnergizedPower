@@ -130,6 +130,7 @@ public class EnergizedPowerMod {
             event.accept(ModItems.SILICON);
             event.accept(ModItems.COPPER_PLATE);
             event.accept(ModItems.IRON_PLATE);
+            event.accept(ModItems.GOLD_PLATE);
             event.accept(ModItems.ENERGIZED_COPPER_INGOT);
             event.accept(ModItems.ENERGIZED_GOLD_INGOT);
         }
