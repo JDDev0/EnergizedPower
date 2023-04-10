@@ -6,10 +6,10 @@
       "tag": "forge:nuggets/gold"
     },
     "E": {
-      "tag": "forge:ingots/energized_gold"
+      "tag": "forge:plates/energized_gold"
     },
     "C": {
-      "tag": "forge:ingots/copper"
+      "tag": "forge:plates/copper"
     },
     "B": {
       "item": "energizedpower:battery_7"
