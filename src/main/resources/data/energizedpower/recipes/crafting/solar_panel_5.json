@@ -9,7 +9,7 @@
       "tag": "forge:gems/quartz"
     },
     "E": {
-      "item": "energizedpower:energized_gold_ingot"
+      "tag": "forge:ingots/energized_gold"
     },
     "S": {
       "item": "energizedpower:solar_panel_4"

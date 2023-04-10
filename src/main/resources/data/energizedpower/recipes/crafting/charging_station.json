@@ -9,7 +9,7 @@
       "tag": "forge:storage_blocks/redstone"
     },
     "E": {
-      "item": "energizedpower:energized_gold_ingot"
+      "tag": "forge:ingots/energized_gold"
     },
     "C": {
       "tag": "forge:storage_blocks/copper"

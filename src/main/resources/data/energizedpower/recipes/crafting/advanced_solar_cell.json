@@ -6,7 +6,7 @@
       "tag": "forge:ingots/iron"
     },
     "E": {
-      "item": "energizedpower:energized_copper_ingot"
+      "tag": "forge:ingots/energized_copper"
     },
     "R": {
       "tag": "forge:dusts/redstone"
