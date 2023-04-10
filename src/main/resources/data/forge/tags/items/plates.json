@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "energizedpower:copper_plate",
+    "energizedpower:iron_plate",
+    "energizedpower:gold_plate"
+  ]
+}
