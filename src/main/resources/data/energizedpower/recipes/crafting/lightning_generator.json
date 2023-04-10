@@ -9,7 +9,7 @@
       "tag": "forge:dusts/redstone"
     },
     "E": {
-      "item": "energizedpower:energized_copper_plate"
+      "tag": "forge:plates/energized_copper"
     },
     "c": {
       "tag": "forge:plates/copper"
