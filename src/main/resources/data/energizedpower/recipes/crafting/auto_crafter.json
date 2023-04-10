@@ -6,10 +6,10 @@
       "tag": "forge:silicon"
     },
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "forge:plates/iron"
     },
     "C": {
-      "tag": "forge:ingots/copper"
+      "tag": "forge:plates/copper"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
