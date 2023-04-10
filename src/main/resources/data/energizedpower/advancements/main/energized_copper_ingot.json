@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "items": [ "energizedpower:energized_copper_ingot" ]
+            "tag": "forge:ingots/energized_copper"
           }
         ]
       }
