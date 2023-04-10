@@ -6,13 +6,13 @@
       "tag": "forge:silicon"
     },
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "forge:plates/iron"
     },
     "R": {
       "tag": "forge:dusts/redstone"
     },
     "c": {
-      "tag": "forge:ingots/copper"
+      "tag": "forge:plates/copper"
     },
     "C": {
       "item": "energizedpower:coal_engine"
