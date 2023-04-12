@@ -5,8 +5,8 @@
     "S": {
       "tag": "forge:storage_blocks/silicon"
     },
-    "I": {
-      "tag": "forge:plates/iron"
+    "G": {
+      "tag": "forge:plates/gold"
     },
     "R": {
       "tag": "forge:dusts/redstone"
@@ -20,7 +20,7 @@
   },
   "pattern": [
     "RER",
-    "IAI",
+    "GAG",
     "ESE"
   ],
   "result": {
