@@ -5,8 +5,8 @@
     "G": {
       "tag": "forge:glass_panes/colorless"
     },
-    "Q": {
-      "tag": "forge:gems/quartz"
+    "a": {
+      "tag": "forge:gems/amethyst"
     },
     "E": {
       "tag": "forge:ingots/energized_gold"
@@ -20,7 +20,7 @@
   },
   "pattern": [
     "GGG",
-    "SQS",
+    "SaS",
     "AEA"
   ],
   "result": {
