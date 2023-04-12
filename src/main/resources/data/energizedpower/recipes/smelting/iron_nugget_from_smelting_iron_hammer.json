@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "energizedpower:iron_hammer"
+  },
+  "result": "minecraft:iron_nugget"
+}
