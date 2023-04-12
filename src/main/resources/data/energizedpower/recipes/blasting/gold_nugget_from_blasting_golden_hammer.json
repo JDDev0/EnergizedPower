@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "energizedpower:golden_hammer"
+  },
+  "result": "minecraft:gold_nugget"
+}
