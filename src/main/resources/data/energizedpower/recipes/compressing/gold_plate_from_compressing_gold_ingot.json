@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:compressor",
+  "ingredient": {
+    "tag": "forge:ingots/gold"
+  },
+  "output": {
+    "item": "energizedpower:gold_plate"
+  }
+}
