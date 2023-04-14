@@ -22,14 +22,6 @@ public class HammerItem extends TieredItem implements Vanishable {
     }
 
     @Override
-    public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
-        if(getTier() == Tiers.WOOD)
-            return 200;
-
-        return super.getBurnTime(itemStack, recipeType);
-    }
-
-    @Override
     public boolean hasCraftingRemainingItem(ItemStack itemStack) {
         return true;
     }
