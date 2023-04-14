@@ -260,7 +260,7 @@ public class CrusherBlockEntity extends BlockEntity implements MenuProvider, Ene
 
         blockEntity.itemHandler.extractItem(0, 1, false);
         blockEntity.itemHandler.setStackInSlot(1, new ItemStack(recipe.get().getResultItem(level.registryAccess()).getItem(),
-                blockEntity.itemHandler.getStackInSlot(1).getCount() + 1));
+                blockEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().getResultItem(level.registryAccess()).getCount()));
 
         blockEntity.resetProgress(blockPos, state);
     }
@@ -274,16 +274,16 @@ public class CrusherBlockEntity extends BlockEntity implements MenuProvider, Ene
 
         Optional<CrusherRecipe> recipe = level.getRecipeManager().getRecipeFor(CrusherRecipe.Type.INSTANCE, inventory, level);
 
-        return recipe.isPresent() && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory,
-                recipe.get().getResultItem(level.registryAccess()));
+        return recipe.isPresent() && canInsertAmountIntoOutputSlot(inventory, recipe.get().getResultItem(level.registryAccess()).getCount()) &&
+                canInsertItemIntoOutputSlot(inventory, recipe.get().getResultItem(level.registryAccess()));
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
         return inventory.getItem(1).isEmpty() || inventory.getItem(1).getItem() == itemStack.getItem();
     }
 
-    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
-        return inventory.getItem(1).getMaxStackSize() > inventory.getItem(1).getCount();
+    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory, int count) {
+        return inventory.getItem(1).getMaxStackSize() >= inventory.getItem(1).getCount() + count;
     }
 
     @Override
