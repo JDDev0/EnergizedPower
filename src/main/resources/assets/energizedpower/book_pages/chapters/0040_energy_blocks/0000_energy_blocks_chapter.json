@@ -1,11 +1,11 @@
 {
   "title": {
-    "translate": "book.energizedpower.page.chapter.resources.title",
+    "translate": "book.energizedpower.page.chapter.energy_blocks.title",
     "color": "gold"
   },
   "content": [
     {
-      "translate": "book.energizedpower.page.chapter.resources.1"
+      "translate": "book.energizedpower.page.chapter.energy_blocks"
     },
     {
       "text": "\n\n",
@@ -30,6 +30,5 @@
         }
       ]
     }
-  ],
-  "image": "energizedpower:textures/item/energized_copper_ingot.png"
+  ]
 }

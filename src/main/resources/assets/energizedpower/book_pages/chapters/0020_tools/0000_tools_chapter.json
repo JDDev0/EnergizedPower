@@ -1,11 +1,11 @@
 {
   "title": {
-    "translate": "book.energizedpower.page.chapter.energy_blocks.title",
+    "translate": "book.energizedpower.page.chapter.tools.title",
     "color": "gold"
   },
   "content": [
     {
-      "translate": "book.energizedpower.page.chapter.energy_blocks"
+      "translate": "book.energizedpower.page.chapter.tools"
     },
     {
       "text": "\n\n",
@@ -19,7 +19,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0000_welcome/0020_table_of_contents"
+            "value": "energizedpower:chapters/0000_welcome/0030_table_of_contents"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -30,5 +30,6 @@
         }
       ]
     }
-  ]
+  ],
+  "image": "energizedpower:textures/item/stone_hammer.png"
 }
