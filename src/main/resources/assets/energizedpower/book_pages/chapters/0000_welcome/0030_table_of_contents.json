@@ -35,12 +35,35 @@
       "font": "uniform",
       "extra": [
         {
+          "translate": "book.energizedpower.page.chapter.tools.title",
+          "color": "dark_green",
+          "underlined": true,
+          "clickEvent": {
+            "action": "change_page",
+            "value": "energizedpower:chapters/0020_tools/0000_tools_chapter"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.tooltip.page"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "text": "\n\n• ",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
           "translate": "book.energizedpower.page.chapter.energy_items.title",
           "color": "dark_green",
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0020_energy_items/0000_energy_items_chapter"
+            "value": "energizedpower:chapters/0030_energy_items/0000_energy_items_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -63,7 +86,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0030_energy_blocks/0000_energy_blocks_chapter"
+            "value": "energizedpower:chapters/0040_energy_blocks/0000_energy_blocks_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -86,7 +109,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0040_structures/0000_structures_chapter"
+            "value": "energizedpower:chapters/0050_structures/0000_structures_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
