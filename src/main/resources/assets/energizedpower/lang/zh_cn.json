@@ -358,6 +358,9 @@
   "book.energizedpower.page.sawdust.1": "锯末是锯木机产出的副产品，锯末可以来制作锯末块。",
   "book.energizedpower.page.sawdust.2": "锯末块可以烧制成木炭。",
 
+  "book.energizedpower.page.plates.1": "Plates are used as a crafting ingredient in most machines. Plates can be crafted with hammers or by using the compressor.",
+  "book.energizedpower.page.plates.2": "Energized plates can be created in the compressor only.",
+
   "book.energizedpower.page.energized_copper_ingot.1": "充能铜锭是充能站这样高级的机器需要的。",
   "book.energizedpower.page.energized_copper_ingot.2": "充能站是用这个锭做的，那倒不是吗？",
   "book.energizedpower.page.energized_copper_ingot.3": "充电站可以用来制作这种锭的。",
