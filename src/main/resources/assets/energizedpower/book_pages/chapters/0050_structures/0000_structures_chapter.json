@@ -19,7 +19,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0000_welcome/0020_table_of_contents"
+            "value": "energizedpower:chapters/0000_welcome/0030_table_of_contents"
           },
           "hoverEvent": {
             "action": "show_text",
