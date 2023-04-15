@@ -358,6 +358,9 @@
   "book.energizedpower.page.sawdust.1": "Sawdust is a by-product produced by the sawmill and can be crafted to sawdust blocks.",
   "book.energizedpower.page.sawdust.2": "Sawdust blocks can be burned to charcoal.",
 
+  "book.energizedpower.page.plates.1": "Plates are used as a crafting ingredient in most machines. Plates can be crafted with hammers or by using the compressor.",
+  "book.energizedpower.page.plates.2": "Energized plates can be created in the compressor only.",
+
   "book.energizedpower.page.energized_copper_ingot.1": "Energized Copper Ingots are required for advanced machines like the energizer.",
   "book.energizedpower.page.energized_copper_ingot.2": "The energizer is crafted with this ingot, isn't it?",
   "book.energizedpower.page.energized_copper_ingot.3": "The charger can be used to craft this ingot.",
