@@ -1,0 +1,11 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.hammers.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "image": "energizedpower:textures/item/iron_hammer.png"
+}
