@@ -6,13 +6,13 @@
       "tag": "c:silicon"
     },
     "I": {
-      "tag": "c:iron_ingots"
+      "tag": "c:iron_plates"
     },
     "R": {
       "tag": "c:redstone_dusts"
     },
     "c": {
-      "tag": "c:copper_ingots"
+      "tag": "c:copper_plates"
     },
     "C": {
       "item": "energizedpower:coal_engine"
