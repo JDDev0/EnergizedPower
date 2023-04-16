@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "D": {
+      "tag": "c:diamonds"
+    }
+  },
+  "pattern": [
+    " D ",
+    " SD",
+    "S  "
+  ],
+  "result": {
+    "item": "energizedpower:diamond_hammer"
+  }
+}
