@@ -5,8 +5,8 @@
     "G": {
       "tag": "c:glass_panes_colorless"
     },
-    "Q": {
-      "tag": "c:quartz"
+    "a": {
+      "item": "minecraft:amethyst_shard"
     },
     "E": {
       "tag": "c:energized_gold_ingots"
@@ -20,7 +20,7 @@
   },
   "pattern": [
     "GGG",
-    "SQS",
+    "SaS",
     "AEA"
   ],
   "result": {
