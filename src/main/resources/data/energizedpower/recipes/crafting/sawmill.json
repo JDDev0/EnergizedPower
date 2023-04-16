@@ -9,10 +9,10 @@
       "tag": "c:silicon"
     },
     "I": {
-      "tag": "c:iron_ingots"
+      "tag": "c:iron_plates"
     },
     "C": {
-      "tag": "c:copper_ingots"
+      "tag": "c:copper_plates"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
