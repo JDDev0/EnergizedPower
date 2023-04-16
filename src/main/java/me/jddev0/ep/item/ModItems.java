@@ -27,6 +27,8 @@ public final class ModItems {
             new Item(new FabricItemSettings()));
     public static final Item IRON_PLATE = registerItem("iron_plate",
             new Item(new FabricItemSettings()));
+    public static final Item GOLD_PLATE = registerItem("gold_plate",
+            new Item(new FabricItemSettings()));
 
     public static final Item SAWDUST = registerItem("sawdust",
             new Item(new FabricItemSettings()));
