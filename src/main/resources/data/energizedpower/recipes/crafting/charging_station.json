@@ -9,7 +9,7 @@
       "tag": "c:redstone_blocks"
     },
     "E": {
-      "item": "energizedpower:energized_gold_ingot"
+      "tag": "c:energized_gold_ingots"
     },
     "C": {
       "tag": "c:copper_blocks"

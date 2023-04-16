@@ -9,7 +9,7 @@
       "tag": "c:redstone_dusts"
     },
     "E": {
-      "item": "energizedpower:energized_copper_plate"
+      "tag": "c:energized_copper_plates"
     },
     "c": {
       "tag": "c:copper_plates"

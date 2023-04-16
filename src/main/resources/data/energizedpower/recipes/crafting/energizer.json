@@ -12,7 +12,7 @@
       "tag": "c:redstone_dusts"
     },
     "E": {
-      "item": "energizedpower:energized_copper_ingot"
+      "tag": "c:energized_copper_ingots"
     },
     "A": {
       "item": "energizedpower:advanced_machine_frame"

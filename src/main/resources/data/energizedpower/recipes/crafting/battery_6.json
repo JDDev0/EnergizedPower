@@ -6,7 +6,7 @@
       "tag": "c:iron_nuggets"
     },
     "E": {
-      "item": "energizedpower:energized_copper_ingot"
+      "tag": "c:energized_copper_ingots"
     },
     "B": {
       "item": "energizedpower:battery_5"
