@@ -81,6 +81,8 @@ public final class ModItems {
             new HammerItem(ToolMaterials.IRON, new FabricItemSettings()));
     public static final Item DIAMOND_HAMMER = registerItem("diamond_hammer",
             new HammerItem(ToolMaterials.DIAMOND, new FabricItemSettings()));
+    public static final Item NETHERITE_HAMMER = registerItem("netherite_hammer",
+            new HammerItem(ToolMaterials.NETHERITE, new FabricItemSettings()));
 
     public static void register() {
 
