@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    " P ",
+    " SP",
+    "S  "
+  ],
+  "result": {
+    "item": "energizedpower:wooden_hammer"
+  }
+}
