@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "tag": "c:iron_plates"
+    "G": {
+      "tag": "c:gold_plates"
     },
     "R": {
       "tag": "c:redstone_dusts"
@@ -23,7 +23,7 @@
   },
   "pattern": [
     "RcR",
-    "IAI",
+    "GAG",
     "ECE"
   ],
   "result": {
