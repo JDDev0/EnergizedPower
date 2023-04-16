@@ -7,6 +7,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 
 ### Machines
 
+* Powered Furnace
 * Auto Crafter
 * Crusher
 * Sawmill
