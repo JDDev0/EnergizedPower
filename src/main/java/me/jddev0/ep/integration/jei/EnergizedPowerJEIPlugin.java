@@ -91,7 +91,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
         registration.addRecipeClickArea(AutoCrafterScreen.class, 89, 34, 24, 17, RecipeTypes.CRAFTING);
         registration.addRecipeClickArea(PoweredFurnaceScreen.class, 80, 34, 24, 17, RecipeTypes.SMELTING);
-        registration.addRecipeClickArea(CoalEngineScreen.class, 79, 26, 18, 17, RecipeTypes.FUELING);
+        registration.addRecipeClickArea(CoalEngineScreen.class, 79, 25, 18, 17, RecipeTypes.FUELING);
 
         registration.addRecipeClickArea(ChargerScreen.class, 25, 16, 40, 54, ChargerCategory.TYPE);
         registration.addRecipeClickArea(ChargerScreen.class, 111, 16, 58, 54, ChargerCategory.TYPE);

@@ -78,7 +78,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
                 AutoCrafterScreen.class, BuiltinPlugin.CRAFTING);
         registry.registerContainerClickArea(new Rectangle(80, 34, 24, 17),
                 PoweredFurnaceScreen.class, BuiltinPlugin.SMELTING);
-        registry.registerContainerClickArea(new Rectangle(79, 26, 18, 17),
+        registry.registerContainerClickArea(new Rectangle(79, 25, 18, 17),
                 CoalEngineScreen.class, BuiltinPlugin.FUEL);
 
         registry.registerContainerClickArea(new Rectangle(25, 16, 40, 54),
