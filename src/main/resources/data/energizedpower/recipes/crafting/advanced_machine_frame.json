@@ -9,7 +9,7 @@
       "tag": "c:iron_ingots"
     },
     "E": {
-      "item": "energizedpower:energized_copper_ingot"
+      "tag": "c:energized_copper_ingots"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
