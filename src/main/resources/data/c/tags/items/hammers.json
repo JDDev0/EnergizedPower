@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "energizedpower:stone_hammer",
     "energizedpower:iron_hammer"
   ]
 }
