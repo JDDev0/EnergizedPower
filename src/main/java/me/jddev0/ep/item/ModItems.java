@@ -23,6 +23,9 @@ public final class ModItems {
     public static final Item SILICON = registerItem("silicon",
             new Item(new FabricItemSettings()));
 
+    public static final Item COPPER_PLATE = registerItem("copper_plate",
+            new Item(new FabricItemSettings()));
+
     public static final Item SAWDUST = registerItem("sawdust",
             new Item(new FabricItemSettings()));
 
