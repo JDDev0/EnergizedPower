@@ -5,8 +5,8 @@
     "S": {
       "tag": "c:silicon_blocks"
     },
-    "I": {
-      "tag": "c:iron_plates"
+    "G": {
+      "tag": "c:gold_plates"
     },
     "R": {
       "tag": "c:redstone_dusts"
@@ -20,7 +20,7 @@
   },
   "pattern": [
     "RER",
-    "IAI",
+    "GAG",
     "ESE"
   ],
   "result": {
