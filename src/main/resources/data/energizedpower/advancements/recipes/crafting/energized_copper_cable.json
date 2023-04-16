@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "items": [ "energizedpower:energized_copper_ingot" ]
+            "tag": "c:energized_copper_ingots"
           }
         ]
       }

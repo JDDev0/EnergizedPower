@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "items": [ "energizedpower:energized_gold_ingot" ]
+            "tag": "c:energized_gold_ingots"
           }
         ]
       }

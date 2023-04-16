@@ -9,7 +9,7 @@
       "tag": "c:quartz"
     },
     "E": {
-      "item": "energizedpower:energized_gold_ingot"
+      "tag": "c:energized_gold_ingots"
     },
     "S": {
       "item": "energizedpower:solar_panel_4"

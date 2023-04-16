@@ -6,7 +6,7 @@
       "tag": "c:gold_nuggets"
     },
     "E": {
-      "item": "energizedpower:energized_gold_ingot"
+      "tag": "c:energized_gold_ingots"
     },
     "C": {
       "tag": "c:copper_ingots"
