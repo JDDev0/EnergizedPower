@@ -145,6 +145,12 @@ public final class ModBlocks {
                     lightLevel(CoalEngineBlock.LIGHT_EMISSION)));
     public static final RegistryObject<Item> COAL_ENGINE_ITEM = createBlockItem("coal_engine", COAL_ENGINE);
 
+    public static final RegistryObject<Block> POWERED_FURNACE = BLOCKS.register("powered_furnace",
+            () -> new PoweredFurnaceBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).
+                    lightLevel(PoweredFurnaceBlock.LIGHT_EMISSION)));
+    public static final RegistryObject<Item> POWERED_FURNACE_ITEM = createBlockItem("powered_furnace", POWERED_FURNACE);
+
     public static final RegistryObject<Block> LIGHTNING_GENERATOR = BLOCKS.register("lightning_generator",
             () -> new LightningGeneratorBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).
