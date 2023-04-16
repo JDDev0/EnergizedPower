@@ -29,6 +29,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
     @Override
     public void registerCategories(CategoryRegistry registry) {
         registry.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(ModBlocks.AUTO_CRAFTER_ITEM.get()));
+        registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(ModBlocks.POWERED_FURNACE_ITEM.get()));
 
         registry.add(new ChargerCategory());
         registry.addWorkstations(ChargerCategory.CATEGORY, EntryStacks.of(ModBlocks.CHARGER_ITEM.get()));
@@ -74,6 +75,8 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
     public void registerScreens(ScreenRegistry registry) {
         registry.registerContainerClickArea(new Rectangle(89, 34, 24, 17),
                 AutoCrafterScreen.class, BuiltinPlugin.CRAFTING);
+        registry.registerContainerClickArea(new Rectangle(80, 34, 24, 17),
+                PoweredFurnaceScreen.class, BuiltinPlugin.SMELTING);
 
         registry.registerContainerClickArea(new Rectangle(25, 16, 40, 54),
                 ChargerScreen.class, ChargerCategory.CATEGORY);
