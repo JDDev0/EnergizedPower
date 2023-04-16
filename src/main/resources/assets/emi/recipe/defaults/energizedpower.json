@@ -19,18 +19,22 @@
     "energizedpower:crafting/coal_engine",
     "energizedpower:crafting/copper_cable",
     "energizedpower:crafting/crusher",
+    "energizedpower:crafting/diamond_hammer",
     "energizedpower:crafting/energized_copper_cable",
     "energizedpower:crafting/energized_gold_cable",
     "energizedpower:crafting/energized_power_book",
     "energizedpower:crafting/energizer",
     "energizedpower:crafting/energy_analyzer",
     "energizedpower:crafting/gold_cable",
+    "energizedpower:crafting/golden_hammer",
     "energizedpower:crafting/inventory_coal_engine",
+    "energizedpower:crafting/iron_hammer",
     "energizedpower:crafting/lightning_generator",
     "energizedpower:crafting/sawdust_block",
     "energizedpower:crafting/sawmill",
     "energizedpower:crafting/saw_blade",
     "energizedpower:crafting/silicon_block",
+    "energizedpower:crafting/stone_hammer",
     "energizedpower:crafting/solar_panel_1",
     "energizedpower:crafting/solar_panel_2",
     "energizedpower:crafting/solar_panel_3",
@@ -40,7 +44,10 @@
     "energizedpower:crafting/transformer_3_to_3",
     "energizedpower:crafting/transformer_n_to_1",
     "energizedpower:crafting/uncharger",
+    "energizedpower:crafting/wooden_hammer",
 
-    "energizedpower:smelting/silicon_from_smelting_nether_quartz"
+    "energizedpower:smelting/silicon_from_smelting_nether_quartz",
+
+    "energizedpower:smithing/netherite_hammer"
   ]
 }
