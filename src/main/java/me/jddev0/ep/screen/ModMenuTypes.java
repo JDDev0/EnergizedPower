@@ -31,6 +31,8 @@ public final class ModMenuTypes {
 
     public static final ScreenHandlerType<EnergizerMenu> ENERGIZER_MENU = createScreenHandlerType("energizer",
             new ExtendedScreenHandlerType<>(EnergizerMenu::new));
+    public static final ScreenHandlerType<CompressorMenu> COMPRESSOR_MENU = createScreenHandlerType("compressor_menu",
+            new ExtendedScreenHandlerType<>(CompressorMenu::new));
 
     public static final ScreenHandlerType<CoalEngineMenu> COAL_ENGINE_MENU = createScreenHandlerType("coal_engine",
             new ExtendedScreenHandlerType<>(CoalEngineMenu::new));

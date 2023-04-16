@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_energized_gold": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "c:energized_gold_ingots"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "energizedpower:compressing/energized_gold_plate_from_compressing_energized_gold_ingot"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_energized_gold",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "energizedpower:compressing/energized_gold_plate_from_compressing_energized_gold_ingot"
+    ]
+  }
+}

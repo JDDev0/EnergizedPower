@@ -149,6 +149,10 @@
   "item.energizedpower.sawmill": "Sägewerk",
   "container.energizedpower.sawmill": "Sägewerk",
 
+  "block.energizedpower.compressor": "Kompressor",
+  "item.energizedpower.compressor": "Kompressor",
+  "container.energizedpower.compressor": "Kompressor",
+
   "block.energizedpower.block_placer": "Blockplatzierer",
   "item.energizedpower.block_placer": "Blockplatzierer",
   "container.energizedpower.block_placer": "Blockplatzierer",
@@ -191,6 +195,7 @@
   "emi.category.energizedpower.charger": "Lader",
   "emi.category.energizedpower.crusher": "Zerkleinerer",
   "emi.category.energizedpower.sawmill": "Sägewerk",
+  "emi.category.energizedpower.compressor": "Kompressor",
   "emi.category.energizedpower.energizer": "Energetisierer",
   "emi.category.energizedpower.dispenser": "Werfer",
   "emi.category.energizedpower.in_world_crafting": "In-Welt Herstellung",
@@ -210,6 +215,9 @@
 
   "advancements.energizedpower.sawmill.title": "Sägen",
   "advancements.energizedpower.sawmill.description": "Sägt Holz.",
+
+  "advancements.energizedpower.compressor.title": "Komprimieren",
+  "advancements.energizedpower.compressor.description": "Erstellt Platten.",
 
   "advancements.energizedpower.block_placer.title": "Platziere den Block",
   "advancements.energizedpower.block_placer.description": "Blöcke werden automatisch in der Welt platziert.",
@@ -421,6 +429,8 @@
 
   "book.energizedpower.page.sawmill.1": "Das Sägewerk sägt Holz-Blöcke und -Items.",
   "book.energizedpower.page.sawmill.2": "Sägemehl wird dabei produziert und kann zu Sägemehlblöcken verarbeitet werden. Diese können dann als Treibstoff verwendet werden.",
+
+  "book.energizedpower.page.compressor.1": "Der Kompressor komprimiert Barren in Platten.",
 
   "book.energizedpower.page.block_placer.1": "Der Blockplatzierer kann Blöcke platzieren (Sogar Türen und Samen).",
   "book.energizedpower.page.block_placer.2": "Blöcke werden nur platziert, wenn es möglich ist.",
