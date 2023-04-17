@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "#up",
+    "down": "energizedpower:block/compressor_bottom",
+    "east": "energizedpower:block/compressor_side",
+    "north": "energizedpower:block/compressor_side",
+    "south": "energizedpower:block/compressor_side",
+    "up": "energizedpower:block/compressor_top",
+    "west": "energizedpower:block/compressor_side"
+  }
+}

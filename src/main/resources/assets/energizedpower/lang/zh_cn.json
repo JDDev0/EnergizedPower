@@ -149,6 +149,10 @@
   "item.energizedpower.sawmill": "锯木机",
   "container.energizedpower.sawmill": "锯木机",
 
+  "block.energizedpower.compressor": "Compressor",
+  "item.energizedpower.compressor": "Compressor",
+  "container.energizedpower.compressor": "Compressor",
+
   "block.energizedpower.block_placer": "方块放置器",
   "item.energizedpower.block_placer": "方块放置器",
   "container.energizedpower.block_placer": "方块放置器",
@@ -188,6 +192,14 @@
   "recipes.energizedpower.in_world_crafting": "世界工匠",
   "recipes.energizedpower.transfer.too_large": "这配方对于这个容器太大了！",
 
+  "emi.category.energizedpower.charger": "充能站",
+  "emi.category.energizedpower.crusher": "粉碎机",
+  "emi.category.energizedpower.sawmill": "锯木机",
+  "emi.category.energizedpower.compressor": "Compressor",
+  "emi.category.energizedpower.energizer": "物品充能站",
+  "emi.category.energizedpower.dispenser": "Dispenser",
+  "emi.category.energizedpower.in_world_crafting": "In-World Crafting",
+
 
   "advancements.energizedpower.advanced_machine_frame.title": "高级机器",
   "advancements.energizedpower.advanced_machine_frame.description": "更高级的机器需要这个制作基础。",
@@ -203,6 +215,9 @@
 
   "advancements.energizedpower.sawmill.title": "锯削",
   "advancements.energizedpower.sawmill.description": "锯木头。",
+
+  "advancements.energizedpower.compressor.title": "Compressing",
+  "advancements.energizedpower.compressor.description": "Creates plates.",
 
   "advancements.energizedpower.block_placer.title": "放置方块",
   "advancements.energizedpower.block_placer.description": "方块被自动放置在世界中。",
@@ -414,6 +429,8 @@
 
   "book.energizedpower.page.sawmill.1": "锯木机可以据原木和一些物品。",
   "book.energizedpower.page.sawmill.2": "锯末是锯木机生产出的副产品，可以合成锯末块用于燃料。",
+
+  "book.energizedpower.page.compressor.1": "The Compressor compresses ingots into plates.",
 
   "book.energizedpower.page.block_placer.1": "方块放置器可以放置所有的方块（甚至可以是门和种子）。",
   "book.energizedpower.page.block_placer.2": "只有在可以放置方块的情况下才会放置方块。",

@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:compressor",
+  "ingredient": {
+    "tag": "c:energized_copper_ingots"
+  },
+  "output": {
+    "item": "energizedpower:energized_copper_plate"
+  }
+}
