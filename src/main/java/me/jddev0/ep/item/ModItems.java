@@ -79,6 +79,8 @@ public final class ModItems {
             () -> new HammerItem(Tiers.IRON, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> DIAMOND_HAMMER = ITEMS.register("diamond_hammer",
             () -> new HammerItem(Tiers.DIAMOND, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+    public static final RegistryObject<Item> NETHERITE_HAMMER = ITEMS.register("netherite_hammer",
+            () -> new HammerItem(Tiers.NETHERITE, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).fireResistant()));
 
     public static void register(IEventBus modEventBus) {
         ITEMS.register(modEventBus);
