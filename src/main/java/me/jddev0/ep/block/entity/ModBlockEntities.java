@@ -90,6 +90,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("coal_engine", () -> BlockEntityType.Builder.of(CoalEngineBlockEntity::new,
                     ModBlocks.COAL_ENGINE.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<PoweredFurnaceBlockEntity>> POWERED_FURNACE_ENTITY =
+            BLOCK_ENTITIES.register("powered_furnace", () -> BlockEntityType.Builder.of(PoweredFurnaceBlockEntity::new,
+                    ModBlocks.POWERED_FURNACE.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<LightningGeneratorBlockEntity>> LIGHTING_GENERATOR_ENTITY =
             BLOCK_ENTITIES.register("lightning_generator", () -> BlockEntityType.Builder.of(LightningGeneratorBlockEntity::new,
                     ModBlocks.LIGHTNING_GENERATOR.get()).build(null));

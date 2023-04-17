@@ -17,6 +17,8 @@
 
     "energizedpower:coal_engine",
 
+    "energizedpower:powered_furnace",
+
     "energizedpower:transformer_1_to_n",
     "energizedpower:transformer_3_to_3",
     "energizedpower:transformer_n_to_1",
