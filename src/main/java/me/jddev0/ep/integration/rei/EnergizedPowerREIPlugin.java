@@ -1,10 +1,7 @@
 package me.jddev0.ep.integration.rei;
 
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.recipe.ChargerRecipe;
-import me.jddev0.ep.recipe.CrusherRecipe;
-import me.jddev0.ep.recipe.EnergizerRecipe;
-import me.jddev0.ep.recipe.SawmillRecipe;
+import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.*;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
@@ -42,6 +39,9 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.add(new SawmillCategory());
         registry.addWorkstations(SawmillCategory.CATEGORY, EntryStacks.of(ModBlocks.SAWMILL_ITEM.get()));
 
+        registry.add(new CompressorCategory());
+        registry.addWorkstations(CompressorCategory.CATEGORY, EntryStacks.of(ModBlocks.COMPRESSOR_ITEM.get()));
+
         registry.add(new EnergizerCategory());
         registry.addWorkstations(EnergizerCategory.CATEGORY, EntryStacks.of(ModBlocks.ENERGIZER_ITEM.get()));
 
@@ -63,6 +63,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.registerRecipeFiller(ChargerRecipe.class, ChargerRecipe.Type.INSTANCE, ChargerDisplay::new);
         registry.registerRecipeFiller(CrusherRecipe.class, CrusherRecipe.Type.INSTANCE, CrusherDisplay::new);
         registry.registerRecipeFiller(SawmillRecipe.class, SawmillRecipe.Type.INSTANCE, SawmillDisplay::new);
+        registry.registerRecipeFiller(CompressorRecipe.class, CompressorRecipe.Type.INSTANCE, CompressorDisplay::new);
         registry.registerRecipeFiller(EnergizerRecipe.class, EnergizerRecipe.Type.INSTANCE, EnergizerDisplay::new);
 
         registry.add(new InWorldDisplay());
@@ -83,6 +84,8 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
                 CrusherScreen.class, CrusherCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(68, 34, 24, 17),
                 SawmillScreen.class, SawmillCategory.CATEGORY);
+        registry.registerContainerClickArea(new Rectangle(79, 30, 26, 25),
+                CompressorScreen.class, CompressorCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(89, 34, 24, 17),
                 EnergizerScreen.class, EnergizerCategory.CATEGORY);
 

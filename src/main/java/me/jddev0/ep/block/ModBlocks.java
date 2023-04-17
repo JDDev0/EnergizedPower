@@ -94,6 +94,11 @@ public final class ModBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final RegistryObject<Item> SAWMILL_ITEM = createBlockItem("sawmill", SAWMILL);
 
+    public static final RegistryObject<Block> COMPRESSOR = BLOCKS.register("compressor",
+            () -> new CompressorBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> COMPRESSOR_ITEM = createBlockItem("compressor", COMPRESSOR);
+
     public static final RegistryObject<Block> BLOCK_PLACER = BLOCKS.register("block_placer",
             () -> new BlockPlacerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));

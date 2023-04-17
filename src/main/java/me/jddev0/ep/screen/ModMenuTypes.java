@@ -28,6 +28,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<SawmillMenu>> SAWMILL_MENU = registerMenuType("sawmill_menu",
             SawmillMenu::new);
 
+    public static final RegistryObject<MenuType<CompressorMenu>> COMPRESSOR_MENU = registerMenuType("compressor_menu",
+            CompressorMenu::new);
+
     public static final RegistryObject<MenuType<BlockPlacerMenu>> BLOCK_PLACER_MENU = registerMenuType("block_placer_menu",
             BlockPlacerMenu::new);
 
