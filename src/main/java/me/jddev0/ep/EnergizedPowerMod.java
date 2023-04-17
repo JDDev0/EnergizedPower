@@ -79,6 +79,7 @@ public class EnergizedPowerMod {
             event.accept(ModItems.ENERGIZED_POWER_BOOK);
             addEmptyAndFullyChargedItem(event, ModItems.ENERGY_ANALYZER, EnergyAnalyzerItem.ENERGY_CAPACITY);
 
+            event.accept(ModItems.WOODEN_HAMMER);
             event.accept(ModItems.STONE_HAMMER);
             event.accept(ModItems.IRON_HAMMER);
             event.accept(ModItems.GOLDEN_HAMMER);
