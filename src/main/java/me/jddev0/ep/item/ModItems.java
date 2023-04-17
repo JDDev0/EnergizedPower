@@ -2,6 +2,7 @@ package me.jddev0.ep.item;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Tiers;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -71,6 +72,9 @@ public final class ModItems {
 
     public static final RegistryObject<Item> ENERGY_ANALYZER = ITEMS.register("energy_analyzer",
             () -> new EnergyAnalyzerItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
+
+    public static final RegistryObject<Item> IRON_HAMMER = ITEMS.register("iron_hammer",
+            () -> new HammerItem(Tiers.IRON, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static void register(IEventBus modEventBus) {
         ITEMS.register(modEventBus);
