@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "tag": "c:silicon"
+    },
+    "I": {
+      "tag": "c:iron_plates"
+    },
+    "C": {
+      "tag": "c:copper_plates"
+    },
+    "B": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    }
+  },
+  "pattern": [
+    "CIC",
+    "SBS",
+    "CFC"
+  ],
+  "result": {
+    "item": "energizedpower:powered_furnace"
+  }
+}

@@ -25,6 +25,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(ModMenuTypes.UNCHARGER_MENU, UnchargerScreen::new);
         HandledScreens.register(ModMenuTypes.ENERGIZER_MENU, EnergizerScreen::new);
         HandledScreens.register(ModMenuTypes.COAL_ENGINE_MENU, CoalEngineScreen::new);
+        HandledScreens.register(ModMenuTypes.POWERED_FURNACE_MENU, PoweredFurnaceScreen::new);
 
         ModelPredicateProviderRegistry.register(new Identifier(EnergizedPowerMod.MODID, "active"), (itemStack, level, entity, seed) -> {
             Item item = itemStack.getItem();
