@@ -142,6 +142,12 @@ public final class ModBlocks {
                     luminance(CoalEngineBlock.LIGHT_EMISSION)));
     public static final Item COAL_ENGINE_ITEM = createBlockItem("coal_engine", COAL_ENGINE);
 
+    public static final Block POWERED_FURNACE = registerBlock("powered_furnace",
+            new PoweredFurnaceBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL).
+                    luminance(PoweredFurnaceBlock.LIGHT_EMISSION)));
+    public static final Item POWERED_FURNACE_ITEM = createBlockItem("powered_furnace", POWERED_FURNACE);
+
     public static final Block LIGHTNING_GENERATOR = registerBlock("lightning_generator",
             new LightningGeneratorBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL).
