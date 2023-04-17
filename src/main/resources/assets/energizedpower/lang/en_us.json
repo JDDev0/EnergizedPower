@@ -149,6 +149,10 @@
   "item.energizedpower.sawmill": "Sawmill",
   "container.energizedpower.sawmill": "Sawmill",
 
+  "block.energizedpower.compressor": "Compressor",
+  "item.energizedpower.compressor": "Compressor",
+  "container.energizedpower.compressor": "Compressor",
+
   "block.energizedpower.block_placer": "Block Placer",
   "item.energizedpower.block_placer": "Block Placer",
   "container.energizedpower.block_placer": "Block Placer",
@@ -191,6 +195,7 @@
   "emi.category.energizedpower.charger": "Charger",
   "emi.category.energizedpower.crusher": "Crusher",
   "emi.category.energizedpower.sawmill": "Sawmill",
+  "emi.category.energizedpower.compressor": "Compressor",
   "emi.category.energizedpower.energizer": "Energizer",
   "emi.category.energizedpower.dispenser": "Dispenser",
   "emi.category.energizedpower.in_world_crafting": "In-World Crafting",
@@ -210,6 +215,9 @@
 
   "advancements.energizedpower.sawmill.title": "Sawing",
   "advancements.energizedpower.sawmill.description": "Saws wood.",
+
+  "advancements.energizedpower.compressor.title": "Compressing",
+  "advancements.energizedpower.compressor.description": "Creates plates.",
 
   "advancements.energizedpower.block_placer.title": "Place the block",
   "advancements.energizedpower.block_placer.description": "Blocks are placed automatically in the world.",
@@ -421,6 +429,8 @@
 
   "book.energizedpower.page.sawmill.1": "The Sawmill can saw wood blocks and items.",
   "book.energizedpower.page.sawmill.2": "Sawdust will be produced which can be crafted to sawdust blocks which can be used as fuel.",
+
+  "book.energizedpower.page.compressor.1": "The Compressor compresses ingots into plates.",
 
   "book.energizedpower.page.block_placer.1": "The Block Placer can place all blocks (Even doors and seeds).",
   "book.energizedpower.page.block_placer.2": "Blocks will only be placed if possible.",
