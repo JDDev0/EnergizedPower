@@ -82,7 +82,7 @@ public final class ModItems {
     public static final Item DIAMOND_HAMMER = registerItem("diamond_hammer",
             new HammerItem(ToolMaterials.DIAMOND, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final Item NETHERITE_HAMMER = registerItem("netherite_hammer",
-            new HammerItem(ToolMaterials.NETHERITE, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new HammerItem(ToolMaterials.NETHERITE, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).fireproof()));
 
     public static void register() {
 
