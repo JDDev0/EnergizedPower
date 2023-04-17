@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "energizedpower:gold_plate"
+    "energizedpower:gold_plate",
+    "energizedpower:golden_hammer"
   ]
 }
