@@ -73,6 +73,8 @@ public final class ModItems {
     public static final RegistryObject<Item> ENERGY_ANALYZER = ITEMS.register("energy_analyzer",
             () -> new EnergyAnalyzerItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
 
+    public static final RegistryObject<Item> STONE_HAMMER = ITEMS.register("stone_hammer",
+            () -> new HammerItem(Tiers.STONE, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> IRON_HAMMER = ITEMS.register("iron_hammer",
             () -> new HammerItem(Tiers.IRON, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
