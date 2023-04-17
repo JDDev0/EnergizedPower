@@ -7,10 +7,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.ModItems;
-import me.jddev0.ep.recipe.ChargerRecipe;
-import me.jddev0.ep.recipe.CrusherRecipe;
-import me.jddev0.ep.recipe.EnergizerRecipe;
-import me.jddev0.ep.recipe.SawmillRecipe;
+import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.screen.ModMenuTypes;
 import net.minecraft.item.ItemStack;
@@ -42,6 +39,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
         registry.addCategory(SawmillEMIRecipe.CATEGORY);
         registry.addWorkstation(SawmillEMIRecipe.CATEGORY, SawmillEMIRecipe.ITEM);
 
+        registry.addCategory(CompressorEMIRecipe.CATEGORY);
+        registry.addWorkstation(CompressorEMIRecipe.CATEGORY, CompressorEMIRecipe.ITEM);
+
         registry.addCategory(EnergizerEMIRecipe.CATEGORY);
         registry.addWorkstation(EnergizerEMIRecipe.CATEGORY, EnergizerEMIRecipe.ITEM);
 
@@ -63,6 +63,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
         for(SawmillRecipe recipe:recipeManager.listAllOfType(SawmillRecipe.Type.INSTANCE))
             registry.addRecipe(new SawmillEMIRecipe(recipe));
+
+        for(CompressorRecipe recipe:recipeManager.listAllOfType(CompressorRecipe.Type.INSTANCE))
+            registry.addRecipe(new CompressorEMIRecipe(recipe));
 
         for(EnergizerRecipe recipe:recipeManager.listAllOfType(EnergizerRecipe.Type.INSTANCE))
             registry.addRecipe(new EnergizerEMIRecipe(recipe));

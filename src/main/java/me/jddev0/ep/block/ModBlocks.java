@@ -90,6 +90,11 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item SAWMILL_ITEM = createBlockItem("sawmill", SAWMILL);
 
+    public static final Block COMPRESSOR = registerBlock("compressor",
+            new CompressorBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item COMPRESSOR_ITEM = createBlockItem("compressor", COMPRESSOR);
+
     public static final Block BLOCK_PLACER = registerBlock("block_placer",
             new BlockPlacerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

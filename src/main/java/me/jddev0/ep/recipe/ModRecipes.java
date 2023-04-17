@@ -30,6 +30,11 @@ public final class ModRecipes {
     public static final RecipeType<SawmillRecipe> SAWMILL_TYPE = createRecipeType("sawmill",
             SawmillRecipe.Type.INSTANCE);
 
+    public static final RecipeSerializer<CompressorRecipe> COMPRESSOR_SERIALIZER = createSerializer("compressor",
+            CompressorRecipe.Serializer.INSTANCE);
+    public static final RecipeType<CompressorRecipe> COMPRESSOR_TYPE = createRecipeType("compressor",
+            CompressorRecipe.Type.INSTANCE);
+
     private static <T extends Recipe<?>> RecipeSerializer<T> createSerializer(String name, RecipeSerializer<T> instance) {
         return Registry.register(Registry.RECIPE_SERIALIZER, new Identifier(EnergizedPowerMod.MODID, name), instance);
     }

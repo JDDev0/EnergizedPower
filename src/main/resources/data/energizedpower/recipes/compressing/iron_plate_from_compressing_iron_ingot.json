@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:compressor",
+  "ingredient": {
+    "tag": "c:iron_ingots"
+  },
+  "output": {
+    "item": "energizedpower:iron_plate"
+  }
+}
