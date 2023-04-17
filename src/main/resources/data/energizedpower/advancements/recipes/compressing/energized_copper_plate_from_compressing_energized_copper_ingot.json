@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_energized_copper": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ingots/energized_copper"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "energizedpower:compressing/energized_copper_plate_from_compressing_energized_copper_ingot"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_energized_copper",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "energizedpower:compressing/energized_copper_plate_from_compressing_energized_copper_ingot"
+    ]
+  }
+}
