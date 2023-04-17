@@ -141,6 +141,10 @@
 
   "tooltip.energizedpower.coal_engine.txt": "This items will produce %s until burned",
 
+  "block.energizedpower.powered_furnace": "Powered Furnace",
+  "item.energizedpower.powered_furnace": "Powered Furnace",
+  "container.energizedpower.powered_furnace": "Powered Furnace",
+
   "block.energizedpower.crusher": "Crusher",
   "item.energizedpower.crusher": "Crusher",
   "container.energizedpower.crusher": "Crusher",
@@ -266,6 +270,9 @@
 
   "advancements.energizedpower.coal_engine.title": "Powered by Coal",
   "advancements.energizedpower.coal_engine.description": "Producing energy by burning stuff might not be the most efficient but good enough for the moment.",
+
+  "advancements.energizedpower.powered_furnace.title": "Powered Furnace",
+  "advancements.energizedpower.powered_furnace.description": "Furnace with power.",
 
   "advancements.energizedpower.copper_cable.title": "Energy Transport",
   "advancements.energizedpower.copper_cable.description": "Transport energy with cables.",
@@ -430,6 +437,8 @@
 
   "book.energizedpower.page.lightning_generator.1": "The lightning generator produces high amounts of energy per lightning strike.",
   "book.energizedpower.page.lightning_generator.2": "A lightning rod block must be place above this block for it to function.",
+
+  "book.energizedpower.page.powered_furnace.1": "The Powered Furnace works like the Furnace. Instead of coal it uses power. Additionally it is faster than the normal furnace.",
 
   "book.energizedpower.page.auto_crafter.1": "The Auto Crafter crafts items automatically.",
   "book.energizedpower.page.auto_crafter.2": "The recipe can be set by using the pattern slots.",

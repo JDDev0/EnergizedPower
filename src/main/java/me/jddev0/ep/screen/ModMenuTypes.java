@@ -31,11 +31,15 @@ public final class ModMenuTypes {
 
     public static final ScreenHandlerType<EnergizerMenu> ENERGIZER_MENU = createScreenHandlerType("energizer",
             new ExtendedScreenHandlerType<>(EnergizerMenu::new));
+
     public static final ScreenHandlerType<CompressorMenu> COMPRESSOR_MENU = createScreenHandlerType("compressor_menu",
             new ExtendedScreenHandlerType<>(CompressorMenu::new));
 
     public static final ScreenHandlerType<CoalEngineMenu> COAL_ENGINE_MENU = createScreenHandlerType("coal_engine",
             new ExtendedScreenHandlerType<>(CoalEngineMenu::new));
+
+    public static final ScreenHandlerType<PoweredFurnaceMenu> POWERED_FURNACE_MENU = createScreenHandlerType("powered_furnace_menu",
+            new ExtendedScreenHandlerType<>(PoweredFurnaceMenu::new));
 
     private static <T extends ScreenHandler> ScreenHandlerType<T> createScreenHandlerType(String name, ScreenHandlerType<T> screenHandlerType) {
         return Registry.register(Registries.SCREEN_HANDLER, new Identifier(EnergizedPowerMod.MODID, name), screenHandlerType);
