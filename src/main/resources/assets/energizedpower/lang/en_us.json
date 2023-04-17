@@ -57,6 +57,8 @@
   "txt.energizedpower.energy_analyzer.energy_can_receive_side": "This block face consumes energy.",
   "txt.energizedpower.energy_analyzer.energy_can_extract_side": "This block face produces energy.",
 
+  "item.energizedpower.iron_hammer": "Iron Hammer",
+
   "block.energizedpower.silicon_block": "Block of Silicon",
   "item.energizedpower.silicon_block": "Block of Silicon",
 
