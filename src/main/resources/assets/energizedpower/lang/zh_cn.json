@@ -141,6 +141,10 @@
 
   "tooltip.energizedpower.coal_engine.txt": "这个物品将产生 %s，直到被烧毁。",
 
+  "block.energizedpower.powered_furnace": "Powered Furnace",
+  "item.energizedpower.powered_furnace": "Powered Furnace",
+  "container.energizedpower.powered_furnace": "Powered Furnace",
+
   "block.energizedpower.crusher": "粉碎机",
   "item.energizedpower.crusher": "粉碎机",
   "container.energizedpower.crusher": "粉碎机",
@@ -258,6 +262,9 @@
 
   "advancements.energizedpower.coal_engine.title": "煤的力量",
   "advancements.energizedpower.coal_engine.description": "通过烧东西来生产能量虽然不是最有好的，但目前来说已经最好的。",
+
+  "advancements.energizedpower.powered_furnace.title": "Powered Furnace",
+  "advancements.energizedpower.powered_furnace.description": "Furnace with power.",
 
   "advancements.energizedpower.copper_cable.title": "能量传输",
   "advancements.energizedpower.copper_cable.description": "用电缆传输能量。",
@@ -422,6 +429,8 @@
 
   "book.energizedpower.page.lightning_generator.1": "人造闪电发生器在每次雷击时产生大量的能量。",
   "book.energizedpower.page.lightning_generator.2": "必须将避雷针防置在该方块时才会生效。",
+
+  "book.energizedpower.page.powered_furnace.1": "The Powered Furnace works like the Furnace. Instead of coal it uses power. Additionally it is faster than the normal furnace.",
 
   "book.energizedpower.page.auto_crafter.1": "自动合成机会自动合成物品。",
   "book.energizedpower.page.auto_crafter.2": "可以通过使用自动合成机中的合成槽来放置配方。",
