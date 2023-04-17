@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "G": {
+      "tag": "forge:ingots/gold"
+    }
+  },
+  "pattern": [
+    " G ",
+    " SG",
+    "S  "
+  ],
+  "result": {
+    "item": "energizedpower:golden_hammer"
+  }
+}
