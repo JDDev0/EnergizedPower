@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "pattern": [
+    " I ",
+    " SI",
+    "S  "
+  ],
+  "result": {
+    "item": "energizedpower:iron_hammer"
+  }
+}
