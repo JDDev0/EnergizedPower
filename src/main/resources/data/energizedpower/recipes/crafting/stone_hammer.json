@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "C": {
+      "tag": "minecraft:stone_tool_materials"
+    }
+  },
+  "pattern": [
+    " C ",
+    " SC",
+    "S  "
+  ],
+  "result": {
+    "item": "energizedpower:stone_hammer"
+  }
+}
