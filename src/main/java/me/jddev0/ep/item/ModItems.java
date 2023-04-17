@@ -77,6 +77,8 @@ public final class ModItems {
             new HammerItem(ToolMaterials.STONE, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final Item IRON_HAMMER = registerItem("iron_hammer",
             new HammerItem(ToolMaterials.IRON, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+    public static final Item GOLDEN_HAMMER = registerItem("golden_hammer",
+            new HammerItem(ToolMaterials.GOLD, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final Item DIAMOND_HAMMER = registerItem("diamond_hammer",
             new HammerItem(ToolMaterials.DIAMOND, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final Item NETHERITE_HAMMER = registerItem("netherite_hammer",
