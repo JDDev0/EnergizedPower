@@ -21,6 +21,9 @@ public final class ModItems {
     public static final RegistryObject<Item> SILICON = ITEMS.register("silicon",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final RegistryObject<Item> COPPER_PLATE = ITEMS.register("copper_plate",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final RegistryObject<Item> SAWDUST = ITEMS.register("sawdust",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
