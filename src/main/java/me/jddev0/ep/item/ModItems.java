@@ -3,6 +3,7 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.EnergizedPowerMod;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
+import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -71,6 +72,9 @@ public final class ModItems {
 
     public static final Item ENERGY_ANALYZER = registerItem("energy_analyzer",
             new EnergyAnalyzerItem(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxCount(1)));
+
+    public static final Item IRON_HAMMER = registerItem("iron_hammer",
+            new HammerItem(ToolMaterials.IRON, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static void register() {
 
