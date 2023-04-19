@@ -1,0 +1,34 @@
+{
+  "parent":  "energizedpower:main/hammer",
+  "display": {
+    "icon": {
+      "item": "energizedpower:iron_plate"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.iron_plate.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.iron_plate.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_iron_plate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:plates/iron"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_iron_plate"
+    ]
+  ]
+}
