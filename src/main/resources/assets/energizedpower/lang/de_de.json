@@ -293,6 +293,21 @@
   "advancements.energizedpower.hammer.title": "Ein gutes Werkzeug",
   "advancements.energizedpower.hammer.description": "Hämmer können für das Craften von Platten verwendet werden.",
 
+  "advancements.energizedpower.copper_plate.title": "Kupferplatte",
+  "advancements.energizedpower.copper_plate.description": "Erstelle eine Kupferplatte.",
+
+  "advancements.energizedpower.iron_plate.title": "Schlag drauf",
+  "advancements.energizedpower.iron_plate.description": "Erstelle eine Eisenplatte.",
+
+  "advancements.energizedpower.gold_plate.title": "Goldplatte",
+  "advancements.energizedpower.gold_plate.description": "Erstelle eine Goldplatte.",
+
+  "advancements.energizedpower.energized_copper_plate.title": "Energetisierte Kupferplatte",
+  "advancements.energizedpower.energized_copper_plate.description": "Erstelle eine energetisierte Kupferplatte.",
+
+  "advancements.energizedpower.energized_gold_plate.title": "Energetisierte Goldplatte",
+  "advancements.energizedpower.energized_gold_plate.description": "Erstelle eine energetisierte Goldplatte.",
+
   "advancements.energizedpower.energizedpower.title": "Energized Power",
   "advancements.energizedpower.energizedpower.description": "Das ist der Start deiner Energized Power-Reise.",
 

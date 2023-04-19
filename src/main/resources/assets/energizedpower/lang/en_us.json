@@ -293,6 +293,21 @@
   "advancements.energizedpower.hammer.title": "A good tool",
   "advancements.energizedpower.hammer.description": "Hammers can be used to craft plates.",
 
+  "advancements.energizedpower.copper_plate.title": "Copper Plate",
+  "advancements.energizedpower.copper_plate.description": "Create a copper plate.",
+
+  "advancements.energizedpower.iron_plate.title": "Hit it",
+  "advancements.energizedpower.iron_plate.description": "Create an iron plate.",
+
+  "advancements.energizedpower.gold_plate.title": "Gold Plate",
+  "advancements.energizedpower.gold_plate.description": "Create a gold plate.",
+
+  "advancements.energizedpower.energized_copper_plate.title": "Energized Copper Plate",
+  "advancements.energizedpower.energized_copper_plate.description": "Create an energized copper plate.",
+
+  "advancements.energizedpower.energized_gold_plate.title": "Energized Gold Plate",
+  "advancements.energizedpower.energized_gold_plate.description": "Create an energized gold plate.",
+
   "advancements.energizedpower.energizedpower.title": "Energized Power",
   "advancements.energizedpower.energizedpower.description": "This is the start of your energized power journey.",
 
