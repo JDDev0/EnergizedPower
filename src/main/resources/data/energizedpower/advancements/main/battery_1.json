@@ -1,5 +1,5 @@
 {
-  "parent":  "energizedpower:main/energizedpower",
+  "parent":  "energizedpower:main/charger",
   "display": {
     "icon": {
       "item": "energizedpower:battery_1"
