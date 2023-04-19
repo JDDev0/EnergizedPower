@@ -1,5 +1,5 @@
 {
-  "parent":  "energizedpower:main/basic_machine_frame",
+  "parent":  "energizedpower:main/charger",
   "display": {
     "icon": {
       "item": "energizedpower:uncharger"
