@@ -12,7 +12,7 @@
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": false,
-    "background": "energizedpower:textures/block/basic_machine_frame_side.png"
+    "background": "energizedpower:textures/block/basic_machine_frame_top.png"
   },
   "criteria": {
     "has_copper": {
