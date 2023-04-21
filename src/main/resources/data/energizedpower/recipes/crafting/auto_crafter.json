@@ -19,8 +19,8 @@
     }
   },
   "pattern": [
-    "ISI",
-    "CBC",
+    "CTC",
+    "SBS",
     "ITI"
   ],
   "result": {
