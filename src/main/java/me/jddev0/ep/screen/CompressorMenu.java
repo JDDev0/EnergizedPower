@@ -27,6 +27,7 @@ public class CompressorMenu extends AbstractContainerMenu implements EnergyStora
         super(ModMenuTypes.COMPRESSOR_MENU.get(), id);
 
         checkContainerSize(inv, 2);
+        checkContainerDataCount(data, 9);
         this.blockEntity = (CompressorBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
