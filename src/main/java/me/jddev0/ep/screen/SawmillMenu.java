@@ -27,6 +27,7 @@ public class SawmillMenu extends AbstractContainerMenu implements EnergyStorageM
         super(ModMenuTypes.SAWMILL_MENU.get(), id);
 
         checkContainerSize(inv, 3);
+        checkContainerDataCount(data, 9);
         this.blockEntity = (SawmillBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;

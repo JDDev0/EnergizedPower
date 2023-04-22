@@ -38,6 +38,7 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
         this.patternResultSlots = patternResultSlots;
 
         checkContainerSize(inv, 18 + 3*3 + 1);
+        checkContainerDataCount(data, 9);
         this.blockEntity = (AutoCrafterBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
