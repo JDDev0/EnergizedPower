@@ -2,8 +2,6 @@ package me.jddev0.ep.item;
 
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.RecipeType;
-import org.jetbrains.annotations.Nullable;
 
 public class HammerItem extends TieredItem implements Vanishable {
     private final RandomSource random = RandomSource.create();

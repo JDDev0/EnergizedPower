@@ -2,7 +2,6 @@ package me.jddev0.ep.integration.jei;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.recipe.SawmillRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
