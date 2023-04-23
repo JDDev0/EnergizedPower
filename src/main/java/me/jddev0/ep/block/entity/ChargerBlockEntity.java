@@ -235,7 +235,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
 
         if(blockEntity.hasRecipe()) {
             ItemStack stack = blockEntity.itemHandler.getStackInSlot(0);
-            int energyConsumptionPerTick = 0;
+            int energyConsumptionPerTick;
 
             SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
             for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
