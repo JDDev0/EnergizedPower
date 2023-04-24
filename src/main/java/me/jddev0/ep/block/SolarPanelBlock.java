@@ -90,13 +90,13 @@ public class SolarPanelBlock extends BaseEntityBlock {
     }
 
     public enum Tier {
-        TIER_1("solar_panel_1", 64,
+        TIER_1("solar_panel_1", 32,
                 BlockBehaviour.Properties.of(Material.METAL).
                 requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
-        TIER_2("solar_panel_2", 512,
+        TIER_2("solar_panel_2", 256,
                 BlockBehaviour.Properties.of(Material.METAL).
                         requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
-        TIER_3("solar_panel_3", 4096,
+        TIER_3("solar_panel_3", 2048,
                 BlockBehaviour.Properties.of(Material.METAL).
                         requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
         TIER_4("solar_panel_4", 32768,
