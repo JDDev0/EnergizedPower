@@ -183,6 +183,7 @@ public class EnergizedPowerBookScreen extends Screen {
             return false;
 
         if(clickEvent.getAction() == ClickEvent.Action.CHANGE_PAGE) {
+            int oldCurrentPage = currentPage;
             try {
                 return setPage(Integer.parseInt(clickEvent.getValue()) - 1);
             }catch(NumberFormatException e) {
@@ -206,6 +207,9 @@ public class EnergizedPowerBookScreen extends Screen {
                     return false;
 
                 return setPage(i + 1); //"+ 1": Front cover is not contained in the pages list
+            }finally {
+                if(currentPage != oldCurrentPage)
+                    client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.f));
             }
         }
 
