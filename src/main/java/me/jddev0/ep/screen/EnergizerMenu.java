@@ -35,6 +35,7 @@ public class EnergizerMenu extends ScreenHandler implements EnergyStorageMenuPac
 
         this.inv = inv;
         checkSize(this.inv, 2);
+        checkDataCount(data, 15);
         this.level = playerInventory.player.world;
         this.inv.onOpen(playerInventory.player);
         this.data = data;

@@ -35,6 +35,7 @@ public class SawmillMenu extends ScreenHandler implements EnergyStorageMenuPacke
 
         this.inv = inv;
         checkSize(this.inv, 3);
+        checkDataCount(data, 15);
         this.level = playerInventory.player.world;
         this.inv.onOpen(playerInventory.player);
         this.data = data;

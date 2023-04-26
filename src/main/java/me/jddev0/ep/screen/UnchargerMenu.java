@@ -35,6 +35,7 @@ public class UnchargerMenu extends ScreenHandler implements EnergyStorageMenuPac
 
         this.inv = inv;
         checkSize(this.inv, 1);
+        checkDataCount(data, 15);
         this.level = playerInventory.player.world;
         this.inv.onOpen(playerInventory.player);
         this.data = data;
