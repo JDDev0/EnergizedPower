@@ -43,7 +43,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements EnergyStorageP
 
         long fePerTick = tier.getFePerTick();
         long maxTransfer = fePerTick * 4; //4 times max production
-        long capacity = fePerTick * 20 * 8; //8 seconds of max production
+        long capacity = fePerTick * 20 * 2; //2 seconds of max production
         internalEnergyStorage = new SimpleEnergyStorage(capacity, capacity, capacity) {
             @Override
             protected void onFinalCommit() {
