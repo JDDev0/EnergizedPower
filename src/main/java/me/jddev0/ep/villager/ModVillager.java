@@ -46,6 +46,14 @@ public final class ModVillager {
     }
 
     private static void registerTrades() {
+        TradeOfferHelper.registerVillagerOffers(VillagerProfession.LIBRARIAN, 1, factories -> {
+            addOffer(factories,
+                    new ItemStack(Items.EMERALD, 6),
+                    new ItemStack(Items.BOOK),
+                    new ItemStack(ModItems.ENERGIZED_POWER_BOOK),
+                    3, 3, .02f);
+        });
+
         TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION, 1, factories -> {
             addOffer(factories,
                     new ItemStack(Items.COPPER_INGOT, 2),
