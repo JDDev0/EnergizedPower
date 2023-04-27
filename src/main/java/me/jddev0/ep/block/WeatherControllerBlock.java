@@ -16,7 +16,7 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class WeatherControllerBlock extends BaseEntityBlock {
-    public static int WEATHER_CHANGED_TICKS = 20 * 60; //1 minute
+    public static int WEATHER_CHANGED_TICKS = 20 * 60 * 16; //16 minutes
 
     public WeatherControllerBlock(Properties props) {
         super(props);
