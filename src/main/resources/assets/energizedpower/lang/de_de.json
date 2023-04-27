@@ -480,7 +480,7 @@
 
   "book.energizedpower.page.energizer": "Der Energetisierer kann Items sehr effizient energetisieren.",
 
-  "book.energizedpower.page.weather_controller": "Der Wetter-Controller kann das Wetter ändern. Um das zu tun, benötigt er Energie.",
+  "book.energizedpower.page.weather_controller": "Der Wetter-Controller kann das Wetter temporär ändern. Um das zu tun, benötigt er Energie.",
 
 
   "book.energizedpower.page.chapter.structures.title": "Strukturen",
