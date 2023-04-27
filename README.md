@@ -21,7 +21,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 * Lightning Generator
 * Solar Panels (5 Tiers)
 * Transformers (Can be used to connect different tiers of cables) (1 to n, 3 to 3, and n to 1)
-* Weather Controller
+* Weather Controller (**In next release (v1.6.0)**)
 
 Every machine supports auto-insert and auto-extract of items from all block faces.
 
