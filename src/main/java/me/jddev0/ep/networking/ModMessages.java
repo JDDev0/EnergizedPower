@@ -58,6 +58,12 @@ public final class ModMessages {
                 encoder(SetWeatherFromWeatherControllerC2SPacket::toBytes).
                 consumerMainThread(SetWeatherFromWeatherControllerC2SPacket::handle).
                 add();
+
+        net.messageBuilder(SetTimeFromTimeControllerC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+                decoder(SetTimeFromTimeControllerC2SPacket::new).
+                encoder(SetTimeFromTimeControllerC2SPacket::toBytes).
+                consumerMainThread(SetTimeFromTimeControllerC2SPacket::handle).
+                add();
     }
 
     public static <MSG> void sendToServer(MSG message) {

@@ -114,6 +114,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.ENERGIZER_ITEM);
             event.accept(ModBlocks.CHARGING_STATION_ITEM);
             event.accept(ModBlocks.WEATHER_CONTROLLER_ITEM);
+            event.accept(ModBlocks.TIME_CONTROLLER_ITEM);
 
             event.accept(ModItems.BASIC_SOLAR_CELL);
             event.accept(ModItems.ADVANCED_SOLAR_CELL);
@@ -168,6 +169,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.COAL_ENGINE_MENU.get(), CoalEngineScreen::new);
             MenuScreens.register(ModMenuTypes.POWERED_FURNACE_MENU.get(), PoweredFurnaceScreen::new);
             MenuScreens.register(ModMenuTypes.WEATHER_CONTROLLER_MENU.get(), WeatherControllerScreen::new);
+            MenuScreens.register(ModMenuTypes.TIME_CONTROLLER_MENU.get(), TimeControllerScreen::new);
 
             event.enqueueWork(() -> {
                 ItemProperties.registerGeneric(new ResourceLocation(MODID, "active"), (itemStack, level, entity, seed) -> {
