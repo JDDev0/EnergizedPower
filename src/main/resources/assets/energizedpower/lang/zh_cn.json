@@ -75,6 +75,7 @@
   "container.energizedpower.auto_crafter": "自动合成机",
 
   "tooltip.energizedpower.auto_crafter.txt.shift.1": "该方块使用每一种物品的 %s/t。",
+  "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "Ignore NBT",
 
   "block.energizedpower.charger": "充能站",
   "item.energizedpower.charger": "充能站",
