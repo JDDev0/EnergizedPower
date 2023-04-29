@@ -48,7 +48,7 @@ public class SetWeatherFromWeatherControllerC2SPacket {
 
             IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
             if(energyStorage.getEnergyStored() < WeatherControllerBlockEntity.CAPACITY)
-                return; //TODO error message
+                return;
 
             weatherControllerBlockEntity.clearEnergy();
 
