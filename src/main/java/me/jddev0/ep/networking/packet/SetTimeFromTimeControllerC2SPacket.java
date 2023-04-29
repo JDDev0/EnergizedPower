@@ -44,7 +44,7 @@ public class SetTimeFromTimeControllerC2SPacket {
 
             IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
             if(energyStorage.getEnergyStored() < TimeControllerBlockEntity.CAPACITY)
-                return; //TODO error message
+                return;
 
             timeControllerBlockEntity.clearEnergy();
 
