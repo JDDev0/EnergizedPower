@@ -3,9 +3,11 @@ package me.jddev0.ep.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetTimeFromTimeControllerC2SPacket;
 import me.jddev0.ep.util.EnergyUtils;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -78,6 +80,7 @@ public class TimeControllerScreen extends AbstractContainerScreen<TimeController
         blit(poseStack, x, y, 0, 0, imageWidth, imageHeight);
         renderEnergyMeter(poseStack, x, y);
         renderButtons(poseStack, x, y, mouseX, mouseY);
+        renderInfoText(poseStack, x, y);
     }
 
     private void renderEnergyMeter(PoseStack poseStack, int x, int y) {
@@ -103,6 +106,16 @@ public class TimeControllerScreen extends AbstractContainerScreen<TimeController
 
             blit(poseStack, x + 142, y + 34, 176, 106, 18, 18);
         }
+    }
+
+    private void renderInfoText(PoseStack poseStack, int x, int y) {
+        Component component = menu.getEnergy() < TimeControllerBlockEntity.CAPACITY?
+                new TranslatableComponent("tooltip.energizedpower.not_enough_energy.txt").withStyle(ChatFormatting.RED):
+                new TranslatableComponent("tooltip.energizedpower.ready.txt").withStyle(ChatFormatting.DARK_GREEN);
+
+        int componentWidth = font.width(component);
+
+        font.draw(poseStack, component, x + 34 + (126 - componentWidth) * .5f, y + 55, 0);
     }
 
     @Override
