@@ -41,17 +41,17 @@ public class WeatherControllerScreen extends AbstractContainerScreen<WeatherCont
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
         if(mouseButton == 0) {
             boolean clicked = false;
-            if(isHovering(43, 34, 18, 18, mouseX, mouseY)) {
+            if(isHovering(52, 34, 18, 18, mouseX, mouseY)) {
                 //Weather clear button
 
                 ModMessages.sendToServer(new SetWeatherFromWeatherControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 0));
                 clicked = true;
-            }else if(isHovering(79, 34, 18, 18, mouseX, mouseY)) {
+            }else if(isHovering(88, 34, 18, 18, mouseX, mouseY)) {
                 //Weather rain button
 
                 ModMessages.sendToServer(new SetWeatherFromWeatherControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 1));
                 clicked = true;
-            }else if(isHovering(115, 34, 18, 18, mouseX, mouseY)) {
+            }else if(isHovering(124, 34, 18, 18, mouseX, mouseY)) {
                 //Weather thunder button
 
                 ModMessages.sendToServer(new SetWeatherFromWeatherControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 2));
@@ -85,18 +85,18 @@ public class WeatherControllerScreen extends AbstractContainerScreen<WeatherCont
     }
 
     private void renderButtons(PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
-        if(isHovering(43, 34, 18, 18, mouseX, mouseY)) {
+        if(isHovering(52, 34, 18, 18, mouseX, mouseY)) {
             //Weather clear button
 
-            blit(poseStack, x + 43, y + 34, 176, 52, 18, 18);
-        }else if(isHovering(79, 34, 18, 18, mouseX, mouseY)) {
+            blit(poseStack, x + 52, y + 34, 176, 52, 18, 18);
+        }else if(isHovering(88, 34, 18, 18, mouseX, mouseY)) {
             //Weather rain button
 
-            blit(poseStack, x + 79, y + 34, 176, 70, 18, 18);
-        }else if(isHovering(115, 34, 18, 18, mouseX, mouseY)) {
+            blit(poseStack, x + 88, y + 34, 176, 70, 18, 18);
+        }else if(isHovering(124, 34, 18, 18, mouseX, mouseY)) {
             //Weather thunder button
 
-            blit(poseStack, x + 115, y + 34, 176, 88, 18, 18);
+            blit(poseStack, x + 124, y + 34, 176, 88, 18, 18);
         }
     }
 
@@ -129,21 +129,21 @@ public class WeatherControllerScreen extends AbstractContainerScreen<WeatherCont
                     EnergyUtils.getEnergyWithPrefix(menu.getEnergy()), EnergyUtils.getEnergyWithPrefix(menu.getCapacity())));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }else if(isHovering(43, 34, 18, 18, mouseX, mouseY)) {
+        }else if(isHovering(52, 34, 18, 18, mouseX, mouseY)) {
             //Weather clear button
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.weather_controller.btn.clear"));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }else if(isHovering(79, 34, 18, 18, mouseX, mouseY)) {
+        }else if(isHovering(88, 34, 18, 18, mouseX, mouseY)) {
             //Weather rain button
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.weather_controller.btn.rain"));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }else if(isHovering(115, 34, 18, 18, mouseX, mouseY)) {
+        }else if(isHovering(124, 34, 18, 18, mouseX, mouseY)) {
             //Weather thunder button
 
             List<Component> components = new ArrayList<>(2);
