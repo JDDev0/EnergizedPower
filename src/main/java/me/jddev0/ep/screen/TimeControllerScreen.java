@@ -115,7 +115,7 @@ public class TimeControllerScreen extends AbstractContainerScreen<TimeController
 
         int componentWidth = font.width(component);
 
-        font.draw(poseStack, component, x + 34 + (126 - componentWidth) * .5f, y + 55, 0);
+        font.draw(poseStack, component, x + 34 + (126 - componentWidth) * .5f, y + 58, 0);
     }
 
     @Override
