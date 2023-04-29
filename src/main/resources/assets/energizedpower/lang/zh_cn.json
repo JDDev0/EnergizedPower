@@ -2,14 +2,14 @@
   "item.energizedpower.energized_copper_ingot": "充能铜锭",
   "item.energizedpower.energized_gold_ingot": "充能金锭",
 
-  "item.energizedpower.energized_copper_plate": "Energized Copper Plate",
-  "item.energizedpower.energized_gold_plate": "Energized Gold Plate",
+  "item.energizedpower.energized_copper_plate": "充能铜板",
+  "item.energizedpower.energized_gold_plate": "充能金板",
 
   "item.energizedpower.silicon": "硅",
 
-  "item.energizedpower.copper_plate": "Copper Plate",
-  "item.energizedpower.iron_plate": "Iron Plate",
-  "item.energizedpower.gold_plate": "Gold Plate",
+  "item.energizedpower.copper_plate": "铜板",
+  "item.energizedpower.iron_plate": "铁板",
+  "item.energizedpower.gold_plate": "金板",
 
   "item.energizedpower.sawdust": "锯末",
 
@@ -57,12 +57,12 @@
   "txt.energizedpower.energy_analyzer.energy_can_receive_side": "该区块面消耗能源。",
   "txt.energizedpower.energy_analyzer.energy_can_extract_side": "该区块面产生能量。",
 
-  "item.energizedpower.wooden_hammer": "Wooden Hammer",
-  "item.energizedpower.stone_hammer": "Stone Hammer",
-  "item.energizedpower.iron_hammer": "Iron Hammer",
-  "item.energizedpower.golden_hammer": "Golden Hammer",
-  "item.energizedpower.diamond_hammer": "Diamond Hammer",
-  "item.energizedpower.netherite_hammer": "Netherite Hammer",
+  "item.energizedpower.wooden_hammer": "木锤",
+  "item.energizedpower.stone_hammer": "石锤",
+  "item.energizedpower.iron_hammer": "铁锤",
+  "item.energizedpower.golden_hammer": "金锤",
+  "item.energizedpower.diamond_hammer": "钻石锤",
+  "item.energizedpower.netherite_hammer": "下界合金锤",
 
   "block.energizedpower.silicon_block": "硅块",
   "item.energizedpower.silicon_block": "硅块",
@@ -142,9 +142,9 @@
 
   "tooltip.energizedpower.coal_engine.txt": "这个物品将产生 %s，直到被烧毁。",
 
-  "block.energizedpower.powered_furnace": "Powered Furnace",
-  "item.energizedpower.powered_furnace": "Powered Furnace",
-  "container.energizedpower.powered_furnace": "Powered Furnace",
+  "block.energizedpower.powered_furnace": "电炉",
+  "item.energizedpower.powered_furnace": "电炉",
+  "container.energizedpower.powered_furnace": "电炉",
 
   "block.energizedpower.crusher": "粉碎机",
   "item.energizedpower.crusher": "粉碎机",
@@ -154,9 +154,9 @@
   "item.energizedpower.sawmill": "锯木机",
   "container.energizedpower.sawmill": "锯木机",
 
-  "block.energizedpower.compressor": "Compressor",
-  "item.energizedpower.compressor": "Compressor",
-  "container.energizedpower.compressor": "Compressor",
+  "block.energizedpower.compressor": "压缩机",
+  "item.energizedpower.compressor": "压缩机",
+  "container.energizedpower.compressor": "压缩机",
 
   "block.energizedpower.block_placer": "方块放置器",
   "item.energizedpower.block_placer": "方块放置器",
@@ -180,22 +180,22 @@
 
   "tooltip.energizedpower.charging_station.txt.shift.1": "无线充电站可以为玩家物品栏内的物品充能。",
 
-  "block.energizedpower.weather_controller": "Weather Controller",
-  "item.energizedpower.weather_controller": "Weather Controller",
-  "container.energizedpower.weather_controller": "Weather Controller",
+  "block.energizedpower.weather_controller": "气象调控中心",
+  "item.energizedpower.weather_controller": "气象调控中心",
+  "container.energizedpower.weather_controller": "气象调控中心",
 
-  "tooltip.energizedpower.weather_controller.btn.clear": "Set weather to clear",
-  "tooltip.energizedpower.weather_controller.btn.rain": "Set weather to rain",
-  "tooltip.energizedpower.weather_controller.btn.thunder": "Set weather to thunder",
+  "tooltip.energizedpower.weather_controller.btn.clear": "设置天气为晴天",
+  "tooltip.energizedpower.weather_controller.btn.rain": "设置天气为雨天",
+  "tooltip.energizedpower.weather_controller.btn.thunder": "设置天气为雷雨天",
 
-  "block.energizedpower.time_controller": "Time Controller",
-  "item.energizedpower.time_controller": "Time Controller",
-  "container.energizedpower.time_controller": "Time Controller",
+  "block.energizedpower.time_controller": "时间控制器",
+  "item.energizedpower.time_controller": "时间控制器",
+  "container.energizedpower.time_controller": "时间控制器",
 
-  "tooltip.energizedpower.time_controller.btn.day": "Set time to day",
-  "tooltip.energizedpower.time_controller.btn.noon": "Set time to noon",
-  "tooltip.energizedpower.time_controller.btn.night": "Set time to night",
-  "tooltip.energizedpower.time_controller.btn.midnight": "Set time to midnight",
+  "tooltip.energizedpower.time_controller.btn.day": "设置天数",
+  "tooltip.energizedpower.time_controller.btn.noon": "设置时间为中午",
+  "tooltip.energizedpower.time_controller.btn.night": "设置时间为晚上",
+  "tooltip.energizedpower.time_controller.btn.midnight": "设置时间为半夜",
 
   "block.energizedpower.basic_machine_frame": "基础机器框架",
   "item.energizedpower.basic_machine_frame": "基础机器框架",
@@ -232,8 +232,8 @@
   "advancements.energizedpower.sawmill.title": "锯削",
   "advancements.energizedpower.sawmill.description": "锯木头。",
 
-  "advancements.energizedpower.compressor.title": "Compressing",
-  "advancements.energizedpower.compressor.description": "Creates plates.",
+  "advancements.energizedpower.compressor.title": "压缩加工",
+  "advancements.energizedpower.compressor.description": "创建金属板。",
 
   "advancements.energizedpower.block_placer.title": "放置方块",
   "advancements.energizedpower.block_placer.description": "方块被自动放置在世界中。",
@@ -280,17 +280,17 @@
   "advancements.energizedpower.charging_station.title": "无线充能",
   "advancements.energizedpower.charging_station.description": "物品充能使用无线方式。",
 
-  "advancements.energizedpower.weather_controller.title": "Control the weather",
-  "advancements.energizedpower.weather_controller.description": "Change the weather with the Weather Controller.",
+  "advancements.energizedpower.weather_controller.title": "控制天气",
+  "advancements.energizedpower.weather_controller.description": "使用气象调控中心调控天气。",
 
-  "advancements.energizedpower.time_controller.title": "Control the time",
-  "advancements.energizedpower.time_controller.description": "Change the time with the Time Controller.",
+  "advancements.energizedpower.time_controller.title": "控制时间",
+  "advancements.energizedpower.time_controller.description": "使用时间控制器更改时间。",
 
   "advancements.energizedpower.coal_engine.title": "煤的力量",
   "advancements.energizedpower.coal_engine.description": "通过烧东西来生产能量虽然不是最有好的，但目前来说已经最好的。",
 
-  "advancements.energizedpower.powered_furnace.title": "Powered Furnace",
-  "advancements.energizedpower.powered_furnace.description": "Furnace with power.",
+  "advancements.energizedpower.powered_furnace.title": "电炉",
+  "advancements.energizedpower.powered_furnace.description": "有动力的炉子。",
 
   "advancements.energizedpower.copper_cable.title": "能量传输",
   "advancements.energizedpower.copper_cable.description": "用电缆传输能量。",
@@ -316,23 +316,23 @@
   "advancements.energizedpower.energized_power_book.title": "无穷知识",
   "advancements.energizedpower.energized_power_book.description": "这是关于这个模组的指南手册。",
 
-  "advancements.energizedpower.hammer.title": "A good tool",
-  "advancements.energizedpower.hammer.description": "Hammers can be used to craft plates.",
+  "advancements.energizedpower.hammer.title": "好工具",
+  "advancements.energizedpower.hammer.description": "锤子可以制造材。",
 
-  "advancements.energizedpower.copper_plate.title": "Copper Plate",
-  "advancements.energizedpower.copper_plate.description": "Create a copper plate.",
+  "advancements.energizedpower.copper_plate.title": "铜板",
+  "advancements.energizedpower.copper_plate.description": "制作一个铜板。",
 
-  "advancements.energizedpower.iron_plate.title": "Hit it",
-  "advancements.energizedpower.iron_plate.description": "Create an iron plate.",
+  "advancements.energizedpower.iron_plate.title": "打",
+  "advancements.energizedpower.iron_plate.description": "制作一个铁板。",
 
-  "advancements.energizedpower.gold_plate.title": "Gold Plate",
-  "advancements.energizedpower.gold_plate.description": "Create a gold plate.",
+  "advancements.energizedpower.gold_plate.title": "金板",
+  "advancements.energizedpower.gold_plate.description": "制作一个金板。",
 
-  "advancements.energizedpower.energized_copper_plate.title": "Energized Copper Plate",
-  "advancements.energizedpower.energized_copper_plate.description": "Create an energized copper plate.",
+  "advancements.energizedpower.energized_copper_plate.title": "充能铜板",
+  "advancements.energizedpower.energized_copper_plate.description": "制作一个充能铜板",
 
-  "advancements.energizedpower.energized_gold_plate.title": "Energized Gold Plate",
-  "advancements.energizedpower.energized_gold_plate.description": "Create an energized gold plate.",
+  "advancements.energizedpower.energized_gold_plate.title": "充能金板",
+  "advancements.energizedpower.energized_gold_plate.description": "制作一个充能金板",
 
   "advancements.energizedpower.energizedpower.title": "Energized Power",
   "advancements.energizedpower.energizedpower.description": "这是你开始 energized power 路途的起点。",
@@ -409,8 +409,8 @@
   "book.energizedpower.page.sawdust.1": "锯末是锯木机产出的副产品，锯末可以来制作锯末块。",
   "book.energizedpower.page.sawdust.2": "锯末块可以烧制成木炭。",
 
-  "book.energizedpower.page.plates.1": "Plates are used as a crafting ingredient in most machines. Plates can be crafted with hammers or by using the compressor.",
-  "book.energizedpower.page.plates.2": "Energized plates can be created in the compressor only.",
+  "book.energizedpower.page.plates.1": "板材是大部分机器制作所使用的材料。板材可以通过锤子或压缩机来制作。",
+  "book.energizedpower.page.plates.2": "只有压缩机可以制作充能板材。",
 
   "book.energizedpower.page.energized_copper_ingot.1": "充能铜锭是充能站这样高级的机器需要的。",
   "book.energizedpower.page.energized_copper_ingot.2": "充能站是用这个锭做的，那倒不是吗？",
@@ -420,10 +420,10 @@
   "book.energizedpower.page.energized_gold_ingot.1": "充能金锭应用于高级的机器（e.g.充电站）。",
 
 
-  "book.energizedpower.page.chapter.tools.title": "Tools",
-  "book.energizedpower.page.chapter.tools": "Can be helpful",
+  "book.energizedpower.page.chapter.tools.title": "工具",
+  "book.energizedpower.page.chapter.tools": "也许会有帮助。",
 
-  "book.energizedpower.page.hammers.1": "Hammers can be used to craft plates.",
+  "book.energizedpower.page.hammers.1": "锤子是用来制造板材的工具。",
 
 
   "book.energizedpower.page.chapter.energy_items.title": "能量物品",
@@ -474,7 +474,7 @@
   "book.energizedpower.page.lightning_generator.1": "人造闪电发生器在每次雷击时产生大量的能量。",
   "book.energizedpower.page.lightning_generator.2": "必须将避雷针防置在该方块时才会生效。",
 
-  "book.energizedpower.page.powered_furnace.1": "The Powered Furnace works like the Furnace. Instead of coal it uses power. Additionally it is faster than the normal furnace.",
+  "book.energizedpower.page.powered_furnace.1": "电炉和普通的熔炉工作原理是一样的。但是电炉使用的是电，而普通熔炉使用的是煤炭；而且电炉比普通熔炉更快。",
 
   "book.energizedpower.page.auto_crafter.1": "自动合成机会自动合成物品。",
   "book.energizedpower.page.auto_crafter.2": "可以通过使用自动合成机中的合成槽来放置配方。",
@@ -484,7 +484,7 @@
   "book.energizedpower.page.sawmill.1": "锯木机可以据原木和一些物品。",
   "book.energizedpower.page.sawmill.2": "锯末是锯木机生产出的副产品，可以合成锯末块用于燃料。",
 
-  "book.energizedpower.page.compressor.1": "The Compressor compresses ingots into plates.",
+  "book.energizedpower.page.compressor.1": "压缩机可以将一些金属锭压成板材。",
 
   "book.energizedpower.page.block_placer.1": "方块放置器可以放置所有的方块（甚至可以是门和种子）。",
   "book.energizedpower.page.block_placer.2": "只有在可以放置方块的情况下才会放置方块。",
@@ -495,10 +495,10 @@
 
   "book.energizedpower.page.energizer": "Energizer 可以很好地给物品充能。",
 
-  "book.energizedpower.page.weather_controller": "The Weather Controller can change the weather temporarily. It requires energy to do so.",
+  "book.energizedpower.page.weather_controller": "气象调控中心可以暂时更改天气，但是需要电力维持。",
 
-  "book.energizedpower.page.time_controller.1": "The Time Controller can change the time of the day. It requires energy to do so.",
-  "book.energizedpower.page.time_controller.2": "It can not go back in time, the time value will always be incremented.",
+  "book.energizedpower.page.time_controller.1": "时间控制器可以更改一天中的时间，但是需要电力维持。",
+  "book.energizedpower.page.time_controller.2": "更改不可撤销，时间会继续向前。",
 
 
   "book.energizedpower.page.chapter.structures.title": "结构",
@@ -509,9 +509,9 @@
   "book.energizedpower.page.electrician.2": "电工房在每个原版村庄中都能找到。",
   "book.energizedpower.page.electrician.3": "使用基本机器框架可以召唤一个电工村民。",
 
-  "book.energizedpower.page.factory.title": "Factory Building",
-  "book.energizedpower.page.factory.1": "The factory building contains some machines and something interesting in the center of the building. It can be found in Forest and Flower Forest biomes.",
+  "book.energizedpower.page.factory.title": "厂房",
+  "book.energizedpower.page.factory.1": "厂房中会有些机器，在中心位置还有一些有趣的东西。厂房可以在森林和繁花森林群系中找到。",
 
-  "book.energizedpower.page.small_solar_farm.title": "Small Solar Farm",
-  "book.energizedpower.page.small_solar_farm.1": "The small solar farm is a structure with some Solar Panels producing energy. It can be found in Desert, Badlands, and Savanna biomes."
+  "book.energizedpower.page.small_solar_farm.title": "小型太阳能发电场",
+  "book.energizedpower.page.small_solar_farm.1": "小型太阳能发电场带有一些太阳能，可以产生电力。小型太阳能发电场可以在沙漠、恶地和热带草原热带草原生物群系中找到。"
 }
