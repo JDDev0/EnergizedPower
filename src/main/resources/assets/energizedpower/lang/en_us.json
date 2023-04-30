@@ -504,7 +504,8 @@
   "book.energizedpower.page.plant_growth_chamber_2.1": "When the fertilizer slot is used, energy and speed multipliers are applied.",
   "book.energizedpower.page.plant_growth_chamber_2.2": "Seeds can be inserted from the north, east, south, and west. Fertilizers can be inserted from the top and bottom. Outputs can be extracted from all block faces.",
 
-  "book.energizedpower.page.plant_growth_chamber_3.1": "If you'd like to automate this blocks, you need to keep in mind that yields are randomized.",
+  "book.energizedpower.page.plant_growth_chamber_3.1": "If you'd like to use a fertilizer, the fertilizer must be inserted first.",
+  "book.energizedpower.page.plant_growth_chamber_3.2": "If you'd like to automate this blocks, you need to keep in mind that yields are randomized.",
 
   "book.energizedpower.page.block_placer.1": "The Block Placer can place all blocks (Even doors and seeds).",
   "book.energizedpower.page.block_placer.2": "Blocks will only be placed if possible.",
