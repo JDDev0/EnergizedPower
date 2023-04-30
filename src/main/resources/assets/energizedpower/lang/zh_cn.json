@@ -504,7 +504,8 @@
   "book.energizedpower.page.plant_growth_chamber_2.1": "When it is used, energy and speed multipliers are applied.",
   "book.energizedpower.page.plant_growth_chamber_2.2": "Seeds can be inserted from the north, east, south, and west. Fertilizers can be inserted from the top and bottom. Outputs can be extracted from all block faces.",
 
-  "book.energizedpower.page.plant_growth_chamber_3.1": "If you'd like to automate this blocks, you need to keep in mind that yields are randomized.",
+  "book.energizedpower.page.plant_growth_chamber_3.1": "If you'd like to use a fertilizer, the fertilizer must be inserted first.",
+  "book.energizedpower.page.plant_growth_chamber_3.2": "If you'd like to automate this blocks, you need to keep in mind that yields are randomized.",
 
   "book.energizedpower.page.block_placer.1": "方块放置器可以放置所有的方块（甚至可以是门和种子）。",
   "book.energizedpower.page.block_placer.2": "只有在可以放置方块的情况下才会放置方块。",
