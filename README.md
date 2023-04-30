@@ -12,6 +12,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 * Crusher
 * Sawmill
 * Compressor
+* Plant Growth Chamber (**In next release (v1.6.0)**)
 * Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
 * Charger
 * Uncharger
