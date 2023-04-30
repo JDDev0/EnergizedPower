@@ -14,7 +14,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "energizedpower:crusher/basalt_from_basalt_variants"
+        "recipe": "energizedpower:crusher/basalt_from_crushing_basalt_variants"
       }
     }
   },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "energizedpower:crusher/basalt_from_basalt_variants"
+      "energizedpower:crusher/basalt_from_crushing_basalt_variants"
     ]
   }
 }
