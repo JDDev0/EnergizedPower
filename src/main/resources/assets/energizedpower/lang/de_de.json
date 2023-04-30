@@ -158,6 +158,10 @@
   "item.energizedpower.compressor": "Kompressor",
   "container.energizedpower.compressor": "Kompressor",
 
+  "block.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
+  "item.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
+  "container.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
+
   "block.energizedpower.block_placer": "Blockplatzierer",
   "item.energizedpower.block_placer": "Blockplatzierer",
   "container.energizedpower.block_placer": "Blockplatzierer",
@@ -214,6 +218,9 @@
   "entity.minecraft.villager.energizedpower.electrician": "Elektroniker",
 
   "recipes.energizedpower.in_world_crafting": "In-Welt Herstellung",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer": "Wachstums-Kammer (Dünger)",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx Geschwindigkeit",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx Energieverbrauch",
   "recipes.energizedpower.transfer.too_large": "Dieses Rezept ist für diesen Container zu groß!",
 
 
@@ -234,6 +241,9 @@
 
   "advancements.energizedpower.compressor.title": "Komprimieren",
   "advancements.energizedpower.compressor.description": "Erstellt Platten.",
+
+  "advancements.energizedpower.plant_growth_chamber.title": "Schnelleres Pflanzenwachstum",
+  "advancements.energizedpower.plant_growth_chamber.description": "Verssere die Geschwindigkeit und den Ertrag mit der Pflanzenwachstums-Kammer.",
 
   "advancements.energizedpower.block_placer.title": "Platziere den Block",
   "advancements.energizedpower.block_placer.description": "Blöcke werden automatisch in der Welt platziert.",
@@ -485,6 +495,15 @@
   "book.energizedpower.page.sawmill.2": "Sägemehl wird dabei produziert und kann zu Sägemehlblöcken verarbeitet werden. Diese können dann als Treibstoff verwendet werden.",
 
   "book.energizedpower.page.compressor.1": "Der Kompressor komprimiert Barren in Platten.",
+
+  "book.energizedpower.page.plant_growth_chamber_1.1": "Die Pflanzenwachstums-\nKammer kann das Pflanzen-\nwachstum und -erträge verbessern.",
+  "book.energizedpower.page.plant_growth_chamber_1.2": "Der rechte Eingabeslot ist der Samenslot.",
+  "book.energizedpower.page.plant_growth_chamber_1.3": "Der linke, optional verwendbare Eingabeslot ist der Düngerslot.",
+
+  "book.energizedpower.page.plant_growth_chamber_2.1": "Wenn der Düngerslot verwendet wird, werden Energie- und Geschwindigkeits-Booster angewendet.",
+  "book.energizedpower.page.plant_growth_chamber_2.2": "Samen können vom Norden, Osten, Süden und Westen hinzugefügt werden. Dünger können von oben und unten hinzugefügt werden. Ausgänge können von allen Blockseiten extrahiert werden.",
+
+  "book.energizedpower.page.plant_growth_chamber_3.1": "Wenn du diesen Block automatisieren willst, musst du wissen, dass Erträge randomisiert sind.",
 
   "book.energizedpower.page.block_placer.1": "Der Blockplatzierer kann Blöcke platzieren (Sogar Türen und Samen).",
   "book.energizedpower.page.block_placer.2": "Blöcke werden nur platziert, wenn es möglich ist.",

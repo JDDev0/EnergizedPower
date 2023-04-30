@@ -27,6 +27,12 @@ public final class ModRecipes {
     public static final RegistryObject<RecipeSerializer<CompressorRecipe>> COMPRESSOR_SERIALIZER = SERIALIZERS.register("compressor",
             () -> CompressorRecipe.Serializer.INSTANCE);
 
+    public static final RegistryObject<RecipeSerializer<PlantGrowthChamberRecipe>> PLANT_GROWTH_CHAMBER_SERIALIZER = SERIALIZERS.
+            register("plant_growth_chamber", () -> PlantGrowthChamberRecipe.Serializer.INSTANCE);
+
+    public static final RegistryObject<RecipeSerializer<PlantGrowthChamberFertilizerRecipe>> PLANT_GROWTH_CHAMBER_FERTILIZER_SERIALIZER = SERIALIZERS.
+            register("plant_growth_chamber_fertilizer", () -> PlantGrowthChamberFertilizerRecipe.Serializer.INSTANCE);
+
     public static void register(IEventBus modEventBus) {
         SERIALIZERS.register(modEventBus);
     }

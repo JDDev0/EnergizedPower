@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "forge:glass_panes/colorless"
+    },
+    "D": {
+      "item": "minecraft:dirt"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    },
+    "S": {
+      "tag": "forge:silicon"
+    },
+    "I": {
+      "tag": "forge:plates/iron"
+    },
+    "B": {
+      "item": "energizedpower:basic_machine_frame"
+    }
+  },
+  "pattern": [
+    "SWS",
+    "GBG",
+    "IDI"
+  ],
+  "result": {
+    "item": "energizedpower:plant_growth_chamber"
+  }
+}
