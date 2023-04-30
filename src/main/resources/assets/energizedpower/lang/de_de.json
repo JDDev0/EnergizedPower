@@ -504,7 +504,8 @@
   "book.energizedpower.page.plant_growth_chamber_2.1": "Wenn der Düngerslot verwendet wird, werden Energie- und Geschwindigkeits-Booster angewendet.",
   "book.energizedpower.page.plant_growth_chamber_2.2": "Samen können vom Norden, Osten, Süden und Westen hinzugefügt werden. Dünger können von oben und unten hinzugefügt werden. Ausgänge können von allen Blockseiten extrahiert werden.",
 
-  "book.energizedpower.page.plant_growth_chamber_3.1": "Wenn du diesen Block automatisieren willst, musst du wissen, dass Erträge randomisiert sind.",
+  "book.energizedpower.page.plant_growth_chamber_3.1": "Wenn du einen Dünger verwenden möchtest, muss der Dünger zuerst hinzugefügt werden.",
+  "book.energizedpower.page.plant_growth_chamber_3.2": "Wenn du diesen Block automatisieren willst, musst du wissen, dass Erträge randomisiert sind.",
 
   "book.energizedpower.page.block_placer.1": "Der Blockplatzierer kann Blöcke platzieren (Sogar Türen und Samen).",
   "book.energizedpower.page.block_placer.2": "Blöcke werden nur platziert, wenn es möglich ist.",
