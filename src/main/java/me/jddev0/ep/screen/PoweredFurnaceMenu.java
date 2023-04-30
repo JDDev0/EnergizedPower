@@ -20,14 +20,14 @@ public class PoweredFurnaceMenu extends AbstractContainerMenu implements EnergyS
     private final ContainerData data;
 
     public PoweredFurnaceMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(11));
     }
 
     public PoweredFurnaceMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.POWERED_FURNACE_MENU.get(), id);
 
         checkContainerSize(inv, 2);
-        checkContainerDataCount(data, 9);
+        checkContainerDataCount(data, 11);
         this.blockEntity = (PoweredFurnaceBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -44,31 +44,31 @@ public class PoweredFurnaceMenu extends AbstractContainerMenu implements EnergyS
     }
 
     int getEnergy() {
-        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
-    }
-
-    int getCapacity() {
         return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
     }
 
-    int getEnergyRequirement() {
+    int getCapacity() {
         return ByteUtils.from2ByteChunks((short)data.get(6), (short)data.get(7));
+    }
+
+    int getEnergyRequirement() {
+        return ByteUtils.from2ByteChunks((short)data.get(8), (short)data.get(9));
     }
 
     /**
      * @return Same as isCrafting but energy requirements are ignored
      */
     public boolean isCraftingActive() {
-        return data.get(0) > 0;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0;
     }
 
     public boolean isCrafting() {
-        return data.get(0) > 0 && data.get(8) == 1;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(10) == 1;
     }
 
     public int getScaledProgressArrowSize() {
-        int progress = data.get(0);
-        int maxProgress = data.get(1);
+        int progress = ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
+        int maxProgress = ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
         int progressArrowSize = 24;
 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
@@ -151,12 +151,12 @@ public class PoweredFurnaceMenu extends AbstractContainerMenu implements EnergyS
     @Override
     public void setEnergy(int energy) {
         for(int i = 0;i < 2;i++)
-            data.set(i + 2, ByteUtils.get2Bytes(energy, i));
+            data.set(i + 4, ByteUtils.get2Bytes(energy, i));
     }
 
     @Override
     public void setCapacity(int capacity) {
         for(int i = 0;i < 2;i++)
-            data.set(i + 4, ByteUtils.get2Bytes(capacity, i));
+            data.set(i + 6, ByteUtils.get2Bytes(capacity, i));
     }
 }
