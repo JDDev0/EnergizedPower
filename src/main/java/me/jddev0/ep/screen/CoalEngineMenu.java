@@ -20,14 +20,14 @@ public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStora
     private final ContainerData data;
 
     public CoalEngineMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(11));
     }
 
     public CoalEngineMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.COAL_ENGINE_MENU.get(), id);
 
         checkContainerSize(inv, 1);
-        checkContainerDataCount(data, 9);
+        checkContainerDataCount(data, 11);
         this.blockEntity = (CoalEngineBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -43,31 +43,31 @@ public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStora
     }
 
     int getEnergy() {
-        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
-    }
-
-    int getCapacity() {
         return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
     }
 
-    int getEnergyProduction() {
+    int getCapacity() {
         return ByteUtils.from2ByteChunks((short)data.get(6), (short)data.get(7));
+    }
+
+    int getEnergyProduction() {
+        return ByteUtils.from2ByteChunks((short)data.get(8), (short)data.get(9));
     }
 
     /**
      * @return Same as isProducing but energy production are ignored
      */
     public boolean isProducingActive() {
-        return data.get(0) > 0;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0;
     }
 
     public boolean isProducing() {
-        return data.get(0) > 0 && data.get(8) == 1;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(10) == 1;
     }
 
     public int getScaledProgressFlameSize() {
-        int progress = data.get(0);
-        int maxProgress = data.get(1);
+        int progress = ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
+        int maxProgress = ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
         int progressFlameSize = 14;
 
         return (maxProgress == 0 || progress == 0)?0:(progress * progressFlameSize / maxProgress);
@@ -150,12 +150,12 @@ public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStora
     @Override
     public void setEnergy(int energy) {
         for(int i = 0;i < 2;i++)
-            data.set(i + 2, ByteUtils.get2Bytes(energy, i));
+            data.set(i + 4, ByteUtils.get2Bytes(energy, i));
     }
 
     @Override
     public void setCapacity(int capacity) {
         for(int i = 0;i < 2;i++)
-            data.set(i + 4, ByteUtils.get2Bytes(capacity, i));
+            data.set(i + 6, ByteUtils.get2Bytes(capacity, i));
     }
 }

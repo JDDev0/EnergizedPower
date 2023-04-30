@@ -93,12 +93,12 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
             @Override
             public int get(int index) {
                 return switch(index) {
-                    case 0 -> CoalEngineBlockEntity.this.progress;
-                    case 1 -> CoalEngineBlockEntity.this.maxProgress;
-                    case 2, 3 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.energyStorage.getEnergy(), index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.energyStorage.getCapacity(), index - 4);
-                    case 6, 7 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.energyProductionLeft, index - 6);
-                    case 8 -> hasEnoughCapacityForProduction?1:0;
+                    case 0, 1 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.progress, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.maxProgress, index - 2);
+                    case 4, 5 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.energyStorage.getEnergy(), index - 4);
+                    case 6, 7 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.energyStorage.getCapacity(), index - 6);
+                    case 8, 9 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.energyProductionLeft, index - 8);
+                    case 10 -> hasEnoughCapacityForProduction?1:0;
                     default -> 0;
                 };
             }
@@ -106,21 +106,25 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
             @Override
             public void set(int index, int value) {
                 switch(index) {
-                    case 0 -> CoalEngineBlockEntity.this.progress = value;
-                    case 1 -> CoalEngineBlockEntity.this.maxProgress = value;
-                    case 2, 3 -> CoalEngineBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
-                            CoalEngineBlockEntity.this.energyStorage.getEnergy(), (short)value, index - 2
+                    case 0, 1 -> CoalEngineBlockEntity.this.progress = ByteUtils.with2Bytes(
+                            CoalEngineBlockEntity.this.progress, (short)value, index
+                    );
+                    case 2, 3 -> CoalEngineBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
+                            CoalEngineBlockEntity.this.maxProgress, (short)value, index - 2
+                    );
+                    case 4, 5 -> CoalEngineBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
+                            CoalEngineBlockEntity.this.energyStorage.getEnergy(), (short)value, index - 4
                     ));
-                    case 4, 5 -> CoalEngineBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
-                            CoalEngineBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 4
+                    case 6, 7 -> CoalEngineBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
+                            CoalEngineBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 6
                     ));
-                    case 6, 7, 8 -> {}
+                    case 8, 9, 10 -> {}
                 }
             }
 
             @Override
             public int getCount() {
-                return 9;
+                return 11;
             }
         };
     }
