@@ -66,7 +66,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
 
         @Override
         public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-            if(slot == 0 || slot == 1) {
+            if(slot == 0) {
                 ItemStack itemStack = getStackInSlot(slot);
                 if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameTags(stack, itemStack))
                     resetProgress(worldPosition, level.getBlockState(worldPosition));
