@@ -140,6 +140,7 @@ public class EnergizedPowerMod {
             event.accept(ModItems.SAW_BLADE);
             event.accept(ModItems.SAWDUST);
             event.accept(ModItems.BASIC_FERTILIZER);
+            event.accept(ModItems.GOOD_FERTILIZER);
             event.accept(ModItems.SILICON);
             event.accept(ModItems.COPPER_PLATE);
             event.accept(ModItems.IRON_PLATE);
