@@ -1,0 +1,14 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:lectern"
+  },
+  "output": {
+    "item": "minecraft:oak_planks",
+    "count": 8
+  },
+  "secondaryOutput": {
+    "item": "minecraft:book",
+    "count": 3
+  }
+}
