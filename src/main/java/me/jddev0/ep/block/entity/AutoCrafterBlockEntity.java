@@ -416,6 +416,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         List<ItemStack> itemStacksInsert = ItemStackUtils.combineItemStacks(outputItemStacks);
 
         List<Integer> emptyIndices = new ArrayList<>(18);
+        outer:
         for(ItemStack itemStack:itemStacksInsert) {
             for(int i = 0;i < itemHandler.getSlots();i++) {
                 ItemStack testItemStack = itemHandler.getStackInSlot(i);
@@ -436,6 +437,9 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                         itemHandler.setStackInSlot(i, itemStackCopy);
 
                         itemStack.setCount(itemStack.getCount() - amount);
+
+                        if(itemStack.isEmpty())
+                            continue outer;
                     }
                 }
             }
