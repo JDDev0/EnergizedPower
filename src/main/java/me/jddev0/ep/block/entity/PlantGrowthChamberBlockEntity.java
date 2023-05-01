@@ -306,6 +306,9 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
 
         List<Integer> emptyIndices = new ArrayList<>(4);
         for(ItemStack itemStack:itemStacksInsert) {
+            if(itemStack.isEmpty())
+                continue;
+
             for(int i = 2;i < blockEntity.itemHandler.getSlots();i++) {
                 ItemStack testItemStack = blockEntity.itemHandler.getStackInSlot(i);
                 if(emptyIndices.contains(i))
