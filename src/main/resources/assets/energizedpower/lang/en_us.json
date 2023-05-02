@@ -75,6 +75,7 @@
   "container.energizedpower.auto_crafter": "Auto Crafter",
 
   "tooltip.energizedpower.auto_crafter.txt.shift.1": "This block uses %s/t per ingredient.",
+  "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "Ignore NBT",
 
   "block.energizedpower.charger": "Charger",
   "item.energizedpower.charger": "Charger",
