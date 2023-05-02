@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class WeatherControllerBlock extends BlockWithEntity {
-    public static int WEATHER_CHANGED_TICKS = 20 * 60; //1 minute
+    public static int WEATHER_CHANGED_TICKS = 20 * 60 * 16; //16 minutes
 
     public WeatherControllerBlock(FabricBlockSettings props) {
         super(props);
