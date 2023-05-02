@@ -175,6 +175,11 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
+    public static final BlockEntityType<WeatherControllerBlockEntity> WEATHER_CONTROLLER_ENTITY = registerEnergyStorage(
+            createBlockEntity("weather_controller", ModBlocks.WEATHER_CONTROLLER, WeatherControllerBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
+
     @SuppressWarnings("unchecked")
     private static <T extends BlockEntity> BlockEntityType<T> createBlockEntity(String name, Block block,
             FabricBlockEntityTypeBuilder.Factory<? extends T> factory) {

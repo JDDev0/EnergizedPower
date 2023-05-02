@@ -179,6 +179,14 @@
 
   "tooltip.energizedpower.charging_station.txt.shift.1": "Die Ladestation kann benutzt werden, um Items in einem Spielerinventar zu laden.",
 
+  "block.energizedpower.weather_controller": "Wetter-Controller",
+  "item.energizedpower.weather_controller": "Wetter-Controller",
+  "container.energizedpower.weather_controller": "Wetter-Controller",
+
+  "tooltip.energizedpower.weather_controller.btn.clear": "Setze das Wetter auf Klar",
+  "tooltip.energizedpower.weather_controller.btn.rain": "Setze das Wetter auf Regen",
+  "tooltip.energizedpower.weather_controller.btn.thunder": "Setze das Wetter auf Gewitter",
+
   "block.energizedpower.basic_machine_frame": "Basis Maschinenrahmen",
   "item.energizedpower.basic_machine_frame": "Basis Maschinenrahmen",
 
@@ -267,6 +275,9 @@
 
   "advancements.energizedpower.charging_station.title": "Wireless Charging",
   "advancements.energizedpower.charging_station.description": "Lade deine Items wireless.",
+
+  "advancements.energizedpower.weather_controller.title": "Steuere das Wetter",
+  "advancements.energizedpower.weather_controller.description": "Ändere das Wetter mit dem Wetter-Controller.",
 
   "advancements.energizedpower.coal_engine.title": "Durch Kohle angetrieben",
   "advancements.energizedpower.coal_engine.description": "Die Stromproduktion durch Verbrennung is nicht das Effizienteste, aber es reicht für den Moment.",
@@ -476,6 +487,8 @@
   "book.energizedpower.page.charging_station": "Die Ladestation kann Items wireless laden.",
 
   "book.energizedpower.page.energizer": "Der Energetisierer kann Items sehr effizient energetisieren.",
+
+  "book.energizedpower.page.weather_controller": "Der Wetter-Controller kann das Wetter ändern. Um das zu tun, benötigt er Energie.",
 
 
   "book.energizedpower.page.chapter.structures.title": "Strukturen",
