@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "energizedpower:block/plant_growth_chamber",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "energizedpower:block/plant_growth_chamber"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/plant_growth_chamber",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/plant_growth_chamber",
+      "y": 270
+    }
+  }
+}

@@ -95,6 +95,11 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item COMPRESSOR_ITEM = createBlockItem("compressor", COMPRESSOR);
 
+    public static final Block PLANT_GROWTH_CHAMBER = registerBlock("plant_growth_chamber",
+            new PlantGrowthChamberBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item PLANT_GROWTH_CHAMBER_ITEM = createBlockItem("plant_growth_chamber", PLANT_GROWTH_CHAMBER);
+
     public static final Block BLOCK_PLACER = registerBlock("block_placer",
             new BlockPlacerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
