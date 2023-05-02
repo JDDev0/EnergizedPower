@@ -42,7 +42,7 @@ public class WeatherControllerScreen extends HandledScreen<WeatherControllerMenu
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
         if(mouseButton == 0) {
             boolean clicked = false;
-            if(isPointWithinBounds(43, 34, 18, 18, mouseX, mouseY)) {
+            if(isPointWithinBounds(52, 34, 18, 18, mouseX, mouseY)) {
                 //Weather clear button
 
                 PacketByteBuf buf = PacketByteBufs.create();
@@ -50,7 +50,7 @@ public class WeatherControllerScreen extends HandledScreen<WeatherControllerMenu
                 buf.writeInt(0);
                 ClientPlayNetworking.send(ModMessages.SET_WEATHER_FROM_WEATHER_CONTROLLER_ID, buf);
                 clicked = true;
-            }else if(isPointWithinBounds(79, 34, 18, 18, mouseX, mouseY)) {
+            }else if(isPointWithinBounds(88, 34, 18, 18, mouseX, mouseY)) {
                 //Weather rain button
 
                 PacketByteBuf buf = PacketByteBufs.create();
@@ -58,7 +58,7 @@ public class WeatherControllerScreen extends HandledScreen<WeatherControllerMenu
                 buf.writeInt(1);
                 ClientPlayNetworking.send(ModMessages.SET_WEATHER_FROM_WEATHER_CONTROLLER_ID, buf);
                 clicked = true;
-            }else if(isPointWithinBounds(115, 34, 18, 18, mouseX, mouseY)) {
+            }else if(isPointWithinBounds(124, 34, 18, 18, mouseX, mouseY)) {
                 //Weather thunder button
 
                 PacketByteBuf buf = PacketByteBufs.create();
@@ -95,18 +95,18 @@ public class WeatherControllerScreen extends HandledScreen<WeatherControllerMenu
     }
 
     private void renderButtons(MatrixStack poseStack, int x, int y, int mouseX, int mouseY) {
-        if(isPointWithinBounds(43, 34, 18, 18, mouseX, mouseY)) {
+        if(isPointWithinBounds(52, 34, 18, 18, mouseX, mouseY)) {
             //Weather clear button
 
-            drawTexture(poseStack, x + 43, y + 34, 176, 52, 18, 18);
-        }else if(isPointWithinBounds(79, 34, 18, 18, mouseX, mouseY)) {
+            drawTexture(poseStack, x + 52, y + 34, 176, 52, 18, 18);
+        }else if(isPointWithinBounds(88, 34, 18, 18, mouseX, mouseY)) {
             //Weather rain button
 
-            drawTexture(poseStack, x + 79, y + 34, 176, 70, 18, 18);
-        }else if(isPointWithinBounds(115, 34, 18, 18, mouseX, mouseY)) {
+            drawTexture(poseStack, x + 88, y + 34, 176, 70, 18, 18);
+        }else if(isPointWithinBounds(124, 34, 18, 18, mouseX, mouseY)) {
             //Weather thunder button
 
-            drawTexture(poseStack, x + 115, y + 34, 176, 88, 18, 18);
+            drawTexture(poseStack, x + 124, y + 34, 176, 88, 18, 18);
         }
     }
 
@@ -139,21 +139,21 @@ public class WeatherControllerScreen extends HandledScreen<WeatherControllerMenu
                     EnergyUtils.getEnergyWithPrefix(handler.getEnergy()), EnergyUtils.getEnergyWithPrefix(handler.getCapacity())));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(43, 34, 18, 18, mouseX, mouseY)) {
+        }else if(isPointWithinBounds(52, 34, 18, 18, mouseX, mouseY)) {
             //Weather clear button
 
             List<Text> components = new ArrayList<>(2);
             components.add(Text.translatable("tooltip.energizedpower.weather_controller.btn.clear"));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(79, 34, 18, 18, mouseX, mouseY)) {
+        }else if(isPointWithinBounds(88, 34, 18, 18, mouseX, mouseY)) {
             //Weather rain button
 
             List<Text> components = new ArrayList<>(2);
             components.add(Text.translatable("tooltip.energizedpower.weather_controller.btn.rain"));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(115, 34, 18, 18, mouseX, mouseY)) {
+        }else if(isPointWithinBounds(124, 34, 18, 18, mouseX, mouseY)) {
             //Weather thunder button
 
             List<Text> components = new ArrayList<>(2);
