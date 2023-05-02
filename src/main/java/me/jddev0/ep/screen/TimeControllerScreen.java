@@ -129,7 +129,7 @@ public class TimeControllerScreen extends HandledScreen<TimeControllerMenu> {
 
         int componentWidth = textRenderer.getWidth(component);
 
-        textRenderer.draw(poseStack, component, x + 34 + (126 - componentWidth) * .5f, y + 55, 0);
+        textRenderer.draw(poseStack, component, x + 34 + (126 - componentWidth) * .5f, y + 58, 0);
     }
 
     @Override
