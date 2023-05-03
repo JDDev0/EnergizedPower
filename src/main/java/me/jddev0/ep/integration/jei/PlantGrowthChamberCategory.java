@@ -1,16 +1,20 @@
 package me.jddev0.ep.integration.jei;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -29,7 +33,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<PlantGrowthCh
 
     public PlantGrowthChamberCategory(IGuiHelper helper) {
         ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
-        background = helper.createDrawable(texture, 61, 25, 108, 36);
+        background = helper.createDrawable(texture, 61, 25, 108, 48);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()));
     }
@@ -84,5 +88,14 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<PlantGrowthCh
             iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 73, 19).addItemStacks(outputSlotEntries.get(2));
         if(!outputSlotEntries.get(3).isEmpty())
             iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 91, 19).addItemStacks(outputSlotEntries.get(3));
+    }
+
+    @Override
+    public void draw(PlantGrowthChamberRecipe recipe, IRecipeSlotsView iRecipeSlotsView, PoseStack matrixStack, double mouseX, double mouseY) {
+        Font font = Minecraft.getInstance().font;
+        Component component = new TranslatableComponent("recipes.energizedpower.plant_growth_chamber.ticks", recipe.getTicks());
+        int textWidth = font.width(component);
+
+        Minecraft.getInstance().font.draw(matrixStack, component, 108 - textWidth, 40, 0xFFFFFFFF);
     }
 }
