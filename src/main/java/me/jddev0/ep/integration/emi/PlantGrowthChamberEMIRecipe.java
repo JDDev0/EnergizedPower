@@ -9,6 +9,10 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -61,13 +65,13 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
 
     @Override
     public int getDisplayHeight() {
-        return 36;
+        return 48;
     }
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
         Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
-        widgets.addTexture(texture, 0, 0, 108, 36, 61, 25);
+        widgets.addTexture(texture, 0, 0, 108, 48, 61, 25);
 
         widgets.addSlot(input.get(0), 0, 9).drawBack(false);
 
@@ -82,5 +86,10 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
         widgets.addSlot(EmiIngredient.of(outputSlotEntries.get(1)), 90, 0).drawBack(false).recipeContext(this);
         widgets.addSlot(EmiIngredient.of(outputSlotEntries.get(2)), 72, 18).drawBack(false).recipeContext(this);
         widgets.addSlot(EmiIngredient.of(outputSlotEntries.get(3)), 90, 18).drawBack(false).recipeContext(this);
+
+        Text ticksText = new TranslatableText("recipes.energizedpower.plant_growth_chamber.ticks", ticks);
+        widgets.addText(ticksText.asOrderedText(),
+                widgets.getWidth() - MinecraftClient.getInstance().textRenderer.getWidth(ticksText),
+                widgets.getHeight() - MinecraftClient.getInstance().textRenderer.fontHeight, Formatting.WHITE.getColorValue(), false);
     }
 }
