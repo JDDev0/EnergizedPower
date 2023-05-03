@@ -1,0 +1,21 @@
+{
+  "type": "energizedpower:plant_growth_chamber",
+  "ingredient": {
+    "item": "minecraft:potato"
+  },
+  "ticks": 16000,
+  "outputs": [
+    {
+      "output": {
+        "item": "minecraft:potato"
+      },
+      "percentages": [1.0, 0.75, 0.25, 0.25]
+    },
+    {
+      "output": {
+        "item": "minecraft:poisonous_potato"
+      },
+      "percentages": [0.125]
+    }
+  ]
+}

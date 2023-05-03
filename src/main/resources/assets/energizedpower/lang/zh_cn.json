@@ -158,6 +158,10 @@
   "item.energizedpower.compressor": "压缩机",
   "container.energizedpower.compressor": "压缩机",
 
+  "block.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
+  "item.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
+  "container.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
+
   "block.energizedpower.block_placer": "方块放置器",
   "item.energizedpower.block_placer": "方块放置器",
   "container.energizedpower.block_placer": "方块放置器",
@@ -214,12 +218,17 @@
   "entity.minecraft.villager.energizedpower.electrician": "电工",
 
   "recipes.energizedpower.in_world_crafting": "世界工匠",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer": "Growth Chamber (Fertilizer)",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx Speed",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx Energy Consumption",
   "recipes.energizedpower.transfer.too_large": "这配方对于这个容器太大了！",
 
   "emi.category.energizedpower.charger": "充能站",
   "emi.category.energizedpower.crusher": "粉碎机",
   "emi.category.energizedpower.sawmill": "锯木机",
   "emi.category.energizedpower.compressor": "Compressor",
+  "emi.category.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
+  "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Growth Chamber (Fertilizer)",
   "emi.category.energizedpower.energizer": "物品充能站",
   "emi.category.energizedpower.dispenser": "Dispenser",
   "emi.category.energizedpower.in_world_crafting": "In-World Crafting",
@@ -242,6 +251,9 @@
 
   "advancements.energizedpower.compressor.title": "压缩加工",
   "advancements.energizedpower.compressor.description": "创建金属板。",
+
+  "advancements.energizedpower.plant_growth_chamber.title": "Faster Plant Growth",
+  "advancements.energizedpower.plant_growth_chamber.description": "Improve the speed and the yields with the Plant Growth Chamber.",
 
   "advancements.energizedpower.block_placer.title": "放置方块",
   "advancements.energizedpower.block_placer.description": "方块被自动放置在世界中。",
@@ -493,6 +505,15 @@
   "book.energizedpower.page.sawmill.2": "锯末是锯木机生产出的副产品，可以合成锯末块用于燃料。",
 
   "book.energizedpower.page.compressor.1": "压缩机可以将一些金属锭压成板材。",
+
+  "book.energizedpower.page.plant_growth_chamber_1.1": "The Plant Growth Chamber can boost plant growth and yield.",
+  "book.energizedpower.page.plant_growth_chamber_1.2": "The right input slot is the seed slot.",
+  "book.energizedpower.page.plant_growth_chamber_1.3": "The left, optionally usable input slot is the fertilizer slot.",
+
+  "book.energizedpower.page.plant_growth_chamber_2.1": "When it is used, energy and speed multipliers are applied.",
+  "book.energizedpower.page.plant_growth_chamber_2.2": "Seeds can be inserted from the north, east, south, and west. Fertilizers can be inserted from the top and bottom. Outputs can be extracted from all block faces.",
+
+  "book.energizedpower.page.plant_growth_chamber_3.1": "If you'd like to automate this blocks, you need to keep in mind that yields are randomized.",
 
   "book.energizedpower.page.block_placer.1": "方块放置器可以放置所有的方块（甚至可以是门和种子）。",
   "book.energizedpower.page.block_placer.2": "只有在可以放置方块的情况下才会放置方块。",

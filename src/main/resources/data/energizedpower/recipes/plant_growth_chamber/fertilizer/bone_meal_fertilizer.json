@@ -1,0 +1,8 @@
+{
+  "type": "energizedpower:plant_growth_chamber_fertilizer",
+  "ingredient": {
+    "item": "minecraft:bone_meal"
+  },
+  "speedMultiplier": 1.5,
+  "energyConsumptionMultiplier": 3.0
+}
