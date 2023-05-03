@@ -17,6 +17,7 @@ public final class ModMessages {
     public static Identifier SET_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID = new Identifier(EnergizedPowerMod.MODID, "set_auto_crafter_pattern_input_slots");
     public static Identifier SET_WEATHER_FROM_WEATHER_CONTROLLER_ID = new Identifier(EnergizedPowerMod.MODID, "set_weather_from_weather_controller");
     public static Identifier SET_TIME_FROM_TIME_CONTROLLER_ID = new Identifier(EnergizedPowerMod.MODID, "set_time_from_time_controller");
+    public static Identifier SET_AUTO_CRAFTER_CHECKBOX_ID = new Identifier(EnergizedPowerMod.MODID, "set_auto_crafter_checkbox");
 
     private ModMessages() {}
 
@@ -34,6 +35,8 @@ public final class ModMessages {
         ServerPlayNetworking.registerGlobalReceiver(SET_WEATHER_FROM_WEATHER_CONTROLLER_ID, SetWeatherFromWeatherControllerC2SPacket::receive);
 
         ServerPlayNetworking.registerGlobalReceiver(SET_TIME_FROM_TIME_CONTROLLER_ID, SetTimeFromTimeControllerC2SPacket::receive);
+
+        ServerPlayNetworking.registerGlobalReceiver(SET_AUTO_CRAFTER_CHECKBOX_ID, SetAutoCrafterCheckboxC2SPacket::receive);
     }
 
     public static void broadcastServerPacket(MinecraftServer server, Identifier channelName, PacketByteBuf buf) {

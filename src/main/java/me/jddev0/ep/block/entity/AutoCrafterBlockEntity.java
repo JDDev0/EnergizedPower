@@ -37,9 +37,7 @@ import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
@@ -83,6 +81,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     private int maxProgress = 100;
     private long energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
+    private boolean ignoreNBT;
 
     public AutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.AUTO_CRAFTER_ENTITY, blockPos, blockState);
@@ -151,6 +150,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                     case 6, 7, 8, 9 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.internalEnergyStorage.capacity, index - 6);
                     case 10, 11, 12, 13 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.energyConsumptionLeft, index - 10);
                     case 14 -> hasEnoughEnergy?1:0;
+                    case 15 -> ignoreNBT?1:0;
                     default -> 0;
                 };
             }
@@ -163,12 +163,13 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                     case 2, 3, 4, 5 -> AutoCrafterBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
                             AutoCrafterBlockEntity.this.internalEnergyStorage.amount, (short)value, index - 2);
                     case 6, 7, 8, 9, 10, 11, 12, 13, 14 -> {}
+                    case 15 -> AutoCrafterBlockEntity.this.ignoreNBT = value != 0;
                 }
             }
 
             @Override
             public int size() {
-                return 15;
+                return 16;
             }
         };
     }
@@ -202,6 +203,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         nbt.put("recipe.progress", NbtInt.of(progress));
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
+        nbt.putBoolean("ignore_nbt", ignoreNBT);
+
         super.writeNbt(nbt);
     }
 
@@ -229,6 +232,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
 
         progress = nbt.getInt("recipe.progress");
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
+
+        ignoreNBT = nbt.getBoolean("ignore_nbt");
     }
 
     private void loadPatternContainer(NbtElement tag) {
@@ -293,9 +298,14 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 markDirty(level, blockPos, state);
 
                 if(blockEntity.progress >= blockEntity.maxProgress) {
-                    blockEntity.extractItems();
+                    SimpleInventory patternSlotsForRecipe = blockEntity.ignoreNBT?
+                            blockEntity.replaceCraftingPatternWithCurrentNBTItems(blockEntity.patternSlots):blockEntity.patternSlots;
+                    CraftingInventory copyOfPatternSlots = new CraftingInventory(blockEntity.dummyContainerMenu, 3, 3);
+                    for(int i = 0;i < patternSlotsForRecipe.size();i++)
+                        copyOfPatternSlots.setStack(i, patternSlotsForRecipe.getStack(i));
 
-                    blockEntity.craftItem();
+                    blockEntity.extractItems();
+                    blockEntity.craftItem(copyOfPatternSlots);
                 }
             }else {
                 blockEntity.hasEnoughEnergy = false;
@@ -331,9 +341,10 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
 
         hasRecipeLoaded = true;
 
+        SimpleInventory patternSlotsForRecipe = ignoreNBT?replaceCraftingPatternWithCurrentNBTItems(patternSlots):patternSlots;
         CraftingInventory copyOfPatternSlots = new CraftingInventory(dummyContainerMenu, 3, 3);
-        for(int i = 0;i < patternSlots.size();i++)
-            copyOfPatternSlots.setStack(i, patternSlots.getStack(i));
+        for(int i = 0;i < patternSlotsForRecipe.size();i++)
+            copyOfPatternSlots.setStack(i, patternSlotsForRecipe.getStack(i));
 
         Optional<CraftingRecipe> recipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, copyOfPatternSlots, world);
         if(recipe.isPresent()) {
@@ -347,7 +358,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 resetProgress();
 
             oldCopyOfRecipe = new CraftingInventory(dummyContainerMenu, 3, 3);
-            for(int i = 0;i < patternSlots.size();i++)
+            for(int i = 0;i < patternSlotsForRecipe.size();i++)
                 oldCopyOfRecipe.setStack(i, copyOfPatternSlots.getStack(i).copy());
         }else {
             craftingRecipe = null;
@@ -359,10 +370,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     }
 
     private void extractItems() {
+        SimpleInventory patternSlotsForRecipe = ignoreNBT?replaceCraftingPatternWithCurrentNBTItems(patternSlots):patternSlots;
         List<ItemStack> patternItemStacks = new ArrayList<>(9);
-        for(int i = 0;i < patternSlots.size();i++)
-            if(!patternSlots.getStack(i).isEmpty())
-                patternItemStacks.add(patternSlots.getStack(i));
+        for(int i = 0;i < patternSlotsForRecipe.size();i++)
+            if(!patternSlotsForRecipe.getStack(i).isEmpty())
+                patternItemStacks.add(patternSlotsForRecipe.getStack(i));
 
         List<ItemStack> itemStacksExtract = ItemStackUtils.combineItemStacks(patternItemStacks);
 
@@ -383,7 +395,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         }
     }
 
-    private void craftItem() {
+    private void craftItem(CraftingInventory copyOfPatternSlots) {
         if(craftingRecipe == null) {
             resetProgress();
 
@@ -391,10 +403,6 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         }
 
         List<ItemStack> outputItemStacks = new ArrayList<>(10);
-
-        CraftingInventory copyOfPatternSlots = new CraftingInventory(dummyContainerMenu, 3, 3);
-        for(int i = 0;i < patternSlots.size();i++)
-            copyOfPatternSlots.setStack(i, patternSlots.getStack(i));
 
         ItemStack resultItemStack = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(copyOfPatternSlots):craftingRecipe.getOutput();
 
@@ -438,6 +446,9 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
             internalInventory.setStack(emptyIndices.remove(0), itemStack);
         }
 
+        if(ignoreNBT)
+            updateRecipe();
+
         resetProgress();
     }
 
@@ -445,10 +456,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         if(craftingRecipe == null)
             return false;
 
+        SimpleInventory patternSlotsForRecipe = ignoreNBT?replaceCraftingPatternWithCurrentNBTItems(patternSlots):patternSlots;
         List<ItemStack> patternItemStacks = new ArrayList<>(9);
-        for(int i = 0;i < patternSlots.size();i++)
-            if(!patternSlots.getStack(i).isEmpty())
-                patternItemStacks.add(patternSlots.getStack(i));
+        for(int i = 0;i < patternSlotsForRecipe.size();i++)
+            if(!patternSlotsForRecipe.getStack(i).isEmpty())
+                patternItemStacks.add(patternSlotsForRecipe.getStack(i));
 
         List<ItemStack> itemStacks = ItemStackUtils.combineItemStacks(patternItemStacks);
 
@@ -492,9 +504,10 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         if(craftingRecipe == null)
             return false;
 
+        SimpleInventory patternSlotsForRecipe = ignoreNBT?replaceCraftingPatternWithCurrentNBTItems(patternSlots):patternSlots;
         CraftingInventory copyOfPatternSlots = new CraftingInventory(dummyContainerMenu, 3, 3);
-        for(int i = 0;i < patternSlots.size();i++)
-            copyOfPatternSlots.setStack(i, patternSlots.getStack(i));
+        for(int i = 0;i < patternSlotsForRecipe.size();i++)
+            copyOfPatternSlots.setStack(i, patternSlotsForRecipe.getStack(i));
 
 
         List<ItemStack> outputItemStacks = new ArrayList<>(10);
@@ -559,9 +572,10 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         if(craftingRecipe == null)
             return false;
 
+        SimpleInventory patternSlotsForRecipe = ignoreNBT?replaceCraftingPatternWithCurrentNBTItems(patternSlots):patternSlots;
         CraftingInventory copyOfPatternSlots = new CraftingInventory(dummyContainerMenu, 3, 3);
-        for(int i = 0;i < patternSlots.size();i++)
-            copyOfPatternSlots.setStack(i, patternSlots.getStack(i));
+        for(int i = 0;i < patternSlotsForRecipe.size();i++)
+            copyOfPatternSlots.setStack(i, patternSlotsForRecipe.getStack(i));
 
         ItemStack resultItemStack = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(copyOfPatternSlots):craftingRecipe.getOutput();
 
@@ -573,6 +587,64 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 return true;
 
         return false;
+    }
+
+    private SimpleInventory replaceCraftingPatternWithCurrentNBTItems(SimpleInventory container) {
+        SimpleInventory copyOfContainer = new SimpleInventory(container.size());
+        for(int i = 0;i < container.size();i++)
+            copyOfContainer.setStack(i, container.getStack(i).copy());
+
+        Map<Integer, Integer> usedItemCounts = new HashMap<>(); //slotIndex: usedCount
+        outer:
+        for(int i = 0;i < copyOfContainer.size();i++) {
+            ItemStack itemStack = copyOfContainer.getStack(i);
+            if(itemStack.isEmpty())
+                continue;
+
+            for(int j = 0;j < internalInventory.size();j++) {
+                ItemStack testItemStack = internalInventory.getStack(j).copy();
+                int usedCount = usedItemCounts.getOrDefault(j, 0);
+                testItemStack.setCount(testItemStack.getCount() - usedCount);
+                if(testItemStack.getCount() <= 0)
+                    continue;
+
+                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.areNbtEqual(itemStack, testItemStack)) {
+                    usedItemCounts.put(j, usedCount + 1);
+                    continue outer;
+                }
+            }
+
+            //Same item with same tag was not found -> check for same item without same tag and change if found
+            for(int j = 0;j < internalInventory.size();j++) {
+                ItemStack testItemStack = internalInventory.getStack(j).copy();
+                int usedCount = usedItemCounts.getOrDefault(j, 0);
+                testItemStack.setCount(testItemStack.getCount() - usedCount);
+                if(testItemStack.getCount() <= 0)
+                    continue;
+
+                if(ItemStack.areItemsEqual(itemStack, testItemStack)) {
+                    usedItemCounts.put(j, usedCount + 1);
+
+                    ItemStack newItemStack = testItemStack.copy();
+                    newItemStack.setCount(1);
+                    copyOfContainer.setStack(i, newItemStack);
+
+                    continue outer;
+                }
+            }
+
+            //Not found at all -> Mot enough input items are present
+            return copyOfContainer;
+        }
+
+        return copyOfContainer;
+    }
+
+
+    public void setIgnoreNBT(boolean ignoreNBT) {
+        this.ignoreNBT = ignoreNBT;
+        updateRecipe();
+        markDirty(world, getPos(), getCachedState());
     }
 
     @Override

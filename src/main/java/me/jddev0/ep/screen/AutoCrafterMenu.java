@@ -31,7 +31,7 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageMenuP
 
     public AutoCrafterMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
         this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(18),
-                new SimpleInventory(9), new SimpleInventory(1), new ArrayPropertyDelegate(15));
+                new SimpleInventory(9), new SimpleInventory(1), new ArrayPropertyDelegate(16));
     }
 
     public AutoCrafterMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, Inventory patternSlots,
@@ -45,7 +45,7 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageMenuP
 
         this.inv = inv;
         checkSize(this.inv, 18);
-        checkDataCount(data, 15);
+        checkDataCount(data, 16);
         this.level = playerInventory.player.world;
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -130,6 +130,10 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageMenuP
         int energyBarSize = 52;
 
         return (int)((energyRequirement <= 0 || capacity == 0)?0:(Math.min(energyRequirement, capacity - 1) * energyBarSize / capacity + 1));
+    }
+
+    public boolean isIgnoreNBT() {
+        return data.get(15) != 0;
     }
 
     @Override
