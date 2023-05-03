@@ -1,0 +1,15 @@
+{
+  "type": "energizedpower:plant_growth_chamber",
+  "ingredient": {
+    "item": "minecraft:carrot"
+  },
+  "ticks": 16000,
+  "outputs": [
+    {
+      "output": {
+        "item": "minecraft:carrot"
+      },
+      "percentages": [1.0, 0.75, 0.25, 0.25]
+    }
+  ]
+}
