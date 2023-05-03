@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_bone_meal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "minecraft:bone_meal" ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "energizedpower:crafting/basic_fertilizer"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_bone_meal",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "energizedpower:crafting/basic_fertilizer"
+    ]
+  }
+}

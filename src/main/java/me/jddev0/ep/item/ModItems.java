@@ -36,6 +36,9 @@ public final class ModItems {
     public static final RegistryObject<Item> SAWDUST = ITEMS.register("sawdust",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final RegistryObject<Item> BASIC_FERTILIZER = ITEMS.register("basic_fertilizer",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final RegistryObject<Item> BASIC_SOLAR_CELL = ITEMS.register("basic_solar_cell",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> ADVANCED_SOLAR_CELL = ITEMS.register("advanced_solar_cell",
