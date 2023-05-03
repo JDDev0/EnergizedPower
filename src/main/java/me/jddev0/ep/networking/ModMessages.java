@@ -64,6 +64,12 @@ public final class ModMessages {
                 encoder(SetTimeFromTimeControllerC2SPacket::toBytes).
                 consumer(SetTimeFromTimeControllerC2SPacket::handle).
                 add();
+
+        net.messageBuilder(SetAutoCrafterCheckboxC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+                decoder(SetAutoCrafterCheckboxC2SPacket::new).
+                encoder(SetAutoCrafterCheckboxC2SPacket::toBytes).
+                consumer(SetAutoCrafterCheckboxC2SPacket::handle).
+                add();
     }
 
     public static <MSG> void sendToServer(MSG message) {
