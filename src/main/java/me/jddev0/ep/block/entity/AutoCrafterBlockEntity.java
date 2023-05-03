@@ -413,6 +413,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         List<ItemStack> itemStacksInsert = ItemStackUtils.combineItemStacks(outputItemStacks);
 
         List<Integer> emptyIndices = new ArrayList<>(18);
+        outer:
         for(ItemStack itemStack:itemStacksInsert) {
             for(int i = 0;i < internalInventory.size();i++) {
                 ItemStack testItemStack = internalInventory.getStack(i);
@@ -433,6 +434,9 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                         internalInventory.setStack(i, itemStackCopy);
 
                         itemStack.setCount(itemStack.getCount() - amount);
+
+                        if(itemStack.isEmpty())
+                            continue outer;
                     }
                 }
             }
