@@ -1,0 +1,8 @@
+{
+  "type": "energizedpower:plant_growth_chamber_fertilizer",
+  "ingredient": {
+    "item": "energizedpower:advanced_fertilizer"
+  },
+  "speedMultiplier": 5.0,
+  "energyConsumptionMultiplier": 6.5
+}
