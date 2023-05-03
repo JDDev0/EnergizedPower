@@ -49,7 +49,7 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
         int y = bounds.y + PADDING;
 
         Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
-        widgets.add(Widgets.createTexturedWidget(texture, x, y, 61, 25, 108, 36));
+        widgets.add(Widgets.createTexturedWidget(texture, x, y, 61, 25, 108, 48));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 10)).disableBackground().markInput().
                 entries(display.getInputEntries().get(0)));
@@ -71,6 +71,11 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
         widgets.add(Widgets.createSlot(new Point(x + 91, y + 19)).disableBackground().markOutput().
                 entries(outputSlotEntries.get(3)));
 
+        widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
+                        Text.translatable("recipes.energizedpower.plant_growth_chamber.ticks",
+                                display.recipe().getTicks())).
+                noShadow().rightAligned());
+
         return widgets;
     }
 
@@ -81,6 +86,6 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
 
     @Override
     public int getDisplayHeight() {
-        return 36 + 2*PADDING;
+        return 48 + 2*PADDING;
     }
 }
