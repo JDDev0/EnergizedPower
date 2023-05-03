@@ -1,0 +1,15 @@
+{
+  "type": "energizedpower:plant_growth_chamber",
+  "ingredient": {
+    "item": "minecraft:sugar_cane"
+  },
+  "ticks": 16000,
+  "outputs": [
+    {
+      "output": {
+        "item": "minecraft:sugar_cane"
+      },
+      "percentages": [1.0, 1.0, 0.67, 0.17]
+    }
+  ]
+}

@@ -36,6 +36,16 @@ public final class ModRecipes {
     public static final RecipeType<CompressorRecipe> COMPRESSOR_TYPE = createRecipeType("compressor",
             CompressorRecipe.Type.INSTANCE);
 
+    public static final RecipeSerializer<PlantGrowthChamberRecipe> PLANT_GROWTH_CHAMBER_SERIALIZER = createSerializer("plant_growth_chamber",
+            PlantGrowthChamberRecipe.Serializer.INSTANCE);
+    public static final RecipeType<PlantGrowthChamberRecipe> PLANT_GROWTH_CHAMBER_TYPE = createRecipeType("plant_growth_chamber",
+            PlantGrowthChamberRecipe.Type.INSTANCE);
+
+    public static final RecipeSerializer<PlantGrowthChamberFertilizerRecipe> PLANT_GROWTH_CHAMBER_FERTILIZER_SERIALIZER = createSerializer("plant_growth_chamber_fertilizer",
+            PlantGrowthChamberFertilizerRecipe.Serializer.INSTANCE);
+    public static final RecipeType<PlantGrowthChamberFertilizerRecipe> PLANT_GROWTH_CHAMBER_FERTILIZER_TYPE = createRecipeType("plant_growth_chamber_fertilizer",
+            PlantGrowthChamberFertilizerRecipe.Type.INSTANCE);
+
     private static <T extends Recipe<?>> RecipeSerializer<T> createSerializer(String name, RecipeSerializer<T> instance) {
         return Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(EnergizedPowerMod.MODID, name), instance);
     }
