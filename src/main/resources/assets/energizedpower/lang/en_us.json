@@ -179,6 +179,14 @@
 
   "tooltip.energizedpower.charging_station.txt.shift.1": "The charging station can be used to charge items inside a player inventory.",
 
+  "block.energizedpower.weather_controller": "Weather Controller",
+  "item.energizedpower.weather_controller": "Weather Controller",
+  "container.energizedpower.weather_controller": "Weather Controller",
+
+  "tooltip.energizedpower.weather_controller.btn.clear": "Set weather to clear",
+  "tooltip.energizedpower.weather_controller.btn.rain": "Set weather to rain",
+  "tooltip.energizedpower.weather_controller.btn.thunder": "Set weather to thunder",
+
   "block.energizedpower.basic_machine_frame": "Basic Machine Frame",
   "item.energizedpower.basic_machine_frame": "Basic Machine Frame",
 
@@ -259,6 +267,9 @@
 
   "advancements.energizedpower.charging_station.title": "Wireless charging",
   "advancements.energizedpower.charging_station.description": "Charge energy items wirelessly.",
+
+  "advancements.energizedpower.weather_controller.title": "Control the weather",
+  "advancements.energizedpower.weather_controller.description": "Change the weather with the Weather Controller.",
 
   "advancements.energizedpower.coal_engine.title": "Powered by Coal",
   "advancements.energizedpower.coal_engine.description": "Producing energy by burning stuff might not be the most efficient but good enough for the moment.",
@@ -468,6 +479,8 @@
   "book.energizedpower.page.charging_station": "The Charging Station can charge items wirelessly.",
 
   "book.energizedpower.page.energizer": "The Energizer can energize items very efficiently.",
+
+  "book.energizedpower.page.weather_controller": "The Weather Controller can change the weather. It requires energy to do so.",
 
 
   "book.energizedpower.page.chapter.structures.title": "Structures",

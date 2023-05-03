@@ -171,6 +171,11 @@ public final class ModBlocks {
     public static final RegistryObject<Item> CHARGING_STATION_ITEM = ModItems.ITEMS.register("charging_station",
             () -> new ChargingStationBlock.Item(CHARGING_STATION.get(), new Item.Properties()));
 
+    public static final RegistryObject<Block> WEATHER_CONTROLLER = BLOCKS.register("weather_controller",
+            () -> new WeatherControllerBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> WEATHER_CONTROLLER_ITEM = createBlockItem("weather_controller", WEATHER_CONTROLLER);
+
     public static final RegistryObject<Block> BASIC_MACHINE_FRAME = BLOCKS.register("basic_machine_frame",
             () -> new Block(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
