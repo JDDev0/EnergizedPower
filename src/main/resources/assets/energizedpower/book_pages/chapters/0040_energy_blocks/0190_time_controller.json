@@ -1,0 +1,20 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.time_controller.1",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.time_controller.2",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform"
+    }
+  ],
+  "block": "energizedpower:time_controller"
+}

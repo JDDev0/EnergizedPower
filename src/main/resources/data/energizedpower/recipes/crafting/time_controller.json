@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:clock"
+    },
+    "R": {
+      "tag": "forge:storage_blocks/redstone"
+    },
+    "E": {
+      "tag": "forge:plates/energized_gold"
+    },
+    "a": {
+      "tag": "forge:gems/amethyst"
+    },
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    }
+  },
+  "pattern": [
+    "aCa",
+    "EAE",
+    "RER"
+  ],
+  "result": {
+    "item": "energizedpower:time_controller"
+  }
+}

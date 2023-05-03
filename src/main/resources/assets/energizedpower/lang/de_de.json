@@ -187,6 +187,15 @@
   "tooltip.energizedpower.weather_controller.btn.rain": "Setze das Wetter auf Regen",
   "tooltip.energizedpower.weather_controller.btn.thunder": "Setze das Wetter auf Gewitter",
 
+  "block.energizedpower.time_controller": "Zeit-Controller",
+  "item.energizedpower.time_controller": "Zeit-Controller",
+  "container.energizedpower.time_controller": "Zeit-Controller",
+
+  "tooltip.energizedpower.time_controller.btn.day": "Setze die Zeit auf Vormittag",
+  "tooltip.energizedpower.time_controller.btn.noon": "Setze die Zeit auf Mittag",
+  "tooltip.energizedpower.time_controller.btn.night": "Setze die Zeit auf Abend",
+  "tooltip.energizedpower.time_controller.btn.midnight": "Setzte die Zeit auf Mitternacht",
+
   "block.energizedpower.basic_machine_frame": "Basis Maschinenrahmen",
   "item.energizedpower.basic_machine_frame": "Basis Maschinenrahmen",
 
@@ -270,6 +279,9 @@
 
   "advancements.energizedpower.weather_controller.title": "Steuere das Wetter",
   "advancements.energizedpower.weather_controller.description": "Ändere das Wetter mit dem Wetter-Controller.",
+
+  "advancements.energizedpower.time_controller.title": "Steuere die zeit",
+  "advancements.energizedpower.time_controller.description": "Ändere die Zeit mit dem Zeit-Controller.",
 
   "advancements.energizedpower.coal_engine.title": "Durch Kohle angetrieben",
   "advancements.energizedpower.coal_engine.description": "Die Stromproduktion durch Verbrennung is nicht das Effizienteste, aber es reicht für den Moment.",
@@ -481,6 +493,9 @@
   "book.energizedpower.page.energizer": "Der Energetisierer kann Items sehr effizient energetisieren.",
 
   "book.energizedpower.page.weather_controller": "Der Wetter-Controller kann das Wetter temporär ändern. Um das zu tun, benötigt er Energie.",
+
+  "book.energizedpower.page.time_controller.1": "Der Zeit-Controller kann die Zeit des Tages ändern. Um das zu tun, benötigt er Energie.",
+  "book.energizedpower.page.time_controller.2": "Er kann nicht in der Zeit zurückreisen, der \"time\"-Wert wird immer inkrementiert.",
 
 
   "book.energizedpower.page.chapter.structures.title": "Strukturen",

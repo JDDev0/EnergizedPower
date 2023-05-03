@@ -187,6 +187,15 @@
   "tooltip.energizedpower.weather_controller.btn.rain": "Set weather to rain",
   "tooltip.energizedpower.weather_controller.btn.thunder": "Set weather to thunder",
 
+  "block.energizedpower.time_controller": "Time Controller",
+  "item.energizedpower.time_controller": "Time Controller",
+  "container.energizedpower.time_controller": "Time Controller",
+
+  "tooltip.energizedpower.time_controller.btn.day": "Set time to day",
+  "tooltip.energizedpower.time_controller.btn.noon": "Set time to noon",
+  "tooltip.energizedpower.time_controller.btn.night": "Set time to night",
+  "tooltip.energizedpower.time_controller.btn.midnight": "Set time to midnight",
+
   "block.energizedpower.basic_machine_frame": "基础机器框架",
   "item.energizedpower.basic_machine_frame": "基础机器框架",
 
@@ -270,6 +279,9 @@
 
   "advancements.energizedpower.weather_controller.title": "Control the weather",
   "advancements.energizedpower.weather_controller.description": "Change the weather with the Weather Controller.",
+
+  "advancements.energizedpower.time_controller.title": "Control the time",
+  "advancements.energizedpower.time_controller.description": "Change the time with the Time Controller.",
 
   "advancements.energizedpower.coal_engine.title": "煤的力量",
   "advancements.energizedpower.coal_engine.description": "通过烧东西来生产能量虽然不是最有好的，但目前来说已经最好的。",
@@ -481,6 +493,9 @@
   "book.energizedpower.page.energizer": "Energizer 可以很好地给物品充能。",
 
   "book.energizedpower.page.weather_controller": "The Weather Controller can change the weather temporarily. It requires energy to do so.",
+
+  "book.energizedpower.page.time_controller.1": "The Time Controller can change the time of the day. It requires energy to do so.",
+  "book.energizedpower.page.time_controller.2": "It can not go back in time, the time value will always be incremented.",
 
 
   "book.energizedpower.page.chapter.structures.title": "结构",
