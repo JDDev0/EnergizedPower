@@ -34,6 +34,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<CompressorMenu> COMPRESSOR_MENU = createScreenHandlerType("compressor_menu",
             new ExtendedScreenHandlerType<>(CompressorMenu::new));
 
+    public static final ScreenHandlerType<PlantGrowthChamberMenu> PLANT_GROWTH_CHAMBER_MENU = createScreenHandlerType("plant_growth_chamber_menu",
+            new ExtendedScreenHandlerType<>(PlantGrowthChamberMenu::new));
+
     public static final ScreenHandlerType<CoalEngineMenu> COAL_ENGINE_MENU = createScreenHandlerType("coal_engine",
             new ExtendedScreenHandlerType<>(CoalEngineMenu::new));
 

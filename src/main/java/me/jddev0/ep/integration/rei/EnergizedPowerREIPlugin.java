@@ -40,6 +40,12 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.add(new CompressorCategory());
         registry.addWorkstations(CompressorCategory.CATEGORY, EntryStacks.of(ModBlocks.COMPRESSOR_ITEM));
 
+        registry.add(new PlantGrowthChamberCategory());
+        registry.addWorkstations(PlantGrowthChamberCategory.CATEGORY, EntryStacks.of(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM));
+
+        registry.add(new PlantGrowthChamberFertilizerCategory());
+        registry.addWorkstations(PlantGrowthChamberFertilizerCategory.CATEGORY, EntryStacks.of(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM));
+
         registry.add(new EnergizerCategory());
         registry.addWorkstations(EnergizerCategory.CATEGORY, EntryStacks.of(ModBlocks.ENERGIZER_ITEM));
 
@@ -57,6 +63,10 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.registerRecipeFiller(CrusherRecipe.class, CrusherRecipe.Type.INSTANCE, CrusherDisplay::new);
         registry.registerRecipeFiller(SawmillRecipe.class, SawmillRecipe.Type.INSTANCE, SawmillDisplay::new);
         registry.registerRecipeFiller(CompressorRecipe.class, CompressorRecipe.Type.INSTANCE, CompressorDisplay::new);
+        registry.registerRecipeFiller(PlantGrowthChamberRecipe.class, PlantGrowthChamberRecipe.Type.INSTANCE,
+                PlantGrowthChamberDisplay::new);
+        registry.registerRecipeFiller(PlantGrowthChamberFertilizerRecipe.class, PlantGrowthChamberFertilizerRecipe.Type.INSTANCE,
+                PlantGrowthChamberFertilizerDisplay::new);
         registry.registerRecipeFiller(EnergizerRecipe.class, EnergizerRecipe.Type.INSTANCE, EnergizerDisplay::new);
 
         registry.add(new InWorldDisplay());
@@ -88,6 +98,12 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
                 SawmillScreen.class, SawmillCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(79, 30, 26, 25),
                 CompressorScreen.class, CompressorCategory.CATEGORY);
+        registry.registerContainerClickArea(new Rectangle(94, 34, 24, 17),
+                PlantGrowthChamberScreen.class, PlantGrowthChamberCategory.CATEGORY);
+        registry.registerContainerClickArea(new Rectangle(34, 16, 18, 17),
+                PlantGrowthChamberScreen.class, PlantGrowthChamberFertilizerCategory.CATEGORY);
+        registry.registerContainerClickArea(new Rectangle(34, 53, 18, 17),
+                PlantGrowthChamberScreen.class, PlantGrowthChamberFertilizerCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(89, 34, 24, 17),
                 EnergizerScreen.class, EnergizerCategory.CATEGORY);
 

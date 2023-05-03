@@ -1,0 +1,21 @@
+{
+  "type": "energizedpower:plant_growth_chamber",
+  "ingredient": {
+    "item": "minecraft:wheat_seeds"
+  },
+  "ticks": 16000,
+  "outputs": [
+    {
+      "output": {
+        "item": "minecraft:wheat_seeds"
+      },
+      "percentages": [1.0, 0.33, 0.33]
+    },
+    {
+      "output": {
+        "item": "minecraft:wheat"
+      },
+      "percentages": [1.0, 0.75, 0.25]
+    }
+  ]
+}
