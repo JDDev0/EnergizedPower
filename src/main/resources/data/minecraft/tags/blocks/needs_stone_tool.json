@@ -39,6 +39,8 @@
 
     "energizedpower:weather_controller",
 
+    "energizedpower:time_controller",
+
     "energizedpower:basic_machine_frame",
     "energizedpower:advanced_machine_frame"
   ]
