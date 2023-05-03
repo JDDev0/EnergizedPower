@@ -31,6 +31,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<CompressorMenu>> COMPRESSOR_MENU = registerMenuType("compressor_menu",
             CompressorMenu::new);
 
+    public static final RegistryObject<MenuType<PlantGrowthChamberMenu>> PLANT_GROWTH_CHAMBER_MENU = registerMenuType("plant_growth_chamber_menu",
+            PlantGrowthChamberMenu::new);
+
     public static final RegistryObject<MenuType<BlockPlacerMenu>> BLOCK_PLACER_MENU = registerMenuType("block_placer_menu",
             BlockPlacerMenu::new);
 

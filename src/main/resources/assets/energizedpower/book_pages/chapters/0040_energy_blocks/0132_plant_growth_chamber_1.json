@@ -1,0 +1,29 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.plant_growth_chamber_1.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.plant_growth_chamber_1.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.plant_growth_chamber_1.3",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "block": "energizedpower:plant_growth_chamber"
+}
