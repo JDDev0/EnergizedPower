@@ -179,6 +179,11 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
+    public static final BlockEntityType<TimeControllerBlockEntity> TIME_CONTROLLER_ENTITY = registerEnergyStorage(
+            createBlockEntity("time_controller", ModBlocks.TIME_CONTROLLER, TimeControllerBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
+
     @SuppressWarnings("unchecked")
     private static <T extends BlockEntity> BlockEntityType<T> createBlockEntity(String name, Block block,
             FabricBlockEntityTypeBuilder.Factory<? extends T> factory) {
