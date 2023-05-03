@@ -179,6 +179,14 @@
 
   "tooltip.energizedpower.charging_station.txt.shift.1": "无线充电站可以为玩家物品栏内的物品充能。",
 
+  "block.energizedpower.weather_controller": "Weather Controller",
+  "item.energizedpower.weather_controller": "Weather Controller",
+  "container.energizedpower.weather_controller": "Weather Controller",
+
+  "tooltip.energizedpower.weather_controller.btn.clear": "Set weather to clear",
+  "tooltip.energizedpower.weather_controller.btn.rain": "Set weather to rain",
+  "tooltip.energizedpower.weather_controller.btn.thunder": "Set weather to thunder",
+
   "block.energizedpower.basic_machine_frame": "基础机器框架",
   "item.energizedpower.basic_machine_frame": "基础机器框架",
 
@@ -267,6 +275,9 @@
 
   "advancements.energizedpower.charging_station.title": "无线充能",
   "advancements.energizedpower.charging_station.description": "物品充能使用无线方式。",
+
+  "advancements.energizedpower.weather_controller.title": "Control the weather",
+  "advancements.energizedpower.weather_controller.description": "Change the weather with the Weather Controller.",
 
   "advancements.energizedpower.coal_engine.title": "煤的力量",
   "advancements.energizedpower.coal_engine.description": "通过烧东西来生产能量虽然不是最有好的，但目前来说已经最好的。",
@@ -476,6 +487,8 @@
   "book.energizedpower.page.charging_station": "无线充能站可以在一定的范围内为玩家物品栏中的物品充能。",
 
   "book.energizedpower.page.energizer": "Energizer 可以很好地给物品充能。",
+
+  "book.energizedpower.page.weather_controller": "The Weather Controller can change the weather. It requires energy to do so.",
 
 
   "book.energizedpower.page.chapter.structures.title": "结构",
