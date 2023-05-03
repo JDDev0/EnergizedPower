@@ -12,7 +12,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 * Crusher
 * Sawmill
 * Compressor
-* Plant Growth Chamber (**In next release (v1.6.0)**)
+* Plant Growth Chamber
 * Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
 * Charger
 * Uncharger
@@ -22,8 +22,8 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 * Lightning Generator
 * Solar Panels (5 Tiers)
 * Transformers (Can be used to connect different tiers of cables) (1 to n, 3 to 3, and n to 1)
-* Weather Controller (**In next release (v1.6.0)**)
-* Time Controller (**In next release (v1.6.0)**)
+* Weather Controller
+* Time Controller
 
 Every machine supports auto-insert and auto-extract of items from all block faces.
 
@@ -84,3 +84,4 @@ Mod version: MC version
 - 1.3.x: 1.19.3, 1.19.2, 1.18.2, 1.17.1
 - 1.4.x: 1.19.4, 1.19.3, 1.19.2, 1.18.2, 1.17.1
 - 1.5.x: 1.19.4, 1.19.3, 1.19.2, 1.18.2
+- 1.6.x: 1.19.4, 1.19.3, 1.19.2, 1.18.2
