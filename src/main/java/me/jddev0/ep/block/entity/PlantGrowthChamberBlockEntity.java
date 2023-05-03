@@ -83,7 +83,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
 
             @Override
             public void setStack(int slot, ItemStack stack) {
-                if(slot == 0 || slot == 1) {
+                if(slot == 0) {
                     ItemStack itemStack = getStack(slot);
                     if(world != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.areItemsEqual(stack, itemStack) ||
                             !ItemStack.areNbtEqual(stack, itemStack)))
