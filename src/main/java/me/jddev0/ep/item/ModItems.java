@@ -39,6 +39,9 @@ public final class ModItems {
     public static final Item BASIC_FERTILIZER = registerItem("basic_fertilizer",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final Item GOOD_FERTILIZER = registerItem("good_fertilizer",
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final Item BASIC_SOLAR_CELL = registerItem("basic_solar_cell",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final Item ADVANCED_SOLAR_CELL = registerItem("advanced_solar_cell",
