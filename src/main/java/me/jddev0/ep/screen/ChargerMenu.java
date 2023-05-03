@@ -87,7 +87,8 @@ public class ChargerMenu extends ScreenHandler implements EnergyStorageMenuPacke
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into tile inventory
-            if(!insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
+            //Allow only 1 item
+            if(slots.get(4 * 9).hasStack() || !insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 return ItemStack.EMPTY;
             }
         }else if(index < 4 * 9 + 1) {
