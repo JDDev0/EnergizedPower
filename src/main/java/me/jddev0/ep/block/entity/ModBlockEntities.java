@@ -110,6 +110,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("weather_controller", () -> BlockEntityType.Builder.of(WeatherControllerBlockEntity::new,
                     ModBlocks.WEATHER_CONTROLLER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<TimeControllerBlockEntity>> TIME_CONTROLLER_ENTITY =
+            BLOCK_ENTITIES.register("time_controller", () -> BlockEntityType.Builder.of(TimeControllerBlockEntity::new,
+                    ModBlocks.TIME_CONTROLLER.get()).build(null));
+
     public static void register(IEventBus modEventBus) {
         BLOCK_ENTITIES.register(modEventBus);
     }
