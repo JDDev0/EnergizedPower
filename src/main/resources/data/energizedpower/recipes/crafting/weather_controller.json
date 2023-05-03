@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "r": {
+      "tag": "forge:dusts/redstone"
+    },
+    "R": {
+      "tag": "forge:storage_blocks/redstone"
+    },
+    "E": {
+      "tag": "forge:plates/energized_gold"
+    },
+    "a": {
+      "tag": "forge:gems/amethyst"
+    },
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    }
+  },
+  "pattern": [
+    "rar",
+    "EAE",
+    "RER"
+  ],
+  "result": {
+    "item": "energizedpower:weather_controller"
+  }
+}

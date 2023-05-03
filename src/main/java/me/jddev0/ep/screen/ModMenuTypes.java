@@ -48,6 +48,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<PoweredFurnaceMenu>> POWERED_FURNACE_MENU = registerMenuType("powered_furnace_menu",
             PoweredFurnaceMenu::new);
 
+    public static final RegistryObject<MenuType<WeatherControllerMenu>> WEATHER_CONTROLLER_MENU = registerMenuType("weather_controller_menu",
+            WeatherControllerMenu::new);
+
     public static void register(IEventBus modEventBus) {
         MENUS.register(modEventBus);
     }

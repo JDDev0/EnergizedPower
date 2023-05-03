@@ -1,10 +1,7 @@
 package me.jddev0.ep.networking;
 
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
-import me.jddev0.ep.networking.packet.OpenEnergizedPowerBookS2CPacket;
-import me.jddev0.ep.networking.packet.PopEnergizedPowerBookFromLecternC2SPacket;
-import me.jddev0.ep.networking.packet.SetAutoCrafterPatternInputSlotsC2SPacket;
+import me.jddev0.ep.networking.packet.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -54,6 +51,12 @@ public final class ModMessages {
                 decoder(SetAutoCrafterPatternInputSlotsC2SPacket::new).
                 encoder(SetAutoCrafterPatternInputSlotsC2SPacket::toBytes).
                 consumer(SetAutoCrafterPatternInputSlotsC2SPacket::handle).
+                add();
+
+        net.messageBuilder(SetWeatherFromWeatherControllerC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+                decoder(SetWeatherFromWeatherControllerC2SPacket::new).
+                encoder(SetWeatherFromWeatherControllerC2SPacket::toBytes).
+                consumer(SetWeatherFromWeatherControllerC2SPacket::handle).
                 add();
     }
 
