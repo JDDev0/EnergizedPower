@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:bone_meal"
+    },
+    "D": {
+      "item": "minecraft:dandelion"
+    },
+    "b": {
+      "item": "minecraft:blue_orchid"
+    },
+    "L": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "A": {
+      "item": "minecraft:allium"
+    },
+    "P": {
+      "item": "minecraft:poppy"
+    }
+  },
+  "pattern": [
+    "DBb",
+    "BLB",
+    "ABP"
+  ],
+  "result": {
+    "item": "energizedpower:basic_fertilizer"
+  }
+}
