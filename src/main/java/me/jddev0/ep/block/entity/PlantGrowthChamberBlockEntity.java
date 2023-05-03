@@ -313,6 +313,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
         List<ItemStack> itemStacksInsert = new ArrayList<>(Arrays.asList(recipe.get().generateOutputs(level.random)));
 
         List<Integer> emptyIndices = new ArrayList<>(4);
+        outer:
         for(ItemStack itemStack:itemStacksInsert) {
             if(itemStack.isEmpty())
                 continue;
@@ -336,6 +337,9 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
                         blockEntity.internalInventory.setStack(i, newItemStack);
 
                         itemStack.setCount(itemStack.getCount() - amount);
+
+                        if(itemStack.isEmpty())
+                            continue outer;
                     }
                 }
             }
