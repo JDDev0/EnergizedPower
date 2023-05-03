@@ -308,10 +308,6 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
 
         blockEntity.internalInventory.removeStack(0, 1);
 
-
-        blockEntity.internalInventory.setStack(1, new ItemStack(recipe.get().getOutput(level.getRegistryManager()).getItem(),
-                blockEntity.internalInventory.getStack(1).getCount() + recipe.get().getOutput(level.getRegistryManager()).getCount()));
-
         List<ItemStack> itemStacksInsert = new ArrayList<>(Arrays.asList(recipe.get().generateOutputs(level.random)));
 
         List<Integer> emptyIndices = new ArrayList<>(4);
