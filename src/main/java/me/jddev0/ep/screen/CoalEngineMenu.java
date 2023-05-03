@@ -25,7 +25,7 @@ public class CoalEngineMenu extends ScreenHandler implements EnergyStorageMenuPa
 
     public CoalEngineMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
         this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1),
-                new ArrayPropertyDelegate(15));
+                new ArrayPropertyDelegate(17));
     }
 
     public CoalEngineMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
@@ -35,7 +35,7 @@ public class CoalEngineMenu extends ScreenHandler implements EnergyStorageMenuPa
 
         this.inv = inv;
         checkSize(this.inv, 1);
-        checkDataCount(data, 15);
+        checkDataCount(data, 17);
         this.level = playerInventory.player.world;
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -49,31 +49,31 @@ public class CoalEngineMenu extends ScreenHandler implements EnergyStorageMenuPa
     }
 
     long getEnergy() {
-        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3), (short)data.get(4), (short)data.get(5));
+        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5), (short)data.get(6), (short)data.get(7));
     }
 
     long getCapacity() {
-        return ByteUtils.from2ByteChunks((short)data.get(6), (short)data.get(7), (short)data.get(8), (short)data.get(9));
+        return ByteUtils.from2ByteChunks((short)data.get(8), (short)data.get(9), (short)data.get(10), (short)data.get(11));
     }
 
     long getEnergyProduction() {
-        return ByteUtils.from2ByteChunks((short)data.get(10), (short)data.get(11), (short)data.get(12), (short)data.get(13));
+        return ByteUtils.from2ByteChunks((short)data.get(12), (short)data.get(13), (short)data.get(14), (short)data.get(15));
     }
 
     /**
      * @return Same as isProducing but energy production are ignored
      */
     public boolean isProducingActive() {
-        return data.get(0) > 0;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0;
     }
 
     public boolean isProducing() {
-        return data.get(0) > 0 && data.get(14) == 1;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(16) == 1;
     }
 
     public int getScaledProgressFlameSize() {
-        int progress = data.get(0);
-        int maxProgress = data.get(1);
+        int progress = ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
+        int maxProgress = ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
         int progressFlameSize = 14;
 
         return (maxProgress == 0 || progress == 0)?0:(progress * progressFlameSize / maxProgress);
@@ -156,12 +156,12 @@ public class CoalEngineMenu extends ScreenHandler implements EnergyStorageMenuPa
     @Override
     public void setEnergy(long energy) {
         for(int i = 0;i < 4;i++)
-            data.set(i + 2, ByteUtils.get2Bytes(energy, i));
+            data.set(i + 4, ByteUtils.get2Bytes(energy, i));
     }
 
     @Override
     public void setCapacity(long capacity) {
         for(int i = 0;i < 4;i++)
-            data.set(i + 6, ByteUtils.get2Bytes(capacity, i));
+            data.set(i + 8, ByteUtils.get2Bytes(capacity, i));
     }
 }
