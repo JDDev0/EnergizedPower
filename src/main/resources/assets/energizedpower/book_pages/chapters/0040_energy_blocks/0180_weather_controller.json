@@ -1,0 +1,8 @@
+{
+  "content": {
+    "translate": "book.energizedpower.page.weather_controller",
+    "bold": true,
+    "font": "uniform"
+  },
+  "block": "energizedpower:weather_controller"
+}

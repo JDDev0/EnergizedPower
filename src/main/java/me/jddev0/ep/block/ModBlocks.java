@@ -168,6 +168,11 @@ public final class ModBlocks {
     public static final Item CHARGING_STATION_ITEM = createBlockItem("charging_station",
             new ChargingStationBlock.Item(CHARGING_STATION, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final Block WEATHER_CONTROLLER = registerBlock("weather_controller",
+            new WeatherControllerBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item WEATHER_CONTROLLER_ITEM = createBlockItem("weather_controller", WEATHER_CONTROLLER);
+
     public static final Block BASIC_MACHINE_FRAME = registerBlock("basic_machine_frame",
             new Block(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

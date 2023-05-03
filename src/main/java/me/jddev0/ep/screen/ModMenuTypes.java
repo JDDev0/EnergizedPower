@@ -40,6 +40,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<PoweredFurnaceMenu> POWERED_FURNACE_MENU = createScreenHandlerType("powered_furnace_menu",
             new ExtendedScreenHandlerType<>(PoweredFurnaceMenu::new));
 
+    public static final ScreenHandlerType<WeatherControllerMenu> WEATHER_CONTROLLER_MENU = createScreenHandlerType("weather_controller_menu",
+            new ExtendedScreenHandlerType<>(WeatherControllerMenu::new));
+
     private static <T extends ScreenHandler> ScreenHandlerType<T> createScreenHandlerType(String name, ScreenHandlerType<T> screenHandlerType) {
         return Registry.register(Registry.SCREEN_HANDLER, new Identifier(EnergizedPowerMod.MODID, name), screenHandlerType);
     }
