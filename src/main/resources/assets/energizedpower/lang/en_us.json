@@ -218,6 +218,7 @@
   "entity.minecraft.villager.electrician": "Electrician",
 
   "recipes.energizedpower.in_world_crafting": "In-World Crafting",
+  "recipes.energizedpower.plant_growth_chamber.ticks": "Ticks: %d",
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "Growth Chamber (Fertilizer)",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx Speed",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx Energy Consumption",

@@ -218,6 +218,7 @@
   "entity.minecraft.villager.electrician": "Elektroniker",
 
   "recipes.energizedpower.in_world_crafting": "In-Welt Herstellung",
+  "recipes.energizedpower.plant_growth_chamber.ticks": "Ticks: %d",
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "Wachstums-Kammer (Dünger)",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx Geschwindigkeit",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx Energieverbrauch",
