@@ -340,7 +340,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
 
             //Leftover -> put in empty slot
             if(emptyIndices.isEmpty())
-                continue; //Should not happen
+                continue; //Excess items will be vanished
 
             blockEntity.itemHandler.setStackInSlot(emptyIndices.remove(0), itemStack);
         }
