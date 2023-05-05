@@ -69,7 +69,7 @@ public class EnergizerRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.ENERGIZER.get());
+        return new ItemStack(ModBlocks.ENERGIZER_ITEM.get());
     }
 
     @Override

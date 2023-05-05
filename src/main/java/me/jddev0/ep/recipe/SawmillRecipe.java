@@ -74,7 +74,7 @@ public class SawmillRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.SAWMILL.get());
+        return new ItemStack(ModBlocks.SAWMILL_ITEM.get());
     }
 
     @Override

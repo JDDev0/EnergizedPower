@@ -69,7 +69,7 @@ public class ChargerRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.CHARGER.get());
+        return new ItemStack(ModBlocks.CHARGER_ITEM.get());
     }
 
     @Override
