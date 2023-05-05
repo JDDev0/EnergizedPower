@@ -63,7 +63,7 @@ public class CompressorRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.COMPRESSOR.get());
+        return new ItemStack(ModBlocks.COMPRESSOR_ITEM.get());
     }
 
     @Override
