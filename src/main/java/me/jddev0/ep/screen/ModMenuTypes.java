@@ -19,28 +19,28 @@ public final class ModMenuTypes {
         return MENUS.register(name, () -> IForgeMenuType.create(factory));
     }
 
-    public static final RegistryObject<MenuType<AutoCrafterMenu>> AUTO_CRAFTER_MENU = registerMenuType("auto_crafter_menu",
+    public static final RegistryObject<MenuType<AutoCrafterMenu>> AUTO_CRAFTER_MENU = registerMenuType("auto_crafter",
             AutoCrafterMenu::new);
 
-    public static final RegistryObject<MenuType<CrusherMenu>> CRUSHER_MENU = registerMenuType("crusher_menu",
+    public static final RegistryObject<MenuType<CrusherMenu>> CRUSHER_MENU = registerMenuType("crusher",
             CrusherMenu::new);
 
-    public static final RegistryObject<MenuType<SawmillMenu>> SAWMILL_MENU = registerMenuType("sawmill_menu",
+    public static final RegistryObject<MenuType<SawmillMenu>> SAWMILL_MENU = registerMenuType("sawmill",
             SawmillMenu::new);
 
-    public static final RegistryObject<MenuType<CompressorMenu>> COMPRESSOR_MENU = registerMenuType("compressor_menu",
+    public static final RegistryObject<MenuType<CompressorMenu>> COMPRESSOR_MENU = registerMenuType("compressor",
             CompressorMenu::new);
 
-    public static final RegistryObject<MenuType<PlantGrowthChamberMenu>> PLANT_GROWTH_CHAMBER_MENU = registerMenuType("plant_growth_chamber_menu",
+    public static final RegistryObject<MenuType<PlantGrowthChamberMenu>> PLANT_GROWTH_CHAMBER_MENU = registerMenuType("plant_growth_chamber",
             PlantGrowthChamberMenu::new);
 
-    public static final RegistryObject<MenuType<BlockPlacerMenu>> BLOCK_PLACER_MENU = registerMenuType("block_placer_menu",
+    public static final RegistryObject<MenuType<BlockPlacerMenu>> BLOCK_PLACER_MENU = registerMenuType("block_placer",
             BlockPlacerMenu::new);
 
-    public static final RegistryObject<MenuType<ChargerMenu>> CHARGER_MENU = registerMenuType("charger_menu",
+    public static final RegistryObject<MenuType<ChargerMenu>> CHARGER_MENU = registerMenuType("charger",
             ChargerMenu::new);
 
-    public static final RegistryObject<MenuType<UnchargerMenu>> UNCHARGER_MENU = registerMenuType("uncharger_menu",
+    public static final RegistryObject<MenuType<UnchargerMenu>> UNCHARGER_MENU = registerMenuType("uncharger",
             UnchargerMenu::new);
     public static final RegistryObject<MenuType<EnergizerMenu>> ENERGIZER_MENU = registerMenuType("energizer",
             EnergizerMenu::new);
@@ -48,13 +48,13 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<CoalEngineMenu>> COAL_ENGINE_MENU = registerMenuType("coal_engine",
             CoalEngineMenu::new);
 
-    public static final RegistryObject<MenuType<PoweredFurnaceMenu>> POWERED_FURNACE_MENU = registerMenuType("powered_furnace_menu",
+    public static final RegistryObject<MenuType<PoweredFurnaceMenu>> POWERED_FURNACE_MENU = registerMenuType("powered_furnace",
             PoweredFurnaceMenu::new);
 
-    public static final RegistryObject<MenuType<WeatherControllerMenu>> WEATHER_CONTROLLER_MENU = registerMenuType("weather_controller_menu",
+    public static final RegistryObject<MenuType<WeatherControllerMenu>> WEATHER_CONTROLLER_MENU = registerMenuType("weather_controller",
             WeatherControllerMenu::new);
 
-    public static final RegistryObject<MenuType<TimeControllerMenu>> TIME_CONTROLLER_MENU = registerMenuType("time_controller_menu",
+    public static final RegistryObject<MenuType<TimeControllerMenu>> TIME_CONTROLLER_MENU = registerMenuType("time_controller",
             TimeControllerMenu::new);
 
     public static void register(IEventBus modEventBus) {
