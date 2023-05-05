@@ -64,7 +64,7 @@ public class CrusherRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.CRUSHER.get());
+        return new ItemStack(ModBlocks.CRUSHER_ITEM.get());
     }
 
     @Override

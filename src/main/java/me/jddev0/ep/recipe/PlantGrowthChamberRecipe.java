@@ -103,7 +103,7 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER.get());
+        return new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM.get());
     }
 
     @Override
