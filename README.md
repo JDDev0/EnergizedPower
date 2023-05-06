@@ -66,7 +66,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 ## Discord
 
-Invite Link: [https://discord.gg/2UrGA3mS](https://discord.gg/2UrGA3mS)
+Invite Link: [https://discord.gg/sAKDNAU7yH](https://discord.gg/sAKDNAU7yH)
 
 ## Credits
 
