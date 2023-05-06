@@ -64,6 +64,34 @@
           }
         }
       ]
+    },
+    {
+      "text": "\n",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "translate": "book.energizedpower.page.welcome.4",
+          "color": "black"
+        },
+        ": ",
+        {
+          "translate": "book.energizedpower.page.welcome.4.link",
+          "color": "blue",
+          "underlined": true,
+          "clickEvent": {
+            "action": "open_url",
+            "value": "https://discord.gg/2UrGA3mS"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.tooltip.link"
+            }
+          }
+        }
+      ]
     }
   ]
 }
