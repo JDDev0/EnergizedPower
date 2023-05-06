@@ -64,6 +64,10 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 *Feel free to include this mod in your ModPack :-)*
 
+## Discord
+
+Invite Link: [https://discord.gg/2UrGA3mS](https://discord.gg/2UrGA3mS)
+
 ## Credits
 
 - Energized Copper/Gold Ingot textures ([flashbulbs](https://github.com/flashbulbs))
