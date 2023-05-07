@@ -10,10 +10,10 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.screen.CoalEngineMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -67,7 +67,8 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 if(slot == 0) {
-                    return AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(stack.getItem(), -1) > 0;
+                    Integer burnTime = FuelRegistry.INSTANCE.get(stack.getItem());
+                    return burnTime != null && burnTime > 0;
                 }
 
                 return super.isValid(slot, stack);
@@ -101,7 +102,8 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
 
             //Do not allow extraction of fuel items, allow for non fuel items (Bucket of Lava -> Empty Bucket)
             ItemStack item = internalInventory.getStack(i);
-            return AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(item.getItem(), -1) <= 0;
+            Integer burnTime = FuelRegistry.INSTANCE.get(item.getItem());
+            return burnTime == null || burnTime <= 0;
         });
         cachedSidedInventoryStorage = new CachedSidedInventoryStorage<>(inventory);
 
@@ -212,7 +214,9 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
         if(blockEntity.maxProgress > 0 || hasRecipe(blockEntity)) {
             ItemStack item = blockEntity.internalInventory.getStack(0);
 
-            int energyProduction = AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(item.getItem(), -1);
+
+            Integer burnTime = FuelRegistry.INSTANCE.get(item.getItem());
+            int energyProduction = burnTime == null?-1:burnTime;
             if(blockEntity.progress == 0)
                 blockEntity.energyProductionLeft = energyProduction;
 
@@ -356,7 +360,8 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
     private static boolean hasRecipe(CoalEngineBlockEntity blockEntity) {
         ItemStack item = blockEntity.internalInventory.getStack(0);
 
-        if(AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(item.getItem(), -1) <= 0)
+        Integer burnTime = FuelRegistry.INSTANCE.get(item.getItem());
+        if(burnTime == null || burnTime <= 0)
             return false;
 
         return item.getRecipeRemainder().isEmpty() || item.getCount() == 1;
