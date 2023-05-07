@@ -3,10 +3,10 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -199,7 +199,8 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
                 continue;
 
             ItemStack testItemStack = inventory.getStack(i);
-            int energyProduction = AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(testItemStack.getItem(), -1);
+            Integer burnTime = FuelRegistry.INSTANCE.get(testItemStack.getItem());
+            int energyProduction = burnTime == null?-1:burnTime;
             if(energyProduction <= 0)
                 continue;
 
