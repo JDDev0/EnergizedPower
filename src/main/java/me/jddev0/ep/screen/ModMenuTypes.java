@@ -32,22 +32,22 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<EnergizerMenu> ENERGIZER_MENU = createScreenHandlerType("energizer",
             new ExtendedScreenHandlerType<>(EnergizerMenu::new));
 
-    public static final ScreenHandlerType<CompressorMenu> COMPRESSOR_MENU = createScreenHandlerType("compressor_menu",
+    public static final ScreenHandlerType<CompressorMenu> COMPRESSOR_MENU = createScreenHandlerType("compressor",
             new ExtendedScreenHandlerType<>(CompressorMenu::new));
 
-    public static final ScreenHandlerType<PlantGrowthChamberMenu> PLANT_GROWTH_CHAMBER_MENU = createScreenHandlerType("plant_growth_chamber_menu",
+    public static final ScreenHandlerType<PlantGrowthChamberMenu> PLANT_GROWTH_CHAMBER_MENU = createScreenHandlerType("plant_growth_chamber",
             new ExtendedScreenHandlerType<>(PlantGrowthChamberMenu::new));
 
     public static final ScreenHandlerType<CoalEngineMenu> COAL_ENGINE_MENU = createScreenHandlerType("coal_engine",
             new ExtendedScreenHandlerType<>(CoalEngineMenu::new));
 
-    public static final ScreenHandlerType<PoweredFurnaceMenu> POWERED_FURNACE_MENU = createScreenHandlerType("powered_furnace_menu",
+    public static final ScreenHandlerType<PoweredFurnaceMenu> POWERED_FURNACE_MENU = createScreenHandlerType("powered_furnace",
             new ExtendedScreenHandlerType<>(PoweredFurnaceMenu::new));
 
-    public static final ScreenHandlerType<WeatherControllerMenu> WEATHER_CONTROLLER_MENU = createScreenHandlerType("weather_controller_menu",
+    public static final ScreenHandlerType<WeatherControllerMenu> WEATHER_CONTROLLER_MENU = createScreenHandlerType("weather_controller",
             new ExtendedScreenHandlerType<>(WeatherControllerMenu::new));
 
-    public static final ScreenHandlerType<TimeControllerMenu> TIME_CONTROLLER_MENU = createScreenHandlerType("time_controller_menu",
+    public static final ScreenHandlerType<TimeControllerMenu> TIME_CONTROLLER_MENU = createScreenHandlerType("time_controller",
             new ExtendedScreenHandlerType<>(TimeControllerMenu::new));
 
     private static <T extends ScreenHandler> ScreenHandlerType<T> createScreenHandlerType(String name, ScreenHandlerType<T> screenHandlerType) {
