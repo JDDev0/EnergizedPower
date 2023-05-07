@@ -214,7 +214,6 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
         if(blockEntity.maxProgress > 0 || hasRecipe(blockEntity)) {
             ItemStack item = blockEntity.internalInventory.getStack(0);
 
-
             Integer burnTime = FuelRegistry.INSTANCE.get(item.getItem());
             int energyProduction = burnTime == null?-1:burnTime;
             if(blockEntity.progress == 0)
