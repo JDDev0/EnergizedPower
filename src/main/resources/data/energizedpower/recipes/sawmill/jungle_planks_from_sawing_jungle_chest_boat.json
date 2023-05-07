@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:jungle_chest_boat"
+  },
+  "output": {
+    "item": "minecraft:jungle_planks",
+    "count": 13
+  },
+  "sawdustAmount": 3
+}
