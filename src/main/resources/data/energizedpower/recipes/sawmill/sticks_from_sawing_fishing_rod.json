@@ -1,0 +1,14 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:fishing_rod"
+  },
+  "output": {
+    "item": "minecraft:stick",
+    "count": 3
+  },
+  "secondaryOutput": {
+    "item": "minecraft:string",
+    "count": 2
+  }
+}
