@@ -1,0 +1,15 @@
+{
+  "type": "energizedpower:plant_growth_chamber",
+  "ingredient": {
+    "item": "minecraft:oxeye_daisy"
+  },
+  "ticks": 16000,
+  "outputs": [
+    {
+      "output": {
+        "item": "minecraft:oxeye_daisy"
+      },
+      "percentages": [1.0, 1.0, 0.33]
+    }
+  ]
+}
