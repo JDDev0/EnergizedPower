@@ -1,0 +1,15 @@
+{
+  "type": "energizedpower:plant_growth_chamber",
+  "ingredient": {
+    "item": "minecraft:lily_of_the_valley"
+  },
+  "ticks": 16000,
+  "outputs": [
+    {
+      "output": {
+        "item": "minecraft:lily_of_the_valley"
+      },
+      "percentages": [1.0, 1.0, 0.33]
+    }
+  ]
+}
