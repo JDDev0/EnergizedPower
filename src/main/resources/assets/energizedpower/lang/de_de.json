@@ -418,7 +418,7 @@
   "book.energizedpower.page.cable_insulator.2": "Er kann durch das Klicken auf einen Wolleblock mit einer Schere hergestellt werden.",
   "book.energizedpower.page.cable_insulator.3": "Auch mit Werfer möglich",
 
-  "book.energizedpower.page.saw_blade.1": "Das Sägeblatt ist eine Zutat, die gebraucht wird, um das Sägewerk zu craften.",
+  "book.energizedpower.page.saw_blade": "Das Sägeblatt ist eine Zutat, die gebraucht wird, um das Sägewerk zu craften.",
 
   "book.energizedpower.page.silicon.1": "Silizium ist ein Item, dass für viele Rezepte dieser Mod benötigt wird.",
   "book.energizedpower.page.silicon.2": "Es kann durch das Schmelzen von Netherquarz herstellt werden.",
@@ -436,13 +436,13 @@
   "book.energizedpower.page.energized_copper_ingot.3": "Der Lader kann diese Barren auch herstellen.",
   "book.energizedpower.page.energized_copper_ingot.4": " [Es ist aber sehr energieintensiv]",
 
-  "book.energizedpower.page.energized_gold_ingot.1": "Energetisierte Goldbarren werden für die fortgeschrittensten Maschinen gebraucht (z.B. Ladestation).",
+  "book.energizedpower.page.energized_gold_ingot": "Energetisierte Goldbarren werden für die fortgeschrittensten Maschinen gebraucht (z.B. Ladestation).",
 
 
   "book.energizedpower.page.chapter.tools.title": "Werkzeuge",
   "book.energizedpower.page.chapter.tools": "Können hilfreich sein",
 
-  "book.energizedpower.page.hammers.1": "Hämmer können verwendet werden, um Platten zu craften.",
+  "book.energizedpower.page.hammers": "Hämmer können verwendet werden, um Platten zu craften.",
 
 
   "book.energizedpower.page.chapter.energy_items.title": "Energie-Items",
@@ -493,7 +493,7 @@
   "book.energizedpower.page.lightning_generator.1": "Der Blitz-Generator produziert viel Energie pro Blitzeinschlag.",
   "book.energizedpower.page.lightning_generator.2": "Ein Blitzableiter muss über diesen Block platziert werden.",
 
-  "book.energizedpower.page.powered_furnace.1": "Der Elektroofen funktioniert wie ein Ofen, verwendet aber statt Kohle Strom. Er ist auch schneller als der normale Ofen.",
+  "book.energizedpower.page.powered_furnace": "Der Elektroofen funktioniert wie ein Ofen, verwendet aber statt Kohle Strom. Er ist auch schneller als der normale Ofen.",
 
   "book.energizedpower.page.auto_crafter.1": "Die automatische Werkbank stellt Items automatisch her.",
   "book.energizedpower.page.auto_crafter.2": "Die Rezepte können in den Pattern-Feldern definiert werden.",
@@ -503,7 +503,7 @@
   "book.energizedpower.page.sawmill.1": "Das Sägewerk sägt Holz-Blöcke und -Items.",
   "book.energizedpower.page.sawmill.2": "Sägemehl wird dabei produziert und kann zu Sägemehlblöcken verarbeitet werden. Diese können dann als Treibstoff verwendet werden.",
 
-  "book.energizedpower.page.compressor.1": "Der Kompressor komprimiert Barren in Platten.",
+  "book.energizedpower.page.compressor": "Der Kompressor komprimiert Barren in Platten.",
 
   "book.energizedpower.page.plant_growth_chamber_1.1": "Die Pflanzenwachstums-\nKammer kann das Pflanzen-\nwachstum und -erträge verbessern.",
   "book.energizedpower.page.plant_growth_chamber_1.2": "Der rechte Eingabeslot ist der Samenslot.",

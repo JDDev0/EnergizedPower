@@ -1,7 +1,7 @@
 {
   "content": [
     {
-      "translate": "book.energizedpower.page.energized_gold_ingot.1",
+      "translate": "book.energizedpower.page.energized_gold_ingot",
       "color": "black",
       "bold": true,
       "font": "uniform"
