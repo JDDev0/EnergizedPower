@@ -3,6 +3,7 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.ChargingStationBlock;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.integration.curios.CuriosCompatUtils;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import net.minecraft.core.BlockPos;
@@ -85,7 +86,6 @@ public class ChargingStationBlockEntity extends BlockEntity implements EnergySto
         energyStorage.loadNBT(nbt.get("energy"));
     }
 
-
     public static void tick(Level level, BlockPos blockPos, BlockState state, ChargingStationBlockEntity blockEntity) {
         if(level.isClientSide)
             return;
@@ -109,6 +109,21 @@ public class ChargingStationBlockEntity extends BlockEntity implements EnergySto
             for(int i = 0;i < inventory.getContainerSize();i++) {
                 ItemStack itemStack = inventory.getItem(i);
 
+                LazyOptional<IEnergyStorage> energyStorageLazyOptional = itemStack.getCapability(ForgeCapabilities.ENERGY);
+                if(!energyStorageLazyOptional.isPresent())
+                    continue;
+
+                IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
+                if(!energyStorage.canReceive())
+                    continue;
+
+                energyPerTickLeft -= energyStorage.receiveEnergy(energyPerTickLeft, false);
+                if(energyPerTickLeft == 0)
+                    break outer;
+            }
+
+            List<ItemStack> curiosItemStacks = CuriosCompatUtils.getCuriosItemStacks(inventory);
+            for(ItemStack itemStack:curiosItemStacks) {
                 LazyOptional<IEnergyStorage> energyStorageLazyOptional = itemStack.getCapability(ForgeCapabilities.ENERGY);
                 if(!energyStorageLazyOptional.isPresent())
                     continue;
