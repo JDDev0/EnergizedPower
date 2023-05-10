@@ -23,7 +23,8 @@ public class DispenserCategory implements IRecipeCategory<DispenserCategory.Disp
     private final IDrawable icon;
 
     public DispenserCategory(IGuiHelper helper) {
-        background = helper.createBlankDrawable(100, 25);
+        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+        background = helper.createDrawable(texture, 1, 1, 105, 25);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(Items.DISPENSER));
     }
@@ -50,13 +51,11 @@ public class DispenserCategory implements IRecipeCategory<DispenserCategory.Disp
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, DispenserRecipe recipe, IFocusGroup iFocusGroup) {
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 0, 5).addIngredients(recipe.tool());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).addIngredients(recipe.tool());
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 19, 5).addIngredients(recipe.block());
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 81, 5).addItemStack(recipe.output());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 82, 5).addItemStack(recipe.output());
     }
-
-    //TODO draw slots
 
     record DispenserRecipe(Ingredient tool, Ingredient block, ItemStack output) {}
 }
