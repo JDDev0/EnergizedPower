@@ -418,7 +418,7 @@
   "book.energizedpower.page.cable_insulator.2": "It can be crafted by clicking on a wool block with shears.",
   "book.energizedpower.page.cable_insulator.3": "It can also be crafted with a dispenser.",
 
-  "book.energizedpower.page.saw_blade.1": "锯片是制作锯木机的材料。",
+  "book.energizedpower.page.saw_blade": "锯片是制作锯木机的材料。",
 
   "book.energizedpower.page.silicon.1": "硅几乎是这个模组的所有物品和机器的材料。",
   "book.energizedpower.page.silicon.2": "可以通过熔炼或高温烧炼下界石英来制作。",
@@ -436,13 +436,13 @@
   "book.energizedpower.page.energized_copper_ingot.3": "充电站可以用来制作这种锭的。",
   "book.energizedpower.page.energized_copper_ingot.4": " [但它很昂贵]",
 
-  "book.energizedpower.page.energized_gold_ingot.1": "充能金锭应用于高级的机器（e.g.充电站）。",
+  "book.energizedpower.page.energized_gold_ingot": "充能金锭应用于高级的机器（e.g.充电站）。",
 
 
   "book.energizedpower.page.chapter.tools.title": "工具",
   "book.energizedpower.page.chapter.tools": "也许会有帮助。",
 
-  "book.energizedpower.page.hammers.1": "锤子是用来制造板材的工具。",
+  "book.energizedpower.page.hammers": "锤子是用来制造板材的工具。",
 
 
   "book.energizedpower.page.chapter.energy_items.title": "能量物品",
@@ -493,7 +493,7 @@
   "book.energizedpower.page.lightning_generator.1": "人造闪电发生器在每次雷击时产生大量的能量。",
   "book.energizedpower.page.lightning_generator.2": "必须将避雷针防置在该方块时才会生效。",
 
-  "book.energizedpower.page.powered_furnace.1": "电炉和普通的熔炉工作原理是一样的。但是电炉使用的是电，而普通熔炉使用的是煤炭；而且电炉比普通熔炉更快。",
+  "book.energizedpower.page.powered_furnace": "电炉和普通的熔炉工作原理是一样的。但是电炉使用的是电，而普通熔炉使用的是煤炭；而且电炉比普通熔炉更快。",
 
   "book.energizedpower.page.auto_crafter.1": "自动合成机会自动合成物品。",
   "book.energizedpower.page.auto_crafter.2": "可以通过使用自动合成机中的合成槽来放置配方。",
@@ -503,7 +503,7 @@
   "book.energizedpower.page.sawmill.1": "锯木机可以据原木和一些物品。",
   "book.energizedpower.page.sawmill.2": "锯末是锯木机生产出的副产品，可以合成锯末块用于燃料。",
 
-  "book.energizedpower.page.compressor.1": "压缩机可以将一些金属锭压成板材。",
+  "book.energizedpower.page.compressor": "压缩机可以将一些金属锭压成板材。",
 
   "book.energizedpower.page.plant_growth_chamber_1.1": "The Plant Growth Chamber can boost plant growth and yield.",
   "book.energizedpower.page.plant_growth_chamber_1.2": "The right input slot is the seed slot.",
