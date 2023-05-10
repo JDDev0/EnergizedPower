@@ -428,7 +428,7 @@
   "book.energizedpower.page.cable_insulator.2": "It can be crafted by clicking on a wool block with shears.",
   "book.energizedpower.page.cable_insulator.3": "It can also be crafted with a dispenser.",
 
-  "book.energizedpower.page.saw_blade.1": "The saw blade is an ingredient which is used to craft the sawmill.",
+  "book.energizedpower.page.saw_blade": "The saw blade is an ingredient which is used to craft the sawmill.",
 
   "book.energizedpower.page.silicon.1": "Silicon is an ingredient used in many crafting recipes of this mod.",
   "book.energizedpower.page.silicon.2": "It can be crafted by smelting or blasting nether quartz.",
@@ -446,13 +446,13 @@
   "book.energizedpower.page.energized_copper_ingot.3": "The charger can be used to craft this ingot.",
   "book.energizedpower.page.energized_copper_ingot.4": " [But it's expensive]",
 
-  "book.energizedpower.page.energized_gold_ingot.1": "Energized Gold Ingots are used for the most advanced machines (e.g. Charging Station).",
+  "book.energizedpower.page.energized_gold_ingot": "Energized Gold Ingots are used for the most advanced machines (e.g. Charging Station).",
 
 
   "book.energizedpower.page.chapter.tools.title": "Tools",
   "book.energizedpower.page.chapter.tools": "Can be helpful",
 
-  "book.energizedpower.page.hammers.1": "Hammers can be used to craft plates.",
+  "book.energizedpower.page.hammers": "Hammers can be used to craft plates.",
 
 
   "book.energizedpower.page.chapter.energy_items.title": "Energy Items",
@@ -503,7 +503,7 @@
   "book.energizedpower.page.lightning_generator.1": "The lightning generator produces high amounts of energy per lightning strike.",
   "book.energizedpower.page.lightning_generator.2": "A lightning rod block must be place above this block for it to function.",
 
-  "book.energizedpower.page.powered_furnace.1": "The Powered Furnace works like the Furnace. Instead of coal it uses power. Additionally it is faster than the normal furnace.",
+  "book.energizedpower.page.powered_furnace": "The Powered Furnace works like the Furnace. Instead of coal it uses power. Additionally it is faster than the normal furnace.",
 
   "book.energizedpower.page.auto_crafter.1": "The Auto Crafter crafts items automatically.",
   "book.energizedpower.page.auto_crafter.2": "The recipe can be set by using the pattern slots.",
@@ -513,7 +513,7 @@
   "book.energizedpower.page.sawmill.1": "The Sawmill can saw wood blocks and items.",
   "book.energizedpower.page.sawmill.2": "Sawdust will be produced which can be crafted to sawdust blocks which can be used as fuel.",
 
-  "book.energizedpower.page.compressor.1": "The Compressor compresses ingots into plates.",
+  "book.energizedpower.page.compressor": "The Compressor compresses ingots into plates.",
 
   "book.energizedpower.page.plant_growth_chamber_1.1": "The Plant Growth Chamber can boost plant growth and yield.",
   "book.energizedpower.page.plant_growth_chamber_1.2": "The right input slot is the seed slot.",
