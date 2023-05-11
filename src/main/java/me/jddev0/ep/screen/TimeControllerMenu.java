@@ -18,14 +18,14 @@ public class TimeControllerMenu extends AbstractContainerMenu implements EnergyS
     private final ContainerData data;
 
     public TimeControllerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(4));
     }
 
     public TimeControllerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.TIME_CONTROLLER_MENU.get(), id);
 
         checkContainerSize(inv, 0);
-        checkContainerDataCount(data, 9);
+        checkContainerDataCount(data, 4);
         this.blockEntity = (TimeControllerBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -37,11 +37,11 @@ public class TimeControllerMenu extends AbstractContainerMenu implements EnergyS
     }
 
     int getEnergy() {
-        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
     }
 
     int getCapacity() {
-        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
+        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
     }
 
     public int getScaledEnergyMeterPos() {
@@ -84,12 +84,12 @@ public class TimeControllerMenu extends AbstractContainerMenu implements EnergyS
     @Override
     public void setEnergy(int energy) {
         for(int i = 0;i < 2;i++)
-            data.set(i + 2, ByteUtils.get2Bytes(energy, i));
+            data.set(i, ByteUtils.get2Bytes(energy, i));
     }
 
     @Override
     public void setCapacity(int capacity) {
         for(int i = 0;i < 2;i++)
-            data.set(i + 4, ByteUtils.get2Bytes(capacity, i));
+            data.set(i + 2, ByteUtils.get2Bytes(capacity, i));
     }
 }

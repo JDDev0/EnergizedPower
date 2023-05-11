@@ -20,14 +20,14 @@ public class ChargerMenu extends AbstractContainerMenu implements EnergyStorageM
     private final ContainerData data;
 
     public ChargerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(6));
     }
 
     public ChargerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.CHARGER_MENU.get(), id);
 
         checkContainerSize(inv, 1);
-        checkContainerDataCount(data, 9);
+        checkContainerDataCount(data, 6);
         this.blockEntity = (ChargerBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -43,15 +43,15 @@ public class ChargerMenu extends AbstractContainerMenu implements EnergyStorageM
     }
 
     int getEnergy() {
-        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
     }
 
     int getCapacity() {
-        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
+        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
     }
 
     int getEnergyRequirement() {
-        return ByteUtils.from2ByteChunks((short)data.get(6), (short)data.get(7));
+        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
     }
 
     public int getScaledEnergyMeterPos() {
@@ -130,12 +130,12 @@ public class ChargerMenu extends AbstractContainerMenu implements EnergyStorageM
     @Override
     public void setEnergy(int energy) {
         for(int i = 0;i < 2;i++)
-            data.set(i + 2, ByteUtils.get2Bytes(energy, i));
+            data.set(i, ByteUtils.get2Bytes(energy, i));
     }
 
     @Override
     public void setCapacity(int capacity) {
         for(int i = 0;i < 2;i++)
-            data.set(i + 4, ByteUtils.get2Bytes(capacity, i));
+            data.set(i + 2, ByteUtils.get2Bytes(capacity, i));
     }
 }

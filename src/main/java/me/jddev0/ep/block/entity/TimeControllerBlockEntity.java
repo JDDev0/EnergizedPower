@@ -50,10 +50,8 @@ public class TimeControllerBlockEntity extends BlockEntity implements MenuProvid
             @Override
             public int get(int index) {
                 return switch(index) {
-                    case 0, 1, 6, 7 -> -1;
-                    case 2, 3 -> ByteUtils.get2Bytes(TimeControllerBlockEntity.this.energyStorage.getEnergy(), index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(TimeControllerBlockEntity.this.energyStorage.getCapacity(), index - 4);
-                    case 8 -> 1;
+                    case 0, 1 -> ByteUtils.get2Bytes(TimeControllerBlockEntity.this.energyStorage.getEnergy(), index);
+                    case 2, 3 -> ByteUtils.get2Bytes(TimeControllerBlockEntity.this.energyStorage.getCapacity(), index - 2);
                     default -> 0;
                 };
             }
@@ -61,19 +59,18 @@ public class TimeControllerBlockEntity extends BlockEntity implements MenuProvid
             @Override
             public void set(int index, int value) {
                 switch(index) {
-                    case 2, 3 -> TimeControllerBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
-                            TimeControllerBlockEntity.this.energyStorage.getEnergy(), (short)value, index - 2
+                    case 0, 1 -> TimeControllerBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
+                            TimeControllerBlockEntity.this.energyStorage.getEnergy(), (short)value, index
                     ));
-                    case 4, 5 -> TimeControllerBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
-                            TimeControllerBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 4
+                    case 2, 3 -> TimeControllerBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
+                            TimeControllerBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 2
                     ));
-                    case 0, 1, 6, 7, 8 -> {}
                 }
             }
 
             @Override
             public int getCount() {
-                return 9;
+                return 4;
             }
         };
     }
