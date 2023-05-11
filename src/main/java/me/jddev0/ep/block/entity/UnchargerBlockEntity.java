@@ -119,11 +119,9 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
             @Override
             public int get(int index) {
                 return switch(index) {
-                    case 0, 1 -> -1;
-                    case 2, 3 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.energyStorage.getEnergy(), index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.energyStorage.getCapacity(), index - 4);
-                    case 6, 7 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.energyProductionLeft, index - 6);
-                    case 8 -> 1;
+                    case 0, 1 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.energyStorage.getEnergy(), index);
+                    case 2, 3 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.energyStorage.getCapacity(), index - 2);
+                    case 4, 5 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.energyProductionLeft, index - 4);
                     default -> 0;
                 };
             }
@@ -131,19 +129,19 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
             @Override
             public void set(int index, int value) {
                 switch(index) {
-                    case 2, 3 -> UnchargerBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
-                            UnchargerBlockEntity.this.energyStorage.getEnergy(), (short)value, index - 2
+                    case 0, 1 -> UnchargerBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
+                            UnchargerBlockEntity.this.energyStorage.getEnergy(), (short)value, index
                     ));
-                    case 4, 5 -> UnchargerBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
-                            UnchargerBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 4
+                    case 2, 3 -> UnchargerBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
+                            UnchargerBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 2
                     ));
-                    case 0, 1, 6, 7, 8 -> {}
+                    case 4, 5 -> {}
                 }
             }
 
             @Override
             public int getCount() {
-                return 9;
+                return 6;
             }
         };
     }

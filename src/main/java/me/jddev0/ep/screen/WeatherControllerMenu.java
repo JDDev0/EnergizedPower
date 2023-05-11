@@ -18,14 +18,14 @@ public class WeatherControllerMenu extends AbstractContainerMenu implements Ener
     private final ContainerData data;
 
     public WeatherControllerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(4));
     }
 
     public WeatherControllerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.WEATHER_CONTROLLER_MENU.get(), id);
 
         checkContainerSize(inv, 0);
-        checkContainerDataCount(data, 9);
+        checkContainerDataCount(data, 4);
         this.blockEntity = (WeatherControllerBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -37,11 +37,11 @@ public class WeatherControllerMenu extends AbstractContainerMenu implements Ener
     }
 
     int getEnergy() {
-        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
     }
 
     int getCapacity() {
-        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
+        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
     }
 
     public int getScaledEnergyMeterPos() {
@@ -84,12 +84,12 @@ public class WeatherControllerMenu extends AbstractContainerMenu implements Ener
     @Override
     public void setEnergy(int energy) {
         for(int i = 0;i < 2;i++)
-            data.set(i + 2, ByteUtils.get2Bytes(energy, i));
+            data.set(i, ByteUtils.get2Bytes(energy, i));
     }
 
     @Override
     public void setCapacity(int capacity) {
         for(int i = 0;i < 2;i++)
-            data.set(i + 4, ByteUtils.get2Bytes(capacity, i));
+            data.set(i + 2, ByteUtils.get2Bytes(capacity, i));
     }
 }
