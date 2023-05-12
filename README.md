@@ -40,7 +40,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 ### Integrations
 
 * JEI (*Forge edition only*), EMI (*Fabric edition only*), and REI support
-* Curios API (*Forge edition only*) (**In next release (v1.6.2)**)
+* Curios API (*Forge edition only*)
 
 ### World generation
 
