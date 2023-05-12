@@ -163,11 +163,9 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
             @Override
             public int get(int index) {
                 return switch(index) {
-                    case 0, 1 -> -1;
-                    case 2, 3, 4, 5 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.internalEnergyStorage.amount, index - 2);
-                    case 6, 7, 8, 9 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.internalEnergyStorage.capacity, index - 6);
-                    case 10, 11, 12, 13 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.energyProductionLeft, index - 10);
-                    case 14 -> 1;
+                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.internalEnergyStorage.amount, index);
+                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.internalEnergyStorage.capacity, index - 4);
+                    case 8, 9, 10, 11 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.energyProductionLeft, index - 8);
                     default -> 0;
                 };
             }
@@ -175,15 +173,15 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
             @Override
             public void set(int index, int value) {
                 switch(index) {
-                    case 2, 3, 4, 5 -> UnchargerBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
-                            UnchargerBlockEntity.this.internalEnergyStorage.amount, (short)value, index - 2);
-                    case 0, 1, 6, 7, 8, 9, 10, 11, 12, 13, 14 -> {}
+                    case 0, 1, 2, 3 -> UnchargerBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
+                            UnchargerBlockEntity.this.internalEnergyStorage.amount, (short)value, index);
+                    case 4, 5, 6, 7, 8, 9, 10, 11 -> {}
                 }
             }
 
             @Override
             public int size() {
-                return 15;
+                return 12;
             }
         };
     }

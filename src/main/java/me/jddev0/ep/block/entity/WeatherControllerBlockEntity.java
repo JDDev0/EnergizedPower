@@ -56,10 +56,8 @@ public class WeatherControllerBlockEntity extends BlockEntity implements Extende
             @Override
             public int get(int index) {
                 return switch(index) {
-                    case 0, 1, 10, 11, 12, 13 -> -1;
-                    case 2, 3, 4, 5 -> ByteUtils.get2Bytes(WeatherControllerBlockEntity.this.internalEnergyStorage.amount, index - 2);
-                    case 6, 7, 8, 9 -> ByteUtils.get2Bytes(WeatherControllerBlockEntity.this.internalEnergyStorage.capacity, index - 6);
-                    case 14 -> 1;
+                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(WeatherControllerBlockEntity.this.internalEnergyStorage.amount, index);
+                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(WeatherControllerBlockEntity.this.internalEnergyStorage.capacity, index - 4);
                     default -> 0;
                 };
             }
@@ -67,15 +65,15 @@ public class WeatherControllerBlockEntity extends BlockEntity implements Extende
             @Override
             public void set(int index, int value) {
                 switch(index) {
-                    case 2, 3, 4, 5 -> WeatherControllerBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
-                            WeatherControllerBlockEntity.this.internalEnergyStorage.amount, (short)value, index - 2);
-                    case 0, 1, 6, 7, 8, 9, 10, 11, 12, 13, 14 -> {}
+                    case 0, 1, 2, 3 -> WeatherControllerBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
+                            WeatherControllerBlockEntity.this.internalEnergyStorage.amount, (short)value, index);
+                    case 4, 5, 6, 7 -> {}
                 }
             }
 
             @Override
             public int size() {
-                return 15;
+                return 8;
             }
         };
     }
