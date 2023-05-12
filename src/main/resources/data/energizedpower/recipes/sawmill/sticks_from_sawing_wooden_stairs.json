@@ -1,0 +1,34 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": [
+    {
+      "item": "minecraft:oak_stairs"
+    },
+    {
+      "item": "minecraft:spruce_stairs"
+    },
+    {
+      "item": "minecraft:birch_stairs"
+    },
+    {
+      "item": "minecraft:jungle_stairs"
+    },
+    {
+      "item": "minecraft:acacia_stairs"
+    },
+    {
+      "item": "minecraft:dark_oak_stairs"
+    },
+    {
+      "item": "minecraft:crimson_stairs"
+    },
+    {
+      "item": "minecraft:warped_stairs"
+    }
+  ],
+  "output": {
+    "item": "minecraft:stick",
+    "count": 3
+  },
+  "sawdustAmount": 1
+}
