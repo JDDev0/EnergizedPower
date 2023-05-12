@@ -1,6 +1,7 @@
 package me.jddev0.ep.item;
 
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
+import me.jddev0.ep.integration.curios.CuriosCompatUtils;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
@@ -64,6 +65,26 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
         }
     }
 
+    private int addConsumerEnergyItem(List<IEnergyStorage> consumerItems, List<Integer> consumerEnergyValues,
+                                      ItemStack itemStack, ItemStack testItemStack) {
+        LazyOptional<IEnergyStorage> energyStorageLazyOptional = testItemStack.getCapability(ForgeCapabilities.ENERGY);
+        if(!energyStorageLazyOptional.isPresent())
+            return 0;
+
+        IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
+        if(!energyStorage.canReceive())
+            return 0;
+
+        int received = energyStorage.receiveEnergy(Math.min(MAX_EXTRACT, getEnergy(itemStack)), true);
+        if(received <= 0)
+            return 0;
+
+        consumerItems.add(energyStorage);
+        consumerEnergyValues.add(received);
+
+        return received;
+    }
+
     private void distributeEnergy(ItemStack itemStack, Level level, Inventory inventory, int slot, boolean selected) {
         List<IEnergyStorage> consumerItems = new LinkedList<>();
         List<Integer> consumerEnergyValues = new LinkedList<>();
@@ -74,22 +95,12 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
 
             ItemStack testItemStack = inventory.getItem(i);
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = testItemStack.getCapability(ForgeCapabilities.ENERGY);
-            if(!energyStorageLazyOptional.isPresent())
-                continue;
-
-            IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-            if(!energyStorage.canReceive())
-                continue;
-
-            int received = energyStorage.receiveEnergy(Math.min(MAX_EXTRACT, getEnergy(itemStack)), true);
-            if(received <= 0)
-                continue;
-
-            consumptionSum += received;
-            consumerItems.add(energyStorage);
-            consumerEnergyValues.add(received);
+            consumptionSum += addConsumerEnergyItem(consumerItems, consumerEnergyValues, itemStack, testItemStack);
         }
+
+        List<ItemStack> curiosItemStacks = CuriosCompatUtils.getCuriosItemStacks(inventory);
+        for(ItemStack testItemStack:curiosItemStacks)
+            consumptionSum += addConsumerEnergyItem(consumerItems, consumerEnergyValues, itemStack, testItemStack);
 
         List<Integer> consumerEnergyDistributed = new LinkedList<>();
         for(int i = 0;i < consumerItems.size();i++)
