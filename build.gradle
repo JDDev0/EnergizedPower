@@ -120,6 +120,7 @@ repositories {
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
     maven { url "https://maven.shedaniel.me" }
     maven { url "https://dvs1.progwml6.com/files/maven/" }
+    maven { url = "https://maven.theillusivec4.top/" }
 
     // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
     flatDir {
@@ -144,6 +145,9 @@ dependencies {
     // JEI integration
     compileOnly fg.deobf("mezz.jei:jei-1.18.2-common-api:10.2.1.283")
     compileOnly fg.deobf("mezz.jei:jei-1.18.2-forge-api:10.2.1.283")
+
+    // Curios integration
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.9.0:api")
 
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
