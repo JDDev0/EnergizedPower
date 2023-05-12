@@ -1,0 +1,34 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": [
+    {
+      "item": "minecraft:oak_button"
+    },
+    {
+      "item": "minecraft:spruce_button"
+    },
+    {
+      "item": "minecraft:birch_button"
+    },
+    {
+      "item": "minecraft:jungle_button"
+    },
+    {
+      "item": "minecraft:acacia_button"
+    },
+    {
+      "item": "minecraft:dark_oak_button"
+    },
+    {
+      "item": "minecraft:crimson_button"
+    },
+    {
+      "item": "minecraft:warped_button"
+    }
+  ],
+  "output": {
+    "item": "minecraft:stick",
+    "count": 3
+  },
+  "sawdustAmount": 1
+}
