@@ -25,7 +25,7 @@ public class WeatherControllerMenu extends ScreenHandler implements EnergyStorag
 
     public WeatherControllerMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
         this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(0),
-                new ArrayPropertyDelegate(15));
+                new ArrayPropertyDelegate(8));
     }
 
     public WeatherControllerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
@@ -35,7 +35,7 @@ public class WeatherControllerMenu extends ScreenHandler implements EnergyStorag
 
         this.inv = inv;
         checkSize(this.inv, 0);
-        checkDataCount(data, 15);
+        checkDataCount(data, 8);
         this.level = playerInventory.player.world;
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -47,11 +47,11 @@ public class WeatherControllerMenu extends ScreenHandler implements EnergyStorag
     }
 
     long getEnergy() {
-        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3), (short)data.get(4), (short)data.get(5));
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1), (short)data.get(2), (short)data.get(3));
     }
 
     long getCapacity() {
-        return ByteUtils.from2ByteChunks((short)data.get(6), (short)data.get(7), (short)data.get(8), (short)data.get(9));
+        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5), (short)data.get(6), (short)data.get(7));
     }
 
     public int getScaledEnergyMeterPos() {
@@ -94,12 +94,12 @@ public class WeatherControllerMenu extends ScreenHandler implements EnergyStorag
     @Override
     public void setEnergy(long energy) {
         for(int i = 0;i < 4;i++)
-            data.set(i + 2, ByteUtils.get2Bytes(energy, i));
+            data.set(i, ByteUtils.get2Bytes(energy, i));
     }
 
     @Override
     public void setCapacity(long capacity) {
         for(int i = 0;i < 4;i++)
-            data.set(i + 6, ByteUtils.get2Bytes(capacity, i));
+            data.set(i + 4, ByteUtils.get2Bytes(capacity, i));
     }
 }
