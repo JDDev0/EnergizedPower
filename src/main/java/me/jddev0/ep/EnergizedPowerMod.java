@@ -96,6 +96,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.TRANSFORMER_N_TO_1_ITEM);
 
             event.accept(ModBlocks.COAL_ENGINE_ITEM);
+            event.accept(ModBlocks.HEAT_GENERATOR_ITEM);
             event.accept(ModBlocks.LIGHTNING_GENERATOR_ITEM);
             event.accept(ModBlocks.SOLAR_PANEL_ITEM_1);
             event.accept(ModBlocks.SOLAR_PANEL_ITEM_2);
