@@ -19,6 +19,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 * Charging Station
 * Energizer
 * Coal Engine
+* Heat Generator (**In next release (v1.7.0)**)
 * Lightning Generator
 * Solar Panels (5 Tiers)
 * Transformers (Can be used to connect different tiers of cables) (1 to n, 3 to 3, and n to 1)
