@@ -120,6 +120,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.BLOCK_PLACER_ITEM);
             event.accept(ModBlocks.CHARGER_ITEM);
             event.accept(ModBlocks.UNCHARGER_ITEM);
+            event.accept(ModBlocks.MINECART_CHARGER_ITEM);
             event.accept(ModBlocks.ENERGIZER_ITEM);
             event.accept(ModBlocks.CHARGING_STATION_ITEM);
             event.accept(ModBlocks.WEATHER_CONTROLLER_ITEM);
