@@ -77,6 +77,11 @@ public final class ModBlocks {
     public static final RegistryObject<Item> TRANSFORMER_N_TO_1_ITEM = ModItems.ITEMS.register("transformer_n_to_1",
             () -> new TransformerBlock.Item(TRANSFORMER_N_TO_1.get(), new Item.Properties(), TransformerBlock.Type.TYPE_N_TO_1));
 
+    public static final RegistryObject<Block> BATTERY_BOX = BLOCKS.register("battery_box",
+            () -> new BatteryBoxBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> BATTERY_BOX_ITEM = createBlockItem("battery_box", BATTERY_BOX);
+
     public static final RegistryObject<Block> AUTO_CRAFTER = BLOCKS.register("auto_crafter",
             () -> new AutoCrafterBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
