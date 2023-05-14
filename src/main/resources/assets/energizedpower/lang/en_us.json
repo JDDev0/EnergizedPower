@@ -68,6 +68,8 @@
   "item.energizedpower.diamond_hammer": "Diamond Hammer",
   "item.energizedpower.netherite_hammer": "Netherite Hammer",
 
+  "item.energizedpower.battery_box_minecart": "Minecart with Battery Box",
+
   "block.energizedpower.silicon_block": "Block of Silicon",
   "item.energizedpower.silicon_block": "Block of Silicon",
 
@@ -227,6 +229,8 @@
 
   "entity.minecraft.villager.energizedpower.electrician": "Electrician",
 
+  "entity.energizedpower.battery_box_minecart": "Minecart with Battery Box",
+
   "recipes.energizedpower.in_world_crafting": "In-World Crafting",
   "recipes.energizedpower.plant_growth_chamber.ticks": "Ticks: %d",
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "Growth Chamber (Fertilizer)",
@@ -345,6 +349,9 @@
 
   "advancements.energizedpower.hammer.title": "A good tool",
   "advancements.energizedpower.hammer.description": "Hammers can be used to craft plates.",
+
+  "advancements.energizedpower.battery_box_minecart.title": "Power on Rails",
+  "advancements.energizedpower.battery_box_minecart.description": "Transport energy on rails.",
 
   "advancements.energizedpower.copper_plate.title": "Copper Plate",
   "advancements.energizedpower.copper_plate.description": "Create a copper plate.",
@@ -545,6 +552,12 @@
 
   "book.energizedpower.page.time_controller.1": "The Time Controller can change the time of the day. It requires energy to do so.",
   "book.energizedpower.page.time_controller.2": "It can not go back in time, the time value will always be incremented.",
+
+
+  "book.energizedpower.page.chapter.entities.title": "Entities",
+  "book.energizedpower.page.chapter.entities": "Things that can move.",
+
+  "book.energizedpower.page.battery_box_minecart": "The Minecart with Battery Box can transport energy on rails.",
 
 
   "book.energizedpower.page.chapter.structures.title": "Structures",
