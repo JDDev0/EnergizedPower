@@ -104,6 +104,8 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.SOLAR_PANEL_ITEM_4);
             event.accept(ModBlocks.SOLAR_PANEL_ITEM_5);
 
+            event.accept(ModBlocks.BATTERY_BOX_ITEM);
+
             event.accept(ModBlocks.POWERED_FURNACE_ITEM);
             event.accept(ModBlocks.AUTO_CRAFTER_ITEM);
             event.accept(ModBlocks.CRUSHER_ITEM);
