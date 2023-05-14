@@ -16,6 +16,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 * Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
 * Charger
 * Uncharger
+* Minecart Charger (**In next release (v1.7.0)**)
 * Charging Station
 * Energizer
 * Coal Engine
