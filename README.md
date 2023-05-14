@@ -17,6 +17,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 * Charger
 * Uncharger
 * Minecart Charger (**In next release (v1.7.0)**)
+* Minecart Uncharger (**In next release (v1.7.0)**)
 * Charging Station
 * Energizer
 * Coal Engine
