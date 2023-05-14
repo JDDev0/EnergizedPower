@@ -16,9 +16,9 @@
     }
   },
   "pattern": [
-    "SbS",
+    "CbC",
     "bBb",
-    "CbC"
+    "SbS"
   ],
   "result": {
     "item": "energizedpower:battery_box"
