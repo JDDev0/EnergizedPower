@@ -32,6 +32,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 ### Energy transportation
 
 * Cables (4 Tiers: Copper, Gold, Energized Copper, and Energized Gold)
+* Minecart with Battery Box (**In next release (v1.7.0)**)
 
 ### Energy Items
 
