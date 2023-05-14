@@ -17,6 +17,8 @@
   "item.energizedpower.good_fertilizer": "Guter Dünger",
   "item.energizedpower.advanced_fertilizer": "Fortgeschrittener Dünger",
 
+  "item.energizedpower.battery_box_minecart": "Batterie-Box-Lore",
+
   "item.energizedpower.basic_solar_cell": "Basis Solarzelle",
   "item.energizedpower.advanced_solar_cell": "Fortgeschrittene Solarzelle",
 
@@ -227,6 +229,8 @@
 
   "entity.minecraft.villager.energizedpower.electrician": "Elektroniker",
 
+  "entity.energizedpower.battery_box_minecart": "Minecart with Battery Box",
+
   "recipes.energizedpower.in_world_crafting": "In-Welt Herstellung",
   "recipes.energizedpower.plant_growth_chamber.ticks": "Ticks: %d",
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "Wachstums-Kammer (Dünger)",
@@ -249,6 +253,9 @@
 
   "advancements.energizedpower.sawmill.title": "Sägen",
   "advancements.energizedpower.sawmill.description": "Sägt Holz.",
+
+  "advancements.energizedpower.battery_box_minecart.title": "Strom auf Schienen",
+  "advancements.energizedpower.battery_box_minecart.description": "Transportiere Stromg auf Schienen.",
 
   "advancements.energizedpower.compressor.title": "Komprimieren",
   "advancements.energizedpower.compressor.description": "Erstellt Platten.",
@@ -545,6 +552,12 @@
 
   "book.energizedpower.page.time_controller.1": "Der Zeit-Controller kann die Zeit des Tages ändern. Um das zu tun, benötigt er Energie.",
   "book.energizedpower.page.time_controller.2": "Er kann nicht in der Zeit zurückreisen, der \"time\"-Wert wird immer inkrementiert.",
+
+
+  "book.energizedpower.page.chapter.entities.title": "Entitäten",
+  "book.energizedpower.page.chapter.entities": "Dinge, die sich bewegen.",
+
+  "book.energizedpower.page.battery_box_minecart": "Die Batterie-Box-Lore kann Energie auf Schienen transportieren.",
 
 
   "book.energizedpower.page.chapter.structures.title": "Strukturen",
