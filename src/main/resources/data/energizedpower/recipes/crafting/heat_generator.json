@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "s": {
+      "tag": "c:silicon"
+    },
+    "S": {
+      "tag": "c:silicon_blocks"
+    },
+    "c": {
+      "tag": "c:copper_plates"
+    },
+    "C": {
+      "item": "energizedpower:coal_engine"
+    }
+  },
+  "pattern": [
+    "cSc",
+    "sCs",
+    "cSc"
+  ],
+  "result": {
+    "item": "energizedpower:heat_generator"
+  }
+}

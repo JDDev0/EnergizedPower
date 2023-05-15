@@ -158,6 +158,11 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
+    public static final BlockEntityType<HeatGeneratorBlockEntity> HEAT_GENERATOR_ENTITY = registerEnergyStorage(
+            createBlockEntity("heat_generator", ModBlocks.HEAT_GENERATOR, HeatGeneratorBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
+
     public static final BlockEntityType<PoweredFurnaceBlockEntity> POWERED_FURNACE_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
                     createBlockEntity("powered_furnace", ModBlocks.POWERED_FURNACE, PoweredFurnaceBlockEntity::new),
