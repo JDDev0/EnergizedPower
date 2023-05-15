@@ -566,6 +566,8 @@
 
   "book.energizedpower.page.charger_uncharger": "Der Lader kann Items laden und der Entlader kann Items entladen.",
 
+  "book.energizedpower.page.minecart_charger_uncharger": "Der Loren-Lader kann Batterie-Box-Loren laden und der Loren-Entlader kann diese entladen.",
+
   "book.energizedpower.page.charging_station": "Die Ladestation kann Items wireless laden.",
 
   "book.energizedpower.page.energizer": "Der Energetisierer kann Items sehr effizient energetisieren.",
