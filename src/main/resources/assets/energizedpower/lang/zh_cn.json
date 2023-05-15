@@ -125,6 +125,9 @@
   "tooltip.energizedpower.transformer.txt.shift.2": "输入面是深色的，有一个较大的菱形。",
   "tooltip.energizedpower.transformer.txt.shift.3": "输出面是较浅的，有一个较小的正方形。",
 
+  "block.energizedpower.battery_box": "Battery Box",
+  "item.energizedpower.battery_box": "Battery Box",
+
 
   "block.energizedpower.solar_panel_1": "太阳能电池板（I级）",
   "item.energizedpower.solar_panel_1": "太阳能电池板（I级）",
@@ -328,6 +331,9 @@
   "advancements.energizedpower.transformers.title": "变压器",
   "advancements.energizedpower.transformers.description": "可以连接到不同类型的电缆。",
 
+  "advancements.energizedpower.battery_box.title": "Battery Box",
+  "advancements.energizedpower.battery_box.description": "Store energy with the Battery Box block.",
+
   "advancements.energizedpower.energized_copper_ingot.title": "充满能量",
   "advancements.energizedpower.energized_copper_ingot.description": "充能铜锭是更好的铜锭。",
 
@@ -501,6 +507,8 @@
 
   "book.energizedpower.page.lightning_generator.1": "人造闪电发生器在每次雷击时产生大量的能量。",
   "book.energizedpower.page.lightning_generator.2": "必须将避雷针防置在该方块时才会生效。",
+
+  "book.energizedpower.page.battery_box": "Battery boxes can store energy. All block faces support insertion and extraction of energy.",
 
   "book.energizedpower.page.powered_furnace": "电炉和普通的熔炉工作原理是一样的。但是电炉使用的是电，而普通熔炉使用的是煤炭；而且电炉比普通熔炉更快。",
 
