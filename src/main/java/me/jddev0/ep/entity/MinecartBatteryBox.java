@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class MinecartBatteryBox extends AbstractMinecart {
     public static final int CAPACITY = 65536;
-    public static final int MAX_TRANSFER = 2048;
+    public static final int MAX_TRANSFER = 512;
 
     private int energy;
 
@@ -40,6 +40,16 @@ public class MinecartBatteryBox extends AbstractMinecart {
 
     public BlockState getDefaultDisplayBlockState() {
         return ModBlocks.BATTERY_BOX.get().defaultBlockState();
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(int energy) {
+        this.energy = energy;
+
+        //TODO sync with client (For future GUI)
     }
 
     @Override

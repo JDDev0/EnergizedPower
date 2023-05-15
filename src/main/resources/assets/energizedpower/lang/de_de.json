@@ -98,6 +98,9 @@
 
   "tooltip.energizedpower.uncharger.item_energy_left.txt": "Dieses Item hat noch %s.",
 
+  "block.energizedpower.minecart_charger": "Loren-Lader",
+  "item.energizedpower.minecart_charger": "Loren-Lader",
+
   "block.energizedpower.copper_cable": "Kupferkabel",
   "item.energizedpower.copper_cable": "Kupferkabel",
 
@@ -403,6 +406,9 @@
 
   "advancements.energizedpower.uncharger.title": "Gib sie zurück!",
   "advancements.energizedpower.uncharger.description": "Entläd deine Energie-Items.",
+
+  "advancements.energizedpower.minecart_charger.title": "Lade die Lore!",
+  "advancements.energizedpower.minecart_charger.description": "Läd Loren.",
 
 
   "book.energizedpower.tooltip.link": "Link öffnen",

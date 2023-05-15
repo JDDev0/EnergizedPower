@@ -61,6 +61,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("uncharger", () -> BlockEntityType.Builder.of(UnchargerBlockEntity::new,
                     ModBlocks.UNCHARGER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<MinecartChargerBlockEntity>> MINECART_CHARGER_ENTITY =
+            BLOCK_ENTITIES.register("minecart_charger", () -> BlockEntityType.Builder.of(MinecartChargerBlockEntity::new,
+                    ModBlocks.MINECART_CHARGER.get()).build(null));
+
     private static RegistryObject<BlockEntityType<SolarPanelBlockEntity>> createSolarPanelBlockEntity(String name,
     RegistryObject<SolarPanelBlock> blockRegistryObject) {
         return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new SolarPanelBlockEntity(blockPos, state,
