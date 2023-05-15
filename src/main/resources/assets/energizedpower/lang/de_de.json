@@ -581,7 +581,7 @@
   "book.energizedpower.page.chapter.entities.title": "Entitäten",
   "book.energizedpower.page.chapter.entities": "Dinge, die sich bewegen.",
 
-  "book.energizedpower.page.battery_box_minecart": "Die Batterie-Box-Lore kann Energie auf Schienen transportieren.",
+  "book.energizedpower.page.battery_box_minecart": "Die Batterie-Box-Lore kann Energie auf Schienen transportieren. Sie kann mit dem Loren-Lader geladen werden und mit dem Loren-Entlader entladen werden.",
 
 
   "book.energizedpower.page.chapter.structures.title": "Strukturen",
