@@ -12,8 +12,8 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
 public class MinecartBatteryBox extends AbstractMinecartEntity {
-    public static final int CAPACITY = 65536;
-    public static final int MAX_TRANSFER = 2048;
+    public static final long CAPACITY = 65536;
+    public static final long MAX_TRANSFER = 512;
 
     private long energy;
 
@@ -40,6 +40,16 @@ public class MinecartBatteryBox extends AbstractMinecartEntity {
 
     public BlockState getDefaultContainedBlock() {
         return ModBlocks.BATTERY_BOX.getDefaultState();
+    }
+
+    public long getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(long energy) {
+        this.energy = energy;
+
+        //TODO sync with client (For future GUI)
     }
 
     @Override

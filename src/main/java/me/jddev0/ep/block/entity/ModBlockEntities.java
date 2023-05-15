@@ -110,6 +110,11 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
+    public static final BlockEntityType<MinecartChargerBlockEntity> MINECART_CHARGER_ENTITY = registerEnergyStorage(
+            createBlockEntity("minecart_charger", ModBlocks.MINECART_CHARGER, MinecartChargerBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
+
     private static BlockEntityType<SolarPanelBlockEntity> createSolarPanelBlockEntity(String name, SolarPanelBlock block) {
         return createBlockEntity(name, block, (blockPos, state) -> new SolarPanelBlockEntity(blockPos, state, block.getTier()));
     }
