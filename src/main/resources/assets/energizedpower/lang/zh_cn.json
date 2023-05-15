@@ -68,6 +68,8 @@
   "item.energizedpower.diamond_hammer": "钻石锤",
   "item.energizedpower.netherite_hammer": "下界合金锤",
 
+  "item.energizedpower.battery_box_minecart": "Minecart with Battery Box",
+
   "block.energizedpower.silicon_block": "硅块",
   "item.energizedpower.silicon_block": "硅块",
 
@@ -227,6 +229,8 @@
 
   "entity.minecraft.villager.energizedpower.electrician": "电工",
 
+  "entity.energizedpower.battery_box_minecart": "Batterie-Box-Lore",
+
   "recipes.energizedpower.in_world_crafting": "世界工匠",
   "recipes.energizedpower.plant_growth_chamber.ticks": "Ticks: %d",
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "Growth Chamber (Fertilizer)",
@@ -358,6 +362,9 @@
 
   "advancements.energizedpower.copper_plate.title": "铜板",
   "advancements.energizedpower.copper_plate.description": "制作一个铜板。",
+
+  "advancements.energizedpower.battery_box_minecart.title": "Power on Rails",
+  "advancements.energizedpower.battery_box_minecart.description": "Transport energy on rails.",
 
   "advancements.energizedpower.iron_plate.title": "打",
   "advancements.energizedpower.iron_plate.description": "制作一个铁板。",
@@ -555,6 +562,12 @@
 
   "book.energizedpower.page.time_controller.1": "时间控制器可以更改一天中的时间，但是需要电力维持。",
   "book.energizedpower.page.time_controller.2": "更改不可撤销，时间会继续向前。",
+
+
+  "book.energizedpower.page.chapter.entities.title": "Entities",
+  "book.energizedpower.page.chapter.entities": "Things that can move.",
+
+  "book.energizedpower.page.battery_box_minecart": "The Minecart with Battery Box can transport energy on rails.",
 
 
   "book.energizedpower.page.chapter.structures.title": "结构",

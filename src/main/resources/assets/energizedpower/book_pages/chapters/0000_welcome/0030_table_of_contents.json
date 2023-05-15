@@ -104,6 +104,29 @@
       "font": "uniform",
       "extra": [
         {
+          "translate": "book.energizedpower.page.chapter.entities.title",
+          "color": "dark_green",
+          "underlined": true,
+          "clickEvent": {
+            "action": "change_page",
+            "value": "energizedpower:chapters/0045_entities/0000_entities_chapter"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.tooltip.page"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "text": "\n\n• ",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
           "translate": "book.energizedpower.page.chapter.structures.title",
           "color": "dark_green",
           "underlined": true,
