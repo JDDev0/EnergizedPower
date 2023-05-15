@@ -80,6 +80,12 @@ public final class ModBlocks {
     public static final Item AUTO_CRAFTER_ITEM = createBlockItem("auto_crafter",
             new AutoCrafterBlock.Item(AUTO_CRAFTER, new FabricItemSettings()));
 
+    public static final Block BATTERY_BOX = registerBlock("battery_box",
+            new BatteryBoxBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+
+    public static final Item BATTERY_BOX_ITEM = createBlockItem("battery_box", BATTERY_BOX);
+
     public static final Block CRUSHER = registerBlock("crusher",
             new CrusherBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
