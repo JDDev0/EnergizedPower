@@ -127,6 +127,11 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item MINECART_CHARGER_ITEM = createBlockItem("minecart_charger", MINECART_CHARGER);
 
+    public static final Block MINECART_UNCHARGER = registerBlock("minecart_uncharger",
+            new MinecartUnchargerBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item MINECART_UNCHARGER_ITEM = createBlockItem("minecart_uncharger", MINECART_UNCHARGER);
+
 
     private static Item createSolarPanelBlockItem(String name, SolarPanelBlock block) {
         return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
