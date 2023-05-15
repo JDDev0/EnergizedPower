@@ -125,6 +125,9 @@
   "tooltip.energizedpower.transformer.txt.shift.2": "Die größeren, dunkleren, Rauten-förmigen Seiten sind Eingänge.",
   "tooltip.energizedpower.transformer.txt.shift.3": "Die kleineren, helleren, Quadrat-förmigen Seiten sind Ausgänge.",
 
+  "block.energizedpower.battery_box": "Batterie-Box",
+  "item.energizedpower.battery_box": "Batterie-Box",
+
 
   "block.energizedpower.solar_panel_1": "Solarpanel (MK I)",
   "item.energizedpower.solar_panel_1": "Solarpanel (MK I)",
@@ -338,6 +341,9 @@
   "advancements.energizedpower.transformers.title": "Trafos",
   "advancements.energizedpower.transformers.description": "Trafos können verschiedene Kabeltypen verbinden.",
 
+  "advancements.energizedpower.battery_box.title": "Batterie-Box",
+  "advancements.energizedpower.battery_box.description": "Speichere Strom mit dem Batterie-Box-Block.",
+
   "advancements.energizedpower.energized_copper_ingot.title": "Energetisiert",
   "advancements.energizedpower.energized_copper_ingot.description": "Energetisiertes Kupfer ist besser als Kupfer.",
 
@@ -511,6 +517,8 @@
 
   "book.energizedpower.page.lightning_generator.1": "Der Blitz-Generator produziert viel Energie pro Blitzeinschlag.",
   "book.energizedpower.page.lightning_generator.2": "Ein Blitzableiter muss über diesen Block platziert werden.",
+
+  "book.energizedpower.page.battery_box": "Batterie-Boxen können Strom speichern. Alle Block-Seiten unterstützen Strom-Ein- und Ausgabe.",
 
   "book.energizedpower.page.powered_furnace": "Der Elektroofen funktioniert wie ein Ofen, verwendet aber statt Kohle Strom. Er ist auch schneller als der normale Ofen.",
 

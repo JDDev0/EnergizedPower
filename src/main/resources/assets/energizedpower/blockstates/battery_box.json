@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "energizedpower:block/battery_box" }
+  }
+}

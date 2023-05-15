@@ -151,6 +151,11 @@ public final class ModBlockEntities {
             TransformerBlockEntity::getEnergyStorageForDirection
     );
 
+    public static final BlockEntityType<BatteryBoxBlockEntity> BATTERY_BOX_ENTITY = registerEnergyStorage(
+            createBlockEntity("battery_box", ModBlocks.BATTERY_BOX, BatteryBoxBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
+
     public static final BlockEntityType<CoalEngineBlockEntity> COAL_ENGINE_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
                     createBlockEntity("coal_engine", ModBlocks.COAL_ENGINE, CoalEngineBlockEntity::new),
