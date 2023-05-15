@@ -1,0 +1,10 @@
+accessWidener	v1 named
+
+extendable    method    net/minecraft/entity/vehicle/AbstractMinecartEntity    getItem    ()Lnet/minecraft/item/Item;
+extendable    method    net/minecraft/entity/vehicle/ChestMinecartEntity    getItem    ()Lnet/minecraft/item/Item;
+extendable    method    net/minecraft/entity/vehicle/CommandBlockMinecartEntity    getItem    ()Lnet/minecraft/item/Item;
+extendable    method    net/minecraft/entity/vehicle/FurnaceMinecartEntity    getItem    ()Lnet/minecraft/item/Item;
+extendable    method    net/minecraft/entity/vehicle/HopperMinecartEntity    getItem    ()Lnet/minecraft/item/Item;
+extendable    method    net/minecraft/entity/vehicle/MinecartEntity    getItem    ()Lnet/minecraft/item/Item;
+extendable    method    net/minecraft/entity/vehicle/SpawnerMinecartEntity    getItem    ()Lnet/minecraft/item/Item;
+extendable    method    net/minecraft/entity/vehicle/TntMinecartEntity    getItem    ()Lnet/minecraft/item/Item;

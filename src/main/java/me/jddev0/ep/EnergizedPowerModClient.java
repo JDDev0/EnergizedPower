@@ -1,14 +1,18 @@
 package me.jddev0.ep;
 
+import me.jddev0.ep.entity.ModEntityTypes;
 import me.jddev0.ep.item.ActivatableItem;
 import me.jddev0.ep.item.WorkingItem;
 import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.*;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.render.entity.MinecartEntityRenderer;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.item.Item;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
@@ -42,5 +46,9 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new EnergizedPowerBookReloadListener());
 
         ModMessages.registerPacketsS2C();
+
+        EntityRendererRegistry.register(ModEntityTypes.BATTERY_BOX_MINECART,
+                entity -> new MinecartEntityRenderer<>(entity, new EntityModelLayer(
+                        new Identifier("minecraft", "tnt_minecart"), "main")));
     }
 }
