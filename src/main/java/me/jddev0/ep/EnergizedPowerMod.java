@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.behavior.ModBlockBehaviors;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.entity.ModEntityTypes;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
 import me.jddev0.ep.networking.ModMessages;
@@ -11,6 +12,9 @@ import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.*;
 import me.jddev0.ep.villager.ModVillager;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -40,6 +44,7 @@ public class EnergizedPowerMod {
         ModRecipes.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModVillager.register(modEventBus);
+        ModEntityTypes.register(modEventBus);
 
         ModBlockBehaviors.register();
 
@@ -85,6 +90,10 @@ public class EnergizedPowerMod {
                     return (item instanceof WorkingItem && ((WorkingItem)item).isWorking(itemStack))?1.f:0.f;
                 });
             });
+
+            EntityRenderers.register(ModEntityTypes.BATTERY_BOX_MINECART.get(),
+                    entity -> new MinecartRenderer<>(entity, new ModelLayerLocation(
+                            new ResourceLocation("minecraft", "tnt_minecart"), "main")));
         }
 
         @SubscribeEvent
