@@ -101,6 +101,9 @@
   "block.energizedpower.minecart_charger": "Loren-Lader",
   "item.energizedpower.minecart_charger": "Loren-Lader",
 
+  "block.energizedpower.minecart_uncharger": "Loren-Entlader",
+  "item.energizedpower.minecart_uncharger": "Loren-Entlader",
+
   "block.energizedpower.copper_cable": "Kupferkabel",
   "item.energizedpower.copper_cable": "Kupferkabel",
 
@@ -419,6 +422,9 @@
 
   "advancements.energizedpower.minecart_charger.title": "Lade die Lore!",
   "advancements.energizedpower.minecart_charger.description": "Läd Loren.",
+
+  "advancements.energizedpower.minecart_uncharger.title": "Entalde die Lore!",
+  "advancements.energizedpower.minecart_uncharger.description": "Entläd Loren.",
 
 
   "book.energizedpower.tooltip.link": "Link öffnen",
