@@ -98,6 +98,9 @@
 
   "tooltip.energizedpower.uncharger.item_energy_left.txt": "This item has %s left.",
 
+  "block.energizedpower.minecart_charger": "Minecart Charger",
+  "item.energizedpower.minecart_charger": "Minecart Charger",
+
   "block.energizedpower.copper_cable": "Copper Cable",
   "item.energizedpower.copper_cable": "Copper Cable",
 
@@ -413,6 +416,9 @@
 
   "advancements.energizedpower.uncharger.title": "Give it back!",
   "advancements.energizedpower.uncharger.description": "Uncharges your energy items.",
+
+  "advancements.energizedpower.minecart_charger.title": "Charge the minecart!",
+  "advancements.energizedpower.minecart_charger.description": "Charges minecarts.",
 
 
   "book.energizedpower.tooltip.link": "Open link",
