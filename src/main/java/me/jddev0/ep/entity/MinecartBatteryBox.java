@@ -29,7 +29,7 @@ public class MinecartBatteryBox extends AbstractMinecart {
     public void destroy(DamageSource damageSource) {
         super.destroy(damageSource);
 
-        if(!damageSource.isExplosion() && this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS))
+        if(this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS))
             this.spawnAtLocation(ModBlocks.BATTERY_BOX_ITEM.get());
     }
 
