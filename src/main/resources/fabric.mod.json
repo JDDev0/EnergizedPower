@@ -33,6 +33,7 @@
 	"mixins": [
 		"energizedpower.mixins.json"
 	],
+	"accessWidener" : "energizedpower.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.14.13",
 		"minecraft": "~1.19.2",
