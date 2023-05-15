@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "energizedpower:block/minecart_charger_vertical"
+    },
+    "facing=down": {
+      "model": "energizedpower:block/minecart_charger_vertical",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "energizedpower:block/minecart_charger",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "energizedpower:block/minecart_charger"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/minecart_charger",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/minecart_charger",
+      "y": 270
+    }
+  }
+}
