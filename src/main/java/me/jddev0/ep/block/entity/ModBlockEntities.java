@@ -90,6 +90,10 @@ public final class ModBlockEntities {
                             new TransformerBlockEntity(blockPos, state, TransformerBlock.Type.TYPE_N_TO_1),
                     ModBlocks.TRANSFORMER_N_TO_1.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<BatteryBoxBlockEntity>> BATTERY_BOX_ENTITY =
+            BLOCK_ENTITIES.register("battery_box", () -> BlockEntityType.Builder.of(BatteryBoxBlockEntity::new,
+                    ModBlocks.BATTERY_BOX.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<CoalEngineBlockEntity>> COAL_ENGINE_ENTITY =
             BLOCK_ENTITIES.register("coal_engine", () -> BlockEntityType.Builder.of(CoalEngineBlockEntity::new,
                     ModBlocks.COAL_ENGINE.get()).build(null));
