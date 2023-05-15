@@ -146,6 +146,9 @@
 
   "tooltip.energizedpower.coal_engine.txt": "This items will produce %s until burned",
 
+  "block.energizedpower.heat_generator": "Heat Generator",
+  "item.energizedpower.heat_generator": "Heat Generator",
+
   "block.energizedpower.powered_furnace": "Powered Furnace",
   "item.energizedpower.powered_furnace": "Powered Furnace",
   "container.energizedpower.powered_furnace": "Powered Furnace",
@@ -313,6 +316,9 @@
 
   "advancements.energizedpower.coal_engine.title": "Powered by Coal",
   "advancements.energizedpower.coal_engine.description": "Producing energy by burning stuff might not be the most efficient but good enough for the moment.",
+
+  "advancements.energizedpower.heat_generator.title": "Powered by Heat",
+  "advancements.energizedpower.heat_generator.description": "Convert heat to energy.",
 
   "advancements.energizedpower.powered_furnace.title": "Powered Furnace",
   "advancements.energizedpower.powered_furnace.description": "Furnace with power.",
@@ -499,6 +505,9 @@
 
   "book.energizedpower.page.coal_engine.1": "The Coal Engine produces energy by burning items.",
   "book.energizedpower.page.coal_engine.2": "Remainder items can be extracted automatically.",
+
+  "book.energizedpower.page.heat_generator.1": "The Heat Generator produces energy if flowing or still lava touches the block.",
+  "book.energizedpower.page.heat_generator.2": "The more lava blocks are touching, the more energy per tick will be produced.",
 
   "book.energizedpower.page.lightning_generator.1": "The lightning generator produces high amounts of energy per lightning strike.",
   "book.energizedpower.page.lightning_generator.2": "A lightning rod block must be place above this block for it to function.",
