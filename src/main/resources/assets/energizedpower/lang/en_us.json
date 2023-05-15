@@ -101,6 +101,9 @@
   "block.energizedpower.minecart_charger": "Minecart Charger",
   "item.energizedpower.minecart_charger": "Minecart Charger",
 
+  "block.energizedpower.minecart_uncharger": "Minecart Uncharger",
+  "item.energizedpower.minecart_uncharger": "Minecart Uncharger",
+
   "block.energizedpower.copper_cable": "Copper Cable",
   "item.energizedpower.copper_cable": "Copper Cable",
 
@@ -409,6 +412,9 @@
 
   "advancements.energizedpower.minecart_charger.title": "Charge the minecart!",
   "advancements.energizedpower.minecart_charger.description": "Charges minecarts.",
+
+  "advancements.energizedpower.minecart_uncharger.title": "Uncharge the minecart!",
+  "advancements.energizedpower.minecart_uncharger.description": "Uncharges minecarts.",
 
 
   "book.energizedpower.tooltip.link": "Open link",
