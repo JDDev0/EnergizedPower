@@ -1,0 +1,21 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.heat_generator.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.heat_generator.2",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform"
+    }
+  ],
+  "block": "energizedpower:heat_generator"
+}

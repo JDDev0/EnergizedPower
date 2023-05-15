@@ -146,6 +146,9 @@
 
   "tooltip.energizedpower.coal_engine.txt": "这个物品将产生 %s，直到被烧毁。",
 
+  "block.energizedpower.heat_generator": "Heat Generator",
+  "item.energizedpower.heat_generator": "Heat Generator",
+
   "block.energizedpower.powered_furnace": "电炉",
   "item.energizedpower.powered_furnace": "电炉",
   "container.energizedpower.powered_furnace": "电炉",
@@ -313,6 +316,9 @@
 
   "advancements.energizedpower.coal_engine.title": "煤的力量",
   "advancements.energizedpower.coal_engine.description": "通过烧东西来生产能量虽然不是最有好的，但目前来说已经最好的。",
+
+  "advancements.energizedpower.heat_generator.title": "Powered by Heat",
+  "advancements.energizedpower.heat_generator.description": "Convert heat to energy.",
 
   "advancements.energizedpower.powered_furnace.title": "电炉",
   "advancements.energizedpower.powered_furnace.description": "有动力的炉子。",
@@ -499,6 +505,9 @@
 
   "book.energizedpower.page.coal_engine.1": "煤炭发动机通过燃烧物品产生能量。",
   "book.energizedpower.page.coal_engine.2": "剩余的物品将自动拿出。",
+
+  "book.energizedpower.page.heat_generator.1": "The Heat Generator produces energy if flowing or still lava touches the block.",
+  "book.energizedpower.page.heat_generator.2": "The more lava blocks are touching, the more energy per tick will be produced.",
 
   "book.energizedpower.page.lightning_generator.1": "人造闪电发生器在每次雷击时产生大量的能量。",
   "book.energizedpower.page.lightning_generator.2": "必须将避雷针防置在该方块时才会生效。",
