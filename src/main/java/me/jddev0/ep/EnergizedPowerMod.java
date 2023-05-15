@@ -3,6 +3,7 @@ package me.jddev0.ep;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.behavior.ModBlockBehaviors;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.entity.ModEntityTypes;
 import me.jddev0.ep.event.PlayerInteractHandler;
 import me.jddev0.ep.event.ServerStartingHandler;
 import me.jddev0.ep.item.*;
@@ -35,6 +36,7 @@ public class EnergizedPowerMod implements ModInitializer {
 		ModRecipes.register();
 		ModMenuTypes.register();
 		ModVillager.register();
+		ModEntityTypes.register();
 
 		ModBlockBehaviors.register();
 
@@ -118,6 +120,8 @@ public class EnergizedPowerMod implements ModInitializer {
 		addEmptyAndFullyChargedItem(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.BATTERY_6, BatteryItem.Tier.BATTERY_6.getCapacity());
 		addEmptyAndFullyChargedItem(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.BATTERY_7, BatteryItem.Tier.BATTERY_7.getCapacity());
 		addEmptyAndFullyChargedItem(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.BATTERY_8, BatteryItem.Tier.BATTERY_8.getCapacity());
+
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.BATTERY_BOX_MINECART);
 
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.BASIC_MACHINE_FRAME_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ADVANCED_MACHINE_FRAME_ITEM);
