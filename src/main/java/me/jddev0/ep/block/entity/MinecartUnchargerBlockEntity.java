@@ -9,6 +9,7 @@ import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -44,6 +45,24 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements EnergyS
                     ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
             }
         };
+    }
+
+    public int getRedstoneOutput() {
+        BlockPos blockPosFacing = getBlockPos().relative(getBlockState().getValue(MinecartUnchargerBlock.FACING));
+        List<MinecartBatteryBox> minecarts = level.getEntities(EntityTypeTest.forClass(MinecartBatteryBox.class),
+                new AABB(blockPosFacing.getX(), blockPosFacing.getY(),
+                        blockPosFacing.getZ(), blockPosFacing.getX() + 1,
+                        blockPosFacing.getY() + 1, blockPosFacing.getZ() + 1),
+                EntitySelector.ENTITY_STILL_ALIVE);
+        if(minecarts.isEmpty())
+            return 0;
+
+        MinecartBatteryBox minecart = minecarts.get(0);
+
+        int minecartEnergy = minecart.getEnergy();
+        boolean isEmptyFlag = minecartEnergy == 0;
+
+        return Math.min(Mth.floor((float)minecartEnergy / MinecartBatteryBox.CAPACITY * 14.f) + (isEmptyFlag?0:1), 15);
     }
 
     @Override
