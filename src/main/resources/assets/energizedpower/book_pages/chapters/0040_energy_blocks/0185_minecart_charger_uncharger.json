@@ -1,8 +1,18 @@
 {
-  "content": {
-    "translate": "book.energizedpower.page.minecart_charger_uncharger",
-    "bold": true,
-    "font": "uniform"
-  },
+  "content": [
+    {
+      "translate": "book.energizedpower.page.minecart_charger_uncharger.1",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        " "
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.minecart_charger_uncharger.2",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
   "block": "energizedpower:minecart_charger"
 }

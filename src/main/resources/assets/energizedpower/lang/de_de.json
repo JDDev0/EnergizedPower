@@ -566,7 +566,8 @@
 
   "book.energizedpower.page.charger_uncharger": "Der Lader kann Items laden und der Entlader kann Items entladen.",
 
-  "book.energizedpower.page.minecart_charger_uncharger": "Der Loren-Lader kann Batterie-Box-Loren laden und der Loren-Entlader kann diese entladen.",
+  "book.energizedpower.page.minecart_charger_uncharger.1": "Der Loren-Lader kann Batterie-Box-Loren laden und der Loren-Entlader kann diese entladen.",
+  "book.energizedpower.page.minecart_charger_uncharger.2": "Mit einem Redstone-Komparator kann der aktuelle Ladestand einer Lore, die ge- oder entladen wird, ausgelesen werden.",
 
   "book.energizedpower.page.charging_station": "Die Ladestation kann Items wireless laden.",
 
