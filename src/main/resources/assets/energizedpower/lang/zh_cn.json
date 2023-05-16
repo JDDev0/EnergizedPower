@@ -566,7 +566,8 @@
 
   "book.energizedpower.page.charger_uncharger": "充能站可以为物品充能，放能站可以将物品中的能量释放到网络中。",
 
-  "book.energizedpower.page.minecart_charger_uncharger": "The Minecart Charger can charge the Minecart with Battery Box and the Uncharger can uncharge it.",
+  "book.energizedpower.page.minecart_charger_uncharger.1": "The Minecart Charger can charge the Minecart with Battery Box and the Uncharger can uncharge it.",
+  "book.energizedpower.page.minecart_charger_uncharger.2": "A Redstone Comparator can be used to get the current power level of a Minecart which is being charged or uncharged.",
 
   "book.energizedpower.page.charging_station": "无线充能站可以在一定的范围内为玩家物品栏中的物品充能。",
 
