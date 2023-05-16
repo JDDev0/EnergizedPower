@@ -37,6 +37,20 @@ public class MinecartUnchargerBlock extends BaseEntityBlock {
     }
 
     @Override
+    public boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos) {
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof MinecartUnchargerBlockEntity energizerBlockEntity))
+            return super.getAnalogOutputSignal(state, level, blockPos);
+
+        return energizerBlockEntity.getRedstoneOutput();
+    }
+
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
     }
