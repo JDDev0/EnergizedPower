@@ -4,6 +4,10 @@ import me.jddev0.ep.block.entity.MinecartUnchargerBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
@@ -14,6 +18,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class MinecartUnchargerBlock extends BaseEntityBlock {
@@ -48,6 +54,20 @@ public class MinecartUnchargerBlock extends BaseEntityBlock {
             return super.getAnalogOutputSignal(state, level, blockPos);
 
         return energizerBlockEntity.getRedstoneOutput();
+    }
+
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos blockPos, Player player, InteractionHand handItem, BlockHitResult hit) {
+        if(level.isClientSide())
+            return InteractionResult.sidedSuccess(level.isClientSide());
+
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof MinecartUnchargerBlockEntity))
+            throw new IllegalStateException("Container is invalid");
+
+        NetworkHooks.openScreen((ServerPlayer)player, (MinecartUnchargerBlockEntity)blockEntity, blockPos);
+
+        return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
     @Override
