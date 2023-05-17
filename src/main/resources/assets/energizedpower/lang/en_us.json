@@ -499,6 +499,19 @@
   "book.energizedpower.page.chapter.energy_blocks.title": "Energy Blocks",
   "book.energizedpower.page.chapter.energy_blocks": "Blocks producing, powered by, or transporting energy.",
 
+  "book.energizedpower.page.energy_blocks.table_of_contents.title": "Table of Contents\n(Energy Blocks)",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.general.title": "General",
+  "book.energizedpower.page.chapter.energy_blocks.general": "General information for energy blocks",
+
+  "book.energizedpower.page.machine_frames.1": "Machine Frames are the base crafting block for every machine.",
+  "book.energizedpower.page.machine_frames.2": "There are two machine frames: Basic and Advanced",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_transportation.title": "Transportation",
+  "book.energizedpower.page.chapter.energy_blocks.energy_transportation": "Blocks for energy transportation",
+
   "book.energizedpower.page.cables.1": "Cables are used to transport energy from producer blocks to consumer blocks.",
   "book.energizedpower.page.cables.2": "There are four types of cables.",
   "book.energizedpower.page.cables.3": "A transformer is required to connect cables of different tiers.",
@@ -513,8 +526,18 @@
   "book.energizedpower.page.transformers_2.4": "Transformers can be used as battery blocks.",
   "book.energizedpower.page.transformers_2.5": "Transformers can be used to extract energy from AE2 energy tunnels.",
 
-  "book.energizedpower.page.machine_frames.1": "Machine Frames are the base crafting block for every machine.",
-  "book.energizedpower.page.machine_frames.2": "There are two machine frames: Basic and Advanced",
+  "book.energizedpower.page.minecart_charger_uncharger.1": "The Minecart Charger can charge the Minecart with Battery Box and the Uncharger can uncharge it.",
+  "book.energizedpower.page.minecart_charger_uncharger.2": "A Redstone Comparator can be used to get the current power level of a Minecart which is being charged or uncharged.",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_storage.title": "Storage",
+  "book.energizedpower.page.chapter.energy_blocks.energy_storage": "Blocks for energy storage",
+
+  "book.energizedpower.page.battery_box": "Battery boxes can store energy. All block faces support insertion and extraction of energy.",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_production.title": "Production",
+  "book.energizedpower.page.chapter.energy_blocks.energy_production": "Blocks for energy production",
 
   "book.energizedpower.page.solar_cells.1": "Solar Cells are the base crafting item for every solar panel.",
   "book.energizedpower.page.solar_cells.2": "There are two solar cells: Basic and Advanced",
@@ -532,7 +555,9 @@
   "book.energizedpower.page.lightning_generator.1": "The lightning generator produces high amounts of energy per lightning strike.",
   "book.energizedpower.page.lightning_generator.2": "A lightning rod block must be place above this block for it to function.",
 
-  "book.energizedpower.page.battery_box": "Battery boxes can store energy. All block faces support insertion and extraction of energy.",
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_consumption.title": "Consumption",
+  "book.energizedpower.page.chapter.energy_blocks.energy_consumption": "Blocks for energy consumption",
 
   "book.energizedpower.page.powered_furnace": "The Powered Furnace works like the Furnace. Instead of coal it uses power. Additionally it is faster than the normal furnace.",
 
@@ -560,9 +585,6 @@
   "book.energizedpower.page.block_placer.2": "Blocks will only be placed if possible.",
 
   "book.energizedpower.page.charger_uncharger": "The Charger can charge items and the Uncharger can uncharge items.",
-
-  "book.energizedpower.page.minecart_charger_uncharger.1": "The Minecart Charger can charge the Minecart with Battery Box and the Uncharger can uncharge it.",
-  "book.energizedpower.page.minecart_charger_uncharger.2": "A Redstone Comparator can be used to get the current power level of a Minecart which is being charged or uncharged.",
 
   "book.energizedpower.page.charging_station": "The Charging Station can charge items wirelessly.",
 
