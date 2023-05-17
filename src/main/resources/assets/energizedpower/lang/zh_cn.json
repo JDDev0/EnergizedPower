@@ -499,6 +499,19 @@
   "book.energizedpower.page.chapter.energy_blocks.title": "能量方块",
   "book.energizedpower.page.chapter.energy_blocks": "可以生产能源、由能源驱动或运输能源的方块。",
 
+  "book.energizedpower.page.energy_blocks.table_of_contents.title": "目录 (能量方块)",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.general.title": "General",
+  "book.energizedpower.page.chapter.energy_blocks.general": "General information for energy blocks",
+
+  "book.energizedpower.page.machine_frames.1": "机器框架是每个机器的基本方块。",
+  "book.energizedpower.page.machine_frames.2": "一共有两种机器框架：基本机器框架和高级机器框架。",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_transportation.title": "Transportation",
+  "book.energizedpower.page.chapter.energy_blocks.energy_transportation": "Blocks for energy transportation",
+
   "book.energizedpower.page.cables.1": "电缆是将从生能源的方块向由能源驱动输送能源的方块。",
   "book.energizedpower.page.cables.2": "共有四种类型的电缆。",
   "book.energizedpower.page.cables.3": "如果有不同类型的电缆，需要变压器来连接这些电缆。",
@@ -513,8 +526,18 @@
   "book.energizedpower.page.transformers_2.4": "变压器可以当作一个电池组。",
   "book.energizedpower.page.transformers_2.5": "变压器可以连接 AE2 中的电缆来获取能量。",
 
-  "book.energizedpower.page.machine_frames.1": "机器框架是每个机器的基本方块。",
-  "book.energizedpower.page.machine_frames.2": "一共有两种机器框架：基本机器框架和高级机器框架。",
+  "book.energizedpower.page.minecart_charger_uncharger.1": "The Minecart Charger can charge the Minecart with Battery Box and the Uncharger can uncharge it.",
+  "book.energizedpower.page.minecart_charger_uncharger.2": "A Redstone Comparator can be used to get the current power level of a Minecart which is being charged or uncharged.",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_storage.title": "Storage",
+  "book.energizedpower.page.chapter.energy_blocks.energy_storage": "Blocks for energy storage",
+
+  "book.energizedpower.page.battery_box": "Battery boxes can store energy. All block faces support insertion and extraction of energy.",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_production.title": "Production",
+  "book.energizedpower.page.chapter.energy_blocks.energy_production": "Blocks for energy production",
 
   "book.energizedpower.page.solar_cells.1": "太阳能单元是制作太阳能电池板的基本物品。",
   "book.energizedpower.page.solar_cells.2": "一共有两种太阳能电池板：基本太阳能单元和高级太阳能单元。",
@@ -532,7 +555,9 @@
   "book.energizedpower.page.lightning_generator.1": "人造闪电发生器在每次雷击时产生大量的能量。",
   "book.energizedpower.page.lightning_generator.2": "必须将避雷针防置在该方块时才会生效。",
 
-  "book.energizedpower.page.battery_box": "Battery boxes can store energy. All block faces support insertion and extraction of energy.",
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_consumption.title": "Consumption",
+  "book.energizedpower.page.chapter.energy_blocks.energy_consumption": "Blocks for energy consumption",
 
   "book.energizedpower.page.powered_furnace": "电炉和普通的熔炉工作原理是一样的。但是电炉使用的是电，而普通熔炉使用的是煤炭；而且电炉比普通熔炉更快。",
 
@@ -560,9 +585,6 @@
   "book.energizedpower.page.block_placer.2": "只有在可以放置方块的情况下才会放置方块。",
 
   "book.energizedpower.page.charger_uncharger": "充能站可以为物品充能，放能站可以将物品中的能量释放到网络中。",
-
-  "book.energizedpower.page.minecart_charger_uncharger.1": "The Minecart Charger can charge the Minecart with Battery Box and the Uncharger can uncharge it.",
-  "book.energizedpower.page.minecart_charger_uncharger.2": "A Redstone Comparator can be used to get the current power level of a Minecart which is being charged or uncharged.",
 
   "book.energizedpower.page.charging_station": "无线充能站可以在一定的范围内为玩家物品栏中的物品充能。",
 
