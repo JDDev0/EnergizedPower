@@ -74,7 +74,7 @@ public class CrusherBlockEntity extends BlockEntity implements MenuProvider, Ene
 
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
-    protected  final ContainerData data;
+    protected final ContainerData data;
     private int progress;
     private int maxProgress = 100;
     private int energyConsumptionLeft = -1;

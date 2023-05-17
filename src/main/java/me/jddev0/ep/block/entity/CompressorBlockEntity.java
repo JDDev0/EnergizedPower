@@ -74,7 +74,7 @@ public class CompressorBlockEntity extends BlockEntity implements MenuProvider, 
 
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
-    protected  final ContainerData data;
+    protected final ContainerData data;
     private int progress;
     private int maxProgress = 100;
     private int energyConsumptionLeft = -1;

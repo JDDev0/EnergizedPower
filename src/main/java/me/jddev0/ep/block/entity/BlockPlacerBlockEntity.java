@@ -79,7 +79,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
 
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
-    protected  final ContainerData data;
+    protected final ContainerData data;
     private int progress;
     private int maxProgress = 20;
     private int energyConsumptionLeft = -1;

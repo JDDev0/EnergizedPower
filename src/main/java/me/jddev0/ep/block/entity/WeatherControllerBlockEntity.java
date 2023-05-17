@@ -31,7 +31,7 @@ public class WeatherControllerBlockEntity extends BlockEntity implements MenuPro
 
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
-    protected  final ContainerData data;
+    protected final ContainerData data;
 
     public WeatherControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.WEATHER_CONTROLLER_ENTITY.get(), blockPos, blockState);
