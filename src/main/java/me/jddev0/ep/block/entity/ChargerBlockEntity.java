@@ -108,7 +108,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
 
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
-    protected  final ContainerData data;
+    protected final ContainerData data;
     private int energyConsumptionLeft = -1;
 
     public ChargerBlockEntity(BlockPos blockPos, BlockState blockState) {

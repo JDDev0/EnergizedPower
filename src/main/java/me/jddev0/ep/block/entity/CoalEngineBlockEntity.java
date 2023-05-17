@@ -69,7 +69,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
     private final ExtractOnlyEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
-    protected  final ContainerData data;
+    protected final ContainerData data;
     private int progress;
     private int maxProgress;
     private int energyProductionLeft = -1;
