@@ -100,9 +100,11 @@
 
   "block.energizedpower.minecart_charger": "Minecart Charger",
   "item.energizedpower.minecart_charger": "Minecart Charger",
+  "container.energizedpower.minecart_charger": "Minecart Charger",
 
   "block.energizedpower.minecart_uncharger": "Minecart Uncharger",
   "item.energizedpower.minecart_uncharger": "Minecart Uncharger",
+  "container.energizedpower.minecart_uncharger": "Minecart Uncharger",
 
   "block.energizedpower.copper_cable": "Copper Cable",
   "item.energizedpower.copper_cable": "Copper Cable",
@@ -135,6 +137,7 @@
 
   "block.energizedpower.battery_box": "Battery Box",
   "item.energizedpower.battery_box": "Battery Box",
+  "container.energizedpower.battery_box": "Battery Box",
 
 
   "block.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
@@ -159,6 +162,7 @@
 
   "block.energizedpower.heat_generator": "Heat Generator",
   "item.energizedpower.heat_generator": "Heat Generator",
+  "container.energizedpower.heat_generator": "Heat Generator",
 
   "block.energizedpower.powered_furnace": "Powered Furnace",
   "item.energizedpower.powered_furnace": "Powered Furnace",
@@ -188,6 +192,7 @@
 
   "block.energizedpower.lightning_generator": "Lightning Generator",
   "item.energizedpower.lightning_generator": "Lightning Generator",
+  "container.energizedpower.lightning_generator": "Lightning Generator",
 
   "tooltip.energizedpower.lightning_generator.txt.shift.1": "This block produces %s per lightning strike.",
   "tooltip.energizedpower.lightning_generator.txt.shift.2": "A lightning rod block must be place above this block for it to function",

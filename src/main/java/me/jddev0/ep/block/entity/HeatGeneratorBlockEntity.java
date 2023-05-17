@@ -1,13 +1,20 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.LightningGeneratorBlock;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
+import me.jddev0.ep.screen.HeatGeneratorMenu;
+import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,13 +30,15 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class HeatGeneratorBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
+public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
     public static final int ENERGY_PER_FACE_TOUCHING_LAVA = 25;
 
     public static final int MAX_EXTRACT = 6 * ENERGY_PER_FACE_TOUCHING_LAVA;
 
     private final ExtractOnlyEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+
+    protected final ContainerData data;
 
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.HEAT_GENERATOR_ENTITY.get(), blockPos, blockState);
@@ -46,6 +55,44 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements EnergyStora
                     ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
             }
         };
+        data = new ContainerData() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1 -> ByteUtils.get2Bytes(HeatGeneratorBlockEntity.this.energyStorage.getEnergy(), index);
+                    case 2, 3 -> ByteUtils.get2Bytes(HeatGeneratorBlockEntity.this.energyStorage.getCapacity(), index - 2);
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1 -> HeatGeneratorBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
+                            HeatGeneratorBlockEntity.this.energyStorage.getEnergy(), (short)value, index
+                    ));
+                    case 2, 3 -> HeatGeneratorBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
+                            HeatGeneratorBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 2
+                    ));
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 4;
+            }
+        };
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable("container.energizedpower.heat_generator");
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        return new HeatGeneratorMenu(id, inventory, this, this.data);
     }
 
     @Override
