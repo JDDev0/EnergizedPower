@@ -32,7 +32,7 @@ public class TimeControllerBlockEntity extends BlockEntity implements MenuProvid
 
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
-    protected  final ContainerData data;
+    protected final ContainerData data;
 
     public TimeControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.TIME_CONTROLLER_ENTITY.get(), blockPos, blockState);

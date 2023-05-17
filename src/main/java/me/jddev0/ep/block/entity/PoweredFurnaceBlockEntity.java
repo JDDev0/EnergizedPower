@@ -78,7 +78,7 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
 
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
-    protected  final ContainerData data;
+    protected final ContainerData data;
     private int progress;
     private int maxProgress;
     private int energyConsumptionLeft = -1;

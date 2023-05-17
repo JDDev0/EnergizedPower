@@ -102,7 +102,7 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
 
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
-    protected  final ContainerData data;
+    protected final ContainerData data;
     private int energyProductionLeft = -1;
 
     public UnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {

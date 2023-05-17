@@ -91,7 +91,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
 
     public final static int ENERGY_CONSUMPTION_PER_ITEM = 2;
 
-    protected  final ContainerData data;
+    protected final ContainerData data;
     private int progress;
     private int maxProgress = 100;
     private int energyConsumptionLeft = -1;
