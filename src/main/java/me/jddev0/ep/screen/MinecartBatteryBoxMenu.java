@@ -44,7 +44,6 @@ public class MinecartBatteryBoxMenu extends AbstractContainerMenu implements Ene
         return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
     }
 
-
     @Override
     public int getScaledEnergyMeterPos(int energyBarHeight) {
         int energy = getEnergy();
