@@ -57,6 +57,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<TimeControllerMenu>> TIME_CONTROLLER_MENU = registerMenuType("time_controller",
             TimeControllerMenu::new);
 
+    public static final RegistryObject<MenuType<MinecartBatteryBoxMenu>> MINECART_BATTERY_BOX_MENU = registerMenuType("minecart_battery_box",
+            MinecartBatteryBoxMenu::new);
+
     public static void register(IEventBus modEventBus) {
         MENUS.register(modEventBus);
     }
