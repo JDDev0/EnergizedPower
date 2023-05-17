@@ -10,7 +10,7 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class MinecartBatteryBoxMenu extends AbstractContainerMenu {
+public class MinecartBatteryBoxMenu extends AbstractContainerMenu implements EnergyStorageMenu {
     private final Container container;
     private final Level level;
     private final ContainerData data;
@@ -34,20 +34,23 @@ public class MinecartBatteryBoxMenu extends AbstractContainerMenu {
         addDataSlots(this.data);
     }
 
-    int getEnergy() {
+    @Override
+    public int getEnergy() {
         return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
     }
 
-    int getCapacity() {
+    @Override
+    public int getCapacity() {
         return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
     }
 
-    public int getScaledEnergyMeterPos() {
+
+    @Override
+    public int getScaledEnergyMeterPos(int energyBarHeight) {
         int energy = getEnergy();
         int capacity = getCapacity();
-        int energyBarSize = 52;
 
-        return (energy == 0 || capacity == 0)?0:Math.max(1, energy * energyBarSize / capacity);
+        return (energy == 0 || capacity == 0)?0:Math.max(1, energy * energyBarHeight / capacity);
     }
 
     @Override
