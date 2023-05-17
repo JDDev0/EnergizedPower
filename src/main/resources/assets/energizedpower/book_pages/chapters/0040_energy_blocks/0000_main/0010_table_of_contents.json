@@ -1,7 +1,7 @@
 {
   "content": [
     {
-      "translate": "book.energizedpower.page.table_of_contents.title",
+      "translate": "book.energizedpower.page.energy_blocks.table_of_contents.title",
       "color": "gold",
       "bold": true
     },
@@ -12,12 +12,12 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.chapter.resources.title",
+          "translate": "book.energizedpower.page.chapter.energy_blocks.general.title",
           "color": "dark_green",
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0010_resources/0000_resources_chapter"
+            "value": "energizedpower:chapters/0040_energy_blocks/0010_general/0000_general_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -35,12 +35,12 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.chapter.tools.title",
+          "translate": "book.energizedpower.page.chapter.energy_blocks.energy_transportation.title",
           "color": "dark_green",
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0020_tools/0000_tools_chapter"
+            "value": "energizedpower:chapters/0040_energy_blocks/0020_energy_transportation/0000_energy_transportation_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -58,12 +58,12 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.chapter.energy_items.title",
+          "translate": "book.energizedpower.page.chapter.energy_blocks.energy_storage.title",
           "color": "dark_green",
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0030_energy_items/0000_energy_items_chapter"
+            "value": "energizedpower:chapters/0040_energy_blocks/0030_energy_storage/0000_energy_storage_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -81,12 +81,12 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.chapter.energy_blocks.title",
+          "translate": "book.energizedpower.page.chapter.energy_blocks.energy_production.title",
           "color": "dark_green",
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0040_energy_blocks/0000_main/0000_energy_blocks_chapter"
+            "value": "energizedpower:chapters/0040_energy_blocks/0040_energy_production/0000_energy_production_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -104,35 +104,12 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.chapter.entities.title",
+          "translate": "book.energizedpower.page.chapter.energy_blocks.energy_consumption.title",
           "color": "dark_green",
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0045_entities/0000_entities_chapter"
-          },
-          "hoverEvent": {
-            "action": "show_text",
-            "contents": {
-              "translate": "book.energizedpower.tooltip.page"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "text": "\n\n• ",
-      "color": "black",
-      "bold": true,
-      "font": "uniform",
-      "extra": [
-        {
-          "translate": "book.energizedpower.page.chapter.structures.title",
-          "color": "dark_green",
-          "underlined": true,
-          "clickEvent": {
-            "action": "change_page",
-            "value": "energizedpower:chapters/0050_structures/0000_structures_chapter"
+            "value": "energizedpower:chapters/0040_energy_blocks/0050_energy_consumption/0000_energy_consumption_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
