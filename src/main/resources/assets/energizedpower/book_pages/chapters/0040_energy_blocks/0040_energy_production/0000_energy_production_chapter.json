@@ -1,0 +1,34 @@
+{
+  "title": {
+    "translate": "book.energizedpower.page.chapter.energy_blocks.energy_production.title",
+    "color": "gold"
+  },
+  "content": [
+    {
+      "translate": "book.energizedpower.page.chapter.energy_blocks.energy_production"
+    },
+    {
+      "text": "\n\n",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "translate": "book.energizedpower.page.energy_blocks.table_of_contents.title",
+          "color": "dark_green",
+          "underlined": true,
+          "clickEvent": {
+            "action": "change_page",
+            "value": "energizedpower:chapters/0040_energy_blocks/0000_main/0010_table_of_contents"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.tooltip.page"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
