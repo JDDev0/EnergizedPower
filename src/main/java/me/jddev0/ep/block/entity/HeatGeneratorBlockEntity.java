@@ -33,7 +33,7 @@ import java.util.List;
 public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
     public static final int ENERGY_PER_FACE_TOUCHING_LAVA = 25;
 
-    public static final int MAX_EXTRACT = 6 * ENERGY_PER_FACE_TOUCHING_LAVA;
+    private final int maxExtract;
 
     private final ExtractOnlyEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
@@ -43,7 +43,7 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.HEAT_GENERATOR_ENTITY.get(), blockPos, blockState);
 
-        int maxExtract = ENERGY_PER_FACE_TOUCHING_LAVA * 6; //6 times energy production per face
+        maxExtract = ENERGY_PER_FACE_TOUCHING_LAVA * 6; //6 times energy production per face
         int capacity = maxExtract * 20 * 2; //2 seconds of max extract
 
         energyStorage = new ExtractOnlyEnergyStorage(0, capacity, maxExtract) {
@@ -173,7 +173,7 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
             if(!energyStorage.canReceive())
                 continue;
 
-            int received = energyStorage.receiveEnergy(Math.min(MAX_EXTRACT, blockEntity.energyStorage.getEnergy()), true);
+            int received = energyStorage.receiveEnergy(Math.min(blockEntity.maxExtract, blockEntity.energyStorage.getEnergy()), true);
             if(received <= 0)
                 continue;
 
@@ -186,7 +186,7 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 
-        int consumptionLeft = Math.min(MAX_EXTRACT, Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
+        int consumptionLeft = Math.min(blockEntity.maxExtract, Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
         blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
 
         int divisor = consumerItems.size();
