@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class SolarPanelBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
     private final SolarPanelBlock.Tier tier;
+    private final int maxTransfer;
 
     private final ExtractOnlyEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
@@ -43,7 +44,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements EnergyStorageP
         this.tier = tier;
 
         int fePerTick = tier.getFePerTick();
-        int maxTransfer = fePerTick * 4; //4 times max production
+        maxTransfer = fePerTick * 4; //4 times max production
         int capacity = fePerTick * 20 * 2; //2 seconds of max production
         energyStorage = new ExtractOnlyEnergyStorage(0, capacity, maxTransfer) {
             @Override
@@ -100,7 +101,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements EnergyStorageP
         if(!energyStorage.canReceive())
             return;
 
-        int amount = energyStorage.receiveEnergy(blockEntity.energyStorage.getEnergy(), false);
+        int amount = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getEnergy(), blockEntity.maxTransfer), false);
         if(amount > 0)
             blockEntity.energyStorage.extractEnergy(amount, false);
     }
