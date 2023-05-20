@@ -22,6 +22,7 @@ import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 public class SolarPanelBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
     private final SolarPanelBlock.Tier tier;
+    private final long maxTransfer;
 
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
@@ -42,7 +43,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements EnergyStorageP
         this.tier = tier;
 
         long fePerTick = tier.getFePerTick();
-        long maxTransfer = fePerTick * 4; //4 times max production
+        maxTransfer = fePerTick * 4; //4 times max production
         long capacity = fePerTick * 20 * 2; //2 seconds of max production
         internalEnergyStorage = new SimpleEnergyStorage(capacity, capacity, capacity) {
             @Override
@@ -109,7 +110,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements EnergyStorageP
             return;
 
         try(Transaction transaction = Transaction.openOuter()) {
-            long amount = energyStorage.insert(blockEntity.internalEnergyStorage.amount, transaction);
+            long amount = energyStorage.insert(Math.min(blockEntity.internalEnergyStorage.amount, blockEntity.maxTransfer), transaction);
             blockEntity.energyStorage.extract(amount, transaction);
             transaction.commit();
         }
