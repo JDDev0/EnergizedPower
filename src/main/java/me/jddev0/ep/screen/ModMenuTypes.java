@@ -49,6 +49,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<TimeControllerMenu> TIME_CONTROLLER_MENU = createScreenHandlerType("time_controller",
             new ExtendedScreenHandlerType<>(TimeControllerMenu::new));
 
+    public static final ScreenHandlerType<MinecartBatteryBoxMenu> MINECART_BATTERY_BOX_MENU = createScreenHandlerType("minecart_battery_box",
+            new ScreenHandlerType<>(MinecartBatteryBoxMenu::new));
+
     private static <T extends ScreenHandler> ScreenHandlerType<T> createScreenHandlerType(String name, ScreenHandlerType<T> screenHandlerType) {
         return Registry.register(Registry.SCREEN_HANDLER, new Identifier(EnergizedPowerMod.MODID, name), screenHandlerType);
     }
