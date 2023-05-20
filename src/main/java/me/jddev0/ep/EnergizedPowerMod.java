@@ -101,7 +101,7 @@ public class EnergizedPowerMod {
 
             EntityRenderers.register(ModEntityTypes.BATTERY_BOX_MINECART.get(),
                     entity -> new MinecartRenderer<>(entity, new ModelLayerLocation(
-                            new ResourceLocation("minecraft", "tnt_minecart"), "main")));
+                            new ResourceLocation("minecraft", "chest_minecart"), "main")));
         }
 
         @SubscribeEvent
