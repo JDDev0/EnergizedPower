@@ -100,9 +100,11 @@
 
   "block.energizedpower.minecart_charger": "Loren-Lader",
   "item.energizedpower.minecart_charger": "Loren-Lader",
+  "container.energizedpower.minecart_charger": "Loren-Lader",
 
   "block.energizedpower.minecart_uncharger": "Loren-Entlader",
   "item.energizedpower.minecart_uncharger": "Loren-Entlader",
+  "container.energizedpower.minecart_uncharger": "Loren-Entlader",
 
   "block.energizedpower.copper_cable": "Kupferkabel",
   "item.energizedpower.copper_cable": "Kupferkabel",
@@ -135,6 +137,7 @@
 
   "block.energizedpower.battery_box": "Batterie-Box",
   "item.energizedpower.battery_box": "Batterie-Box",
+  "container.energizedpower.battery_box": "Batterie-Box",
 
 
   "block.energizedpower.solar_panel_1": "Solarpanel (MK I)",
@@ -159,6 +162,7 @@
 
   "block.energizedpower.heat_generator": "Hitzegenerator",
   "item.energizedpower.heat_generator": "Hitzegenerator",
+  "container.energizedpower.heat_generator": "Hitzegenerator",
 
   "block.energizedpower.powered_furnace": "Elektroofen",
   "item.energizedpower.powered_furnace": "Elektroofen",
@@ -188,6 +192,7 @@
 
   "block.energizedpower.lightning_generator": "Blitz-Generator",
   "item.energizedpower.lightning_generator": "Blitz-Generator",
+  "container.energizedpower.lightning_generator": "Blitz-Generator",
 
   "tooltip.energizedpower.lightning_generator.txt.shift.1": "Der Block produziert %s pro Blitzeinschlag.",
   "tooltip.energizedpower.lightning_generator.txt.shift.2": "Ein Blitzableiter muss über diesen Block platziert werden",

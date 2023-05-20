@@ -100,9 +100,11 @@
 
   "block.energizedpower.minecart_charger": "Minecart Charger",
   "item.energizedpower.minecart_charger": "Minecart Charger",
+  "container.energizedpower.minecart_charger": "Minecart Charger",
 
   "block.energizedpower.minecart_uncharger": "Minecart Uncharger",
   "item.energizedpower.minecart_uncharger": "Minecart Uncharger",
+  "container.energizedpower.minecart_uncharger": "Minecart Uncharger",
 
   "block.energizedpower.copper_cable": "绝缘铜质导线",
   "item.energizedpower.copper_cable": "绝缘铜质导线",
@@ -135,6 +137,7 @@
 
   "block.energizedpower.battery_box": "Battery Box",
   "item.energizedpower.battery_box": "Battery Box",
+  "container.energizedpower.battery_box": "Battery Box",
 
 
   "block.energizedpower.solar_panel_1": "太阳能电池板（I级）",
@@ -159,6 +162,7 @@
 
   "block.energizedpower.heat_generator": "Heat Generator",
   "item.energizedpower.heat_generator": "Heat Generator",
+  "container.energizedpower.heat_generator": "Heat Generator",
 
   "block.energizedpower.powered_furnace": "电炉",
   "item.energizedpower.powered_furnace": "电炉",
@@ -188,6 +192,7 @@
 
   "block.energizedpower.lightning_generator": "人造闪电发生器",
   "item.energizedpower.lightning_generator": "人造闪电发生器",
+  "container.energizedpower.lightning_generator": "人造闪电发生器",
 
   "tooltip.energizedpower.lightning_generator.txt.shift.1": "该区块每次遭到电击时，都会产生 %s的能量。",
   "tooltip.energizedpower.lightning_generator.txt.shift.2": "必须将避雷针防置在该方块时才会生效。",
