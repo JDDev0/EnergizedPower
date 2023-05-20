@@ -4,6 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.behavior.ModBlockBehaviors;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.entity.ModEntityTypes;
+import me.jddev0.ep.entity.data.ModTrackedDataHandlers;
 import me.jddev0.ep.event.PlayerInteractHandler;
 import me.jddev0.ep.event.ServerStartingHandler;
 import me.jddev0.ep.item.*;
@@ -35,6 +36,7 @@ public class EnergizedPowerMod implements ModInitializer {
 		ModMenuTypes.register();
 		ModVillager.register();
 		ModEntityTypes.register();
+		ModTrackedDataHandlers.register();
 
 		ModBlockBehaviors.register();
 
