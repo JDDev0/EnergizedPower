@@ -75,7 +75,7 @@ public class MinecartBatteryBox extends AbstractMinecart implements Container, M
 
     @Override
     public Type getMinecartType() {
-        return Type.TNT;
+        return Type.CHEST;
     }
 
     public BlockState getDefaultDisplayBlockState() {
