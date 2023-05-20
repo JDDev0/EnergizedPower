@@ -38,7 +38,7 @@ public class BatteryBoxBlockEntity extends BlockEntity implements ExtendedScreen
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
 
-    protected  final PropertyDelegate data;
+    protected final PropertyDelegate data;
 
     public BatteryBoxBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.BATTERY_BOX_ENTITY, blockPos, blockState);

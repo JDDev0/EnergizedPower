@@ -55,7 +55,7 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
 
-    protected  final PropertyDelegate data;
+    protected final PropertyDelegate data;
     private int progress;
     private int maxProgress;
     private long energyConsumptionLeft = -1;

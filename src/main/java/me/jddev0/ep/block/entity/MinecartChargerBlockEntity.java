@@ -42,7 +42,7 @@ public class MinecartChargerBlockEntity extends BlockEntity implements ExtendedS
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
 
-    protected  final PropertyDelegate data;
+    protected final PropertyDelegate data;
 
     public MinecartChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.MINECART_CHARGER_ENTITY, blockPos, blockState);

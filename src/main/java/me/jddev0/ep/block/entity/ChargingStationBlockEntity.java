@@ -44,7 +44,7 @@ public class ChargingStationBlockEntity extends BlockEntity implements ExtendedS
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
 
-    protected  final PropertyDelegate data;
+    protected final PropertyDelegate data;
 
     public ChargingStationBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CHARGING_STATION_ENTITY, blockPos, blockState);

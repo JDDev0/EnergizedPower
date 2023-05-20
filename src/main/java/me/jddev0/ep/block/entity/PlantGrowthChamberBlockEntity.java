@@ -61,7 +61,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
 
-    protected  final PropertyDelegate data;
+    protected final PropertyDelegate data;
     private int progress;
     private int maxProgress;
     private long energyConsumptionLeft = -1;

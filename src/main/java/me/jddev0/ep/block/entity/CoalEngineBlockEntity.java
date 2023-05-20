@@ -54,7 +54,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
 
-    protected  final PropertyDelegate data;
+    protected final PropertyDelegate data;
     private int progress;
     private int maxProgress;
     private long energyProductionLeft = -1;

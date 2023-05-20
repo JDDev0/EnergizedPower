@@ -54,7 +54,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
 
-    protected  final PropertyDelegate data;
+    protected final PropertyDelegate data;
     private int progress;
     private int maxProgress = 20;
     private long energyConsumptionLeft = -1;

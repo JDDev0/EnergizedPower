@@ -38,7 +38,7 @@ public class LightningGeneratorBlockEntity extends BlockEntity implements Extend
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
 
-    protected  final PropertyDelegate data;
+    protected final PropertyDelegate data;
 
     public LightningGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.LIGHTING_GENERATOR_ENTITY, blockPos, blockState);

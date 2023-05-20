@@ -31,7 +31,7 @@ public class WeatherControllerBlockEntity extends BlockEntity implements Extende
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
 
-    protected  final PropertyDelegate data;
+    protected final PropertyDelegate data;
 
     public WeatherControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.WEATHER_CONTROLLER_ENTITY, blockPos, blockState);
