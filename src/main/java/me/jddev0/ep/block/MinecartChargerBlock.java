@@ -42,6 +42,20 @@ public class MinecartChargerBlock extends BlockWithEntity {
     }
 
     @Override
+    public boolean hasComparatorOutput(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getComparatorOutput(BlockState state, World level, BlockPos blockPos) {
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof MinecartChargerBlockEntity minecartChargerBlockEntity))
+            return super.getComparatorOutput(state, level, blockPos);
+
+        return minecartChargerBlockEntity.getRedstoneOutput();
+    }
+
+    @Override
     public BlockState getPlacementState(ItemPlacementContext context) {
         return this.getDefaultState().with(FACING, context.getPlayerLookDirection().getOpposite());
     }
