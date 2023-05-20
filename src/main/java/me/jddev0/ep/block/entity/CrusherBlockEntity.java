@@ -51,7 +51,7 @@ public class CrusherBlockEntity extends BlockEntity implements ExtendedScreenHan
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
 
-    protected  final PropertyDelegate data;
+    protected final PropertyDelegate data;
     private int progress;
     private int maxProgress = 100;
     private long energyConsumptionLeft = -1;
