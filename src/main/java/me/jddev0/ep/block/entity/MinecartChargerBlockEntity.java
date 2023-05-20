@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.MinecartChargerBlock;
+import me.jddev0.ep.block.MinecartUnchargerBlock;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.entity.MinecartBatteryBox;
 import me.jddev0.ep.networking.ModMessages;
@@ -14,6 +15,7 @@ import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
@@ -47,6 +49,24 @@ public class MinecartChargerBlockEntity extends BlockEntity implements EnergySto
             }
         };
         energyStorage = new LimitingEnergyStorage(internalEnergyStorage, MAX_TRANSFER, 0);
+    }
+
+    public int getRedstoneOutput() {
+        BlockPos blockPosFacing = getPos().offset(getCachedState().get(MinecartChargerBlock.FACING));
+        List<MinecartBatteryBox> minecarts = world.getEntitiesByType(TypeFilter.instanceOf(MinecartBatteryBox.class),
+                new Box(blockPosFacing.getX(), blockPosFacing.getY(),
+                        blockPosFacing.getZ(), blockPosFacing.getX() + 1,
+                        blockPosFacing.getY() + 1, blockPosFacing.getZ() + 1),
+                EntityPredicates.VALID_ENTITY);
+        if(minecarts.isEmpty())
+            return 0;
+
+        MinecartBatteryBox minecart = minecarts.get(0);
+
+        long minecartEnergy = minecart.getEnergy();
+        boolean isEmptyFlag = minecartEnergy == 0;
+
+        return Math.min(MathHelper.floor((float)minecartEnergy / MinecartBatteryBox.CAPACITY * 14.f) + (isEmptyFlag?0:1), 15);
     }
 
     @Override
