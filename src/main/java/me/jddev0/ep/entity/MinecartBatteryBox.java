@@ -70,7 +70,7 @@ public class MinecartBatteryBox extends AbstractMinecartEntity implements Invent
 
     @Override
     public Type getMinecartType() {
-        return Type.TNT;
+        return Type.CHEST;
     }
 
     public BlockState getDefaultContainedBlock() {
