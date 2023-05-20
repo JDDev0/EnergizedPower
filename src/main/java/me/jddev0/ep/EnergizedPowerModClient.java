@@ -33,6 +33,13 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(ModMenuTypes.POWERED_FURNACE_MENU, PoweredFurnaceScreen::new);
         HandledScreens.register(ModMenuTypes.WEATHER_CONTROLLER_MENU, WeatherControllerScreen::new);
         HandledScreens.register(ModMenuTypes.TIME_CONTROLLER_MENU, TimeControllerScreen::new);
+        HandledScreens.register(ModMenuTypes.LIGHTNING_GENERATOR_MENU, LightningGeneratorScreen::new);
+        HandledScreens.register(ModMenuTypes.CHARGING_STATION_MENU, ChargingStationScreen::new);
+        HandledScreens.register(ModMenuTypes.HEAT_GENERATOR_MENU, HeatGeneratorScreen::new);
+        HandledScreens.register(ModMenuTypes.BATTERY_BOX_MENU, BatteryBoxScreen::new);
+        HandledScreens.register(ModMenuTypes.MINECART_CHARGER_MENU, MinecartChargerScreen::new);
+        HandledScreens.register(ModMenuTypes.MINECART_UNCHARGER_MENU, MinecartUnchargerScreen::new);
+
 
         HandledScreens.register(ModMenuTypes.MINECART_BATTERY_BOX_MENU, MinecartBatteryBoxScreen::new);
 

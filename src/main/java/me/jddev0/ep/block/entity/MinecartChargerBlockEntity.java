@@ -5,30 +5,44 @@ import me.jddev0.ep.block.MinecartUnchargerBlock;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.entity.MinecartBatteryBox;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.screen.MinecartChargerMenu;
+import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 import java.util.List;
 
-public class MinecartChargerBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
+public class MinecartChargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
     public static final long CAPACITY = 16384;
     public static final long MAX_TRANSFER = 512;
 
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
+
+    protected  final PropertyDelegate data;
 
     public MinecartChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.MINECART_CHARGER_ENTITY, blockPos, blockState);
@@ -49,6 +63,46 @@ public class MinecartChargerBlockEntity extends BlockEntity implements EnergySto
             }
         };
         energyStorage = new LimitingEnergyStorage(internalEnergyStorage, MAX_TRANSFER, 0);
+        data = new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(MinecartChargerBlockEntity.this.internalEnergyStorage.amount, index);
+                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(MinecartChargerBlockEntity.this.internalEnergyStorage.capacity, index - 4);
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1, 2, 3 -> MinecartChargerBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
+                            MinecartChargerBlockEntity.this.internalEnergyStorage.amount, (short)value, index);
+                    case 4, 5, 6, 7 -> {}
+                }
+            }
+
+            @Override
+            public int size() {
+                return 8;
+            }
+        };
+    }
+
+    @Override
+    public Text getDisplayName() {
+        return new TranslatableText("container.energizedpower.minecart_charger");
+    }
+
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+        return new MinecartChargerMenu(id, this, inventory, new SimpleInventory(0), this.data);
+    }
+
+    @Override
+    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+        buf.writeBlockPos(pos);
     }
 
     public int getRedstoneOutput() {
