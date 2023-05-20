@@ -3,23 +3,31 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.ChargingStationBlock;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.screen.ChargingStationMenu;
+import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
-import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
@@ -27,13 +35,15 @@ import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 import java.util.List;
 
-public class ChargingStationBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
+public class ChargingStationBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
     public static final long CAPACITY = 262144;
     public static final long MAX_RECEIVE = 16384;
     public static final int MAX_CHARGING_DISTANCE = 7;
 
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
+
+    protected  final PropertyDelegate data;
 
     public ChargingStationBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CHARGING_STATION_ENTITY, blockPos, blockState);
@@ -54,6 +64,46 @@ public class ChargingStationBlockEntity extends BlockEntity implements EnergySto
             }
         };
         energyStorage = new LimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
+        data = new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(ChargingStationBlockEntity.this.internalEnergyStorage.amount, index);
+                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(ChargingStationBlockEntity.this.internalEnergyStorage.capacity, index - 4);
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1, 2, 3 -> ChargingStationBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
+                            ChargingStationBlockEntity.this.internalEnergyStorage.amount, (short)value, index);
+                    case 4, 5, 6, 7 -> {}
+                }
+            }
+
+            @Override
+            public int size() {
+                return 8;
+            }
+        };
+    }
+
+    @Override
+    public Text getDisplayName() {
+        return Text.translatable("container.energizedpower.charging_station");
+    }
+
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+        return new ChargingStationMenu(id, this, inventory, new SimpleInventory(0), this.data);
+    }
+
+    @Override
+    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+        buf.writeBlockPos(pos);
     }
 
     @Override
