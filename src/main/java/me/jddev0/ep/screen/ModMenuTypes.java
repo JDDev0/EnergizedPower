@@ -57,6 +57,24 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<TimeControllerMenu>> TIME_CONTROLLER_MENU = registerMenuType("time_controller",
             TimeControllerMenu::new);
 
+    public static final RegistryObject<MenuType<LightningGeneratorMenu>> LIGHTNING_GENERATOR_MENU = registerMenuType("lightning_generator",
+            LightningGeneratorMenu::new);
+
+    public static final RegistryObject<MenuType<ChargingStationMenu>> CHARGING_STATION_MENU = registerMenuType("charging_station",
+            ChargingStationMenu::new);
+
+    public static final RegistryObject<MenuType<HeatGeneratorMenu>> HEAT_GENERATOR_MENU = registerMenuType("heat_generator",
+            HeatGeneratorMenu::new);
+
+    public static final RegistryObject<MenuType<BatteryBoxMenu>> BATTERY_BOX_MENU = registerMenuType("battery_box",
+            BatteryBoxMenu::new);
+
+    public static final RegistryObject<MenuType<MinecartChargerMenu>> MINECART_CHARGER_MENU = registerMenuType("minecart_charger",
+            MinecartChargerMenu::new);
+
+    public static final RegistryObject<MenuType<MinecartUnchargerMenu>> MINECART_UNCHARGER_MENU = registerMenuType("minecart_uncharger",
+            MinecartUnchargerMenu::new);
+
     public static final RegistryObject<MenuType<MinecartBatteryBoxMenu>> MINECART_BATTERY_BOX_MENU = registerMenuType("minecart_battery_box",
             MinecartBatteryBoxMenu::new);
 

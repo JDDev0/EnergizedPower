@@ -7,11 +7,20 @@ import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.entity.MinecartBatteryBox;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
+import me.jddev0.ep.screen.MinecartChargerMenu;
+import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,11 +35,13 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class MinecartChargerBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
+public class MinecartChargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
     public static final int MAX_TRANSFER = 512;
 
     private final ReceiveOnlyEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+
+    protected final ContainerData data;
 
     public MinecartChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.MINECART_CHARGER_ENTITY.get(), blockPos, blockState);
@@ -44,6 +55,44 @@ public class MinecartChargerBlockEntity extends BlockEntity implements EnergySto
                     ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
             }
         };
+        data = new ContainerData() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1 -> ByteUtils.get2Bytes(MinecartChargerBlockEntity.this.energyStorage.getEnergy(), index);
+                    case 2, 3 -> ByteUtils.get2Bytes(MinecartChargerBlockEntity.this.energyStorage.getCapacity(), index - 2);
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1 -> MinecartChargerBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
+                            MinecartChargerBlockEntity.this.energyStorage.getEnergy(), (short)value, index
+                    ));
+                    case 2, 3 -> MinecartChargerBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
+                            MinecartChargerBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 2
+                    ));
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 4;
+            }
+        };
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return new TranslatableComponent("container.energizedpower.minecart_charger");
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        return new MinecartChargerMenu(id, inventory, this, this.data);
     }
 
     public int getRedstoneOutput() {
