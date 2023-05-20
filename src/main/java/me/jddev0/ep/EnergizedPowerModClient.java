@@ -34,6 +34,8 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(ModMenuTypes.WEATHER_CONTROLLER_MENU, WeatherControllerScreen::new);
         HandledScreens.register(ModMenuTypes.TIME_CONTROLLER_MENU, TimeControllerScreen::new);
 
+        HandledScreens.register(ModMenuTypes.MINECART_BATTERY_BOX_MENU, MinecartBatteryBoxScreen::new);
+
         ModelPredicateProviderRegistry.register(new Identifier(EnergizedPowerMod.MODID, "active"), (itemStack, level, entity, seed) -> {
             Item item = itemStack.getItem();
             return (item instanceof ActivatableItem && ((ActivatableItem)item).isActive(itemStack))?1.f:0.f;
