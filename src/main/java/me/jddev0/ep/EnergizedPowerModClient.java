@@ -58,6 +58,6 @@ public class EnergizedPowerModClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(ModEntityTypes.BATTERY_BOX_MINECART,
                 entity -> new MinecartEntityRenderer<>(entity, new EntityModelLayer(
-                        new Identifier("minecraft", "tnt_minecart"), "main")));
+                        new Identifier("minecraft", "chest_minecart"), "main")));
     }
 }
