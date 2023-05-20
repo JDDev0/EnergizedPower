@@ -16,7 +16,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class LightningGeneratorMenu extends ScreenHandler implements EnergyStorageMenuPacketUpdate {
+public class LightningGeneratorMenu extends ScreenHandler implements EnergyStorageMenu, EnergyStorageMenuPacketUpdate {
     private final LightningGeneratorBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -45,20 +45,22 @@ public class LightningGeneratorMenu extends ScreenHandler implements EnergyStora
         addProperties(this.data);
     }
 
-    long getEnergy() {
+    @Override
+    public long getEnergy() {
         return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1), (short)data.get(2), (short)data.get(3));
     }
 
-    long getCapacity() {
+    @Override
+    public long getCapacity() {
         return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5), (short)data.get(6), (short)data.get(7));
     }
 
-    public int getScaledEnergyMeterPos() {
+    @Override
+    public int getScaledEnergyMeterPos(int energyBarHeight) {
         long energy = getEnergy();
         long capacity = getCapacity();
-        int energyBarSize = 52;
 
-        return (int)((energy == 0 || capacity == 0)?0:Math.max(1, energy * energyBarSize / capacity));
+        return (int)((energy == 0 || capacity == 0)?0:Math.max(1, energy * energyBarHeight / capacity));
     }
 
     @Override
