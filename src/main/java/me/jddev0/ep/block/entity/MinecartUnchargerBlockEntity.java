@@ -44,7 +44,7 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements Extende
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
 
-    protected  final PropertyDelegate data;
+    protected final PropertyDelegate data;
 
     public MinecartUnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.MINECART_UNCHARGER_ENTITY, blockPos, blockState);

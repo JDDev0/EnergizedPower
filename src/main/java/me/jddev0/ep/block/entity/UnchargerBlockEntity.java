@@ -52,7 +52,7 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
 
-    protected  final PropertyDelegate data;
+    protected final PropertyDelegate data;
     private long energyProductionLeft = -1;
 
     public UnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
