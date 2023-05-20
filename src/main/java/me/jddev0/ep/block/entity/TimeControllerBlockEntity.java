@@ -30,7 +30,7 @@ public class TimeControllerBlockEntity extends BlockEntity implements ExtendedSc
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
 
-    protected  final PropertyDelegate data;
+    protected final PropertyDelegate data;
 
     public TimeControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.TIME_CONTROLLER_ENTITY, blockPos, blockState);
