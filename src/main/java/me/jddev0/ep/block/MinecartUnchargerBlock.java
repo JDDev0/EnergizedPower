@@ -10,12 +10,16 @@ import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -53,6 +57,20 @@ public class MinecartUnchargerBlock extends BlockWithEntity {
             return super.getComparatorOutput(state, level, blockPos);
 
         return minecartUnchargerBlockEntity.getRedstoneOutput();
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, Hand handItem, BlockHitResult hit) {
+        if(level.isClient())
+            return ActionResult.SUCCESS;
+
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof MinecartUnchargerBlockEntity))
+            throw new IllegalStateException("Container is invalid");
+
+        player.openHandledScreen((MinecartUnchargerBlockEntity)blockEntity);
+
+        return ActionResult.SUCCESS;
     }
 
     @Override

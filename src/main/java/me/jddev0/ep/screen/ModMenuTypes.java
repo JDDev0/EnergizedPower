@@ -51,6 +51,24 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<TimeControllerMenu> TIME_CONTROLLER_MENU = createScreenHandlerType("time_controller",
             new ExtendedScreenHandlerType<>(TimeControllerMenu::new));
 
+    public static final ScreenHandlerType<LightningGeneratorMenu> LIGHTNING_GENERATOR_MENU = createScreenHandlerType("lightning_generator",
+            new ExtendedScreenHandlerType<>(LightningGeneratorMenu::new));
+
+    public static final ScreenHandlerType<ChargingStationMenu> CHARGING_STATION_MENU = createScreenHandlerType("charging_station",
+            new ExtendedScreenHandlerType<>(ChargingStationMenu::new));
+
+    public static final ScreenHandlerType<HeatGeneratorMenu> HEAT_GENERATOR_MENU = createScreenHandlerType("heat_generator",
+            new ExtendedScreenHandlerType<>(HeatGeneratorMenu::new));
+
+    public static final ScreenHandlerType<BatteryBoxMenu> BATTERY_BOX_MENU = createScreenHandlerType("battery_box",
+            new ExtendedScreenHandlerType<>(BatteryBoxMenu::new));
+
+    public static final ScreenHandlerType<MinecartChargerMenu> MINECART_CHARGER_MENU = createScreenHandlerType("minecart_charger",
+            new ExtendedScreenHandlerType<>(MinecartChargerMenu::new));
+
+    public static final ScreenHandlerType<MinecartUnchargerMenu> MINECART_UNCHARGER_MENU = createScreenHandlerType("minecart_uncharger",
+            new ExtendedScreenHandlerType<>(MinecartUnchargerMenu::new));
+
     public static final ScreenHandlerType<MinecartBatteryBoxMenu> MINECART_BATTERY_BOX_MENU = createScreenHandlerType("minecart_battery_box",
             new ScreenHandlerType<>(MinecartBatteryBoxMenu::new, FeatureFlags.VANILLA_FEATURES));
 
