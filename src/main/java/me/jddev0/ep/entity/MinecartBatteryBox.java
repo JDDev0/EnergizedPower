@@ -26,6 +26,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class MinecartBatteryBox extends AbstractMinecart implements Container, MenuProvider {
+    public static final int CAPACITY = 65536;
+    public static final int MAX_TRANSFER = 512;
+
     private static final EntityDataAccessor<Integer> DATA_ID_ENERGY =
             SynchedEntityData.defineId(MinecartBatteryBox.class, EntityDataSerializers.INT);
 
@@ -54,9 +57,6 @@ public class MinecartBatteryBox extends AbstractMinecart implements Container, M
             return 4;
         }
     };
-
-    public static final int CAPACITY = 65536;
-    public static final int MAX_TRANSFER = 512;
 
     public MinecartBatteryBox(EntityType<? extends MinecartBatteryBox> entityType, Level level) {
         super(entityType, level);
