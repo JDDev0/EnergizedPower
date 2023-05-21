@@ -50,10 +50,10 @@ public class MinecartChargerBlock extends BaseEntityBlock {
     @Override
     public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(!(blockEntity instanceof MinecartChargerBlockEntity energizerBlockEntity))
+        if(!(blockEntity instanceof MinecartChargerBlockEntity minecartChargerBlockEntity))
             return super.getAnalogOutputSignal(state, level, blockPos);
 
-        return energizerBlockEntity.getRedstoneOutput();
+        return minecartChargerBlockEntity.getRedstoneOutput();
     }
 
     @Override
