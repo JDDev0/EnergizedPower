@@ -31,8 +31,8 @@ public class ChargerCategory implements IRecipeCategory<ChargerRecipe> {
     private final IDrawable icon;
 
     public ChargerCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/charger.png");
-        background = helper.createDrawable(texture, 65, 20, 86, 46);
+        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+        background = helper.createDrawable(texture, 1, 29, 113, 46);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.CHARGER_ITEM.get()));
     }
@@ -71,17 +71,15 @@ public class ChargerCategory implements IRecipeCategory<ChargerRecipe> {
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, ChargerRecipe recipe, IFocusGroup iFocusGroup) {
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 15, 15).addIngredients(recipe.getInput());
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 61, 15).addItemStack(recipe.getOutput());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 92, 15).addItemStack(recipe.getOutput());
     }
 
     @Override
     public void draw(ChargerRecipe recipe, IRecipeSlotsView iRecipeSlotsView, PoseStack matrixStack, double mouseX, double mouseY) {
-        //TODO add progress arrow
-
         Font font = Minecraft.getInstance().font;
         Component component = new TextComponent(EnergyUtils.getEnergyWithPrefix(recipe.getEnergyConsumption())).withStyle(ChatFormatting.YELLOW);
         int textWidth = font.width(component);
 
-        Minecraft.getInstance().font.draw(matrixStack, component, 86 - textWidth, 38, 0xFFFFFFFF);
+        Minecraft.getInstance().font.draw(matrixStack, component, 113 - textWidth, 38, 0xFFFFFFFF);
     }
 }
