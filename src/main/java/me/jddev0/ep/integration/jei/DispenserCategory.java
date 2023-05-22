@@ -25,7 +25,7 @@ public class DispenserCategory implements IRecipeCategory<DispenserCategory.Disp
 
     public DispenserCategory(IGuiHelper helper) {
         ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
-        background = helper.createDrawable(texture, 1, 1, 105, 26);
+        background = helper.createDrawable(texture, 1, 1, 103, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(Items.DISPENSER));
     }
