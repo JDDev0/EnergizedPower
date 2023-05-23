@@ -2,6 +2,7 @@ package me.jddev0.ep;
 
 import com.mojang.logging.LogUtils;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.block.behavior.ModBlockBehaviors;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.entity.ModEntityTypes;
@@ -193,6 +194,11 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.BATTERY_BOX_MENU.get(), BatteryBoxScreen::new);
             MenuScreens.register(ModMenuTypes.MINECART_CHARGER_MENU.get(), MinecartChargerScreen::new);
             MenuScreens.register(ModMenuTypes.MINECART_UNCHARGER_MENU.get(), MinecartUnchargerScreen::new);
+            MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_1.get(), SolarPanelScreen::new);
+            MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_2.get(), SolarPanelScreen::new);
+            MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_3.get(), SolarPanelScreen::new);
+            MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_4.get(), SolarPanelScreen::new);
+            MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_5.get(), SolarPanelScreen::new);
 
             MenuScreens.register(ModMenuTypes.MINECART_BATTERY_BOX_MENU.get(), MinecartBatteryBoxScreen::new);
 
