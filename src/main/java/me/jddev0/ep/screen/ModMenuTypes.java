@@ -78,6 +78,17 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<MinecartBatteryBoxMenu>> MINECART_BATTERY_BOX_MENU = registerMenuType("minecart_battery_box",
             MinecartBatteryBoxMenu::new);
 
+    public static final RegistryObject<MenuType<SolarPanelMenu>> SOLAR_PANEL_MENU_1 = registerMenuType("solar_panel_1",
+            SolarPanelMenu::new);
+    public static final RegistryObject<MenuType<SolarPanelMenu>> SOLAR_PANEL_MENU_2 = registerMenuType("solar_panel_2",
+            SolarPanelMenu::new);
+    public static final RegistryObject<MenuType<SolarPanelMenu>> SOLAR_PANEL_MENU_3 = registerMenuType("solar_panel_3",
+            SolarPanelMenu::new);
+    public static final RegistryObject<MenuType<SolarPanelMenu>> SOLAR_PANEL_MENU_4 = registerMenuType("solar_panel_4",
+            SolarPanelMenu::new);
+    public static final RegistryObject<MenuType<SolarPanelMenu>> SOLAR_PANEL_MENU_5 = registerMenuType("solar_panel_5",
+            SolarPanelMenu::new);
+
     public static void register(IEventBus modEventBus) {
         MENUS.register(modEventBus);
     }
