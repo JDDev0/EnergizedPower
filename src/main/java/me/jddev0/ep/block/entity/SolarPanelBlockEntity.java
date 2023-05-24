@@ -3,29 +3,43 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.screen.SolarPanelMenu;
+import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
-public class SolarPanelBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
+public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
     private final SolarPanelBlock.Tier tier;
     private final long maxTransfer;
 
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
+
+    protected final PropertyDelegate data;
 
     public static BlockEntityType<SolarPanelBlockEntity> getEntityTypeFromTier(SolarPanelBlock.Tier tier) {
         return switch(tier) {
@@ -61,6 +75,46 @@ public class SolarPanelBlockEntity extends BlockEntity implements EnergyStorageP
             }
         };
         energyStorage = new LimitingEnergyStorage(internalEnergyStorage, 0, maxTransfer);
+        data = new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(SolarPanelBlockEntity.this.internalEnergyStorage.amount, index);
+                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(SolarPanelBlockEntity.this.internalEnergyStorage.capacity, index - 4);
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1, 2, 3 -> SolarPanelBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
+                            SolarPanelBlockEntity.this.internalEnergyStorage.amount, (short)value, index);
+                    case 4, 5, 6, 7 -> {}
+                }
+            }
+
+            @Override
+            public int size() {
+                return 8;
+            }
+        };
+    }
+
+    @Override
+    public Text getDisplayName() {
+        return new TranslatableText("container.energizedpower." + tier.getResourceId());
+    }
+
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+        return new SolarPanelMenu(id, this, inventory, new SimpleInventory(0), this.data);
+    }
+
+    @Override
+    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+        buf.writeBlockPos(pos);
     }
 
     public SolarPanelBlock.Tier getTier() {

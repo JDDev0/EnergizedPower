@@ -10,12 +10,16 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
@@ -28,6 +32,16 @@ public class SolarPanelBlock extends BlockWithEntity {
     private static final VoxelShape SHAPE = Block.createCuboidShape(0.d, 0.d, 0.d, 16.d, 4.d, 16.d);
 
     private final Tier tier;
+
+    public static Block getBlockFromTier(SolarPanelBlock.Tier tier) {
+        return switch(tier) {
+            case TIER_1 -> ModBlocks.SOLAR_PANEL_1;
+            case TIER_2 -> ModBlocks.SOLAR_PANEL_2;
+            case TIER_3 -> ModBlocks.SOLAR_PANEL_3;
+            case TIER_4 -> ModBlocks.SOLAR_PANEL_4;
+            case TIER_5 -> ModBlocks.SOLAR_PANEL_5;
+        };
+    }
 
     public SolarPanelBlock(Tier tier) {
         super(tier.getProperties());
@@ -53,6 +67,20 @@ public class SolarPanelBlock extends BlockWithEntity {
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, Hand handItem, BlockHitResult hit) {
+        if(level.isClient())
+            return ActionResult.SUCCESS;
+
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof SolarPanelBlockEntity) || ((SolarPanelBlockEntity)blockEntity).getTier() != tier)
+            throw new IllegalStateException("Container is invalid");
+
+        player.openHandledScreen((SolarPanelBlockEntity)blockEntity);
+
+        return ActionResult.SUCCESS;
     }
 
     @Nullable

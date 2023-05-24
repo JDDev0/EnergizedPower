@@ -67,6 +67,17 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<MinecartUnchargerMenu> MINECART_UNCHARGER_MENU = createScreenHandlerType("minecart_uncharger",
             new ExtendedScreenHandlerType<>(MinecartUnchargerMenu::new));
 
+    public static final ScreenHandlerType<SolarPanelMenu> SOLAR_PANEL_MENU_1 = createScreenHandlerType("solar_panel_1",
+            new ExtendedScreenHandlerType<>(SolarPanelMenu::new));
+    public static final ScreenHandlerType<SolarPanelMenu> SOLAR_PANEL_MENU_2 = createScreenHandlerType("solar_panel_2",
+            new ExtendedScreenHandlerType<>(SolarPanelMenu::new));
+    public static final ScreenHandlerType<SolarPanelMenu> SOLAR_PANEL_MENU_3 = createScreenHandlerType("solar_panel_3",
+            new ExtendedScreenHandlerType<>(SolarPanelMenu::new));
+    public static final ScreenHandlerType<SolarPanelMenu> SOLAR_PANEL_MENU_4 = createScreenHandlerType("solar_panel_4",
+            new ExtendedScreenHandlerType<>(SolarPanelMenu::new));
+    public static final ScreenHandlerType<SolarPanelMenu> SOLAR_PANEL_MENU_5 = createScreenHandlerType("solar_panel_5",
+            new ExtendedScreenHandlerType<>(SolarPanelMenu::new));
+
     public static final ScreenHandlerType<MinecartBatteryBoxMenu> MINECART_BATTERY_BOX_MENU = createScreenHandlerType("minecart_battery_box",
             new ScreenHandlerType<>(MinecartBatteryBoxMenu::new));
 
