@@ -44,6 +44,9 @@ public class MinecartChargerBlockEntity extends BlockEntity implements ExtendedS
 
     protected final PropertyDelegate data;
 
+    private boolean hasMinecartOld = true; //Default true (Force first update)
+    private boolean hasMinecart = false; //Default false (Force first update)
+
     public MinecartChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.MINECART_CHARGER_ENTITY, blockPos, blockState);
 
@@ -141,13 +144,19 @@ public class MinecartChargerBlockEntity extends BlockEntity implements ExtendedS
         if(level.isClient())
             return;
 
+        if(blockEntity.hasMinecartOld != blockEntity.hasMinecart)
+            markDirty(level, blockPos, state);
+
+        blockEntity.hasMinecartOld = blockEntity.hasMinecart;
+
         BlockPos blockPosFacing = blockEntity.getPos().offset(blockEntity.getCachedState().get(MinecartChargerBlock.FACING));
         List<MinecartBatteryBox> minecarts = level.getEntitiesByType(TypeFilter.instanceOf(MinecartBatteryBox.class),
                 new Box(blockPosFacing.getX(), blockPosFacing.getY(),
                         blockPosFacing.getZ(), blockPosFacing.getX() + 1,
                         blockPosFacing.getY() + 1, blockPosFacing.getZ() + 1),
                 EntityPredicates.VALID_ENTITY);
-        if(minecarts.isEmpty())
+        blockEntity.hasMinecart = !minecarts.isEmpty();
+        if(!blockEntity.hasMinecart)
             return;
 
         MinecartBatteryBox minecart = minecarts.get(0);
