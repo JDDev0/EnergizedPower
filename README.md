@@ -16,16 +16,16 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 * Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
 * Charger
 * Uncharger
-* Minecart Charger (**In next release (v1.7.0)**)
-* Minecart Uncharger (**In next release (v1.7.0)**)
+* Minecart Charger
+* Minecart Uncharger
 * Charging Station
 * Energizer
 * Coal Engine
-* Heat Generator (**In next release (v1.7.0)**)
+* Heat Generator
 * Lightning Generator
 * Solar Panels (5 Tiers)
 * Transformers (Can be used to connect different tiers of cables) (1 to n, 3 to 3, and n to 1)
-* Battery Box (**In next release (v1.7.0)**)
+* Battery Box
 * Weather Controller
 * Time Controller
 
@@ -34,7 +34,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 ### Energy transportation
 
 * Cables (4 Tiers: Copper, Gold, Energized Copper, and Energized Gold)
-* Minecart with Battery Box (**In next release (v1.7.0)**)
+* Minecart with Battery Box
 
 ### Energy Items
 
@@ -91,3 +91,4 @@ Mod version: MC version
 - 1.4.x: 1.19.4, 1.19.3, 1.19.2, 1.18.2, 1.17.1
 - 1.5.x: 1.19.4, 1.19.3, 1.19.2, 1.18.2
 - 1.6.x: 1.19.4, 1.19.3, 1.19.2, 1.18.2
+- 1.7.x: 1.19.4, 1.19.3, 1.19.2, 1.18.2
