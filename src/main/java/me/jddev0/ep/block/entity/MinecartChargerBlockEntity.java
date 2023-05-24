@@ -43,6 +43,9 @@ public class MinecartChargerBlockEntity extends BlockEntity implements MenuProvi
 
     protected final ContainerData data;
 
+    private boolean hasMinecartOld = true; //Default true (Force first update)
+    private boolean hasMinecart = false; //Default false (Force first update)
+
     public MinecartChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.MINECART_CHARGER_ENTITY.get(), blockPos, blockState);
 
@@ -154,13 +157,19 @@ public class MinecartChargerBlockEntity extends BlockEntity implements MenuProvi
         if(level.isClientSide)
             return;
 
+        if(blockEntity.hasMinecartOld != blockEntity.hasMinecart)
+            setChanged(level, blockPos, state);
+
+        blockEntity.hasMinecartOld = blockEntity.hasMinecart;
+
         BlockPos blockPosFacing = blockEntity.getBlockPos().relative(blockEntity.getBlockState().getValue(MinecartChargerBlock.FACING));
         List<MinecartBatteryBox> minecarts = level.getEntities(EntityTypeTest.forClass(MinecartBatteryBox.class),
                 new AABB(blockPosFacing.getX(), blockPosFacing.getY(),
                         blockPosFacing.getZ(), blockPosFacing.getX() + 1,
                         blockPosFacing.getY() + 1, blockPosFacing.getZ() + 1),
                 EntitySelector.ENTITY_STILL_ALIVE);
-        if(minecarts.isEmpty())
+        blockEntity.hasMinecart = !minecarts.isEmpty();
+        if(!blockEntity.hasMinecart)
             return;
 
         MinecartBatteryBox minecart = minecarts.get(0);

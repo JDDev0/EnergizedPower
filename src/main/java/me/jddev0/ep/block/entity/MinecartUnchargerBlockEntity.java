@@ -44,6 +44,9 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements MenuPro
 
     protected final ContainerData data;
 
+    private boolean hasMinecartOld = true; //Default true (Force first update)
+    private boolean hasMinecart = false; //Default false (Force first update)
+
     public MinecartUnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.MINECART_UNCHARGER_ENTITY.get(), blockPos, blockState);
 
@@ -155,13 +158,19 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements MenuPro
         if(level.isClientSide)
             return;
 
+        if(blockEntity.hasMinecartOld != blockEntity.hasMinecart)
+            setChanged(level, blockPos, state);
+
+        blockEntity.hasMinecartOld = blockEntity.hasMinecart;
+
         BlockPos blockPosFacing = blockEntity.getBlockPos().relative(blockEntity.getBlockState().getValue(MinecartUnchargerBlock.FACING));
         List<MinecartBatteryBox> minecarts = level.getEntities(EntityTypeTest.forClass(MinecartBatteryBox.class),
                 new AABB(blockPosFacing.getX(), blockPosFacing.getY(),
                         blockPosFacing.getZ(), blockPosFacing.getX() + 1,
                         blockPosFacing.getY() + 1, blockPosFacing.getZ() + 1),
                 EntitySelector.ENTITY_STILL_ALIVE);
-        if(minecarts.isEmpty())
+        blockEntity.hasMinecart = !minecarts.isEmpty();
+        if(!blockEntity.hasMinecart)
             return;
 
         MinecartBatteryBox minecart = minecarts.get(0);
