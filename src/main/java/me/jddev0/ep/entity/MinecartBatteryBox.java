@@ -25,10 +25,10 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class MinecartBatteryBox extends AbstractMinecartEntity implements Inventory, NamedScreenHandlerFactory {
-    private static final TrackedData<Long> DATA_ID_ENERGY = DataTracker.registerData(MinecartBatteryBox.class, ModTrackedDataHandlers.LONG);
-
     public static final long CAPACITY = 65536;
     public static final long MAX_TRANSFER = 512;
+
+    private static final TrackedData<Long> DATA_ID_ENERGY = DataTracker.registerData(MinecartBatteryBox.class, ModTrackedDataHandlers.LONG);
 
     protected final PropertyDelegate data = new PropertyDelegate() {
         @Override
