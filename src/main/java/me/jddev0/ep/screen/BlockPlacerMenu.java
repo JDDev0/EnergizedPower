@@ -1,5 +1,6 @@
 package me.jddev0.ep.screen;
 
+import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.BlockPlacerBlockEntity;
 import me.jddev0.ep.energy.EnergyStorageMenuPacketUpdate;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
@@ -14,6 +15,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
@@ -123,7 +125,7 @@ public class BlockPlacerMenu extends ScreenHandler implements EnergyStorageMenuP
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return inv.canPlayerUse(player);
+        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.BLOCK_PLACER);
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

@@ -11,10 +11,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ArrayPropertyDelegate;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
@@ -86,7 +83,7 @@ public class SolarPanelMenu extends ScreenHandler implements EnergyStorageMenu, 
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return inv.canPlayerUse(player);
+        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, SolarPanelBlock.getBlockFromTier(getTier()));
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
