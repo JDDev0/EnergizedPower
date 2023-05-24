@@ -7,6 +7,10 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -22,8 +26,10 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -32,6 +38,16 @@ public class SolarPanelBlock extends BaseEntityBlock {
     private static final VoxelShape SHAPE = Block.box(0.d, 0.d, 0.d, 16.d, 4.d, 16.d);
 
     private final Tier tier;
+
+    public static Block getBlockFromTier(SolarPanelBlock.Tier tier) {
+        return switch(tier) {
+            case TIER_1 -> ModBlocks.SOLAR_PANEL_1.get();
+            case TIER_2 -> ModBlocks.SOLAR_PANEL_2.get();
+            case TIER_3 -> ModBlocks.SOLAR_PANEL_3.get();
+            case TIER_4 -> ModBlocks.SOLAR_PANEL_4.get();
+            case TIER_5 -> ModBlocks.SOLAR_PANEL_5.get();
+        };
+    }
 
     public SolarPanelBlock(Tier tier) {
         super(tier.getProperties());
@@ -57,6 +73,20 @@ public class SolarPanelBlock extends BaseEntityBlock {
     @Override
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
+    }
+
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos blockPos, Player player, InteractionHand handItem, BlockHitResult hit) {
+        if(level.isClientSide())
+            return InteractionResult.sidedSuccess(level.isClientSide());
+
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof SolarPanelBlockEntity) || ((SolarPanelBlockEntity)blockEntity).getTier() != tier)
+            throw new IllegalStateException("Container is invalid");
+
+        NetworkHooks.openGui((ServerPlayer)player, (SolarPanelBlockEntity)blockEntity, blockPos);
+
+        return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
     @Nullable
