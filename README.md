@@ -7,62 +7,62 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 
 ### Machines
 
-* Powered Furnace
-* Auto Crafter
-* Crusher
-* Sawmill
-* Compressor
-* Plant Growth Chamber
-* Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
-* Charger
-* Uncharger
-* Minecart Charger
-* Minecart Uncharger
-* Charging Station
-* Energizer
-* Coal Engine
-* Heat Generator
-* Lightning Generator
-* Solar Panels (5 Tiers)
-* Transformers (Can be used to connect different tiers of cables) (1 to n, 3 to 3, and n to 1)
-* Battery Box
-* Weather Controller
-* Time Controller
+- Powered Furnace
+- Auto Crafter
+- Crusher
+- Sawmill
+- Compressor
+- Plant Growth Chamber
+- Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
+- Charger
+- Uncharger
+- Minecart Charger
+- Minecart Uncharger
+- Charging Station
+- Energizer
+- Coal Engine
+- Heat Generator
+- Lightning Generator
+- Solar Panels (5 Tiers)
+- Transformers (Can be used to connect different tiers of cables) (1 to n, 3 to 3, and n to 1)
+- Battery Box
+- Weather Controller
+- Time Controller
 
 Every machine supports auto-insert and auto-extract of items from all block faces.
 
 ### Energy transportation
 
-* Cables (4 Tiers: Copper, Gold, Energized Copper, and Energized Gold)
-* Minecart with Battery Box
+- Cables (4 Tiers: Copper, Gold, Energized Copper, and Energized Gold)
+- Minecart with Battery Box
 
 ### Energy Items
 
-* Energy Analyzer (Can be used to debug energy blocks)
-* Batteries (8 Tiers)
-* Inventory Coal Engine
+- Energy Analyzer (Can be used to debug energy blocks)
+- Batteries (8 Tiers)
+- Inventory Coal Engine
 
 ### Integrations
 
-* JEI (*Forge edition only*), EMI (*Fabric edition only*), and REI support
-* Curios API (*Forge edition only*)
+- JEI (*Forge edition only*), EMI (*Fabric edition only*), and REI support
+- Curios API (*Forge edition only*)
 
 ### World generation
 
-* Electrician villager
-* Electrician villager house (Can be found in every vanilla village)
-* Factory building (Can be found in Forest and Flower Forest biomes)
-* Small solar farm (Can be found in Desert, Badlands, and Savanna biomes)
+- Electrician villager
+- Electrician villager house (Can be found in every vanilla village)
+- Factory building (Can be found in Forest and Flower Forest biomes)
+- Small solar farm (Can be found in Desert, Badlands, and Savanna biomes)
 
 ### Guide book
 
-* The Energized Power Book contains information for all the blocks and items of this mod
+- The Energized Power Book contains information for all the blocks and items of this mod
 
 ### Translations
 
-* English
-* German
-* Chinese (Simplified)
+- English
+- German
+- Chinese (Simplified)
 
 ## Information
 
