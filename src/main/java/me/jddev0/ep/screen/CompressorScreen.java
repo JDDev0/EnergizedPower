@@ -46,7 +46,7 @@ public class CompressorScreen extends AbstractContainerScreen<CompressorMenu> {
 
     private void renderProgressArrow(PoseStack poseStack, int x, int y) {
         if(menu.isCraftingActive())
-            blit(poseStack, x + 79, y + 30, 176, 52, menu.getScaledProgressArrowSize(), 25);
+            blit(poseStack, x + 79, y + 30, 176, 53, menu.getScaledProgressArrowSize(), 25);
     }
 
     private void renderEnergyMeter(PoseStack poseStack, int x, int y) {
@@ -57,7 +57,7 @@ public class CompressorScreen extends AbstractContainerScreen<CompressorMenu> {
     private void renderEnergyRequirementBar(PoseStack poseStack, int x, int y) {
         int pos = menu.getEnergyRequirementBarPos();
         if(pos > 0)
-            blit(poseStack, x + 8, y + 17 + 52 - pos, 176, 77, 16, 1);
+            blit(poseStack, x + 8, y + 17 + 52 - pos, 176, 52, 16, 1);
     }
 
     @Override
