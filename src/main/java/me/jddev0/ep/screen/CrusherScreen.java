@@ -46,7 +46,7 @@ public class CrusherScreen extends AbstractContainerScreen<CrusherMenu> {
 
     private void renderProgressArrow(PoseStack poseStack, int x, int y) {
         if(menu.isCraftingActive())
-            blit(poseStack, x + 80, y + 34, 176, 52, menu.getScaledProgressArrowSize(), 17);
+            blit(poseStack, x + 80, y + 34, 176, 53, menu.getScaledProgressArrowSize(), 17);
     }
 
     private void renderEnergyMeter(PoseStack poseStack, int x, int y) {
@@ -57,7 +57,7 @@ public class CrusherScreen extends AbstractContainerScreen<CrusherMenu> {
     private void renderEnergyRequirementBar(PoseStack poseStack, int x, int y) {
         int pos = menu.getEnergyRequirementBarPos();
         if(pos > 0)
-            blit(poseStack, x + 8, y + 17 + 52 - pos, 176, 69, 16, 1);
+            blit(poseStack, x + 8, y + 17 + 52 - pos, 176, 52, 16, 1);
     }
 
     @Override
