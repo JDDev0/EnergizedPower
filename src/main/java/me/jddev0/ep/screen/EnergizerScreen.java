@@ -48,7 +48,7 @@ public class EnergizerScreen extends HandledScreen<EnergizerMenu> {
 
     private void renderProgressArrow(MatrixStack poseStack, int x, int y) {
         if(handler.isCraftingActive())
-            drawTexture(poseStack, x + 89, y + 34, 176, 52, handler.getScaledProgressArrowSize(), 17);
+            drawTexture(poseStack, x + 89, y + 34, 176, 53, handler.getScaledProgressArrowSize(), 17);
     }
 
     private void renderEnergyMeter(MatrixStack poseStack, int x, int y) {
@@ -59,12 +59,12 @@ public class EnergizerScreen extends HandledScreen<EnergizerMenu> {
     private void renderEnergyRequirementBar(MatrixStack poseStack, int x, int y) {
         int pos = handler.getEnergyRequirementBarPos();
         if(pos > 0)
-            drawTexture(poseStack, x + 8, y + 17 + 52 - pos, 176, 119, 16, 1);
+            drawTexture(poseStack, x + 8, y + 17 + 52 - pos, 176, 52, 16, 1);
     }
 
     private void renderActiveOverlay(MatrixStack poseStack, int x, int y) {
         if(handler.isCrafting()) {
-            drawTexture(poseStack, x + 31, y + 18, 176, 69, 50, 50);
+            drawTexture(poseStack, x + 31, y + 18, 176, 70, 50, 50);
         }
     }
 
