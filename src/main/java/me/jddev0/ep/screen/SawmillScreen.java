@@ -46,7 +46,7 @@ public class SawmillScreen extends HandledScreen<SawmillMenu> {
 
     private void renderProgressArrow(MatrixStack poseStack, int x, int y) {
         if(handler.isCraftingActive())
-            drawTexture(poseStack, x + 68, y + 34, 176, 52, handler.getScaledProgressArrowSize(), 17);
+            drawTexture(poseStack, x + 68, y + 34, 176, 53, handler.getScaledProgressArrowSize(), 17);
     }
 
     private void renderEnergyMeter(MatrixStack poseStack, int x, int y) {
@@ -57,7 +57,7 @@ public class SawmillScreen extends HandledScreen<SawmillMenu> {
     private void renderEnergyRequirementBar(MatrixStack poseStack, int x, int y) {
         int pos = handler.getEnergyRequirementBarPos();
         if(pos > 0)
-            drawTexture(poseStack, x + 8, y + 17 + 52 - pos, 176, 69, 16, 1);
+            drawTexture(poseStack, x + 8, y + 17 + 52 - pos, 176, 52, 16, 1);
     }
 
     @Override

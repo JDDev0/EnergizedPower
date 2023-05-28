@@ -47,7 +47,7 @@ public class CoalEngineScreen extends HandledScreen<CoalEngineMenu> {
     private void renderProgressFlame(MatrixStack poseStack, int x, int y) {
         if(handler.isProducingActive()) {
             int pos = handler.getScaledProgressFlameSize();
-            drawTexture(poseStack, x + 81, y + 28 + pos, 176, 52 + pos, 14, 14 - pos);
+            drawTexture(poseStack, x + 81, y + 28 + pos, 176, 53 + pos, 14, 14 - pos);
         }
     }
 
@@ -59,7 +59,7 @@ public class CoalEngineScreen extends HandledScreen<CoalEngineMenu> {
     private void renderEnergyProductionBar(MatrixStack poseStack, int x, int y) {
         int pos = handler.getEnergyProductionBarPos();
         if(pos > 0)
-            drawTexture(poseStack, x + 8, y + 17 + 52 - pos, 176, 66, 16, 1);
+            drawTexture(poseStack, x + 8, y + 17 + 52 - pos, 176, 52, 16, 1);
     }
 
     @Override
