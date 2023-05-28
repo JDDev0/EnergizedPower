@@ -47,11 +47,11 @@ public class BatteryBoxMenu extends AbstractContainerMenu implements EnergyStora
     }
 
     @Override
-    public int getScaledEnergyMeterPos(int energyBarHeight) {
+    public int getScaledEnergyMeterPos(int energyMeterHeight) {
         int energy = getEnergy();
         int capacity = getCapacity();
 
-        return (energy == 0 || capacity == 0)?0:Math.max(1, energy * energyBarHeight / capacity);
+        return (energy == 0 || capacity == 0)?0:Math.max(1, energy * energyMeterHeight / capacity);
     }
 
     @Override

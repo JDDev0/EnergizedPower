@@ -4,5 +4,13 @@ public interface EnergyStorageMenu {
     int getEnergy();
     int getCapacity();
 
-    int getScaledEnergyMeterPos(int energyBarHeight);
+    int getScaledEnergyMeterPos(int energyMeterHeight);
+
+    default int getEnergyIndicatorBarValue() {
+        return 0;
+    };
+
+    default int getScaledEnergyIndicatorBarPos(int energyMeterHeight) {
+        return 0;
+    }
 }
