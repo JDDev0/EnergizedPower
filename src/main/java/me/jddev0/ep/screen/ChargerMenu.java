@@ -19,7 +19,7 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class ChargerMenu extends ScreenHandler implements EnergyStorageMenuPacketUpdate {
+public class ChargerMenu extends ScreenHandler implements EnergyStorageMenu, EnergyStorageMenuPacketUpdate {
     private final ChargerBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -50,32 +50,35 @@ public class ChargerMenu extends ScreenHandler implements EnergyStorageMenuPacke
         addProperties(this.data);
     }
 
-    long getEnergy() {
+    @Override
+    public long getEnergy() {
         return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1), (short)data.get(2), (short)data.get(3));
     }
 
-    long getCapacity() {
+    @Override
+    public long getCapacity() {
         return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5), (short)data.get(6), (short)data.get(7));
     }
 
-    long getEnergyRequirement() {
+    @Override
+    public long getEnergyIndicatorBarValue() {
         return ByteUtils.from2ByteChunks((short)data.get(8), (short)data.get(9), (short)data.get(10), (short)data.get(11));
     }
 
-    public int getScaledEnergyMeterPos() {
+    @Override
+    public int getScaledEnergyMeterPos(int energyMeterHeight) {
         long energy = getEnergy();
         long capacity = getCapacity();
-        int energyBarSize = 52;
 
-        return (int)((energy == 0 || capacity == 0)?0:Math.max(1, energy * energyBarSize / capacity));
+        return (int)((energy == 0 || capacity == 0)?0:Math.max(1, energy * energyMeterHeight / capacity));
     }
 
-    public int getEnergyRequirementBarPos() {
-        long energyRequirement = getEnergyRequirement();
+    @Override
+    public int getScaledEnergyIndicatorBarPos(int energyMeterHeight) {
+        long energyRequirement = getEnergyIndicatorBarValue();
         long capacity = getCapacity();
-        int energyBarSize = 52;
 
-        return (int)((energyRequirement <= 0 || capacity == 0)?0:(Math.min(energyRequirement, capacity - 1) * energyBarSize / capacity + 1));
+        return (int)((energyRequirement <= 0 || capacity == 0)?0:(Math.min(energyRequirement, capacity - 1) * energyMeterHeight / capacity + 1));
     }
 
     @Override
