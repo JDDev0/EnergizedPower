@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class WeatherControllerMenu extends AbstractContainerMenu implements EnergyStorageMenuPacketUpdate {
+public class WeatherControllerMenu extends AbstractContainerMenu implements EnergyStorageMenu, EnergyStorageMenuPacketUpdate {
     private final WeatherControllerBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
@@ -36,20 +36,22 @@ public class WeatherControllerMenu extends AbstractContainerMenu implements Ener
         addDataSlots(this.data);
     }
 
-    int getEnergy() {
+    @Override
+    public int getEnergy() {
         return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
     }
 
-    int getCapacity() {
+    @Override
+    public int getCapacity() {
         return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
     }
 
-    public int getScaledEnergyMeterPos() {
+    @Override
+    public int getScaledEnergyMeterPos(int energyMeterHeight) {
         int energy = getEnergy();
         int capacity = getCapacity();
-        int energyBarSize = 52;
 
-        return (energy == 0 || capacity == 0)?0:Math.max(1, energy * energyBarSize / capacity);
+        return (energy == 0 || capacity == 0)?0:Math.max(1, energy * energyMeterHeight / capacity);
     }
 
     @Override
