@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStorageMenuPacketUpdate {
+public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStorageMenu, EnergyStorageMenuPacketUpdate {
     private final CoalEngineBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
@@ -42,15 +42,18 @@ public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStora
         addDataSlots(this.data);
     }
 
-    int getEnergy() {
+    @Override
+    public int getEnergy() {
         return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
     }
 
-    int getCapacity() {
+    @Override
+    public int getCapacity() {
         return ByteUtils.from2ByteChunks((short)data.get(6), (short)data.get(7));
     }
 
-    int getEnergyProduction() {
+    @Override
+    public int getEnergyIndicatorBarValue() {
         return ByteUtils.from2ByteChunks((short)data.get(8), (short)data.get(9));
     }
 
@@ -73,21 +76,21 @@ public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStora
         return (maxProgress == 0 || progress == 0)?0:(progress * progressFlameSize / maxProgress);
     }
 
-    public int getScaledEnergyMeterPos() {
+    @Override
+    public int getScaledEnergyMeterPos(int energyMeterHeight) {
         int energy = getEnergy();
         int capacity = getCapacity();
-        int energyBarSize = 52;
 
-        return (energy == 0 || capacity == 0)?0:Math.max(1, energy * energyBarSize / capacity);
+        return (energy == 0 || capacity == 0)?0:Math.max(1, energy * energyMeterHeight / capacity);
     }
 
-    public int getEnergyProductionBarPos() {
-        int energyProduction = getEnergyProduction();
+    @Override
+    public int getScaledEnergyIndicatorBarPos(int energyMeterHeight) {
+        int energyProduction = getEnergyIndicatorBarValue();
         int energy = getEnergy();
         int capacity = getCapacity();
-        int energyBarSize = 52;
 
-        return (energyProduction <= 0 || capacity == 0)?0:(Math.min(energy + energyProduction, capacity - 1) * energyBarSize / capacity + 1);
+        return (energyProduction <= 0 || capacity == 0)?0:(Math.min(energy + energyProduction, capacity - 1) * energyMeterHeight / capacity + 1);
     }
 
     @Override
