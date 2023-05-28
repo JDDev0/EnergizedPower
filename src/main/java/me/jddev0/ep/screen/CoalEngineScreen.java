@@ -47,7 +47,7 @@ public class CoalEngineScreen extends AbstractContainerScreen<CoalEngineMenu> {
     private void renderProgressFlame(PoseStack poseStack, int x, int y) {
         if(menu.isProducingActive()) {
             int pos = menu.getScaledProgressFlameSize();
-            blit(poseStack, x + 81, y + 28 + pos, 176, 52 + pos, 14, 14 - pos);
+            blit(poseStack, x + 81, y + 28 + pos, 176, 53 + pos, 14, 14 - pos);
         }
     }
 
@@ -59,7 +59,7 @@ public class CoalEngineScreen extends AbstractContainerScreen<CoalEngineMenu> {
     private void renderEnergyProductionBar(PoseStack poseStack, int x, int y) {
         int pos = menu.getEnergyProductionBarPos();
         if(pos > 0)
-            blit(poseStack, x + 8, y + 17 + 52 - pos, 176, 66, 16, 1);
+            blit(poseStack, x + 8, y + 17 + 52 - pos, 176, 52, 16, 1);
     }
 
     @Override

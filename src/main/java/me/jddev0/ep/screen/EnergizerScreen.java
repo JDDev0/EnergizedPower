@@ -47,7 +47,7 @@ public class EnergizerScreen extends AbstractContainerScreen<EnergizerMenu> {
 
     private void renderProgressArrow(PoseStack poseStack, int x, int y) {
         if(menu.isCraftingActive())
-            blit(poseStack, x + 89, y + 34, 176, 52, menu.getScaledProgressArrowSize(), 17);
+            blit(poseStack, x + 89, y + 34, 176, 53, menu.getScaledProgressArrowSize(), 17);
     }
 
     private void renderEnergyMeter(PoseStack poseStack, int x, int y) {
@@ -58,12 +58,12 @@ public class EnergizerScreen extends AbstractContainerScreen<EnergizerMenu> {
     private void renderEnergyRequirementBar(PoseStack poseStack, int x, int y) {
         int pos = menu.getEnergyRequirementBarPos();
         if(pos > 0)
-            blit(poseStack, x + 8, y + 17 + 52 - pos, 176, 119, 16, 1);
+            blit(poseStack, x + 8, y + 17 + 52 - pos, 176, 52, 16, 1);
     }
 
     private void renderActiveOverlay(PoseStack poseStack, int x, int y) {
         if(menu.isCrafting()) {
-            blit(poseStack, x + 31, y + 18, 176, 69, 50, 50);
+            blit(poseStack, x + 31, y + 18, 176, 70, 50, 50);
         }
     }
 
