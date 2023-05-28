@@ -74,7 +74,7 @@ public class AutoCrafterScreen extends AbstractContainerScreen<AutoCrafterMenu> 
 
     private void renderProgressArrow(PoseStack poseStack, int x, int y) {
         if(menu.isCraftingActive())
-            blit(poseStack, x + 89, y + 34, 176, 52, menu.getScaledProgressArrowSize(), 17);
+            blit(poseStack, x + 89, y + 34, 176, 53, menu.getScaledProgressArrowSize(), 17);
     }
 
     private void renderEnergyMeter(PoseStack poseStack, int x, int y) {
@@ -85,7 +85,7 @@ public class AutoCrafterScreen extends AbstractContainerScreen<AutoCrafterMenu> 
     private void renderEnergyRequirementBar(PoseStack poseStack, int x, int y) {
         int pos = menu.getEnergyRequirementBarPos();
         if(pos > 0)
-            blit(poseStack, x + 8, y + 17 + 52 - pos, 176, 69, 16, 1);
+            blit(poseStack, x + 8, y + 17 + 52 - pos, 176, 52, 16, 1);
     }
 
     private void renderCheckboxes(PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
