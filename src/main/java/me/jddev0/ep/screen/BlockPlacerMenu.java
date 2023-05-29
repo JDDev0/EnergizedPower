@@ -77,14 +77,6 @@ public class BlockPlacerMenu extends ScreenHandler implements EnergyStorageMenu,
     }
 
     @Override
-    public int getScaledEnergyMeterPos(int energyMeterHeight) {
-        long energy = getEnergy();
-        long capacity = getCapacity();
-
-        return (int)((energy == 0 || capacity == 0)?0:Math.max(1, energy * energyMeterHeight / capacity));
-    }
-
-    @Override
     public int getScaledEnergyIndicatorBarPos(int energyMeterHeight) {
         long energyRequirement = getEnergyIndicatorBarValue();
         long capacity = getCapacity();
