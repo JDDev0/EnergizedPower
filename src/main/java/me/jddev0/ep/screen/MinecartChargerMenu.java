@@ -58,14 +58,6 @@ public class MinecartChargerMenu extends ScreenHandler implements EnergyStorageM
     }
 
     @Override
-    public int getScaledEnergyMeterPos(int energyMeterHeight) {
-        long energy = getEnergy();
-        long capacity = getCapacity();
-
-        return (int)((energy == 0 || capacity == 0)?0:Math.max(1, energy * energyMeterHeight / capacity));
-    }
-
-    @Override
     public ItemStack transferSlot(PlayerEntity player, int index) {
         return ItemStack.EMPTY;
     }
