@@ -19,7 +19,7 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class PlantGrowthChamberMenu extends ScreenHandler implements EnergyStorageMenu, EnergyStorageMenuPacketUpdate {
+public class PlantGrowthChamberMenu extends ScreenHandler implements EnergyStorageConsumerIndicatorBarMenu, EnergyStorageMenuPacketUpdate {
     private final PlantGrowthChamberBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -87,14 +87,6 @@ public class PlantGrowthChamberMenu extends ScreenHandler implements EnergyStora
         int progressArrowSize = 24;
 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
-    }
-
-    @Override
-    public int getScaledEnergyIndicatorBarPos(int energyMeterHeight) {
-        long energyRequirement = getEnergyIndicatorBarValue();
-        long capacity = getCapacity();
-
-        return (int)((energyRequirement <= 0 || capacity == 0)?0:(Math.min(energyRequirement, capacity - 1) * energyMeterHeight / capacity + 1));
     }
 
     @Override

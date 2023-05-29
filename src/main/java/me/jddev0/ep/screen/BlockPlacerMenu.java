@@ -19,7 +19,7 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class BlockPlacerMenu extends ScreenHandler implements EnergyStorageMenu, EnergyStorageMenuPacketUpdate {
+public class BlockPlacerMenu extends ScreenHandler implements EnergyStorageConsumerIndicatorBarMenu, EnergyStorageMenuPacketUpdate {
     private final BlockPlacerBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -74,14 +74,6 @@ public class BlockPlacerMenu extends ScreenHandler implements EnergyStorageMenu,
 
     public boolean isCrafting() {
         return data.get(0) > 0 && data.get(14) == 1;
-    }
-
-    @Override
-    public int getScaledEnergyIndicatorBarPos(int energyMeterHeight) {
-        long energyRequirement = getEnergyIndicatorBarValue();
-        long capacity = getCapacity();
-
-        return (int)((energyRequirement <= 0 || capacity == 0)?0:(Math.min(energyRequirement, capacity - 1) * energyMeterHeight / capacity + 1));
     }
 
     @Override
