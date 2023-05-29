@@ -58,14 +58,6 @@ public class UnchargerMenu extends AbstractContainerMenu implements EnergyStorag
     }
 
     @Override
-    public int getScaledEnergyMeterPos(int energyMeterHeight) {
-        int energy = getEnergy();
-        int capacity = getCapacity();
-
-        return (energy == 0 || capacity == 0)?0:Math.max(1, energy * energyMeterHeight / capacity);
-    }
-
-    @Override
     public int getScaledEnergyIndicatorBarPos(int energyMeterHeight) {
         int energyProduction = getEnergyIndicatorBarValue();
         int energy = getEnergy();
