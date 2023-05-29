@@ -19,7 +19,7 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class UnchargerMenu extends ScreenHandler implements EnergyStorageMenu, EnergyStorageMenuPacketUpdate {
+public class UnchargerMenu extends ScreenHandler implements EnergyStorageProducerIndicatorBarMenu, EnergyStorageMenuPacketUpdate {
     private final UnchargerBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -63,15 +63,6 @@ public class UnchargerMenu extends ScreenHandler implements EnergyStorageMenu, E
     @Override
     public long getEnergyIndicatorBarValue() {
         return ByteUtils.from2ByteChunks((short)data.get(8), (short)data.get(9), (short)data.get(10), (short)data.get(11));
-    }
-
-    @Override
-    public int getScaledEnergyIndicatorBarPos(int energyMeterHeight) {
-        long energyProduction = getEnergyIndicatorBarValue();
-        long energy = getEnergy();
-        long capacity = getCapacity();
-
-        return (int)((energyProduction <= 0 || capacity == 0)?0:(Math.min(energy + energyProduction, capacity - 1) * energyMeterHeight / capacity + 1));
     }
 
     @Override
