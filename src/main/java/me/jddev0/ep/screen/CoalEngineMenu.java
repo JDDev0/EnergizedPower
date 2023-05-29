@@ -19,7 +19,7 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class CoalEngineMenu extends ScreenHandler implements EnergyStorageMenu, EnergyStorageMenuPacketUpdate {
+public class CoalEngineMenu extends ScreenHandler implements EnergyStorageProducerIndicatorBarMenu, EnergyStorageMenuPacketUpdate {
     private final CoalEngineBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -82,15 +82,6 @@ public class CoalEngineMenu extends ScreenHandler implements EnergyStorageMenu, 
         int progressFlameSize = 14;
 
         return (maxProgress == 0 || progress == 0)?0:(progress * progressFlameSize / maxProgress);
-    }
-
-    @Override
-    public int getScaledEnergyIndicatorBarPos(int energyMeterHeight) {
-        long energyProduction = getEnergyIndicatorBarValue();
-        long energy = getEnergy();
-        long capacity = getCapacity();
-
-        return (int)((energyProduction <= 0 || capacity == 0)?0:(Math.min(energy + energyProduction, capacity - 1) * energyMeterHeight / capacity + 1));
     }
 
     @Override
