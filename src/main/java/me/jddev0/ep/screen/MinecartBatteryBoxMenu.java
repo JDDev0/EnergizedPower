@@ -45,14 +45,6 @@ public class MinecartBatteryBoxMenu extends AbstractContainerMenu implements Ene
     }
 
     @Override
-    public int getScaledEnergyMeterPos(int energyMeterHeight) {
-        int energy = getEnergy();
-        int capacity = getCapacity();
-
-        return (energy == 0 || capacity == 0)?0:Math.max(1, energy * energyMeterHeight / capacity);
-    }
-
-    @Override
     public ItemStack quickMoveStack(Player player, int index) {
         return ItemStack.EMPTY;
     }
