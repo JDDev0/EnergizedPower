@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class BlockPlacerMenu extends AbstractContainerMenu implements EnergyStorageMenu, EnergyStorageMenuPacketUpdate {
+public class BlockPlacerMenu extends AbstractContainerMenu implements EnergyStorageConsumerIndicatorBarMenu, EnergyStorageMenuPacketUpdate {
     private final BlockPlacerBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
@@ -66,14 +66,6 @@ public class BlockPlacerMenu extends AbstractContainerMenu implements EnergyStor
 
     public boolean isCrafting() {
         return data.get(0) > 0 && data.get(8) == 1;
-    }
-
-    @Override
-    public int getScaledEnergyIndicatorBarPos(int energyMeterHeight) {
-        int energyRequirement = getEnergyIndicatorBarValue();
-        int capacity = getCapacity();
-
-        return (energyRequirement <= 0 || capacity == 0)?0:(Math.min(energyRequirement, capacity - 1) * energyMeterHeight / capacity + 1);
     }
 
     @Override
