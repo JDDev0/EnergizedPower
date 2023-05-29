@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class UnchargerMenu extends AbstractContainerMenu implements EnergyStorageMenu, EnergyStorageMenuPacketUpdate {
+public class UnchargerMenu extends AbstractContainerMenu implements EnergyStorageProducerIndicatorBarMenu, EnergyStorageMenuPacketUpdate {
     private final UnchargerBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
@@ -55,15 +55,6 @@ public class UnchargerMenu extends AbstractContainerMenu implements EnergyStorag
     @Override
     public int getEnergyIndicatorBarValue() {
         return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
-    }
-
-    @Override
-    public int getScaledEnergyIndicatorBarPos(int energyMeterHeight) {
-        int energyProduction = getEnergyIndicatorBarValue();
-        int energy = getEnergy();
-        int capacity = getCapacity();
-
-        return (energyProduction <= 0 || capacity == 0)?0:(Math.min(energy + energyProduction, capacity - 1) * energyMeterHeight / capacity + 1);
     }
 
     @Override

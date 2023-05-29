@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStorageMenu, EnergyStorageMenuPacketUpdate {
+public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStorageProducerIndicatorBarMenu, EnergyStorageMenuPacketUpdate {
     private final CoalEngineBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
@@ -74,15 +74,6 @@ public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStora
         int progressFlameSize = 14;
 
         return (maxProgress == 0 || progress == 0)?0:(progress * progressFlameSize / maxProgress);
-    }
-
-    @Override
-    public int getScaledEnergyIndicatorBarPos(int energyMeterHeight) {
-        int energyProduction = getEnergyIndicatorBarValue();
-        int energy = getEnergy();
-        int capacity = getCapacity();
-
-        return (energyProduction <= 0 || capacity == 0)?0:(Math.min(energy + energyProduction, capacity - 1) * energyMeterHeight / capacity + 1);
     }
 
     @Override
