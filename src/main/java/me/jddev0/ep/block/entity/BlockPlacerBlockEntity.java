@@ -296,8 +296,6 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     private static boolean hasRecipe(BlockPlacerBlockEntity blockEntity) {
-        Level level = blockEntity.level;
-
         ItemStack itemStack = blockEntity.itemHandler.getStackInSlot(0);
         if(itemStack.isEmpty())
             return false;
