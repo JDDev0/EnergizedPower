@@ -41,6 +41,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+    private boolean secondaryExtractMode;
+
     private final ReceiveOnlyEnergyStorage energyStorage;
 
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
@@ -61,7 +63,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     };
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 3, i -> isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i))));
+            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 3,
+                    i -> secondaryExtractMode?!isInput(itemHandler.getStackInSlot(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i))));
 
     private final SimpleContainer patternSlots = new SimpleContainer(3 * 3) {
         @Override
@@ -121,6 +124,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                     case 6, 7 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.energyConsumptionLeft, index - 6);
                     case 8 -> hasEnoughEnergy?1:0;
                     case 9 -> ignoreNBT?1:0;
+                    case 10 -> secondaryExtractMode?1:0;
                     default -> 0;
                 };
             }
@@ -138,12 +142,13 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                     ));
                     case 6, 7, 8 -> {}
                     case 9 -> AutoCrafterBlockEntity.this.ignoreNBT = value != 0;
+                    case 10 -> AutoCrafterBlockEntity.this.secondaryExtractMode = value != 0;
                 }
             }
 
             @Override
             public int getCount() {
-                return 10;
+                return 11;
             }
         };
     }
@@ -203,6 +208,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
         nbt.putBoolean("ignore_nbt", ignoreNBT);
+        nbt.putBoolean("secondary_extract_mode", secondaryExtractMode);
 
         super.saveAdditional(nbt);
     }
@@ -233,6 +239,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
 
         ignoreNBT = nbt.getBoolean("ignore_nbt");
+        secondaryExtractMode = nbt.getBoolean("secondary_extract_mode");
     }
 
     private void loadPatternContainer(Tag tag) {
@@ -594,6 +601,19 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         return false;
     }
 
+
+    private boolean isInput(ItemStack itemStack) {
+        if(craftingRecipe == null)
+            return false;
+
+        for(int i = 0;i < patternSlots.getContainerSize();i++)
+            if(ignoreNBT?ItemStack.isSame(itemStack, patternSlots.getItem(i)):
+                    ItemStack.isSameItemSameTags(itemStack, patternSlots.getItem(i)))
+                return true;
+
+        return false;
+    }
+
     private SimpleContainer replaceCraftingPatternWithCurrentNBTItems(SimpleContainer container) {
         SimpleContainer copyOfContainer = new SimpleContainer(container.getContainerSize());
         for(int i = 0;i < container.getContainerSize();i++)
@@ -647,6 +667,12 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     public void setIgnoreNBT(boolean ignoreNBT) {
         this.ignoreNBT = ignoreNBT;
         updateRecipe();
+        setChanged(level, getBlockPos(), getBlockState());
+    }
+
+
+    public void setSecondaryExtractMode(boolean secondaryExtractMode) {
+        this.secondaryExtractMode = secondaryExtractMode;
         setChanged(level, getBlockPos(), getBlockState());
     }
 
