@@ -82,7 +82,7 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
     public EnergizerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ENERGIZER_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, 65536, 1024) {
+        energyStorage = new ReceiveOnlyEnergyStorage(0, 65536, 4096) {
             @Override
             protected void onChange() {
                 setChanged();
