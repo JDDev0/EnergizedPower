@@ -70,6 +70,12 @@ public final class ModMessages {
                 encoder(SetAutoCrafterCheckboxC2SPacket::toBytes).
                 consumerMainThread(SetAutoCrafterCheckboxC2SPacket::handle).
                 add();
+
+        net.messageBuilder(SetBlockPlacerCheckboxC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+                decoder(SetBlockPlacerCheckboxC2SPacket::new).
+                encoder(SetBlockPlacerCheckboxC2SPacket::toBytes).
+                consumerMainThread(SetBlockPlacerCheckboxC2SPacket::handle).
+                add();
     }
 
     public static <MSG> void sendToServer(MSG message) {
