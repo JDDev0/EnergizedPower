@@ -151,6 +151,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.SAWDUST_BLOCK_ITEM);
             event.accept(ModItems.CABLE_INSULATOR);
             event.accept(ModItems.SAW_BLADE);
+            event.accept(ModItems.CRYSTAL_MATRIX);
             event.accept(ModItems.SAWDUST);
             event.accept(ModItems.BASIC_FERTILIZER);
             event.accept(ModItems.GOOD_FERTILIZER);

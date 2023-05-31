@@ -59,6 +59,9 @@ public final class ModItems {
     public static final RegistryObject<Item> SAW_BLADE = ITEMS.register("saw_blade",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> CRYSTAL_MATRIX = ITEMS.register("crystal_matrix",
+            () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> INVENTORY_COAL_ENGINE = ITEMS.register("inventory_coal_engine",
             () -> new InventoryCoalEngine(new Item.Properties().stacksTo(1)));
 
