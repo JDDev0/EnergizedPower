@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "forge:gems/amethyst"
+    },
+    "D": {
+      "tag": "forge:gems/diamond"
+    },
+    "E": {
+      "tag": "forge:gems/emerald"
+    },
+    "R": {
+      "tag": "forge:dusts/redstone"
+    }
+  },
+  "pattern": [
+    "ADA",
+    "ERD",
+    "AEA"
+  ],
+  "result": {
+    "item": "energizedpower:crystal_matrix"
+  }
+}

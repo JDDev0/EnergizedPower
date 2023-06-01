@@ -28,6 +28,8 @@
 
   "item.energizedpower.saw_blade": "锯片",
 
+  "item.energizedpower.crystal_matrix": "Crystal Matrix",
+
   "item.energizedpower.inventory_coal_engine": "Inventory Coal Engine",
   "tooltip.energizedpower.inventory_coal_engine.status": "状态: ",
   "tooltip.energizedpower.inventory_coal_engine.status.activated": "已激活",
