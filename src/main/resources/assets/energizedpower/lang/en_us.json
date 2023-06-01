@@ -28,6 +28,8 @@
 
   "item.energizedpower.saw_blade": "Saw Blade",
 
+  "item.energizedpower.crystal_matrix": "Crystal Matrix",
+
   "item.energizedpower.inventory_coal_engine": "Inventory Coal Engine",
   "tooltip.energizedpower.inventory_coal_engine.status": "Status: ",
   "tooltip.energizedpower.inventory_coal_engine.status.activated": "Activated",
