@@ -2,6 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
+    "c": {
+      "item": "energizedpower:energized_crystal_matrix"
+    },
     "C": {
       "item": "minecraft:clock"
     },
@@ -11,15 +14,12 @@
     "E": {
       "tag": "c:energized_gold_plates"
     },
-    "a": {
-      "item": "minecraft:amethyst_shard"
-    },
     "A": {
       "item": "energizedpower:advanced_machine_frame"
     }
   },
   "pattern": [
-    "aCa",
+    "cCc",
     "EAE",
     "RER"
   ],
