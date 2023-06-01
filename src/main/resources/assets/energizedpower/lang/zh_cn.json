@@ -196,6 +196,7 @@
   "container.energizedpower.block_placer": "方块放置器",
 
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "该方块需要 %s 来放置方块。",
+  "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Inverse Rotation",
 
   "block.energizedpower.lightning_generator": "人造闪电发生器",
   "item.energizedpower.lightning_generator": "人造闪电发生器",

@@ -21,14 +21,14 @@ public class BlockPlacerMenu extends AbstractContainerMenu implements EnergyStor
     private final ContainerData data;
 
     public BlockPlacerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(10));
     }
 
     public BlockPlacerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.BLOCK_PLACER_MENU.get(), id);
 
         checkContainerSize(inv, 1);
-        checkContainerDataCount(data, 9);
+        checkContainerDataCount(data, 10);
         this.blockEntity = (BlockPlacerBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -67,6 +67,10 @@ public class BlockPlacerMenu extends AbstractContainerMenu implements EnergyStor
 
     public boolean isCrafting() {
         return data.get(0) > 0 && data.get(8) == 1;
+    }
+
+    public boolean isInverseRotation() {
+        return data.get(9) != 0;
     }
 
     @Override

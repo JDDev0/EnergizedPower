@@ -86,6 +86,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
     private int maxProgress = 20;
     private int energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
+    private boolean inverseRotation;
 
     public BlockPlacerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.BLOCK_PLACER_ENTITY.get(), blockPos, blockState);
@@ -109,6 +110,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
                     case 4, 5 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.energyStorage.getCapacity(), index - 4);
                     case 6, 7 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.energyConsumptionLeft, index - 6);
                     case 8 -> hasEnoughEnergy?1:0;
+                    case 9 -> inverseRotation?1:0;
                     default -> 0;
                 };
             }
@@ -125,12 +127,13 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
                             BlockPlacerBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 4
                     ));
                     case 6, 7, 8 -> {}
+                    case 9 -> BlockPlacerBlockEntity.this.inverseRotation = value != 0;
                 }
             }
 
             @Override
             public int getCount() {
-                return 9;
+                return 10;
             }
         };
     }
@@ -188,6 +191,8 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
         nbt.put("recipe.progress", IntTag.valueOf(progress));
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
+        nbt.putBoolean("inverse_rotation", inverseRotation);
+
         super.saveAdditional(nbt);
     }
 
@@ -200,6 +205,8 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
 
         progress = nbt.getInt("recipe.progress");
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
+
+        inverseRotation = nbt.getBoolean("inverse_rotation");
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -240,7 +247,20 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
                     BlockPos blockPosPlacement = blockEntity.getBlockPos().relative(blockEntity.getBlockState().getValue(BlockPlacerBlock.FACING));
 
                     BlockItem blockItem = (BlockItem)itemStack.getItem();
-                    Direction direction = state.getValue(BlockPlacerBlock.FACING);
+                    final Direction direction;
+
+                    if(blockEntity.inverseRotation) {
+                        direction = switch(state.getValue(BlockPlacerBlock.FACING)) {
+                            case DOWN -> Direction.UP;
+                            case UP -> Direction.DOWN;
+                            case NORTH -> Direction.SOUTH;
+                            case SOUTH -> Direction.NORTH;
+                            case WEST -> Direction.EAST;
+                            case EAST -> Direction.WEST;
+                        };
+                    }else {
+                        direction = state.getValue(BlockPlacerBlock.FACING);
+                    }
 
                     InteractionResult result = blockItem.place(new DirectionalPlaceContext(level, blockPosPlacement, direction, itemStack, direction) {
                         @Override
@@ -303,6 +323,11 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
             return false;
 
         return itemStack.getItem() instanceof BlockItem;
+    }
+
+    public void setInverseRotation(boolean inverseRotation) {
+        this.inverseRotation = inverseRotation;
+        setChanged(level, getBlockPos(), getBlockState());
     }
 
     @Override
