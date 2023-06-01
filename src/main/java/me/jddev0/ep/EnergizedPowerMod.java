@@ -164,6 +164,7 @@ public class EnergizedPowerMod {
             event.accept(ModItems.ENERGIZED_GOLD_INGOT);
             event.accept(ModItems.ENERGIZED_COPPER_PLATE);
             event.accept(ModItems.ENERGIZED_GOLD_PLATE);
+            event.accept(ModItems.ENERGIZED_CRYSTAL_MATRIX);
         }
     }
 
