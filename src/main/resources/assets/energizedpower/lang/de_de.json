@@ -196,6 +196,7 @@
   "container.energizedpower.block_placer": "Blockplatzierer",
 
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "Der Block muss noch %s konsumieren, um platziert werden zu können.",
+  "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Rotation invertieren",
 
   "block.energizedpower.lightning_generator": "Blitz-Generator",
   "item.energizedpower.lightning_generator": "Blitz-Generator",

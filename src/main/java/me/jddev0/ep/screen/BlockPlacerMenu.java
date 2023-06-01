@@ -27,7 +27,7 @@ public class BlockPlacerMenu extends ScreenHandler implements EnergyStorageConsu
 
     public BlockPlacerMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
         this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1),
-                new ArrayPropertyDelegate(15));
+                new ArrayPropertyDelegate(16));
     }
 
     public BlockPlacerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
@@ -37,7 +37,7 @@ public class BlockPlacerMenu extends ScreenHandler implements EnergyStorageConsu
 
         this.inv = inv;
         checkSize(this.inv, 1);
-        checkDataCount(data, 15);
+        checkDataCount(data, 16);
         this.level = playerInventory.player.world;
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -74,6 +74,10 @@ public class BlockPlacerMenu extends ScreenHandler implements EnergyStorageConsu
 
     public boolean isCrafting() {
         return data.get(0) > 0 && data.get(14) == 1;
+    }
+
+    public boolean isInverseRotation() {
+        return data.get(15) != 0;
     }
 
     @Override
