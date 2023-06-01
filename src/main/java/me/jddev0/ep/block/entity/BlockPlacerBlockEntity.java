@@ -57,6 +57,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
     private int maxProgress = 20;
     private long energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
+    private boolean inverseRotation;
 
     public BlockPlacerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.BLOCK_PLACER_ENTITY, blockPos, blockState);
@@ -143,6 +144,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
                     case 6, 7, 8, 9 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.internalEnergyStorage.capacity, index - 6);
                     case 10, 11, 12, 13 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.energyConsumptionLeft, index - 10);
                     case 14 -> hasEnoughEnergy?1:0;
+                    case 15 -> inverseRotation?1:0;
                     default -> 0;
                 };
             }
@@ -155,12 +157,13 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
                     case 2, 3, 4, 5 -> BlockPlacerBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
                             BlockPlacerBlockEntity.this.internalEnergyStorage.amount, (short)value, index - 2);
                     case 6, 7, 8, 9, 10, 11, 12, 13, 14 -> {}
+                    case 15 -> BlockPlacerBlockEntity.this.inverseRotation = value != 0;
                 }
             }
 
             @Override
             public int size() {
-                return 15;
+                return 16;
             }
         };
     }
@@ -193,6 +196,8 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
         nbt.put("recipe.progress", NbtInt.of(progress));
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
+        nbt.putBoolean("inverse_rotation", inverseRotation);
+
         super.writeNbt(nbt);
     }
 
@@ -205,6 +210,8 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
 
         progress = nbt.getInt("recipe.progress");
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
+
+        inverseRotation = nbt.getBoolean("inverse_rotation");
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -245,7 +252,20 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
                     BlockPos blockPosPlacement = blockEntity.getPos().offset(blockEntity.getCachedState().get(BlockPlacerBlock.FACING));
 
                     BlockItem blockItem = (BlockItem)itemStack.getItem();
-                    Direction direction = state.get(BlockPlacerBlock.FACING);
+                    final Direction direction;
+
+                    if(blockEntity.inverseRotation) {
+                        direction = switch(state.get(BlockPlacerBlock.FACING)) {
+                            case DOWN -> Direction.UP;
+                            case UP -> Direction.DOWN;
+                            case NORTH -> Direction.SOUTH;
+                            case SOUTH -> Direction.NORTH;
+                            case WEST -> Direction.EAST;
+                            case EAST -> Direction.WEST;
+                        };
+                    }else {
+                        direction = state.get(BlockPlacerBlock.FACING);
+                    }
 
                     ActionResult result = blockItem.place(new AutomaticItemPlacementContext(level, blockPosPlacement, direction, itemStack, direction) {
                         @Override
@@ -308,6 +328,11 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
             return false;
 
         return itemStack.getItem() instanceof BlockItem;
+    }
+
+    public void setInverseRotation(boolean inverseRotation) {
+        this.inverseRotation = inverseRotation;
+        markDirty(world, getPos(), getCachedState());
     }
 
     @Override

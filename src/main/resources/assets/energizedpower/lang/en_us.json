@@ -196,6 +196,7 @@
   "container.energizedpower.block_placer": "Block Placer",
 
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "This block still needs %s to be placed.",
+  "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Inverse Rotation",
 
   "block.energizedpower.lightning_generator": "Lightning Generator",
   "item.energizedpower.lightning_generator": "Lightning Generator",
