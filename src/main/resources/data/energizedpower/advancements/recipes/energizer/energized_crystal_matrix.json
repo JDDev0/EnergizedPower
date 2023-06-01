@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "item": "energizedpower:crystal_matrix"
+            "items": [ "energizedpower:crystal_matrix" ]
           }
         ]
       }
