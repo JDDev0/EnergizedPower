@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "item": "minecraft:amethyst_shard"
+            "items": [ "minecraft:amethyst_shard" ]
           }
         ]
       }
