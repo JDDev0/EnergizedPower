@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "D": {
+      "tag": "c:diamonds"
+    },
+    "E": {
+      "tag": "c:emeralds"
+    },
+    "R": {
+      "tag": "c:redstone_dusts"
+    }
+  },
+  "pattern": [
+    "ADA",
+    "ERD",
+    "AEA"
+  ],
+  "result": {
+    "item": "energizedpower:crystal_matrix"
+  }
+}
