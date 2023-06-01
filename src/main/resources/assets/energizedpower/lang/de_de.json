@@ -32,6 +32,8 @@
 
   "item.energizedpower.crystal_matrix": "Kristall-Matrix",
 
+  "item.energizedpower.energized_crystal_matrix": "Energetisierte Kristall-Matrix",
+
   "item.energizedpower.inventory_coal_engine": "Inventar Kohlegenerator",
   "tooltip.energizedpower.inventory_coal_engine.status": "Status: ",
   "tooltip.energizedpower.inventory_coal_engine.status.activated": "Aktiviert",
