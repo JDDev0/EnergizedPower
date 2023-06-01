@@ -62,6 +62,9 @@ public final class ModItems {
     public static final Item CRYSTAL_MATRIX = registerItem("crystal_matrix",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final Item ENERGIZED_CRYSTAL_MATRIX = registerItem("energized_crystal_matrix",
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final Item INVENTORY_COAL_ENGINE = registerItem("inventory_coal_engine",
             new InventoryCoalEngine(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxCount(1)));
 
