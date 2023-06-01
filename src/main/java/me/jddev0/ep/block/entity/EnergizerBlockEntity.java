@@ -44,7 +44,7 @@ import java.util.stream.IntStream;
 
 public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
     public static final long CAPACITY = 65536;
-    public static final long MAX_RECEIVE = 1024;
+    public static final long MAX_RECEIVE = 4096;
 
     final CachedSidedInventoryStorage<EnergizerBlockEntity> cachedSidedInventoryStorage;
     final InputOutputItemHandler inventory;
