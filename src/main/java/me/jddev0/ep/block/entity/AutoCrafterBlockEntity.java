@@ -82,6 +82,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     private long energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
     private boolean ignoreNBT;
+    private boolean secondaryExtractMode;
 
     public AutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.AUTO_CRAFTER_ENTITY, blockPos, blockState);
@@ -120,7 +121,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
             public boolean canExtract(int slot, ItemStack stack, Direction dir) {
                 return true;
             }
-        }, (i, stack) -> i >= 3, i -> isOutputOrCraftingRemainderOfInput(internalInventory.getStack(i)));
+        }, (i, stack) -> i >= 3, i -> secondaryExtractMode?!isInput(internalInventory.getStack(i)):
+                isOutputOrCraftingRemainderOfInput(internalInventory.getStack(i)));
         cachedSidedInventoryStorage = new CachedSidedInventoryStorage<>(inventory);
 
         internalEnergyStorage = new SimpleEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
@@ -151,6 +153,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                     case 10, 11, 12, 13 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.energyConsumptionLeft, index - 10);
                     case 14 -> hasEnoughEnergy?1:0;
                     case 15 -> ignoreNBT?1:0;
+                    case 16 -> secondaryExtractMode?1:0;
                     default -> 0;
                 };
             }
@@ -164,12 +167,13 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                             AutoCrafterBlockEntity.this.internalEnergyStorage.amount, (short)value, index - 2);
                     case 6, 7, 8, 9, 10, 11, 12, 13, 14 -> {}
                     case 15 -> AutoCrafterBlockEntity.this.ignoreNBT = value != 0;
+                    case 16 -> AutoCrafterBlockEntity.this.secondaryExtractMode = value != 0;
                 }
             }
 
             @Override
             public int size() {
-                return 16;
+                return 17;
             }
         };
     }
@@ -204,6 +208,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
         nbt.putBoolean("ignore_nbt", ignoreNBT);
+        nbt.putBoolean("secondary_extract_mode", secondaryExtractMode);
 
         super.writeNbt(nbt);
     }
@@ -234,6 +239,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
 
         ignoreNBT = nbt.getBoolean("ignore_nbt");
+        secondaryExtractMode = nbt.getBoolean("secondary_extract_mode");
     }
 
     private void loadPatternContainer(NbtElement tag) {
@@ -593,6 +599,19 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         return false;
     }
 
+    private boolean isInput(ItemStack itemStack) {
+        if(craftingRecipe == null)
+            return false;
+
+        for(int i = 0;i < patternSlots.size();i++)
+            if(ignoreNBT?ItemStack.areItemsEqual(itemStack, patternSlots.getStack(i)):
+                    (ItemStack.areItemsEqual(itemStack, patternSlots.getStack(i)) &&
+                            ItemStack.areNbtEqual(itemStack, patternSlots.getStack(i))))
+                return true;
+
+        return false;
+    }
+
     private SimpleInventory replaceCraftingPatternWithCurrentNBTItems(SimpleInventory container) {
         SimpleInventory copyOfContainer = new SimpleInventory(container.size());
         for(int i = 0;i < container.size();i++)
@@ -648,6 +667,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     public void setIgnoreNBT(boolean ignoreNBT) {
         this.ignoreNBT = ignoreNBT;
         updateRecipe();
+        markDirty(world, getPos(), getCachedState());
+    }
+
+    public void setSecondaryExtractMode(boolean secondaryExtractMode) {
+        this.secondaryExtractMode = secondaryExtractMode;
         markDirty(world, getPos(), getCachedState());
     }
 
