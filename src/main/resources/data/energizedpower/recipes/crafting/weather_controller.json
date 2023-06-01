@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "r": {
-      "tag": "forge:dusts/redstone"
+    "C": {
+      "item": "energizedpower:energized_crystal_matrix"
     },
     "R": {
       "tag": "forge:storage_blocks/redstone"
@@ -19,7 +19,7 @@
     }
   },
   "pattern": [
-    "rar",
+    "CaC",
     "EAE",
     "RER"
   ],
