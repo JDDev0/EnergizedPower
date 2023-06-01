@@ -43,6 +43,15 @@ public class AutoCrafterScreen extends AbstractGenericEnergyStorageHandledScreen
                 buf.writeBoolean(!handler.isIgnoreNBT());
                 ClientPlayNetworking.send(ModMessages.SET_AUTO_CRAFTER_CHECKBOX_ID, buf);
                 clicked = true;
+            }else if(isPointWithinBounds(158, 38, 11, 11, mouseX, mouseY)) {
+                //Extract mode checkbox
+
+                PacketByteBuf buf = PacketByteBufs.create();
+                buf.writeBlockPos(handler.getBlockEntity().getPos());
+                buf.writeInt(1);
+                buf.writeBoolean(!handler.isSecondaryExtractMode());
+                ClientPlayNetworking.send(ModMessages.SET_AUTO_CRAFTER_CHECKBOX_ID, buf);
+                clicked = true;
             }
 
             if(clicked)
@@ -74,6 +83,16 @@ public class AutoCrafterScreen extends AbstractGenericEnergyStorageHandledScreen
 
             drawTexture(poseStack, x + 158, y + 16, 176, 70, 11, 11);
         }
+
+        if(handler.isSecondaryExtractMode()) {
+            //Extract mode checkbox [2]
+
+            drawTexture(poseStack, x + 158, y + 38, 187, 81, 11, 11);
+        }else {
+            //Extract mode checkbox [1]
+
+            drawTexture(poseStack, x + 158, y + 38, 176, 81, 11, 11);
+        }
     }
 
     @Override
@@ -85,6 +104,13 @@ public class AutoCrafterScreen extends AbstractGenericEnergyStorageHandledScreen
 
             List<Text> components = new ArrayList<>(2);
             components.add(Text.translatable("tooltip.energizedpower.auto_crafter.cbx.ignore_nbt"));
+
+            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+        }else if(isPointWithinBounds(158, 38, 11, 11, mouseX, mouseY)) {
+            //Extract mode
+
+            List<Text> components = new ArrayList<>(2);
+            components.add(Text.translatable("tooltip.energizedpower.auto_crafter.cbx.extract_mode." + (handler.isSecondaryExtractMode()?"2":"1")));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
         }

@@ -26,6 +26,9 @@ public final class SetAutoCrafterCheckboxC2SPacket {
             switch(checkboxId) {
                 //Ignore NBT
                 case 0 -> autoCrafterBlockEntity.setIgnoreNBT(checked);
+
+                //Secondary extract mode
+                case 1 -> autoCrafterBlockEntity.setSecondaryExtractMode(checked);
             }
         });
     }
