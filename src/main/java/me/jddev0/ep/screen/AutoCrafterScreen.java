@@ -38,6 +38,11 @@ public class AutoCrafterScreen extends AbstractGenericEnergyStorageContainerScre
 
                 ModMessages.sendToServer(new SetAutoCrafterCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0, !menu.isIgnoreNBT()));
                 clicked = true;
+            }else if(isHovering(158, 38, 11, 11, mouseX, mouseY)) {
+                //Extract mode checkbox
+
+                ModMessages.sendToServer(new SetAutoCrafterCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 1, !menu.isSecondaryExtractMode()));
+                clicked = true;
             }
 
             if(clicked)
@@ -69,6 +74,16 @@ public class AutoCrafterScreen extends AbstractGenericEnergyStorageContainerScre
 
             blit(poseStack, x + 158, y + 16, 176, 70, 11, 11);
         }
+
+        if(menu.isSecondaryExtractMode()) {
+            //Extract mode checkbox [2]
+
+            blit(poseStack, x + 158, y + 38, 187, 81, 11, 11);
+        }else {
+            //Extract mode checkbox [1]
+
+            blit(poseStack, x + 158, y + 38, 176, 81, 11, 11);
+        }
     }
 
     @Override
@@ -80,6 +95,13 @@ public class AutoCrafterScreen extends AbstractGenericEnergyStorageContainerScre
 
             List<Component> components = new ArrayList<>(2);
             components.add(new TranslatableComponent("tooltip.energizedpower.auto_crafter.cbx.ignore_nbt"));
+
+            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+        }else if(isHovering(158, 38, 11, 11, mouseX, mouseY)) {
+            //Extract mode
+
+            List<Component> components = new ArrayList<>(2);
+            components.add(new TranslatableComponent("tooltip.energizedpower.auto_crafter.cbx.extract_mode." + (menu.isSecondaryExtractMode()?"2":"1")));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
         }
