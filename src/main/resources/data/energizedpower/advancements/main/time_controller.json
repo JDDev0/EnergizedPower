@@ -1,5 +1,5 @@
 {
-  "parent":  "energizedpower:main/energized_gold_ingot",
+  "parent":  "energizedpower:main/energized_crystal_matrix",
   "display": {
     "icon": {
       "item": "energizedpower:time_controller"
