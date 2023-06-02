@@ -328,6 +328,9 @@
   "advancements.energizedpower.charging_station.title": "Wireless charging",
   "advancements.energizedpower.charging_station.description": "Charge energy items wirelessly.",
 
+  "advancements.energizedpower.energized_crystal_matrix.title": "Energized Crystal Matrix",
+  "advancements.energizedpower.energized_crystal_matrix.description": "Used as stabilizer in some advanced machines.",
+
   "advancements.energizedpower.weather_controller.title": "Control the weather",
   "advancements.energizedpower.weather_controller.description": "Change the weather with the Weather Controller.",
 
