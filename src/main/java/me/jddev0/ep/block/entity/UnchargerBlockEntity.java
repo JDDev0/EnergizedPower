@@ -88,7 +88,7 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
                 if(slot == 0) {
                     ItemStack itemStack = getStack(slot);
                     if(!stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.areItemsEqual(stack, itemStack) ||
-                            (!ItemStack.areNbtEqual(stack, itemStack) &&
+                            (!ItemStack.canCombine(stack, itemStack) &&
                                     //Only check if NBT data is equal if one of stack or itemStack is no energy item
                                     !(EnergyStorageUtil.isEnergyStorage(stack) && EnergyStorageUtil.isEnergyStorage(itemStack)))))
                         resetProgress();

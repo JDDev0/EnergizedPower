@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.LecternBlockEntity;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.PageTurnWidget;
@@ -19,12 +20,10 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.NarratorManager;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.screen.PlayerScreenHandler;
@@ -222,23 +221,18 @@ public class EnergizedPowerBookScreen extends Screen {
     }
 
     @Override
-    public void render(MatrixStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        renderBackground(poseStack);
+    public void render(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
+        renderBackground(drawContext);
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         int startX = (width - 192) / 2;
         if(currentPage == 0) {
-            RenderSystem.setShaderTexture(0, FRONT_COVER);
-            drawTexture(poseStack, startX, 2, 0, 0, 192, 192);
-            RenderSystem.setShaderTexture(0, TEXTURE);
+            drawContext.drawTexture(FRONT_COVER, startX, 2, 0, 0, 192, 192);
         }else if(currentPage == getPageCount() - 1) {
-            RenderSystem.setShaderTexture(0, BACK_COVER);
-            drawTexture(poseStack, startX, 2, 0, 0, 192, 192);
-            RenderSystem.setShaderTexture(0, TEXTURE);
+            drawContext.drawTexture(BACK_COVER, startX, 2, 0, 0, 192, 192);
         }else {
-            RenderSystem.setShaderTexture(0, TEXTURE);
-            drawTexture(poseStack, startX, 2, 0, 0, 192, 192);
+            drawContext.drawTexture(TEXTURE, startX, 2, 0, 0, 192, 192);
         }
 
         if(!isCurrentPageCached) {
@@ -259,18 +253,18 @@ public class EnergizedPowerBookScreen extends Screen {
         isCurrentPageCached = true;
 
         int textWidth = textRenderer.getWidth(currentPageNumberOutput);
-        textRenderer.draw(poseStack, currentPageNumberOutput, (width - textWidth) / 2.f, 185, 0xFFFFFFFF);
+        drawContext.drawText(textRenderer, currentPageNumberOutput, (int)((width - textWidth) / 2.f), 185, 0xFFFFFFFF, false);
 
         if(currentPage == 0) {
-            renderFrontCover(poseStack);
+            renderFrontCover(drawContext);
 
-            super.render(poseStack, mouseX, mouseY, partialTicks);
+            super.render(drawContext, mouseX, mouseY, partialTicks);
 
             return;
         }else if(currentPage == getPageCount() - 1) {
-            renderImageCentered(poseStack, ENERGIZED_COPPER_INGOT, -1);
+            renderImageCentered(drawContext, ENERGIZED_COPPER_INGOT, -1);
 
-            super.render(poseStack, mouseX, mouseY, partialTicks);
+            super.render(drawContext, mouseX, mouseY, partialTicks);
 
             return;
         }
@@ -293,22 +287,22 @@ public class EnergizedPowerBookScreen extends Screen {
             if(block != null)
                 yOffset -= 60 * .5f / scaleFactor;
 
-            poseStack.scale(scaleFactor, scaleFactor, 1.f);
-            textRenderer.draw(poseStack, chapterTitleComponent, (width / scaleFactor - textRenderer.getWidth(chapterTitleComponent)) * .5f,
-                    yOffset, 0);
-            poseStack.scale(1/scaleFactor, 1/scaleFactor, 1.f);
+            drawContext.getMatrices().scale(scaleFactor, scaleFactor, 1.f);
+            drawContext.drawText(textRenderer, chapterTitleComponent, (int)((width / scaleFactor - textRenderer.getWidth(chapterTitleComponent)) * .5f),
+                    yOffset, 0, false);
+            drawContext.getMatrices().scale(1/scaleFactor, 1/scaleFactor, 1.f);
 
             yOffset *= scaleFactor;
         }
 
         if(image != null) {
-            renderImageCentered(poseStack, image, yOffset + 15);
+            renderImageCentered(drawContext, image, yOffset + 15);
 
             yOffset += 60;
         }
 
         if(block != null) {
-            renderBlockCentered(poseStack, block, yOffset + 15);
+            renderBlockCentered(drawContext, block, yOffset + 15);
 
             yOffset += 60;
         }
@@ -323,18 +317,18 @@ public class EnergizedPowerBookScreen extends Screen {
                 else
                     x = (width - textRenderer.getWidth(formattedCharSequence)) * .5f;
 
-                textRenderer.draw(poseStack, formattedCharSequence, x, 20.f + yOffset + 9 * i, 0);
+                drawContext.drawText(textRenderer, formattedCharSequence, (int)x, 20 + yOffset + 9 * i, 0, false);
             }
 
             Style style = getComponentStyleAt(mouseX, mouseY);
             if(style != null)
-                renderTextHoverEffect(poseStack, style, mouseX, mouseY);
+                drawContext.drawHoverEvent(textRenderer, style, mouseX, mouseY);
         }
 
-        super.render(poseStack, mouseX, mouseY, partialTicks);
+        super.render(drawContext, mouseX, mouseY, partialTicks);
     }
 
-    private void renderFrontCover(MatrixStack poseStack) {
+    private void renderFrontCover(DrawContext drawContext) {
         int startX = (width - 192) / 2;
 
         float scaleFactor = 1.35f;
@@ -342,35 +336,35 @@ public class EnergizedPowerBookScreen extends Screen {
         Text component = Text.literal("Energized Power").formatted(Formatting.GOLD);
         int textWidth = textRenderer.getWidth(component);
 
-        poseStack.scale(scaleFactor, scaleFactor, 1.f);
-        textRenderer.draw(poseStack, component, (width / scaleFactor - textWidth) * .5f, 30 / scaleFactor, 0);
-        poseStack.scale(1/scaleFactor, 1/scaleFactor, 1.f);
+        drawContext.getMatrices().scale(scaleFactor, scaleFactor, 1.f);
+        drawContext.drawText(textRenderer, component, (int)((width / scaleFactor - textWidth) * .5f),
+                (int)(30 / scaleFactor), 0, false);
+        drawContext.getMatrices().scale(1/scaleFactor, 1/scaleFactor, 1.f);
 
         component = Text.translatable("book.byAuthor", "JDDev0").formatted(Formatting.GOLD);
         textWidth = textRenderer.getWidth(component);
-        textRenderer.draw(poseStack, component, (width - textWidth) * .5f, 192 - 45.f, 0);
+        drawContext.drawText(textRenderer, component, (int)((width - textWidth) * .5f), 192 - 45, 0, false);
 
         for(int i = 0;i < cachedPageComponents.size();i++) {
             OrderedText formattedCharSequence = cachedPageComponents.get(i);
-            textRenderer.draw(poseStack, formattedCharSequence, startX + 36.f, 120.f + 9 * i, 0);
+            drawContext.drawText(textRenderer, formattedCharSequence, startX + 36, 120 + 9 * i, 0, false);
         }
 
-        renderImageCentered(poseStack, ENERGIZED_COPPER_INGOT, 48);
+        renderImageCentered(drawContext, ENERGIZED_COPPER_INGOT, 48);
     }
 
-    private void renderImageCentered(MatrixStack poseStack, Identifier image, int y) {
+    private void renderImageCentered(DrawContext drawContext, Identifier image, int y) {
         float scaleFactor = .25f;
 
         if(y == -1) //Centered
             y = (int)((192 - 256 * scaleFactor) * .5f) + 2;
 
-        RenderSystem.setShaderTexture(0, image);
-        poseStack.scale(scaleFactor, scaleFactor, 1.f);
-        drawTexture(poseStack, (int)((width / scaleFactor - 256) * .5f), (int)(y / scaleFactor), 0, 0, 256, 256);
-        poseStack.scale(1/scaleFactor, 1/scaleFactor, 1.f);
+        drawContext.getMatrices().scale(scaleFactor, scaleFactor, 1.f);
+        drawContext.drawTexture(image, (int)((width / scaleFactor - 256) * .5f), (int)(y / scaleFactor), 0, 0, 256, 256);
+        drawContext.getMatrices().scale(1/scaleFactor, 1/scaleFactor, 1.f);
     }
 
-    private void renderBlockCentered(MatrixStack poseStack, Identifier blockResourceLocation, int y) {
+    private void renderBlockCentered(DrawContext drawContext, Identifier blockResourceLocation, int y) {
         if(y == -1) //Centered
             y = (int)((192 - 64) * .5f) + 2;
 
@@ -390,20 +384,20 @@ public class EnergizedPowerBookScreen extends Screen {
 
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
 
-        poseStack.push();
-        poseStack.translate((int)(width * .5f), y + 64.f * .5f, 50.f);
-        poseStack.scale(64.f, -64.f, 1.f);
+        drawContext.getMatrices().push();
+        drawContext.getMatrices().translate((int)(width * .5f), y + 64.f * .5f, 50.f);
+        drawContext.getMatrices().scale(64.f, -64.f, 1.f);
 
         VertexConsumerProvider.Immediate bufferSource = client.getBufferBuilders().getEntityVertexConsumers();
         DiffuseLighting.method_34742();
 
-        itemRenderer.renderItem(itemStack, ModelTransformationMode.GUI, false, poseStack, bufferSource,
+        itemRenderer.renderItem(itemStack, ModelTransformationMode.GUI, false, drawContext.getMatrices(), bufferSource,
                 15728880, OverlayTexture.DEFAULT_UV, bakedModel);
 
         bufferSource.draw();
         RenderSystem.enableDepthTest();
 
-        poseStack.pop();
+        drawContext.getMatrices().pop();
     }
 
     private Style getComponentStyleAt(double x, double y) {

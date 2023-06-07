@@ -1,0 +1,21 @@
+{
+  "type": "energizedpower:plant_growth_chamber",
+  "ingredient": {
+    "item": "minecraft:pitcher_pod"
+  },
+  "ticks": 16000,
+  "outputs": [
+    {
+      "output": {
+        "item": "minecraft:pitcher_pod"
+      },
+      "percentages": [1.0, 0.33, 0.15]
+    },
+    {
+      "output": {
+        "item": "minecraft:pitcher_plant"
+      },
+      "percentages": [1.0, 0.15]
+    }
+  ]
+}

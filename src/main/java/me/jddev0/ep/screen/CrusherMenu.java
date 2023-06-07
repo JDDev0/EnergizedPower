@@ -39,7 +39,7 @@ public class CrusherMenu extends ScreenHandler implements EnergyStorageConsumerI
         this.inv = inv;
         checkSize(this.inv, 2);
         checkDataCount(data, 15);
-        this.level = playerInventory.player.world;
+        this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
 

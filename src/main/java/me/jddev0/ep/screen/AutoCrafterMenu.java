@@ -48,7 +48,7 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageConsu
         this.inv = inv;
         checkSize(this.inv, 18);
         checkDataCount(data, 17);
-        this.level = playerInventory.player.world;
+        this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
 

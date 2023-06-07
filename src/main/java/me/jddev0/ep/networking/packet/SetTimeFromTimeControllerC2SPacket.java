@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.command.TimeCommand;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -40,9 +41,9 @@ public final class SetTimeFromTimeControllerC2SPacket {
             int currentDayTime = (int)(currentTime % 24000);
 
             if(currentDayTime <= time)
-                player.getWorld().setTimeOfDay(currentTime - currentDayTime + time);
+                player.getServerWorld().setTimeOfDay(currentTime - currentDayTime + time);
             else
-                player.getWorld().setTimeOfDay(currentTime + 24000 - currentDayTime + time);
+                player.getServerWorld().setTimeOfDay(currentTime + 24000 - currentDayTime + time);
         });
     }
 }

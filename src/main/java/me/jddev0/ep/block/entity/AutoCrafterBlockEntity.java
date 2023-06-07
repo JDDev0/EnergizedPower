@@ -387,7 +387,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         for(ItemStack itemStack:itemStacksExtract) {
             for(int i = 0;i < internalInventory.size();i++) {
                 ItemStack testItemStack = internalInventory.getStack(i);
-                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.areNbtEqual(itemStack, testItemStack)) {
+                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.canCombine(itemStack, testItemStack)) {
                     ItemStack ret = internalInventory.removeStack(i, itemStack.getCount());
                     if(!ret.isEmpty()) {
                         int amount = ret.getCount();
@@ -435,7 +435,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                     continue;
                 }
 
-                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.areNbtEqual(itemStack, testItemStack)) {
+                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.canCombine(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getMaxCount() - testItemStack.getCount());
                     if(amount > 0) {
                         internalInventory.setStack(i, internalInventory.getStack(i).copyWithCount(testItemStack.getCount() + amount));
@@ -489,7 +489,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                     continue;
                 }
 
-                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.areNbtEqual(itemStack, testItemStack)) {
+                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.canCombine(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getCount());
                     checkedIndices.add(j);
 
@@ -548,7 +548,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                     continue;
                 }
 
-                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.areNbtEqual(itemStack, testItemStack)) {
+                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.canCombine(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getMaxCount() - testItemStack.getCount());
 
                     if(amount + testItemStack.getCount() == testItemStack.getMaxCount())
@@ -590,11 +590,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         ItemStack resultItemStack = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(copyOfPatternSlots, world.getRegistryManager()):
                 craftingRecipe.getOutput(world.getRegistryManager());
 
-        if(ItemStack.areItemsEqual(itemStack, resultItemStack) && ItemStack.areNbtEqual(itemStack, resultItemStack))
+        if(ItemStack.areItemsEqual(itemStack, resultItemStack) && ItemStack.canCombine(itemStack, resultItemStack))
             return true;
 
         for(ItemStack remainingItem:craftingRecipe.getRemainder(copyOfPatternSlots))
-            if(ItemStack.areItemsEqual(itemStack, remainingItem) && ItemStack.areNbtEqual(itemStack, remainingItem))
+            if(ItemStack.areItemsEqual(itemStack, remainingItem) && ItemStack.canCombine(itemStack, remainingItem))
                 return true;
 
         return false;
@@ -607,7 +607,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         for(int i = 0;i < patternSlots.size();i++)
             if(ignoreNBT?ItemStack.areItemsEqual(itemStack, patternSlots.getStack(i)):
                     (ItemStack.areItemsEqual(itemStack, patternSlots.getStack(i)) &&
-                            ItemStack.areNbtEqual(itemStack, patternSlots.getStack(i))))
+                            ItemStack.canCombine(itemStack, patternSlots.getStack(i))))
                 return true;
 
         return false;
@@ -632,7 +632,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 if(testItemStack.getCount() <= 0)
                     continue;
 
-                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.areNbtEqual(itemStack, testItemStack)) {
+                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.canCombine(itemStack, testItemStack)) {
                     usedItemCounts.put(j, usedCount + 1);
                     continue outer;
                 }

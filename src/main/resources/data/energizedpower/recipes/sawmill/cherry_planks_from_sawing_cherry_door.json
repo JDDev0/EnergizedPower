@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:cherry_door"
+  },
+  "output": {
+    "item": "minecraft:cherry_planks",
+    "count": 1
+  },
+  "sawdustAmount": 3
+}

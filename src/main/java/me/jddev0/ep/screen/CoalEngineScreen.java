@@ -3,7 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.EnergizedPowerMod;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -18,19 +18,19 @@ public class CoalEngineScreen extends AbstractGenericEnergyStorageHandledScreen<
     }
 
     @Override
-    protected void drawBackground(MatrixStack poseStack, float partialTick, int mouseX, int mouseY) {
-        super.drawBackground(poseStack, partialTick, mouseX, mouseY);
+    protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
+        super.drawBackground(drawContext, partialTick, mouseX, mouseY);
 
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        renderProgressFlame(poseStack, x, y);
+        renderProgressFlame(drawContext, x, y);
     }
 
-    private void renderProgressFlame(MatrixStack poseStack, int x, int y) {
+    private void renderProgressFlame(DrawContext drawContext, int x, int y) {
         if(handler.isProducingActive()) {
             int pos = handler.getScaledProgressFlameSize();
-            drawTexture(poseStack, x + 81, y + 28 + pos, 176, 53 + pos, 14, 14 - pos);
+            drawContext.drawTexture(TEXTURE, x + 81, y + 28 + pos, 176, 53 + pos, 14, 14 - pos);
         }
     }
 }

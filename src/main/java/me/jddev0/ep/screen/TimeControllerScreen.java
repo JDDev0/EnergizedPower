@@ -7,8 +7,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvents;
@@ -74,49 +74,49 @@ public class TimeControllerScreen extends AbstractGenericEnergyStorageHandledScr
     }
 
     @Override
-    protected void drawBackground(MatrixStack poseStack, float partialTick, int mouseX, int mouseY) {
-        super.drawBackground(poseStack, partialTick, mouseX, mouseY);
+    protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
+        super.drawBackground(drawContext, partialTick, mouseX, mouseY);
 
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        renderButtons(poseStack, x, y, mouseX, mouseY);
-        renderInfoText(poseStack, x, y);
+        renderButtons(drawContext, x, y, mouseX, mouseY);
+        renderInfoText(drawContext, x, y);
     }
 
-    private void renderButtons(MatrixStack poseStack, int x, int y, int mouseX, int mouseY) {
+    private void renderButtons(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
         if(isPointWithinBounds(34, 34, 18, 18, mouseX, mouseY)) {
             //Day button
 
-            drawTexture(poseStack, x + 34, y + 34, 176, 52, 18, 18);
+            drawContext.drawTexture(TEXTURE, x + 34, y + 34, 176, 52, 18, 18);
         }else if(isPointWithinBounds(70, 34, 18, 18, mouseX, mouseY)) {
             //Noon button
 
-            drawTexture(poseStack, x + 70, y + 34, 176, 70, 18, 18);
+            drawContext.drawTexture(TEXTURE, x + 70, y + 34, 176, 70, 18, 18);
         }else if(isPointWithinBounds(106, 34, 18, 18, mouseX, mouseY)) {
             //Night button
 
-            drawTexture(poseStack, x + 106, y + 34, 176, 88, 18, 18);
+            drawContext.drawTexture(TEXTURE, x + 106, y + 34, 176, 88, 18, 18);
         }else if(isPointWithinBounds(142, 34, 18, 18, mouseX, mouseY)) {
             //Midnight button
 
-            drawTexture(poseStack, x + 142, y + 34, 176, 106, 18, 18);
+            drawContext.drawTexture(TEXTURE, x + 142, y + 34, 176, 106, 18, 18);
         }
     }
 
-    private void renderInfoText(MatrixStack poseStack, int x, int y) {
+    private void renderInfoText(DrawContext drawContext, int x, int y) {
         Text component = handler.getEnergy() < TimeControllerBlockEntity.CAPACITY?
                 Text.translatable("tooltip.energizedpower.not_enough_energy.txt").formatted(Formatting.RED):
                 Text.translatable("tooltip.energizedpower.ready.txt").formatted(Formatting.DARK_GREEN);
 
         int componentWidth = textRenderer.getWidth(component);
 
-        textRenderer.draw(poseStack, component, x + 34 + (126 - componentWidth) * .5f, y + 58, 0);
+        drawContext.drawText(textRenderer, component, (int)(x + 34 + (126 - componentWidth) * .5f), y + 58, 0, false);
     }
 
     @Override
-    protected void drawMouseoverTooltip(MatrixStack poseStack, int mouseX, int mouseY) {
-        super.drawMouseoverTooltip(poseStack, mouseX, mouseY);
+    protected void drawMouseoverTooltip(DrawContext drawContext, int mouseX, int mouseY) {
+        super.drawMouseoverTooltip(drawContext, mouseX, mouseY);
 
         if(isPointWithinBounds(34, 34, 18, 18, mouseX, mouseY)) {
             //Day button
@@ -124,28 +124,28 @@ public class TimeControllerScreen extends AbstractGenericEnergyStorageHandledScr
             List<Text> components = new ArrayList<>(2);
             components.add(Text.translatable("tooltip.energizedpower.time_controller.btn.day"));
 
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
         }else if(isPointWithinBounds(70, 34, 18, 18, mouseX, mouseY)) {
             //Noon button
 
             List<Text> components = new ArrayList<>(2);
             components.add(Text.translatable("tooltip.energizedpower.time_controller.btn.noon"));
 
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
         }else if(isPointWithinBounds(106, 34, 18, 18, mouseX, mouseY)) {
             //Night button
 
             List<Text> components = new ArrayList<>(2);
             components.add(Text.translatable("tooltip.energizedpower.time_controller.btn.night"));
 
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
         }else if(isPointWithinBounds(142, 34, 18, 18, mouseX, mouseY)) {
             //Midnight button
 
             List<Text> components = new ArrayList<>(2);
             components.add(Text.translatable("tooltip.energizedpower.time_controller.btn.midnight"));
 
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

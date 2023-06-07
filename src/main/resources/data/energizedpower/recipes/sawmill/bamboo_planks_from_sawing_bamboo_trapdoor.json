@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:bamboo_trapdoor"
+  },
+  "output": {
+    "item": "minecraft:bamboo_planks",
+    "count": 2
+  },
+  "sawdustAmount": 3
+}

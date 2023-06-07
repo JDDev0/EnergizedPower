@@ -38,7 +38,7 @@ public class PlantGrowthChamberMenu extends ScreenHandler implements EnergyStora
         this.inv = inv;
         checkSize(this.inv, 6);
         checkDataCount(data, 17);
-        this.level = playerInventory.player.world;
+        this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
 

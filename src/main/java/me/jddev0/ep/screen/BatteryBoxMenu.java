@@ -37,7 +37,7 @@ public class BatteryBoxMenu extends ScreenHandler implements EnergyStorageMenu, 
         this.inv = inv;
         checkSize(this.inv, 0);
         checkDataCount(data, 8);
-        this.level = playerInventory.player.world;
+        this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
 

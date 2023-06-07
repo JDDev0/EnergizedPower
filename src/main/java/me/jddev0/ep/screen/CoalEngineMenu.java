@@ -38,7 +38,7 @@ public class CoalEngineMenu extends ScreenHandler implements EnergyStorageProduc
         this.inv = inv;
         checkSize(this.inv, 1);
         checkDataCount(data, 17);
-        this.level = playerInventory.player.world;
+        this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
 

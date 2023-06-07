@@ -86,7 +86,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
                 if(slot == 0) {
                     ItemStack itemStack = getStack(slot);
                     if(world != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.areItemsEqual(stack, itemStack) ||
-                            !ItemStack.areNbtEqual(stack, itemStack)))
+                            !ItemStack.canCombine(stack, itemStack)))
                         resetProgress(pos, world.getBlockState(pos));
                 }
 
@@ -327,7 +327,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
                     continue;
                 }
 
-                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.areNbtEqual(itemStack, testItemStack)) {
+                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.canCombine(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getMaxCount() - testItemStack.getCount());
                     if(amount > 0) {
                         blockEntity.internalInventory.setStack(i, blockEntity.internalInventory.getStack(i).copyWithCount(testItemStack.getCount() + amount));
@@ -375,7 +375,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
                     continue;
                 }
 
-                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.areNbtEqual(itemStack, testItemStack)) {
+                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.canCombine(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getMaxCount() - testItemStack.getCount());
 
                     if(amount + testItemStack.getCount() == testItemStack.getMaxCount())

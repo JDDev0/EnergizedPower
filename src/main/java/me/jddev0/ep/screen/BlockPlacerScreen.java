@@ -6,8 +6,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvents;
@@ -50,26 +50,26 @@ public class BlockPlacerScreen extends AbstractGenericEnergyStorageHandledScreen
     }
 
     @Override
-    protected void drawBackground(MatrixStack poseStack, float partialTick, int mouseX, int mouseY) {
-        super.drawBackground(poseStack, partialTick, mouseX, mouseY);
+    protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
+        super.drawBackground(drawContext, partialTick, mouseX, mouseY);
 
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        renderCheckboxes(poseStack, x, y, mouseX, mouseY);
+        renderCheckboxes(drawContext, x, y, mouseX, mouseY);
     }
 
-    private void renderCheckboxes(MatrixStack poseStack, int x, int y, int mouseX, int mouseY) {
+    private void renderCheckboxes(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
         if(handler.isInverseRotation()) {
             //Inverse rotation checkbox
 
-            drawTexture(poseStack, x + 158, y + 16, 176, 53, 11, 11);
+            drawContext.drawTexture(TEXTURE, x + 158, y + 16, 176, 53, 11, 11);
         }
     }
 
     @Override
-    protected void drawMouseoverTooltip(MatrixStack poseStack, int mouseX, int mouseY) {
-        super.drawMouseoverTooltip(poseStack, mouseX, mouseY);
+    protected void drawMouseoverTooltip(DrawContext drawContext, int mouseX, int mouseY) {
+        super.drawMouseoverTooltip(drawContext, mouseX, mouseY);
 
         if(isPointWithinBounds(158, 16, 11, 11, mouseX, mouseY)) {
             //Inverse rotation checkbox
@@ -77,7 +77,7 @@ public class BlockPlacerScreen extends AbstractGenericEnergyStorageHandledScreen
             List<Text> components = new ArrayList<>(2);
             components.add(Text.translatable("tooltip.energizedpower.block_placer.cbx.inverse_rotation"));
 
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

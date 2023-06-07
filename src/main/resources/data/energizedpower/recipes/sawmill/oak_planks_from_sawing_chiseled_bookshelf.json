@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:chiseled_bookshelf"
+  },
+  "output": {
+    "item": "minecraft:oak_planks",
+    "count": 6
+  },
+  "sawdustAmount": 5
+}

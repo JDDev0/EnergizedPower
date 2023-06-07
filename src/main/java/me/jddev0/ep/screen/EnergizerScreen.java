@@ -3,7 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.EnergizedPowerMod;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -18,24 +18,24 @@ public class EnergizerScreen extends AbstractGenericEnergyStorageHandledScreen<E
     }
 
     @Override
-    protected void drawBackground(MatrixStack poseStack, float partialTick, int mouseX, int mouseY) {
-        super.drawBackground(poseStack, partialTick, mouseX, mouseY);
+    protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
+        super.drawBackground(drawContext, partialTick, mouseX, mouseY);
 
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        renderProgressArrow(poseStack, x, y);
-        renderActiveOverlay(poseStack, x, y);
+        renderProgressArrow(drawContext, x, y);
+        renderActiveOverlay(drawContext, x, y);
     }
 
-    private void renderProgressArrow(MatrixStack poseStack, int x, int y) {
+    private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawTexture(poseStack, x + 89, y + 34, 176, 53, handler.getScaledProgressArrowSize(), 17);
+            drawContext.drawTexture(TEXTURE, x + 89, y + 34, 176, 53, handler.getScaledProgressArrowSize(), 17);
     }
 
-    private void renderActiveOverlay(MatrixStack poseStack, int x, int y) {
+    private void renderActiveOverlay(DrawContext drawContext, int x, int y) {
         if(handler.isCrafting()) {
-            drawTexture(poseStack, x + 31, y + 18, 176, 70, 50, 50);
+            drawContext.drawTexture(TEXTURE, x + 31, y + 18, 176, 70, 50, 50);
         }
     }
 }

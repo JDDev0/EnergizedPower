@@ -75,7 +75,7 @@ public class CrusherBlockEntity extends BlockEntity implements ExtendedScreenHan
                 if(slot == 0) {
                     ItemStack itemStack = getStack(slot);
                     if(world != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.areItemsEqual(stack, itemStack) ||
-                            !ItemStack.areNbtEqual(stack, itemStack)))
+                            !ItemStack.canCombine(stack, itemStack)))
                         resetProgress(pos, world.getBlockState(pos));
                 }
 

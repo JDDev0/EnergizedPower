@@ -255,13 +255,13 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 
     public enum Tier {
         TIER_COPPER("copper_cable", 1024,
-                FabricBlockSettings.of(Material.WOOL, MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
+                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
         TIER_GOLD("gold_cable", 16384,
-                FabricBlockSettings.of(Material.WOOL, MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
+                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
         TIER_ENERGIZED_COPPER("energized_copper_cable", 131072,
-                FabricBlockSettings.of(Material.WOOL, MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
+                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
         TIER_ENERGIZED_GOLD("energized_goldr_cable", 524288,
-                FabricBlockSettings.of(Material.WOOL, MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL));
+                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL));
 
         private final String resourceId;
         private final int maxTransfer;

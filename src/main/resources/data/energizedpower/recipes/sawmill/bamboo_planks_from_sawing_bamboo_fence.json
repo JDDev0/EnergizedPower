@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:bamboo_fence"
+  },
+  "output": {
+    "item": "minecraft:bamboo_planks",
+    "count": 1
+  },
+  "sawdustAmount": 2
+}

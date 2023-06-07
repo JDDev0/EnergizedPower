@@ -3,7 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.EnergizedPowerMod;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -18,17 +18,17 @@ public class PlantGrowthChamberScreen extends AbstractGenericEnergyStorageHandle
     }
 
     @Override
-    protected void drawBackground(MatrixStack poseStack, float partialTick, int mouseX, int mouseY) {
-        super.drawBackground(poseStack, partialTick, mouseX, mouseY);
+    protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
+        super.drawBackground(drawContext, partialTick, mouseX, mouseY);
 
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        renderProgressArrow(poseStack, x, y);
+        renderProgressArrow(drawContext, x, y);
     }
 
-    private void renderProgressArrow(MatrixStack poseStack, int x, int y) {
+    private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawTexture(poseStack, x + 94, y + 34, 176, 53, handler.getScaledProgressArrowSize(), 17);
+            drawContext.drawTexture(TEXTURE, x + 94, y + 34, 176, 53, handler.getScaledProgressArrowSize(), 17);
     }
 }

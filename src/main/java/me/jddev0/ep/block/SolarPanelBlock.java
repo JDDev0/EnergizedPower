@@ -115,19 +115,19 @@ public class SolarPanelBlock extends BlockWithEntity {
 
     public enum Tier {
         TIER_1("solar_panel_1", 32,
-                FabricBlockSettings.of(Material.METAL).
+                FabricBlockSettings.create().
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
         TIER_2("solar_panel_2", 256,
-                FabricBlockSettings.of(Material.METAL).
+                FabricBlockSettings.create().
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
         TIER_3("solar_panel_3", 2048,
-                FabricBlockSettings.of(Material.METAL).
+                FabricBlockSettings.create().
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
         TIER_4("solar_panel_4", 32768,
-                FabricBlockSettings.of(Material.METAL).
+                FabricBlockSettings.create().
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
         TIER_5("solar_panel_5", 262144,
-                FabricBlockSettings.of(Material.METAL).
+                FabricBlockSettings.create().
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL));
 
         private final String resourceId;

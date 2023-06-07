@@ -87,7 +87,7 @@ public class MinecartBatteryBox extends AbstractMinecartEntity implements Invent
     public ActionResult interact(PlayerEntity player, Hand interactionHand) {
         player.openHandledScreen(this);
 
-        return player.world.isClient?ActionResult.SUCCESS:ActionResult.CONSUME;
+        return player.getWorld().isClient?ActionResult.SUCCESS:ActionResult.CONSUME;
     }
 
     @Override

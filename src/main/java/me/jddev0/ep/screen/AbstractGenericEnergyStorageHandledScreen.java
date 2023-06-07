@@ -5,9 +5,9 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
@@ -68,43 +68,42 @@ public abstract class AbstractGenericEnergyStorageHandledScreen<T extends Screen
     }
 
     @Override
-    protected void drawBackground(MatrixStack poseStack, float partialTick, int mouseX, int mouseY) {
+    protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
-        RenderSystem.setShaderTexture(0, TEXTURE);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        drawTexture(poseStack, x, y, 0, 0, backgroundWidth, backgroundHeight);
-        renderEnergyMeter(poseStack, x, y);
-        renderEnergyIndicatorBar(poseStack, x, y);
+        drawContext.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        renderEnergyMeter(drawContext, x, y);
+        renderEnergyIndicatorBar(drawContext, x, y);
     }
 
-    protected void renderEnergyMeter(MatrixStack poseStack, int x, int y) {
+    protected void renderEnergyMeter(DrawContext drawContext, int x, int y) {
         int pos = handler.getScaledEnergyMeterPos(energyMeterHeight);
-        drawTexture(poseStack, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, 176,
+        drawContext.drawTexture(TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, 176,
                 energyMeterHeight - pos, energyMeterWidth, pos);
     }
 
-    protected void renderEnergyIndicatorBar(MatrixStack poseStack, int x, int y) {
+    protected void renderEnergyIndicatorBar(DrawContext drawContext, int x, int y) {
         int pos = handler.getScaledEnergyIndicatorBarPos(energyMeterHeight);
         if(pos > 0)
-            drawTexture(poseStack, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, 176,
+            drawContext.drawTexture(TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, 176,
                     energyMeterHeight, energyMeterWidth, 1);
     }
 
     @Override
-    public void render(MatrixStack poseStack, int mouseX, int mouseY, float delta) {
-        renderBackground(poseStack);
+    public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
+        renderBackground(drawContext);
 
-        super.render(poseStack, mouseX, mouseY, delta);
+        super.render(drawContext, mouseX, mouseY, delta);
 
-        drawMouseoverTooltip(poseStack, mouseX, mouseY);
+        drawMouseoverTooltip(drawContext, mouseX, mouseY);
     }
 
     @Override
-    protected void drawMouseoverTooltip(MatrixStack poseStack, int mouseX, int mouseY) {
-        super.drawMouseoverTooltip(poseStack, mouseX, mouseY);
+    protected void drawMouseoverTooltip(DrawContext drawContext, int mouseX, int mouseY) {
+        super.drawMouseoverTooltip(drawContext, mouseX, mouseY);
 
         if(isPointWithinBounds(energyMeterX, energyMeterY, energyMeterWidth, energyMeterHeight, mouseX, mouseY)) {
             List<Text> components = new ArrayList<>(2);
@@ -115,7 +114,7 @@ public abstract class AbstractGenericEnergyStorageHandledScreen<T extends Screen
                         EnergyUtils.getEnergyWithPrefix(handler.getEnergyIndicatorBarValue())).formatted(Formatting.YELLOW));
             }
 
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

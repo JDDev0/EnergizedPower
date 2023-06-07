@@ -35,11 +35,11 @@ public final class SetWeatherFromWeatherControllerC2SPacket {
 
             switch(weatherType) {
                 //Clear
-                case 0 -> player.getWorld().setWeather(WeatherControllerBlock.WEATHER_CHANGED_TICKS, 0, false, false);
+                case 0 -> player.getServerWorld().setWeather(WeatherControllerBlock.WEATHER_CHANGED_TICKS, 0, false, false);
                 //Rain
-                case 1 -> player.getWorld().setWeather(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, false);
+                case 1 -> player.getServerWorld().setWeather(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, false);
                 //Thunder
-                case 2 -> player.getWorld().setWeather(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, true);
+                case 2 -> player.getServerWorld().setWeather(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, true);
             }
         });
     }
