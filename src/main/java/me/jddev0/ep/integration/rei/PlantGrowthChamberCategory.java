@@ -51,6 +51,7 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
         ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 61, 25, 108, 48));
 
+/* TODO Re-enable
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 10)).disableBackground().markInput().
                 entries(display.getInputEntries().get(0)));
 
@@ -75,6 +76,7 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
                         Component.translatable("recipes.energizedpower.plant_growth_chamber.ticks",
                                 display.recipe().getTicks())).
                 noShadow().rightAligned());
+ */
 
         return widgets;
     }

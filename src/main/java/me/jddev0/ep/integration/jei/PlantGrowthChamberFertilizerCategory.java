@@ -1,6 +1,5 @@
 package me.jddev0.ep.integration.jei;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
@@ -60,8 +59,9 @@ public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<Pla
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 1).addIngredients(recipe.getInput());
     }
 
+/* TODO Re-enable
     @Override
-    public void draw(PlantGrowthChamberFertilizerRecipe recipe, IRecipeSlotsView iRecipeSlotsView, PoseStack matrixStack, double mouseX, double mouseY) {
+    public void draw(PlantGrowthChamberFertilizerRecipe recipe, IRecipeSlotsView iRecipeSlotsView, guiGraphics matrixStack, double mouseX, double mouseY) {
         fertlizerSlot.draw(matrixStack, 0, 0);
 
         Font font = Minecraft.getInstance().font;
@@ -75,4 +75,5 @@ public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<Pla
 
         Minecraft.getInstance().font.draw(matrixStack, component, 144 - textWidth, 22, 0xFFFFFFFF);
     }
+ */
 }

@@ -18,7 +18,7 @@ public class HeatGeneratorMenu extends AbstractContainerMenu implements EnergySt
     private final ContainerData data;
 
     public HeatGeneratorMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(4));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(4));
     }
 
     public HeatGeneratorMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
@@ -27,7 +27,7 @@ public class HeatGeneratorMenu extends AbstractContainerMenu implements EnergySt
         checkContainerSize(inv, 0);
         checkContainerDataCount(data, 4);
         this.blockEntity = (HeatGeneratorBlockEntity)blockEntity;
-        this.level = inv.player.level;
+        this.level = inv.player.level();
         this.data = data;
 
         addPlayerInventory(inv);

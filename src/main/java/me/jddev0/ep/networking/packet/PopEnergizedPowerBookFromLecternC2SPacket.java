@@ -33,7 +33,7 @@ public class PopEnergizedPowerBookFromLecternC2SPacket {
             if(!player.mayBuild())
                 return;
 
-            BlockEntity blockEntity = player.getLevel().getBlockEntity(pos);
+            BlockEntity blockEntity = player.level().getBlockEntity(pos);
 
             if(blockEntity instanceof LecternBlockEntity) {
                 LecternBlockEntity lecternBlockEntity = (LecternBlockEntity)blockEntity;
@@ -41,7 +41,7 @@ public class PopEnergizedPowerBookFromLecternC2SPacket {
                 ItemStack itemStack = lecternBlockEntity.getBook();
 
                 lecternBlockEntity.setBook(ItemStack.EMPTY);
-                LecternBlock.resetBookState(player, player.getLevel(), pos, player.getLevel().getBlockState(pos), false);
+                LecternBlock.resetBookState(player, player.level(), pos, player.level().getBlockState(pos), false);
                 if(!player.getInventory().add(itemStack))
                     player.drop(itemStack, false);
             }

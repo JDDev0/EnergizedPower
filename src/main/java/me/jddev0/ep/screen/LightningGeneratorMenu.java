@@ -18,7 +18,7 @@ public class LightningGeneratorMenu extends AbstractContainerMenu implements Ene
     private final ContainerData data;
 
     public LightningGeneratorMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(4));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(4));
     }
 
     public LightningGeneratorMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
@@ -27,7 +27,7 @@ public class LightningGeneratorMenu extends AbstractContainerMenu implements Ene
         checkContainerSize(inv, 0);
         checkContainerDataCount(data, 4);
         this.blockEntity = (LightningGeneratorBlockEntity)blockEntity;
-        this.level = inv.player.level;
+        this.level = inv.player.level();
         this.data = data;
 
         addPlayerInventory(inv);

@@ -22,6 +22,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.CustomRecipe;
@@ -306,7 +307,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                 if(blockEntity.progress >= blockEntity.maxProgress) {
                     SimpleContainer patternSlotsForRecipe = blockEntity.ignoreNBT?
                             blockEntity.replaceCraftingPatternWithCurrentNBTItems(blockEntity.patternSlots):blockEntity.patternSlots;
-                    CraftingContainer copyOfPatternSlots = new CraftingContainer(blockEntity.dummyContainerMenu, 3, 3);
+                    CraftingContainer copyOfPatternSlots = new TransientCraftingContainer(blockEntity.dummyContainerMenu, 3, 3);
                     for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
                         copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
 
@@ -349,7 +350,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         hasRecipeLoaded = true;
 
         SimpleContainer patternSlotsForRecipe = ignoreNBT?replaceCraftingPatternWithCurrentNBTItems(patternSlots):patternSlots;
-        CraftingContainer copyOfPatternSlots = new CraftingContainer(dummyContainerMenu, 3, 3);
+        CraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
         for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
             copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
 
@@ -365,7 +366,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             if(oldRecipe != null && oldResult != null && oldCopyOfRecipe != null && (craftingRecipe != oldRecipe || !ItemStack.isSameItemSameTags(resultItemStack, oldResult)))
                 resetProgress();
 
-            oldCopyOfRecipe = new CraftingContainer(dummyContainerMenu, 3, 3);
+            oldCopyOfRecipe = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
             for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
                 oldCopyOfRecipe.setItem(i, copyOfPatternSlots.getItem(i).copy());
         }else {
@@ -516,7 +517,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             return false;
 
         SimpleContainer patternSlotsForRecipe = ignoreNBT?replaceCraftingPatternWithCurrentNBTItems(patternSlots):patternSlots;
-        CraftingContainer copyOfPatternSlots = new CraftingContainer(dummyContainerMenu, 3, 3);
+        CraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
         for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
             copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
 
@@ -584,7 +585,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             return false;
 
         SimpleContainer patternSlotsForRecipe = ignoreNBT?replaceCraftingPatternWithCurrentNBTItems(patternSlots):patternSlots;
-        CraftingContainer copyOfPatternSlots = new CraftingContainer(dummyContainerMenu, 3, 3);
+        CraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
         for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
             copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
 
@@ -607,7 +608,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             return false;
 
         for(int i = 0;i < patternSlots.getContainerSize();i++)
-            if(ignoreNBT?ItemStack.isSame(itemStack, patternSlots.getItem(i)):
+            if(ignoreNBT?ItemStack.isSameItem(itemStack, patternSlots.getItem(i)):
                     ItemStack.isSameItemSameTags(itemStack, patternSlots.getItem(i)))
                 return true;
 
@@ -647,7 +648,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                 if(testItemStack.getCount() <= 0)
                     continue;
 
-                if(ItemStack.isSame(itemStack, testItemStack)) {
+                if(ItemStack.isSameItem(itemStack, testItemStack)) {
                     usedItemCounts.put(j, usedCount + 1);
 
                     copyOfContainer.setItem(i, testItemStack.copyWithCount(1));

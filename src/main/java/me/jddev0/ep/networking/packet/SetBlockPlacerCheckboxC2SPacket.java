@@ -34,7 +34,7 @@ public class SetBlockPlacerCheckboxC2SPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            BlockEntity blockEntity = context.getSender().getLevel().getBlockEntity(pos);
+            BlockEntity blockEntity = context.getSender().level().getBlockEntity(pos);
             if(!(blockEntity instanceof BlockPlacerBlockEntity blockPlacerBlockEntity))
                 return;
 

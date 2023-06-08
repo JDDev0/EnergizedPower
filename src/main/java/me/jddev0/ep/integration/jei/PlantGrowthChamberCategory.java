@@ -1,6 +1,5 @@
 package me.jddev0.ep.integration.jei;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
@@ -79,12 +78,14 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<PlantGrowthCh
             iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 91, 19).addItemStacks(outputSlotEntries.get(3));
     }
 
+/* TODO Re-enable
     @Override
-    public void draw(PlantGrowthChamberRecipe recipe, IRecipeSlotsView iRecipeSlotsView, PoseStack matrixStack, double mouseX, double mouseY) {
+    public void draw(PlantGrowthChamberRecipe recipe, IRecipeSlotsView iRecipeSlotsView, guiGraphics matrixStack, double mouseX, double mouseY) {
         Font font = Minecraft.getInstance().font;
         Component component = Component.translatable("recipes.energizedpower.plant_growth_chamber.ticks", recipe.getTicks());
         int textWidth = font.width(component);
 
         Minecraft.getInstance().font.draw(matrixStack, component, 108 - textWidth, 40, 0xFFFFFFFF);
     }
+*/
 }

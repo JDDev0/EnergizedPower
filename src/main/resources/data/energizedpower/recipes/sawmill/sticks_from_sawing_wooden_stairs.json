@@ -27,6 +27,15 @@
     },
     {
       "item": "minecraft:warped_stairs"
+    },
+    {
+      "item": "minecraft:cherry_stairs"
+    },
+    {
+      "item": "minecraft:bamboo_stairs"
+    },
+    {
+      "item": "minecraft:bamboo_mosaic_stairs"
     }
   ],
   "output": {

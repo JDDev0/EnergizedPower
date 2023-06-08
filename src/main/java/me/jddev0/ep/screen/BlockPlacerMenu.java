@@ -20,7 +20,7 @@ public class BlockPlacerMenu extends AbstractContainerMenu implements EnergyStor
     private final ContainerData data;
 
     public BlockPlacerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(10));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(10));
     }
 
     public BlockPlacerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
@@ -29,7 +29,7 @@ public class BlockPlacerMenu extends AbstractContainerMenu implements EnergyStor
         checkContainerSize(inv, 1);
         checkContainerDataCount(data, 10);
         this.blockEntity = (BlockPlacerBlockEntity)blockEntity;
-        this.level = inv.player.level;
+        this.level = inv.player.level();
         this.data = data;
 
         addPlayerInventory(inv);

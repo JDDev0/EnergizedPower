@@ -28,7 +28,7 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
     private final Container patternResultSlots;
 
     public AutoCrafterMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainer(9), new SimpleContainer(1), new SimpleContainerData(11));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainer(9), new SimpleContainer(1), new SimpleContainerData(11));
     }
 
     public AutoCrafterMenu(int id, Inventory inv, BlockEntity blockEntity, Container patternSlots, Container patternResultSlots, ContainerData data) {
@@ -40,7 +40,7 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
         checkContainerSize(inv, 18 + 3*3 + 1);
         checkContainerDataCount(data, 11);
         this.blockEntity = (AutoCrafterBlockEntity)blockEntity;
-        this.level = inv.player.level;
+        this.level = inv.player.level();
         this.data = data;
 
         addPlayerInventory(inv);

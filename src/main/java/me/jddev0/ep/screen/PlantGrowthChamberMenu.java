@@ -20,7 +20,7 @@ public class PlantGrowthChamberMenu extends AbstractContainerMenu implements Ene
     private final ContainerData data;
 
     public PlantGrowthChamberMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(11));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(11));
     }
 
     public PlantGrowthChamberMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
@@ -29,7 +29,7 @@ public class PlantGrowthChamberMenu extends AbstractContainerMenu implements Ene
         checkContainerSize(inv, 6);
         checkContainerDataCount(data, 11);
         this.blockEntity = (PlantGrowthChamberBlockEntity)blockEntity;
-        this.level = inv.player.level;
+        this.level = inv.player.level();
         this.data = data;
 
         addPlayerInventory(inv);

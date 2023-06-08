@@ -1,9 +1,9 @@
 package me.jddev0.ep.screen;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetAutoCrafterCheckboxC2SPacket;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -52,42 +52,42 @@ public class AutoCrafterScreen extends AbstractGenericEnergyStorageContainerScre
     }
 
     @Override
-    protected void renderBg(PoseStack poseStack, float partialTick, int mouseX, int mouseY) {
-        super.renderBg(poseStack, partialTick, mouseX, mouseY);
+    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+        super.renderBg(guiGraphics, partialTick, mouseX, mouseY);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        renderProgressArrow(poseStack, x, y);
-        renderCheckboxes(poseStack, x, y, mouseX, mouseY);
+        renderProgressArrow(guiGraphics, x, y);
+        renderCheckboxes(guiGraphics, x, y, mouseX, mouseY);
     }
 
-    private void renderProgressArrow(PoseStack poseStack, int x, int y) {
+    private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            blit(poseStack, x + 89, y + 34, 176, 53, menu.getScaledProgressArrowSize(), 17);
+            guiGraphics.blit(TEXTURE, x + 89, y + 34, 176, 53, menu.getScaledProgressArrowSize(), 17);
     }
 
-    private void renderCheckboxes(PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
+    private void renderCheckboxes(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         if(menu.isIgnoreNBT()) {
             //Ignore NBT checkbox
 
-            blit(poseStack, x + 158, y + 16, 176, 70, 11, 11);
+            guiGraphics.blit(TEXTURE, x + 158, y + 16, 176, 70, 11, 11);
         }
 
         if(menu.isSecondaryExtractMode()) {
             //Extract mode checkbox [2]
 
-            blit(poseStack, x + 158, y + 38, 187, 81, 11, 11);
+            guiGraphics.blit(TEXTURE, x + 158, y + 38, 187, 81, 11, 11);
         }else {
             //Extract mode checkbox [1]
 
-            blit(poseStack, x + 158, y + 38, 176, 81, 11, 11);
+            guiGraphics.blit(TEXTURE, x + 158, y + 38, 176, 81, 11, 11);
         }
     }
 
     @Override
-    protected void renderTooltip(PoseStack poseStack, int mouseX, int mouseY) {
-        super.renderTooltip(poseStack, mouseX, mouseY);
+    protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        super.renderTooltip(guiGraphics, mouseX, mouseY);
 
         if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
             //Ignore NBT checkbox
@@ -95,14 +95,14 @@ public class AutoCrafterScreen extends AbstractGenericEnergyStorageContainerScre
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.auto_crafter.cbx.ignore_nbt"));
 
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
         }else if(isHovering(158, 38, 11, 11, mouseX, mouseY)) {
             //Extract mode
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.auto_crafter.cbx.extract_mode." + (menu.isSecondaryExtractMode()?"2":"1")));
 
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

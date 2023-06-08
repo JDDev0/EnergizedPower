@@ -20,7 +20,7 @@ public class SawmillMenu extends AbstractContainerMenu implements EnergyStorageC
     private final ContainerData data;
 
     public SawmillMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
     }
 
     public SawmillMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
@@ -29,7 +29,7 @@ public class SawmillMenu extends AbstractContainerMenu implements EnergyStorageC
         checkContainerSize(inv, 3);
         checkContainerDataCount(data, 9);
         this.blockEntity = (SawmillBlockEntity)blockEntity;
-        this.level = inv.player.level;
+        this.level = inv.player.level();
         this.data = data;
 
         addPlayerInventory(inv);

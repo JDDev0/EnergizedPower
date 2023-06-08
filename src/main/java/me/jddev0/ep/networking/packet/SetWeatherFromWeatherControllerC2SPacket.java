@@ -38,7 +38,7 @@ public class SetWeatherFromWeatherControllerC2SPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            BlockEntity blockEntity = context.getSender().getLevel().getBlockEntity(pos);
+            BlockEntity blockEntity = context.getSender().level().getBlockEntity(pos);
             if(!(blockEntity instanceof WeatherControllerBlockEntity weatherControllerBlockEntity))
                 return;
 
@@ -54,11 +54,11 @@ public class SetWeatherFromWeatherControllerC2SPacket {
 
             switch(weatherType) {
                 //Clear
-                case 0 -> context.getSender().getLevel().setWeatherParameters(WeatherControllerBlock.WEATHER_CHANGED_TICKS, 0, false, false);
+                case 0 -> context.getSender().serverLevel().setWeatherParameters(WeatherControllerBlock.WEATHER_CHANGED_TICKS, 0, false, false);
                 //Rain
-                case 1 -> context.getSender().getLevel().setWeatherParameters(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, false);
+                case 1 -> context.getSender().serverLevel().setWeatherParameters(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, false);
                 //Thunder
-                case 2 -> context.getSender().getLevel().setWeatherParameters(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, true);
+                case 2 -> context.getSender().serverLevel().setWeatherParameters(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, true);
             }
         });
 

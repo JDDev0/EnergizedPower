@@ -25,7 +25,7 @@ public class MinecartBatteryBoxMenu extends AbstractContainerMenu implements Ene
         checkContainerSize(inv, 0);
         checkContainerDataCount(data, 4);
         this.container = container;
-        this.level = inv.player.level;
+        this.level = inv.player.level();
         this.data = data;
 
         addPlayerInventory(inv);

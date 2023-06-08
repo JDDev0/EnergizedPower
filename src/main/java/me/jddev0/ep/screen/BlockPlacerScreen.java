@@ -1,9 +1,9 @@
 package me.jddev0.ep.screen;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetBlockPlacerCheckboxC2SPacket;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -44,26 +44,26 @@ public class BlockPlacerScreen extends AbstractGenericEnergyStorageContainerScre
     }
 
     @Override
-    protected void renderBg(PoseStack poseStack, float partialTick, int mouseX, int mouseY) {
-        super.renderBg(poseStack, partialTick, mouseX, mouseY);
+    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+        super.renderBg(guiGraphics, partialTick, mouseX, mouseY);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        renderCheckboxes(poseStack, x, y, mouseX, mouseY);
+        renderCheckboxes(guiGraphics, x, y, mouseX, mouseY);
     }
 
-    private void renderCheckboxes(PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
+    private void renderCheckboxes(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         if(menu.isInverseRotation()) {
             //Inverse rotation checkbox
 
-            blit(poseStack, x + 158, y + 16, 176, 53, 11, 11);
+            guiGraphics.blit(TEXTURE, x + 158, y + 16, 176, 53, 11, 11);
         }
     }
 
     @Override
-    protected void renderTooltip(PoseStack poseStack, int mouseX, int mouseY) {
-        super.renderTooltip(poseStack, mouseX, mouseY);
+    protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        super.renderTooltip(guiGraphics, mouseX, mouseY);
 
         if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
             //Inverse rotation checkbox
@@ -71,7 +71,7 @@ public class BlockPlacerScreen extends AbstractGenericEnergyStorageContainerScre
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.block_placer.cbx.inverse_rotation"));
 
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

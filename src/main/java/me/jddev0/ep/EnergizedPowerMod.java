@@ -24,7 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -53,8 +53,9 @@ public class EnergizedPowerMod {
 
         ModBlockBehaviors.register();
 
+        ModCreativeModeTab.register(modEventBus);
+
         modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(this::registerCreativeTab);
         modEventBus.addListener(this::addCreativeTab);
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -64,10 +65,6 @@ public class EnergizedPowerMod {
         ModMessages.register();
     }
 
-    private void registerCreativeTab(CreativeModeTabEvent.Register event) {
-        ModCreativeModeTab.registerCreative(event);
-    }
-
     private ItemStack getChargedItemStack(Item item, int energy) {
         ItemStack itemStack = new ItemStack(item);
         itemStack.getOrCreateTag().put("energy", IntTag.valueOf(energy));
@@ -75,13 +72,13 @@ public class EnergizedPowerMod {
         return itemStack;
     }
 
-    private void addEmptyAndFullyChargedItem(CreativeModeTabEvent.BuildContents event, RegistryObject<Item> item, int capacity) {
+    private void addEmptyAndFullyChargedItem(BuildCreativeModeTabContentsEvent event, RegistryObject<Item> item, int capacity) {
         event.accept(item);
         event.accept(getChargedItemStack(item.get(), capacity));
     }
 
-    private void addCreativeTab(CreativeModeTabEvent.BuildContents event) {
-        if(event.getTab() == ModCreativeModeTab.ENERGIZED_POWER_TAB) {
+    private void addCreativeTab(BuildCreativeModeTabContentsEvent event) {
+        if(event.getTab() == ModCreativeModeTab.ENERGIZED_POWER_TAB.get()) {
             event.accept(ModItems.ENERGIZED_POWER_BOOK);
             addEmptyAndFullyChargedItem(event, ModItems.ENERGY_ANALYZER, EnergyAnalyzerItem.ENERGY_CAPACITY);
 

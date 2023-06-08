@@ -27,6 +27,12 @@
     },
     {
       "item": "minecraft:warped_button"
+    },
+    {
+      "item": "minecraft:cherry_button"
+    },
+    {
+      "item": "minecraft:bamboo_button"
     }
   ],
   "output": {

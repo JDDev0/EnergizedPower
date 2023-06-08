@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -121,19 +120,19 @@ public class SolarPanelBlock extends BaseEntityBlock {
 
     public enum Tier {
         TIER_1("solar_panel_1", 32,
-                BlockBehaviour.Properties.of(Material.METAL).
+                BlockBehaviour.Properties.of().
                 requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
         TIER_2("solar_panel_2", 256,
-                BlockBehaviour.Properties.of(Material.METAL).
+                BlockBehaviour.Properties.of().
                         requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
         TIER_3("solar_panel_3", 2048,
-                BlockBehaviour.Properties.of(Material.METAL).
+                BlockBehaviour.Properties.of().
                         requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
         TIER_4("solar_panel_4", 32768,
-                BlockBehaviour.Properties.of(Material.METAL).
+                BlockBehaviour.Properties.of().
                         requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
         TIER_5("solar_panel_5", 262144,
-                BlockBehaviour.Properties.of(Material.METAL).
+                BlockBehaviour.Properties.of().
                         requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL));
 
         private final String resourceId;

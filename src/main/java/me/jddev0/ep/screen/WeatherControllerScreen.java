@@ -1,11 +1,11 @@
 package me.jddev0.ep.screen;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetWeatherFromWeatherControllerC2SPacket;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -55,45 +55,45 @@ public class WeatherControllerScreen extends AbstractGenericEnergyStorageContain
     }
 
     @Override
-    protected void renderBg(PoseStack poseStack, float partialTick, int mouseX, int mouseY) {
-        super.renderBg(poseStack, partialTick, mouseX, mouseY);
+    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+        super.renderBg(guiGraphics, partialTick, mouseX, mouseY);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        renderButtons(poseStack, x, y, mouseX, mouseY);
-        renderInfoText(poseStack, x, y);
+        renderButtons(guiGraphics, x, y, mouseX, mouseY);
+        renderInfoText(guiGraphics, x, y);
     }
 
-    private void renderButtons(PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
+    private void renderButtons(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         if(isHovering(52, 34, 18, 18, mouseX, mouseY)) {
             //Weather clear button
 
-            blit(poseStack, x + 52, y + 34, 176, 52, 18, 18);
+            guiGraphics.blit(TEXTURE, x + 52, y + 34, 176, 52, 18, 18);
         }else if(isHovering(88, 34, 18, 18, mouseX, mouseY)) {
             //Weather rain button
 
-            blit(poseStack, x + 88, y + 34, 176, 70, 18, 18);
+            guiGraphics.blit(TEXTURE, x + 88, y + 34, 176, 70, 18, 18);
         }else if(isHovering(124, 34, 18, 18, mouseX, mouseY)) {
             //Weather thunder button
 
-            blit(poseStack, x + 124, y + 34, 176, 88, 18, 18);
+            guiGraphics.blit(TEXTURE, x + 124, y + 34, 176, 88, 18, 18);
         }
     }
 
-    private void renderInfoText(PoseStack poseStack, int x, int y) {
+    private void renderInfoText(GuiGraphics guiGraphics, int x, int y) {
         Component component = menu.getEnergy() < TimeControllerBlockEntity.CAPACITY?
                 Component.translatable("tooltip.energizedpower.not_enough_energy.txt").withStyle(ChatFormatting.RED):
                 Component.translatable("tooltip.energizedpower.ready.txt").withStyle(ChatFormatting.DARK_GREEN);
 
         int componentWidth = font.width(component);
 
-        font.draw(poseStack, component, x + 34 + (126 - componentWidth) * .5f, y + 58, 0);
+        guiGraphics.drawString(font, component, (int)(x + 34 + (126 - componentWidth) * .5f), y + 58, 0, false);
     }
 
     @Override
-    protected void renderTooltip(PoseStack poseStack, int mouseX, int mouseY) {
-        super.renderTooltip(poseStack, mouseX, mouseY);
+    protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        super.renderTooltip(guiGraphics, mouseX, mouseY);
 
         if(isHovering(52, 34, 18, 18, mouseX, mouseY)) {
             //Weather clear button
@@ -101,21 +101,21 @@ public class WeatherControllerScreen extends AbstractGenericEnergyStorageContain
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.weather_controller.btn.clear"));
 
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
         }else if(isHovering(88, 34, 18, 18, mouseX, mouseY)) {
             //Weather rain button
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.weather_controller.btn.rain"));
 
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
         }else if(isHovering(124, 34, 18, 18, mouseX, mouseY)) {
             //Weather thunder button
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.weather_controller.btn.thunder"));
 
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

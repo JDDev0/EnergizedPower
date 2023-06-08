@@ -48,6 +48,7 @@ public class PlantGrowthChamberFertilizerCategory implements DisplayCategory<Pla
         ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 34, 34, 18, 18));
 
+/* TODO Re-enable
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 1)).disableBackground().markInput().
                 entries(display.getInputEntries().get(0)));
 
@@ -59,6 +60,7 @@ public class PlantGrowthChamberFertilizerCategory implements DisplayCategory<Pla
                         Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier",
                                 display.recipe().getEnergyConsumptionMultiplier())).
                 noShadow().rightAligned());
+ */
 
         return widgets;
     }

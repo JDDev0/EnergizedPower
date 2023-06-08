@@ -62,6 +62,7 @@ public class EnergizerCategory implements IRecipeCategory<EnergizerRecipe> {
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 93, 17).addItemStack(recipe.getOutput());
     }
 
+/* TODO Re-enable
     @Override
     public void draw(EnergizerRecipe recipe, IRecipeSlotsView iRecipeSlotsView, PoseStack matrixStack, double mouseX, double mouseY) {
         Font font = Minecraft.getInstance().font;
@@ -70,4 +71,5 @@ public class EnergizerCategory implements IRecipeCategory<EnergizerRecipe> {
 
         Minecraft.getInstance().font.draw(matrixStack, component, 114 - textWidth, 42, 0xFFFFFFFF);
     }
+ */
 }

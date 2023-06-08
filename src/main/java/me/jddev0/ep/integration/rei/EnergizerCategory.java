@@ -50,6 +50,7 @@ public class EnergizerCategory implements DisplayCategory<EnergizerDisplay> {
         ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/energizer.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 31, 18, 114, 50));
 
+/* TODO Re-enable
         widgets.add(Widgets.createSlot(new Point(x + 17, y + 17)).disableBackground().markInput().
                 entries(display.getInputEntries().get(0)));
         widgets.add(Widgets.createSlot(new Point(x + 93, y + 17)).disableBackground().markOutput().
@@ -58,6 +59,7 @@ public class EnergizerCategory implements DisplayCategory<EnergizerDisplay> {
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
                         Component.literal(EnergyUtils.getEnergyWithPrefix(display.recipe().getEnergyConsumption())).withStyle(ChatFormatting.YELLOW)).
                 noShadow().rightAligned());
+ */
 
         return widgets;
     }

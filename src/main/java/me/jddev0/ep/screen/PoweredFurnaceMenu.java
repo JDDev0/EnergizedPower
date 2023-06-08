@@ -20,7 +20,7 @@ public class PoweredFurnaceMenu extends AbstractContainerMenu implements EnergyS
     private final ContainerData data;
 
     public PoweredFurnaceMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(11));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(11));
     }
 
     public PoweredFurnaceMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
@@ -29,7 +29,7 @@ public class PoweredFurnaceMenu extends AbstractContainerMenu implements EnergyS
         checkContainerSize(inv, 2);
         checkContainerDataCount(data, 11);
         this.blockEntity = (PoweredFurnaceBlockEntity)blockEntity;
-        this.level = inv.player.level;
+        this.level = inv.player.level();
         this.data = data;
 
         addPlayerInventory(inv);

@@ -34,7 +34,7 @@ public class SetTimeFromTimeControllerC2SPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            BlockEntity blockEntity = context.getSender().getLevel().getBlockEntity(pos);
+            BlockEntity blockEntity = context.getSender().level().getBlockEntity(pos);
             if(!(blockEntity instanceof TimeControllerBlockEntity timeControllerBlockEntity))
                 return;
 
@@ -51,14 +51,14 @@ public class SetTimeFromTimeControllerC2SPacket {
             if(time < 0 || time > 24000)
                 return;
 
-            long currentTime = context.getSender().getLevel().getDayTime();
+            long currentTime = context.getSender().level().getDayTime();
 
             int currentDayTime = (int)(currentTime % 24000);
 
             if(currentDayTime <= time)
-                context.getSender().getLevel().setDayTime(currentTime - currentDayTime + time);
+                context.getSender().serverLevel().setDayTime(currentTime - currentDayTime + time);
             else
-                context.getSender().getLevel().setDayTime(currentTime + 24000 - currentDayTime + time);
+                context.getSender().serverLevel().setDayTime(currentTime + 24000 - currentDayTime + time);
         });
 
         return true;

@@ -20,7 +20,7 @@ public class CompressorMenu extends AbstractContainerMenu implements EnergyStora
     private final ContainerData data;
 
     public CompressorMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
     }
 
     public CompressorMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
@@ -29,7 +29,7 @@ public class CompressorMenu extends AbstractContainerMenu implements EnergyStora
         checkContainerSize(inv, 2);
         checkContainerDataCount(data, 9);
         this.blockEntity = (CompressorBlockEntity)blockEntity;
-        this.level = inv.player.level;
+        this.level = inv.player.level();
         this.data = data;
 
         addPlayerInventory(inv);

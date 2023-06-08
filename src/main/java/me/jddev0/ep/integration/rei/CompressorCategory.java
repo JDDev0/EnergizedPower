@@ -48,10 +48,12 @@ public class CompressorCategory implements DisplayCategory<CompressorDisplay> {
         ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/compressor.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 47, 30, 98, 26));
 
+/* TODO Re-enable
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().
                 entries(display.getInputEntries().get(0)));
         widgets.add(Widgets.createSlot(new Point(x + 77, y + 5)).disableBackground().markOutput().
                 entries(display.getOutputEntries().get(0)));
+ */
 
         return widgets;
     }

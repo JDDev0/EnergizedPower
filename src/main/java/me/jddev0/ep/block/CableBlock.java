@@ -25,8 +25,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -257,13 +256,13 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 
     public enum Tier {
         TIER_COPPER("copper_cable", 1024,
-                BlockBehaviour.Properties.of(Material.WOOL, MaterialColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
+                BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
         TIER_GOLD("gold_cable", 16384,
-                BlockBehaviour.Properties.of(Material.WOOL, MaterialColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
+                BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
         TIER_ENERGIZED_COPPER("energized_copper_cable", 131072,
-                BlockBehaviour.Properties.of(Material.WOOL, MaterialColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
+                BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
         TIER_ENERGIZED_GOLD("energized_gold_cable", 524288,
-                BlockBehaviour.Properties.of(Material.WOOL, MaterialColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL));
+                BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL));
 
         private final String resourceId;
         private final int maxTransfer;
