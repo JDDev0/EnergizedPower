@@ -14,6 +14,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -78,14 +79,12 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<PlantGrowthCh
             iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 91, 19).addItemStacks(outputSlotEntries.get(3));
     }
 
-/* TODO Re-enable
     @Override
-    public void draw(PlantGrowthChamberRecipe recipe, IRecipeSlotsView iRecipeSlotsView, guiGraphics matrixStack, double mouseX, double mouseY) {
+    public void draw(PlantGrowthChamberRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         Font font = Minecraft.getInstance().font;
         Component component = Component.translatable("recipes.energizedpower.plant_growth_chamber.ticks", recipe.getTicks());
         int textWidth = font.width(component);
 
-        Minecraft.getInstance().font.draw(matrixStack, component, 108 - textWidth, 40, 0xFFFFFFFF);
+        guiGraphics.drawString(Minecraft.getInstance().font, component, 108 - textWidth, 40, 0xFFFFFFFF, false);
     }
-*/
 }

@@ -14,6 +14,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -59,21 +60,19 @@ public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<Pla
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 1).addIngredients(recipe.getInput());
     }
 
-/* TODO Re-enable
     @Override
-    public void draw(PlantGrowthChamberFertilizerRecipe recipe, IRecipeSlotsView iRecipeSlotsView, guiGraphics matrixStack, double mouseX, double mouseY) {
-        fertlizerSlot.draw(matrixStack, 0, 0);
+    public void draw(PlantGrowthChamberFertilizerRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        fertlizerSlot.draw(guiGraphics, 0, 0);
 
         Font font = Minecraft.getInstance().font;
         Component component = Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier", recipe.getSpeedMultiplier());
         int textWidth = font.width(component);
 
-        Minecraft.getInstance().font.draw(matrixStack, component, 144 - textWidth, 5, 0xFFFFFFFF);
+        guiGraphics.drawString(Minecraft.getInstance().font, component, 144 - textWidth, 5, 0xFFFFFFFF, false);
 
         component = Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier", recipe.getEnergyConsumptionMultiplier());
         textWidth = font.width(component);
 
-        Minecraft.getInstance().font.draw(matrixStack, component, 144 - textWidth, 22, 0xFFFFFFFF);
+        guiGraphics.drawString(Minecraft.getInstance().font, component, 144 - textWidth, 22, 0xFFFFFFFF, false);
     }
- */
 }

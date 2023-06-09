@@ -16,6 +16,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -61,14 +62,12 @@ public class ChargerCategory implements IRecipeCategory<ChargerRecipe> {
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 92, 15).addItemStack(recipe.getOutput());
     }
 
-/* TODO Re-enable
     @Override
-    public void draw(ChargerRecipe recipe, IRecipeSlotsView iRecipeSlotsView, guiGraphics matrixStack, double mouseX, double mouseY) {
+    public void draw(ChargerRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         Font font = Minecraft.getInstance().font;
         Component component = Component.literal(EnergyUtils.getEnergyWithPrefix(recipe.getEnergyConsumption())).withStyle(ChatFormatting.YELLOW);
         int textWidth = font.width(component);
 
-        Minecraft.getInstance().font.draw(matrixStack, component, 113 - textWidth, 38, 0xFFFFFFFF);
+        guiGraphics.drawString(Minecraft.getInstance().font, component, 113 - textWidth, 38, 0xFFFFFFFF, false);
     }
- */
 }
