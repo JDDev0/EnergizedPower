@@ -143,8 +143,8 @@ dependencies {
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:10.+"
 
     // JEI integration
-    compileOnly fg.deobf("mezz.jei:jei-1.19.4-common-api:13.1.0.9")
-    compileOnly fg.deobf("mezz.jei:jei-1.19.4-forge-api:13.1.0.9")
+    compileOnly fg.deobf("mezz.jei:jei-1.20-common-api:14.0.0.4")
+    compileOnly fg.deobf("mezz.jei:jei-1.20-forge-api:14.0.0.4")
 
     // Curios integration
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.4-5.1.5.3:api")
