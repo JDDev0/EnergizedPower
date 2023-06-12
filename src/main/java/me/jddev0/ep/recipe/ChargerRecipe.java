@@ -79,6 +79,11 @@ public class ChargerRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public RecipeSerializer<?> getSerializer() {
         return Serializer.INSTANCE;
     }
