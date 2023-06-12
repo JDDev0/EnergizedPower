@@ -83,6 +83,11 @@ public class SawmillRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
+    public boolean isIgnoredInRecipeBook() {
+        return true;
+    }
+
+    @Override
     public RecipeSerializer<?> getSerializer() {
         return SawmillRecipe.Serializer.INSTANCE;
     }
