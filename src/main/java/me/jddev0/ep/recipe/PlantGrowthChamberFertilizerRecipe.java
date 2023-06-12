@@ -81,6 +81,11 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<SimpleInventor
     }
 
     @Override
+    public boolean isIgnoredInRecipeBook() {
+        return true;
+    }
+
+    @Override
     public RecipeSerializer<?> getSerializer() {
         return Serializer.INSTANCE;
     }
