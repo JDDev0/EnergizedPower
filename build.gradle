@@ -147,7 +147,7 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-1.20-forge-api:14.0.0.4")
 
     // Curios integration
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.4-5.1.5.3:api")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.2.0-beta.2+1.20:api")
 
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
