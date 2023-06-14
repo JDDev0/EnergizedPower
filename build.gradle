@@ -139,7 +139,7 @@ dependencies {
     // REI integration
     compileOnly 'me.shedaniel.cloth:basic-math:0.6.1'
     compileOnly fg.deobf("dev.architectury:architectury-forge:9.0.7")
-    compileOnly fg.deobf('me.shedaniel:RoughlyEnoughItems-forge:11.0.597')
+    compileOnly fg.deobf('me.shedaniel:RoughlyEnoughItems-forge:12.0.625')
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:10.+"
 
     // JEI integration
