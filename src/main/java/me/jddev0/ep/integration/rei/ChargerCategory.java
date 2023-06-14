@@ -54,7 +54,6 @@ public class ChargerCategory implements DisplayCategory<ChargerDisplay> {
 
         widgets.add(Widgets.createResultSlotBackground(new Point(x + 92, y + 15)));
 
-/* TODO Re-enable
         widgets.add(Widgets.createSlot(new Point(x + 15, y + 15)).disableBackground().markInput().
                 entries(display.getInputEntries().get(0)));
         widgets.add(Widgets.createSlot(new Point(x + 92, y + 15)).disableBackground().markOutput().
@@ -63,7 +62,6 @@ public class ChargerCategory implements DisplayCategory<ChargerDisplay> {
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
                 Component.literal(EnergyUtils.getEnergyWithPrefix(display.recipe().getEnergyConsumption())).withStyle(ChatFormatting.YELLOW)).
                 noShadow().rightAligned());
- */
 
         return widgets;
     }

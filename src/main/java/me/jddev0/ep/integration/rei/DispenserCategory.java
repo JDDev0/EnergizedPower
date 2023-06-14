@@ -51,14 +51,12 @@ public class DispenserCategory implements DisplayCategory<DispenserDisplay> {
 
         widgets.add(Widgets.createResultSlotBackground(new Point(x + 80, y + 5)));
 
-/* TODO Re-enable
         widgets.add(Widgets.createSlot(new Point(x, y + 5)).disableBackground().markInput().
                 entries(display.getInputEntries().get(0)));
         widgets.add(Widgets.createSlot(new Point(x + 18, y + 5)).disableBackground().markInput().
                 entries(display.getInputEntries().get(1)));
         widgets.add(Widgets.createSlot(new Point(x + 80, y + 5)).disableBackground().markOutput().
                 entries(display.getOutputEntries().get(0)));
- */
 
         return widgets;
     }

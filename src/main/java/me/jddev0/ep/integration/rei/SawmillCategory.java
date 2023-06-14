@@ -48,14 +48,12 @@ public class SawmillCategory implements DisplayCategory<SawmillDisplay> {
         ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/sawmill.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 42, 30, 109, 26));
 
-/* TODO Re-enable
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().
                 entries(display.getInputEntries().get(0)));
         widgets.add(Widgets.createSlot(new Point(x + 65, y + 5)).disableBackground().markOutput().
                 entries(display.getOutputEntries().get(0)));
         widgets.add(Widgets.createSlot(new Point(x + 92, y + 5)).disableBackground().markOutput().
                 entries(display.getOutputEntries().get(1)));
- */
 
         return widgets;
     }
