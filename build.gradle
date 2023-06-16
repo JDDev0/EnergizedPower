@@ -1,7 +1,7 @@
 plugins {
     id 'eclipse'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'net.minecraftforge.gradle' version '6.0.+'
 }
 
 version = '1.20.1-1.7.4-dev'
@@ -51,6 +51,10 @@ minecraft {
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             property 'forge.enabledGameTestNamespaces', 'energizedpower'
 
+            // Fix mixin dependencies
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
             mods {
                 energizedpower {
                     source sourceSets.main
@@ -66,6 +70,10 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             property 'forge.enabledGameTestNamespaces', 'energizedpower'
+
+            // Fix mixin dependencies
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 energizedpower {
@@ -86,6 +94,10 @@ minecraft {
 
             property 'forge.enabledGameTestNamespaces', 'energizedpower'
 
+            // Fix mixin dependencies
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
             mods {
                 energizedpower {
                     source sourceSets.main
@@ -102,6 +114,10 @@ minecraft {
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
             args '--mod', 'energizedpower', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            // Fix mixin dependencies
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 energizedpower {
@@ -121,6 +137,7 @@ repositories {
     maven { url "https://maven.shedaniel.me" }
     maven { url "https://modmaven.dev" }
     maven { url "https://maven.theillusivec4.top/" }
+    maven { url "https://maven.terraformersmc.com/" }
 
     // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
     flatDir {
@@ -145,6 +162,9 @@ dependencies {
     // JEI integration
     compileOnly fg.deobf("mezz.jei:jei-1.20-common-api:14.0.0.11")
     compileOnly fg.deobf("mezz.jei:jei-1.20-forge-api:14.0.0.11")
+
+    // EMI integration
+    compileOnly fg.deobf("dev.emi:emi-forge:1.0.4+1.20.1:api")
 
     // Curios integration
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.2.0-beta.3+1.20.1:api")

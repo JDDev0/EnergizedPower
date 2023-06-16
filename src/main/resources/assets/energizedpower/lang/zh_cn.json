@@ -261,6 +261,16 @@
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx Energy Consumption",
   "recipes.energizedpower.transfer.too_large": "这配方对于这个容器太大了！",
 
+  "emi.category.energizedpower.charger": "充能站",
+  "emi.category.energizedpower.crusher": "粉碎机",
+  "emi.category.energizedpower.sawmill": "锯木机",
+  "emi.category.energizedpower.compressor": "Compressor",
+  "emi.category.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
+  "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Growth Chamber (Fertilizer)",
+  "emi.category.energizedpower.energizer": "物品充能站",
+  "emi.category.energizedpower.dispenser": "Dispenser",
+  "emi.category.energizedpower.in_world_crafting": "In-World Crafting",
+
 
   "advancements.energizedpower.advanced_machine_frame.title": "高级机器",
   "advancements.energizedpower.advanced_machine_frame.description": "更高级的机器需要这个制作基础。",
