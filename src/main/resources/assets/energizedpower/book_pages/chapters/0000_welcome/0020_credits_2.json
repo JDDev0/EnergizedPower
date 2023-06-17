@@ -43,6 +43,33 @@
           }
         }
       ]
+    },
+    {
+      "text": "\n• ",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "translate": "book.energizedpower.page.credits_2.2"
+        },
+        ": ",
+        {
+          "text": "Roby1164",
+          "color": "blue",
+          "underlined": true,
+          "clickEvent": {
+            "action": "open_url",
+            "value": "https://github.com/Roby1164"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.tooltip.link"
+            }
+          }
+        }
+      ]
     }
   ]
 }

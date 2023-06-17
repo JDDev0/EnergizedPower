@@ -63,6 +63,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - English
 - German
 - Chinese (Simplified)
+- Italian (**In next release (v1.7.5)**)
 
 ## Information
 
@@ -81,6 +82,7 @@ Invite Link: [https://discord.gg/sAKDNAU7yH](https://discord.gg/sAKDNAU7yH)
 - Silicon texture ([flashbulbs](https://github.com/flashbulbs))
 - Energy Analyzer texture ([flashbulbs](https://github.com/flashbulbs))
 - Chinese (Simplified) translation: ([HanJiang-cn](https://github.com/HanJiang-cn))
+- Italian translation: ([Roby1164](https://github.com/Roby1164))
 
 ## Tutorial
 
