@@ -261,6 +261,16 @@
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx Energy Consumption",
   "recipes.energizedpower.transfer.too_large": "This recipe is to large for this container!",
 
+  "emi.category.energizedpower.charger": "Charger",
+  "emi.category.energizedpower.crusher": "Crusher",
+  "emi.category.energizedpower.sawmill": "Sawmill",
+  "emi.category.energizedpower.compressor": "Compressor",
+  "emi.category.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
+  "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Growth Chamber (Fertilizer)",
+  "emi.category.energizedpower.energizer": "Energizer",
+  "emi.category.energizedpower.dispenser": "Dispenser",
+  "emi.category.energizedpower.in_world_crafting": "In-World Crafting",
+
 
   "advancements.energizedpower.advanced_machine_frame.title": "Advanced Machines",
   "advancements.energizedpower.advanced_machine_frame.description": "More advanced machines need this base crafting item.",

@@ -261,6 +261,16 @@
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx Energieverbrauch",
   "recipes.energizedpower.transfer.too_large": "Dieses Rezept ist für diesen Container zu groß!",
 
+  "emi.category.energizedpower.charger": "Lader",
+  "emi.category.energizedpower.crusher": "Zerkleinerer",
+  "emi.category.energizedpower.sawmill": "Sägewerk",
+  "emi.category.energizedpower.compressor": "Kompressor",
+  "emi.category.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
+  "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Wachstums-Kammer (Dünger)",
+  "emi.category.energizedpower.energizer": "Energetisierer",
+  "emi.category.energizedpower.dispenser": "Werfer",
+  "emi.category.energizedpower.in_world_crafting": "In-Welt Herstellung",
+
 
   "advancements.energizedpower.advanced_machine_frame.title": "Fortgeschrittene Maschinen",
   "advancements.energizedpower.advanced_machine_frame.description": "Fortgeschrittenere Maschinen benötigen dieses Basis-Crafting-Item.",
