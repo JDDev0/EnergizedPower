@@ -59,7 +59,7 @@ dependencies {
 	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:10.0.592"
 
 	// EMI integration
-	modCompileOnly "dev.emi:emi:0.6.5+1.19.3:api"
+	modCompileOnly "dev.emi:emi-fabric:1.0.4+1.19.3:api"
 }
 
 processResources {
