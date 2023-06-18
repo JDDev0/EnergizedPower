@@ -57,8 +57,8 @@
   "txt.energizedpower.energy_analyzer.output_side_information": "Informazioni per la superficie del blocco cliccato::",
   "txt.energizedpower.energy_analyzer.no_energy_left": "L'analizzatore di energia non dispone di alimentazione sufficiente (sono richiesti %s).",
   "txt.energizedpower.energy_analyzer.no_block_entity": "Questo blocco non è un blocco energetico.",
-  "txt.energizedpower.energy_analyzer.no_energy_block": "Questo blocco non è un blocco energetico (FE).",
-  "txt.energizedpower.energy_analyzer.no_energy_block_side": "Questa faccia del blocco non è una faccia del blocco di energia (FE).",
+  "txt.energizedpower.energy_analyzer.no_energy_block": "Questo blocco non è un blocco energetico (E).",
+  "txt.energizedpower.energy_analyzer.no_energy_block_side": "Questa faccia del blocco non è una faccia del blocco di energia (E).",
   "txt.energizedpower.energy_analyzer.energy_output": "Energia: %s / %s.",
   "txt.energizedpower.energy_analyzer.energy_can_receive": "Questo blocco consuma energia.",
   "txt.energizedpower.energy_analyzer.energy_can_extract": "Questo blocco produce energia.",
@@ -321,13 +321,13 @@
   "advancements.energizedpower.battery_6.description": "Livello VI: hai alimentato la tua batteria per una capacità di archiviazione ancora maggiore.",
 
   "advancements.energizedpower.battery_7.title": "Hai detto che ti serve più Potenza?",
-  "advancements.energizedpower.battery_7.description": "Livello VII: un quarto di milione di FE di capacità di stoccaggio! Possiamo fare di meglio?",
+  "advancements.energizedpower.battery_7.description": "Livello VII: un quarto di milione di E di capacità di stoccaggio! Possiamo fare di meglio?",
 
   "advancements.energizedpower.battery_8.title": "Ho bisogno di più POTENZA",
-  "advancements.energizedpower.battery_8.description": "Questa è la migliore batteria di questa mod (può immagazzinare più di 1 milione di FE)",
+  "advancements.energizedpower.battery_8.description": "Questa è la migliore batteria di questa mod (può immagazzinare più di 1 milione di E)",
 
   "advancements.energizedpower.battery_8_fully_charged.title": "Maestro di accumulo di energia",
-  "advancements.energizedpower.battery_8_fully_charged.description": "Hai caricato completamente la tua batteria da 1 milione di FE!",
+  "advancements.energizedpower.battery_8_fully_charged.description": "Hai caricato completamente la tua batteria da 1 milione di E!",
 
   "advancements.energizedpower.cable_insulator.title": "Il rivestimento per il tuo cavo",
   "advancements.energizedpower.cable_insulator.description": "Copri i tuoi cavi con questo ingrediente. (Può essere creato cliccando sulla lana con le cesoie [Può essere usato anche il dispenser])",
