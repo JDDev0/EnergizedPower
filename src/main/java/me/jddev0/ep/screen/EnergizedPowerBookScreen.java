@@ -353,7 +353,7 @@ public class EnergizedPowerBookScreen extends Screen {
         float scaleFactor = .25f;
 
         if(y == -1) //Centered
-            y = (int)((226 - 256 * scaleFactor) * .5f) + 2;
+            y = (int)((230 - 256 * scaleFactor) * .5f) + 2;
 
         guiGraphics.pose().scale(scaleFactor, scaleFactor, 1.f);
         guiGraphics.blit(image, (int)((width / scaleFactor - 256) * .5f), (int)(y / scaleFactor), 0, 0, 256, 256);
@@ -362,7 +362,7 @@ public class EnergizedPowerBookScreen extends Screen {
 
     private void renderBlockCentered(GuiGraphics guiGraphics, ResourceLocation blockResourceLocation, int y) {
         if(y == -1) //Centered
-            y = (int)((226 - 64) * .5f) + 2;
+            y = (int)((230 - 64) * .5f) + 2;
 
         Block block = ForgeRegistries.BLOCKS.getValue(blockResourceLocation);
         ItemStack itemStack = new ItemStack(block);
