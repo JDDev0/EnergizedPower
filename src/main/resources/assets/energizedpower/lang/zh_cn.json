@@ -547,12 +547,12 @@
   "book.energizedpower.page.transformers_1.1": "变压器用于连接不同类型的电缆。",
   "book.energizedpower.page.transformers_1.2": "输入面是深色的，有一个较大的菱形。",
   "book.energizedpower.page.transformers_1.3": "输出面是较浅的，有一个较小的正方形。",
+  "book.energizedpower.page.transformers_1.4": "一共有三种类型的变压器：1对n，3对3，以及 n对1。",
 
-  "book.energizedpower.page.transformers_2.1": "一共有三种类型的变压器：1对n，3对3，以及 n对1。",
-  "book.energizedpower.page.transformers_2.2": "使用变压器可以减轻电缆网络的延迟；要适当的使用变压器来代替电缆。",
-  "book.energizedpower.page.transformers_2.3": "变压器可以连接充能的电缆和其它类型的电缆。",
-  "book.energizedpower.page.transformers_2.4": "变压器可以当作一个电池组。",
-  "book.energizedpower.page.transformers_2.5": "变压器可以连接 AE2 中的电缆来获取能量。",
+  "book.energizedpower.page.transformers_2.1": "使用变压器可以减轻电缆网络的延迟；要适当的使用变压器来代替电缆。",
+  "book.energizedpower.page.transformers_2.2": "变压器可以连接充能的电缆和其它类型的电缆。",
+  "book.energizedpower.page.transformers_2.3": "变压器可以当作一个电池组。",
+  "book.energizedpower.page.transformers_2.4": "变压器可以连接 AE2 中的电缆来获取能量。",
 
   "book.energizedpower.page.minecart_charger_uncharger.1": "The Minecart Charger can charge the Minecart with Battery Box and the Uncharger can uncharge it.",
   "book.energizedpower.page.minecart_charger_uncharger.2": "A Redstone Comparator can be used to get the current power level of a Minecart which is being charged or uncharged.",
@@ -602,12 +602,11 @@
   "book.energizedpower.page.plant_growth_chamber_1.1": "The Plant Growth Chamber can boost plant growth and yield.",
   "book.energizedpower.page.plant_growth_chamber_1.2": "The right input slot is the seed slot.",
   "book.energizedpower.page.plant_growth_chamber_1.3": "The left, optionally usable input slot is the fertilizer slot.",
+  "book.energizedpower.page.plant_growth_chamber_1.4": "When it is used, energy and speed multipliers are applied.",
 
-  "book.energizedpower.page.plant_growth_chamber_2.1": "When it is used, energy and speed multipliers are applied.",
-  "book.energizedpower.page.plant_growth_chamber_2.2": "Seeds can be inserted from the north, east, south, and west. Fertilizers can be inserted from the top and bottom. Outputs can be extracted from all block faces.",
-
-  "book.energizedpower.page.plant_growth_chamber_3.1": "If you'd like to use a fertilizer, the fertilizer must be inserted first.",
-  "book.energizedpower.page.plant_growth_chamber_3.2": "If you'd like to automate this blocks, you need to keep in mind that yields are randomized.",
+  "book.energizedpower.page.plant_growth_chamber_2.1": "Seeds can be inserted from the north, east, south, and west. Fertilizers can be inserted from the top and bottom. Outputs can be extracted from all block faces.",
+  "book.energizedpower.page.plant_growth_chamber_2.2": "If you'd like to use a fertilizer, the fertilizer must be inserted first.",
+  "book.energizedpower.page.plant_growth_chamber_2.3": "If you'd like to automate this blocks, you need to keep in mind that yields are randomized.",
 
   "book.energizedpower.page.block_placer.1": "方块放置器可以放置所有的方块（甚至可以是门和种子）。",
   "book.energizedpower.page.block_placer.2": "只有在可以放置方块的情况下才会放置方块。",
