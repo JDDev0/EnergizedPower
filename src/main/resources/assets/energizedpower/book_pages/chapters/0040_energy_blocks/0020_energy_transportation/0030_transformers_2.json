@@ -3,7 +3,8 @@
     {
       "translate": "book.energizedpower.page.transformers_2.1",
       "color": "black",
-      "bold": true,
+      "bold": false,
+      "italic": true,
       "font": "uniform",
       "extra": [
         "\n"
@@ -26,21 +27,11 @@
       "italic": true,
       "font": "uniform",
       "extra": [
-        "\n"
-      ]
-    },
-    {
-      "translate": "book.energizedpower.page.transformers_2.4",
-      "color": "black",
-      "bold": false,
-      "italic": true,
-      "font": "uniform",
-      "extra": [
         " "
       ]
     },
     {
-      "translate": "book.energizedpower.page.transformers_2.5",
+      "translate": "book.energizedpower.page.transformers_2.4",
       "color": "black",
       "bold": false,
       "italic": true,
