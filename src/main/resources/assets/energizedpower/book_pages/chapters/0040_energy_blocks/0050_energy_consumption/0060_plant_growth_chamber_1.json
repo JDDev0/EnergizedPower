@@ -22,6 +22,15 @@
       "translate": "book.energizedpower.page.plant_growth_chamber_1.3",
       "color": "black",
       "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.plant_growth_chamber_1.4",
+      "color": "black",
+      "bold": true,
       "font": "uniform"
     }
   ],
