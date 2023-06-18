@@ -547,12 +547,12 @@
   "book.energizedpower.page.transformers_1.1": "Transformers can be used to connect different tiers of cables.",
   "book.energizedpower.page.transformers_1.2": "The larger, darker, diamond shaped sides are inputs.",
   "book.energizedpower.page.transformers_1.3": "The smaller, brighter, square shaped sides are outputs.",
+  "book.energizedpower.page.transformers_1.4": "There are three types of transformers: 1 to n, 3 to 3, and n to 1.",
 
-  "book.energizedpower.page.transformers_2.1": "There are three types of transformers: 1 to n, 3 to 3, and n to 1.",
-  "book.energizedpower.page.transformers_2.2": "Transformers can be used to reduce lag of cable networks by using them periodically instead of a cable block.",
-  "book.energizedpower.page.transformers_2.3": "Transformers can also be used to connect energized power cables to other mods' cables.",
-  "book.energizedpower.page.transformers_2.4": "Transformers can be used as battery blocks.",
-  "book.energizedpower.page.transformers_2.5": "Transformers can be used to extract energy from AE2 energy tunnels.",
+  "book.energizedpower.page.transformers_2.1": "Transformers can be used to reduce lag of cable networks by using them periodically instead of a cable block.",
+  "book.energizedpower.page.transformers_2.2": "Transformers can also be used to connect energized power cables to other mods' cables.",
+  "book.energizedpower.page.transformers_2.3": "Transformers can be used as battery blocks.",
+  "book.energizedpower.page.transformers_2.4": "Transformers can be used to extract energy from AE2 energy tunnels.",
 
   "book.energizedpower.page.minecart_charger_uncharger.1": "The Minecart Charger can charge the Minecart with Battery Box and the Uncharger can uncharge it.",
   "book.energizedpower.page.minecart_charger_uncharger.2": "A Redstone Comparator can be used to get the current power level of a Minecart which is being charged or uncharged.",
@@ -602,12 +602,11 @@
   "book.energizedpower.page.plant_growth_chamber_1.1": "The Plant Growth Chamber can boost plant growth and yield.",
   "book.energizedpower.page.plant_growth_chamber_1.2": "The right input slot is the seed slot.",
   "book.energizedpower.page.plant_growth_chamber_1.3": "The left, optionally usable input slot is the fertilizer slot.",
+  "book.energizedpower.page.plant_growth_chamber_1.4": "When the fertilizer slot is used, energy and speed multipliers are applied.",
 
-  "book.energizedpower.page.plant_growth_chamber_2.1": "When the fertilizer slot is used, energy and speed multipliers are applied.",
-  "book.energizedpower.page.plant_growth_chamber_2.2": "Seeds can be inserted from the north, east, south, and west. Fertilizers can be inserted from the top and bottom. Outputs can be extracted from all block faces.",
-
-  "book.energizedpower.page.plant_growth_chamber_3.1": "If you'd like to use a fertilizer, the fertilizer must be inserted first.",
-  "book.energizedpower.page.plant_growth_chamber_3.2": "If you'd like to automate this blocks, you need to keep in mind that yields are randomized.",
+  "book.energizedpower.page.plant_growth_chamber_2.1": "Seeds can be inserted from the north, east, south, and west. Fertilizers can be inserted from the top and bottom. Outputs can be extracted from all block faces.",
+  "book.energizedpower.page.plant_growth_chamber_2.2": "If you'd like to use a fertilizer, the fertilizer must be inserted first.",
+  "book.energizedpower.page.plant_growth_chamber_2.3": "If you'd like to automate this blocks, you need to keep in mind that yields are randomized.",
 
   "book.energizedpower.page.block_placer.1": "The Block Placer can place all blocks (Even doors and seeds).",
   "book.energizedpower.page.block_placer.2": "Blocks will only be placed if possible.",

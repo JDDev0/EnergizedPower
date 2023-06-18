@@ -547,12 +547,12 @@
   "book.energizedpower.page.transformers_1.1": "I trasformatori possono essere utilizzati per collegare diversi livelli di cavi.",
   "book.energizedpower.page.transformers_1.2": "I lati più grandi, più scuri, a forma di diamante sono ingressi.",
   "book.energizedpower.page.transformers_1.3": "I lati più piccoli, più luminosi e di forma quadrata sono le uscite.",
+  "book.energizedpower.page.transformers_1.4": "Esistono tre tipi di trasformatori: da 1 a n, da 3 a 3 e da n a 1.",
 
-  "book.energizedpower.page.transformers_2.1": "Esistono tre tipi di trasformatori: da 1 a n, da 3 a 3 e da n a 1.",
-  "book.energizedpower.page.transformers_2.2": "I trasformatori possono essere utilizzati per ridurre il ritardo delle reti via cavo utilizzandoli periodicamente al posto di un blocco cavi.",
-  "book.energizedpower.page.transformers_2.3": "I trasformatori possono essere utilizzati anche per collegare i cavi di alimentazione sotto tensione ai cavi di altri mod.",
-  "book.energizedpower.page.transformers_2.4": "I trasformatori possono essere utilizzati come blocchi batteria.",
-  "book.energizedpower.page.transformers_2.5": "I trasformatori possono essere utilizzati per estrarre energia dai tunnel energetici AE2.",
+  "book.energizedpower.page.transformers_2.1": "I trasformatori possono essere utilizzati per ridurre il ritardo delle reti via cavo utilizzandoli periodicamente al posto di un blocco cavi.",
+  "book.energizedpower.page.transformers_2.2": "I trasformatori possono essere utilizzati anche per collegare i cavi di alimentazione sotto tensione ai cavi di altri mod.",
+  "book.energizedpower.page.transformers_2.3": "I trasformatori possono essere utilizzati come blocchi batteria.",
+  "book.energizedpower.page.transformers_2.4": "I trasformatori possono essere utilizzati per estrarre energia dai tunnel energetici AE2.",
 
   "book.energizedpower.page.minecart_charger_uncharger.1": "Il caricatore del carrello da miniera può caricare il carrello da miniera con il contenitore della batteria e lo scaricatore può scaricarlo.",
   "book.energizedpower.page.minecart_charger_uncharger.2": "Un comparatore Redstone può essere utilizzato per ottenere l'attuale livello di potenza di un carrello da miniera che viene caricato o scaricato.",
@@ -602,12 +602,11 @@
   "book.energizedpower.page.plant_growth_chamber_1.1": "La camera di crescita delle piante può aumentare la crescita e la resa delle piante.",
   "book.energizedpower.page.plant_growth_chamber_1.2": "Lo slot di ingresso destro è lo slot dei semi.",
   "book.energizedpower.page.plant_growth_chamber_1.3": "Lo slot di ingresso sinistro, utilizzabile opzionalmente, è lo slot del fertilizzante.",
+  "book.energizedpower.page.plant_growth_chamber_1.4": "Quando viene utilizzato lo slot del fertilizzante, vengono applicati moltiplicatori di energia e velocità.",
 
-  "book.energizedpower.page.plant_growth_chamber_2.1": "Quando viene utilizzato lo slot del fertilizzante, vengono applicati moltiplicatori di energia e velocità.",
-  "book.energizedpower.page.plant_growth_chamber_2.2": "I semi possono essere inseriti da nord, est, sud e ovest. I fertilizzanti possono essere inseriti dall'alto e dal basso. Gli output possono essere estratti da tutte le facce del blocco.",
-
-  "book.energizedpower.page.plant_growth_chamber_3.1": "Se desideri utilizzare un fertilizzante, il fertilizzante deve essere inserito per primo.",
-  "book.energizedpower.page.plant_growth_chamber_3.2": "Se desideri automatizzare questi blocchi, devi tenere presente che i rendimenti sono randomizzati.",
+  "book.energizedpower.page.plant_growth_chamber_2.1": "I semi possono essere inseriti da nord, est, sud e ovest. I fertilizzanti possono essere inseriti dall'alto e dal basso. Gli output possono essere estratti da tutte le facce del blocco.",
+  "book.energizedpower.page.plant_growth_chamber_2.2": "Se desideri utilizzare un fertilizzante, il fertilizzante deve essere inserito per primo.",
+  "book.energizedpower.page.plant_growth_chamber_2.3": "Se desideri automatizzare questi blocchi, devi tenere presente che i rendimenti sono randomizzati.",
 
   "book.energizedpower.page.block_placer.1": "Il piazzatore di blocchi può posizionare tutti i blocchi (anche porte e semi).",
   "book.energizedpower.page.block_placer.2": "I blocchi verranno posizionati solo se possibile.",

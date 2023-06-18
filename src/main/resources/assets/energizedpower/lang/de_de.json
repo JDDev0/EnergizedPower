@@ -23,7 +23,7 @@
   "item.energizedpower.advanced_solar_cell": "Fortgeschrittene Solarzelle",
 
   "item.energizedpower.energized_power_book": "Energized Power Buch",
-  "book.energizedpower.front.cover.text": "Das ist das Guide-\nBuch für diese Mod!",
+  "book.energizedpower.front.cover.text": "Das ist das Guide-Buch für diese Mod!",
 
   "item.energizedpower.cable_insulator": "Kabelinsulator",
   "tooltip.energizedpower.cable_insulator.txt.shift.1": "Dieses Item kann durch das Klicken auf einen Wolleblock mit einer Schere hergestellt werden.",
@@ -488,7 +488,7 @@
   "book.energizedpower.page.sawdust.1": "Sägemehl wird in dem Sägewerk als Nebenprodukt hergestellt und kann zu Sägemehlblöcken gecraftet werden.",
   "book.energizedpower.page.sawdust.2": "Sägemehlblöcke können zu Holzkohle geschmolzen werden.",
 
-  "book.energizedpower.page.fertilizers": "Dünger können verwendet werden, um die Pflanzenwachstums-\nKammer schneller zu machen.",
+  "book.energizedpower.page.fertilizers": "Dünger können verwendet werden, um die Pflanzenwachstums-Kammer schneller zu machen.",
 
   "book.energizedpower.page.plates.1": "Platten werden benötigt, um die meisten Maschinen zu craften. Platten können mit Hämmer oder im Kompressor hergestellt werden.",
   "book.energizedpower.page.plates.2": "Energetisierte Platten können nur im Kompressor hergestellt werden.",
@@ -517,7 +517,7 @@
   "book.energizedpower.page.inventory_coal_engine.3": "Treibstoff wird automatisch aus dem Inventar entnommen.",
   "book.energizedpower.page.inventory_coal_engine.4": " [Die Hotbar ist ausgenommen]",
 
-  "book.energizedpower.page.energy_analyzer.1": "Der Energie-Analyzierer kann genutzt werden, um Energie-Statistiken (Auch diese, ohne GUI) von Blöcken zu erhalten.",
+  "book.energizedpower.page.energy_analyzer.1": "Der Energie-Analyzierer kann genutzt werden, um Energie-Statistiken von Blöcken - auch diese, ohne GUI - zu erhalten.",
   "book.energizedpower.page.energy_analyzer.2": "Es wird durch das Klicken auf Blöcken verwendet.",
 
   "book.energizedpower.page.batteries.1": "Batterien speichern Strom.",
@@ -547,12 +547,12 @@
   "book.energizedpower.page.transformers_1.1": "Trafos können Kabel von verschiedenen Typen verbinden.",
   "book.energizedpower.page.transformers_1.2": "Die größeren, dunkleren, Rauten-förmigen Seiten sind Eingänge.",
   "book.energizedpower.page.transformers_1.3": "Die kleineren, helleren, Quadrat-förmigen Seiten sind Ausgänge.",
+  "book.energizedpower.page.transformers_1.4": "Es gibt drei Trafotypen: 1 zu n, 3 zu 3 und n zu 1.",
 
-  "book.energizedpower.page.transformers_2.1": "Es gibt drei Trafotypen: 1 zu n, 3 zu 3 und n zu 1.",
-  "book.energizedpower.page.transformers_2.2": "Trafos können Lags-Reduzieren, indem sie manchmal statt einem Kabel-Block plaziert werden.",
-  "book.energizedpower.page.transformers_2.3": "Trafos können Kabel von dieser Mod mit Kabel von anderen verbinden.",
-  "book.energizedpower.page.transformers_2.4": "Trafos können als Batterie- Block genutzt werden.",
-  "book.energizedpower.page.transformers_2.5": "Trafos können Energie aus AE2-FE- P2P-Tunnel extrahieren.",
+  "book.energizedpower.page.transformers_2.1": "Trafos können Lags-Reduzieren, indem sie manchmal statt einem Kabel-Block plaziert werden.",
+  "book.energizedpower.page.transformers_2.2": "Trafos können Kabel von dieser Mod mit Kabel von anderen verbinden.",
+  "book.energizedpower.page.transformers_2.3": "Trafos können als Batterie-Block genutzt werden.",
+  "book.energizedpower.page.transformers_2.4": "Trafos können Energie aus AE2-FE-P2P-Tunnel extrahieren.",
 
   "book.energizedpower.page.minecart_charger_uncharger.1": "Der Loren-Lader kann Batterie-Box-Loren laden und der Loren-Entlader kann diese entladen.",
   "book.energizedpower.page.minecart_charger_uncharger.2": "Mit einem Redstone-Komparator kann der aktuelle Ladestand einer Lore, die ge- oder entladen wird, ausgelesen werden.",
@@ -599,15 +599,14 @@
 
   "book.energizedpower.page.compressor": "Der Kompressor komprimiert Barren in Platten.",
 
-  "book.energizedpower.page.plant_growth_chamber_1.1": "Die Pflanzenwachstums-\nKammer kann das Pflanzen-\nwachstum und -erträge verbessern.",
+  "book.energizedpower.page.plant_growth_chamber_1.1": "Die Pflanzenwachstums-Kammer kann das Pflanzenwachstum und -erträge verbessern.",
   "book.energizedpower.page.plant_growth_chamber_1.2": "Der rechte Eingabeslot ist der Samenslot.",
   "book.energizedpower.page.plant_growth_chamber_1.3": "Der linke, optional verwendbare Eingabeslot ist der Düngerslot.",
+  "book.energizedpower.page.plant_growth_chamber_1.4": "Wenn der Düngerslot verwendet wird, werden Energie- und Geschwindigkeits-Booster angewendet.",
 
-  "book.energizedpower.page.plant_growth_chamber_2.1": "Wenn der Düngerslot verwendet wird, werden Energie- und Geschwindigkeits-Booster angewendet.",
-  "book.energizedpower.page.plant_growth_chamber_2.2": "Samen können vom Norden, Osten, Süden und Westen hinzugefügt werden. Dünger können von oben und unten hinzugefügt werden. Ausgänge können von allen Blockseiten extrahiert werden.",
-
-  "book.energizedpower.page.plant_growth_chamber_3.1": "Wenn du einen Dünger verwenden möchtest, muss der Dünger zuerst hinzugefügt werden.",
-  "book.energizedpower.page.plant_growth_chamber_3.2": "Wenn du diesen Block automatisieren willst, musst du wissen, dass Erträge randomisiert sind.",
+  "book.energizedpower.page.plant_growth_chamber_2.1": "Samen können vom Norden, Osten, Süden und Westen hinzugefügt werden. Dünger können von oben und unten hinzugefügt werden. Ausgänge können von allen Blockseiten extrahiert werden.",
+  "book.energizedpower.page.plant_growth_chamber_2.2": "Wenn du einen Dünger verwenden möchtest, muss der Dünger zuerst hinzugefügt werden.",
+  "book.energizedpower.page.plant_growth_chamber_2.3": "Wenn du diesen Block automatisieren willst, musst du wissen, dass Erträge randomisiert sind.",
 
   "book.energizedpower.page.block_placer.1": "Der Blockplatzierer kann Blöcke platzieren (Sogar Türen und Samen).",
   "book.energizedpower.page.block_placer.2": "Blöcke werden nur platziert, wenn es möglich ist.",
@@ -633,13 +632,13 @@
   "book.energizedpower.page.chapter.structures.title": "Strukturen",
   "book.energizedpower.page.chapter.structures": "Strukturen, die in deiner Welt generiert werden.",
 
-  "book.energizedpower.page.electrician.title": "Elektriker- Dorfbewohner",
-  "book.energizedpower.page.electrician.1": "Der Elektriker- Dorfbewohner kann im Elektriker-Haus gefunden werden.",
+  "book.energizedpower.page.electrician.title": "Elektriker-Dorf-\nbewohner",
+  "book.energizedpower.page.electrician.1": "Der Elektriker-Dorfbewohner kann im Elektriker-Haus gefunden werden.",
   "book.energizedpower.page.electrician.2": "Dieses Haus kann in allen Dörfern gefunden werden.",
   "book.energizedpower.page.electrician.3": "Der Basis Maschinenrahmen ist die Werkstation des Elektriker-Dorfbewohners.",
 
   "book.energizedpower.page.factory.title": "Fabrikgebäude",
-  "book.energizedpower.page.factory.1": "Das Fabrikgebäude enthält ein paar Maschinen und etwas Interessantes in der Mitte des Gebäude. Es kann in Wald- und Blumen-Wald- Biomen gefunden werden.",
+  "book.energizedpower.page.factory.1": "Das Fabrikgebäude enthält ein paar Maschinen und etwas Interessantes in der Mitte des Gebäude. Es kann in Wald- und Blumen-Wald-Biomen gefunden werden.",
 
   "book.energizedpower.page.small_solar_farm.title": "Kleiner Solarpark",
   "book.energizedpower.page.small_solar_farm.1": "Der kleine Solarpark ist eine Struktur mit einigen Solarpanels, die Energie produzieren. Es kann in Wüsten-, Tafelberg- und Savannen-Biomen gefunden werden."
