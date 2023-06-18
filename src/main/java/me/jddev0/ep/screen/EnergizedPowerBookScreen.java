@@ -40,7 +40,7 @@ import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class EnergizedPowerBookScreen extends Screen {
-    public static final ResourceLocation TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/energized_power_book.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/book/energized_power_book.png");
     public static final ResourceLocation FRONT_COVER = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/book/front_cover.png");
     public static final ResourceLocation BACK_COVER = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/book/back_cover.png");
 
@@ -77,20 +77,20 @@ public class EnergizedPowerBookScreen extends Screen {
         boolean showTakeButton = lecternBlockEntity != null && minecraft.player.mayBuild();
 
         addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, button -> onClose()).
-                bounds(width / 2 - 100, 196, showTakeButton?98:200, 20).build());
+                bounds(width / 2 - 116, 232, showTakeButton?116:236, 20).build());
 
         if(showTakeButton)
             addRenderableWidget(Button.builder(Component.translatable("lectern.take_book"), button -> {
                 ModMessages.sendToServer(new PopEnergizedPowerBookFromLecternC2SPacket(lecternBlockEntity.getBlockPos()));
                 onClose();
-            }).bounds(width / 2 + 2, 196, 98, 20).build());
+            }).bounds(width / 2 + 2, 232, 116, 20).build());
     }
 
     private void createPageControlButtons() {
-        int startX = (width - 192) / 2;
+        int startX = (width - 226) / 2;
 
-        forwardButton = addRenderableWidget(new PageButton(startX + 116, 159, true, button -> pageForward(), true));
-        backButton = addRenderableWidget(new PageButton(startX + 43, 159, false, button -> pageBack(), true));
+        forwardButton = addRenderableWidget(new PageButton(startX + 150, 193, true, button -> pageForward(), true));
+        backButton = addRenderableWidget(new PageButton(startX + 43, 193, false, button -> pageBack(), true));
 
         updateButtonVisibility();
     }
@@ -223,29 +223,29 @@ public class EnergizedPowerBookScreen extends Screen {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
-        int startX = (width - 192) / 2;
+        int startX = (width - 226) / 2;
         if(currentPage == 0) {
             RenderSystem.setShaderTexture(0, FRONT_COVER);
-            blit(poseStack, startX, 2, 0, 0, 192, 192);
+            blit(poseStack, startX, 2, 0, 0, 226, 230);
             RenderSystem.setShaderTexture(0, TEXTURE);
         }else if(currentPage == getPageCount() - 1) {
             RenderSystem.setShaderTexture(0, BACK_COVER);
-            blit(poseStack, startX, 2, 0, 0, 192, 192);
+            blit(poseStack, startX, 2, 0, 0, 226, 230);
             RenderSystem.setShaderTexture(0, TEXTURE);
         }else {
             RenderSystem.setShaderTexture(0, TEXTURE);
-            blit(poseStack, startX, 2, 0, 0, 192, 192);
+            blit(poseStack, startX, 2, 0, 0, 226, 230);
         }
 
         if(!isCurrentPageCached) {
             if(currentPage == 0) {
-                cachedPageComponents = font.split(Component.translatable("book.energizedpower.front.cover.text").withStyle(ChatFormatting.GRAY), 114);
+                cachedPageComponents = font.split(Component.translatable("book.energizedpower.front.cover.text").withStyle(ChatFormatting.GRAY), 148);
             }else if(currentPage == getPageCount() - 1) {
                 cachedPageComponents = Collections.emptyList();
             }else {
                 //Front cover and back cover are not included
                 if(pages.get(currentPage - 1).getPageComponent() != null)
-                    cachedPageComponents = font.split(pages.get(currentPage - 1).getPageComponent(), 114);
+                    cachedPageComponents = font.split(pages.get(currentPage - 1).getPageComponent(), 148);
             }
             //First page is front cover (Number = 0)
             //Last page is back cover (Number = page count - 1)
@@ -255,7 +255,7 @@ public class EnergizedPowerBookScreen extends Screen {
         isCurrentPageCached = true;
 
         int textWidth = font.width(currentPageNumberOutput);
-        font.draw(poseStack, currentPageNumberOutput, (width - textWidth) / 2.f, 185, 0xFFFFFFFF);
+        font.draw(poseStack, currentPageNumberOutput, (width - textWidth) / 2.f, 222, 0xFFFFFFFF);
 
         if(currentPage == 0) {
             renderFrontCover(poseStack);
@@ -280,7 +280,7 @@ public class EnergizedPowerBookScreen extends Screen {
         if(chapterTitleComponent != null) {
             float scaleFactor = 1.5f;
 
-            yOffset = (int)((192 / scaleFactor - font.lineHeight -
+            yOffset = (int)((230 / scaleFactor - font.lineHeight -
                     (cachedPageComponents == null?0:((cachedPageComponents.size() + 1) * font.lineHeight / scaleFactor))) * .5f);
 
             if(image != null)
@@ -331,7 +331,7 @@ public class EnergizedPowerBookScreen extends Screen {
     }
 
     private void renderFrontCover(PoseStack poseStack) {
-        int startX = (width - 192) / 2;
+        int startX = (width - 226) / 2;
 
         float scaleFactor = 1.35f;
 
@@ -358,7 +358,7 @@ public class EnergizedPowerBookScreen extends Screen {
         float scaleFactor = .25f;
 
         if(y == -1) //Centered
-            y = (int)((192 - 256 * scaleFactor) * .5f) + 2;
+            y = (int)((226 - 256 * scaleFactor) * .5f) + 2;
 
         RenderSystem.setShaderTexture(0, image);
         poseStack.scale(scaleFactor, scaleFactor, 1.f);
@@ -368,7 +368,7 @@ public class EnergizedPowerBookScreen extends Screen {
 
     private void renderBlockCentered(PoseStack poseStack, ResourceLocation blockResourceLocation, int y) {
         if(y == -1) //Centered
-            y = (int)((192 - 64) * .5f) + 2;
+            y = (int)((226 - 64) * .5f) + 2;
 
         Block block = ForgeRegistries.BLOCKS.getValue(blockResourceLocation);
         ItemStack itemStack = new ItemStack(block);
@@ -406,7 +406,7 @@ public class EnergizedPowerBookScreen extends Screen {
         if(cachedPageComponents.isEmpty())
             return null;
 
-        int componentX = Mth.floor(x - (width - 192) * .5 - 36.);
+        int componentX = Mth.floor(x - (width - 226) * .5 - 36.);
         int componentY = Mth.floor(y - 20.);
 
         //Translate for chapter pages and pages with graphics
@@ -418,7 +418,7 @@ public class EnergizedPowerBookScreen extends Screen {
             if(chapterTitleComponent != null) {
                 float scaleFactor = 1.5f;
 
-                componentY = -(int)((192 / scaleFactor - font.lineHeight -
+                componentY = -(int)((230 / scaleFactor - font.lineHeight -
                         (cachedPageComponents == null?0:((cachedPageComponents.size() + 1) * font.lineHeight / scaleFactor))) * .5f);
 
                 if(image != null)
@@ -452,7 +452,7 @@ public class EnergizedPowerBookScreen extends Screen {
             return null;
 
         int componentCount = cachedPageComponents.size();
-        if(componentX > 144 || componentY >= 9 * componentCount + componentCount)
+        if(componentX > 178 || componentY >= 9 * componentCount + componentCount)
             return null;
 
         int componentIndex = componentY / 9;
