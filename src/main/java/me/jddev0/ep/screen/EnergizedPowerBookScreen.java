@@ -412,7 +412,7 @@ public class EnergizedPowerBookScreen extends Screen {
             if(chapterTitleComponent != null) {
                 float scaleFactor = 1.5f;
 
-                componentY = -(int)((226 / scaleFactor - font.lineHeight -
+                componentY = -(int)((230 / scaleFactor - font.lineHeight -
                         (cachedPageComponents == null?0:((cachedPageComponents.size() + 1) * font.lineHeight / scaleFactor))) * .5f);
 
                 if(image != null)
