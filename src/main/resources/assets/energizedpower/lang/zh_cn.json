@@ -85,9 +85,9 @@
   "container.energizedpower.auto_crafter": "自动合成机",
 
   "tooltip.energizedpower.auto_crafter.txt.shift.1": "该方块使用每一种物品的 %s/t。",
-  "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "Ignore NBT",
-  "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "Extract Mode 1: Output and leftover items only",
-  "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "Extract Mode 2: Everything expect input items",
+  "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "忽略 NBT",
+  "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "输出模式 1：只会输出和剩下的物品。",
+  "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "输出模式 2：所有物品都需要有输入项目",
 
   "block.energizedpower.charger": "充能站",
   "item.energizedpower.charger": "充能站",
@@ -104,13 +104,13 @@
 
   "tooltip.energizedpower.uncharger.item_energy_left.txt": "该物品还剩下 %s。",
 
-  "block.energizedpower.minecart_charger": "Minecart Charger",
-  "item.energizedpower.minecart_charger": "Minecart Charger",
-  "container.energizedpower.minecart_charger": "Minecart Charger",
+  "block.energizedpower.minecart_charger": "矿车充能站",
+  "item.energizedpower.minecart_charger": "矿车充能站",
+  "container.energizedpower.minecart_charger": "矿车充能站",
 
-  "block.energizedpower.minecart_uncharger": "Minecart Uncharger",
-  "item.energizedpower.minecart_uncharger": "Minecart Uncharger",
-  "container.energizedpower.minecart_uncharger": "Minecart Uncharger",
+  "block.energizedpower.minecart_uncharger": "矿车放能站",
+  "item.energizedpower.minecart_uncharger": "矿车放能站",
+  "container.energizedpower.minecart_uncharger": "矿车放能站",
 
   "block.energizedpower.copper_cable": "绝缘铜质导线",
   "item.energizedpower.copper_cable": "绝缘铜质导线",
@@ -171,9 +171,9 @@
 
   "tooltip.energizedpower.coal_engine.txt": "这个物品将产生 %s，直到被烧毁。",
 
-  "block.energizedpower.heat_generator": "Heat Generator",
-  "item.energizedpower.heat_generator": "Heat Generator",
-  "container.energizedpower.heat_generator": "Heat Generator",
+  "block.energizedpower.heat_generator": "热力发电机",
+  "item.energizedpower.heat_generator": "热力发电机",
+  "container.energizedpower.heat_generator": "热力发电机",
 
   "block.energizedpower.powered_furnace": "电炉",
   "item.energizedpower.powered_furnace": "电炉",
@@ -191,9 +191,9 @@
   "item.energizedpower.compressor": "压缩机",
   "container.energizedpower.compressor": "压缩机",
 
-  "block.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
-  "item.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
-  "container.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
+  "block.energizedpower.plant_growth_chamber": "植物培养室",
+  "item.energizedpower.plant_growth_chamber": "植物培养室",
+  "container.energizedpower.plant_growth_chamber": "植物培养室",
 
   "block.energizedpower.block_placer": "方块放置器",
   "item.energizedpower.block_placer": "方块放置器",
@@ -255,21 +255,21 @@
   "entity.energizedpower.battery_box_minecart": "Batterie-Box-Lore",
 
   "recipes.energizedpower.in_world_crafting": "世界工匠",
-  "recipes.energizedpower.plant_growth_chamber.ticks": "Ticks: %d",
-  "recipes.energizedpower.plant_growth_chamber_fertilizer": "Growth Chamber (Fertilizer)",
-  "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx Speed",
-  "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx Energy Consumption",
+  "recipes.energizedpower.plant_growth_chamber.ticks": "花费 %d 刻",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer": "培养室（肥料）",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "花费 %.2fx ",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "能量消耗 %.2fx",
   "recipes.energizedpower.transfer.too_large": "这配方对于这个容器太大了！",
 
   "emi.category.energizedpower.charger": "充能站",
   "emi.category.energizedpower.crusher": "粉碎机",
   "emi.category.energizedpower.sawmill": "锯木机",
-  "emi.category.energizedpower.compressor": "Compressor",
-  "emi.category.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
-  "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Growth Chamber (Fertilizer)",
+  "emi.category.energizedpower.compressor": "压缩机",
+  "emi.category.energizedpower.plant_growth_chamber": "植物生长箱",
+  "emi.category.energizedpower.plant_growth_chamber_fertilizer": "培养室（肥料）",
   "emi.category.energizedpower.energizer": "物品充能站",
-  "emi.category.energizedpower.dispenser": "Dispenser",
-  "emi.category.energizedpower.in_world_crafting": "In-World Crafting",
+  "emi.category.energizedpower.dispenser": "自动取物器",
+  "emi.category.energizedpower.in_world_crafting": "世界工艺品",
 
 
   "advancements.energizedpower.advanced_machine_frame.title": "高级机器",
@@ -290,8 +290,8 @@
   "advancements.energizedpower.compressor.title": "压缩加工",
   "advancements.energizedpower.compressor.description": "创建金属板。",
 
-  "advancements.energizedpower.plant_growth_chamber.title": "Faster Plant Growth",
-  "advancements.energizedpower.plant_growth_chamber.description": "Improve the speed and the yields with the Plant Growth Chamber.",
+  "advancements.energizedpower.plant_growth_chamber.title": "更快生长的植物",
+  "advancements.energizedpower.plant_growth_chamber.description": "用植物培养室提高植物生长速度和收获量。",
 
   "advancements.energizedpower.block_placer.title": "放置方块",
   "advancements.energizedpower.block_placer.description": "方块被自动放置在世界中。",
@@ -338,7 +338,7 @@
   "advancements.energizedpower.charging_station.title": "无线充能",
   "advancements.energizedpower.charging_station.description": "物品充能使用无线方式。",
 
-  "advancements.energizedpower.energized_crystal_matrix.title": "Energized Crystal Matrix",
+  "advancements.energizedpower.energized_crystal_matrix.title": "能量晶体矩阵",
   "advancements.energizedpower.energized_crystal_matrix.description": "Used as stabilizer in some advanced machines.",
 
   "advancements.energizedpower.weather_controller.title": "控制天气",
@@ -350,8 +350,8 @@
   "advancements.energizedpower.coal_engine.title": "煤的力量",
   "advancements.energizedpower.coal_engine.description": "通过烧东西来生产能量虽然不是最有好的，但目前来说已经最好的。",
 
-  "advancements.energizedpower.heat_generator.title": "Powered by Heat",
-  "advancements.energizedpower.heat_generator.description": "Convert heat to energy.",
+  "advancements.energizedpower.heat_generator.title": "热力驱动",
+  "advancements.energizedpower.heat_generator.description": "把热能转换成能量。",
 
   "advancements.energizedpower.powered_furnace.title": "电炉",
   "advancements.energizedpower.powered_furnace.description": "有动力的炉子。",
@@ -371,8 +371,8 @@
   "advancements.energizedpower.transformers.title": "变压器",
   "advancements.energizedpower.transformers.description": "可以连接到不同类型的电缆。",
 
-  "advancements.energizedpower.battery_box.title": "Battery Box",
-  "advancements.energizedpower.battery_box.description": "Store energy with the Battery Box block.",
+  "advancements.energizedpower.battery_box.title": "蓄电池箱",
+  "advancements.energizedpower.battery_box.description": "储存能源与电池盒。",
 
   "advancements.energizedpower.energized_copper_ingot.title": "充满能量",
   "advancements.energizedpower.energized_copper_ingot.description": "充能铜锭是更好的铜锭。",
@@ -389,8 +389,8 @@
   "advancements.energizedpower.copper_plate.title": "铜板",
   "advancements.energizedpower.copper_plate.description": "制作一个铜板。",
 
-  "advancements.energizedpower.battery_box_minecart.title": "Power on Rails",
-  "advancements.energizedpower.battery_box_minecart.description": "Transport energy on rails.",
+  "advancements.energizedpower.battery_box_minecart.title": "铁轨上的能量",
+  "advancements.energizedpower.battery_box_minecart.description": "在铁路上运输能源。",
 
   "advancements.energizedpower.iron_plate.title": "打",
   "advancements.energizedpower.iron_plate.description": "制作一个铁板。",
@@ -440,11 +440,11 @@
   "advancements.energizedpower.uncharger.title": "还给我!",
   "advancements.energizedpower.uncharger.description": "将物品中的能量释放出来",
 
-  "advancements.energizedpower.minecart_charger.title": "Charge the minecart!",
-  "advancements.energizedpower.minecart_charger.description": "Charges minecarts.",
+  "advancements.energizedpower.minecart_charger.title": "给矿车充能！",
+  "advancements.energizedpower.minecart_charger.description": "给矿车充能.",
 
-  "advancements.energizedpower.minecart_uncharger.title": "Uncharge the minecart!",
-  "advancements.energizedpower.minecart_uncharger.description": "Uncharges minecarts.",
+  "advancements.energizedpower.minecart_uncharger.title": "给矿车放能！",
+  "advancements.energizedpower.minecart_uncharger.description": "给矿车放能.",
 
 
   "book.energizedpower.tooltip.link": "打开链接",
@@ -478,7 +478,7 @@
 
   "book.energizedpower.page.cable_insulator.1": "电缆绝缘体是在制作电缆是所需要的。",
   "book.energizedpower.page.cable_insulator.2": "It can be crafted by clicking on a wool block with shears.",
-  "book.energizedpower.page.cable_insulator.3": "It can also be crafted with a dispenser.",
+  "book.energizedpower.page.cable_insulator.3": "也可以使用发射器制作。",
 
   "book.energizedpower.page.saw_blade": "锯片是制作锯木机的材料。",
 
@@ -488,7 +488,7 @@
   "book.energizedpower.page.sawdust.1": "锯末是锯木机产出的副产品，锯末可以来制作锯末块。",
   "book.energizedpower.page.sawdust.2": "锯末块可以烧制成木炭。",
 
-  "book.energizedpower.page.fertilizers": "Fertilizers can be used to make the Plant Growth Chamber faster.",
+  "book.energizedpower.page.fertilizers": "肥料主要用来加快植物在培养室的速度。",
 
   "book.energizedpower.page.plates.1": "板材是大部分机器制作所使用的材料。板材可以通过锤子或压缩机来制作。",
   "book.energizedpower.page.plates.2": "只有压缩机可以制作充能板材。",
@@ -498,7 +498,7 @@
   "book.energizedpower.page.energized_copper_ingot.3": "充电站可以用来制作这种锭的。",
   "book.energizedpower.page.energized_copper_ingot.4": " [但它很昂贵]",
 
-  "book.energizedpower.page.energized_gold_ingot": "Energized Gold Ingots are used for some advanced machines (e.g. Charging Station).",
+  "book.energizedpower.page.energized_gold_ingot": "充能金锭用于一些高级的机器(如充能站)。",
 
   "book.energizedpower.page.energized_crystal_matrix": "The Energized Crystal Matrix is used as a stabilizer in some advanced machines.",
 
@@ -530,15 +530,15 @@
   "book.energizedpower.page.energy_blocks.table_of_contents.title": "目录 (能量方块)",
 
 
-  "book.energizedpower.page.chapter.energy_blocks.general.title": "General",
-  "book.energizedpower.page.chapter.energy_blocks.general": "General information for energy blocks",
+  "book.energizedpower.page.chapter.energy_blocks.general.title": "通用",
+  "book.energizedpower.page.chapter.energy_blocks.general": "充能物品的常规信息",
 
   "book.energizedpower.page.machine_frames.1": "机器框架是每个机器的基本方块。",
   "book.energizedpower.page.machine_frames.2": "一共有两种机器框架：基本机器框架和高级机器框架。",
 
 
-  "book.energizedpower.page.chapter.energy_blocks.energy_transportation.title": "Transportation",
-  "book.energizedpower.page.chapter.energy_blocks.energy_transportation": "Blocks for energy transportation",
+  "book.energizedpower.page.chapter.energy_blocks.energy_transportation.title": "交通",
+  "book.energizedpower.page.chapter.energy_blocks.energy_transportation": "能量运输物品",
 
   "book.energizedpower.page.cables.1": "电缆是将从生能源的方块向由能源驱动输送能源的方块。",
   "book.energizedpower.page.cables.2": "共有四种类型的电缆。",
@@ -623,8 +623,8 @@
   "book.energizedpower.page.time_controller.2": "更改不可撤销，时间会继续向前。",
 
 
-  "book.energizedpower.page.chapter.entities.title": "Entities",
-  "book.energizedpower.page.chapter.entities": "Things that can move.",
+  "book.energizedpower.page.chapter.entities.title": "实体",
+  "book.energizedpower.page.chapter.entities": "可移动的物品.",
 
   "book.energizedpower.page.battery_box_minecart": "The Minecart with Battery Box can transport energy on rails. It can be charged with the Minecart Charger and can be uncharged with the Minecart Uncharger.",
 
