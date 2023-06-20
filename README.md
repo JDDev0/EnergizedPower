@@ -63,7 +63,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - English
 - German
 - Chinese (Simplified)
-- Italian (**In next release (v1.7.5)**)
+- Italian
 
 ## Information
 
