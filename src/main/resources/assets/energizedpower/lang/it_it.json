@@ -1,9 +1,9 @@
 {
   "item.energizedpower.energized_copper_ingot": "Lingotto di rame energizzato",
-  "item.energizedpower.energized_gold_ingot": "Lingotto di rame energizzato",
+  "item.energizedpower.energized_gold_ingot": "Lingotto d'oro energizzato",
 
   "item.energizedpower.energized_copper_plate": "Piastra di rame energizzata",
-  "item.energizedpower.energized_gold_plate": "Piastra di rame energizzata",
+  "item.energizedpower.energized_gold_plate": "Piastra d'oro energizzata",
 
   "item.energizedpower.silicon": "Silicio",
 
@@ -11,7 +11,7 @@
   "item.energizedpower.iron_plate": "Piastra di ferro",
   "item.energizedpower.gold_plate": "Piaastra d'oro",
 
-  "item.energizedpower.sawdust": "Sawdust",
+  "item.energizedpower.sawdust": "Segatura",
 
   "item.energizedpower.basic_fertilizer": "Fertilizzante di base",
   "item.energizedpower.good_fertilizer": "Buon fertilizzante",
@@ -20,7 +20,7 @@
   "item.energizedpower.basic_solar_cell": "Cella solare di base",
   "item.energizedpower.advanced_solar_cell": "Cella solare avanzata",
 
-  "item.energizedpower.energized_power_book": "Libro del potere energizzato",
+  "item.energizedpower.energized_power_book": "Libro del energized power",
   "book.energizedpower.front.cover.text": "Questa è la guida per questa mod!",
 
   "item.energizedpower.cable_insulator": "Isolante per cavi",
