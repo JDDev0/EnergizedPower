@@ -372,6 +372,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
             patternResultSlots.setStack(0, ItemStack.EMPTY);
 
             oldCopyOfRecipe = null;
+
+            resetProgress();
         }
     }
 
