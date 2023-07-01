@@ -126,26 +126,44 @@ public class SolarPanelBlock extends BlockWithEntity {
         TIER_4("solar_panel_4", 32768,
                 FabricBlockSettings.create().
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
-        TIER_5("solar_panel_5", 262144,
+        TIER_5("solar_panel_5", 262144, 262144 * 8, 262144 * 12,
                 FabricBlockSettings.create().
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL));
 
         private final String resourceId;
-        private final int fePerTick;
+        private final long fePerTick;
+        private final long maxTransfer;
+        private final long capacity;
         private final FabricBlockSettings props;
 
-        Tier(String resourceId, int fePerTick, FabricBlockSettings props) {
+        Tier(String resourceId, long fePerTick, long maxTransfer, long capacity, FabricBlockSettings props) {
             this.resourceId = resourceId;
             this.fePerTick = fePerTick;
+            this.maxTransfer = maxTransfer;
+            this.capacity = capacity;
             this.props = props;
+        }
+
+        Tier(String resourceId, long fePerTick, FabricBlockSettings props) {
+            //Default maxTransfer: 4 ticks of max production
+            //Default capacity: 2 seconds of max production
+            this(resourceId, fePerTick, fePerTick * 4, fePerTick * 20 * 2, props);
         }
 
         public String getResourceId() {
             return resourceId;
         }
 
-        public int getFePerTick() {
+        public long getFePerTick() {
             return fePerTick;
+        }
+
+        public long getMaxTransfer() {
+            return maxTransfer;
+        }
+
+        public long getCapacity() {
+            return capacity;
         }
 
         public FabricBlockSettings getProperties() {
