@@ -370,7 +370,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             recipeIdForSetRecipe = recipes.get(0).getId();
 
         for(int i = 0;i < recipes.size();i++) {
-            if(recipes.get(i).getId().equals(recipeIdForSetRecipe)) {
+            if(Objects.equals(recipes.get(i).getId(), recipeIdForSetRecipe)) {
                 recipeIdForSetRecipe = recipes.get((i + 1) % recipes.size()).getId();
 
                 break;
@@ -412,7 +412,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             craftingRecipe = recipe.get().getSecond();
 
             //Recipe with saved recipe id does not exist or pattern items are not compatible with recipe
-            if(recipeIdForSetRecipe != null && !craftingRecipe.getId().equals(recipeIdForSetRecipe))
+            if(recipeIdForSetRecipe != null && !Objects.equals(craftingRecipe.getId(), recipeIdForSetRecipe))
                 resetProgress();
 
             ItemStack resultItemStack = craftingRecipe instanceof CustomRecipe?craftingRecipe.assemble(copyOfPatternSlots, level.registryAccess()):
