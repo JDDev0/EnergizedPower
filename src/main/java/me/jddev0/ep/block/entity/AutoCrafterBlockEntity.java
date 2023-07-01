@@ -372,6 +372,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             patternResultSlots.setItem(0, ItemStack.EMPTY);
 
             oldCopyOfRecipe = null;
+
+            resetProgress();
         }
     }
 
