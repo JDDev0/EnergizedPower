@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity;
 
+import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
@@ -11,11 +12,9 @@ import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.IntTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.nbt.*;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -76,6 +75,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     private final SimpleContainer patternResultSlots = new SimpleContainer(1);
     private final ContainerListener updatePatternListener = container -> updateRecipe();
     private boolean hasRecipeLoaded = false;
+    private ResourceLocation recipeIdForSetRecipe;
     private CraftingRecipe craftingRecipe;
     private CraftingContainer oldCopyOfRecipe;
     private final AbstractContainerMenu dummyContainerMenu = new AbstractContainerMenu(null, -1) {
@@ -205,6 +205,9 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         nbt.put("pattern", savePatternContainer());
         nbt.put("energy", energyStorage.saveNBT());
 
+        if(craftingRecipe != null)
+            nbt.put("recipe.id", StringTag.valueOf(craftingRecipe.getId().toString()));
+
         nbt.put("recipe.progress", IntTag.valueOf(progress));
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
@@ -235,6 +238,15 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
         loadPatternContainer(nbt.get("pattern"));
         energyStorage.loadNBT(nbt.get("energy"));
+
+        if(nbt.contains("recipe.id")) {
+            Tag tag = nbt.get("recipe.id");
+
+            if(!(tag instanceof StringTag stringTag))
+                throw new IllegalArgumentException("Tag must be of type StringTag!");
+
+            recipeIdForSetRecipe = ResourceLocation.tryParse(stringTag.getAsString());
+        }
 
         progress = nbt.getInt("recipe.progress");
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
@@ -338,6 +350,12 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         setChanged(level, getBlockPos(), getBlockState());
     }
 
+    public void setRecipeIdForSetRecipe(ResourceLocation recipeIdForSetRecipe) {
+        this.recipeIdForSetRecipe = recipeIdForSetRecipe;
+
+        updateRecipe();
+    }
+
     private void updateRecipe() {
         if(level == null)
             return;
@@ -358,9 +376,14 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
             copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
 
-        Optional<CraftingRecipe> recipe = level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, copyOfPatternSlots, level);
+        Optional<Pair<ResourceLocation, CraftingRecipe>> recipe = level.getRecipeManager().
+                getRecipeFor(RecipeType.CRAFTING, copyOfPatternSlots, level, recipeIdForSetRecipe);
         if(recipe.isPresent()) {
-            craftingRecipe = recipe.get();
+            craftingRecipe = recipe.get().getSecond();
+
+            //Recipe with saved recipe id does not exist
+            if(recipeIdForSetRecipe != null && !craftingRecipe.getId().equals(recipeIdForSetRecipe))
+                resetProgress();
 
             ItemStack resultItemStack = craftingRecipe instanceof CustomRecipe?craftingRecipe.assemble(copyOfPatternSlots, level.registryAccess()):
                     craftingRecipe.getResultItem(level.registryAccess());
@@ -374,6 +397,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
                 oldCopyOfRecipe.setItem(i, copyOfPatternSlots.getItem(i).copy());
         }else {
+            recipeIdForSetRecipe = null;
+
             craftingRecipe = null;
 
             patternResultSlots.setItem(0, ItemStack.EMPTY);
