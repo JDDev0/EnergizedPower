@@ -55,9 +55,8 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
 
         this.tier = tier;
 
-        long fePerTick = tier.getFePerTick();
-        maxTransfer = fePerTick * 4; //4 times max production
-        long capacity = fePerTick * 20 * 2; //2 seconds of max production
+        maxTransfer = tier.getMaxTransfer();
+        long capacity = tier.getCapacity();
         internalEnergyStorage = new SimpleEnergyStorage(capacity, capacity, capacity) {
             @Override
             protected void onFinalCommit() {
