@@ -350,6 +350,36 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         markDirty(world, getPos(), getCachedState());
     }
 
+    public void cycleRecipe() {
+        SimpleInventory patternSlotsForRecipe = ignoreNBT?replaceCraftingPatternWithCurrentNBTItems(patternSlots):patternSlots;
+        CraftingInventory copyOfPatternSlots = new CraftingInventory(dummyContainerMenu, 3, 3);
+        for(int i = 0;i < patternSlotsForRecipe.size();i++)
+            copyOfPatternSlots.setStack(i, patternSlotsForRecipe.getStack(i));
+
+        List<CraftingRecipe> recipes = world.getRecipeManager().listAllOfType(RecipeType.CRAFTING).
+                stream().filter(recipe -> recipe.matches(copyOfPatternSlots, world)).toList();
+
+        //No recipe found
+        if(recipes.isEmpty()) {
+            updateRecipe();
+
+            return;
+        }
+
+        if(recipeIdForSetRecipe == null)
+            recipeIdForSetRecipe = recipes.get(0).getId();
+
+        for(int i = 0;i < recipes.size();i++) {
+            if(recipes.get(i).getId().equals(recipeIdForSetRecipe)) {
+                recipeIdForSetRecipe = recipes.get((i + 1) % recipes.size()).getId();
+
+                break;
+            }
+        }
+
+        updateRecipe();
+    }
+
     public void setRecipeIdForSetRecipe(Identifier recipeIdForSetRecipe) {
         this.recipeIdForSetRecipe = recipeIdForSetRecipe;
 
