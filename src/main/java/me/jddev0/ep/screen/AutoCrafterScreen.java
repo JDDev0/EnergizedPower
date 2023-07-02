@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.CycleAutoCrafterRecipeOutputC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -51,6 +52,13 @@ public class AutoCrafterScreen extends AbstractGenericEnergyStorageHandledScreen
                 buf.writeInt(1);
                 buf.writeBoolean(!handler.isSecondaryExtractMode());
                 ClientPlayNetworking.send(ModMessages.SET_AUTO_CRAFTER_CHECKBOX_ID, buf);
+                clicked = true;
+            }else if(isPointWithinBounds(126, 16, 12, 12, mouseX, mouseY)) {
+                //Cycle through recipes
+
+                PacketByteBuf buf = PacketByteBufs.create();
+                buf.writeBlockPos(handler.getBlockEntity().getPos());
+                ClientPlayNetworking.send(ModMessages.CYCLE_AUTO_CRAFTER_RECIPE_OUTPUT_ID, buf);
                 clicked = true;
             }
 
@@ -111,6 +119,13 @@ public class AutoCrafterScreen extends AbstractGenericEnergyStorageHandledScreen
 
             List<Text> components = new ArrayList<>(2);
             components.add(Text.translatable("tooltip.energizedpower.auto_crafter.cbx.extract_mode." + (handler.isSecondaryExtractMode()?"2":"1")));
+
+            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+        }else if(isPointWithinBounds(126, 16, 12, 12, mouseX, mouseY)) {
+            //Cycle through recipes
+
+            List<Text> components = new ArrayList<>(2);
+            components.add(Text.translatable("tooltip.energizedpower.auto_crafter.cycle_through_recipes"));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
         }
