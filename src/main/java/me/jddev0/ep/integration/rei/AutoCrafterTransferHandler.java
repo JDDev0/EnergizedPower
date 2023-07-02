@@ -56,7 +56,7 @@ public class AutoCrafterTransferHandler implements TransferHandler {
             }
         }
 
-        ModMessages.sendToServer(new SetAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getBlockPos(), itemStacks));
+        ModMessages.sendToServer(new SetAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getBlockPos(), itemStacks, recipe.getId()));
 
         return Result.createSuccessful().blocksFurtherHandling();
     }
