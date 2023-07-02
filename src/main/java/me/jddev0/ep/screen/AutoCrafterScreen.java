@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.CycleAutoCrafterRecipeOutputC2SPacket;
 import me.jddev0.ep.networking.packet.SetAutoCrafterCheckboxC2SPacket;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -41,6 +42,11 @@ public class AutoCrafterScreen extends AbstractGenericEnergyStorageContainerScre
                 //Extract mode checkbox
 
                 ModMessages.sendToServer(new SetAutoCrafterCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 1, !menu.isSecondaryExtractMode()));
+                clicked = true;
+            }else if(isHovering(126, 16, 12, 12, mouseX, mouseY)) {
+                //Cycle through recipes
+
+                ModMessages.sendToServer(new CycleAutoCrafterRecipeOutputC2SPacket(menu.getBlockEntity().getBlockPos()));
                 clicked = true;
             }
 
@@ -101,6 +107,13 @@ public class AutoCrafterScreen extends AbstractGenericEnergyStorageContainerScre
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.auto_crafter.cbx.extract_mode." + (menu.isSecondaryExtractMode()?"2":"1")));
+
+            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+        }else if(isHovering(126, 16, 12, 12, mouseX, mouseY)) {
+            //Cycle through recipes
+
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.auto_crafter.cycle_through_recipes"));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
         }
