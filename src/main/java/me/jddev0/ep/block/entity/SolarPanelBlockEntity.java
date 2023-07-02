@@ -53,9 +53,8 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
 
         this.tier = tier;
 
-        int fePerTick = tier.getFePerTick();
-        maxTransfer = fePerTick * 4; //4 times max production
-        int capacity = fePerTick * 20 * 2; //2 seconds of max production
+        maxTransfer = tier.getMaxTransfer();
+        int capacity = tier.getCapacity();
         energyStorage = new ExtractOnlyEnergyStorage(0, capacity, maxTransfer) {
             @Override
             protected void onChange() {
