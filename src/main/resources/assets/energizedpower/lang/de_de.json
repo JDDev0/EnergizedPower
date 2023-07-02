@@ -88,6 +88,7 @@
   "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "NBT ignorieren",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "Extrahierungsmodus 1: Nur Ausgabe-Items und übrig bleibende Items",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "Extrahierungsmodus 2: Alles außer Eingabe-Items",
+  "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Rezepte durchlaufen",
 
   "block.energizedpower.charger": "Lader",
   "item.energizedpower.charger": "Lader",
