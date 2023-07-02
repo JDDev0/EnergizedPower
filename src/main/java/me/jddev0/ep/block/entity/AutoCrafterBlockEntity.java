@@ -356,8 +356,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         for(int i = 0;i < patternSlotsForRecipe.size();i++)
             copyOfPatternSlots.setStack(i, patternSlotsForRecipe.getStack(i));
 
-        List<CraftingRecipe> recipes = world.getRecipeManager().listAllOfType(RecipeType.CRAFTING).
-                stream().filter(recipe -> recipe.matches(copyOfPatternSlots, world)).toList();
+        List<CraftingRecipe> recipes = world.getRecipeManager().
+                getAllMatches(RecipeType.CRAFTING, copyOfPatternSlots, world);
 
         //No recipe found
         if(recipes.isEmpty()) {
@@ -367,7 +367,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         }
 
         if(recipeIdForSetRecipe == null)
-            recipeIdForSetRecipe = recipes.get(0).getId();
+            recipeIdForSetRecipe = (craftingRecipe == null || craftingRecipe.getId() == null)?recipes.get(0).getId():
+                    craftingRecipe.getId();
 
         for(int i = 0;i < recipes.size();i++) {
             if(Objects.equals(recipes.get(i).getId(), recipeIdForSetRecipe)) {
