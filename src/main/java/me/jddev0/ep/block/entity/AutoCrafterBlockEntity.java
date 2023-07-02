@@ -356,8 +356,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
             copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
 
-        List<CraftingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING).
-                stream().filter(recipe -> recipe.matches(copyOfPatternSlots, level)).toList();
+        List<CraftingRecipe> recipes = level.getRecipeManager().
+                getRecipesFor(RecipeType.CRAFTING, copyOfPatternSlots, level);
 
         //No recipe found
         if(recipes.isEmpty()) {
@@ -367,7 +367,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         }
 
         if(recipeIdForSetRecipe == null)
-            recipeIdForSetRecipe = recipes.get(0).getId();
+            recipeIdForSetRecipe = (craftingRecipe == null || craftingRecipe.getId() == null)?recipes.get(0).getId():
+                    craftingRecipe.getId();
 
         for(int i = 0;i < recipes.size();i++) {
             if(Objects.equals(recipes.get(i).getId(), recipeIdForSetRecipe)) {
