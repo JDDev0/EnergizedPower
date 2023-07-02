@@ -88,6 +88,7 @@
   "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "忽略 NBT",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "输出模式 1：只会输出和剩下的物品。",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "输出模式 2：所有物品都需要有输入项目",
+  "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Cycle through recipes",
 
   "block.energizedpower.charger": "充能站",
   "item.energizedpower.charger": "充能站",

@@ -76,6 +76,12 @@ public final class ModMessages {
                 encoder(SetBlockPlacerCheckboxC2SPacket::toBytes).
                 consumerMainThread(SetBlockPlacerCheckboxC2SPacket::handle).
                 add();
+
+        net.messageBuilder(CycleAutoCrafterRecipeOutputC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+                decoder(CycleAutoCrafterRecipeOutputC2SPacket::new).
+                encoder(CycleAutoCrafterRecipeOutputC2SPacket::toBytes).
+                consumerMainThread(CycleAutoCrafterRecipeOutputC2SPacket::handle).
+                add();
     }
 
     public static <MSG> void sendToServer(MSG message) {

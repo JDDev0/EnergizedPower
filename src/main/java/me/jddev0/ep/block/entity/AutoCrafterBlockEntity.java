@@ -349,6 +349,36 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         setChanged(level, getBlockPos(), getBlockState());
     }
 
+    public void cycleRecipe() {
+        SimpleContainer patternSlotsForRecipe = ignoreNBT?replaceCraftingPatternWithCurrentNBTItems(patternSlots):patternSlots;
+        CraftingContainer copyOfPatternSlots = new CraftingContainer(dummyContainerMenu, 3, 3);
+        for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
+            copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
+
+        List<CraftingRecipe> recipes = level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING).
+                stream().filter(recipe -> recipe.matches(copyOfPatternSlots, level)).toList();
+
+        //No recipe found
+        if(recipes.isEmpty()) {
+            updateRecipe();
+
+            return;
+        }
+
+        if(recipeIdForSetRecipe == null)
+            recipeIdForSetRecipe = recipes.get(0).getId();
+
+        for(int i = 0;i < recipes.size();i++) {
+            if(recipes.get(i).getId().equals(recipeIdForSetRecipe)) {
+                recipeIdForSetRecipe = recipes.get((i + 1) % recipes.size()).getId();
+
+                break;
+            }
+        }
+
+        updateRecipe();
+    }
+
     public void setRecipeIdForSetRecipe(ResourceLocation recipeIdForSetRecipe) {
         this.recipeIdForSetRecipe = recipeIdForSetRecipe;
 
