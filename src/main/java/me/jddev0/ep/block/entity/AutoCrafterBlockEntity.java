@@ -381,7 +381,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         if(recipe.isPresent()) {
             craftingRecipe = recipe.get().getSecond();
 
-            //Recipe with saved recipe id does not exist
+            //Recipe with saved recipe id does not exist or pattern items are not compatible with recipe
             if(recipeIdForSetRecipe != null && !craftingRecipe.getId().equals(recipeIdForSetRecipe))
                 resetProgress();
 
