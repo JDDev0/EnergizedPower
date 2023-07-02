@@ -59,6 +59,7 @@ public class AutoCrafterRecipeHandler implements EmiRecipeHandler<AutoCrafterMen
         buf.writeBlockPos(context.getScreenHandler().getBlockEntity().getPos());
         for(ItemStack itemStack:itemStacks)
             buf.writeItemStack(itemStack);
+        buf.writeIdentifier(recipe.getId());
         ClientPlayNetworking.send(ModMessages.SET_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID, buf);
 
         return true;

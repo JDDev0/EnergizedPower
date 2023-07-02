@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity;
 
+import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
@@ -26,6 +27,7 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -59,6 +61,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     private final SimpleInventory patternResultSlots = new SimpleInventory(1);
     private final InventoryChangedListener updatePatternListener = container -> updateRecipe();
     private boolean hasRecipeLoaded = false;
+    private Identifier recipeIdForSetRecipe;
     private CraftingRecipe craftingRecipe;
     private CraftingInventory oldCopyOfRecipe;
     private final ScreenHandler dummyContainerMenu = new ScreenHandler(null, -1) {
@@ -202,6 +205,9 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         nbt.put("pattern", savePatternContainer());
         nbt.putLong("energy", internalEnergyStorage.amount);
 
+        if(craftingRecipe != null)
+            nbt.put("recipe.id", NbtString.of(craftingRecipe.getId().toString()));
+
         nbt.put("recipe.progress", NbtInt.of(progress));
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
@@ -232,6 +238,15 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
         loadPatternContainer(nbt.get("pattern"));
         internalEnergyStorage.amount = nbt.getLong("energy");
+
+        if(nbt.contains("recipe.id")) {
+            NbtElement tag = nbt.get("recipe.id");
+
+            if(!(tag instanceof NbtString stringTag))
+                throw new IllegalArgumentException("Tag must be of type StringTag!");
+
+            recipeIdForSetRecipe = Identifier.tryParse(stringTag.asString());
+        }
 
         progress = nbt.getInt("recipe.progress");
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
@@ -335,6 +350,12 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         markDirty(world, getPos(), getCachedState());
     }
 
+    public void setRecipeIdForSetRecipe(Identifier recipeIdForSetRecipe) {
+        this.recipeIdForSetRecipe = recipeIdForSetRecipe;
+
+        updateRecipe();
+    }
+
     private void updateRecipe() {
         if(world == null)
             return;
@@ -354,9 +375,14 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         for(int i = 0;i < patternSlotsForRecipe.size();i++)
             copyOfPatternSlots.setStack(i, patternSlotsForRecipe.getStack(i));
 
-        Optional<CraftingRecipe> recipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, copyOfPatternSlots, world);
+        Optional<Pair<Identifier, CraftingRecipe>> recipe = world.getRecipeManager().
+                getFirstMatch(RecipeType.CRAFTING, copyOfPatternSlots, world, recipeIdForSetRecipe);
         if(recipe.isPresent()) {
-            craftingRecipe = recipe.get();
+            craftingRecipe = recipe.get().getSecond();
+
+            //Recipe with saved recipe id does not exist
+            if(recipeIdForSetRecipe != null && !craftingRecipe.getId().equals(recipeIdForSetRecipe))
+                resetProgress();
 
             ItemStack resultItemStack = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(copyOfPatternSlots):craftingRecipe.getOutput();
 
@@ -369,6 +395,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
             for(int i = 0;i < patternSlotsForRecipe.size();i++)
                 oldCopyOfRecipe.setStack(i, copyOfPatternSlots.getStack(i).copy());
         }else {
+            recipeIdForSetRecipe = null;
+
             craftingRecipe = null;
 
             patternResultSlots.setStack(0, ItemStack.EMPTY);
