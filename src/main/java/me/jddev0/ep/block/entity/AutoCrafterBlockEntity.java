@@ -413,8 +413,10 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
             craftingRecipe = recipe.get().getSecond();
 
             //Recipe with saved recipe id does not exist or pattern items are not compatible with recipe
-            if(recipeIdForSetRecipe != null && !Objects.equals(craftingRecipe.getId(), recipeIdForSetRecipe))
+            if(recipeIdForSetRecipe != null && !Objects.equals(craftingRecipe.getId(), recipeIdForSetRecipe)) {
+                recipeIdForSetRecipe = craftingRecipe.getId();
                 resetProgress();
+            }
 
             ItemStack resultItemStack = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(copyOfPatternSlots, world.getRegistryManager()):
                     craftingRecipe.getOutput(world.getRegistryManager());
