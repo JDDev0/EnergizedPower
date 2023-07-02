@@ -132,18 +132,28 @@ public class SolarPanelBlock extends BaseEntityBlock {
         TIER_4("solar_panel_4", 32768,
                 BlockBehaviour.Properties.of(Material.METAL).
                         requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
-        TIER_5("solar_panel_5", 262144,
+        TIER_5("solar_panel_5", 262144, 262144 * 8, 262144 * 12,
                 BlockBehaviour.Properties.of(Material.METAL).
                         requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL));
 
         private final String resourceId;
         private final int fePerTick;
+        private final int maxTransfer;
+        private final int capacity;
         private final Properties props;
 
-        Tier(String resourceId, int fePerTick, Properties props) {
+        Tier(String resourceId, int fePerTick, int maxTransfer, int capacity, Properties props) {
             this.resourceId = resourceId;
             this.fePerTick = fePerTick;
+            this.maxTransfer = maxTransfer;
+            this.capacity = capacity;
             this.props = props;
+        }
+
+        Tier(String resourceId, int fePerTick, Properties props) {
+            //Default maxTransfer: 4 ticks of max production
+            //Default capacity: 2 seconds of max production
+            this(resourceId, fePerTick, fePerTick * 4, fePerTick * 20 * 2, props);
         }
 
         public String getResourceId() {
@@ -152,6 +162,14 @@ public class SolarPanelBlock extends BaseEntityBlock {
 
         public int getFePerTick() {
             return fePerTick;
+        }
+
+        public int getMaxTransfer() {
+            return maxTransfer;
+        }
+
+        public int getCapacity() {
+            return capacity;
         }
 
         public Properties getProperties() {
