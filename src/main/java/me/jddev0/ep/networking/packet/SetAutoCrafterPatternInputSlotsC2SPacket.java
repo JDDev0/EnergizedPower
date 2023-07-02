@@ -10,6 +10,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public final class SetAutoCrafterPatternInputSlotsC2SPacket {
         List<ItemStack> itemStacks = new ArrayList<>(9);
         for(int i = 0;i < 9;i++)
             itemStacks.add(buf.readItemStack());
+        Identifier recipeId = buf.readIdentifier();
 
         server.execute(() -> {
             BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
@@ -37,6 +39,8 @@ public final class SetAutoCrafterPatternInputSlotsC2SPacket {
 
             for(int i = 0;i < itemStacks.size();i++)
                 autoCrafterMenu.getPatternSlots().setStack(i, itemStacks.get(i));
+
+            autoCrafterBlockEntity.setRecipeIdForSetRecipe(recipeId);
 
             autoCrafterBlockEntity.resetProgressAndMarkAsChanged();
         });
