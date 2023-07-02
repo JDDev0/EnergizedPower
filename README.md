@@ -8,7 +8,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 ### Machines
 
 - Powered Furnace
-- Auto Crafter
+- Auto Crafter (Can handle recipe conflicts, that is recipes with the same inputs)
 - Crusher
 - Sawmill
 - Compressor
