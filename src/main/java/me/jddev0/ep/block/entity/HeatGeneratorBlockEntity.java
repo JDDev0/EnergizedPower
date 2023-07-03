@@ -18,6 +18,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
@@ -29,9 +30,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    public static final int ENERGY_PER_FACE_TOUCHING_LAVA = 25;
+    public static final int MAX_ENERGY_PRODUCTION_PER_FACE = 100;
 
     private final int maxExtract;
 
@@ -43,8 +45,8 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.HEAT_GENERATOR_ENTITY.get(), blockPos, blockState);
 
-        maxExtract = ENERGY_PER_FACE_TOUCHING_LAVA * 6; //6 times energy production per face
-        int capacity = maxExtract * 20 * 2; //2 seconds of max extract
+        maxExtract = MAX_ENERGY_PRODUCTION_PER_FACE * 5; //5 faces max, 1 must be used for energy extraction
+        int capacity = maxExtract * 20; //1 second of max extract
 
         energyStorage = new ExtractOnlyEnergyStorage(0, capacity, maxExtract) {
             @Override
@@ -132,6 +134,14 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
         energyStorage.loadNBT(nbt.get("energy"));
     }
 
+    /**
+     *  TODO move to recipe files
+     */
+    private static final Map<Fluid, Integer> FLUID_ENERGY_PRODUCTION_PER_FACE = Map.of(
+            Fluids.LAVA, 25,
+            Fluids.FLOWING_LAVA, 15
+    );
+
     public static void tick(Level level, BlockPos blockPos, BlockState state, HeatGeneratorBlockEntity blockEntity) {
         if(level.isClientSide)
             return;
@@ -140,8 +150,13 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
         for(Direction direction:Direction.values()) {
             BlockPos checkPos = blockPos.relative(direction);
             FluidState fluidState = level.getFluidState(checkPos);
-            if(fluidState.is(Fluids.LAVA) || fluidState.is(Fluids.FLOWING_LAVA)) {
-                productionSum += ENERGY_PER_FACE_TOUCHING_LAVA;
+
+            for(Map.Entry<Fluid, Integer> entry:FLUID_ENERGY_PRODUCTION_PER_FACE.entrySet()) {
+                if(fluidState.is(entry.getKey())) {
+                    productionSum += entry.getValue();
+
+                    break;
+                }
             }
         }
 
