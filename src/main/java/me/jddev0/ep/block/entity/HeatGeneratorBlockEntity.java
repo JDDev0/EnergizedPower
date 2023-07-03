@@ -4,6 +4,7 @@ import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
+import me.jddev0.ep.recipe.HeatGeneratorRecipe;
 import me.jddev0.ep.screen.HeatGeneratorMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
@@ -134,28 +135,25 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
         energyStorage.loadNBT(nbt.get("energy"));
     }
 
-    /**
-     *  TODO move to recipe files
-     */
-    private static final Map<Fluid, Integer> FLUID_ENERGY_PRODUCTION_PER_FACE = Map.of(
-            Fluids.LAVA, 25,
-            Fluids.FLOWING_LAVA, 15
-    );
-
     public static void tick(Level level, BlockPos blockPos, BlockState state, HeatGeneratorBlockEntity blockEntity) {
         if(level.isClientSide)
             return;
+
+        List<HeatGeneratorRecipe> recipes = level.getRecipeManager().getAllRecipesFor(HeatGeneratorRecipe.Type.INSTANCE);
 
         int productionSum = 0;
         for(Direction direction:Direction.values()) {
             BlockPos checkPos = blockPos.relative(direction);
             FluidState fluidState = level.getFluidState(checkPos);
 
-            for(Map.Entry<Fluid, Integer> entry:FLUID_ENERGY_PRODUCTION_PER_FACE.entrySet()) {
-                if(fluidState.is(entry.getKey())) {
-                    productionSum += entry.getValue();
+            outer:
+            for(HeatGeneratorRecipe recipe:recipes) {
+                for(Fluid fluid:recipe.getInput()) {
+                    if(fluidState.is(fluid)) {
+                        productionSum += recipe.getEnergyProduction();
 
-                    break;
+                        break outer;
+                    }
                 }
             }
         }
