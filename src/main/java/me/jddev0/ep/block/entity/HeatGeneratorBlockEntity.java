@@ -145,8 +145,10 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
             }
         }
 
-        blockEntity.energyStorage.setEnergy(Math.min(blockEntity.energyStorage.getCapacity(),
-                blockEntity.energyStorage.getEnergy() + productionSum));
+        if(productionSum > 0) {
+            blockEntity.energyStorage.setEnergy(Math.min(blockEntity.energyStorage.getCapacity(),
+                    blockEntity.energyStorage.getEnergy() + productionSum));
+        }
 
         transferEnergy(level, blockPos, state, blockEntity);
     }
