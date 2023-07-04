@@ -579,7 +579,9 @@
   "book.energizedpower.page.coal_engine.2": "Remainder items can be extracted automatically.",
 
   "book.energizedpower.page.heat_generator.1": "The Heat Generator produces energy if flowing or still lava touches the block.",
-  "book.energizedpower.page.heat_generator.2": "The more lava blocks are touching, the more energy per tick will be produced.",
+  "book.energizedpower.page.heat_generator.2": "If the Heat Generator touches still lava, it will produce more energy than if it would touch flowing lava.",
+  "book.energizedpower.page.heat_generator.3": "The more lava blocks are touching, the more energy per tick will be produced.",
+  "book.energizedpower.page.heat_generator.4": "If you are playing a modpack, other hot fluids might be supported too.",
 
   "book.energizedpower.page.lightning_generator.1": "The lightning generator produces high amounts of energy per lightning strike.",
   "book.energizedpower.page.lightning_generator.2": "A lightning rod block must be place above this block for it to function.",
