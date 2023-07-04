@@ -579,7 +579,9 @@
   "book.energizedpower.page.coal_engine.2": "剩余的物品将自动拿出。",
 
   "book.energizedpower.page.heat_generator.1": "The Heat Generator produces energy if flowing or still lava touches the block.",
-  "book.energizedpower.page.heat_generator.2": "The more lava blocks are touching, the more energy per tick will be produced.",
+  "book.energizedpower.page.heat_generator.2": "If the Heat Generator touches still lava, it will produce more energy than if it would touch flowing lava.",
+  "book.energizedpower.page.heat_generator.3": "The more lava blocks are touching, the more energy per tick will be produced.",
+  "book.energizedpower.page.heat_generator.4": "If you are playing a modpack, other hot fluids might be supported too.",
 
   "book.energizedpower.page.lightning_generator.1": "人造闪电发生器在每次雷击时产生大量的能量。",
   "book.energizedpower.page.lightning_generator.2": "必须将避雷针防置在该方块时才会生效。",
