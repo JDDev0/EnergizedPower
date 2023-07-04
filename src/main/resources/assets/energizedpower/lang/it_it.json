@@ -579,7 +579,9 @@
   "book.energizedpower.page.coal_engine.2": "Gli elementi rimanenti possono essere estratti automaticamente.",
 
   "book.energizedpower.page.heat_generator.1": "Il Generatore di Calore produce energia se la lava scorre o continua a toccare il blocco.",
-  "book.energizedpower.page.heat_generator.2": "Più blocchi di lava si toccano, maggiore sarà l'energia per tick prodotta.",
+  "book.energizedpower.page.heat_generator.2": "If the Heat Generator touches still lava, it will produce more energy than if it would touch flowing lava.",
+  "book.energizedpower.page.heat_generator.3": "Più blocchi di lava si toccano, maggiore sarà l'energia per tick prodotta.",
+  "book.energizedpower.page.heat_generator.4": "If you are playing a modpack, other hot fluids might be supported too.",
 
   "book.energizedpower.page.lightning_generator.1": "Il generatore di fulmini produce elevate quantità di energia per ogni colpo di fulmine.",
   "book.energizedpower.page.lightning_generator.2": "Un parafulmine deve essere posizionato sopra questo blocco affinché funzioni.",
