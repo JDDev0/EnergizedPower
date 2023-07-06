@@ -594,6 +594,7 @@
 
   "book.energizedpower.page.auto_crafter.1": "Die automatische Werkbank stellt Items automatisch her.",
   "book.energizedpower.page.auto_crafter.2": "Die Rezepte können in den Pattern-Feldern definiert werden.",
+  "book.energizedpower.page.auto_crafter.3": "Die automatische Werkbank kann mit Rezept-Konflikten umgehen, d.h. Rezepte mit den gleichen Items. Nutze dafür den \"Rezepte durchlaufen\"-Button oder setzte das Pattern mithilfe einer Recipe-Viewer-Mod (wie REI).",
 
   "book.energizedpower.page.crusher": "Der Zerkleinerer kann Items wie Sand, Sandstein, Bruchstein und Kies zerkleinern.",
 

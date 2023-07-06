@@ -594,6 +594,7 @@
 
   "book.energizedpower.page.auto_crafter.1": "自动合成机会自动合成物品。",
   "book.energizedpower.page.auto_crafter.2": "可以通过使用自动合成机中的合成槽来放置配方。",
+  "book.energizedpower.page.auto_crafter.3": "The Auto Crafter can handle recipe conflicts, that is recipes with the same inputs. To do this, use the \"Cycle through recipes\" button or set the pattern via a recipe viewer mod (like REI).",
 
   "book.energizedpower.page.crusher": "粉碎机可以粉碎石头、砂岩、圆石和沙砾等方块。",
 
