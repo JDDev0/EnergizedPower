@@ -594,6 +594,7 @@
 
   "book.energizedpower.page.auto_crafter.1": "The Auto Crafter crafts items automatically.",
   "book.energizedpower.page.auto_crafter.2": "The recipe can be set by using the pattern slots.",
+  "book.energizedpower.page.auto_crafter.3": "The Auto Crafter can handle recipe conflicts, that is recipes with the same inputs. To do this, use the \"Cycle through recipes\" button or set the pattern via a recipe viewer mod (like REI).",
 
   "book.energizedpower.page.crusher": "The Crusher can crush blocks like Stone, Sandstone, Cobblestone, and Gravel.",
 
