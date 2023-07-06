@@ -594,6 +594,7 @@
 
   "book.energizedpower.page.auto_crafter.1": "L'Auto Crafter crea automaticamente gli oggetti.",
   "book.energizedpower.page.auto_crafter.2": "La ricetta può essere impostata utilizzando gli slot del modello.",
+  "book.energizedpower.page.auto_crafter.3": "The Auto Crafter can handle recipe conflicts, that is recipes with the same inputs. To do this, use the \"Cycle through recipes\" button or set the pattern via a recipe viewer mod (like REI).",
 
   "book.energizedpower.page.crusher": "Il Frantumatore può frantumare blocchi come Pietra, Arenaria, Ciottoli e Ghiaia.",
 
