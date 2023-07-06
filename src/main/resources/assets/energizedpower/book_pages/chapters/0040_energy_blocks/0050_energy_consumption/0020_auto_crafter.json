@@ -6,11 +6,20 @@
       "bold": true,
       "font": "uniform",
       "extra": [
-        "\n\n"
+        "\n"
       ]
     },
     {
       "translate": "book.energizedpower.page.auto_crafter.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.auto_crafter.3",
       "color": "black",
       "bold": false,
       "italic": true,
