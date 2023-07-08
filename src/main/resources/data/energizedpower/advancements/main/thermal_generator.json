@@ -1,0 +1,34 @@
+{
+  "parent":  "energizedpower:main/coal_engine",
+  "display": {
+    "icon": {
+      "item": "energizedpower:thermal_generator"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.thermal_generator.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.thermal_generator.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_thermal_generator": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:thermal_generator" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_thermal_generator"
+    ]
+  ]
+}
