@@ -15,6 +15,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -136,6 +137,9 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
+                getBlockPos()), (ServerPlayer)player);
+
         return new SawmillMenu(id, inventory, this, this.data);
     }
 
@@ -299,6 +303,14 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
         return inventory.getItem(2).getMaxStackSize() >= inventory.getItem(2).getCount() + count;
     }
 
+    public int getEnergy() {
+        return energyStorage.getEnergy();
+    }
+
+    public int getCapacity() {
+        return energyStorage.getCapacity();
+    }
+
     @Override
     public void setEnergy(int energy) {
         energyStorage.setEnergyWithoutUpdate(energy);
@@ -307,9 +319,5 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
     @Override
     public void setCapacity(int capacity) {
         energyStorage.setCapacityWithoutUpdate(capacity);
-    }
-
-    public int getCapacity() {
-        return energyStorage.getCapacity();
     }
 }
