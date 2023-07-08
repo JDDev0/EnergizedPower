@@ -387,11 +387,11 @@
   "advancements.energizedpower.hammer.title": "好工具",
   "advancements.energizedpower.hammer.description": "锤子可以制造材。",
 
-  "advancements.energizedpower.copper_plate.title": "铜板",
-  "advancements.energizedpower.copper_plate.description": "制作一个铜板。",
-
   "advancements.energizedpower.battery_box_minecart.title": "铁轨上的能量",
   "advancements.energizedpower.battery_box_minecart.description": "在铁路上运输能源。",
+
+  "advancements.energizedpower.copper_plate.title": "铜板",
+  "advancements.energizedpower.copper_plate.description": "制作一个铜板。",
 
   "advancements.energizedpower.iron_plate.title": "打",
   "advancements.energizedpower.iron_plate.description": "制作一个铁板。",
