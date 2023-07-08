@@ -10,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -85,6 +86,9 @@ public class BatteryBoxBlockEntity extends BlockEntity implements MenuProvider, 
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
+                getBlockPos()), (ServerPlayer)player);
+
         return new BatteryBoxMenu(id, inventory, this, this.data);
     }
 
@@ -196,6 +200,14 @@ public class BatteryBoxBlockEntity extends BlockEntity implements MenuProvider, 
             if(energy > 0)
                 consumerItems.get(i).receiveEnergy(energy, false);
         }
+    }
+
+    public int getEnergy() {
+        return energyStorage.getEnergy();
+    }
+
+    public int getCapacity() {
+        return energyStorage.getCapacity();
     }
 
     @Override

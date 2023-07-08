@@ -15,6 +15,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -161,6 +162,9 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
+                getBlockPos()), (ServerPlayer)player);
+
         return new AutoCrafterMenu(id, inventory, this, patternSlots, patternResultSlots, data);
     }
 
@@ -735,6 +739,14 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         setChanged(level, getBlockPos(), getBlockState());
     }
 
+    public int getEnergy() {
+        return energyStorage.getEnergy();
+    }
+
+    public int getCapacity() {
+        return energyStorage.getCapacity();
+    }
+
     @Override
     public void setEnergy(int energy) {
         energyStorage.setEnergyWithoutUpdate(energy);
@@ -743,9 +755,5 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     @Override
     public void setCapacity(int capacity) {
         energyStorage.setCapacityWithoutUpdate(capacity);
-    }
-
-    public int getCapacity() {
-        return energyStorage.getCapacity();
     }
 }
