@@ -2,7 +2,6 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.ThermalGeneratorBlockEntity;
-import me.jddev0.ep.energy.EnergyStorageMenuPacketUpdate;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,7 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.fluids.FluidStack;
 
-public class ThermalGeneratorMenu extends AbstractContainerMenu implements EnergyStorageMenu, EnergyStorageMenuPacketUpdate {
+public class ThermalGeneratorMenu extends AbstractContainerMenu implements EnergyStorageMenu {
     private final ThermalGeneratorBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
@@ -39,12 +38,12 @@ public class ThermalGeneratorMenu extends AbstractContainerMenu implements Energ
 
     @Override
     public int getEnergy() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
+        return blockEntity.getEnergy();
     }
 
     @Override
     public int getCapacity() {
-        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
+        return blockEntity.getCapacity();
     }
 
     public FluidStack getFluid() {
@@ -79,20 +78,7 @@ public class ThermalGeneratorMenu extends AbstractContainerMenu implements Energ
         }
     }
 
-    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        for(int i = 0;i < 2;i++)
-            data.set(i, ByteUtils.get2Bytes(energy, i));
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        for(int i = 0;i < 2;i++)
-            data.set(i + 2, ByteUtils.get2Bytes(capacity, i));
     }
 }

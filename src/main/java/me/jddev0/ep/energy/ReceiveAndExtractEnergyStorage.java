@@ -23,8 +23,8 @@ public class ReceiveAndExtractEnergyStorage implements IEnergizedPowerEnergyStor
 
     @Override
     public void setEnergy(int energy) {
-        onChange();
         this.energy = energy;
+        onChange();
     }
 
     @Override
@@ -39,8 +39,8 @@ public class ReceiveAndExtractEnergyStorage implements IEnergizedPowerEnergyStor
 
     @Override
     public void setCapacity(int capacity) {
-        onChange();
         this.capacity = capacity;
+        onChange();
     }
 
     @Override
@@ -53,8 +53,8 @@ public class ReceiveAndExtractEnergyStorage implements IEnergizedPowerEnergyStor
     }
 
     public void setMaxTransfer(int maxTransfer) {
-        onChange();
         this.maxTransfer = maxTransfer;
+        onChange();
     }
 
     public void setMaxTransferWithoutUpdate(int maxTransfer) {
@@ -71,8 +71,8 @@ public class ReceiveAndExtractEnergyStorage implements IEnergizedPowerEnergyStor
         int received = Math.min(capacity - energy, Math.min(this.maxTransfer, maxReceive));
 
         if(!simulate) {
-            onChange();
             energy += received;
+            onChange();
         }
 
         return received;
@@ -86,8 +86,8 @@ public class ReceiveAndExtractEnergyStorage implements IEnergizedPowerEnergyStor
         int extracted = Math.min(energy, Math.min(this.maxTransfer, maxExtract));
 
         if(!simulate) {
-            onChange();
             energy -= extracted;
+            onChange();
         }
 
         return extracted;

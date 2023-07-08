@@ -1,12 +1,9 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.energy.EnergyStorageMenuPacketUpdate;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -46,21 +43,6 @@ public class EnergySyncS2CPacket {
                 energyStorage.setEnergy(energy);
                 energyStorage.setCapacity(capacity);
             }
-
-            //Menu
-            if(!(blockEntity instanceof MenuProvider))
-                return;
-
-            AbstractContainerMenu menu = Minecraft.getInstance().player.containerMenu;
-            if(!(menu instanceof EnergyStorageMenuPacketUpdate))
-                return;
-
-            EnergyStorageMenuPacketUpdate energyStorageMenu = (EnergyStorageMenuPacketUpdate)menu;
-            if(!energyStorageMenu.getBlockEntity().getBlockPos().equals(pos))
-                return;
-
-            energyStorageMenu.setEnergy(energy);
-            energyStorageMenu.setCapacity(capacity);
         });
 
         return true;

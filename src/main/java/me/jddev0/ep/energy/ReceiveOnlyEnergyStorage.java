@@ -23,8 +23,8 @@ public class ReceiveOnlyEnergyStorage implements IEnergizedPowerEnergyStorage {
 
     @Override
     public void setEnergy(int energy) {
-        onChange();
         this.energy = energy;
+        onChange();
     }
 
     @Override
@@ -39,8 +39,8 @@ public class ReceiveOnlyEnergyStorage implements IEnergizedPowerEnergyStorage {
 
     @Override
     public void setCapacity(int capacity) {
-        onChange();
         this.capacity = capacity;
+        onChange();
     }
 
     @Override
@@ -53,8 +53,8 @@ public class ReceiveOnlyEnergyStorage implements IEnergizedPowerEnergyStorage {
     }
 
     public void setMaxReceive(int maxReceive) {
-        onChange();
         this.maxReceive = maxReceive;
+        onChange();
     }
 
     public void setMaxReceiveWithoutUpdate(int maxReceive) {
@@ -71,8 +71,8 @@ public class ReceiveOnlyEnergyStorage implements IEnergizedPowerEnergyStorage {
         int received = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
 
         if(!simulate) {
-            onChange();
             energy += received;
+            onChange();
         }
 
         return received;

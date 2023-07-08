@@ -220,6 +220,14 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
         }
     }
 
+    public int getEnergy() {
+        return energyStorage.getEnergy();
+    }
+
+    public int getCapacity() {
+        return energyStorage.getCapacity();
+    }
+
     @Override
     public void setEnergy(int energy) {
         energyStorage.setEnergyWithoutUpdate(energy);

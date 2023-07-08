@@ -2,7 +2,6 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
-import me.jddev0.ep.energy.EnergyStorageMenuPacketUpdate;
 import me.jddev0.ep.inventory.PatternResultSlot;
 import me.jddev0.ep.inventory.PatternSlot;
 import me.jddev0.ep.util.ByteUtils;
@@ -18,7 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStorageConsumerIndicatorBarMenu, EnergyStorageMenuPacketUpdate {
+public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStorageConsumerIndicatorBarMenu {
     private final AutoCrafterBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
@@ -82,12 +81,12 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
 
     @Override
     public int getEnergy() {
-        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
+        return blockEntity.getEnergy();
     }
 
     @Override
     public int getCapacity() {
-        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
+        return blockEntity.getCapacity();
     }
 
     @Override
@@ -178,20 +177,7 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
         }
     }
 
-    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        for(int i = 0;i < 2;i++)
-            data.set(i + 2, ByteUtils.get2Bytes(energy, i));
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        for(int i = 0;i < 2;i++)
-            data.set(i + 4, ByteUtils.get2Bytes(capacity, i));
     }
 }
