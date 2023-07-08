@@ -23,8 +23,8 @@ public class ExtractOnlyEnergyStorage implements IEnergizedPowerEnergyStorage {
 
     @Override
     public void setEnergy(int energy) {
-        onChange();
         this.energy = energy;
+        onChange();
     }
 
     @Override
@@ -39,8 +39,8 @@ public class ExtractOnlyEnergyStorage implements IEnergizedPowerEnergyStorage {
 
     @Override
     public void setCapacity(int capacity) {
-        onChange();
         this.capacity = capacity;
+        onChange();
     }
 
     @Override
@@ -53,8 +53,8 @@ public class ExtractOnlyEnergyStorage implements IEnergizedPowerEnergyStorage {
     }
 
     public void setMaxExtract(int maxExtract) {
-        onChange();
         this.maxExtract = maxExtract;
+        onChange();
     }
 
     public void setMaxExtractWithoutUpdate(int maxExtract) {
@@ -76,8 +76,8 @@ public class ExtractOnlyEnergyStorage implements IEnergizedPowerEnergyStorage {
         int extracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
 
         if(!simulate) {
-            onChange();
             energy -= extracted;
+            onChange();
         }
 
         return extracted;

@@ -13,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -121,8 +122,8 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()));
-        ModMessages.sendToAllPlayers(new FluidSyncS2CPacket(fluidStorage.getFluid(), fluidStorage.getCapacity(), worldPosition));
+        ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()), (ServerPlayer)player);
+        ModMessages.sendToPlayer(new FluidSyncS2CPacket(fluidStorage.getFluid(), fluidStorage.getCapacity(), worldPosition), (ServerPlayer)player);
 
         return new ThermalGeneratorMenu(id, inventory, this, this.data);
     }
@@ -294,6 +295,14 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
 
     public int getTankCapacity() {
         return fluidStorage.getCapacity();
+    }
+
+    public int getEnergy() {
+        return energyStorage.getEnergy();
+    }
+
+    public int getCapacity() {
+        return energyStorage.getCapacity();
     }
 
     @Override
