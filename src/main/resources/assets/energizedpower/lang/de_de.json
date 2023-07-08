@@ -288,9 +288,6 @@
   "advancements.energizedpower.sawmill.title": "Sägen",
   "advancements.energizedpower.sawmill.description": "Sägt Holz.",
 
-  "advancements.energizedpower.battery_box_minecart.title": "Strom auf Schienen",
-  "advancements.energizedpower.battery_box_minecart.description": "Transportiere Stromg auf Schienen.",
-
   "advancements.energizedpower.compressor.title": "Komprimieren",
   "advancements.energizedpower.compressor.description": "Erstellt Platten.",
 
@@ -389,6 +386,9 @@
 
   "advancements.energizedpower.hammer.title": "Ein gutes Werkzeug",
   "advancements.energizedpower.hammer.description": "Hämmer können für das Craften von Platten verwendet werden.",
+
+  "advancements.energizedpower.battery_box_minecart.title": "Strom auf Schienen",
+  "advancements.energizedpower.battery_box_minecart.description": "Transportiere Stromg auf Schienen.",
 
   "advancements.energizedpower.copper_plate.title": "Kupferplatte",
   "advancements.energizedpower.copper_plate.description": "Erstelle eine Kupferplatte.",
