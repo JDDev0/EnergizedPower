@@ -99,10 +99,8 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
                 return switch(index) {
                     case 0 -> SawmillBlockEntity.this.progress;
                     case 1 -> SawmillBlockEntity.this.maxProgress;
-                    case 2, 3 -> ByteUtils.get2Bytes(SawmillBlockEntity.this.energyStorage.getEnergy(), index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(SawmillBlockEntity.this.energyStorage.getCapacity(), index - 4);
-                    case 6, 7 -> ByteUtils.get2Bytes(SawmillBlockEntity.this.energyConsumptionLeft, index - 6);
-                    case 8 -> hasEnoughEnergy?1:0;
+                    case 2, 3 -> ByteUtils.get2Bytes(SawmillBlockEntity.this.energyConsumptionLeft, index - 2);
+                    case 4 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -112,19 +110,13 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
                 switch(index) {
                     case 0 -> SawmillBlockEntity.this.progress = value;
                     case 1 -> SawmillBlockEntity.this.maxProgress = value;
-                    case 2, 3 -> SawmillBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
-                            SawmillBlockEntity.this.energyStorage.getEnergy(), (short)value, index - 2
-                    ));
-                    case 4, 5 -> SawmillBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
-                            SawmillBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 4
-                    ));
-                    case 6, 7, 8 -> {}
+                    case 2, 3, 4 -> {}
                 }
             }
 
             @Override
             public int getCount() {
-                return 9;
+                return 5;
             }
         };
     }

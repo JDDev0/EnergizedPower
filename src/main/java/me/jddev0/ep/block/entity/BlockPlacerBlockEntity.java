@@ -105,11 +105,9 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
                 return switch(index) {
                     case 0 -> BlockPlacerBlockEntity.this.progress;
                     case 1 -> BlockPlacerBlockEntity.this.maxProgress;
-                    case 2, 3 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.energyStorage.getEnergy(), index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.energyStorage.getCapacity(), index - 4);
-                    case 6, 7 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.energyConsumptionLeft, index - 6);
-                    case 8 -> hasEnoughEnergy?1:0;
-                    case 9 -> inverseRotation?1:0;
+                    case 2, 3 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.energyConsumptionLeft, index - 2);
+                    case 4 -> hasEnoughEnergy?1:0;
+                    case 5 -> inverseRotation?1:0;
                     default -> 0;
                 };
             }
@@ -119,20 +117,14 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
                 switch(index) {
                     case 0 -> BlockPlacerBlockEntity.this.progress = value;
                     case 1 -> BlockPlacerBlockEntity.this.maxProgress = value;
-                    case 2, 3 -> BlockPlacerBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
-                            BlockPlacerBlockEntity.this.energyStorage.getEnergy(), (short)value, index - 2
-                    ));
-                    case 4, 5 -> BlockPlacerBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
-                            BlockPlacerBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 4
-                    ));
-                    case 6, 7, 8 -> {}
-                    case 9 -> BlockPlacerBlockEntity.this.inverseRotation = value != 0;
+                    case 2, 3, 4 -> {}
+                    case 5 -> BlockPlacerBlockEntity.this.inverseRotation = value != 0;
                 }
             }
 
             @Override
             public int getCount() {
-                return 10;
+                return 6;
             }
         };
     }

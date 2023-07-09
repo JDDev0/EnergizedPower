@@ -5,7 +5,6 @@ import me.jddev0.ep.energy.ReceiveAndExtractEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.BatteryBoxMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -15,7 +14,6 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,8 +33,6 @@ public class BatteryBoxBlockEntity extends BlockEntity implements MenuProvider, 
     private final ReceiveAndExtractEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
-    protected final ContainerData data;
-
     public BatteryBoxBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.BATTERY_BOX_ENTITY.get(), blockPos, blockState);
 
@@ -47,33 +43,6 @@ public class BatteryBoxBlockEntity extends BlockEntity implements MenuProvider, 
 
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
-            }
-        };
-        data = new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(BatteryBoxBlockEntity.this.energyStorage.getEnergy(), index);
-                    case 2, 3 -> ByteUtils.get2Bytes(BatteryBoxBlockEntity.this.energyStorage.getCapacity(), index - 2);
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1 -> BatteryBoxBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
-                            BatteryBoxBlockEntity.this.energyStorage.getEnergy(), (short)value, index
-                    ));
-                    case 2, 3 -> BatteryBoxBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
-                            BatteryBoxBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 2
-                    ));
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 4;
             }
         };
     }
@@ -89,7 +58,7 @@ public class BatteryBoxBlockEntity extends BlockEntity implements MenuProvider, 
         ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
                 getBlockPos()), (ServerPlayer)player);
 
-        return new BatteryBoxMenu(id, inventory, this, this.data);
+        return new BatteryBoxMenu(id, inventory, this);
     }
 
     @Override

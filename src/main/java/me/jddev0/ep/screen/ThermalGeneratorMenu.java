@@ -2,7 +2,6 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.ThermalGeneratorBlockEntity;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -15,25 +14,20 @@ import net.minecraftforge.fluids.FluidStack;
 public class ThermalGeneratorMenu extends AbstractContainerMenu implements EnergyStorageMenu {
     private final ThermalGeneratorBlockEntity blockEntity;
     private final Level level;
-    private final ContainerData data;
 
     public ThermalGeneratorMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(4));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()));
     }
 
-    public ThermalGeneratorMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
+    public ThermalGeneratorMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(ModMenuTypes.THERMAL_GENERATOR_MENU.get(), id);
 
         checkContainerSize(inv, 0);
-        checkContainerDataCount(data, 4);
         this.blockEntity = (ThermalGeneratorBlockEntity)blockEntity;
         this.level = inv.player.level();
-        this.data = data;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
-
-        addDataSlots(this.data);
     }
 
     @Override

@@ -19,14 +19,14 @@ public class UnchargerMenu extends AbstractContainerMenu implements EnergyStorag
     private final ContainerData data;
 
     public UnchargerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(6));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(2));
     }
 
     public UnchargerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.UNCHARGER_MENU.get(), id);
 
         checkContainerSize(inv, 1);
-        checkContainerDataCount(data, 6);
+        checkContainerDataCount(data, 2);
         this.blockEntity = (UnchargerBlockEntity)blockEntity;
         this.level = inv.player.level();
         this.data = data;
@@ -53,7 +53,7 @@ public class UnchargerMenu extends AbstractContainerMenu implements EnergyStorag
 
     @Override
     public int getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
     }
 
     @Override

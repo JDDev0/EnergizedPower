@@ -98,10 +98,8 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
                 return switch(index) {
                     case 0 -> EnergizerBlockEntity.this.progress;
                     case 1 -> EnergizerBlockEntity.this.maxProgress;
-                    case 2, 3 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.energyStorage.getEnergy(), index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.energyStorage.getCapacity(), index - 4);
-                    case 6, 7 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.energyConsumptionLeft, index - 6);
-                    case 8 -> hasEnoughEnergy?1:0;
+                    case 2, 3 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.energyConsumptionLeft, index - 2);
+                    case 4 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -111,19 +109,13 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
                 switch(index) {
                     case 0 -> EnergizerBlockEntity.this.progress = value;
                     case 1 -> EnergizerBlockEntity.this.maxProgress = value;
-                    case 2, 3 -> EnergizerBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
-                            EnergizerBlockEntity.this.energyStorage.getEnergy(), (short)value, index - 2
-                    ));
-                    case 4, 5 -> EnergizerBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
-                            EnergizerBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 4
-                    ));
-                    case 6, 7, 8 -> {}
+                    case 2, 3, 4 -> {}
                 }
             }
 
             @Override
             public int getCount() {
-                return 9;
+                return 5;
             }
         };
     }

@@ -121,12 +121,10 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                 return switch(index) {
                     case 0 -> AutoCrafterBlockEntity.this.progress;
                     case 1 -> AutoCrafterBlockEntity.this.maxProgress;
-                    case 2, 3 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.energyStorage.getEnergy(), index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.energyStorage.getCapacity(), index - 4);
-                    case 6, 7 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.energyConsumptionLeft, index - 6);
-                    case 8 -> hasEnoughEnergy?1:0;
-                    case 9 -> ignoreNBT?1:0;
-                    case 10 -> secondaryExtractMode?1:0;
+                    case 2, 3 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.energyConsumptionLeft, index - 2);
+                    case 4 -> hasEnoughEnergy?1:0;
+                    case 5 -> ignoreNBT?1:0;
+                    case 6 -> secondaryExtractMode?1:0;
                     default -> 0;
                 };
             }
@@ -136,21 +134,15 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                 switch(index) {
                     case 0 -> AutoCrafterBlockEntity.this.progress = value;
                     case 1 -> AutoCrafterBlockEntity.this.maxProgress = value;
-                    case 2, 3 -> AutoCrafterBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
-                            AutoCrafterBlockEntity.this.energyStorage.getEnergy(), (short)value, index - 2
-                    ));
-                    case 4, 5 -> AutoCrafterBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
-                            AutoCrafterBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 4
-                    ));
-                    case 6, 7, 8 -> {}
-                    case 9 -> AutoCrafterBlockEntity.this.ignoreNBT = value != 0;
-                    case 10 -> AutoCrafterBlockEntity.this.secondaryExtractMode = value != 0;
+                    case 2, 3, 4 -> {}
+                    case 5 -> AutoCrafterBlockEntity.this.ignoreNBT = value != 0;
+                    case 6 -> AutoCrafterBlockEntity.this.secondaryExtractMode = value != 0;
                 }
             }
 
             @Override
             public int getCount() {
-                return 11;
+                return 7;
             }
         };
     }

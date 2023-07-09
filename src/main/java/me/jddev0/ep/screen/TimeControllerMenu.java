@@ -2,7 +2,6 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -14,25 +13,20 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public class TimeControllerMenu extends AbstractContainerMenu implements EnergyStorageMenu {
     private final TimeControllerBlockEntity blockEntity;
     private final Level level;
-    private final ContainerData data;
 
     public TimeControllerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(4));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()));
     }
 
-    public TimeControllerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
+    public TimeControllerMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(ModMenuTypes.TIME_CONTROLLER_MENU.get(), id);
 
         checkContainerSize(inv, 0);
-        checkContainerDataCount(data, 4);
         this.blockEntity = (TimeControllerBlockEntity)blockEntity;
         this.level = inv.player.level();
-        this.data = data;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
-
-        addDataSlots(this.data);
     }
 
     @Override

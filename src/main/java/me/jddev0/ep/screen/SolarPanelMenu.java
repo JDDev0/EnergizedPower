@@ -2,7 +2,6 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.block.entity.SolarPanelBlockEntity;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -14,7 +13,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public class SolarPanelMenu extends AbstractContainerMenu implements EnergyStorageMenu {
     private final SolarPanelBlockEntity blockEntity;
     private final Level level;
-    private final ContainerData data;
 
     public static MenuType<SolarPanelMenu> getMenuTypeFromTier(SolarPanelBlock.Tier tier) {
         return switch(tier) {
@@ -27,22 +25,18 @@ public class SolarPanelMenu extends AbstractContainerMenu implements EnergyStora
     }
 
     public SolarPanelMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(4));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()));
     }
 
-    public SolarPanelMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
+    public SolarPanelMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(getMenuTypeFromTier(((SolarPanelBlockEntity)blockEntity).getTier()), id);
 
         checkContainerSize(inv, 0);
-        checkContainerDataCount(data, 4);
         this.blockEntity = (SolarPanelBlockEntity)blockEntity;
         this.level = inv.player.level();
-        this.data = data;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
-
-        addDataSlots(this.data);
     }
 
     public SolarPanelBlock.Tier getTier() {
