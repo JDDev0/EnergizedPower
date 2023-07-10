@@ -81,6 +81,11 @@ public final class ModBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final RegistryObject<Item> BATTERY_BOX_ITEM = createBlockItem("battery_box", BATTERY_BOX);
 
+    public static final RegistryObject<Block> ADVANCED_BATTERY_BOX = BLOCKS.register("advanced_battery_box",
+            () -> new AdvancedBatteryBoxBlock(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> ADVANCED_BATTERY_BOX_ITEM = createBlockItem("advanced_battery_box", ADVANCED_BATTERY_BOX);
+
     public static final RegistryObject<Block> AUTO_CRAFTER = BLOCKS.register("auto_crafter",
             () -> new AutoCrafterBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
