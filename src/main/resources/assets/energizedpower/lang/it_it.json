@@ -248,6 +248,7 @@
   "item.energizedpower.advanced_machine_frame": "Telaio macchina avanzato",
 
   "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
+  "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
   "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "Questa ricetta richiede %s per essere completata.",
   "tooltip.energizedpower.shift_details.txt": "Premere [MAIUSC] per i dettagli",
   "tooltip.energizedpower.not_enough_energy.txt": "Energia insufficiente",

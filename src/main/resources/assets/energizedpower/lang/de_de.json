@@ -248,6 +248,7 @@
   "item.energizedpower.advanced_machine_frame": "Fortgeschrittener Maschinenrahmen",
 
   "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
+  "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
   "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "Dieses Rezept benötigt noch %s um fertiggestellt zu werden.",
   "tooltip.energizedpower.shift_details.txt": "Drücke [SHIFT] für Informationen",
   "tooltip.energizedpower.not_enough_energy.txt": "Nicht genug Energie",

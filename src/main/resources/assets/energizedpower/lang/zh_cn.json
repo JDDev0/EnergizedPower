@@ -248,6 +248,7 @@
   "item.energizedpower.advanced_machine_frame": "高级机器框架",
 
   "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
+  "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
   "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "这个配方需要 %s 才能合成。",
   "tooltip.energizedpower.shift_details.txt": "按[SHIFT]查看详情",
   "tooltip.energizedpower.not_enough_energy.txt": "Not enough energy",
