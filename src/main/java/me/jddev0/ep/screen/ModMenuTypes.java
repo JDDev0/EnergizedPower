@@ -82,6 +82,8 @@ public final class ModMenuTypes {
 
     public static final RegistryObject<MenuType<MinecartBatteryBoxMenu>> MINECART_BATTERY_BOX_MENU = registerMenuType("minecart_battery_box",
             MinecartBatteryBoxMenu::new);
+    public static final RegistryObject<MenuType<MinecartAdvancedBatteryBoxMenu>> MINECART_ADVANCED_BATTERY_BOX_MENU = registerMenuType("minecart_advanced_battery_box",
+            MinecartAdvancedBatteryBoxMenu::new);
 
     public static final RegistryObject<MenuType<SolarPanelMenu>> SOLAR_PANEL_MENU_1 = registerMenuType("solar_panel_1",
             SolarPanelMenu::new);

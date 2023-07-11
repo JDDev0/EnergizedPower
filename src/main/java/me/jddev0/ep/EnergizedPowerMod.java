@@ -2,7 +2,6 @@ package me.jddev0.ep;
 
 import com.mojang.logging.LogUtils;
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.block.behavior.ModBlockBehaviors;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.entity.ModEntityTypes;
@@ -142,6 +141,7 @@ public class EnergizedPowerMod {
             addEmptyAndFullyChargedItem(event, ModItems.BATTERY_8, BatteryItem.Tier.BATTERY_8.getCapacity());
 
             event.accept(ModItems.BATTERY_BOX_MINECART);
+            event.accept(ModItems.ADVANCED_BATTERY_BOX_MINECART);
 
             event.accept(ModBlocks.BASIC_MACHINE_FRAME_ITEM);
             event.accept(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM);
@@ -204,6 +204,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_5.get(), SolarPanelScreen::new);
 
             MenuScreens.register(ModMenuTypes.MINECART_BATTERY_BOX_MENU.get(), MinecartBatteryBoxScreen::new);
+            MenuScreens.register(ModMenuTypes.MINECART_ADVANCED_BATTERY_BOX_MENU.get(), MinecartAdvancedBatteryBoxScreen::new);
 
             event.enqueueWork(() -> {
                 ItemProperties.registerGeneric(new ResourceLocation(MODID, "active"), (itemStack, level, entity, seed) -> {
@@ -217,6 +218,9 @@ public class EnergizedPowerMod {
             });
 
             EntityRenderers.register(ModEntityTypes.BATTERY_BOX_MINECART.get(),
+                    entity -> new MinecartRenderer<>(entity, new ModelLayerLocation(
+                            new ResourceLocation("minecraft", "chest_minecart"), "main")));
+            EntityRenderers.register(ModEntityTypes.ADVANCED_BATTERY_BOX_MINECART.get(),
                     entity -> new MinecartRenderer<>(entity, new ModelLayerLocation(
                             new ResourceLocation("minecraft", "chest_minecart"), "main")));
         }
