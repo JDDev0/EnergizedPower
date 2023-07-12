@@ -35,7 +35,7 @@ public class AdvancedBatteryBoxBlockEntity extends BlockEntity implements MenuPr
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
     public AdvancedBatteryBoxBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.BATTERY_BOX_ENTITY.get(), blockPos, blockState);
+        super(ModBlockEntities.ADVANCED_BATTERY_BOX_ENTITY.get(), blockPos, blockState);
 
         energyStorage = new ReceiveAndExtractEnergyStorage(0, CAPACITY, MAX_TRANSFER) {
             @Override
