@@ -265,8 +265,8 @@
 
   "entity.minecraft.villager.energizedpower.electrician": "Electrician",
 
-  "entity.energizedpower.battery_box_minecart": "Minecart with Battery Box",
-  "entity.energizedpower.advanced_battery_box_minecart": "Minecart with Advanced Battery Box",
+  "entity.energizedpower.battery_box_minecart": "Battery Box Minecart",
+  "entity.energizedpower.advanced_battery_box_minecart": "Advanced Battery Box Minecart",
 
   "recipes.energizedpower.in_world_crafting": "In-World Crafting",
   "recipes.energizedpower.plant_growth_chamber.ticks": "Ticks: %d",
