@@ -77,7 +77,7 @@ public class BatteryBoxBlock extends BaseEntityBlock {
                         withStyle(ChatFormatting.GRAY));
                 components.add(Component.translatable("tooltip.energizedpower.transfer_rate.txt",
                                 EnergyUtils.getEnergyWithPrefix(BatteryBoxBlockEntity.MAX_TRANSFER)).
-                        withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+                        withStyle(ChatFormatting.GRAY));
             }else {
                 components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
