@@ -655,7 +655,7 @@
   "book.energizedpower.page.chapter.entities.title": "Entities",
   "book.energizedpower.page.chapter.entities": "Things that can move.",
 
-  "book.energizedpower.page.battery_box_minecart": "The Minecart with Battery Box can transport energy on rails. It can be charged with the Minecart Charger and can be uncharged with the Minecart Uncharger.",
+  "book.energizedpower.page.battery_box_minecarts": "Battery Box Minecarts can transport energy on rails. It can be charged with Minecart Chargers and can be uncharged with Minecart Unchargers.",
 
 
   "book.energizedpower.page.chapter.structures.title": "Structures",

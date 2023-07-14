@@ -655,7 +655,7 @@
   "book.energizedpower.page.chapter.entities.title": "Entità",
   "book.energizedpower.page.chapter.entities": "Cose che possono muoversi.",
 
-  "book.energizedpower.page.battery_box_minecart": "Il carrello da miniera con batteria può trasportare energia su rotaie. Può essere caricato con il caricatore del carrello da miniera e può essere scaricato con il caricatore del carrello da miniera.",
+  "book.energizedpower.page.battery_box_minecarts": "Battery Box Minecarts can transport energy on rails. It can be charged with Minecart Chargers and can be uncharged with Minecart Unchargers.",
 
 
   "book.energizedpower.page.chapter.structures.title": "Strutture",
