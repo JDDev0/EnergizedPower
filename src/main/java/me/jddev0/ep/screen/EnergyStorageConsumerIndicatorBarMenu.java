@@ -2,6 +2,9 @@ package me.jddev0.ep.screen;
 
 public interface EnergyStorageConsumerIndicatorBarMenu extends EnergyStorageMenu {
     @Override
+    int getEnergyIndicatorBarValue();
+
+    @Override
     default int getScaledEnergyIndicatorBarPos(int energyMeterHeight) {
         int energyRequirement = getEnergyIndicatorBarValue();
         int capacity = getCapacity();
