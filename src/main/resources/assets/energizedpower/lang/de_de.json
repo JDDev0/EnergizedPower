@@ -185,6 +185,8 @@
   "item.energizedpower.thermal_generator": "Thermogenerator",
   "container.energizedpower.thermal_generator": "Thermogenerator",
 
+  "tooltip.energizedpower.thermal_generator.txt": "Diese Flüssigkeit wird noch %s produizeren",
+
   "block.energizedpower.powered_furnace": "Elektroofen",
   "item.energizedpower.powered_furnace": "Elektroofen",
   "container.energizedpower.powered_furnace": "Elektroofen",
