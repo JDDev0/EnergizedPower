@@ -214,6 +214,10 @@
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "Questo blocco ha ancora bisogno di %s per essere posizionato.",
   "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Rotazione inversa",
 
+  "block.energizedpower.fluid_drainer": "Fluid Drainer",
+  "item.energizedpower.fluid_drainer": "Fluid Drainer",
+  "container.energizedpower.fluid_drainer": "Fluid Drainer",
+
   "block.energizedpower.lightning_generator": "Generatore da fulmini",
   "item.energizedpower.lightning_generator": "Generatore da fulmini",
   "container.energizedpower.lightning_generator": "Generatore da fulmini",
@@ -311,6 +315,9 @@
 
   "advancements.energizedpower.block_placer.title": "Posiziona il blocco",
   "advancements.energizedpower.block_placer.description": "I blocchi vengono posizionati automaticamente nel mondo.",
+
+  "advancements.energizedpower.fluid_drainer.title": "Drain the fluid item",
+  "advancements.energizedpower.fluid_drainer.description": "Drain fluids from items.",
 
   "advancements.energizedpower.basic_machine_frame.title": "La Fondazione delle Macchine",
   "advancements.energizedpower.basic_machine_frame.description": "Questo è l'oggetto di creazione base per ogni macchina base.",

@@ -53,6 +53,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("block_placer", () -> BlockEntityType.Builder.of(BlockPlacerBlockEntity::new,
                     ModBlocks.BLOCK_PLACER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<FluidDrainerBlockEntity>> FLUID_DRAINER_ENTITY =
+            BLOCK_ENTITIES.register("fluid_drainer", () -> BlockEntityType.Builder.of(FluidDrainerBlockEntity::new,
+                    ModBlocks.FLUID_DRAINER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<ChargerBlockEntity>> CHARGER_ENTITY =
             BLOCK_ENTITIES.register("charger", () -> BlockEntityType.Builder.of(ChargerBlockEntity::new,
                     ModBlocks.CHARGER.get()).build(null));
