@@ -117,16 +117,16 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.COMPRESSOR_ITEM);
             event.accept(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM);
             event.accept(ModBlocks.BLOCK_PLACER_ITEM);
+            event.accept(ModBlocks.FLUID_DRAINER_ITEM);
             event.accept(ModBlocks.CHARGER_ITEM);
             event.accept(ModBlocks.UNCHARGER_ITEM);
             event.accept(ModBlocks.MINECART_CHARGER_ITEM);
             event.accept(ModBlocks.MINECART_UNCHARGER_ITEM);
+
             event.accept(ModBlocks.ENERGIZER_ITEM);
             event.accept(ModBlocks.CHARGING_STATION_ITEM);
             event.accept(ModBlocks.WEATHER_CONTROLLER_ITEM);
             event.accept(ModBlocks.TIME_CONTROLLER_ITEM);
-
-            event.accept(ModBlocks.FLUID_DRAINER_ITEM);
 
             event.accept(ModItems.BASIC_SOLAR_CELL);
             event.accept(ModItems.ADVANCED_SOLAR_CELL);
