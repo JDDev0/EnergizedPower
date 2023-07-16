@@ -14,6 +14,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Compressor
 - Plant Growth Chamber
 - Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
+- Fluid Drainer (**In next release (v1.8.0)**)
 - Charger
 - Uncharger
 - Minecart Charger
