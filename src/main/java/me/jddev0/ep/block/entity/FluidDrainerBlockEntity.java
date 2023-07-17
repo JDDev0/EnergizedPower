@@ -111,7 +111,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
 
     protected final ContainerData data;
     private int fluidDrainingLeft = -1;
-    private int fluidDrainingSumPending = -1;
+    private int fluidDrainingSumPending = 0;
 
     public FluidDrainerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.FLUID_DRAINER_ENTITY.get(), blockPos, blockState);
@@ -319,7 +319,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
 
     private void resetProgress() {
         fluidDrainingLeft = -1;
-        fluidDrainingSumPending = -1;
+        fluidDrainingSumPending = 0;
     }
 
     private boolean hasRecipe() {
@@ -330,8 +330,8 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
                 return false;
 
             IFluidHandlerItem fluidStorage = fluidStorageLazyOptional.orElse(null);
-            for(int j = 0;j < fluidStorage.getTanks();j++) {
-                FluidStack fluidStack = fluidStorage.getFluidInTank(j);
+            for(int i = 0;i < fluidStorage.getTanks();i++) {
+                FluidStack fluidStack = fluidStorage.getFluidInTank(i);
                 if(!fluidStack.isEmpty() && (FluidDrainerBlockEntity.this.fluidStorage.isEmpty() ||
                         fluidStack.getFluid() == FluidDrainerBlockEntity.this.fluidStorage.getFluid().getFluid()))
                     return true;
