@@ -92,6 +92,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.GOLD_CABLE_ITEM);
             event.accept(ModBlocks.ENERGIZED_COPPER_CABLE_ITEM);
             event.accept(ModBlocks.ENERGIZED_GOLD_CABLE_ITEM);
+            event.accept(ModBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM);
 
             event.accept(ModBlocks.TRANSFORMER_1_TO_N_ITEM);
             event.accept(ModBlocks.TRANSFORMER_3_TO_3_ITEM);
