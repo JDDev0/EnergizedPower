@@ -17,7 +17,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -42,15 +41,13 @@ public class ModEvents {
     @SubscribeEvent
     public static void addCustomTrades(VillagerTradesEvent event) {
         Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
-        if(event.getType() == VillagerProfession.LIBRARIAN) {
+        if(event.getType() == ModVillager.ELECTRICIAN_PROFESSION.get()) {
             //Level 1
             addOffer(trades, 1,
                     new ItemStack(Items.EMERALD, 6),
                     new ItemStack(Items.BOOK),
                     new ItemStack(ModItems.ENERGIZED_POWER_BOOK.get()),
                     3, 3, .02f);
-        }else if(event.getType() == ModVillager.ELECTRICIAN_PROFESSION.get()) {
-            //Level 1
             addOffer(trades, 1,
                     new ItemStack(Items.COPPER_INGOT, 2),
                     new ItemStack(Items.EMERALD, 1),
