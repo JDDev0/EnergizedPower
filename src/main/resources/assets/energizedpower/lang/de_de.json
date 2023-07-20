@@ -662,6 +662,8 @@
   "book.energizedpower.page.block_placer.1": "Der Blockplatzierer kann Blöcke platzieren (Sogar Türen und Samen).",
   "book.energizedpower.page.block_placer.2": "Blöcke werden nur platziert, wenn es möglich ist.",
 
+  "book.energizedpower.page.fluid_filler_fluid_drainer": "Der Flüssigkeits-Befüller kann Items mit Flüssigkeiten befüllen und der Flüssigkeits-Entleerer kann Items mit Flüssigkeiten entleeren.",
+
   "book.energizedpower.page.charger_uncharger": "Der Lader kann Items laden und der Entlader kann Items entladen.",
 
   "book.energizedpower.page.charging_station": "Die Ladestation kann Items wireless laden.",

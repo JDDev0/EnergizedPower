@@ -662,6 +662,8 @@
   "book.energizedpower.page.block_placer.1": "The Block Placer can place all blocks (Even doors and seeds).",
   "book.energizedpower.page.block_placer.2": "Blocks will only be placed if possible.",
 
+  "book.energizedpower.page.fluid_filler_fluid_drainer": "The Fluid Filler can fill fluids into items and the Fluid Drainer can drain fluids from items.",
+
   "book.energizedpower.page.charger_uncharger": "The Charger can charge items and the Uncharger can uncharge items.",
 
   "book.energizedpower.page.charging_station": "The Charging Station can charge items wirelessly.",
