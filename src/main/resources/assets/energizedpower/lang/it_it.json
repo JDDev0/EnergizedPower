@@ -586,7 +586,7 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_transportation": "Blocchi per il trasporto di energia",
 
   "book.energizedpower.page.cables.1": "I cavi vengono utilizzati per trasportare l'energia dai blocchi produttori ai blocchi consumatori.",
-  "book.energizedpower.page.cables.2": "Ci sono quattro tipi di cavi.",
+  "book.energizedpower.page.cables.2": "There are five cable tiers.",
   "book.energizedpower.page.cables.3": "È necessario un trasformatore per collegare cavi di diversi livelli.",
 
   "book.energizedpower.page.transformers_1.1": "I trasformatori possono essere utilizzati per collegare diversi livelli di cavi.",
