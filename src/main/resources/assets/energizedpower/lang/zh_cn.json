@@ -586,7 +586,7 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_transportation": "能量运输物品",
 
   "book.energizedpower.page.cables.1": "电缆是将从生能源的方块向由能源驱动输送能源的方块。",
-  "book.energizedpower.page.cables.2": "共有四种类型的电缆。",
+  "book.energizedpower.page.cables.2": "There are five cable tiers.",
   "book.energizedpower.page.cables.3": "如果有不同类型的电缆，需要变压器来连接这些电缆。",
 
   "book.energizedpower.page.transformers_1.1": "变压器用于连接不同类型的电缆。",
