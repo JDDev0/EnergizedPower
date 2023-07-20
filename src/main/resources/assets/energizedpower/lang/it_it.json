@@ -662,6 +662,8 @@
   "book.energizedpower.page.block_placer.1": "Il piazzatore di blocchi può posizionare tutti i blocchi (anche porte e semi).",
   "book.energizedpower.page.block_placer.2": "I blocchi verranno posizionati solo se possibile.",
 
+  "book.energizedpower.page.fluid_filler_fluid_drainer": "The Fluid Filler can fill fluids into items and the Fluid Drainer can drain fluids from items.",
+
   "book.energizedpower.page.charger_uncharger": "Il caricatore può caricare oggetti e lo scaricatore può scaricare oggetti.",
 
   "book.energizedpower.page.charging_station": "La stazione di ricarica può caricare gli articoli in modalità wireless.",
