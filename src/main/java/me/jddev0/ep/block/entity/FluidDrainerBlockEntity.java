@@ -94,7 +94,8 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
                 IFluidHandlerItem fluidStorage = fluidStorageLazyOptional.orElse(null);
                 for(int j = 0;j < fluidStorage.getTanks();j++) {
                     FluidStack fluidStack = fluidStorage.getFluidInTank(j);
-                    if(!fluidStack.isEmpty() && (FluidDrainerBlockEntity.this.fluidStorage.isEmpty() ||
+                    if(!fluidStack.isEmpty() && ((FluidDrainerBlockEntity.this.fluidStorage.isEmpty() &&
+                            FluidDrainerBlockEntity.this.fluidStorage.isFluidValid(fluidStack)) ||
                             fluidStack.isFluidEqual(FluidDrainerBlockEntity.this.fluidStorage.getFluid())))
                         return false;
                 }
@@ -268,8 +269,9 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
                 if(!fluidStack.isEmpty() && firstNonEmptyFluidStack.isEmpty())
                     firstNonEmptyFluidStack = fluidStack;
                 if(!fluidStack.isEmpty() && ((blockEntity.fluidStorage.isEmpty() &&
-                        fluidStack.isFluidEqual(firstNonEmptyFluidStack) ||
-                        fluidStack.isFluidEqual(blockEntity.fluidStorage.getFluid())))) {
+                        blockEntity.fluidStorage.isFluidValid(fluidStack) &&
+                        fluidStack.isFluidEqual(firstNonEmptyFluidStack)) ||
+                        fluidStack.isFluidEqual(blockEntity.fluidStorage.getFluid()))) {
                     fluidDrainingSum += Math.min(blockEntity.fluidStorage.getCapacity() -
                                     blockEntity.fluidStorage.getFluidAmount() - blockEntity.fluidDrainingSumPending -
                                     fluidDrainingSum,
@@ -332,7 +334,8 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
             IFluidHandlerItem fluidStorage = fluidStorageLazyOptional.orElse(null);
             for(int i = 0;i < fluidStorage.getTanks();i++) {
                 FluidStack fluidStack = fluidStorage.getFluidInTank(i);
-                if(!fluidStack.isEmpty() && (FluidDrainerBlockEntity.this.fluidStorage.isEmpty() ||
+                if(!fluidStack.isEmpty() && ((FluidDrainerBlockEntity.this.fluidStorage.isEmpty() &&
+                        FluidDrainerBlockEntity.this.fluidStorage.isFluidValid(fluidStack)) ||
                         fluidStack.getFluid() == FluidDrainerBlockEntity.this.fluidStorage.getFluid().getFluid()))
                     return true;
             }
