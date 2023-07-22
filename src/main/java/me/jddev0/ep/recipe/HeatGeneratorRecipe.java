@@ -22,9 +22,9 @@ import java.util.List;
 public class HeatGeneratorRecipe implements Recipe<SimpleInventory> {
     private final Identifier id;
     private final Fluid[] input;
-    private final int energyProduction;
+    private final long energyProduction;
 
-    public HeatGeneratorRecipe(Identifier id, Fluid[] input, int energyProduction) {
+    public HeatGeneratorRecipe(Identifier id, Fluid[] input, long energyProduction) {
         this.id = id;
         this.input = input;
         this.energyProduction = energyProduction;
@@ -34,7 +34,7 @@ public class HeatGeneratorRecipe implements Recipe<SimpleInventory> {
         return input;
     }
 
-    public int getEnergyProduction() {
+    public long getEnergyProduction() {
         return energyProduction;
     }
 
@@ -128,7 +128,7 @@ public class HeatGeneratorRecipe implements Recipe<SimpleInventory> {
                 throw new JsonSyntaxException("Input must be a single fluid or a list of at least one fluid");
             }
 
-            int energyProduction = JsonHelper.getInt(json, "energy");
+            long energyProduction = JsonHelper.getLong(json, "energy");
 
             return new HeatGeneratorRecipe(recipeID, input.toArray(new Fluid[0]), energyProduction);
         }
@@ -140,7 +140,7 @@ public class HeatGeneratorRecipe implements Recipe<SimpleInventory> {
             for(int i = 0;i < fluidCount;i++)
                 input[i] = Registry.FLUID.get(buffer.readIdentifier());
 
-            int energyProduction = buffer.readInt();
+            long energyProduction = buffer.readLong();
 
             return new HeatGeneratorRecipe(recipeID, input, energyProduction);
         }
@@ -156,7 +156,7 @@ public class HeatGeneratorRecipe implements Recipe<SimpleInventory> {
                 buffer.writeIdentifier(fluidId);
             }
 
-            buffer.writeInt(recipe.energyProduction);
+            buffer.writeLong(recipe.energyProduction);
         }
     }
 }
