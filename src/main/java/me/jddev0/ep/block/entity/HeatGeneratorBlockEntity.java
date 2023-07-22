@@ -133,9 +133,11 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
             }
         }
 
-        try(Transaction transaction = Transaction.openOuter()) {
-            blockEntity.internalEnergyStorage.insert(productionSum, transaction);
-            transaction.commit();
+        if(productionSum > 0) {
+            try (Transaction transaction = Transaction.openOuter()) {
+                blockEntity.internalEnergyStorage.insert(productionSum, transaction);
+                transaction.commit();
+            }
         }
 
         transferEnergy(level, blockPos, state, blockEntity);
