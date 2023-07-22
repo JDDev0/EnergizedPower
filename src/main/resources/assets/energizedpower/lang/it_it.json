@@ -73,6 +73,7 @@
   "item.energizedpower.netherite_hammer": "Martello di Netherite",
 
   "item.energizedpower.battery_box_minecart": "Carrello da miniera con vano batteria",
+  "item.energizedpower.advanced_battery_box_minecart": "Minecart with Advanced Battery Box",
 
   "block.energizedpower.silicon_block": "Blocco di Silicio",
   "item.energizedpower.silicon_block": "Blocco di Silicio",
@@ -265,6 +266,7 @@
   "entity.minecraft.villager.energizedpower.electrician": "Elettricista",
 
   "entity.energizedpower.battery_box_minecart": "Carrello da miniera con vano batteria",
+  "entity.energizedpower.advanced_battery_box_minecart": "Minecart with Advanced Battery Box",
 
   "recipes.energizedpower.in_world_crafting": "Creazione nel mondo",
   "recipes.energizedpower.plant_growth_chamber.ticks": "Ticks: %d",
@@ -406,6 +408,9 @@
 
   "advancements.energizedpower.battery_box_minecart.title": "Potenza sui binari",
   "advancements.energizedpower.battery_box_minecart.description": "Energia per trasporto su rotaie.",
+
+  "advancements.energizedpower.advanced_battery_box_minecart.title": "Even more power on Rails",
+  "advancements.energizedpower.advanced_battery_box_minecart.description": "Transport even more energy on rails.",
 
   "advancements.energizedpower.copper_plate.title": "Lastra di rame",
   "advancements.energizedpower.copper_plate.description": "Crea una lastra di rame.",

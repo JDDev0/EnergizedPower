@@ -87,6 +87,8 @@ public final class ModMenuTypes {
 
     public static final ScreenHandlerType<MinecartBatteryBoxMenu> MINECART_BATTERY_BOX_MENU = createScreenHandlerType("minecart_battery_box",
             new ScreenHandlerType<>(MinecartBatteryBoxMenu::new, FeatureFlags.VANILLA_FEATURES));
+    public static final ScreenHandlerType<MinecartAdvancedBatteryBoxMenu> MINECART_ADVANCED_BATTERY_BOX_MENU = createScreenHandlerType("minecart_advanced_battery_box",
+            new ScreenHandlerType<>(MinecartAdvancedBatteryBoxMenu::new, FeatureFlags.VANILLA_FEATURES));
 
     private static <T extends ScreenHandler> ScreenHandlerType<T> createScreenHandlerType(String name, ScreenHandlerType<T> screenHandlerType) {
         return Registry.register(Registries.SCREEN_HANDLER, new Identifier(EnergizedPowerMod.MODID, name), screenHandlerType);
