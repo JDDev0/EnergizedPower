@@ -130,10 +130,8 @@ public class CompressorBlockEntity extends BlockEntity implements ExtendedScreen
                 return switch(index) {
                     case 0 -> CompressorBlockEntity.this.progress;
                     case 1 -> CompressorBlockEntity.this.maxProgress;
-                    case 2, 3, 4, 5 -> ByteUtils.get2Bytes(CompressorBlockEntity.this.internalEnergyStorage.amount, index - 2);
-                    case 6, 7, 8, 9 -> ByteUtils.get2Bytes(CompressorBlockEntity.this.internalEnergyStorage.capacity, index - 6);
-                    case 10, 11, 12, 13 -> ByteUtils.get2Bytes(CompressorBlockEntity.this.energyConsumptionLeft, index - 10);
-                    case 14 -> hasEnoughEnergy?1:0;
+                    case 2, 3, 4, 5 -> ByteUtils.get2Bytes(CompressorBlockEntity.this.energyConsumptionLeft, index - 2);
+                    case 6 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -143,15 +141,13 @@ public class CompressorBlockEntity extends BlockEntity implements ExtendedScreen
                 switch(index) {
                     case 0 -> CompressorBlockEntity.this.progress = value;
                     case 1 -> CompressorBlockEntity.this.maxProgress = value;
-                    case 2, 3, 4, 5 -> CompressorBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
-                            CompressorBlockEntity.this.internalEnergyStorage.amount, (short)value, index - 2);
-                    case 6, 7, 8, 9, 10, 11, 12, 13, 14 -> {}
+                    case 2, 3, 4, 5, 6 -> {}
                 }
             }
 
             @Override
             public int size() {
-                return 15;
+                return 7;
             }
         };
     }

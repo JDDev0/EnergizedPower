@@ -158,10 +158,8 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
                 return switch(index) {
                     case 0, 1 -> ByteUtils.get2Bytes(PlantGrowthChamberBlockEntity.this.progress, index);
                     case 2, 3 -> ByteUtils.get2Bytes(PlantGrowthChamberBlockEntity.this.maxProgress, index - 2);
-                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(PlantGrowthChamberBlockEntity.this.internalEnergyStorage.amount, index - 4);
-                    case 8, 9, 10, 11 -> ByteUtils.get2Bytes(PlantGrowthChamberBlockEntity.this.internalEnergyStorage.capacity, index - 8);
-                    case 12, 13, 14, 15 -> ByteUtils.get2Bytes(PlantGrowthChamberBlockEntity.this.energyConsumptionLeft, index - 12);
-                    case 16 -> hasEnoughEnergy?1:0;
+                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(PlantGrowthChamberBlockEntity.this.energyConsumptionLeft, index - 4);
+                    case 8 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -175,15 +173,13 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
                     case 2, 3 -> PlantGrowthChamberBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
                             PlantGrowthChamberBlockEntity.this.maxProgress, (short)value, index - 2
                     );
-                    case 4, 5, 6, 7 -> PlantGrowthChamberBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
-                            PlantGrowthChamberBlockEntity.this.internalEnergyStorage.amount, (short)value, index - 4);
-                    case 8, 9, 10, 11, 12, 13, 14, 15, 16 -> {}
+                    case 4, 5, 6, 7, 8 -> {}
                 }
             }
 
             @Override
             public int size() {
-                return 17;
+                return 9;
             }
         };
     }

@@ -26,7 +26,7 @@ public class ChargerMenu extends ScreenHandler implements EnergyStorageConsumerI
 
     public ChargerMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
         this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1),
-                new ArrayPropertyDelegate(12));
+                new ArrayPropertyDelegate(4));
     }
 
     public ChargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
@@ -36,7 +36,7 @@ public class ChargerMenu extends ScreenHandler implements EnergyStorageConsumerI
 
         this.inv = inv;
         checkSize(this.inv, 1);
-        checkDataCount(data, 12);
+        checkDataCount(data, 4);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -61,7 +61,7 @@ public class ChargerMenu extends ScreenHandler implements EnergyStorageConsumerI
 
     @Override
     public long getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(8), (short)data.get(9), (short)data.get(10), (short)data.get(11));
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1), (short)data.get(2), (short)data.get(3));
     }
 
     @Override

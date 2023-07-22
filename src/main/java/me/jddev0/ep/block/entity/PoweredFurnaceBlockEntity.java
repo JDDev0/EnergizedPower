@@ -132,10 +132,8 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
                 return switch(index) {
                     case 0, 1 -> ByteUtils.get2Bytes(PoweredFurnaceBlockEntity.this.progress, index);
                     case 2, 3 -> ByteUtils.get2Bytes(PoweredFurnaceBlockEntity.this.maxProgress, index - 2);
-                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(PoweredFurnaceBlockEntity.this.internalEnergyStorage.amount, index - 4);
-                    case 8, 9, 10, 11 -> ByteUtils.get2Bytes(PoweredFurnaceBlockEntity.this.internalEnergyStorage.capacity, index - 8);
-                    case 12, 13, 14, 15 -> ByteUtils.get2Bytes(PoweredFurnaceBlockEntity.this.energyConsumptionLeft, index - 12);
-                    case 16 -> hasEnoughEnergy?1:0;
+                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(PoweredFurnaceBlockEntity.this.energyConsumptionLeft, index - 4);
+                    case 8 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -149,15 +147,13 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
                     case 2, 3 -> PoweredFurnaceBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
                             PoweredFurnaceBlockEntity.this.maxProgress, (short)value, index - 2
                     );
-                    case 4, 5, 6, 7 -> PoweredFurnaceBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
-                            PoweredFurnaceBlockEntity.this.internalEnergyStorage.amount, (short)value, index - 2);
-                    case 8, 9, 10, 11, 12, 13, 14, 15, 16 -> {}
+                    case 4, 5, 6, 7, 8 -> {}
                 }
             }
 
             @Override
             public int size() {
-                return 17;
+                return 9;
             }
         };
     }

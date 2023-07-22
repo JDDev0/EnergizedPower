@@ -127,10 +127,8 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
                 return switch(index) {
                     case 0, 1 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.progress, index);
                     case 2, 3 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.maxProgress, index - 2);
-                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.internalEnergyStorage.amount, index - 4);
-                    case 8, 9, 10, 11 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.internalEnergyStorage.capacity, index - 8);
-                    case 12, 13, 14, 15 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.energyProductionLeft, index - 12);
-                    case 16 -> hasEnoughCapacityForProduction?1:0;
+                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.energyProductionLeft, index - 4);
+                    case 8 -> hasEnoughCapacityForProduction?1:0;
                     default -> 0;
                 };
             }
@@ -144,15 +142,13 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
                     case 2, 3 -> CoalEngineBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
                             CoalEngineBlockEntity.this.maxProgress, (short)value, index - 2
                     );
-                    case 4, 5, 6, 7 -> CoalEngineBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
-                            CoalEngineBlockEntity.this.internalEnergyStorage.amount, (short)value, index - 4);
-                    case 8, 9, 10, 11, 12, 13, 14, 15, 16 -> {}
+                    case 4, 5, 6, 7, 8 -> {}
                 }
             }
 
             @Override
             public int size() {
-                return 17;
+                return 9;
             }
         };
     }
