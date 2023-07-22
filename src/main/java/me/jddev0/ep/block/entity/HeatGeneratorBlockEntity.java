@@ -11,6 +11,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.SimpleInventory;
@@ -31,9 +32,10 @@ import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
-    public static final long ENERGY_PER_FACE_TOUCHING_LAVA = 25;
+    public static final long MAX_ENERGY_PRODUCTION_PER_FACE = 100;
 
     private final long maxExtract;
 
@@ -45,8 +47,8 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.HEAT_GENERATOR_ENTITY, blockPos, blockState);
 
-        maxExtract = ENERGY_PER_FACE_TOUCHING_LAVA * 6; //6 times energy production per face
-        long capacity = maxExtract * 20 * 2; //2 seconds of max extract
+        maxExtract = MAX_ENERGY_PRODUCTION_PER_FACE * 5; //5 faces max, 1 must be used for energy extraction
+        long capacity = maxExtract * 20; //1 second of max extract
 
         internalEnergyStorage = new SimpleEnergyStorage(capacity, capacity, capacity) {
             @Override
@@ -120,6 +122,14 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
         internalEnergyStorage.amount = nbt.getLong("energy");
     }
 
+    /**
+     *  TODO move to recipe files
+     */
+    private static final Map<Fluid, Long> FLUID_ENERGY_PRODUCTION_PER_FACE = Map.of(
+            Fluids.LAVA, 25L,
+            Fluids.FLOWING_LAVA, 15L
+    );
+
     public static void tick(World level, BlockPos blockPos, BlockState state, HeatGeneratorBlockEntity blockEntity) {
         if(level.isClient())
             return;
@@ -128,8 +138,13 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
         for(Direction direction:Direction.values()) {
             BlockPos checkPos = blockPos.offset(direction);
             FluidState fluidState = level.getFluidState(checkPos);
-            if(fluidState.isOf(Fluids.LAVA) || fluidState.isOf(Fluids.FLOWING_LAVA)) {
-                productionSum += ENERGY_PER_FACE_TOUCHING_LAVA;
+
+            for(Map.Entry<Fluid, Long> entry:FLUID_ENERGY_PRODUCTION_PER_FACE.entrySet()) {
+                if(fluidState.isOf(entry.getKey())) {
+                    productionSum += entry.getValue();
+
+                    break;
+                }
             }
         }
 
