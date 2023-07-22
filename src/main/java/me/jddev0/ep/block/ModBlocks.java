@@ -82,8 +82,12 @@ public final class ModBlocks {
     public static final Block BATTERY_BOX = registerBlock("battery_box",
             new BatteryBoxBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
-
     public static final Item BATTERY_BOX_ITEM = createBlockItem("battery_box", BATTERY_BOX);
+
+    public static final Block ADVANCED_BATTERY_BOX = registerBlock("advanced_battery_box",
+            new AdvancedBatteryBoxBlock(FabricBlockSettings.create().
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item ADVANCED_BATTERY_BOX_ITEM = createBlockItem("advanced_battery_box", ADVANCED_BATTERY_BOX);
 
     public static final Block CRUSHER = registerBlock("crusher",
             new CrusherBlock(FabricBlockSettings.create().

@@ -146,6 +146,10 @@
   "item.energizedpower.battery_box": "Battery Box",
   "container.energizedpower.battery_box": "Battery Box",
 
+  "block.energizedpower.advanced_battery_box": "Advanced Battery Box",
+  "item.energizedpower.advanced_battery_box": "Advanced Battery Box",
+  "container.energizedpower.advanced_battery_box": "Advanced Battery Box",
+
 
   "block.energizedpower.solar_panel_1": "太阳能电池板（I级）",
   "item.energizedpower.solar_panel_1": "太阳能电池板（I级）",
@@ -382,6 +386,9 @@
 
   "advancements.energizedpower.battery_box.title": "蓄电池箱",
   "advancements.energizedpower.battery_box.description": "储存能源与电池盒。",
+
+  "advancements.energizedpower.advanced_battery_box.title": "Better Battery Box",
+  "advancements.energizedpower.advanced_battery_box.description": "Store even more energy than the best battery item.",
 
   "advancements.energizedpower.energized_copper_ingot.title": "充满能量",
   "advancements.energizedpower.energized_copper_ingot.description": "充能铜锭是更好的铜锭。",
