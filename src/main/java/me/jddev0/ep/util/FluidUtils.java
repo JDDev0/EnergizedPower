@@ -9,19 +9,19 @@ public final class FluidUtils {
 
     private FluidUtils() {}
 
-    public static String getFluidAmountWithPrefix(int energy) {
-        if(energy < 1000)
-            return String.format(Locale.ENGLISH, "%d mB", energy);
+    public static String getFluidAmountWithPrefix(int fluidAmount) {
+        if(fluidAmount < 1000)
+            return String.format(Locale.ENGLISH, "%d mB", fluidAmount);
 
-        double energyWithPrefix = energy;
+        double fluidAmountWithPrefix = fluidAmount;
 
         int prefixIndex = 0;
-        while(((int)energyWithPrefix >= 1000) && prefixIndex + 1 < FLUID_PREFIXES.length) {
-            energyWithPrefix /= 1000;
+        while(((int)fluidAmountWithPrefix >= 1000) && prefixIndex + 1 < FLUID_PREFIXES.length) {
+            fluidAmountWithPrefix /= 1000;
 
             prefixIndex++;
         }
 
-        return String.format(Locale.ENGLISH, "%.2f%s mB", energyWithPrefix, FLUID_PREFIXES[prefixIndex]);
+        return String.format(Locale.ENGLISH, "%.2f%s mB", fluidAmountWithPrefix, FLUID_PREFIXES[prefixIndex]);
     }
 }
