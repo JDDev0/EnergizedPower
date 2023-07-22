@@ -2,7 +2,6 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.EnergizerBlockEntity;
-import me.jddev0.ep.energy.EnergyStorageMenuPacketUpdate;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
@@ -19,7 +18,7 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class EnergizerMenu extends ScreenHandler implements EnergyStorageConsumerIndicatorBarMenu, EnergyStorageMenuPacketUpdate {
+public class EnergizerMenu extends ScreenHandler implements EnergyStorageConsumerIndicatorBarMenu {
     private final EnergizerBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -53,12 +52,12 @@ public class EnergizerMenu extends ScreenHandler implements EnergyStorageConsume
 
     @Override
     public long getEnergy() {
-        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3), (short)data.get(4), (short)data.get(5));
+        return blockEntity.getEnergy();
     }
 
     @Override
     public long getCapacity() {
-        return ByteUtils.from2ByteChunks((short)data.get(6), (short)data.get(7), (short)data.get(8), (short)data.get(9));
+        return blockEntity.getCapacity();
     }
 
     @Override
@@ -138,20 +137,7 @@ public class EnergizerMenu extends ScreenHandler implements EnergyStorageConsume
         }
     }
 
-    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
-    }
-
-    @Override
-    public void setEnergy(long energy) {
-        for(int i = 0;i < 4;i++)
-            data.set(i + 2, ByteUtils.get2Bytes(energy, i));
-    }
-
-    @Override
-    public void setCapacity(long capacity) {
-        for(int i = 0;i < 4;i++)
-            data.set(i + 6, ByteUtils.get2Bytes(capacity, i));
     }
 }

@@ -53,4 +53,8 @@ public final class ModMessages {
             ServerPlayNetworking.send(player, channelName, buf);
         }
     }
+
+    public static void sendServerPacketToPlayer(ServerPlayerEntity player, Identifier channelName, PacketByteBuf buf) {
+        ServerPlayNetworking.send(player, channelName, buf);
+    }
 }

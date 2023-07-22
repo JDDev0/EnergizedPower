@@ -147,14 +147,14 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
         buffer.writeLong(internalEnergyStorage.capacity);
         buffer.writeBlockPos(getPos());
 
-        ModMessages.broadcastServerPacket(world.getServer(), ModMessages.ENERGY_SYNC_ID, buffer);
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
 
         buffer = PacketByteBufs.create();
         fluidStorage.getFluid().toPacket(buffer);
         buffer.writeLong(fluidStorage.getCapacity());
         buffer.writeBlockPos(getPos());
 
-        ModMessages.broadcastServerPacket(world.getServer(), ModMessages.FLUID_SYNC_ID, buffer);
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.FLUID_SYNC_ID, buffer);
 
         return new ThermalGeneratorMenu(id, this, inventory, this.data);
     }
@@ -327,6 +327,10 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
     @Override
     public void setCapacity(long capacity) {
         //Does nothing (capacity is final)
+    }
+
+    public long getEnergy() {
+        return internalEnergyStorage.amount;
     }
 
     public long getCapacity() {

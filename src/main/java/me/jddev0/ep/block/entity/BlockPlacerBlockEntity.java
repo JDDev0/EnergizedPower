@@ -180,6 +180,13 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+        PacketByteBuf buffer = PacketByteBufs.create();
+        buffer.writeLong(internalEnergyStorage.amount);
+        buffer.writeLong(internalEnergyStorage.capacity);
+        buffer.writeBlockPos(getPos());
+
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
+
         return new BlockPlacerMenu(id, this, inventory, internalInventory, this.data);
     }
 
@@ -335,6 +342,14 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
         markDirty(world, getPos(), getCachedState());
     }
 
+    public long getEnergy() {
+        return internalEnergyStorage.amount;
+    }
+
+    public long getCapacity() {
+        return internalEnergyStorage.capacity;
+    }
+
     @Override
     public void setEnergy(long energy) {
         internalEnergyStorage.amount = energy;
@@ -343,9 +358,5 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
     @Override
     public void setCapacity(long capacity) {
         //Does nothing (capacity is final)
-    }
-
-    public long getCapacity() {
-        return internalEnergyStorage.capacity;
     }
 }
