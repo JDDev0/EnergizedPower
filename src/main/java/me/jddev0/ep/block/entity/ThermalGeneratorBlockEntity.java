@@ -183,7 +183,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
         }
 
         if(rawProduction > 0 && blockEntity.internalEnergyStorage.amount < blockEntity.internalEnergyStorage.capacity) {
-            //Calculate real production (raw production is in x FE per 1000 mB, 50 mB of fluid can be consumed per tick)
+            //Calculate real production (raw production is in x E per 1000 mB, 50 mB of fluid can be consumed per tick)
             long production = (long)(rawProduction * (Math.min(
                     blockEntity.fluidStorage.getFluid().getMilliBucketsAmount(), 50) / 1000.));
 
