@@ -77,7 +77,7 @@ public class AdvancedBatteryBoxBlock extends BlockWithEntity {
                         formatted(Formatting.GRAY));
                 tooltip.add(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
                                 EnergyUtils.getEnergyWithPrefix(AdvancedBatteryBoxBlockEntity.MAX_TRANSFER)).
-                        formatted(Formatting.GRAY, Formatting.ITALIC));
+                        formatted(Formatting.GRAY));
             }else {
                 tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
