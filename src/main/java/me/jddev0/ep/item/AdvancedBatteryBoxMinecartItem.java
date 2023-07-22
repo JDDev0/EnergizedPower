@@ -83,7 +83,7 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
                     formatted(Formatting.GRAY));
             tooltip.add(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
                             EnergyUtils.getEnergyWithPrefix(MinecartAdvancedBatteryBox.MAX_TRANSFER)).
-                    formatted(Formatting.GRAY, Formatting.ITALIC));
+                    formatted(Formatting.GRAY));
         }else {
             tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
         }
