@@ -14,7 +14,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
@@ -33,7 +32,6 @@ import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
     public static final long MAX_ENERGY_PRODUCTION_PER_FACE = 100;
