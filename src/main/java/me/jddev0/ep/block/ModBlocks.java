@@ -167,6 +167,11 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item HEAT_GENERATOR_ITEM = createBlockItem("heat_generator", HEAT_GENERATOR);
 
+    public static final Block THERMAL_GENERATOR = registerBlock("thermal_generator",
+            new ThermalGeneratorBlock(FabricBlockSettings.create().
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item THERMAL_GENERATOR_ITEM = createBlockItem("thermal_generator", THERMAL_GENERATOR);
+
     public static final Block POWERED_FURNACE = registerBlock("powered_furnace",
             new PoweredFurnaceBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL).
