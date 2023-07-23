@@ -146,6 +146,10 @@
   "item.energizedpower.battery_box": "Batterie-Box",
   "container.energizedpower.battery_box": "Batterie-Box",
 
+  "block.energizedpower.advanced_battery_box": "Fortgeschrittene Batterie-Box",
+  "item.energizedpower.advanced_battery_box": "Fortgeschrittene Batterie-Box",
+  "container.energizedpower.advanced_battery_box": "Fortgeschrittene Batterie-Box",
+
 
   "block.energizedpower.solar_panel_1": "Solarpanel (MK I)",
   "item.energizedpower.solar_panel_1": "Solarpanel (MK I)",
@@ -382,6 +386,9 @@
 
   "advancements.energizedpower.battery_box.title": "Batterie-Box",
   "advancements.energizedpower.battery_box.description": "Speichere Strom mit dem Batterie-Box-Block.",
+
+  "advancements.energizedpower.advanced_battery_box.title": "Bessere Batterie-Box",
+  "advancements.energizedpower.advanced_battery_box.description": "Speichere noch mehr Strom als das beste Batterie-Item.",
 
   "advancements.energizedpower.energized_copper_ingot.title": "Energetisiert",
   "advancements.energizedpower.energized_copper_ingot.description": "Energetisiertes Kupfer ist besser als Kupfer.",
