@@ -37,6 +37,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<BlockPlacerMenu>> BLOCK_PLACER_MENU = registerMenuType("block_placer",
             BlockPlacerMenu::new);
 
+    public static final RegistryObject<MenuType<FluidFillerMenu>> FLUID_FILLER_MENU = registerMenuType("fluid_filler",
+            FluidFillerMenu::new);
+
     public static final RegistryObject<MenuType<FluidDrainerMenu>> FLUID_DRAINER_MENU = registerMenuType("fluid_drainer",
             FluidDrainerMenu::new);
 
