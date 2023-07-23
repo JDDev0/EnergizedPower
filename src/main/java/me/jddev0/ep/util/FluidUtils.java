@@ -43,6 +43,9 @@ public final class FluidUtils {
     public static long readFluidAmountInMilliBucketsWithLeftover(String milliBucketsKey, String leftoverKey,
                                                                  NbtCompound nbtCompound) {
         long milliBucketsAmount = nbtCompound.getLong(milliBucketsKey);
+        if(milliBucketsAmount == -1)
+            return -1;
+
         long dropletsLeftOverAmount = nbtCompound.contains(leftoverKey)?nbtCompound.getLong(leftoverKey):0;
 
         return FluidUtils.convertMilliBucketsToDroplets(milliBucketsAmount) + dropletsLeftOverAmount;
@@ -53,6 +56,12 @@ public final class FluidUtils {
      */
     public static void writeFluidAmountInMilliBucketsWithLeftover(long droplets, String milliBucketsKey,
                                                                  String leftoverKey, NbtCompound nbtCompound) {
+        if(droplets == -1) {
+            nbtCompound.putLong(milliBucketsKey, -1);
+
+            return;
+        }
+
         long milliBucketsAmount = FluidUtils.convertDropletsToMilliBuckets(droplets);
         long dropletsLeftOverAmount = droplets - FluidUtils.convertMilliBucketsToDroplets(milliBucketsAmount);
 
