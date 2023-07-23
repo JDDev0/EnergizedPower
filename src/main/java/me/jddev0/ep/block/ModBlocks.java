@@ -48,6 +48,11 @@ public final class ModBlocks {
     public static final Item ENERGIZED_GOLD_CABLE_ITEM = createCableBlockItem("energized_gold_cable",
             ENERGIZED_GOLD_CABLE);
 
+    public static final CableBlock ENERGIZED_CRYSTAL_MATRIX_CABLE = registerBlock("energized_crystal_matrix_cable",
+            new CableBlock(CableBlock.Tier.TIER_ENERGIZED_CRYSTAL_MATRIX));
+    public static final Item ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM = createCableBlockItem("energized_crystal_matrix_cable",
+            ENERGIZED_CRYSTAL_MATRIX_CABLE);
+
     private static Item createTransformerBlockItem(String name, TransformerBlock block) {
         return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
                 new TransformerBlock.Item(block, new FabricItemSettings(), block.getTransformerType()));

@@ -261,6 +261,8 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
         TIER_ENERGIZED_COPPER("energized_copper_cable", 131072,
                 FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
         TIER_ENERGIZED_GOLD("energized_goldr_cable", 524288,
+                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
+        TIER_ENERGIZED_CRYSTAL_MATRIX("energized_crystal_matrix_cable", 2097152,
                 FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL));
 
         private final String resourceId;

@@ -126,6 +126,9 @@
   "block.energizedpower.energized_gold_cable": "Energetisiertes Goldkabel",
   "item.energizedpower.energized_gold_cable": "Energetisiertes Goldkabel",
 
+  "block.energizedpower.energized_crystal_matrix_cable": "Energetisiertes Kristall-Matrix-Kabel",
+  "item.energizedpower.energized_crystal_matrix_cable": "Energetisiertes Kristall-Matrix-Kabel",
+
   "tooltip.energizedpower.cable.txt.shift.1": "Dieses Kabel kann %s/t transferieren.",
   "tooltip.energizedpower.cable.txt.shift.2": "Kabelinsulatoren können durch das Klicken auf einen Wolleblock mit einer Schere hergestellt werden.",
 
@@ -400,6 +403,9 @@
 
   "advancements.energizedpower.energized_gold_cable.title": "Strom, Strom, Strom",
   "advancements.energizedpower.energized_gold_cable.description": "Dieses Kabel ist das Beste vom Besten.",
+
+  "advancements.energizedpower.energized_crystal_matrix_cable.title": "Zu viel Strom",
+  "advancements.energizedpower.energized_crystal_matrix_cable.description": "Wann muss ich überhaupt so viel Strom transportieren?",
 
   "advancements.energizedpower.transformers.title": "Trafos",
   "advancements.energizedpower.transformers.description": "Trafos können verschiedene Kabeltypen verbinden.",
