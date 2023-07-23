@@ -185,6 +185,8 @@
   "item.energizedpower.thermal_generator": "Thermal Generator",
   "container.energizedpower.thermal_generator": "Thermal Generator",
 
+  "tooltip.energizedpower.thermal_generator.txt": "This fluid will produce %s until completely used up",
+
   "block.energizedpower.powered_furnace": "电炉",
   "item.energizedpower.powered_furnace": "电炉",
   "container.energizedpower.powered_furnace": "电炉",
