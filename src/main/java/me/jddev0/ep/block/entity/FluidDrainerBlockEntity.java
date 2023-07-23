@@ -69,6 +69,8 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
     private long fluidDrainingLeft = -1;
     private long fluidDrainingSumPending = 0;
 
+    private boolean forceAllowStackUpdateFlag = false;
+
     public FluidDrainerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.FLUID_DRAINER_ENTITY, blockPos, blockState);
 
@@ -93,8 +95,8 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
             public void setStack(int slot, ItemStack stack) {
                 if(slot == 0) {
                     ItemStack itemStack = getStack(slot);
-                    if(!stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.areItemsEqual(stack, itemStack) ||
-                            (!ItemStack.canCombine(stack, itemStack) &&
+                    if(!forceAllowStackUpdateFlag && !stack.isEmpty() && !itemStack.isEmpty() &&
+                            (!ItemStack.areItemsEqual(stack, itemStack) || (!ItemStack.canCombine(stack, itemStack) &&
                                     //Only check if NBT data is equal if one of stack or itemStack is no fluid item
                                     !(ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM) != null &&
                                             ContainerItemContext.withConstant(itemStack).find(FluidStorage.ITEM) != null))))
@@ -323,6 +325,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
             blockEntity.fluidDrainingLeft = fluidDrainingLeftSum;
             blockEntity.fluidDrainingSumPending += fluidDrainingSum;
 
+            blockEntity.forceAllowStackUpdateFlag = true;
             try(Transaction transaction = Transaction.openOuter()) {
                 blockEntity.internalEnergyStorage.extract(ENERGY_USAGE_PER_TICK, transaction);
 
@@ -341,6 +344,8 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
                 }
 
                 transaction.commit();
+            }finally {
+                blockEntity.forceAllowStackUpdateFlag = false;
             }
 
             markDirty(level, blockPos, state);
