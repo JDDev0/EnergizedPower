@@ -19,14 +19,14 @@ public class PlantGrowthChamberMenu extends AbstractContainerMenu implements Ene
     private final ContainerData data;
 
     public PlantGrowthChamberMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(11));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(7));
     }
 
     public PlantGrowthChamberMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.PLANT_GROWTH_CHAMBER_MENU.get(), id);
 
         checkContainerSize(inv, 6);
-        checkContainerDataCount(data, 11);
+        checkContainerDataCount(data, 7);
         this.blockEntity = (PlantGrowthChamberBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -58,7 +58,7 @@ public class PlantGrowthChamberMenu extends AbstractContainerMenu implements Ene
 
     @Override
     public int getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(8), (short)data.get(9));
+        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
     }
 
     /**
@@ -69,7 +69,7 @@ public class PlantGrowthChamberMenu extends AbstractContainerMenu implements Ene
     }
 
     public boolean isCrafting() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(10) == 1;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(6) == 1;
     }
 
     public int getScaledProgressArrowSize() {

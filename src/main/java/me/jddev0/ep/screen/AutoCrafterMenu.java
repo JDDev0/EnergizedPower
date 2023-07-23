@@ -27,7 +27,7 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
     private final Container patternResultSlots;
 
     public AutoCrafterMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainer(9), new SimpleContainer(1), new SimpleContainerData(11));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainer(9), new SimpleContainer(1), new SimpleContainerData(7));
     }
 
     public AutoCrafterMenu(int id, Inventory inv, BlockEntity blockEntity, Container patternSlots, Container patternResultSlots, ContainerData data) {
@@ -37,7 +37,7 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
         this.patternResultSlots = patternResultSlots;
 
         checkContainerSize(inv, 18 + 3*3 + 1);
-        checkContainerDataCount(data, 11);
+        checkContainerDataCount(data, 7);
         this.blockEntity = (AutoCrafterBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -91,7 +91,7 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
 
     @Override
     public int getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(6), (short)data.get(7));
+        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
     }
 
     /**
@@ -102,7 +102,7 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
     }
 
     public boolean isCrafting() {
-        return data.get(0) > 0 && data.get(8) == 1;
+        return data.get(0) > 0 && data.get(4) == 1;
     }
 
     public int getScaledProgressArrowSize() {
@@ -114,11 +114,11 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
     }
 
     public boolean isIgnoreNBT() {
-        return data.get(9) != 0;
+        return data.get(5) != 0;
     }
 
     public boolean isSecondaryExtractMode() {
-        return data.get(10) != 0;
+        return data.get(6) != 0;
     }
 
     @Override

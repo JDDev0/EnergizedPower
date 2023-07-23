@@ -19,14 +19,14 @@ public class PoweredFurnaceMenu extends AbstractContainerMenu implements EnergyS
     private final ContainerData data;
 
     public PoweredFurnaceMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(11));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(7));
     }
 
     public PoweredFurnaceMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.POWERED_FURNACE_MENU.get(), id);
 
         checkContainerSize(inv, 2);
-        checkContainerDataCount(data, 11);
+        checkContainerDataCount(data, 7);
         this.blockEntity = (PoweredFurnaceBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -54,7 +54,7 @@ public class PoweredFurnaceMenu extends AbstractContainerMenu implements EnergyS
 
     @Override
     public int getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(8), (short)data.get(9));
+        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
     }
 
     /**
@@ -65,7 +65,7 @@ public class PoweredFurnaceMenu extends AbstractContainerMenu implements EnergyS
     }
 
     public boolean isCrafting() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(10) == 1;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(6) == 1;
     }
 
     public int getScaledProgressArrowSize() {

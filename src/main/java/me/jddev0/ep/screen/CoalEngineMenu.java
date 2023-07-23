@@ -19,14 +19,14 @@ public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStora
     private final ContainerData data;
 
     public CoalEngineMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(11));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(7));
     }
 
     public CoalEngineMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.COAL_ENGINE_MENU.get(), id);
 
         checkContainerSize(inv, 1);
-        checkContainerDataCount(data, 11);
+        checkContainerDataCount(data, 7);
         this.blockEntity = (CoalEngineBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -53,7 +53,7 @@ public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStora
 
     @Override
     public int getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(8), (short)data.get(9));
+        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
     }
 
     /**
@@ -64,7 +64,7 @@ public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStora
     }
 
     public boolean isProducing() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(10) == 1;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(6) == 1;
     }
 
     public int getScaledProgressFlameSize() {
