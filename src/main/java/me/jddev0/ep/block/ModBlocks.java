@@ -120,6 +120,11 @@ public final class ModBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final RegistryObject<Item> BLOCK_PLACER_ITEM = createBlockItem("block_placer", BLOCK_PLACER);
 
+    public static final RegistryObject<Block> FLUID_DRAINER = BLOCKS.register("fluid_drainer",
+            () -> new FluidDrainerBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> FLUID_DRAINER_ITEM = createBlockItem("fluid_drainer", FLUID_DRAINER);
+
     public static final RegistryObject<Block> CHARGER = BLOCKS.register("charger",
             () -> new ChargerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
