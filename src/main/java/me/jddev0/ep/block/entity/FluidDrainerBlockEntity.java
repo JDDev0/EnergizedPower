@@ -67,7 +67,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
     protected final PropertyDelegate data;
 
     private long fluidDrainingLeft = -1;
-    private long fluidDrainingSumPending = -1;
+    private long fluidDrainingSumPending = 0;
 
     public FluidDrainerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.FLUID_DRAINER_ENTITY, blockPos, blockState);
@@ -355,7 +355,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
 
     private void resetProgress() {
         fluidDrainingLeft = -1;
-        fluidDrainingSumPending = -1;
+        fluidDrainingSumPending = 0;
     }
 
     private boolean hasRecipe() {
