@@ -126,6 +126,9 @@
   "block.energizedpower.energized_gold_cable": "Cavo d'oro energizzato",
   "item.energizedpower.energized_gold_cable": "Cavo d'oro energizzato",
 
+  "block.energizedpower.energized_crystal_matrix_cable": "Energized Crystal Matrix Cable",
+  "item.energizedpower.energized_crystal_matrix_cable": "Energized Crystal Matrix Cable",
+
   "tooltip.energizedpower.cable.txt.shift.1": "Questo cavo può trasferire %s/t.",
   "tooltip.energizedpower.cable.txt.shift.2": "Gli isolanti per cavi possono essere realizzati facendo clic su un blocco di lana con le cesoie.",
 
@@ -400,6 +403,9 @@
 
   "advancements.energizedpower.energized_gold_cable.title": "Forza, potenza, forza",
   "advancements.energizedpower.energized_gold_cable.description": "Questo cavo è il meglio del meglio.",
+
+  "advancements.energizedpower.energized_crystal_matrix_cable.title": "Too much power",
+  "advancements.energizedpower.energized_crystal_matrix_cable.description": "When do I even need to transport that much energy?",
 
   "advancements.energizedpower.transformers.title": "Trasformatori",
   "advancements.energizedpower.transformers.description": "Può connettersi a diversi livelli di cavi.",
