@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "particle": "#top",
+    "front": "energizedpower:block/thermal_generator_front",
+    "side": "energizedpower:block/thermal_generator_side",
+    "top": "energizedpower:block/thermal_generator_top",
+    "bottom": "energizedpower:block/thermal_generator_top"
+  }
+}

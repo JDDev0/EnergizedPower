@@ -110,6 +110,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("heat_generator", () -> BlockEntityType.Builder.of(HeatGeneratorBlockEntity::new,
                     ModBlocks.HEAT_GENERATOR.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<ThermalGeneratorBlockEntity>> THERMAL_GENERATOR_ENTITY =
+            BLOCK_ENTITIES.register("thermal_generator", () -> BlockEntityType.Builder.of(ThermalGeneratorBlockEntity::new,
+                    ModBlocks.THERMAL_GENERATOR.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<PoweredFurnaceBlockEntity>> POWERED_FURNACE_ENTITY =
             BLOCK_ENTITIES.register("powered_furnace", () -> BlockEntityType.Builder.of(PoweredFurnaceBlockEntity::new,
                     ModBlocks.POWERED_FURNACE.get()).build(null));

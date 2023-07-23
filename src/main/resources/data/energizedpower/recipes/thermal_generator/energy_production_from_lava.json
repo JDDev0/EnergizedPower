@@ -1,0 +1,5 @@
+{
+  "type": "energizedpower:thermal_generator",
+  "input": "minecraft:lava",
+  "energy": 20000
+}

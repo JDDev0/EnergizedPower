@@ -66,6 +66,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<HeatGeneratorMenu>> HEAT_GENERATOR_MENU = registerMenuType("heat_generator",
             HeatGeneratorMenu::new);
 
+    public static final RegistryObject<MenuType<ThermalGeneratorMenu>> THERMAL_GENERATOR_MENU = registerMenuType("thermal_generator",
+            ThermalGeneratorMenu::new);
+
     public static final RegistryObject<MenuType<BatteryBoxMenu>> BATTERY_BOX_MENU = registerMenuType("battery_box",
             BatteryBoxMenu::new);
 
