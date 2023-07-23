@@ -214,6 +214,10 @@
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "Questo blocco ha ancora bisogno di %s per essere posizionato.",
   "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Rotazione inversa",
 
+  "block.energizedpower.fluid_filler": "Fluid Filler",
+  "item.energizedpower.fluid_filler": "Fluid Filler",
+  "container.energizedpower.fluid_filler": "Fluid Filler",
+
   "block.energizedpower.fluid_drainer": "Fluid Drainer",
   "item.energizedpower.fluid_drainer": "Fluid Drainer",
   "container.energizedpower.fluid_drainer": "Fluid Drainer",
@@ -315,6 +319,9 @@
 
   "advancements.energizedpower.block_placer.title": "Posiziona il blocco",
   "advancements.energizedpower.block_placer.description": "I blocchi vengono posizionati automaticamente nel mondo.",
+
+  "advancements.energizedpower.fluid_filler.title": "Fill the fluid item",
+  "advancements.energizedpower.fluid_filler.description": "Fill items with fluids.",
 
   "advancements.energizedpower.fluid_drainer.title": "Drain the fluid item",
   "advancements.energizedpower.fluid_drainer.description": "Drain fluids from items.",
