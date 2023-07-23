@@ -336,7 +336,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
                 FluidStack fluidStack = fluidStorage.getFluidInTank(i);
                 if(!fluidStack.isEmpty() && ((FluidDrainerBlockEntity.this.fluidStorage.isEmpty() &&
                         FluidDrainerBlockEntity.this.fluidStorage.isFluidValid(fluidStack)) ||
-                        fluidStack.getFluid() == FluidDrainerBlockEntity.this.fluidStorage.getFluid().getFluid()))
+                        fluidStack.isFluidEqual(FluidDrainerBlockEntity.this.fluidStorage.getFluid())))
                     return true;
             }
         }
