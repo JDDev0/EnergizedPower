@@ -19,14 +19,14 @@ public class CompressorMenu extends AbstractContainerMenu implements EnergyStora
     private final ContainerData data;
 
     public CompressorMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(5));
     }
 
     public CompressorMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.COMPRESSOR_MENU.get(), id);
 
         checkContainerSize(inv, 2);
-        checkContainerDataCount(data, 9);
+        checkContainerDataCount(data, 5);
         this.blockEntity = (CompressorBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -54,7 +54,7 @@ public class CompressorMenu extends AbstractContainerMenu implements EnergyStora
 
     @Override
     public int getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(6), (short)data.get(7));
+        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
     }
 
     /**
@@ -65,7 +65,7 @@ public class CompressorMenu extends AbstractContainerMenu implements EnergyStora
     }
 
     public boolean isCrafting() {
-        return data.get(0) > 0 && data.get(8) == 1;
+        return data.get(0) > 0 && data.get(4) == 1;
     }
 
     public int getScaledProgressArrowSize() {

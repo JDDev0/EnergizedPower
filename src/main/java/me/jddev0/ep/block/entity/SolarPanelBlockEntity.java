@@ -6,7 +6,6 @@ import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.SolarPanelMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -17,7 +16,6 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -36,8 +34,6 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
 
     private final ExtractOnlyEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
-
-    protected final ContainerData data;
 
     public static BlockEntityType<SolarPanelBlockEntity> getEntityTypeFromTier(SolarPanelBlock.Tier tier) {
         return switch(tier) {
@@ -65,33 +61,6 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
                     ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
             }
         };
-        data = new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(SolarPanelBlockEntity.this.energyStorage.getEnergy(), index);
-                    case 2, 3 -> ByteUtils.get2Bytes(SolarPanelBlockEntity.this.energyStorage.getCapacity(), index - 2);
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1 -> SolarPanelBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
-                            SolarPanelBlockEntity.this.energyStorage.getEnergy(), (short)value, index
-                    ));
-                    case 2, 3 -> SolarPanelBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
-                            SolarPanelBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 2
-                    ));
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 4;
-            }
-        };
     }
 
     @Override
@@ -105,7 +74,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
         ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
                 getBlockPos()), (ServerPlayer)player);
 
-        return new SolarPanelMenu(id, inventory, this, this.data);
+        return new SolarPanelMenu(id, inventory, this);
     }
 
     public SolarPanelBlock.Tier getTier() {
