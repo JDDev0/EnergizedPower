@@ -26,6 +26,7 @@ import java.util.Optional;
 public class ThermalGeneratorScreen extends AbstractGenericEnergyStorageContainerScreen<ThermalGeneratorMenu> {
     public ThermalGeneratorScreen(ThermalGeneratorMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
+                "tooltip.energizedpower.thermal_generator.txt",
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/thermal_generator.png"),
                 8, 17);
     }
