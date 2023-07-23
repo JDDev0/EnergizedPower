@@ -109,7 +109,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
                 int productionLeft = (int)(rawProduction * ThermalGeneratorBlockEntity.this.fluidStorage.getFluidAmount() / 1000.f);
 
                 return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(productionLeft, index - 4);
+                    case 0, 1 -> ByteUtils.get2Bytes(productionLeft, index);
                     default -> 0;
                 };
             }
