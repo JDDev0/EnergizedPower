@@ -112,6 +112,8 @@ public class EnergizedPowerMod implements ModInitializer {
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.WEATHER_CONTROLLER_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.TIME_CONTROLLER_ITEM);
 
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.FLUID_DRAINER_ITEM);
+
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.BASIC_SOLAR_CELL);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.ADVANCED_SOLAR_CELL);
 
