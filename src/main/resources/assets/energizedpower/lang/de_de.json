@@ -17,8 +17,6 @@
   "item.energizedpower.good_fertilizer": "Guter Dünger",
   "item.energizedpower.advanced_fertilizer": "Fortgeschrittener Dünger",
 
-  "item.energizedpower.battery_box_minecart": "Batterie-Box-Lore",
-
   "item.energizedpower.basic_solar_cell": "Basis Solarzelle",
   "item.energizedpower.advanced_solar_cell": "Fortgeschrittene Solarzelle",
 
@@ -73,6 +71,9 @@
   "item.energizedpower.golden_hammer": "Goldhammer",
   "item.energizedpower.diamond_hammer": "Diamanthammer",
   "item.energizedpower.netherite_hammer": "Netherithammer",
+
+  "item.energizedpower.battery_box_minecart": "Batterie-Box-Lore",
+  "item.energizedpower.advanced_battery_box_minecart": "Fortgeschrittene Batterie-Box-Lore",
 
   "block.energizedpower.silicon_block": "Siliziumblock",
   "item.energizedpower.silicon_block": "Siliziumblock",
@@ -264,7 +265,8 @@
 
   "entity.minecraft.villager.energizedpower.electrician": "Elektroniker",
 
-  "entity.energizedpower.battery_box_minecart": "Minecart with Battery Box",
+  "entity.energizedpower.battery_box_minecart": "Batterie-Box-Lore",
+  "entity.energizedpower.advanced_battery_box_minecart": "Fortgeschrittene Batterie-Box-Lore",
 
   "recipes.energizedpower.in_world_crafting": "In-Welt Herstellung",
   "recipes.energizedpower.plant_growth_chamber.ticks": "Ticks: %d",
@@ -405,7 +407,10 @@
   "advancements.energizedpower.hammer.description": "Hämmer können für das Craften von Platten verwendet werden.",
 
   "advancements.energizedpower.battery_box_minecart.title": "Strom auf Schienen",
-  "advancements.energizedpower.battery_box_minecart.description": "Transportiere Stromg auf Schienen.",
+  "advancements.energizedpower.battery_box_minecart.description": "Transportiere Strom auf Schienen.",
+
+  "advancements.energizedpower.advanced_battery_box_minecart.title": "Noch mehr Strom auf Schienen",
+  "advancements.energizedpower.advanced_battery_box_minecart.description": "Transportiere noch mehr Strom auf Schienen.",
 
   "advancements.energizedpower.copper_plate.title": "Kupferplatte",
   "advancements.energizedpower.copper_plate.description": "Erstelle eine Kupferplatte.",

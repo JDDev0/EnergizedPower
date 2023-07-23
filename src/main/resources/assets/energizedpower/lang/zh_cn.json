@@ -73,6 +73,7 @@
   "item.energizedpower.netherite_hammer": "下界合金锤",
 
   "item.energizedpower.battery_box_minecart": "Minecart with Battery Box",
+  "item.energizedpower.advanced_battery_box_minecart": "Minecart with Advanced Battery Box",
 
   "block.energizedpower.silicon_block": "硅块",
   "item.energizedpower.silicon_block": "硅块",
@@ -264,7 +265,8 @@
 
   "entity.minecraft.villager.energizedpower.electrician": "电工",
 
-  "entity.energizedpower.battery_box_minecart": "Batterie-Box-Lore",
+  "entity.energizedpower.battery_box_minecart": "Minecart with Battery Box",
+  "entity.energizedpower.advanced_battery_box_minecart": "Minecart with Advanced Battery Box",
 
   "recipes.energizedpower.in_world_crafting": "世界工匠",
   "recipes.energizedpower.plant_growth_chamber.ticks": "花费 %d 刻",
@@ -406,6 +408,9 @@
 
   "advancements.energizedpower.battery_box_minecart.title": "铁轨上的能量",
   "advancements.energizedpower.battery_box_minecart.description": "在铁路上运输能源。",
+
+  "advancements.energizedpower.advanced_battery_box_minecart.title": "Even more power on Rails",
+  "advancements.energizedpower.advanced_battery_box_minecart.description": "Transport even more energy on rails.",
 
   "advancements.energizedpower.copper_plate.title": "铜板",
   "advancements.energizedpower.copper_plate.description": "制作一个铜板。",
