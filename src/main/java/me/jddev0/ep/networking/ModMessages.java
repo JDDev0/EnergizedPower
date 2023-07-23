@@ -29,10 +29,17 @@ public final class ModMessages {
 
         INSTANCE = net;
 
+        //Server -> Client
         net.messageBuilder(EnergySyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT).
                 decoder(EnergySyncS2CPacket::new).
                 encoder(EnergySyncS2CPacket::toBytes).
                 consumerMainThread(EnergySyncS2CPacket::handle).
+                add();
+
+        net.messageBuilder(FluidSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT).
+                decoder(FluidSyncS2CPacket::new).
+                encoder(FluidSyncS2CPacket::toBytes).
+                consumerMainThread(FluidSyncS2CPacket::handle).
                 add();
 
         net.messageBuilder(OpenEnergizedPowerBookS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT).
@@ -41,6 +48,7 @@ public final class ModMessages {
                 consumerMainThread(OpenEnergizedPowerBookS2CPacket::handle).
                 add();
 
+        //Client -> Server
         net.messageBuilder(PopEnergizedPowerBookFromLecternC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
                 decoder(PopEnergizedPowerBookFromLecternC2SPacket::new).
                 encoder(PopEnergizedPowerBookFromLecternC2SPacket::toBytes).
@@ -81,12 +89,6 @@ public final class ModMessages {
                 decoder(CycleAutoCrafterRecipeOutputC2SPacket::new).
                 encoder(CycleAutoCrafterRecipeOutputC2SPacket::toBytes).
                 consumerMainThread(CycleAutoCrafterRecipeOutputC2SPacket::handle).
-                add();
-
-        net.messageBuilder(FluidSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT).
-                decoder(FluidSyncS2CPacket::new).
-                encoder(FluidSyncS2CPacket::toBytes).
-                consumerMainThread(FluidSyncS2CPacket::handle).
                 add();
     }
 
