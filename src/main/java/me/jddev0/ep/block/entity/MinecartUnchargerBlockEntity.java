@@ -3,7 +3,7 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.MinecartUnchargerBlock;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
-import me.jddev0.ep.entity.MinecartBatteryBox;
+import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.MinecartUnchargerMenu;
@@ -73,7 +73,8 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements MenuPro
 
     public int getRedstoneOutput() {
         BlockPos blockPosFacing = getBlockPos().relative(getBlockState().getValue(MinecartUnchargerBlock.FACING));
-        List<MinecartBatteryBox> minecarts = level.getEntities(EntityTypeTest.forClass(MinecartBatteryBox.class),
+        List<AbstractMinecartBatteryBox> minecarts = level.getEntities(
+                EntityTypeTest.forClass(AbstractMinecartBatteryBox.class),
                 new AABB(blockPosFacing.getX(), blockPosFacing.getY(),
                         blockPosFacing.getZ(), blockPosFacing.getX() + 1,
                         blockPosFacing.getY() + 1, blockPosFacing.getZ() + 1),
@@ -81,12 +82,12 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements MenuPro
         if(minecarts.isEmpty())
             return 0;
 
-        MinecartBatteryBox minecart = minecarts.get(0);
+        AbstractMinecartBatteryBox minecart = minecarts.get(0);
 
         int minecartEnergy = minecart.getEnergy();
         boolean isEmptyFlag = minecartEnergy == 0;
 
-        return Math.min(Mth.floor((float)minecartEnergy / MinecartBatteryBox.CAPACITY * 14.f) + (isEmptyFlag?0:1), 15);
+        return Math.min(Mth.floor((float)minecartEnergy / minecart.getCapacity() * 14.f) + (isEmptyFlag?0:1), 15);
     }
 
     @Override
@@ -136,7 +137,8 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements MenuPro
         blockEntity.hasMinecartOld = blockEntity.hasMinecart;
 
         BlockPos blockPosFacing = blockEntity.getBlockPos().relative(blockEntity.getBlockState().getValue(MinecartUnchargerBlock.FACING));
-        List<MinecartBatteryBox> minecarts = level.getEntities(EntityTypeTest.forClass(MinecartBatteryBox.class),
+        List<AbstractMinecartBatteryBox> minecarts = level.getEntities(
+                EntityTypeTest.forClass(AbstractMinecartBatteryBox.class),
                 new AABB(blockPosFacing.getX(), blockPosFacing.getY(),
                         blockPosFacing.getZ(), blockPosFacing.getX() + 1,
                         blockPosFacing.getY() + 1, blockPosFacing.getZ() + 1),
@@ -145,9 +147,9 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements MenuPro
         if(!blockEntity.hasMinecart)
             return;
 
-        MinecartBatteryBox minecart = minecarts.get(0);
+        AbstractMinecartBatteryBox minecart = minecarts.get(0);
         int transferred = Math.min(Math.min(CAPACITY - blockEntity.energyStorage.getEnergy(), MAX_TRANSFER),
-                Math.min(MinecartBatteryBox.MAX_TRANSFER, minecart.getEnergy()));
+                Math.min(minecart.getTransferRate(), minecart.getEnergy()));
         minecart.setEnergy(minecart.getEnergy() - transferred);
 
         blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() + transferred);
