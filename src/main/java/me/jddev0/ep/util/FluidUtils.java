@@ -12,20 +12,20 @@ public final class FluidUtils {
 
     private FluidUtils() {}
 
-    public static String getFluidAmountWithPrefix(long energy) {
-        if(energy < 1000)
-            return String.format(Locale.ENGLISH, "%d mB", energy);
+    public static String getFluidAmountWithPrefix(long milliBuckets) {
+        if(milliBuckets < 1000)
+            return String.format(Locale.ENGLISH, "%d mB", milliBuckets);
 
-        double energyWithPrefix = energy;
+        double milliBucketsWithPrefix = milliBuckets;
 
         int prefixIndex = 0;
-        while(((long)energyWithPrefix >= 1000) && prefixIndex + 1 < FLUID_PREFIXES.length) {
-            energyWithPrefix /= 1000;
+        while(((long)milliBucketsWithPrefix >= 1000) && prefixIndex + 1 < FLUID_PREFIXES.length) {
+            milliBucketsWithPrefix /= 1000;
 
             prefixIndex++;
         }
 
-        return String.format(Locale.ENGLISH, "%.2f%s mB", energyWithPrefix, FLUID_PREFIXES[prefixIndex]);
+        return String.format(Locale.ENGLISH, "%.2f%s mB", milliBucketsWithPrefix, FLUID_PREFIXES[prefixIndex]);
     }
 
     public static long convertDropletsToMilliBuckets(long droplets) {
