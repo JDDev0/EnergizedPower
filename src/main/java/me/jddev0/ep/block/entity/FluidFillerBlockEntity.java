@@ -140,7 +140,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
             public int get(int index) {
                 return switch(index) {
                     case 0, 1 -> ByteUtils.get2Bytes(FluidFillerBlockEntity.this.fluidFillingLeft, index);
-                    case 2, 3 -> ByteUtils.get2Bytes(FluidFillerBlockEntity.this.fluidFillingSumPending, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(FluidFillerBlockEntity.this.fluidFillingSumPending, index - 2);
                     default -> 0;
                 };
             }
