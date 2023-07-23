@@ -140,7 +140,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
             public int get(int index) {
                 return switch(index) {
                     case 0, 1 -> ByteUtils.get2Bytes(FluidDrainerBlockEntity.this.fluidDrainingLeft, index);
-                    case 2, 3 -> ByteUtils.get2Bytes(FluidDrainerBlockEntity.this.fluidDrainingSumPending, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(FluidDrainerBlockEntity.this.fluidDrainingSumPending, index - 2);
                     default -> 0;
                 };
             }
