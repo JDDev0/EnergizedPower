@@ -272,8 +272,11 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
 
                 blockEntity.energyConsumptionLeft = energyStorage.getCapacity() - energyStorage.getAmount();
 
-                if(blockEntity.internalEnergyStorage.amount == 0)
+                if(blockEntity.internalEnergyStorage.amount == 0) {
+                    markDirty(level, blockPos, state);
+
                     return;
+                }
 
                 try(Transaction transaction = Transaction.openOuter()) {
                     energyConsumptionPerTick = energyStorage.insert(Math.min(MAX_RECEIVE,
