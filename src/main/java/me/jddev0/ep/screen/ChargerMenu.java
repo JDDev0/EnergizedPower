@@ -19,14 +19,14 @@ public class ChargerMenu extends AbstractContainerMenu implements EnergyStorageC
     private final ContainerData data;
 
     public ChargerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(6));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(2));
     }
 
     public ChargerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.CHARGER_MENU.get(), id);
 
         checkContainerSize(inv, 1);
-        checkContainerDataCount(data, 6);
+        checkContainerDataCount(data, 2);
         this.blockEntity = (ChargerBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -53,7 +53,7 @@ public class ChargerMenu extends AbstractContainerMenu implements EnergyStorageC
 
     @Override
     public int getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
     }
 
     @Override

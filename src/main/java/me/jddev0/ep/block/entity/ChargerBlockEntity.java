@@ -128,9 +128,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
             @Override
             public int get(int index) {
                 return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(ChargerBlockEntity.this.energyStorage.getEnergy(), index);
-                    case 2, 3 -> ByteUtils.get2Bytes(ChargerBlockEntity.this.energyStorage.getCapacity(), index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(ChargerBlockEntity.this.energyConsumptionLeft, index - 4);
+                    case 0, 1 -> ByteUtils.get2Bytes(ChargerBlockEntity.this.energyConsumptionLeft, index);
                     default -> 0;
                 };
             }
@@ -138,19 +136,13 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
             @Override
             public void set(int index, int value) {
                 switch(index) {
-                    case 0, 1 -> ChargerBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
-                            ChargerBlockEntity.this.energyStorage.getEnergy(), (short)value, index
-                    ));
-                    case 2, 3 -> ChargerBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
-                            ChargerBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 2
-                    ));
-                    case 4, 5 -> {}
+                    case 0, 1 -> {}
                 }
             }
 
             @Override
             public int getCount() {
-                return 6;
+                return 2;
             }
         };
     }

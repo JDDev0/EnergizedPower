@@ -8,7 +8,6 @@ import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.recipe.ThermalGeneratorRecipe;
 import me.jddev0.ep.screen.ThermalGeneratorMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -19,7 +18,6 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -47,8 +45,6 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
 
     private final FluidTank fluidStorage;
     private LazyOptional<IFluidHandler> lazyFluidStorage = LazyOptional.empty();
-
-    protected final ContainerData data;
 
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.THERMAL_GENERATOR_ENTITY.get(), blockPos, blockState);
@@ -85,33 +81,6 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
                         anyMatch(inputs -> Arrays.stream(inputs).anyMatch(input -> stack.getFluid() == input));
             }
         };
-        data = new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(ThermalGeneratorBlockEntity.this.energyStorage.getEnergy(), index);
-                    case 2, 3 -> ByteUtils.get2Bytes(ThermalGeneratorBlockEntity.this.energyStorage.getCapacity(), index - 2);
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1 -> ThermalGeneratorBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
-                            ThermalGeneratorBlockEntity.this.energyStorage.getEnergy(), (short)value, index
-                    ));
-                    case 2, 3 -> ThermalGeneratorBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
-                            ThermalGeneratorBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 2
-                    ));
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 4;
-            }
-        };
     }
 
     @Override
@@ -125,7 +94,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
         ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()), (ServerPlayer)player);
         ModMessages.sendToPlayer(new FluidSyncS2CPacket(fluidStorage.getFluid(), fluidStorage.getCapacity(), worldPosition), (ServerPlayer)player);
 
-        return new ThermalGeneratorMenu(id, inventory, this, this.data);
+        return new ThermalGeneratorMenu(id, inventory, this);
     }
 
     public int getRedstoneOutput() {

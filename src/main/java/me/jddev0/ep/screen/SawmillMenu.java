@@ -19,14 +19,14 @@ public class SawmillMenu extends AbstractContainerMenu implements EnergyStorageC
     private final ContainerData data;
 
     public SawmillMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(5));
     }
 
     public SawmillMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.SAWMILL_MENU.get(), id);
 
         checkContainerSize(inv, 3);
-        checkContainerDataCount(data, 9);
+        checkContainerDataCount(data, 5);
         this.blockEntity = (SawmillBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -55,7 +55,7 @@ public class SawmillMenu extends AbstractContainerMenu implements EnergyStorageC
 
     @Override
     public int getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(6), (short)data.get(7));
+        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
     }
 
     /**
@@ -66,7 +66,7 @@ public class SawmillMenu extends AbstractContainerMenu implements EnergyStorageC
     }
 
     public boolean isCrafting() {
-        return data.get(0) > 0 && data.get(8) == 1;
+        return data.get(0) > 0 && data.get(4) == 1;
     }
 
     public int getScaledProgressArrowSize() {

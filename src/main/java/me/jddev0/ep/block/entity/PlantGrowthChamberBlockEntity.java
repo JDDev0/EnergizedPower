@@ -110,10 +110,8 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
                 return switch(index) {
                     case 0, 1 -> ByteUtils.get2Bytes(PlantGrowthChamberBlockEntity.this.progress, index);
                     case 2, 3 -> ByteUtils.get2Bytes(PlantGrowthChamberBlockEntity.this.maxProgress, index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(PlantGrowthChamberBlockEntity.this.energyStorage.getEnergy(), index - 4);
-                    case 6, 7 -> ByteUtils.get2Bytes(PlantGrowthChamberBlockEntity.this.energyStorage.getCapacity(), index - 6);
-                    case 8, 9 -> ByteUtils.get2Bytes(PlantGrowthChamberBlockEntity.this.energyConsumptionLeft, index - 8);
-                    case 10 -> hasEnoughEnergy?1:0;
+                    case 4, 5 -> ByteUtils.get2Bytes(PlantGrowthChamberBlockEntity.this.energyConsumptionLeft, index - 4);
+                    case 6 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -127,19 +125,13 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
                     case 2, 3 -> PlantGrowthChamberBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
                             PlantGrowthChamberBlockEntity.this.maxProgress, (short)value, index - 2
                     );
-                    case 4, 5 -> PlantGrowthChamberBlockEntity.this.energyStorage.setEnergyWithoutUpdate(ByteUtils.with2Bytes(
-                            PlantGrowthChamberBlockEntity.this.energyStorage.getEnergy(), (short)value, index - 4
-                    ));
-                    case 6, 7 -> PlantGrowthChamberBlockEntity.this.energyStorage.setCapacityWithoutUpdate(ByteUtils.with2Bytes(
-                            PlantGrowthChamberBlockEntity.this.energyStorage.getCapacity(), (short)value, index - 6
-                    ));
-                    case 8, 9, 10 -> {}
+                    case 4, 5, 6 -> {}
                 }
             }
 
             @Override
             public int getCount() {
-                return 11;
+                return 7;
             }
         };
     }
