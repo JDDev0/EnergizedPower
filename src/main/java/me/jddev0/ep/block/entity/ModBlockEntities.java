@@ -45,6 +45,11 @@ public final class ModBlockEntities {
                     new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_ENERGIZED_GOLD)),
             (blockEntity, direction) -> blockEntity.energyStorage
     );
+    public static final BlockEntityType<CableBlockEntity> ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY = registerEnergyStorage(
+            createBlockEntity("energized_crystal_matrix_cable", ModBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE, (blockPos, state) ->
+                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_ENERGIZED_CRYSTAL_MATRIX)),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
 
     public static final BlockEntityType<AutoCrafterBlockEntity> AUTO_CRAFTER_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
