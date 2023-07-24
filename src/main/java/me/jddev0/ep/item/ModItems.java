@@ -105,6 +105,8 @@ public final class ModItems {
 
     public static final Item BATTERY_BOX_MINECART = registerItem("battery_box_minecart",
             new BatteryBoxMinecartItem(new FabricItemSettings().maxCount(1)));
+    public static final Item ADVANCED_BATTERY_BOX_MINECART = registerItem("advanced_battery_box_minecart",
+            new AdvancedBatteryBoxMinecartItem(new FabricItemSettings().maxCount(1)));
 
     public static void register() {
 

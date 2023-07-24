@@ -48,6 +48,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_5, SolarPanelScreen::new);
 
         HandledScreens.register(ModMenuTypes.MINECART_BATTERY_BOX_MENU, MinecartBatteryBoxScreen::new);
+        HandledScreens.register(ModMenuTypes.MINECART_ADVANCED_BATTERY_BOX_MENU, MinecartAdvancedBatteryBoxScreen::new);
 
         ModelPredicateProviderRegistry.register(new Identifier(EnergizedPowerMod.MODID, "active"), (itemStack, level, entity, seed) -> {
             Item item = itemStack.getItem();
@@ -63,6 +64,9 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         ModMessages.registerPacketsS2C();
 
         EntityRendererRegistry.register(ModEntityTypes.BATTERY_BOX_MINECART,
+                entity -> new MinecartEntityRenderer<>(entity, new EntityModelLayer(
+                        new Identifier("minecraft", "chest_minecart"), "main")));
+        EntityRendererRegistry.register(ModEntityTypes.ADVANCED_BATTERY_BOX_MINECART,
                 entity -> new MinecartEntityRenderer<>(entity, new EntityModelLayer(
                         new Identifier("minecraft", "chest_minecart"), "main")));
     }
