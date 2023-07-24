@@ -255,6 +255,8 @@
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
   "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "This recipe requires %s to finish.",
   "tooltip.energizedpower.shift_details.txt": "Press [SHIFT] for details",
+  "tooltip.energizedpower.capacity.txt": "Capacity: %s",
+  "tooltip.energizedpower.transfer_rate.txt": "Transfer rate: %s/t",
   "tooltip.energizedpower.not_enough_energy.txt": "Not enough energy",
   "tooltip.energizedpower.ready.txt": "Ready",
 

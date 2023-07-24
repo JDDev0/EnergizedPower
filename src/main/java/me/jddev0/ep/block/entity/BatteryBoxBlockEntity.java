@@ -28,6 +28,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BatteryBoxBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+    public static final int CAPACITY = 65536;
     public static final int MAX_TRANSFER = 2048;
 
     private final ReceiveAndExtractEnergyStorage energyStorage;
@@ -36,7 +37,7 @@ public class BatteryBoxBlockEntity extends BlockEntity implements MenuProvider, 
     public BatteryBoxBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.BATTERY_BOX_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ReceiveAndExtractEnergyStorage(0, 65536, MAX_TRANSFER) {
+        energyStorage = new ReceiveAndExtractEnergyStorage(0, CAPACITY, MAX_TRANSFER) {
             @Override
             protected void onChange() {
                 setChanged();
