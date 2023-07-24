@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.recipe.HeatGeneratorRecipe;
 import me.jddev0.ep.screen.HeatGeneratorMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -122,28 +123,25 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
         internalEnergyStorage.amount = nbt.getLong("energy");
     }
 
-    /**
-     *  TODO move to recipe files
-     */
-    private static final Map<Fluid, Long> FLUID_ENERGY_PRODUCTION_PER_FACE = Map.of(
-            Fluids.LAVA, 25L,
-            Fluids.FLOWING_LAVA, 15L
-    );
-
     public static void tick(World level, BlockPos blockPos, BlockState state, HeatGeneratorBlockEntity blockEntity) {
         if(level.isClient())
             return;
+
+        List<HeatGeneratorRecipe> recipes = level.getRecipeManager().listAllOfType(HeatGeneratorRecipe.Type.INSTANCE);
 
         int productionSum = 0;
         for(Direction direction:Direction.values()) {
             BlockPos checkPos = blockPos.offset(direction);
             FluidState fluidState = level.getFluidState(checkPos);
 
-            for(Map.Entry<Fluid, Long> entry:FLUID_ENERGY_PRODUCTION_PER_FACE.entrySet()) {
-                if(fluidState.isOf(entry.getKey())) {
-                    productionSum += entry.getValue();
+            outer:
+            for(HeatGeneratorRecipe recipe:recipes) {
+                for(Fluid fluid:recipe.getInput()) {
+                    if(fluidState.isOf(fluid)) {
+                        productionSum += recipe.getEnergyProduction();
 
-                    break;
+                        break outer;
+                    }
                 }
             }
         }

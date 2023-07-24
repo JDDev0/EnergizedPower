@@ -45,6 +45,11 @@ public final class ModRecipes {
     public static final RecipeType<PlantGrowthChamberFertilizerRecipe> PLANT_GROWTH_CHAMBER_FERTILIZER_TYPE = createRecipeType("plant_growth_chamber_fertilizer",
             PlantGrowthChamberFertilizerRecipe.Type.INSTANCE);
 
+    public static final RecipeSerializer<HeatGeneratorRecipe> HEAT_GENERATOR_SERIALIZER = createSerializer("heat_generator",
+            HeatGeneratorRecipe.Serializer.INSTANCE);
+    public static final RecipeType<HeatGeneratorRecipe> HEAT_GENERATOR_TYPE = createRecipeType("heat_generator",
+            HeatGeneratorRecipe.Type.INSTANCE);
+
     private static <T extends Recipe<?>> RecipeSerializer<T> createSerializer(String name, RecipeSerializer<T> instance) {
         return Registry.register(Registry.RECIPE_SERIALIZER, new Identifier(EnergizedPowerMod.MODID, name), instance);
     }
