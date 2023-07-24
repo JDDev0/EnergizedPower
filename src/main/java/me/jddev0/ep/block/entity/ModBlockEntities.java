@@ -97,6 +97,17 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
+    public static final BlockEntityType<FluidFillerBlockEntity> FLUID_FILLER_ENTITY = registerEnergyStorage(
+            registerFluidStorage(
+                    registerInventoryStorage(
+                            createBlockEntity("fluid_filler", ModBlocks.FLUID_FILLER, FluidFillerBlockEntity::new),
+                            (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)
+                    ),
+                    (blockEntity, direction) -> blockEntity.fluidStorage
+            ),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
+
     public static final BlockEntityType<FluidDrainerBlockEntity> FLUID_DRAINER_ENTITY = registerEnergyStorage(
             registerFluidStorage(
                     registerInventoryStorage(

@@ -44,6 +44,8 @@
 
     "energizedpower:block_placer",
 
+    "energizedpower:fluid_filler",
+
     "energizedpower:fluid_drainer",
 
     "energizedpower:lightning_generator",
