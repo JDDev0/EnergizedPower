@@ -214,6 +214,10 @@
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "Der Block muss noch %s konsumieren, um platziert werden zu können.",
   "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Rotation invertieren",
 
+  "block.energizedpower.fluid_drainer": "Flüssigkeits-Entleerer",
+  "item.energizedpower.fluid_drainer": "Flüssigkeits-Entleerer",
+  "container.energizedpower.fluid_drainer": "Flüssigkeits-Entleerer",
+
   "block.energizedpower.lightning_generator": "Blitz-Generator",
   "item.energizedpower.lightning_generator": "Blitz-Generator",
   "container.energizedpower.lightning_generator": "Blitz-Generator",
@@ -311,6 +315,9 @@
 
   "advancements.energizedpower.block_placer.title": "Platziere den Block",
   "advancements.energizedpower.block_placer.description": "Blöcke werden automatisch in der Welt platziert.",
+
+  "advancements.energizedpower.fluid_drainer.title": "Entleere Flüssigkeits-Items",
+  "advancements.energizedpower.fluid_drainer.description": "Entleere Flüssigkeiten von Items.",
 
   "advancements.energizedpower.basic_machine_frame.title": "Die Grundlage für Maschinen",
   "advancements.energizedpower.basic_machine_frame.description": "Das ist das Basis-Crafting-Item für jede Maschine.",
