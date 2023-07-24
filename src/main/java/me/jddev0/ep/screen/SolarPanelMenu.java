@@ -2,7 +2,6 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.block.entity.SolarPanelBlockEntity;
-import me.jddev0.ep.energy.EnergyStorageMenuPacketUpdate;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,7 +14,7 @@ import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class SolarPanelMenu extends ScreenHandler implements EnergyStorageMenu, EnergyStorageMenuPacketUpdate {
+public class SolarPanelMenu extends ScreenHandler implements EnergyStorageMenu {
     private final SolarPanelBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -60,12 +59,12 @@ public class SolarPanelMenu extends ScreenHandler implements EnergyStorageMenu, 
 
     @Override
     public long getEnergy() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1), (short)data.get(2), (short)data.get(3));
+        return blockEntity.getEnergy();
     }
 
     @Override
     public long getCapacity() {
-        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5), (short)data.get(6), (short)data.get(7));
+        return blockEntity.getCapacity();
     }
 
     @Override
@@ -92,20 +91,7 @@ public class SolarPanelMenu extends ScreenHandler implements EnergyStorageMenu, 
         }
     }
 
-    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
-    }
-
-    @Override
-    public void setEnergy(long energy) {
-        for(int i = 0;i < 4;i++)
-            data.set(i, ByteUtils.get2Bytes(energy, i));
-    }
-
-    @Override
-    public void setCapacity(long capacity) {
-        for(int i = 0;i < 4;i++)
-            data.set(i + 4, ByteUtils.get2Bytes(capacity, i));
     }
 }

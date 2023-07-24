@@ -107,6 +107,13 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+        PacketByteBuf buffer = PacketByteBufs.create();
+        buffer.writeLong(internalEnergyStorage.amount);
+        buffer.writeLong(internalEnergyStorage.capacity);
+        buffer.writeBlockPos(getPos());
+
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
+        
         return new SolarPanelMenu(id, this, inventory, new SimpleInventory(0), this.data);
     }
 
@@ -180,6 +187,14 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
         super.readNbt(nbt);
 
         internalEnergyStorage.amount = nbt.getLong("energy");
+    }
+
+    public long getEnergy() {
+        return internalEnergyStorage.amount;
+    }
+
+    public long getCapacity() {
+        return internalEnergyStorage.capacity;
     }
 
     @Override
