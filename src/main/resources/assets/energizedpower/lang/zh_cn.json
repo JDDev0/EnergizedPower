@@ -214,6 +214,10 @@
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "该方块需要 %s 来放置方块。",
   "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Inverse Rotation",
 
+  "block.energizedpower.fluid_filler": "Fluid Filler",
+  "item.energizedpower.fluid_filler": "Fluid Filler",
+  "container.energizedpower.fluid_filler": "Fluid Filler",
+
   "block.energizedpower.fluid_drainer": "Fluid Drainer",
   "item.energizedpower.fluid_drainer": "Fluid Drainer",
   "container.energizedpower.fluid_drainer": "Fluid Drainer",
@@ -315,6 +319,9 @@
 
   "advancements.energizedpower.block_placer.title": "放置方块",
   "advancements.energizedpower.block_placer.description": "方块被自动放置在世界中。",
+
+  "advancements.energizedpower.fluid_filler.title": "Fill the fluid item",
+  "advancements.energizedpower.fluid_filler.description": "Fill items with fluids.",
 
   "advancements.energizedpower.fluid_drainer.title": "Drain the fluid item",
   "advancements.energizedpower.fluid_drainer.description": "Drain fluids from items.",

@@ -117,6 +117,11 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item BLOCK_PLACER_ITEM = createBlockItem("block_placer", BLOCK_PLACER);
 
+    public static final Block FLUID_FILLER = registerBlock("fluid_filler",
+            new FluidFillerBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item FLUID_FILLER_ITEM = createBlockItem("fluid_filler", FLUID_FILLER);
+
     public static final Block FLUID_DRAINER = registerBlock("fluid_drainer",
             new FluidDrainerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
