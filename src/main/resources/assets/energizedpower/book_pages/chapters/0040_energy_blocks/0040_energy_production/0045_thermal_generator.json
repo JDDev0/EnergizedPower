@@ -1,0 +1,21 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.thermal_generator.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.thermal_generator.2",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform"
+    }
+  ],
+  "block": "energizedpower:thermal_generator"
+}

@@ -12,6 +12,7 @@ import net.minecraft.util.Identifier;
 
 public final class ModMessages {
     public static Identifier ENERGY_SYNC_ID = new Identifier(EnergizedPowerMod.MODID, "energy_sync");
+    public static Identifier FLUID_SYNC_ID = new Identifier(EnergizedPowerMod.MODID, "fluid_sync");
     public static Identifier OPEN_ENERGIZED_POWER_BOOK_ID = new Identifier(EnergizedPowerMod.MODID, "open_energized_power_book");
     public static Identifier POP_ENERGIZED_POWER_BOOK_FROM_LECTERN_ID = new Identifier(EnergizedPowerMod.MODID, "pop_energized_power_book_from_lectern");
     public static Identifier SET_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID = new Identifier(EnergizedPowerMod.MODID, "set_auto_crafter_pattern_input_slots");
@@ -25,6 +26,8 @@ public final class ModMessages {
 
     public static void registerPacketsS2C() {
         ClientPlayNetworking.registerGlobalReceiver(ENERGY_SYNC_ID, EnergySyncS2CPacket::receive);
+
+        ClientPlayNetworking.registerGlobalReceiver(FLUID_SYNC_ID, FluidSyncS2CPacket::receive);
 
         ClientPlayNetworking.registerGlobalReceiver(OPEN_ENERGIZED_POWER_BOOK_ID, OpenEnergizedPowerBookS2CPacket::receive);
     }

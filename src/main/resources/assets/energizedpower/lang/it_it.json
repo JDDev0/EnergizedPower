@@ -176,6 +176,10 @@
   "item.energizedpower.heat_generator": "Generatore da calore",
   "container.energizedpower.heat_generator": "Generatore da calore",
 
+  "block.energizedpower.thermal_generator": "Thermal Generator",
+  "item.energizedpower.thermal_generator": "Thermal Generator",
+  "container.energizedpower.thermal_generator": "Thermal Generator",
+
   "block.energizedpower.powered_furnace": "Fornace alimentata",
   "item.energizedpower.powered_furnace": "Fornace alimentata",
   "container.energizedpower.powered_furnace": "Fornace alimentata",
@@ -353,6 +357,9 @@
 
   "advancements.energizedpower.heat_generator.title": "Alimentato dal calore",
   "advancements.energizedpower.heat_generator.description": "Trasforma il calore in energia.",
+
+  "advancements.energizedpower.thermal_generator.title": "Powered by hot liquids",
+  "advancements.energizedpower.thermal_generator.description": "Consume hot liquids to generate energy.",
 
   "advancements.energizedpower.powered_furnace.title": "Fornace alimentato",
   "advancements.energizedpower.powered_furnace.description": "Fornace alimentata.",
@@ -582,6 +589,9 @@
   "book.energizedpower.page.heat_generator.2": "If the Heat Generator touches still lava, it will produce more energy than if it would touch flowing lava.",
   "book.energizedpower.page.heat_generator.3": "Più blocchi di lava si toccano, maggiore sarà l'energia per tick prodotta.",
   "book.energizedpower.page.heat_generator.4": "If you are playing a modpack, other hot fluids might be supported too.",
+
+  "book.energizedpower.page.thermal_generator.1": "The Thermal Generator produces energy by consuming hot fluids.",
+  "book.energizedpower.page.thermal_generator.2": "If you are playing a modpack, other hot fluids might be supported too.",
 
   "book.energizedpower.page.lightning_generator.1": "Il generatore di fulmini produce elevate quantità di energia per ogni colpo di fulmine.",
   "book.energizedpower.page.lightning_generator.2": "Un parafulmine deve essere posizionato sopra questo blocco affinché funzioni.",
