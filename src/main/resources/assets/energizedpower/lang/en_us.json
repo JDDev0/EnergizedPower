@@ -73,6 +73,7 @@
   "item.energizedpower.netherite_hammer": "Netherite Hammer",
 
   "item.energizedpower.battery_box_minecart": "Minecart with Battery Box",
+  "item.energizedpower.advanced_battery_box_minecart": "Minecart with Advanced Battery Box",
 
   "block.energizedpower.silicon_block": "Block of Silicon",
   "item.energizedpower.silicon_block": "Block of Silicon",
@@ -265,6 +266,7 @@
   "entity.minecraft.villager.energizedpower.electrician": "Electrician",
 
   "entity.energizedpower.battery_box_minecart": "Minecart with Battery Box",
+  "entity.energizedpower.advanced_battery_box_minecart": "Minecart with Advanced Battery Box",
 
   "recipes.energizedpower.in_world_crafting": "In-World Crafting",
   "recipes.energizedpower.plant_growth_chamber.ticks": "Ticks: %d",
@@ -406,6 +408,9 @@
 
   "advancements.energizedpower.battery_box_minecart.title": "Power on Rails",
   "advancements.energizedpower.battery_box_minecart.description": "Transport energy on rails.",
+
+  "advancements.energizedpower.advanced_battery_box_minecart.title": "Even more power on Rails",
+  "advancements.energizedpower.advanced_battery_box_minecart.description": "Transport even more energy on rails.",
 
   "advancements.energizedpower.copper_plate.title": "Copper Plate",
   "advancements.energizedpower.copper_plate.description": "Create a copper plate.",

@@ -18,9 +18,16 @@ public final class ModEntityTypes {
     public static final RegistryObject<EntityType<MinecartBatteryBox>> BATTERY_BOX_MINECART =
             ENTITY_TYPES.register("battery_box_minecart",
                     () -> EntityType.Builder.<MinecartBatteryBox>of(MinecartBatteryBox::new, MobCategory.MISC).
-                            sized(0.98F, 0.7F).
+                            sized(.98f, .7f).
                             clientTrackingRange(8).
                             build(new ResourceLocation(EnergizedPowerMod.MODID, "battery_box_minecart").
+                                    toString()));
+    public static final RegistryObject<EntityType<MinecartAdvancedBatteryBox>> ADVANCED_BATTERY_BOX_MINECART =
+            ENTITY_TYPES.register("advanced_battery_box_minecart",
+                    () -> EntityType.Builder.<MinecartAdvancedBatteryBox>of(MinecartAdvancedBatteryBox::new, MobCategory.MISC).
+                            sized(.98f, .7f).
+                            clientTrackingRange(8).
+                            build(new ResourceLocation(EnergizedPowerMod.MODID, "advanced_battery_box_minecart").
                                     toString()));
 
 
