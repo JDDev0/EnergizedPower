@@ -130,10 +130,8 @@ public class SawmillBlockEntity extends BlockEntity implements ExtendedScreenHan
                 return switch(index) {
                     case 0 -> SawmillBlockEntity.this.progress;
                     case 1 -> SawmillBlockEntity.this.maxProgress;
-                    case 2, 3, 4, 5 -> ByteUtils.get2Bytes(SawmillBlockEntity.this.internalEnergyStorage.amount, index - 2);
-                    case 6, 7, 8, 9 -> ByteUtils.get2Bytes(SawmillBlockEntity.this.internalEnergyStorage.capacity, index - 6);
-                    case 10, 11, 12, 13 -> ByteUtils.get2Bytes(SawmillBlockEntity.this.energyConsumptionLeft, index - 10);
-                    case 14 -> hasEnoughEnergy?1:0;
+                    case 2, 3, 4, 5 -> ByteUtils.get2Bytes(SawmillBlockEntity.this.energyConsumptionLeft, index - 2);
+                    case 6 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -143,15 +141,13 @@ public class SawmillBlockEntity extends BlockEntity implements ExtendedScreenHan
                 switch(index) {
                     case 0 -> SawmillBlockEntity.this.progress = value;
                     case 1 -> SawmillBlockEntity.this.maxProgress = value;
-                    case 2, 3, 4, 5 -> SawmillBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
-                            SawmillBlockEntity.this.internalEnergyStorage.amount, (short)value, index - 2);
-                    case 6, 7, 8, 9, 10, 11, 12, 13, 14 -> {}
+                    case 2, 3, 4, 5, 6 -> {}
                 }
             }
 
             @Override
             public int size() {
-                return 15;
+                return 7;
             }
         };
     }

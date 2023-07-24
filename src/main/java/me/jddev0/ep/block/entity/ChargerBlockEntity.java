@@ -170,9 +170,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
             @Override
             public int get(int index) {
                 return switch(index) {
-                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(ChargerBlockEntity.this.internalEnergyStorage.amount, index);
-                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(ChargerBlockEntity.this.internalEnergyStorage.capacity, index - 4);
-                    case 8, 9, 10, 11 -> ByteUtils.get2Bytes(ChargerBlockEntity.this.energyConsumptionLeft, index - 8);
+                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(ChargerBlockEntity.this.energyConsumptionLeft, index);
                     default -> 0;
                 };
             }
@@ -180,15 +178,13 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
             @Override
             public void set(int index, int value) {
                 switch(index) {
-                    case 0, 1, 2, 3 -> ChargerBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
-                            ChargerBlockEntity.this.internalEnergyStorage.amount, (short)value, index);
-                    case 4, 5, 6, 7, 8, 9, 10, 11 -> {}
+                    case 0, 1, 2, 3 -> {}
                 }
             }
 
             @Override
             public int size() {
-                return 12;
+                return 4;
             }
         };
     }

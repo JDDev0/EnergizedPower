@@ -4,7 +4,6 @@ import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.HeatGeneratorRecipe;
 import me.jddev0.ep.screen.HeatGeneratorMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -14,10 +13,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -41,8 +38,6 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
 
-    protected final PropertyDelegate data;
-
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.HEAT_GENERATOR_ENTITY, blockPos, blockState);
 
@@ -65,30 +60,6 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
             }
         };
         energyStorage = new LimitingEnergyStorage(internalEnergyStorage, 0, maxExtract);
-        data = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(HeatGeneratorBlockEntity.this.internalEnergyStorage.amount, index);
-                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(HeatGeneratorBlockEntity.this.internalEnergyStorage.capacity, index - 4);
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2, 3 -> HeatGeneratorBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
-                            HeatGeneratorBlockEntity.this.internalEnergyStorage.amount, (short)value, index);
-                    case 4, 5, 6, 7 -> {}
-                }
-            }
-
-            @Override
-            public int size() {
-                return 8;
-            }
-        };
     }
 
     @Override
@@ -106,7 +77,7 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
         
-        return new HeatGeneratorMenu(id, this, inventory, new SimpleInventory(0), this.data);
+        return new HeatGeneratorMenu(id, this, inventory);
     }
 
     @Override
