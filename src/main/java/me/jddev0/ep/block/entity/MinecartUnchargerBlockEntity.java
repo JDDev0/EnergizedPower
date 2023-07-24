@@ -3,7 +3,7 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.MinecartChargerBlock;
 import me.jddev0.ep.block.MinecartUnchargerBlock;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
-import me.jddev0.ep.entity.MinecartBatteryBox;
+import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.MinecartUnchargerMenu;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -90,7 +90,7 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements Extende
 
     public int getRedstoneOutput() {
         BlockPos blockPosFacing = getPos().offset(getCachedState().get(MinecartChargerBlock.FACING));
-        List<MinecartBatteryBox> minecarts = world.getEntitiesByType(TypeFilter.instanceOf(MinecartBatteryBox.class),
+        List<AbstractMinecartBatteryBox> minecarts = world.getEntitiesByType(TypeFilter.instanceOf(AbstractMinecartBatteryBox.class),
                 new Box(blockPosFacing.getX(), blockPosFacing.getY(),
                         blockPosFacing.getZ(), blockPosFacing.getX() + 1,
                         blockPosFacing.getY() + 1, blockPosFacing.getZ() + 1),
@@ -98,12 +98,12 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements Extende
         if(minecarts.isEmpty())
             return 0;
 
-        MinecartBatteryBox minecart = minecarts.get(0);
+        AbstractMinecartBatteryBox minecart = minecarts.get(0);
 
         long minecartEnergy = minecart.getEnergy();
         boolean isEmptyFlag = minecartEnergy == 0;
 
-        return Math.min(MathHelper.floor((float)minecartEnergy / MinecartBatteryBox.CAPACITY * 14.f) + (isEmptyFlag?0:1), 15);
+        return Math.min(MathHelper.floor((float)minecartEnergy / minecart.getCapacity() * 14.f) + (isEmptyFlag?0:1), 15);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements Extende
         blockEntity.hasMinecartOld = blockEntity.hasMinecart;
 
         BlockPos blockPosFacing = blockEntity.getPos().offset(blockEntity.getCachedState().get(MinecartUnchargerBlock.FACING));
-        List<MinecartBatteryBox> minecarts = level.getEntitiesByType(TypeFilter.instanceOf(MinecartBatteryBox.class),
+        List<AbstractMinecartBatteryBox> minecarts = level.getEntitiesByType(TypeFilter.instanceOf(AbstractMinecartBatteryBox.class),
                 new Box(blockPosFacing.getX(), blockPosFacing.getY(),
                         blockPosFacing.getZ(), blockPosFacing.getX() + 1,
                         blockPosFacing.getY() + 1, blockPosFacing.getZ() + 1),
@@ -139,9 +139,9 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements Extende
         if(!blockEntity.hasMinecart)
             return;
 
-        MinecartBatteryBox minecart = minecarts.get(0);
+        AbstractMinecartBatteryBox minecart = minecarts.get(0);
         long transferred = Math.min(Math.min(CAPACITY - blockEntity.energyStorage.getAmount(), MAX_TRANSFER),
-                Math.min(MinecartBatteryBox.MAX_TRANSFER, minecart.getEnergy()));
+                Math.min(minecart.getTransferRate(), minecart.getEnergy()));
         minecart.setEnergy(minecart.getEnergy() - transferred);
 
         try(Transaction transaction = Transaction.openOuter()) {

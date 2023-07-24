@@ -11,20 +11,14 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.vehicle.AbstractMinecartEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class MinecartBatteryBox extends AbstractMinecartEntity implements Inventory, NamedScreenHandlerFactory {
+public class MinecartBatteryBox extends AbstractMinecartBatteryBox {
     public static final long CAPACITY = 65536;
     public static final long MAX_TRANSFER = 512;
 
@@ -35,7 +29,7 @@ public class MinecartBatteryBox extends AbstractMinecartEntity implements Invent
         public int get(int index) {
             return switch(index) {
                 case 0, 1, 2, 3 -> ByteUtils.get2Bytes(MinecartBatteryBox.this.getEnergy(), index);
-                case 4, 5, 6, 7 -> ByteUtils.get2Bytes(CAPACITY, index - 4);
+                case 4, 5, 6, 7 -> ByteUtils.get2Bytes(MinecartBatteryBox.this.getCapacity(), index - 4);
                 default -> 0;
             };
         }
@@ -68,11 +62,6 @@ public class MinecartBatteryBox extends AbstractMinecartEntity implements Invent
         return ModItems.BATTERY_BOX_MINECART;
     }
 
-    @Override
-    public Type getMinecartType() {
-        return Type.CHEST;
-    }
-
     public BlockState getDefaultContainedBlock() {
         return ModBlocks.BATTERY_BOX.getDefaultState();
     }
@@ -84,18 +73,6 @@ public class MinecartBatteryBox extends AbstractMinecartEntity implements Invent
     }
 
     @Override
-    public ActionResult interact(PlayerEntity player, Hand interactionHand) {
-        player.openHandledScreen(this);
-
-        return player.world.isClient?ActionResult.SUCCESS:ActionResult.CONSUME;
-    }
-
-    @Override
-    public boolean canPlayerUse(PlayerEntity player) {
-        return !isRemoved() && getPos().isInRange(player.getPos(), 8.);
-    }
-
-    @Override
     protected void initDataTracker() {
         super.initDataTracker();
 
@@ -103,43 +80,13 @@ public class MinecartBatteryBox extends AbstractMinecartEntity implements Invent
     }
 
     @Override
-    public int size() {
-        return 0;
+    public long getCapacity() {
+        return CAPACITY;
     }
 
     @Override
-    public boolean isEmpty() {
-        return true;
-    }
-
-    @Override
-    public ItemStack getStack(int slot) {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public ItemStack removeStack(int slot, int amount) {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public ItemStack removeStack(int slot) {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public void setStack(int slot, ItemStack stack) {
-
-    }
-
-    @Override
-    public void markDirty() {
-
-    }
-
-    @Override
-    public void clear() {
-
+    public long getTransferRate() {
+        return MAX_TRANSFER;
     }
 
     public long getEnergy() {
@@ -148,20 +95,6 @@ public class MinecartBatteryBox extends AbstractMinecartEntity implements Invent
 
     public void setEnergy(long energy) {
         dataTracker.set(DATA_ID_ENERGY, energy);
-    }
-
-    @Override
-    protected void writeCustomDataToNbt(NbtCompound nbt) {
-        nbt.putLong("energy", getEnergy());
-
-        super.writeCustomDataToNbt(nbt);
-    }
-
-    @Override
-    protected void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-
-        setEnergy(nbt.getLong("energy"));
     }
 
     @Override
