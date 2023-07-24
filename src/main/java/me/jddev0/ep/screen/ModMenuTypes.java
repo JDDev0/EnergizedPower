@@ -63,6 +63,8 @@ public final class ModMenuTypes {
 
     public static final ScreenHandlerType<BatteryBoxMenu> BATTERY_BOX_MENU = createScreenHandlerType("battery_box",
             new ExtendedScreenHandlerType<>(BatteryBoxMenu::new));
+    public static final ScreenHandlerType<AdvancedBatteryBoxMenu> ADVANCED_BATTERY_BOX_MENU = createScreenHandlerType("advanced_battery_box",
+            new ExtendedScreenHandlerType<>(AdvancedBatteryBoxMenu::new));
 
     public static final ScreenHandlerType<MinecartChargerMenu> MINECART_CHARGER_MENU = createScreenHandlerType("minecart_charger",
             new ExtendedScreenHandlerType<>(MinecartChargerMenu::new));
