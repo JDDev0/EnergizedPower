@@ -6,7 +6,6 @@ import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.entity.MinecartBatteryBox;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.MinecartUnchargerMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -14,11 +13,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -44,8 +41,6 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements Extende
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
 
-    protected final PropertyDelegate data;
-
     private boolean hasMinecartOld = true; //Default true (Force first update)
     private boolean hasMinecart = false; //Default false (Force first update)
 
@@ -68,30 +63,6 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements Extende
             }
         };
         energyStorage = new LimitingEnergyStorage(internalEnergyStorage, 0, MAX_TRANSFER);
-        data = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(MinecartUnchargerBlockEntity.this.internalEnergyStorage.amount, index);
-                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(MinecartUnchargerBlockEntity.this.internalEnergyStorage.capacity, index - 4);
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2, 3 -> MinecartUnchargerBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
-                            MinecartUnchargerBlockEntity.this.internalEnergyStorage.amount, (short)value, index);
-                    case 4, 5, 6, 7 -> {}
-                }
-            }
-
-            @Override
-            public int size() {
-                return 8;
-            }
-        };
     }
 
     @Override
@@ -109,7 +80,7 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements Extende
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
         
-        return new MinecartUnchargerMenu(id, this, inventory, new SimpleInventory(0), this.data);
+        return new MinecartUnchargerMenu(id, this, inventory);
     }
 
     @Override

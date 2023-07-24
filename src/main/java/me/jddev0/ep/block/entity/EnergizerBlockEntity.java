@@ -130,10 +130,8 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
                 return switch(index) {
                     case 0 -> EnergizerBlockEntity.this.progress;
                     case 1 -> EnergizerBlockEntity.this.maxProgress;
-                    case 2, 3, 4, 5 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.internalEnergyStorage.amount, index - 2);
-                    case 6, 7, 8, 9 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.internalEnergyStorage.capacity, index - 6);
-                    case 10, 11, 12, 13 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.energyConsumptionLeft, index - 10);
-                    case 14 -> hasEnoughEnergy?1:0;
+                    case 2, 3, 4, 5 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.energyConsumptionLeft, index - 2);
+                    case 6 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -143,15 +141,13 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
                 switch(index) {
                     case 0 -> EnergizerBlockEntity.this.progress = value;
                     case 1 -> EnergizerBlockEntity.this.maxProgress = value;
-                    case 2, 3, 4, 5 -> EnergizerBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
-                            EnergizerBlockEntity.this.internalEnergyStorage.amount, (short)value, index - 2);
-                    case 6, 7, 8, 9, 10, 11, 12, 13, 14 -> {}
+                    case 2, 3, 4, 5, 6 -> {}
                 }
             }
 
             @Override
             public int size() {
-                return 15;
+                return 7;
             }
         };
     }

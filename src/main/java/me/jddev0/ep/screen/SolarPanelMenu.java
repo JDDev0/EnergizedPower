@@ -2,12 +2,10 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.block.entity.SolarPanelBlockEntity;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.*;
@@ -16,9 +14,7 @@ import net.minecraft.world.World;
 
 public class SolarPanelMenu extends ScreenHandler implements EnergyStorageMenu {
     private final SolarPanelBlockEntity blockEntity;
-    private final Inventory inv;
     private final World level;
-    private final PropertyDelegate data;
 
     public static ScreenHandlerType<SolarPanelMenu> getMenuTypeFromTier(SolarPanelBlock.Tier tier) {
         return switch(tier) {
@@ -31,26 +27,18 @@ public class SolarPanelMenu extends ScreenHandler implements EnergyStorageMenu {
     }
 
     public SolarPanelMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(0),
-                new ArrayPropertyDelegate(8));
+        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv);
     }
 
-    public SolarPanelMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
+    public SolarPanelMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory) {
         super(getMenuTypeFromTier(((SolarPanelBlockEntity)blockEntity).getTier()), id);
 
         this.blockEntity = (SolarPanelBlockEntity)blockEntity;
 
-        this.inv = inv;
-        checkSize(this.inv, 0);
-        checkDataCount(data, 8);
         this.level = playerInventory.player.world;
-        this.inv.onOpen(playerInventory.player);
-        this.data = data;
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
-
-        addProperties(this.data);
     }
 
     public SolarPanelBlock.Tier getTier() {
