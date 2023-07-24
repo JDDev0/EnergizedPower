@@ -1,6 +1,5 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.energy.EnergyStorageMenuPacketUpdate;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
@@ -22,18 +21,9 @@ public final class EnergySyncS2CPacket {
                 return;
 
             BlockEntity blockEntity = client.world.getBlockEntity(pos);
-
             if(blockEntity instanceof EnergyStoragePacketUpdate energyStorage) {
-                if(client.player.currentScreenHandler instanceof EnergyStorageMenuPacketUpdate energyStorageMenu) {
-                    if(energyStorageMenu.getBlockEntity() != blockEntity)
-                        return;
-
-                    energyStorageMenu.setEnergy(energy);
-                    energyStorageMenu.setCapacity(capacity);
-                }else {
-                    energyStorage.setEnergy(energy);
-                    energyStorage.setCapacity(capacity);
-                }
+                energyStorage.setEnergy(energy);
+                energyStorage.setCapacity(capacity);
             }
         });
     }

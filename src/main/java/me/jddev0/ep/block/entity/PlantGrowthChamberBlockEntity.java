@@ -200,6 +200,13 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+        PacketByteBuf buffer = PacketByteBufs.create();
+        buffer.writeLong(internalEnergyStorage.amount);
+        buffer.writeLong(internalEnergyStorage.capacity);
+        buffer.writeBlockPos(getPos());
+
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
+        
         return new PlantGrowthChamberMenu(id, this, inventory, internalInventory, this.data);
     }
 
@@ -405,6 +412,14 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
         return itemsStacks.isEmpty();
     }
 
+    public long getEnergy() {
+        return internalEnergyStorage.amount;
+    }
+
+    public long getCapacity() {
+        return internalEnergyStorage.capacity;
+    }
+
     @Override
     public void setEnergy(long energy) {
         internalEnergyStorage.amount = energy;
@@ -413,9 +428,5 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     @Override
     public void setCapacity(long capacity) {
         //Does nothing (capacity is final)
-    }
-
-    public long getCapacity() {
-        return internalEnergyStorage.capacity;
     }
 }

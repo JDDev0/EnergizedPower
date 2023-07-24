@@ -187,16 +187,23 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        return new AutoCrafterMenu(id, this, inventory, internalInventory, patternSlots, patternResultSlots, data);
-    }
+        PacketByteBuf buffer = PacketByteBufs.create();
+        buffer.writeLong(internalEnergyStorage.amount);
+        buffer.writeLong(internalEnergyStorage.capacity);
+        buffer.writeBlockPos(getPos());
 
-    public int getRedstoneOutput() {
-        return ScreenHandler.calculateComparatorOutput(internalInventory);
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
+
+        return new AutoCrafterMenu(id, this, inventory, internalInventory, patternSlots, patternResultSlots, data);
     }
 
     @Override
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
         buf.writeBlockPos(pos);
+    }
+
+    public int getRedstoneOutput() {
+        return ScreenHandler.calculateComparatorOutput(internalInventory);
     }
 
     @Override
@@ -736,6 +743,14 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         markDirty(world, getPos(), getCachedState());
     }
 
+    public long getEnergy() {
+        return internalEnergyStorage.amount;
+    }
+
+    public long getCapacity() {
+        return internalEnergyStorage.capacity;
+    }
+
     @Override
     public void setEnergy(long energy) {
         internalEnergyStorage.amount = energy;
@@ -744,9 +759,5 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     @Override
     public void setCapacity(long capacity) {
         //Does nothing (capacity is final)
-    }
-
-    public long getCapacity() {
-        return internalEnergyStorage.capacity;
     }
 }
