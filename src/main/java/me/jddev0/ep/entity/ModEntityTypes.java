@@ -23,6 +23,12 @@ public final class ModEntityTypes {
                     dimensions(EntityDimensions.fixed(0.98F, 0.7F)).
                     trackRangeChunks(8).build()
     );
+    public static final EntityType<MinecartAdvancedBatteryBox> ADVANCED_BATTERY_BOX_MINECART = registerEntity(
+            "advanced_battery_box_minecart", FabricEntityTypeBuilder.<MinecartAdvancedBatteryBox>create(SpawnGroup.MISC,
+                            MinecartAdvancedBatteryBox::new).
+                    dimensions(EntityDimensions.fixed(0.98F, 0.7F)).
+                    trackRangeChunks(8).build()
+    );
 
 
     public static void register() {
