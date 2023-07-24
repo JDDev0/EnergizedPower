@@ -174,6 +174,13 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+        PacketByteBuf buffer = PacketByteBufs.create();
+        buffer.writeLong(internalEnergyStorage.amount);
+        buffer.writeLong(internalEnergyStorage.capacity);
+        buffer.writeBlockPos(getPos());
+
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
+        
         return new PoweredFurnaceMenu(id, this, inventory, internalInventory, this.data);
     }
 
@@ -295,6 +302,14 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
         return inventory.getStack(1).getMaxCount() >= inventory.getStack(1).getCount() + count;
     }
 
+    public long getEnergy() {
+        return internalEnergyStorage.amount;
+    }
+
+    public long getCapacity() {
+        return internalEnergyStorage.capacity;
+    }
+
     @Override
     public void setEnergy(long energy) {
         internalEnergyStorage.amount = energy;
@@ -303,9 +318,5 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
     @Override
     public void setCapacity(long capacity) {
         //Does nothing (capacity is final)
-    }
-
-    public long getCapacity() {
-        return internalEnergyStorage.capacity;
     }
 }

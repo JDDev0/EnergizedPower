@@ -101,6 +101,13 @@ public class ChargingStationBlockEntity extends BlockEntity implements ExtendedS
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+        PacketByteBuf buffer = PacketByteBufs.create();
+        buffer.writeLong(internalEnergyStorage.amount);
+        buffer.writeLong(internalEnergyStorage.capacity);
+        buffer.writeBlockPos(getPos());
+
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
+        
         return new ChargingStationMenu(id, this, inventory, new SimpleInventory(0), this.data);
     }
 
@@ -179,6 +186,14 @@ public class ChargingStationBlockEntity extends BlockEntity implements ExtendedS
                 transaction.commit();
             }
         }
+    }
+
+    public long getEnergy() {
+        return internalEnergyStorage.amount;
+    }
+
+    public long getCapacity() {
+        return internalEnergyStorage.capacity;
     }
 
     @Override

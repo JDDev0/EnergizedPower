@@ -85,6 +85,13 @@ public class WeatherControllerBlockEntity extends BlockEntity implements Extende
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+        PacketByteBuf buffer = PacketByteBufs.create();
+        buffer.writeLong(internalEnergyStorage.amount);
+        buffer.writeLong(internalEnergyStorage.capacity);
+        buffer.writeBlockPos(getPos());
+
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
+        
         return new WeatherControllerMenu(id, this, inventory, new SimpleInventory(0), this.data);
     }
 
@@ -115,6 +122,14 @@ public class WeatherControllerBlockEntity extends BlockEntity implements Extende
         internalEnergyStorage.amount = nbt.getLong("energy");
     }
 
+    public long getEnergy() {
+        return internalEnergyStorage.amount;
+    }
+
+    public long getCapacity() {
+        return internalEnergyStorage.capacity;
+    }
+
     @Override
     public void setEnergy(long energy) {
         internalEnergyStorage.amount = energy;
@@ -123,9 +138,5 @@ public class WeatherControllerBlockEntity extends BlockEntity implements Extende
     @Override
     public void setCapacity(long capacity) {
         //Does nothing (capacity is final)
-    }
-
-    public long getCapacity() {
-        return internalEnergyStorage.capacity;
     }
 }

@@ -22,8 +22,6 @@ public class FluidSyncS2CPacket {
                 return;
 
             BlockEntity blockEntity = client.world.getBlockEntity(pos);
-
-            //BlockEntity
             if(blockEntity instanceof FluidStoragePacketUpdate) {
                 FluidStoragePacketUpdate fluidStorage = (FluidStoragePacketUpdate)blockEntity;
                 fluidStorage.setFluid(fluidStack);
