@@ -1,0 +1,34 @@
+{
+  "parent":  "energizedpower:main/basic_machine_frame",
+  "display": {
+    "icon": {
+      "item": "energizedpower:fluid_drainer"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.fluid_drainer.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.fluid_drainer.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_fluid_drainer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:fluid_drainer" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_fluid_drainer"
+    ]
+  ]
+}
