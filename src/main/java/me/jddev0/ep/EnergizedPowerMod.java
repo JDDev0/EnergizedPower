@@ -103,6 +103,7 @@ public class EnergizedPowerMod {
 
             event.accept(ModBlocks.COAL_ENGINE_ITEM);
             event.accept(ModBlocks.HEAT_GENERATOR_ITEM);
+            event.accept(ModBlocks.THERMAL_GENERATOR_ITEM);
             event.accept(ModBlocks.LIGHTNING_GENERATOR_ITEM);
             event.accept(ModBlocks.SOLAR_PANEL_ITEM_1);
             event.accept(ModBlocks.SOLAR_PANEL_ITEM_2);
@@ -193,6 +194,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.LIGHTNING_GENERATOR_MENU.get(), LightningGeneratorScreen::new);
             MenuScreens.register(ModMenuTypes.CHARGING_STATION_MENU.get(), ChargingStationScreen::new);
             MenuScreens.register(ModMenuTypes.HEAT_GENERATOR_MENU.get(), HeatGeneratorScreen::new);
+            MenuScreens.register(ModMenuTypes.THERMAL_GENERATOR_MENU.get(), ThermalGeneratorScreen::new);
             MenuScreens.register(ModMenuTypes.BATTERY_BOX_MENU.get(), BatteryBoxScreen::new);
             MenuScreens.register(ModMenuTypes.MINECART_CHARGER_MENU.get(), MinecartChargerScreen::new);
             MenuScreens.register(ModMenuTypes.MINECART_UNCHARGER_MENU.get(), MinecartUnchargerScreen::new);
