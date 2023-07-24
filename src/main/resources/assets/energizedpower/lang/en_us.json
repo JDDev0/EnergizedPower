@@ -214,6 +214,10 @@
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "This block still needs %s to be placed.",
   "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Inverse Rotation",
 
+  "block.energizedpower.fluid_drainer": "Fluid Drainer",
+  "item.energizedpower.fluid_drainer": "Fluid Drainer",
+  "container.energizedpower.fluid_drainer": "Fluid Drainer",
+
   "block.energizedpower.lightning_generator": "Lightning Generator",
   "item.energizedpower.lightning_generator": "Lightning Generator",
   "container.energizedpower.lightning_generator": "Lightning Generator",
@@ -311,6 +315,9 @@
 
   "advancements.energizedpower.block_placer.title": "Place the block",
   "advancements.energizedpower.block_placer.description": "Blocks are placed automatically in the world.",
+
+  "advancements.energizedpower.fluid_drainer.title": "Drain the fluid item",
+  "advancements.energizedpower.fluid_drainer.description": "Drain fluids from items.",
 
   "advancements.energizedpower.basic_machine_frame.title": "The Foundation of Machines",
   "advancements.energizedpower.basic_machine_frame.description": "This is the base crafting item for every basic machine.",
