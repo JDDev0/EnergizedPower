@@ -126,6 +126,9 @@
   "block.energizedpower.energized_gold_cable": "充能绝缘金质电缆",
   "item.energizedpower.energized_gold_cable": "充能绝缘金质电缆",
 
+  "block.energizedpower.energized_crystal_matrix_cable": "Energized Crystal Matrix Cable",
+  "item.energizedpower.energized_crystal_matrix_cable": "Energized Crystal Matrix Cable",
+
   "tooltip.energizedpower.cable.txt.shift.1": "这条电缆可以传输 %s/t。",
   "tooltip.energizedpower.cable.txt.shift.2": "Cable insulators can be crafted by clicking on a wool block with shears.",
 
@@ -400,6 +403,9 @@
 
   "advancements.energizedpower.energized_gold_cable.title": "能量，能量，能量",
   "advancements.energizedpower.energized_gold_cable.description": "这条电缆是最好的。",
+
+  "advancements.energizedpower.energized_crystal_matrix_cable.title": "Too much power",
+  "advancements.energizedpower.energized_crystal_matrix_cable.description": "When do I even need to transport that much energy?",
 
   "advancements.energizedpower.transformers.title": "变压器",
   "advancements.energizedpower.transformers.description": "可以连接到不同类型的电缆。",
