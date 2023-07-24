@@ -58,6 +58,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<HeatGeneratorMenu> HEAT_GENERATOR_MENU = createScreenHandlerType("heat_generator",
             new ExtendedScreenHandlerType<>(HeatGeneratorMenu::new));
 
+    public static final ScreenHandlerType<ThermalGeneratorMenu> THERMAL_GENERATOR_MENU = createScreenHandlerType("thermal_generator",
+            new ExtendedScreenHandlerType<>(ThermalGeneratorMenu::new));
+
     public static final ScreenHandlerType<BatteryBoxMenu> BATTERY_BOX_MENU = createScreenHandlerType("battery_box",
             new ExtendedScreenHandlerType<>(BatteryBoxMenu::new));
 

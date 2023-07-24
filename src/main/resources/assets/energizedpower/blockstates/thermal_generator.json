@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "energizedpower:block/thermal_generator",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "energizedpower:block/thermal_generator"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/thermal_generator",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/thermal_generator",
+      "y": 270
+    }
+  }
+}

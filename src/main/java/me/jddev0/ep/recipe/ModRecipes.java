@@ -50,6 +50,11 @@ public final class ModRecipes {
     public static final RecipeType<HeatGeneratorRecipe> HEAT_GENERATOR_TYPE = createRecipeType("heat_generator",
             HeatGeneratorRecipe.Type.INSTANCE);
 
+    public static final RecipeSerializer<ThermalGeneratorRecipe> THERMAL_GENERATOR_SERIALIZER = createSerializer("thermal_generator",
+            ThermalGeneratorRecipe.Serializer.INSTANCE);
+    public static final RecipeType<ThermalGeneratorRecipe> THERMAL_GENERATOR_TYPE = createRecipeType("thermal_generator",
+            ThermalGeneratorRecipe.Type.INSTANCE);
+
     private static <T extends Recipe<?>> RecipeSerializer<T> createSerializer(String name, RecipeSerializer<T> instance) {
         return Registry.register(Registry.RECIPE_SERIALIZER, new Identifier(EnergizedPowerMod.MODID, name), instance);
     }

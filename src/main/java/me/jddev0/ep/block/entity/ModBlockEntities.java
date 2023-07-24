@@ -6,6 +6,8 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.block.TransformerBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -178,6 +180,14 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
+    public static final BlockEntityType<ThermalGeneratorBlockEntity> THERMAL_GENERATOR_ENTITY = registerEnergyStorage(
+            registerFluidStorage(
+                    createBlockEntity("thermal_generator", ModBlocks.THERMAL_GENERATOR, ThermalGeneratorBlockEntity::new),
+                    (blockEntity, direction) -> blockEntity.fluidStorage
+            ),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
+
     public static final BlockEntityType<PoweredFurnaceBlockEntity> POWERED_FURNACE_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
                     createBlockEntity("powered_furnace", ModBlocks.POWERED_FURNACE, PoweredFurnaceBlockEntity::new),
@@ -224,6 +234,12 @@ public final class ModBlockEntities {
     private static <T extends BlockEntity> BlockEntityType<T> registerInventoryStorage(BlockEntityType<T> blockEntityType,
            BiFunction<? super T, Direction, @Nullable Storage<ItemVariant>> provider) {
         ItemStorage.SIDED.registerForBlockEntity(provider, blockEntityType);
+        return blockEntityType;
+    }
+
+    private static <T extends BlockEntity> BlockEntityType<T> registerFluidStorage(BlockEntityType<T> blockEntityType, BiFunction<? super T,
+            Direction, @Nullable Storage<FluidVariant>> provider) {
+        FluidStorage.SIDED.registerForBlockEntity(provider, blockEntityType);
         return blockEntityType;
     }
 
