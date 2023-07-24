@@ -3,7 +3,6 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.WeatherControllerMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -11,10 +10,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -29,8 +26,6 @@ public class WeatherControllerBlockEntity extends BlockEntity implements Extende
 
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
-
-    protected final PropertyDelegate data;
 
     public WeatherControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.WEATHER_CONTROLLER_ENTITY, blockPos, blockState);
@@ -51,30 +46,6 @@ public class WeatherControllerBlockEntity extends BlockEntity implements Extende
             }
         };
         energyStorage = new LimitingEnergyStorage(internalEnergyStorage, 32768, 0);
-        data = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(WeatherControllerBlockEntity.this.internalEnergyStorage.amount, index);
-                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(WeatherControllerBlockEntity.this.internalEnergyStorage.capacity, index - 4);
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2, 3 -> WeatherControllerBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
-                            WeatherControllerBlockEntity.this.internalEnergyStorage.amount, (short)value, index);
-                    case 4, 5, 6, 7 -> {}
-                }
-            }
-
-            @Override
-            public int size() {
-                return 8;
-            }
-        };
     }
 
     @Override
@@ -92,7 +63,7 @@ public class WeatherControllerBlockEntity extends BlockEntity implements Extende
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
         
-        return new WeatherControllerMenu(id, this, inventory, new SimpleInventory(0), this.data);
+        return new WeatherControllerMenu(id, this, inventory);
     }
 
     @Override

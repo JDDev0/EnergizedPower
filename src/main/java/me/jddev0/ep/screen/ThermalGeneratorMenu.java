@@ -3,15 +3,12 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.ThermalGeneratorBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ArrayPropertyDelegate;
-import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
@@ -20,24 +17,20 @@ import net.minecraft.world.World;
 public class ThermalGeneratorMenu extends ScreenHandler implements EnergyStorageMenu {
     private final ThermalGeneratorBlockEntity blockEntity;
     private final World level;
-    private final PropertyDelegate data;
 
     public ThermalGeneratorMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
-        this(id, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), inv, new ArrayPropertyDelegate(8));
+        this(id, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), inv);
     }
 
-    public ThermalGeneratorMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, PropertyDelegate data) {
+    public ThermalGeneratorMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory) {
         super(ModMenuTypes.THERMAL_GENERATOR_MENU, id);
 
-        checkDataCount(data, 4);
         this.blockEntity = (ThermalGeneratorBlockEntity)blockEntity;
-        this.level = playerInventory.player.getWorld();
-        this.data = data;
+
+        this.level = playerInventory.player.world;
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
-
-        addProperties(this.data);
     }
 
     @Override

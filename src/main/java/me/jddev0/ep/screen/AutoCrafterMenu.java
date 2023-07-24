@@ -32,7 +32,7 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageConsu
 
     public AutoCrafterMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
         this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(18),
-                new SimpleInventory(9), new SimpleInventory(1), new ArrayPropertyDelegate(17));
+                new SimpleInventory(9), new SimpleInventory(1), new ArrayPropertyDelegate(9));
     }
 
     public AutoCrafterMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, Inventory patternSlots,
@@ -46,7 +46,7 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageConsu
 
         this.inv = inv;
         checkSize(this.inv, 18);
-        checkDataCount(data, 17);
+        checkDataCount(data, 9);
         this.level = playerInventory.player.world;
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -98,7 +98,7 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageConsu
 
     @Override
     public long getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(10), (short)data.get(11), (short)data.get(12), (short)data.get(13));
+        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3), (short)data.get(4), (short)data.get(5));
     }
 
     /**
@@ -109,7 +109,7 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageConsu
     }
 
     public boolean isCrafting() {
-        return data.get(0) > 0 && data.get(14) == 1;
+        return data.get(0) > 0 && data.get(6) == 1;
     }
 
     public int getScaledProgressArrowSize() {
@@ -121,11 +121,11 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageConsu
     }
 
     public boolean isIgnoreNBT() {
-        return data.get(15) != 0;
+        return data.get(7) != 0;
     }
 
     public boolean isSecondaryExtractMode() {
-        return data.get(16) != 0;
+        return data.get(8) != 0;
     }
 
     @Override

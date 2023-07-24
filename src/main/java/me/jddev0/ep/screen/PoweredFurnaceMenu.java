@@ -26,7 +26,7 @@ public class PoweredFurnaceMenu extends ScreenHandler implements EnergyStorageCo
 
     public PoweredFurnaceMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
         this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(2),
-                new ArrayPropertyDelegate(17));
+                new ArrayPropertyDelegate(9));
     }
 
     public PoweredFurnaceMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
@@ -37,7 +37,7 @@ public class PoweredFurnaceMenu extends ScreenHandler implements EnergyStorageCo
 
         this.inv = inv;
         checkSize(this.inv, 2);
-        checkDataCount(data, 17);
+        checkDataCount(data, 9);
         this.level = playerInventory.player.world;
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -63,7 +63,7 @@ public class PoweredFurnaceMenu extends ScreenHandler implements EnergyStorageCo
 
     @Override
     public long getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(12), (short)data.get(13), (short)data.get(14), (short)data.get(15));
+        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5), (short)data.get(6), (short)data.get(7));
     }
 
     /**
@@ -74,7 +74,7 @@ public class PoweredFurnaceMenu extends ScreenHandler implements EnergyStorageCo
     }
 
     public boolean isCrafting() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(16) == 1;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(8) == 1;
     }
 
     public int getScaledProgressArrowSize() {

@@ -7,7 +7,6 @@ import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.ThermalGeneratorRecipe;
 import me.jddev0.ep.screen.ThermalGeneratorMenu;
-import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -20,7 +19,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -46,8 +44,6 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
     private final SimpleEnergyStorage internalEnergyStorage;
 
     final SimpleFluidStorage fluidStorage;
-
-    protected final PropertyDelegate data;
 
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.THERMAL_GENERATOR_ENTITY, blockPos, blockState);
@@ -107,31 +103,6 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
                 return isFluidValid(variant);
             }
         };
-
-        data = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(ThermalGeneratorBlockEntity.this.internalEnergyStorage.amount, index);
-                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(ThermalGeneratorBlockEntity.this.internalEnergyStorage.capacity, index - 4);
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2, 3 -> ThermalGeneratorBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
-                            ThermalGeneratorBlockEntity.this.internalEnergyStorage.amount, (short)value, index);
-                    case 4, 5, 6, 7 -> {}
-                }
-            }
-
-            @Override
-            public int size() {
-                return 8;
-            }
-        };
     }
 
     @Override
@@ -156,7 +127,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.FLUID_SYNC_ID, buffer);
 
-        return new ThermalGeneratorMenu(id, this, inventory, this.data);
+        return new ThermalGeneratorMenu(id, this, inventory);
     }
 
     @Override

@@ -2,16 +2,12 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.BatteryBoxBlockEntity;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ArrayPropertyDelegate;
-import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
@@ -19,31 +15,21 @@ import net.minecraft.world.World;
 
 public class BatteryBoxMenu extends ScreenHandler implements EnergyStorageMenu {
     private final BatteryBoxBlockEntity blockEntity;
-    private final Inventory inv;
     private final World level;
-    private final PropertyDelegate data;
 
     public BatteryBoxMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(0),
-                new ArrayPropertyDelegate(8));
+        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv);
     }
 
-    public BatteryBoxMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
+    public BatteryBoxMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory) {
         super(ModMenuTypes.BATTERY_BOX_MENU, id);
 
         this.blockEntity = (BatteryBoxBlockEntity)blockEntity;
 
-        this.inv = inv;
-        checkSize(this.inv, 0);
-        checkDataCount(data, 8);
         this.level = playerInventory.player.world;
-        this.inv.onOpen(playerInventory.player);
-        this.data = data;
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
-
-        addProperties(this.data);
     }
 
     @Override

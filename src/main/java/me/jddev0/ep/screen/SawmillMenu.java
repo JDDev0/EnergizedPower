@@ -26,7 +26,7 @@ public class SawmillMenu extends ScreenHandler implements EnergyStorageConsumerI
 
     public SawmillMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
         this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(3),
-                new ArrayPropertyDelegate(15));
+                new ArrayPropertyDelegate(7));
     }
 
     public SawmillMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
@@ -36,7 +36,7 @@ public class SawmillMenu extends ScreenHandler implements EnergyStorageConsumerI
 
         this.inv = inv;
         checkSize(this.inv, 3);
-        checkDataCount(data, 15);
+        checkDataCount(data, 7);
         this.level = playerInventory.player.world;
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -63,7 +63,7 @@ public class SawmillMenu extends ScreenHandler implements EnergyStorageConsumerI
 
     @Override
     public long getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(10), (short)data.get(11), (short)data.get(12), (short)data.get(13));
+        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3), (short)data.get(4), (short)data.get(5));
     }
 
     /**
@@ -74,7 +74,7 @@ public class SawmillMenu extends ScreenHandler implements EnergyStorageConsumerI
     }
 
     public boolean isCrafting() {
-        return data.get(0) > 0 && data.get(14) == 1;
+        return data.get(0) > 0 && data.get(6) == 1;
     }
 
     public int getScaledProgressArrowSize() {

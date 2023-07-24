@@ -4,7 +4,6 @@ import me.jddev0.ep.block.ChargingStationBlock;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.ChargingStationMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
@@ -14,12 +13,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -43,8 +40,6 @@ public class ChargingStationBlockEntity extends BlockEntity implements ExtendedS
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
 
-    protected final PropertyDelegate data;
-
     public ChargingStationBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CHARGING_STATION_ENTITY, blockPos, blockState);
 
@@ -64,30 +59,6 @@ public class ChargingStationBlockEntity extends BlockEntity implements ExtendedS
             }
         };
         energyStorage = new LimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
-        data = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(ChargingStationBlockEntity.this.internalEnergyStorage.amount, index);
-                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(ChargingStationBlockEntity.this.internalEnergyStorage.capacity, index - 4);
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2, 3 -> ChargingStationBlockEntity.this.internalEnergyStorage.amount = ByteUtils.with2Bytes(
-                            ChargingStationBlockEntity.this.internalEnergyStorage.amount, (short)value, index);
-                    case 4, 5, 6, 7 -> {}
-                }
-            }
-
-            @Override
-            public int size() {
-                return 8;
-            }
-        };
     }
 
     @Override
@@ -105,7 +76,7 @@ public class ChargingStationBlockEntity extends BlockEntity implements ExtendedS
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
         
-        return new ChargingStationMenu(id, this, inventory, new SimpleInventory(0), this.data);
+        return new ChargingStationMenu(id, this, inventory);
     }
 
     @Override
