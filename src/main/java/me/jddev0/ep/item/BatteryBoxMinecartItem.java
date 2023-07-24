@@ -1,22 +1,30 @@
 package me.jddev0.ep.item;
 
 import me.jddev0.ep.entity.MinecartBatteryBox;
+import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.AbstractRailBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.block.enums.RailShape;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.tag.BlockTags;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class BatteryBoxMinecartItem extends Item {
     private static final ItemDispenserBehavior DISPENSE_ITEM_BEHAVIOR = new ItemDispenserBehavior() {
@@ -65,6 +73,20 @@ public class BatteryBoxMinecartItem extends Item {
         super(props);
 
         DispenserBlock.registerBehavior(this, DISPENSE_ITEM_BEHAVIOR);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        if(Screen.hasShiftDown()) {
+            tooltip.add(Text.translatable("tooltip.energizedpower.capacity.txt",
+                            EnergyUtils.getEnergyWithPrefix(MinecartBatteryBox.CAPACITY)).
+                    formatted(Formatting.GRAY));
+            tooltip.add(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
+                            EnergyUtils.getEnergyWithPrefix(MinecartBatteryBox.MAX_TRANSFER)).
+                    formatted(Formatting.GRAY, Formatting.ITALIC));
+        }else {
+            tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+        }
     }
 
     @Override
