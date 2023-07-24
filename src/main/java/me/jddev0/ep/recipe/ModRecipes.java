@@ -54,6 +54,11 @@ public final class ModRecipes {
     public static final RegistryObject<RecipeType<HeatGeneratorRecipe>> HEAT_GENERATOR_TYPE = TYPES.
             register("heat_generator", () -> HeatGeneratorRecipe.Type.INSTANCE);
 
+    public static final RegistryObject<RecipeSerializer<ThermalGeneratorRecipe>> THERMAL_GENERATOR_SERIALIZER = SERIALIZERS.
+            register("thermal_generator", () -> ThermalGeneratorRecipe.Serializer.INSTANCE);
+    public static final RegistryObject<RecipeType<ThermalGeneratorRecipe>> THERMAL_GENERATOR_TYPE = TYPES.
+            register("thermal_generator", () -> ThermalGeneratorRecipe.Type.INSTANCE);
+
     public static void register(IEventBus modEventBus) {
         SERIALIZERS.register(modEventBus);
         TYPES.register(modEventBus);

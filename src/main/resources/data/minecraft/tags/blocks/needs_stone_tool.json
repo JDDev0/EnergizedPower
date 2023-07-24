@@ -23,6 +23,8 @@
 
     "energizedpower:heat_generator",
 
+    "energizedpower:thermal_generator",
+
     "energizedpower:powered_furnace",
 
     "energizedpower:transformer_1_to_n",
