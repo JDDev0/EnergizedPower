@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "tag": "forge:storage_blocks/silicon"
+    },
+    "E": {
+      "tag": "forge:plates/energized_gold"
+    },
+    "B": {
+      "item": "energizedpower:battery_8"
+    },
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    }
+  },
+  "pattern": [
+    "EBE",
+    "BAB",
+    "BSB"
+  ],
+  "result": {
+    "item": "energizedpower:advanced_battery_box"
+  }
+}
