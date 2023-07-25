@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "energizedpower:crystal_matrix"
   },
-  "energy": 131072,
+  "energy": 524288,
   "output": {
     "item": "energizedpower:energized_crystal_matrix"
   }
