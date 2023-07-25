@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:ingots/gold"
   },
-  "energy": 32768,
+  "energy": 131072,
   "output": {
     "item": "energizedpower:energized_gold_ingot"
   }
