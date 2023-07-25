@@ -126,8 +126,8 @@
   "block.energizedpower.energized_gold_cable": "Cavo d'oro energizzato",
   "item.energizedpower.energized_gold_cable": "Cavo d'oro energizzato",
 
-  "block.energizedpower.energized_crystal_matrix_cable": "Energized Crystal Matrix Cable",
-  "item.energizedpower.energized_crystal_matrix_cable": "Energized Crystal Matrix Cable",
+  "block.energizedpower.energized_crystal_matrix_cable": "Cavo a matrice di cristallo energizzato",
+  "item.energizedpower.energized_crystal_matrix_cable": "Cavo a matrice di cristallo energizzato",
 
   "tooltip.energizedpower.cable.txt.shift.1": "Questo cavo può trasferire %s/t.",
   "tooltip.energizedpower.cable.txt.shift.2": "Gli isolanti per cavi possono essere realizzati facendo clic su un blocco di lana con le cesoie.",
@@ -150,9 +150,9 @@
   "item.energizedpower.battery_box": "Scatola batteria",
   "container.energizedpower.battery_box": "Scatola batteria",
 
-  "block.energizedpower.advanced_battery_box": "Advanced Battery Box",
-  "item.energizedpower.advanced_battery_box": "Advanced Battery Box",
-  "container.energizedpower.advanced_battery_box": "Advanced Battery Box",
+  "block.energizedpower.advanced_battery_box": "Scatola batteria avanzata",
+  "item.energizedpower.advanced_battery_box": "Scatola batteria avanzata",
+  "container.energizedpower.advanced_battery_box": "Scatola batteria avanzata",
 
 
   "block.energizedpower.solar_panel_1": "Pannello solare (Livello I)",
@@ -184,11 +184,11 @@
   "item.energizedpower.heat_generator": "Generatore da calore",
   "container.energizedpower.heat_generator": "Generatore da calore",
 
-  "block.energizedpower.thermal_generator": "Thermal Generator",
-  "item.energizedpower.thermal_generator": "Thermal Generator",
+  "block.energizedpower.thermal_generator": "Generatore termico",
+  "item.energizedpower.thermal_generator": "Generatore termico",
   "container.energizedpower.thermal_generator": "Thermal Generator",
 
-  "tooltip.energizedpower.thermal_generator.txt": "This fluid will produce %s until completely used up",
+  "tooltip.energizedpower.thermal_generator.txt": "Questo fluido produrrà %s fino a completo esaurimento",
 
   "block.energizedpower.powered_furnace": "Fornace alimentata",
   "item.energizedpower.powered_furnace": "Fornace alimentata",
@@ -217,13 +217,13 @@
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "Questo blocco ha ancora bisogno di %s per essere posizionato.",
   "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Rotazione inversa",
 
-  "block.energizedpower.fluid_filler": "Fluid Filler",
-  "item.energizedpower.fluid_filler": "Fluid Filler",
-  "container.energizedpower.fluid_filler": "Fluid Filler",
+  "block.energizedpower.fluid_filler": "Riempitivo fluido",
+  "item.energizedpower.fluid_filler": "Riempitivo fluido",
+  "container.energizedpower.fluid_filler": "Riempitivo fluido",
 
-  "block.energizedpower.fluid_drainer": "Fluid Drainer",
-  "item.energizedpower.fluid_drainer": "Fluid Drainer",
-  "container.energizedpower.fluid_drainer": "Fluid Drainer",
+  "block.energizedpower.fluid_drainer": "Drenaggio fluido",
+  "item.energizedpower.fluid_drainer": "Drenaggio fluido",
+  "container.energizedpower.fluid_drainer": "Drenaggio fluido",
 
   "block.energizedpower.lightning_generator": "Generatore da fulmini",
   "item.energizedpower.lightning_generator": "Generatore da fulmini",
@@ -269,8 +269,8 @@
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
   "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "Questa ricetta richiede %s per essere completata.",
   "tooltip.energizedpower.shift_details.txt": "Premere [MAIUSC] per i dettagli",
-  "tooltip.energizedpower.capacity.txt": "Capacity: %s",
-  "tooltip.energizedpower.transfer_rate.txt": "Transfer rate: %s/t",
+  "tooltip.energizedpower.capacity.txt": "Capacità: %s",
+  "tooltip.energizedpower.transfer_rate.txt": "Velocità di trasferimento: %s/t",
   "tooltip.energizedpower.not_enough_energy.txt": "Energia insufficiente",
   "tooltip.energizedpower.ready.txt": "Pronto",
 
@@ -278,8 +278,8 @@
 
   "entity.minecraft.villager.energizedpower.electrician": "Elettricista",
 
-  "entity.energizedpower.battery_box_minecart": "Battery Box Minecart",
-  "entity.energizedpower.advanced_battery_box_minecart": "Advanced Battery Box Minecart",
+  "entity.energizedpower.battery_box_minecart": "Carretto da miniera con vano batteria",
+  "entity.energizedpower.advanced_battery_box_minecart": "Carrello da miniera con batteria avanzata",
 
   "recipes.energizedpower.in_world_crafting": "Creazione nel mondo",
   "recipes.energizedpower.plant_growth_chamber.ticks": "Ticks: %d",
@@ -294,7 +294,7 @@
   "emi.category.energizedpower.compressor": "Compressore",
   "emi.category.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
   "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Camera di crescita (fertilizzante)",
-  "emi.category.energizedpower.energizer": "energizzante",
+  "emi.category.energizedpower.energizer": "Energizzante",
   "emi.category.energizedpower.dispenser": "Distributore",
   "emi.category.energizedpower.in_world_crafting": "Creazione nel mondo",
 
@@ -311,8 +311,8 @@
   "advancements.energizedpower.crusher.title": "Frantumalo",
   "advancements.energizedpower.crusher.description": "Frantumare pietra, arenaria, ciottoli, ghiaia o altri blocchi.",
 
-  "advancements.energizedpower.sawmill.title": "Segare",
-  "advancements.energizedpower.sawmill.description": "Sega legno.",
+  "advancements.energizedpower.sawmill.title": "Segheria",
+  "advancements.energizedpower.sawmill.description": "segheria per legno.",
 
   "advancements.energizedpower.compressor.title": "Compressione",
   "advancements.energizedpower.compressor.description": "Crea lastre.",
@@ -323,11 +323,11 @@
   "advancements.energizedpower.block_placer.title": "Posiziona il blocco",
   "advancements.energizedpower.block_placer.description": "I blocchi vengono posizionati automaticamente nel mondo.",
 
-  "advancements.energizedpower.fluid_filler.title": "Fill the fluid item",
-  "advancements.energizedpower.fluid_filler.description": "Fill items with fluids.",
+  "advancements.energizedpower.fluid_filler.title": "Riempi l'oggetto fluido",
+  "advancements.energizedpower.fluid_filler.description": "Riempi gli oggetti con liquidi.",
 
-  "advancements.energizedpower.fluid_drainer.title": "Drain the fluid item",
-  "advancements.energizedpower.fluid_drainer.description": "Drain fluids from items.",
+  "advancements.energizedpower.fluid_drainer.title": "Svuota l'oggetto dal fluido",
+  "advancements.energizedpower.fluid_drainer.description": "Scarica i liquidi dagli oggetti.",
 
   "advancements.energizedpower.basic_machine_frame.title": "La Fondazione delle Macchine",
   "advancements.energizedpower.basic_machine_frame.description": "Questo è l'oggetto di creazione base per ogni macchina base.",
@@ -354,7 +354,7 @@
   "advancements.energizedpower.battery_6.description": "Livello VI: hai alimentato la tua batteria per una capacità di archiviazione ancora maggiore.",
 
   "advancements.energizedpower.battery_7.title": "Hai detto che ti serve più Potenza?",
-  "advancements.energizedpower.battery_7.description": "Livello VII: un quarto di milione di FE di capacità di stoccaggio! Possiamo fare di meglio?",
+  "advancements.energizedpower.battery_7.description": "Livello VII: un quarto di milione di E di capacità di stoccaggio! Possiamo fare di meglio?",
 
   "advancements.energizedpower.battery_8.title": "Ho bisogno di più POTENZA",
   "advancements.energizedpower.battery_8.description": "Questa è la migliore batteria di questa mod (può immagazzinare più di 1 milione di FE)",
@@ -386,8 +386,8 @@
   "advancements.energizedpower.heat_generator.title": "Alimentato dal calore",
   "advancements.energizedpower.heat_generator.description": "Trasforma il calore in energia.",
 
-  "advancements.energizedpower.thermal_generator.title": "Powered by hot liquids",
-  "advancements.energizedpower.thermal_generator.description": "Consume hot liquids to generate energy.",
+  "advancements.energizedpower.thermal_generator.title": "Alimentato da liquidi caldi",
+  "advancements.energizedpower.thermal_generator.description": "Consuma liquidi caldi per generare energia.",
 
   "advancements.energizedpower.powered_furnace.title": "Fornace alimentato",
   "advancements.energizedpower.powered_furnace.description": "Fornace alimentata.",
@@ -404,17 +404,17 @@
   "advancements.energizedpower.energized_gold_cable.title": "Forza, potenza, forza",
   "advancements.energizedpower.energized_gold_cable.description": "Questo cavo è il meglio del meglio.",
 
-  "advancements.energizedpower.energized_crystal_matrix_cable.title": "Too much power",
-  "advancements.energizedpower.energized_crystal_matrix_cable.description": "When do I even need to transport that much energy?",
+  "advancements.energizedpower.energized_crystal_matrix_cable.title": "Troppa potenza",
+  "advancements.energizedpower.energized_crystal_matrix_cable.description": "Quando ho bisogno di trasportare così tanta energia?",
 
   "advancements.energizedpower.transformers.title": "Trasformatori",
   "advancements.energizedpower.transformers.description": "Può connettersi a diversi livelli di cavi.",
 
   "advancements.energizedpower.battery_box.title": "Scatola batteria",
-  "advancements.energizedpower.battery_box.description": "Accumula energia con il blocco Battery Box.",
+  "advancements.energizedpower.battery_box.description": "Accumula energia con la Scatola batteria.",
 
-  "advancements.energizedpower.advanced_battery_box.title": "Better Battery Box",
-  "advancements.energizedpower.advanced_battery_box.description": "Store even more energy than the best battery item.",
+  "advancements.energizedpower.advanced_battery_box.title": "Scatola batteria migliore",
+  "advancements.energizedpower.advanced_battery_box.description": "Immagazzina ancora più energia rispetto alla Scatola batteria standard.",
 
   "advancements.energizedpower.energized_copper_ingot.title": "Energizzato",
   "advancements.energizedpower.energized_copper_ingot.description": "Il rame energizzato è rame migliore.",
@@ -431,13 +431,13 @@
   "advancements.energizedpower.battery_box_minecart.title": "Potenza sui binari",
   "advancements.energizedpower.battery_box_minecart.description": "Energia per trasporto su rotaie.",
 
-  "advancements.energizedpower.advanced_battery_box_minecart.title": "Even more power on Rails",
-  "advancements.energizedpower.advanced_battery_box_minecart.description": "Transport even more energy on rails.",
+  "advancements.energizedpower.advanced_battery_box_minecart.title": "Ancora più potenza sui binari",
+  "advancements.energizedpower.advanced_battery_box_minecart.description": "Trasporta ancora più energia su rotaia.",
 
   "advancements.energizedpower.copper_plate.title": "Lastra di rame",
   "advancements.energizedpower.copper_plate.description": "Crea una lastra di rame.",
 
-  "advancements.energizedpower.iron_plate.title": "Colpirlo",
+  "advancements.energizedpower.iron_plate.title": "Lastra di ferro",
   "advancements.energizedpower.iron_plate.description": "Crea una lastra di ferro.",
 
   "advancements.energizedpower.gold_plate.title": "Lastra d'oro",
@@ -510,7 +510,7 @@
   "book.energizedpower.page.credits_1.1": "Texture lingotti di rame/oro energizzati",
   "book.energizedpower.page.credits_1.2": "Texture della batteria",
   "book.energizedpower.page.credits_1.3": "Texture Silicio",
-  "book.energizedpower.page.credits_1.4": "Texture Energy Analyzer",
+  "book.energizedpower.page.credits_1.4": "Texture Analizzatore di energia",
 
   "book.energizedpower.page.credits_2.1": "Chinese (Simplified) translation",
   "book.energizedpower.page.credits_2.2": "Italian translation",
@@ -562,7 +562,7 @@
   "book.energizedpower.page.inventory_coal_engine.3": "Il carburante verrà quindi prelevato automaticamente dall'inventario.",
   "book.energizedpower.page.inventory_coal_engine.4": " [La hotbar è esclusa]",
 
-  "book.energizedpower.page.energy_analyzer.1": "L'Energy Analyzer può essere utilizzato per ottenere la statica dell'energia. Utilizzato principalmente per blocchi di energia senza GUI.",
+  "book.energizedpower.page.energy_analyzer.1": "L'Analizzatore di energia può essere utilizzato per ottenere la statica dell'energia. Utilizzato principalmente per blocchi di energia senza GUI.",
   "book.energizedpower.page.energy_analyzer.2": "Può essere utilizzato facendo clic sui blocchi di energia.",
 
   "book.energizedpower.page.batteries.1": "Le batterie possono immagazzinare energia.",
@@ -586,7 +586,7 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_transportation": "Blocchi per il trasporto di energia",
 
   "book.energizedpower.page.cables.1": "I cavi vengono utilizzati per trasportare l'energia dai blocchi produttori ai blocchi consumatori.",
-  "book.energizedpower.page.cables.2": "There are five cable tiers.",
+  "book.energizedpower.page.cables.2": "Ci sono cinque livelli di cavi.",
   "book.energizedpower.page.cables.3": "È necessario un trasformatore per collegare cavi di diversi livelli.",
 
   "book.energizedpower.page.transformers_1.1": "I trasformatori possono essere utilizzati per collegare diversi livelli di cavi.",
@@ -623,12 +623,12 @@
   "book.energizedpower.page.coal_engine.2": "Gli elementi rimanenti possono essere estratti automaticamente.",
 
   "book.energizedpower.page.heat_generator.1": "Il Generatore di Calore produce energia se la lava scorre o continua a toccare il blocco.",
-  "book.energizedpower.page.heat_generator.2": "If the Heat Generator touches still lava, it will produce more energy than if it would touch flowing lava.",
+  "book.energizedpower.page.heat_generator.2": "Se il Generatore di Calore tocca la lava ferma, produrrà più energia che se toccasse la lava che scorre.",
   "book.energizedpower.page.heat_generator.3": "Più blocchi di lava si toccano, maggiore sarà l'energia per tick prodotta.",
-  "book.energizedpower.page.heat_generator.4": "If you are playing a modpack, other hot fluids might be supported too.",
+  "book.energizedpower.page.heat_generator.4": "Se stai giocando a un modpack, potrebbero essere supportati anche altri fluidi caldi.",
 
-  "book.energizedpower.page.thermal_generator.1": "The Thermal Generator produces energy by consuming hot fluids.",
-  "book.energizedpower.page.thermal_generator.2": "If you are playing a modpack, other hot fluids might be supported too.",
+  "book.energizedpower.page.thermal_generator.1": "Il Generatore Termico produce energia consumando fluidi caldi.",
+  "book.energizedpower.page.thermal_generator.2": "Se stai giocando a un modpack, potrebbero essere supportati anche altri fluidi caldi.",
 
   "book.energizedpower.page.lightning_generator.1": "Il generatore di fulmini produce elevate quantità di energia per ogni colpo di fulmine.",
   "book.energizedpower.page.lightning_generator.2": "Un parafulmine deve essere posizionato sopra questo blocco affinché funzioni.",
@@ -641,7 +641,7 @@
 
   "book.energizedpower.page.auto_crafter.1": "L'Auto Crafter crea automaticamente gli oggetti.",
   "book.energizedpower.page.auto_crafter.2": "La ricetta può essere impostata utilizzando gli slot del modello.",
-  "book.energizedpower.page.auto_crafter.3": "The Auto Crafter can handle recipe conflicts, that is recipes with the same inputs. To do this, use the \"Cycle through recipes\" button or set the pattern via a recipe viewer mod (like REI).",
+  "book.energizedpower.page.auto_crafter.3": "L'Auto Crafter può gestire i conflitti di ricette, ovvero ricette con gli stessi input. Per fare ciò, usa il pulsante \"Scorri le ricette\" o imposta lo schema tramite un mod visualizzatore di ricette (come REI).",
 
   "book.energizedpower.page.crusher": "Il Frantumatore può frantumare blocchi come Pietra, Arenaria, Ciottoli e Ghiaia.",
 
@@ -662,7 +662,7 @@
   "book.energizedpower.page.block_placer.1": "Il piazzatore di blocchi può posizionare tutti i blocchi (anche porte e semi).",
   "book.energizedpower.page.block_placer.2": "I blocchi verranno posizionati solo se possibile.",
 
-  "book.energizedpower.page.fluid_filler_fluid_drainer": "The Fluid Filler can fill fluids into items and the Fluid Drainer can drain fluids from items.",
+  "book.energizedpower.page.fluid_filler_fluid_drainer": "Il Riempitivo fluido può riempire fluidi negli articoli e il Drenaggio fluido può drenare fluidi dagli articoli.",
 
   "book.energizedpower.page.charger_uncharger": "Il caricatore può caricare oggetti e lo scaricatore può scaricare oggetti.",
 
@@ -679,7 +679,7 @@
   "book.energizedpower.page.chapter.entities.title": "Entità",
   "book.energizedpower.page.chapter.entities": "Cose che possono muoversi.",
 
-  "book.energizedpower.page.battery_box_minecarts": "Battery Box Minecarts can transport energy on rails. It can be charged with Minecart Chargers and can be uncharged with Minecart Unchargers.",
+  "book.energizedpower.page.battery_box_minecarts": "I carrelli da miniera con vano batteria possono trasportare energia su rotaie. Può essere caricato con Minecart Chargers e può essere scaricato con Minecart Unchargers.",
 
 
   "book.energizedpower.page.chapter.structures.title": "Strutture",
