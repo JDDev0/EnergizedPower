@@ -26,14 +26,20 @@ import java.util.List;
 public class TransformerBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
+    private final Tier tier;
     private final Type type;
 
-    protected TransformerBlock(Properties props, Type type) {
+    protected TransformerBlock(Properties props, Tier tier, Type type) {
         super(props);
 
+        this.tier = tier;
         this.type = type;
 
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    }
+
+    public Tier getTier() {
+        return tier;
     }
 
     public Type getTransformerType() {
@@ -43,7 +49,7 @@ public class TransformerBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
-        return new TransformerBlockEntity(blockPos, state, type);
+        return new TransformerBlockEntity(blockPos, state, tier, type);
     }
 
     @Override
@@ -74,19 +80,25 @@ public class TransformerBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, TransformerBlockEntity.getEntityTypeFromType(this.type), TransformerBlockEntity::tick);
+        return createTickerHelper(type, TransformerBlockEntity.getEntityTypeFromTierAndType(this.tier, this.type), TransformerBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
+        private final Tier tier;
         private final Type type;
 
-        public Item(Block block, SolarPanelBlock.Item.Properties props, Type type) {
+        public Item(Block block, Properties props, Tier tier, Type type) {
             super(block, props);
 
+            this.tier = tier;
             this.type = type;
         }
 
-        public Type getType() {
+        public Tier getTier() {
+            return tier;
+        }
+
+        public Type getTransformerType() {
             return type;
         }
 
@@ -102,6 +114,10 @@ public class TransformerBlock extends BaseEntityBlock {
                 components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
         }
+    }
+
+    public enum Tier {
+        TIER_MV
     }
 
     public enum Type {
