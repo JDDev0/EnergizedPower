@@ -10,7 +10,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "energizedpower:transformer_n_to_1"
+          "name": "energizedpower:hv_transformer_n_to_1"
         }
       ],
       "rolls": 1.0,
