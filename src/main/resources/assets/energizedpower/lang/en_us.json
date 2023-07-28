@@ -610,7 +610,8 @@
   "book.energizedpower.page.transformers_1.1": "Transformers can be used to connect different tiers of cables.",
   "book.energizedpower.page.transformers_1.2": "The larger, darker, diamond shaped sides are inputs.",
   "book.energizedpower.page.transformers_1.3": "The smaller, brighter, square shaped sides are outputs.",
-  "book.energizedpower.page.transformers_1.4": "There are three types of transformers: 1 to n, 3 to 3, and n to 1.",
+  "book.energizedpower.page.transformers_1.4": "There are three tiers of transformers: MV, HV, and EHV.",
+  "book.energizedpower.page.transformers_1.5": "For each tier there are three types of transformers: 1 to n, 3 to 3, and n to 1.",
 
   "book.energizedpower.page.transformers_2.1": "Transformers can be used to reduce lag of cable networks by using them periodically instead of a cable block.",
   "book.energizedpower.page.transformers_2.2": "Transformers can also be used to connect energized power cables to other mods' cables.",
