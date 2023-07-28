@@ -108,6 +108,30 @@ public final class ModBlocks {
             () -> new TransformerBlock.Item(HV_TRANSFORMER_N_TO_1.get(), new Item.Properties(),
                     TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_N_TO_1));
 
+    public static final RegistryObject<TransformerBlock> EHV_TRANSFORMER_1_TO_N = BLOCKS.register("ehv_transformer_1_to_n",
+            () -> new TransformerBlock(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
+                    TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_1_TO_N));
+    public static final RegistryObject<Item> EHV_TRANSFORMER_1_TO_N_ITEM = ModItems.ITEMS.register("ehv_transformer_1_to_n",
+            () -> new TransformerBlock.Item(EHV_TRANSFORMER_1_TO_N.get(), new Item.Properties(),
+                    TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_1_TO_N));
+
+    public static final RegistryObject<TransformerBlock> EHV_TRANSFORMER_3_TO_3 = BLOCKS.register("ehv_transformer_3_to_3",
+            () -> new TransformerBlock(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
+                    TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_3_TO_3));
+    public static final RegistryObject<Item> EHV_TRANSFORMER_3_TO_3_ITEM = ModItems.ITEMS.register("ehv_transformer_3_to_3",
+            () -> new TransformerBlock.Item(EHV_TRANSFORMER_3_TO_3.get(), new Item.Properties(),
+                    TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_3_TO_3));
+
+    public static final RegistryObject<TransformerBlock> EHV_TRANSFORMER_N_TO_1 = BLOCKS.register("ehv_transformer_n_to_1",
+            () -> new TransformerBlock(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
+                    TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_N_TO_1));
+    public static final RegistryObject<Item> EHV_TRANSFORMER_N_TO_1_ITEM = ModItems.ITEMS.register("ehv_transformer_n_to_1",
+            () -> new TransformerBlock.Item(EHV_TRANSFORMER_N_TO_1.get(), new Item.Properties(),
+                    TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_N_TO_1));
+
     public static final RegistryObject<Block> BATTERY_BOX = BLOCKS.register("battery_box",
             () -> new BatteryBoxBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));

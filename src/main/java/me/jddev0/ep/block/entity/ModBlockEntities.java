@@ -126,6 +126,21 @@ public final class ModBlockEntities {
                             new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_HV,
                                     TransformerBlock.Type.TYPE_N_TO_1),
                     ModBlocks.HV_TRANSFORMER_N_TO_1.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> EHV_TRANSFORMER_1_TO_N_ENTITY =
+            BLOCK_ENTITIES.register("ehv_transformer_1_to_n", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_EHV,
+                                    TransformerBlock.Type.TYPE_1_TO_N),
+                    ModBlocks.EHV_TRANSFORMER_1_TO_N.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> EHV_TRANSFORMER_3_TO_3_ENTITY =
+            BLOCK_ENTITIES.register("ehv_transformer_3_to_3", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_EHV,
+                                    TransformerBlock.Type.TYPE_3_TO_3),
+                    ModBlocks.EHV_TRANSFORMER_3_TO_3.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> EHV_TRANSFORMER_N_TO_1_ENTITY =
+            BLOCK_ENTITIES.register("ehv_transformer_n_to_1", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_EHV,
+                                    TransformerBlock.Type.TYPE_N_TO_1),
+                    ModBlocks.EHV_TRANSFORMER_N_TO_1.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<BatteryBoxBlockEntity>> BATTERY_BOX_ENTITY =
             BLOCK_ENTITIES.register("battery_box", () -> BlockEntityType.Builder.of(BatteryBoxBlockEntity::new,
