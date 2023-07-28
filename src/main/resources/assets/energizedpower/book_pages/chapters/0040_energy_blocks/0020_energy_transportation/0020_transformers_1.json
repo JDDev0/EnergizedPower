@@ -16,7 +16,7 @@
       "italic": true,
       "font": "uniform",
       "extra": [
-        "\n"
+        " "
       ]
     },
     {
@@ -31,6 +31,15 @@
     },
     {
       "translate": "book.energizedpower.page.transformers_1.4",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.transformers_1.5",
       "color": "black",
       "bold": true,
       "font": "uniform"

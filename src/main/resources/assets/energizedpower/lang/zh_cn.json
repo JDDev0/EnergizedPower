@@ -610,7 +610,8 @@
   "book.energizedpower.page.transformers_1.1": "变压器用于连接不同类型的电缆。",
   "book.energizedpower.page.transformers_1.2": "输入面是深色的，有一个较大的菱形。",
   "book.energizedpower.page.transformers_1.3": "输出面是较浅的，有一个较小的正方形。",
-  "book.energizedpower.page.transformers_1.4": "一共有三种类型的变压器：1对n，3对3，以及 n对1。",
+  "book.energizedpower.page.transformers_1.4": "There are three tiers of transformers: MV, HV, and EHV.",
+  "book.energizedpower.page.transformers_1.5": "For each tier there are three types of transformers: 1 to n, 3 to 3, and n to 1.",
 
   "book.energizedpower.page.transformers_2.1": "使用变压器可以减轻电缆网络的延迟；要适当的使用变压器来代替电缆。",
   "book.energizedpower.page.transformers_2.2": "变压器可以连接充能的电缆和其它类型的电缆。",
