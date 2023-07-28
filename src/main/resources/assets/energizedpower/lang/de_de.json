@@ -610,7 +610,8 @@
   "book.energizedpower.page.transformers_1.1": "Trafos können Kabel von verschiedenen Typen verbinden.",
   "book.energizedpower.page.transformers_1.2": "Die größeren, dunkleren, Rauten-förmigen Seiten sind Eingänge.",
   "book.energizedpower.page.transformers_1.3": "Die kleineren, helleren, Quadrat-förmigen Seiten sind Ausgänge.",
-  "book.energizedpower.page.transformers_1.4": "Es gibt drei Trafotypen: 1 zu n, 3 zu 3 und n zu 1.",
+  "book.energizedpower.page.transformers_1.4": "Es gibt drei Trafostärken: MV, HV und EHV.",
+  "book.energizedpower.page.transformers_1.5": "Für jeden dieser drei Typen gibt es drei Typen: 1 zu n, 3 zu 3 und n zu 1.",
 
   "book.energizedpower.page.transformers_2.1": "Trafos können Lags-Reduzieren, indem sie manchmal statt einem Kabel-Block plaziert werden.",
   "book.energizedpower.page.transformers_2.2": "Trafos können Kabel von dieser Mod mit Kabel von anderen verbinden.",
