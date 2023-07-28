@@ -610,7 +610,8 @@
   "book.energizedpower.page.transformers_1.1": "I trasformatori possono essere utilizzati per collegare diversi livelli di cavi.",
   "book.energizedpower.page.transformers_1.2": "I lati più grandi, più scuri, a forma di diamante sono ingressi.",
   "book.energizedpower.page.transformers_1.3": "I lati più piccoli, più luminosi e di forma quadrata sono le uscite.",
-  "book.energizedpower.page.transformers_1.4": "Esistono tre tipi di trasformatori: da 1 a n, da 3 a 3 e da n a 1.",
+  "book.energizedpower.page.transformers_1.4": "There are three tiers of transformers: MV, HV, and EHV.",
+  "book.energizedpower.page.transformers_1.5": "For each tier there are three types of transformers: 1 to n, 3 to 3, and n to 1.",
 
   "book.energizedpower.page.transformers_2.1": "I trasformatori possono essere utilizzati per ridurre il ritardo delle reti via cavo utilizzandoli periodicamente al posto di un blocco cavi.",
   "book.energizedpower.page.transformers_2.2": "I trasformatori possono essere utilizzati anche per collegare i cavi di alimentazione sotto tensione ai cavi di altri mod.",
