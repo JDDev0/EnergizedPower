@@ -46,6 +46,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<ChargerMenu>> CHARGER_MENU = registerMenuType("charger",
             ChargerMenu::new);
 
+    public static final RegistryObject<MenuType<AdvancedChargerMenu>> ADVANCED_CHARGER_MENU = registerMenuType("advanced_charger",
+            AdvancedChargerMenu::new);
+
     public static final RegistryObject<MenuType<UnchargerMenu>> UNCHARGER_MENU = registerMenuType("uncharger",
             UnchargerMenu::new);
     public static final RegistryObject<MenuType<EnergizerMenu>> ENERGIZER_MENU = registerMenuType("energizer",

@@ -102,6 +102,10 @@
 
   "tooltip.energizedpower.charger.item_energy_left.txt": "Questo articolo richiede che %s sia completamente carico.",
 
+  "block.energizedpower.advanced_charger": "Advanced Charger",
+  "item.energizedpower.advanced_charger": "Advanced Charger",
+  "container.energizedpower.advanced_charger": "Advanced Charger",
+
   "block.energizedpower.uncharger": "Scarico",
   "item.energizedpower.uncharger": "Scarico",
   "container.energizedpower.uncharger": "Scarico",
@@ -392,6 +396,9 @@
 
   "advancements.energizedpower.charger.title": "Caricalo",
   "advancements.energizedpower.charger.description": "Carica i tuoi oggetti energetici con questo blocco.",
+
+  "advancements.energizedpower.advanced_charger.title": "Parallel charging",
+  "advancements.energizedpower.advanced_charger.description": "Charge energy items in parallel.",
 
   "advancements.energizedpower.charging_station.title": "Ricarica senza fili",
   "advancements.energizedpower.charging_station.description": "Carica gli articoli energetici in modalità wireless.",

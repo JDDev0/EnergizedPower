@@ -128,6 +128,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.FLUID_FILLER_ITEM);
             event.accept(ModBlocks.FLUID_DRAINER_ITEM);
             event.accept(ModBlocks.CHARGER_ITEM);
+            event.accept(ModBlocks.ADVANCED_CHARGER_ITEM);
             event.accept(ModBlocks.UNCHARGER_ITEM);
             event.accept(ModBlocks.MINECART_CHARGER_ITEM);
             event.accept(ModBlocks.MINECART_UNCHARGER_ITEM);
@@ -197,6 +198,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.FLUID_FILLER_MENU.get(), FluidFillerScreen::new);
             MenuScreens.register(ModMenuTypes.FLUID_DRAINER_MENU.get(), FluidDrainerScreen::new);
             MenuScreens.register(ModMenuTypes.CHARGER_MENU.get(), ChargerScreen::new);
+            MenuScreens.register(ModMenuTypes.ADVANCED_CHARGER_MENU.get(), AdvancedChargerScreen::new);
             MenuScreens.register(ModMenuTypes.UNCHARGER_MENU.get(), UnchargerScreen::new);
             MenuScreens.register(ModMenuTypes.ENERGIZER_MENU.get(), EnergizerScreen::new);
             MenuScreens.register(ModMenuTypes.COAL_ENGINE_MENU.get(), CoalEngineScreen::new);
