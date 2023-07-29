@@ -447,8 +447,8 @@
   "advancements.energizedpower.advanced_battery_box.title": "Bessere Batterie-Box",
   "advancements.energizedpower.advanced_battery_box.description": "Speichere noch mehr Strom als das beste Batterie-Item.",
 
-  "advancements.energizedpower.energized_copper_ingot.title": "Energetisiert",
-  "advancements.energizedpower.energized_copper_ingot.description": "Energetisiertes Kupfer ist besser als Kupfer.",
+  "advancements.energizedpower.energizedpower_advanced.title": "Energized Power (Fortgeschritten)",
+  "advancements.energizedpower.energizedpower_advanced.description": "Energetisiertes Kupfer ist besser als Kupfer.",
 
   "advancements.energizedpower.energized_gold_ingot.title": "Glänzender Barren",
   "advancements.energizedpower.energized_gold_ingot.description": "Dieser energetisierte Goldbarren ist sehr glänzend.",
@@ -480,8 +480,8 @@
   "advancements.energizedpower.energized_gold_plate.title": "Energetisierte Goldplatte",
   "advancements.energizedpower.energized_gold_plate.description": "Erstelle eine energetisierte Goldplatte.",
 
-  "advancements.energizedpower.energizedpower.title": "Energized Power",
-  "advancements.energizedpower.energizedpower.description": "Das ist der Start deiner Energized Power-Reise.",
+  "advancements.energizedpower.energizedpower_basics.title": "Energized Power (Grundlegendes)",
+  "advancements.energizedpower.energizedpower_basics.description": "Das ist der Start deiner Energized Power-Reise.",
 
   "advancements.energizedpower.energizer.title": "Effizenteres Energetisieren",
   "advancements.energizedpower.energizer.description": "Diese Maschine kann Kupferbarren viel schneller und effizenter Energetisieren als der Lader.",
