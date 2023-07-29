@@ -1,8 +1,6 @@
 package me.jddev0.ep.loading;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import com.mojang.logging.LogUtils;
 import me.jddev0.ep.screen.EnergizedPowerBookScreen;
 import net.minecraft.network.chat.Component;
@@ -31,8 +29,9 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
 
         List<Map.Entry<ResourceLocation, JsonElement>> elementEntries = elements.entrySet().stream().
                 sorted(Comparator.comparing(o -> o.getKey().getPath())).
-                collect(Collectors.toList());
+                toList();
 
+        outer:
         for(Map.Entry<ResourceLocation, JsonElement> elementEntry:elementEntries) {
             ResourceLocation pageId = elementEntry.getKey();
             JsonElement element = elementEntry.getValue();
@@ -89,33 +88,97 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
                 if(object.has("content"))
                     contentComponent = Component.Serializer.fromJson(object.get("content"));
 
-                ResourceLocation imageResourceLocation = null;
+                ResourceLocation[] imageResourceLocations = null;
                 if(object.has("image")) {
                     JsonElement imageElement = object.get("image");
-                    if(!imageElement.isJsonPrimitive() || !imageElement.getAsJsonPrimitive().isString()) {
-                        LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': image must be a string primitive",
+                    if(imageElement.isJsonPrimitive()) {
+                        if(!imageElement.getAsJsonPrimitive().isString()) {
+                            LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': image must be a string primitive or an array of string primitives",
+                                    pageId.getPath(), pageId.getNamespace()));
+
+                            continue;
+                        }
+
+                        imageResourceLocations = new ResourceLocation[] {
+                                ResourceLocation.tryParse(imageElement.getAsJsonPrimitive().getAsString())
+                        };
+                    }else if(imageElement.isJsonArray()) {
+                        JsonArray imageJsonArray = imageElement.getAsJsonArray();
+
+                        if(imageJsonArray.isEmpty()) {
+                            LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': Image array must contain at least one element",
+                                    pageId.getPath(), pageId.getNamespace()));
+
+                            continue;
+                        }
+
+                        List<ResourceLocation> imageResourceLocationList = new ArrayList<>(imageJsonArray.size());
+                        for(JsonElement imageJsonEle:imageJsonArray) {
+                            if(!imageJsonEle.isJsonPrimitive() || !imageJsonEle.getAsJsonPrimitive().isString()) {
+                                LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': image must be a string primitive or an array of string primitives",
+                                        pageId.getPath(), pageId.getNamespace()));
+
+                                continue outer;
+                            }
+
+                            imageResourceLocationList.add(ResourceLocation.tryParse(imageJsonEle.getAsJsonPrimitive().getAsString()));
+                        }
+
+                        imageResourceLocations = imageResourceLocationList.toArray(new ResourceLocation[0]);
+                    }else {
+                        LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': image must be a string primitive or an array of string primitives",
                                 pageId.getPath(), pageId.getNamespace()));
 
                         continue;
                     }
-
-                    imageResourceLocation = ResourceLocation.tryParse(imageElement.getAsJsonPrimitive().getAsString());
                 }
 
-                ResourceLocation blockResourceLocation = null;
+                ResourceLocation[] blockResourceLocations = null;
                 if(object.has("block")) {
-                    JsonElement imageElement = object.get("block");
-                    if(!imageElement.isJsonPrimitive() || !imageElement.getAsJsonPrimitive().isString()) {
-                        LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': block must be a string primitive",
+                    JsonElement blockElement = object.get("block");
+                    if(blockElement.isJsonPrimitive()) {
+                        if(!blockElement.getAsJsonPrimitive().isString()) {
+                            LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': block must be a string primitive or an array of string primitives",
+                                    pageId.getPath(), pageId.getNamespace()));
+
+                            continue;
+                        }
+
+                        blockResourceLocations = new ResourceLocation[] {
+                                ResourceLocation.tryParse(blockElement.getAsJsonPrimitive().getAsString())
+                        };
+                    }else if(blockElement.isJsonArray()) {
+                        JsonArray blockJsonArray = blockElement.getAsJsonArray();
+
+                        if(blockJsonArray.isEmpty()) {
+                            LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': Block array must contain at least one element",
+                                    pageId.getPath(), pageId.getNamespace()));
+
+                            continue;
+                        }
+
+                        List<ResourceLocation> blockResourceLocationsList = new ArrayList<>(blockJsonArray.size());
+                        for(JsonElement blockJsonEle:blockJsonArray) {
+                            if(!blockJsonEle.isJsonPrimitive() || !blockJsonEle.getAsJsonPrimitive().isString()) {
+                                LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': block must be a string primitive or an array of string primitives",
+                                        pageId.getPath(), pageId.getNamespace()));
+
+                                continue outer;
+                            }
+
+                            blockResourceLocationsList.add(ResourceLocation.tryParse(blockJsonEle.getAsJsonPrimitive().getAsString()));
+                        }
+
+                        blockResourceLocations = blockResourceLocationsList.toArray(new ResourceLocation[0]);
+                    }else {
+                        LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': block must be a string primitive or an array of string primitives",
                                 pageId.getPath(), pageId.getNamespace()));
 
                         continue;
                     }
-
-                    blockResourceLocation = ResourceLocation.tryParse(imageElement.getAsJsonPrimitive().getAsString());
                 }
 
-                pages.add(new EnergizedPowerBookScreen.PageContent(pageId, chapterTitleComponent, contentComponent, imageResourceLocation, blockResourceLocation));
+                pages.add(new EnergizedPowerBookScreen.PageContent(pageId, chapterTitleComponent, contentComponent, imageResourceLocations, blockResourceLocations));
             }catch(Exception e) {
                 LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s'",
                         pageId.getPath(), pageId.getNamespace()), e);
