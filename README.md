@@ -19,6 +19,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Charger
 - Advanced Charger (**In next release (v2.0.0)**)
 - Uncharger
+- Advanced Uncharger (**In next release (v2.0.0)**)
 - Minecart Charger
 - Minecart Uncharger
 - Charging Station
