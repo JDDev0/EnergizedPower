@@ -7,5 +7,11 @@
       "font": "uniform"
     }
   ],
-  "image": "energizedpower:textures/item/iron_hammer.png"
+  "image": [
+    "energizedpower:textures/item/wooden_hammer.png",
+    "energizedpower:textures/item/iron_hammer.png",
+    "energizedpower:textures/item/golden_hammer.png",
+    "energizedpower:textures/item/diamond_hammer.png",
+    "energizedpower:textures/item/netherite_hammer.png"
+  ]
 }

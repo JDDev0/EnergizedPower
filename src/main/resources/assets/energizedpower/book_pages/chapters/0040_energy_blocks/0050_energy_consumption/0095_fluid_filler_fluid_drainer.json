@@ -4,5 +4,8 @@
     "bold": true,
     "font": "uniform"
   },
-  "block": "energizedpower:fluid_filler"
+  "block": [
+    "energizedpower:fluid_filler",
+    "energizedpower:fluid_drainer"
+  ]
 }
