@@ -1,0 +1,34 @@
+{
+  "parent":  "energizedpower:main/hv_transformers",
+  "display": {
+    "icon": {
+      "item": "energizedpower:ehv_transformer_1_to_n"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.ehv_transformers.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.ehv_transformers.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_ehv_transformer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:ehv_transformer_1_to_n", "energizedpower:ehv_transformer_3_to_3", "energizedpower:ehv_transformer_n_to_1" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_ehv_transformer"
+    ]
+  ]
+}
