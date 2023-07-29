@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:copper_ingot"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.energizedpower_basics.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.energizedpower_basics.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "background": "energizedpower:textures/block/basic_machine_frame_top.png"
+  },
+  "criteria": {
+    "has_copper": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "c:copper_ingots"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_copper"
+    ]
+  ]
+}

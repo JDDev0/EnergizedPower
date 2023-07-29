@@ -1,0 +1,34 @@
+{
+  "parent":  "energizedpower:main/basics/basic_machine_frame",
+  "display": {
+    "icon": {
+      "item": "energizedpower:block_placer"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.block_placer.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.block_placer.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_block_placer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:block_placer" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_block_placer"
+    ]
+  ]
+}
