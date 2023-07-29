@@ -447,8 +447,8 @@
   "advancements.energizedpower.advanced_battery_box.title": "Better Battery Box",
   "advancements.energizedpower.advanced_battery_box.description": "Store even more energy than the best battery item.",
 
-  "advancements.energizedpower.energized_copper_ingot.title": "Energized",
-  "advancements.energizedpower.energized_copper_ingot.description": "Energized Copper is better Copper.",
+  "advancements.energizedpower.energizedpower_advanced.title": "Energized Power (Advanced)",
+  "advancements.energizedpower.energizedpower_advanced.description": "Energized Copper is better Copper.",
 
   "advancements.energizedpower.energized_gold_ingot.title": "Shiny Ingot",
   "advancements.energizedpower.energized_gold_ingot.description": "This Energized Gold Ingot is very shiny.",
@@ -480,8 +480,8 @@
   "advancements.energizedpower.energized_gold_plate.title": "Energized Gold Plate",
   "advancements.energizedpower.energized_gold_plate.description": "Create an energized gold plate.",
 
-  "advancements.energizedpower.energizedpower.title": "Energized Power",
-  "advancements.energizedpower.energizedpower.description": "This is the start of your energized power journey.",
+  "advancements.energizedpower.energizedpower_basics.title": "Energized Power (Basics)",
+  "advancements.energizedpower.energizedpower_basics.description": "This is the start of your energized power journey.",
 
   "advancements.energizedpower.energizer.title": "More efficient energizing",
   "advancements.energizedpower.energizer.description": "This machine can energize your copper ingots much faster and more efficient than the charger.",

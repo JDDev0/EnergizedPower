@@ -447,8 +447,8 @@
   "advancements.energizedpower.advanced_battery_box.title": "Better Battery Box",
   "advancements.energizedpower.advanced_battery_box.description": "Store even more energy than the best battery item.",
 
-  "advancements.energizedpower.energized_copper_ingot.title": "充满能量",
-  "advancements.energizedpower.energized_copper_ingot.description": "充能铜锭是更好的铜锭。",
+  "advancements.energizedpower.energizedpower_advanced.title": "Energized Power (Advanced)",
+  "advancements.energizedpower.energizedpower_advanced.description": "充能铜锭是更好的铜锭。",
 
   "advancements.energizedpower.energized_gold_ingot.title": "闪亮的金属锭",
   "advancements.energizedpower.energized_gold_ingot.description": "能量化的金锭非常有光泽。",
@@ -480,8 +480,8 @@
   "advancements.energizedpower.energized_gold_plate.title": "充能金板",
   "advancements.energizedpower.energized_gold_plate.description": "制作一个充能金板",
 
-  "advancements.energizedpower.energizedpower.title": "Energized Power",
-  "advancements.energizedpower.energizedpower.description": "这是你开始 energized power 路途的起点。",
+  "advancements.energizedpower.energizedpower_basics.title": "Energized Power (Basics)",
+  "advancements.energizedpower.energizedpower_basics.description": "This is the start of your energized power journey.",
 
   "advancements.energizedpower.energizer.title": "更高效的传输",
   "advancements.energizedpower.energizer.description": "这台机器比充电器更快，高效地将你的铜锭能量化。",

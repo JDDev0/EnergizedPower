@@ -447,8 +447,8 @@
   "advancements.energizedpower.advanced_battery_box.title": "Scatola batteria migliore",
   "advancements.energizedpower.advanced_battery_box.description": "Immagazzina ancora più energia rispetto alla Scatola batteria standard.",
 
-  "advancements.energizedpower.energized_copper_ingot.title": "Energizzato",
-  "advancements.energizedpower.energized_copper_ingot.description": "Il rame energizzato è rame migliore.",
+  "advancements.energizedpower.energizedpower_advanced.title": "Energized Power (Advanced)",
+  "advancements.energizedpower.energizedpower_advanced.description": "Il rame energizzato è rame migliore.",
 
   "advancements.energizedpower.energized_gold_ingot.title": "Lingotto lucido",
   "advancements.energizedpower.energized_gold_ingot.description": "Questo lingotto d'oro energizzato è molto lucido.",
@@ -480,8 +480,8 @@
   "advancements.energizedpower.energized_gold_plate.title": "Lastra d'oro energizzata",
   "advancements.energizedpower.energized_gold_plate.description": "Crea una lastra d'oro energizzata.",
 
-  "advancements.energizedpower.energizedpower.title": "Potenza energizzata",
-  "advancements.energizedpower.energizedpower.description": "Questo è l'inizio del tuo viaggio energetico.",
+  "advancements.energizedpower.energizedpower_basics.title": "Energized Power (Basics)",
+  "advancements.energizedpower.energizedpower_basics.description": "This is the start of your energized power journey.",
 
   "advancements.energizedpower.energizer.title": "Energia più efficiente",
   "advancements.energizedpower.energizer.description": "Questa macchina può energizzare i tuoi lingotti di rame in modo molto più rapido ed efficiente rispetto al caricabatterie.",

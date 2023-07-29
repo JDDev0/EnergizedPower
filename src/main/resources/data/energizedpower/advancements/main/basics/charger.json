@@ -1,0 +1,34 @@
+{
+  "parent":  "energizedpower:main/basics/basic_machine_frame",
+  "display": {
+    "icon": {
+      "item": "energizedpower:charger"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.charger.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.charger.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_charger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:charger" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_charger"
+    ]
+  ]
+}
