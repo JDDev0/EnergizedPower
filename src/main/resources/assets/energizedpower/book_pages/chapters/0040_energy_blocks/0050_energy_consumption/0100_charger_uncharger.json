@@ -4,5 +4,8 @@
     "bold": true,
     "font": "uniform"
   },
-  "block": "energizedpower:charger"
+  "block": [
+    "energizedpower:charger",
+    "energizedpower:uncharger"
+  ]
 }
