@@ -14,10 +14,10 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Compressor
 - Plant Growth Chamber
 - Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
-- Fluid Filler (**In next release (v1.8.0)**)
-- Fluid Drainer (**In next release (v1.8.0)**)
+- Fluid Filler (**In next release (v2.0.0)**)
+- Fluid Drainer (**In next release (v2.0.0)**)
 - Charger
-- Advanced Charger (**In next release (v1.8.0)**)
+- Advanced Charger (**In next release (v2.0.0)**)
 - Uncharger
 - Minecart Charger
 - Minecart Uncharger
@@ -25,14 +25,14 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Energizer
 - Coal Engine
 - Heat Generator
-- Thermal Generator (**In next release (v1.8.0)**)
+- Thermal Generator (**In next release (v2.0.0)**)
 - Lightning Generator
 - Solar Panels (5 Tiers)
 - Transformers (Can be used to connect different tiers of cables):
-  - 3 tiers: MV, HV (**In next release (v1.8.0)**), and EHV (**In next release (v1.8.0)**)
+  - 3 tiers: MV, HV (**In next release (v2.0.0)**), and EHV (**In next release (v2.0.0)**)
   - 3 types (for each tier): 1 to n, 3 to 3, and n to 1
 - Battery Box
-- Advanced Battery Box (**In next release (v1.8.0)**)
+- Advanced Battery Box (**In next release (v2.0.0)**)
 - Weather Controller
 - Time Controller
 
@@ -40,9 +40,9 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 ### Energy transportation
 
-- Cables (5 Tiers: Copper, Gold, Energized Copper, Energized Gold, and Energized Crystal Matrix (**In next release (v1.8.0)**))
+- Cables (5 Tiers: Copper, Gold, Energized Copper, Energized Gold, and Energized Crystal Matrix (**In next release (v2.0.0)**))
 - Minecart with Battery Box
-- Minecart with Advanced Battery Box (**In next release (v1.8.0)**)
+- Minecart with Advanced Battery Box (**In next release (v2.0.0)**)
 
 ### Energy Items
 
