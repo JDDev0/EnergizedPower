@@ -16,5 +16,8 @@
       "font": "uniform"
     }
   ],
-  "block": "energizedpower:basic_machine_frame"
+  "block": [
+    "energizedpower:basic_machine_frame",
+    "energizedpower:advanced_machine_frame"
+  ]
 }

@@ -16,5 +16,8 @@
       "font": "uniform"
     }
   ],
-  "image": "energizedpower:textures/item/basic_solar_cell.png"
+  "image": [
+    "energizedpower:textures/item/basic_solar_cell.png",
+    "energizedpower:textures/item/advanced_solar_cell.png"
+  ]
 }
