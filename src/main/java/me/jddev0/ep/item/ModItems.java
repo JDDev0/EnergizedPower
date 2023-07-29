@@ -84,6 +84,8 @@ public final class ModItems {
             () -> new BatteryItem(BatteryItem.Tier.BATTERY_7));
     public static final RegistryObject<Item> BATTERY_8 = ITEMS.register("battery_8",
             () -> new BatteryItem(BatteryItem.Tier.BATTERY_8));
+    public static final RegistryObject<Item> CREATIVE_BATTERY = ITEMS.register("creative_battery",
+            () -> new CreativeBatteryItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> ENERGY_ANALYZER = ITEMS.register("energy_analyzer",
             () -> new EnergyAnalyzerItem(new Item.Properties().stacksTo(1)));

@@ -153,6 +153,7 @@ public class EnergizedPowerMod {
             addEmptyAndFullyChargedItem(event, ModItems.BATTERY_6, BatteryItem.Tier.BATTERY_6.getCapacity());
             addEmptyAndFullyChargedItem(event, ModItems.BATTERY_7, BatteryItem.Tier.BATTERY_7.getCapacity());
             addEmptyAndFullyChargedItem(event, ModItems.BATTERY_8, BatteryItem.Tier.BATTERY_8.getCapacity());
+            event.accept(ModItems.CREATIVE_BATTERY);
 
             event.accept(ModItems.BATTERY_BOX_MINECART);
             event.accept(ModItems.ADVANCED_BATTERY_BOX_MINECART);
