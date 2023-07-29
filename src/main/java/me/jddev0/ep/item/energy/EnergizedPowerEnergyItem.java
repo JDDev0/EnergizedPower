@@ -35,14 +35,17 @@ public class EnergizedPowerEnergyItem extends Item {
         this.energyStorageProvider = energyStorageProvider;
     }
 
+    @Override
     public boolean isBarVisible(ItemStack stack) {
         return true;
     }
 
+    @Override
     public int getBarWidth(ItemStack stack) {
         return Math.round(getEnergy(stack) * 13.f / getCapacity(stack));
     }
 
+    @Override
     public int getBarColor(ItemStack stack) {
         float f = Math.max(0.f, getEnergy(stack) / (float)getCapacity(stack));
         return Mth.hsvToRgb(f * .33f, 1.f, 1.f);
