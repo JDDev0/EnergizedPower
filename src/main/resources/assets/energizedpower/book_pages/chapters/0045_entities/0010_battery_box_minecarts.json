@@ -7,5 +7,8 @@
       "font": "uniform"
     }
   ],
-  "image": "energizedpower:textures/item/battery_box_minecart.png"
+  "image": [
+    "energizedpower:textures/item/battery_box_minecart.png",
+    "energizedpower:textures/item/advanced_battery_box_minecart.png"
+  ]
 }
