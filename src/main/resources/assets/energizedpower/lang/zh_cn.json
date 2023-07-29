@@ -51,6 +51,8 @@
   "item.energizedpower.battery_8": "电池（等级 VIII）",
   "tooltip.energizedpower.battery.txt.shift.1": "该电池可以传输 %s/t.",
 
+  "item.energizedpower.creative_battery": "Creative Battery",
+
   "item.energizedpower.energy_analyzer": "能量分析仪",
   "tooltip.energizedpower.energy_analyzer.txt.shift.1": "点击一个能量方块来查看该方块的信息。",
   "tooltip.energizedpower.energy_analyzer.txt.shift.2": "每使用一次将消耗掉 %s ",
