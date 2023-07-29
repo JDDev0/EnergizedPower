@@ -433,7 +433,13 @@
   "advancements.energizedpower.energized_crystal_matrix_cable.description": "When do I even need to transport that much energy?",
 
   "advancements.energizedpower.transformers.title": "Transformers",
-  "advancements.energizedpower.transformers.description": "Can connect to different tiers of cables.",
+  "advancements.energizedpower.transformers.description": "Can connect different tiers of cables.",
+
+  "advancements.energizedpower.hv_transformers.title": "HV Transformers",
+  "advancements.energizedpower.hv_transformers.description": "Can transfer more power.",
+
+  "advancements.energizedpower.ehv_transformers.title": "EHV Transformers",
+  "advancements.energizedpower.ehv_transformers.description": "Can transfer more than 2 million FE per tick.",
 
   "advancements.energizedpower.battery_box.title": "Battery Box",
   "advancements.energizedpower.battery_box.description": "Store energy with the Battery Box block.",

@@ -433,7 +433,13 @@
   "advancements.energizedpower.energized_crystal_matrix_cable.description": "Quando ho bisogno di trasportare così tanta energia?",
 
   "advancements.energizedpower.transformers.title": "Trasformatori",
-  "advancements.energizedpower.transformers.description": "Può connettersi a diversi livelli di cavi.",
+  "advancements.energizedpower.transformers.description": "Can connect different tiers of cables.",
+
+  "advancements.energizedpower.hv_transformers.title": "HV Transformers",
+  "advancements.energizedpower.hv_transformers.description": "Can transfer more power.",
+
+  "advancements.energizedpower.ehv_transformers.title": "EHV Transformers",
+  "advancements.energizedpower.ehv_transformers.description": "Can transfer more than 2 million FE per tick.",
 
   "advancements.energizedpower.battery_box.title": "Scatola batteria",
   "advancements.energizedpower.battery_box.description": "Accumula energia con la Scatola batteria.",
