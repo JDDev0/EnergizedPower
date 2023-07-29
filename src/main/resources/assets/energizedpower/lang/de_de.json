@@ -435,6 +435,12 @@
   "advancements.energizedpower.transformers.title": "Trafos",
   "advancements.energizedpower.transformers.description": "Trafos können verschiedene Kabeltypen verbinden.",
 
+  "advancements.energizedpower.hv_transformers.title": "HV-Trafos",
+  "advancements.energizedpower.hv_transformers.description": "HV-Trafos können mehr Strom transferieren.",
+
+  "advancements.energizedpower.ehv_transformers.title": "EHV-Trafos",
+  "advancements.energizedpower.ehv_transformers.description": "EHV-Trafos können mehr als 2 Millionen FE pro Tick transferieren.",
+
   "advancements.energizedpower.battery_box.title": "Batterie-Box",
   "advancements.energizedpower.battery_box.description": "Speichere Strom mit dem Batterie-Box-Block.",
 
