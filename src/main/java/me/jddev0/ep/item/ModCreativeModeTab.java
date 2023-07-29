@@ -14,9 +14,6 @@ public class ModCreativeModeTab {
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, EnergizedPowerMod.MODID);
 
-    // public static final RegistryObject<Item> BATTERY_BOX_MINECART = ITEMS.register("battery_box_minecart",
-    //            () -> new BatteryBoxMinecartItem(new Item.Properties().stacksTo(1)));
-
     public static final RegistryObject<CreativeModeTab> ENERGIZED_POWER_TAB = CREATIVE_MODE_TABS.register("main",
             () -> CreativeModeTab.builder().
                     title(Component.translatable("itemGroup.energizedpower.tab")).
