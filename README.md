@@ -17,6 +17,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Fluid Filler (**In next release (v1.8.0)**)
 - Fluid Drainer (**In next release (v1.8.0)**)
 - Charger
+- Advanced Charger (**In next release (v1.8.0)**)
 - Uncharger
 - Minecart Charger
 - Minecart Uncharger
