@@ -104,7 +104,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
                 if(!energyStorage.canReceive())
                     return true;
 
-                return energyStorage.receiveEnergy(AdvancedChargerBlockEntity.this.energyStorage.getMaxReceive(), true) == 0;
+                return energyStorage.receiveEnergy(MAX_RECEIVE_PER_SLOT, true) == 0;
             }));
 
     private final ReceiveOnlyEnergyStorage energyStorage;
