@@ -26,5 +26,11 @@
       "font": "uniform"
     }
   ],
-  "block": "energizedpower:solar_panel_1"
+  "block": [
+    "energizedpower:solar_panel_1",
+    "energizedpower:solar_panel_2",
+    "energizedpower:solar_panel_3",
+    "energizedpower:solar_panel_4",
+    "energizedpower:solar_panel_5"
+  ]
 }
