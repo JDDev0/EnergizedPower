@@ -7,5 +7,9 @@
       "font": "uniform"
     }
   ],
-  "image": "energizedpower:textures/item/good_fertilizer.png"
+  "image": [
+    "energizedpower:textures/item/basic_fertilizer.png",
+    "energizedpower:textures/item/good_fertilizer.png",
+    "energizedpower:textures/item/advanced_fertilizer.png"
+  ]
 }

@@ -16,5 +16,14 @@
       "font": "uniform"
     }
   ],
-  "image": "energizedpower:textures/item/battery_4.png"
+  "image": [
+    "energizedpower:textures/item/battery_1.png",
+    "energizedpower:textures/item/battery_2.png",
+    "energizedpower:textures/item/battery_3.png",
+    "energizedpower:textures/item/battery_4.png",
+    "energizedpower:textures/item/battery_5.png",
+    "energizedpower:textures/item/battery_6.png",
+    "energizedpower:textures/item/battery_7.png",
+    "energizedpower:textures/item/battery_8.png"
+  ]
 }

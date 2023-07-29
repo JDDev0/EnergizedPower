@@ -14,5 +14,8 @@
       "font": "uniform"
     }
   ],
-  "block": "energizedpower:minecart_charger"
+  "block": [
+    "energizedpower:minecart_charger",
+    "energizedpower:minecart_uncharger"
+  ]
 }
