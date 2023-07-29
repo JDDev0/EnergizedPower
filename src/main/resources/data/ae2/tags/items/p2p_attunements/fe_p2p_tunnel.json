@@ -15,6 +15,10 @@
     "energizedpower:hv_transformer_n_to_1",
     "energizedpower:ehv_transformer_1_to_n",
     "energizedpower:ehv_transformer_3_to_3",
-    "energizedpower:ehv_transformer_n_to_1"
+    "energizedpower:ehv_transformer_n_to_1",
+
+    "energizedpower:battery_box",
+    "energizedpower:advanced_battery_box",
+    "energizedpower:creative_battery_box"
   ]
 }
