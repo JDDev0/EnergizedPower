@@ -172,6 +172,10 @@
   "item.energizedpower.advanced_battery_box": "Scatola batteria avanzata",
   "container.energizedpower.advanced_battery_box": "Scatola batteria avanzata",
 
+  "block.energizedpower.creative_battery_box": "Creative Battery Box",
+  "item.energizedpower.creative_battery_box": "Creative Battery Box",
+  "container.energizedpower.creative_battery_box": "Creative Battery Box",
+
 
   "block.energizedpower.solar_panel_1": "Pannello solare (Livello I)",
   "item.energizedpower.solar_panel_1": "Pannello solare (Livello I)",
@@ -291,6 +295,7 @@
   "tooltip.energizedpower.transfer_rate.txt": "Velocità di trasferimento: %s/t",
   "tooltip.energizedpower.not_enough_energy.txt": "Energia insufficiente",
   "tooltip.energizedpower.ready.txt": "Pronto",
+  "tooltip.energizedpower.infinite.txt": "Infinite",
 
   "itemGroup.energizedpower.tab": "Potenza energizzata",
 
