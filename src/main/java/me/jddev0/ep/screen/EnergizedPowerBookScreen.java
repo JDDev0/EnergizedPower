@@ -46,6 +46,10 @@ public class EnergizedPowerBookScreen extends Screen {
 
     public static final ResourceLocation ENERGIZED_COPPER_INGOT = new ResourceLocation(EnergizedPowerMod.MODID, "textures/item/energized_copper_ingot.png");
 
+    public static final int IMAGE_CYCLE_DELAY = 50;
+
+    private int currentTick;
+
     private PageButton forwardButton;
     private PageButton backButton;
 
@@ -273,8 +277,8 @@ public class EnergizedPowerBookScreen extends Screen {
 
         int yOffset = 0;
 
-        ResourceLocation image = pages.get(currentPage - 1).getImageResourceLocation();
-        ResourceLocation block = pages.get(currentPage - 1).getBlockResourceLocation();
+        ResourceLocation[] images = pages.get(currentPage - 1).getImageResourceLocations();
+        ResourceLocation[] blocks = pages.get(currentPage - 1).getBlockResourceLocations();
 
         Component chapterTitleComponent = pages.get(currentPage - 1).getChapterTitleComponent();
         if(chapterTitleComponent != null) {
@@ -283,10 +287,10 @@ public class EnergizedPowerBookScreen extends Screen {
             yOffset = (int)((230 / scaleFactor - font.lineHeight -
                     (cachedPageComponents == null?0:((cachedPageComponents.size() + 1) * font.lineHeight / scaleFactor))) * .5f);
 
-            if(image != null)
+            if(images != null)
                 yOffset -= 60 * .5f / scaleFactor;
 
-            if(block != null)
+            if(blocks != null)
                 yOffset -= 60 * .5f / scaleFactor;
 
             poseStack.scale(scaleFactor, scaleFactor, 1.f);
@@ -297,14 +301,14 @@ public class EnergizedPowerBookScreen extends Screen {
             yOffset *= scaleFactor;
         }
 
-        if(image != null) {
-            renderImageCentered(poseStack, image, yOffset + 15);
+        if(images != null) {
+            renderImageCentered(poseStack, images[(currentTick / IMAGE_CYCLE_DELAY) % images.length], yOffset + 15);
 
             yOffset += 60;
         }
 
-        if(block != null) {
-            renderBlockCentered(poseStack, block, yOffset + 15);
+        if(blocks != null) {
+            renderBlockCentered(poseStack, blocks[(currentTick / IMAGE_CYCLE_DELAY) % blocks.length], yOffset + 15);
 
             yOffset += 60;
         }
@@ -411,8 +415,8 @@ public class EnergizedPowerBookScreen extends Screen {
 
         //Translate for chapter pages and pages with graphics
         if(currentPage > 0 && currentPage < getPageCount() - 1) { //Ignore front and back cover pages
-            ResourceLocation image = pages.get(currentPage - 1).getImageResourceLocation();
-            ResourceLocation block = pages.get(currentPage - 1).getBlockResourceLocation();
+            ResourceLocation[] images = pages.get(currentPage - 1).getImageResourceLocations();
+            ResourceLocation[] blocks = pages.get(currentPage - 1).getBlockResourceLocations();
 
             Component chapterTitleComponent = pages.get(currentPage - 1).getChapterTitleComponent();
             if(chapterTitleComponent != null) {
@@ -421,10 +425,10 @@ public class EnergizedPowerBookScreen extends Screen {
                 componentY = -(int)((230 / scaleFactor - font.lineHeight -
                         (cachedPageComponents == null?0:((cachedPageComponents.size() + 1) * font.lineHeight / scaleFactor))) * .5f);
 
-                if(image != null)
+                if(images != null)
                     componentY += 60 * .5f / scaleFactor;
 
-                if(block != null)
+                if(blocks != null)
                     componentY += 60 * .5f / scaleFactor;
 
                 componentY *= scaleFactor;
@@ -432,10 +436,10 @@ public class EnergizedPowerBookScreen extends Screen {
                 componentY += Mth.floor(y - 20.);
             }
 
-            if(image != null)
+            if(images != null)
                 componentY -= 60;
 
-            if(block != null)
+            if(blocks != null)
                 componentY -= 60;
 
             if(chapterTitleComponent != null) {
@@ -467,21 +471,26 @@ public class EnergizedPowerBookScreen extends Screen {
         return lecternBlockEntity == null;
     }
 
+    @Override
+    public void tick() {
+        currentTick++;
+    }
+
     @OnlyIn(Dist.CLIENT)
     public static class PageContent {
         private final ResourceLocation pageId;
         private final Component chapterTitleComponent;
         private final Component pageComponent;
-        private final ResourceLocation imageResourceLocation;
-        private final ResourceLocation blockResourceLocation;
+        private final ResourceLocation[] imageResourceLocations;
+        private final ResourceLocation[] blockResourceLocations;
 
         public PageContent(ResourceLocation pageId, Component chapterTitleComponent, Component pageComponent,
-                           ResourceLocation imageResourceLocation, ResourceLocation blockResourceLocation) {
+                           ResourceLocation[] imageResourceLocations, ResourceLocation[] blockResourceLocations) {
             this.pageId = pageId;
             this.chapterTitleComponent = chapterTitleComponent;
             this.pageComponent = pageComponent;
-            this.imageResourceLocation = imageResourceLocation;
-            this.blockResourceLocation = blockResourceLocation;
+            this.imageResourceLocations = imageResourceLocations;
+            this.blockResourceLocations = blockResourceLocations;
         }
 
         public ResourceLocation getPageId() {
@@ -496,12 +505,12 @@ public class EnergizedPowerBookScreen extends Screen {
             return pageComponent;
         }
 
-        public ResourceLocation getImageResourceLocation() {
-            return imageResourceLocation;
+        public ResourceLocation[] getImageResourceLocations() {
+            return imageResourceLocations;
         }
 
-        public ResourceLocation getBlockResourceLocation() {
-            return blockResourceLocation;
+        public ResourceLocation[] getBlockResourceLocations() {
+            return blockResourceLocations;
         }
     }
 }
