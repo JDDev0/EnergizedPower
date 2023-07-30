@@ -8,7 +8,7 @@ import java.util.Locale;
 
 public final class FluidUtils {
     private static final String[] FLUID_PREFIXES = new String[] {
-            "", "k", "M", "G", "T", "P"
+            "", "k", "M", "G", "T", "P", "E"
     };
 
     private FluidUtils() {}
