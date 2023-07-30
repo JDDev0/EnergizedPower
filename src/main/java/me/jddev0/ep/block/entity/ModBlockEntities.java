@@ -76,6 +76,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("uncharger", () -> BlockEntityType.Builder.of(UnchargerBlockEntity::new,
                     ModBlocks.UNCHARGER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<AdvancedUnchargerBlockEntity>> ADVANCED_UNCHARGER_ENTITY =
+            BLOCK_ENTITIES.register("advanced_uncharger", () -> BlockEntityType.Builder.of(AdvancedUnchargerBlockEntity::new,
+                    ModBlocks.ADVANCED_UNCHARGER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<MinecartChargerBlockEntity>> MINECART_CHARGER_ENTITY =
             BLOCK_ENTITIES.register("minecart_charger", () -> BlockEntityType.Builder.of(MinecartChargerBlockEntity::new,
                     ModBlocks.MINECART_CHARGER.get()).build(null));
