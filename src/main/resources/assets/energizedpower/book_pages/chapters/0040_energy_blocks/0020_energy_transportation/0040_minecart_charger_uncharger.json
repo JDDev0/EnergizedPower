@@ -11,6 +11,14 @@
     {
       "translate": "book.energizedpower.page.minecart_charger_uncharger.2",
       "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.minecart_charger_uncharger.3",
+      "bold": true,
       "font": "uniform"
     }
   ],
