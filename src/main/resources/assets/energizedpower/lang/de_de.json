@@ -112,6 +112,10 @@
 
   "tooltip.energizedpower.uncharger.item_energy_left.txt": "Dieses Item hat noch %s.",
 
+  "block.energizedpower.advanced_uncharger": "Fortgeschrittener Entlader",
+  "item.energizedpower.advanced_uncharger": "Fortgeschrittener Entlader",
+  "container.energizedpower.advanced_uncharger": "Fortgeschrittener Entlader",
+
   "block.energizedpower.minecart_charger": "Loren-Lader",
   "item.energizedpower.minecart_charger": "Loren-Lader",
   "container.energizedpower.minecart_charger": "Loren-Lader",
@@ -399,6 +403,9 @@
 
   "advancements.energizedpower.advanced_charger.title": "Paralleles Laden",
   "advancements.energizedpower.advanced_charger.description": "Lade Energie-Items in parallel.",
+
+  "advancements.energizedpower.advanced_uncharger.title": "Paralleles Entladen",
+  "advancements.energizedpower.advanced_uncharger.description": "Entlade Energie-Items in parallel.",
 
   "advancements.energizedpower.charging_station.title": "Wireless Charging",
   "advancements.energizedpower.charging_station.description": "Lade deine Items wireless.",
