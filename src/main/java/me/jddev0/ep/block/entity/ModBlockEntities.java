@@ -150,6 +150,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("advanced_battery_box", () -> BlockEntityType.Builder.of(AdvancedBatteryBoxBlockEntity::new,
                     ModBlocks.ADVANCED_BATTERY_BOX.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<CreativeBatteryBoxBlockEntity>> CREATIVE_BATTERY_BOX_ENTITY =
+            BLOCK_ENTITIES.register("creative_battery_box", () -> BlockEntityType.Builder.of(CreativeBatteryBoxBlockEntity::new,
+                    ModBlocks.CREATIVE_BATTERY_BOX.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<CoalEngineBlockEntity>> COAL_ENGINE_ENTITY =
             BLOCK_ENTITIES.register("coal_engine", () -> BlockEntityType.Builder.of(CoalEngineBlockEntity::new,
                     ModBlocks.COAL_ENGINE.get()).build(null));
