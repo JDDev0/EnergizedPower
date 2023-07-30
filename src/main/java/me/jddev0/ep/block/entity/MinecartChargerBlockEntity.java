@@ -1,7 +1,6 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.MinecartChargerBlock;
-import me.jddev0.ep.block.MinecartUnchargerBlock;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
@@ -71,7 +70,7 @@ public class MinecartChargerBlockEntity extends BlockEntity implements MenuProvi
     }
 
     public int getRedstoneOutput() {
-        BlockPos blockPosFacing = getBlockPos().relative(getBlockState().getValue(MinecartUnchargerBlock.FACING));
+        BlockPos blockPosFacing = getBlockPos().relative(getBlockState().getValue(MinecartChargerBlock.FACING));
         List<AbstractMinecartBatteryBox> minecarts = level.getEntities(
                 EntityTypeTest.forClass(AbstractMinecartBatteryBox.class),
                 new AABB(blockPosFacing.getX(), blockPosFacing.getY(),
