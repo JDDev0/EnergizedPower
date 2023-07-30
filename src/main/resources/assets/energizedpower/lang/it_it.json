@@ -142,6 +142,15 @@
   "block.energizedpower.transformer_n_to_1": "MV Transformer (n to 1)",
   "item.energizedpower.transformer_n_to_1": "MV Transformer (n to 1)",
 
+  "block.energizedpower.hv_transformer_1_to_n": "HV Transformer (1 to n)",
+  "item.energizedpower.hv_transformer_1_to_n": "HV Transformer (1 to n)",
+
+  "block.energizedpower.hv_transformer_3_to_3": "HV Transformer (3 to 3)",
+  "item.energizedpower.hv_transformer_3_to_3": "HV Transformer (3 to 3)",
+
+  "block.energizedpower.hv_transformer_n_to_1": "HV Transformer (n to 1)",
+  "item.energizedpower.hv_transformer_n_to_1": "HV Transformer (n to 1)",
+
   "tooltip.energizedpower.transformer.txt.shift.1": "Questo blocco può essere utilizzato per collegare diversi livelli di cavi.",
   "tooltip.energizedpower.transformer.txt.shift.2": "I lati più grandi, più scuri, a forma di diamante sono ingressi.",
   "tooltip.energizedpower.transformer.txt.shift.3": "I lati più piccoli, più luminosi e di forma quadrata sono le uscite.",

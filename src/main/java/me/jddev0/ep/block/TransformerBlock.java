@@ -117,7 +117,7 @@ public class TransformerBlock extends BaseEntityBlock {
     }
 
     public enum Tier {
-        TIER_MV
+        TIER_MV, TIER_HV
     }
 
     public enum Type {
