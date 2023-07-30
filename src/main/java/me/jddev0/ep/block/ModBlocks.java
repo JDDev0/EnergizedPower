@@ -186,6 +186,11 @@ public final class ModBlocks {
     public static final Item CHARGER_ITEM = createBlockItem("charger",
             new ChargerBlock.Item(CHARGER, new FabricItemSettings()));
 
+    public static final Block ADVANCED_CHARGER = registerBlock("advanced_charger",
+            new AdvancedChargerBlock(FabricBlockSettings.create().
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item ADVANCED_CHARGER_ITEM = createBlockItem("advanced_charger", ADVANCED_CHARGER);
+
     public static final Block UNCHARGER = registerBlock("uncharger",
             new UnchargerBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
