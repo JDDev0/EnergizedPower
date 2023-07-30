@@ -1,6 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.TransformerBlockEntity;
+import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -111,6 +112,10 @@ public class TransformerBlock extends BlockWithEntity {
         @Override
         public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
             if(Screen.hasShiftDown()) {
+                tooltip.add(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
+                                EnergyUtils.getEnergyWithPrefix(TransformerBlockEntity.getMaxEnergyTransferFromTier(tier))).
+                        formatted(Formatting.GRAY));
+                tooltip.add(Text.empty());
                 tooltip.add(Text.translatable("tooltip.energizedpower.transformer.txt.shift.1").formatted(Formatting.GRAY));
                 tooltip.add(Text.translatable("tooltip.energizedpower.transformer.txt.shift.2").
                         formatted(Formatting.GRAY, Formatting.ITALIC));
