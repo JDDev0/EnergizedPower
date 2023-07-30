@@ -206,6 +206,11 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item MINECART_CHARGER_ITEM = createBlockItem("minecart_charger", MINECART_CHARGER);
 
+    public static final Block ADVANCED_MINECART_CHARGER = registerBlock("advanced_minecart_charger",
+            new AdvancedMinecartChargerBlock(FabricBlockSettings.create().
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item ADVANCED_MINECART_CHARGER_ITEM = createBlockItem("advanced_minecart_charger", ADVANCED_MINECART_CHARGER);
+
     public static final Block MINECART_UNCHARGER = registerBlock("minecart_uncharger",
             new MinecartUnchargerBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

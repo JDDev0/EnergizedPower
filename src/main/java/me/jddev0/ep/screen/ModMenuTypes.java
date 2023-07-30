@@ -83,6 +83,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<MinecartChargerMenu> MINECART_CHARGER_MENU = createScreenHandlerType("minecart_charger",
             new ExtendedScreenHandlerType<>(MinecartChargerMenu::new));
 
+    public static final ScreenHandlerType<AdvancedMinecartChargerMenu> ADVANCED_MINECART_CHARGER_MENU = createScreenHandlerType("advanced_minecart_charger",
+            new ExtendedScreenHandlerType<>(AdvancedMinecartChargerMenu::new));
+
     public static final ScreenHandlerType<MinecartUnchargerMenu> MINECART_UNCHARGER_MENU = createScreenHandlerType("minecart_uncharger",
             new ExtendedScreenHandlerType<>(MinecartUnchargerMenu::new));
 
