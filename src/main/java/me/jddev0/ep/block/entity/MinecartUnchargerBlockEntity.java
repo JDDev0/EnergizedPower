@@ -1,6 +1,5 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.MinecartChargerBlock;
 import me.jddev0.ep.block.MinecartUnchargerBlock;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
@@ -89,7 +88,7 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements Extende
     }
 
     public int getRedstoneOutput() {
-        BlockPos blockPosFacing = getPos().offset(getCachedState().get(MinecartChargerBlock.FACING));
+        BlockPos blockPosFacing = getPos().offset(getCachedState().get(MinecartUnchargerBlock.FACING));
         List<AbstractMinecartBatteryBox> minecarts = world.getEntitiesByType(TypeFilter.instanceOf(AbstractMinecartBatteryBox.class),
                 new Box(blockPosFacing.getX(), blockPosFacing.getY(),
                         blockPosFacing.getZ(), blockPosFacing.getX() + 1,
