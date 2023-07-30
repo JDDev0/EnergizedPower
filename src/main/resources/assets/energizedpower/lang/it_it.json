@@ -724,7 +724,8 @@
 
   "book.energizedpower.page.fluid_filler_fluid_drainer": "Il Riempitivo fluido può riempire fluidi negli articoli e il Drenaggio fluido può drenare fluidi dagli articoli.",
 
-  "book.energizedpower.page.charger_uncharger": "Il caricatore può caricare oggetti e lo scaricatore può scaricare oggetti.",
+  "book.energizedpower.page.charger_uncharger.1": "Il caricatore può caricare oggetti e lo scaricatore può scaricare oggetti.",
+  "book.energizedpower.page.charger_uncharger.2": "The advanced version of the Charger and the Uncharger have 3 slots.",
 
   "book.energizedpower.page.charging_station": "La stazione di ricarica può caricare gli articoli in modalità wireless.",
 
