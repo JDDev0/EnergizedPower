@@ -190,6 +190,22 @@ public final class ModBlockEntities {
             TransformerBlockEntity::getEnergyStorageForDirection
     );
 
+    public static final BlockEntityType<TransformerBlockEntity> HV_TRANSFORMER_1_TO_N_ENTITY = registerEnergyStorage(
+            createBlockEntity("hv_transformer_1_to_n", ModBlocks.HV_TRANSFORMER_1_TO_N, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_1_TO_N)),
+            TransformerBlockEntity::getEnergyStorageForDirection
+    );
+    public static final BlockEntityType<TransformerBlockEntity> HV_TRANSFORMER_3_TO_3_ENTITY = registerEnergyStorage(
+            createBlockEntity("hv_transformer_3_to_3", ModBlocks.HV_TRANSFORMER_3_TO_3, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_3_TO_3)),
+            TransformerBlockEntity::getEnergyStorageForDirection
+    );
+    public static final BlockEntityType<TransformerBlockEntity> HV_TRANSFORMER_N_TO_1_ENTITY = registerEnergyStorage(
+            createBlockEntity("hv_transformer_n_to_1", ModBlocks.HV_TRANSFORMER_N_TO_1, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_N_TO_1)),
+            TransformerBlockEntity::getEnergyStorageForDirection
+    );
+
     public static final BlockEntityType<BatteryBoxBlockEntity> BATTERY_BOX_ENTITY = registerEnergyStorage(
             createBlockEntity("battery_box", ModBlocks.BATTERY_BOX, BatteryBoxBlockEntity::new),
             (blockEntity, direction) -> blockEntity.energyStorage

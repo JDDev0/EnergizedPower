@@ -123,7 +123,7 @@ public class TransformerBlock extends BlockWithEntity {
     }
 
     public enum Tier {
-        TIER_MV
+        TIER_MV, TIER_HV
     }
 
     public enum Type {
