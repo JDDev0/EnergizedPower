@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "tag": "c:silicon"
+    },
+    "C": {
+      "tag": "c:energized_copper_plates"
+    },
+    "G": {
+      "tag": "c:energized_gold_plates"
+    },
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    },
+    "U": {
+      "item": "energizedpower:uncharger"
+    }
+  },
+  "pattern": [
+    "GUG",
+    "CAC",
+    "SGS"
+  ],
+  "result": {
+    "item": "energizedpower:advanced_uncharger"
+  }
+}
