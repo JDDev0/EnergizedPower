@@ -22,7 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TransformerBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
-    public static final long MAX_ENERGY_TRANSFER = 1048576;
+    public static final long MAX_ENERGY_TRANSFER = 65536;
 
     private final TransformerBlock.Type type;
 
