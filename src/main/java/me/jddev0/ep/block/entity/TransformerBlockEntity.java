@@ -22,28 +22,41 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TransformerBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
-    public static final long MAX_ENERGY_TRANSFER = 65536;
+    private final long maxTransferRate;
 
+    private final TransformerBlock.Tier tier;
     private final TransformerBlock.Type type;
 
     final LimitingEnergyStorage energyStorageInsert;
     final LimitingEnergyStorage energyStorageExtract;
     private final SimpleEnergyStorage internalEnergyStorage;
 
-    public static BlockEntityType<TransformerBlockEntity> getEntityTypeFromType(TransformerBlock.Type type) {
-        return switch(type) {
-            case TYPE_1_TO_N -> ModBlockEntities.TRANSFORMER_1_TO_N_ENTITY;
-            case TYPE_3_TO_3 -> ModBlockEntities.TRANSFORMER_3_TO_3_ENTITY;
-            case TYPE_N_TO_1 -> ModBlockEntities.TRANSFORMER_N_TO_1_ENTITY;
+    public static BlockEntityType<TransformerBlockEntity> getEntityTypeFromTierAndType(TransformerBlock.Tier tier,
+                                                                                       TransformerBlock.Type type) {
+        return switch(tier) {
+            case TIER_MV -> switch (type) {
+                case TYPE_1_TO_N -> ModBlockEntities.MV_TRANSFORMER_1_TO_N_ENTITY;
+                case TYPE_3_TO_3 -> ModBlockEntities.MV_TRANSFORMER_3_TO_3_ENTITY;
+                case TYPE_N_TO_1 -> ModBlockEntities.MV_TRANSFORMER_N_TO_1_ENTITY;
+            };
         };
     }
 
-    public TransformerBlockEntity(BlockPos blockPos, BlockState blockState, TransformerBlock.Type type) {
-        super(getEntityTypeFromType(type), blockPos, blockState);
+    public static long getMaxEnergyTransferFromTier(TransformerBlock.Tier tier) {
+        return switch(tier) {
+            case TIER_MV -> 65536;
+        };
+    }
 
+    public TransformerBlockEntity(BlockPos blockPos, BlockState blockState, TransformerBlock.Tier tier, TransformerBlock.Type type) {
+        super(getEntityTypeFromTierAndType(tier, type), blockPos, blockState);
+
+        this.tier = tier;
         this.type = type;
 
-        internalEnergyStorage = new SimpleEnergyStorage(MAX_ENERGY_TRANSFER, MAX_ENERGY_TRANSFER, MAX_ENERGY_TRANSFER) {
+        maxTransferRate = getMaxEnergyTransferFromTier(this.tier);
+
+        internalEnergyStorage = new SimpleEnergyStorage(maxTransferRate, maxTransferRate, maxTransferRate) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
@@ -58,12 +71,16 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
                 }
             }
         };
-        energyStorageInsert = new LimitingEnergyStorage(internalEnergyStorage, MAX_ENERGY_TRANSFER, 0);
-        energyStorageExtract = new LimitingEnergyStorage(internalEnergyStorage, 0, MAX_ENERGY_TRANSFER);
+        energyStorageInsert = new LimitingEnergyStorage(internalEnergyStorage, maxTransferRate, 0);
+        energyStorageExtract = new LimitingEnergyStorage(internalEnergyStorage, 0, maxTransferRate);
     }
 
     public TransformerBlock.Type getTransformerType() {
         return type;
+    }
+
+    public TransformerBlock.Tier getTier() {
+        return tier;
     }
 
     EnergyStorage getEnergyStorageForDirection(Direction side) {
@@ -159,7 +176,7 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
                 continue;
 
             try(Transaction transaction = Transaction.openOuter()) {
-                long received = energyStorage.insert(Math.min(MAX_ENERGY_TRANSFER, blockEntity.internalEnergyStorage.amount), transaction);
+                long received = energyStorage.insert(Math.min(blockEntity.maxTransferRate, blockEntity.internalEnergyStorage.amount), transaction);
 
                 if(received <= 0)
                     continue;
@@ -174,7 +191,7 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0L);
 
-        long consumptionLeft = Math.min(MAX_ENERGY_TRANSFER, Math.min(blockEntity.internalEnergyStorage.amount, consumptionSum));
+        long consumptionLeft = Math.min(blockEntity.maxTransferRate, Math.min(blockEntity.internalEnergyStorage.amount, consumptionSum));
         try(Transaction transaction = Transaction.openOuter()) {
             blockEntity.internalEnergyStorage.extract(consumptionLeft, transaction);
             transaction.commit();

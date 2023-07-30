@@ -133,14 +133,14 @@
   "tooltip.energizedpower.cable.txt.shift.2": "Gli isolanti per cavi possono essere realizzati facendo clic su un blocco di lana con le cesoie.",
 
 
-  "block.energizedpower.transformer_1_to_n": "Trasformatore (1 to n)",
-  "item.energizedpower.transformer_1_to_n": "Trasformatore (1 to n)",
+  "block.energizedpower.transformer_1_to_n": "MV Transformer (1 to n)",
+  "item.energizedpower.transformer_1_to_n": "MV Transformer (1 to n)",
 
-  "block.energizedpower.transformer_3_to_3": "Trasformatore (3 to 3)",
-  "item.energizedpower.transformer_3_to_3": "Trasformatore (3 to 3)",
+  "block.energizedpower.transformer_3_to_3": "MV Transformer (3 to 3)",
+  "item.energizedpower.transformer_3_to_3": "MV Transformer (3 to 3)",
 
-  "block.energizedpower.transformer_n_to_1": "Trasformatore (n to 1)",
-  "item.energizedpower.transformer_n_to_1": "Trasformatore (n to 1)",
+  "block.energizedpower.transformer_n_to_1": "MV Transformer (n to 1)",
+  "item.energizedpower.transformer_n_to_1": "MV Transformer (n to 1)",
 
   "tooltip.energizedpower.transformer.txt.shift.1": "Questo blocco può essere utilizzato per collegare diversi livelli di cavi.",
   "tooltip.energizedpower.transformer.txt.shift.2": "I lati più grandi, più scuri, a forma di diamante sono ingressi.",
