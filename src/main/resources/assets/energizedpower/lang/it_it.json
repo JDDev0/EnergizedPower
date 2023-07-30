@@ -661,6 +661,7 @@
 
   "book.energizedpower.page.minecart_charger_uncharger.1": "Il caricatore del carrello da miniera può caricare il carrello da miniera con il contenitore della batteria e lo scaricatore può scaricarlo.",
   "book.energizedpower.page.minecart_charger_uncharger.2": "Un comparatore Redstone può essere utilizzato per ottenere l'attuale livello di potenza di un carrello da miniera che viene caricato o scaricato.",
+  "book.energizedpower.page.minecart_charger_uncharger.3": "The Advanced versions have a higher transfer rate.",
 
 
   "book.energizedpower.page.chapter.energy_blocks.energy_storage.title": "Immagazzinamento",
