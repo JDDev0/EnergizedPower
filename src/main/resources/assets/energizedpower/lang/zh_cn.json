@@ -133,14 +133,14 @@
   "tooltip.energizedpower.cable.txt.shift.2": "Cable insulators can be crafted by clicking on a wool block with shears.",
 
 
-  "block.energizedpower.transformer_1_to_n": "变压器（1 对 n）",
-  "item.energizedpower.transformer_1_to_n": "变压器（1 对 n）",
+  "block.energizedpower.transformer_1_to_n": "MV Transformer (1 to n)",
+  "item.energizedpower.transformer_1_to_n": "MV Transformer (1 to n)",
 
-  "block.energizedpower.transformer_3_to_3": "变压器（3 对 3）",
-  "item.energizedpower.transformer_3_to_3": "变压器（3 对 3）",
+  "block.energizedpower.transformer_3_to_3": "MV Transformer (3 to 3)",
+  "item.energizedpower.transformer_3_to_3": "MV Transformer (3 to 3)",
 
-  "block.energizedpower.transformer_n_to_1": "变压器（n 对 1）",
-  "item.energizedpower.transformer_n_to_1": "变压器（n 对 1）",
+  "block.energizedpower.transformer_n_to_1": "MV Transformer (n to 1)",
+  "item.energizedpower.transformer_n_to_1": "MV Transformer (n to 1)",
 
   "tooltip.energizedpower.transformer.txt.shift.1": "本方块可以链接不同类型的电缆。",
   "tooltip.energizedpower.transformer.txt.shift.2": "输入面是深色的，有一个较大的菱形。",

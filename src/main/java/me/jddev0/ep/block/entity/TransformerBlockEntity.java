@@ -24,41 +24,66 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TransformerBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
-    public static final int MAX_ENERGY_TRANSFER = 65536;
+    private final int maxTransferRate;
 
+    private final TransformerBlock.Tier tier;
     private final TransformerBlock.Type type;
 
-    private final ReceiveAndExtractEnergyStorage energyStorage = new ReceiveAndExtractEnergyStorage(0, MAX_ENERGY_TRANSFER, MAX_ENERGY_TRANSFER) {
-        @Override
-        protected void onChange() {
-            setChanged();
-
-            if(level != null && !level.isClientSide())
-                ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
-        }
-    };
+    private final ReceiveAndExtractEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
-    private final LazyOptional<IEnergyStorage> lazyEnergyStorageSidedReceive = LazyOptional.of(
-            () -> new ReceiveExtractEnergyHandler(energyStorage, (maxReceive, simulate) -> true, (maxExtract, simulate) -> false));
-    private final LazyOptional<IEnergyStorage> lazyEnergyStorageSidedExtract = LazyOptional.of(
-            () -> new ReceiveExtractEnergyHandler(energyStorage, (maxReceive, simulate) -> false, (maxExtract, simulate) -> true));
+    private final LazyOptional<IEnergyStorage> lazyEnergyStorageSidedReceive;
+    private final LazyOptional<IEnergyStorage> lazyEnergyStorageSidedExtract;
 
-    public static BlockEntityType<TransformerBlockEntity> getEntityTypeFromType(TransformerBlock.Type type) {
-        return switch(type) {
-            case TYPE_1_TO_N -> ModBlockEntities.TRANSFORMER_1_TO_N_ENTITY.get();
-            case TYPE_3_TO_3 -> ModBlockEntities.TRANSFORMER_3_TO_3_ENTITY.get();
-            case TYPE_N_TO_1 -> ModBlockEntities.TRANSFORMER_N_TO_1_ENTITY.get();
+    public static BlockEntityType<TransformerBlockEntity> getEntityTypeFromTierAndType(TransformerBlock.Tier tier,
+                                                                                       TransformerBlock.Type type) {
+        return switch(tier) {
+            case TIER_MV -> switch(type) {
+                case TYPE_1_TO_N -> ModBlockEntities.MV_TRANSFORMER_1_TO_N_ENTITY.get();
+                case TYPE_3_TO_3 -> ModBlockEntities.MV_TRANSFORMER_3_TO_3_ENTITY.get();
+                case TYPE_N_TO_1 -> ModBlockEntities.MV_TRANSFORMER_N_TO_1_ENTITY.get();
+            };
         };
     }
 
-    public TransformerBlockEntity(BlockPos blockPos, BlockState blockState, TransformerBlock.Type type) {
-        super(getEntityTypeFromType(type), blockPos, blockState);
+    public static int getMaxEnergyTransferFromTier(TransformerBlock.Tier tier) {
+        return switch(tier) {
+            case TIER_MV -> 65536;
+        };
+    }
 
+    public TransformerBlockEntity(BlockPos blockPos, BlockState blockState, TransformerBlock.Tier tier, TransformerBlock.Type type) {
+        super(getEntityTypeFromTierAndType(tier, type), blockPos, blockState);
+
+        this.tier = tier;
         this.type = type;
+
+        maxTransferRate = getMaxEnergyTransferFromTier(this.tier);
+
+        energyStorage = new ReceiveAndExtractEnergyStorage(0, maxTransferRate, maxTransferRate) {
+            @Override
+            protected void onChange() {
+                setChanged();
+
+                if(level != null && !level.isClientSide())
+                    ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
+            }
+        };
+
+        lazyEnergyStorageSidedReceive = LazyOptional.of(
+                () -> new ReceiveExtractEnergyHandler(energyStorage, (maxReceive, simulate) -> true, (maxExtract, simulate) -> false)
+        );
+
+        lazyEnergyStorageSidedExtract = LazyOptional.of(
+                () -> new ReceiveExtractEnergyHandler(energyStorage, (maxReceive, simulate) -> false, (maxExtract, simulate) -> true)
+        );
     }
 
     public TransformerBlock.Type getTransformerType() {
         return type;
+    }
+
+    public TransformerBlock.Tier getTier() {
+        return tier;
     }
 
     @Override
@@ -176,7 +201,7 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
             if(!energyStorage.canReceive())
                 continue;
 
-            int received = energyStorage.receiveEnergy(Math.min(MAX_ENERGY_TRANSFER, blockEntity.energyStorage.getEnergy()), true);
+            int received = energyStorage.receiveEnergy(Math.min(blockEntity.maxTransferRate, blockEntity.energyStorage.getEnergy()), true);
             if(received <= 0)
                 continue;
 
@@ -189,7 +214,7 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 
-        int consumptionLeft = Math.min(MAX_ENERGY_TRANSFER, Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
+        int consumptionLeft = Math.min(blockEntity.maxTransferRate, Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
         blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
 
         int divisor = consumerItems.size();
