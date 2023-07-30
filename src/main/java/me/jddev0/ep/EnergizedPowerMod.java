@@ -119,6 +119,7 @@ public class EnergizedPowerMod {
 
             event.accept(ModBlocks.BATTERY_BOX_ITEM);
             event.accept(ModBlocks.ADVANCED_BATTERY_BOX_ITEM);
+            event.accept(ModBlocks.CREATIVE_BATTERY_BOX_ITEM);
 
             event.accept(ModBlocks.POWERED_FURNACE_ITEM);
             event.accept(ModBlocks.AUTO_CRAFTER_ITEM);
