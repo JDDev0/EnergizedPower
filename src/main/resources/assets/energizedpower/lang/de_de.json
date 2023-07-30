@@ -133,14 +133,14 @@
   "tooltip.energizedpower.cable.txt.shift.2": "Kabelinsulatoren können durch das Klicken auf einen Wolleblock mit einer Schere hergestellt werden.",
 
 
-  "block.energizedpower.transformer_1_to_n": "Trafo (1 zu n)",
-  "item.energizedpower.transformer_1_to_n": "Trafo (1 zu n)",
+  "block.energizedpower.transformer_1_to_n": "MV-Trafo (1 zu n)",
+  "item.energizedpower.transformer_1_to_n": "MV-Trafo (1 zu n)",
 
-  "block.energizedpower.transformer_3_to_3": "Trafo (3 zu 3)",
-  "item.energizedpower.transformer_3_to_3": "Trafo (3 zu 3)",
+  "block.energizedpower.transformer_3_to_3": "MV-Trafo (3 zu 3)",
+  "item.energizedpower.transformer_3_to_3": "MV-Trafo (3 zu 3)",
 
-  "block.energizedpower.transformer_n_to_1": "Trafo (n zu 1)",
-  "item.energizedpower.transformer_n_to_1": "Trafo (n zu 1)",
+  "block.energizedpower.transformer_n_to_1": "MV-Trafo (n zu 1)",
+  "item.energizedpower.transformer_n_to_1": "MV-Trafo (n zu 1)",
 
   "tooltip.energizedpower.transformer.txt.shift.1": "Dieser Block kann verschiedene Kabeltypen verbinden.",
   "tooltip.energizedpower.transformer.txt.shift.2": "Die größeren, dunkleren, Rauten-förmigen Seiten sind Eingänge.",

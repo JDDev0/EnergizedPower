@@ -61,26 +61,29 @@ public final class ModBlocks {
     public static final RegistryObject<Item> ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM = ModItems.ITEMS.register("energized_crystal_matrix_cable",
             () -> new CableBlock.Item(ENERGIZED_CRYSTAL_MATRIX_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_ENERGIZED_CRYSTAL_MATRIX));
 
-    public static final RegistryObject<TransformerBlock> TRANSFORMER_1_TO_N = BLOCKS.register("transformer_1_to_n",
+    public static final RegistryObject<TransformerBlock> MV_TRANSFORMER_1_TO_N = BLOCKS.register("transformer_1_to_n",
             () -> new TransformerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
-                    TransformerBlock.Type.TYPE_1_TO_N));
-    public static final RegistryObject<Item> TRANSFORMER_1_TO_N_ITEM = ModItems.ITEMS.register("transformer_1_to_n",
-            () -> new TransformerBlock.Item(TRANSFORMER_1_TO_N.get(), new Item.Properties(), TransformerBlock.Type.TYPE_1_TO_N));
+                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_1_TO_N));
+    public static final RegistryObject<Item> MV_TRANSFORMER_1_TO_N_ITEM = ModItems.ITEMS.register("transformer_1_to_n",
+            () -> new TransformerBlock.Item(MV_TRANSFORMER_1_TO_N.get(), new Item.Properties(),
+                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_1_TO_N));
 
-    public static final RegistryObject<TransformerBlock> TRANSFORMER_3_TO_3 = BLOCKS.register("transformer_3_to_3",
+    public static final RegistryObject<TransformerBlock> MV_TRANSFORMER_3_TO_3 = BLOCKS.register("transformer_3_to_3",
             () -> new TransformerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
-                    TransformerBlock.Type.TYPE_3_TO_3));
-    public static final RegistryObject<Item> TRANSFORMER_3_TO_3_ITEM = ModItems.ITEMS.register("transformer_3_to_3",
-            () -> new TransformerBlock.Item(TRANSFORMER_3_TO_3.get(), new Item.Properties(), TransformerBlock.Type.TYPE_3_TO_3));
+                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_3_TO_3));
+    public static final RegistryObject<Item> MV_TRANSFORMER_3_TO_3_ITEM = ModItems.ITEMS.register("transformer_3_to_3",
+            () -> new TransformerBlock.Item(MV_TRANSFORMER_3_TO_3.get(), new Item.Properties(),
+                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_3_TO_3));
 
-    public static final RegistryObject<TransformerBlock> TRANSFORMER_N_TO_1 = BLOCKS.register("transformer_n_to_1",
+    public static final RegistryObject<TransformerBlock> MV_TRANSFORMER_N_TO_1 = BLOCKS.register("transformer_n_to_1",
             () -> new TransformerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
-                    TransformerBlock.Type.TYPE_N_TO_1));
-    public static final RegistryObject<Item> TRANSFORMER_N_TO_1_ITEM = ModItems.ITEMS.register("transformer_n_to_1",
-            () -> new TransformerBlock.Item(TRANSFORMER_N_TO_1.get(), new Item.Properties(), TransformerBlock.Type.TYPE_N_TO_1));
+                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_N_TO_1));
+    public static final RegistryObject<Item> MV_TRANSFORMER_N_TO_1_ITEM = ModItems.ITEMS.register("transformer_n_to_1",
+            () -> new TransformerBlock.Item(MV_TRANSFORMER_N_TO_1.get(), new Item.Properties(),
+                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_N_TO_1));
 
     public static final RegistryObject<Block> BATTERY_BOX = BLOCKS.register("battery_box",
             () -> new BatteryBoxBlock(BlockBehaviour.Properties.of(Material.METAL).
