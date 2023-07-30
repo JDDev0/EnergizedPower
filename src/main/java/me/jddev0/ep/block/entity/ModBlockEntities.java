@@ -68,6 +68,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("charger", () -> BlockEntityType.Builder.of(ChargerBlockEntity::new,
                     ModBlocks.CHARGER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<AdvancedChargerBlockEntity>> ADVANCED_CHARGER_ENTITY =
+            BLOCK_ENTITIES.register("advanced_charger", () -> BlockEntityType.Builder.of(AdvancedChargerBlockEntity::new,
+                    ModBlocks.ADVANCED_CHARGER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<UnchargerBlockEntity>> UNCHARGER_ENTITY =
             BLOCK_ENTITIES.register("uncharger", () -> BlockEntityType.Builder.of(UnchargerBlockEntity::new,
                     ModBlocks.UNCHARGER.get()).build(null));

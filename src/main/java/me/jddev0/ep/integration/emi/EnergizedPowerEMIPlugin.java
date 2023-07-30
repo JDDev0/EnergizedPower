@@ -35,6 +35,7 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
         registry.addCategory(ChargerEMIRecipe.CATEGORY);
         registry.addWorkstation(ChargerEMIRecipe.CATEGORY, ChargerEMIRecipe.ITEM);
+        registry.addWorkstation(ChargerEMIRecipe.CATEGORY, EmiStack.of(ModBlocks.ADVANCED_CHARGER_ITEM.get()));
 
         registry.addCategory(CrusherEMIRecipe.CATEGORY);
         registry.addWorkstation(CrusherEMIRecipe.CATEGORY, CrusherEMIRecipe.ITEM);
