@@ -724,7 +724,8 @@
 
   "book.energizedpower.page.fluid_filler_fluid_drainer": "The Fluid Filler can fill fluids into items and the Fluid Drainer can drain fluids from items.",
 
-  "book.energizedpower.page.charger_uncharger": "充能站可以为物品充能，放能站可以将物品中的能量释放到网络中。",
+  "book.energizedpower.page.charger_uncharger.1": "充能站可以为物品充能，放能站可以将物品中的能量释放到网络中。",
+  "book.energizedpower.page.charger_uncharger.2": "The advanced version of the Charger and the Uncharger have 3 slots.",
 
   "book.energizedpower.page.charging_station": "无线充能站可以在一定的范围内为玩家物品栏中的物品充能。",
 

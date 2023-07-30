@@ -724,7 +724,8 @@
 
   "book.energizedpower.page.fluid_filler_fluid_drainer": "The Fluid Filler can fill fluids into items and the Fluid Drainer can drain fluids from items.",
 
-  "book.energizedpower.page.charger_uncharger": "The Charger can charge items and the Uncharger can uncharge items.",
+  "book.energizedpower.page.charger_uncharger.1": "The Charger can charge items and the Uncharger can uncharge items.",
+  "book.energizedpower.page.charger_uncharger.2": "The advanced version of the Charger and the Uncharger have 3 slots.",
 
   "book.energizedpower.page.charging_station": "The Charging Station can charge items wirelessly.",
 
