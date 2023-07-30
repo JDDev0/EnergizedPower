@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_advanced_uncharger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:advanced_uncharger" ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "energizedpower:crafting/advanced_minecart_uncharger"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_advanced_uncharger",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "energizedpower:crafting/advanced_minecart_uncharger"
+    ]
+  }
+}

@@ -228,6 +228,11 @@ public final class ModBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final RegistryObject<Item> MINECART_UNCHARGER_ITEM = createBlockItem("minecart_uncharger", MINECART_UNCHARGER);
 
+    public static final RegistryObject<Block> ADVANCED_MINECART_UNCHARGER = BLOCKS.register("advanced_minecart_uncharger",
+            () -> new AdvancedMinecartUnchargerBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> ADVANCED_MINECART_UNCHARGER_ITEM = createBlockItem("advanced_minecart_uncharger", ADVANCED_MINECART_UNCHARGER);
+
 
     private static RegistryObject<Item> createSolarPanelBlockItem(String name, RegistryObject<SolarPanelBlock> blockRegistryObject) {
         return ModItems.ITEMS.register(name, () -> new SolarPanelBlock.Item(blockRegistryObject.get(), new Item.Properties(),
