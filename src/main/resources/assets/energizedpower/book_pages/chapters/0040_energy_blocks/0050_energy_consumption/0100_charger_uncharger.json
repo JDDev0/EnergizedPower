@@ -1,11 +1,22 @@
 {
-  "content": {
-    "translate": "book.energizedpower.page.charger_uncharger",
-    "bold": true,
-    "font": "uniform"
-  },
+  "content": [
+    {
+      "translate": "book.energizedpower.page.charger_uncharger.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    }, {
+      "translate": "book.energizedpower.page.charger_uncharger.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
   "block": [
-    "energizedpower:charger",
-    "energizedpower:uncharger"
+    "energizedpower:charger", "energizedpower:uncharger",
+    "energizedpower:advanced_charger", "energizedpower:advanced_uncharger"
   ]
 }
