@@ -136,6 +136,7 @@ public class EnergizedPowerMod implements ModInitializer {
 		addEmptyAndFullyChargedItem(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.BATTERY_6, BatteryItem.Tier.BATTERY_6.getCapacity());
 		addEmptyAndFullyChargedItem(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.BATTERY_7, BatteryItem.Tier.BATTERY_7.getCapacity());
 		addEmptyAndFullyChargedItem(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.BATTERY_8, BatteryItem.Tier.BATTERY_8.getCapacity());
+        addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.CREATIVE_BATTERY);
 
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.BATTERY_BOX_MINECART);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.ADVANCED_BATTERY_BOX_MINECART);

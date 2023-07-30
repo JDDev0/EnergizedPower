@@ -1,12 +1,14 @@
 package me.jddev0.ep.item;
 
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.energy.InfinityEnergyStorage;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import team.reborn.energy.api.EnergyStorage;
 
 public final class ModItems {
     private ModItems() {}
@@ -86,6 +88,17 @@ public final class ModItems {
             new BatteryItem(BatteryItem.Tier.BATTERY_7));
     public static final Item BATTERY_8 = registerItem("battery_8",
             new BatteryItem(BatteryItem.Tier.BATTERY_8));
+    public static final Item CREATIVE_BATTERY = registerItem("creative_battery",
+            new CreativeBatteryItem(new FabricItemSettings().maxCount(1)));
+    //Register energy storage for creative battery
+    static {
+        EnergyStorage.ITEM.registerFallback((stack, ctx) -> {
+            if(stack.getItem() instanceof CreativeBatteryItem)
+                return new InfinityEnergyStorage();
+
+            return null;
+        });
+    }
 
     public static final Item ENERGY_ANALYZER = registerItem("energy_analyzer",
             new EnergyAnalyzerItem(new FabricItemSettings().maxCount(1)));

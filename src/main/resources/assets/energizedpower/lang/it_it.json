@@ -51,6 +51,8 @@
   "item.energizedpower.battery_8": "Batteria (Livello VIII)",
   "tooltip.energizedpower.battery.txt.shift.1": "Questa batteria può trasferire %s/t.",
 
+  "item.energizedpower.creative_battery": "Creative Battery",
+
   "item.energizedpower.energy_analyzer": "Analizzatore di energia",
   "tooltip.energizedpower.energy_analyzer.txt.shift.1": "Fare clic su un blocco di energia per recuperare informazioni.",
   "tooltip.energizedpower.energy_analyzer.txt.shift.2": "%s sarà consumato per uso",
