@@ -661,6 +661,7 @@
 
   "book.energizedpower.page.minecart_charger_uncharger.1": "The Minecart Charger can charge the Minecart with Battery Box and the Uncharger can uncharge it.",
   "book.energizedpower.page.minecart_charger_uncharger.2": "A Redstone Comparator can be used to get the current power level of a Minecart which is being charged or uncharged.",
+  "book.energizedpower.page.minecart_charger_uncharger.3": "The Advanced versions have a higher transfer rate.",
 
 
   "book.energizedpower.page.chapter.energy_blocks.energy_storage.title": "Storage",
