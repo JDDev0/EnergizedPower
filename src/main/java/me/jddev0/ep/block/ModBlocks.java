@@ -56,28 +56,28 @@ public final class ModBlocks {
 
     private static Item createTransformerBlockItem(String name, TransformerBlock block) {
         return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
-                new TransformerBlock.Item(block, new FabricItemSettings(), block.getTransformerType()));
+                new TransformerBlock.Item(block, new FabricItemSettings(), block.getTier(), block.getTransformerType()));
     }
-    public static final TransformerBlock TRANSFORMER_1_TO_N = registerBlock("transformer_1_to_n",
+    public static final TransformerBlock MV_TRANSFORMER_1_TO_N = registerBlock("transformer_1_to_n",
             new TransformerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
-                    TransformerBlock.Type.TYPE_1_TO_N));
-    public static final Item TRANSFORMER_1_TO_N_ITEM = createTransformerBlockItem("transformer_1_to_n",
-            TRANSFORMER_1_TO_N);
+                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_1_TO_N));
+    public static final Item MV_TRANSFORMER_1_TO_N_ITEM = createTransformerBlockItem("transformer_1_to_n",
+            MV_TRANSFORMER_1_TO_N);
 
-    public static final TransformerBlock TRANSFORMER_3_TO_3 = registerBlock("transformer_3_to_3",
+    public static final TransformerBlock MV_TRANSFORMER_3_TO_3 = registerBlock("transformer_3_to_3",
             new TransformerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
-                    TransformerBlock.Type.TYPE_3_TO_3));
-    public static final Item TRANSFORMER_3_TO_3_ITEM = createTransformerBlockItem("transformer_3_to_3",
-            TRANSFORMER_3_TO_3);
+                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_3_TO_3));
+    public static final Item MV_TRANSFORMER_3_TO_3_ITEM = createTransformerBlockItem("transformer_3_to_3",
+            MV_TRANSFORMER_3_TO_3);
 
-    public static final TransformerBlock TRANSFORMER_N_TO_1 = registerBlock("transformer_n_to_1",
+    public static final TransformerBlock MV_TRANSFORMER_N_TO_1 = registerBlock("transformer_n_to_1",
             new TransformerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
-                    TransformerBlock.Type.TYPE_N_TO_1));
-    public static final Item TRANSFORMER_N_TO_1_ITEM = createTransformerBlockItem("transformer_n_to_1",
-            TRANSFORMER_N_TO_1);
+                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_N_TO_1));
+    public static final Item MV_TRANSFORMER_N_TO_1_ITEM = createTransformerBlockItem("transformer_n_to_1",
+            MV_TRANSFORMER_N_TO_1);
 
     public static final Block AUTO_CRAFTER = registerBlock("auto_crafter",
             new AutoCrafterBlock(FabricBlockSettings.of(Material.METAL).
