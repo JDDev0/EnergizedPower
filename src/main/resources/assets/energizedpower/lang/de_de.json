@@ -120,6 +120,10 @@
   "item.energizedpower.minecart_charger": "Loren-Lader",
   "container.energizedpower.minecart_charger": "Loren-Lader",
 
+  "block.energizedpower.advanced_minecart_charger": "Fortgeschrittener Loren-Lader",
+  "item.energizedpower.advanced_minecart_charger": "Fortgeschrittener Loren-Lader",
+  "container.energizedpower.advanced_minecart_charger": "Fortgeschrittener Loren-Lader",
+
   "block.energizedpower.minecart_uncharger": "Loren-Entlader",
   "item.energizedpower.minecart_uncharger": "Loren-Entlader",
   "container.energizedpower.minecart_uncharger": "Loren-Entlader",
@@ -532,6 +536,9 @@
 
   "advancements.energizedpower.minecart_charger.title": "Lade die Lore!",
   "advancements.energizedpower.minecart_charger.description": "Läd Loren.",
+
+  "advancements.energizedpower.advanced_minecart_charger.title": "Fortgeschrittenes Loren-Laden",
+  "advancements.energizedpower.advanced_minecart_charger.description": "Läd Loren schneller.",
 
   "advancements.energizedpower.minecart_uncharger.title": "Entalde die Lore!",
   "advancements.energizedpower.minecart_uncharger.description": "Entläd Loren.",
