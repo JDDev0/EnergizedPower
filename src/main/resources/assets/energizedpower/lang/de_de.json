@@ -142,6 +142,15 @@
   "block.energizedpower.transformer_n_to_1": "MV-Trafo (n zu 1)",
   "item.energizedpower.transformer_n_to_1": "MV-Trafo (n zu 1)",
 
+  "block.energizedpower.hv_transformer_1_to_n": "HV-Trafo (1 zu n)",
+  "item.energizedpower.hv_transformer_1_to_n": "HV-Trafo (1 zu n)",
+
+  "block.energizedpower.hv_transformer_3_to_3": "HV-Trafo (3 zu 3)",
+  "item.energizedpower.hv_transformer_3_to_3": "HV-Trafo (3 zu 3)",
+
+  "block.energizedpower.hv_transformer_n_to_1": "HV-Trafo (n zu 1)",
+  "item.energizedpower.hv_transformer_n_to_1": "HV-Trafo (n zu 1)",
+
   "tooltip.energizedpower.transformer.txt.shift.1": "Dieser Block kann verschiedene Kabeltypen verbinden.",
   "tooltip.energizedpower.transformer.txt.shift.2": "Die größeren, dunkleren, Rauten-förmigen Seiten sind Eingänge.",
   "tooltip.energizedpower.transformer.txt.shift.3": "Die kleineren, helleren, Quadrat-förmigen Seiten sind Ausgänge.",
