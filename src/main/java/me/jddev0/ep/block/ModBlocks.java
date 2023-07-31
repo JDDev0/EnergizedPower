@@ -146,6 +146,12 @@ public final class ModBlocks {
     public static final RegistryObject<Item> ADVANCED_BATTERY_BOX_ITEM = ModItems.ITEMS.register("advanced_battery_box",
             () -> new AdvancedBatteryBoxBlock.Item(ADVANCED_BATTERY_BOX.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final RegistryObject<Block> CREATIVE_BATTERY_BOX = BLOCKS.register("creative_battery_box",
+            () -> new CreativeBatteryBoxBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_PURPLE).
+                    requiresCorrectToolForDrops().strength(-1.f, 3600000.f).noLootTable()));
+    public static final RegistryObject<Item> CREATIVE_BATTERY_BOX_ITEM = ModItems.ITEMS.register("creative_battery_box",
+            () -> new CreativeBatteryBoxBlock.Item(CREATIVE_BATTERY_BOX.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final RegistryObject<Block> AUTO_CRAFTER = BLOCKS.register("auto_crafter",
             () -> new AutoCrafterBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
