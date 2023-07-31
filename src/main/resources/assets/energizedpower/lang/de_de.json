@@ -51,6 +51,8 @@
   "item.energizedpower.battery_8": "Batterie (MK VIII)",
   "tooltip.energizedpower.battery.txt.shift.1": "Diese Batterie kann %s/t aufnehmen und abgeben.",
 
+  "item.energizedpower.creative_battery": "Creative-Batterie",
+
   "item.energizedpower.energy_analyzer": "Energie-Analyzierer",
   "tooltip.energizedpower.energy_analyzer.txt.shift.1": "Drücke auf einen Energie-Block um Informationen zu erhalten.",
   "tooltip.energizedpower.energy_analyzer.txt.shift.2": "%s werden pro Benutzung verwendet",
