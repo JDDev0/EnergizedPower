@@ -2,6 +2,7 @@
   "recipes": [
     "energizedpower:crafting/advanced_battery_box",
     "energizedpower:crafting/advanced_battery_box_minecart",
+    "energizedpower:crafting/advanced_charger",
     "energizedpower:crafting/advanced_fertilizer",
     "energizedpower:crafting/advanced_machine_frame",
     "energizedpower:crafting/advanced_solar_cell",
