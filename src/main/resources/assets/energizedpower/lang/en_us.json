@@ -51,6 +51,8 @@
   "item.energizedpower.battery_8": "Battery (Tier VIII)",
   "tooltip.energizedpower.battery.txt.shift.1": "This battery can transfer %s/t.",
 
+  "item.energizedpower.creative_battery": "Creative Battery",
+
   "item.energizedpower.energy_analyzer": "Energy Analyzer",
   "tooltip.energizedpower.energy_analyzer.txt.shift.1": "Click on an energy block to retrieve information.",
   "tooltip.energizedpower.energy_analyzer.txt.shift.2": "%s will be consumed per use",
