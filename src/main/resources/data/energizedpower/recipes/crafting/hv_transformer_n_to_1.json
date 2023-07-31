@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "tag": "c:silicon_blocks"
+    },
+    "G": {
+      "tag": "c:energized_gold_plates"
+    },
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    },
+    "T": {
+      "item": "energizedpower:transformer_n_to_1"
+    }
+  },
+  "pattern": [
+    "GTG",
+    "SAS",
+    "GTG"
+  ],
+  "result": {
+    "item": "energizedpower:hv_transformer_n_to_1"
+  }
+}
