@@ -142,6 +142,15 @@
   "block.energizedpower.transformer_n_to_1": "MV Transformer (n to 1)",
   "item.energizedpower.transformer_n_to_1": "MV Transformer (n to 1)",
 
+  "block.energizedpower.hv_transformer_1_to_n": "HV Transformer (1 to n)",
+  "item.energizedpower.hv_transformer_1_to_n": "HV Transformer (1 to n)",
+
+  "block.energizedpower.hv_transformer_3_to_3": "HV Transformer (3 to 3)",
+  "item.energizedpower.hv_transformer_3_to_3": "HV Transformer (3 to 3)",
+
+  "block.energizedpower.hv_transformer_n_to_1": "HV Transformer (n to 1)",
+  "item.energizedpower.hv_transformer_n_to_1": "HV Transformer (n to 1)",
+
   "tooltip.energizedpower.transformer.txt.shift.1": "本方块可以链接不同类型的电缆。",
   "tooltip.energizedpower.transformer.txt.shift.2": "输入面是深色的，有一个较大的菱形。",
   "tooltip.energizedpower.transformer.txt.shift.3": "输出面是较浅的，有一个较小的正方形。",
