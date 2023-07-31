@@ -173,19 +173,19 @@ public final class ModBlockEntities {
         (blockEntity, direction) -> (direction == null || direction == Direction.DOWN)?blockEntity.energyStorage:null
     );
 
-    public static final BlockEntityType<TransformerBlockEntity> TRANSFORMER_1_TO_N_ENTITY = registerEnergyStorage(
-            createBlockEntity("transformer_1_to_n", ModBlocks.TRANSFORMER_1_TO_N, (blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Type.TYPE_1_TO_N)),
+    public static final BlockEntityType<TransformerBlockEntity> MV_TRANSFORMER_1_TO_N_ENTITY = registerEnergyStorage(
+            createBlockEntity("transformer_1_to_n", ModBlocks.MV_TRANSFORMER_1_TO_N, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_1_TO_N)),
             TransformerBlockEntity::getEnergyStorageForDirection
     );
-    public static final BlockEntityType<TransformerBlockEntity> TRANSFORMER_3_TO_3_ENTITY = registerEnergyStorage(
-            createBlockEntity("transformer_3_to_3", ModBlocks.TRANSFORMER_3_TO_3, (blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Type.TYPE_3_TO_3)),
+    public static final BlockEntityType<TransformerBlockEntity> MV_TRANSFORMER_3_TO_3_ENTITY = registerEnergyStorage(
+            createBlockEntity("transformer_3_to_3", ModBlocks.MV_TRANSFORMER_3_TO_3, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_3_TO_3)),
             TransformerBlockEntity::getEnergyStorageForDirection
     );
-    public static final BlockEntityType<TransformerBlockEntity> TRANSFORMER_N_TO_1_ENTITY = registerEnergyStorage(
-            createBlockEntity("transformer_n_to_1", ModBlocks.TRANSFORMER_N_TO_1, (blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Type.TYPE_N_TO_1)),
+    public static final BlockEntityType<TransformerBlockEntity> MV_TRANSFORMER_N_TO_1_ENTITY = registerEnergyStorage(
+            createBlockEntity("transformer_n_to_1", ModBlocks.MV_TRANSFORMER_N_TO_1, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_N_TO_1)),
             TransformerBlockEntity::getEnergyStorageForDirection
     );
 
