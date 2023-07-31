@@ -199,6 +199,11 @@ public final class ModBlocks {
     public static final RegistryObject<Item> CHARGER_ITEM = ModItems.ITEMS.register("charger",
             () -> new ChargerBlock.Item(CHARGER.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final RegistryObject<Block> ADVANCED_CHARGER = BLOCKS.register("advanced_charger",
+            () -> new AdvancedChargerBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> ADVANCED_CHARGER_ITEM = createBlockItem("advanced_charger", ADVANCED_CHARGER);
+
     public static final RegistryObject<Block> UNCHARGER = BLOCKS.register("uncharger",
             () -> new UnchargerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
