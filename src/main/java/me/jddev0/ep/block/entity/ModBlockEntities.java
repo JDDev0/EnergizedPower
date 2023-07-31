@@ -160,6 +160,11 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
+    public static final BlockEntityType<AdvancedMinecartChargerBlockEntity> ADVANCED_MINECART_CHARGER_ENTITY = registerEnergyStorage(
+            createBlockEntity("advanced_minecart_charger", ModBlocks.ADVANCED_MINECART_CHARGER, AdvancedMinecartChargerBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
+
     public static final BlockEntityType<MinecartUnchargerBlockEntity> MINECART_UNCHARGER_ENTITY = registerEnergyStorage(
             createBlockEntity("minecart_uncharger", ModBlocks.MINECART_UNCHARGER, MinecartUnchargerBlockEntity::new),
             (blockEntity, direction) -> blockEntity.energyStorage

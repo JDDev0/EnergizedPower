@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "energizedpower:advanced_minecart_charger"
+        }
+      ],
+      "rolls": 1.0,
+      "bonus_rolls": 0.0
+    }
+  ]
+}
