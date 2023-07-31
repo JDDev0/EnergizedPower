@@ -31,6 +31,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(ModMenuTypes.CHARGER_MENU, ChargerScreen::new);
         HandledScreens.register(ModMenuTypes.ADVANCED_CHARGER_MENU, AdvancedChargerScreen::new);
         HandledScreens.register(ModMenuTypes.UNCHARGER_MENU, UnchargerScreen::new);
+        HandledScreens.register(ModMenuTypes.ADVANCED_UNCHARGER_MENU, AdvancedUnchargerScreen::new);
         HandledScreens.register(ModMenuTypes.ENERGIZER_MENU, EnergizerScreen::new);
         HandledScreens.register(ModMenuTypes.COAL_ENGINE_MENU, CoalEngineScreen::new);
         HandledScreens.register(ModMenuTypes.POWERED_FURNACE_MENU, PoweredFurnaceScreen::new);
