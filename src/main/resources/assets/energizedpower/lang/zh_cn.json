@@ -112,6 +112,10 @@
 
   "tooltip.energizedpower.uncharger.item_energy_left.txt": "该物品还剩下 %s。",
 
+  "block.energizedpower.advanced_uncharger": "Advanced Uncharger",
+  "item.energizedpower.advanced_uncharger": "Advanced Uncharger",
+  "container.energizedpower.advanced_uncharger": "Advanced Uncharger",
+
   "block.energizedpower.minecart_charger": "矿车充能站",
   "item.energizedpower.minecart_charger": "矿车充能站",
   "container.energizedpower.minecart_charger": "矿车充能站",
@@ -400,9 +404,8 @@
   "advancements.energizedpower.advanced_charger.title": "Parallel charging",
   "advancements.energizedpower.advanced_charger.description": "Charge energy items in parallel.",
 
-  "block.energizedpower.advanced_charger": "Advanced Charger",
-  "item.energizedpower.advanced_charger": "Advanced Charger",
-  "container.energizedpower.advanced_charger": "Advanced Charger",
+  "advancements.energizedpower.advanced_uncharger.title": "Parallel uncharging",
+  "advancements.energizedpower.advanced_uncharger.description": "Uncharge energy items in parallel.",
 
   "advancements.energizedpower.charging_station.title": "无线充能",
   "advancements.energizedpower.charging_station.description": "物品充能使用无线方式。",
