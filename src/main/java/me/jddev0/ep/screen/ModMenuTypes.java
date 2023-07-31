@@ -39,6 +39,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<UnchargerMenu> UNCHARGER_MENU = createScreenHandlerType("uncharger",
             new ExtendedScreenHandlerType<>(UnchargerMenu::new));
 
+    public static final ScreenHandlerType<AdvancedUnchargerMenu> ADVANCED_UNCHARGER_MENU = createScreenHandlerType("advanced_uncharger",
+            new ExtendedScreenHandlerType<>(AdvancedUnchargerMenu::new));
+
     public static final ScreenHandlerType<EnergizerMenu> ENERGIZER_MENU = createScreenHandlerType("energizer",
             new ExtendedScreenHandlerType<>(EnergizerMenu::new));
 

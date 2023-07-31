@@ -112,6 +112,10 @@
 
   "tooltip.energizedpower.uncharger.item_energy_left.txt": "A questo oggetto sono rimasti %s.",
 
+  "block.energizedpower.advanced_uncharger": "Advanced Uncharger",
+  "item.energizedpower.advanced_uncharger": "Advanced Uncharger",
+  "container.energizedpower.advanced_uncharger": "Advanced Uncharger",
+
   "block.energizedpower.minecart_charger": "Caricabatterie per carrello da miniera",
   "item.energizedpower.minecart_charger": "Caricabatterie per carrello da miniera",
   "container.energizedpower.minecart_charger": "Caricabatterie per carrello da miniera",
@@ -399,6 +403,9 @@
 
   "advancements.energizedpower.advanced_charger.title": "Parallel charging",
   "advancements.energizedpower.advanced_charger.description": "Charge energy items in parallel.",
+
+  "advancements.energizedpower.advanced_uncharger.title": "Parallel uncharging",
+  "advancements.energizedpower.advanced_uncharger.description": "Uncharge energy items in parallel.",
 
   "advancements.energizedpower.charging_station.title": "Ricarica senza fili",
   "advancements.energizedpower.charging_station.description": "Carica gli articoli energetici in modalità wireless.",
