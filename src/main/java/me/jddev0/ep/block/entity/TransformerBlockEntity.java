@@ -44,6 +44,11 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
                 case TYPE_3_TO_3 -> ModBlockEntities.HV_TRANSFORMER_3_TO_3_ENTITY;
                 case TYPE_N_TO_1 -> ModBlockEntities.HV_TRANSFORMER_N_TO_1_ENTITY;
             };
+            case TIER_EHV -> switch(type) {
+                case TYPE_1_TO_N -> ModBlockEntities.EHV_TRANSFORMER_1_TO_N_ENTITY;
+                case TYPE_3_TO_3 -> ModBlockEntities.EHV_TRANSFORMER_3_TO_3_ENTITY;
+                case TYPE_N_TO_1 -> ModBlockEntities.EHV_TRANSFORMER_N_TO_1_ENTITY;
+            };
         };
     }
 
@@ -51,6 +56,7 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
         return switch(tier) {
             case TIER_MV -> 65536;
             case TIER_HV -> 524288;
+            case TIER_EHV -> 2097152;
         };
     }
 
