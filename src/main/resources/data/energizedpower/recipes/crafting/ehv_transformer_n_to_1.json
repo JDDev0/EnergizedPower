@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "tag": "forge:storage_blocks/silicon"
+    },
+    "C": {
+      "item": "energizedpower:energized_crystal_matrix"
+    },
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    },
+    "T": {
+      "item": "energizedpower:hv_transformer_n_to_1"
+    }
+  },
+  "pattern": [
+    "CTC",
+    "SAS",
+    "CTC"
+  ],
+  "result": {
+    "item": "energizedpower:ehv_transformer_n_to_1"
+  }
+}
