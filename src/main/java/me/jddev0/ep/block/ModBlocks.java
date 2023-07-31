@@ -139,6 +139,12 @@ public final class ModBlocks {
     public static final Item ADVANCED_BATTERY_BOX_ITEM = createBlockItem("advanced_battery_box",
             new AdvancedBatteryBoxBlock.Item(ADVANCED_BATTERY_BOX, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final Block CREATIVE_BATTERY_BOX = registerBlock("creative_battery_box",
+            new CreativeBatteryBoxBlock((FabricBlockSettings)FabricBlockSettings.of(Material.METAL, MapColor.PURPLE).
+                    requiresTool().strength(-1.f, 3600000.f).dropsNothing()));
+    public static final Item CREATIVE_BATTERY_BOX_ITEM = createBlockItem("creative_battery_box",
+            new CreativeBatteryBoxBlock.Item(CREATIVE_BATTERY_BOX, new FabricItemSettings()));
+
     public static final Block CRUSHER = registerBlock("crusher",
             new CrusherBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
