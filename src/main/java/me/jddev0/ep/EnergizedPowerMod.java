@@ -101,6 +101,7 @@ public class EnergizedPowerMod implements ModInitializer {
 
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.BATTERY_BOX_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ADVANCED_BATTERY_BOX_ITEM);
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.CREATIVE_BATTERY_BOX_ITEM);
 
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.POWERED_FURNACE_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.AUTO_CRAFTER_ITEM);

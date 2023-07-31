@@ -1,6 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.item.ModItems;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -138,6 +139,12 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item ADVANCED_BATTERY_BOX_ITEM = createBlockItem("advanced_battery_box",
             new AdvancedBatteryBoxBlock.Item(ADVANCED_BATTERY_BOX, new FabricItemSettings()));
+
+    public static final Block CREATIVE_BATTERY_BOX = registerBlock("creative_battery_box",
+            new CreativeBatteryBoxBlock(FabricBlockSettings.of(Material.METAL, MapColor.PURPLE).
+                    requiresTool().strength(-1.f, 3600000.f).dropsNothing()));
+    public static final Item CREATIVE_BATTERY_BOX_ITEM = createBlockItem("creative_battery_box",
+            new CreativeBatteryBoxBlock.Item(CREATIVE_BATTERY_BOX, new FabricItemSettings()));
 
     public static final Block CRUSHER = registerBlock("crusher",
             new CrusherBlock(FabricBlockSettings.of(Material.METAL).

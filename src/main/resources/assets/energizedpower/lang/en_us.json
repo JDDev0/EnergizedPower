@@ -172,6 +172,10 @@
   "item.energizedpower.advanced_battery_box": "Advanced Battery Box",
   "container.energizedpower.advanced_battery_box": "Advanced Battery Box",
 
+  "block.energizedpower.creative_battery_box": "Creative Battery Box",
+  "item.energizedpower.creative_battery_box": "Creative Battery Box",
+  "container.energizedpower.creative_battery_box": "Creative Battery Box",
+
 
   "block.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
   "item.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
@@ -291,6 +295,7 @@
   "tooltip.energizedpower.transfer_rate.txt": "Transfer rate: %s/t",
   "tooltip.energizedpower.not_enough_energy.txt": "Not enough energy",
   "tooltip.energizedpower.ready.txt": "Ready",
+  "tooltip.energizedpower.infinite.txt": "Infinite",
 
   "itemGroup.energizedpower.tab": "Energized Power",
 
