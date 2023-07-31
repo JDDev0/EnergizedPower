@@ -128,6 +128,10 @@
   "item.energizedpower.minecart_uncharger": "矿车放能站",
   "container.energizedpower.minecart_uncharger": "矿车放能站",
 
+  "block.energizedpower.advanced_minecart_uncharger": "Advanced Minecart Uncharger",
+  "item.energizedpower.advanced_minecart_uncharger": "Advanced Minecart Uncharger",
+  "container.energizedpower.advanced_minecart_uncharger": "Advanced Minecart Uncharger",
+
   "block.energizedpower.copper_cable": "绝缘铜质导线",
   "item.energizedpower.copper_cable": "绝缘铜质导线",
 
@@ -542,6 +546,9 @@
 
   "advancements.energizedpower.minecart_uncharger.title": "给矿车放能！",
   "advancements.energizedpower.minecart_uncharger.description": "给矿车放能.",
+
+  "advancements.energizedpower.advanced_minecart_uncharger.title": "Advanced minecart uncharging",
+  "advancements.energizedpower.advanced_minecart_uncharger.description": "Uncharges minecarts quicker.",
 
 
   "book.energizedpower.tooltip.link": "打开链接",
