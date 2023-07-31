@@ -4,7 +4,10 @@ import me.jddev0.ep.energy.InfinityEnergyStorage;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -15,6 +18,12 @@ import java.util.List;
 public class CreativeBatteryItem extends EnergizedPowerEnergyItem {
     public CreativeBatteryItem(Properties props) {
         super(props, InfinityEnergyStorage::new);
+    }
+
+    @Override
+    public void fillItemCategory(CreativeModeTab category, NonNullList<ItemStack> items) {
+        if(allowedIn(category))
+            items.add(new ItemStack(this));
     }
 
     @Override
