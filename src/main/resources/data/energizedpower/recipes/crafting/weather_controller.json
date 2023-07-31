@@ -5,23 +5,23 @@
     "C": {
       "item": "energizedpower:energized_crystal_matrix"
     },
-    "R": {
+    "r": {
       "tag": "forge:storage_blocks/redstone"
     },
     "E": {
       "tag": "forge:plates/energized_gold"
     },
-    "a": {
+    "A": {
       "tag": "forge:gems/amethyst"
     },
-    "A": {
-      "item": "energizedpower:advanced_machine_frame"
+    "R": {
+      "item": "energizedpower:reinforced_advanced_machine_frame"
     }
   },
   "pattern": [
-    "CaC",
-    "EAE",
-    "RER"
+    "CAC",
+    "ERE",
+    "rEr"
   ],
   "result": {
     "item": "energizedpower:weather_controller"

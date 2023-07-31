@@ -8,20 +8,20 @@
     "C": {
       "item": "minecraft:clock"
     },
-    "R": {
+    "r": {
       "tag": "forge:storage_blocks/redstone"
     },
     "E": {
       "tag": "forge:plates/energized_gold"
     },
-    "A": {
-      "item": "energizedpower:advanced_machine_frame"
+    "R": {
+      "item": "energizedpower:reinforced_advanced_machine_frame"
     }
   },
   "pattern": [
     "cCc",
-    "EAE",
-    "RER"
+    "ERE",
+    "rEr"
   ],
   "result": {
     "item": "energizedpower:time_controller"
