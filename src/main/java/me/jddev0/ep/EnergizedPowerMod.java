@@ -90,6 +90,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.BATTERY_BOX_MENU.get(), BatteryBoxScreen::new);
             MenuScreens.register(ModMenuTypes.ADVANCED_BATTERY_BOX_MENU.get(), AdvancedBatteryBoxScreen::new);
             MenuScreens.register(ModMenuTypes.MINECART_CHARGER_MENU.get(), MinecartChargerScreen::new);
+            MenuScreens.register(ModMenuTypes.ADVANCED_MINECART_CHARGER_MENU.get(), AdvancedMinecartChargerScreen::new);
             MenuScreens.register(ModMenuTypes.MINECART_UNCHARGER_MENU.get(), MinecartUnchargerScreen::new);
             MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_1.get(), SolarPanelScreen::new);
             MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_2.get(), SolarPanelScreen::new);

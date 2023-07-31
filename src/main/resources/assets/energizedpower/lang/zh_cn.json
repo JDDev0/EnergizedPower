@@ -120,6 +120,10 @@
   "item.energizedpower.minecart_charger": "矿车充能站",
   "container.energizedpower.minecart_charger": "矿车充能站",
 
+  "block.energizedpower.advanced_minecart_charger": "Advanced Minecart Charger",
+  "item.energizedpower.advanced_minecart_charger": "Advanced Minecart Charger",
+  "container.energizedpower.advanced_minecart_charger": "Advanced Minecart Charger",
+
   "block.energizedpower.minecart_uncharger": "矿车放能站",
   "item.energizedpower.minecart_uncharger": "矿车放能站",
   "container.energizedpower.minecart_uncharger": "矿车放能站",
@@ -532,6 +536,9 @@
 
   "advancements.energizedpower.minecart_charger.title": "给矿车充能！",
   "advancements.energizedpower.minecart_charger.description": "给矿车充能.",
+
+  "advancements.energizedpower.advanced_minecart_charger.title": "Advanced minecart charging",
+  "advancements.energizedpower.advanced_minecart_charger.description": "Charges minecarts quicker.",
 
   "advancements.energizedpower.minecart_uncharger.title": "给矿车放能！",
   "advancements.energizedpower.minecart_uncharger.description": "给矿车放能.",

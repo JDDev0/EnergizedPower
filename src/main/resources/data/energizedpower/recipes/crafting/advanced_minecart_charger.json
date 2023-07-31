@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "forge:storage_blocks/gold"
+    },
+    "g": {
+      "tag": "forge:plates/gold"
+    },
+    "C": {
+      "tag": "forge:storage_blocks/copper"
+    },
+    "c": {
+      "tag": "forge:plates/energized_copper"
+    },
+    "S": {
+      "tag": "forge:silicon"
+    },
+    "H": {
+      "item": "energizedpower:advanced_charger"
+    }
+  },
+  "pattern": [
+    "gGg",
+    "SHS",
+    "cCc"
+  ],
+  "result": {
+    "item": "energizedpower:advanced_minecart_charger"
+  }
+}
