@@ -305,6 +305,9 @@
   "block.energizedpower.advanced_machine_frame": "Advanced Machine Frame",
   "item.energizedpower.advanced_machine_frame": "Advanced Machine Frame",
 
+  "block.energizedpower.reinforced_advanced_machine_frame": "Reinforced Advanced Machine Frame",
+  "item.energizedpower.reinforced_advanced_machine_frame": "Reinforced Advanced Machine Frame",
+
   "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
   "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "This recipe requires %s to finish.",
@@ -342,6 +345,9 @@
 
   "advancements.energizedpower.advanced_machine_frame.title": "Advanced Machines",
   "advancements.energizedpower.advanced_machine_frame.description": "More advanced machines need this base crafting item.",
+
+  "advancements.energizedpower.reinforced_advanced_machine_frame.title": "Even more advanced Machines",
+  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "The most advanced machines need this base crafting item.",
 
   "advancements.energizedpower.advanced_solar_cell.title": "Advanced Solar Power",
   "advancements.energizedpower.advanced_solar_cell.description": "Required for advanced solar panels...",

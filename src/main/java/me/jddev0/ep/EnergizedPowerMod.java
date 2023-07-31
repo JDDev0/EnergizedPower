@@ -164,6 +164,7 @@ public class EnergizedPowerMod {
 
             event.accept(ModBlocks.BASIC_MACHINE_FRAME_ITEM);
             event.accept(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM);
+            event.accept(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM);
 
             event.accept(ModBlocks.SILICON_BLOCK_ITEM);
             event.accept(ModBlocks.SAWDUST_BLOCK_ITEM);
