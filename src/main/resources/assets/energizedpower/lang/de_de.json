@@ -102,6 +102,10 @@
 
   "tooltip.energizedpower.charger.item_energy_left.txt": "Dieses Item braucht noch %s, um vollständig geladen zu sein.",
 
+  "block.energizedpower.advanced_charger": "Fortgeschrittener Lader",
+  "item.energizedpower.advanced_charger": "Fortgeschrittener Lader",
+  "container.energizedpower.advanced_charger": "Fortgeschrittener Lader",
+
   "block.energizedpower.uncharger": "Entlader",
   "item.energizedpower.uncharger": "Entlader",
   "container.energizedpower.uncharger": "Entlader",
@@ -392,6 +396,9 @@
 
   "advancements.energizedpower.charger.title": "Lade es",
   "advancements.energizedpower.charger.description": "Lade deine Energie-Items mit diesen Block.",
+
+  "advancements.energizedpower.advanced_charger.title": "Paralleles Laden",
+  "advancements.energizedpower.advanced_charger.description": "Lade Energie-Items in parallel.",
 
   "advancements.energizedpower.charging_station.title": "Wireless Charging",
   "advancements.energizedpower.charging_station.description": "Lade deine Items wireless.",
