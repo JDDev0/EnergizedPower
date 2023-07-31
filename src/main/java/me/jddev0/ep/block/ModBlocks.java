@@ -186,6 +186,11 @@ public final class ModBlocks {
     public static final Item CHARGER_ITEM = createBlockItem("charger",
             new ChargerBlock.Item(CHARGER, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final Block ADVANCED_CHARGER = registerBlock("advanced_charger",
+            new AdvancedChargerBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item ADVANCED_CHARGER_ITEM = createBlockItem("advanced_charger", ADVANCED_CHARGER);
+
     public static final Block UNCHARGER = registerBlock("uncharger",
             new UnchargerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

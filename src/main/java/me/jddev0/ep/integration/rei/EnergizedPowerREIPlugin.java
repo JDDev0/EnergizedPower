@@ -29,7 +29,8 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.addWorkstations(BuiltinPlugin.FUEL, EntryStacks.of(ModBlocks.COAL_ENGINE_ITEM));
 
         registry.add(new ChargerCategory());
-        registry.addWorkstations(ChargerCategory.CATEGORY, EntryStacks.of(ModBlocks.CHARGER_ITEM));
+        registry.addWorkstations(ChargerCategory.CATEGORY, EntryStacks.of(ModBlocks.CHARGER_ITEM),
+                EntryStacks.of(ModBlocks.ADVANCED_CHARGER_ITEM));
 
         registry.add(new CrusherCategory());
         registry.addWorkstations(CrusherCategory.CATEGORY, EntryStacks.of(ModBlocks.CRUSHER_ITEM));

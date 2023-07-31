@@ -1,0 +1,34 @@
+{
+  "parent":  "energizedpower:main/advanced/energized_gold_ingot",
+  "display": {
+    "icon": {
+      "item": "energizedpower:advanced_charger"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.advanced_charger.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.advanced_charger.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_advanced_charger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:advanced_charger" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_advanced_charger"
+    ]
+  ]
+}
