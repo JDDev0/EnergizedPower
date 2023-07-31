@@ -319,6 +319,11 @@ public final class ModBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final RegistryObject<Item> ADVANCED_MACHINE_FRAME_ITEM = createBlockItem("advanced_machine_frame", ADVANCED_MACHINE_FRAME);
 
+    public static final RegistryObject<Block> REINFORCED_ADVANCED_MACHINE_FRAME = BLOCKS.register("reinforced_advanced_machine_frame",
+            () -> new Block(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> REINFORCED_ADVANCED_MACHINE_FRAME_ITEM = createBlockItem("reinforced_advanced_machine_frame", REINFORCED_ADVANCED_MACHINE_FRAME);
+
     public static void register(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);
     }
