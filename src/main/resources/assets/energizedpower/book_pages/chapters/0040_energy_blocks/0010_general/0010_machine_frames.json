@@ -18,6 +18,7 @@
   ],
   "block": [
     "energizedpower:basic_machine_frame",
-    "energizedpower:advanced_machine_frame"
+    "energizedpower:advanced_machine_frame",
+    "energizedpower:reinforced_advanced_machine_frame"
   ]
 }
