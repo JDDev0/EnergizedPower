@@ -644,7 +644,7 @@
   "book.energizedpower.page.chapter.energy_blocks.general": "充能物品的常规信息",
 
   "book.energizedpower.page.machine_frames.1": "机器框架是每个机器的基本方块。",
-  "book.energizedpower.page.machine_frames.2": "一共有两种机器框架：基本机器框架和高级机器框架。",
+  "book.energizedpower.page.machine_frames.2": "There are three machine frames: Basic, Advanced, and Reinforced Advanced",
 
 
   "book.energizedpower.page.chapter.energy_blocks.energy_transportation.title": "交通",
