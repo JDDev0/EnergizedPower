@@ -106,6 +106,8 @@
   "item.energizedpower.advanced_charger": "Fortgeschrittener Lader",
   "container.energizedpower.advanced_charger": "Fortgeschrittener Lader",
 
+  "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "Diese Items brauchen noch %s, um vollständig geladen zu sein.",
+
   "block.energizedpower.uncharger": "Entlader",
   "item.energizedpower.uncharger": "Entlader",
   "container.energizedpower.uncharger": "Entlader",
@@ -115,6 +117,8 @@
   "block.energizedpower.advanced_uncharger": "Fortgeschrittener Entlader",
   "item.energizedpower.advanced_uncharger": "Fortgeschrittener Entlader",
   "container.energizedpower.advanced_uncharger": "Fortgeschrittener Entlader",
+
+  "tooltip.energizedpower.advanced_uncharger.items_energy_left.txt": "Diese Items haben noch %s.",
 
   "block.energizedpower.minecart_charger": "Loren-Lader",
   "item.energizedpower.minecart_charger": "Loren-Lader",
