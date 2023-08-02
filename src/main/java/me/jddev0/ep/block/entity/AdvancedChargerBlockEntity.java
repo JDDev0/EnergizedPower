@@ -276,6 +276,15 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
                             blockEntity.energyStorage.getEnergy()), false);
                 }
 
+                if(blockEntity.energyConsumptionLeft[i] < 0 || energyConsumptionPerTick < 0) {
+                    //Reset progress for invalid values
+
+                    blockEntity.resetProgress(i);
+                    setChanged(level, blockPos, state);
+
+                    continue;
+                }
+
                 blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
                 blockEntity.energyConsumptionLeft[i] -= energyConsumptionPerTick;
 

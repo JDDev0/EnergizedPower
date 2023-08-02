@@ -258,6 +258,16 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
             if(fertilizedEnergyUsagePerTick <= blockEntity.energyStorage.getEnergy()) {
                 blockEntity.hasEnoughEnergy = true;
 
+                if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0 ||
+                        fertilizedEnergyUsagePerTick < 0) {
+                    //Reset progress for invalid values
+
+                    blockEntity.resetProgress(blockPos, state);
+                    setChanged(level, blockPos, state);
+
+                    return;
+                }
+
                 blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - fertilizedEnergyUsagePerTick);
                 blockEntity.energyConsumptionLeft -= fertilizedEnergyUsagePerTick;
 

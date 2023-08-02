@@ -233,6 +233,15 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
                     level.setBlock(blockPos, state.setValue(PoweredFurnaceBlock.LIT, Boolean.TRUE), 3);
                 }
 
+                if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
+                    //Reset progress for invalid values
+
+                    blockEntity.resetProgress(blockPos, state);
+                    setChanged(level, blockPos, state);
+
+                    return;
+                }
+
                 blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - ENERGY_USAGE_PER_TICK);
                 blockEntity.energyConsumptionLeft -= ENERGY_USAGE_PER_TICK;
 
