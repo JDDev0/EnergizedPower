@@ -308,6 +308,16 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                 blockEntity.energyConsumptionLeft = energyConsumptionPerTick * blockEntity.maxProgress;
             }
 
+            if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0 ||
+                    energyConsumptionPerTick < 0) {
+                //Reset progress for invalid values
+
+                blockEntity.resetProgress();
+                setChanged(level, blockPos, state);
+
+                return;
+            }
+
             if(energyConsumptionPerTick <= blockEntity.energyStorage.getEnergy()) {
                 blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
                 blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
