@@ -243,6 +243,16 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
                     level.setBlock(blockPos, state.setValue(CoalEngineBlock.LIT, Boolean.TRUE), 3);
                 }
 
+                if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyProductionLeft < 0 ||
+                        energyProductionPerTick < 0) {
+                    //Reset progress for invalid values
+
+                    blockEntity.resetProgress(blockPos, state);
+                    setChanged(level, blockPos, state);
+
+                    return;
+                }
+
                 blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() + energyProductionPerTick);
                 blockEntity.energyProductionLeft -= energyProductionPerTick;
 

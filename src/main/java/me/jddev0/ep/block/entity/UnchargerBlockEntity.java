@@ -243,6 +243,15 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
             int energyProductionPerTick = energyStorage.extractEnergy(Math.min(blockEntity.energyStorage.getMaxExtract(),
                     blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getEnergy()), false);
 
+            if(blockEntity.energyProductionLeft < 0 || energyProductionPerTick < 0) {
+                //Reset progress for invalid values
+
+                blockEntity.resetProgress();
+                setChanged(level, blockPos, state);
+
+                return;
+            }
+
             blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() + energyProductionPerTick);
             blockEntity.energyProductionLeft -= energyProductionPerTick;
 

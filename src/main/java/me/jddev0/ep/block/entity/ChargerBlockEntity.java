@@ -266,6 +266,15 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
                         blockEntity.energyStorage.getEnergy()), false);
             }
 
+            if(blockEntity.energyConsumptionLeft < 0 || energyConsumptionPerTick < 0) {
+                //Reset progress for invalid values
+
+                blockEntity.resetProgress();
+                setChanged(level, blockPos, state);
+
+                return;
+            }
+
             blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
             blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
 
