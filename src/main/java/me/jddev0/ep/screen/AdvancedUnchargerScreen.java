@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class AdvancedUnchargerScreen extends AbstractGenericEnergyStorageContainerScreen<AdvancedUnchargerMenu> {
     public AdvancedUnchargerScreen(AdvancedUnchargerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
-                "tooltip.energizedpower.uncharger.item_energy_left.txt",
+                "tooltip.energizedpower.advanced_uncharger.items_energy_left.txt",
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/advanced_uncharger.png"),
                 8, 17);
     }

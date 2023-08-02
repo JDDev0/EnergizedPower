@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class AdvancedChargerScreen extends AbstractGenericEnergyStorageContainerScreen<AdvancedChargerMenu> {
     public AdvancedChargerScreen(AdvancedChargerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
-                "tooltip.energizedpower.charger.item_energy_left.txt",
+                "tooltip.energizedpower.advanced_charger.items_energy_left.txt",
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/advanced_charger.png"),
                 8, 17);
     }
