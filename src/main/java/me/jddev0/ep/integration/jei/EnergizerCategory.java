@@ -1,6 +1,5 @@
 package me.jddev0.ep.integration.jei;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.EnergizerRecipe;

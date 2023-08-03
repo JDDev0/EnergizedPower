@@ -10,7 +10,6 @@ import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
 import me.jddev0.ep.screen.PlantGrowthChamberMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.InventoryUtils;
-import me.jddev0.ep.util.ItemStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

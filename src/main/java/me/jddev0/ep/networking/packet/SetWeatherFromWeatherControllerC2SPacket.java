@@ -1,13 +1,9 @@
 package me.jddev0.ep.networking.packet;
 
 import me.jddev0.ep.block.WeatherControllerBlock;
-import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
-import me.jddev0.ep.screen.AutoCrafterMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;

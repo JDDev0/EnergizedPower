@@ -4,7 +4,6 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.EnergizedPowerBookItem;
-import me.jddev0.ep.item.EnergyAnalyzerItem;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.OpenEnergizedPowerBookS2CPacket;

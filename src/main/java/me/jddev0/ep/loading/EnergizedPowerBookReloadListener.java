@@ -13,7 +13,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.slf4j.Logger;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @OnlyIn(Dist.CLIENT)
 public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadListener {

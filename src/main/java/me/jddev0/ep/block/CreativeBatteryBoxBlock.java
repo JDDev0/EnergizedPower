@@ -2,7 +2,6 @@ package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.CreativeBatteryBoxBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
-import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;

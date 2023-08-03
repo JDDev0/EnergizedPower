@@ -1,6 +1,5 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.block.TimeControllerBlock;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
