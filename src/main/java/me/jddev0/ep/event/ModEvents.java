@@ -56,76 +56,141 @@ public class ModEvents {
                     new ItemStack(ModItems.SILICON.get(), 3),
                     new ItemStack(Items.EMERALD, 2),
                     15, 2, .02f);
+            addOffer(trades, 1,
+                    new ItemStack(Items.EMERALD, 6),
+                    new ItemStack(ModItems.CABLE_INSULATOR.get(), 16),
+                    5, 3, .02f);
+            addOffer(trades, 1,
+                    new ItemStack(Items.EMERALD, 9),
+                    new ItemStack(ModItems.IRON_HAMMER.get()),
+                    2, 3, .02f);
 
             //Level 2
             addOffer(trades, 2,
-                    new ItemStack(ModItems.BASIC_SOLAR_CELL.get(), 2),
-                    new ItemStack(Items.EMERALD, 3),
-                    5, 5, .02f);
+                    new ItemStack(Items.EMERALD, 35),
+                    new ItemStack(ModBlocks.COPPER_CABLE_ITEM.get(), 6),
+                    3, 5, .02f);
             {
 
-                ItemStack energyAnalyzer = new ItemStack(ModItems.BATTERY_2.get());
-                energyAnalyzer.getOrCreateTag().put("energy", IntTag.valueOf(128));
+                ItemStack energyItem = new ItemStack(ModItems.BATTERY_2.get());
+                energyItem.getOrCreateTag().put("energy", IntTag.valueOf(128));
 
                 addOffer(trades, 2,
                         new ItemStack(Items.EMERALD, 6),
                         new ItemStack(Items.COPPER_INGOT, 4),
-                        energyAnalyzer,
-                        3, 8, .02f);
+                        energyItem,
+                        3, 7, .02f);
             }
+            {
+
+                ItemStack energyItem = new ItemStack(ModItems.ENERGY_ANALYZER.get());
+                energyItem.getOrCreateTag().put("energy", IntTag.valueOf(128));
+
+                addOffer(trades, 2,
+                        new ItemStack(Items.EMERALD, 6),
+                        new ItemStack(Items.COPPER_INGOT, 12),
+                        energyItem,
+                        2, 8, .02f);
+            }
+            addOffer(trades, 2,
+                    new ItemStack(ModItems.COPPER_PLATE.get(), 3),
+                    new ItemStack(Items.EMERALD, 8),
+                    15, 6, .02f);
 
             //Level 3
             addOffer(trades, 3,
-                    new ItemStack(Items.EMERALD, 6),
-                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get(), 1),
-                    new ItemStack(ModBlocks.AUTO_CRAFTER_ITEM.get(), 1),
-                    5, 10, .02f);
-            {
-
-                ItemStack energyAnalyzer = new ItemStack(ModItems.ENERGY_ANALYZER.get());
-                energyAnalyzer.getOrCreateTag().put("energy", IntTag.valueOf(16 * EnergyAnalyzerItem.ENERGY_CONSUMPTION_PER_USE));
-
-                addOffer(trades, 3,
-                        new ItemStack(Items.EMERALD, 16),
-                        new ItemStack(Items.COPPER_INGOT, 12),
-                        energyAnalyzer,
-                        1, 12, .02f);
-            }
+                    new ItemStack(Items.EMERALD, 21),
+                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(ModBlocks.COAL_ENGINE_ITEM.get()),
+                    3, 10, .02f);
+            addOffer(trades, 3,
+                    new ItemStack(Items.EMERALD, 31),
+                    new ItemStack(ModItems.BASIC_SOLAR_CELL.get(), 2),
+                    new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_1.get()),
+                    3, 10, .02f);
+            addOffer(trades, 3,
+                    new ItemStack(Items.EMERALD, 33),
+                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(ModBlocks.FLUID_FILLER_ITEM.get()),
+                    3, 10, .02f);
+            addOffer(trades, 3,
+                    new ItemStack(Items.EMERALD, 38),
+                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(ModBlocks.AUTO_CRAFTER_ITEM.get()),
+                    3, 10, .02f);
+            addOffer(trades, 3,
+                    new ItemStack(Items.EMERALD, 46),
+                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(ModBlocks.CHARGER_ITEM.get()),
+                    3, 10, .02f);
+            addOffer(trades, 3,
+                    new ItemStack(ModItems.BASIC_SOLAR_CELL.get(), 3),
+                    new ItemStack(Items.EMERALD, 9),
+                    15, 9, .02f);
 
             //Level 4
             addOffer(trades, 4,
-                    new ItemStack(Items.EMERALD, 8),
-                    new ItemStack(ModItems.BASIC_SOLAR_CELL.get(), 2),
-                    new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_1.get(), 1),
-                    3, 19, .02f);
+                    new ItemStack(Items.EMERALD, 34),
+                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(ModBlocks.SAWMILL_ITEM.get()),
+                    3, 20, .02f);
             addOffer(trades, 4,
-                    new ItemStack(Items.EMERALD, 14),
-                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get(), 1),
-                    new ItemStack(ModBlocks.COAL_ENGINE_ITEM.get(), 1),
-                    2, 24, .02f);
+                    new ItemStack(Items.EMERALD, 39),
+                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(ModBlocks.CRUSHER_ITEM.get()),
+                    3, 20, .02f);
+            addOffer(trades, 4,
+                    new ItemStack(Items.EMERALD, 52),
+                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(ModBlocks.COMPRESSOR_ITEM.get()),
+                    3, 20, .02f);
+            {
+
+                ItemStack energyItem = new ItemStack(ModItems.BATTERY_4.get());
+                energyItem.getOrCreateTag().put("energy", IntTag.valueOf(512));
+
+                addOffer(trades, 4,
+                        new ItemStack(Items.EMERALD, 29),
+                        new ItemStack(Items.COPPER_INGOT, 9),
+                        energyItem,
+                        2, 19, .02f);
+            }
+            addOffer(trades, 4,
+                    new ItemStack(ModItems.SAWDUST.get(), 17),
+                    new ItemStack(Items.EMERALD, 4),
+                    20, 18, .02f);
 
             //Level 5
             addOffer(trades, 5,
-                    new ItemStack(Items.EMERALD, 59),
-                    new ItemStack(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM.get(), 1),
-                    new ItemStack(ModBlocks.LIGHTNING_GENERATOR_ITEM.get(), 1),
+                    new ItemStack(Items.EMERALD, 32),
+                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(ModBlocks.THERMAL_GENERATOR_ITEM.get()),
                     1, 30, .02f);
             addOffer(trades, 5,
-                    new ItemStack(Items.EMERALD, 24),
-                    new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_1.get(), 2),
-                    new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_2.get(), 1),
-                    3, 41, .02f);
+                    new ItemStack(Items.EMERALD_BLOCK, 9),
+                    new ItemStack(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(ModBlocks.ENERGIZER_ITEM.get()),
+                    1, 30, .02f);
+            addOffer(trades, 5,
+                    new ItemStack(Items.EMERALD_BLOCK, 12),
+                    new ItemStack(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(ModBlocks.LIGHTNING_GENERATOR_ITEM.get()),
+                    1, 30, .02f);
+            addOffer(trades, 5,
+                    new ItemStack(ModItems.ENERGIZED_COPPER_INGOT.get()),
+                    new ItemStack(Items.EMERALD, 23),
+                    15, 30, .02f);
         }
     }
 
-    private static void addOffer(Int2ObjectMap<List<VillagerTrades.ItemListing>> trades, int minLevel,
+    private static void addOffer(Int2ObjectMap<List<VillagerTrades.ItemListing>> trades, int level,
                                  ItemStack cost, ItemStack result, int maxUses, int xp, float priceMultiplier) {
-        trades.get(minLevel).add((trader, rand) -> new MerchantOffer(cost, result, maxUses, xp, priceMultiplier));
+        trades.get(level).add((trader, rand) -> new MerchantOffer(cost, result, maxUses, xp, priceMultiplier));
     }
 
-    private static void addOffer(Int2ObjectMap<List<VillagerTrades.ItemListing>> trades, int minLevel,
+    private static void addOffer(Int2ObjectMap<List<VillagerTrades.ItemListing>> trades, int level,
                                  ItemStack costA, ItemStack costB, ItemStack result, int maxUses, int xp, float priceMultiplier) {
-        trades.get(minLevel).add((trader, rand) -> new MerchantOffer(costA, costB, result, maxUses, xp, priceMultiplier));
+        trades.get(level).add((trader, rand) -> new MerchantOffer(costA, costB, result, maxUses, xp, priceMultiplier));
     }
 
     @SubscribeEvent
