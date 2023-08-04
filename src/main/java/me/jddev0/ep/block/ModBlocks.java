@@ -35,6 +35,12 @@ public final class ModBlocks {
                     strength(2.0f, 3.0f).sound(SoundType.WOOD), 5, 20));
     public static final RegistryObject<Item> SAWDUST_BLOCK_ITEM = createBlockItem("sawdust_block", SAWDUST_BLOCK);
 
+    public static final RegistryObject<FluidPipeBlock> FLUID_PIPE = BLOCKS.register("fluid_pipe",
+            () -> new FluidPipeBlock(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> FLUID_PIPE_ITEM = ModItems.ITEMS.register("fluid_pipe",
+            () -> new FluidPipeBlock.Item(FLUID_PIPE.get(), new Item.Properties()));
+
     public static final RegistryObject<CableBlock> COPPER_CABLE = BLOCKS.register("copper_cable",
             () -> new CableBlock(CableBlock.Tier.TIER_COPPER));
     public static final RegistryObject<Item> COPPER_CABLE_ITEM = ModItems.ITEMS.register("copper_cable",
