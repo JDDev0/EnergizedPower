@@ -74,6 +74,11 @@
   "item.energizedpower.diamond_hammer": "Martello di diamante",
   "item.energizedpower.netherite_hammer": "Martello di Netherite",
 
+  "item.energizedpower.wrench": "Wrench",
+
+  "tooltip.energizedpower.wrench.txt.shift": "The Wrench can be used to configure Fluid Pipes.",
+  "tooltip.energizedpower.wrench.select_face": "Selected face: %s",
+
   "item.energizedpower.battery_box_minecart": "Carrello da miniera con vano batteria",
   "item.energizedpower.advanced_battery_box_minecart": "Minecart with Advanced Battery Box",
 
@@ -326,6 +331,13 @@
   "tooltip.energizedpower.not_enough_energy.txt": "Energia insufficiente",
   "tooltip.energizedpower.ready.txt": "Pronto",
   "tooltip.energizedpower.infinite.txt": "Infinite",
+
+  "tooltip.energizedpower.direction.down": "Down",
+  "tooltip.energizedpower.direction.up": "Up",
+  "tooltip.energizedpower.direction.north": "North",
+  "tooltip.energizedpower.direction.south": "South",
+  "tooltip.energizedpower.direction.west": "West",
+  "tooltip.energizedpower.direction.east": "East",
 
   "itemGroup.energizedpower.tab": "Potenza energizzata",
 

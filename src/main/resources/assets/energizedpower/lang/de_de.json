@@ -74,6 +74,11 @@
   "item.energizedpower.diamond_hammer": "Diamanthammer",
   "item.energizedpower.netherite_hammer": "Netherithammer",
 
+  "item.energizedpower.wrench": "Schraubenschlüssel",
+
+  "tooltip.energizedpower.wrench.txt.shift": "Der Schraubenschlüssel kann für die Konfiguration von Flüssigkeitsrohren verwendet werden.",
+  "tooltip.energizedpower.wrench.select_face": "Selektierte Blockseite: %s",
+
   "item.energizedpower.battery_box_minecart": "Batterie-Box-Lore",
   "item.energizedpower.advanced_battery_box_minecart": "Fortgeschrittene Batterie-Box-Lore",
 
@@ -326,6 +331,13 @@
   "tooltip.energizedpower.not_enough_energy.txt": "Nicht genug Energie",
   "tooltip.energizedpower.ready.txt": "Bereit",
   "tooltip.energizedpower.infinite.txt": "Unendlich",
+
+  "tooltip.energizedpower.direction.down": "Unten",
+  "tooltip.energizedpower.direction.up": "Oben",
+  "tooltip.energizedpower.direction.north": "Norden",
+  "tooltip.energizedpower.direction.south": "Süden",
+  "tooltip.energizedpower.direction.west": "Westen",
+  "tooltip.energizedpower.direction.east": "Osten",
 
   "itemGroup.energizedpower.tab": "Energized Power",
 
