@@ -53,6 +53,10 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - Batteries (8 Tiers)
 - Inventory Coal Engine
 
+### Fluid transport
+
+- Fluid Pipe (**In next release (v2.0.0)**)
+
 ### Integrations
 
 - JEI (*Forge edition only*), EMI, and REI support
