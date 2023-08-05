@@ -527,6 +527,9 @@
   "advancements.energizedpower.hammer.title": "好工具",
   "advancements.energizedpower.hammer.description": "锤子可以制造材。",
 
+  "advancements.energizedpower.wrench.title": "Wrench configuration",
+  "advancements.energizedpower.wrench.description": "Configure fluid pipes with a wrench.",
+
   "advancements.energizedpower.battery_box_minecart.title": "铁轨上的能量",
   "advancements.energizedpower.battery_box_minecart.description": "在铁路上运输能源。",
 
