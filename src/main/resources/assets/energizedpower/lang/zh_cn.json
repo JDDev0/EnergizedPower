@@ -482,6 +482,9 @@
   "advancements.energizedpower.powered_furnace.title": "电炉",
   "advancements.energizedpower.powered_furnace.description": "有动力的炉子。",
 
+  "advancements.energizedpower.fluid_pipe.title": "Fluid Transport",
+  "advancements.energizedpower.fluid_pipe.description": "Transport fluids with fluid pipes.",
+
   "advancements.energizedpower.copper_cable.title": "能量传输",
   "advancements.energizedpower.copper_cable.description": "用电缆传输能量。",
 

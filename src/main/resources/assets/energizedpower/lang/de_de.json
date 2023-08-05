@@ -482,6 +482,9 @@
   "advancements.energizedpower.powered_furnace.title": "Eletrischer Ofen",
   "advancements.energizedpower.powered_furnace.description": "Ofen mit Strom.",
 
+  "advancements.energizedpower.fluid_pipe.title": "Flüssigkeits-Transport",
+  "advancements.energizedpower.fluid_pipe.description": "Transportiere Flüssigkeiten mit Flüssigkeitsrohren.",
+
   "advancements.energizedpower.copper_cable.title": "Energie-Transport",
   "advancements.energizedpower.copper_cable.description": "Transportiere Strom mit Kabel.",
 
