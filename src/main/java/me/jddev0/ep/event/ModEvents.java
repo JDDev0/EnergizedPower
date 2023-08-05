@@ -91,6 +91,17 @@ public class ModEvents {
                         energyItem,
                         2, 8, .02f);
             }
+            {
+
+                ItemStack energyItem = new ItemStack(ModItems.FLUID_ANALYZER.get());
+                energyItem.getOrCreateTag().put("energy", IntTag.valueOf(128));
+
+                addOffer(trades, 2,
+                        new ItemStack(Items.EMERALD, 6),
+                        new ItemStack(Items.COPPER_INGOT, 12),
+                        energyItem,
+                        2, 8, .02f);
+            }
             addOffer(trades, 2,
                     new ItemStack(ModItems.COPPER_PLATE.get(), 3),
                     new ItemStack(Items.EMERALD, 8),
