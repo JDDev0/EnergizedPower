@@ -527,6 +527,9 @@
   "advancements.energizedpower.hammer.title": "A good tool",
   "advancements.energizedpower.hammer.description": "Hammers can be used to craft plates.",
 
+  "advancements.energizedpower.wrench.title": "Wrench configuration",
+  "advancements.energizedpower.wrench.description": "Configure fluid pipes with a wrench.",
+
   "advancements.energizedpower.battery_box_minecart.title": "Power on Rails",
   "advancements.energizedpower.battery_box_minecart.description": "Transport energy on rails.",
 
