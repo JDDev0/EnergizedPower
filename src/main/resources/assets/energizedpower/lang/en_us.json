@@ -557,6 +557,9 @@
   "advancements.energizedpower.energy_analyzer.title": "Master of Analysis",
   "advancements.energizedpower.energy_analyzer.description": "Analyze every energy block - even if they have no GUI interface!",
 
+  "advancements.energizedpower.fluid_analyzer.title": "Fluid Analysis",
+  "advancements.energizedpower.fluid_analyzer.description": "Analyze blocks which contain fluids!",
+
   "advancements.energizedpower.inventory_coal_engine.title": "Inventory Power",
   "advancements.energizedpower.inventory_coal_engine.description": "Produce and distribute energy in your inventory.",
 

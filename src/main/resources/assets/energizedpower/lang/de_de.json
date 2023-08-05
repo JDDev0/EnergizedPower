@@ -557,6 +557,9 @@
   "advancements.energizedpower.energy_analyzer.title": "Meister der Analyse",
   "advancements.energizedpower.energy_analyzer.description": "Analysiere Energie-Blöcke - auch diese, ohne GUI-Interface!",
 
+  "advancements.energizedpower.fluid_analyzer.title": "Flüssigkeits-Analyse",
+  "advancements.energizedpower.fluid_analyzer.description": "Analysiere Blöcke, die Flüssigkeiten enthalten!",
+
   "advancements.energizedpower.inventory_coal_engine.title": "Inventar-Strom",
   "advancements.energizedpower.inventory_coal_engine.description": "Produziere und verteile Energie in deinem Inventar.",
 
