@@ -50,7 +50,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 ### Energy Items
 
 - Energy Analyzer (Can be used to debug energy blocks)
-- Fluid Analyzer (Can be used to debug blocks which contain fluids)
+- Fluid Analyzer (Can be used to debug blocks which contain fluids) (**In next release (v2.0.0)**)
 - Batteries (8 Tiers)
 - Inventory Coal Engine
 
