@@ -670,6 +670,9 @@
   "book.energizedpower.page.energy_analyzer.1": "L'Analizzatore di energia può essere utilizzato per ottenere la statica dell'energia. Utilizzato principalmente per blocchi di energia senza GUI.",
   "book.energizedpower.page.energy_analyzer.2": "Può essere utilizzato facendo clic sui blocchi di energia.",
 
+  "book.energizedpower.page.fluid_analyzer.1": "The Fluid Analyzer can be used to get fluid statics.",
+  "book.energizedpower.page.fluid_analyzer.2": "It can be used by clicking on energy blocks.",
+
   "book.energizedpower.page.batteries.1": "Le batterie possono immagazzinare energia.",
   "book.energizedpower.page.batteries.2": "Possono essere caricati dal caricatore o con generatori di inventario e possono essere scaricati dallo scaricatore.",
 

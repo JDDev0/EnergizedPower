@@ -1,0 +1,20 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.fluid_analyzer.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.fluid_analyzer.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "image": "energizedpower:textures/item/fluid_analyzer.png"
+}
