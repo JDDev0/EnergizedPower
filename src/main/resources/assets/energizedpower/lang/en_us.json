@@ -86,9 +86,10 @@
   "item.energizedpower.netherite_hammer": "Netherite Hammer",
 
   "item.energizedpower.wrench": "Wrench",
-
   "tooltip.energizedpower.wrench.txt.shift": "The Wrench can be used to configure Fluid Pipes.",
   "tooltip.energizedpower.wrench.select_face": "Selected face: %s",
+  "tooltip.energizedpower.wrench.face_change": "Connection type of face (%s) was set to %s.",
+  "tooltip.energizedpower.wrench.face_change_not_possible": "Connection type of face (%s) could not be changed.",
 
   "item.energizedpower.battery_box_minecart": "Minecart with Battery Box",
   "item.energizedpower.advanced_battery_box_minecart": "Minecart with Advanced Battery Box",
@@ -349,6 +350,10 @@
   "tooltip.energizedpower.direction.south": "South",
   "tooltip.energizedpower.direction.west": "West",
   "tooltip.energizedpower.direction.east": "East",
+
+  "tooltip.energizedpower.pipe_connection.not_connected": "Not connected",
+  "tooltip.energizedpower.pipe_connection.connected": "Connected/Insertion",
+  "tooltip.energizedpower.pipe_connection.extract": "Extraction",
 
   "itemGroup.energizedpower.tab": "Energized Power",
 
