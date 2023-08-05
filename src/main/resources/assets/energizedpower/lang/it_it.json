@@ -482,6 +482,9 @@
   "advancements.energizedpower.powered_furnace.title": "Fornace alimentato",
   "advancements.energizedpower.powered_furnace.description": "Fornace alimentata.",
 
+  "advancements.energizedpower.fluid_pipe.title": "Fluid Transport",
+  "advancements.energizedpower.fluid_pipe.description": "Transport fluids with fluid pipes.",
+
   "advancements.energizedpower.copper_cable.title": "Trasporto di energia",
   "advancements.energizedpower.copper_cable.description": "Trasporta energia con i cavi.",
 
