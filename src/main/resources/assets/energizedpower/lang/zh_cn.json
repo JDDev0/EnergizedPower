@@ -557,6 +557,9 @@
   "advancements.energizedpower.energy_analyzer.title": "分析大师",
   "advancements.energizedpower.energy_analyzer.description": "分析每一个方块 - 即使它们没有 GUI 界面!",
 
+  "advancements.energizedpower.fluid_analyzer.title": "Fluid Analysis",
+  "advancements.energizedpower.fluid_analyzer.description": "Analyze blocks which contain fluids!",
+
   "advancements.energizedpower.inventory_coal_engine.title": "Inventory Power",
   "advancements.energizedpower.inventory_coal_engine.description": "Produce and distribute energy in your inventory.",
 
