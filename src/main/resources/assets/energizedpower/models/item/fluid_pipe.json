@@ -2,23 +2,22 @@
   "parent": "energizedpower:block/fluid_pipe_core",
   "display": {
     "gui": {
-      "rotation": [ 30, 45, 0 ],
-      "scale": [ 1.15, 1.15, 1.15 ]
+      "rotation": [ 30, 45, 0 ]
     },
     "ground": {
-      "scale": [ 1, 1, 1 ]
+      "scale": [ 0.65, 0.65, 0.65 ]
     },
     "fixed": {
-      "scale": [ 1, 1, 1 ]
+      "scale": [ 0.65, 0.65, 0.65 ]
     },
     "firstperson_righthand": {
-      "scale": [ 1, 1, 1 ]
+      "scale": [ 0.65, 0.65, 0.65 ]
     },
     "firstperson_lefthand": {
-      "scale": [ 1, 1, 1 ]
+      "scale": [ 0.65, 0.65, 0.65 ]
     },
     "thirdperson_righthand": {
-      "scale": [ 1, 1, 1 ]
+      "scale": [ 0.65, 0.65, 0.65 ]
     }
   }
 }
