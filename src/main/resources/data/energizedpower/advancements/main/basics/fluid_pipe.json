@@ -1,0 +1,34 @@
+{
+  "parent":  "energizedpower:main/basics/energizedpower_basics",
+  "display": {
+    "icon": {
+      "item": "energizedpower:fluid_pipe"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.fluid_pipe.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.fluid_pipe.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_fluid_pipe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:fluid_pipe" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_fluid_pipe"
+    ]
+  ]
+}
