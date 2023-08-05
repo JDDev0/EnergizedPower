@@ -78,28 +78,55 @@ public class WrenchItem extends Item {
 
         BlockPos testPos = blockPos.relative(currentFace);
 
-        BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-        if(testBlockEntity == null)
-            return InteractionResult.SUCCESS;
+        Player player = useOnContext.getPlayer();
 
-        if(testBlockEntity instanceof FluidPipeBlockEntity) {
-            //Connection to another pipe can not be modified
+        BlockEntity testBlockEntity = level.getBlockEntity(testPos);
+        if(testBlockEntity == null || testBlockEntity instanceof FluidPipeBlockEntity) {
+            //Connections to non-fluid blocks nor connections to another pipe can not be modified
+
+            if(player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.wrench.face_change_not_possible",
+                                Component.translatable("tooltip.energizedpower.direction." + currentFace.getSerializedName()).
+                                        withStyle(ChatFormatting.WHITE)
+                        ).withStyle(ChatFormatting.RED)
+                ));
+            }
 
             return InteractionResult.SUCCESS;
         }
 
         LazyOptional<IFluidHandler> fluidStorageLazyOptional = testBlockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, currentFace.getOpposite());
-        if(!fluidStorageLazyOptional.isPresent())
+        if(!fluidStorageLazyOptional.isPresent()) {
+            if(player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.wrench.face_change_not_possible",
+                                Component.translatable("tooltip.energizedpower.direction." + currentFace.getSerializedName()).
+                                        withStyle(ChatFormatting.WHITE)
+                        ).withStyle(ChatFormatting.RED)
+                ));
+            }
+
             return InteractionResult.SUCCESS;
+        }
 
         IFluidHandler fluidStorage = fluidStorageLazyOptional.orElse(null);
-        if(fluidStorage.getTanks() == 0)
+        if(fluidStorage.getTanks() == 0) {
+            if(player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.wrench.face_change_not_possible",
+                                Component.translatable("tooltip.energizedpower.direction." + currentFace.getSerializedName()).
+                                        withStyle(ChatFormatting.WHITE)
+                        ).withStyle(ChatFormatting.RED)
+                ));
+            }
+
             return InteractionResult.SUCCESS;
+        }
 
         EnumProperty<ModBlockStateProperties.PipeConnection> pipeConnectionProperty =
                 FluidPipeBlock.getPipeConnectionPropertyFromDirection(currentFace);
 
-        Player player = useOnContext.getPlayer();
         int diff = player != null && player.isShiftKeyDown()?-1:1;
 
         ModBlockStateProperties.PipeConnection pipeConnection = state.getValue(pipeConnectionProperty);
@@ -109,7 +136,18 @@ public class WrenchItem extends Item {
 
         level.setBlock(blockPos, state.setValue(pipeConnectionProperty, pipeConnection), 3);
 
-        return super.useOn(useOnContext);
+        if(player instanceof ServerPlayer serverPlayer) {
+            serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.wrench.face_change",
+                            Component.translatable("tooltip.energizedpower.direction." + currentFace.getSerializedName()).
+                                    withStyle(ChatFormatting.WHITE),
+                            Component.translatable("tooltip.energizedpower.pipe_connection." + pipeConnection.getSerializedName()).
+                                    withStyle(ChatFormatting.WHITE, ChatFormatting.BOLD)
+                    ).withStyle(ChatFormatting.GREEN)
+            ));
+        }
+
+        return InteractionResult.SUCCESS;
     }
 
     @Override
