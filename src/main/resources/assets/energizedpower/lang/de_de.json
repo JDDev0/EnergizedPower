@@ -670,6 +670,9 @@
   "book.energizedpower.page.energy_analyzer.1": "Der Energie-Analyzierer kann genutzt werden, um Energie-Statistiken von Blöcken - auch diese, ohne GUI - zu erhalten.",
   "book.energizedpower.page.energy_analyzer.2": "Es wird durch das Klicken auf Blöcken verwendet.",
 
+  "book.energizedpower.page.fluid_analyzer.1": "Der Flüssigkeits-Analyzierer kann genutzt werden, um Flüssigkeits-Statistiken von Blöcken zu erhalten.",
+  "book.energizedpower.page.fluid_analyzer.2": "Es wird durch das Klicken auf Blöcken verwendet.",
+
   "book.energizedpower.page.batteries.1": "Batterien speichern Strom.",
   "book.energizedpower.page.batteries.2": "Sie können im Lader oder durch den Inventar-Kohlegenerator geladen werden und mit dem Entlader entladen werden.",
 
