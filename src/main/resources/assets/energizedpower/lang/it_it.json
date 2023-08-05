@@ -527,6 +527,9 @@
   "advancements.energizedpower.hammer.title": "Un buon strumento",
   "advancements.energizedpower.hammer.description": "I martelli possono essere usati per creare lastre.",
 
+  "advancements.energizedpower.wrench.title": "Wrench configuration",
+  "advancements.energizedpower.wrench.description": "Configure fluid pipes with a wrench.",
+
   "advancements.energizedpower.battery_box_minecart.title": "Potenza sui binari",
   "advancements.energizedpower.battery_box_minecart.description": "Energia per trasporto su rotaie.",
 
