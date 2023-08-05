@@ -1,0 +1,34 @@
+{
+  "parent":  "energizedpower:main/basics/fluid_pipe",
+  "display": {
+    "icon": {
+      "item": "energizedpower:wrench"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.wrench.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.wrench.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_wrench": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:wrench" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_wrench"
+    ]
+  ]
+}
