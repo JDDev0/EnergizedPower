@@ -107,6 +107,18 @@ public final class ModConfigs {
             "block.advanced_battery_box", "Advanced Battery Box", 262144
     );
 
+    public static final ConfigValue<Integer> COMMON_MV_TRANSFORMERS_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.mv_transformers", "MV Transformers", 65536
+    );
+
+    public static final ConfigValue<Integer> COMMON_HV_TRANSFORMERS_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.hv_transformers", "HV Transformers", 524288
+    );
+
+    public static final ConfigValue<Integer> COMMON_EHV_TRANSFORMERS_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.ehv_transformers", "EHV Transformers", 2097152
+    );
+
     //Entities
     public static final ConfigValue<Integer> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536
