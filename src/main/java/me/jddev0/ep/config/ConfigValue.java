@@ -4,6 +4,9 @@ import me.jddev0.ep.config.validation.ValueValidator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class ConfigValue<T> {
     @NotNull
     private final String key;
@@ -58,6 +61,14 @@ public abstract class ConfigValue<T> {
         validate(value);
 
         this.value = value;
+    }
+
+    public @NotNull List<String> getValidationCommentLines() {
+        List<String> commentLines = new ArrayList<>();
+        if(validator != null)
+            commentLines.addAll(validator.getValidationCommentLines());
+
+        return commentLines;
     }
 
     public boolean isLoaded() {

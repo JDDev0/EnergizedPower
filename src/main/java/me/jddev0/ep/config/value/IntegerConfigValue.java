@@ -6,6 +6,9 @@ import me.jddev0.ep.config.validation.ValueValidator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class IntegerConfigValue extends ConfigValue<Integer> {
     private final int minInclusive;
     private final boolean minLenCheckEnabled;
@@ -41,6 +44,21 @@ public class IntegerConfigValue extends ConfigValue<Integer> {
 
         maxLenCheckEnabled = maxInclusive != null;
         this.maxInclusive = maxLenCheckEnabled?maxInclusive:0;
+    }
+
+    @Override
+    public @NotNull List<String> getValidationCommentLines() {
+        List<String> commentLines = new ArrayList<>();
+
+        if(minLenCheckEnabled)
+            commentLines.add("Value >= " + minInclusive);
+
+        if(maxLenCheckEnabled)
+            commentLines.add("Value <= " + maxInclusive);
+
+        commentLines.addAll(super.getValidationCommentLines());
+
+        return commentLines;
     }
 
     @Override
