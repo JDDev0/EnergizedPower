@@ -237,7 +237,7 @@
   "item.energizedpower.solar_panel_5": "Pannello solare (Livello V)",
   "container.energizedpower.solar_panel_5": "Pannello solare (Livello V)",
 
-  "tooltip.energizedpower.solar_panel.txt.shift.1": "Questo blocco produce %s/t durante il giorno.",
+  "tooltip.energizedpower.solar_panel.txt.shift.1": "This block produces up to %s/t.",
   "tooltip.energizedpower.solar_panel.txt.shift.2": "L'efficienza dipende dall'ora corrente",
 
   "block.energizedpower.coal_engine": "Motore a carbone",

@@ -237,7 +237,7 @@
   "item.energizedpower.solar_panel_5": "Solarpanel (MK V)",
   "container.energizedpower.solar_panel_5": "Solarpanel (MK V)",
 
-  "tooltip.energizedpower.solar_panel.txt.shift.1": "Dieses Panel kann %s/t während es hell ist produzieren.",
+  "tooltip.energizedpower.solar_panel.txt.shift.1": "Dieses Panel kann bis zu %s/t produzieren.",
   "tooltip.energizedpower.solar_panel.txt.shift.2": "Die Effizienz hängt von der aktuellen Zeit und dem Wetter ab",
 
   "block.energizedpower.coal_engine": "Kohlegenerator",
