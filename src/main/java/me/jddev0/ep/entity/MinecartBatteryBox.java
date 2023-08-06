@@ -1,6 +1,7 @@
 package me.jddev0.ep.entity;
 
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.screen.MinecartBatteryBoxMenu;
 import me.jddev0.ep.util.ByteUtils;
@@ -19,8 +20,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class MinecartBatteryBox extends AbstractMinecartBatteryBox {
-    public static final int CAPACITY = 65536;
-    public static final int MAX_TRANSFER = 512;
+    public static final int CAPACITY = ModConfigs.COMMON_BATTERY_BOX_MINECART_CAPACITY.getValue();
+    public static final int MAX_TRANSFER = ModConfigs.COMMON_BATTERY_BOX_MINECART_TRANSFER_RATE.getValue();
 
     private static final EntityDataAccessor<Integer> DATA_ID_ENERGY =
             SynchedEntityData.defineId(MinecartBatteryBox.class, EntityDataSerializers.INT);
