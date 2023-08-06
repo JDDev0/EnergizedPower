@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.TransformerBlock;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveAndExtractEnergyStorage;
 import me.jddev0.ep.energy.ReceiveExtractEnergyHandler;
@@ -57,9 +58,9 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
 
     public static int getMaxEnergyTransferFromTier(TransformerBlock.Tier tier) {
         return switch(tier) {
-            case TIER_MV -> 65536;
-            case TIER_HV -> 524288;
-            case TIER_EHV -> 2097152;
+            case TIER_MV -> ModConfigs.COMMON_MV_TRANSFORMERS_TRANSFER_RATE.getValue();
+            case TIER_HV -> ModConfigs.COMMON_HV_TRANSFORMERS_TRANSFER_RATE.getValue();
+            case TIER_EHV -> ModConfigs.COMMON_EHV_TRANSFORMERS_TRANSFER_RATE.getValue();
         };
     }
 
