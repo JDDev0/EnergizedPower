@@ -1,10 +1,10 @@
 package me.jddev0.ep.config;
 
-import com.google.common.io.Files;
 import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -248,6 +248,6 @@ public class Config {
         }
 
         backupConfigFile = new File(configFile.getParentFile(), fileName + ".1.bak");
-        Files.copy(configFile, backupConfigFile);
+        Files.copy(configFile.toPath(), backupConfigFile.toPath());
     }
 }
