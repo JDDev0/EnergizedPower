@@ -188,11 +188,11 @@ public final class ModConfigs {
     );
 
     //World
-    public static final ConfigValue<Integer> COMMON_ELECTRICIAN_BUILDING_PLACEMENT_WEIGHT = COMMON_CONFIG.register(new IntegerConfigValue(
+    public static final ConfigValue<Integer> COMMON_ELECTRICIAN_BUILDING_1_PLACEMENT_WEIGHT = COMMON_CONFIG.register(new IntegerConfigValue(
             "world.village.electrician_building_1.placement_weight",
             "Determines how frequent the Electrician Building 1 will be placed in villages. If set to 0 the Electrician Building 1 will never be placed.",
             5,
-            0, 50
+            0, 100
     ));
 
 
