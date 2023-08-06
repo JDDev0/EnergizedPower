@@ -2,6 +2,7 @@ package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.LightningGeneratorBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
@@ -36,7 +37,7 @@ import java.util.List;
 import java.util.function.ToIntFunction;
 
 public class LightningGeneratorBlock extends BaseEntityBlock {
-    public static final int ENERGY_PER_LIGHTNING_STRIKE = 1000000;
+    public static final int ENERGY_PER_LIGHTNING_STRIKE = ModConfigs.COMMON_LIGHTNING_GENERATOR_CAPACITY.getValue();
 
     public static final BooleanProperty HIT_BY_LIGHTNING_BOLT = BooleanProperty.create("hit_by_lightning_bolt");
 
