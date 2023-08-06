@@ -1,6 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
+import me.jddev0.ep.config.ModConfigs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -16,7 +17,7 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class WeatherControllerBlock extends BaseEntityBlock {
-    public static int WEATHER_CHANGED_TICKS = 20 * 60 * 16; //16 minutes
+    public static int WEATHER_CHANGED_TICKS = ModConfigs.COMMON_WEATHER_CONTROLLER_CONTROL_DURATION.getValue();
 
     public WeatherControllerBlock(Properties props) {
         super(props);
