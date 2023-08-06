@@ -148,7 +148,7 @@ public final class ModConfigs {
     );
     public static final ConfigValue<Integer> COMMON_WEATHER_CONTROLLER_CONTROL_DURATION = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.weather_controller.control_duration",
-            "The amount of time in ticks the weather controller can keep the desired weather state up",
+            "The amount of time in ticks the Weather Controller can maintain the desired weather state",
             20 * 60 * 16 /* 16 minutes */,
             20 * 5 /* 5 seconds */, null
     ));
