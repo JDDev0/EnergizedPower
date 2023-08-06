@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AdvancedMinecartUnchargerBlock;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
@@ -34,8 +35,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class AdvancedMinecartUnchargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    public static final int CAPACITY = 524288;
-    public static final int MAX_TRANSFER = 65536;
+    public static final int CAPACITY = ModConfigs.COMMON_ADVANCED_MINECART_UNCHARGER_CAPACITY.getValue();
+    public static final int MAX_TRANSFER = ModConfigs.COMMON_ADVANCED_MINECART_UNCHARGER_TRANSFER_RATE.getValue();
 
     private final ExtractOnlyEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();

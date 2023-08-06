@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AdvancedMinecartChargerBlock;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
@@ -33,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class AdvancedMinecartChargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    public static final int MAX_TRANSFER = 65536;
+    public static final int MAX_TRANSFER = ModConfigs.COMMON_ADVANCED_MINECART_CHARGER_TRANSFER_RATE.getValue();
 
     private final ReceiveOnlyEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
@@ -44,7 +45,7 @@ public class AdvancedMinecartChargerBlockEntity extends BlockEntity implements M
     public AdvancedMinecartChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ADVANCED_MINECART_CHARGER_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, 524288, MAX_TRANSFER) {
+        energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_ADVANCED_MINECART_CHARGER_CAPACITY.getValue(), MAX_TRANSFER) {
             @Override
             protected void onChange() {
                 setChanged();
