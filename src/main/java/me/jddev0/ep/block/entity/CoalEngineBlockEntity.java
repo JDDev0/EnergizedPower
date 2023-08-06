@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.CoalEngineBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
@@ -40,7 +41,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    public static final int MAX_EXTRACT = 256;
+    public static final int MAX_EXTRACT = ModConfigs.COMMON_COAL_ENGINE_TRANSFER_RATE.getValue();
+
+    public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
         @Override
@@ -79,7 +82,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
     public CoalEngineBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.COAL_ENGINE_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ExtractOnlyEnergyStorage(0, 2048, MAX_EXTRACT) {
+        energyStorage = new ExtractOnlyEnergyStorage(0, ModConfigs.COMMON_COAL_ENGINE_CAPACITY.getValue(), MAX_EXTRACT) {
             @Override
             protected void onChange() {
                 setChanged();
@@ -212,6 +215,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
             ItemStack item = inventory.getItem(0);
 
             int energyProduction = ForgeHooks.getBurnTime(item, null);
+            energyProduction = (int)(energyProduction * ENERGY_PRODUCTION_MULTIPLIER);
             if(blockEntity.progress == 0)
                 blockEntity.energyProductionLeft = energyProduction;
 
