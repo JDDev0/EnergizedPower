@@ -193,7 +193,7 @@ public final class ModConfigs {
     }
     private static ConfigValue<Integer> registerEnergyConsumptionPerUseConfigValue(String baseConfigKey, String itemName, int defaultValue) {
         return COMMON_CONFIG.register(new IntegerConfigValue(
-                baseConfigKey + ".energy_requirement_per_use",
+                baseConfigKey + ".energy_consumption_per_use",
                 "The energy consumption of " + itemName + " in FE per use",
                 defaultValue,
                 1, null
