@@ -22,7 +22,7 @@ public class VillageAddition {
         Registry<StructureTemplatePool> templatePoolRegistry = event.getServer().registryAccess().registry(Registry.TEMPLATE_POOL_REGISTRY).orElseThrow();
 
         //Electrician 1
-        int weight = ModConfigs.COMMON_ELECTRICIAN_BUILDING_PLACEMENT_WEIGHT.getValue();
+        int weight = ModConfigs.COMMON_ELECTRICIAN_BUILDING_1_PLACEMENT_WEIGHT.getValue();
         addVillageHouse(templatePoolRegistry, "desert", "electrician_1", weight);
         addVillageHouse(templatePoolRegistry, "plains", "electrician_1", weight);
         addVillageHouse(templatePoolRegistry, "savanna", "electrician_1", weight);
