@@ -208,6 +208,12 @@ public class Config {
                 bw.write("# [Default value]: " + defaultValue);
                 bw.newLine();
 
+                List<String> commentLines = configValue.getValidationCommentLines();
+                for(String commentLine:commentLines) {
+                    bw.write("# [Validation]: " + commentLine);
+                    bw.newLine();
+                }
+
                 String rawValue = configValueSerializer.apply(configValue);
 
                 rawValue = rawValue.
