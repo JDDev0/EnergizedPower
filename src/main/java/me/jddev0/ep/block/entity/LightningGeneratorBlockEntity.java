@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.LightningGeneratorBlock;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
@@ -29,7 +30,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class LightningGeneratorBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    public static final int MAX_EXTRACT = 65536;
+    public static final int MAX_EXTRACT = ModConfigs.COMMON_LIGHTNING_GENERATOR_TRANSFER_RATE.getValue();
 
     private final ExtractOnlyEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
