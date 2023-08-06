@@ -1,5 +1,6 @@
 package me.jddev0.ep.config;
 
+import com.google.common.io.Files;
 import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
 
@@ -230,7 +231,23 @@ public class Config {
         }
     }
 
-    private void makeBackup() {
-        //TODO
+    public void makeBackup() throws IOException {
+        String fileName = configFile.getName();
+
+        File backupConfigFile = new File(configFile.getParentFile(), fileName + ".5.bak");
+        if(backupConfigFile.exists())
+            backupConfigFile.delete();
+
+        //Move newer backup files to higher numbers
+        for(int i = 5;i > 1;i--) {
+            backupConfigFile = new File(configFile.getParentFile(), fileName + "." + i + ".bak");
+            File newerBackupConfigFile = new File(configFile.getParentFile(), fileName + "." + (i - 1) + ".bak");
+
+            if(newerBackupConfigFile.exists())
+                newerBackupConfigFile.renameTo(backupConfigFile);
+        }
+
+        backupConfigFile = new File(configFile.getParentFile(), fileName + ".1.bak");
+        Files.copy(configFile, backupConfigFile);
     }
 }
