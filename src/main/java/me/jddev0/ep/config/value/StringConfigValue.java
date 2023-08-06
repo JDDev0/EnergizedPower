@@ -6,6 +6,9 @@ import me.jddev0.ep.config.validation.ValueValidator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StringConfigValue extends ConfigValue<String> {
     private final int minLen;
     private final boolean minLenCheckEnabled;
@@ -41,6 +44,21 @@ public class StringConfigValue extends ConfigValue<String> {
 
         maxLenCheckEnabled = maxLen != null;
         this.maxLen = maxLenCheckEnabled?maxLen:0;
+    }
+
+    @Override
+    public @NotNull List<String> getValidationCommentLines() {
+        List<String> commentLines = new ArrayList<>();
+
+        if(minLenCheckEnabled)
+            commentLines.add("The value must have at least " + minLen + " characters");
+
+        if(maxLenCheckEnabled)
+            commentLines.add("The value must have at most " + maxLen + " characters");
+
+        commentLines.addAll(super.getValidationCommentLines());
+
+        return commentLines;
     }
 
     @Override
