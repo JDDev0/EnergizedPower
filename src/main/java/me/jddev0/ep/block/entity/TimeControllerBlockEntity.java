@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
@@ -24,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TimeControllerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    public static final int CAPACITY = 8388608;
+    public static final int CAPACITY = ModConfigs.COMMON_TIME_CONTROLLER_CAPACITY.getValue();
 
     private final ReceiveOnlyEnergyStorage energyStorage;
 
@@ -33,7 +34,7 @@ public class TimeControllerBlockEntity extends BlockEntity implements MenuProvid
     public TimeControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.TIME_CONTROLLER_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, CAPACITY, 32768) {
+        energyStorage = new ReceiveOnlyEnergyStorage(0, CAPACITY, ModConfigs.COMMON_TIME_CONTROLLER_TRANSFER_RATE.getValue()) {
             @Override
             protected void onChange() {
                 setChanged();
