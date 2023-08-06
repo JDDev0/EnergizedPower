@@ -190,6 +190,16 @@ public final class ModConfigs {
             "block.time_controller", "Time Controller", 32768
     );
 
+    public static final ConfigValue<Integer> COMMON_COAL_ENGINE_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.coal_engine", "Coal Engine", 2048
+    );
+    public static final ConfigValue<Integer> COMMON_COAL_ENGINE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.coal_engine", "Coal Engine", 256
+    );
+    public static final ConfigValue<Float> COMMON_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER = registerEnergyProductionMultiplierConfigValue(
+            "block.coal_engine", "Coal Engine"
+    );
+
     //Entities
     public static final ConfigValue<Integer> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536
