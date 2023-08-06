@@ -250,6 +250,34 @@ public final class ModConfigs {
             "block.solar_panel_5", "Solar Panel (Tier V)", 262144
     );
 
+    public static final ConfigValue<Integer> COMMON_MINECART_CHARGER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.minecart_charger", "Minecart Charger", 16384
+    );
+    public static final ConfigValue<Integer> COMMON_MINECART_CHARGER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.minecart_charger", "Minecart Charger", 512
+    );
+
+    public static final ConfigValue<Integer> COMMON_MINECART_UNCHARGER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.minecart_uncharger", "Minecart Uncharger", 16384
+    );
+    public static final ConfigValue<Integer> COMMON_MINECART_UNCHARGER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.minecart_uncharger", "Minecart Uncharger", 512
+    );
+
+    public static final ConfigValue<Integer> COMMON_ADVANCED_MINECART_CHARGER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.advanced_minecart_charger", "Advanced Minecart Charger", 524288
+    );
+    public static final ConfigValue<Integer> COMMON_ADVANCED_MINECART_CHARGER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.advanced_minecart_charger", "Advanced Minecart Charger", 65536
+    );
+
+    public static final ConfigValue<Integer> COMMON_ADVANCED_MINECART_UNCHARGER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.advanced_minecart_uncharger", "Advanced Minecart Uncharger", 524288
+    );
+    public static final ConfigValue<Integer> COMMON_ADVANCED_MINECART_UNCHARGER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.advanced_minecart_uncharger", "Advanced Minecart Uncharger", 65536
+    );
+
     //Entities
     public static final ConfigValue<Integer> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536
