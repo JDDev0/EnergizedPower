@@ -6,6 +6,8 @@ import me.jddev0.ep.config.validation.ValueValidator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class FloatConfigValue extends ConfigValue<Float> {
@@ -43,6 +45,21 @@ public class FloatConfigValue extends ConfigValue<Float> {
 
         maxLenCheckEnabled = maxExclusive != null;
         this.maxExclusive = maxLenCheckEnabled?maxExclusive:0;
+    }
+
+    @Override
+    public @NotNull List<String> getValidationCommentLines() {
+        List<String> commentLines = new ArrayList<>();
+
+        if(minLenCheckEnabled)
+            commentLines.add("Value > " + minExclusive);
+
+        if(maxLenCheckEnabled)
+            commentLines.add("Value < " + maxExclusive);
+
+        commentLines.addAll(super.getValidationCommentLines());
+
+        return commentLines;
     }
 
     @Override
