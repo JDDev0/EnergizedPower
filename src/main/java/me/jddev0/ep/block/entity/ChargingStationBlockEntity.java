@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ChargingStationBlock;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.integration.curios.CuriosCompatUtils;
@@ -35,7 +36,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ChargingStationBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    public static final int MAX_CHARGING_DISTANCE = 7;
+    public static final int MAX_CHARGING_DISTANCE = ModConfigs.COMMON_CHARGING_STATION_MAX_CHARGING_DISTANCE.getValue();
 
     private final ReceiveOnlyEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
@@ -43,7 +44,8 @@ public class ChargingStationBlockEntity extends BlockEntity implements MenuProvi
     public ChargingStationBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CHARGING_STATION_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, 262144, 16384) {
+        energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_CHARGING_STATION_CAPACITY.getValue(),
+                ModConfigs.COMMON_CHARGING_STATION_TRANSFER_RATE.getValue()) {
             @Override
             protected void onChange() {
                 setChanged();
