@@ -2,6 +2,7 @@ package me.jddev0.ep.world.village;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.config.ModConfigs;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
@@ -21,11 +22,12 @@ public class VillageAddition {
         Registry<StructureTemplatePool> templatePoolRegistry = event.getServer().registryAccess().registry(Registry.TEMPLATE_POOL_REGISTRY).orElseThrow();
 
         //Electrician 1
-        addVillageHouse(templatePoolRegistry, "desert", "electrician_1", 5);
-        addVillageHouse(templatePoolRegistry, "plains", "electrician_1", 5);
-        addVillageHouse(templatePoolRegistry, "savanna", "electrician_1", 5);
-        addVillageHouse(templatePoolRegistry, "snowy", "electrician_1", 5);
-        addVillageHouse(templatePoolRegistry, "taiga", "electrician_1", 5);
+        int weight = ModConfigs.COMMON_ELECTRICIAN_BUILDING_PLACEMENT_WEIGHT.getValue();
+        addVillageHouse(templatePoolRegistry, "desert", "electrician_1", weight);
+        addVillageHouse(templatePoolRegistry, "plains", "electrician_1", weight);
+        addVillageHouse(templatePoolRegistry, "savanna", "electrician_1", weight);
+        addVillageHouse(templatePoolRegistry, "snowy", "electrician_1", weight);
+        addVillageHouse(templatePoolRegistry, "taiga", "electrician_1", weight);
     }
 
     private static void addVillageHouse(Registry<StructureTemplatePool> templatePoolRegistry, String villageType,
