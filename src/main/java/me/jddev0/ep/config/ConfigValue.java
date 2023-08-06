@@ -49,7 +49,7 @@ public abstract class ConfigValue<T> {
         return comment;
     }
 
-    public @NotNull T getDefaultValue() {
+    protected @NotNull T getDefaultValue() {
         return defaultValue;
     }
 
