@@ -139,6 +139,26 @@ public final class ModConfigs {
             "block.energized_crystal_matrix_cable", "Energized Crystal Matrix Cable", 2097152
     );
 
+    public static final ConfigValue<Integer> COMMON_WEATHER_CONTROLLER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.weather_controller", "Weather Controller", 8388608
+    );
+    public static final ConfigValue<Integer> COMMON_WEATHER_CONTROLLER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.weather_controller", "Weather Controller", 32768
+    );
+    public static final ConfigValue<Integer> COMMON_WEATHER_CONTROLLER_CONTROL_DURATION = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.weather_controller.control_duration",
+            "The amount of time in ticks the weather controller can keep the desired weather state up",
+            20 * 60 * 16 /* 16 minutes */,
+            20 * 5 /* 5 seconds */, null
+    ));
+
+    public static final ConfigValue<Integer> COMMON_TIME_CONTROLLER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.time_controller", "Time Controller", 8388608
+    );
+    public static final ConfigValue<Integer> COMMON_TIME_CONTROLLER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.time_controller", "Time Controller", 32768
+    );
+
     //Entities
     public static final ConfigValue<Integer> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536
