@@ -19,14 +19,14 @@ public class BlockPlacerMenu extends AbstractContainerMenu implements EnergyStor
     private final ContainerData data;
 
     public BlockPlacerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(6));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(8));
     }
 
     public BlockPlacerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.BLOCK_PLACER_MENU.get(), id);
 
         checkContainerSize(inv, 1);
-        checkContainerDataCount(data, 6);
+        checkContainerDataCount(data, 8);
         this.blockEntity = (BlockPlacerBlockEntity)blockEntity;
         this.level = inv.player.level();
         this.data = data;
@@ -53,22 +53,22 @@ public class BlockPlacerMenu extends AbstractContainerMenu implements EnergyStor
 
     @Override
     public int getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
+        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
     }
 
     /**
      * @return Same as isCrafting but energy requirements are ignored
      */
     public boolean isCraftingActive() {
-        return data.get(0) > 0;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0;
     }
 
     public boolean isCrafting() {
-        return data.get(0) > 0 && data.get(4) == 1;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(6) == 1;
     }
 
     public boolean isInverseRotation() {
-        return data.get(5) != 0;
+        return data.get(7) != 0;
     }
 
     @Override
