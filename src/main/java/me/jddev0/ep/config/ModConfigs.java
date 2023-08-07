@@ -338,7 +338,7 @@ public final class ModConfigs {
     );
     public static final ConfigValue<Integer> COMMON_AUTO_CRAFTER_ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.auto_crafter.energy_consumption_per_tick_per_ingredient",
-            "The energy consumption used by Auto Crafter if active per tick per ingredient",
+            "The energy consumption of the Auto Crafter if active per tick per ingredient",
             2,
             1, null
     ));
@@ -393,7 +393,7 @@ public final class ModConfigs {
     private static ConfigValue<Integer> registerEnergyCapacityConfigValue(String baseConfigKey, String itemName, int defaultValue) {
         return COMMON_CONFIG.register(new IntegerConfigValue(
                 baseConfigKey + ".capacity",
-                "The energy capacity of " + itemName + " in FE",
+                "The energy capacity of the " + itemName + " in FE",
                 defaultValue,
                 1, null
         ));
@@ -401,7 +401,7 @@ public final class ModConfigs {
     private static ConfigValue<Integer> registerEnergyTransferRateConfigValue(String baseConfigKey, String itemName, int defaultValue) {
         return COMMON_CONFIG.register(new IntegerConfigValue(
                 baseConfigKey + ".transfer_rate",
-                "The energy transfer rate of " + itemName + " in FE per tick",
+                "The energy transfer rate of the " + itemName + " in FE per tick",
                 defaultValue,
                 1, null
         ));
@@ -409,7 +409,7 @@ public final class ModConfigs {
     private static ConfigValue<Integer> registerEnergyPeakProductionConfigValue(String baseConfigKey, String itemName, int defaultValue) {
         return COMMON_CONFIG.register(new IntegerConfigValue(
                 baseConfigKey + ".energy_peak_production",
-                "The peak energy production of " + itemName + " for ideal conditions (e.g. at noon with clear sky for solar panels) in FE per tick",
+                "The peak energy production of the " + itemName + " for ideal conditions (e.g. at noon with clear sky for solar panels) in FE per tick",
                 defaultValue,
                 1, null
         ));
@@ -417,7 +417,7 @@ public final class ModConfigs {
     private static ConfigValue<Integer> registerEnergyConsumptionPerTickConfigValue(String baseConfigKey, String itemName, int defaultValue) {
         return COMMON_CONFIG.register(new IntegerConfigValue(
                 baseConfigKey + ".energy_consumption_per_tick",
-                "The energy consumption used by " + itemName + " if active per tick",
+                "The energy consumption of the " + itemName + " if active per tick",
                 defaultValue,
                 1, null
         ));
@@ -425,7 +425,7 @@ public final class ModConfigs {
     private static ConfigValue<Float> registerEnergyConsumptionMultiplierConfigValue(String baseConfigKey, String itemName) {
         return COMMON_CONFIG.register(new FloatConfigValue(
                 baseConfigKey + ".energy_consumption_multiplier",
-                "The multiplier by which the energy consumption of " + itemName + " is multiplied by",
+                "The multiplier by which the energy consumption of the " + itemName + " is multiplied by",
                 1.f,
                 0.f, null
         ));
@@ -433,7 +433,7 @@ public final class ModConfigs {
     private static ConfigValue<Float> registerEnergyProductionMultiplierConfigValue(String baseConfigKey, String itemName) {
         return COMMON_CONFIG.register(new FloatConfigValue(
                 baseConfigKey + ".energy_production_multiplier",
-                "The multiplier by which the energy production of " + itemName + " is multiplied by",
+                "The multiplier by which the energy production of the " + itemName + " is multiplied by",
                 1.f,
                 0.f, null
         ));
@@ -441,7 +441,7 @@ public final class ModConfigs {
     private static ConfigValue<Integer> registerEnergyConsumptionPerUseConfigValue(String baseConfigKey, String itemName, int defaultValue) {
         return COMMON_CONFIG.register(new IntegerConfigValue(
                 baseConfigKey + ".energy_consumption_per_use",
-                "The energy consumption of " + itemName + " in FE per use",
+                "The energy consumption of the " + itemName + " in FE per use",
                 defaultValue,
                 1, null
         ));
@@ -449,7 +449,7 @@ public final class ModConfigs {
     private static ConfigValue<Integer> registerRecipeDurationConfigValue(String baseConfigKey, String itemName, int defaultValue) {
         return COMMON_CONFIG.register(new IntegerConfigValue(
                 baseConfigKey + ".recipe_duration",
-                "The time a recipe of " + itemName + " requires in ticks",
+                "The time a recipe of the " + itemName + " requires in ticks",
                 defaultValue,
                 1, null
         ));
@@ -457,7 +457,7 @@ public final class ModConfigs {
     private static ConfigValue<Float> registerRecipeDurationMultiplierConfigValue(String baseConfigKey, String itemName) {
         return COMMON_CONFIG.register(new FloatConfigValue(
                 baseConfigKey + ".recipe_duration_multiplier",
-                "The multiplier by which the time a recipe of " + itemName + " requires is multiplied by",
+                "The multiplier by which the time a recipe of the " + itemName + " requires is multiplied by",
                 1.f,
                 0.f, null
         ));
