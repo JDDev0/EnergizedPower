@@ -2,6 +2,7 @@ package me.jddev0.ep.integration.jei;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.entity.EnergizerBlockEntity;
 import me.jddev0.ep.recipe.EnergizerRecipe;
 import me.jddev0.ep.util.EnergyUtils;
 import mezz.jei.api.constants.VanillaTypes;
@@ -65,7 +66,8 @@ public class EnergizerCategory implements IRecipeCategory<EnergizerRecipe> {
     @Override
     public void draw(EnergizerRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         Font font = Minecraft.getInstance().font;
-        Component component = Component.literal(EnergyUtils.getEnergyWithPrefix(recipe.getEnergyConsumption())).withStyle(ChatFormatting.YELLOW);
+        int energyConsumption = (int)(recipe.getEnergyConsumption() * EnergizerBlockEntity.ENERGY_CONSUMPTION_MULTIPLIER);
+        Component component = Component.literal(EnergyUtils.getEnergyWithPrefix(energyConsumption)).withStyle(ChatFormatting.YELLOW);
         int textWidth = font.width(component);
 
         guiGraphics.drawString(Minecraft.getInstance().font, component, 114 - textWidth, 42, 0xFFFFFFFF, false);

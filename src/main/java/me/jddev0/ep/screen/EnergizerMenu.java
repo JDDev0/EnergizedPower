@@ -19,14 +19,14 @@ public class EnergizerMenu extends AbstractContainerMenu implements EnergyStorag
     private final ContainerData data;
 
     public EnergizerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(5));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(7));
     }
 
     public EnergizerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.ENERGIZER_MENU.get(), id);
 
         checkContainerSize(inv, 2);
-        checkContainerDataCount(data, 5);
+        checkContainerDataCount(data, 7);
         this.blockEntity = (EnergizerBlockEntity)blockEntity;
         this.level = inv.player.level();
         this.data = data;
@@ -54,23 +54,23 @@ public class EnergizerMenu extends AbstractContainerMenu implements EnergyStorag
 
     @Override
     public int getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
+        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
     }
 
     /**
      * @return Same as isCrafting but energy requirements are ignored
      */
     public boolean isCraftingActive() {
-        return data.get(0) > 0;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0;
     }
 
     public boolean isCrafting() {
-        return data.get(0) > 0 && data.get(4) == 1;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(6) == 1;
     }
 
     public int getScaledProgressArrowSize() {
-        int progress = data.get(0);
-        int maxProgress = data.get(1);
+        int progress = ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
+        int maxProgress = ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
         int progressArrowSize = 24;
 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;

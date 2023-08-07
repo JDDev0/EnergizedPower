@@ -317,6 +317,19 @@ public final class ModConfigs {
             "block.compressor", "Compressor", 100
     );
 
+    public static final ConfigValue<Integer> COMMON_ENERGIZER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.energizer", "Energizer", 65536
+    );
+    public static final ConfigValue<Integer> COMMON_ENERGIZER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.energizer", "Energizer", 16384
+    );
+    public static final ConfigValue<Float> COMMON_ENERGIZER_ENERGY_CONSUMPTION_MULTIPLIER = registerEnergyConsumptionMultiplierConfigValue(
+            "block.energizer", "Energizer"
+    );
+    public static final ConfigValue<Integer> COMMON_ENERGIZER_RECIPE_DURATION = registerRecipeDurationConfigValue(
+            "block.energizer", "Energizer", 100
+    );
+
     //Entities
     public static final ConfigValue<Integer> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536
