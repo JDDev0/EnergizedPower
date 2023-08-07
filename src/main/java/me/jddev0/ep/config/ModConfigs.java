@@ -278,6 +278,45 @@ public final class ModConfigs {
             "block.advanced_minecart_uncharger", "Advanced Minecart Uncharger", 65536
     );
 
+    public static final ConfigValue<Integer> COMMON_CRUSHER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.crusher", "Crusher", 2048
+    );
+    public static final ConfigValue<Integer> COMMON_CRUSHER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.crusher", "Crusher", 128
+    );
+    public static final ConfigValue<Integer> COMMON_CRUSHER_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.crusher", "Crusher", 8
+    );
+    public static final ConfigValue<Integer> COMMON_CRUSHER_RECIPE_DURATION = registerRecipeDurationConfigValue(
+            "block.crusher", "Crusher", 100
+    );
+
+    public static final ConfigValue<Integer> COMMON_SAWMILL_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.sawmill", "Sawmill", 2048
+    );
+    public static final ConfigValue<Integer> COMMON_SAWMILL_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.sawmill", "Sawmill", 128
+    );
+    public static final ConfigValue<Integer> COMMON_SAWMILL_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.sawmill", "Sawmill", 8
+    );
+    public static final ConfigValue<Integer> COMMON_SAWMILL_RECIPE_DURATION = registerRecipeDurationConfigValue(
+            "block.sawmill", "Sawmill", 100
+    );
+
+    public static final ConfigValue<Integer> COMMON_COMPRESSOR_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.compressor", "Compressor", 2048
+    );
+    public static final ConfigValue<Integer> COMMON_COMPRESSOR_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.compressor", "Compressor", 256
+    );
+    public static final ConfigValue<Integer> COMMON_COMPRESSOR_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.compressor", "Compressor", 16
+    );
+    public static final ConfigValue<Integer> COMMON_COMPRESSOR_RECIPE_DURATION = registerRecipeDurationConfigValue(
+            "block.compressor", "Compressor", 100
+    );
+
     //Entities
     public static final ConfigValue<Integer> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536
@@ -346,6 +385,14 @@ public final class ModConfigs {
                 1, null
         ));
     }
+    private static ConfigValue<Integer> registerEnergyConsumptionPerTickConfigValue(String baseConfigKey, String itemName, int defaultValue) {
+        return COMMON_CONFIG.register(new IntegerConfigValue(
+                baseConfigKey + ".energy_consumption_per_tick",
+                "The energy consumption used by " + itemName + " if active per tick",
+                defaultValue,
+                1, null
+        ));
+    }
     private static ConfigValue<Float> registerEnergyConsumptionMultiplierConfigValue(String baseConfigKey, String itemName) {
         return COMMON_CONFIG.register(new FloatConfigValue(
                 baseConfigKey + ".energy_consumption_multiplier",
@@ -366,6 +413,14 @@ public final class ModConfigs {
         return COMMON_CONFIG.register(new IntegerConfigValue(
                 baseConfigKey + ".energy_consumption_per_use",
                 "The energy consumption of " + itemName + " in FE per use",
+                defaultValue,
+                1, null
+        ));
+    }
+    private static ConfigValue<Integer> registerRecipeDurationConfigValue(String baseConfigKey, String itemName, int defaultValue) {
+        return COMMON_CONFIG.register(new IntegerConfigValue(
+                baseConfigKey + ".recipe_duration",
+                "The time a recipe of " + itemName + " requires in ticks",
                 defaultValue,
                 1, null
         ));
