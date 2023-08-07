@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.PoweredFurnaceBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
@@ -41,7 +42,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    private static final int ENERGY_USAGE_PER_TICK = 128;
+    private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_TICK.getValue();
+
+    public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(2) {
         @Override
@@ -86,7 +89,8 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
     public PoweredFurnaceBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.POWERED_FURNACE_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, 4096, 256) {
+        energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_POWERED_FURNACE_CAPACITY.getValue(),
+                ModConfigs.COMMON_POWERED_FURNACE_TRANSFER_RATE.getValue()) {
             @Override
             protected void onChange() {
                 setChanged();
@@ -222,7 +226,7 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
 
             int cookingTime = recipe.get().getCookingTime();
             if(blockEntity.maxProgress == 0)
-                blockEntity.maxProgress = (int)Math.ceil(cookingTime / 6.f); //Default Cooking Time = 200 -> maxProgress = 34
+                blockEntity.maxProgress = (int)Math.ceil(cookingTime * RECIPE_DURATION_MULTIPLIER / 6.f); //Default Cooking Time = 200 -> maxProgress = 34 (= 200 / 6)
 
             if(blockEntity.energyConsumptionLeft < 0)
                 blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK * blockEntity.maxProgress;
