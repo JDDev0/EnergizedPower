@@ -347,10 +347,10 @@ public final class ModConfigs {
     );
 
     public static final ConfigValue<Integer> COMMON_HEAT_GENERATOR_CAPACITY = registerEnergyCapacityConfigValue(
-            "block.heat_generator", "Heat Generator", 2048
+            "block.heat_generator", "Heat Generator", 10000
     );
     public static final ConfigValue<Integer> COMMON_HEAT_GENERATOR_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
-            "block.heat_generator", "Heat Generator", 256
+            "block.heat_generator", "Heat Generator", 500
     );
     public static final ConfigValue<Float> COMMON_HEAT_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER = registerEnergyProductionMultiplierConfigValue(
             "block.heat_generator", "Heat Generator"
