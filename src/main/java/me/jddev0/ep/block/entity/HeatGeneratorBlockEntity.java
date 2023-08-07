@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
@@ -31,9 +32,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    public static final int MAX_ENERGY_PRODUCTION_PER_FACE = 100;
+    private final int MAX_EXTRACT = ModConfigs.COMMON_HEAT_GENERATOR_TRANSFER_RATE.getValue();
 
-    private final int maxExtract;
+    public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_HEAT_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     private final ExtractOnlyEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
@@ -41,10 +42,8 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.HEAT_GENERATOR_ENTITY.get(), blockPos, blockState);
 
-        maxExtract = MAX_ENERGY_PRODUCTION_PER_FACE * 5; //5 faces max, 1 must be used for energy extraction
-        int capacity = maxExtract * 20; //1 second of max extract
-
-        energyStorage = new ExtractOnlyEnergyStorage(0, capacity, maxExtract) {
+        energyStorage = new ExtractOnlyEnergyStorage(0, ModConfigs.COMMON_HEAT_GENERATOR_CAPACITY.getValue(),
+                MAX_EXTRACT) {
             @Override
             protected void onChange() {
                 setChanged();
@@ -130,6 +129,8 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
         }
 
         if(productionSum > 0) {
+            productionSum = (int)(productionSum * ENERGY_PRODUCTION_MULTIPLIER);
+
             blockEntity.energyStorage.setEnergy(Math.min(blockEntity.energyStorage.getCapacity(),
                     blockEntity.energyStorage.getEnergy() + productionSum));
         }
@@ -159,7 +160,7 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
             if(!energyStorage.canReceive())
                 continue;
 
-            int received = energyStorage.receiveEnergy(Math.min(blockEntity.maxExtract, blockEntity.energyStorage.getEnergy()), true);
+            int received = energyStorage.receiveEnergy(Math.min(blockEntity.MAX_EXTRACT, blockEntity.energyStorage.getEnergy()), true);
             if(received <= 0)
                 continue;
 
@@ -172,7 +173,7 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 
-        int consumptionLeft = Math.min(blockEntity.maxExtract, Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
+        int consumptionLeft = Math.min(blockEntity.MAX_EXTRACT, Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
         blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
 
         int divisor = consumerItems.size();

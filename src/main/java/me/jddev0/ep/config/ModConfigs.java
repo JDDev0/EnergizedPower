@@ -346,6 +346,16 @@ public final class ModConfigs {
             "block.auto_crafter", "Auto Crafter", 100
     );
 
+    public static final ConfigValue<Integer> COMMON_HEAT_GENERATOR_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.heat_generator", "Heat Generator", 2048
+    );
+    public static final ConfigValue<Integer> COMMON_HEAT_GENERATOR_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.heat_generator", "Heat Generator", 256
+    );
+    public static final ConfigValue<Float> COMMON_HEAT_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER = registerEnergyProductionMultiplierConfigValue(
+            "block.heat_generator", "Heat Generator"
+    );
+
     //Entities
     public static final ConfigValue<Integer> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536
