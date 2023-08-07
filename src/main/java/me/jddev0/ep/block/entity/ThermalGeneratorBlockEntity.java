@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
@@ -40,7 +41,9 @@ import java.util.List;
 
 public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate,
         FluidStoragePacketUpdate {
-    private final int maxExtract;
+    private static final int MAX_EXTRACT = ModConfigs.COMMON_THERMAL_GENERATOR_TRANSFER_RATE.getValue();
+
+    public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     private final ExtractOnlyEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
@@ -52,11 +55,8 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
 
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.THERMAL_GENERATOR_ENTITY.get(), blockPos, blockState);
-
-        maxExtract = 2048;
-        int capacity = maxExtract * 20; //1 second of max extract
-
-        energyStorage = new ExtractOnlyEnergyStorage(0, capacity, maxExtract) {
+        energyStorage = new ExtractOnlyEnergyStorage(0, ModConfigs.COMMON_THERMAL_GENERATOR_CAPACITY.getValue(),
+                MAX_EXTRACT) {
             @Override
             protected void onChange() {
                 setChanged();
@@ -65,7 +65,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
                     ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
             }
         };
-        fluidStorage = new FluidTank(8000) {
+        fluidStorage = new FluidTank(ModConfigs.COMMON_THERMAL_GENERATOR_FLUID_TANK_CAPACITY.getValue() * 1000) {
             @Override
             protected void onContentsChanged() {
                 setChanged();
@@ -99,6 +99,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
                     for(Fluid fluid:recipe.getInput()) {
                         if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid().getFluid() == fluid) {
                             rawProduction = recipe.getEnergyProduction();
+                            rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER);
 
                             break outer;
                         }
@@ -210,6 +211,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
             for(Fluid fluid:recipe.getInput()) {
                 if(blockEntity.fluidStorage.getFluid().getFluid() == fluid) {
                     rawProduction = recipe.getEnergyProduction();
+                    rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER);
 
                     break outer;
                 }
@@ -259,7 +261,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
             if(!energyStorage.canReceive())
                 continue;
 
-            int received = energyStorage.receiveEnergy(Math.min(blockEntity.maxExtract, blockEntity.energyStorage.getEnergy()), true);
+            int received = energyStorage.receiveEnergy(Math.min(MAX_EXTRACT, blockEntity.energyStorage.getEnergy()), true);
             if(received <= 0)
                 continue;
 
@@ -272,7 +274,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 
-        int consumptionLeft = Math.min(blockEntity.maxExtract, Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
+        int consumptionLeft = Math.min(MAX_EXTRACT, Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
         blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
 
         int divisor = consumerItems.size();
