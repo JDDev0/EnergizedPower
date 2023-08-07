@@ -27,7 +27,7 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
     private final Container patternResultSlots;
 
     public AutoCrafterMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainer(9), new SimpleContainer(1), new SimpleContainerData(7));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainer(9), new SimpleContainer(1), new SimpleContainerData(9));
     }
 
     public AutoCrafterMenu(int id, Inventory inv, BlockEntity blockEntity, Container patternSlots, Container patternResultSlots, ContainerData data) {
@@ -37,7 +37,7 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
         this.patternResultSlots = patternResultSlots;
 
         checkContainerSize(inv, 18 + 3*3 + 1);
-        checkContainerDataCount(data, 7);
+        checkContainerDataCount(data, 9);
         this.blockEntity = (AutoCrafterBlockEntity)blockEntity;
         this.level = inv.player.level();
         this.data = data;
@@ -91,34 +91,34 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
 
     @Override
     public int getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
+        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
     }
 
     /**
      * @return Same as isCrafting but energy requirements are ignored
      */
     public boolean isCraftingActive() {
-        return data.get(0) > 0;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0;
     }
 
     public boolean isCrafting() {
-        return data.get(0) > 0 && data.get(4) == 1;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(6) == 1;
     }
 
     public int getScaledProgressArrowSize() {
-        int progress = data.get(0);
-        int maxProgress = data.get(1);
+        int progress = ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
+        int maxProgress = ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
         int progressArrowSize = 24;
 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
     }
 
     public boolean isIgnoreNBT() {
-        return data.get(5) != 0;
+        return data.get(7) != 0;
     }
 
     public boolean isSecondaryExtractMode() {
-        return data.get(6) != 0;
+        return data.get(8) != 0;
     }
 
     @Override
