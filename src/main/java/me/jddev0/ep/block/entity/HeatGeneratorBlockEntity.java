@@ -32,7 +32,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    private final int MAX_EXTRACT = ModConfigs.COMMON_HEAT_GENERATOR_TRANSFER_RATE.getValue();
+    private static final int MAX_EXTRACT = ModConfigs.COMMON_HEAT_GENERATOR_TRANSFER_RATE.getValue();
 
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_HEAT_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
@@ -160,7 +160,7 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
             if(!energyStorage.canReceive())
                 continue;
 
-            int received = energyStorage.receiveEnergy(Math.min(blockEntity.MAX_EXTRACT, blockEntity.energyStorage.getEnergy()), true);
+            int received = energyStorage.receiveEnergy(Math.min(MAX_EXTRACT, blockEntity.energyStorage.getEnergy()), true);
             if(received <= 0)
                 continue;
 
@@ -173,7 +173,7 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 
-        int consumptionLeft = Math.min(blockEntity.MAX_EXTRACT, Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
+        int consumptionLeft = Math.min(MAX_EXTRACT, Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
         blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
 
         int divisor = consumerItems.size();
