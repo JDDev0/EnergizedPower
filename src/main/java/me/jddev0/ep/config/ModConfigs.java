@@ -414,6 +414,44 @@ public final class ModConfigs {
             "block.plant_growth_chamber", "Plant Growth Chamber"
     );
 
+    public static final ConfigValue<Integer> COMMON_FLUID_FILLER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.fluid_filler", "Fluid Filler", 2048
+    );
+    public static final ConfigValue<Integer> COMMON_FLUID_FILLER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.fluid_filler", "Fluid Filler", 128
+    );
+    public static final ConfigValue<Integer> COMMON_FLUID_FILLER_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.fluid_filler", "Fluid Filler", 64
+    );
+    public static final ConfigValue<Integer> COMMON_FLUID_FILLER_FLUID_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
+            "block.fluid_filler", "Fluid Filler", 8
+    );
+    public static final ConfigValue<Integer> COMMON_FLUID_FILLER_FLUID_ITEM_TRANSFER_RATE = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.fluid_filler.fluid_item_transfer_rate",
+            "The transfer rate an item can be filled up at by the Fluid Filler in mB (milli Buckets)",
+            100,
+            1, null
+    ));
+
+    public static final ConfigValue<Integer> COMMON_FLUID_DRAINER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.fluid_drainer", "Fluid Drainer", 2048
+    );
+    public static final ConfigValue<Integer> COMMON_FLUID_DRAINER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.fluid_drainer", "Fluid Drainer", 128
+    );
+    public static final ConfigValue<Integer> COMMON_FLUID_DRAINER_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.fluid_drainer", "Fluid Drainer", 64
+    );
+    public static final ConfigValue<Integer> COMMON_FLUID_DRAINER_FLUID_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
+            "block.fluid_drainer", "Fluid Drainer", 8
+    );
+    public static final ConfigValue<Integer> COMMON_FLUID_DRAINER_FLUID_ITEM_TRANSFER_RATE = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.fluid_drainer.fluid_item_transfer_rate",
+            "The transfer rate an item can be drained at by the Fluid Drainer in mB (milli Buckets)",
+            100,
+            1, null
+    ));
+
     //Entities
     public static final ConfigValue<Integer> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536
