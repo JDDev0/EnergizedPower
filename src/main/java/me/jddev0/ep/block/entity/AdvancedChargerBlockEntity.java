@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
@@ -39,7 +40,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    public static final int MAX_RECEIVE_PER_SLOT = 8192;
+    public static final int MAX_RECEIVE_PER_SLOT = ModConfigs.COMMON_ADVANCED_CHARGER_TRANSFER_RATE.getValue();
+
+    public static final float CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_ADVANCED_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(3) {
         @Override
@@ -119,7 +122,8 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
     public AdvancedChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ADVANCED_CHARGER_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, 65536 * 3, MAX_RECEIVE_PER_SLOT * 3) {
+        energyStorage = new ReceiveOnlyEnergyStorage(0,
+                ModConfigs.COMMON_ADVANCED_CHARGER_CAPACITY.getValue() * 3, MAX_RECEIVE_PER_SLOT * 3) {
             @Override
             protected void onChange() {
                 setChanged();
@@ -248,7 +252,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
                 Optional<ChargerRecipe> recipe = level.getRecipeManager().getRecipeFor(ChargerRecipe.Type.INSTANCE, inventory, level);
                 if(recipe.isPresent()) {
                     if(blockEntity.energyConsumptionLeft[i] == -1)
-                        blockEntity.energyConsumptionLeft[i] = recipe.get().getEnergyConsumption();
+                        blockEntity.energyConsumptionLeft[i] = (int)(recipe.get().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);;
 
                     if(blockEntity.energyStorage.getEnergy() == 0)
                         continue;

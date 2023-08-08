@@ -459,6 +459,39 @@ public final class ModConfigs {
             1, null
     ));
 
+    public static final ConfigValue<Integer> COMMON_CHARGER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.charger", "Charger", 8192
+    );
+    public static final ConfigValue<Integer> COMMON_CHARGER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.charger", "Charger", 512
+    );
+    public static final ConfigValue<Float> COMMON_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
+            "block.charger.charger_recipe_energy_consumption_multiplier",
+            "The multiplier by which the energy consumption of charger recipes in the Charger is multiplied by.",
+            1.f,
+            0.f, null
+    ));
+
+    public static final ConfigValue<Integer> COMMON_ADVANCED_CHARGER_CAPACITY = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.advanced_charger.capacity_per_slot",
+            "The energy capacity per slot of the Advanced Charger in FE. The energy capacity of the block is three times this value.",
+            65536,
+            1, null
+    ));
+
+    public static final ConfigValue<Integer> COMMON_ADVANCED_CHARGER_TRANSFER_RATE = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.advanced_charger.transfer_rate_per_slot",
+            "The energy transfer rate per slot of the Advanced Charger in FE per tick. The energy transfer rate of the block is three times this value.",
+            8192,
+            1, null
+    ));
+    public static final ConfigValue<Float> COMMON_ADVANCED_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
+            "block.advanced_charger.charger_recipe_energy_consumption_multiplier",
+            "The multiplier by which the energy consumption of charger recipes in the Charger is multiplied by.",
+            1.f,
+            0.f, null
+    ));
+
     //Entities
     public static final ConfigValue<Integer> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536
