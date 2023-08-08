@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
@@ -42,8 +43,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate,
         FluidStoragePacketUpdate {
-    public static final int MAX_FLUID_FILLING_PER_TICK = 100;
-    public static final int ENERGY_USAGE_PER_TICK = 64;
+    public static final int MAX_FLUID_FILLING_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_FLUID_ITEM_TRANSFER_RATE.getValue();
+    public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
         @Override
@@ -117,7 +118,8 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
     public FluidFillerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.FLUID_FILLER_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, 2048, 128) {
+        energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_FLUID_FILLER_CAPACITY.getValue(),
+                ModConfigs.COMMON_FLUID_FILLER_TRANSFER_RATE.getValue()) {
             @Override
             protected void onChange() {
                 setChanged();
@@ -126,7 +128,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
                     ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
             }
         };
-        fluidStorage = new FluidTank(8000) {
+        fluidStorage = new FluidTank(ModConfigs.COMMON_FLUID_FILLER_FLUID_TANK_CAPACITY.getValue() * 1000) {
             @Override
             protected void onContentsChanged() {
                 setChanged();
