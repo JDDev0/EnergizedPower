@@ -478,7 +478,6 @@ public final class ModConfigs {
             65536,
             1, null
     ));
-
     public static final ConfigValue<Integer> COMMON_ADVANCED_CHARGER_TRANSFER_RATE_PER_SLOT = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.advanced_charger.transfer_rate_per_slot",
             "The energy transfer rate per slot of the Advanced Charger in FE per tick. The energy transfer rate of the block is three times this value.",
@@ -505,7 +504,6 @@ public final class ModConfigs {
             65536,
             1, null
     ));
-
     public static final ConfigValue<Integer> COMMON_ADVANCED_UNCHARGER_TRANSFER_RATE_PER_SLOT = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.advanced_uncharger.transfer_rate_per_slot",
             "The energy transfer rate per slot of the Advanced Uncharger in FE per tick. The energy transfer rate of the block is three times this value.",
