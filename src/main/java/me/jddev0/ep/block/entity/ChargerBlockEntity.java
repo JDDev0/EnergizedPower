@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
@@ -39,6 +40,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class ChargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+    public static final float CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
+
     private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -115,7 +118,8 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
     public ChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CHARGER_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, 8192, 512) {
+        energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_CHARGER_CAPACITY.getValue(),
+                ModConfigs.COMMON_CHARGER_TRANSFER_RATE.getValue()) {
             @Override
             protected void onChange() {
                 setChanged();
@@ -238,7 +242,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
             Optional<ChargerRecipe> recipe = level.getRecipeManager().getRecipeFor(ChargerRecipe.Type.INSTANCE, inventory, level);
             if(recipe.isPresent()) {
                 if(blockEntity.energyConsumptionLeft == -1)
-                    blockEntity.energyConsumptionLeft = recipe.get().getEnergyConsumption();
+                    blockEntity.energyConsumptionLeft = (int)(recipe.get().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);
 
                 if(blockEntity.energyStorage.getEnergy() == 0)
                     return;
