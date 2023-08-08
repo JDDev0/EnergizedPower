@@ -2,6 +2,7 @@ package me.jddev0.ep.integration.jei;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -82,7 +83,8 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<PlantGrowthCh
     @Override
     public void draw(PlantGrowthChamberRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         Font font = Minecraft.getInstance().font;
-        Component component = Component.translatable("recipes.energizedpower.plant_growth_chamber.ticks", recipe.getTicks());
+        int ticks = (int)(recipe.getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
+        Component component = Component.translatable("recipes.energizedpower.plant_growth_chamber.ticks", ticks);
         int textWidth = font.width(component);
 
         guiGraphics.drawString(Minecraft.getInstance().font, component, 108 - textWidth, 40, 0xFFFFFFFF, false);

@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
@@ -44,7 +45,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    private static final int ENERGY_USAGE_PER_TICK = 32;
+    private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_ENERGY_CONSUMPTION_PER_TICK.getValue();
+
+    public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(6) {
         @Override
@@ -94,7 +97,8 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
     public PlantGrowthChamberBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.PLANT_GROWTH_CHAMBER_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, 4096, 256) {
+        energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_CAPACITY.getValue(),
+                ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_TRANSFER_RATE.getValue()) {
             @Override
             protected void onChange() {
                 setChanged();
@@ -246,7 +250,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
                     blockEntity.itemHandler.extractItem(1, 1, false);
                 }
 
-                blockEntity.maxProgress = (int)(recipe.get().getTicks() / blockEntity.speedMultiplier);
+                blockEntity.maxProgress = (int)(recipe.get().getTicks() * RECIPE_DURATION_MULTIPLIER / blockEntity.speedMultiplier);
             }
 
             final int fertilizedEnergyUsagePerTick = (int)(ENERGY_USAGE_PER_TICK * blockEntity.energyConsumptionMultiplier);
