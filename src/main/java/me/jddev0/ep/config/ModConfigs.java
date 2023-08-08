@@ -452,6 +452,13 @@ public final class ModConfigs {
             1, null
     ));
 
+    public static final ConfigValue<Integer> COMMON_FLUID_PIPE_FLUID_TRANSFER_RATE = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.fluid_pipe.fluid_transfer_rate",
+            "The transfer rate per tank and face of a Fluid Pipe face in the extraction state in mB (milli Buckets)",
+            100,
+            1, null
+    ));
+
     //Entities
     public static final ConfigValue<Integer> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536

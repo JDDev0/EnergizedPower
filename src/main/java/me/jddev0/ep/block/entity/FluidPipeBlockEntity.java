@@ -3,6 +3,7 @@ package me.jddev0.ep.block.entity;
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.FluidPipeBlock;
 import me.jddev0.ep.block.ModBlockStateProperties;
+import me.jddev0.ep.config.ModConfigs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FluidPipeBlockEntity extends BlockEntity {
-    public static int MAX_TRANSFER = 100;
+    public static int MAX_TRANSFER = ModConfigs.COMMON_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue();
 
     private final IFluidHandler fluidStorage;
     private LazyOptional<IFluidHandler> lazyFluidStorage = LazyOptional.empty();
