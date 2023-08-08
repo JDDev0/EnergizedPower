@@ -2,6 +2,7 @@ package me.jddev0.ep.integration.rei;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -71,9 +72,10 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
         widgets.add(Widgets.createSlot(new Point(x + 91, y + 19)).disableBackground().markOutput().
                 entries(outputSlotEntries.get(3)));
 
+        int ticks = (int)(display.recipe().getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
                         Component.translatable("recipes.energizedpower.plant_growth_chamber.ticks",
-                                display.recipe().getTicks())).
+                                ticks)).
                 noShadow().rightAligned());
 
         return widgets;
