@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
@@ -38,7 +39,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    public static final int MAX_EXTRACT = 512;
+    public static final int MAX_EXTRACT = ModConfigs.COMMON_UNCHARGER_TRANSFER_RATE.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
         @Override
@@ -107,7 +108,7 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
     public UnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.UNCHARGER_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ExtractOnlyEnergyStorage(0, 8192, MAX_EXTRACT) {
+        energyStorage = new ExtractOnlyEnergyStorage(0, ModConfigs.COMMON_UNCHARGER_CAPACITY.getValue(), MAX_EXTRACT) {
             @Override
             protected void onChange() {
                 setChanged();

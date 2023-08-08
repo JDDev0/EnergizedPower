@@ -40,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    public static final int MAX_RECEIVE_PER_SLOT = ModConfigs.COMMON_ADVANCED_CHARGER_TRANSFER_RATE.getValue();
+    public static final int MAX_RECEIVE_PER_SLOT = ModConfigs.COMMON_ADVANCED_CHARGER_TRANSFER_RATE_PER_SLOT.getValue();
 
     public static final float CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_ADVANCED_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
@@ -123,7 +123,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
         super(ModBlockEntities.ADVANCED_CHARGER_ENTITY.get(), blockPos, blockState);
 
         energyStorage = new ReceiveOnlyEnergyStorage(0,
-                ModConfigs.COMMON_ADVANCED_CHARGER_CAPACITY.getValue() * 3, MAX_RECEIVE_PER_SLOT * 3) {
+                ModConfigs.COMMON_ADVANCED_CHARGER_CAPACITY_PER_SLOT.getValue() * 3, MAX_RECEIVE_PER_SLOT * 3) {
             @Override
             protected void onChange() {
                 setChanged();
