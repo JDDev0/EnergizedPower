@@ -14,7 +14,7 @@ public final class ModConfigs {
 
     private ModConfigs() {}
 
-    public static final Config COMMON_CONFIG = new Config(getRelativeConfigFile("common.conf"), "Energized Power Common Config");
+    public static final Config COMMON_CONFIG = new Config(getRelativeConfigFile("common.conf"), "Energized Power Common Config (IMPORTANT: Values are not synced from the server to the client.)");
 
     //Items
     public static final ConfigValue<Integer> COMMON_BATTERY_1_CAPACITY = registerEnergyCapacityConfigValue(
