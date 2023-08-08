@@ -74,6 +74,14 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 - The Energized Power Book contains information for all the blocks and items of this mod
 
+### Configurations (**In next release (v2.0.0)**)
+
+- Configurations are located in the `config/energizedpower` directory:
+  - `client.conf`: Contains config values which are only used for the client
+  - `server.conf`: Contains config values which are only used for the server (Currently none)
+  - `common.conf`: Contains config values which are used for both the client and the server
+    - **IMPORTANT**: Values from the `common.conf` are **not** synced from the server to the client! You must sync them **manually** to players of the server. 
+
 ### Translations
 
 - English
