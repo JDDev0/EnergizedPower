@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
@@ -38,7 +39,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    public static final int MAX_EXTRACT_PER_SLOT = 8192;
+    public static final int MAX_EXTRACT_PER_SLOT = ModConfigs.COMMON_ADVANCED_UNCHARGER_TRANSFER_RATE_PER_SLOT.getValue();
     public static final int MAX_EXTRACT = MAX_EXTRACT_PER_SLOT * 3;
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(3) {
@@ -110,7 +111,8 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
     public AdvancedUnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ADVANCED_UNCHARGER_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ExtractOnlyEnergyStorage(0, 65536 * 3, MAX_EXTRACT) {
+        energyStorage = new ExtractOnlyEnergyStorage(0,
+                ModConfigs.COMMON_ADVANCED_UNCHARGER_CAPACITY_PER_SLOT.getValue() * 3, MAX_EXTRACT) {
             @Override
             protected void onChange() {
                 setChanged();
