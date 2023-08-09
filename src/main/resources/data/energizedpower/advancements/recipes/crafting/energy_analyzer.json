@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_silicon": {
+    "has_battery_3": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "tag": "c:silicon"
+            "items": [ "energizedpower:battery_3" ]
           }
         ]
       }
@@ -20,7 +20,7 @@
   },
   "requirements": [
     [
-      "has_silicon",
+      "has_battery_3",
       "has_the_recipe"
     ]
   ],
