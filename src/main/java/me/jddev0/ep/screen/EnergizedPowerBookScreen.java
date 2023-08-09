@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.networking.ModMessages;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -49,7 +50,7 @@ public class EnergizedPowerBookScreen extends Screen {
 
     public static final Identifier ENERGIZED_COPPER_INGOT = new Identifier(EnergizedPowerMod.MODID, "textures/item/energized_copper_ingot.png");
 
-    public static final int IMAGE_CYCLE_DELAY = 50;
+    public static final int IMAGE_CYCLE_DELAY = ModConfigs.CLIENT_ENERGIZED_POWER_BOOK_IMAGE_CYCLE_DELAY.getValue();
 
     private int currentTick;
 
