@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
@@ -40,7 +41,10 @@ import java.util.List;
 
 public class ThermalGeneratorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate,
         FluidStoragePacketUpdate {
-    private final long maxExtract;
+    private static final long CAPACITY = ModConfigs.COMMON_THERMAL_GENERATOR_CAPACITY.getValue();
+    private static final long MAX_EXTRACT = ModConfigs.COMMON_THERMAL_GENERATOR_TRANSFER_RATE.getValue();
+
+    public static final double ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
@@ -52,10 +56,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.THERMAL_GENERATOR_ENTITY, blockPos, blockState);
 
-        maxExtract = 2048;
-        long capacity = maxExtract * 20; //1 second of max extract
-
-        internalEnergyStorage = new SimpleEnergyStorage(capacity, capacity, capacity) {
+        internalEnergyStorage = new SimpleEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
@@ -70,9 +71,10 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, 0, maxExtract);
+        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, 0, MAX_EXTRACT);
 
-        fluidStorage = new SimpleFluidStorage(FluidUtils.convertMilliBucketsToDroplets(8000)) {
+        fluidStorage = new SimpleFluidStorage(FluidUtils.convertMilliBucketsToDroplets(
+                ModConfigs.COMMON_THERMAL_GENERATOR_FLUID_TANK_CAPACITY.getValue() * 1000)) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
@@ -122,6 +124,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
                     for(Fluid fluid:recipe.getInput()) {
                         if(fluidStorage.getFluid().getFluid() == fluid) {
                             rawProduction = recipe.getEnergyProduction();
+                            rawProduction = (long)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER);
 
                             break outer;
                         }
@@ -221,6 +224,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
             for(Fluid fluid:recipe.getInput()) {
                 if(blockEntity.fluidStorage.getFluid().getFluid() == fluid) {
                     rawProduction = recipe.getEnergyProduction();
+                    rawProduction = (long)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER);
 
                     break outer;
                 }
@@ -274,7 +278,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
                 continue;
 
             try(Transaction transaction = Transaction.openOuter()) {
-                long received = energyStorage.insert(Math.min(blockEntity.maxExtract, blockEntity.internalEnergyStorage.amount), transaction);
+                long received = energyStorage.insert(Math.min(MAX_EXTRACT, blockEntity.internalEnergyStorage.amount), transaction);
 
                 if(received <= 0)
                     continue;
@@ -289,7 +293,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0L);
 
-        long consumptionLeft = Math.min(blockEntity.maxExtract, Math.min(blockEntity.internalEnergyStorage.amount, consumptionSum));
+        long consumptionLeft = Math.min(MAX_EXTRACT, Math.min(blockEntity.internalEnergyStorage.amount, consumptionSum));
         try(Transaction transaction = Transaction.openOuter()) {
             blockEntity.internalEnergyStorage.extract(consumptionLeft, transaction);
             transaction.commit();
