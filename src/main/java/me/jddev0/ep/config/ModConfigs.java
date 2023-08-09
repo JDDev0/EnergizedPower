@@ -72,6 +72,26 @@ public final class ModConfigs {
             "item.battery_8", "Battery (Tier VIII)", 32768
     );
 
+    public static final ConfigValue<Long> COMMON_ENERGY_ANALYZER_CAPACITY = registerEnergyCapacityConfigValue(
+            "item.energy_analyzer", "Energy Analyzer", 2048
+    );
+    public static final ConfigValue<Long> COMMON_ENERGY_ANALYZER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "item.energy_analyzer", "Energy Analyzer", 32
+    );
+    public static final ConfigValue<Long> COMMON_ENERGY_ANALYZER_ENERGY_CONSUMPTION_PER_USE = registerEnergyConsumptionPerUseConfigValue(
+            "item.energy_analyzer", "Energy Analyzer", 8
+    );
+
+    public static final ConfigValue<Long> COMMON_FLUID_ANALYZER_CAPACITY = registerEnergyCapacityConfigValue(
+            "item.fluid_analyzer", "Fluid Analyzer", 2048
+    );
+    public static final ConfigValue<Long> COMMON_FLUID_ANALYZER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "item.fluid_analyzer", "Fluid Analyzer", 32
+    );
+    public static final ConfigValue<Long> COMMON_FLUID_ANALYZER_ENERGY_CONSUMPTION_PER_USE = registerEnergyConsumptionPerUseConfigValue(
+            "item.fluid_analyzer", "Fluid Analyzer", 8
+    );
+
 
     public static final Config SERVER_CONFIG = new Config(getRelativeConfigFile("server.conf"), "Energized Power Server Config");
     //TODO server config values
@@ -96,7 +116,7 @@ public final class ModConfigs {
     private static ConfigValue<Long> registerEnergyCapacityConfigValue(String baseConfigKey, String itemName, long defaultValue) {
         return COMMON_CONFIG.register(new LongConfigValue(
                 baseConfigKey + ".capacity",
-                "The energy capacity of " + itemName + " in F",
+                "The energy capacity of " + itemName + " in E",
                 defaultValue,
                 1L, null
         ));
@@ -104,7 +124,15 @@ public final class ModConfigs {
     private static ConfigValue<Long> registerEnergyTransferRateConfigValue(String baseConfigKey, String itemName, long defaultValue) {
         return COMMON_CONFIG.register(new LongConfigValue(
                 baseConfigKey + ".transfer_rate",
-                "The energy transfer rate of " + itemName + " in F per tick",
+                "The energy transfer rate of " + itemName + " in E per tick",
+                defaultValue,
+                1L, null
+        ));
+    }
+    private static ConfigValue<Long> registerEnergyConsumptionPerUseConfigValue(String baseConfigKey, String itemName, long defaultValue) {
+        return COMMON_CONFIG.register(new LongConfigValue(
+                baseConfigKey + ".energy_requirement_per_use",
+                "The energy consumption of " + itemName + " in E per use",
                 defaultValue,
                 1L, null
         ));
