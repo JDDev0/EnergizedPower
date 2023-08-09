@@ -1,6 +1,7 @@
 package me.jddev0.ep.config;
 
 import com.mojang.logging.LogUtils;
+import me.jddev0.ep.config.value.DoubleConfigValue;
 import me.jddev0.ep.config.value.LongConfigValue;
 import net.fabricmc.loader.api.FabricLoader;
 import me.jddev0.ep.config.value.IntegerConfigValue;
@@ -91,6 +92,16 @@ public final class ModConfigs {
     );
     public static final ConfigValue<Long> COMMON_FLUID_ANALYZER_ENERGY_CONSUMPTION_PER_USE = registerEnergyConsumptionPerUseConfigValue(
             "item.fluid_analyzer", "Fluid Analyzer", 8
+    );
+
+    public static final ConfigValue<Long> COMMON_INVENTORY_COAL_ENGINE_CAPACITY = registerEnergyCapacityConfigValue(
+            "item.inventory_coal_engine", "Inventory Coal Engine", 2048
+    );
+    public static final ConfigValue<Long> COMMON_INVENTORY_COAL_ENGINE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "item.inventory_coal_engine", "Inventory Coal Engine", 256
+    );
+    public static final ConfigValue<Double> COMMON_INVENTORY_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER = registerEnergyProductionMultiplierConfigValue(
+            "item.inventory_coal_engine", "Inventory Coal Engine"
     );
 
     //Blocks
@@ -240,12 +251,36 @@ public final class ModConfigs {
                 1L, null
         ));
     }
+    private static ConfigValue<Double> registerEnergyConsumptionMultiplierConfigValue(String baseConfigKey, String itemName) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                baseConfigKey + ".energy_consumption_multiplier",
+                "The multiplier by which the energy consumption of " + itemName + " is multiplied by",
+                1.,
+                0., null
+        ));
+    }
+    private static ConfigValue<Double> registerEnergyProductionMultiplierConfigValue(String baseConfigKey, String itemName) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                baseConfigKey + ".energy_production_multiplier",
+                "The multiplier by which the energy production of " + itemName + " is multiplied by",
+                1.,
+                0., null
+        ));
+    }
     private static ConfigValue<Long> registerEnergyConsumptionPerUseConfigValue(String baseConfigKey, String itemName, long defaultValue) {
         return COMMON_CONFIG.register(new LongConfigValue(
                 baseConfigKey + ".energy_consumption_per_use",
                 "The energy consumption of " + itemName + " in E per use",
                 defaultValue,
                 1L, null
+        ));
+    }
+    private static ConfigValue<Double> registerRecipeDurationMultiplierConfigValue(String baseConfigKey, String itemName) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                baseConfigKey + ".recipe_duration_multiplier",
+                "The multiplier by which the time a recipe of " + itemName + " requires is multiplied by",
+                1.,
+                0., null
         ));
     }
 
