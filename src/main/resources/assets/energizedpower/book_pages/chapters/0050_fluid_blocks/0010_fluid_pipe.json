@@ -1,0 +1,30 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.fluid_pipe.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.fluid_pipe.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.fluid_pipe.3",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform"
+    }
+  ],
+  "block": "energizedpower:fluid_pipe"
+}
