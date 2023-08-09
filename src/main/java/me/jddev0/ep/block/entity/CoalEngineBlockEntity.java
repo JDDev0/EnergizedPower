@@ -3,9 +3,10 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.CoalEngineBlock;
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
+import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.screen.CoalEngineMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -42,8 +43,10 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
-    public static final long CAPACITY = 2048;
-    public static final long MAX_EXTRACT = 256;
+    public static final long CAPACITY = ModConfigs.COMMON_COAL_ENGINE_CAPACITY.getValue();
+    public static final long MAX_EXTRACT = ModConfigs.COMMON_COAL_ENGINE_TRANSFER_RATE.getValue();
+
+    public static final double ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     final CachedSidedInventoryStorage<CoalEngineBlockEntity> cachedSidedInventoryStorage;
     final InputOutputItemHandler inventory;
@@ -216,7 +219,8 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
             ItemStack item = blockEntity.internalInventory.getStack(0);
 
             Integer burnTime = FuelRegistry.INSTANCE.get(item.getItem());
-            int energyProduction = burnTime == null?-1:burnTime;
+            long energyProduction = burnTime == null?-1:burnTime;
+            energyProduction = (long)(energyProduction * ENERGY_PRODUCTION_MULTIPLIER);
             if(blockEntity.progress == 0)
                 blockEntity.energyProductionLeft = energyProduction;
 
@@ -225,11 +229,11 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
                 if(energyProduction / 100 <= MAX_EXTRACT)
                     blockEntity.maxProgress = 100;
                 else
-                    blockEntity.maxProgress = (int)Math.ceil((float)energyProduction / MAX_EXTRACT);
+                    blockEntity.maxProgress = (int)Math.ceil((double)energyProduction / MAX_EXTRACT);
             }
 
             //TODO improve (alternate values +/- 1 per x recipes instead of changing last energy production tick)
-            long energyProductionPerTick = (long)Math.ceil((float)blockEntity.energyProductionLeft / (blockEntity.maxProgress - blockEntity.progress));
+            long energyProductionPerTick = (long)Math.ceil((double)blockEntity.energyProductionLeft / (blockEntity.maxProgress - blockEntity.progress));
             if(blockEntity.progress == blockEntity.maxProgress - 1)
                 energyProductionPerTick = blockEntity.energyProductionLeft;
 
