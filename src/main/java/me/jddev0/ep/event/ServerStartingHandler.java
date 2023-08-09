@@ -22,7 +22,7 @@ public class ServerStartingHandler implements ServerLifecycleEvents.ServerStarti
         Registry<StructurePool> templatePoolRegistry = server.getRegistryManager().get(Registry.STRUCTURE_POOL_KEY);
 
         //Electrician 1
-        int weight = ModConfigs.COMMON_ELECTRICIAN_BUILDING_PLACEMENT_WEIGHT.getValue();
+        int weight = ModConfigs.COMMON_ELECTRICIAN_BUILDING_1_PLACEMENT_WEIGHT.getValue();
         addVillageHouse(templatePoolRegistry, "desert", "electrician_1", weight);
         addVillageHouse(templatePoolRegistry, "plains", "electrician_1", weight);
         addVillageHouse(templatePoolRegistry, "savanna", "electrician_1", weight);
