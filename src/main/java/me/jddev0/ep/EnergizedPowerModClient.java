@@ -1,5 +1,6 @@
 package me.jddev0.ep;
 
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.ModEntityTypes;
 import me.jddev0.ep.item.ActivatableItem;
 import me.jddev0.ep.item.WorkingItem;
@@ -20,6 +21,8 @@ import net.minecraft.util.Identifier;
 public class EnergizedPowerModClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+        ModConfigs.registerConfigs(false);
+
         HandledScreens.register(ModMenuTypes.AUTO_CRAFTER_MENU, AutoCrafterScreen::new);
         HandledScreens.register(ModMenuTypes.CRUSHER_MENU, CrusherScreen::new);
         HandledScreens.register(ModMenuTypes.SAWMILL_MENU, SawmillScreen::new);
