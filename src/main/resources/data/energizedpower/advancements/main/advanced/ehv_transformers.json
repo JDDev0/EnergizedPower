@@ -1,5 +1,5 @@
 {
-  "parent":  "energizedpower:main/advanced/energized_crystal_matrix",
+  "parent":  "energizedpower:main/advanced/reinforced_advanced_machine_frame",
   "display": {
     "icon": {
       "item": "energizedpower:ehv_transformer_1_to_n"
