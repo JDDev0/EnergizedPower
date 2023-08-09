@@ -795,6 +795,14 @@
   "book.energizedpower.page.time_controller.2": "It can not go back in time, the time value will always be incremented.",
 
 
+  "book.energizedpower.page.chapter.fluid_blocks.title": "Blocks with Fluids",
+  "book.energizedpower.page.chapter.fluid_blocks": "Blocks that can store and transfer fluids.",
+
+  "book.energizedpower.page.fluid_pipe.1": "Fluid pipes can transfer fluids.",
+  "book.energizedpower.page.fluid_pipe.2": "The mode of every pipe side can be configured with a Wrench.",
+  "book.energizedpower.page.fluid_pipe.3": "A single fluid pipe block can only extract one fluid type at once even when multiple sides are configured as extraction.",
+
+
   "book.energizedpower.page.chapter.entities.title": "Entities",
   "book.energizedpower.page.chapter.entities": "Things that can move.",
 
