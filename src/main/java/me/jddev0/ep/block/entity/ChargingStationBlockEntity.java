@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ChargingStationBlock;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.ChargingStationMenu;
@@ -36,9 +37,9 @@ import team.reborn.energy.api.base.SimpleEnergyStorage;
 import java.util.List;
 
 public class ChargingStationBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
-    public static final long CAPACITY = 262144;
-    public static final long MAX_RECEIVE = 16384;
-    public static final int MAX_CHARGING_DISTANCE = 7;
+    public static final long CAPACITY = ModConfigs.COMMON_CHARGING_STATION_CAPACITY.getValue();
+    public static final long MAX_RECEIVE = ModConfigs.COMMON_CHARGING_STATION_TRANSFER_RATE.getValue();
+    public static final int MAX_CHARGING_DISTANCE = ModConfigs.COMMON_CHARGING_STATION_MAX_CHARGING_DISTANCE.getValue();
 
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
