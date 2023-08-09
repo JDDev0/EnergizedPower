@@ -14,6 +14,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import me.jddev0.ep.config.ModConfigs;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -21,7 +22,8 @@ import java.util.List;
 import java.util.Map;
 
 public class FluidPipeBlockEntity extends BlockEntity {
-    public static long MAX_TRANSFER = FluidUtils.convertMilliBucketsToDroplets(100);
+    public static long MAX_TRANSFER = FluidUtils.convertMilliBucketsToDroplets(
+            ModConfigs.COMMON_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue());
 
     final Storage<FluidVariant> fluidStorage;
 
