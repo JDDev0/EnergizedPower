@@ -2,6 +2,7 @@ package me.jddev0.ep.integration.rei;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.entity.ChargerBlockEntity;
 import me.jddev0.ep.util.EnergyUtils;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -59,8 +60,9 @@ public class ChargerCategory implements DisplayCategory<ChargerDisplay> {
         widgets.add(Widgets.createSlot(new Point(x + 92, y + 15)).disableBackground().markOutput().
                 entries(display.getOutputEntries().get(0)));
 
+        long energyConsumption = (long)(display.recipe().getEnergyConsumption() * ChargerBlockEntity.CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
-                Text.literal(EnergyUtils.getEnergyWithPrefix(display.recipe().getEnergyConsumption())).formatted(Formatting.YELLOW)).
+                Text.literal(EnergyUtils.getEnergyWithPrefix(energyConsumption)).formatted(Formatting.YELLOW)).
                 noShadow().rightAligned());
 
         return widgets;
