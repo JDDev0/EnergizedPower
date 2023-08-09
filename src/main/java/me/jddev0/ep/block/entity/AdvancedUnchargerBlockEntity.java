@@ -3,6 +3,7 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.AdvancedUnchargerMenu;
@@ -42,8 +43,8 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class AdvancedUnchargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
-    public static final long CAPACITY = 65536 * 3;
-    public static final long MAX_EXTRACT_PER_SLOT = 8192;
+    public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_UNCHARGER_CAPACITY_PER_SLOT.getValue() * 3;
+    public static final long MAX_EXTRACT_PER_SLOT = ModConfigs.COMMON_ADVANCED_UNCHARGER_TRANSFER_RATE_PER_SLOT.getValue();
     public static final long MAX_EXTRACT = MAX_EXTRACT_PER_SLOT * 3;
 
     final CachedSidedInventoryStorage<AdvancedUnchargerBlockEntity> cachedSidedInventoryStorage;

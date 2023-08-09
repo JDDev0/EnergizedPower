@@ -474,14 +474,14 @@ public final class ModConfigs {
             0.f, null
     ));
 
-    public static final ConfigValue<Long> COMMON_ADVANCED_CHARGER_CAPACITY = COMMON_CONFIG.register(new LongConfigValue(
+    public static final ConfigValue<Long> COMMON_ADVANCED_CHARGER_CAPACITY_PER_SLOT = COMMON_CONFIG.register(new LongConfigValue(
             "block.advanced_charger.capacity_per_slot",
             "The energy capacity per slot of the Advanced Charger in E. The energy capacity of the block is three times this value.",
             65536L,
             1L, null
     ));
 
-    public static final ConfigValue<Long> COMMON_ADVANCED_CHARGER_TRANSFER_RATE = COMMON_CONFIG.register(new LongConfigValue(
+    public static final ConfigValue<Long> COMMON_ADVANCED_CHARGER_TRANSFER_RATE_PER_SLOT = COMMON_CONFIG.register(new LongConfigValue(
             "block.advanced_charger.transfer_rate_per_slot",
             "The energy transfer rate per slot of the Advanced Charger in E per tick. The energy transfer rate of the block is three times this value.",
             8192L,
@@ -492,6 +492,27 @@ public final class ModConfigs {
             "The multiplier by which the energy consumption of charger recipes in the Charger is multiplied by.",
             1.f,
             0.f, null
+    ));
+
+    public static final ConfigValue<Long> COMMON_UNCHARGER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.uncharger", "Uncharger", 8192
+    );
+    public static final ConfigValue<Long> COMMON_UNCHARGER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.uncharger", "Uncharger", 512
+    );
+
+    public static final ConfigValue<Long> COMMON_ADVANCED_UNCHARGER_CAPACITY_PER_SLOT = COMMON_CONFIG.register(new LongConfigValue(
+            "block.advanced_uncharger.capacity_per_slot",
+            "The energy capacity per slot of the Advanced Uncharger in E. The energy capacity of the block is three times this value.",
+            65536L,
+            1L, null
+    ));
+
+    public static final ConfigValue<Long> COMMON_ADVANCED_UNCHARGER_TRANSFER_RATE_PER_SLOT = COMMON_CONFIG.register(new LongConfigValue(
+            "block.advanced_uncharger.transfer_rate_per_slot",
+            "The energy transfer rate per slot of the Advanced Uncharger in E per tick. The energy transfer rate of the block is three times this value.",
+            8192L,
+            1L, null
     ));
 
     //Entities
