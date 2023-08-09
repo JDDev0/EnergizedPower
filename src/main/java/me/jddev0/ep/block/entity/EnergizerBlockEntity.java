@@ -4,6 +4,7 @@ import me.jddev0.ep.block.EnergizerBlock;
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.EnergizerRecipe;
@@ -41,8 +42,10 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
-    public static final long CAPACITY = 65536;
-    public static final long MAX_RECEIVE = 16384;
+    public static final long CAPACITY = ModConfigs.COMMON_ENERGIZER_CAPACITY.getValue();
+    public static final long MAX_RECEIVE = ModConfigs.COMMON_ENERGIZER_TRANSFER_RATE.getValue();
+
+    public static final double ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_ENERGIZER_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
     final CachedSidedInventoryStorage<EnergizerBlockEntity> cachedSidedInventoryStorage;
     final InputOutputItemHandler inventory;
@@ -53,7 +56,7 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
 
     protected final PropertyDelegate data;
     private int progress;
-    private int maxProgress = 100;
+    private int maxProgress = ModConfigs.COMMON_ENERGIZER_RECIPE_DURATION.getValue();
     private long energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
 
@@ -128,10 +131,10 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
             @Override
             public int get(int index) {
                 return switch(index) {
-                    case 0 -> EnergizerBlockEntity.this.progress;
-                    case 1 -> EnergizerBlockEntity.this.maxProgress;
-                    case 2, 3, 4, 5 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.energyConsumptionLeft, index - 2);
-                    case 6 -> hasEnoughEnergy?1:0;
+                    case 0, 1 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.progress, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.maxProgress, index - 2);
+                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.energyConsumptionLeft, index - 4);
+                    case 8 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -139,15 +142,19 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
             @Override
             public void set(int index, int value) {
                 switch(index) {
-                    case 0 -> EnergizerBlockEntity.this.progress = value;
-                    case 1 -> EnergizerBlockEntity.this.maxProgress = value;
-                    case 2, 3, 4, 5, 6 -> {}
+                    case 0, 1 -> EnergizerBlockEntity.this.progress = ByteUtils.with2Bytes(
+                            EnergizerBlockEntity.this.progress, (short)value, index
+                    );
+                    case 2, 3 -> EnergizerBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
+                            EnergizerBlockEntity.this.maxProgress, (short)value, index - 2
+                    );
+                    case 4, 5, 6, 7, 8 -> {}
                 }
             }
 
             @Override
             public int size() {
-                return 7;
+                return 9;
             }
         };
     }
@@ -215,6 +222,7 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
                 return;
 
             long energyConsumption = recipe.get().getEnergyConsumption();
+            energyConsumption = (long)(energyConsumption * ENERGY_CONSUMPTION_MULTIPLIER);
             if(blockEntity.progress == 0)
                 blockEntity.energyConsumptionLeft = energyConsumption;
 
