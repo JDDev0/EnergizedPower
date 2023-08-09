@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AdvancedMinecartChargerBlock;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
 import me.jddev0.ep.networking.ModMessages;
@@ -31,8 +32,8 @@ import team.reborn.energy.api.base.SimpleEnergyStorage;
 import java.util.List;
 
 public class AdvancedMinecartChargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
-    public static final long CAPACITY = 524288;
-    public static final long MAX_TRANSFER = 65536;
+    public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_MINECART_CHARGER_CAPACITY.getValue();
+    public static final long MAX_TRANSFER = ModConfigs.COMMON_ADVANCED_MINECART_CHARGER_TRANSFER_RATE.getValue();
 
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
