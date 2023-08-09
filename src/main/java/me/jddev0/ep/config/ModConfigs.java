@@ -331,6 +331,22 @@ public final class ModConfigs {
             "block.energizer", "Energizer", 100
     );
 
+    public static final ConfigValue<Long> COMMON_AUTO_CRAFTER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.auto_crafter", "Auto Crafter", 2048
+    );
+    public static final ConfigValue<Long> COMMON_AUTO_CRAFTER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.auto_crafter", "Auto Crafter", 256
+    );
+    public static final ConfigValue<Long> COMMON_AUTO_CRAFTER_ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT = COMMON_CONFIG.register(new LongConfigValue(
+            "block.auto_crafter.energy_consumption_per_tick_per_ingredient",
+            "The energy consumption used by Auto Crafter if active in E per tick per ingredient",
+            2L,
+            1L, null
+    ));
+    public static final ConfigValue<Integer> COMMON_AUTO_CRAFTER_RECIPE_DURATION = registerRecipeDurationConfigValue(
+            "block.auto_crafter", "Auto Crafter", 100
+    );
+
     //Entities
     public static final ConfigValue<Long> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536
