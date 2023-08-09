@@ -140,6 +140,9 @@ public class MinecartChargerBlockEntity extends BlockEntity implements ExtendedS
                 Math.min(minecart.getTransferRate(), minecart.getCapacity() - minecart.getEnergy()));
         minecart.setEnergy(minecart.getEnergy() + transferred);
 
+        if(transferred < 0)
+            return;
+
         try(Transaction transaction = Transaction.openOuter()) {
             blockEntity.internalEnergyStorage.extract(transferred, transaction);
             transaction.commit();
