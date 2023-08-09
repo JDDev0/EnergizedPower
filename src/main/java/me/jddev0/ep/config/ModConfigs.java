@@ -188,6 +188,14 @@ public final class ModConfigs {
             "entity.advanced_battery_box_minecart", "Advanced Battery Box Minecart", 65536
     );
 
+    //World
+    public static final ConfigValue<Integer> COMMON_ELECTRICIAN_BUILDING_PLACEMENT_WEIGHT = COMMON_CONFIG.register(new IntegerConfigValue(
+            "world.village.electrician_building_1.placement_weight",
+            "Determines how frequent the Electrician Building 1 will be placed in villages. If set to 0 the Electrician Building 1 will never be placed.",
+            5,
+            0, 50
+    ));
+
 
     public static final Config SERVER_CONFIG = new Config(getRelativeConfigFile("server.conf"), "Energized Power Server Config");
     //TODO server config values
