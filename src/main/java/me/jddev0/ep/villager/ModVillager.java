@@ -62,72 +62,149 @@ public final class ModVillager {
                     new ItemStack(ModItems.SILICON, 3),
                     new ItemStack(Items.EMERALD, 2),
                     15, 2, .02f);
+
+            addOffer(factories,
+                    new ItemStack(Items.EMERALD, 6),
+                    new ItemStack(ModItems.CABLE_INSULATOR, 16),
+                    5, 3, .02f);
+
+            addOffer(factories,
+                    new ItemStack(Items.EMERALD, 9),
+                    new ItemStack(ModItems.IRON_HAMMER),
+                    2, 3, .02f);
         });
 
         TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION, 2, factories -> {
             addOffer(factories,
-                    new ItemStack(ModItems.BASIC_SOLAR_CELL, 2),
-                    new ItemStack(Items.EMERALD, 3),
-                    5, 5, .02f);
+                    new ItemStack(Items.EMERALD, 35),
+                    new ItemStack(ModBlocks.COPPER_CABLE_ITEM, 6),
+                    3, 5, .02f);
 
             {
-                ItemStack energyAnalyzer = new ItemStack(ModItems.BATTERY_2);
-                energyAnalyzer.getOrCreateNbt().put("energy", NbtInt.of(128));
+
+                ItemStack energyItem = new ItemStack(ModItems.BATTERY_2);
+                energyItem.getOrCreateNbt().put("energy", NbtLong.of(128));
 
                 addOffer(factories,
                         new ItemStack(Items.EMERALD, 6),
                         new ItemStack(Items.COPPER_INGOT, 4),
-                        energyAnalyzer,
-                        3, 8, .02f);
+                        energyItem,
+                        3, 7, .02f);
             }
+
+            {
+                ItemStack energyItem = new ItemStack(ModItems.ENERGY_ANALYZER);
+                energyItem.getOrCreateNbt().put("energy", NbtLong.of(128));
+
+                addOffer(factories,
+                        new ItemStack(Items.EMERALD, 6),
+                        new ItemStack(Items.COPPER_INGOT, 12),
+                        energyItem,
+                        2, 8, .02f);
+            }
+
+            addOffer(factories,
+                    new ItemStack(ModItems.COPPER_PLATE, 3),
+                    new ItemStack(Items.EMERALD, 8),
+                    15, 6, .02f);
         });
 
         TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION, 3, factories -> {
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 6),
-                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM, 1),
-                    new ItemStack(ModBlocks.AUTO_CRAFTER_ITEM, 1),
-                    5, 10, .02f);
+                    new ItemStack(Items.EMERALD, 21),
+                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                    new ItemStack(ModBlocks.COAL_ENGINE_ITEM),
+                    3, 10, .02f);
 
-            {
+            addOffer(factories,
+                    new ItemStack(Items.EMERALD, 31),
+                    new ItemStack(ModItems.BASIC_SOLAR_CELL, 2),
+                    new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_1),
+                    3, 10, .02f);
 
-                ItemStack energyAnalyzer = new ItemStack(ModItems.ENERGY_ANALYZER);
-                energyAnalyzer.getOrCreateNbt().put("energy", NbtLong.of(16 * EnergyAnalyzerItem.ENERGY_CONSUMPTION_PER_USE));
+            addOffer(factories,
+                    new ItemStack(Items.EMERALD, 33),
+                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                    new ItemStack(ModBlocks.FLUID_FILLER_ITEM),
+                    3, 10, .02f);
 
-                addOffer(factories,
-                        new ItemStack(Items.EMERALD, 16),
-                        new ItemStack(Items.COPPER_INGOT, 12),
-                        energyAnalyzer,
-                        1, 12, .02f);
-            }
+            addOffer(factories,
+                    new ItemStack(Items.EMERALD, 38),
+                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                    new ItemStack(ModBlocks.AUTO_CRAFTER_ITEM),
+                    3, 10, .02f);
+
+            addOffer(factories,
+                    new ItemStack(Items.EMERALD, 46),
+                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                    new ItemStack(ModBlocks.CHARGER_ITEM),
+                    3, 10, .02f);
+
+            addOffer(factories,
+                    new ItemStack(ModItems.BASIC_SOLAR_CELL, 3),
+                    new ItemStack(Items.EMERALD, 9),
+                    15, 9, .02f);
         });
 
         TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION, 4, factories -> {
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 8),
-                    new ItemStack(ModItems.BASIC_SOLAR_CELL, 2),
-                    new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_1, 1),
-                    3, 19, .02f);
+                    new ItemStack(Items.EMERALD, 34),
+                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                    new ItemStack(ModBlocks.SAWMILL_ITEM),
+                    3, 20, .02f);
 
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 14),
-                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM, 1),
-                    new ItemStack(ModBlocks.COAL_ENGINE_ITEM, 1),
-                    2, 24, .02f);
+                    new ItemStack(Items.EMERALD, 39),
+                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                    new ItemStack(ModBlocks.CRUSHER_ITEM),
+                    3, 20, .02f);
+
+            addOffer(factories,
+                    new ItemStack(Items.EMERALD, 52),
+                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                    new ItemStack(ModBlocks.COMPRESSOR_ITEM),
+                    3, 20, .02f);
+            {
+
+                ItemStack energyItem = new ItemStack(ModItems.BATTERY_4);
+                energyItem.getOrCreateNbt().put("energy", NbtLong.of(512));
+
+                addOffer(factories,
+                        new ItemStack(Items.EMERALD, 29),
+                        new ItemStack(Items.COPPER_INGOT, 9),
+                        energyItem,
+                        2, 19, .02f);
+            }
+
+            addOffer(factories,
+                    new ItemStack(ModItems.SAWDUST, 17),
+                    new ItemStack(Items.EMERALD, 4),
+                    20, 18, .02f);
         });
 
         TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION, 5, factories -> {
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 59),
-                    new ItemStack(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM, 1),
-                    new ItemStack(ModBlocks.LIGHTNING_GENERATOR_ITEM, 1),
+                    new ItemStack(Items.EMERALD, 32),
+                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                    new ItemStack(ModBlocks.THERMAL_GENERATOR_ITEM),
                     1, 30, .02f);
 
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 24),
-                    new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_1, 2),
-                    new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_2, 1),
-                    3, 41, .02f);
+                    new ItemStack(Items.EMERALD_BLOCK, 9),
+                    new ItemStack(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                    new ItemStack(ModBlocks.ENERGIZER_ITEM),
+                    1, 30, .02f);
+
+            addOffer(factories,
+                    new ItemStack(Items.EMERALD_BLOCK, 12),
+                    new ItemStack(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                    new ItemStack(ModBlocks.LIGHTNING_GENERATOR_ITEM),
+                    1, 30, .02f);
+
+            addOffer(factories,
+                    new ItemStack(ModItems.ENERGIZED_COPPER_INGOT),
+                    new ItemStack(Items.EMERALD, 23),
+                    15, 30, .02f);
         });
     }
 
