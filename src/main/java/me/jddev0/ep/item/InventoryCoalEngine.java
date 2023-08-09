@@ -1,5 +1,6 @@
 package me.jddev0.ep.item;
 
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -27,8 +28,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements ActivatableItem, WorkingItem {
-    public static final long CAPACITY = 2048;
-    public static final long MAX_EXTRACT = 256;
+    public static final long CAPACITY = ModConfigs.COMMON_INVENTORY_COAL_ENGINE_CAPACITY.getValue();
+    public static final long MAX_EXTRACT = ModConfigs.COMMON_INVENTORY_COAL_ENGINE_TRANSFER_RATE.getValue();
+
+    public static final double ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_INVENTORY_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     public InventoryCoalEngine(FabricItemSettings props) {
         super(props, CAPACITY, 0, MAX_EXTRACT);
@@ -45,7 +48,7 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
                         (active?"activated":"deactivated")).formatted(active?Formatting.GREEN:Formatting.RED)));
 
         if(Screen.hasShiftDown()) {
-            int energyProductionLeft = getEnergyProductionLeft(itemStack);
+            long energyProductionLeft = getEnergyProductionLeft(itemStack);
             ItemStack item = getCurrentBurningItem(itemStack);
             if(energyProductionLeft > 0 && item != null) {
                 tooltip.add(Text.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning").
@@ -69,7 +72,7 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
     private void distributeEnergy(ItemStack itemStack, World level, PlayerInventory inventory, int slot, boolean selected) {
         List<EnergyStorage> consumerItems = new LinkedList<>();
         List<Long> consumerEnergyValues = new LinkedList<>();
-        int consumptionSum = 0;
+        long consumptionSum = 0;
         for(int i = 0;i < inventory.size();i++) {
             if(i == slot)
                 continue;
@@ -155,13 +158,13 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
 
         distributeEnergy(itemStack, level, inventory, slot, selected);
 
-        int energyProductionLeft = getEnergyProductionLeft(itemStack);
+        long energyProductionLeft = getEnergyProductionLeft(itemStack);
         if(energyProductionLeft > 0) {
             int progress = getProgress(itemStack);
             int maxProgress = getMaxProgress(itemStack);
             ItemStack getCurrentBurningItem = getCurrentBurningItem(itemStack);
             if(progress >= 0 && maxProgress > 0 && progress < maxProgress && getCurrentBurningItem != null) {
-                int energyProductionPerTick = energyProductionLeft / (maxProgress - progress);
+                long energyProductionPerTick = energyProductionLeft / (maxProgress - progress);
                 if(getEnergyCapacity(itemStack) - getEnergy(itemStack) < energyProductionPerTick) {
                     //Not enough energy storage for production
                     if(isWorking(itemStack))
@@ -175,7 +178,7 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
 
                 setEnergy(itemStack, getEnergy(itemStack) + energyProductionPerTick);
 
-                itemStack.getOrCreateNbt().putInt("energy_production_left", energyProductionLeft - energyProductionPerTick);
+                itemStack.getOrCreateNbt().putLong("energy_production_left", energyProductionLeft - energyProductionPerTick);
 
                 progress++;
                 if(progress == maxProgress) {
@@ -200,11 +203,13 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
 
             ItemStack testItemStack = inventory.getStack(i);
             Integer burnTime = FuelRegistry.INSTANCE.get(testItemStack.getItem());
-            int energyProduction = burnTime == null?-1:burnTime;
+            long energyProduction = burnTime == null?-1:burnTime;
             if(energyProduction <= 0)
                 continue;
 
-            itemStack.getOrCreateNbt().putInt("energy_production_left", energyProduction);
+            energyProduction = (long)(energyProduction * ENERGY_PRODUCTION_MULTIPLIER);
+
+            itemStack.getOrCreateNbt().putLong("energy_production_left", energyProduction);
             itemStack.getOrCreateNbt().put("item", testItemStack.writeNbt(new NbtCompound()));
             itemStack.getOrCreateNbt().putInt("progress", 0);
 
@@ -212,7 +217,7 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
             if(energyProduction / 100 <= MAX_EXTRACT)
                 itemStack.getOrCreateNbt().putInt("max_progress", 100);
             else
-                itemStack.getOrCreateNbt().putInt("max_progress", (int)Math.ceil((float)energyProduction / MAX_EXTRACT));
+                itemStack.getOrCreateNbt().putInt("max_progress", (int)Math.ceil((double)energyProduction / MAX_EXTRACT));
 
             ItemStack newItemStack = testItemStack.copy();
             newItemStack.decrement(1);
@@ -284,7 +289,7 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
         return ItemStack.fromNbt(nbt.getCompound("item"));
     }
 
-    private int getEnergyProductionLeft(ItemStack itemStack) {
+    private long getEnergyProductionLeft(ItemStack itemStack) {
         if(!itemStack.hasNbt())
             return -1;
 
@@ -292,7 +297,7 @@ public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements Act
         if(nbt == null || !nbt.contains("energy_production_left"))
             return -1;
 
-        return nbt.getInt("energy_production_left");
+        return nbt.getLong("energy_production_left");
     }
 
     @Override
