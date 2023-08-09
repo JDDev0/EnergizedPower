@@ -153,6 +153,13 @@ public final class ModConfigs {
             20 * 5 /* 5 seconds */, null
     ));
 
+    public static final ConfigValue<Long> COMMON_LIGHTNING_GENERATOR_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.lightning_generator", "Lightning Generator", 1000000
+    );
+    public static final ConfigValue<Long> COMMON_LIGHTNING_GENERATOR_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.lightning_generator", "Lightning Generator", 65536
+    );
+
     public static final ConfigValue<Long> COMMON_CHARGING_STATION_CAPACITY = registerEnergyCapacityConfigValue(
             "block.charging_station", "Charging Station", 262144
     );
