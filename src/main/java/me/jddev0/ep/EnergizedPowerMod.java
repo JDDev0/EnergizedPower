@@ -3,6 +3,7 @@ package me.jddev0.ep;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.behavior.ModBlockBehaviors;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.ModEntityTypes;
 import me.jddev0.ep.event.PlayerInteractHandler;
 import me.jddev0.ep.event.ServerStartingHandler;
@@ -31,6 +32,8 @@ public class EnergizedPowerMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+        ModConfigs.registerConfigs(true);
+
 		ModItems.register();
 		ModBlocks.register();
 		ModBlockEntities.register();
