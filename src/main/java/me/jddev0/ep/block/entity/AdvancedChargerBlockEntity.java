@@ -3,6 +3,7 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.ChargerRecipe;
@@ -43,9 +44,12 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
-    public static final long CAPACITY = 65536 * 3;
-    public static final long MAX_RECEIVE_PER_SLOT = 8192;
+    public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_CHARGER_CAPACITY.getValue() * 3;
+
+    public static final long MAX_RECEIVE_PER_SLOT = ModConfigs.COMMON_ADVANCED_CHARGER_TRANSFER_RATE.getValue();
     public static final long MAX_RECEIVE = MAX_RECEIVE_PER_SLOT * 3;
+
+    public static final float CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_ADVANCED_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
     final CachedSidedInventoryStorage<AdvancedChargerBlockEntity> cachedSidedInventoryStorage;
     final InputOutputItemHandler inventory;
@@ -264,7 +268,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
                 Optional<ChargerRecipe> recipe = level.getRecipeManager().getFirstMatch(ChargerRecipe.Type.INSTANCE, inventory, level);
                 if(recipe.isPresent()) {
                     if(blockEntity.energyConsumptionLeft[i] == -1)
-                        blockEntity.energyConsumptionLeft[i] = recipe.get().getEnergyConsumption();
+                        blockEntity.energyConsumptionLeft[i] = (long)(recipe.get().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);;
 
                     if(blockEntity.internalEnergyStorage.amount == 0)
                         continue;
