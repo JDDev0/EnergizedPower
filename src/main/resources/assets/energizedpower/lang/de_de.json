@@ -604,7 +604,7 @@
 
 
   "book.energizedpower.tooltip.link": "Link öffnen",
-  "book.energizedpower.tooltip.page": "Zu diese Seite springen",
+  "book.energizedpower.tooltip.page": "Zur Seite springen",
 
 
   "book.energizedpower.page.welcome.title": "Willkommen zu Energized Power!",
@@ -793,6 +793,14 @@
 
   "book.energizedpower.page.time_controller.1": "Der Zeit-Controller kann die Zeit des Tages ändern. Um das zu tun, benötigt er Energie.",
   "book.energizedpower.page.time_controller.2": "Er kann nicht in der Zeit zurückreisen, der \"time\"-Wert wird immer inkrementiert.",
+
+
+  "book.energizedpower.page.chapter.fluid_blocks.title": "Flüssigkeits-Blöcke",
+  "book.energizedpower.page.chapter.fluid_blocks": "Blöcke, die Flüssigkeiten lagern und transferieren können.",
+
+  "book.energizedpower.page.fluid_pipe.1": "Flüssigkeitsrohre können Flüssigkeiten transferieren.",
+  "book.energizedpower.page.fluid_pipe.2": "Jede Rohr-Seite kann mit einem Schraubenschlüssel konfiguriert werden.",
+  "book.energizedpower.page.fluid_pipe.3": "Ein einzelner Flüssigkeitsrohr-Block kann nur eine Flüssigkeitsart zur gleichen Zeit extrahieren, auch wenn mehrere Seiten als Extraktion konfiguriert wurden.",
 
 
   "book.energizedpower.page.chapter.entities.title": "Entitäten",
