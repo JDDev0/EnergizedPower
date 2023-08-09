@@ -4,6 +4,7 @@ import me.jddev0.ep.block.PoweredFurnaceBlock;
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.PoweredFurnaceMenu;
@@ -42,9 +43,11 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
-    public static final long CAPACITY = 4096;
-    public static final long MAX_RECEIVE = 256;
-    private static final long ENERGY_USAGE_PER_TICK = 128;
+    public static final long CAPACITY = ModConfigs.COMMON_POWERED_FURNACE_CAPACITY.getValue();
+    public static final long MAX_RECEIVE = ModConfigs.COMMON_POWERED_FURNACE_TRANSFER_RATE.getValue();
+    private static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_TICK.getValue();
+
+    public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER.getValue();
 
     final CachedSidedInventoryStorage<PoweredFurnaceBlockEntity> cachedSidedInventoryStorage;
     final InputOutputItemHandler inventory;
@@ -224,7 +227,7 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
 
             int cookingTime = recipe.get().getCookTime();
             if(blockEntity.maxProgress == 0)
-                blockEntity.maxProgress = (int)Math.ceil(cookingTime / 6.f); //Default Cooking Time = 200 -> maxProgress = 34
+                blockEntity.maxProgress = (int)Math.ceil(cookingTime * RECIPE_DURATION_MULTIPLIER / 6.f); //Default Cooking Time = 200 -> maxProgress = 34 (= 200 / 6)
 
             if(blockEntity.energyConsumptionLeft < 0)
                 blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK * blockEntity.maxProgress;

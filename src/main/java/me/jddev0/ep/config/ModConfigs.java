@@ -2,6 +2,7 @@ package me.jddev0.ep.config;
 
 import com.mojang.logging.LogUtils;
 import me.jddev0.ep.config.value.DoubleConfigValue;
+import me.jddev0.ep.config.value.FloatConfigValue;
 import me.jddev0.ep.config.value.LongConfigValue;
 import net.fabricmc.loader.api.FabricLoader;
 import me.jddev0.ep.config.value.IntegerConfigValue;
@@ -386,6 +387,22 @@ public final class ModConfigs {
             1, null
     ));
 
+    public static final ConfigValue<Long> COMMON_POWERED_FURNACE_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.powered_furnace", "Powered Furnace", 4096
+    );
+    public static final ConfigValue<Long> COMMON_POWERED_FURNACE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.powered_furnace", "Powered Furnace", 256
+    );
+    public static final ConfigValue<Long> COMMON_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.powered_furnace", "Powered Furnace", 128
+    );
+    public static final ConfigValue<Float> COMMON_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
+            "block.powered_furnace.recipe_duration_multiplier",
+            "The multiplier by which the time a recipe of the Powered Furnace requires is multiplied by. If set to 6 the Powered Furnace will be as fast as the normal Furnace.",
+            1.f,
+            0.f, null
+    ));
+
     //Entities
     public static final ConfigValue<Long> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536
@@ -504,12 +521,12 @@ public final class ModConfigs {
                 1, null
         ));
     }
-    private static ConfigValue<Double> registerRecipeDurationMultiplierConfigValue(String baseConfigKey, String itemName) {
-        return COMMON_CONFIG.register(new DoubleConfigValue(
+    private static ConfigValue<Float> registerRecipeDurationMultiplierConfigValue(String baseConfigKey, String itemName) {
+        return COMMON_CONFIG.register(new FloatConfigValue(
                 baseConfigKey + ".recipe_duration_multiplier",
                 "The multiplier by which the time a recipe of " + itemName + " requires is multiplied by",
-                1.,
-                0., null
+                1.f,
+                0.f, null
         ));
     }
 
