@@ -3,6 +3,7 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
@@ -46,14 +47,14 @@ import java.util.stream.IntStream;
 
 public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate,
         FluidStoragePacketUpdate {
-    public static final long CAPACITY = 2048;
-    public static final long MAX_RECEIVE = 128;
+    public static final long CAPACITY = ModConfigs.COMMON_FLUID_FILLER_CAPACITY.getValue();
+    public static final long MAX_RECEIVE = ModConfigs.COMMON_FLUID_FILLER_TRANSFER_RATE.getValue();
 
     /**
      * MAX_FLUID_DRAINING_PER_TICK is in Milli Buckets
      */
-    public static final int MAX_FLUID_FILLING_PER_TICK = 100;
-    public static final int ENERGY_USAGE_PER_TICK = 64;
+    public static final long MAX_FLUID_FILLING_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_FLUID_ITEM_TRANSFER_RATE.getValue();
+    public static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
     final CachedSidedInventoryStorage<UnchargerBlockEntity> cachedSidedInventoryStorage;
     final InputOutputItemHandler inventory;
@@ -189,7 +190,8 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
         };
         energyStorage = new LimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
 
-        fluidStorage = new SimpleFluidStorage(FluidUtils.convertMilliBucketsToDroplets(8000)) {
+        fluidStorage = new SimpleFluidStorage(FluidUtils.convertMilliBucketsToDroplets(
+                ModConfigs.COMMON_FLUID_FILLER_FLUID_TANK_CAPACITY.getValue() * 1000)) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
