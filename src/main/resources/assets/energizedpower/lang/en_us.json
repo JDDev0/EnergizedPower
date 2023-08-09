@@ -499,7 +499,7 @@
   "advancements.energizedpower.hv_transformers.description": "Can transfer more power.",
 
   "advancements.energizedpower.ehv_transformers.title": "EHV Transformers",
-  "advancements.energizedpower.ehv_transformers.description": "Can transfer more than 2 million FE per tick.",
+  "advancements.energizedpower.ehv_transformers.description": "Can transfer more than 2 million E per tick.",
 
   "advancements.energizedpower.battery_box.title": "Battery Box",
   "advancements.energizedpower.battery_box.description": "Store energy with the Battery Box block.",
