@@ -114,7 +114,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
         i = MathHelper.clamp(i, 0, 60);
 
         try(Transaction transaction = Transaction.openOuter()) {
-            blockEntity.internalEnergyStorage.insert((long)(i/60.f * blockEntity.getTier().getFePerTick()),
+            blockEntity.internalEnergyStorage.insert((long)(i/60.f * blockEntity.getTier().getPeakFePerTick()),
                     transaction);
             transaction.commit();
         }
