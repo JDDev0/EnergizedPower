@@ -357,6 +357,19 @@ public final class ModConfigs {
             "block.heat_generator", "Heat Generator"
     );
 
+    public static final ConfigValue<Long> COMMON_THERMAL_GENERATOR_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.thermal_generator", "Thermal Generator", 40960
+    );
+    public static final ConfigValue<Long> COMMON_THERMAL_GENERATOR_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.thermal_generator", "Thermal Generator", 2048
+    );
+    public static final ConfigValue<Double> COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER = registerEnergyProductionMultiplierConfigValue(
+            "block.thermal_generator", "Thermal Generator"
+    );
+    public static final ConfigValue<Long> COMMON_THERMAL_GENERATOR_FLUID_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
+            "block.thermal_generator", "Thermal Generator", 8
+    );
+
     //Entities
     public static final ConfigValue<Long> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536
@@ -457,6 +470,16 @@ public final class ModConfigs {
                 1L, null
         ));
     }
+
+    private static ConfigValue<Long> registerFluidTankCapacityConfigValue(String baseConfigKey, String itemName, long defaultValue) {
+        return COMMON_CONFIG.register(new LongConfigValue(
+                baseConfigKey + ".fluid_tank_capacity",
+                "The fluid tank capacity of the " + itemName + " in buckets (= 1000 mB)",
+                defaultValue,
+                1L, null
+        ));
+    }
+
     private static ConfigValue<Integer> registerRecipeDurationConfigValue(String baseConfigKey, String itemName, int defaultValue) {
         return COMMON_CONFIG.register(new IntegerConfigValue(
                 baseConfigKey + ".recipe_duration",
