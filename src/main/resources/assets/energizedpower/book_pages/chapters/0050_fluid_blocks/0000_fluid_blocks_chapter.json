@@ -1,0 +1,34 @@
+{
+  "title": {
+    "translate": "book.energizedpower.page.chapter.fluid_blocks.title",
+    "color": "gold"
+  },
+  "content": [
+    {
+      "translate": "book.energizedpower.page.chapter.fluid_blocks"
+    },
+    {
+      "text": "\n\n",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "translate": "book.energizedpower.page.table_of_contents.title",
+          "color": "dark_green",
+          "underlined": true,
+          "clickEvent": {
+            "action": "change_page",
+            "value": "energizedpower:chapters/0000_welcome/0030_table_of_contents"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.tooltip.page"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
