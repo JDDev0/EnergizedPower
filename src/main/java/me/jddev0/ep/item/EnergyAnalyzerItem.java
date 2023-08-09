@@ -1,5 +1,6 @@
 package me.jddev0.ep.item;
 
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -21,11 +22,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
-    public static final long ENERGY_CONSUMPTION_PER_USE = 8;
-    public static final long ENERGY_CAPACITY = 2048;
+    public static final long ENERGY_CONSUMPTION_PER_USE = ModConfigs.COMMON_ENERGY_ANALYZER_ENERGY_CONSUMPTION_PER_USE.getValue();
+    public static final long ENERGY_CAPACITY = ModConfigs.COMMON_ENERGY_ANALYZER_CAPACITY.getValue();
 
     public EnergyAnalyzerItem(FabricItemSettings props) {
-        super(props, ENERGY_CAPACITY, 32, 0);
+        super(props, ENERGY_CAPACITY, ModConfigs.COMMON_ENERGY_ANALYZER_TRANSFER_RATE.getValue(), 0);
     }
 
     @Override
