@@ -153,6 +153,19 @@ public final class ModConfigs {
             20 * 5 /* 5 seconds */, null
     ));
 
+    public static final ConfigValue<Long> COMMON_CHARGING_STATION_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.charging_station", "Charging Station", 262144
+    );
+    public static final ConfigValue<Long> COMMON_CHARGING_STATION_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.charging_station", "Charging Station", 16384
+    );
+    public static final ConfigValue<Integer> COMMON_CHARGING_STATION_MAX_CHARGING_DISTANCE = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.charging_station.max_charging_distance",
+            "The maximal distance the Charging Station can operate within",
+            7,
+            1, 25
+    ));
+
     public static final ConfigValue<Long> COMMON_TIME_CONTROLLER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.time_controller", "Time Controller", 8388608
     );
