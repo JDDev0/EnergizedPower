@@ -312,6 +312,16 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 blockEntity.energyConsumptionLeft = energyConsumptionPerTick * blockEntity.maxProgress;
             }
 
+            if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0 ||
+                    energyConsumptionPerTick < 0) {
+                //Reset progress for invalid values
+
+                blockEntity.resetProgress();
+                markDirty(level, blockPos, state);
+
+                return;
+            }
+
             if(energyConsumptionPerTick <= blockEntity.internalEnergyStorage.amount) {
                 try(Transaction transaction = Transaction.openOuter()) {
                     blockEntity.internalEnergyStorage.extract(energyConsumptionPerTick, transaction);
