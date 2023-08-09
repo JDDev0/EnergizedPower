@@ -106,6 +106,8 @@
   "item.energizedpower.advanced_charger": "Advanced Charger",
   "container.energizedpower.advanced_charger": "Advanced Charger",
 
+  "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "These items need %s to be fully charged.",
+
   "block.energizedpower.uncharger": "Uncharger",
   "item.energizedpower.uncharger": "Uncharger",
   "container.energizedpower.uncharger": "Uncharger",
@@ -115,6 +117,8 @@
   "block.energizedpower.advanced_uncharger": "Advanced Uncharger",
   "item.energizedpower.advanced_uncharger": "Advanced Uncharger",
   "container.energizedpower.advanced_uncharger": "Advanced Uncharger",
+
+  "tooltip.energizedpower.advanced_uncharger.items_energy_left.txt": "These items have %s left.",
 
   "block.energizedpower.minecart_charger": "Minecart Charger",
   "item.energizedpower.minecart_charger": "Minecart Charger",
