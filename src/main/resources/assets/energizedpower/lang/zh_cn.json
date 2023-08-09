@@ -74,6 +74,11 @@
   "item.energizedpower.diamond_hammer": "钻石锤",
   "item.energizedpower.netherite_hammer": "下界合金锤",
 
+  "item.energizedpower.wrench": "Wrench",
+
+  "tooltip.energizedpower.wrench.txt.shift": "The Wrench can be used to configure Fluid Pipes.",
+  "tooltip.energizedpower.wrench.select_face": "Selected face: %s",
+
   "item.energizedpower.battery_box_minecart": "Minecart with Battery Box",
   "item.energizedpower.advanced_battery_box_minecart": "Minecart with Advanced Battery Box",
 
@@ -326,6 +331,13 @@
   "tooltip.energizedpower.not_enough_energy.txt": "Not enough energy",
   "tooltip.energizedpower.ready.txt": "Ready",
   "tooltip.energizedpower.infinite.txt": "Infinite",
+
+  "tooltip.energizedpower.direction.down": "Down",
+  "tooltip.energizedpower.direction.up": "Up",
+  "tooltip.energizedpower.direction.north": "North",
+  "tooltip.energizedpower.direction.south": "South",
+  "tooltip.energizedpower.direction.west": "West",
+  "tooltip.energizedpower.direction.east": "East",
 
   "itemGroup.energizedpower.tab": "Energized Power",
 
