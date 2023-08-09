@@ -220,6 +220,15 @@ public class CompressorBlockEntity extends BlockEntity implements ExtendedScreen
             if(ENERGY_USAGE_PER_TICK <= blockEntity.internalEnergyStorage.amount) {
                 blockEntity.hasEnoughEnergy = true;
 
+                if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
+                    //Reset progress for invalid values
+
+                    blockEntity.resetProgress(blockPos, state);
+                    markDirty(level, blockPos, state);
+
+                    return;
+                }
+
                 try(Transaction transaction = Transaction.openOuter()) {
                     blockEntity.internalEnergyStorage.extract(ENERGY_USAGE_PER_TICK, transaction);
                     transaction.commit();

@@ -256,6 +256,15 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
 
             blockEntity.energyProductionLeft = energyStorage.getAmount();
 
+            if(blockEntity.energyProductionLeft < 0) {
+                //Reset progress for invalid values
+
+                blockEntity.resetProgress();
+                markDirty(level, blockPos, state);
+
+                return;
+            }
+
             blockEntity.energyProductionLeft -= EnergyStorageUtil.move(energyStorage, blockEntity.internalEnergyStorage, MAX_EXTRACT, null);
 
             markDirty(level, blockPos, state);
