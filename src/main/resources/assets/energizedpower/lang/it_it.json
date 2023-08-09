@@ -664,6 +664,8 @@
 
   "book.energizedpower.page.hammers": "I martelli possono essere usati per creare lastre.",
 
+  "book.energizedpower.page.wrench": "The Wrench can be used to configure Fluid Pipes.",
+
 
   "book.energizedpower.page.chapter.energy_items.title": "Articoli energetici",
   "book.energizedpower.page.chapter.energy_items": "Oggetti che possono produrre, consumare o immagazzinare energia.",
