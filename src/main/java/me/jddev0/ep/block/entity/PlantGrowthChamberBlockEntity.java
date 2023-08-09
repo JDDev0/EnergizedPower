@@ -271,6 +271,16 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
             if(fertilizedEnergyUsagePerTick <= blockEntity.internalEnergyStorage.amount) {
                 blockEntity.hasEnoughEnergy = true;
 
+                if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0 ||
+                        fertilizedEnergyUsagePerTick < 0) {
+                    //Reset progress for invalid values
+
+                    blockEntity.resetProgress(blockPos, state);
+                    markDirty(level, blockPos, state);
+
+                    return;
+                }
+
                 try(Transaction transaction = Transaction.openOuter()) {
                     blockEntity.internalEnergyStorage.extract(fertilizedEnergyUsagePerTick, transaction);
                     transaction.commit();

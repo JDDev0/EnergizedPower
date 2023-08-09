@@ -248,6 +248,16 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
                     level.setBlockState(blockPos, state.with(CoalEngineBlock.LIT, Boolean.TRUE), 3);
                 }
 
+                if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyProductionLeft < 0 ||
+                        energyProductionPerTick < 0) {
+                    //Reset progress for invalid values
+
+                    blockEntity.resetProgress(blockPos, state);
+                    markDirty(level, blockPos, state);
+
+                    return;
+                }
+
                 try(Transaction transaction = Transaction.openOuter()) {
                     blockEntity.internalEnergyStorage.insert(energyProductionPerTick, transaction);
                     transaction.commit();

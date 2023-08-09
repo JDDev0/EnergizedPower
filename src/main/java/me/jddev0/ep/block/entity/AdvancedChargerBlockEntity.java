@@ -298,6 +298,15 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
                     }
                 }
 
+                if(blockEntity.energyConsumptionLeft[i] < 0 || energyConsumptionPerTick < 0) {
+                    //Reset progress for invalid values
+
+                    blockEntity.resetProgress(i);
+                    markDirty(level, blockPos, state);
+
+                    continue;
+                }
+
                 try(Transaction transaction = Transaction.openOuter()) {
                     energyConsumptionPerTick = blockEntity.internalEnergyStorage.extract(energyConsumptionPerTick, transaction);
                     transaction.commit();

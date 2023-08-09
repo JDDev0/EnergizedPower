@@ -285,6 +285,15 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
                 }
             }
 
+            if(blockEntity.energyConsumptionLeft < 0 || energyConsumptionPerTick < 0) {
+                //Reset progress for invalid values
+
+                blockEntity.resetProgress();
+                markDirty(level, blockPos, state);
+
+                return;
+            }
+
             try(Transaction transaction = Transaction.openOuter()) {
                 energyConsumptionPerTick = blockEntity.internalEnergyStorage.extract(energyConsumptionPerTick, transaction);
                 transaction.commit();

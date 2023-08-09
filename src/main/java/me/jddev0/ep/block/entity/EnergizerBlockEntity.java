@@ -230,6 +230,15 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
                     level.setBlockState(blockPos, state.with(EnergizerBlock.LIT, Boolean.TRUE), 3);
                 }
 
+                if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
+                    //Reset progress for invalid values
+
+                    blockEntity.resetProgress(blockPos, state);
+                    markDirty(level, blockPos, state);
+
+                    return;
+                }
+
                 try(Transaction transaction = Transaction.openOuter()) {
                     blockEntity.internalEnergyStorage.extract(energyConsumptionPerTick, transaction);
                     transaction.commit();
