@@ -339,7 +339,7 @@ public final class ModConfigs {
     );
     public static final ConfigValue<Long> COMMON_AUTO_CRAFTER_ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT = COMMON_CONFIG.register(new LongConfigValue(
             "block.auto_crafter.energy_consumption_per_tick_per_ingredient",
-            "The energy consumption used by Auto Crafter if active in E per tick per ingredient",
+            "The energy consumption of the Auto Crafter if active in E per tick per ingredient",
             2L,
             1L, null
     ));
