@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.AdvancedBatteryBoxMenu;
@@ -28,8 +29,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class AdvancedBatteryBoxBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
-    public static final long CAPACITY = 8388608;
-    public static final long MAX_TRANSFER = 262144;
+    public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_BATTERY_BOX_CAPACITY.getValue();
+    public static final long MAX_TRANSFER = ModConfigs.COMMON_ADVANCED_BATTERY_BOX_TRANSFER_RATE.getValue();
 
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;

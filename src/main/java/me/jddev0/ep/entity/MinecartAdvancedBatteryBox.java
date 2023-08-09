@@ -1,6 +1,7 @@
 package me.jddev0.ep.entity;
 
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.screen.MinecartAdvancedBatteryBoxMenu;
 import me.jddev0.ep.util.ByteUtils;
@@ -19,8 +20,8 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class MinecartAdvancedBatteryBox extends AbstractMinecartBatteryBox {
-    public static final int CAPACITY = 8388608;
-    public static final int MAX_TRANSFER = 65536;
+    public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_BATTERY_BOX_MINECART_CAPACITY.getValue();
+    public static final long MAX_TRANSFER = ModConfigs.COMMON_ADVANCED_BATTERY_BOX_MINECART_TRANSFER_RATE.getValue();
 
     private static final TrackedData<Long> DATA_ID_ENERGY = DataTracker.registerData(MinecartAdvancedBatteryBox.class, TrackedDataHandlerRegistry.LONG);
 

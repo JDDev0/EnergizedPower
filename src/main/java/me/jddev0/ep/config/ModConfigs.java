@@ -16,6 +16,7 @@ public final class ModConfigs {
 
     public static final Config COMMON_CONFIG = new Config(getRelativeConfigFile("common.conf"), "Energized Power Common Config");
 
+    //Items
     public static final ConfigValue<Long> COMMON_BATTERY_1_CAPACITY = registerEnergyCapacityConfigValue(
             "item.battery_1", "Battery (Tier I)", 256
     );
@@ -90,6 +91,36 @@ public final class ModConfigs {
     );
     public static final ConfigValue<Long> COMMON_FLUID_ANALYZER_ENERGY_CONSUMPTION_PER_USE = registerEnergyConsumptionPerUseConfigValue(
             "item.fluid_analyzer", "Fluid Analyzer", 8
+    );
+
+    //Blocks
+    public static final ConfigValue<Long> COMMON_BATTERY_BOX_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.battery_box", "Battery Box", 65536
+    );
+    public static final ConfigValue<Long> COMMON_BATTERY_BOX_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.battery_box", "Battery Box", 2048
+    );
+
+    public static final ConfigValue<Long> COMMON_ADVANCED_BATTERY_BOX_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.advanced_battery_box", "Advanced Battery Box", 8388608
+    );
+    public static final ConfigValue<Long> COMMON_ADVANCED_BATTERY_BOX_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.advanced_battery_box", "Advanced Battery Box", 262144
+    );
+
+    //Entities
+    public static final ConfigValue<Long> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
+            "entity.battery_box_minecart", "Battery Box Minecart", 65536
+    );
+    public static final ConfigValue<Long> COMMON_BATTERY_BOX_MINECART_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "entity.battery_box_minecart", "Battery Box Minecart", 512
+    );
+
+    public static final ConfigValue<Long> COMMON_ADVANCED_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
+            "entity.advanced_battery_box_minecart", "Advanced Battery Box Minecart", 8388608
+    );
+    public static final ConfigValue<Long> COMMON_ADVANCED_BATTERY_BOX_MINECART_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "entity.advanced_battery_box_minecart", "Advanced Battery Box Minecart", 65536
     );
 
 
