@@ -2,6 +2,7 @@ package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.LightningGeneratorBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -35,7 +36,7 @@ import java.util.List;
 import java.util.function.ToIntFunction;
 
 public class LightningGeneratorBlock extends BlockWithEntity {
-    public static final int ENERGY_PER_LIGHTNING_STRIKE = 1000000;
+    public static final long ENERGY_PER_LIGHTNING_STRIKE = ModConfigs.COMMON_LIGHTNING_GENERATOR_CAPACITY.getValue();
 
     public static final BooleanProperty HIT_BY_LIGHTNING_BOLT = BooleanProperty.of("hit_by_lightning_bolt");
 
