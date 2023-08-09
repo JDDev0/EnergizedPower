@@ -79,28 +79,56 @@ public class WrenchItem extends Item {
 
         BlockPos testPos = blockPos.offset(currentFace);
 
-        BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-        if(testBlockEntity == null)
-            return ActionResult.SUCCESS;
+        PlayerEntity player = useOnContext.getPlayer();
 
-        if(testBlockEntity instanceof FluidPipeBlockEntity) {
-            //Connection to another pipe can not be modified
+        BlockEntity testBlockEntity = level.getBlockEntity(testPos);
+        if(testBlockEntity == null || testBlockEntity instanceof FluidPipeBlockEntity) {
+            //Connections to non-fluid blocks nor connections to another pipe can not be modified
+
+            if(player instanceof ServerPlayerEntity serverPlayer) {
+                serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                        Text.translatable("tooltip.energizedpower.wrench.face_change_not_possible",
+                                Text.translatable("tooltip.energizedpower.direction." + currentFace.asString()).
+                                        formatted(Formatting.WHITE)
+                        ).formatted(Formatting.RED)
+                ));
+            }
 
             return ActionResult.SUCCESS;
         }
 
         Storage<FluidVariant> fluidStorage = FluidStorage.SIDED.find(level, testPos, currentFace.getOpposite());
-        if(fluidStorage == null)
+        if(fluidStorage == null) {
+            if(player instanceof ServerPlayerEntity serverPlayer) {
+                serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                        Text.translatable("tooltip.energizedpower.wrench.face_change_not_possible",
+                                Text.translatable("tooltip.energizedpower.direction." + currentFace.asString()).
+                                        formatted(Formatting.WHITE)
+                        ).formatted(Formatting.RED)
+                ));
+            }
+
             return ActionResult.SUCCESS;
+        }
+
 
         //If first has no next, no tanks are present
-        if(!fluidStorage.iterator().hasNext())
+        if(!fluidStorage.iterator().hasNext()) {
+            if(player instanceof ServerPlayerEntity serverPlayer) {
+                serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                        Text.translatable("tooltip.energizedpower.wrench.face_change_not_possible",
+                                Text.translatable("tooltip.energizedpower.direction." + currentFace.asString()).
+                                        formatted(Formatting.WHITE)
+                        ).formatted(Formatting.RED)
+                ));
+            }
+
             return ActionResult.SUCCESS;
+        }
 
         EnumProperty<ModBlockStateProperties.PipeConnection> pipeConnectionProperty =
                 FluidPipeBlock.getPipeConnectionPropertyFromDirection(currentFace);
 
-        PlayerEntity player = useOnContext.getPlayer();
         int diff = player != null && player.isSneaking()?-1:1;
 
         ModBlockStateProperties.PipeConnection pipeConnection = state.get(pipeConnectionProperty);
@@ -110,7 +138,18 @@ public class WrenchItem extends Item {
 
         level.setBlockState(blockPos, state.with(pipeConnectionProperty, pipeConnection), 3);
 
-        return super.useOnBlock(useOnContext);
+        if(player instanceof ServerPlayerEntity serverPlayer) {
+            serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                    Text.translatable("tooltip.energizedpower.wrench.face_change",
+                            Text.translatable("tooltip.energizedpower.direction." + currentFace.asString()).
+                                    formatted(Formatting.WHITE),
+                            Text.translatable("tooltip.energizedpower.pipe_connection." + pipeConnection.asString()).
+                                    formatted(Formatting.WHITE, Formatting.BOLD)
+                    ).formatted(Formatting.GREEN)
+            ));
+        }
+
+        return ActionResult.SUCCESS;
     }
 
     @Override

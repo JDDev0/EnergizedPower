@@ -86,9 +86,10 @@
   "item.energizedpower.netherite_hammer": "Netherithammer",
 
   "item.energizedpower.wrench": "Schraubenschlüssel",
-
   "tooltip.energizedpower.wrench.txt.shift": "Der Schraubenschlüssel kann für die Konfiguration von Flüssigkeitsrohren verwendet werden.",
   "tooltip.energizedpower.wrench.select_face": "Selektierte Blockseite: %s",
+  "tooltip.energizedpower.wrench.face_change": "Verbindungs-Typ der Blockseite (%s) wurde zu %s gesetzt.",
+  "tooltip.energizedpower.wrench.face_change_not_possible": "Verbindungs-Typ der Blockseite (%s) konnte nicht geändert werden.",
 
   "item.energizedpower.battery_box_minecart": "Batterie-Box-Lore",
   "item.energizedpower.advanced_battery_box_minecart": "Fortgeschrittene Batterie-Box-Lore",
@@ -349,6 +350,10 @@
   "tooltip.energizedpower.direction.south": "Süden",
   "tooltip.energizedpower.direction.west": "Westen",
   "tooltip.energizedpower.direction.east": "Osten",
+
+  "tooltip.energizedpower.pipe_connection.not_connected": "Nicht verbunden",
+  "tooltip.energizedpower.pipe_connection.connected": "Verbunden/Einfügung",
+  "tooltip.energizedpower.pipe_connection.extract": "Extraktion",
 
   "itemGroup.energizedpower.tab": "Energized Power",
 
