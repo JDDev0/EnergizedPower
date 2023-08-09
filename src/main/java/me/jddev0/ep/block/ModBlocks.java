@@ -1,7 +1,6 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.item.ModItems;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -25,6 +24,11 @@ public final class ModBlocks {
             new Block(FabricBlockSettings.create().mapColor(MapColor.OAK_TAN).
                     requiresTool().strength(2.0f, 3.0f).sounds(BlockSoundGroup.WOOD)));
     public static final Item SAWDUST_BLOCK_ITEM = createBlockItem("sawdust_block", SAWDUST_BLOCK);
+
+    public static final FluidPipeBlock FLUID_PIPE = registerBlock("fluid_pipe",
+            new FluidPipeBlock(FabricBlockSettings.create().
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item FLUID_PIPE_ITEM = createBlockItem("fluid_pipe", FLUID_PIPE);
 
 
     private static Item createCableBlockItem(String name, CableBlock block) {

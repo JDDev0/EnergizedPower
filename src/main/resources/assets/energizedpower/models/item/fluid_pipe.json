@@ -1,0 +1,24 @@
+{
+  "parent": "energizedpower:block/fluid_pipe_core",
+  "display": {
+    "gui": {
+      "rotation": [ 30, 45, 0 ],
+      "scale": [ 1.15, 1.15, 1.15 ]
+    },
+    "ground": {
+      "scale": [ 1, 1, 1 ]
+    },
+    "fixed": {
+      "scale": [ 1, 1, 1 ]
+    },
+    "firstperson_righthand": {
+      "scale": [ 1, 1, 1 ]
+    },
+    "firstperson_lefthand": {
+      "scale": [ 1, 1, 1 ]
+    },
+    "thirdperson_righthand": {
+      "scale": [ 1, 1, 1 ]
+    }
+  }
+}
