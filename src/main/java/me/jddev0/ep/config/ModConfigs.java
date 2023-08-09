@@ -403,6 +403,19 @@ public final class ModConfigs {
             0.f, null
     ));
 
+    public static final ConfigValue<Long> COMMON_PLANT_GROWTH_CHAMBER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.plant_growth_chamber", "Plant Growth Chamber", 4096
+    );
+    public static final ConfigValue<Long> COMMON_PLANT_GROWTH_CHAMBER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.plant_growth_chamber", "Plant Growth Chamber", 256
+    );
+    public static final ConfigValue<Long> COMMON_PLANT_GROWTH_CHAMBER_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.plant_growth_chamber", "Plant Growth Chamber", 32
+    );
+    public static final ConfigValue<Float> COMMON_PLANT_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER = registerRecipeDurationMultiplierConfigValue(
+            "block.plant_growth_chamber", "Plant Growth Chamber"
+    );
+
     //Entities
     public static final ConfigValue<Long> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536

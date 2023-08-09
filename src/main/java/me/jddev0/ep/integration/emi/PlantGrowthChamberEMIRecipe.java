@@ -8,6 +8,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
@@ -34,7 +35,7 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
         this.id = recipe.getId();
         this.input = List.of(EmiIngredient.of(recipe.getInput()));
         this.output = Arrays.stream(recipe.getMaxOutputCounts()).map(EmiStack::of).toList();
-        this.ticks = recipe.getTicks();
+        this.ticks = (int)(recipe.getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
     }
 
     @Override
