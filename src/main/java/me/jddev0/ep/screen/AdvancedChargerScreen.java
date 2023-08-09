@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 public class AdvancedChargerScreen extends AbstractGenericEnergyStorageHandledScreen<AdvancedChargerMenu> {
     public AdvancedChargerScreen(AdvancedChargerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
-                "tooltip.energizedpower.charger.item_energy_left.txt",
+                "tooltip.energizedpower.advanced_charger.items_energy_left.txt",
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/advanced_charger.png"),
                 8, 17);
     }
