@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.HeatGeneratorRecipe;
@@ -31,9 +32,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
-    public static final long MAX_ENERGY_PRODUCTION_PER_FACE = 100;
+    public static final long CAPACITY = ModConfigs.COMMON_HEAT_GENERATOR_CAPACITY.getValue();
+    public static final long MAX_EXTRACT = ModConfigs.COMMON_HEAT_GENERATOR_TRANSFER_RATE.getValue();
 
-    private final long maxExtract;
+    public static final double ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_HEAT_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
@@ -41,10 +43,7 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.HEAT_GENERATOR_ENTITY, blockPos, blockState);
 
-        maxExtract = MAX_ENERGY_PRODUCTION_PER_FACE * 5; //5 faces max, 1 must be used for energy extraction
-        long capacity = maxExtract * 20; //1 second of max extract
-
-        internalEnergyStorage = new SimpleEnergyStorage(capacity, capacity, capacity) {
+        internalEnergyStorage = new SimpleEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
@@ -59,7 +58,7 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, 0, maxExtract);
+        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, 0, MAX_EXTRACT);
     }
 
     @Override
@@ -105,7 +104,7 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
 
         List<HeatGeneratorRecipe> recipes = level.getRecipeManager().listAllOfType(HeatGeneratorRecipe.Type.INSTANCE);
 
-        int productionSum = 0;
+        long productionSum = 0;
         for(Direction direction:Direction.values()) {
             BlockPos checkPos = blockPos.offset(direction);
             FluidState fluidState = level.getFluidState(checkPos);
@@ -123,7 +122,9 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
         }
 
         if(productionSum > 0) {
-            try (Transaction transaction = Transaction.openOuter()) {
+            productionSum = (long)(productionSum * ENERGY_PRODUCTION_MULTIPLIER);
+
+            try(Transaction transaction = Transaction.openOuter()) {
                 blockEntity.internalEnergyStorage.insert(productionSum, transaction);
                 transaction.commit();
             }
@@ -154,8 +155,7 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
                 continue;
 
             try(Transaction transaction = Transaction.openOuter()) {
-                long received = energyStorage.insert(Math.min(blockEntity.maxExtract, blockEntity.internalEnergyStorage.amount), transaction);
-
+                long received = energyStorage.insert(Math.min(MAX_EXTRACT, blockEntity.internalEnergyStorage.amount), transaction);
                 if(received <= 0)
                     continue;
 
@@ -169,7 +169,7 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0L);
 
-        long consumptionLeft = Math.min(blockEntity.maxExtract, Math.min(blockEntity.internalEnergyStorage.amount, consumptionSum));
+        long consumptionLeft = Math.min(MAX_EXTRACT, Math.min(blockEntity.internalEnergyStorage.amount, consumptionSum));
         try(Transaction transaction = Transaction.openOuter()) {
             blockEntity.internalEnergyStorage.extract(consumptionLeft, transaction);
             transaction.commit();
