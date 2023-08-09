@@ -44,9 +44,9 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
-    public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_CHARGER_CAPACITY.getValue() * 3;
+    public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_CHARGER_CAPACITY_PER_SLOT.getValue() * 3;
 
-    public static final long MAX_RECEIVE_PER_SLOT = ModConfigs.COMMON_ADVANCED_CHARGER_TRANSFER_RATE.getValue();
+    public static final long MAX_RECEIVE_PER_SLOT = ModConfigs.COMMON_ADVANCED_CHARGER_TRANSFER_RATE_PER_SLOT.getValue();
     public static final long MAX_RECEIVE = MAX_RECEIVE_PER_SLOT * 3;
 
     public static final float CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_ADVANCED_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
