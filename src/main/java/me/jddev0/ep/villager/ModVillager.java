@@ -103,6 +103,17 @@ public final class ModVillager {
                         2, 8, .02f);
             }
 
+            {
+                ItemStack energyItem = new ItemStack(ModItems.FLUID_ANALYZER);
+                energyItem.getOrCreateNbt().put("energy", NbtLong.of(128));
+
+                addOffer(factories,
+                        new ItemStack(Items.EMERALD, 6),
+                        new ItemStack(Items.COPPER_INGOT, 12),
+                        energyItem,
+                        2, 8, .02f);
+            }
+
             addOffer(factories,
                     new ItemStack(ModItems.COPPER_PLATE, 3),
                     new ItemStack(Items.EMERALD, 8),
