@@ -1,9 +1,9 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.PlantGrowthChamberBlock;
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
@@ -46,8 +46,11 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 public class PlantGrowthChamberBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
-    private static final int CAPACITY = 4096;
-    private static final int ENERGY_USAGE_PER_TICK = 32;
+    private static final long CAPACITY = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_CAPACITY.getValue();
+
+    private static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_ENERGY_CONSUMPTION_PER_TICK.getValue();
+
+    public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER.getValue();
 
     final CachedSidedInventoryStorage<PlantGrowthChamberBlockEntity> cachedSidedInventoryStorageSides;
     final InputOutputItemHandler sidedInventorySides;
@@ -150,7 +153,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, 256, 0);
+        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_TRANSFER_RATE.getValue(), 0);
 
         data = new PropertyDelegate() {
             @Override
@@ -261,7 +264,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
                     blockEntity.internalInventory.removeStack(1, 1);
                 }
 
-                blockEntity.maxProgress = (int)(recipe.get().getTicks() / blockEntity.speedMultiplier);
+                blockEntity.maxProgress = (int)(recipe.get().getTicks() * RECIPE_DURATION_MULTIPLIER / blockEntity.speedMultiplier);
             }
 
             final long fertilizedEnergyUsagePerTick = (long)(ENERGY_USAGE_PER_TICK * blockEntity.energyConsumptionMultiplier);
