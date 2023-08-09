@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_advanced_machine_frame": {
+    "has_reinforced_advanced_machine_frame": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [ "energizedpower:advanced_machine_frame" ]
+            "items": [ "energizedpower:reinforced_advanced_machine_frame" ]
           }
         ]
       }
@@ -20,7 +20,7 @@
   },
   "requirements": [
     [
-      "has_advanced_machine_frame",
+      "has_reinforced_advanced_machine_frame",
       "has_the_recipe"
     ]
   ],

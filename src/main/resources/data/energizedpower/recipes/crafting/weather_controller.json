@@ -5,23 +5,23 @@
     "C": {
       "item": "energizedpower:energized_crystal_matrix"
     },
-    "R": {
+    "r": {
       "tag": "c:redstone_blocks"
     },
     "E": {
       "tag": "c:energized_gold_plates"
     },
-    "a": {
+    "A": {
       "item": "minecraft:amethyst_shard"
     },
-    "A": {
-      "item": "energizedpower:advanced_machine_frame"
+    "R": {
+      "item": "energizedpower:reinforced_advanced_machine_frame"
     }
   },
   "pattern": [
-    "CaC",
-    "EAE",
-    "RER"
+    "CAC",
+    "ERE",
+    "rEr"
   ],
   "result": {
     "item": "energizedpower:weather_controller"
