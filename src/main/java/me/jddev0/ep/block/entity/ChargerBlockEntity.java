@@ -3,6 +3,7 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.ChargerRecipe;
@@ -43,8 +44,10 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
-    public static final long CAPACITY = 8192;
-    public static final long MAX_RECEIVE = 512;
+    public static final long CAPACITY = ModConfigs.COMMON_CHARGER_CAPACITY.getValue();
+    public static final long MAX_RECEIVE = ModConfigs.COMMON_CHARGER_TRANSFER_RATE.getValue();
+
+    public static final double CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
     final CachedSidedInventoryStorage<ChargerBlockEntity> cachedSidedInventoryStorage;
     final InputOutputItemHandler inventory;
@@ -251,7 +254,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
             Optional<ChargerRecipe> recipe = level.getRecipeManager().getFirstMatch(ChargerRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
             if(recipe.isPresent()) {
                 if(blockEntity.energyConsumptionLeft == -1)
-                    blockEntity.energyConsumptionLeft = recipe.get().getEnergyConsumption();
+                    blockEntity.energyConsumptionLeft = (long)(recipe.get().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);
 
                 if(blockEntity.internalEnergyStorage.amount == 0)
                     return;
