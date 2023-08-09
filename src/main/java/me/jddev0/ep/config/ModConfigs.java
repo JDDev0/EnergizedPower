@@ -2,6 +2,7 @@ package me.jddev0.ep.config;
 
 import com.mojang.logging.LogUtils;
 import net.fabricmc.loader.api.FabricLoader;
+import me.jddev0.ep.config.value.IntegerConfigValue;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -19,7 +20,15 @@ public final class ModConfigs {
     //TODO server config values
 
     public static final Config CLIENT_CONFIG = new Config(getRelativeConfigFile("client.conf"), "Energized Power Client Config");
-    //TODO client config values
+    public static final ConfigValue<Integer> CLIENT_ENERGIZED_POWER_BOOK_IMAGE_CYCLE_DELAY = CLIENT_CONFIG.register(
+            new IntegerConfigValue(
+                    "energized_power_book.image_cycle_delay",
+                    "The tick amount to wait between two images in the Energized Power Book",
+                    50,
+
+                    5 /* 250 ms */, 1200 /* 1 minute */
+            )
+    );
 
     private static File getRelativeConfigFile(String fileName) {
         return FabricLoader.getInstance().getConfigDir().resolve("energizedpower/" + fileName).toFile();
