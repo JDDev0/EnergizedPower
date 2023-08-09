@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.WeatherControllerMenu;
@@ -22,7 +23,7 @@ import team.reborn.energy.api.base.LimitingEnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 public class WeatherControllerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
-    public static final int CAPACITY = 8388608;
+    public static final long CAPACITY = ModConfigs.COMMON_WEATHER_CONTROLLER_CAPACITY.getValue();
 
     final LimitingEnergyStorage energyStorage;
     private final SimpleEnergyStorage internalEnergyStorage;
@@ -45,7 +46,7 @@ public class WeatherControllerBlockEntity extends BlockEntity implements Extende
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, 32768, 0);
+        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, ModConfigs.COMMON_WEATHER_CONTROLLER_TRANSFER_RATE.getValue(), 0);
     }
 
     @Override
