@@ -3,6 +3,7 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.CompressorRecipe;
@@ -40,9 +41,9 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 public class CompressorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
-    public static final long CAPACITY = 2048;
-    public static final long MAX_RECEIVE = 256;
-    private static final long ENERGY_USAGE_PER_TICK = 16;
+    public static final long CAPACITY = ModConfigs.COMMON_COMPRESSOR_CAPACITY.getValue();
+    public static final long MAX_RECEIVE = ModConfigs.COMMON_COMPRESSOR_TRANSFER_RATE.getValue();
+    private static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_COMPRESSOR_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
     final CachedSidedInventoryStorage<CompressorBlockEntity> cachedSidedInventoryStorage;
     final InputOutputItemHandler inventory;
@@ -53,7 +54,7 @@ public class CompressorBlockEntity extends BlockEntity implements ExtendedScreen
 
     protected final PropertyDelegate data;
     private int progress;
-    private int maxProgress = 100;
+    private int maxProgress = ModConfigs.COMMON_COMPRESSOR_RECIPE_DURATION.getValue();
     private long energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
 
@@ -128,10 +129,10 @@ public class CompressorBlockEntity extends BlockEntity implements ExtendedScreen
             @Override
             public int get(int index) {
                 return switch(index) {
-                    case 0 -> CompressorBlockEntity.this.progress;
-                    case 1 -> CompressorBlockEntity.this.maxProgress;
-                    case 2, 3, 4, 5 -> ByteUtils.get2Bytes(CompressorBlockEntity.this.energyConsumptionLeft, index - 2);
-                    case 6 -> hasEnoughEnergy?1:0;
+                    case 0, 1 -> ByteUtils.get2Bytes(CompressorBlockEntity.this.progress, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(CompressorBlockEntity.this.maxProgress, index - 2);
+                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(CompressorBlockEntity.this.energyConsumptionLeft, index - 4);
+                    case 8 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -139,15 +140,19 @@ public class CompressorBlockEntity extends BlockEntity implements ExtendedScreen
             @Override
             public void set(int index, int value) {
                 switch(index) {
-                    case 0 -> CompressorBlockEntity.this.progress = value;
-                    case 1 -> CompressorBlockEntity.this.maxProgress = value;
-                    case 2, 3, 4, 5, 6 -> {}
+                    case 0, 1 -> CompressorBlockEntity.this.progress = ByteUtils.with2Bytes(
+                            CompressorBlockEntity.this.progress, (short)value, index
+                    );
+                    case 2, 3 -> CompressorBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
+                            CompressorBlockEntity.this.maxProgress, (short)value, index - 2
+                    );
+                    case 4, 5, 6, 7, 8 -> {}
                 }
             }
 
             @Override
             public int size() {
-                return 7;
+                return 9;
             }
         };
     }
