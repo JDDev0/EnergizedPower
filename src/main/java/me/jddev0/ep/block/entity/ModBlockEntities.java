@@ -26,6 +26,11 @@ import java.util.function.BiFunction;
 public final class ModBlockEntities {
     private ModBlockEntities() {}
 
+    public static final BlockEntityType<FluidPipeBlockEntity> FLUID_PIPE_ENTITY = registerFluidStorage(
+            createBlockEntity("fluid_pipe", ModBlocks.FLUID_PIPE, FluidPipeBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.fluidStorage
+    );
+
     public static final BlockEntityType<CableBlockEntity> COPPER_CABLE_ENTITY = registerEnergyStorage(
             createBlockEntity("copper_cable", ModBlocks.COPPER_CABLE, (blockPos, state) ->
                     new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_COPPER)),
