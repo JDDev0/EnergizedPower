@@ -91,6 +91,8 @@ public class EnergizedPowerMod {
             event.accept(ModItems.DIAMOND_HAMMER);
             event.accept(ModItems.NETHERITE_HAMMER);
 
+            event.accept(ModBlocks.FLUID_PIPE_ITEM);
+
             event.accept(ModBlocks.COPPER_CABLE_ITEM);
             event.accept(ModBlocks.GOLD_CABLE_ITEM);
             event.accept(ModBlocks.ENERGIZED_COPPER_CABLE_ITEM);
