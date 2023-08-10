@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
@@ -39,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class CrusherBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    private static final int ENERGY_USAGE_PER_TICK = 8;
+    private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_CRUSHER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(2) {
         @Override
@@ -77,14 +78,15 @@ public class CrusherBlockEntity extends BlockEntity implements MenuProvider, Ene
 
     protected final ContainerData data;
     private int progress;
-    private int maxProgress = 100;
+    private int maxProgress = ModConfigs.COMMON_CRUSHER_RECIPE_DURATION.getValue();
     private int energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
 
     public CrusherBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CRUSHER_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, 2048, 128) {
+        energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_CRUSHER_CAPACITY.getValue(),
+                ModConfigs.COMMON_CRUSHER_TRANSFER_RATE.getValue()) {
             @Override
             protected void onChange() {
                 setChanged();
@@ -97,10 +99,10 @@ public class CrusherBlockEntity extends BlockEntity implements MenuProvider, Ene
             @Override
             public int get(int index) {
                 return switch(index) {
-                    case 0 -> CrusherBlockEntity.this.progress;
-                    case 1 -> CrusherBlockEntity.this.maxProgress;
-                    case 2, 3 -> ByteUtils.get2Bytes(CrusherBlockEntity.this.energyConsumptionLeft, index - 2);
-                    case 4 -> hasEnoughEnergy?1:0;
+                    case 0, 1 -> ByteUtils.get2Bytes(CrusherBlockEntity.this.progress, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(CrusherBlockEntity.this.maxProgress, index - 2);
+                    case 4, 5 -> ByteUtils.get2Bytes(CrusherBlockEntity.this.energyConsumptionLeft, index - 4);
+                    case 6 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -108,15 +110,19 @@ public class CrusherBlockEntity extends BlockEntity implements MenuProvider, Ene
             @Override
             public void set(int index, int value) {
                 switch(index) {
-                    case 0 -> CrusherBlockEntity.this.progress = value;
-                    case 1 -> CrusherBlockEntity.this.maxProgress = value;
-                    case 2, 3, 4 -> {}
+                    case 0, 1 -> CrusherBlockEntity.this.progress = ByteUtils.with2Bytes(
+                            CrusherBlockEntity.this.progress, (short)value, index
+                    );
+                    case 2, 3 -> CrusherBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
+                            CrusherBlockEntity.this.maxProgress, (short)value, index - 2
+                    );
+                    case 4, 5, 6 -> {}
                 }
             }
 
             @Override
             public int getCount() {
-                return 5;
+                return 7;
             }
         };
     }
