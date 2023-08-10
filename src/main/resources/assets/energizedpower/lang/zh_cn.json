@@ -237,7 +237,7 @@
   "item.energizedpower.solar_panel_5": "太阳能电池板（V级）",
   "container.energizedpower.solar_panel_5": "太阳能电池板（V级）",
 
-  "tooltip.energizedpower.solar_panel.txt.shift.1": "该方块在白天生产 %s/t。",
+  "tooltip.energizedpower.solar_panel.txt.shift.1": "This block produces up to %s/t.",
   "tooltip.energizedpower.solar_panel.txt.shift.2": "该方块的效率取决于当前的时间。",
 
   "block.energizedpower.coal_engine": "煤炭发动机",

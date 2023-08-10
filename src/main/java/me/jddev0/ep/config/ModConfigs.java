@@ -200,6 +200,56 @@ public final class ModConfigs {
             "block.coal_engine", "Coal Engine"
     );
 
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_1_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.solar_panel_1", "Solar Panel (Tier I)", 32 * 20 * 2
+    );
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_1_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.solar_panel_1", "Solar Panel (Tier I)", 32 * 4
+    );
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_1_ENERGY_PEAK_PRODUCTION = registerEnergyPeakProductionConfigValue(
+            "block.solar_panel_1", "Solar Panel (Tier I)", 32
+    );
+
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_2_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.solar_panel_2", "Solar Panel (Tier II)", 256 * 20 * 2
+    );
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_2_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.solar_panel_2", "Solar Panel (Tier II)", 256 * 4
+    );
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_2_ENERGY_PEAK_PRODUCTION = registerEnergyPeakProductionConfigValue(
+            "block.solar_panel_2", "Solar Panel (Tier II)", 256
+    );
+
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_3_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.solar_panel_3", "Solar Panel (Tier III)", 2048 * 20 * 2
+    );
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_3_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.solar_panel_3", "Solar Panel (Tier III)", 2048 * 4
+    );
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_3_ENERGY_PEAK_PRODUCTION = registerEnergyPeakProductionConfigValue(
+            "block.solar_panel_3", "Solar Panel (Tier III)", 2048
+    );
+
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_4_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.solar_panel_4", "Solar Panel (Tier IV)", 32768 * 20 * 2
+    );
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_4_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.solar_panel_4", "Solar Panel (Tier IV)", 32768 * 4
+    );
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_4_ENERGY_PEAK_PRODUCTION = registerEnergyPeakProductionConfigValue(
+            "block.solar_panel_4", "Solar Panel (Tier IV)", 32768
+    );
+
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_5_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.solar_panel_5", "Solar Panel (Tier V)", 262144 * 12
+    );
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_5_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.solar_panel_5", "Solar Panel (Tier V)", 262144 * 8
+    );
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_5_ENERGY_PEAK_PRODUCTION = registerEnergyPeakProductionConfigValue(
+            "block.solar_panel_5", "Solar Panel (Tier V)", 262144
+    );
+
     //Entities
     public static final ConfigValue<Integer> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536
@@ -256,6 +306,14 @@ public final class ModConfigs {
         return COMMON_CONFIG.register(new IntegerConfigValue(
                 baseConfigKey + ".transfer_rate",
                 "The energy transfer rate of " + itemName + " in FE per tick",
+                defaultValue,
+                1, null
+        ));
+    }
+    private static ConfigValue<Integer> registerEnergyPeakProductionConfigValue(String baseConfigKey, String itemName, int defaultValue) {
+        return COMMON_CONFIG.register(new IntegerConfigValue(
+                baseConfigKey + ".energy_peak_production",
+                "The peak energy production of " + itemName + " for ideal conditions (e.g. at noon with clear sky for solar panels) in FE per tick",
                 defaultValue,
                 1, null
         ));
