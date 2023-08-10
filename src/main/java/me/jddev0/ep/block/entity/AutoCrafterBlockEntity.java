@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
@@ -91,11 +92,12 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         public void slotsChanged(Container container) {}
     };
 
-    public final static int ENERGY_CONSUMPTION_PER_ITEM = 2;
+    public final static int ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT =
+            ModConfigs.COMMON_AUTO_CRAFTER_ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT.getValue();
 
     protected final ContainerData data;
     private int progress;
-    private int maxProgress = 100;
+    private int maxProgress = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_DURATION.getValue();
     private int energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
     private boolean ignoreNBT;
@@ -105,7 +107,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
 
         patternSlots.addListener(updatePatternListener);
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, 2048, 256) {
+        energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_AUTO_CRAFTER_CAPACITY.getValue(),
+                ModConfigs.COMMON_AUTO_CRAFTER_TRANSFER_RATE.getValue()) {
             @Override
             protected void onChange() {
                 setChanged();
@@ -118,12 +121,12 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             @Override
             public int get(int index) {
                 return switch(index) {
-                    case 0 -> AutoCrafterBlockEntity.this.progress;
-                    case 1 -> AutoCrafterBlockEntity.this.maxProgress;
-                    case 2, 3 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.energyConsumptionLeft, index - 2);
-                    case 4 -> hasEnoughEnergy?1:0;
-                    case 5 -> ignoreNBT?1:0;
-                    case 6 -> secondaryExtractMode?1:0;
+                    case 0, 1 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.progress, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.maxProgress, index - 2);
+                    case 4, 5 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.energyConsumptionLeft, index - 4);
+                    case 6 -> hasEnoughEnergy?1:0;
+                    case 7 -> ignoreNBT?1:0;
+                    case 8 -> secondaryExtractMode?1:0;
                     default -> 0;
                 };
             }
@@ -131,17 +134,21 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             @Override
             public void set(int index, int value) {
                 switch(index) {
-                    case 0 -> AutoCrafterBlockEntity.this.progress = value;
-                    case 1 -> AutoCrafterBlockEntity.this.maxProgress = value;
-                    case 2, 3, 4 -> {}
-                    case 5 -> AutoCrafterBlockEntity.this.ignoreNBT = value != 0;
-                    case 6 -> AutoCrafterBlockEntity.this.secondaryExtractMode = value != 0;
+                    case 0, 1 -> AutoCrafterBlockEntity.this.progress = ByteUtils.with2Bytes(
+                            AutoCrafterBlockEntity.this.progress, (short)value, index
+                    );
+                    case 2, 3 -> AutoCrafterBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
+                            AutoCrafterBlockEntity.this.maxProgress, (short)value, index - 2
+                    );
+                    case 4, 5, 6 -> {}
+                    case 7 -> AutoCrafterBlockEntity.this.ignoreNBT = value != 0;
+                    case 8 -> AutoCrafterBlockEntity.this.secondaryExtractMode = value != 0;
                 }
             }
 
             @Override
             public int getCount() {
-                return 7;
+                return 9;
             }
         };
     }
@@ -299,7 +306,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             if(!blockEntity.canInsertIntoOutputSlot() || !blockEntity.canExtractItemsFromInput())
                 return;
 
-            int energyConsumptionPerTick = itemCount * ENERGY_CONSUMPTION_PER_ITEM;
+            int energyConsumptionPerTick = itemCount * ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT;
 
             if(blockEntity.progress == 0) {
                 if(!blockEntity.canExtractItemsFromInput())
