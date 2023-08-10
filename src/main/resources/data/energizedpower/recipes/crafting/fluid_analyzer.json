@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "tag": "c:silicon"
+    },
+    "C": {
+      "tag": "c:copper_plates"
+    },
+    "L": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "B": {
+      "item": "energizedpower:battery_3"
+    }
+  },
+  "pattern": [
+    "S S",
+    "CLC",
+    "CBC"
+  ],
+  "result": {
+    "item": "energizedpower:fluid_analyzer"
+  }
+}
