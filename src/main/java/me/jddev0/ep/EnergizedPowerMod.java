@@ -73,6 +73,8 @@ public class EnergizedPowerMod implements ModInitializer {
         addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.DIAMOND_HAMMER);
         addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.NETHERITE_HAMMER);
 
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.FLUID_PIPE_ITEM);
+
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.COPPER_CABLE_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.GOLD_CABLE_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ENERGIZED_COPPER_CABLE_ITEM);

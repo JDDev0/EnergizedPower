@@ -83,6 +83,11 @@
   "block.energizedpower.sawdust_block": "Sägemehlblock",
   "item.energizedpower.sawdust_block": "Sägemehlblock",
 
+  "block.energizedpower.fluid_pipe": "Flüssigkeitsrohr",
+  "item.energizedpower.fluid_pipe": "Flüssigkeitsrohr",
+
+  "tooltip.energizedpower.fluid_pipe.txt.shift": "Das Flüssigkeitsrohr kann mit einem Schraubenschlüssel konfiguriert werden.",
+
   "block.energizedpower.auto_crafter": "Automatische Werkbank",
   "item.energizedpower.auto_crafter": "Automatische Werkbank",
   "container.energizedpower.auto_crafter": "Automatische Werkbank",
