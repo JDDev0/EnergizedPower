@@ -146,6 +146,7 @@ public class EnergizedPowerMod implements ModInitializer {
 
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.BASIC_MACHINE_FRAME_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ADVANCED_MACHINE_FRAME_ITEM);
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM);
 
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.SILICON_BLOCK_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.SAWDUST_BLOCK_ITEM);

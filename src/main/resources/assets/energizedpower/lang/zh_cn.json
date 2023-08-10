@@ -305,6 +305,9 @@
   "block.energizedpower.advanced_machine_frame": "高级机器框架",
   "item.energizedpower.advanced_machine_frame": "高级机器框架",
 
+  "block.energizedpower.reinforced_advanced_machine_frame": "Reinforced Advanced Machine Frame",
+  "item.energizedpower.reinforced_advanced_machine_frame": "Reinforced Advanced Machine Frame",
+
   "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
   "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "这个配方需要 %s 才能合成。",
@@ -342,6 +345,9 @@
 
   "advancements.energizedpower.advanced_machine_frame.title": "高级机器",
   "advancements.energizedpower.advanced_machine_frame.description": "更高级的机器需要这个制作基础。",
+
+  "advancements.energizedpower.reinforced_advanced_machine_frame.title": "Even more advanced Machines",
+  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "The most advanced machines need this base crafting item.",
 
   "advancements.energizedpower.advanced_solar_cell.title": "高级太阳能",
   "advancements.energizedpower.advanced_solar_cell.description": "高级太阳能电池板需要...",
