@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.BlockPlacerBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
@@ -39,7 +40,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    private static final int ENERGY_USAGE_PER_TICK = 32;
+    private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_BLOCK_PLACER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
         @Override
@@ -82,7 +83,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
 
     protected final ContainerData data;
     private int progress;
-    private int maxProgress = 20;
+    private int maxProgress = ModConfigs.COMMON_BLOCK_PLACER_PLACEMENT_DURATION.getValue();
     private int energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
     private boolean inverseRotation;
@@ -90,7 +91,8 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
     public BlockPlacerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.BLOCK_PLACER_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, 2048, 128) {
+        energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_BLOCK_PLACER_CAPACITY.getValue(),
+                ModConfigs.COMMON_BLOCK_PLACER_TRANSFER_RATE.getValue()) {
             @Override
             protected void onChange() {
                 setChanged();
@@ -103,11 +105,11 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
             @Override
             public int get(int index) {
                 return switch(index) {
-                    case 0 -> BlockPlacerBlockEntity.this.progress;
-                    case 1 -> BlockPlacerBlockEntity.this.maxProgress;
-                    case 2, 3 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.energyConsumptionLeft, index - 2);
-                    case 4 -> hasEnoughEnergy?1:0;
-                    case 5 -> inverseRotation?1:0;
+                    case 0, 1 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.progress, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.maxProgress, index - 2);
+                    case 4, 5 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.energyConsumptionLeft, index - 4);
+                    case 6 -> hasEnoughEnergy?1:0;
+                    case 7 -> inverseRotation?1:0;
                     default -> 0;
                 };
             }
@@ -115,16 +117,20 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
             @Override
             public void set(int index, int value) {
                 switch(index) {
-                    case 0 -> BlockPlacerBlockEntity.this.progress = value;
-                    case 1 -> BlockPlacerBlockEntity.this.maxProgress = value;
-                    case 2, 3, 4 -> {}
-                    case 5 -> BlockPlacerBlockEntity.this.inverseRotation = value != 0;
+                    case 0, 1 -> BlockPlacerBlockEntity.this.progress = ByteUtils.with2Bytes(
+                            BlockPlacerBlockEntity.this.progress, (short)value, index
+                    );
+                    case 2, 3 -> BlockPlacerBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
+                            BlockPlacerBlockEntity.this.maxProgress, (short)value, index - 2
+                    );
+                    case 4, 5, 6 -> {}
+                    case 7 -> BlockPlacerBlockEntity.this.inverseRotation = value != 0;
                 }
             }
 
             @Override
             public int getCount() {
-                return 6;
+                return 8;
             }
         };
     }
