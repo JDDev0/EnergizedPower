@@ -237,7 +237,7 @@
   "item.energizedpower.solar_panel_5": "Solar Panel (Tier V)",
   "container.energizedpower.solar_panel_5": "Solar Panel (Tier V)",
 
-  "tooltip.energizedpower.solar_panel.txt.shift.1": "This block produces %s/t during the day.",
+  "tooltip.energizedpower.solar_panel.txt.shift.1": "This block produces up to %s/t.",
   "tooltip.energizedpower.solar_panel.txt.shift.2": "The efficiency depends on the current time",
 
   "block.energizedpower.coal_engine": "Coal Engine",
