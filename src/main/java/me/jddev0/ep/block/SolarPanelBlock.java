@@ -1,6 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.SolarPanelBlockEntity;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -105,7 +106,7 @@ public class SolarPanelBlock extends BlockWithEntity {
         public void appendTooltip(ItemStack itemStack, @Nullable World level, List<Text> tooltip, TooltipContext context) {
             if(Screen.hasShiftDown()) {
                 tooltip.add(Text.translatable("tooltip.energizedpower.solar_panel.txt.shift.1",
-                        EnergyUtils.getEnergyWithPrefix(tier.getFePerTick())).formatted(Formatting.GRAY));
+                        EnergyUtils.getEnergyWithPrefix(tier.getPeakFePerTick())).formatted(Formatting.GRAY));
                 tooltip.add(Text.translatable("tooltip.energizedpower.solar_panel.txt.shift.2").formatted(Formatting.GRAY));
             }else {
                 tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
@@ -114,48 +115,52 @@ public class SolarPanelBlock extends BlockWithEntity {
     }
 
     public enum Tier {
-        TIER_1("solar_panel_1", 32,
+        TIER_1("solar_panel_1", ModConfigs.COMMON_SOLAR_PANEL_1_ENERGY_PEAK_PRODUCTION.getValue(),
+                ModConfigs.COMMON_SOLAR_PANEL_1_TRANSFER_RATE.getValue(),
+                ModConfigs.COMMON_SOLAR_PANEL_1_CAPACITY.getValue(),
                 FabricBlockSettings.of(Material.METAL).
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
-        TIER_2("solar_panel_2", 256,
+        TIER_2("solar_panel_2", ModConfigs.COMMON_SOLAR_PANEL_2_ENERGY_PEAK_PRODUCTION.getValue(),
+                ModConfigs.COMMON_SOLAR_PANEL_2_TRANSFER_RATE.getValue(),
+                ModConfigs.COMMON_SOLAR_PANEL_2_CAPACITY.getValue(),
                 FabricBlockSettings.of(Material.METAL).
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
-        TIER_3("solar_panel_3", 2048,
+        TIER_3("solar_panel_3", ModConfigs.COMMON_SOLAR_PANEL_3_ENERGY_PEAK_PRODUCTION.getValue(),
+                ModConfigs.COMMON_SOLAR_PANEL_3_TRANSFER_RATE.getValue(),
+                ModConfigs.COMMON_SOLAR_PANEL_3_CAPACITY.getValue(),
                 FabricBlockSettings.of(Material.METAL).
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
-        TIER_4("solar_panel_4", 32768,
+        TIER_4("solar_panel_4", ModConfigs.COMMON_SOLAR_PANEL_4_ENERGY_PEAK_PRODUCTION.getValue(),
+                ModConfigs.COMMON_SOLAR_PANEL_4_TRANSFER_RATE.getValue(),
+                ModConfigs.COMMON_SOLAR_PANEL_4_CAPACITY.getValue(),
                 FabricBlockSettings.of(Material.METAL).
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
-        TIER_5("solar_panel_5", 262144, 262144 * 8, 262144 * 12,
+        TIER_5("solar_panel_5", ModConfigs.COMMON_SOLAR_PANEL_5_ENERGY_PEAK_PRODUCTION.getValue(),
+                ModConfigs.COMMON_SOLAR_PANEL_5_TRANSFER_RATE.getValue(),
+                ModConfigs.COMMON_SOLAR_PANEL_5_CAPACITY.getValue(),
                 FabricBlockSettings.of(Material.METAL).
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL));
 
         private final String resourceId;
-        private final long fePerTick;
+        private final long peakFePerTick;
         private final long maxTransfer;
         private final long capacity;
         private final FabricBlockSettings props;
 
-        Tier(String resourceId, long fePerTick, long maxTransfer, long capacity, FabricBlockSettings props) {
+        Tier(String resourceId, long peakFePerTick, long maxTransfer, long capacity, FabricBlockSettings props) {
             this.resourceId = resourceId;
-            this.fePerTick = fePerTick;
+            this.peakFePerTick = peakFePerTick;
             this.maxTransfer = maxTransfer;
             this.capacity = capacity;
             this.props = props;
-        }
-
-        Tier(String resourceId, long fePerTick, FabricBlockSettings props) {
-            //Default maxTransfer: 4 ticks of max production
-            //Default capacity: 2 seconds of max production
-            this(resourceId, fePerTick, fePerTick * 4, fePerTick * 20 * 2, props);
         }
 
         public String getResourceId() {
             return resourceId;
         }
 
-        public long getFePerTick() {
-            return fePerTick;
+        public long getPeakFePerTick() {
+            return peakFePerTick;
         }
 
         public long getMaxTransfer() {
