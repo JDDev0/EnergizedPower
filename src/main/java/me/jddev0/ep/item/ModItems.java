@@ -103,6 +103,9 @@ public final class ModItems {
     public static final RegistryObject<Item> NETHERITE_HAMMER = ITEMS.register("netherite_hammer",
             () -> new HammerItem(Tiers.NETHERITE, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).fireResistant()));
 
+    public static final RegistryObject<Item> WRENCH = ITEMS.register("wrench",
+            () -> new WrenchItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
+
     public static final RegistryObject<Item> BATTERY_BOX_MINECART = ITEMS.register("battery_box_minecart",
             () -> new BatteryBoxMinecartItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
     public static final RegistryObject<Item> ADVANCED_BATTERY_BOX_MINECART = ITEMS.register("advanced_battery_box_minecart",
