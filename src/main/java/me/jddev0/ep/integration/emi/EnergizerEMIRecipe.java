@@ -8,6 +8,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.entity.EnergizerBlockEntity;
 import me.jddev0.ep.recipe.EnergizerRecipe;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
@@ -32,7 +33,7 @@ public class EnergizerEMIRecipe implements EmiRecipe {
         this.id = recipe.getId();
         this.input = List.of(EmiIngredient.of(recipe.getInput()));
         this.output = List.of(EmiStack.of(recipe.getOutput()));
-        this.energyConsumption = recipe.getEnergyConsumption();
+        this.energyConsumption = (int)(recipe.getEnergyConsumption() * EnergizerBlockEntity.ENERGY_CONSUMPTION_MULTIPLIER);
     }
 
     @Override
