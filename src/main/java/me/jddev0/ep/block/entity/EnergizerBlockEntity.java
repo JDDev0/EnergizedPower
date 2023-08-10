@@ -227,7 +227,7 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
                 blockEntity.energyConsumptionLeft = energyConsumption;
 
             //TODO improve (alternate values +/- 1 per x recipes instead of changing last energy consumption tick)
-            long energyConsumptionPerTick = (int)Math.ceil((float)energyConsumption / blockEntity.maxProgress);
+            long energyConsumptionPerTick = (long)Math.ceil((double)energyConsumption / blockEntity.maxProgress);
             if(blockEntity.progress == blockEntity.maxProgress - 1)
                 energyConsumptionPerTick = blockEntity.energyConsumptionLeft;
 
