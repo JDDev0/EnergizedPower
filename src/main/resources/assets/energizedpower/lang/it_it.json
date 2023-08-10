@@ -67,6 +67,17 @@
   "txt.energizedpower.energy_analyzer.energy_can_receive_side": "Questa faccia di blocco consuma energia.",
   "txt.energizedpower.energy_analyzer.energy_can_extract_side": "Questa faccia di blocco produce energia.",
 
+  "item.energizedpower.fluid_analyzer": "Fluid Analyzer",
+  "tooltip.energizedpower.fluid_analyzer.txt.shift.1": "Click on a block which contains fluids to retrieve information.",
+  "tooltip.energizedpower.fluid_analyzer.txt.shift.2": "%s sarà consumato per uso",
+  "txt.energizedpower.fluid_analyzer.output_side_information": "Informazioni per la superficie del blocco cliccato::",
+  "txt.energizedpower.fluid_analyzer.no_energy_left": "The Fluid Analyzer has not enough power (%s are required).",
+  "txt.energizedpower.fluid_analyzer.no_fluid_block": "This block contains no fluids.",
+  "txt.energizedpower.fluid_analyzer.no_fluid_block_side": "This block face contains no fluids.",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_count": "Tank count: %d",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_count_side": "Tank count of the clicked face: %d",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_fluid_content": "Tank %d: %s%s / %s.",
+
   "item.energizedpower.wooden_hammer": "Martello Di Legno",
   "item.energizedpower.stone_hammer": "Martello di pietra",
   "item.energizedpower.iron_hammer": "Martello di ferro",

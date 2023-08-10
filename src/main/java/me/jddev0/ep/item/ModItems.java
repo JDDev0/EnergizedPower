@@ -103,6 +103,9 @@ public final class ModItems {
     public static final Item ENERGY_ANALYZER = registerItem("energy_analyzer",
             new EnergyAnalyzerItem(new FabricItemSettings().maxCount(1)));
 
+    public static final Item FLUID_ANALYZER = registerItem("fluid_analyzer",
+            new FluidAnalyzerItem(new FabricItemSettings().maxCount(1)));
+
     public static final Item WOODEN_HAMMER = registerItem("wooden_hammer",
             new HammerItem(ToolMaterials.WOOD, new FabricItemSettings()));
     public static final Item STONE_HAMMER = registerItem("stone_hammer",
