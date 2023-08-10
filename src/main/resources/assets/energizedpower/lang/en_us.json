@@ -67,6 +67,17 @@
   "txt.energizedpower.energy_analyzer.energy_can_receive_side": "This block face consumes energy.",
   "txt.energizedpower.energy_analyzer.energy_can_extract_side": "This block face produces energy.",
 
+  "item.energizedpower.fluid_analyzer": "Fluid Analyzer",
+  "tooltip.energizedpower.fluid_analyzer.txt.shift.1": "Click on a block which contains fluids to retrieve information.",
+  "tooltip.energizedpower.fluid_analyzer.txt.shift.2": "%s will be consumed per use",
+  "txt.energizedpower.fluid_analyzer.output_side_information": "Information for the clicked block face:",
+  "txt.energizedpower.fluid_analyzer.no_energy_left": "The Fluid Analyzer has not enough power (%s are required).",
+  "txt.energizedpower.fluid_analyzer.no_fluid_block": "This block contains no fluids.",
+  "txt.energizedpower.fluid_analyzer.no_fluid_block_side": "This block face contains no fluids.",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_count": "Tank count: %d",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_count_side": "Tank count of the clicked face: %d",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_fluid_content": "Tank %d: %s%s / %s.",
+
   "item.energizedpower.wooden_hammer": "Wooden Hammer",
   "item.energizedpower.stone_hammer": "Stone Hammer",
   "item.energizedpower.iron_hammer": "Iron Hammer",
