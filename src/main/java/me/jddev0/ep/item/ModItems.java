@@ -114,6 +114,9 @@ public final class ModItems {
     public static final Item NETHERITE_HAMMER = registerItem("netherite_hammer",
             new HammerItem(ToolMaterials.NETHERITE, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).fireproof()));
 
+    public static final Item WRENCH = registerItem("wrench",
+            new WrenchItem(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxCount(1)));
+
     public static final Item BATTERY_BOX_MINECART = registerItem("battery_box_minecart",
             new BatteryBoxMinecartItem(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxCount(1)));
     public static final Item ADVANCED_BATTERY_BOX_MINECART = registerItem("advanced_battery_box_minecart",
