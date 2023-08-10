@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "tag": "c:silicon_blocks"
+    },
+    "C": {
+      "item": "energizedpower:energized_crystal_matrix"
+    },
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    }
+  },
+  "pattern": [
+    "CSC",
+    "SAS",
+    "CSC"
+  ],
+  "result": {
+    "item": "energizedpower:reinforced_advanced_machine_frame"
+  }
+}
