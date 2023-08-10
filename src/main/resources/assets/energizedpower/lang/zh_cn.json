@@ -83,6 +83,11 @@
   "block.energizedpower.sawdust_block": "压实锯末块",
   "item.energizedpower.sawdust_block": "压实锯末块",
 
+  "block.energizedpower.fluid_pipe": "Fluid Pipe",
+  "item.energizedpower.fluid_pipe": "Fluid Pipe",
+
+  "tooltip.energizedpower.fluid_pipe.txt.shift": "The Fluid Pipe can be configured with a Wrench.",
+
   "block.energizedpower.auto_crafter": "自动合成机",
   "item.energizedpower.auto_crafter": "自动合成机",
   "container.energizedpower.auto_crafter": "自动合成机",

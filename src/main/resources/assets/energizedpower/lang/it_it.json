@@ -83,6 +83,11 @@
   "block.energizedpower.sawdust_block": "Blocco di segatura",
   "item.energizedpower.sawdust_block": "Blocco di segatura",
 
+  "block.energizedpower.fluid_pipe": "Fluid Pipe",
+  "item.energizedpower.fluid_pipe": "Fluid Pipe",
+
+  "tooltip.energizedpower.fluid_pipe.txt.shift": "The Fluid Pipe can be configured with a Wrench.",
+
   "block.energizedpower.auto_crafter": "Auto Crafter",
   "item.energizedpower.auto_crafter": "Auto Crafter",
   "container.energizedpower.auto_crafter": "Auto Crafter",
