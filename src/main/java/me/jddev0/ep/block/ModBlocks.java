@@ -26,6 +26,11 @@ public final class ModBlocks {
                     requiresTool().strength(2.0f, 3.0f).sounds(BlockSoundGroup.WOOD)));
     public static final Item SAWDUST_BLOCK_ITEM = createBlockItem("sawdust_block", SAWDUST_BLOCK);
 
+    public static final FluidPipeBlock FLUID_PIPE = registerBlock("fluid_pipe",
+            new FluidPipeBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item FLUID_PIPE_ITEM = createBlockItem("fluid_pipe", FLUID_PIPE);
+
 
     private static Item createCableBlockItem(String name, CableBlock block) {
         return Registry.register(Registry.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
