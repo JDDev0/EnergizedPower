@@ -29,7 +29,8 @@ public final class ModBlocks {
     public static final FluidPipeBlock FLUID_PIPE = registerBlock("fluid_pipe",
             new FluidPipeBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
-    public static final Item FLUID_PIPE_ITEM = createBlockItem("fluid_pipe", FLUID_PIPE);
+    public static final Item FLUID_PIPE_ITEM = createBlockItem("fluid_pipe",
+            new FluidPipeBlock.Item(FLUID_PIPE, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
 
     private static Item createCableBlockItem(String name, CableBlock block) {
