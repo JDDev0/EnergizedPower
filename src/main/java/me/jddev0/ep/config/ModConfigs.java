@@ -370,6 +370,22 @@ public final class ModConfigs {
             "block.thermal_generator", "Thermal Generator", 8
     );
 
+    public static final ConfigValue<Long> COMMON_BLOCK_PLACER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.block_placer", "Block Placer", 2048
+    );
+    public static final ConfigValue<Long> COMMON_BLOCK_PLACER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.block_placer", "Block Placer", 128
+    );
+    public static final ConfigValue<Long> COMMON_BLOCK_PLACER_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.block_placer", "Block Placer", 32
+    );
+    public static final ConfigValue<Integer> COMMON_BLOCK_PLACER_PLACEMENT_DURATION = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.block_placer.placement_duration",
+            "The time the Block Placer requires to place a block in ticks",
+            20,
+            1, null
+    ));
+
     //Entities
     public static final ConfigValue<Long> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536
