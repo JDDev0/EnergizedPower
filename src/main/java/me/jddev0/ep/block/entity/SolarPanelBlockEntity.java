@@ -98,7 +98,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
         i = Mth.clamp(i, 0, 60);
 
         blockEntity.energyStorage.setEnergy(Math.min(blockEntity.energyStorage.getCapacity(),
-                blockEntity.energyStorage.getEnergy() + (int)(i/60.f * blockEntity.getTier().getFePerTick())));
+                blockEntity.energyStorage.getEnergy() + (int)(i/60.f * blockEntity.getTier().getPeakFePerTick())));
 
         transferEnergy(level, blockPos, state, blockEntity);
     }
