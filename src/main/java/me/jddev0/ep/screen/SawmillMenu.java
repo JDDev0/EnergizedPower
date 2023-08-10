@@ -74,7 +74,7 @@ public class SawmillMenu extends ScreenHandler implements EnergyStorageConsumerI
     }
 
     public boolean isCrafting() {
-        return data.get(0) > 0 && data.get(8) == 1;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(8) == 1;
     }
 
     public int getScaledProgressArrowSize() {
