@@ -90,6 +90,9 @@ public final class ModItems {
     public static final RegistryObject<Item> ENERGY_ANALYZER = ITEMS.register("energy_analyzer",
             () -> new EnergyAnalyzerItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
 
+    public static final RegistryObject<Item> FLUID_ANALYZER = ITEMS.register("fluid_analyzer",
+            () -> new FluidAnalyzerItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
+
     public static final RegistryObject<Item> WOODEN_HAMMER = ITEMS.register("wooden_hammer",
             () -> new HammerItem(Tiers.WOOD, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> STONE_HAMMER = ITEMS.register("stone_hammer",

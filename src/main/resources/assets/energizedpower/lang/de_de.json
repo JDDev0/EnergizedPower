@@ -67,6 +67,17 @@
   "txt.energizedpower.energy_analyzer.energy_can_receive_side": "Diese Block-Seite konsumiert Energie.",
   "txt.energizedpower.energy_analyzer.energy_can_extract_side": "Diese Block-Seite produziert Energie.",
 
+  "item.energizedpower.fluid_analyzer": "Flüssigkeit-Analyzierer",
+  "tooltip.energizedpower.fluid_analyzer.txt.shift.1": "Drücke auf einen Block, der Flüssigkeiten enthält, um Informationen zu erhalten.",
+  "tooltip.energizedpower.fluid_analyzer.txt.shift.2": "%s werden pro Benutzung verwendet",
+  "txt.energizedpower.fluid_analyzer.output_side_information": "Informationen für die geklickte Block-Seite:",
+  "txt.energizedpower.fluid_analyzer.no_energy_left": "Der Flüssigkeit-Analyzierer hat nicht genug Strom (%s sind erforderlich).",
+  "txt.energizedpower.fluid_analyzer.no_fluid_block": "Dieser Block enthält keine Flüssigkeiten.",
+  "txt.energizedpower.fluid_analyzer.no_fluid_block_side": "Diese Block-Seite enthält keine Flüssigkeiten.",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_count": "Tank-Anzahl: %d",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_count_side": "Tank-Anzahl der geklickten Block-Seite: %d",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_fluid_content": "Tank %d: %s%s / %s.",
+
   "item.energizedpower.wooden_hammer": "Holzhammer",
   "item.energizedpower.stone_hammer": "Steinhammer",
   "item.energizedpower.iron_hammer": "Eisenhammer",
