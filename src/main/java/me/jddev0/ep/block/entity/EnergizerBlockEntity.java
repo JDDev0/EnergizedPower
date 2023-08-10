@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.EnergizerBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
@@ -40,6 +41,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+    public static final float ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_ENERGIZER_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
+
     private final ItemStackHandler itemHandler = new ItemStackHandler(2) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -76,14 +79,15 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
 
     protected final ContainerData data;
     private int progress;
-    private int maxProgress = 100;
+    private int maxProgress = ModConfigs.COMMON_ENERGIZER_RECIPE_DURATION.getValue();
     private int energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
 
     public EnergizerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ENERGIZER_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, 65536, 16384) {
+        energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_ENERGIZER_CAPACITY.getValue(),
+                ModConfigs.COMMON_ENERGIZER_TRANSFER_RATE.getValue()) {
             @Override
             protected void onChange() {
                 setChanged();
@@ -96,10 +100,10 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
             @Override
             public int get(int index) {
                 return switch(index) {
-                    case 0 -> EnergizerBlockEntity.this.progress;
-                    case 1 -> EnergizerBlockEntity.this.maxProgress;
-                    case 2, 3 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.energyConsumptionLeft, index - 2);
-                    case 4 -> hasEnoughEnergy?1:0;
+                    case 0, 1 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.progress, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.maxProgress, index - 2);
+                    case 4, 5 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.energyConsumptionLeft, index - 4);
+                    case 6 -> hasEnoughEnergy?1:0;
                     default -> 0;
                 };
             }
@@ -107,15 +111,19 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
             @Override
             public void set(int index, int value) {
                 switch(index) {
-                    case 0 -> EnergizerBlockEntity.this.progress = value;
-                    case 1 -> EnergizerBlockEntity.this.maxProgress = value;
-                    case 2, 3, 4 -> {}
+                    case 0, 1 -> EnergizerBlockEntity.this.progress = ByteUtils.with2Bytes(
+                            EnergizerBlockEntity.this.progress, (short)value, index
+                    );
+                    case 2, 3 -> EnergizerBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
+                            EnergizerBlockEntity.this.maxProgress, (short)value, index - 2
+                    );
+                    case 4, 5, 6 -> {}
                 }
             }
 
             @Override
             public int getCount() {
-                return 5;
+                return 7;
             }
         };
     }
@@ -212,6 +220,7 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
                 return;
 
             int energyConsumption = recipe.get().getEnergyConsumption();
+            energyConsumption = (int)(energyConsumption * ENERGY_CONSUMPTION_MULTIPLIER);
             if(blockEntity.progress == 0)
                 blockEntity.energyConsumptionLeft = energyConsumption;
 
