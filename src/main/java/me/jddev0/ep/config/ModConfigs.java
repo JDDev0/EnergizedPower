@@ -119,6 +119,26 @@ public final class ModConfigs {
             "block.ehv_transformers", "EHV Transformers", 2097152
     );
 
+    public static final ConfigValue<Integer> COMMON_COPPER_CABLE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.copper_cable", "Copper Cable", 1024
+    );
+
+    public static final ConfigValue<Integer> COMMON_GOLD_CABLE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.gold_cable", "Gold Cable", 16384
+    );
+
+    public static final ConfigValue<Integer> COMMON_ENERGIZED_COPPER_CABLE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.energized_copper_cable", "Energized Copper Cable", 131072
+    );
+
+    public static final ConfigValue<Integer> COMMON_ENERGIZED_GOLD_CABLE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.energized_gold_cable", "Energized Gold Cable", 524288
+    );
+
+    public static final ConfigValue<Integer> COMMON_ENERGIZED_CRYSTAL_MATRIX_CABLE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.energized_crystal_matrix_cable", "Energized Crystal Matrix Cable", 2097152
+    );
+
     //Entities
     public static final ConfigValue<Integer> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536
