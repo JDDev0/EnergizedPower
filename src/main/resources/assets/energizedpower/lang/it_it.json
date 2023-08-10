@@ -9,7 +9,7 @@
 
   "item.energizedpower.copper_plate": "Piastra di rame",
   "item.energizedpower.iron_plate": "Piastra di ferro",
-  "item.energizedpower.gold_plate": "Piaastra d'oro",
+  "item.energizedpower.gold_plate": "PiaStra d'oro",
 
   "item.energizedpower.sawdust": "Segatura",
 
@@ -51,7 +51,7 @@
   "item.energizedpower.battery_8": "Batteria (Livello VIII)",
   "tooltip.energizedpower.battery.txt.shift.1": "Questa batteria può trasferire %s/t.",
 
-  "item.energizedpower.creative_battery": "Creative Battery",
+  "item.energizedpower.creative_battery": "Batteria creativa",
 
   "item.energizedpower.energy_analyzer": "Analizzatore di energia",
   "tooltip.energizedpower.energy_analyzer.txt.shift.1": "Fare clic su un blocco di energia per recuperare informazioni.",
@@ -59,24 +59,24 @@
   "txt.energizedpower.energy_analyzer.output_side_information": "Informazioni per la superficie del blocco cliccato::",
   "txt.energizedpower.energy_analyzer.no_energy_left": "L'analizzatore di energia non dispone di alimentazione sufficiente (sono richiesti %s).",
   "txt.energizedpower.energy_analyzer.no_block_entity": "Questo blocco non è un blocco energetico.",
-  "txt.energizedpower.energy_analyzer.no_energy_block": "Questo blocco non è un blocco energetico (FE).",
-  "txt.energizedpower.energy_analyzer.no_energy_block_side": "Questa faccia del blocco non è una faccia del blocco di energia (FE).",
+  "txt.energizedpower.energy_analyzer.no_energy_block": "Questo blocco non è un blocco energetico (E).",
+  "txt.energizedpower.energy_analyzer.no_energy_block_side": "Questa faccia del blocco non è una faccia del blocco di energia (E).",
   "txt.energizedpower.energy_analyzer.energy_output": "Energia: %s / %s.",
   "txt.energizedpower.energy_analyzer.energy_can_receive": "Questo blocco consuma energia.",
   "txt.energizedpower.energy_analyzer.energy_can_extract": "Questo blocco produce energia.",
-  "txt.energizedpower.energy_analyzer.energy_can_receive_side": "Questa faccia di blocco consuma energia.",
-  "txt.energizedpower.energy_analyzer.energy_can_extract_side": "Questa faccia di blocco produce energia.",
+  "txt.energizedpower.energy_analyzer.energy_can_receive_side": "Questo quadrante di blocco consuma energia.",
+  "txt.energizedpower.energy_analyzer.energy_can_extract_side": "Questo quadrante di blocco produce energia.",
 
-  "item.energizedpower.fluid_analyzer": "Fluid Analyzer",
-  "tooltip.energizedpower.fluid_analyzer.txt.shift.1": "Click on a block which contains fluids to retrieve information.",
+  "item.energizedpower.fluid_analyzer": "Analizzatore di fluidi",
+  "tooltip.energizedpower.fluid_analyzer.txt.shift.1": "Fare clic su un blocco che contiene fluidi per recuperare informazioni.",
   "tooltip.energizedpower.fluid_analyzer.txt.shift.2": "%s sarà consumato per uso",
-  "txt.energizedpower.fluid_analyzer.output_side_information": "Informazioni per la superficie del blocco cliccato::",
-  "txt.energizedpower.fluid_analyzer.no_energy_left": "The Fluid Analyzer has not enough power (%s are required).",
-  "txt.energizedpower.fluid_analyzer.no_fluid_block": "This block contains no fluids.",
-  "txt.energizedpower.fluid_analyzer.no_fluid_block_side": "This block face contains no fluids.",
-  "txt.energizedpower.fluid_analyzer.fluid_output.tank_count": "Tank count: %d",
-  "txt.energizedpower.fluid_analyzer.fluid_output.tank_count_side": "Tank count of the clicked face: %d",
-  "txt.energizedpower.fluid_analyzer.fluid_output.tank_fluid_content": "Tank %d: %s%s / %s.",
+  "txt.energizedpower.fluid_analyzer.output_side_information": "Informazioni per la superficie del blocco cliccato:",
+  "txt.energizedpower.fluid_analyzer.no_energy_left": "L'analizzatore di fluidi non ha potenza sufficiente (sono richiesti %s).",
+  "txt.energizedpower.fluid_analyzer.no_fluid_block": "Questo blocco non contiene fluidi.",
+  "txt.energizedpower.fluid_analyzer.no_fluid_block_side": "Questo quadrante del blocco non contiene fluidi.",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_count": "Conteggio serbatoi: %d",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_count_side": "Conteggio serbatoi della faccia cliccata: %d",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_fluid_content": "Serbatoio %d: %s%s / %s.",
 
   "item.energizedpower.wooden_hammer": "Martello Di Legno",
   "item.energizedpower.stone_hammer": "Martello di pietra",
@@ -85,14 +85,14 @@
   "item.energizedpower.diamond_hammer": "Martello di diamante",
   "item.energizedpower.netherite_hammer": "Martello di Netherite",
 
-  "item.energizedpower.wrench": "Wrench",
-  "tooltip.energizedpower.wrench.txt.shift": "The Wrench can be used to configure Fluid Pipes.",
-  "tooltip.energizedpower.wrench.select_face": "Selected face: %s",
-  "tooltip.energizedpower.wrench.face_change": "Connection type of face (%s) was set to %s.",
-  "tooltip.energizedpower.wrench.face_change_not_possible": "Connection type of face (%s) could not be changed.",
+  "item.energizedpower.wrench": "Chiave inglese",
+  "tooltip.energizedpower.wrench.txt.shift": "La chiave inglese può essere utilizzata per configurare i tubi del fluido.",
+  "tooltip.energizedpower.wrench.select_face": "quadrante selezionato: %s",
+  "tooltip.energizedpower.wrench.face_change": "Il tipo di connessione del quadrante (%s) è stato impostato su %s.",
+  "tooltip.energizedpower.wrench.face_change_not_possible": "Impossibile modificare il tipo di connessione del quadrante (%s).",
 
   "item.energizedpower.battery_box_minecart": "Carrello da miniera con vano batteria",
-  "item.energizedpower.advanced_battery_box_minecart": "Minecart with Advanced Battery Box",
+  "item.energizedpower.advanced_battery_box_minecart": "Carrello da miniera con scatola batteria avanzata",
 
   "block.energizedpower.silicon_block": "Blocco di Silicio",
   "item.energizedpower.silicon_block": "Blocco di Silicio",
@@ -100,10 +100,10 @@
   "block.energizedpower.sawdust_block": "Blocco di segatura",
   "item.energizedpower.sawdust_block": "Blocco di segatura",
 
-  "block.energizedpower.fluid_pipe": "Fluid Pipe",
-  "item.energizedpower.fluid_pipe": "Fluid Pipe",
+  "block.energizedpower.fluid_pipe": "Tubo fluido",
+  "item.energizedpower.fluid_pipe": "Tubo fluido",
 
-  "tooltip.energizedpower.fluid_pipe.txt.shift": "The Fluid Pipe can be configured with a Wrench.",
+  "tooltip.energizedpower.fluid_pipe.txt.shift": "Il tubo del fluido può essere configurato con una chiave inglese.",
 
   "block.energizedpower.auto_crafter": "Auto Crafter",
   "item.energizedpower.auto_crafter": "Auto Crafter",
@@ -112,8 +112,8 @@
   "tooltip.energizedpower.auto_crafter.txt.shift.1": "Questo blocco utilizza %s/t per ingrediente.",
   "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "Ignora NBT",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "Modalità di estrazione 1: solo gli elementi di output e rimanenti",
-  "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "Modalità di estrazione 2: tutto prevede anche elementi di input",
-  "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Cycle through recipes",
+  "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "Modalità di estrazione 2: tutto prevede anche elementi in ingresso",
+  "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Scorri le ricette",
 
   "block.energizedpower.charger": "Caricabatterie",
   "item.energizedpower.charger": "Caricabatterie",
@@ -124,11 +124,11 @@
 
   "tooltip.energizedpower.charger.item_energy_left.txt": "Questo articolo richiede che %s sia completamente carico.",
 
-  "block.energizedpower.advanced_charger": "Advanced Charger",
-  "item.energizedpower.advanced_charger": "Advanced Charger",
-  "container.energizedpower.advanced_charger": "Advanced Charger",
+  "block.energizedpower.advanced_charger": "Caricabatteria avanzato",
+  "item.energizedpower.advanced_charger": "Caricabatteria avanzato",
+  "container.energizedpower.advanced_charger": "Caricabatteria avanzato",
 
-  "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "These items need %s to be fully charged.",
+  "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "Questi elementi richiedono %s per essere completamente caricati.",
 
   "block.energizedpower.uncharger": "Scarico",
   "item.energizedpower.uncharger": "Scarico",
@@ -136,27 +136,27 @@
 
   "tooltip.energizedpower.uncharger.item_energy_left.txt": "A questo oggetto sono rimasti %s.",
 
-  "block.energizedpower.advanced_uncharger": "Advanced Uncharger",
-  "item.energizedpower.advanced_uncharger": "Advanced Uncharger",
-  "container.energizedpower.advanced_uncharger": "Advanced Uncharger",
+  "block.energizedpower.advanced_uncharger": "Scaricatore avanzato",
+  "item.energizedpower.advanced_uncharger": "Scaricatore avanzato",
+  "container.energizedpower.advanced_uncharger": "Scaricatore avanzato",
 
-  "tooltip.energizedpower.advanced_uncharger.items_energy_left.txt": "These items have %s left.",
+  "tooltip.energizedpower.advanced_uncharger.items_energy_left.txt": "A questi elementi sono rimasti %s.",
 
   "block.energizedpower.minecart_charger": "Caricabatterie per carrello da miniera",
   "item.energizedpower.minecart_charger": "Caricabatterie per carrello da miniera",
   "container.energizedpower.minecart_charger": "Caricabatterie per carrello da miniera",
 
-  "block.energizedpower.advanced_minecart_charger": "Advanced Minecart Charger",
-  "item.energizedpower.advanced_minecart_charger": "Advanced Minecart Charger",
-  "container.energizedpower.advanced_minecart_charger": "Advanced Minecart Charger",
+  "block.energizedpower.advanced_minecart_charger": "Caricatore avanzato per carrello da miniera",
+  "item.energizedpower.advanced_minecart_charger": "Caricatore avanzato per carrello da miniera",
+  "container.energizedpower.advanced_minecart_charger": "Caricatore avanzato per carrello da miniera",
 
   "block.energizedpower.minecart_uncharger": "Scaricatore di carrelli da miniera",
   "item.energizedpower.minecart_uncharger": "Scaricatore di carrelli da miniera",
   "container.energizedpower.minecart_uncharger": "Scaricatore di carrelli da miniera",
 
-  "block.energizedpower.advanced_minecart_uncharger": "Advanced Minecart Uncharger",
-  "item.energizedpower.advanced_minecart_uncharger": "Advanced Minecart Uncharger",
-  "container.energizedpower.advanced_minecart_uncharger": "Advanced Minecart Uncharger",
+  "block.energizedpower.advanced_minecart_uncharger": "Scaricatore avanzato per carrelli da miniera",
+  "item.energizedpower.advanced_minecart_uncharger": "Scaricatore avanzato per carrelli da miniera",
+  "container.energizedpower.advanced_minecart_uncharger": "Scaricatore avanzato per carrelli da miniera",
 
   "block.energizedpower.copper_cable": "Cavo di rame",
   "item.energizedpower.copper_cable": "Cavo di rame",
@@ -177,32 +177,32 @@
   "tooltip.energizedpower.cable.txt.shift.2": "Gli isolanti per cavi possono essere realizzati facendo clic su un blocco di lana con le cesoie.",
 
 
-  "block.energizedpower.transformer_1_to_n": "MV Transformer (1 to n)",
-  "item.energizedpower.transformer_1_to_n": "MV Transformer (1 to n)",
+  "block.energizedpower.transformer_1_to_n": "MV Trasformatore (1 to n)",
+  "item.energizedpower.transformer_1_to_n": "MV Trasformatore (1 to n)",
 
-  "block.energizedpower.transformer_3_to_3": "MV Transformer (3 to 3)",
-  "item.energizedpower.transformer_3_to_3": "MV Transformer (3 to 3)",
+  "block.energizedpower.transformer_3_to_3": "MV Trasformatore (3 to 3)",
+  "item.energizedpower.transformer_3_to_3": "MV Trasformatore (3 to 3)",
 
-  "block.energizedpower.transformer_n_to_1": "MV Transformer (n to 1)",
-  "item.energizedpower.transformer_n_to_1": "MV Transformer (n to 1)",
+  "block.energizedpower.transformer_n_to_1": "MV Trasformatore (n to 1)",
+  "item.energizedpower.transformer_n_to_1": "MV Trasformatore (n to 1)",
 
-  "block.energizedpower.hv_transformer_1_to_n": "HV Transformer (1 to n)",
-  "item.energizedpower.hv_transformer_1_to_n": "HV Transformer (1 to n)",
+  "block.energizedpower.hv_transformer_1_to_n": "HV Trasformatore (1 to n)",
+  "item.energizedpower.hv_transformer_1_to_n": "HV Trasformatore (1 to n)",
 
-  "block.energizedpower.hv_transformer_3_to_3": "HV Transformer (3 to 3)",
-  "item.energizedpower.hv_transformer_3_to_3": "HV Transformer (3 to 3)",
+  "block.energizedpower.hv_transformer_3_to_3": "HV Trasformatore (3 to 3)",
+  "item.energizedpower.hv_transformer_3_to_3": "HV Trasformatore (3 to 3)",
 
-  "block.energizedpower.hv_transformer_n_to_1": "HV Transformer (n to 1)",
-  "item.energizedpower.hv_transformer_n_to_1": "HV Transformer (n to 1)",
+  "block.energizedpower.hv_transformer_n_to_1": "HV Trasformatore (n to 1)",
+  "item.energizedpower.hv_transformer_n_to_1": "HV Trasformatore (n to 1)",
 
-  "block.energizedpower.ehv_transformer_1_to_n": "EHV Transformer (1 to n)",
-  "item.energizedpower.ehv_transformer_1_to_n": "EHV Transformer (1 to n)",
+  "block.energizedpower.ehv_transformer_1_to_n": "EHV Trasformatore (1 to n)",
+  "item.energizedpower.ehv_transformer_1_to_n": "EHV Trasformatore (1 to n)",
 
-  "block.energizedpower.ehv_transformer_3_to_3": "EHV Transformer (3 to 3)",
-  "item.energizedpower.ehv_transformer_3_to_3": "EHV Transformer (3 to 3)",
+  "block.energizedpower.ehv_transformer_3_to_3": "EHV Trasformatore (3 to 3)",
+  "item.energizedpower.ehv_transformer_3_to_3": "EHV Trasformatore (3 to 3)",
 
-  "block.energizedpower.ehv_transformer_n_to_1": "EHV Transformer (n to 1)",
-  "item.energizedpower.ehv_transformer_n_to_1": "EHV Transformer (n to 1)",
+  "block.energizedpower.ehv_transformer_n_to_1": "EHV Trasformatore (n to 1)",
+  "item.energizedpower.ehv_transformer_n_to_1": "EHV Trasformatore (n to 1)",
 
   "tooltip.energizedpower.transformer.txt.shift.1": "Questo blocco può essere utilizzato per collegare diversi livelli di cavi.",
   "tooltip.energizedpower.transformer.txt.shift.2": "I lati più grandi, più scuri, a forma di diamante sono ingressi.",
@@ -216,9 +216,9 @@
   "item.energizedpower.advanced_battery_box": "Scatola batteria avanzata",
   "container.energizedpower.advanced_battery_box": "Scatola batteria avanzata",
 
-  "block.energizedpower.creative_battery_box": "Creative Battery Box",
-  "item.energizedpower.creative_battery_box": "Creative Battery Box",
-  "container.energizedpower.creative_battery_box": "Creative Battery Box",
+  "block.energizedpower.creative_battery_box": "Scatola batteria creativa",
+  "item.energizedpower.creative_battery_box": "Scatola batteria creativa",
+  "container.energizedpower.creative_battery_box": "Scatola batteria creativa",
 
 
   "block.energizedpower.solar_panel_1": "Pannello solare (Livello I)",
@@ -237,7 +237,7 @@
   "item.energizedpower.solar_panel_5": "Pannello solare (Livello V)",
   "container.energizedpower.solar_panel_5": "Pannello solare (Livello V)",
 
-  "tooltip.energizedpower.solar_panel.txt.shift.1": "This block produces up to %s/t.",
+  "tooltip.energizedpower.solar_panel.txt.shift.1": "Questo blocco produce fino a %s/t.",
   "tooltip.energizedpower.solar_panel.txt.shift.2": "L'efficienza dipende dall'ora corrente",
 
   "block.energizedpower.coal_engine": "Motore a carbone",
@@ -331,8 +331,8 @@
   "block.energizedpower.advanced_machine_frame": "Telaio macchina avanzato",
   "item.energizedpower.advanced_machine_frame": "Telaio macchina avanzato",
 
-  "block.energizedpower.reinforced_advanced_machine_frame": "Reinforced Advanced Machine Frame",
-  "item.energizedpower.reinforced_advanced_machine_frame": "Reinforced Advanced Machine Frame",
+  "block.energizedpower.reinforced_advanced_machine_frame": "Telaio macchina avanzato rinforzato",
+  "item.energizedpower.reinforced_advanced_machine_frame": "Telaio macchina avanzato rinforzato",
 
   "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
@@ -344,16 +344,16 @@
   "tooltip.energizedpower.ready.txt": "Pronto",
   "tooltip.energizedpower.infinite.txt": "Infinite",
 
-  "tooltip.energizedpower.direction.down": "Down",
-  "tooltip.energizedpower.direction.up": "Up",
-  "tooltip.energizedpower.direction.north": "North",
-  "tooltip.energizedpower.direction.south": "South",
-  "tooltip.energizedpower.direction.west": "West",
-  "tooltip.energizedpower.direction.east": "East",
+  "tooltip.energizedpower.direction.down": "Giù",
+  "tooltip.energizedpower.direction.up": "Su",
+  "tooltip.energizedpower.direction.north": "Nord",
+  "tooltip.energizedpower.direction.south": "Sud",
+  "tooltip.energizedpower.direction.west": "Ovest",
+  "tooltip.energizedpower.direction.east": "Eat",
 
-  "tooltip.energizedpower.pipe_connection.not_connected": "Not connected",
-  "tooltip.energizedpower.pipe_connection.connected": "Connected/Insertion",
-  "tooltip.energizedpower.pipe_connection.extract": "Extraction",
+  "tooltip.energizedpower.pipe_connection.not_connected": "Non connesso",
+  "tooltip.energizedpower.pipe_connection.connected": "Connesso/Inserimento",
+  "tooltip.energizedpower.pipe_connection.extract": "Estrazione",
 
   "itemGroup.energizedpower.tab": "Potenza energizzata",
 
@@ -383,8 +383,8 @@
   "advancements.energizedpower.advanced_machine_frame.title": "Macchine avanzate",
   "advancements.energizedpower.advanced_machine_frame.description": "Le macchine più avanzate necessitano di questo oggetto di creazione di base.",
 
-  "advancements.energizedpower.reinforced_advanced_machine_frame.title": "Even more advanced Machines",
-  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "The most advanced machines need this base crafting item.",
+  "advancements.energizedpower.reinforced_advanced_machine_frame.title": "Macchine ancora più avanzate",
+  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "Le macchine più avanzate necessitano di questo oggetto di creazione di base.",
 
   "advancements.energizedpower.advanced_solar_cell.title": "Energia solare avanzata",
   "advancements.energizedpower.advanced_solar_cell.description": "Richiesto per pannelli solari avanzati...",
@@ -438,13 +438,13 @@
   "advancements.energizedpower.battery_6.description": "Livello VI: hai alimentato la tua batteria per una capacità di archiviazione ancora maggiore.",
 
   "advancements.energizedpower.battery_7.title": "Hai detto che ti serve più Potenza?",
-  "advancements.energizedpower.battery_7.description": "Livello VII: un quarto di milione di FE di capacità di stoccaggio! Possiamo fare di meglio?",
+  "advancements.energizedpower.battery_7.description": "Livello VII: un quarto di milione di E di capacità di stoccaggio! Possiamo fare di meglio?",
 
   "advancements.energizedpower.battery_8.title": "Ho bisogno di più POTENZA",
-  "advancements.energizedpower.battery_8.description": "Questa è la migliore batteria di questa mod (può immagazzinare più di 1 milione di FE)",
+  "advancements.energizedpower.battery_8.description": "Questa è la migliore batteria di questa mod (può immagazzinare più di 1 milione di E)",
 
   "advancements.energizedpower.battery_8_fully_charged.title": "Maestro di accumulo di energia",
-  "advancements.energizedpower.battery_8_fully_charged.description": "Hai caricato completamente la tua batteria da 1 milione di FE!",
+  "advancements.energizedpower.battery_8_fully_charged.description": "Hai caricato completamente la tua batteria da 1 milione di E!",
 
   "advancements.energizedpower.cable_insulator.title": "Il rivestimento per il tuo cavo",
   "advancements.energizedpower.cable_insulator.description": "Copri i tuoi cavi con questo ingrediente. (Può essere creato cliccando sulla lana con le cesoie [Può essere usato anche il dispenser])",
@@ -452,11 +452,11 @@
   "advancements.energizedpower.charger.title": "Caricalo",
   "advancements.energizedpower.charger.description": "Carica i tuoi oggetti energetici con questo blocco.",
 
-  "advancements.energizedpower.advanced_charger.title": "Parallel charging",
-  "advancements.energizedpower.advanced_charger.description": "Charge energy items in parallel.",
+  "advancements.energizedpower.advanced_charger.title": "Ricarica parallela",
+  "advancements.energizedpower.advanced_charger.description": "Carica gli elementi energetici in parallelo.",
 
-  "advancements.energizedpower.advanced_uncharger.title": "Parallel uncharging",
-  "advancements.energizedpower.advanced_uncharger.description": "Uncharge energy items in parallel.",
+  "advancements.energizedpower.advanced_uncharger.title": "Scarica in parallelo",
+  "advancements.energizedpower.advanced_uncharger.description": "Scarica gli elementi energetici in parallelo.",
 
   "advancements.energizedpower.charging_station.title": "Ricarica senza fili",
   "advancements.energizedpower.charging_station.description": "Carica gli articoli energetici in modalità wireless.",
@@ -482,8 +482,8 @@
   "advancements.energizedpower.powered_furnace.title": "Fornace alimentato",
   "advancements.energizedpower.powered_furnace.description": "Fornace alimentata.",
 
-  "advancements.energizedpower.fluid_pipe.title": "Fluid Transport",
-  "advancements.energizedpower.fluid_pipe.description": "Transport fluids with fluid pipes.",
+  "advancements.energizedpower.fluid_pipe.title": "Trasporto fluido",
+  "advancements.energizedpower.fluid_pipe.description": "Trasportare fluidi con tubi per fluidi.",
 
   "advancements.energizedpower.copper_cable.title": "Trasporto di energia",
   "advancements.energizedpower.copper_cable.description": "Trasporta energia con i cavi.",
@@ -503,11 +503,11 @@
   "advancements.energizedpower.transformers.title": "Trasformatori",
   "advancements.energizedpower.transformers.description": "Can connect different tiers of cables.",
 
-  "advancements.energizedpower.hv_transformers.title": "HV Transformers",
-  "advancements.energizedpower.hv_transformers.description": "Can transfer more power.",
+  "advancements.energizedpower.hv_transformers.title": "HV Trasformatori",
+  "advancements.energizedpower.hv_transformers.description": "Può trasferire più potenza.",
 
-  "advancements.energizedpower.ehv_transformers.title": "EHV Transformers",
-  "advancements.energizedpower.ehv_transformers.description": "Can transfer more than 2 million FE per tick.",
+  "advancements.energizedpower.ehv_transformers.title": "EHV Trasformatori",
+  "advancements.energizedpower.ehv_transformers.description": "Può trasferire più di 2 milioni di E per tick.",
 
   "advancements.energizedpower.battery_box.title": "Scatola batteria",
   "advancements.energizedpower.battery_box.description": "Accumula energia con la Scatola batteria.",
@@ -515,7 +515,7 @@
   "advancements.energizedpower.advanced_battery_box.title": "Scatola batteria migliore",
   "advancements.energizedpower.advanced_battery_box.description": "Immagazzina ancora più energia rispetto alla Scatola batteria standard.",
 
-  "advancements.energizedpower.energizedpower_advanced.title": "Energized Power (Advanced)",
+  "advancements.energizedpower.energizedpower_advanced.title": "Energized Power (Avanzato)",
   "advancements.energizedpower.energizedpower_advanced.description": "Il rame energizzato è rame migliore.",
 
   "advancements.energizedpower.energized_gold_ingot.title": "Lingotto lucido",
@@ -527,8 +527,8 @@
   "advancements.energizedpower.hammer.title": "Un buon strumento",
   "advancements.energizedpower.hammer.description": "I martelli possono essere usati per creare lastre.",
 
-  "advancements.energizedpower.wrench.title": "Wrench configuration",
-  "advancements.energizedpower.wrench.description": "Configure fluid pipes with a wrench.",
+  "advancements.energizedpower.wrench.title": "Configurazione con la chiave inglese",
+  "advancements.energizedpower.wrench.description": "Configurare i tubi del fluido con una chiave inglese.",
 
   "advancements.energizedpower.battery_box_minecart.title": "Potenza sui binari",
   "advancements.energizedpower.battery_box_minecart.description": "Energia per trasporto su rotaie.",
@@ -551,8 +551,8 @@
   "advancements.energizedpower.energized_gold_plate.title": "Lastra d'oro energizzata",
   "advancements.energizedpower.energized_gold_plate.description": "Crea una lastra d'oro energizzata.",
 
-  "advancements.energizedpower.energizedpower_basics.title": "Energized Power (Basics)",
-  "advancements.energizedpower.energizedpower_basics.description": "This is the start of your energized power journey.",
+  "advancements.energizedpower.energizedpower_basics.title": "Energized Power (Basi)",
+  "advancements.energizedpower.energizedpower_basics.description": "Questo è l'inizio del tuo viaggio di Energized Power.",
 
   "advancements.energizedpower.energizer.title": "Energia più efficiente",
   "advancements.energizedpower.energizer.description": "Questa macchina può energizzare i tuoi lingotti di rame in modo molto più rapido ed efficiente rispetto al caricabatterie.",
@@ -563,8 +563,8 @@
   "advancements.energizedpower.energy_analyzer.title": "Maestro di analisi",
   "advancements.energizedpower.energy_analyzer.description": "Analizza ogni blocco energetico, anche se non hanno un'interfaccia GUI!",
 
-  "advancements.energizedpower.fluid_analyzer.title": "Fluid Analysis",
-  "advancements.energizedpower.fluid_analyzer.description": "Analyze blocks which contain fluids!",
+  "advancements.energizedpower.fluid_analyzer.title": "Analisi dei fluidi",
+  "advancements.energizedpower.fluid_analyzer.description": "Analizza i blocchi che contengono fluidi!",
 
   "advancements.energizedpower.inventory_coal_engine.title": "Potenza dell'inventario",
   "advancements.energizedpower.inventory_coal_engine.description": "Produci e distribuisci energia nel tuo inventario.",
@@ -599,8 +599,8 @@
   "advancements.energizedpower.minecart_uncharger.title": "Scarica il carrello da miniera!",
   "advancements.energizedpower.minecart_uncharger.description": "Scarica i carrelli da miniera.",
 
-  "advancements.energizedpower.advanced_minecart_uncharger.title": "Advanced minecart uncharging",
-  "advancements.energizedpower.advanced_minecart_uncharger.description": "Uncharges minecarts quicker.",
+  "advancements.energizedpower.advanced_minecart_uncharger.title": "Scarico avanzato del carrello da miniera",
+  "advancements.energizedpower.advanced_minecart_uncharger.description": "Scarica i carrelli da miniera più velocemente.",
 
 
   "book.energizedpower.tooltip.link": "Apri link",
@@ -664,7 +664,7 @@
 
   "book.energizedpower.page.hammers": "I martelli possono essere usati per creare lastre.",
 
-  "book.energizedpower.page.wrench": "The Wrench can be used to configure Fluid Pipes.",
+  "book.energizedpower.page.wrench": "La chiave inglese può essere utilizzata per configurare i tubi del fluido.",
 
 
   "book.energizedpower.page.chapter.energy_items.title": "Articoli energetici",
@@ -673,13 +673,13 @@
   "book.energizedpower.page.inventory_coal_engine.1": "Questo oggetto può produrre e distribuire energia nel tuo inventario.",
   "book.energizedpower.page.inventory_coal_engine.2": "Può essere attivato facendo clic in aria.",
   "book.energizedpower.page.inventory_coal_engine.3": "Il carburante verrà quindi prelevato automaticamente dall'inventario.",
-  "book.energizedpower.page.inventory_coal_engine.4": " [La hotbar è esclusa]",
+  "book.energizedpower.page.inventory_coal_engine.4": "[La hotbar è esclusa]",
 
   "book.energizedpower.page.energy_analyzer.1": "L'Analizzatore di energia può essere utilizzato per ottenere la statica dell'energia. Utilizzato principalmente per blocchi di energia senza GUI.",
   "book.energizedpower.page.energy_analyzer.2": "Può essere utilizzato facendo clic sui blocchi di energia.",
 
-  "book.energizedpower.page.fluid_analyzer.1": "The Fluid Analyzer can be used to get fluid statics.",
-  "book.energizedpower.page.fluid_analyzer.2": "It can be used by clicking on energy blocks.",
+  "book.energizedpower.page.fluid_analyzer.1": "L'analizzatore di fluidi può essere utilizzato per ottenere la statistica dei fluidi.",
+  "book.energizedpower.page.fluid_analyzer.2": "Può essere utilizzato facendo clic sui blocchi di energia.",
 
   "book.energizedpower.page.batteries.1": "Le batterie possono immagazzinare energia.",
   "book.energizedpower.page.batteries.2": "Possono essere caricati dal caricatore o con generatori di inventario e possono essere scaricati dallo scaricatore.",
@@ -695,7 +695,7 @@
   "book.energizedpower.page.chapter.energy_blocks.general": "Informazioni generali sui blocchi energetici",
 
   "book.energizedpower.page.machine_frames.1": "I telai delle macchine sono il blocco di creazione di base per ogni macchina.",
-  "book.energizedpower.page.machine_frames.2": "There are three machine frames: Basic, Advanced, and Reinforced Advanced",
+  "book.energizedpower.page.machine_frames.2": "Esistono tre tipi di macchina: Base, Avanzata e Avanzata rinforzata",
 
 
   "book.energizedpower.page.chapter.energy_blocks.energy_transportation.title": "Trasporto",
@@ -708,8 +708,8 @@
   "book.energizedpower.page.transformers_1.1": "I trasformatori possono essere utilizzati per collegare diversi livelli di cavi.",
   "book.energizedpower.page.transformers_1.2": "I lati più grandi, più scuri, a forma di diamante sono ingressi.",
   "book.energizedpower.page.transformers_1.3": "I lati più piccoli, più luminosi e di forma quadrata sono le uscite.",
-  "book.energizedpower.page.transformers_1.4": "There are three tiers of transformers: MV, HV, and EHV.",
-  "book.energizedpower.page.transformers_1.5": "For each tier there are three types of transformers: 1 to n, 3 to 3, and n to 1.",
+  "book.energizedpower.page.transformers_1.4": "Esistono tre livelli di trasformatori: MV, HV e EHV.",
+  "book.energizedpower.page.transformers_1.5": "Per ogni livello ci sono tre tipi di trasformatori: 1 to n, 3 to 3, and n to 1.",
 
   "book.energizedpower.page.transformers_2.1": "I trasformatori possono essere utilizzati per ridurre il ritardo delle reti via cavo utilizzandoli periodicamente al posto di un blocco cavi.",
   "book.energizedpower.page.transformers_2.2": "I trasformatori possono essere utilizzati anche per collegare i cavi di alimentazione sotto tensione ai cavi di altri mod.",
@@ -718,7 +718,7 @@
 
   "book.energizedpower.page.minecart_charger_uncharger.1": "Il caricatore del carrello da miniera può caricare il carrello da miniera con il contenitore della batteria e lo scaricatore può scaricarlo.",
   "book.energizedpower.page.minecart_charger_uncharger.2": "Un comparatore Redstone può essere utilizzato per ottenere l'attuale livello di potenza di un carrello da miniera che viene caricato o scaricato.",
-  "book.energizedpower.page.minecart_charger_uncharger.3": "The Advanced versions have a higher transfer rate.",
+  "book.energizedpower.page.minecart_charger_uncharger.3": "Le versioni Avanzate hanno una velocità di trasferimento più elevata.",
 
 
   "book.energizedpower.page.chapter.energy_blocks.energy_storage.title": "Immagazzinamento",
@@ -783,7 +783,7 @@
   "book.energizedpower.page.fluid_filler_fluid_drainer": "Il Riempitivo fluido può riempire fluidi negli articoli e il Drenaggio fluido può drenare fluidi dagli articoli.",
 
   "book.energizedpower.page.charger_uncharger.1": "Il caricatore può caricare oggetti e lo scaricatore può scaricare oggetti.",
-  "book.energizedpower.page.charger_uncharger.2": "The advanced version of the Charger and the Uncharger have 3 slots.",
+  "book.energizedpower.page.charger_uncharger.2": "La versione avanzata del caricatore e dello scaricatore ha 3 slot.",
 
   "book.energizedpower.page.charging_station": "La stazione di ricarica può caricare gli articoli in modalità wireless.",
 
@@ -795,12 +795,12 @@
   "book.energizedpower.page.time_controller.2": "Non può tornare indietro nel tempo, il valore temporale sarà sempre incrementato.",
 
 
-  "book.energizedpower.page.chapter.fluid_blocks.title": "Blocks with Fluids",
-  "book.energizedpower.page.chapter.fluid_blocks": "Blocks that can store and transfer fluids.",
+  "book.energizedpower.page.chapter.fluid_blocks.title": "Blocchi con fluidi",
+  "book.energizedpower.page.chapter.fluid_blocks": "Blocchi che possono immagazzinare e trasferire fluidi.",
 
-  "book.energizedpower.page.fluid_pipe.1": "Fluid pipes can transfer fluids.",
-  "book.energizedpower.page.fluid_pipe.2": "The mode of every pipe side can be configured with a Wrench.",
-  "book.energizedpower.page.fluid_pipe.3": "A single fluid pipe block can only extract one fluid type at once even when multiple sides are configured as extraction.",
+  "book.energizedpower.page.fluid_pipe.1": "I tubi del fluido possono trasferire fluidi.",
+  "book.energizedpower.page.fluid_pipe.2": "La modalità di ogni lato del tubo può essere configurata con una chiave inglese.",
+  "book.energizedpower.page.fluid_pipe.3": "Un singolo blocco di tubazioni del fluido può estrarre solo un tipo di fluido alla volta, anche quando più lati sono configurati come estrazione.",
 
 
   "book.energizedpower.page.chapter.entities.title": "Entità",
