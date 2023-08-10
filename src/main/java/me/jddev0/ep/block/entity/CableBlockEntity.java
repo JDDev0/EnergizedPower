@@ -153,11 +153,11 @@ public class CableBlockEntity extends BlockEntity {
             blockEntity.loaded = true;
         }
 
-        final int MAX_TRANSFER = blockEntity.tier.getMaxTransfer();
+        final long MAX_TRANSFER = blockEntity.tier.getMaxTransfer();
         List<EnergyStorage> energyProduction = new LinkedList<>();
         List<Long> energyProductionValues = new LinkedList<>();
 
-        int productionSum = 0;
+        long productionSum = 0;
         for(EnergyStorage energyStorage:blockEntity.producers.values()) {
             try(Transaction transaction = Transaction.openOuter()) {
                 long extracted = energyStorage.extract(MAX_TRANSFER, transaction);
@@ -179,7 +179,7 @@ public class CableBlockEntity extends BlockEntity {
 
         List<EnergyStorage> consumers = getConnectedConsumers(level, blockPos, new LinkedList<>());
 
-        int consumptionSum = 0;
+        long consumptionSum = 0;
         for(EnergyStorage energyStorage:consumers) {
             try(Transaction transaction = Transaction.openOuter()) {
                 long received = energyStorage.insert(MAX_TRANSFER, transaction);
@@ -196,17 +196,17 @@ public class CableBlockEntity extends BlockEntity {
         if(consumptionSum <= 0)
             return;
 
-        int transferLeft = Math.min(Math.min(MAX_TRANSFER, productionSum), consumptionSum);
+        long transferLeft = Math.min(Math.min(MAX_TRANSFER, productionSum), consumptionSum);
 
         List<Long> energyProductionDistributed = new LinkedList<>();
         for(int i = 0;i < energyProduction.size();i++)
             energyProductionDistributed.add(0L);
 
-        int productionLeft = transferLeft;
+        long productionLeft = transferLeft;
         int divisor = energyProduction.size();
         outer:
         while(productionLeft > 0) {
-            int productionPerProducer = productionLeft / divisor;
+            long productionPerProducer = productionLeft / divisor;
             if(productionPerProducer == 0) {
                 divisor = Math.max(1, divisor - 1);
                 productionPerProducer = productionLeft / divisor;
@@ -237,11 +237,11 @@ public class CableBlockEntity extends BlockEntity {
         for(int i = 0;i < energyConsumption.size();i++)
             energyConsumptionDistributed.add(0L);
 
-        int consumptionLeft = transferLeft;
+        long consumptionLeft = transferLeft;
         divisor = energyConsumption.size();
         outer:
         while(consumptionLeft > 0) {
-            int consumptionPerConsumer = consumptionLeft / divisor;
+            long consumptionPerConsumer = consumptionLeft / divisor;
             if(consumptionPerConsumer == 0) {
                 divisor = Math.max(1, divisor - 1);
                 consumptionPerConsumer = consumptionLeft / divisor;
@@ -261,11 +261,12 @@ public class CableBlockEntity extends BlockEntity {
 
         for(int i = 0;i < energyConsumption.size();i++) {
             long energy = energyConsumptionDistributed.get(i);
-            if(energy > 0)
+            if(energy > 0) {
                 try(Transaction transaction = Transaction.openOuter()) {
                     energyConsumption.get(i).insert(energy, transaction);
                     transaction.commit();
                 }
+            }
         }
     }
 }

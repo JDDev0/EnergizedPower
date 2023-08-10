@@ -1,6 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.CableBlockEntity;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -254,22 +255,22 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
     }
 
     public enum Tier {
-        TIER_COPPER("copper_cable", 1024,
+        TIER_COPPER("copper_cable", ModConfigs.COMMON_COPPER_CABLE_TRANSFER_RATE.getValue(),
                 FabricBlockSettings.of(Material.WOOL, MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
-        TIER_GOLD("gold_cable", 16384,
+        TIER_GOLD("gold_cable", ModConfigs.COMMON_GOLD_CABLE_TRANSFER_RATE.getValue(),
                 FabricBlockSettings.of(Material.WOOL, MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
-        TIER_ENERGIZED_COPPER("energized_copper_cable", 131072,
+        TIER_ENERGIZED_COPPER("energized_copper_cable", ModConfigs.COMMON_ENERGIZED_COPPER_CABLE_TRANSFER_RATE.getValue(),
                 FabricBlockSettings.of(Material.WOOL, MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
-        TIER_ENERGIZED_GOLD("energized_goldr_cable", 524288,
+        TIER_ENERGIZED_GOLD("energized_gold_cable", ModConfigs.COMMON_ENERGIZED_GOLD_CABLE_TRANSFER_RATE.getValue(),
                 FabricBlockSettings.of(Material.WOOL, MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
-        TIER_ENERGIZED_CRYSTAL_MATRIX("energized_crystal_matrix_cable", 2097152,
+        TIER_ENERGIZED_CRYSTAL_MATRIX("energized_crystal_matrix_cable", ModConfigs.COMMON_ENERGIZED_CRYSTAL_MATRIX_CABLE_TRANSFER_RATE.getValue(),
                 FabricBlockSettings.of(Material.WOOL, MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL));
 
         private final String resourceId;
-        private final int maxTransfer;
+        private final long maxTransfer;
         private final FabricBlockSettings props;
 
-        Tier(String resourceId, int maxTransfer, FabricBlockSettings props) {
+        Tier(String resourceId, long maxTransfer, FabricBlockSettings props) {
             this.resourceId = resourceId;
             this.maxTransfer = maxTransfer;
             this.props = props;
@@ -279,7 +280,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
             return resourceId;
         }
 
-        public int getMaxTransfer() {
+        public long getMaxTransfer() {
             return maxTransfer;
         }
 
