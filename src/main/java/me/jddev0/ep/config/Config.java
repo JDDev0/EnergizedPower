@@ -201,10 +201,10 @@ public class Config {
                 String defaultValue = configValue.writeDefault();
 
                 defaultValue = defaultValue.
-                        replaceAll("\\\\", "\\\\").
-                        replaceAll("#", "\\\\#").
-                        replaceAll("\\n", "\\\\n").
-                        replaceAll("\\t", "\\\\t");
+                        replace("\\", "\\\\").
+                        replace("#", "\\#").
+                        replace("\n", "\\n").
+                        replace("\t", "\\t");
 
                 bw.write("# [Default value]: " + defaultValue);
                 bw.newLine();
@@ -218,10 +218,10 @@ public class Config {
                 String rawValue = configValueSerializer.apply(configValue);
 
                 rawValue = rawValue.
-                        replaceAll("\\\\", "\\\\").
-                        replaceAll("#", "\\\\#").
-                        replaceAll("\\n", "\\\\n").
-                        replaceAll("\\t", "\\\\t");
+                        replace("\\", "\\\\").
+                        replace("#", "\\#").
+                        replace("\n", "\\n").
+                        replace("\t", "\\t");
 
                 bw.write(configValue.getKey() + " = " + rawValue);
                 bw.newLine();
