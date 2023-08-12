@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:ingots/copper"
   },
-  "energy": 524288,
+  "energy": 4194304,
   "output": {
     "item": "energizedpower:energized_copper_ingot"
   }
