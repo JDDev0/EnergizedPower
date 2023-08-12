@@ -254,8 +254,11 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
                     if(blockEntity.energyConsumptionLeft[i] == -1)
                         blockEntity.energyConsumptionLeft[i] = (int)(recipe.get().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);;
 
-                    if(blockEntity.energyStorage.getEnergy() == 0)
+                    if(blockEntity.energyStorage.getEnergy() == 0) {
+                        setChanged(level, blockPos, state);
+
                         continue;
+                    }
 
                     energyConsumptionPerTick = Math.min(blockEntity.energyConsumptionLeft[i], Math.min(maxReceivePerSlot,
                             blockEntity.energyStorage.getEnergy()));
