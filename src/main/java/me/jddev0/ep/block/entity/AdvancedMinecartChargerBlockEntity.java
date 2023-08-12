@@ -149,6 +149,10 @@ public class AdvancedMinecartChargerBlockEntity extends BlockEntity implements M
         AbstractMinecartBatteryBox minecart = minecarts.get(0);
         int transferred = Math.min(Math.min(blockEntity.energyStorage.getEnergy(), MAX_TRANSFER),
                 Math.min(minecart.getTransferRate(), minecart.getCapacity() - minecart.getEnergy()));
+
+        if(transferred < 0)
+            return;
+
         minecart.setEnergy(minecart.getEnergy() + transferred);
 
         blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - transferred);
