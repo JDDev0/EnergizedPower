@@ -244,8 +244,11 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
                 if(blockEntity.energyConsumptionLeft == -1)
                     blockEntity.energyConsumptionLeft = (int)(recipe.get().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);
 
-                if(blockEntity.energyStorage.getEnergy() == 0)
+                if(blockEntity.energyStorage.getEnergy() == 0) {
+                    setChanged(level, blockPos, state);
+
                     return;
+                }
 
                 energyConsumptionPerTick = Math.min(blockEntity.energyConsumptionLeft, Math.min(blockEntity.energyStorage.getMaxReceive(),
                         blockEntity.energyStorage.getEnergy()));
