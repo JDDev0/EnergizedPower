@@ -155,11 +155,11 @@ public class WrenchItem extends Item {
         ItemStack itemStack = player.getItemInHand(interactionHand);
 
         if(level.isClientSide)
-            return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+            return InteractionResultHolder.success(itemStack);
 
        cycleCurrentFace(itemStack, (ServerPlayer)player);
 
-        return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+        return InteractionResultHolder.success(itemStack);
     }
 
     @Override
