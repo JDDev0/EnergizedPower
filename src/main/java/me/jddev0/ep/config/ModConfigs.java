@@ -338,7 +338,7 @@ public final class ModConfigs {
     );
     public static final ConfigValue<Integer> COMMON_AUTO_CRAFTER_ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.auto_crafter.energy_consumption_per_tick_per_ingredient",
-            "The energy consumption of the Auto Crafter if active per tick per ingredient",
+            "The energy consumption of the Auto Crafter if active in FE per tick per ingredient",
             2,
             1, null
     ));
@@ -582,7 +582,7 @@ public final class ModConfigs {
     private static ConfigValue<Integer> registerEnergyConsumptionPerTickConfigValue(String baseConfigKey, String itemName, int defaultValue) {
         return COMMON_CONFIG.register(new IntegerConfigValue(
                 baseConfigKey + ".energy_consumption_per_tick",
-                "The energy consumption of the " + itemName + " if active per tick",
+                "The energy consumption of the " + itemName + " if active in FE per tick",
                 defaultValue,
                 1, null
         ));
