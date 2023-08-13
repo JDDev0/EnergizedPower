@@ -1,5 +1,5 @@
 # EnergizedPower
-This is a technology MC Forge/Fabric MC mod with many machines.<br>
+This is a technology Forge/NeoForge/Fabric mod with many machines.<br>
 Download on CurseForge: [Energized Power](https://www.curseforge.com/minecraft/mc-mods/energized-power)<br>
 Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power)
 
@@ -60,8 +60,8 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 ### Integrations
 
-- JEI (*Forge edition only*), EMI, and REI support
-- Curios API (*Forge edition only*)
+- JEI (*Forge/NeoForge editions only*), EMI, and REI support
+- Curios API (*Forge/NeoForge edition only*)
 
 ### World generation
 
