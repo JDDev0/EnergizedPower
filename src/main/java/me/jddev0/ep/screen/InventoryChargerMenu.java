@@ -1,6 +1,7 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.item.InventoryChargerItem;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -20,10 +21,10 @@ public class InventoryChargerMenu extends AbstractContainerMenu {
     private final Level level;
 
     public InventoryChargerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, new SimpleContainer(3) {
+        this(id, inv, new SimpleContainer(InventoryChargerItem.SLOT_COUNT) {
             @Override
             public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
-                if(slot >= 0 && slot < 3) {
+                if(slot >= 0 && slot < getContainerSize()) {
                     LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
                     if(!energyStorageLazyOptional.isPresent())
                         return false;
@@ -45,16 +46,28 @@ public class InventoryChargerMenu extends AbstractContainerMenu {
     public InventoryChargerMenu(int id, Inventory inv, Container container) {
         super(ModMenuTypes.INVENTORY_CHARGER_MENU.get(), id);
 
-        checkContainerSize(inv, 3);
+        checkContainerSize(inv, InventoryChargerItem.SLOT_COUNT);
         this.container = container;
         this.level = inv.player.level();
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        addSlot(new ConstraintInsertSlot(container, 0, 62, 35));
-        addSlot(new ConstraintInsertSlot(container, 1, 80, 35));
-        addSlot(new ConstraintInsertSlot(container, 2, 98, 35));
+        int slotIndex = 0;
+        if(container.getContainerSize() >= 5)
+            addSlot(new ConstraintInsertSlot(container, slotIndex++, 44, 35));
+
+        if(container.getContainerSize() >= 3)
+            addSlot(new ConstraintInsertSlot(container, slotIndex++, 62, 35));
+
+        if(container.getContainerSize() >= 1)
+            addSlot(new ConstraintInsertSlot(container, slotIndex++, 80, 35));
+
+        if(container.getContainerSize() >= 3)
+            addSlot(new ConstraintInsertSlot(container, slotIndex++, 98, 35));
+
+        if(container.getContainerSize() >= 5)
+            addSlot(new ConstraintInsertSlot(container, slotIndex, 116, 35));
     }
 
     @Override
@@ -68,10 +81,10 @@ public class InventoryChargerMenu extends AbstractContainerMenu {
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into tile inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 3, false)) {
+            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + container.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 3) {
+        }else if(index < 4 * 9 + container.getContainerSize()) {
             //Tile inventory slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
