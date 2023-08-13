@@ -1,6 +1,7 @@
 package me.jddev0.ep.integration.rei;
 
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.*;
 import me.shedaniel.math.Rectangle;
@@ -31,6 +32,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(ModBlocks.AUTO_CRAFTER_ITEM.get()));
         registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(ModBlocks.POWERED_FURNACE_ITEM.get()));
         registry.addWorkstations(BuiltinPlugin.FUEL, EntryStacks.of(ModBlocks.COAL_ENGINE_ITEM.get()));
+        registry.addWorkstations(BuiltinPlugin.FUEL, EntryStacks.of(ModItems.INVENTORY_COAL_ENGINE.get()));
 
         registry.add(new ChargerCategory());
         registry.addWorkstations(ChargerCategory.CATEGORY, EntryStacks.of(ModBlocks.CHARGER_ITEM.get()),
