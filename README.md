@@ -53,7 +53,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - Fluid Analyzer (Can be used to debug blocks which contain fluids) (**In next release (v2.0.0)**)
 - Batteries (8 Tiers)
 - Inventory Coal Engine
-- Inventory Charger (3 slots) (**In next release (v2.0.0)**)
+- Inventory Charger (**In next release (v2.0.0)**)
 
 ### Fluid transport
 
