@@ -36,10 +36,14 @@
   "tooltip.energizedpower.inventory_coal_engine.status": "Status: ",
   "tooltip.energizedpower.inventory_coal_engine.status.activated": "Aktiviert",
   "tooltip.energizedpower.inventory_coal_engine.status.deactivated": "Deaktiviert",
-  "tooltip.energizedpower.inventory_coal_engine.txt.shift.1": "Der Aktivierungs-Status kann durch das verwenden des Items in der Luft geändert werden",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.1": "Der Aktivierungs-Status kann durch das Verwenden des Items in der Luft geändert werden",
   "tooltip.energizedpower.inventory_coal_engine.txt.shift.2": "Wenn der Generator aktiviert ist, werden Items automatisch vom Inventar verbrannt, Items in der Hotbar werden nicht verbrannt.",
   "tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning": "Brennt gerade: ",
   "tooltip.energizedpower.inventory_coal_engine.txt.shift.energy_production_left": "Übrige Energie-Produktion: %s",
+
+  "item.energizedpower.inventory_charger": "Inventar Lader",
+  "container.energizedpower.inventory_charger": "Inventar Lader",
+  "tooltip.energizedpower.inventory_charger.txt.shift.1": "Das Inventar dieses Items kann durch das Verwenden des Items in der Luft geöffnet werden",
 
   "item.energizedpower.battery_1": "Batterie (MK I)",
   "item.energizedpower.battery_2": "Batterie (MK II)",
