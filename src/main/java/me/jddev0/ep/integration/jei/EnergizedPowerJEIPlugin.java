@@ -80,6 +80,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.AUTO_CRAFTER_ITEM.get()), RecipeTypes.CRAFTING);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.POWERED_FURNACE_ITEM.get()), RecipeTypes.SMELTING);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.COAL_ENGINE_ITEM.get()), RecipeTypes.FUELING);
+        registration.addRecipeCatalyst(new ItemStack(ModItems.INVENTORY_COAL_ENGINE.get()), RecipeTypes.FUELING);
 
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.CHARGER_ITEM.get()), ChargerCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.ADVANCED_CHARGER_ITEM.get()), ChargerCategory.TYPE);
