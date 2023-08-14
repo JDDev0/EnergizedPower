@@ -1,0 +1,15 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.ore_dusts",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "image": [
+    "energizedpower:textures/item/copper_dust.png",
+    "energizedpower:textures/item/iron_dust.png",
+    "energizedpower:textures/item/gold_dust.png"
+  ]
+}
