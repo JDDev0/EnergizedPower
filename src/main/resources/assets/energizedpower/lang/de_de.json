@@ -682,6 +682,9 @@
   "book.energizedpower.page.inventory_coal_engine.3": "Treibstoff wird automatisch aus dem Inventar entnommen.",
   "book.energizedpower.page.inventory_coal_engine.4": " [Die Hotbar ist ausgenommen]",
 
+  "book.energizedpower.page.inventory_charger.1": "Dieses Item verteilt Strom in deinem Inventar.",
+  "book.energizedpower.page.inventory_charger.2": "Geladene Batterien müssen in dieses Item gegeben werden.",
+
   "book.energizedpower.page.energy_analyzer.1": "Der Energie-Analyzierer kann genutzt werden, um Energie-Statistiken von Blöcken - auch diese, ohne GUI - zu erhalten.",
   "book.energizedpower.page.energy_analyzer.2": "Es wird durch das Klicken auf Blöcken verwendet.",
 
