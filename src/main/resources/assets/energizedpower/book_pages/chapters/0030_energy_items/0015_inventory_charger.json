@@ -1,0 +1,21 @@
+{
+  "content":  [
+    {
+      "translate": "book.energizedpower.page.inventory_charger.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.inventory_charger.2",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform"
+    }
+  ],
+  "image": "energizedpower:textures/item/inventory_charger.png"
+}

@@ -682,6 +682,9 @@
   "book.energizedpower.page.inventory_coal_engine.3": "Fuel will then automatically be taken from the inventory.",
   "book.energizedpower.page.inventory_coal_engine.4": " [The hotbar is excluded]",
 
+  "book.energizedpower.page.inventory_charger.1": "This item distributes energy in your inventory.",
+  "book.energizedpower.page.inventory_charger.2": "Charged batteries must be inserted.",
+
   "book.energizedpower.page.energy_analyzer.1": "The Energy Analyzer can be used to get energy statics. Mainly used for energy blocks without a GUI.",
   "book.energizedpower.page.energy_analyzer.2": "It can be used by clicking on energy blocks.",
 
