@@ -182,6 +182,9 @@ public class EnergizedPowerMod {
             event.accept(ModItems.GOOD_FERTILIZER);
             event.accept(ModItems.ADVANCED_FERTILIZER);
             event.accept(ModItems.SILICON);
+            event.accept(ModItems.COPPER_DUST);
+            event.accept(ModItems.IRON_DUST);
+            event.accept(ModItems.GOLD_DUST);
             event.accept(ModItems.COPPER_PLATE);
             event.accept(ModItems.IRON_PLATE);
             event.accept(ModItems.GOLD_PLATE);

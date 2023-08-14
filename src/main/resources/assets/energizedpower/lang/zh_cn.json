@@ -7,6 +7,10 @@
 
   "item.energizedpower.silicon": "硅",
 
+  "item.energizedpower.copper_dust": "Copper Dust",
+  "item.energizedpower.iron_dust": "Iron Dust",
+  "item.energizedpower.gold_dust": "Gold Dust",
+
   "item.energizedpower.copper_plate": "铜板",
   "item.energizedpower.iron_plate": "铁板",
   "item.energizedpower.gold_plate": "金板",
@@ -652,6 +656,8 @@
   "book.energizedpower.page.sawdust.2": "锯末块可以烧制成木炭。",
 
   "book.energizedpower.page.fertilizers": "肥料主要用来加快植物在培养室的速度。",
+
+  "book.energizedpower.page.ore_dusts": "Ore dusts can be smelted to ingots.",
 
   "book.energizedpower.page.plates.1": "板材是大部分机器制作所使用的材料。板材可以通过锤子或压缩机来制作。",
   "book.energizedpower.page.plates.2": "只有压缩机可以制作充能板材。",
