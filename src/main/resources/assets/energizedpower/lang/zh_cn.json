@@ -456,6 +456,9 @@
   "advancements.energizedpower.charger.title": "充能",
   "advancements.energizedpower.charger.description": "用这个方块为你的物品充能。",
 
+  "advancements.energizedpower.inventory_charger.title": "Local charging",
+  "advancements.energizedpower.inventory_charger.description": "Charge energy items in your inventory with batteries.",
+
   "advancements.energizedpower.advanced_charger.title": "Parallel charging",
   "advancements.energizedpower.advanced_charger.description": "Charge energy items in parallel.",
 
