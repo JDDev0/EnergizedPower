@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "energizedpower:sawdust"
+    "energizedpower:sawdust",
+    "energizedpower:copper_dust",
+    "energizedpower:iron_dust",
+    "energizedpower:gold_dust"
   ]
 }

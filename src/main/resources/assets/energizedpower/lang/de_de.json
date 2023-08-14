@@ -7,6 +7,10 @@
 
   "item.energizedpower.silicon": "Silizium",
 
+  "item.energizedpower.copper_dust": "Kupferstaub",
+  "item.energizedpower.iron_dust": "Eisenstaub",
+  "item.energizedpower.gold_dust": "Goldstaub",
+
   "item.energizedpower.copper_plate": "Kupferplatte",
   "item.energizedpower.iron_plate": "Eisenplatte",
   "item.energizedpower.gold_plate": "Goldplatte",
@@ -652,6 +656,8 @@
   "book.energizedpower.page.sawdust.2": "Sägemehlblöcke können zu Holzkohle geschmolzen werden.",
 
   "book.energizedpower.page.fertilizers": "Dünger können verwendet werden, um die Pflanzenwachstums-Kammer schneller zu machen.",
+
+  "book.energizedpower.page.ore_dusts": "Erzstaub kann zu Barren geschmolzen werden.",
 
   "book.energizedpower.page.plates.1": "Platten werden benötigt, um die meisten Maschinen zu craften. Platten können mit Hämmer oder im Kompressor hergestellt werden.",
   "book.energizedpower.page.plates.2": "Energetisierte Platten können nur im Kompressor hergestellt werden.",
