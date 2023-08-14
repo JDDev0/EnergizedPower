@@ -456,6 +456,9 @@
   "advancements.energizedpower.charger.title": "Charge it",
   "advancements.energizedpower.charger.description": "Charge your energy items with this block.",
 
+  "advancements.energizedpower.inventory_charger.title": "Local charging",
+  "advancements.energizedpower.inventory_charger.description": "Charge energy items in your inventory with batteries.",
+
   "advancements.energizedpower.advanced_charger.title": "Parallel charging",
   "advancements.energizedpower.advanced_charger.description": "Charge energy items in parallel.",
 
