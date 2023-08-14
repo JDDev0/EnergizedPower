@@ -10,6 +10,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Powered Furnace
 - Auto Crafter (Can handle recipe conflicts, that is recipes with the same inputs)
 - Crusher
+- Pulverizer (**In next release (v2.0.0)**)
 - Sawmill
 - Compressor
 - Plant Growth Chamber
