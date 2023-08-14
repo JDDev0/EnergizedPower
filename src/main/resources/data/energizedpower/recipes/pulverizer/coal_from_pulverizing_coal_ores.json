@@ -1,0 +1,12 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": {
+    "tag": "minecraft:coal_ores"
+  },
+  "output": {
+    "output": {
+      "item": "minecraft:coal"
+    },
+    "percentages": [ 1.0, 1.0, 0.25 ]
+  }
+}

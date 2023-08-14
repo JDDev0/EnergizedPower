@@ -272,6 +272,10 @@
   "item.energizedpower.crusher": "Frantoio",
   "container.energizedpower.crusher": "Frantoio",
 
+  "block.energizedpower.pulverizer": "Pulverizer",
+  "item.energizedpower.pulverizer": "Pulverizer",
+  "container.energizedpower.pulverizer": "Pulverizer",
+
   "block.energizedpower.sawmill": "Segheria",
   "item.energizedpower.sawmill": "Segheria",
   "container.energizedpower.sawmill": "Segheria",
@@ -379,6 +383,7 @@
 
   "emi.category.energizedpower.charger": "Caricabatterie",
   "emi.category.energizedpower.crusher": "Frantoio",
+  "emi.category.energizedpower.pulverizer": "Pulverizer",
   "emi.category.energizedpower.sawmill": "Segheria",
   "emi.category.energizedpower.compressor": "Compressore",
   "emi.category.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
@@ -402,6 +407,9 @@
 
   "advancements.energizedpower.crusher.title": "Frantumalo",
   "advancements.energizedpower.crusher.description": "Frantumare pietra, arenaria, ciottoli, ghiaia o altri blocchi.",
+
+  "advancements.energizedpower.pulverizer.title": "Pulverization",
+  "advancements.energizedpower.pulverizer.description": "Pulverize ores to boost production.",
 
   "advancements.energizedpower.sawmill.title": "Segheria",
   "advancements.energizedpower.sawmill.description": "segheria per legno.",
@@ -778,6 +786,8 @@
   "book.energizedpower.page.auto_crafter.3": "L'Auto Crafter può gestire i conflitti di ricette, ovvero ricette con gli stessi input. Per fare ciò, usa il pulsante \"Scorri le ricette\" o imposta lo schema tramite un mod visualizzatore di ricette (come REI).",
 
   "book.energizedpower.page.crusher": "Il Frantumatore può frantumare blocchi come Pietra, Arenaria, Ciottoli e Ghiaia.",
+
+  "book.energizedpower.page.pulverizer": "The Pulverizer produces ore dusts which can be smelted to ingots.",
 
   "book.energizedpower.page.sawmill.1": "La segheria può segare blocchi di legno e oggetti.",
   "book.energizedpower.page.sawmill.2": "Verrà prodotta segatura che può essere trasformata in blocchi di segatura che possono essere utilizzati come combustibile.",

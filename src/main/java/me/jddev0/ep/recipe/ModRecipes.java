@@ -29,6 +29,11 @@ public final class ModRecipes {
     public static final RegistryObject<RecipeType<CrusherRecipe>> CRUSHER_TYPE = TYPES.register("crusher",
             () -> CrusherRecipe.Type.INSTANCE);
 
+    public static final RegistryObject<RecipeSerializer<PulverizerRecipe>> PULVERIZER_SERIALIZER = SERIALIZERS.register("pulverizer",
+            () -> PulverizerRecipe.Serializer.INSTANCE);
+    public static final RegistryObject<RecipeType<PulverizerRecipe>> PULVERIZER_TYPE = TYPES.register("pulverizer",
+            () -> PulverizerRecipe.Type.INSTANCE);
+
     public static final RegistryObject<RecipeSerializer<SawmillRecipe>> SAWMILL_SERIALIZER = SERIALIZERS.register("sawmill",
             () -> SawmillRecipe.Serializer.INSTANCE);
     public static final RegistryObject<RecipeType<SawmillRecipe>> SAWMILL_TYPE = TYPES.register("sawmill",

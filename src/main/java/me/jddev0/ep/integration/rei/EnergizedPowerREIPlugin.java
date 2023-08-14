@@ -41,6 +41,9 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.add(new CrusherCategory());
         registry.addWorkstations(CrusherCategory.CATEGORY, EntryStacks.of(ModBlocks.CRUSHER_ITEM.get()));
 
+        registry.add(new PulverizerCategory());
+        registry.addWorkstations(PulverizerCategory.CATEGORY, EntryStacks.of(ModBlocks.PULVERIZER_ITEM.get()));
+
         registry.add(new SawmillCategory());
         registry.addWorkstations(SawmillCategory.CATEGORY, EntryStacks.of(ModBlocks.SAWMILL_ITEM.get()));
 
@@ -73,6 +76,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
     public void registerDisplays(DisplayRegistry registry) {
         registry.registerRecipeFiller(ChargerRecipe.class, ChargerRecipe.Type.INSTANCE, ChargerDisplay::new);
         registry.registerRecipeFiller(CrusherRecipe.class, CrusherRecipe.Type.INSTANCE, CrusherDisplay::new);
+        registry.registerRecipeFiller(PulverizerRecipe.class, PulverizerRecipe.Type.INSTANCE, PulverizerDisplay::new);
         registry.registerRecipeFiller(SawmillRecipe.class, SawmillRecipe.Type.INSTANCE, SawmillDisplay::new);
         registry.registerRecipeFiller(CompressorRecipe.class, CompressorRecipe.Type.INSTANCE, CompressorDisplay::new);
         registry.registerRecipeFiller(PlantGrowthChamberRecipe.class, PlantGrowthChamberRecipe.Type.INSTANCE,
@@ -101,6 +105,8 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
 
         registry.registerContainerClickArea(new Rectangle(80, 34, 24, 17),
                 CrusherScreen.class, CrusherCategory.CATEGORY);
+        registry.registerContainerClickArea(new Rectangle(68, 34, 24, 17),
+                PulverizerScreen.class, PulverizerCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(68, 34, 24, 17),
                 SawmillScreen.class, SawmillCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(79, 30, 26, 25),
