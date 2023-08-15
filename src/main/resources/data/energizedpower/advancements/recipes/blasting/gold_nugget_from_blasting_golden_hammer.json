@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_golden_hammer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:golden_hammer" ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "energizedpower:blasting/gold_nugget_from_blasting_golden_hammer"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_golden_hammer",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "energizedpower:blasting/gold_nugget_from_blasting_golden_hammer"
+    ]
+  }
+}
