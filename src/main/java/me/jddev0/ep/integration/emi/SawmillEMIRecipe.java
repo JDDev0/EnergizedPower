@@ -74,7 +74,6 @@ public class SawmillEMIRecipe implements EmiRecipe {
 
         widgets.addSlot(input.get(0), 0, 4).drawBack(false);
         widgets.addSlot(output.get(0), 64, 4).drawBack(false).recipeContext(this);
-        if(output.size() == 2)
-            widgets.addSlot(output.get(1), 91, 4).drawBack(false).recipeContext(this);
+        widgets.addSlot(output.size() == 2?output.get(1):EmiStack.EMPTY, 91, 4).drawBack(false).recipeContext(this);
     }
 }
