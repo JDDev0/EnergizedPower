@@ -9,14 +9,14 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.EnergizedPowerMod;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.Blocks;
 
 import java.util.List;
 
 public class DispenserEMIRecipe implements EmiRecipe {
     public static final ResourceLocation SIMPLIFIED_TEXTURE = new ResourceLocation("textures/block/dispenser_front.png");
-    public static final EmiStack ITEM = EmiStack.of(Blocks.DISPENSER);
+    public static final EmiStack ITEM = EmiStack.of(Items.DISPENSER);
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new ResourceLocation(EnergizedPowerMod.MODID, "dispenser"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 

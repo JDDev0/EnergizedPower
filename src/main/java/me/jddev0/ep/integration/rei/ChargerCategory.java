@@ -36,7 +36,7 @@ public class ChargerCategory implements DisplayCategory<ChargerDisplay> {
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModBlocks.CHARGER.get());
+        return EntryStacks.of(ModBlocks.CHARGER_ITEM.get());
     }
 
     @Override

@@ -37,7 +37,7 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModBlocks.PLANT_GROWTH_CHAMBER.get());
+        return EntryStacks.of(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM.get());
     }
 
     @Override

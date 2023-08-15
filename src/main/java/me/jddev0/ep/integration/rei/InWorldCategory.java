@@ -10,7 +10,7 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ public class InWorldCategory implements DisplayCategory<InWorldDisplay> {
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(Blocks.GRASS_BLOCK);
+        return EntryStacks.of(Items.GRASS_BLOCK);
     }
 
     @Override
