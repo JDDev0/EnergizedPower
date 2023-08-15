@@ -272,6 +272,10 @@
   "item.energizedpower.crusher": "Crusher",
   "container.energizedpower.crusher": "Crusher",
 
+  "block.energizedpower.pulverizer": "Pulverizer",
+  "item.energizedpower.pulverizer": "Pulverizer",
+  "container.energizedpower.pulverizer": "Pulverizer",
+
   "block.energizedpower.sawmill": "Sawmill",
   "item.energizedpower.sawmill": "Sawmill",
   "container.energizedpower.sawmill": "Sawmill",
@@ -379,6 +383,7 @@
 
   "emi.category.energizedpower.charger": "Charger",
   "emi.category.energizedpower.crusher": "Crusher",
+  "emi.category.energizedpower.pulverizer": "Pulverizer",
   "emi.category.energizedpower.sawmill": "Sawmill",
   "emi.category.energizedpower.compressor": "Compressor",
   "emi.category.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
@@ -402,6 +407,9 @@
 
   "advancements.energizedpower.crusher.title": "Crush it",
   "advancements.energizedpower.crusher.description": "Crush Stone, Sandstone, Cobblestone, Gravel, or other blocks.",
+
+  "advancements.energizedpower.pulverizer.title": "Pulverization",
+  "advancements.energizedpower.pulverizer.description": "Pulverize ores to boost production.",
 
   "advancements.energizedpower.sawmill.title": "Sawing",
   "advancements.energizedpower.sawmill.description": "Saws wood.",
@@ -778,6 +786,8 @@
   "book.energizedpower.page.auto_crafter.3": "The Auto Crafter can handle recipe conflicts, that is recipes with the same inputs. To do this, use the \"Cycle through recipes\" button or set the pattern via a recipe viewer mod (like REI).",
 
   "book.energizedpower.page.crusher": "The Crusher can crush blocks like Stone, Sandstone, Cobblestone, and Gravel.",
+
+  "book.energizedpower.page.pulverizer": "The Pulverizer produces ore dusts which can be smelted to ingots.",
 
   "book.energizedpower.page.sawmill.1": "The Sawmill can saw wood blocks and items.",
   "book.energizedpower.page.sawmill.2": "Sawdust will be produced which can be crafted to sawdust blocks which can be used as fuel.",

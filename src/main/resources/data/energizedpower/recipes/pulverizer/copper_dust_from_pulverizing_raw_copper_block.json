@@ -1,0 +1,12 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": {
+    "item": "minecraft:raw_copper_block"
+  },
+  "output": {
+    "output": {
+      "item": "energizedpower:copper_dust"
+    },
+    "percentages": [ 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 0.5, 0.25 ]
+  }
+}
