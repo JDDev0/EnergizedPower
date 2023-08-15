@@ -3,7 +3,10 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
+import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -25,8 +28,17 @@ public class PlantGrowthChamberMenu extends ScreenHandler implements EnergyStora
     private final PropertyDelegate data;
 
     public PlantGrowthChamberMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(6),
-                new ArrayPropertyDelegate(9));
+        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(6) {
+            @Override
+            public boolean isValid(int slot, ItemStack stack) {
+                return switch(slot) {
+                    case 0 -> RecipeUtils.isIngredientOfAny(inv.player.getWorld(), PlantGrowthChamberRecipe.Type.INSTANCE, stack);
+                    case 1 -> RecipeUtils.isIngredientOfAny(inv.player.getWorld(), PlantGrowthChamberFertilizerRecipe.Type.INSTANCE, stack);
+                    case 2, 3, 4, 5 -> false;
+                    default -> super.isValid(slot, stack);
+                };
+            }
+        }, new ArrayPropertyDelegate(9));
     }
 
     public PlantGrowthChamberMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {

@@ -4,6 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.UnchargerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.util.ByteUtils;
+import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -17,6 +18,8 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
+import team.reborn.energy.api.EnergyStorage;
+import team.reborn.energy.api.EnergyStorageUtil;
 
 public class UnchargerMenu extends ScreenHandler implements EnergyStorageProducerIndicatorBarMenu {
     private final UnchargerBlockEntity blockEntity;
@@ -25,8 +28,31 @@ public class UnchargerMenu extends ScreenHandler implements EnergyStorageProduce
     private final PropertyDelegate data;
 
     public UnchargerMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1),
-                new ArrayPropertyDelegate(4));
+        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1) {
+            @Override
+            public boolean isValid(int slot, ItemStack stack) {
+                if(stack.getCount() != 1)
+                    return false;
+
+                if(slot == 0) {
+                    if(!EnergyStorageUtil.isEnergyStorage(stack))
+                        return false;
+
+                    EnergyStorage energyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.withConstant(stack));
+                    if(energyStorage == null)
+                        return false;
+
+                    return energyStorage.supportsExtraction();
+                }
+
+                return super.isValid(slot, stack);
+            }
+
+            @Override
+            public int getMaxCountPerStack() {
+                return 1;
+            }
+        }, new ArrayPropertyDelegate(4));
     }
 
     public UnchargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {

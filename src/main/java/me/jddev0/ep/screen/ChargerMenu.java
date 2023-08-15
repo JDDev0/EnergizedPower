@@ -3,7 +3,10 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.ChargerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.RecipeUtils;
+import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -17,6 +20,8 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
+import team.reborn.energy.api.EnergyStorage;
+import team.reborn.energy.api.EnergyStorageUtil;
 
 public class ChargerMenu extends ScreenHandler implements EnergyStorageConsumerIndicatorBarMenu {
     private final ChargerBlockEntity blockEntity;
@@ -25,8 +30,34 @@ public class ChargerMenu extends ScreenHandler implements EnergyStorageConsumerI
     private final PropertyDelegate data;
 
     public ChargerMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1),
-                new ArrayPropertyDelegate(4));
+        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1) {
+            @Override
+            public boolean isValid(int slot, ItemStack stack) {
+                if(stack.getCount() != 1)
+                    return false;
+
+                if(inv.player.getWorld() == null || RecipeUtils.isIngredientOfAny(inv.player.getWorld(), ChargerRecipe.Type.INSTANCE, stack))
+                    return true;
+
+                if(slot == 0) {
+                    if(!EnergyStorageUtil.isEnergyStorage(stack))
+                        return false;
+
+                    EnergyStorage energyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.withConstant(stack));
+                    if(energyStorage == null)
+                        return false;
+
+                    return energyStorage.supportsInsertion();
+                }
+
+                return super.isValid(slot, stack);
+            }
+
+            @Override
+            public int getMaxCountPerStack() {
+                return 1;
+            }
+        }, new ArrayPropertyDelegate(4));
     }
 
     public ChargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {

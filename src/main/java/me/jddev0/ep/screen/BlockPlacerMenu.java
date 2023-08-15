@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
@@ -25,8 +26,24 @@ public class BlockPlacerMenu extends ScreenHandler implements EnergyStorageConsu
     private final PropertyDelegate data;
 
     public BlockPlacerMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1),
-                new ArrayPropertyDelegate(10));
+        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1) {
+            @Override
+            public boolean isValid(int slot, ItemStack stack) {
+                if(stack.getCount() != 1)
+                    return false;
+
+                if(slot == 0) {
+                    return stack.getItem() instanceof BlockItem;
+                }
+
+                return super.isValid(slot, stack);
+            }
+
+            @Override
+            public int getMaxCountPerStack() {
+                return 1;
+            }
+        }, new ArrayPropertyDelegate(10));
     }
 
     public BlockPlacerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
