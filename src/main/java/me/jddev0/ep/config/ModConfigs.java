@@ -2,6 +2,7 @@ package me.jddev0.ep.config;
 
 import com.mojang.logging.LogUtils;
 import me.jddev0.ep.config.value.DoubleConfigValue;
+import me.jddev0.ep.config.validation.ValueValidators;
 import me.jddev0.ep.config.value.FloatConfigValue;
 import me.jddev0.ep.config.value.LongConfigValue;
 import net.fabricmc.loader.api.FabricLoader;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public final class ModConfigs {
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -104,6 +106,13 @@ public final class ModConfigs {
     public static final ConfigValue<Double> COMMON_INVENTORY_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER = registerEnergyProductionMultiplierConfigValue(
             "item.inventory_coal_engine", "Inventory Coal Engine"
     );
+
+    public static final ConfigValue<Integer> COMMON_INVENTORY_CHARGER_SLOT_COUNT = COMMON_CONFIG.register(new IntegerConfigValue(
+            "item.inventory_charger.slot_count",
+            "The slot count of the Inventory Charger. WARNING: If set to a lower value than previously, items which are stored in an Inventory Charger could vanish!",
+            3,
+            ValueValidators.elementOfCollection(List.of(1, 3, 5))
+    ));
 
     //Blocks
     public static final ConfigValue<Long> COMMON_BATTERY_BOX_CAPACITY = registerEnergyCapacityConfigValue(

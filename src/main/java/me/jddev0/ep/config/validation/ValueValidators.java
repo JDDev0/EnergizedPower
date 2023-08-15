@@ -3,9 +3,10 @@ package me.jddev0.ep.config.validation;
 import me.jddev0.ep.config.ConfigValidationException;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collection;
 import java.util.List;
 
-public final class Validators {
+public final class ValueValidators {
     public static final ValueValidator<String> STRING_NOT_EMPTY = new ValueValidator<>() {
         @Override
         public void validate(@NotNull String value) throws ConfigValidationException {
@@ -31,5 +32,10 @@ public final class Validators {
         }
     };
 
-    private Validators() {}
+    @NotNull
+    public static <T> ElementOfCollectionValueValidator<T> elementOfCollection(@NotNull Collection<T> elements) {
+        return new ElementOfCollectionValueValidator<>(elements);
+    }
+
+    private ValueValidators() {}
 }
