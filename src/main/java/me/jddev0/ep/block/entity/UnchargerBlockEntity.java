@@ -67,9 +67,6 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
 
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                if(stack.getCount() != 1)
-                    return false;
-
                 if(slot == 0) {
                     if(!EnergyStorageUtil.isEnergyStorage(stack))
                         return false;

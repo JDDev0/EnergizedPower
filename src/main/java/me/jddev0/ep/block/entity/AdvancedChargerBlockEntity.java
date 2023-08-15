@@ -74,9 +74,6 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
 
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                if(stack.getCount() != 1)
-                    return false;
-
                 if(world == null || RecipeUtils.isIngredientOfAny(world, ChargerRecipe.Type.INSTANCE, stack))
                     return true;
 
