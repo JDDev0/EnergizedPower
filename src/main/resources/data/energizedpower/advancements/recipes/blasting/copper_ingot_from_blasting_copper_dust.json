@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_copper_dust": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "c:copper_dusts"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "energizedpower:blasting/copper_ingot_from_blasting_copper_dust"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_copper_dust",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "energizedpower:blasting/copper_ingot_from_blasting_copper_dust"
+    ]
+  }
+}
