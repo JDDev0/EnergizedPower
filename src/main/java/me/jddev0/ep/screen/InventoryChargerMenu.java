@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
+import me.jddev0.ep.item.InventoryChargerItem;
 import org.jetbrains.annotations.NotNull;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
@@ -19,10 +20,10 @@ public class InventoryChargerMenu extends ScreenHandler {
     private final World level;
 
     public InventoryChargerMenu(int id, PlayerInventory inv) {
-        this(id, inv, new SimpleInventory(3) {
+        this(id, inv, new SimpleInventory(InventoryChargerItem.SLOT_COUNT) {
             @Override
             public boolean isValid(int slot, @NotNull ItemStack stack) {
-                if(slot >= 0 && slot < 3) {
+                if(slot >= 0 && slot < size()) {
                     if(!EnergyStorageUtil.isEnergyStorage(stack))
                         return false;
 
@@ -46,16 +47,28 @@ public class InventoryChargerMenu extends ScreenHandler {
     public InventoryChargerMenu(int id, PlayerInventory playerInventory, Inventory inv) {
         super(ModMenuTypes.INVENTORY_CHARGER_MENU, id);
 
-        checkSize(inv, 3);
+        checkSize(inv, InventoryChargerItem.SLOT_COUNT);
         this.inv = inv;
         this.level = playerInventory.player.getWorld();
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
-        addSlot(new ConstraintInsertSlot(inv, 0, 62, 35));
-        addSlot(new ConstraintInsertSlot(inv, 1, 80, 35));
-        addSlot(new ConstraintInsertSlot(inv, 2, 98, 35));
+        int slotIndex = 0;
+        if(inv.size() >= 5)
+            addSlot(new ConstraintInsertSlot(inv, slotIndex++, 44, 35));
+
+        if(inv.size() >= 3)
+            addSlot(new ConstraintInsertSlot(inv, slotIndex++, 62, 35));
+
+        if(inv.size() >= 1)
+            addSlot(new ConstraintInsertSlot(inv, slotIndex++, 80, 35));
+
+        if(inv.size() >= 3)
+            addSlot(new ConstraintInsertSlot(inv, slotIndex++, 98, 35));
+
+        if(inv.size() >= 5)
+            addSlot(new ConstraintInsertSlot(inv, slotIndex, 116, 35));
     }
 
     @Override
@@ -69,10 +82,10 @@ public class InventoryChargerMenu extends ScreenHandler {
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into tile inventory
-            if(!insertItem(sourceItem, 4 * 9, 4 * 9 + 3, false)) {
+            if(!insertItem(sourceItem, 4 * 9, 4 * 9 + inv.size(), false)) {
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 3) {
+        }else if(index < 4 * 9 + inv.size()) {
             //Tile inventory slot -> Merge into player inventory
             if(!insertItem(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;

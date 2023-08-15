@@ -1,5 +1,6 @@
 package me.jddev0.ep.item;
 
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.InventoryChargerMenu;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -35,6 +36,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class InventoryChargerItem extends Item implements NamedScreenHandlerFactory {
+    public static final int SLOT_COUNT = ModConfigs.COMMON_INVENTORY_CHARGER_SLOT_COUNT.getValue();
+
     public InventoryChargerItem(FabricItemSettings props) {
         super(props);
     }
@@ -267,7 +270,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
         NbtCompound nbt = itemStack.getOrCreateNbt();
 
         if(nbt.contains("inventory")) {
-            DefaultedList<ItemStack> items = DefaultedList.ofSize(3, ItemStack.EMPTY);
+            DefaultedList<ItemStack> items = DefaultedList.ofSize(SLOT_COUNT, ItemStack.EMPTY);
             Inventories.readNbt(nbt.getCompound("inventory"), items);
             return new SimpleInventory(items.toArray(new ItemStack[0])) {
                 @Override
@@ -279,7 +282,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
 
                 @Override
                 public boolean isValid(int slot, @NotNull ItemStack stack) {
-                    if(slot >= 0 && slot < 3) {
+                    if(slot >= 0 && slot < size()) {
                         if(!EnergyStorageUtil.isEnergyStorage(stack))
                             return false;
 
@@ -305,7 +308,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
             };
         }
 
-        return new SimpleInventory(3) {
+        return new SimpleInventory(SLOT_COUNT) {
             @Override
             public void markDirty() {
                 super.markDirty();
@@ -315,7 +318,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
 
             @Override
             public boolean isValid(int slot, @NotNull ItemStack stack) {
-                if(slot >= 0 && slot < 3) {
+                if(slot >= 0 && slot < size()) {
                     if(!EnergyStorageUtil.isEnergyStorage(stack))
                         return false;
 
