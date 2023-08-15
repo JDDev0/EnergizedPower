@@ -3,7 +3,9 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.CrusherBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.recipe.CrusherRecipe;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -25,8 +27,16 @@ public class CrusherMenu extends ScreenHandler implements EnergyStorageConsumerI
     private final PropertyDelegate data;
 
     public CrusherMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(2),
-                new ArrayPropertyDelegate(9));
+        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(2) {
+            @Override
+            public boolean isValid(int slot, ItemStack stack) {
+                return switch(slot) {
+                    case 0 -> RecipeUtils.isIngredientOfAny(inv.player.getWorld(), CrusherRecipe.Type.INSTANCE, stack);
+                    case 1 -> false;
+                    default -> super.isValid(slot, stack);
+                };
+            }
+        }, new ArrayPropertyDelegate(9));
     }
 
     public CrusherMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
