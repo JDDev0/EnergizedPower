@@ -31,9 +31,6 @@ public class AdvancedUnchargerMenu extends ScreenHandler implements EnergyStorag
         this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(3) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                if(stack.getCount() != 1)
-                    return false;
-
                 if(slot >= 0 && slot < 3) {
                     if(!EnergyStorageUtil.isEnergyStorage(stack))
                         return false;
