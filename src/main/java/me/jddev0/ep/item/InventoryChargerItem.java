@@ -1,5 +1,6 @@
 package me.jddev0.ep.item;
 
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.integration.curios.CuriosCompatUtils;
 import me.jddev0.ep.screen.InventoryChargerMenu;
 import me.jddev0.ep.util.EnergyUtils;
@@ -28,6 +29,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class InventoryChargerItem extends Item implements MenuProvider {
+    public static final int SLOT_COUNT = ModConfigs.COMMON_INVENTORY_CHARGER_SLOT_COUNT.getValue();
+
     public InventoryChargerItem(Properties props) {
         super(props);
     }
@@ -256,15 +259,15 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         CompoundTag nbt = itemStack.getOrCreateTag();
 
         if(nbt.contains("inventory")) {
-            NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
+            NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
             ContainerHelper.loadAllItems(nbt.getCompound("inventory"), items);
             return new SimpleContainer(items.toArray(new ItemStack[0])) {
                 @Override
                 public void setChanged() {
                     super.setChanged();
 
-                    NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
-                    for(int i = 0;i < 3;i++)
+                    NonNullList<ItemStack> items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
+                    for(int i = 0;i < getContainerSize();i++)
                         items.set(i, getItem(i));
 
                     itemStack.getOrCreateTag().put("inventory", ContainerHelper.saveAllItems(new CompoundTag(), items));
@@ -272,7 +275,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
 
                 @Override
                 public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
-                    if(slot >= 0 && slot < 3) {
+                    if(slot >= 0 && slot < getContainerSize()) {
                         LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
                         if(!energyStorageLazyOptional.isPresent())
                             return false;
@@ -296,13 +299,13 @@ public class InventoryChargerItem extends Item implements MenuProvider {
             };
         }
 
-        return new SimpleContainer(3) {
+        return new SimpleContainer(SLOT_COUNT) {
             @Override
             public void setChanged() {
                 super.setChanged();
 
-                NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
-                for(int i = 0;i < 3;i++)
+                NonNullList<ItemStack> items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
+                for(int i = 0;i < getContainerSize();i++)
                     items.set(i, getItem(i));
 
                 itemStack.getOrCreateTag().put("inventory", ContainerHelper.saveAllItems(new CompoundTag(), items));
@@ -310,7 +313,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
 
             @Override
             public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
-                if(slot >= 0 && slot < 3) {
+                if(slot >= 0 && slot < getContainerSize()) {
                     LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
                     if(!energyStorageLazyOptional.isPresent())
                         return false;
