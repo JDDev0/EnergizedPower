@@ -83,9 +83,6 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
 
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                if(stack.getCount() != 1)
-                    return false;
-
                 if(slot == 0)
                     return ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM) != null;
 

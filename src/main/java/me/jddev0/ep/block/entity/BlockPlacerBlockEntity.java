@@ -71,9 +71,6 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
 
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                if(stack.getCount() != 1)
-                    return false;
-
                 if(slot == 0) {
                     return stack.getItem() instanceof BlockItem;
                 }

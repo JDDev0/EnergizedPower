@@ -82,9 +82,6 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
 
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                if(stack.getCount() != 1)
-                    return false;
-
                 if(slot == 0)
                     return ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM) != null;
 

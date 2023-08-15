@@ -70,9 +70,6 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
 
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                if(stack.getCount() != 1)
-                    return false;
-
                 if(world == null || RecipeUtils.isIngredientOfAny(world, ChargerRecipe.Type.INSTANCE, stack))
                     return true;
 

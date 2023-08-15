@@ -29,9 +29,6 @@ public class BlockPlacerMenu extends ScreenHandler implements EnergyStorageConsu
         this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                if(stack.getCount() != 1)
-                    return false;
-
                 if(slot == 0) {
                     return stack.getItem() instanceof BlockItem;
                 }
