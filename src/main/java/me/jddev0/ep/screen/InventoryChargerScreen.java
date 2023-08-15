@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.item.InventoryChargerItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
@@ -13,10 +14,12 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class InventoryChargerScreen extends HandledScreen<InventoryChargerMenu> {
-    private final Identifier TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/inventory_charger.png");
+    private final Identifier TEXTURE;
 
     public InventoryChargerScreen(InventoryChargerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component);
+
+        TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/generic_1x" + InventoryChargerItem.SLOT_COUNT + ".png");
     }
 
     @Override
