@@ -270,8 +270,11 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
                     if(blockEntity.energyConsumptionLeft[i] == -1)
                         blockEntity.energyConsumptionLeft[i] = (long)(recipe.get().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);;
 
-                    if(blockEntity.internalEnergyStorage.amount == 0)
+                    if(blockEntity.internalEnergyStorage.amount == 0) {
+                        markDirty(level, blockPos, state);
+
                         continue;
+                    }
 
                     energyConsumptionPerTick = Math.min(blockEntity.energyConsumptionLeft[i], Math.min(maxReceivePerSlot,
                             blockEntity.internalEnergyStorage.amount));
