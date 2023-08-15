@@ -33,7 +33,7 @@ public class SawmillCategory implements DisplayCategory<SawmillDisplay> {
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModBlocks.SAWMILL);
+        return EntryStacks.of(ModBlocks.SAWMILL_ITEM);
     }
 
     @Override
