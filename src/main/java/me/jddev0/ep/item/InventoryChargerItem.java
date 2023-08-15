@@ -43,6 +43,9 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
     public TypedActionResult<ItemStack> use(World level, PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
 
+        if(hand == Hand.OFF_HAND)
+            return TypedActionResult.pass(itemStack);
+
         if(level.isClient())
             return TypedActionResult.success(itemStack);
 
