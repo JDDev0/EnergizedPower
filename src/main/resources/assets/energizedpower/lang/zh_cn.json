@@ -272,6 +272,10 @@
   "item.energizedpower.crusher": "粉碎机",
   "container.energizedpower.crusher": "粉碎机",
 
+  "block.energizedpower.pulverizer": "Pulverizer",
+  "item.energizedpower.pulverizer": "Pulverizer",
+  "container.energizedpower.pulverizer": "Pulverizer",
+
   "block.energizedpower.sawmill": "锯木机",
   "item.energizedpower.sawmill": "锯木机",
   "container.energizedpower.sawmill": "锯木机",
@@ -379,6 +383,7 @@
 
   "emi.category.energizedpower.charger": "充能站",
   "emi.category.energizedpower.crusher": "粉碎机",
+  "emi.category.energizedpower.pulverizer": "Pulverizer",
   "emi.category.energizedpower.sawmill": "锯木机",
   "emi.category.energizedpower.compressor": "压缩机",
   "emi.category.energizedpower.plant_growth_chamber": "植物生长箱",
@@ -402,6 +407,9 @@
 
   "advancements.energizedpower.crusher.title": "粉碎",
   "advancements.energizedpower.crusher.description": "石头，砂岩，圆石，沙砾，或其他方块。",
+
+  "advancements.energizedpower.pulverizer.title": "Pulverization",
+  "advancements.energizedpower.pulverizer.description": "Pulverize ores to boost production.",
 
   "advancements.energizedpower.sawmill.title": "锯削",
   "advancements.energizedpower.sawmill.description": "锯木头。",
@@ -778,6 +786,8 @@
   "book.energizedpower.page.auto_crafter.3": "The Auto Crafter can handle recipe conflicts, that is recipes with the same inputs. To do this, use the \"Cycle through recipes\" button or set the pattern via a recipe viewer mod (like REI).",
 
   "book.energizedpower.page.crusher": "粉碎机可以粉碎石头、砂岩、圆石和沙砾等方块。",
+
+  "book.energizedpower.page.pulverizer": "The Pulverizer produces ore dusts which can be smelted to ingots.",
 
   "book.energizedpower.page.sawmill.1": "锯木机可以据原木和一些物品。",
   "book.energizedpower.page.sawmill.2": "锯末是锯木机生产出的副产品，可以合成锯末块用于燃料。",

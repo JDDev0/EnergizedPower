@@ -1,0 +1,12 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": {
+    "tag": "forge:ingots/iron"
+  },
+  "output": {
+    "output": {
+      "item": "energizedpower:iron_dust"
+    },
+    "percentages": [ 1.0 ]
+  }
+}

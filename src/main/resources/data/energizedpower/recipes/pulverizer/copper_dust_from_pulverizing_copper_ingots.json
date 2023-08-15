@@ -1,0 +1,12 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": {
+    "tag": "forge:ingots/copper"
+  },
+  "output": {
+    "output": {
+      "item": "energizedpower:copper_dust"
+    },
+    "percentages": [ 1.0 ]
+  }
+}
