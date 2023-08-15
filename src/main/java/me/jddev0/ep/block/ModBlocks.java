@@ -155,6 +155,11 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item CRUSHER_ITEM = createBlockItem("crusher", CRUSHER);
 
+    public static final Block PULVERIZER = registerBlock("pulverizer",
+            new PulverizerBlock(FabricBlockSettings.create().
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item PULVERIZER_ITEM = createBlockItem("pulverizer", PULVERIZER);
+
     public static final Block SAWMILL = registerBlock("sawmill",
             new SawmillBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

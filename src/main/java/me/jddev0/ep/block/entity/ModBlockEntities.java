@@ -73,6 +73,14 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
+    public static final BlockEntityType<PulverizerBlockEntity> PULVERIZER_ENTITY = registerEnergyStorage(
+            registerInventoryStorage(
+                    createBlockEntity("pulverizer", ModBlocks.PULVERIZER, PulverizerBlockEntity::new),
+                    (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)
+            ),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
+
     public static final BlockEntityType<SawmillBlockEntity> SAWMILL_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
                     createBlockEntity("sawmill", ModBlocks.SAWMILL, SawmillBlockEntity::new),
