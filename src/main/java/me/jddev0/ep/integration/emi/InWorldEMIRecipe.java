@@ -9,14 +9,14 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.EnergizedPowerMod;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.Blocks;
 
 import java.util.List;
 
 public class InWorldEMIRecipe implements EmiRecipe {
     public static final ResourceLocation SIMPLIFIED_TEXTURE = new ResourceLocation("textures/block/grass_block_side.png");
-    public static final EmiStack ITEM = EmiStack.of(Blocks.GRASS_BLOCK);
+    public static final EmiStack ITEM = EmiStack.of(Items.GRASS_BLOCK);
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new ResourceLocation(EnergizedPowerMod.MODID, "in_world_crafting"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
