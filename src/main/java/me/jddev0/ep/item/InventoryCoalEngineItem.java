@@ -27,13 +27,13 @@ import team.reborn.energy.api.EnergyStorageUtil;
 import java.util.LinkedList;
 import java.util.List;
 
-public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements ActivatableItem, WorkingItem {
+public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements ActivatableItem, WorkingItem {
     public static final long CAPACITY = ModConfigs.COMMON_INVENTORY_COAL_ENGINE_CAPACITY.getValue();
     public static final long MAX_EXTRACT = ModConfigs.COMMON_INVENTORY_COAL_ENGINE_TRANSFER_RATE.getValue();
 
     public static final double ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_INVENTORY_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
-    public InventoryCoalEngine(FabricItemSettings props) {
+    public InventoryCoalEngineItem(FabricItemSettings props) {
         super(props, CAPACITY, 0, MAX_EXTRACT);
     }
 
