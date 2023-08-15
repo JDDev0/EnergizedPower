@@ -4,7 +4,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
 
-version = '1.19.4-2.0.0-beta-2'
+version = '1.19.4-2.0.0-dev'
 group = 'me.jddev0.energizedpower' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'energizedpower'
 
