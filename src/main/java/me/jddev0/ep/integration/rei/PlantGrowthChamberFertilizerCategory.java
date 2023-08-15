@@ -33,7 +33,7 @@ public class PlantGrowthChamberFertilizerCategory implements DisplayCategory<Pla
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModBlocks.PLANT_GROWTH_CHAMBER.get());
+        return EntryStacks.of(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM.get());
     }
 
     @Override
