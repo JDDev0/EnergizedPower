@@ -77,7 +77,7 @@ public final class ModItems {
             new Item(new FabricItemSettings()));
 
     public static final Item INVENTORY_COAL_ENGINE = registerItem("inventory_coal_engine",
-            new InventoryCoalEngine(new FabricItemSettings().maxCount(1)));
+            new InventoryCoalEngineItem(new FabricItemSettings().maxCount(1)));
 
     public static final Item INVENTORY_CHARGER = registerItem("inventory_charger",
             new InventoryChargerItem(new FabricItemSettings().maxCount(1)));
