@@ -28,6 +28,13 @@ public final class ModItems {
     public static final Item SILICON = registerItem("silicon",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final Item COPPER_DUST = registerItem("copper_dust",
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+    public static final Item IRON_DUST = registerItem("iron_dust",
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+    public static final Item GOLD_DUST = registerItem("gold_dust",
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final Item COPPER_PLATE = registerItem("copper_plate",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final Item IRON_PLATE = registerItem("iron_plate",
