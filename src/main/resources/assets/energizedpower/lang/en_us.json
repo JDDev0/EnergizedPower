@@ -7,6 +7,10 @@
 
   "item.energizedpower.silicon": "Silicon",
 
+  "item.energizedpower.copper_dust": "Copper Dust",
+  "item.energizedpower.iron_dust": "Iron Dust",
+  "item.energizedpower.gold_dust": "Gold Dust",
+
   "item.energizedpower.copper_plate": "Copper Plate",
   "item.energizedpower.iron_plate": "Iron Plate",
   "item.energizedpower.gold_plate": "Gold Plate",
@@ -652,6 +656,8 @@
   "book.energizedpower.page.sawdust.2": "Sawdust blocks can be burned to charcoal.",
 
   "book.energizedpower.page.fertilizers": "Fertilizers can be used to make the Plant Growth Chamber faster.",
+
+  "book.energizedpower.page.ore_dusts": "Ore dusts can be smelted to ingots.",
 
   "book.energizedpower.page.plates.1": "Plates are used as a crafting ingredient in most machines. Plates can be crafted with hammers or by using the compressor.",
   "book.energizedpower.page.plates.2": "Energized plates can be created in the compressor only.",
