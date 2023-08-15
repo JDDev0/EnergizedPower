@@ -7,6 +7,10 @@
 
   "item.energizedpower.silicon": "Silicio",
 
+  "item.energizedpower.copper_dust": "Copper Dust",
+  "item.energizedpower.iron_dust": "Iron Dust",
+  "item.energizedpower.gold_dust": "Gold Dust",
+
   "item.energizedpower.copper_plate": "Piastra di rame",
   "item.energizedpower.iron_plate": "Piastra di ferro",
   "item.energizedpower.gold_plate": "PiaStra d'oro",
@@ -652,6 +656,8 @@
   "book.energizedpower.page.sawdust.2": "I blocchi di segatura possono essere bruciati come il carbone.",
 
   "book.energizedpower.page.fertilizers": "I fertilizzanti possono essere utilizzati per rendere più veloce la Camera di crescita delle piante.",
+
+  "book.energizedpower.page.ore_dusts": "Ore dusts can be smelted to ingots.",
 
   "book.energizedpower.page.plates.1": "Le lastre sono usate come ingrediente di lavorazione nella maggior parte delle macchine. Le lastre possono essere realizzate con martelli o utilizzando il compressore.",
   "book.energizedpower.page.plates.2": "Le lastre energizzate possono essere create solo nel compressore.",
