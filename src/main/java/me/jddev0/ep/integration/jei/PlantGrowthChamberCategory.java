@@ -70,14 +70,10 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<PlantGrowthCh
         for(int i = 0;i < outputEntries.length;i++)
             outputSlotEntries.get(i % 4).add(outputEntries[i]);
 
-        if(!outputSlotEntries.get(0).isEmpty())
-            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 73, 1).addItemStacks(outputSlotEntries.get(0));
-        if(!outputSlotEntries.get(1).isEmpty())
-            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 91, 1).addItemStacks(outputSlotEntries.get(1));
-        if(!outputSlotEntries.get(2).isEmpty())
-            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 73, 19).addItemStacks(outputSlotEntries.get(2));
-        if(!outputSlotEntries.get(3).isEmpty())
-            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 91, 19).addItemStacks(outputSlotEntries.get(3));
+        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 73, 1).addItemStacks(outputSlotEntries.get(0));
+        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 91, 1).addItemStacks(outputSlotEntries.get(1));
+        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 73, 19).addItemStacks(outputSlotEntries.get(2));
+        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 91, 19).addItemStacks(outputSlotEntries.get(3));
     }
 
     @Override
