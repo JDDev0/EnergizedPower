@@ -1,0 +1,12 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": {
+    "item": "minecraft:ancient_debris"
+  },
+  "output": {
+    "output": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "percentages": [ 1.0, 0.125, 0.125 ]
+  }
+}
