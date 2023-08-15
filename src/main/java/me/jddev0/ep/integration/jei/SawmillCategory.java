@@ -15,6 +15,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SawmillCategory implements IRecipeCategory<SawmillRecipe> {
     public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "sawmill");
     public static final RecipeType<SawmillRecipe> TYPE = new RecipeType<>(UID, SawmillRecipe.class);
@@ -55,7 +58,7 @@ public class SawmillCategory implements IRecipeCategory<SawmillRecipe> {
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).addItemStack(recipe.getOutput());
 
-        if(!recipe.getSecondaryOutput().isEmpty())
-            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 92, 5).addItemStack(recipe.getSecondaryOutput());
+        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 92, 5).
+                addItemStacks(recipe.getSecondaryOutput().isEmpty()?new ArrayList<>(0):List.of(recipe.getSecondaryOutput()));
     }
 }

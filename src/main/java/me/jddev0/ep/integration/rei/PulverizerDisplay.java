@@ -19,7 +19,7 @@ public record PulverizerDisplay(PulverizerRecipe recipe) implements Display {
 
     @Override
     public List<EntryIngredient> getOutputEntries() {
-        return Arrays.stream(recipe.getMaxOutputCounts()).map(EntryIngredients::of).toList();
+        return Arrays.stream(recipe.getMaxOutputCounts()).filter(itemStack -> !itemStack.isEmpty()).map(EntryIngredients::of).toList();
     }
 
     @Override
