@@ -5,6 +5,8 @@ import me.jddev0.ep.block.entity.FluidDrainerBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.util.ByteUtils;
+import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -26,8 +28,23 @@ public class FluidDrainerMenu extends ScreenHandler implements EnergyStorageMenu
     private final PropertyDelegate data;
 
     public FluidDrainerMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
-        this(id, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), inv, new SimpleInventory(1),
-                new ArrayPropertyDelegate(8));
+        this(id, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), inv, new SimpleInventory(1) {
+            @Override
+            public boolean isValid(int slot, ItemStack stack) {
+                if(stack.getCount() != 1)
+                    return false;
+
+                if(slot == 0)
+                    return ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM) != null;
+
+                return super.isValid(slot, stack);
+            }
+
+            @Override
+            public int getMaxCountPerStack() {
+                return 1;
+            }
+        }, new ArrayPropertyDelegate(8));
     }
 
     public FluidDrainerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {

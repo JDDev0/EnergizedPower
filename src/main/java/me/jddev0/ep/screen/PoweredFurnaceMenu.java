@@ -4,6 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.PoweredFurnaceBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -11,6 +12,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -25,8 +27,16 @@ public class PoweredFurnaceMenu extends ScreenHandler implements EnergyStorageCo
     private final PropertyDelegate data;
 
     public PoweredFurnaceMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(2),
-                new ArrayPropertyDelegate(9));
+        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(2) {
+            @Override
+            public boolean isValid(int slot, ItemStack stack) {
+                return switch(slot) {
+                    case 0 -> RecipeUtils.isIngredientOfAny(inv.player.getWorld(), RecipeType.SMELTING, stack);
+                    case 1 -> false;
+                    default -> super.isValid(slot, stack);
+                };
+            }
+        }, new ArrayPropertyDelegate(9));
     }
 
     public PoweredFurnaceMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
