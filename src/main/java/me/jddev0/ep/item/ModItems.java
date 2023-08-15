@@ -73,7 +73,7 @@ public final class ModItems {
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> INVENTORY_COAL_ENGINE = ITEMS.register("inventory_coal_engine",
-            () -> new InventoryCoalEngine(new Item.Properties().stacksTo(1)));
+            () -> new InventoryCoalEngineItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> INVENTORY_CHARGER = ITEMS.register("inventory_charger",
             () -> new InventoryChargerItem(new Item.Properties().stacksTo(1)));
