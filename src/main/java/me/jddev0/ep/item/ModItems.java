@@ -70,6 +70,9 @@ public final class ModItems {
     public static final Item INVENTORY_COAL_ENGINE = registerItem("inventory_coal_engine",
             new InventoryCoalEngine(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxCount(1)));
 
+    public static final Item INVENTORY_CHARGER = registerItem("inventory_charger",
+            new InventoryChargerItem(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxCount(1)));
+
     public static final Item BATTERY_1 = registerItem("battery_1",
             new BatteryItem(BatteryItem.Tier.BATTERY_1));
     public static final Item BATTERY_2 = registerItem("battery_2",

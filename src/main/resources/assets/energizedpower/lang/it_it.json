@@ -41,6 +41,10 @@
   "tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning": "Attualmente in fiamme: ",
   "tooltip.energizedpower.inventory_coal_engine.txt.shift.energy_production_left": "Produzione di energia a sinistra: %s",
 
+  "item.energizedpower.inventory_charger": "Inventory Charger",
+  "container.energizedpower.inventory_charger": "Inventory Charger",
+  "tooltip.energizedpower.inventory_charger.txt.shift.1": "Open the inventory of this item by using this item on air",
+
   "item.energizedpower.battery_1": "Batteria (Livello I)",
   "item.energizedpower.battery_2": "Batteria (Livello II)",
   "item.energizedpower.battery_3": "Batteria (Livello III)",
