@@ -36,7 +36,7 @@ public class EnergizerCategory implements DisplayCategory<EnergizerDisplay> {
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModBlocks.ENERGIZER);
+        return EntryStacks.of(ModBlocks.ENERGIZER_ITEM);
     }
 
     @Override
