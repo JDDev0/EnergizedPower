@@ -41,6 +41,10 @@
   "tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning": "目前在燃烧：",
   "tooltip.energizedpower.inventory_coal_engine.txt.shift.energy_production_left": "左边能量产出：%s",
 
+  "item.energizedpower.inventory_charger": "Inventory Charger",
+  "container.energizedpower.inventory_charger": "Inventory Charger",
+  "tooltip.energizedpower.inventory_charger.txt.shift.1": "Open the inventory of this item by using this item on air",
+
   "item.energizedpower.battery_1": "电池（等级 I）",
   "item.energizedpower.battery_2": "电池（等级 II）",
   "item.energizedpower.battery_3": "电池（等级 III）",

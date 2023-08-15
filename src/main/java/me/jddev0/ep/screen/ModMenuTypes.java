@@ -98,6 +98,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<AdvancedMinecartUnchargerMenu>> ADVANCED_MINECART_UNCHARGER_MENU = registerMenuType("advanced_minecart_uncharger",
             AdvancedMinecartUnchargerMenu::new);
 
+    public static final RegistryObject<MenuType<InventoryChargerMenu>> INVENTORY_CHARGER_MENU = registerMenuType("inventory_charger",
+            InventoryChargerMenu::new);
+
     public static final RegistryObject<MenuType<MinecartBatteryBoxMenu>> MINECART_BATTERY_BOX_MENU = registerMenuType("minecart_battery_box",
             MinecartBatteryBoxMenu::new);
     public static final RegistryObject<MenuType<MinecartAdvancedBatteryBoxMenu>> MINECART_ADVANCED_BATTERY_BOX_MENU = registerMenuType("minecart_advanced_battery_box",
