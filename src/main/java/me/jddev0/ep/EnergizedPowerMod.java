@@ -153,7 +153,7 @@ public class EnergizedPowerMod {
             event.accept(ModItems.BASIC_SOLAR_CELL);
             event.accept(ModItems.ADVANCED_SOLAR_CELL);
 
-            addEmptyAndFullyChargedItem(event, ModItems.INVENTORY_COAL_ENGINE, InventoryCoalEngine.CAPACITY);
+            addEmptyAndFullyChargedItem(event, ModItems.INVENTORY_COAL_ENGINE, InventoryCoalEngineItem.CAPACITY);
             event.accept(ModItems.INVENTORY_CHARGER);
 
             addEmptyAndFullyChargedItem(event, ModItems.BATTERY_1, BatteryItem.Tier.BATTERY_1.getCapacity());

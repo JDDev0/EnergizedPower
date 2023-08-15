@@ -26,13 +26,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class InventoryCoalEngine extends EnergizedPowerEnergyItem implements ActivatableItem, WorkingItem {
+public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements ActivatableItem, WorkingItem {
     public static final int CAPACITY = ModConfigs.COMMON_INVENTORY_COAL_ENGINE_CAPACITY.getValue();
     public static final int MAX_EXTRACT = ModConfigs.COMMON_INVENTORY_COAL_ENGINE_TRANSFER_RATE.getValue();
 
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_INVENTORY_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
-    public InventoryCoalEngine(Properties props) {
+    public InventoryCoalEngineItem(Properties props) {
         super(props, () -> new ExtractOnlyEnergyStorage(0, CAPACITY, MAX_EXTRACT));
     }
 
