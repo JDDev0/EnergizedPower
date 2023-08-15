@@ -33,7 +33,7 @@ public class PulverizerCategory implements DisplayCategory<PulverizerDisplay> {
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModBlocks.PULVERIZER.get());
+        return EntryStacks.of(ModBlocks.PULVERIZER_ITEM.get());
     }
 
     @Override
