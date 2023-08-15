@@ -33,7 +33,7 @@ public class CrusherCategory implements DisplayCategory<CrusherDisplay> {
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModBlocks.CRUSHER);
+        return EntryStacks.of(ModBlocks.CRUSHER_ITEM);
     }
 
     @Override
