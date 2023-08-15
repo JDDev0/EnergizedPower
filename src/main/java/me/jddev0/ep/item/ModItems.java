@@ -75,7 +75,7 @@ public final class ModItems {
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Item INVENTORY_COAL_ENGINE = registerItem("inventory_coal_engine",
-            new InventoryCoalEngine(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxCount(1)));
+            new InventoryCoalEngineItem(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxCount(1)));
 
     public static final Item INVENTORY_CHARGER = registerItem("inventory_charger",
             new InventoryChargerItem(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxCount(1)));
