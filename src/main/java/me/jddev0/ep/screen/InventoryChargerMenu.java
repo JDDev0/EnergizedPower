@@ -82,7 +82,13 @@ public class InventoryChargerMenu extends ScreenHandler {
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into tile inventory
-            if(!insertItem(sourceItem, 4 * 9, 4 * 9 + inv.size(), false)) {
+            //Allow only 1 item
+            int minFreeSlotIndex = 4 * 9;
+            for(;minFreeSlotIndex < 4 * 9 + inv.size();minFreeSlotIndex++)
+                if(!getSlot(minFreeSlotIndex).hasStack())
+                    break;
+
+            if(minFreeSlotIndex >= 4 * 9 + inv.size() || !insertItem(sourceItem, 4 * 9, 4 * 9 + inv.size(), false)) {
                 return ItemStack.EMPTY;
             }
         }else if(index < 4 * 9 + inv.size()) {
