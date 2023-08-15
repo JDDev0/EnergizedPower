@@ -44,6 +44,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("crusher", () -> BlockEntityType.Builder.of(CrusherBlockEntity::new,
                     ModBlocks.CRUSHER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<PulverizerBlockEntity>> PULVERIZER_ENTITY =
+            BLOCK_ENTITIES.register("pulverizer", () -> BlockEntityType.Builder.of(PulverizerBlockEntity::new,
+                    ModBlocks.PULVERIZER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<SawmillBlockEntity>> SAWMILL_ENTITY =
             BLOCK_ENTITIES.register("sawmill", () -> BlockEntityType.Builder.of(SawmillBlockEntity::new,
                     ModBlocks.SAWMILL.get()).build(null));

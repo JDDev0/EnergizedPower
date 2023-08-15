@@ -272,6 +272,10 @@
   "item.energizedpower.crusher": "Zerkleinerer",
   "container.energizedpower.crusher": "Zerkleinerer",
 
+  "block.energizedpower.pulverizer": "Pulverisierer",
+  "item.energizedpower.pulverizer": "Pulverisierer",
+  "container.energizedpower.pulverizer": "Pulverisierer",
+
   "block.energizedpower.sawmill": "Sägewerk",
   "item.energizedpower.sawmill": "Sägewerk",
   "container.energizedpower.sawmill": "Sägewerk",
@@ -379,6 +383,7 @@
 
   "emi.category.energizedpower.charger": "Lader",
   "emi.category.energizedpower.crusher": "Zerkleinerer",
+  "emi.category.energizedpower.pulverizer": "Pulverisierer",
   "emi.category.energizedpower.sawmill": "Sägewerk",
   "emi.category.energizedpower.compressor": "Kompressor",
   "emi.category.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
@@ -402,6 +407,9 @@
 
   "advancements.energizedpower.crusher.title": "Zerkleinere es",
   "advancements.energizedpower.crusher.description": "Zerkleinere Stein, Sandstein, Bruchstein, Kies oder andere Blöcke.",
+
+  "advancements.energizedpower.pulverizer.title": "Pulverization",
+  "advancements.energizedpower.pulverizer.description": "Pulveriziere Erze, um die Produktion zu steigern.",
 
   "advancements.energizedpower.sawmill.title": "Sägen",
   "advancements.energizedpower.sawmill.description": "Sägt Holz.",
@@ -778,6 +786,8 @@
   "book.energizedpower.page.auto_crafter.3": "Die automatische Werkbank kann mit Rezept-Konflikten umgehen, d.h. Rezepte mit den gleichen Items. Nutze dafür den \"Rezepte durchlaufen\"-Button oder setzte das Pattern mithilfe einer Recipe-Viewer-Mod (wie REI).",
 
   "book.energizedpower.page.crusher": "Der Zerkleinerer kann Items wie Sand, Sandstein, Bruchstein und Kies zerkleinern.",
+
+  "book.energizedpower.page.pulverizer": "Der Pulverisierer produziert Erzstaub, dieser kann in Barren geschmolzen werden.",
 
   "book.energizedpower.page.sawmill.1": "Das Sägewerk sägt Holz-Blöcke und -Items.",
   "book.energizedpower.page.sawmill.2": "Sägemehl wird dabei produziert und kann zu Sägemehlblöcken verarbeitet werden. Diese können dann als Treibstoff verwendet werden.",

@@ -1,0 +1,12 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": {
+    "tag": "forge:raw_materials/gold"
+  },
+  "output": {
+    "output": {
+      "item": "energizedpower:gold_dust"
+    },
+    "percentages": [ 1.0, 0.25 ]
+  }
+}

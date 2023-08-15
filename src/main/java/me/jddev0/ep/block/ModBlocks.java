@@ -168,6 +168,11 @@ public final class ModBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final RegistryObject<Item> CRUSHER_ITEM = createBlockItem("crusher", CRUSHER);
 
+    public static final RegistryObject<Block> PULVERIZER = BLOCKS.register("pulverizer",
+            () -> new PulverizerBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> PULVERIZER_ITEM = createBlockItem("pulverizer", PULVERIZER);
+
     public static final RegistryObject<Block> SAWMILL = BLOCKS.register("sawmill",
             () -> new SawmillBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
