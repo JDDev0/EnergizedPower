@@ -7,9 +7,9 @@
 
   "item.energizedpower.silicon": "Silicio",
 
-  "item.energizedpower.copper_dust": "Copper Dust",
-  "item.energizedpower.iron_dust": "Iron Dust",
-  "item.energizedpower.gold_dust": "Gold Dust",
+  "item.energizedpower.copper_dust": "Polvere di rame",
+  "item.energizedpower.iron_dust": "Polvere di ferro",
+  "item.energizedpower.gold_dust": "Polvere di oro",
 
   "item.energizedpower.copper_plate": "Piastra di rame",
   "item.energizedpower.iron_plate": "Piastra di ferro",
@@ -45,9 +45,9 @@
   "tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning": "Attualmente in fiamme: ",
   "tooltip.energizedpower.inventory_coal_engine.txt.shift.energy_production_left": "Produzione di energia a sinistra: %s",
 
-  "item.energizedpower.inventory_charger": "Inventory Charger",
-  "container.energizedpower.inventory_charger": "Inventory Charger",
-  "tooltip.energizedpower.inventory_charger.txt.shift.1": "Open the inventory of this item by using this item on air",
+  "item.energizedpower.inventory_charger": "Caricatore inventario",
+  "container.energizedpower.inventory_charger": "Caricatore inventario",
+  "tooltip.energizedpower.inventory_charger.txt.shift.1": "Apri l'inventario di questo articolo utilizzando questo articolo in onda",
 
   "item.energizedpower.battery_1": "Batteria (Livello I)",
   "item.energizedpower.battery_2": "Batteria (Livello II)",
@@ -138,9 +138,9 @@
 
   "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "Questi elementi richiedono %s per essere completamente caricati.",
 
-  "block.energizedpower.uncharger": "Scarico",
-  "item.energizedpower.uncharger": "Scarico",
-  "container.energizedpower.uncharger": "Scarico",
+  "block.energizedpower.uncharger": "Scaricatore",
+  "item.energizedpower.uncharger": "Scaricatore",
+  "container.energizedpower.uncharger": "Scaricatore",
 
   "tooltip.energizedpower.uncharger.item_energy_left.txt": "A questo oggetto sono rimasti %s.",
 
@@ -272,9 +272,9 @@
   "item.energizedpower.crusher": "Frantoio",
   "container.energizedpower.crusher": "Frantoio",
 
-  "block.energizedpower.pulverizer": "Pulverizer",
-  "item.energizedpower.pulverizer": "Pulverizer",
-  "container.energizedpower.pulverizer": "Pulverizer",
+  "block.energizedpower.pulverizer": "Polverizzatore",
+  "item.energizedpower.pulverizer": "Polverizzatore",
+  "container.energizedpower.pulverizer": "Polverizzatore",
 
   "block.energizedpower.sawmill": "Segheria",
   "item.energizedpower.sawmill": "Segheria",
@@ -361,7 +361,7 @@
   "tooltip.energizedpower.direction.north": "Nord",
   "tooltip.energizedpower.direction.south": "Sud",
   "tooltip.energizedpower.direction.west": "Ovest",
-  "tooltip.energizedpower.direction.east": "Eat",
+  "tooltip.energizedpower.direction.east": "Est",
 
   "tooltip.energizedpower.pipe_connection.not_connected": "Non connesso",
   "tooltip.energizedpower.pipe_connection.connected": "Connesso/Inserimento",
@@ -383,7 +383,7 @@
 
   "emi.category.energizedpower.charger": "Caricabatterie",
   "emi.category.energizedpower.crusher": "Frantoio",
-  "emi.category.energizedpower.pulverizer": "Pulverizer",
+  "emi.category.energizedpower.pulverizer": "Polverizzatore",
   "emi.category.energizedpower.sawmill": "Segheria",
   "emi.category.energizedpower.compressor": "Compressore",
   "emi.category.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
@@ -408,8 +408,8 @@
   "advancements.energizedpower.crusher.title": "Frantumalo",
   "advancements.energizedpower.crusher.description": "Frantumare pietra, arenaria, ciottoli, ghiaia o altri blocchi.",
 
-  "advancements.energizedpower.pulverizer.title": "Pulverization",
-  "advancements.energizedpower.pulverizer.description": "Pulverize ores to boost production.",
+  "advancements.energizedpower.pulverizer.title": "Polverizzatore",
+  "advancements.energizedpower.pulverizer.description": "Polverizza i minerali per aumentare la produzione.",
 
   "advancements.energizedpower.sawmill.title": "Segheria",
   "advancements.energizedpower.sawmill.description": "segheria per legno.",
@@ -468,8 +468,8 @@
   "advancements.energizedpower.charger.title": "Caricalo",
   "advancements.energizedpower.charger.description": "Carica i tuoi oggetti energetici con questo blocco.",
 
-  "advancements.energizedpower.inventory_charger.title": "Local charging",
-  "advancements.energizedpower.inventory_charger.description": "Charge energy items in your inventory with batteries.",
+  "advancements.energizedpower.inventory_charger.title": "Ricarica locale",
+  "advancements.energizedpower.inventory_charger.description": "Carica gli oggetti energetici nel tuo inventario con le batterie.",
 
   "advancements.energizedpower.advanced_charger.title": "Ricarica parallela",
   "advancements.energizedpower.advanced_charger.description": "Carica gli elementi energetici in parallelo.",
@@ -665,7 +665,7 @@
 
   "book.energizedpower.page.fertilizers": "I fertilizzanti possono essere utilizzati per rendere più veloce la Camera di crescita delle piante.",
 
-  "book.energizedpower.page.ore_dusts": "Ore dusts can be smelted to ingots.",
+  "book.energizedpower.page.ore_dusts": "Le polveri di minerale possono essere fuse in lingotti.",
 
   "book.energizedpower.page.plates.1": "Le lastre sono usate come ingrediente di lavorazione nella maggior parte delle macchine. Le lastre possono essere realizzate con martelli o utilizzando il compressore.",
   "book.energizedpower.page.plates.2": "Le lastre energizzate possono essere create solo nel compressore.",
@@ -696,8 +696,8 @@
   "book.energizedpower.page.inventory_coal_engine.3": "Il carburante verrà quindi prelevato automaticamente dall'inventario.",
   "book.energizedpower.page.inventory_coal_engine.4": "[La hotbar è esclusa]",
 
-  "book.energizedpower.page.inventory_charger.1": "This item distributes energy in your inventory.",
-  "book.energizedpower.page.inventory_charger.2": "Charged batteries must be inserted.",
+  "book.energizedpower.page.inventory_charger.1": "Questo oggetto distribuisce energia nel tuo inventario.",
+  "book.energizedpower.page.inventory_charger.2": "Devono essere inserite batterie cariche.",
 
   "book.energizedpower.page.energy_analyzer.1": "L'Analizzatore di energia può essere utilizzato per ottenere la statica dell'energia. Utilizzato principalmente per blocchi di energia senza GUI.",
   "book.energizedpower.page.energy_analyzer.2": "Può essere utilizzato facendo clic sui blocchi di energia.",
@@ -787,7 +787,7 @@
 
   "book.energizedpower.page.crusher": "Il Frantumatore può frantumare blocchi come Pietra, Arenaria, Ciottoli e Ghiaia.",
 
-  "book.energizedpower.page.pulverizer": "The Pulverizer produces ore dusts which can be smelted to ingots.",
+  "book.energizedpower.page.pulverizer": "Il Polverizzatore produce polveri di minerale che possono essere fuse in lingotti.",
 
   "book.energizedpower.page.sawmill.1": "La segheria può segare blocchi di legno e oggetti.",
   "book.energizedpower.page.sawmill.2": "Verrà prodotta segatura che può essere trasformata in blocchi di segatura che possono essere utilizzati come combustibile.",
@@ -832,7 +832,7 @@
   "book.energizedpower.page.chapter.entities.title": "Entità",
   "book.energizedpower.page.chapter.entities": "Cose che possono muoversi.",
 
-  "book.energizedpower.page.battery_box_minecarts": "I carrelli da miniera con vano batteria possono trasportare energia su rotaie. Può essere caricato con Minecart Chargers e può essere scaricato con Minecart Unchargers.",
+  "book.energizedpower.page.battery_box_minecarts": "I carrelli da miniera con vano batteria possono trasportare energia su rotaie. Può essere caricato con Caricatore per carrello da miniera e può essere scaricato con Scaricatore per carrello da miniera.",
 
 
   "book.energizedpower.page.chapter.structures.title": "Strutture",
