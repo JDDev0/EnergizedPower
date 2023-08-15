@@ -53,7 +53,7 @@ public class PulverizerCategory implements DisplayCategory<PulverizerDisplay> {
         widgets.add(Widgets.createSlot(new Point(x + 65, y + 5)).disableBackground().markOutput().
                 entries(display.getOutputEntries().get(0)));
         widgets.add(Widgets.createSlot(new Point(x + 92, y + 5)).disableBackground().markOutput().
-                entries(display.getOutputEntries().get(1)));
+                entries(display.getOutputEntries().size() == 2?display.getOutputEntries().get(1):new ArrayList<>(0)));
 
         return widgets;
     }

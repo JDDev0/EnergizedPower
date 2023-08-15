@@ -15,6 +15,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.List;
+
 public class PulverizerCategory implements IRecipeCategory<PulverizerRecipe> {
     public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "pulverizer");
     public static final RecipeType<PulverizerRecipe> TYPE = new RecipeType<>(UID, PulverizerRecipe.class);
@@ -57,7 +59,7 @@ public class PulverizerCategory implements IRecipeCategory<PulverizerRecipe> {
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).addItemStack(outputEntries[0]);
 
-        if(!outputEntries[1].isEmpty())
-            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 92, 5).addItemStack(outputEntries[1]);
+        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 92, 5).
+                addItemStacks(outputEntries[1].isEmpty()?List.of():List.of(outputEntries[1]));
     }
 }
