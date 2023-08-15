@@ -16,6 +16,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<CrusherMenu> CRUSHER_MENU = createScreenHandlerType("crusher",
             new ExtendedScreenHandlerType<>(CrusherMenu::new));
 
+    public static final ScreenHandlerType<PulverizerMenu> PULVERIZER_MENU = createScreenHandlerType("pulverizer",
+            new ExtendedScreenHandlerType<>(PulverizerMenu::new));
+
     public static final ScreenHandlerType<SawmillMenu> SAWMILL_MENU = createScreenHandlerType("sawmill",
             new ExtendedScreenHandlerType<>(SawmillMenu::new));
 

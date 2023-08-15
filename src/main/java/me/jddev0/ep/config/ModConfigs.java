@@ -302,6 +302,19 @@ public final class ModConfigs {
             "block.crusher", "Crusher", 100
     );
 
+    public static final ConfigValue<Long> COMMON_PULVERIZER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.pulverizer", "Pulverizer", 2048
+    );
+    public static final ConfigValue<Long> COMMON_PULVERIZER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.pulverizer", "Pulverizer", 128
+    );
+    public static final ConfigValue<Long> COMMON_PULVERIZER_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.pulverizer", "Pulverizer", 8
+    );
+    public static final ConfigValue<Integer> COMMON_PULVERIZER_RECIPE_DURATION = registerRecipeDurationConfigValue(
+            "block.pulverizer", "Pulverizer", 100
+    );
+
     public static final ConfigValue<Long> COMMON_SAWMILL_CAPACITY = registerEnergyCapacityConfigValue(
             "block.sawmill", "Sawmill", 2048
     );

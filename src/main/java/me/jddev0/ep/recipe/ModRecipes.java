@@ -35,6 +35,11 @@ public final class ModRecipes {
     public static final RecipeType<CompressorRecipe> COMPRESSOR_TYPE = createRecipeType("compressor",
             CompressorRecipe.Type.INSTANCE);
 
+    public static final RecipeSerializer<PulverizerRecipe> PULVERIZER_SERIALIZER = createSerializer("pulverizer",
+            PulverizerRecipe.Serializer.INSTANCE);
+    public static final RecipeType<PulverizerRecipe> PULVERIZER_TYPE = createRecipeType("pulverizer",
+            PulverizerRecipe.Type.INSTANCE);
+
     public static final RecipeSerializer<PlantGrowthChamberRecipe> PLANT_GROWTH_CHAMBER_SERIALIZER = createSerializer("plant_growth_chamber",
             PlantGrowthChamberRecipe.Serializer.INSTANCE);
     public static final RecipeType<PlantGrowthChamberRecipe> PLANT_GROWTH_CHAMBER_TYPE = createRecipeType("plant_growth_chamber",
