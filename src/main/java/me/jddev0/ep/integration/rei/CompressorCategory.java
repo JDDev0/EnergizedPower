@@ -33,7 +33,7 @@ public class CompressorCategory implements DisplayCategory<CompressorDisplay> {
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModBlocks.COMPRESSOR);
+        return EntryStacks.of(ModBlocks.COMPRESSOR_ITEM);
     }
 
     @Override
