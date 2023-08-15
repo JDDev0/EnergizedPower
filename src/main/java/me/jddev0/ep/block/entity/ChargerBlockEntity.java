@@ -256,8 +256,11 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
                 if(blockEntity.energyConsumptionLeft == -1)
                     blockEntity.energyConsumptionLeft = (long)(recipe.get().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);
 
-                if(blockEntity.internalEnergyStorage.amount == 0)
+                if(blockEntity.internalEnergyStorage.amount == 0) {
+                    markDirty(level, blockPos, state);
+
                     return;
+                }
 
                 energyConsumptionPerTick = Math.min(blockEntity.energyConsumptionLeft, Math.min(MAX_RECEIVE,
                         blockEntity.internalEnergyStorage.amount));
