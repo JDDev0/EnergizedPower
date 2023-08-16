@@ -125,7 +125,10 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
                 setChanged();
 
                 if(level != null && !level.isClientSide())
-                    ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
+                    ModMessages.sendToPlayersWithinXBlocks(
+                            new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
+                            getBlockPos(), level.dimension(), 32
+                    );
             }
         };
         fluidStorage = new FluidTank(ModConfigs.COMMON_FLUID_FILLER_FLUID_TANK_CAPACITY.getValue() * 1000) {
@@ -134,7 +137,10 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
                 setChanged();
 
                 if(level != null && !level.isClientSide())
-                    ModMessages.sendToAllPlayers(new FluidSyncS2CPacket(fluid, capacity, getBlockPos()));
+                    ModMessages.sendToPlayersWithinXBlocks(
+                            new FluidSyncS2CPacket(fluid, capacity, getBlockPos()),
+                            getBlockPos(), level.dimension(), 32
+                    );
             }
         };
         data = new ContainerData() {
