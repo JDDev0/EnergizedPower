@@ -3,7 +3,9 @@ package me.jddev0.ep.networking.packet;
 import me.jddev0.ep.block.WeatherControllerBlock;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.SectionPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -34,7 +36,11 @@ public class SetWeatherFromWeatherControllerC2SPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            BlockEntity blockEntity = context.getSender().level().getBlockEntity(pos);
+            Level level = context.getSender().level();
+            if(!level.hasChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ())))
+                return;
+
+            BlockEntity blockEntity = level.getBlockEntity(pos);
             if(!(blockEntity instanceof WeatherControllerBlockEntity weatherControllerBlockEntity))
                 return;
 
