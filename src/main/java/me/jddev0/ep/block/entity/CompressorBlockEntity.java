@@ -92,7 +92,10 @@ public class CompressorBlockEntity extends BlockEntity implements MenuProvider, 
                 setChanged();
 
                 if(level != null && !level.isClientSide())
-                    ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
+                    ModMessages.sendToPlayersWithinXBlocks(
+                            new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
+                            getBlockPos(), level.dimension(), 32
+                    );
             }
         };
         data = new ContainerData() {

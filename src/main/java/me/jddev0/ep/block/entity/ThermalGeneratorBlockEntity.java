@@ -62,7 +62,10 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
                 setChanged();
 
                 if(level != null && !level.isClientSide())
-                    ModMessages.sendToAllPlayers(new EnergySyncS2CPacket(energy, capacity, getBlockPos()));
+                    ModMessages.sendToPlayersWithinXBlocks(
+                            new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
+                            getBlockPos(), level.dimension(), 32
+                    );
             }
         };
         fluidStorage = new FluidTank(ModConfigs.COMMON_THERMAL_GENERATOR_FLUID_TANK_CAPACITY.getValue() * 1000) {
@@ -71,7 +74,10 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
                 setChanged();
 
                 if(level != null && !level.isClientSide())
-                    ModMessages.sendToAllPlayers(new FluidSyncS2CPacket(fluid, capacity, getBlockPos()));
+                    ModMessages.sendToPlayersWithinXBlocks(
+                            new FluidSyncS2CPacket(fluid, capacity, getBlockPos()),
+                            getBlockPos(), level.dimension(), 32
+                    );
             }
 
             @Override
