@@ -25,7 +25,6 @@ public class CrusherMenu extends AbstractContainerMenu implements EnergyStorageC
     public CrusherMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.CRUSHER_MENU.get(), id);
 
-        checkContainerSize(inv, 2);
         checkContainerDataCount(data, 7);
         this.blockEntity = (CrusherBlockEntity)blockEntity;
         this.level = inv.player.level();

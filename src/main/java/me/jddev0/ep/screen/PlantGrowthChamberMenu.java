@@ -25,7 +25,6 @@ public class PlantGrowthChamberMenu extends AbstractContainerMenu implements Ene
     public PlantGrowthChamberMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.PLANT_GROWTH_CHAMBER_MENU.get(), id);
 
-        checkContainerSize(inv, 6);
         checkContainerDataCount(data, 7);
         this.blockEntity = (PlantGrowthChamberBlockEntity)blockEntity;
         this.level = inv.player.level();

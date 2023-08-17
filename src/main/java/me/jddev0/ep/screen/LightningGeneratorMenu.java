@@ -21,7 +21,6 @@ public class LightningGeneratorMenu extends AbstractContainerMenu implements Ene
     public LightningGeneratorMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(ModMenuTypes.LIGHTNING_GENERATOR_MENU.get(), id);
 
-        checkContainerSize(inv, 0);
         this.blockEntity = (LightningGeneratorBlockEntity)blockEntity;
         this.level = inv.player.level();
 

@@ -25,7 +25,6 @@ public class CoalEngineMenu extends AbstractContainerMenu implements EnergyStora
     public CoalEngineMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.COAL_ENGINE_MENU.get(), id);
 
-        checkContainerSize(inv, 1);
         checkContainerDataCount(data, 7);
         this.blockEntity = (CoalEngineBlockEntity)blockEntity;
         this.level = inv.player.level();
