@@ -24,7 +24,6 @@ public class ThermalGeneratorMenu extends AbstractContainerMenu implements Energ
     public ThermalGeneratorMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.THERMAL_GENERATOR_MENU.get(), id);
 
-        checkContainerSize(inv, 0);
         checkContainerDataCount(data, 2);
         this.blockEntity = (ThermalGeneratorBlockEntity)blockEntity;
         this.level = inv.player.level;

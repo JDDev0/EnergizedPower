@@ -25,7 +25,6 @@ public class AdvancedChargerMenu extends AbstractContainerMenu implements Energy
     public AdvancedChargerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.ADVANCED_CHARGER_MENU.get(), id);
 
-        checkContainerSize(inv, 3);
         checkContainerDataCount(data, 6);
         this.blockEntity = (AdvancedChargerBlockEntity)blockEntity;
         this.level = inv.player.level;

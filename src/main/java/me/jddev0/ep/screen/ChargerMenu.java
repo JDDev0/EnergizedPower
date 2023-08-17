@@ -25,7 +25,6 @@ public class ChargerMenu extends AbstractContainerMenu implements EnergyStorageC
     public ChargerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.CHARGER_MENU.get(), id);
 
-        checkContainerSize(inv, 1);
         checkContainerDataCount(data, 2);
         this.blockEntity = (ChargerBlockEntity)blockEntity;
         this.level = inv.player.level;

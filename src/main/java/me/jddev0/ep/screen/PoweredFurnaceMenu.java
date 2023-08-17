@@ -25,7 +25,6 @@ public class PoweredFurnaceMenu extends AbstractContainerMenu implements EnergyS
     public PoweredFurnaceMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.POWERED_FURNACE_MENU.get(), id);
 
-        checkContainerSize(inv, 2);
         checkContainerDataCount(data, 7);
         this.blockEntity = (PoweredFurnaceBlockEntity)blockEntity;
         this.level = inv.player.level;

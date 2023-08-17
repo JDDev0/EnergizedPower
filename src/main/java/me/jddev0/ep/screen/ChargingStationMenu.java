@@ -21,7 +21,6 @@ public class ChargingStationMenu extends AbstractContainerMenu implements Energy
     public ChargingStationMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(ModMenuTypes.CHARGING_STATION_MENU.get(), id);
 
-        checkContainerSize(inv, 0);
         this.blockEntity = (ChargingStationBlockEntity)blockEntity;
         this.level = inv.player.level;
 

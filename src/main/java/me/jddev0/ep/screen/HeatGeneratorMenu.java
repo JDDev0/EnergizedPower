@@ -21,7 +21,6 @@ public class HeatGeneratorMenu extends AbstractContainerMenu implements EnergySt
     public HeatGeneratorMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(ModMenuTypes.HEAT_GENERATOR_MENU.get(), id);
 
-        checkContainerSize(inv, 0);
         this.blockEntity = (HeatGeneratorBlockEntity)blockEntity;
         this.level = inv.player.level;
 

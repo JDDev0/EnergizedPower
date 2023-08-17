@@ -23,7 +23,6 @@ public class AdvancedBatteryBoxMenu extends AbstractContainerMenu implements Ene
     public AdvancedBatteryBoxMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(ModMenuTypes.ADVANCED_BATTERY_BOX_MENU.get(), id);
 
-        checkContainerSize(inv, 0);
         this.blockEntity = (AdvancedBatteryBoxBlockEntity)blockEntity;
         this.level = inv.player.level;
 
