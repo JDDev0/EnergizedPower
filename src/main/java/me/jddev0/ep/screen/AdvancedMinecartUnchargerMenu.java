@@ -23,7 +23,6 @@ public class AdvancedMinecartUnchargerMenu extends AbstractContainerMenu impleme
     public AdvancedMinecartUnchargerMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(ModMenuTypes.ADVANCED_MINECART_UNCHARGER_MENU.get(), id);
 
-        checkContainerSize(inv, 0);
         this.blockEntity = (AdvancedMinecartUnchargerBlockEntity)blockEntity;
         this.level = inv.player.level;
 

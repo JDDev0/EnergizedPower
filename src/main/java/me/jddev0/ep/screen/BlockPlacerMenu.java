@@ -25,7 +25,6 @@ public class BlockPlacerMenu extends AbstractContainerMenu implements EnergyStor
     public BlockPlacerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.BLOCK_PLACER_MENU.get(), id);
 
-        checkContainerSize(inv, 1);
         checkContainerDataCount(data, 8);
         this.blockEntity = (BlockPlacerBlockEntity)blockEntity;
         this.level = inv.player.level;

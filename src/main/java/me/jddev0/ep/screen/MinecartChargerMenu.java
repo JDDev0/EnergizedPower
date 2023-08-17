@@ -21,7 +21,6 @@ public class MinecartChargerMenu extends AbstractContainerMenu implements Energy
     public MinecartChargerMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(ModMenuTypes.MINECART_CHARGER_MENU.get(), id);
 
-        checkContainerSize(inv, 0);
         this.blockEntity = (MinecartChargerBlockEntity)blockEntity;
         this.level = inv.player.level;
 

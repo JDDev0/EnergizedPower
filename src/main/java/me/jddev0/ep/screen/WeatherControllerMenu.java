@@ -21,7 +21,6 @@ public class WeatherControllerMenu extends AbstractContainerMenu implements Ener
     public WeatherControllerMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(ModMenuTypes.WEATHER_CONTROLLER_MENU.get(), id);
 
-        checkContainerSize(inv, 0);
         this.blockEntity = (WeatherControllerBlockEntity)blockEntity;
         this.level = inv.player.level;
 

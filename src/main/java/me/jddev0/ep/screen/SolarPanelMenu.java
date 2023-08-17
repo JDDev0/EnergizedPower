@@ -31,7 +31,6 @@ public class SolarPanelMenu extends AbstractContainerMenu implements EnergyStora
     public SolarPanelMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(getMenuTypeFromTier(((SolarPanelBlockEntity)blockEntity).getTier()), id);
 
-        checkContainerSize(inv, 0);
         this.blockEntity = (SolarPanelBlockEntity)blockEntity;
         this.level = inv.player.level;
 

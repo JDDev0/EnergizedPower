@@ -25,7 +25,6 @@ public class EnergizerMenu extends AbstractContainerMenu implements EnergyStorag
     public EnergizerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.ENERGIZER_MENU.get(), id);
 
-        checkContainerSize(inv, 2);
         checkContainerDataCount(data, 7);
         this.blockEntity = (EnergizerBlockEntity)blockEntity;
         this.level = inv.player.level;
