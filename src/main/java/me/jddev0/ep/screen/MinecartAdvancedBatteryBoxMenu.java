@@ -25,7 +25,6 @@ public class MinecartAdvancedBatteryBoxMenu extends AbstractContainerMenu implem
     public MinecartAdvancedBatteryBoxMenu(int id, Inventory inv, Container container, ContainerData data) {
         super(ModMenuTypes.MINECART_ADVANCED_BATTERY_BOX_MENU.get(), id);
 
-        checkContainerSize(inv, 0);
         checkContainerDataCount(data, 4);
         this.container = container;
         this.level = inv.player.level;

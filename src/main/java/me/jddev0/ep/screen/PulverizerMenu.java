@@ -25,7 +25,6 @@ public class PulverizerMenu extends AbstractContainerMenu implements EnergyStora
     public PulverizerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.PULVERIZER_MENU.get(), id);
 
-        checkContainerSize(inv, 3);
         checkContainerDataCount(data, 7);
         this.blockEntity = (PulverizerBlockEntity)blockEntity;
         this.level = inv.player.level;

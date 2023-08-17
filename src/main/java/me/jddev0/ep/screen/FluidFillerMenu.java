@@ -26,7 +26,6 @@ public class FluidFillerMenu extends AbstractContainerMenu implements EnergyStor
     public FluidFillerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.FLUID_FILLER_MENU.get(), id);
 
-        checkContainerSize(inv, 1);
         checkContainerDataCount(data, 4);
         this.blockEntity = (FluidFillerBlockEntity)blockEntity;
         this.level = inv.player.level;

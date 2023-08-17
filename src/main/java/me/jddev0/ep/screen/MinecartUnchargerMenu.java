@@ -21,7 +21,6 @@ public class MinecartUnchargerMenu extends AbstractContainerMenu implements Ener
     public MinecartUnchargerMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(ModMenuTypes.MINECART_UNCHARGER_MENU.get(), id);
 
-        checkContainerSize(inv, 0);
         this.blockEntity = (MinecartUnchargerBlockEntity)blockEntity;
         this.level = inv.player.level;
 

@@ -25,7 +25,6 @@ public class AdvancedUnchargerMenu extends AbstractContainerMenu implements Ener
     public AdvancedUnchargerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.ADVANCED_UNCHARGER_MENU.get(), id);
 
-        checkContainerSize(inv, 3);
         checkContainerDataCount(data, 6);
         this.blockEntity = (AdvancedUnchargerBlockEntity)blockEntity;
         this.level = inv.player.level;

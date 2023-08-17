@@ -21,7 +21,6 @@ public class BatteryBoxMenu extends AbstractContainerMenu implements EnergyStora
     public BatteryBoxMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(ModMenuTypes.BATTERY_BOX_MENU.get(), id);
 
-        checkContainerSize(inv, 0);
         this.blockEntity = (BatteryBoxBlockEntity)blockEntity;
         this.level = inv.player.level;
 

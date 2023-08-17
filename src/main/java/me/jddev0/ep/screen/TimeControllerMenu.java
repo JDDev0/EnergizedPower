@@ -21,7 +21,6 @@ public class TimeControllerMenu extends AbstractContainerMenu implements EnergyS
     public TimeControllerMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(ModMenuTypes.TIME_CONTROLLER_MENU.get(), id);
 
-        checkContainerSize(inv, 0);
         this.blockEntity = (TimeControllerBlockEntity)blockEntity;
         this.level = inv.player.level;
 
