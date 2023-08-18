@@ -74,7 +74,7 @@ public class DoubleConfigValue extends ConfigValue<Double> {
     }
 
     @Override
-    protected Double readInternal(@NotNull String rawValue) throws ConfigValidationException {
+    protected @NotNull Double readInternal(@NotNull String rawValue) throws ConfigValidationException {
         try {
             return Double.parseDouble(rawValue);
         }catch(NumberFormatException e) {
@@ -83,7 +83,7 @@ public class DoubleConfigValue extends ConfigValue<Double> {
     }
 
     @Override
-    protected String writeInternal(@NotNull Double value) {
+    protected @NotNull String writeInternal(@NotNull Double value) {
         return String.format(Locale.ENGLISH, "%f", value);
     }
 }

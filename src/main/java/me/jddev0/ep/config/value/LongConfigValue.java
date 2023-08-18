@@ -73,7 +73,7 @@ public class LongConfigValue extends ConfigValue<Long> {
     }
 
     @Override
-    protected Long readInternal(@NotNull String rawValue) throws ConfigValidationException {
+    protected @NotNull Long readInternal(@NotNull String rawValue) throws ConfigValidationException {
         try {
             return Long.parseLong(rawValue);
         }catch(NumberFormatException e) {
@@ -82,7 +82,7 @@ public class LongConfigValue extends ConfigValue<Long> {
     }
 
     @Override
-    protected String writeInternal(@NotNull Long value) {
+    protected @NotNull String writeInternal(@NotNull Long value) {
         return value + "";
     }
 }
