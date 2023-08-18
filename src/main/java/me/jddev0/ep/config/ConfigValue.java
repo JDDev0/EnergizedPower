@@ -98,7 +98,7 @@ public abstract class ConfigValue<T> {
             validator.validate(value);
     }
 
-    protected abstract T readInternal(@NotNull String rawValue) throws ConfigValidationException;
+    protected abstract @NotNull T readInternal(@NotNull String rawValue) throws ConfigValidationException;
 
-    protected abstract String writeInternal(@NotNull T value);
+    protected abstract @NotNull String writeInternal(@NotNull T value);
 }

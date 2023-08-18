@@ -73,7 +73,7 @@ public class IntegerConfigValue extends ConfigValue<Integer> {
     }
 
     @Override
-    protected Integer readInternal(@NotNull String rawValue) throws ConfigValidationException {
+    protected @NotNull Integer readInternal(@NotNull String rawValue) throws ConfigValidationException {
         try {
             return Integer.parseInt(rawValue);
         }catch(NumberFormatException e) {
@@ -82,7 +82,7 @@ public class IntegerConfigValue extends ConfigValue<Integer> {
     }
 
     @Override
-    protected String writeInternal(@NotNull Integer value) {
+    protected @NotNull String writeInternal(@NotNull Integer value) {
         return value + "";
     }
 }
