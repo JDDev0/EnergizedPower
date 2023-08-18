@@ -2,6 +2,7 @@ package me.jddev0.ep.config;
 
 import com.mojang.logging.LogUtils;
 import me.jddev0.ep.config.validation.ValueValidators;
+import me.jddev0.ep.config.value.BooleanConfigValue;
 import me.jddev0.ep.config.value.FloatConfigValue;
 import me.jddev0.ep.config.value.IntegerConfigValue;
 import net.minecraftforge.fml.loading.FMLPaths;
@@ -110,6 +111,19 @@ public final class ModConfigs {
             "The slot count of the Inventory Charger. WARNING: If set to a lower value than previously, items which are stored in an Inventory Charger could vanish!",
             3,
             ValueValidators.elementOfCollection(List.of(1, 3, 5))
+    ));
+
+    public static final ConfigValue<Boolean> COMMON_INVENTORY_CHARGER_TRANSFER_RATE_LIMIT_ENABLED = COMMON_CONFIG.register(new BooleanConfigValue(
+            "item.inventory_charger.transfer_rate_limit_enabled",
+            "If set to true the transfer rate limit of the Inventory Charger will be enabled",
+            false
+    ));
+
+    public static final ConfigValue<Integer> COMMON_INVENTORY_CHARGER_TRANSFER_RATE_LIMIT = COMMON_CONFIG.register(new IntegerConfigValue(
+            "item.inventory_charger.transfer_rate_limit",
+            "The maximal transfer rate of the Inventory Charger in FE per tick if the transfer rate limit is enabled",
+            16384,
+            1, null
     ));
 
     //Blocks
