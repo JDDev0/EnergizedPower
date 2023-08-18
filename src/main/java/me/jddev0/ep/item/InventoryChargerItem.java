@@ -31,6 +31,9 @@ import java.util.List;
 public class InventoryChargerItem extends Item implements MenuProvider {
     public static final int SLOT_COUNT = ModConfigs.COMMON_INVENTORY_CHARGER_SLOT_COUNT.getValue();
 
+    public static final boolean TRANSFER_RATE_LIMIT_ENABLED = ModConfigs.COMMON_INVENTORY_CHARGER_TRANSFER_RATE_LIMIT_ENABLED.getValue();
+    public static final int TRANSFER_RATE_LIMIT = ModConfigs.COMMON_INVENTORY_CHARGER_TRANSFER_RATE_LIMIT.getValue();
+
     public InventoryChargerItem(Properties props) {
         super(props);
     }
@@ -402,6 +405,9 @@ public class InventoryChargerItem extends Item implements MenuProvider {
 
             maxTransferSum += value;
         }
+
+        if(TRANSFER_RATE_LIMIT_ENABLED)
+            return Math.min(maxTransferSum, TRANSFER_RATE_LIMIT);
 
         return maxTransferSum;
     }
