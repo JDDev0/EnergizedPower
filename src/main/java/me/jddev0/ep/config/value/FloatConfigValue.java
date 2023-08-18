@@ -74,7 +74,7 @@ public class FloatConfigValue extends ConfigValue<Float> {
     }
 
     @Override
-    protected Float readInternal(@NotNull String rawValue) throws ConfigValidationException {
+    protected @NotNull Float readInternal(@NotNull String rawValue) throws ConfigValidationException {
         try {
             return Float.parseFloat(rawValue);
         }catch(NumberFormatException e) {
@@ -83,7 +83,7 @@ public class FloatConfigValue extends ConfigValue<Float> {
     }
 
     @Override
-    protected String writeInternal(@NotNull Float value) {
+    protected @NotNull String writeInternal(@NotNull Float value) {
         return String.format(Locale.ENGLISH, "%f", value);
     }
 }
