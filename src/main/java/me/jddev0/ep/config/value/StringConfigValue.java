@@ -73,12 +73,12 @@ public class StringConfigValue extends ConfigValue<String> {
     }
 
     @Override
-    protected String readInternal(@NotNull String rawValue) {
+    protected @NotNull String readInternal(@NotNull String rawValue) {
         return rawValue;
     }
 
     @Override
-    protected String writeInternal(@NotNull String value) {
+    protected @NotNull String writeInternal(@NotNull String value) {
         return value;
     }
 }
