@@ -2,7 +2,9 @@ package me.jddev0.ep.networking.packet;
 
 import me.jddev0.ep.block.entity.BlockPlacerBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.SectionPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -34,7 +36,11 @@ public class SetBlockPlacerCheckboxC2SPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            BlockEntity blockEntity = context.getSender().getLevel().getBlockEntity(pos);
+            Level level = context.getSender().getLevel();
+            if(!level.hasChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ())))
+                return;
+
+            BlockEntity blockEntity = level.getBlockEntity(pos);
             if(!(blockEntity instanceof BlockPlacerBlockEntity blockPlacerBlockEntity))
                 return;
 
