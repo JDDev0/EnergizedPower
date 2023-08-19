@@ -260,7 +260,7 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Me
 
                 Optional<SmeltingRecipe> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
                 if(recipe.isEmpty())
-                    return;
+                    continue;
 
                 int cookingTime = recipe.get().getCookingTime();
                 if(blockEntity.maxProgress[i] == 0)
@@ -281,7 +281,7 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Me
                         blockEntity.resetProgress(i, blockPos, state);
                         setChanged(level, blockPos, state);
 
-                        return;
+                        continue;
                     }
 
                     blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - ENERGY_USAGE_PER_INPUT_PER_TICK);
