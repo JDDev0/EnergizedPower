@@ -12,6 +12,8 @@ import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkSectionPos;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,11 @@ public final class SetAutoCrafterPatternInputSlotsC2SPacket {
         Identifier recipeId = buf.readIdentifier();
 
         server.execute(() -> {
-            BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
+            World level = player.getWorld();
+            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ())))
+                return;
+
+            BlockEntity blockEntity = level.getBlockEntity(pos);
             if(!(blockEntity instanceof AutoCrafterBlockEntity autoCrafterBlockEntity))
                 return;
 
