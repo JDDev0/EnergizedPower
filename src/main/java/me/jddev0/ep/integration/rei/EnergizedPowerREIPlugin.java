@@ -27,6 +27,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
     public void registerCategories(CategoryRegistry registry) {
         registry.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(ModBlocks.AUTO_CRAFTER_ITEM));
         registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(ModBlocks.POWERED_FURNACE_ITEM));
+        registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM));
         registry.addWorkstations(BuiltinPlugin.FUEL, EntryStacks.of(ModBlocks.COAL_ENGINE_ITEM));
         registry.addWorkstations(BuiltinPlugin.FUEL, EntryStacks.of(ModItems.INVENTORY_COAL_ENGINE));
 
@@ -91,6 +92,12 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
                 AutoCrafterScreen.class, BuiltinPlugin.CRAFTING);
         registry.registerContainerClickArea(new Rectangle(80, 34, 24, 17),
                 PoweredFurnaceScreen.class, BuiltinPlugin.SMELTING);
+        registry.registerContainerClickArea(new Rectangle(43, 34, 18, 18),
+                AdvancedPoweredFurnaceScreen.class, BuiltinPlugin.SMELTING);
+        registry.registerContainerClickArea(new Rectangle(97, 34, 18, 18),
+                AdvancedPoweredFurnaceScreen.class, BuiltinPlugin.SMELTING);
+        registry.registerContainerClickArea(new Rectangle(151, 34, 18, 18),
+                AdvancedPoweredFurnaceScreen.class, BuiltinPlugin.SMELTING);
         registry.registerContainerClickArea(new Rectangle(79, 25, 18, 17),
                 CoalEngineScreen.class, BuiltinPlugin.FUEL);
 

@@ -437,6 +437,25 @@ public final class ModConfigs {
             0.f, null
     ));
 
+    public static final ConfigValue<Long> COMMON_ADVANCED_POWERED_FURNACE_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.advanced_powered_furnace", "Advanced Powered Furnace", 32768
+    );
+    public static final ConfigValue<Long> COMMON_ADVANCED_POWERED_FURNACE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.advanced_powered_furnace", "Advanced Powered Furnace", 4096
+    );
+    public static final ConfigValue<Long> COMMON_ADVANCED_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_INPUT_PER_TICK = COMMON_CONFIG.register(new LongConfigValue(
+            "block.advanced_powered_furnace.energy_consumption_per_input_per_tick",
+            "The energy consumption per input of the Advanced Powered Furnace in E per tick.",
+            1024L,
+            1L, null
+    ));
+    public static final ConfigValue<Float> COMMON_ADVANCED_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
+            "block.advanced_powered_furnace.recipe_duration_multiplier",
+            "The multiplier by which the time a recipe of the Advanced Powered Furnace requires is multiplied by. If set to 12 the Advanced Powered Furnace will be as fast as the normal Furnace.",
+            1.f,
+            0.f, null
+    ));
+
     public static final ConfigValue<Long> COMMON_PLANT_GROWTH_CHAMBER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.plant_growth_chamber", "Plant Growth Chamber", 4096
     );
