@@ -268,6 +268,12 @@
   "item.energizedpower.powered_furnace": "Elektroofen",
   "container.energizedpower.powered_furnace": "Elektroofen",
 
+  "block.energizedpower.advanced_powered_furnace": "Fortgeschrittener Elektroofen",
+  "item.energizedpower.advanced_powered_furnace": "Fortgeschrittener Elektroofen",
+  "container.energizedpower.advanced_powered_furnace": "Fortgeschrittener Elektroofen",
+
+  "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt": "Diese Rezepte benötigt noch %s um fertiggestellt zu werden.",
+
   "block.energizedpower.crusher": "Zerkleinerer",
   "item.energizedpower.crusher": "Zerkleinerer",
   "container.energizedpower.crusher": "Zerkleinerer",
@@ -500,6 +506,9 @@
 
   "advancements.energizedpower.powered_furnace.title": "Eletrischer Ofen",
   "advancements.energizedpower.powered_furnace.description": "Ofen mit Strom.",
+
+  "advancements.energizedpower.advanced_powered_furnace.title": "Schnelles Schmelzen",
+  "advancements.energizedpower.advanced_powered_furnace.description": "Schmelze mehre Items zu gleich mit Strom.",
 
   "advancements.energizedpower.fluid_pipe.title": "Flüssigkeits-Transport",
   "advancements.energizedpower.fluid_pipe.description": "Transportiere Flüssigkeiten mit Flüssigkeitsrohren.",
@@ -779,7 +788,8 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_consumption.title": "Verbrauch",
   "book.energizedpower.page.chapter.energy_blocks.energy_consumption": "Blöcke für die Energie-Verbrauch",
 
-  "book.energizedpower.page.powered_furnace": "Der Elektroofen funktioniert wie ein Ofen, verwendet aber statt Kohle Strom. Er ist auch schneller als der normale Ofen.",
+  "book.energizedpower.page.powered_furnaces.1": "Elektroöfen funktionieren wie ein Ofen, verwenden aber statt Kohle Strom. Sie sind auch schneller als der normale Ofen.",
+  "book.energizedpower.page.powered_furnaces.2": "Die fortgeschrittene Version vom Elektroofen hat 3 Eingabe-/Ausgabe-Slot-Paare.",
 
   "book.energizedpower.page.auto_crafter.1": "Die automatische Werkbank stellt Items automatisch her.",
   "book.energizedpower.page.auto_crafter.2": "Die Rezepte können in den Pattern-Feldern definiert werden.",

@@ -32,6 +32,7 @@
     "energizedpower:thermal_generator",
 
     "energizedpower:powered_furnace",
+    "energizedpower:advanced_powered_furnace",
 
     "energizedpower:transformer_1_to_n",
     "energizedpower:transformer_3_to_3",

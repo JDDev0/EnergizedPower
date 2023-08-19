@@ -268,6 +268,12 @@
   "item.energizedpower.powered_furnace": "电炉",
   "container.energizedpower.powered_furnace": "电炉",
 
+  "block.energizedpower.advanced_powered_furnace": "Advanced Powered Furnace",
+  "item.energizedpower.advanced_powered_furnace": "Advanced Powered Furnace",
+  "container.energizedpower.advanced_powered_furnace": "Advanced Powered Furnace",
+
+  "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt": "These recipes require %s to finish.",
+
   "block.energizedpower.crusher": "粉碎机",
   "item.energizedpower.crusher": "粉碎机",
   "container.energizedpower.crusher": "粉碎机",
@@ -500,6 +506,9 @@
 
   "advancements.energizedpower.powered_furnace.title": "电炉",
   "advancements.energizedpower.powered_furnace.description": "有动力的炉子。",
+
+  "advancements.energizedpower.advanced_powered_furnace.title": "Fast smelting",
+  "advancements.energizedpower.advanced_powered_furnace.description": "Smelt multiple items at once with power.",
 
   "advancements.energizedpower.fluid_pipe.title": "Fluid Transport",
   "advancements.energizedpower.fluid_pipe.description": "Transport fluids with fluid pipes.",
@@ -779,7 +788,8 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_consumption.title": "Consumption",
   "book.energizedpower.page.chapter.energy_blocks.energy_consumption": "Blocks for energy consumption",
 
-  "book.energizedpower.page.powered_furnace": "电炉和普通的熔炉工作原理是一样的。但是电炉使用的是电，而普通熔炉使用的是煤炭；而且电炉比普通熔炉更快。",
+  "book.energizedpower.page.powered_furnaces.1": "Powered Furnaces works like the Furnace. Instead of coal they use power and they are faster than the normal furnace.",
+  "book.energizedpower.page.powered_furnaces.2": "The advanced version of the Powered Furnace has 3 input/output slot pairs.",
 
   "book.energizedpower.page.auto_crafter.1": "自动合成机会自动合成物品。",
   "book.energizedpower.page.auto_crafter.2": "可以通过使用自动合成机中的合成槽来放置配方。",
