@@ -29,6 +29,7 @@ import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
@@ -123,7 +124,10 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
                     buffer.writeLong(capacity);
                     buffer.writeBlockPos(getPos());
 
-                    ModMessages.broadcastServerPacket(world.getServer(), ModMessages.ENERGY_SYNC_ID, buffer);
+                    ModMessages.sendServerPacketToPlayersWithinXBlocks(
+                            getPos(), (ServerWorld)world, 32,
+                            ModMessages.ENERGY_SYNC_ID, buffer
+                    );
                 }
             }
         };
