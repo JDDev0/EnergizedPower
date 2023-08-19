@@ -114,16 +114,14 @@ public final class ModConfigs {
             3,
             ValueValidators.elementOfCollection(List.of(1, 3, 5))
     ));
-
     public static final ConfigValue<Boolean> COMMON_INVENTORY_CHARGER_TRANSFER_RATE_LIMIT_ENABLED = COMMON_CONFIG.register(new BooleanConfigValue(
             "item.inventory_charger.transfer_rate_limit_enabled",
             "If set to true the transfer rate limit of the Inventory Charger will be enabled",
             false
     ));
-
     public static final ConfigValue<Long> COMMON_INVENTORY_CHARGER_TRANSFER_RATE_LIMIT = COMMON_CONFIG.register(new LongConfigValue(
             "item.inventory_charger.transfer_rate_limit",
-            "The maximal transfer rate of the Inventory Charger in FE per tick if the transfer rate limit is enabled",
+            "The maximal transfer rate of the Inventory Charger in E per tick if the transfer rate limit is enabled",
             16384L,
             1L, null
     ));
