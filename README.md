@@ -8,6 +8,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 ### Machines
 
 - Powered Furnace
+- Advanced Powered Furnace (**In next release (v2.0.0)**)
 - Auto Crafter (Can handle recipe conflicts, that is recipes with the same inputs)
 - Crusher
 - Pulverizer (**In next release (v2.0.0)**)
