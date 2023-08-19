@@ -18,6 +18,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
@@ -55,7 +56,10 @@ public class AdvancedMinecartChargerBlockEntity extends BlockEntity implements E
                     buffer.writeLong(capacity);
                     buffer.writeBlockPos(getPos());
 
-                    ModMessages.broadcastServerPacket(world.getServer(), ModMessages.ENERGY_SYNC_ID, buffer);
+                    ModMessages.sendServerPacketToPlayersWithinXBlocks(
+                            getPos(), (ServerWorld)world, 32,
+                            ModMessages.ENERGY_SYNC_ID, buffer
+                    );
                 }
             }
         };

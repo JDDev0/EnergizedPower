@@ -27,6 +27,7 @@ import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
@@ -138,7 +139,10 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                     buffer.writeLong(capacity);
                     buffer.writeBlockPos(getPos());
 
-                    ModMessages.broadcastServerPacket(world.getServer(), ModMessages.ENERGY_SYNC_ID, buffer);
+                    ModMessages.sendServerPacketToPlayersWithinXBlocks(
+                            getPos(), (ServerWorld)world, 32,
+                            ModMessages.ENERGY_SYNC_ID, buffer
+                    );
                 }
             }
         };

@@ -8,7 +8,9 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 
 public final class ModMessages {
     public static Identifier ENERGY_SYNC_ID = new Identifier(EnergizedPowerMod.MODID, "energy_sync");
@@ -50,6 +52,12 @@ public final class ModMessages {
 
     public static void broadcastServerPacket(MinecraftServer server, Identifier channelName, PacketByteBuf buf) {
         for(ServerPlayerEntity player:PlayerLookup.all(server)) {
+            ServerPlayNetworking.send(player, channelName, buf);
+        }
+    }
+
+    public static void sendServerPacketToPlayersWithinXBlocks(BlockPos pos, ServerWorld dimension, double distance, Identifier channelName, PacketByteBuf buf) {
+        for(ServerPlayerEntity player:PlayerLookup.around(dimension, pos, distance)) {
             ServerPlayNetworking.send(player, channelName, buf);
         }
     }
