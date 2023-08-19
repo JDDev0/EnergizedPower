@@ -58,6 +58,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<PoweredFurnaceMenu> POWERED_FURNACE_MENU = createScreenHandlerType("powered_furnace",
             new ExtendedScreenHandlerType<>(PoweredFurnaceMenu::new));
 
+    public static final ScreenHandlerType<AdvancedPoweredFurnaceMenu> ADVANCED_POWERED_FURNACE_MENU = createScreenHandlerType("advanced_powered_furnace",
+            new ExtendedScreenHandlerType<>(AdvancedPoweredFurnaceMenu::new));
+
     public static final ScreenHandlerType<WeatherControllerMenu> WEATHER_CONTROLLER_MENU = createScreenHandlerType("weather_controller",
             new ExtendedScreenHandlerType<>(WeatherControllerMenu::new));
 

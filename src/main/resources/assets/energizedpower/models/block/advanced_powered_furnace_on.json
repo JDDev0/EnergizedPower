@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "particle": "#top",
+    "front": "energizedpower:block/advanced_powered_furnace_front_on",
+    "side": "energizedpower:block/advanced_powered_furnace_side",
+    "top": "energizedpower:block/advanced_powered_furnace_top"
+  }
+}

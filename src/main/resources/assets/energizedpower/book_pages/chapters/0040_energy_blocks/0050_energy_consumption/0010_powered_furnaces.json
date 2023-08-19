@@ -1,0 +1,19 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.powered_furnaces.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    }, {
+      "translate": "book.energizedpower.page.powered_furnaces.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "block": [ "energizedpower:powered_furnace", "energizedpower:advanced_powered_furnace" ]
+}
