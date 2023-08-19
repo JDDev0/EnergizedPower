@@ -278,6 +278,12 @@ public final class ModBlocks {
                     luminance(PoweredFurnaceBlock.LIGHT_EMISSION)));
     public static final Item POWERED_FURNACE_ITEM = createBlockItem("powered_furnace", POWERED_FURNACE);
 
+    public static final Block ADVANCED_POWERED_FURNACE = registerBlock("advanced_powered_furnace",
+            new AdvancedPoweredFurnaceBlock(FabricBlockSettings.create().
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL).
+                    luminance(AdvancedPoweredFurnaceBlock.LIGHT_EMISSION)));
+    public static final Item ADVANCED_POWERED_FURNACE_ITEM = createBlockItem("advanced_powered_furnace", ADVANCED_POWERED_FURNACE);
+
     public static final Block LIGHTNING_GENERATOR = registerBlock("lightning_generator",
             new LightningGeneratorBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL).

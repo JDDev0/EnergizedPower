@@ -31,6 +31,7 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
     private void registerCategories(EmiRegistry registry) {
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(ModBlocks.AUTO_CRAFTER_ITEM));
         registry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(ModBlocks.POWERED_FURNACE_ITEM));
+        registry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM));
 
         registry.addCategory(ChargerEMIRecipe.CATEGORY);
         registry.addWorkstation(ChargerEMIRecipe.CATEGORY, ChargerEMIRecipe.ITEM);
