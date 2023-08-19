@@ -10,6 +10,8 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkSectionPos;
+import net.minecraft.world.World;
 import net.minecraft.world.chunk.WorldChunk;
 
 public final class PopEnergizedPowerBookFromLecternC2SPacket {
@@ -23,16 +25,20 @@ public final class PopEnergizedPowerBookFromLecternC2SPacket {
             if(!player.canModifyBlocks())
                 return;
 
-            BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
+            World level = player.getWorld();
+            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ())))
+                return;
 
-            if(blockEntity instanceof LecternBlockEntity lecternBlockEntity) {
-                ItemStack itemStack = lecternBlockEntity.getBook();
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if(!(blockEntity instanceof LecternBlockEntity lecternBlockEntity))
+                return;
 
-                lecternBlockEntity.setBook(ItemStack.EMPTY);
-                LecternBlock.setHasBook(player, player.getWorld(), pos, player.getWorld().getBlockState(pos), false);
-                if(!player.getInventory().insertStack(itemStack))
-                    player.dropItem(itemStack, false);
-            }
+            ItemStack itemStack = lecternBlockEntity.getBook();
+
+            lecternBlockEntity.setBook(ItemStack.EMPTY);
+            LecternBlock.setHasBook(player, player.getWorld(), pos, player.getWorld().getBlockState(pos), false);
+            if(!player.getInventory().insertStack(itemStack))
+                player.dropItem(itemStack, false);
         });
     }
 }
