@@ -1,9 +1,11 @@
 package me.jddev0.ep.networking.packet;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.SectionPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
@@ -33,18 +35,20 @@ public class PopEnergizedPowerBookFromLecternC2SPacket {
             if(!player.mayBuild())
                 return;
 
-            BlockEntity blockEntity = player.getLevel().getBlockEntity(pos);
+            Level level = context.getSender().getLevel();
+            if(!level.hasChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ())))
+                return;
 
-            if(blockEntity instanceof LecternBlockEntity) {
-                LecternBlockEntity lecternBlockEntity = (LecternBlockEntity)blockEntity;
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if(!(blockEntity instanceof LecternBlockEntity lecternBlockEntity))
+                return;
 
-                ItemStack itemStack = lecternBlockEntity.getBook();
+            ItemStack itemStack = lecternBlockEntity.getBook();
 
                 lecternBlockEntity.setBook(ItemStack.EMPTY);
                 LecternBlock.resetBookState(player.getLevel(), pos, player.getLevel().getBlockState(pos), false);
                 if(!player.getInventory().add(itemStack))
                     player.drop(itemStack, false);
-            }
         });
 
         return true;
