@@ -8,36 +8,36 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 ### Machines
 
 - Powered Furnace
-- Advanced Powered Furnace (3 slots) (**In next release (v2.0.0)**)
+- Advanced Powered Furnace (3 slots)
 - Auto Crafter (Can handle recipe conflicts, that is recipes with the same inputs)
 - Crusher
-- Pulverizer (**In next release (v2.0.0)**)
+- Pulverizer
 - Sawmill
 - Compressor
 - Plant Growth Chamber
 - Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
-- Fluid Filler (**In next release (v2.0.0)**)
-- Fluid Drainer (**In next release (v2.0.0)**)
+- Fluid Filler
+- Fluid Drainer
 - Charger
-- Advanced Charger (3 slots) (**In next release (v2.0.0)**)
+- Advanced Charger (3 slots)
 - Uncharger
-- Advanced Uncharger (3 slots) (**In next release (v2.0.0)**)
+- Advanced Uncharger (3 slots)
 - Minecart Charger
-- Advanced Minecart Charger (**In next release (v2.0.0)**)
+- Advanced Minecart Charger
 - Minecart Uncharger
-- Advanced Minecart Uncharger (**In next release (v2.0.0)**)
+- Advanced Minecart Uncharger
 - Charging Station
 - Energizer
 - Coal Engine
 - Heat Generator
-- Thermal Generator (**In next release (v2.0.0)**)
+- Thermal Generator
 - Lightning Generator
 - Solar Panels (5 Tiers)
 - Transformers (Can be used to connect different tiers of cables):
-  - 3 tiers: MV, HV (**In next release (v2.0.0)**), and EHV (**In next release (v2.0.0)**)
+  - 3 tiers: MV, HV, and EHV
   - 3 types (for each tier): 1 to n, 3 to 3, and n to 1
 - Battery Box
-- Advanced Battery Box (**In next release (v2.0.0)**)
+- Advanced Battery Box
 - Weather Controller
 - Time Controller
 
@@ -45,21 +45,21 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 ### Energy transportation
 
-- Cables (5 Tiers: Copper, Gold, Energized Copper, Energized Gold, and Energized Crystal Matrix (**In next release (v2.0.0)**))
+- Cables (5 Tiers: Copper, Gold, Energized Copper, Energized Gold, and Energized Crystal Matrix)
 - Minecart with Battery Box
-- Minecart with Advanced Battery Box (**In next release (v2.0.0)**)
+- Minecart with Advanced Battery Box
 
 ### Energy Items
 
 - Energy Analyzer (Can be used to debug energy blocks)
-- Fluid Analyzer (Can be used to debug blocks which contain fluids) (**In next release (v2.0.0)**)
+- Fluid Analyzer (Can be used to debug blocks which contain fluids)
 - Batteries (8 Tiers)
 - Inventory Coal Engine
-- Inventory Charger (**In next release (v2.0.0)**)
+- Inventory Charger
 
 ### Fluid transport
 
-- Fluid Pipe (**In next release (v2.0.0)**)
+- Fluid Pipe
 
 ### Integrations
 
@@ -77,7 +77,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 - The Energized Power Book contains information for all the blocks and items of this mod
 
-### Configurations (**In next release (v2.0.0)**)
+### Configurations
 
 - Configurations are located in the `config/energizedpower` directory:
   - `client.conf`: Contains config values which are only used for the client
@@ -116,6 +116,7 @@ A tutorial world showcasing all the features of this mod can be downloaded on Cu
 
 ## Supported versions:
 Mod version: MC version
+- 2.0.x: 1.20.1, 1.19.4, 1.19.3, 1.19.2
 - 1.7.x: 1.20.1, 1.20, 1.19.4, 1.19.3, 1.19.2, 1.18.2
 - 1.6.x: 1.19.4, 1.19.3, 1.19.2, 1.18.2
 - 1.5.x: 1.19.4, 1.19.3, 1.19.2, 1.18.2
