@@ -66,6 +66,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<PoweredFurnaceMenu>> POWERED_FURNACE_MENU = registerMenuType("powered_furnace",
             PoweredFurnaceMenu::new);
 
+    public static final RegistryObject<MenuType<AdvancedPoweredFurnaceMenu>> ADVANCED_POWERED_FURNACE_MENU = registerMenuType("advanced_powered_furnace",
+            AdvancedPoweredFurnaceMenu::new);
+
     public static final RegistryObject<MenuType<WeatherControllerMenu>> WEATHER_CONTROLLER_MENU = registerMenuType("weather_controller",
             WeatherControllerMenu::new);
 

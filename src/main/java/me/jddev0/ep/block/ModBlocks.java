@@ -291,6 +291,12 @@ public final class ModBlocks {
                     lightLevel(PoweredFurnaceBlock.LIGHT_EMISSION)));
     public static final RegistryObject<Item> POWERED_FURNACE_ITEM = createBlockItem("powered_furnace", POWERED_FURNACE);
 
+    public static final RegistryObject<Block> ADVANCED_POWERED_FURNACE = BLOCKS.register("advanced_powered_furnace",
+            () -> new AdvancedPoweredFurnaceBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).
+                    lightLevel(AdvancedPoweredFurnaceBlock.LIGHT_EMISSION)));
+    public static final RegistryObject<Item> ADVANCED_POWERED_FURNACE_ITEM = createBlockItem("advanced_powered_furnace", ADVANCED_POWERED_FURNACE);
+
     public static final RegistryObject<Block> LIGHTNING_GENERATOR = BLOCKS.register("lightning_generator",
             () -> new LightningGeneratorBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).
