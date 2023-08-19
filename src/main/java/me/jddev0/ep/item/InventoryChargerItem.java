@@ -38,6 +38,9 @@ import java.util.List;
 public class InventoryChargerItem extends Item implements NamedScreenHandlerFactory {
     public static final int SLOT_COUNT = ModConfigs.COMMON_INVENTORY_CHARGER_SLOT_COUNT.getValue();
 
+    public static final boolean TRANSFER_RATE_LIMIT_ENABLED = ModConfigs.COMMON_INVENTORY_CHARGER_TRANSFER_RATE_LIMIT_ENABLED.getValue();
+    public static final long TRANSFER_RATE_LIMIT = ModConfigs.COMMON_INVENTORY_CHARGER_TRANSFER_RATE_LIMIT.getValue();
+
     public InventoryChargerItem(FabricItemSettings props) {
         super(props);
     }
@@ -410,6 +413,9 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
 
             maxTransferSum += value;
         }
+
+        if(TRANSFER_RATE_LIMIT_ENABLED)
+            return Math.min(maxTransferSum, TRANSFER_RATE_LIMIT);
 
         return maxTransferSum;
     }
