@@ -268,6 +268,12 @@
   "item.energizedpower.powered_furnace": "Powered Furnace",
   "container.energizedpower.powered_furnace": "Powered Furnace",
 
+  "block.energizedpower.advanced_powered_furnace": "Advanced Powered Furnace",
+  "item.energizedpower.advanced_powered_furnace": "Advanced Powered Furnace",
+  "container.energizedpower.advanced_powered_furnace": "Advanced Powered Furnace",
+
+  "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt": "These recipes require %s to finish.",
+
   "block.energizedpower.crusher": "Crusher",
   "item.energizedpower.crusher": "Crusher",
   "container.energizedpower.crusher": "Crusher",
@@ -500,6 +506,9 @@
 
   "advancements.energizedpower.powered_furnace.title": "Powered Furnace",
   "advancements.energizedpower.powered_furnace.description": "Furnace with power.",
+
+  "advancements.energizedpower.advanced_powered_furnace.title": "Fast smelting",
+  "advancements.energizedpower.advanced_powered_furnace.description": "Smelt multiple items at once with power.",
 
   "advancements.energizedpower.fluid_pipe.title": "Fluid Transport",
   "advancements.energizedpower.fluid_pipe.description": "Transport fluids with fluid pipes.",
@@ -779,7 +788,8 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_consumption.title": "Consumption",
   "book.energizedpower.page.chapter.energy_blocks.energy_consumption": "Blocks for energy consumption",
 
-  "book.energizedpower.page.powered_furnace": "The Powered Furnace works like the Furnace. Instead of coal it uses power. Additionally it is faster than the normal furnace.",
+  "book.energizedpower.page.powered_furnaces.1": "Powered Furnaces works like the Furnace. Instead of coal they use power and they are faster than the normal furnace.",
+  "book.energizedpower.page.powered_furnaces.2": "The advanced version of the Powered Furnace has 3 input/output slot pairs.",
 
   "book.energizedpower.page.auto_crafter.1": "The Auto Crafter crafts items automatically.",
   "book.energizedpower.page.auto_crafter.2": "The recipe can be set by using the pattern slots.",

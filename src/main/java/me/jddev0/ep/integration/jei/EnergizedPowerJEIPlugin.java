@@ -81,6 +81,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.AUTO_CRAFTER_ITEM.get()), RecipeTypes.CRAFTING);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.POWERED_FURNACE_ITEM.get()), RecipeTypes.SMELTING);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()), RecipeTypes.SMELTING);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.COAL_ENGINE_ITEM.get()), RecipeTypes.FUELING);
         registration.addRecipeCatalyst(new ItemStack(ModItems.INVENTORY_COAL_ENGINE.get()), RecipeTypes.FUELING);
 
@@ -102,6 +103,9 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
         registration.addRecipeClickArea(AutoCrafterScreen.class, 89, 34, 24, 17, RecipeTypes.CRAFTING);
         registration.addRecipeClickArea(PoweredFurnaceScreen.class, 80, 34, 24, 17, RecipeTypes.SMELTING);
+        registration.addRecipeClickArea(AdvancedPoweredFurnaceScreen.class, 43, 34, 18, 18, RecipeTypes.SMELTING);
+        registration.addRecipeClickArea(AdvancedPoweredFurnaceScreen.class, 97, 34, 18, 18, RecipeTypes.SMELTING);
+        registration.addRecipeClickArea(AdvancedPoweredFurnaceScreen.class, 151, 34, 18, 18, RecipeTypes.SMELTING);
         registration.addRecipeClickArea(CoalEngineScreen.class, 79, 25, 18, 17, RecipeTypes.FUELING);
 
         registration.addRecipeClickArea(ChargerScreen.class, 25, 16, 40, 54, ChargerCategory.TYPE);
