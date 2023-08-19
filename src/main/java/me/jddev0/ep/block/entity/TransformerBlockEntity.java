@@ -11,6 +11,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -80,7 +81,10 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
                     buffer.writeLong(capacity);
                     buffer.writeBlockPos(getPos());
 
-                    ModMessages.broadcastServerPacket(world.getServer(), ModMessages.ENERGY_SYNC_ID, buffer);
+                    ModMessages.sendServerPacketToPlayersWithinXBlocks(
+                            getPos(), (ServerWorld)world, 32,
+                            ModMessages.ENERGY_SYNC_ID, buffer
+                    );
                 }
             }
         };
