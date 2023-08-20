@@ -57,7 +57,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - Inventory Coal Engine
 - Inventory Charger
 
-### Fluid transport
+### Fluid transportation
 
 - Fluid Pipe
 
