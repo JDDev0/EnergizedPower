@@ -70,39 +70,21 @@ public class ModEvents {
                     new ItemStack(Items.EMERALD, 35),
                     new ItemStack(ModBlocks.COPPER_CABLE_ITEM.get(), 6),
                     3, 5, .02f);
-            {
-
-                ItemStack energyItem = new ItemStack(ModItems.BATTERY_2.get());
-                energyItem.getOrCreateTag().put("energy", IntTag.valueOf(128));
-
-                addOffer(trades, 2,
-                        new ItemStack(Items.EMERALD, 6),
-                        new ItemStack(Items.COPPER_INGOT, 4),
-                        energyItem,
-                        3, 7, .02f);
-            }
-            {
-
-                ItemStack energyItem = new ItemStack(ModItems.ENERGY_ANALYZER.get());
-                energyItem.getOrCreateTag().put("energy", IntTag.valueOf(128));
-
-                addOffer(trades, 2,
-                        new ItemStack(Items.EMERALD, 6),
-                        new ItemStack(Items.COPPER_INGOT, 12),
-                        energyItem,
-                        2, 8, .02f);
-            }
-            {
-
-                ItemStack energyItem = new ItemStack(ModItems.FLUID_ANALYZER.get());
-                energyItem.getOrCreateTag().put("energy", IntTag.valueOf(128));
-
-                addOffer(trades, 2,
-                        new ItemStack(Items.EMERALD, 6),
-                        new ItemStack(Items.COPPER_INGOT, 12),
-                        energyItem,
-                        2, 8, .02f);
-            }
+            addOffer(trades, 2,
+                    new ItemStack(Items.EMERALD, 6),
+                    new ItemStack(Items.COPPER_INGOT, 4),
+                    new ItemStack(ModItems.BATTERY_2.get()),
+                    3, 7, .02f);
+            addOffer(trades, 2,
+                    new ItemStack(Items.EMERALD, 6),
+                    new ItemStack(Items.COPPER_INGOT, 12),
+                    new ItemStack(ModItems.ENERGY_ANALYZER.get()),
+                    2, 8, .02f);
+            addOffer(trades, 2,
+                    new ItemStack(Items.EMERALD, 6),
+                    new ItemStack(Items.COPPER_INGOT, 12),
+                    new ItemStack(ModItems.FLUID_ANALYZER.get()),
+                    2, 8, .02f);
             addOffer(trades, 2,
                     new ItemStack(ModItems.COPPER_PLATE.get(), 3),
                     new ItemStack(Items.EMERALD, 8),
@@ -155,17 +137,11 @@ public class ModEvents {
                     new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
                     new ItemStack(ModBlocks.COMPRESSOR_ITEM.get()),
                     3, 20, .02f);
-            {
-
-                ItemStack energyItem = new ItemStack(ModItems.BATTERY_4.get());
-                energyItem.getOrCreateTag().put("energy", IntTag.valueOf(512));
-
-                addOffer(trades, 4,
-                        new ItemStack(Items.EMERALD, 29),
-                        new ItemStack(Items.COPPER_INGOT, 9),
-                        energyItem,
-                        2, 19, .02f);
-            }
+            addOffer(trades, 4,
+                    new ItemStack(Items.EMERALD, 29),
+                    new ItemStack(Items.COPPER_INGOT, 9),
+                    new ItemStack(ModItems.BATTERY_4.get()),
+                    2, 19, .02f);
             addOffer(trades, 4,
                     new ItemStack(ModItems.SAWDUST.get(), 17),
                     new ItemStack(Items.EMERALD, 4),
