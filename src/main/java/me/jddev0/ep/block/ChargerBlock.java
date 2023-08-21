@@ -97,9 +97,9 @@ public class ChargerBlock extends BaseEntityBlock {
         @Override
         public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
             if(Screen.hasShiftDown()) {
-                components.add(Component.translatable("tooltip.energizedpower.charger.txt.shift.1").
+                components.add(Component.translatable("tooltip.energizedpower.chargers.txt.shift.1").
                         withStyle(ChatFormatting.GRAY));
-                components.add(Component.translatable("tooltip.energizedpower.charger.txt.shift.2").
+                components.add(Component.translatable("tooltip.energizedpower.chargers.txt.shift.2").
                         withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
             }else {
                 components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
