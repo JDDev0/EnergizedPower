@@ -712,7 +712,7 @@
   "book.energizedpower.page.energy_analyzer.2": "用这个点击方块来使用。",
 
   "book.energizedpower.page.fluid_analyzer.1": "The Fluid Analyzer can be used to get fluid statics.",
-  "book.energizedpower.page.fluid_analyzer.2": "It can be used by clicking on energy blocks.",
+  "book.energizedpower.page.fluid_analyzer.2": "It can be used by clicking on blocks which contain fluids.",
 
   "book.energizedpower.page.batteries.1": "电池可以储存能量。",
   "book.energizedpower.page.batteries.2": "电池可以通过无线充电站或充能站来充电，也可以使用放能站将其中的能量释放到网络中。",

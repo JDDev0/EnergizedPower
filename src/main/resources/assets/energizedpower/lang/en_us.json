@@ -712,7 +712,7 @@
   "book.energizedpower.page.energy_analyzer.2": "It can be used by clicking on energy blocks.",
 
   "book.energizedpower.page.fluid_analyzer.1": "The Fluid Analyzer can be used to get fluid statics.",
-  "book.energizedpower.page.fluid_analyzer.2": "It can be used by clicking on energy blocks.",
+  "book.energizedpower.page.fluid_analyzer.2": "It can be used by clicking on blocks which contain fluids.",
 
   "book.energizedpower.page.batteries.1": "Batteries can store energy.",
   "book.energizedpower.page.batteries.2": "They can be charged by the charger or with inventory generators and they can be uncharged by the uncharger.",
