@@ -127,8 +127,8 @@
   "item.energizedpower.charger": "充能站",
   "container.energizedpower.charger": "充能站",
 
-  "tooltip.energizedpower.charger.txt.shift.1": "充能站用来制作充能铜锭",
-  "tooltip.energizedpower.charger.txt.shift.2": "这个非常昂贵 :P",
+  "tooltip.energizedpower.chargers.txt.shift.1": "Chargers can be used to craft Energized Copper Ingots.",
+  "tooltip.energizedpower.chargers.txt.shift.2": "But you should use the Energizer instead,\nbecause chargers energize very inefficiently.",
 
   "tooltip.energizedpower.charger.item_energy_left.txt": "这个物品需要 %s 才能充满。",
 
