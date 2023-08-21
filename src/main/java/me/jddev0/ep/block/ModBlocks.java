@@ -239,12 +239,14 @@ public final class ModBlocks {
     public static final RegistryObject<Block> MINECART_UNCHARGER = BLOCKS.register("minecart_uncharger",
             () -> new MinecartUnchargerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> MINECART_UNCHARGER_ITEM = createBlockItem("minecart_uncharger", MINECART_UNCHARGER);
+    public static final RegistryObject<Item> MINECART_UNCHARGER_ITEM = ModItems.ITEMS.register("minecart_uncharger",
+            () -> new MinecartUnchargerBlock.Item(MINECART_UNCHARGER.get(), new Item.Properties()));
 
     public static final RegistryObject<Block> ADVANCED_MINECART_UNCHARGER = BLOCKS.register("advanced_minecart_uncharger",
             () -> new AdvancedMinecartUnchargerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> ADVANCED_MINECART_UNCHARGER_ITEM = createBlockItem("advanced_minecart_uncharger", ADVANCED_MINECART_UNCHARGER);
+    public static final RegistryObject<Item> ADVANCED_MINECART_UNCHARGER_ITEM = ModItems.ITEMS.register("advanced_minecart_uncharger",
+            () -> new AdvancedMinecartUnchargerBlock.Item(ADVANCED_MINECART_UNCHARGER.get(), new Item.Properties()));
 
 
     private static RegistryObject<Item> createSolarPanelBlockItem(String name, RegistryObject<SolarPanelBlock> blockRegistryObject) {
