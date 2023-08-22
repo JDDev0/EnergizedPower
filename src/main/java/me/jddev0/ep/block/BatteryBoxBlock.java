@@ -45,6 +45,20 @@ public class BatteryBoxBlock extends BaseEntityBlock {
     }
 
     @Override
+    public boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos) {
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof BatteryBoxBlockEntity batteryBoxBlockEntity))
+            return super.getAnalogOutputSignal(state, level, blockPos);
+
+        return batteryBoxBlockEntity.getRedstoneOutput();
+    }
+
+    @Override
     public InteractionResult use(BlockState state, Level level, BlockPos blockPos, Player player, InteractionHand handItem, BlockHitResult hit) {
         if(level.isClientSide())
             return InteractionResult.sidedSuccess(level.isClientSide());
