@@ -10,7 +10,6 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.OpenEnergizedPowerBookS2CPacket;
 import me.jddev0.ep.villager.ModVillager;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.IntTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
