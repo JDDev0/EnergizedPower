@@ -6,8 +6,6 @@ import me.jddev0.ep.config.validation.ValueValidator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Locale;
-
 public class BooleanConfigValue extends ConfigValue<Boolean> {
     public BooleanConfigValue(@NotNull String key, @NotNull Boolean defaultValue) {
         this(key, null, defaultValue);
