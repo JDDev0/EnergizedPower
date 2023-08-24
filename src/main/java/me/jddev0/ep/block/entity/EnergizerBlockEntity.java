@@ -253,14 +253,14 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
                 blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
 
                 blockEntity.progress++;
-                setChanged(level, blockPos, state);
-
-                if(blockEntity.progress >= blockEntity.maxProgress) {
+                if(blockEntity.progress >= blockEntity.maxProgress)
                     craftItem(blockPos, state, blockEntity);
-                }
+
+                setChanged(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughEnergy = false;
                 level.setBlock(blockPos, state.setValue(EnergizerBlock.LIT, false), 3);
+                setChanged(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);

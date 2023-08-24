@@ -298,8 +298,6 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
                 blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
                 blockEntity.energyConsumptionLeft[i] -= energyConsumptionPerTick;
 
-                setChanged(level, blockPos, state);
-
                 if(blockEntity.energyConsumptionLeft[i] <= 0) {
                     final int index = i;
                     recipe.ifPresent(chargerRecipe -> blockEntity.itemHandler.setStackInSlot(index,
@@ -307,6 +305,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
 
                     blockEntity.resetProgress(i);
                 }
+                setChanged(level, blockPos, state);
             }else {
                 blockEntity.resetProgress(i);
                 setChanged(level, blockPos, state);

@@ -288,14 +288,13 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
             blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
             blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
 
-            setChanged(level, blockPos, state);
-
             if(blockEntity.energyConsumptionLeft <= 0) {
                 recipe.ifPresent(chargerRecipe ->
                         blockEntity.itemHandler.setStackInSlot(0, new ItemStack(chargerRecipe.getResultItem().getItem())));
 
                 blockEntity.resetProgress();
             }
+            setChanged(level, blockPos, state);
         }else {
             blockEntity.resetProgress();
             setChanged(level, blockPos, state);
