@@ -291,26 +291,22 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
 
         Optional<SawmillRecipe> recipe = level.getRecipeManager().getRecipeFor(SawmillRecipe.Type.INSTANCE, inventory, level);
 
-        return recipe.isPresent() && canInsertAmountIntoOutputSlot(inventory, recipe.get().getResultItem(level.registryAccess()).getCount()) &&
-                canInsertItemIntoOutputSlot(inventory, recipe.get().getResultItem(level.registryAccess())) &&
-                (recipe.get().getSecondaryOutput().isEmpty() || (canInsertAmountIntoSecondaryOutputSlot(inventory, recipe.get().getSecondaryOutput().getCount()) &&
-                        canInsertItemIntoSecondaryOutputSlot(inventory, recipe.get().getSecondaryOutput())));
+        return recipe.isPresent() && canInsertItemIntoOutputSlot(inventory, recipe.get().getResultItem(level.registryAccess())) &&
+                (recipe.get().getSecondaryOutput().isEmpty() || canInsertItemIntoSecondaryOutputSlot(inventory, recipe.get().getSecondaryOutput()));
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
-        return inventory.getItem(1).isEmpty() || inventory.getItem(1).getItem() == itemStack.getItem();
-    }
+        ItemStack inventoryItemStack = inventory.getItem(1);
 
-    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory, int count) {
-        return inventory.getItem(1).getMaxStackSize() >= inventory.getItem(1).getCount() + count;
+        return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameTags(inventoryItemStack, itemStack)) &&
+                inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount();
     }
 
     private static boolean canInsertItemIntoSecondaryOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
-        return inventory.getItem(2).isEmpty() || inventory.getItem(2).getItem() == itemStack.getItem();
-    }
+        ItemStack inventoryItemStack = inventory.getItem(2);
 
-    private static boolean canInsertAmountIntoSecondaryOutputSlot(SimpleContainer inventory, int count) {
-        return inventory.getItem(2).getMaxStackSize() >= inventory.getItem(2).getCount() + count;
+        return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameTags(inventoryItemStack, itemStack)) &&
+                inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount();
     }
 
     public int getEnergy() {
