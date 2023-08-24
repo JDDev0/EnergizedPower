@@ -259,10 +259,10 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
             blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() + energyProductionPerTick);
             blockEntity.energyProductionLeft -= energyProductionPerTick;
 
-            setChanged(level, blockPos, state);
-
             if(blockEntity.energyProductionLeft <= 0)
                 blockEntity.resetProgress();
+
+            setChanged(level, blockPos, state);
         }else {
             blockEntity.resetProgress();
             setChanged(level, blockPos, state);

@@ -317,10 +317,10 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
             blockEntity.fluidDrainingSumPending -= fluidSumDrained.getAmount();
             blockEntity.fluidDrainingLeft = fluidDrainingLeftSum - fluidSumDrained.getAmount();
 
-            setChanged(level, blockPos, state);
-
             if(blockEntity.fluidDrainingLeft <= 0)
                 blockEntity.resetProgress();
+
+            setChanged(level, blockPos, state);
         }else {
             blockEntity.resetProgress();
             setChanged(level, blockPos, state);

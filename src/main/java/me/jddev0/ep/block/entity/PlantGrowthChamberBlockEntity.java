@@ -278,13 +278,13 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
                 blockEntity.energyConsumptionLeft -= fertilizedEnergyUsagePerTick;
 
                 blockEntity.progress++;
-                setChanged(level, blockPos, state);
-
-                if(blockEntity.progress >= blockEntity.maxProgress) {
+                if(blockEntity.progress >= blockEntity.maxProgress)
                     craftItem(blockPos, state, blockEntity);
-                }
+
+                setChanged(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughEnergy = false;
+                setChanged(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);

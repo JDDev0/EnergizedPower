@@ -240,13 +240,13 @@ public class PulverizerBlockEntity extends BlockEntity implements MenuProvider, 
                 blockEntity.energyConsumptionLeft -= ENERGY_USAGE_PER_TICK;
 
                 blockEntity.progress++;
-                setChanged(level, blockPos, state);
-
-                if(blockEntity.progress >= blockEntity.maxProgress) {
+                if(blockEntity.progress >= blockEntity.maxProgress)
                     craftItem(blockPos, state, blockEntity);
-                }
+
+                setChanged(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughEnergy = false;
+                setChanged(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);

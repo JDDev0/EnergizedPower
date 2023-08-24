@@ -314,10 +314,10 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
             blockEntity.fluidFillingSumPending -= fluidSumFilled;
             blockEntity.fluidFillingLeft = fluidFillingLeftSum - fluidSumFilled;
 
-            setChanged(level, blockPos, state);
-
             if(blockEntity.fluidFillingLeft <= 0)
                 blockEntity.resetProgress();
+
+            setChanged(level, blockPos, state);
         }else {
             blockEntity.resetProgress();
             setChanged(level, blockPos, state);

@@ -271,10 +271,10 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
                 blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() + energyProductionPerTick);
                 blockEntity.energyProductionLeft[i] -= energyProductionPerTick;
 
-                setChanged(level, blockPos, state);
-
                 if(blockEntity.energyProductionLeft[i] <= 0)
                     blockEntity.resetProgress(i);
+
+                setChanged(level, blockPos, state);
             }else {
                 blockEntity.resetProgress(i);
                 setChanged(level, blockPos, state);
