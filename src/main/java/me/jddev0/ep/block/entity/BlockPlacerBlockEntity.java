@@ -246,12 +246,11 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
                 if(blockEntity.progress < blockEntity.maxProgress)
                     blockEntity.progress++;
 
-                setChanged(level, blockPos, state);
-
                 if(blockEntity.progress >= blockEntity.maxProgress) {
                     ItemStack itemStack = blockEntity.itemHandler.getStackInSlot(0);
                     if(itemStack.isEmpty()) {
                         blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK;
+                        setChanged(level, blockPos, state);
 
                         return;
                     }
@@ -306,16 +305,19 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
 
                     if(result == InteractionResult.FAIL) {
                         blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK;
+                        setChanged(level, blockPos, state);
 
                         return;
                     }
 
                     blockEntity.itemHandler.setStackInSlot(0, itemStack);
                     blockEntity.resetProgress(blockPos, state);
-                    setChanged(level, blockPos, state);
                 }
+
+                setChanged(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughEnergy = false;
+                setChanged(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);

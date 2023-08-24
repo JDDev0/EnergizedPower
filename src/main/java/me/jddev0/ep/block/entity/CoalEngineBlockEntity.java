@@ -264,14 +264,13 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
                 blockEntity.energyProductionLeft -= energyProductionPerTick;
 
                 blockEntity.progress++;
-                setChanged(level, blockPos, state);
-
-                if(blockEntity.progress >= blockEntity.maxProgress) {
+                if(blockEntity.progress >= blockEntity.maxProgress)
                     blockEntity.resetProgress(blockPos, state);
-                }
+
+                setChanged(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughCapacityForProduction = false;
-                //Do not unlit block (Would flicker if energy is not extracted at the production rate or greater)
+                setChanged(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);

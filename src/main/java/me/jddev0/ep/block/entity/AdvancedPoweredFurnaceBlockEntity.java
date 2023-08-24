@@ -288,14 +288,13 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Me
                     blockEntity.energyConsumptionLeft[i] -= ENERGY_USAGE_PER_INPUT_PER_TICK;
 
                     blockEntity.progress[i]++;
-                    setChanged(level, blockPos, state);
-
-                    if(blockEntity.progress[i] >= blockEntity.maxProgress[i]) {
+                    if(blockEntity.progress[i] >= blockEntity.maxProgress[i])
                         craftItem(i, blockPos, state, blockEntity);
-                    }
+
+                    setChanged(level, blockPos, state);
                 }else {
                     blockEntity.hasEnoughEnergy[i] = false;
-                    //Do not unlit block (Would flicker if energy is not inserted at the consumption rate or greater)
+                    setChanged(level, blockPos, state);
                 }
             }else {
                 blockEntity.resetProgress(i, blockPos, state);
