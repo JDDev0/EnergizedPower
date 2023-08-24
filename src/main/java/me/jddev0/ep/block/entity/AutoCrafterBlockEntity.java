@@ -333,7 +333,6 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                 blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
 
                 blockEntity.progress++;
-                setChanged(level, blockPos, state);
 
                 if(blockEntity.progress >= blockEntity.maxProgress) {
                     SimpleContainer patternSlotsForRecipe = blockEntity.ignoreNBT?
@@ -345,8 +344,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                     blockEntity.extractItems();
                     blockEntity.craftItem(copyOfPatternSlots);
                 }
+
+                setChanged(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughEnergy = false;
+                setChanged(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress();
