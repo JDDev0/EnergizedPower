@@ -349,16 +349,14 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Me
         for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-        return recipe.isPresent() && canInsertAmountIntoOutputSlot(index, inventory, recipe.get().getResultItem(level.registryAccess()).getCount()) &&
-                canInsertItemIntoOutputSlot(index, inventory, recipe.get().getResultItem(level.registryAccess()));
+        return recipe.isPresent() && canInsertItemIntoOutputSlot(index, inventory, recipe.get().getResultItem(level.registryAccess()));
     }
 
     private static boolean canInsertItemIntoOutputSlot(int index, SimpleContainer inventory, ItemStack itemStack) {
-        return inventory.getItem(3 + index).isEmpty() || inventory.getItem(3 + index).getItem() == itemStack.getItem();
-    }
+        ItemStack inventoryItemStack = inventory.getItem(3 + index);
 
-    private static boolean canInsertAmountIntoOutputSlot(int index, SimpleContainer inventory, int count) {
-        return inventory.getItem(3 + index).getMaxStackSize() >= inventory.getItem(3 + index).getCount() + count;
+        return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameTags(inventoryItemStack, itemStack)) &&
+                inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount();
     }
 
     public int getEnergy() {
