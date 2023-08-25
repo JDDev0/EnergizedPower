@@ -141,7 +141,7 @@ public class WrenchItem extends Item {
                     Component.translatable("tooltip.energizedpower.wrench.face_change",
                             Component.translatable("tooltip.energizedpower.direction." + currentFace.getSerializedName()).
                                     withStyle(ChatFormatting.WHITE),
-                            Component.translatable("tooltip.energizedpower.pipe_connection." + pipeConnection.getSerializedName()).
+                            Component.translatable(pipeConnection.getTranslationKey()).
                                     withStyle(ChatFormatting.WHITE, ChatFormatting.BOLD)
                     ).withStyle(ChatFormatting.GREEN)
             ));
