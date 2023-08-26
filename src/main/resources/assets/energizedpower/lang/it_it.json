@@ -127,8 +127,8 @@
   "item.energizedpower.charger": "Caricabatterie",
   "container.energizedpower.charger": "Caricabatterie",
 
-  "tooltip.energizedpower.charger.txt.shift.1": "Il caricabatterie può essere utilizzato per creare lingotti di rame energizzati.",
-  "tooltip.energizedpower.charger.txt.shift.2": "È molto caro :P",
+  "tooltip.energizedpower.chargers.txt.shift.1": "Chargers can be used to craft Energized Copper Ingots.",
+  "tooltip.energizedpower.chargers.txt.shift.2": "But you should use the Energizer instead, because chargers energize very inefficiently.",
 
   "tooltip.energizedpower.charger.item_energy_left.txt": "Questo articolo richiede che %s sia completamente carico.",
 
