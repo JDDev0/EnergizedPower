@@ -127,8 +127,8 @@
   "item.energizedpower.charger": "Lader",
   "container.energizedpower.charger": "Lader",
 
-  "tooltip.energizedpower.charger.txt.shift.1": "Der Lader kann Kupferbarren energetisieren.",
-  "tooltip.energizedpower.charger.txt.shift.2": "Es ist aber sehr stromintensiv :P",
+  "tooltip.energizedpower.chargers.txt.shift.1": "Lader können Kupferbarren energetisieren.",
+  "tooltip.energizedpower.chargers.txt.shift.2": "Du solltest aber stattdessen den Energetisierer verwenden,\nweil Lader nur sehr ineffizent energetisieren können.",
 
   "tooltip.energizedpower.charger.item_energy_left.txt": "Dieses Item braucht noch %s, um vollständig geladen zu sein.",
 

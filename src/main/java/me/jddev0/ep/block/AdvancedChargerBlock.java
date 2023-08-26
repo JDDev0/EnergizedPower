@@ -2,13 +2,20 @@ package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.AdvancedChargerBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -17,6 +24,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class AdvancedChargerBlock extends BaseEntityBlock {
     public AdvancedChargerBlock(Properties props) {
@@ -80,5 +89,23 @@ public class AdvancedChargerBlock extends BaseEntityBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return createTickerHelper(type, ModBlockEntities.ADVANCED_CHARGER_ENTITY.get(), AdvancedChargerBlockEntity::tick);
+    }
+
+    public static class Item extends BlockItem {
+        public Item(Block block, Properties props) {
+            super(block, props);
+        }
+
+        @Override
+        public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
+            if(Screen.hasShiftDown()) {
+                components.add(Component.translatable("tooltip.energizedpower.chargers.txt.shift.1").
+                        withStyle(ChatFormatting.GRAY));
+                components.add(Component.translatable("tooltip.energizedpower.chargers.txt.shift.2").
+                        withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+            }else {
+                components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+            }
+        }
     }
 }
