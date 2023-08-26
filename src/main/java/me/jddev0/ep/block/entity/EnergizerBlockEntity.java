@@ -304,16 +304,14 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
 
         Optional<EnergizerRecipe> recipe = level.getRecipeManager().getRecipeFor(EnergizerRecipe.Type.INSTANCE, inventory, level);
 
-        return recipe.isPresent() && canInsertAmountIntoOutputSlot(inventory, recipe.get().getResultItem().getCount()) &&
-                canInsertItemIntoOutputSlot(inventory, recipe.get().getResultItem());
+        return recipe.isPresent() && canInsertItemIntoOutputSlot(inventory, recipe.get().getResultItem());
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
-        return inventory.getItem(1).isEmpty() || inventory.getItem(1).getItem() == itemStack.getItem();
-    }
+        ItemStack inventoryItemStack = inventory.getItem(1);
 
-    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory, int count) {
-        return inventory.getItem(1).getMaxStackSize() >= inventory.getItem(1).getCount() + count;
+        return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameTags(inventoryItemStack, itemStack)) &&
+                inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount();
     }
 
     public int getEnergy() {
