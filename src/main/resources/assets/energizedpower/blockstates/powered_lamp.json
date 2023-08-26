@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "level=0": {
+      "model": "energizedpower:block/powered_lamp"
+    },
+    "level=1": {
+      "model": "energizedpower:block/powered_lamp_on"
+    },
+    "level=2": {
+      "model": "energizedpower:block/powered_lamp_on"
+    },
+    "level=3": {
+      "model": "energizedpower:block/powered_lamp_on"
+    },
+    "level=4": {
+      "model": "energizedpower:block/powered_lamp_on"
+    },
+    "level=5": {
+      "model": "energizedpower:block/powered_lamp_on"
+    },
+    "level=6": {
+      "model": "energizedpower:block/powered_lamp_on"
+    },
+    "level=7": {
+      "model": "energizedpower:block/powered_lamp_on"
+    },
+    "level=8": {
+      "model": "energizedpower:block/powered_lamp_on"
+    },
+    "level=9": {
+      "model": "energizedpower:block/powered_lamp_on"
+    },
+    "level=10": {
+      "model": "energizedpower:block/powered_lamp_on"
+    },
+    "level=11": {
+      "model": "energizedpower:block/powered_lamp_on"
+    },
+    "level=12": {
+      "model": "energizedpower:block/powered_lamp_on"
+    },
+    "level=13": {
+      "model": "energizedpower:block/powered_lamp_on"
+    },
+    "level=14": {
+      "model": "energizedpower:block/powered_lamp_on"
+    },
+    "level=15": {
+      "model": "energizedpower:block/powered_lamp_on"
+    }
+  }
+}
