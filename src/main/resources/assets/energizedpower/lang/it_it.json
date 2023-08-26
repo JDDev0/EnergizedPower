@@ -264,6 +264,9 @@
 
   "tooltip.energizedpower.thermal_generator.txt": "Questo fluido produrrà %s fino a completo esaurimento",
 
+  "block.energizedpower.powered_lamp": "Powered Lamp",
+  "item.energizedpower.powered_lamp": "Powered Lamp",
+
   "block.energizedpower.powered_furnace": "Fornace alimentata",
   "item.energizedpower.powered_furnace": "Fornace alimentata",
   "container.energizedpower.powered_furnace": "Fornace alimentata",

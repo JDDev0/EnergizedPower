@@ -264,6 +264,9 @@
 
   "tooltip.energizedpower.thermal_generator.txt": "Diese Flüssigkeit wird noch %s produizeren",
 
+  "block.energizedpower.powered_lamp": "Elektrische Lampe",
+  "item.energizedpower.powered_lamp": "Elektrische Lampe",
+
   "block.energizedpower.powered_furnace": "Elektroofen",
   "item.energizedpower.powered_furnace": "Elektroofen",
   "container.energizedpower.powered_furnace": "Elektroofen",

@@ -296,6 +296,11 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
+    public static final BlockEntityType<PoweredLampBlockEntity> POWERED_LAMP_ENTITY = registerEnergyStorage(
+            createBlockEntity("powered_lamp", ModBlocks.POWERED_LAMP, PoweredLampBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
+
     public static final BlockEntityType<PoweredFurnaceBlockEntity> POWERED_FURNACE_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
                     createBlockEntity("powered_furnace", ModBlocks.POWERED_FURNACE, PoweredFurnaceBlockEntity::new),
