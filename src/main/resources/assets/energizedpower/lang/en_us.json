@@ -127,8 +127,8 @@
   "item.energizedpower.charger": "Charger",
   "container.energizedpower.charger": "Charger",
 
-  "tooltip.energizedpower.charger.txt.shift.1": "The charger can be used to craft energized copper ingots.",
-  "tooltip.energizedpower.charger.txt.shift.2": "It's very expensive :P",
+  "tooltip.energizedpower.chargers.txt.shift.1": "Chargers can be used to craft Energized Copper Ingots.",
+  "tooltip.energizedpower.chargers.txt.shift.2": "But you should use the Energizer instead, because chargers energize very inefficiently.",
 
   "tooltip.energizedpower.charger.item_energy_left.txt": "This item needs %s to be fully charged.",
 

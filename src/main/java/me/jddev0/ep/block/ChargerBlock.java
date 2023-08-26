@@ -99,9 +99,9 @@ public class ChargerBlock extends BlockWithEntity {
         @Override
         public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
             if(Screen.hasShiftDown()) {
-                tooltip.add(Text.translatable("tooltip.energizedpower.charger.txt.shift.1").
+                tooltip.add(Text.translatable("tooltip.energizedpower.chargers.txt.shift.1").
                         formatted(Formatting.GRAY));
-                tooltip.add(Text.translatable("tooltip.energizedpower.charger.txt.shift.2").
+                tooltip.add(Text.translatable("tooltip.energizedpower.chargers.txt.shift.2").
                         formatted(Formatting.GRAY, Formatting.ITALIC));
             }else {
                 tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
