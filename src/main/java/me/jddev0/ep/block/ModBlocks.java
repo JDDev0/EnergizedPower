@@ -227,12 +227,14 @@ public final class ModBlocks {
     public static final Block MINECART_UNCHARGER = registerBlock("minecart_uncharger",
             new MinecartUnchargerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
-    public static final Item MINECART_UNCHARGER_ITEM = createBlockItem("minecart_uncharger", MINECART_UNCHARGER);
+    public static final Item MINECART_UNCHARGER_ITEM = createBlockItem("minecart_uncharger",
+            new MinecartUnchargerBlock.Item(MINECART_UNCHARGER, new FabricItemSettings()));
 
     public static final Block ADVANCED_MINECART_UNCHARGER = registerBlock("advanced_minecart_uncharger",
             new AdvancedMinecartUnchargerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
-    public static final Item ADVANCED_MINECART_UNCHARGER_ITEM = createBlockItem("advanced_minecart_uncharger", ADVANCED_MINECART_UNCHARGER);
+    public static final Item ADVANCED_MINECART_UNCHARGER_ITEM = createBlockItem("advanced_minecart_uncharger",
+            new AdvancedMinecartUnchargerBlock.Item(ADVANCED_MINECART_UNCHARGER, new FabricItemSettings()));
 
 
     private static Item createSolarPanelBlockItem(String name, SolarPanelBlock block) {
