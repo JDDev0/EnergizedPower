@@ -278,6 +278,12 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item THERMAL_GENERATOR_ITEM = createBlockItem("thermal_generator", THERMAL_GENERATOR);
 
+    public static final Block POWERED_LAMP = registerBlock("powered_lamp",
+            new PoweredLampBlock(FabricBlockSettings.of(Material.REDSTONE_LAMP).
+                    strength(.3f).sounds(BlockSoundGroup.GLASS).
+                    luminance(PoweredLampBlock.LIGHT_EMISSION)));
+    public static final Item POWERED_LAMP_ITEM = createBlockItem("powered_lamp", POWERED_LAMP);
+
     public static final Block POWERED_FURNACE = registerBlock("powered_furnace",
             new PoweredFurnaceBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL).

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "energizedpower:block/powered_lamp_on"
+  }
+}
