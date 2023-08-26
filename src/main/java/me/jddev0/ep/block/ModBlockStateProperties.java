@@ -38,7 +38,7 @@ public final class ModBlockStateProperties {
         }
 
         public String getTranslationKey() {
-            return "block_state.energizedpower." + asString();
+            return "block_state.energizedpower.pipe_connection." + asString();
         }
     }
 }
