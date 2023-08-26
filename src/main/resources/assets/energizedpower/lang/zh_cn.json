@@ -372,9 +372,9 @@
   "tooltip.energizedpower.direction.west": "West",
   "tooltip.energizedpower.direction.east": "East",
 
-  "tooltip.energizedpower.pipe_connection.not_connected": "Not connected",
-  "tooltip.energizedpower.pipe_connection.connected": "Connected/Insertion",
-  "tooltip.energizedpower.pipe_connection.extract": "Extraction",
+  "block_state.energizedpower.pipe_connection.not_connected": "Not connected",
+  "block_state.energizedpower.pipe_connection.connected": "Connected/Insertion",
+  "block_state.energizedpower.pipe_connection.extract": "Extraction",
 
   "itemGroup.energizedpower.tab": "Energized Power",
 
