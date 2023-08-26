@@ -305,8 +305,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         if(itemCount == 0)
             return;
 
-        if(blockEntity.craftingRecipe != null && (blockEntity.progress > 0 || (blockEntity.canInsertIntoOutputSlot() && blockEntity.canExtractItemsFromInput()))) {
-            if(!blockEntity.canInsertIntoOutputSlot() || !blockEntity.canExtractItemsFromInput())
+        if(blockEntity.craftingRecipe != null && (blockEntity.progress > 0 || (blockEntity.canInsertItemsIntoOutputSlots() && blockEntity.canExtractItemsFromInput()))) {
+            if(!blockEntity.canInsertItemsIntoOutputSlots() || !blockEntity.canExtractItemsFromInput())
                 return;
 
             int energyConsumptionPerTick = itemCount * ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT;
@@ -592,7 +592,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         return itemStacks.isEmpty();
     }
 
-    private boolean canInsertIntoOutputSlot() {
+    private boolean canInsertItemsIntoOutputSlots() {
         if(craftingRecipe == null)
             return false;
 
