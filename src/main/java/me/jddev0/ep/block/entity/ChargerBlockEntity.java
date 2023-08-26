@@ -308,14 +308,14 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
 
             blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
 
-            markDirty(level, blockPos, state);
-
             if(blockEntity.energyConsumptionLeft <= 0) {
                 recipe.ifPresent(chargerRecipe ->
                         blockEntity.internalInventory.setStack(0, new ItemStack(chargerRecipe.getOutput(level.getRegistryManager()).getItem())));
 
                 blockEntity.resetProgress();
             }
+
+            markDirty(level, blockPos, state);
         }else {
             blockEntity.resetProgress();
             markDirty(level, blockPos, state);
