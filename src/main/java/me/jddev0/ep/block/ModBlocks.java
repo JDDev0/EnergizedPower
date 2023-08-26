@@ -228,12 +228,14 @@ public final class ModBlocks {
     public static final RegistryObject<Block> MINECART_CHARGER = BLOCKS.register("minecart_charger",
             () -> new MinecartChargerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> MINECART_CHARGER_ITEM = createBlockItem("minecart_charger", MINECART_CHARGER);
+    public static final RegistryObject<Item> MINECART_CHARGER_ITEM = ModItems.ITEMS.register("minecart_charger",
+            () -> new MinecartChargerBlock.Item(MINECART_CHARGER.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Block> ADVANCED_MINECART_CHARGER = BLOCKS.register("advanced_minecart_charger",
             () -> new AdvancedMinecartChargerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> ADVANCED_MINECART_CHARGER_ITEM = createBlockItem("advanced_minecart_charger", ADVANCED_MINECART_CHARGER);
+    public static final RegistryObject<Item> ADVANCED_MINECART_CHARGER_ITEM = ModItems.ITEMS.register("advanced_minecart_charger",
+            () -> new AdvancedMinecartChargerBlock.Item(ADVANCED_MINECART_CHARGER.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Block> MINECART_UNCHARGER = BLOCKS.register("minecart_uncharger",
             () -> new MinecartUnchargerBlock(BlockBehaviour.Properties.of(Material.METAL).
