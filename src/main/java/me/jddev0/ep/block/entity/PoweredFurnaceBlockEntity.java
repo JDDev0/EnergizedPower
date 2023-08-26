@@ -301,16 +301,14 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
 
         Optional<SmeltingRecipe> recipe = level.getRecipeManager().getFirstMatch(RecipeType.SMELTING, blockEntity.internalInventory, level);
 
-        return recipe.isPresent() && canInsertAmountIntoOutputSlot(blockEntity.internalInventory, recipe.get().getOutput().getCount()) &&
-                canInsertItemIntoOutputSlot(blockEntity.internalInventory, recipe.get().getOutput());
+        return recipe.isPresent() && canInsertItemIntoOutputSlot(blockEntity.internalInventory, recipe.get().getOutput());
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleInventory inventory, ItemStack itemStack) {
-        return inventory.getStack(1).isEmpty() || inventory.getStack(1).getItem() == itemStack.getItem();
-    }
+        ItemStack inventoryItemStack = inventory.getStack(1);
 
-    private static boolean canInsertAmountIntoOutputSlot(SimpleInventory inventory, int count) {
-        return inventory.getStack(1).getMaxCount() >= inventory.getStack(1).getCount() + count;
+        return (inventoryItemStack.isEmpty() || ItemStack.canCombine(inventoryItemStack, itemStack)) &&
+                inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount();
     }
 
     public long getEnergy() {
