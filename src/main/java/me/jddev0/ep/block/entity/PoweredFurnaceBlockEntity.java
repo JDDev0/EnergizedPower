@@ -258,14 +258,13 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
                 blockEntity.energyConsumptionLeft -= ENERGY_USAGE_PER_TICK;
 
                 blockEntity.progress++;
-                markDirty(level, blockPos, state);
-
-                if(blockEntity.progress >= blockEntity.maxProgress) {
+                if(blockEntity.progress >= blockEntity.maxProgress)
                     craftItem(blockPos, state, blockEntity);
-                }
+
+                markDirty(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughEnergy = false;
-                //Do not unlit block (Would flicker if energy is not inserted at the consumption rate or greater)
+                markDirty(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);

@@ -340,7 +340,6 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
 
                 blockEntity.progress++;
-                markDirty(level, blockPos, state);
 
                 if(blockEntity.progress >= blockEntity.maxProgress) {
                     SimpleInventory patternSlotsForRecipe = blockEntity.ignoreNBT?
@@ -352,8 +351,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                     blockEntity.extractItems();
                     blockEntity.craftItem(copyOfPatternSlots);
                 }
+
+                markDirty(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughEnergy = false;
+                markDirty(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress();

@@ -257,12 +257,11 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
                 if(blockEntity.progress < blockEntity.maxProgress)
                     blockEntity.progress++;
 
-                markDirty(level, blockPos, state);
-
                 if(blockEntity.progress >= blockEntity.maxProgress) {
                     ItemStack itemStack = blockEntity.internalInventory.getStack(0);
                     if(itemStack.isEmpty()) {
                         blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK;
+                        markDirty(level, blockPos, state);
 
                         return;
                     }
@@ -317,16 +316,19 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
 
                     if(result == ActionResult.FAIL) {
                         blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK;
+                        markDirty(level, blockPos, state);
 
                         return;
                     }
 
                     blockEntity.internalInventory.setStack(0, itemStack);
                     blockEntity.resetProgress(blockPos, state);
-                    markDirty(level, blockPos, state);
                 }
+
+                markDirty(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughEnergy = false;
+                markDirty(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);

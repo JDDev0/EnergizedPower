@@ -280,10 +280,10 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements Extende
 
                 blockEntity.energyProductionLeft[i] -= EnergyStorageUtil.move(energyStorage, blockEntity.internalEnergyStorage, maxExtractPerSlot, null);
 
-                markDirty(level, blockPos, state);
-
                 if(blockEntity.energyProductionLeft[i] <= 0)
                     blockEntity.resetProgress(i);
+
+                markDirty(level, blockPos, state);
             }else {
                 blockEntity.resetProgress(i);
                 markDirty(level, blockPos, state);
