@@ -245,13 +245,13 @@ public class CrusherBlockEntity extends BlockEntity implements ExtendedScreenHan
                 blockEntity.energyConsumptionLeft -= ENERGY_USAGE_PER_TICK;
 
                 blockEntity.progress++;
-                markDirty(level, blockPos, state);
-
-                if(blockEntity.progress >= blockEntity.maxProgress) {
+                if(blockEntity.progress >= blockEntity.maxProgress)
                     craftItem(blockPos, state, blockEntity);
-                }
+
+                markDirty(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughEnergy = false;
+                markDirty(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);

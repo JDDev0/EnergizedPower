@@ -295,13 +295,13 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
                 blockEntity.energyConsumptionLeft -= fertilizedEnergyUsagePerTick;
 
                 blockEntity.progress++;
-                markDirty(level, blockPos, state);
-
-                if(blockEntity.progress >= blockEntity.maxProgress) {
+                if(blockEntity.progress >= blockEntity.maxProgress)
                     craftItem(blockPos, state, blockEntity);
-                }
+
+                markDirty(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughEnergy = false;
+                markDirty(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);

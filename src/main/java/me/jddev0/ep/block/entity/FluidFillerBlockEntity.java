@@ -380,10 +380,10 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
                 blockEntity.forceAllowStackUpdateFlag = false;
             }
 
-            markDirty(level, blockPos, state);
-
             if(blockEntity.fluidFillingLeft <= 0)
                 blockEntity.resetProgress();
+
+            markDirty(level, blockPos, state);
         }else {
             blockEntity.resetProgress();
             markDirty(level, blockPos, state);

@@ -322,8 +322,6 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
 
                 blockEntity.energyConsumptionLeft[i] -= energyConsumptionPerTick;
 
-                markDirty(level, blockPos, state);
-
                 if(blockEntity.energyConsumptionLeft[i] <= 0) {
                     final int index = i;
                     recipe.ifPresent(AdvancedChargerRecipe ->
@@ -331,6 +329,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
 
                     blockEntity.resetProgress(i);
                 }
+                markDirty(level, blockPos, state);
             }else {
                 blockEntity.resetProgress(i);
                 markDirty(level, blockPos, state);

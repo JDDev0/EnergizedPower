@@ -274,14 +274,13 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
                 blockEntity.energyProductionLeft -= energyProductionPerTick;
 
                 blockEntity.progress++;
-                markDirty(level, blockPos, state);
-
-                if(blockEntity.progress >= blockEntity.maxProgress) {
+                if(blockEntity.progress >= blockEntity.maxProgress)
                     blockEntity.resetProgress(blockPos, state);
-                }
+
+                markDirty(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughCapacityForProduction = false;
-                //Do not unlit block (Would flicker if energy is not extracted at the production rate or greater)
+                markDirty(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);
