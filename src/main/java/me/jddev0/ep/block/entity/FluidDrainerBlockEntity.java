@@ -354,10 +354,10 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
                 blockEntity.forceAllowStackUpdateFlag = false;
             }
 
-            markDirty(level, blockPos, state);
-
             if(blockEntity.fluidDrainingLeft <= 0)
                 blockEntity.resetProgress();
+
+            markDirty(level, blockPos, state);
         }else {
             blockEntity.resetProgress();
             markDirty(level, blockPos, state);

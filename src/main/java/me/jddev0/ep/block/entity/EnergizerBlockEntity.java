@@ -258,14 +258,14 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
                 blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
 
                 blockEntity.progress++;
-                markDirty(level, blockPos, state);
-
-                if(blockEntity.progress >= blockEntity.maxProgress) {
+                if(blockEntity.progress >= blockEntity.maxProgress)
                     craftItem(blockPos, state, blockEntity);
-                }
+
+                markDirty(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughEnergy = false;
                 level.setBlockState(blockPos, state.with(EnergizerBlock.LIT, false), 3);
+                markDirty(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);
