@@ -2,6 +2,8 @@ package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.MinecartChargerBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.util.EnergyUtils;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -10,20 +12,24 @@ import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Hand;
+import net.minecraft.text.Text;
+import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class MinecartChargerBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = Properties.FACING;
@@ -96,5 +102,22 @@ public class MinecartChargerBlock extends BlockWithEntity {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
         return checkType(type, ModBlockEntities.MINECART_CHARGER_ENTITY, MinecartChargerBlockEntity::tick);
+    }
+
+    public static class Item extends BlockItem {
+        public Item(Block block, FabricItemSettings props) {
+            super(block, props);
+        }
+
+        @Override
+        public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+            if(Screen.hasShiftDown()) {
+                tooltip.add(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
+                                EnergyUtils.getEnergyWithPrefix(MinecartChargerBlockEntity.MAX_TRANSFER)).
+                        formatted(Formatting.GRAY));
+            }else {
+                tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            }
+        }
     }
 }
