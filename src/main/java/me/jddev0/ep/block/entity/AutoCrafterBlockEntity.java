@@ -308,8 +308,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         if(itemCount == 0)
             return;
 
-        if(blockEntity.craftingRecipe != null && (blockEntity.progress > 0 || (blockEntity.canInsertIntoOutputSlot() && blockEntity.canExtractItemsFromInput()))) {
-            if(!blockEntity.canInsertIntoOutputSlot() || !blockEntity.canExtractItemsFromInput())
+        if(blockEntity.craftingRecipe != null && (blockEntity.progress > 0 || (blockEntity.canInsertIntoOutputSlots() && blockEntity.canExtractItemsFromInput()))) {
+            if(!blockEntity.canInsertIntoOutputSlots() || !blockEntity.canExtractItemsFromInput())
                 return;
 
             long energyConsumptionPerTick = itemCount * ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT;
@@ -597,7 +597,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         return itemStacks.isEmpty();
     }
 
-    private boolean canInsertIntoOutputSlot() {
+    private boolean canInsertIntoOutputSlots() {
         if(craftingRecipe == null)
             return false;
 
