@@ -422,7 +422,7 @@ public final class ModConfigs {
     ));
 
     public static final ConfigValue<Long> COMMON_POWERED_LAMP_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
-            "block.powered_lamp", "Powered Lamp", 64
+            "block.powered_lamp", "Powered Lamp", 16
     );
 
     public static final ConfigValue<Long> COMMON_POWERED_FURNACE_CAPACITY = registerEnergyCapacityConfigValue(
