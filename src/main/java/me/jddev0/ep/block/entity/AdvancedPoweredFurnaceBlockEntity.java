@@ -354,16 +354,14 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
 
         Optional<SmeltingRecipe> recipe = level.getRecipeManager().getFirstMatch(RecipeType.SMELTING, inventory, level);
 
-        return recipe.isPresent() && canInsertAmountIntoOutputSlot(index, blockEntity.internalInventory, recipe.get().getOutput(level.getRegistryManager()).getCount()) &&
-                canInsertItemIntoOutputSlot(index, blockEntity.internalInventory, recipe.get().getOutput(level.getRegistryManager()));
+        return recipe.isPresent() && canInsertItemIntoOutputSlot(index, blockEntity.internalInventory, recipe.get().getOutput(level.getRegistryManager()));
     }
 
     private static boolean canInsertItemIntoOutputSlot(int index, SimpleInventory inventory, ItemStack itemStack) {
-        return inventory.getStack(3 + index).isEmpty() || inventory.getStack(3 + index).getItem() == itemStack.getItem();
-    }
+        ItemStack inventoryItemStack = inventory.getStack(3 + index);
 
-    private static boolean canInsertAmountIntoOutputSlot(int index, SimpleInventory inventory, int count) {
-        return inventory.getStack(3 + index).getMaxCount() >= inventory.getStack(3 + index).getCount() + count;
+        return (inventoryItemStack.isEmpty() || ItemStack.canCombine(inventoryItemStack, itemStack)) &&
+                inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount();
     }
 
     public long getEnergy() {

@@ -301,16 +301,14 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
 
         Optional<EnergizerRecipe> recipe = level.getRecipeManager().getFirstMatch(EnergizerRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
 
-        return recipe.isPresent() && canInsertAmountIntoOutputSlot(blockEntity.internalInventory, recipe.get().getOutput(level.getRegistryManager()).getCount()) &&
-                canInsertItemIntoOutputSlot(blockEntity.internalInventory, recipe.get().getOutput(level.getRegistryManager()));
+        return recipe.isPresent() && canInsertItemIntoOutputSlot(blockEntity.internalInventory, recipe.get().getOutput(level.getRegistryManager()));
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleInventory inventory, ItemStack itemStack) {
-        return inventory.getStack(1).isEmpty() || inventory.getStack(1).getItem() == itemStack.getItem();
-    }
+        ItemStack inventoryItemStack = inventory.getStack(1);
 
-    private static boolean canInsertAmountIntoOutputSlot(SimpleInventory inventory, int count) {
-        return inventory.getStack(1).getMaxCount() >= inventory.getStack(1).getCount() + count;
+        return (inventoryItemStack.isEmpty() || ItemStack.canCombine(inventoryItemStack, itemStack)) &&
+                inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount();
     }
 
     public long getEnergy() {

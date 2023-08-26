@@ -294,26 +294,22 @@ public class PulverizerBlockEntity extends BlockEntity implements ExtendedScreen
 
         ItemStack[] maxOutputs = recipe.get().getMaxOutputCounts();
 
-        return canInsertAmountIntoOutputSlot(blockEntity.internalInventory, maxOutputs[0].getCount()) &&
-                canInsertItemIntoOutputSlot(blockEntity.internalInventory, maxOutputs[0]) &&
-                (maxOutputs[1].isEmpty() || (canInsertAmountIntoSecondaryOutputSlot(blockEntity.internalInventory, maxOutputs[1].getCount()) &&
-                        canInsertItemIntoSecondaryOutputSlot(blockEntity.internalInventory, maxOutputs[1])));
+        return canInsertItemIntoOutputSlot(blockEntity.internalInventory, maxOutputs[0]) &&
+                (maxOutputs[1].isEmpty() || canInsertItemIntoSecondaryOutputSlot(blockEntity.internalInventory, maxOutputs[1]));
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleInventory inventory, ItemStack itemStack) {
-        return inventory.getStack(1).isEmpty() || inventory.getStack(1).getItem() == itemStack.getItem();
-    }
+        ItemStack inventoryItemStack = inventory.getStack(1);
 
-    private static boolean canInsertAmountIntoOutputSlot(SimpleInventory inventory, int count) {
-        return inventory.getStack(1).getMaxCount() >= inventory.getStack(1).getCount() + count;
+        return (inventoryItemStack.isEmpty() || ItemStack.canCombine(inventoryItemStack, itemStack)) &&
+                inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount();
     }
 
     private static boolean canInsertItemIntoSecondaryOutputSlot(SimpleInventory inventory, ItemStack itemStack) {
-        return inventory.getStack(2).isEmpty() || inventory.getStack(2).getItem() == itemStack.getItem();
-    }
+        ItemStack inventoryItemStack = inventory.getStack(2);
 
-    private static boolean canInsertAmountIntoSecondaryOutputSlot(SimpleInventory inventory, int count) {
-        return inventory.getStack(2).getMaxCount() >= inventory.getStack(2).getCount() + count;
+        return (inventoryItemStack.isEmpty() || ItemStack.canCombine(inventoryItemStack, itemStack)) &&
+                inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount();
     }
 
     public long getEnergy() {
