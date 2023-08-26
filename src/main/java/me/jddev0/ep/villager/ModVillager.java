@@ -3,15 +3,12 @@ package me.jddev0.ep.villager;
 import com.google.common.collect.ImmutableSet;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.item.EnergyAnalyzerItem;
 import me.jddev0.ep.item.ModItems;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtInt;
-import net.minecraft.nbt.NbtLong;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvents;
@@ -81,39 +78,23 @@ public final class ModVillager {
                     new ItemStack(ModBlocks.COPPER_CABLE_ITEM, 6),
                     3, 5, .02f);
 
-            {
+            addOffer(factories,
+                    new ItemStack(Items.EMERALD, 6),
+                    new ItemStack(Items.COPPER_INGOT, 4),
+                    new ItemStack(ModItems.BATTERY_2),
+                    3, 7, .02f);
 
-                ItemStack energyItem = new ItemStack(ModItems.BATTERY_2);
-                energyItem.getOrCreateNbt().put("energy", NbtLong.of(128));
+            addOffer(factories,
+                    new ItemStack(Items.EMERALD, 6),
+                    new ItemStack(Items.COPPER_INGOT, 12),
+                    new ItemStack(ModItems.ENERGY_ANALYZER),
+                    2, 8, .02f);
 
-                addOffer(factories,
-                        new ItemStack(Items.EMERALD, 6),
-                        new ItemStack(Items.COPPER_INGOT, 4),
-                        energyItem,
-                        3, 7, .02f);
-            }
-
-            {
-                ItemStack energyItem = new ItemStack(ModItems.ENERGY_ANALYZER);
-                energyItem.getOrCreateNbt().put("energy", NbtLong.of(128));
-
-                addOffer(factories,
-                        new ItemStack(Items.EMERALD, 6),
-                        new ItemStack(Items.COPPER_INGOT, 12),
-                        energyItem,
-                        2, 8, .02f);
-            }
-
-            {
-                ItemStack energyItem = new ItemStack(ModItems.FLUID_ANALYZER);
-                energyItem.getOrCreateNbt().put("energy", NbtLong.of(128));
-
-                addOffer(factories,
-                        new ItemStack(Items.EMERALD, 6),
-                        new ItemStack(Items.COPPER_INGOT, 12),
-                        energyItem,
-                        2, 8, .02f);
-            }
+            addOffer(factories,
+                    new ItemStack(Items.EMERALD, 6),
+                    new ItemStack(Items.COPPER_INGOT, 12),
+                    new ItemStack(ModItems.FLUID_ANALYZER),
+                    2, 8, .02f);
 
             addOffer(factories,
                     new ItemStack(ModItems.COPPER_PLATE, 3),
@@ -176,17 +157,12 @@ public final class ModVillager {
                     new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
                     new ItemStack(ModBlocks.COMPRESSOR_ITEM),
                     3, 20, .02f);
-            {
 
-                ItemStack energyItem = new ItemStack(ModItems.BATTERY_4);
-                energyItem.getOrCreateNbt().put("energy", NbtLong.of(512));
-
-                addOffer(factories,
-                        new ItemStack(Items.EMERALD, 29),
-                        new ItemStack(Items.COPPER_INGOT, 9),
-                        energyItem,
-                        2, 19, .02f);
-            }
+            addOffer(factories,
+                    new ItemStack(Items.EMERALD, 29),
+                    new ItemStack(Items.COPPER_INGOT, 9),
+                    new ItemStack(ModItems.BATTERY_4),
+                    2, 19, .02f);
 
             addOffer(factories,
                     new ItemStack(ModItems.SAWDUST, 17),
