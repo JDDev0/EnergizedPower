@@ -143,7 +143,7 @@ public class WrenchItem extends Item {
                     Text.translatable("tooltip.energizedpower.wrench.face_change",
                             Text.translatable("tooltip.energizedpower.direction." + currentFace.asString()).
                                     formatted(Formatting.WHITE),
-                            Text.translatable("tooltip.energizedpower.pipe_connection." + pipeConnection.asString()).
+                            Text.translatable(pipeConnection.getTranslationKey()).
                                     formatted(Formatting.WHITE, Formatting.BOLD)
                     ).formatted(Formatting.GREEN)
             ));
