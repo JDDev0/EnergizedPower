@@ -45,6 +45,20 @@ public class BatteryBoxBlock extends BlockWithEntity {
     }
 
     @Override
+    public boolean hasComparatorOutput(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getComparatorOutput(BlockState state, World level, BlockPos blockPos) {
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof BatteryBoxBlockEntity batteryBoxBlockEntity))
+            return super.getComparatorOutput(state, level, blockPos);
+
+        return batteryBoxBlockEntity.getRedstoneOutput();
+    }
+
+    @Override
     public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, Hand handItem, BlockHitResult hit) {
         if(level.isClient())
             return ActionResult.SUCCESS;

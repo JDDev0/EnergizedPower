@@ -19,6 +19,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -81,6 +82,12 @@ public class BatteryBoxBlockEntity extends BlockEntity implements ExtendedScreen
     @Override
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
         buf.writeBlockPos(pos);
+    }
+
+    public int getRedstoneOutput() {
+        boolean isEmptyFlag = internalEnergyStorage.amount == 0;
+
+        return Math.min(MathHelper.floor((float)internalEnergyStorage.amount / energyStorage.getCapacity() * 14.f) + (isEmptyFlag?0:1), 15);
     }
 
     @Override
