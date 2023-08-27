@@ -7,10 +7,15 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -36,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, WrenchConfigurable {
     public static final EnumProperty<ModBlockStateProperties.PipeConnection> UP = ModBlockStateProperties.PIPE_CONNECTION_UP;
     public static final EnumProperty<ModBlockStateProperties.PipeConnection> DOWN = ModBlockStateProperties.PIPE_CONNECTION_DOWN;
     public static final EnumProperty<ModBlockStateProperties.PipeConnection> NORTH = ModBlockStateProperties.PIPE_CONNECTION_NORTH;
@@ -75,6 +80,102 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
                 setValue(EAST, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
                 setValue(WEST, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
                 setValue(WATERLOGGED, false));
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
+        return new FluidPipeBlockEntity(blockPos, state);
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
+    }
+
+    @Override
+    @NotNull
+    public InteractionResult onUseWrench(UseOnContext useOnContext, Direction selectedFace, boolean nextPreviousValue) {
+        Level level = useOnContext.getLevel();
+        BlockPos blockPos = useOnContext.getClickedPos();
+
+        if(level.isClientSide || !(level.getBlockEntity(blockPos) instanceof FluidPipeBlockEntity))
+            return InteractionResult.SUCCESS;
+
+        BlockState state = level.getBlockState(blockPos);
+
+        BlockPos testPos = blockPos.relative(selectedFace);
+
+        Player player = useOnContext.getPlayer();
+
+        BlockEntity testBlockEntity = level.getBlockEntity(testPos);
+        if(testBlockEntity == null || testBlockEntity instanceof FluidPipeBlockEntity) {
+            //Connections to non-fluid blocks nor connections to another pipe can not be modified
+
+            if(player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible",
+                                Component.translatable("tooltip.energizedpower.direction." + selectedFace.getSerializedName()).
+                                        withStyle(ChatFormatting.WHITE)
+                        ).withStyle(ChatFormatting.RED)
+                ));
+            }
+
+            return InteractionResult.SUCCESS;
+        }
+
+        LazyOptional<IFluidHandler> fluidStorageLazyOptional = testBlockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, selectedFace.getOpposite());
+        if(!fluidStorageLazyOptional.isPresent()) {
+            if(player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible",
+                                Component.translatable("tooltip.energizedpower.direction." + selectedFace.getSerializedName()).
+                                        withStyle(ChatFormatting.WHITE)
+                        ).withStyle(ChatFormatting.RED)
+                ));
+            }
+
+            return InteractionResult.SUCCESS;
+        }
+
+        IFluidHandler fluidStorage = fluidStorageLazyOptional.orElse(null);
+        if(fluidStorage.getTanks() == 0) {
+            if(player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible",
+                                Component.translatable("tooltip.energizedpower.direction." + selectedFace.getSerializedName()).
+                                        withStyle(ChatFormatting.WHITE)
+                        ).withStyle(ChatFormatting.RED)
+                ));
+            }
+
+            return InteractionResult.SUCCESS;
+        }
+
+        EnumProperty<ModBlockStateProperties.PipeConnection> pipeConnectionProperty =
+                FluidPipeBlock.getPipeConnectionPropertyFromDirection(selectedFace);
+
+        int diff = nextPreviousValue?-1:1;
+
+        ModBlockStateProperties.PipeConnection pipeConnection = state.getValue(pipeConnectionProperty);
+        pipeConnection = ModBlockStateProperties.PipeConnection.values()[(pipeConnection.ordinal() + diff +
+                ModBlockStateProperties.PipeConnection.values().length) %
+                ModBlockStateProperties.PipeConnection.values().length];
+
+        level.setBlock(blockPos, state.setValue(pipeConnectionProperty, pipeConnection), 3);
+
+        if(player instanceof ServerPlayer serverPlayer) {
+            serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed",
+                            Component.translatable("tooltip.energizedpower.direction." + selectedFace.getSerializedName()).
+                                    withStyle(ChatFormatting.WHITE),
+                            Component.translatable(pipeConnection.getTranslationKey()).
+                                    withStyle(ChatFormatting.WHITE, ChatFormatting.BOLD)
+                    ).withStyle(ChatFormatting.GREEN)
+            ));
+        }
+
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable
@@ -236,6 +337,12 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
         return fluidStorageLazyOptional.isPresent()?ModBlockStateProperties.PipeConnection.CONNECTED:ModBlockStateProperties.PipeConnection.NOT_CONNECTED;
     }
 
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, ModBlockEntities.FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::tick);
+    }
+
     public static class Item extends BlockItem {
 
         public Item(Block block, Properties props) {
@@ -251,22 +358,5 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
                 components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
         }
-    }
-
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
-        return new FluidPipeBlockEntity(blockPos, state);
-    }
-
-    @Override
-    public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
-    }
-
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::tick);
     }
 }
