@@ -1,10 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.block.CableBlock;
-import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.block.SolarPanelBlock;
-import me.jddev0.ep.block.TransformerBlock;
+import me.jddev0.ep.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -19,6 +16,10 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<FluidPipeBlockEntity>> FLUID_PIPE_ENTITY =
             BLOCK_ENTITIES.register("fluid_pipe", () -> BlockEntityType.Builder.of(FluidPipeBlockEntity::new,
                     ModBlocks.FLUID_PIPE.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltBlockEntity>> ITEM_CONVEYOR_BELT_ENTITY =
+            BLOCK_ENTITIES.register("item_conveyor_belt", () -> BlockEntityType.Builder.of(ItemConveyorBeltBlockEntity::new,
+                    ModBlocks.ITEM_CONVEYOR_BELT.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<CableBlockEntity>> COPPER_CABLE_ENTITY =
             BLOCK_ENTITIES.register("copper_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->

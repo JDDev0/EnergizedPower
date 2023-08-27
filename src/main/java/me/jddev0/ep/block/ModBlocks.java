@@ -35,6 +35,12 @@ public final class ModBlocks {
                     strength(2.0f, 3.0f).sound(SoundType.WOOD), 5, 20));
     public static final RegistryObject<Item> SAWDUST_BLOCK_ITEM = createBlockItem("sawdust_block", SAWDUST_BLOCK);
 
+    public static final RegistryObject<Block> ITEM_CONVEYOR_BELT = BLOCKS.register("item_conveyor_belt",
+            () -> new ItemConveyorBeltBlock(BlockBehaviour.Properties.of().noCollission().
+                    strength(2.5f, 3.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> ITEM_CONVEYOR_BELT_ITEM = ModItems.ITEMS.register("item_conveyor_belt",
+            () -> new ItemConveyorBeltBlock.Item(ITEM_CONVEYOR_BELT.get(), new Item.Properties()));
+
     public static final RegistryObject<FluidPipeBlock> FLUID_PIPE = BLOCKS.register("fluid_pipe",
             () -> new FluidPipeBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));

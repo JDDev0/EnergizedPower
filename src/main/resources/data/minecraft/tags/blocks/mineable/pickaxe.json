@@ -3,6 +3,8 @@
   "values": [
     "energizedpower:silicon_block",
 
+    "energizedpower:item_conveyor_belt",
+
     "energizedpower:fluid_pipe",
 
     "energizedpower:auto_crafter",
