@@ -12,8 +12,6 @@ import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
@@ -211,12 +209,6 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
 
     public ItemStack getStack(int slot) {
         return itemHandler.getStackInSlot(slot);
-    }
-
-    @Nullable
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return super.getUpdatePacket();
     }
 
     @Override
