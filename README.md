@@ -65,6 +65,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 ### Item transportation
 
 - Item Conveyor Belt (**In next release (v2.1.0)**)
+- Item Conveyor Belt Loader (**In next release (v2.1.0)**)
 
 ### Integrations
 
