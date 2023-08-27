@@ -114,6 +114,10 @@
 
   "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "Slope was set to %s.",
 
+  "block.energizedpower.item_conveyor_belt_loader": "Item Conveyor Belt Loader",
+  "item.energizedpower.item_conveyor_belt_loader": "Item Conveyor Belt Loader",
+  "container.energizedpower.item_conveyor_belt_loader": "Item Conveyor Belt Loader",
+
   "block.energizedpower.fluid_pipe": "Tubo fluido",
   "item.energizedpower.fluid_pipe": "Tubo fluido",
 
@@ -526,6 +530,9 @@
 
   "advancements.energizedpower.item_conveyor_belt.title": "Item Transport",
   "advancements.energizedpower.item_conveyor_belt.description": "Transport items with item conveyor belts.",
+
+  "advancements.energizedpower.item_conveyor_belt_loader.title": "Item Loader",
+  "advancements.energizedpower.item_conveyor_belt_loader.description": "Load Items on an item conveyor belt.",
 
   "advancements.energizedpower.fluid_pipe.title": "Trasporto fluido",
   "advancements.energizedpower.fluid_pipe.description": "Trasportare fluidi con tubi per fluidi.",
