@@ -62,6 +62,10 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 - Fluid Pipe
 
+### Item transportation
+
+- Item Conveyor Belt (**In next release (v2.1.0)**)
+
 ### Integrations
 
 - JEI (*Forge/NeoForge editions only*), EMI, and REI support
