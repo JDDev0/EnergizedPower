@@ -94,15 +94,11 @@
   "item.energizedpower.netherite_hammer": "Netherite Hammer",
 
   "item.energizedpower.wrench": "Wrench",
-  "tooltip.energizedpower.wrench.txt.shift": "The Wrench can be used to configure Fluid Pipes.",
+  "tooltip.energizedpower.wrench.txt.shift": "The Wrench can be used to configure blocks.",
   "tooltip.energizedpower.wrench.select_face": "Selected face: %s",
-
-  "tooltip.energizedpower.wrench.change": "Slope was set to %s.",
+  "tooltip.energizedpower.wrench.not_configurable": "This block can not be configured.",
 
   "tooltip.energizedpower.wrench_configurable": "This block can be configured with a Wrench.",
-
-  "tooltip.energizedpower.wrench.face_change": "Connection type of face (%s) was set to %s.",
-  "tooltip.energizedpower.wrench.face_change_not_possible": "Connection type of face (%s) could not be changed.",
 
   "item.energizedpower.battery_box_minecart": "Minecart with Battery Box",
   "item.energizedpower.advanced_battery_box_minecart": "Minecart with Advanced Battery Box",
@@ -116,8 +112,13 @@
   "block.energizedpower.item_conveyor_belt": "Item Conveyor Belt",
   "item.energizedpower.item_conveyor_belt": "Item Conveyor Belt",
 
+  "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "Slope was set to %s.",
+
   "block.energizedpower.fluid_pipe": "Fluid Pipe",
   "item.energizedpower.fluid_pipe": "Fluid Pipe",
+
+  "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Connection type of face (%s) was set to %s.",
+  "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Connection type of face (%s) could not be changed.",
 
   "block.energizedpower.auto_crafter": "Auto Crafter",
   "item.energizedpower.auto_crafter": "Auto Crafter",
