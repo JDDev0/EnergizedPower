@@ -1,11 +1,6 @@
 package me.jddev0.ep.item;
 
-import me.jddev0.ep.block.ItemConveyorBeltBlock;
-import me.jddev0.ep.block.FluidPipeBlock;
-import me.jddev0.ep.block.ModBlockStateProperties;
-import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.block.entity.FluidPipeBlockEntity;
-import me.jddev0.ep.block.entity.ItemConveyorBeltBlockEntity;
+import me.jddev0.ep.block.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -24,12 +19,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -64,143 +55,31 @@ public class WrenchItem extends Item {
         ));
     }
 
-    public InteractionResult useOnFluidPipe(UseOnContext useOnContext) {
-        Level level = useOnContext.getLevel();
-        BlockPos blockPos = useOnContext.getClickedPos();
-        BlockState state = level.getBlockState(blockPos);
-
-        ItemStack itemStack = useOnContext.getItemInHand();
-        Direction currentFace = getCurrentFace(itemStack);
-
-        BlockPos testPos = blockPos.relative(currentFace);
-
-        Player player = useOnContext.getPlayer();
-
-        BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-        if(testBlockEntity == null || testBlockEntity instanceof FluidPipeBlockEntity) {
-            //Connections to non-fluid blocks nor connections to another pipe can not be modified
-
-            if(player instanceof ServerPlayer serverPlayer) {
-                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
-                        Component.translatable("tooltip.energizedpower.wrench.face_change_not_possible",
-                                Component.translatable("tooltip.energizedpower.direction." + currentFace.getSerializedName()).
-                                        withStyle(ChatFormatting.WHITE)
-                        ).withStyle(ChatFormatting.RED)
-                ));
-            }
-
-            return InteractionResult.SUCCESS;
-        }
-
-        LazyOptional<IFluidHandler> fluidStorageLazyOptional = testBlockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, currentFace.getOpposite());
-        if(!fluidStorageLazyOptional.isPresent()) {
-            if(player instanceof ServerPlayer serverPlayer) {
-                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
-                        Component.translatable("tooltip.energizedpower.wrench.face_change_not_possible",
-                                Component.translatable("tooltip.energizedpower.direction." + currentFace.getSerializedName()).
-                                        withStyle(ChatFormatting.WHITE)
-                        ).withStyle(ChatFormatting.RED)
-                ));
-            }
-
-            return InteractionResult.SUCCESS;
-        }
-
-        IFluidHandler fluidStorage = fluidStorageLazyOptional.orElse(null);
-        if(fluidStorage.getTanks() == 0) {
-            if(player instanceof ServerPlayer serverPlayer) {
-                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
-                        Component.translatable("tooltip.energizedpower.wrench.face_change_not_possible",
-                                Component.translatable("tooltip.energizedpower.direction." + currentFace.getSerializedName()).
-                                        withStyle(ChatFormatting.WHITE)
-                        ).withStyle(ChatFormatting.RED)
-                ));
-            }
-
-            return InteractionResult.SUCCESS;
-        }
-
-        EnumProperty<ModBlockStateProperties.PipeConnection> pipeConnectionProperty =
-                FluidPipeBlock.getPipeConnectionPropertyFromDirection(currentFace);
-
-        int diff = player != null && player.isShiftKeyDown()?-1:1;
-
-        ModBlockStateProperties.PipeConnection pipeConnection = state.getValue(pipeConnectionProperty);
-        pipeConnection = ModBlockStateProperties.PipeConnection.values()[(pipeConnection.ordinal() + diff +
-                ModBlockStateProperties.PipeConnection.values().length) %
-                ModBlockStateProperties.PipeConnection.values().length];
-
-        level.setBlock(blockPos, state.setValue(pipeConnectionProperty, pipeConnection), 3);
-
-        if(player instanceof ServerPlayer serverPlayer) {
-            serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
-                    Component.translatable("tooltip.energizedpower.wrench.face_change",
-                            Component.translatable("tooltip.energizedpower.direction." + currentFace.getSerializedName()).
-                                    withStyle(ChatFormatting.WHITE),
-                            Component.translatable(pipeConnection.getTranslationKey()).
-                                    withStyle(ChatFormatting.WHITE, ChatFormatting.BOLD)
-                    ).withStyle(ChatFormatting.GREEN)
-            ));
-        }
-
-        return InteractionResult.SUCCESS;
-    }
-
-    public InteractionResult useOnConveyorBelt(UseOnContext useOnContext) {
-        Level level = useOnContext.getLevel();
-        BlockPos blockPos = useOnContext.getClickedPos();
-        BlockState state = level.getBlockState(blockPos);
-
-        Player player = useOnContext.getPlayer();
-
-        ModBlockStateProperties.ConveyorBeltDirection facing = state.getValue(ItemConveyorBeltBlock.FACING);
-        Boolean shape;
-
-        if(player != null && player.isShiftKeyDown()) {
-            if(facing.isAscending())
-                shape = null;
-            else if(facing.isDescending())
-                shape = true;
-            else
-                shape = false;
-        }else {
-            if(facing.isAscending())
-                shape = false;
-            else if(facing.isDescending())
-                shape = null;
-            else
-                shape = true;
-        }
-
-        level.setBlock(blockPos, state.setValue(ItemConveyorBeltBlock.FACING, ModBlockStateProperties.ConveyorBeltDirection.of(facing.getDirection(), shape)), 3);
-
-        if(player instanceof ServerPlayer serverPlayer) {
-            serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
-                    Component.translatable("tooltip.energizedpower.wrench.change",
-                            Component.translatable("tooltip.energizedpower.conveyor_belt_direction.slope." + (shape == null?"flat":(shape?"ascending":"descending"))).
-                                    withStyle(ChatFormatting.WHITE, ChatFormatting.BOLD)
-                    ).withStyle(ChatFormatting.GREEN)
-            ));
-        }
-
-        return InteractionResult.SUCCESS;
-    }
-
     @Override
     public InteractionResult useOn(UseOnContext useOnContext) {
         Level level = useOnContext.getLevel();
         if(level.isClientSide)
             return InteractionResult.SUCCESS;
 
+        Player player = useOnContext.getPlayer();
+
         BlockPos blockPos = useOnContext.getClickedPos();
         BlockState state = level.getBlockState(blockPos);
-        if(state.is(ModBlocks.FLUID_PIPE.get()) && (level.getBlockEntity(blockPos) instanceof FluidPipeBlockEntity))
-            return useOnFluidPipe(useOnContext);
+        Block block = state.getBlock();
+        if(!(block instanceof WrenchConfigurable wrenchConfigurableBlock)) {
+            if(player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.wrench.not_configurable").withStyle(ChatFormatting.RED)
+                ));
+            }
 
-        if(state.is(ModBlocks.ITEM_CONVEYOR_BELT.get()) && (level.getBlockEntity(blockPos) instanceof ItemConveyorBeltBlockEntity))
-            return useOnConveyorBelt(useOnContext);
+            return InteractionResult.SUCCESS;
+        }
 
-        return InteractionResult.SUCCESS;
+        ItemStack itemStack = useOnContext.getItemInHand();
+        Direction currentFace = getCurrentFace(itemStack);
+
+        return wrenchConfigurableBlock.onUseWrench(useOnContext, currentFace, player != null && player.isShiftKeyDown());
     }
 
     @Override
