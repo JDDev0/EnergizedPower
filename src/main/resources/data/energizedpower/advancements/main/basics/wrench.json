@@ -1,5 +1,5 @@
 {
-  "parent":  "energizedpower:main/basics/fluid_pipe",
+  "parent":  "energizedpower:main/basics/energizedpower_basics",
   "display": {
     "icon": {
       "item": "energizedpower:wrench"
