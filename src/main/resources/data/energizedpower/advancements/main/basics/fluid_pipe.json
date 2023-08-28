@@ -1,5 +1,5 @@
 {
-  "parent":  "energizedpower:main/basics/energizedpower_basics",
+  "parent":  "energizedpower:main/basics/iron_plate",
   "display": {
     "icon": {
       "item": "energizedpower:fluid_pipe"
