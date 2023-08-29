@@ -27,9 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStackPacketUpdate {
-    private static final int TICKS_PER_BLOCK = (int)(1.f / ModConfigs.COMMON_ITEM_CONVEYOR_BELT_SPEED.getValue());
-
-    private final int TICKS_PER_STEP;
+    private static final int TICKS_PER_STEP = ModConfigs.COMMON_ITEM_CONVEYOR_BELT_TICKS_PER_STEP.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(4) {
         @Override
@@ -66,8 +64,6 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
 
     public ItemConveyorBeltBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ITEM_CONVEYOR_BELT_ENTITY.get(), blockPos, blockState);
-
-        TICKS_PER_STEP = Math.max(TICKS_PER_BLOCK / itemHandler.getSlots(), 1);
     }
 
     public int getRedstoneOutput() {
@@ -139,7 +135,7 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
                             blockPos, level.dimension(), 64
                     );
 
-        if(level.getGameTime() % blockEntity.TICKS_PER_STEP == 0) {
+        if(level.getGameTime() % TICKS_PER_STEP == 0) {
             int slotCount = blockEntity.itemHandler.getSlots();
 
             if(!blockEntity.itemHandler.getStackInSlot(slotCount - 1).isEmpty())
