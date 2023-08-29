@@ -44,11 +44,8 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
     private final ContainerListener updatePatternListener = container -> ItemConveyorBeltSorterBlockEntity.this.setChanged();
 
     protected final ContainerData data;
-    private boolean[] isOutputBeltConnectedOld = new boolean[] {
-            true, true, true //Default true (Force first update)
-    };
     private boolean[] outputBeltConnected = new boolean[] {
-            false, false, false //Default false (Force first update)
+            false, false, false
     };
     private boolean[] whitelist = new boolean[] {
             true, true, true
@@ -56,6 +53,8 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
     private boolean[] ignoreNBT = new boolean[] {
             false, false, false
     };
+
+    private boolean loaded;
 
     public ItemConveyorBeltSorterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ITEM_CONVEYOR_BELT_SORTER_ENTITY.get(), blockPos, blockState);
@@ -147,16 +146,23 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
         if(level.isClientSide)
             return;
 
-        for(int i = 0;i < blockEntity.isOutputBeltConnectedOld.length;i++) {
-            if(blockEntity.isOutputBeltConnectedOld[i] != blockEntity.outputBeltConnected[i]) {
-                setChanged(level, blockPos, state);
+        if(!blockEntity.loaded) {
+            for(int i = 0;i < 3;i++) {
+                Direction facing = state.getValue(ItemConveyorBeltSorterBlock.FACING);
 
-                break;
+                Direction outputBeltDirection = switch(i) {
+                    case 0 -> facing.getClockWise();
+                    case 1 -> facing.getOpposite();
+                    case 2 -> facing.getCounterClockWise();
+                    default -> null;
+                };
+
+                BlockState outputBeltState = level.getBlockState(blockPos.relative(outputBeltDirection));
+                blockEntity.setOutputBeltConnected(i, outputBeltState.is(ModBlocks.ITEM_CONVEYOR_BELT.get()));
             }
-        }
 
-        for(int i = 0;i < blockEntity.isOutputBeltConnectedOld.length;i++)
-            blockEntity.isOutputBeltConnectedOld[i] = blockEntity.outputBeltConnected[i];
+            blockEntity.loaded = true;
+        }
 
         if(level.getGameTime() % TICKS_PER_ITEM == 0) {
             Direction facing = state.getValue(ItemConveyorBeltSorterBlock.FACING);
