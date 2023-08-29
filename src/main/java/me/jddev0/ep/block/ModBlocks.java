@@ -47,6 +47,11 @@ public final class ModBlocks {
                     instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
     public static final RegistryObject<Item> ITEM_CONVEYOR_BELT_LOADER_ITEM = createBlockItem("item_conveyor_belt_loader", ITEM_CONVEYOR_BELT_LOADER);
 
+    public static final RegistryObject<Block> ITEM_CONVEYOR_BELT_SORTER = BLOCKS.register("item_conveyor_belt_sorter",
+            () -> new ItemConveyorBeltSorterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
+    public static final RegistryObject<Item> ITEM_CONVEYOR_BELT_SORTER_ITEM = createBlockItem("item_conveyor_belt_sorter", ITEM_CONVEYOR_BELT_SORTER);
+
     public static final RegistryObject<FluidPipeBlock> FLUID_PIPE = BLOCKS.register("fluid_pipe",
             () -> new FluidPipeBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
