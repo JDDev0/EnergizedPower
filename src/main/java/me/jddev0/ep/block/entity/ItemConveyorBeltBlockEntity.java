@@ -58,9 +58,9 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
     };
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final LazyOptional<IItemHandler> lazyItemHandlerFrontSided = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i >= 0 && i < 4));
+            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 3));
     private final LazyOptional<IItemHandler> lazyItemHandlerOthersSided = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i >= 0 && i < 4));
+            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 3));
 
     public ItemConveyorBeltBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ITEM_CONVEYOR_BELT_ENTITY.get(), blockPos, blockState);
