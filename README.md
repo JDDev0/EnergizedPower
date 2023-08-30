@@ -67,6 +67,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - Item Conveyor Belt (**In next release (v2.1.0)**)
 - Item Conveyor Belt Loader (**In next release (v2.1.0)**)
 - Item Conveyor Belt Sorter (**In next release (v2.1.0)**)
+- Item Conveyor Belt Switch (**In next release (v2.1.0)**)
 
 ### Integrations
 
