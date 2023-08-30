@@ -568,21 +568,6 @@ public final class ModConfigs {
             1, null
     ));
 
-    //Entities
-    public static final ConfigValue<Integer> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
-            "entity.battery_box_minecart", "Battery Box Minecart", 65536
-    );
-    public static final ConfigValue<Integer> COMMON_BATTERY_BOX_MINECART_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
-            "entity.battery_box_minecart", "Battery Box Minecart", 512
-    );
-
-    public static final ConfigValue<Integer> COMMON_ADVANCED_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
-            "entity.advanced_battery_box_minecart", "Advanced Battery Box Minecart", 8388608
-    );
-    public static final ConfigValue<Integer> COMMON_ADVANCED_BATTERY_BOX_MINECART_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
-            "entity.advanced_battery_box_minecart", "Advanced Battery Box Minecart", 65536
-    );
-
     public static final ConfigValue<Integer> COMMON_ITEM_CONVEYOR_BELT_TICKS_PER_STEP = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.item_conveyor_belt.ticks_per_step",
             "The time required for the Item Conveyor Belt to transport an item one step in ticks per step",
@@ -610,6 +595,21 @@ public final class ModConfigs {
             10,
             1, null
     ));
+
+    //Entities
+    public static final ConfigValue<Integer> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
+            "entity.battery_box_minecart", "Battery Box Minecart", 65536
+    );
+    public static final ConfigValue<Integer> COMMON_BATTERY_BOX_MINECART_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "entity.battery_box_minecart", "Battery Box Minecart", 512
+    );
+
+    public static final ConfigValue<Integer> COMMON_ADVANCED_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
+            "entity.advanced_battery_box_minecart", "Advanced Battery Box Minecart", 8388608
+    );
+    public static final ConfigValue<Integer> COMMON_ADVANCED_BATTERY_BOX_MINECART_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "entity.advanced_battery_box_minecart", "Advanced Battery Box Minecart", 65536
+    );
 
     //World
     public static final ConfigValue<Integer> COMMON_ELECTRICIAN_BUILDING_1_PLACEMENT_WEIGHT = COMMON_CONFIG.register(new IntegerConfigValue(
