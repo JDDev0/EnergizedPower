@@ -240,7 +240,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
 
     private static boolean filterMatches(ItemConveyorBeltSorterBlockEntity blockEntity, int index, ItemStack itemStackToSort) {
         for(int i = 0;i < PATTERN_SLOTS_PER_OUTPUT;i++) {
-            ItemStack patternItemStack = blockEntity.patternSlots.getItem(5 * index + i);
+            ItemStack patternItemStack = blockEntity.patternSlots.getItem(PATTERN_SLOTS_PER_OUTPUT * index + i);
             if(patternItemStack.isEmpty())
                 continue;
 
