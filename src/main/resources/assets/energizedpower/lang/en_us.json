@@ -128,6 +128,9 @@
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "Whitelist",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "Blacklist",
 
+  "block.energizedpower.item_conveyor_belt_switch": "Item Conveyor Belt Switch",
+  "item.energizedpower.item_conveyor_belt_switch": "Item Conveyor Belt Switch",
+
   "block.energizedpower.fluid_pipe": "Fluid Pipe",
   "item.energizedpower.fluid_pipe": "Fluid Pipe",
 
@@ -546,6 +549,9 @@
 
   "advancements.energizedpower.item_conveyor_belt_sorter.title": "Automatic Sorting",
   "advancements.energizedpower.item_conveyor_belt_sorter.description": "Sort Items with the Item Conveyor Belt Sorter.",
+
+  "advancements.energizedpower.item_conveyor_belt_switch.title": "Conveyor Belt Switch",
+  "advancements.energizedpower.item_conveyor_belt_switch.description": "Select a direction.",
 
   "advancements.energizedpower.fluid_pipe.title": "Fluid Transport",
   "advancements.energizedpower.fluid_pipe.description": "Transport fluids with fluid pipes.",

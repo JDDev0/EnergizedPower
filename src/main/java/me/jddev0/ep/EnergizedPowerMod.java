@@ -99,6 +99,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.ITEM_CONVEYOR_BELT_ITEM);
             event.accept(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM);
             event.accept(ModBlocks.ITEM_CONVEYOR_BELT_SORTER_ITEM);
+            event.accept(ModBlocks.ITEM_CONVEYOR_BELT_SWITCH_ITEM);
 
             event.accept(ModBlocks.FLUID_PIPE_ITEM);
 
