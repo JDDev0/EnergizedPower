@@ -62,6 +62,11 @@ public final class ModBlocks {
                     instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
     public static final RegistryObject<Item> ITEM_CONVEYOR_BELT_SPLITTER_ITEM = createBlockItem("item_conveyor_belt_splitter", ITEM_CONVEYOR_BELT_SPLITTER);
 
+    public static final RegistryObject<Block> ITEM_CONVEYOR_BELT_MERGER = BLOCKS.register("item_conveyor_belt_merger",
+            () -> new ItemConveyorBeltMergerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
+    public static final RegistryObject<Item> ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("item_conveyor_belt_merger", ITEM_CONVEYOR_BELT_MERGER);
+
     public static final RegistryObject<FluidPipeBlock> FLUID_PIPE = BLOCKS.register("fluid_pipe",
             () -> new FluidPipeBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
