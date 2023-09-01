@@ -905,6 +905,13 @@
   "book.energizedpower.page.item_conveyor_belt_2.1": "Alternativ können sie mit Trichtern und anderen Blöcke, die Items von anderen Blöcken entladen können, entladen werden.",
   "book.energizedpower.page.item_conveyor_belt_2.2": "Förderbänder sind mit AE2-Item-Tunnel kompatibel.",
 
+  "book.energizedpower.page.item_conveyor_belt_loader_1.1": "Der Item-Förderband-Lader kann Items von jedem Lager-Block (auch anderen Förderbändern) extrahieren und sie dann auf ein Förderband laden.",
+  "book.energizedpower.page.item_conveyor_belt_loader_1.2": "Das große Quadrat muss zum Block wovon Items extrahiert werden sollen zeigen und das kleine Quadrat muss zu einem Förderband zeigen.",
+
+  "book.energizedpower.page.item_conveyor_belt_loader_2.1": "Alernativ können Items vom Lader auch mit Trichtern und anderen Blöcken, die Items von anderen Blöcken entladen können, enladen werden.",
+  "book.energizedpower.page.item_conveyor_belt_loader_2.2": "Er kann vertikal und horizontal gestapelt werden.",
+  "book.energizedpower.page.item_conveyor_belt_loader_2.3": "Er kann mit einem Redstone-Signal deaktiviert werden.",
+
 
   "book.energizedpower.page.chapter.entities.title": "Entitäten",
   "book.energizedpower.page.chapter.entities": "Dinge, die sich bewegen.",
