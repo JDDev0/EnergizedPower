@@ -894,6 +894,18 @@
   "book.energizedpower.page.fluid_pipe.3": "Ein einzelner Flüssigkeitsrohr-Block kann nur eine Flüssigkeitsart zur gleichen Zeit extrahieren, auch wenn mehrere Seiten als Extraktion konfiguriert wurden.",
 
 
+  "book.energizedpower.page.chapter.item_transportation.title": "Item-Transport",
+  "book.energizedpower.page.chapter.item_transportation": "Blöcke, die Items transportieren können.",
+
+  "book.energizedpower.page.item_conveyor_belt_1.1": "Item-Förderbänder können Items transportieren.",
+  "book.energizedpower.page.item_conveyor_belt_1.2": "Die Steigung von Förderbändern kann mit einem Schraubenschlüssel konfiguriert werden.",
+  "book.energizedpower.page.item_conveyor_belt_1.3": "Förderbänder können mit Trichter und anderen Blöcke, die Items in andere Blöcke laden können, beladen werden.",
+  "book.energizedpower.page.item_conveyor_belt_1.4": "Förderbänder können Items in Blöcke laden, die in der Front sind.",
+
+  "book.energizedpower.page.item_conveyor_belt_2.1": "Alternativ können sie mit Trichtern und anderen Blöcke, die Items von anderen Blöcken entladen können, entladen werden.",
+  "book.energizedpower.page.item_conveyor_belt_2.2": "Förderbänder sind mit AE2-Item-Tunnel kompatibel.",
+
+
   "book.energizedpower.page.chapter.entities.title": "Entitäten",
   "book.energizedpower.page.chapter.entities": "Dinge, die sich bewegen.",
 
