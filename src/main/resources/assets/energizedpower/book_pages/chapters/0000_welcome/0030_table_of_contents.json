@@ -127,12 +127,35 @@
       "font": "uniform",
       "extra": [
         {
+          "translate": "book.energizedpower.page.chapter.item_transportation.title",
+          "color": "dark_green",
+          "underlined": true,
+          "clickEvent": {
+            "action": "change_page",
+            "value": "energizedpower:chapters/0060_item_transportation/0000_item_transportation_chapter"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.tooltip.page"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "text": "\n\n• ",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
           "translate": "book.energizedpower.page.chapter.entities.title",
           "color": "dark_green",
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0060_entities/0000_entities_chapter"
+            "value": "energizedpower:chapters/0070_entities/0000_entities_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -155,7 +178,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0070_structures/0000_structures_chapter"
+            "value": "energizedpower:chapters/0080_structures/0000_structures_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
