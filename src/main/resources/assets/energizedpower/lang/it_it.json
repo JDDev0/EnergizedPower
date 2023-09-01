@@ -894,6 +894,18 @@
   "book.energizedpower.page.fluid_pipe.3": "Un singolo blocco di tubazioni del fluido può estrarre solo un tipo di fluido alla volta, anche quando più lati sono configurati come estrazione.",
 
 
+  "book.energizedpower.page.chapter.item_transportation.title": "Item Transportation",
+  "book.energizedpower.page.chapter.item_transportation": "Blocks that can transport Items.",
+
+  "book.energizedpower.page.item_conveyor_belt_1.1": "Item Conveyor belts can transport items.",
+  "book.energizedpower.page.item_conveyor_belt_1.2": "The slope of belts can be configured with a Wrench.",
+  "book.energizedpower.page.item_conveyor_belt_1.3": "Belts can be loaded with hoppers and any block which can insert items into blocks.",
+  "book.energizedpower.page.item_conveyor_belt_1.4": "Belts can insert items into blocks in front of the belt.",
+
+  "book.energizedpower.page.item_conveyor_belt_2.1": "Alternatively they can be unloaded with hoppers and other blocks which can extract items from blocks.",
+  "book.energizedpower.page.item_conveyor_belt_2.2": "Belts are compatible with the AE2 item tunnel.",
+
+
   "book.energizedpower.page.chapter.entities.title": "Entità",
   "book.energizedpower.page.chapter.entities": "Cose che possono muoversi.",
 
