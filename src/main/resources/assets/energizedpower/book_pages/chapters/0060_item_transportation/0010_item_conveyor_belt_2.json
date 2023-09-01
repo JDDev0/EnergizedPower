@@ -1,0 +1,19 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.item_conveyor_belt_2.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        " "
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.item_conveyor_belt_2.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ]
+}
