@@ -913,10 +913,10 @@
   "book.energizedpower.page.item_conveyor_belt_loader_2.3": "Er kann mit einem Redstone-Signal deaktiviert werden.",
 
   "book.energizedpower.page.item_conveyor_belt_sorter_1.1": "Der Item-Förderband-Sortierer nimmt Items vom Eingabe-Förderband und leitet sie zu einem bestimmten Ausgabe-Förderband.",
-  "book.energizedpower.page.item_conveyor_belt_sorter_1.2": "Das Eingabe-Förderband muss zum großen Quadrat zeigen und darf nicht steigened sein.",
+  "book.energizedpower.page.item_conveyor_belt_sorter_1.2": "Das Eingabe-Förderband muss zum großen Quadrat zeigen und darf nicht aufsteigend sein.",
 
   "book.energizedpower.page.item_conveyor_belt_sorter_2.1": "Es gibt keine Einschränkungen für Ausgabe-Förderbänder.",
-  "book.energizedpower.page.item_conveyor_belt_sorter_2.2": "Die Ausgänge sind farbcodiert (Rot: Erste Ausgang und immer links vom Eingang, Gelb: Zweiter Ausgang und immer gegenüber vom Eingang, Grün: Dritter Ausgang und immer rechts vom Eingang",
+  "book.energizedpower.page.item_conveyor_belt_sorter_2.2": "Die Ausgänge sind farbcodiert (Rot: Erste Ausgang und immer links vom Eingabe-Förderband, Gelb: Zweiter Ausgang und immer gegenüber  vom Eingabe-Förderband, Grün: Dritter Ausgang und immer rechts vom Eingabe-Förderband",
   "book.energizedpower.page.item_conveyor_belt_sorter_2.3": "Das Item wird zum ersten Ausgang geleitet, wo der Filter übereinstimmt (Priorität: OUT 1, OUT 2, OUT 3).",
 
   "book.energizedpower.page.item_conveyor_belt_sorter_3.1": "Der Filter stimmt überein, wenn mindestens ein Pattern-Item vom der Output-Filter-Zeile mit dem Eingabe-Item übereinstimmt.",
@@ -924,6 +924,9 @@
   "book.energizedpower.page.item_conveyor_belt_sorter_3.3": "Wenn alle Items erlaubt werden sollen, muss man Blacklist ohne Pattern-Items auswählen. Wenn ein Ausgang nicht verbunden ist, sollte man den Filter auf Whitelist ohne Pattern-Items setzen.",
 
   "book.energizedpower.page.item_conveyor_belt_sorter_4.1": "Ein Redstone-Signal der Stärke 15 wird ausgestrahlt, wenn kein Filter übereinstimmt (Wenn der Ausgang nicht verbunden ist oder wenn er voll ist, wird kein Redstone-Signal ausgestrahlt).",
+
+  "book.energizedpower.page.item_conveyor_belt_switch.1": "Der Item-Förderband-Schalter nimmt Items vom Eingabe-Förderband (Muss zum großen Quadrat zeigen und darf nicht aufsteigend sein) und legt diese auf das Ausgabe-Förderband, dass beim Ausgang mit dem grünen Indikator ist.",
+  "book.energizedpower.page.item_conveyor_belt_switch.2": "So lange ein Redstone-Signal anliegt, wird der andere Ausgang ausgewählt.",
 
 
   "book.energizedpower.page.chapter.entities.title": "Entitäten",
