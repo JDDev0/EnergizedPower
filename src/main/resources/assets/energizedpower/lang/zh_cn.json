@@ -134,6 +134,9 @@
   "block.energizedpower.item_conveyor_belt_splitter": "Item Conveyor Belt Splitter",
   "item.energizedpower.item_conveyor_belt_splitter": "Item Conveyor Belt Splitter",
 
+  "block.energizedpower.item_conveyor_belt_merger": "Item Conveyor Belt Merger",
+  "item.energizedpower.item_conveyor_belt_merger": "Item Conveyor Belt Merger",
+
   "block.energizedpower.fluid_pipe": "Fluid Pipe",
   "item.energizedpower.fluid_pipe": "Fluid Pipe",
 
@@ -558,6 +561,9 @@
 
   "advancements.energizedpower.item_conveyor_belt_splitter.title": "Conveyor Belt Splitter",
   "advancements.energizedpower.item_conveyor_belt_splitter.description": "Distribute items evenly to multiple outputs.",
+
+  "advancements.energizedpower.item_conveyor_belt_merger.title": "Conveyor Belt Merger",
+  "advancements.energizedpower.item_conveyor_belt_merger.description": "Merge items evenly from multiple inputs.",
 
   "advancements.energizedpower.fluid_pipe.title": "Fluid Transport",
   "advancements.energizedpower.fluid_pipe.description": "Transport fluids with fluid pipes.",

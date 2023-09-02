@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
-import me.jddev0.ep.block.ItemConveyorBeltSwitchBlock;
+import me.jddev0.ep.block.ItemConveyorBeltSplitterBlock;
 import me.jddev0.ep.block.ModBlockStateProperties;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.config.ModConfigs;
@@ -45,7 +45,7 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
             return;
 
         if(level.getGameTime() % TICKS_PER_ITEM == 0) {
-            Direction facing = state.getValue(ItemConveyorBeltSwitchBlock.FACING);
+            Direction facing = state.getValue(ItemConveyorBeltSplitterBlock.FACING);
 
             BlockPos inputPos = blockPos.relative(facing);
             BlockState inputBlockState = level.getBlockState(inputPos);
