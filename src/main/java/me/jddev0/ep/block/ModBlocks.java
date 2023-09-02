@@ -37,6 +37,11 @@ public final class ModBlocks {
                     requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
     public static final Item ITEM_CONVEYOR_BELT_LOADER_ITEM = createBlockItem("item_conveyor_belt_loader", ITEM_CONVEYOR_BELT_LOADER);
 
+    public static final Block ITEM_CONVEYOR_BELT_SORTER = registerBlock("item_conveyor_belt_sorter",
+            new ItemConveyorBeltSorterBlock(FabricBlockSettings.of(Material.STONE, MapColor.STONE_GRAY).
+                    requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+    public static final Item ITEM_CONVEYOR_BELT_SORTER_ITEM = createBlockItem("item_conveyor_belt_sorter", ITEM_CONVEYOR_BELT_SORTER);
+
     public static final FluidPipeBlock FLUID_PIPE = registerBlock("fluid_pipe",
             new FluidPipeBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
