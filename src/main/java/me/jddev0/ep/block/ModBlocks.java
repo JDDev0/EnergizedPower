@@ -25,6 +25,12 @@ public final class ModBlocks {
                     requiresTool().strength(2.0f, 3.0f).sounds(BlockSoundGroup.WOOD)));
     public static final Item SAWDUST_BLOCK_ITEM = createBlockItem("sawdust_block", SAWDUST_BLOCK);
 
+    public static final Block ITEM_CONVEYOR_BELT = registerBlock("item_conveyor_belt",
+            new ItemConveyorBeltBlock(FabricBlockSettings.create().noCollision().
+                    strength(2.5f, 3.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item ITEM_CONVEYOR_BELT_ITEM = createBlockItem("item_conveyor_belt",
+            new ItemConveyorBeltBlock.Item(ITEM_CONVEYOR_BELT, new FabricItemSettings()));
+
     public static final FluidPipeBlock FLUID_PIPE = registerBlock("fluid_pipe",
             new FluidPipeBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

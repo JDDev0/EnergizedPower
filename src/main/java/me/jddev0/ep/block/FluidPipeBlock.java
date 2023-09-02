@@ -256,7 +256,6 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable {
     }
 
     public static class Item extends BlockItem {
-
         public Item(Block block, FabricItemSettings props) {
             super(block, props);
         }
@@ -264,7 +263,7 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable {
         @Override
         public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
             if(Screen.hasShiftDown()) {
-                tooltip.add(Text.translatable("tooltip.energizedpower.fluid_pipe.txt.shift").
+                tooltip.add(Text.translatable("tooltip.energizedpower.wrench_configurable").
                         formatted(Formatting.GRAY, Formatting.ITALIC));
             }else {
                 tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
