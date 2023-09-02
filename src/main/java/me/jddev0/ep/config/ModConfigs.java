@@ -597,6 +597,13 @@ public final class ModConfigs {
             1, null
     ));
 
+    public static final ConfigValue<Integer> COMMON_ITEM_CONVEYOR_BELT_SORTER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.item_conveyor_belt_sorter.ticks_per_item",
+            "The time required to sort a single Item in ticks",
+            10,
+            1, null
+    ));
+
     //World
     public static final ConfigValue<Integer> COMMON_ELECTRICIAN_BUILDING_1_PLACEMENT_WEIGHT = COMMON_CONFIG.register(new IntegerConfigValue(
             "world.village.electrician_building_1.placement_weight",

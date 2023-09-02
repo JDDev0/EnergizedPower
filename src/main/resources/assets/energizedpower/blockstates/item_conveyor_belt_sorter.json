@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "energizedpower:block/item_conveyor_belt_sorter",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "energizedpower:block/item_conveyor_belt_sorter"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/item_conveyor_belt_sorter",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/item_conveyor_belt_sorter",
+      "y": 270
+    }
+  }
+}

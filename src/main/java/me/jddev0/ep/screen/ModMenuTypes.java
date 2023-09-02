@@ -22,6 +22,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<ItemConveyorBeltLoaderMenu>> ITEM_CONVEYOR_BELT_LOADER_MENU = registerMenuType("item_conveyor_belt_loader",
             ItemConveyorBeltLoaderMenu::new);
 
+    public static final RegistryObject<MenuType<ItemConveyorBeltSorterMenu>> ITEM_CONVEYOR_BELT_SORTER_MENU = registerMenuType("item_conveyor_sorter_loader",
+            ItemConveyorBeltSorterMenu::new);
+
     public static final RegistryObject<MenuType<AutoCrafterMenu>> AUTO_CRAFTER_MENU = registerMenuType("auto_crafter",
             AutoCrafterMenu::new);
 
