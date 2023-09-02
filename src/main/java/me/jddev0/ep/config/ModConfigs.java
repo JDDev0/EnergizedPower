@@ -585,23 +585,23 @@ public final class ModConfigs {
             "entity.advanced_battery_box_minecart", "Advanced Battery Box Minecart", 65536
     );
 
-    public static final ConfigValue<Float> COMMON_ITEM_CONVEYOR_BELT_SPEED = COMMON_CONFIG.register(new FloatConfigValue(
-            "block.item_conveyor_belt.speed",
-            "The speed the Item Conveyor Belt can transport items with in blocks per tick",
-            .025f,
-            0.f, 1.f
+    public static final ConfigValue<Integer> COMMON_ITEM_CONVEYOR_BELT_TICKS_PER_STEP = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.item_conveyor_belt.ticks_per_step",
+            "The time required for the Item Conveyor Belt to transport an item one step in ticks per step",
+            10,
+            1, null
     ));
 
     public static final ConfigValue<Integer> COMMON_ITEM_CONVEYOR_BELT_LOADER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.item_conveyor_belt_loader.ticks_per_item",
-            "The time required to extract a single Item in ticks",
+            "The time required for the Item Conveyor Belt Loader to extract a single Item in ticks",
             10,
             1, null
     ));
 
     public static final ConfigValue<Integer> COMMON_ITEM_CONVEYOR_BELT_SORTER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.item_conveyor_belt_sorter.ticks_per_item",
-            "The time required to sort a single Item in ticks",
+            "The time required for the Item Conveyor Belt Sorter to sort a single Item in ticks",
             10,
             1, null
     ));
