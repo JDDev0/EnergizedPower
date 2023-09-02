@@ -118,6 +118,16 @@
   "item.energizedpower.item_conveyor_belt_loader": "Item-Förderband-Lader",
   "container.energizedpower.item_conveyor_belt_loader": "Item-Förderband-Lader",
 
+  "block.energizedpower.item_conveyor_belt_sorter": "Item-Förderband-Sortierer",
+  "item.energizedpower.item_conveyor_belt_sorter": "Item-Förderband-Sortierer",
+  "container.energizedpower.item_conveyor_belt_sorter": "Item-Förderband-Sortierer",
+
+  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Ausgang %d: Kein Förderband verbunden",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "Ausgang %d: Förderband verbunden",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.ignore_nbt": "NBT ignorieren",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "Whitelist",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "Blacklist",
+
   "block.energizedpower.fluid_pipe": "Flüssigkeitsrohr",
   "item.energizedpower.fluid_pipe": "Flüssigkeitsrohr",
 
@@ -533,6 +543,9 @@
 
   "advancements.energizedpower.item_conveyor_belt_loader.title": "Item-Lader",
   "advancements.energizedpower.item_conveyor_belt_loader.description": "Lade Items auf ein Item-Förderband.",
+
+  "advancements.energizedpower.item_conveyor_belt_sorter.title": "Automatisches Sortieren",
+  "advancements.energizedpower.item_conveyor_belt_sorter.description": "Sortiere Items mit dem Item-Förderband-Sortierer.",
 
   "advancements.energizedpower.fluid_pipe.title": "Flüssigkeits-Transport",
   "advancements.energizedpower.fluid_pipe.description": "Transportiere Flüssigkeiten mit Flüssigkeitsrohren.",

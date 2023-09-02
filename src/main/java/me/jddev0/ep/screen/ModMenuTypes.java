@@ -15,6 +15,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<ItemConveyorBeltLoaderMenu> ITEM_CONVEYOR_BELT_LOADER_MENU = createScreenHandlerType("item_conveyor_belt_loader",
             new ExtendedScreenHandlerType<>(ItemConveyorBeltLoaderMenu::new));
 
+    public static final ScreenHandlerType<ItemConveyorBeltSorterMenu> ITEM_CONVEYOR_BELT_SORTER_MENU = createScreenHandlerType("item_conveyor_belt_sorter",
+            new ExtendedScreenHandlerType<>(ItemConveyorBeltSorterMenu::new));
+
     public static final ScreenHandlerType<AutoCrafterMenu> AUTO_CRAFTER_MENU = createScreenHandlerType("auto_crafter",
             new ExtendedScreenHandlerType<>(AutoCrafterMenu::new));
 
