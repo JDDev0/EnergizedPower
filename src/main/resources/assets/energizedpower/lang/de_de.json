@@ -134,6 +134,9 @@
   "block.energizedpower.item_conveyor_belt_splitter": "Item-Förderband-Verteiler",
   "item.energizedpower.item_conveyor_belt_splitter": "Item-Förderband-Verteiler",
 
+  "block.energizedpower.item_conveyor_belt_merger": "Item-Förderband-Vereiniger",
+  "item.energizedpower.item_conveyor_belt_merger": "Item-Förderband-Vereiniger",
+
   "block.energizedpower.fluid_pipe": "Flüssigkeitsrohr",
   "item.energizedpower.fluid_pipe": "Flüssigkeitsrohr",
 
@@ -558,6 +561,9 @@
 
   "advancements.energizedpower.item_conveyor_belt_splitter.title": "Förderband-Verteiler",
   "advancements.energizedpower.item_conveyor_belt_splitter.description": "Verteile Items gleichmäßig auf mehrere Ausgänge.",
+
+  "advancements.energizedpower.item_conveyor_belt_merger.title": "Förderband-Vereiniger",
+  "advancements.energizedpower.item_conveyor_belt_merger.description": "Vereinige Items gleichmäßig von mehren Eingängen",
 
   "advancements.energizedpower.fluid_pipe.title": "Flüssigkeits-Transport",
   "advancements.energizedpower.fluid_pipe.description": "Transportiere Flüssigkeiten mit Flüssigkeitsrohren.",

@@ -605,6 +605,13 @@ public final class ModConfigs {
             1, null
     ));
 
+    public static final ConfigValue<Integer> COMMON_ITEM_CONVEYOR_BELT_MERGER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.item_conveyor_belt_merger.ticks_per_item",
+            "The time required for the Item Conveyor Belt Merger to process a single item in ticks",
+            10,
+            1, null
+    ));
+
     //Entities
     public static final ConfigValue<Long> COMMON_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
             "entity.battery_box_minecart", "Battery Box Minecart", 65536
