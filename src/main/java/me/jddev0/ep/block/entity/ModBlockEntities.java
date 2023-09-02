@@ -47,6 +47,9 @@ public final class ModBlockEntities {
     public static final BlockEntityType<ItemConveyorBeltSwitchBlockEntity> ITEM_CONVEYOR_BELT_SWITCH_ENTITY =
             createBlockEntity("item_conveyor_belt_switch", ModBlocks.ITEM_CONVEYOR_BELT_SWITCH, ItemConveyorBeltSwitchBlockEntity::new);
 
+    public static final BlockEntityType<ItemConveyorBeltSplitterBlockEntity> ITEM_CONVEYOR_BELT_SPLITTER_ENTITY =
+            createBlockEntity("item_conveyor_belt_splitter", ModBlocks.ITEM_CONVEYOR_BELT_SPLITTER, ItemConveyorBeltSplitterBlockEntity::new);
+
     public static final BlockEntityType<CableBlockEntity> COPPER_CABLE_ENTITY = registerEnergyStorage(
             createBlockEntity("copper_cable", ModBlocks.COPPER_CABLE, (blockPos, state) ->
                     new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_COPPER)),

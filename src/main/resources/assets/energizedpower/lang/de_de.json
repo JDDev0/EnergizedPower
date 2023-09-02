@@ -131,6 +131,9 @@
   "block.energizedpower.item_conveyor_belt_switch": "Item-Förderband-Schalter",
   "item.energizedpower.item_conveyor_belt_switch": "Item-Förderband-Schalter",
 
+  "block.energizedpower.item_conveyor_belt_splitter": "Item-Förderband-Verteiler",
+  "item.energizedpower.item_conveyor_belt_splitter": "Item-Förderband-Verteiler",
+
   "block.energizedpower.fluid_pipe": "Flüssigkeitsrohr",
   "item.energizedpower.fluid_pipe": "Flüssigkeitsrohr",
 
@@ -552,6 +555,9 @@
 
   "advancements.energizedpower.item_conveyor_belt_switch.title": "Förderband-Schalter",
   "advancements.energizedpower.item_conveyor_belt_switch.description": "Wähle eine Richtung.",
+
+  "advancements.energizedpower.item_conveyor_belt_splitter.title": "Förderband-Verteiler",
+  "advancements.energizedpower.item_conveyor_belt_splitter.description": "Verteile Items gleichmäßig auf mehrere Ausgänge.",
 
   "advancements.energizedpower.fluid_pipe.title": "Flüssigkeits-Transport",
   "advancements.energizedpower.fluid_pipe.description": "Transportiere Flüssigkeiten mit Flüssigkeitsrohren.",
