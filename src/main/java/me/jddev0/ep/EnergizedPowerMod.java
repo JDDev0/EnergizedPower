@@ -3,6 +3,7 @@ package me.jddev0.ep;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.behavior.ModBlockBehaviors;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.renderer.ItemConveyorBeltBlockEntityRenderer;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.ModEntityTypes;
 import me.jddev0.ep.entity.data.ModTrackedDataHandlers;
