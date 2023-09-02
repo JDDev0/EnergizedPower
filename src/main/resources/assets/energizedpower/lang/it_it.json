@@ -131,6 +131,9 @@
   "block.energizedpower.item_conveyor_belt_switch": "Item Conveyor Belt Switch",
   "item.energizedpower.item_conveyor_belt_switch": "Item Conveyor Belt Switch",
 
+  "block.energizedpower.item_conveyor_belt_splitter": "Item Conveyor Belt Splitter",
+  "item.energizedpower.item_conveyor_belt_splitter": "Item Conveyor Belt Splitter",
+
   "block.energizedpower.fluid_pipe": "Tubo fluido",
   "item.energizedpower.fluid_pipe": "Tubo fluido",
 
@@ -552,6 +555,9 @@
 
   "advancements.energizedpower.item_conveyor_belt_switch.title": "Conveyor Belt Switch",
   "advancements.energizedpower.item_conveyor_belt_switch.description": "Select a direction.",
+
+  "advancements.energizedpower.item_conveyor_belt_splitter.title": "Conveyor Belt Splitter",
+  "advancements.energizedpower.item_conveyor_belt_splitter.description": "Distribute items evenly to multiple outputs.",
 
   "advancements.energizedpower.fluid_pipe.title": "Trasporto fluido",
   "advancements.energizedpower.fluid_pipe.description": "Trasportare fluidi con tubi per fluidi.",

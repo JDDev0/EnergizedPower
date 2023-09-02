@@ -44,6 +44,7 @@ public class ItemConveyorBeltSwitchBlockEntity extends BlockEntity {
             BlockEntity inputBlockEntity = level.getBlockEntity(inputPos);
             if(!(inputBlockEntity instanceof ItemConveyorBeltBlockEntity))
                 return;
+
             Storage<ItemVariant> inputBeltItemStackStorage = ItemStorage.SIDED.find(level, inputPos, facing.getOpposite());
             if(inputBeltItemStackStorage == null || !inputBeltItemStackStorage.supportsExtraction())
                 return;
