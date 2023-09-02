@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
-import me.jddev0.ep.block.ItemConveyorBeltSwitchBlock;
+import me.jddev0.ep.block.ItemConveyorBeltSplitterBlock;
 import me.jddev0.ep.block.ModBlockStateProperties;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.config.ModConfigs;
@@ -47,7 +47,7 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
             return;
 
         if(level.getTime() % TICKS_PER_ITEM == 0) {
-            Direction facing = state.get(ItemConveyorBeltSwitchBlock.FACING);
+            Direction facing = state.get(ItemConveyorBeltSplitterBlock.FACING);
 
             BlockPos inputPos = blockPos.offset(facing);
             BlockState inputBlockState = level.getBlockState(inputPos);
@@ -108,7 +108,7 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
 
                 Storage<ItemVariant> outputBeltItemStackStorage = ItemStorage.SIDED.find(level, outputPos, outputDirection.getOpposite());
                 if(outputBeltItemStackStorage == null || !outputBeltItemStackStorage.supportsInsertion())
-                    return;
+                    continue;
 
                 try(Transaction transaction = Transaction.openOuter()) {
                     long amount = outputBeltItemStackStorage.insert(ItemVariant.of(itemStackToSwitch), 1, transaction);
