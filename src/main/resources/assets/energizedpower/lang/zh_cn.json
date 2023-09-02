@@ -898,19 +898,32 @@
   "book.energizedpower.page.chapter.item_transportation": "Blocks that can transport Items.",
 
   "book.energizedpower.page.item_conveyor_belt_1.1": "Item Conveyor belts can transport items.",
-  "book.energizedpower.page.item_conveyor_belt_1.2": "The slope of belts can be configured with a Wrench.",
-  "book.energizedpower.page.item_conveyor_belt_1.3": "Belts can be loaded with hoppers and any block which can insert items into blocks.",
-  "book.energizedpower.page.item_conveyor_belt_1.4": "Belts can insert items into blocks in front of the belt.",
+  "book.energizedpower.page.item_conveyor_belt_1.2": "The slope of conveyor belts can be configured with a Wrench.",
+  "book.energizedpower.page.item_conveyor_belt_1.3": "Conveyor belts can be loaded with hoppers and any block which can insert items into blocks.",
+  "book.energizedpower.page.item_conveyor_belt_1.4": "Conveyor belts can insert items into blocks in front of the conveyor belt.",
 
   "book.energizedpower.page.item_conveyor_belt_2.1": "Alternatively they can be unloaded with hoppers and other blocks which can extract items from blocks.",
-  "book.energizedpower.page.item_conveyor_belt_2.2": "Belts are compatible with the AE2 item tunnel.",
+  "book.energizedpower.page.item_conveyor_belt_2.2": "Conveyor belts are compatible with the AE2 item tunnel.",
 
-  "book.energizedpower.page.item_conveyor_belt_loader_1.1": "The item conveyor belt loader can extract items from any storage blocks (even other belts) and load them onto a belt.",
-  "book.energizedpower.page.item_conveyor_belt_loader_1.2": "The larger square must face the block where items are extracted from and the smaller square must face a belt.",
+  "book.energizedpower.page.item_conveyor_belt_loader_1.1": "The Item Conveyor Belt Loader can extract items from any storage blocks (even other conveyor belts) and load them onto a conveyor belt.",
+  "book.energizedpower.page.item_conveyor_belt_loader_1.2": "The larger square must face the block where items are extracted from and the smaller square must face a conveyor belt.",
 
   "book.energizedpower.page.item_conveyor_belt_loader_2.1": "Alternatively items can be extracted from the loader with hoppers and other blocks which can extract items from blocks.",
   "book.energizedpower.page.item_conveyor_belt_loader_2.2": "It can be stacked vertically and horizontally.",
   "book.energizedpower.page.item_conveyor_belt_loader_2.3": "It can be disabled with a redstone signal.",
+
+  "book.energizedpower.page.item_conveyor_belt_sorter_1.1": "The Item Conveyor Belt Sorter takes items from a input conveyor belt and routes them to certain output conveyor belt.",
+  "book.energizedpower.page.item_conveyor_belt_sorter_1.2": "The input conveyor belt must face the large square and must not be ascending.",
+
+  "book.energizedpower.page.item_conveyor_belt_sorter_2.1": "There are no restrictions for the output conveyor belts.",
+  "book.energizedpower.page.item_conveyor_belt_sorter_2.2": "The outputs are color coded (red: first output and always on the left side relative to the input, yellow: second output and on the opposite side relative to the input, green: third output and on the right side relative to the input).",
+  "book.energizedpower.page.item_conveyor_belt_sorter_2.3": "The item will be routed to the first output where the filter matched (Priority: OUT 1, OUT 2, OUT 3).",
+
+  "book.energizedpower.page.item_conveyor_belt_sorter_3.1": "The filter matches if at least one pattern item of the output filter row matches the input item.",
+  "book.energizedpower.page.item_conveyor_belt_sorter_3.2": "Pattern items can be placed by taking the item from the inventory and left-clicking a pattern slot. The filter can be reset by left-clicking without an item.",
+  "book.energizedpower.page.item_conveyor_belt_sorter_3.3": "To allow any items select blacklist without any pattern items. If a output is not connected the filter should be set to whitelist without any pattern items.",
+
+  "book.energizedpower.page.item_conveyor_belt_sorter_4.1": "A redstone signal of strength 15 will be emitted if no filter matches (If no output is connected or if it is full no redstone signal will be emitted).",
 
 
   "book.energizedpower.page.chapter.entities.title": "实体",
