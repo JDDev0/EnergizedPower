@@ -928,7 +928,9 @@
   "book.energizedpower.page.item_conveyor_belt_switch.1": "The Item Conveyor Belt Switch takes items from the input conveyor belt (Must face the large square and must not be ascending) and puts them onto the output conveyor belt on the side with the green indicator.",
   "book.energizedpower.page.item_conveyor_belt_switch.2": "As long as a redstone signal is applied, the other output will be selected.",
 
-  "book.energizedpower.page.item_conveyor_belt_splitter": "The Item Conveyor Belt Splitter takes items from the input conveyor belt (Must face the large square and must not be ascending) and puts them evenly to the connected output conveyor belts.",
+  "book.energizedpower.page.item_conveyor_belt_splitter": "The Item Conveyor Belt Splitter takes items from the input conveyor belt (Must face the large square and must not be ascending) and puts them evenly on the connected output conveyor belts.",
+
+  "book.energizedpower.page.item_conveyor_belt_merger": "The Item Conveyor Belt Merger takes items evenly from the connected input conveyor belts (They must face a large square and must not be ascending) and puts them on the output conveyor belt.",
 
 
   "book.energizedpower.page.chapter.entities.title": "Entità",
