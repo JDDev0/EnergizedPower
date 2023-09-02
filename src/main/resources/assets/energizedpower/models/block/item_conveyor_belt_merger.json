@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "#up",
+    "down": "energizedpower:block/item_conveyor_belt_merger_top",
+    "east": "energizedpower:block/item_conveyor_belt_merger_input",
+    "north": "energizedpower:block/item_conveyor_belt_merger_output",
+    "south": "energizedpower:block/item_conveyor_belt_merger_input",
+    "up": "energizedpower:block/item_conveyor_belt_merger_top",
+    "west": "energizedpower:block/item_conveyor_belt_merger_input"
+  }
+}

@@ -52,6 +52,11 @@ public final class ModBlocks {
                     requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
     public static final Item ITEM_CONVEYOR_BELT_SPLITTER_ITEM = createBlockItem("item_conveyor_belt_splitter", ITEM_CONVEYOR_BELT_SPLITTER);
 
+    public static final Block ITEM_CONVEYOR_BELT_MERGER = registerBlock("item_conveyor_belt_merger",
+            new ItemConveyorBeltMergerBlock(FabricBlockSettings.of(Material.STONE, MapColor.STONE_GRAY).
+                    requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+    public static final Item ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("item_conveyor_belt_merger", ITEM_CONVEYOR_BELT_MERGER);
+
     public static final FluidPipeBlock FLUID_PIPE = registerBlock("fluid_pipe",
             new FluidPipeBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
