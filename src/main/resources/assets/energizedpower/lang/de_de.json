@@ -541,6 +541,9 @@
   "advancements.energizedpower.thermal_generator.title": "Durch heiße Flüssigkeiten angetrieben",
   "advancements.energizedpower.thermal_generator.description": "Verbrauche heiße Flüssigkeiten, um Energize herzustellen.",
 
+  "advancements.energizedpower.powered_lamp.title": "Elektrisches Licht",
+  "advancements.energizedpower.powered_lamp.description": "Konvertiere Strom zu Licht.",
+
   "advancements.energizedpower.powered_furnace.title": "Eletrischer Ofen",
   "advancements.energizedpower.powered_furnace.description": "Ofen mit Strom.",
 
