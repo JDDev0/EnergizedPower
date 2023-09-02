@@ -583,6 +583,13 @@ public final class ModConfigs {
             "entity.advanced_battery_box_minecart", "Advanced Battery Box Minecart", 65536
     );
 
+    public static final ConfigValue<Float> COMMON_ITEM_CONVEYOR_BELT_SPEED = COMMON_CONFIG.register(new FloatConfigValue(
+            "block.item_conveyor_belt.speed",
+            "The speed the Item Conveyor Belt can transport items with in blocks per tick",
+            .025f,
+            0.f, 1.f
+    ));
+
     //World
     public static final ConfigValue<Integer> COMMON_ELECTRICIAN_BUILDING_1_PLACEMENT_WEIGHT = COMMON_CONFIG.register(new IntegerConfigValue(
             "world.village.electrician_building_1.placement_weight",
