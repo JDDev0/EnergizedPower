@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:cobblestone"
+    },
+    "I": {
+      "tag": "c:iron_blocks"
+    },
+    "R": {
+      "tag": "c:redstone_dusts"
+    },
+    "l": {
+      "item": "minecraft:lever"
+    },
+    "L": {
+      "item": "energizedpower:item_conveyor_belt_loader"
+    }
+  },
+  "pattern": [
+    "ClC",
+    "ILI",
+    "CRC"
+  ],
+  "result": {
+    "item": "energizedpower:item_conveyor_belt_switch"
+  }
+}
