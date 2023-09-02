@@ -57,6 +57,11 @@ public final class ModBlocks {
                     requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
     public static final RegistryObject<Item> ITEM_CONVEYOR_BELT_SWITCH_ITEM = createBlockItem("item_conveyor_belt_switch", ITEM_CONVEYOR_BELT_SWITCH);
 
+    public static final RegistryObject<Block> ITEM_CONVEYOR_BELT_SPLITTER = BLOCKS.register("item_conveyor_belt_splitter",
+            () -> new ItemConveyorBeltSplitterBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.STONE).
+                    requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
+    public static final RegistryObject<Item> ITEM_CONVEYOR_BELT_SPLITTER_ITEM = createBlockItem("item_conveyor_belt_splitter", ITEM_CONVEYOR_BELT_SPLITTER);
+
     public static final RegistryObject<FluidPipeBlock> FLUID_PIPE = BLOCKS.register("fluid_pipe",
             () -> new FluidPipeBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
