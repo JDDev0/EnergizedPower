@@ -930,6 +930,8 @@
 
   "book.energizedpower.page.item_conveyor_belt_splitter": "Der Item-Förderband-Verteiler nimmt Items vom Eingabe-Förderband (Muss zum großen Quadrat zeigen und darf nicht aufsteigend sein) und legt diese gleichmäßig auf die verbundenen Ausgabe-Förderbänder.",
 
+  "book.energizedpower.page.item_conveyor_belt_merger": "Der Item-Förderband-Vereiniger nimmt Items gleichmäßig von den verbundenen Eingabe-Förderbändern (Müssen zu einem großen Quadrat zeigen und dürfen nicht aufsteigend sein) und legt diese auf das Ausgabe-Förderband.",
+
 
   "book.energizedpower.page.chapter.entities.title": "Entitäten",
   "book.energizedpower.page.chapter.entities": "Dinge, die sich bewegen.",
