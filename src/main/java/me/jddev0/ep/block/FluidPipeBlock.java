@@ -13,16 +13,21 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Formatting;
@@ -38,7 +43,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class FluidPipeBlock extends BlockWithEntity implements Waterloggable {
+public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, WrenchConfigurable {
     public static final EnumProperty<ModBlockStateProperties.PipeConnection> UP = ModBlockStateProperties.PIPE_CONNECTION_UP;
     public static final EnumProperty<ModBlockStateProperties.PipeConnection> DOWN = ModBlockStateProperties.PIPE_CONNECTION_DOWN;
     public static final EnumProperty<ModBlockStateProperties.PipeConnection> NORTH = ModBlockStateProperties.PIPE_CONNECTION_NORTH;
@@ -77,6 +82,102 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable {
                 with(EAST, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
                 with(WEST, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
                 with(WATERLOGGED, false));
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
+        return new FluidPipeBlockEntity(blockPos, state);
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+
+    @Override
+    @NotNull
+    public ActionResult onUseWrench(ItemUsageContext useOnContext, Direction selectedFace, boolean nextPreviousValue) {
+        World level = useOnContext.getWorld();
+        BlockPos blockPos = useOnContext.getBlockPos();
+
+        if(level.isClient() || !(level.getBlockEntity(blockPos) instanceof FluidPipeBlockEntity))
+            return ActionResult.SUCCESS;
+
+        BlockState state = level.getBlockState(blockPos);
+
+        BlockPos testPos = blockPos.offset(selectedFace);
+
+        PlayerEntity player = useOnContext.getPlayer();
+
+        BlockEntity testBlockEntity = level.getBlockEntity(testPos);
+        if(testBlockEntity == null || testBlockEntity instanceof FluidPipeBlockEntity) {
+            //Connections to non-fluid blocks nor connections to another pipe can not be modified
+
+            if(player instanceof ServerPlayerEntity serverPlayer) {
+                serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                        Text.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible",
+                                Text.translatable("tooltip.energizedpower.direction." + selectedFace.asString()).
+                                        formatted(Formatting.WHITE)
+                        ).formatted(Formatting.RED)
+                ));
+            }
+
+            return ActionResult.SUCCESS;
+        }
+
+        Storage<FluidVariant> fluidStorage = FluidStorage.SIDED.find(level, testPos, selectedFace.getOpposite());
+        if(fluidStorage == null) {
+            if(player instanceof ServerPlayerEntity serverPlayer) {
+                serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                        Text.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible",
+                                Text.translatable("tooltip.energizedpower.direction." + selectedFace.asString()).
+                                        formatted(Formatting.WHITE)
+                        ).formatted(Formatting.RED)
+                ));
+            }
+
+            return ActionResult.SUCCESS;
+        }
+
+        //If first has no next, no tanks are present
+        if(!fluidStorage.iterator().hasNext()) {
+            if(player instanceof ServerPlayerEntity serverPlayer) {
+                serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                        Text.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible",
+                                Text.translatable("tooltip.energizedpower.direction." + selectedFace.asString()).
+                                        formatted(Formatting.WHITE)
+                        ).formatted(Formatting.RED)
+                ));
+            }
+
+            return ActionResult.SUCCESS;
+        }
+
+        EnumProperty<ModBlockStateProperties.PipeConnection> pipeConnectionProperty =
+                FluidPipeBlock.getPipeConnectionPropertyFromDirection(selectedFace);
+
+        int diff = player != null && player.isSneaking()?-1:1;
+
+        ModBlockStateProperties.PipeConnection pipeConnection = state.get(pipeConnectionProperty);
+        pipeConnection = ModBlockStateProperties.PipeConnection.values()[(pipeConnection.ordinal() + diff +
+                ModBlockStateProperties.PipeConnection.values().length) %
+                ModBlockStateProperties.PipeConnection.values().length];
+
+        level.setBlockState(blockPos, state.with(pipeConnectionProperty, pipeConnection), 3);
+
+        if(player instanceof ServerPlayerEntity serverPlayer) {
+            serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                    Text.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed",
+                            Text.translatable("tooltip.energizedpower.direction." + selectedFace.asString()).
+                                    formatted(Formatting.WHITE),
+                            Text.translatable(pipeConnection.getTranslationKey()).
+                                    formatted(Formatting.WHITE, Formatting.BOLD)
+                    ).formatted(Formatting.GREEN)
+            ));
+        }
+
+        return ActionResult.SUCCESS;
     }
 
     @Nullable
@@ -236,17 +337,6 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable {
 
         Storage<FluidVariant> fluidStorage = FluidStorage.SIDED.find(level, toPos, direction.getOpposite());
         return fluidStorage == null?ModBlockStateProperties.PipeConnection.NOT_CONNECTED:ModBlockStateProperties.PipeConnection.CONNECTED;
-    }
-
-    @Nullable
-    @Override
-    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
-        return new FluidPipeBlockEntity(blockPos, state);
-    }
-
-    @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
     }
 
     @Nullable
