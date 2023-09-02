@@ -32,6 +32,11 @@ public final class ModBlocks {
     public static final Item ITEM_CONVEYOR_BELT_ITEM = createBlockItem("item_conveyor_belt",
             new ItemConveyorBeltBlock.Item(ITEM_CONVEYOR_BELT, new FabricItemSettings()));
 
+    public static final Block ITEM_CONVEYOR_BELT_LOADER = registerBlock("item_conveyor_belt_loader",
+            new ItemConveyorBeltLoaderBlock(FabricBlockSettings.of(Material.STONE, MapColor.STONE_GRAY).
+                    requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+    public static final Item ITEM_CONVEYOR_BELT_LOADER_ITEM = createBlockItem("item_conveyor_belt_loader", ITEM_CONVEYOR_BELT_LOADER);
+
     public static final FluidPipeBlock FLUID_PIPE = registerBlock("fluid_pipe",
             new FluidPipeBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

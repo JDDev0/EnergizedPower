@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:cobblestone"
+    },
+    "c": {
+      "item": "energizedpower:item_conveyor_belt"
+    },
+    "H": {
+      "item": "minecraft:hopper"
+    }
+  },
+  "pattern": [
+    "CCC",
+    "CHC",
+    "CcC"
+  ],
+  "result": {
+    "item": "energizedpower:item_conveyor_belt_loader"
+  }
+}

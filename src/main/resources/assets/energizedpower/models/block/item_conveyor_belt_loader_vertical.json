@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:block/cube",
+  "elements": [
+    {
+      "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "down": { "uv": [ 0, 16, 16, 0 ], "texture": "#down", "cullface": "down" },
+        "up": { "texture": "#up", "cullface": "up" },
+        "north": { "texture": "#north", "cullface": "north" },
+        "south": { "texture": "#south", "cullface": "south" },
+        "west": { "texture": "#side_vertical", "cullface": "west" },
+        "east": { "uv": [ 16, 0, 0, 16 ], "texture": "#side_vertical", "cullface": "east" }
+      }
+    }
+  ],
+  "textures": {
+    "particle": "#up",
+    "up": "energizedpower:block/item_conveyor_belt_loader_front",
+    "north": "energizedpower:block/item_conveyor_belt_loader_top",
+    "south": "energizedpower:block/item_conveyor_belt_loader_top",
+    "down": "energizedpower:block/item_conveyor_belt_loader_back",
+    "side_vertical": "energizedpower:block/item_conveyor_belt_loader_side_vertical"
+  }
+}
