@@ -31,8 +31,6 @@ public class ItemConveyorBeltSorterScreen extends AbstractContainerScreen<ItemCo
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-        //TODO
-
         if(mouseButton == 0) {
             boolean clicked = false;
             for(int i = 0; i < 3;i++) {
