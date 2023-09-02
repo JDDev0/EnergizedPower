@@ -73,6 +73,7 @@ public class EnergizedPowerMod {
         public static void onClientSetup(FMLClientSetupEvent event) {
             ModConfigs.registerConfigs(false);
 
+            MenuScreens.register(ModMenuTypes.ITEM_CONVEYOR_BELT_LOADER_MENU.get(), ItemConveyorBeltLoaderScreen::new);
             MenuScreens.register(ModMenuTypes.AUTO_CRAFTER_MENU.get(), AutoCrafterScreen::new);
             MenuScreens.register(ModMenuTypes.CRUSHER_MENU.get(), CrusherScreen::new);
             MenuScreens.register(ModMenuTypes.PULVERIZER_MENU.get(), PulverizerScreen::new);
