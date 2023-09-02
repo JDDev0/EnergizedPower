@@ -33,9 +33,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.stream.IntStream;
 
 public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStackPacketUpdate {
-    private static final int TICKS_PER_BLOCK = (int)(1.f / ModConfigs.COMMON_ITEM_CONVEYOR_BELT_SPEED.getValue());
-
-    private final int TICKS_PER_STEP;
+    private static final int TICKS_PER_STEP = ModConfigs.COMMON_ITEM_CONVEYOR_BELT_TICKS_PER_STEP.getValue();
 
     final CachedSidedInventoryStorage<ItemConveyorBeltBlockEntity> cachedSidedInventoryStorageFront;
     final InputOutputItemHandler sidedInventoryFront;
@@ -127,8 +125,6 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
             }
         }, (i, stack) -> i == 1, i -> i == 3);
         cachedSidedInventoryStorageOthers = new CachedSidedInventoryStorage<>(sidedInventoryOthers);
-
-        TICKS_PER_STEP = Math.max(TICKS_PER_BLOCK / internalInventory.size(), 1);
     }
 
     public int getRedstoneOutput() {
