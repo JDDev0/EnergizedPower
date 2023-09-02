@@ -96,6 +96,11 @@
   "item.energizedpower.wrench": "Schraubenschlüssel",
   "tooltip.energizedpower.wrench.txt.shift": "Der Schraubenschlüssel kann für die Konfiguration von Flüssigkeitsrohren verwendet werden.",
   "tooltip.energizedpower.wrench.select_face": "Selektierte Blockseite: %s",
+
+  "tooltip.energizedpower.wrench.change": "Steigung wurde zu %s gesetzt.",
+
+  "tooltip.energizedpower.wrench_configurable": "Dieser Block kann mit einem Schraubenschlüssel konfiguriert werden.",
+
   "tooltip.energizedpower.wrench.face_change": "Verbindungs-Typ der Blockseite (%s) wurde zu %s gesetzt.",
   "tooltip.energizedpower.wrench.face_change_not_possible": "Verbindungs-Typ der Blockseite (%s) konnte nicht geändert werden.",
 
@@ -108,10 +113,11 @@
   "block.energizedpower.sawdust_block": "Sägemehlblock",
   "item.energizedpower.sawdust_block": "Sägemehlblock",
 
+  "block.energizedpower.item_conveyor_belt": "Item Förderband",
+  "item.energizedpower.item_conveyor_belt": "Item Förderband",
+
   "block.energizedpower.fluid_pipe": "Flüssigkeitsrohr",
   "item.energizedpower.fluid_pipe": "Flüssigkeitsrohr",
-
-  "tooltip.energizedpower.fluid_pipe.txt.shift": "Das Flüssigkeitsrohr kann mit einem Schraubenschlüssel konfiguriert werden.",
 
   "block.energizedpower.auto_crafter": "Automatische Werkbank",
   "item.energizedpower.auto_crafter": "Automatische Werkbank",
@@ -376,6 +382,10 @@
   "block_state.energizedpower.pipe_connection.connected": "Verbunden/Einfügung",
   "block_state.energizedpower.pipe_connection.extract": "Extraktion",
 
+  "tooltip.energizedpower.conveyor_belt_direction.slope.flat": "Flach",
+  "tooltip.energizedpower.conveyor_belt_direction.slope.ascending": "Aufsteigend",
+  "tooltip.energizedpower.conveyor_belt_direction.slope.descending": "Absteigend",
+
   "itemGroup.energizedpower.tab": "Energized Power",
 
   "entity.minecraft.villager.electrician": "Elektroniker",
@@ -512,6 +522,9 @@
 
   "advancements.energizedpower.advanced_powered_furnace.title": "Schnelles Schmelzen",
   "advancements.energizedpower.advanced_powered_furnace.description": "Schmelze mehre Items zu gleich mit Strom.",
+
+  "advancements.energizedpower.item_conveyor_belt.title": "Item-Transport",
+  "advancements.energizedpower.item_conveyor_belt.description": "Transportiere Items mit dem Item Förderband.",
 
   "advancements.energizedpower.fluid_pipe.title": "Flüssigkeits-Transport",
   "advancements.energizedpower.fluid_pipe.description": "Transportiere Flüssigkeiten mit Flüssigkeitsrohren.",

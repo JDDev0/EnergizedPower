@@ -1,5 +1,7 @@
 package me.jddev0.ep;
 
+import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.renderer.ItemConveyorBeltBlockEntityRenderer;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.ModEntityTypes;
 import me.jddev0.ep.item.ActivatableItem;
@@ -12,6 +14,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.MinecartEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.item.Item;
@@ -82,5 +85,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntityTypes.ADVANCED_BATTERY_BOX_MINECART,
                 entity -> new MinecartEntityRenderer<>(entity, new EntityModelLayer(
                         new Identifier("minecraft", "chest_minecart"), "main")));
+
+        BlockEntityRendererFactories.register(ModBlockEntities.ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntityRenderer::new);
     }
 }

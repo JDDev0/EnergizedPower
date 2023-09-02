@@ -1,5 +1,6 @@
 package me.jddev0.ep.item;
 
+import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.FluidPipeBlock;
 import me.jddev0.ep.block.ModBlockStateProperties;
 import me.jddev0.ep.block.ModBlocks;
@@ -29,6 +30,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import me.jddev0.ep.block.entity.ItemConveyorBeltBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -63,16 +65,10 @@ public class WrenchItem extends Item {
         ));
     }
 
-    @Override
-    public ActionResult useOnBlock(ItemUsageContext useOnContext) {
+    public ActionResult useOnFluidPipe(ItemUsageContext useOnContext) {
         World level = useOnContext.getWorld();
-        if(level.isClient())
-            return ActionResult.SUCCESS;
-
         BlockPos blockPos = useOnContext.getBlockPos();
         BlockState state = level.getBlockState(blockPos);
-        if(!state.isOf(ModBlocks.FLUID_PIPE) || !(level.getBlockEntity(blockPos) instanceof FluidPipeBlockEntity))
-            return ActionResult.SUCCESS;
 
         ItemStack itemStack = useOnContext.getStack();
         Direction currentFace = getCurrentFace(itemStack);
@@ -148,6 +144,63 @@ public class WrenchItem extends Item {
                     ).formatted(Formatting.GREEN)
             ));
         }
+
+        return ActionResult.SUCCESS;
+    }
+
+    public ActionResult useOnConveyorBelt(ItemUsageContext useOnContext) {
+        World level = useOnContext.getWorld();
+        BlockPos blockPos = useOnContext.getBlockPos();
+        BlockState state = level.getBlockState(blockPos);
+
+        PlayerEntity player = useOnContext.getPlayer();
+
+        ModBlockStateProperties.ConveyorBeltDirection facing = state.get(ItemConveyorBeltBlock.FACING);
+        Boolean shape;
+
+        if(player != null && player.isSneaking()) {
+            if(facing.isAscending())
+                shape = null;
+            else if(facing.isDescending())
+                shape = true;
+            else
+                shape = false;
+        }else {
+            if(facing.isAscending())
+                shape = false;
+            else if(facing.isDescending())
+                shape = null;
+            else
+                shape = true;
+        }
+
+        level.setBlockState(blockPos, state.with(ItemConveyorBeltBlock.FACING, ModBlockStateProperties.ConveyorBeltDirection.of(facing.getDirection(), shape)), 3);
+
+        if(player instanceof ServerPlayerEntity serverPlayer) {
+            serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                    Text.translatable("tooltip.energizedpower.wrench.change",
+                            Text.translatable("tooltip.energizedpower.conveyor_belt_direction.slope." + (shape == null?"flat":(shape?"ascending":"descending"))).
+                                    formatted(Formatting.WHITE, Formatting.BOLD)
+                    ).formatted(Formatting.GREEN)
+            ));
+        }
+
+        return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public ActionResult useOnBlock(ItemUsageContext useOnContext) {
+        World level = useOnContext.getWorld();
+        if(level.isClient())
+            return ActionResult.SUCCESS;
+
+        BlockPos blockPos = useOnContext.getBlockPos();
+        BlockState state = level.getBlockState(blockPos);
+        if(state.isOf(ModBlocks.FLUID_PIPE) && (level.getBlockEntity(blockPos) instanceof FluidPipeBlockEntity))
+            return useOnFluidPipe(useOnContext);
+
+        if(state.isOf(ModBlocks.ITEM_CONVEYOR_BELT) && (level.getBlockEntity(blockPos) instanceof ItemConveyorBeltBlockEntity))
+            return useOnConveyorBelt(useOnContext);
 
         return ActionResult.SUCCESS;
     }

@@ -1,0 +1,51 @@
+{
+  "variants": {
+    "facing=north_south": {
+      "model": "energizedpower:block/item_conveyor_belt_flat"
+    },
+    "facing=south_north": {
+      "model": "energizedpower:block/item_conveyor_belt_flat",
+      "y": 180
+    },
+    "facing=east_west": {
+      "model": "energizedpower:block/item_conveyor_belt_flat",
+      "y": 90
+    },
+    "facing=west_east": {
+      "model": "energizedpower:block/item_conveyor_belt_flat",
+      "y": 270
+    },
+
+    "facing=ascending_north_south": {
+      "model": "energizedpower:block/item_conveyor_belt_ascending"
+    },
+    "facing=ascending_south_north": {
+      "model": "energizedpower:block/item_conveyor_belt_ascending",
+      "y": 180
+    },
+    "facing=ascending_east_west": {
+      "model": "energizedpower:block/item_conveyor_belt_ascending",
+      "y": 90
+    },
+    "facing=ascending_west_east": {
+      "model": "energizedpower:block/item_conveyor_belt_ascending",
+      "y": 270
+    },
+
+    "facing=descending_north_south": {
+      "model": "energizedpower:block/item_conveyor_belt_descending",
+      "y": 180
+    },
+    "facing=descending_south_north": {
+      "model": "energizedpower:block/item_conveyor_belt_descending"
+    },
+    "facing=descending_east_west": {
+      "model": "energizedpower:block/item_conveyor_belt_descending",
+      "y": 270
+    },
+    "facing=descending_west_east": {
+      "model": "energizedpower:block/item_conveyor_belt_descending",
+      "y": 90
+    }
+  }
+}

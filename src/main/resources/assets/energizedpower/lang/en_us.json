@@ -96,6 +96,11 @@
   "item.energizedpower.wrench": "Wrench",
   "tooltip.energizedpower.wrench.txt.shift": "The Wrench can be used to configure Fluid Pipes.",
   "tooltip.energizedpower.wrench.select_face": "Selected face: %s",
+
+  "tooltip.energizedpower.wrench.change": "Slope was set to %s.",
+
+  "tooltip.energizedpower.wrench_configurable": "This block can be configured with a Wrench.",
+
   "tooltip.energizedpower.wrench.face_change": "Connection type of face (%s) was set to %s.",
   "tooltip.energizedpower.wrench.face_change_not_possible": "Connection type of face (%s) could not be changed.",
 
@@ -108,10 +113,11 @@
   "block.energizedpower.sawdust_block": "Block of Sawdust",
   "item.energizedpower.sawdust_block": "Block of Sawdust",
 
+  "block.energizedpower.item_conveyor_belt": "Item Conveyor Belt",
+  "item.energizedpower.item_conveyor_belt": "Item Conveyor Belt",
+
   "block.energizedpower.fluid_pipe": "Fluid Pipe",
   "item.energizedpower.fluid_pipe": "Fluid Pipe",
-
-  "tooltip.energizedpower.fluid_pipe.txt.shift": "The Fluid Pipe can be configured with a Wrench.",
 
   "block.energizedpower.auto_crafter": "Auto Crafter",
   "item.energizedpower.auto_crafter": "Auto Crafter",
@@ -376,6 +382,10 @@
   "block_state.energizedpower.pipe_connection.connected": "Connected/Insertion",
   "block_state.energizedpower.pipe_connection.extract": "Extraction",
 
+  "tooltip.energizedpower.conveyor_belt_direction.slope.flat": "Flat",
+  "tooltip.energizedpower.conveyor_belt_direction.slope.ascending": "Ascending",
+  "tooltip.energizedpower.conveyor_belt_direction.slope.descending": "Descending",
+
   "itemGroup.energizedpower.tab": "Energized Power",
 
   "entity.minecraft.villager.electrician": "Electrician",
@@ -512,6 +522,9 @@
 
   "advancements.energizedpower.advanced_powered_furnace.title": "Fast smelting",
   "advancements.energizedpower.advanced_powered_furnace.description": "Smelt multiple items at once with power.",
+
+  "advancements.energizedpower.item_conveyor_belt.title": "Item Transport",
+  "advancements.energizedpower.item_conveyor_belt.description": "Transport items with item conveyor belts.",
 
   "advancements.energizedpower.fluid_pipe.title": "Fluid Transport",
   "advancements.energizedpower.fluid_pipe.description": "Transport fluids with fluid pipes.",

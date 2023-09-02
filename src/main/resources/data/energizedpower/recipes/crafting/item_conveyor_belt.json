@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "tag": "c:leather"
+    },
+    "I": {
+      "tag": "c:iron_plates"
+    },
+    "R": {
+      "tag": "c:redstone_dusts"
+    }
+  },
+  "pattern": [
+    "   ",
+    "LLL",
+    "IRI"
+  ],
+  "result": {
+    "item": "energizedpower:item_conveyor_belt",
+    "count": 6
+  }
+}
