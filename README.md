@@ -64,12 +64,12 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 ### Item transportation
 
-- Item Conveyor Belt (**In next release (v2.1.0)**)
-- Item Conveyor Belt Loader (**In next release (v2.1.0)**)
-- Item Conveyor Belt Sorter (**In next release (v2.1.0)**)
-- Item Conveyor Belt Switch (**In next release (v2.1.0)**)
-- Item Conveyor Belt Splitter (**In next release (v2.1.0)**)
-- Item Conveyor Belt Merger (**In next release (v2.1.0)**)
+- Item Conveyor Belt
+- Item Conveyor Belt Loader
+- Item Conveyor Belt Sorter
+- Item Conveyor Belt Switch
+- Item Conveyor Belt Splitter
+- Item Conveyor Belt Merger
 
 ### Integrations
 
@@ -127,6 +127,7 @@ A tutorial world showcasing all the features of this mod can be downloaded on Cu
 
 ## Supported versions:
 Mod version: MC version
+- 2.1.x: 1.20.1, 1.19.4, 1.19.3, 1.19.2
 - 2.0.x: 1.20.1, 1.19.4, 1.19.3, 1.19.2
 - 1.7.x: 1.20.1, 1.20, 1.19.4, 1.19.3, 1.19.2, 1.18.2
 - 1.6.x: 1.19.4, 1.19.3, 1.19.2, 1.18.2
