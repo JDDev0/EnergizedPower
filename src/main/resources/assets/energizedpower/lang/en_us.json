@@ -912,7 +912,7 @@
   "book.energizedpower.page.item_conveyor_belt_loader_2.2": "It can be stacked vertically and horizontally.",
   "book.energizedpower.page.item_conveyor_belt_loader_2.3": "It can be disabled with a redstone signal.",
 
-  "book.energizedpower.page.item_conveyor_belt_sorter_1.1": "The Item Conveyor Belt Sorter takes items from a input conveyor belt and routes them to certain output conveyor belt.",
+  "book.energizedpower.page.item_conveyor_belt_sorter_1.1": "The Item Conveyor Belt Sorter takes items from an input conveyor belt and routes them to certain output conveyor belt.",
   "book.energizedpower.page.item_conveyor_belt_sorter_1.2": "The input conveyor belt must face the large square and must not be ascending.",
 
   "book.energizedpower.page.item_conveyor_belt_sorter_2.1": "There are no restrictions for the output conveyor belts.",
@@ -921,9 +921,12 @@
 
   "book.energizedpower.page.item_conveyor_belt_sorter_3.1": "The filter matches if at least one pattern item of the output filter row matches the input item.",
   "book.energizedpower.page.item_conveyor_belt_sorter_3.2": "Pattern items can be placed by taking the item from the inventory and left-clicking a pattern slot. The filter can be reset by left-clicking without an item.",
-  "book.energizedpower.page.item_conveyor_belt_sorter_3.3": "To allow any items select blacklist without any pattern items. If a output is not connected the filter should be set to whitelist without any pattern items.",
+  "book.energizedpower.page.item_conveyor_belt_sorter_3.3": "To allow any items select blacklist without any pattern items. If an output is not connected the filter should be set to whitelist without any pattern items.",
 
   "book.energizedpower.page.item_conveyor_belt_sorter_4.1": "A redstone signal of strength 15 will be emitted if no filter matches (If no output is connected or if it is full no redstone signal will be emitted).",
+
+  "book.energizedpower.page.item_conveyor_belt_switch.1": "The Item Conveyor Belt Switch takes items from the input conveyor belt (Must face the large square and must not be ascending) and puts them onto the output conveyor belt on the side with the green indicator.",
+  "book.energizedpower.page.item_conveyor_belt_switch.2": "As long as a redstone signal is applied, the other output will be selected.",
 
   "book.energizedpower.page.chapter.entities.title": "Entities",
   "book.energizedpower.page.chapter.entities": "Things that can move.",
