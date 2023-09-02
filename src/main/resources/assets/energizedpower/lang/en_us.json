@@ -541,6 +541,9 @@
   "advancements.energizedpower.thermal_generator.title": "Powered by hot liquids",
   "advancements.energizedpower.thermal_generator.description": "Consume hot liquids to generate energy.",
 
+  "advancements.energizedpower.powered_lamp.title": "Electric lights",
+  "advancements.energizedpower.powered_lamp.description": "Convert power to light.",
+
   "advancements.energizedpower.powered_furnace.title": "Powered Furnace",
   "advancements.energizedpower.powered_furnace.description": "Furnace with power.",
 
