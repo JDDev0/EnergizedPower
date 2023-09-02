@@ -25,6 +25,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("item_conveyor_belt_loader", () -> BlockEntityType.Builder.of(ItemConveyorBeltLoaderBlockEntity::new,
                     ModBlocks.ITEM_CONVEYOR_BELT_LOADER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltSorterBlockEntity>> ITEM_CONVEYOR_BELT_SORTER_ENTITY =
+            BLOCK_ENTITIES.register("item_conveyor_belt_sorter", () -> BlockEntityType.Builder.of(ItemConveyorBeltSorterBlockEntity::new,
+                    ModBlocks.ITEM_CONVEYOR_BELT_SORTER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<CableBlockEntity>> COPPER_CABLE_ENTITY =
             BLOCK_ENTITIES.register("copper_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
                     new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_COPPER), ModBlocks.COPPER_CABLE.get()).build(null));
