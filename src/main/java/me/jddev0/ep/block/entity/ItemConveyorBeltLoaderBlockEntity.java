@@ -118,7 +118,8 @@ public class ItemConveyorBeltLoaderBlockEntity extends BlockEntity  implements M
             return;
 
         if(level.getGameTime() % TICKS_PER_ITEM == 0 && state.getValue(ItemConveyorBeltLoaderBlock.ENABLED)) {
-            insertItemStackIntoItemConveyorBelt(level, blockPos, state, blockEntity, blockEntity.itemHandler.getStackInSlot(0).copy());
+            if(!blockEntity.itemHandler.getStackInSlot(0).isEmpty())
+                insertItemStackIntoItemConveyorBelt(level, blockPos, state, blockEntity, blockEntity.itemHandler.getStackInSlot(0).copy());
 
             if(blockEntity.itemHandler.getStackInSlot(0).isEmpty())
                 extractItemStackFromBlockEntity(level, blockPos, state, blockEntity);
