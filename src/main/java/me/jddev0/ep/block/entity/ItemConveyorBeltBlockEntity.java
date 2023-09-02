@@ -9,7 +9,6 @@ import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.ItemStackPacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.ItemStackSyncS2CPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -233,7 +232,6 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
 
         try(Transaction transaction = Transaction.openOuter()) {
             long amount = itemStackStorage.insert(ItemVariant.of(itemStackToInsert), 1, transaction);
-
             if(amount > 0)
                 blockEntity.internalInventory.setStack(blockEntity.internalInventory.size() - 1, ItemStack.EMPTY);
 

@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "energizedpower:block/item_conveyor_belt_loader_vertical"
+    },
+    "facing=down": {
+      "model": "energizedpower:block/item_conveyor_belt_loader_vertical",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "energizedpower:block/item_conveyor_belt_loader",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "energizedpower:block/item_conveyor_belt_loader"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/item_conveyor_belt_loader",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/item_conveyor_belt_loader",
+      "y": 270
+    }
+  }
+}
