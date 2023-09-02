@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "forge:cobblestone/normal"
+    },
+    "I": {
+      "tag": "forge:storage_blocks/iron"
+    },
+    "R": {
+      "tag": "forge:storage_blocks/redstone"
+    },
+    "L": {
+      "item": "energizedpower:item_conveyor_belt_loader"
+    }
+  },
+  "pattern": [
+    "CRC",
+    "ILI",
+    "CRC"
+  ],
+  "result": {
+    "item": "energizedpower:item_conveyor_belt_sorter"
+  }
+}

@@ -94,6 +94,12 @@ public final class ModMessages {
                 consumerMainThread(SetBlockPlacerCheckboxC2SPacket::handle).
                 add();
 
+        net.messageBuilder(SetItemConveyorBeltSorterCheckboxC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+                decoder(SetItemConveyorBeltSorterCheckboxC2SPacket::new).
+                encoder(SetItemConveyorBeltSorterCheckboxC2SPacket::toBytes).
+                consumerMainThread(SetItemConveyorBeltSorterCheckboxC2SPacket::handle).
+                add();
+
         net.messageBuilder(CycleAutoCrafterRecipeOutputC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
                 decoder(CycleAutoCrafterRecipeOutputC2SPacket::new).
                 encoder(CycleAutoCrafterRecipeOutputC2SPacket::toBytes).

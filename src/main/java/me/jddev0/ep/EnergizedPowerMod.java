@@ -101,6 +101,7 @@ public class EnergizedPowerMod {
 
             event.accept(ModBlocks.ITEM_CONVEYOR_BELT_ITEM);
             event.accept(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM);
+            event.accept(ModBlocks.ITEM_CONVEYOR_BELT_SORTER_ITEM);
 
             event.accept(ModBlocks.FLUID_PIPE_ITEM);
 
@@ -219,6 +220,7 @@ public class EnergizedPowerMod {
             ModConfigs.registerConfigs(false);
 
             MenuScreens.register(ModMenuTypes.ITEM_CONVEYOR_BELT_LOADER_MENU.get(), ItemConveyorBeltLoaderScreen::new);
+            MenuScreens.register(ModMenuTypes.ITEM_CONVEYOR_BELT_SORTER_MENU.get(), ItemConveyorBeltSorterScreen::new);
             MenuScreens.register(ModMenuTypes.AUTO_CRAFTER_MENU.get(), AutoCrafterScreen::new);
             MenuScreens.register(ModMenuTypes.CRUSHER_MENU.get(), CrusherScreen::new);
             MenuScreens.register(ModMenuTypes.PULVERIZER_MENU.get(), PulverizerScreen::new);
