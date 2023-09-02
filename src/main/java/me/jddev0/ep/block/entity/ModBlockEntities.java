@@ -36,6 +36,11 @@ public final class ModBlockEntities {
             ItemConveyorBeltBlockEntity::getInventoryStorageForDirection
     );
 
+    public static final BlockEntityType<ItemConveyorBeltLoaderBlockEntity> ITEM_CONVEYOR_BELT_LOADER_ENTITY = registerInventoryStorage(
+            createBlockEntity("item_conveyor_belt_loader", ModBlocks.ITEM_CONVEYOR_BELT_LOADER, ItemConveyorBeltLoaderBlockEntity::new),
+            (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)
+    );
+
     public static final BlockEntityType<CableBlockEntity> COPPER_CABLE_ENTITY = registerEnergyStorage(
             createBlockEntity("copper_cable", ModBlocks.COPPER_CABLE, (blockPos, state) ->
                     new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_COPPER)),

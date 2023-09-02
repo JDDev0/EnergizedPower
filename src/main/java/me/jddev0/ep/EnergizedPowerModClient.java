@@ -26,6 +26,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
     public void onInitializeClient() {
         ModConfigs.registerConfigs(false);
 
+        HandledScreens.register(ModMenuTypes.ITEM_CONVEYOR_BELT_LOADER_MENU, ItemConveyorBeltLoaderScreen::new);
         HandledScreens.register(ModMenuTypes.AUTO_CRAFTER_MENU, AutoCrafterScreen::new);
         HandledScreens.register(ModMenuTypes.CRUSHER_MENU, CrusherScreen::new);
         HandledScreens.register(ModMenuTypes.PULVERIZER_MENU, PulverizerScreen::new);
