@@ -94,15 +94,11 @@
   "item.energizedpower.netherite_hammer": "Martello di Netherite",
 
   "item.energizedpower.wrench": "Chiave inglese",
-  "tooltip.energizedpower.wrench.txt.shift": "La chiave inglese può essere utilizzata per configurare i tubi del fluido.",
+  "tooltip.energizedpower.wrench.txt.shift": "The Wrench can be used to configure blocks.",
   "tooltip.energizedpower.wrench.select_face": "quadrante selezionato: %s",
-
-  "tooltip.energizedpower.wrench.change": "Slope was set to %s.",
+  "tooltip.energizedpower.wrench.not_configurable": "This block can not be configured.",
 
   "tooltip.energizedpower.wrench_configurable": "This block can be configured with a Wrench.",
-
-  "tooltip.energizedpower.wrench.face_change": "Il tipo di connessione del quadrante (%s) è stato impostato su %s.",
-  "tooltip.energizedpower.wrench.face_change_not_possible": "Impossibile modificare il tipo di connessione del quadrante (%s).",
 
   "item.energizedpower.battery_box_minecart": "Carrello da miniera con vano batteria",
   "item.energizedpower.advanced_battery_box_minecart": "Carrello da miniera con scatola batteria avanzata",
@@ -116,8 +112,13 @@
   "block.energizedpower.item_conveyor_belt": "Item Conveyor Belt",
   "item.energizedpower.item_conveyor_belt": "Item Conveyor Belt",
 
+  "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "Slope was set to %s.",
+
   "block.energizedpower.fluid_pipe": "Tubo fluido",
   "item.energizedpower.fluid_pipe": "Tubo fluido",
+
+  "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Il tipo di connessione del quadrante (%s) è stato impostato su %s.",
+  "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Impossibile modificare il tipo di connessione del quadrante (%s).",
 
   "block.energizedpower.auto_crafter": "Auto Crafter",
   "item.energizedpower.auto_crafter": "Auto Crafter",

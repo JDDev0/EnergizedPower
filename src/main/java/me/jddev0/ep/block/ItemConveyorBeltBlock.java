@@ -10,26 +10,33 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 import static me.jddev0.ep.block.ModBlockStateProperties.ConveyorBeltDirection;
 
-public class ItemConveyorBeltBlock extends BlockWithEntity {
+public class ItemConveyorBeltBlock extends BlockWithEntity implements WrenchConfigurable {
     public static final EnumProperty<ConveyorBeltDirection> FACING = ModBlockStateProperties.CONVEYOR_BELT_FACING;
 
     protected static final VoxelShape SHAPE_FLAT = Block.createCuboidShape(0., 0., 0., 16., 2., 16.);
@@ -78,6 +85,52 @@ public class ItemConveyorBeltBlock extends BlockWithEntity {
         ((ItemConveyorBeltBlockEntity)blockEntity).drops(level, blockPos);
 
         super.onStateReplaced(state, level, blockPos, newState, isMoving);
+    }
+
+    @Override
+    @NotNull
+    public ActionResult onUseWrench(ItemUsageContext useOnContext, Direction selectedFace, boolean nextPreviousValue) {
+        World level = useOnContext.getWorld();
+        BlockPos blockPos = useOnContext.getBlockPos();
+
+        if(level.isClient() || !(level.getBlockEntity(blockPos) instanceof ItemConveyorBeltBlockEntity))
+            return ActionResult.SUCCESS;
+
+        BlockState state = level.getBlockState(blockPos);
+
+        PlayerEntity player = useOnContext.getPlayer();
+
+        ModBlockStateProperties.ConveyorBeltDirection facing = state.get(ItemConveyorBeltBlock.FACING);
+        Boolean shape;
+
+        if(nextPreviousValue) {
+            if(facing.isAscending())
+                shape = null;
+            else if(facing.isDescending())
+                shape = true;
+            else
+                shape = false;
+        }else {
+            if(facing.isAscending())
+                shape = false;
+            else if(facing.isDescending())
+                shape = null;
+            else
+                shape = true;
+        }
+
+        level.setBlockState(blockPos, state.with(ItemConveyorBeltBlock.FACING, ModBlockStateProperties.ConveyorBeltDirection.of(facing.getDirection(), shape)), 3);
+
+        if(player instanceof ServerPlayerEntity serverPlayer) {
+            serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                    Text.translatable("tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed",
+                            Text.translatable("tooltip.energizedpower.conveyor_belt_direction.slope." + (shape == null?"flat":(shape?"ascending":"descending"))).
+                                    formatted(Formatting.WHITE, Formatting.BOLD)
+                    ).formatted(Formatting.GREEN)
+            ));
+        }
+
+        return ActionResult.SUCCESS;
     }
 
     @Override
