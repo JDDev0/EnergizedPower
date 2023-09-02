@@ -83,6 +83,7 @@ public class EnergizedPowerMod implements ModInitializer {
         addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ITEM_CONVEYOR_BELT_ITEM);
         addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM);
         addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ITEM_CONVEYOR_BELT_SORTER_ITEM);
+        addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ITEM_CONVEYOR_BELT_SWITCH_ITEM);
 
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.FLUID_PIPE_ITEM);
 
