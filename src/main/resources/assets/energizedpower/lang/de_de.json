@@ -94,15 +94,11 @@
   "item.energizedpower.netherite_hammer": "Netherithammer",
 
   "item.energizedpower.wrench": "Schraubenschlüssel",
-  "tooltip.energizedpower.wrench.txt.shift": "Der Schraubenschlüssel kann für die Konfiguration von Flüssigkeitsrohren verwendet werden.",
+  "tooltip.energizedpower.wrench.txt.shift": "Der Schraubenschlüssel kann für die Konfiguration von Blöcken verwendet werden.",
   "tooltip.energizedpower.wrench.select_face": "Selektierte Blockseite: %s",
-
-  "tooltip.energizedpower.wrench.change": "Steigung wurde zu %s gesetzt.",
+  "tooltip.energizedpower.wrench.not_configurable": "Dieser Block kann nicht konfiguriert werden.",
 
   "tooltip.energizedpower.wrench_configurable": "Dieser Block kann mit einem Schraubenschlüssel konfiguriert werden.",
-
-  "tooltip.energizedpower.wrench.face_change": "Verbindungs-Typ der Blockseite (%s) wurde zu %s gesetzt.",
-  "tooltip.energizedpower.wrench.face_change_not_possible": "Verbindungs-Typ der Blockseite (%s) konnte nicht geändert werden.",
 
   "item.energizedpower.battery_box_minecart": "Batterie-Box-Lore",
   "item.energizedpower.advanced_battery_box_minecart": "Fortgeschrittene Batterie-Box-Lore",
@@ -116,8 +112,13 @@
   "block.energizedpower.item_conveyor_belt": "Item Förderband",
   "item.energizedpower.item_conveyor_belt": "Item Förderband",
 
+  "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "Steigung wurde zu %s gesetzt.",
+
   "block.energizedpower.fluid_pipe": "Flüssigkeitsrohr",
   "item.energizedpower.fluid_pipe": "Flüssigkeitsrohr",
+
+  "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Verbindungs-Typ der Blockseite (%s) wurde zu %s gesetzt.",
+  "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Verbindungs-Typ der Blockseite (%s) konnte nicht geändert werden.",
 
   "block.energizedpower.auto_crafter": "Automatische Werkbank",
   "item.energizedpower.auto_crafter": "Automatische Werkbank",
