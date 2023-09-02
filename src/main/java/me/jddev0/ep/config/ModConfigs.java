@@ -584,14 +584,21 @@ public final class ModConfigs {
 
     public static final ConfigValue<Integer> COMMON_ITEM_CONVEYOR_BELT_SORTER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.item_conveyor_belt_sorter.ticks_per_item",
-            "The time required for the Item Conveyor Belt Sorter to sort a single item in ticks",
+            "The time required for the Item Conveyor Belt Sorter to process a single item in ticks",
             10,
             1, null
     ));
 
     public static final ConfigValue<Integer> COMMON_ITEM_CONVEYOR_BELT_SWITCH_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.item_conveyor_belt_switch.ticks_per_item",
-            "The time required for the Item Conveyor Belt Switch to sort a single item in ticks",
+            "The time required for the Item Conveyor Belt Switch to process a single item in ticks",
+            10,
+            1, null
+    ));
+
+    public static final ConfigValue<Integer> COMMON_ITEM_CONVEYOR_BELT_SPLITTER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.item_conveyor_belt_splitter.ticks_per_item",
+            "The time required for the Item Conveyor Belt Splitter to process a single item in ticks",
             10,
             1, null
     ));

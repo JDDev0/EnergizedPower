@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "energizedpower:block/item_conveyor_belt_splitter",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "energizedpower:block/item_conveyor_belt_splitter"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/item_conveyor_belt_splitter",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/item_conveyor_belt_splitter",
+      "y": 270
+    }
+  }
+}
