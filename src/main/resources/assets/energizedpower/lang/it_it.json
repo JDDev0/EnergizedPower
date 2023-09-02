@@ -122,7 +122,7 @@
   "item.energizedpower.item_conveyor_belt_sorter": "Item Conveyor Belt Sorter",
   "container.energizedpower.item_conveyor_belt_sorter": "Item Conveyor Belt Sorter",
 
-  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Output %d: No belt connected",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Output %d: No conveyor belt connected",
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "Output %d: Belt connected",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.ignore_nbt": "Ignore NBT",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "Whitelist",
@@ -842,6 +842,8 @@
 
   "book.energizedpower.page.chapter.energy_blocks.energy_consumption.title": "Consumo",
   "book.energizedpower.page.chapter.energy_blocks.energy_consumption": "Blocchi per il consumo di energia",
+
+  "book.energizedpower.page.powered_lamp": "The Powered Lamp is like a Redstone Lamp but requires energy instead of an active redstone signal.",
 
   "book.energizedpower.page.powered_furnaces.1": "Powered Furnaces works like the Furnace. Instead of coal they use power and they are faster than the normal furnace.",
   "book.energizedpower.page.powered_furnaces.2": "The advanced version of the Powered Furnace has 3 input/output slot pairs.",
