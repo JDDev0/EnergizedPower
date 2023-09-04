@@ -2,6 +2,8 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.CableBlock;
+import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -19,9 +21,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public class CableBlockEntity extends BlockEntity {
+    private static final CableBlock.EnergyExtractionMode ENERGY_EXTRACTION_MODE = ModConfigs.COMMON_CABLES_ENERGY_EXTRACTION_MODE.getValue();
+
     private final CableBlock.Tier tier;
 
-    private final IEnergyStorage energyStorage;
+    private final ReceiveOnlyEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
     private boolean loaded;
@@ -45,37 +49,28 @@ public class CableBlockEntity extends BlockEntity {
 
         this.tier = tier;
 
-        energyStorage = new IEnergyStorage() {
-            @Override
-            public int receiveEnergy(int maxReceive, boolean simulate) {
-                return 0;
-            }
+        if(ENERGY_EXTRACTION_MODE.isPush()) {
+            energyStorage = new ReceiveOnlyEnergyStorage(0, tier.getMaxTransfer(), tier.getMaxTransfer()) {
+                @Override
+                protected void onChange() {
+                    setChanged();
+                }
+            };
+        }else {
+            //Do not allow energy insertion for PULL only mode
 
-            @Override
-            public int extractEnergy(int maxExtract, boolean simulate) {
-                return 0;
-            }
+            energyStorage = new ReceiveOnlyEnergyStorage() {
+                @Override
+                public int receiveEnergy(int maxReceive, boolean simulate) {
+                    return 0;
+                }
 
-            @Override
-            public int getEnergyStored() {
-                return 0;
-            }
-
-            @Override
-            public int getMaxEnergyStored() {
-                return 0;
-            }
-
-            @Override
-            public boolean canExtract() {
-                return false;
-            }
-
-            @Override
-            public boolean canReceive() {
-                return false;
-            }
-        };
+                @Override
+                public boolean canReceive() {
+                    return false;
+                }
+            };
+        }
     }
 
     public CableBlock.Tier getTier() {
@@ -123,7 +118,7 @@ public class CableBlockEntity extends BlockEntity {
                 continue;
 
             IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-            if(energyStorage.canExtract())
+            if(ENERGY_EXTRACTION_MODE.isPull() && energyStorage.canExtract())
                 blockEntity.producers.put(Pair.of(testPos, direction.getOpposite()), energyStorage);
 
             if(energyStorage.canReceive())
@@ -173,7 +168,8 @@ public class CableBlockEntity extends BlockEntity {
         List<IEnergyStorage> energyProduction = new LinkedList<>();
         List<Integer> energyProductionValues = new LinkedList<>();
 
-        int productionSum = 0;
+        //Prioritize stored energy for PUSH mode
+        int productionSum = blockEntity.energyStorage.getEnergy(); //Will always be 0 if in PULL only mode
         for(IEnergyStorage energyStorage:blockEntity.producers.values()) {
             int extracted = energyStorage.extractEnergy(MAX_TRANSFER, true);
             if(extracted <= 0)
@@ -208,11 +204,19 @@ public class CableBlockEntity extends BlockEntity {
 
         int transferLeft = Math.min(Math.min(MAX_TRANSFER, productionSum), consumptionSum);
 
+        int extractInternally = 0;
+        if(ENERGY_EXTRACTION_MODE.isPush()) {
+            //Prioritize stored energy for PUSH mode
+            extractInternally = Math.min(blockEntity.energyStorage.getEnergy(), transferLeft);
+            blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - extractInternally);
+        }
+
         List<Integer> energyProductionDistributed = new LinkedList<>();
         for(int i = 0;i < energyProduction.size();i++)
             energyProductionDistributed.add(0);
 
-        int productionLeft = transferLeft;
+        //Set to 0 for PUSH only mode
+        int productionLeft = ENERGY_EXTRACTION_MODE.isPull()?transferLeft - extractInternally:0;
         int divisor = energyProduction.size();
         outer:
         while(productionLeft > 0) {
@@ -298,7 +302,8 @@ public class CableBlockEntity extends BlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
-        //TODO
+        if(ENERGY_EXTRACTION_MODE.isPush())
+            nbt.put("energy", energyStorage.saveNBT());
 
         super.saveAdditional(nbt);
     }
@@ -307,6 +312,7 @@ public class CableBlockEntity extends BlockEntity {
     public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
 
-        //TODO
+        if(ENERGY_EXTRACTION_MODE.isPush())
+            energyStorage.loadNBT(nbt.get("energy"));
     }
 }
