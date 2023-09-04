@@ -116,11 +116,11 @@
 
   "block.energizedpower.item_conveyor_belt_loader": "Item-Förderband-Lader",
   "item.energizedpower.item_conveyor_belt_loader": "Item-Förderband-Lader",
-  "container.energizedpower.item_conveyor_belt_loader": "Item-Förderband-Lader",
+  "container.energizedpower.item_conveyor_belt_loader": "Förderband-Lader",
 
   "block.energizedpower.item_conveyor_belt_sorter": "Item-Förderband-Sortierer",
   "item.energizedpower.item_conveyor_belt_sorter": "Item-Förderband-Sortierer",
-  "container.energizedpower.item_conveyor_belt_sorter": "Item-Förderband-Sortierer",
+  "container.energizedpower.item_conveyor_belt_sorter": "Förderband-Sortierer",
 
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Ausgang %d: Kein Förderband verbunden",
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "Ausgang %d: Förderband verbunden",
