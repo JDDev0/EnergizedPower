@@ -116,11 +116,11 @@
 
   "block.energizedpower.item_conveyor_belt_loader": "Caricatore nastro trasportatore",
   "item.energizedpower.item_conveyor_belt_loader": "Caricatore nastro trasportatore",
-  "container.energizedpower.item_conveyor_belt_loader": "Caricatore nastro trasportatore",
+  "container.energizedpower.item_conveyor_belt_loader": "Conveyor Belt Loader",
 
   "block.energizedpower.item_conveyor_belt_sorter": "Selezionatore di nastri trasportatori di articoli",
   "item.energizedpower.item_conveyor_belt_sorter": "Selezionatore di nastri trasportatori di articoli",
-  "container.energizedpower.item_conveyor_belt_sorter": "Selezionatore di nastri trasportatori di articoli",
+  "container.energizedpower.item_conveyor_belt_sorter": "Conveyor Belt Sorter",
 
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Uscita %d: Nessun nastro trasportatore collegato",
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "Uscita %d: Nastro trasportatore collegato",
