@@ -289,4 +289,16 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
             return props;
         }
     }
+
+    public enum EnergyExtractionMode {
+        PUSH, PULL, BOTH;
+
+        public boolean isPush() {
+            return this == PUSH || this == BOTH;
+        }
+
+        public boolean isPull() {
+            return this == PULL || this == BOTH;
+        }
+    }
 }
