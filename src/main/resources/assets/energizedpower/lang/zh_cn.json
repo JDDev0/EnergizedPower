@@ -116,11 +116,11 @@
 
   "block.energizedpower.item_conveyor_belt_loader": "Item Conveyor Belt Loader",
   "item.energizedpower.item_conveyor_belt_loader": "Item Conveyor Belt Loader",
-  "container.energizedpower.item_conveyor_belt_loader": "Item Conveyor Belt Loader",
+  "container.energizedpower.item_conveyor_belt_loader": "Conveyor Belt Loader",
 
   "block.energizedpower.item_conveyor_belt_sorter": "Item Conveyor Belt Sorter",
   "item.energizedpower.item_conveyor_belt_sorter": "Item Conveyor Belt Sorter",
-  "container.energizedpower.item_conveyor_belt_sorter": "Item Conveyor Belt Sorter",
+  "container.energizedpower.item_conveyor_belt_sorter": "Conveyor Belt Sorter",
 
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Output %d: No conveyor belt connected",
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "Output %d: Belt connected",
