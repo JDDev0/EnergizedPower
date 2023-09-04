@@ -194,8 +194,16 @@ public class Config {
 
                 String comment = configValue.getComment();
                 if(comment != null) {
-                    bw.write("# " + comment);
-                    bw.newLine();
+                    String[] commentLines = comment.split("\\n");
+                    for(String commentLine:commentLines) {
+                        bw.write("# " + commentLine);
+                        bw.newLine();
+                    }
+
+                    if(commentLines.length > 1) {
+                        bw.write("#");
+                        bw.newLine();
+                    }
                 }
 
                 String defaultValue = configValue.writeDefault();
