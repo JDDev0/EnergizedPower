@@ -19,7 +19,8 @@ public final class ModConfigs {
 
     private ModConfigs() {}
 
-    public static final Config COMMON_CONFIG = new Config(getRelativeConfigFile("common.conf"), "Energized Power Common Config (IMPORTANT: Values are not synced from the server to the client.)");
+    public static final Config COMMON_CONFIG = new Config(getRelativeConfigFile("common.conf"),
+            "Energized Power Common Config (IMPORTANT: Values are not synced from the server to the client.)");
 
     //Items
     public static final ConfigValue<Integer> COMMON_BATTERY_1_CAPACITY = registerEnergyCapacityConfigValue(
@@ -110,7 +111,8 @@ public final class ModConfigs {
 
     public static final ConfigValue<Integer> COMMON_INVENTORY_CHARGER_SLOT_COUNT = COMMON_CONFIG.register(new IntegerConfigValue(
             "item.inventory_charger.slot_count",
-            "The slot count of the Inventory Charger. WARNING: If set to a lower value than previously, items which are stored in an Inventory Charger could vanish!",
+            "The slot count of the Inventory Charger.\n" +
+                    "WARNING: If set to a lower value than previously, items which are stored in an Inventory Charger could vanish!",
             3,
             ValueValidators.elementOfCollection(List.of(1, 3, 5))
     ));
@@ -154,10 +156,13 @@ public final class ModConfigs {
     );
 
     public static final ConfigValue<CableBlock.EnergyExtractionMode> COMMON_CABLES_ENERGY_EXTRACTION_MODE = COMMON_CONFIG.register(new EnumConfigValue<>(
-            "block.cables.energy_extraction_mode", "The energy extraction mode defines how cables extract energy." +
-            " PUSH: Producers must push energy into cables. PULL: Cables pull energy from cables." +
-            " BOTH: Both systems are used. (Set to PULL for the behavior of cables before version 2.1.1," +
-            " Set to BOTH for compatibility with any FE energy producers)",
+            "block.cables.energy_extraction_mode",
+            "The energy extraction mode defines how cables extract energy.\n" +
+                    "- PUSH: Producers must push energy into cables.\n" +
+                    "- PULL: Cables pull energy from cables.\n" +
+                    "- BOTH: Both systems are used.\n" +
+                    "=> Set to PULL for the behavior of cables before version 2.1.1.\n" +
+                    "=> Set to BOTH for compatibility with any FE energy producers.",
             CableBlock.EnergyExtractionMode.BOTH,
             CableBlock.EnergyExtractionMode.values(), CableBlock.EnergyExtractionMode::valueOf
     ));
@@ -445,7 +450,8 @@ public final class ModConfigs {
     );
     public static final ConfigValue<Float> COMMON_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
             "block.powered_furnace.recipe_duration_multiplier",
-            "The multiplier by which the time a recipe of the Powered Furnace requires is multiplied by. If set to 6 the Powered Furnace will be as fast as the normal Furnace.",
+            "The multiplier by which the time a recipe of the Powered Furnace requires is multiplied by.\n" +
+                    "=> If set to 6 the Powered Furnace will be as fast as the normal Furnace.",
             1.f,
             0.f, null
     ));
@@ -464,7 +470,8 @@ public final class ModConfigs {
     ));
     public static final ConfigValue<Float> COMMON_ADVANCED_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
             "block.advanced_powered_furnace.recipe_duration_multiplier",
-            "The multiplier by which the time a recipe of the Advanced Powered Furnace requires is multiplied by. If set to 12 the Advanced Powered Furnace will be as fast as the normal Furnace.",
+            "The multiplier by which the time a recipe of the Advanced Powered Furnace requires is multiplied by.\n" +
+                    "=> If set to 12 the Advanced Powered Furnace will be as fast as the normal Furnace.",
             1.f,
             0.f, null
     ));
@@ -542,13 +549,15 @@ public final class ModConfigs {
 
     public static final ConfigValue<Integer> COMMON_ADVANCED_CHARGER_CAPACITY_PER_SLOT = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.advanced_charger.capacity_per_slot",
-            "The energy capacity per slot of the Advanced Charger in FE. The energy capacity of the block is three times this value.",
+            "The energy capacity per slot of the Advanced Charger in FE.\n" +
+                    "=> The energy capacity of the block is three times this value.",
             65536,
             1, null
     ));
     public static final ConfigValue<Integer> COMMON_ADVANCED_CHARGER_TRANSFER_RATE_PER_SLOT = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.advanced_charger.transfer_rate_per_slot",
-            "The energy transfer rate per slot of the Advanced Charger in FE per tick. The energy transfer rate of the block is three times this value.",
+            "The energy transfer rate per slot of the Advanced Charger in FE per tick.\n" +
+                    "=> The energy transfer rate of the block is three times this value.",
             8192,
             1, null
     ));
@@ -568,13 +577,15 @@ public final class ModConfigs {
 
     public static final ConfigValue<Integer> COMMON_ADVANCED_UNCHARGER_CAPACITY_PER_SLOT = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.advanced_uncharger.capacity_per_slot",
-            "The energy capacity per slot of the Advanced Uncharger in FE. The energy capacity of the block is three times this value.",
+            "The energy capacity per slot of the Advanced Uncharger in FE.\n" +
+                    "=> The energy capacity of the block is three times this value.",
             65536,
             1, null
     ));
     public static final ConfigValue<Integer> COMMON_ADVANCED_UNCHARGER_TRANSFER_RATE_PER_SLOT = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.advanced_uncharger.transfer_rate_per_slot",
-            "The energy transfer rate per slot of the Advanced Uncharger in FE per tick. The energy transfer rate of the block is three times this value.",
+            "The energy transfer rate per slot of the Advanced Uncharger in FE per tick.\n" +
+                    "=> The energy transfer rate of the block is three times this value.",
             8192,
             1, null
     ));
@@ -639,7 +650,8 @@ public final class ModConfigs {
     //World
     public static final ConfigValue<Integer> COMMON_ELECTRICIAN_BUILDING_1_PLACEMENT_WEIGHT = COMMON_CONFIG.register(new IntegerConfigValue(
             "world.village.electrician_building_1.placement_weight",
-            "Determines how frequent the Electrician Building 1 will be placed in villages. If set to 0 the Electrician Building 1 will never be placed.",
+            "Determines how frequent the Electrician Building 1 will be placed in villages.\n" +
+                    "=> If set to 0 the Electrician Building 1 will never be placed.",
             5,
             0, 100
     ));
