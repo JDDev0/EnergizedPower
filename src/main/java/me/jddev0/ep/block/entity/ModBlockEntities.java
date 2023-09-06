@@ -211,13 +211,13 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("thermal_generator", () -> BlockEntityType.Builder.of(ThermalGeneratorBlockEntity::new,
                     ModBlocks.THERMAL_GENERATOR.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<PoweredFurnaceBlockEntity>> POWERED_FURNACE_ENTITY =
-            BLOCK_ENTITIES.register("powered_furnace", () -> BlockEntityType.Builder.of(PoweredFurnaceBlockEntity::new,
-                    ModBlocks.POWERED_FURNACE.get()).build(null));
-
     public static final RegistryObject<BlockEntityType<PoweredLampBlockEntity>> POWERED_LAMP_ENTITY =
             BLOCK_ENTITIES.register("powered_lamp", () -> BlockEntityType.Builder.of(PoweredLampBlockEntity::new,
                     ModBlocks.POWERED_LAMP.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<PoweredFurnaceBlockEntity>> POWERED_FURNACE_ENTITY =
+            BLOCK_ENTITIES.register("powered_furnace", () -> BlockEntityType.Builder.of(PoweredFurnaceBlockEntity::new,
+                    ModBlocks.POWERED_FURNACE.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<AdvancedPoweredFurnaceBlockEntity>> ADVANCED_POWERED_FURNACE_ENTITY =
             BLOCK_ENTITIES.register("advanced_powered_furnace", () -> BlockEntityType.Builder.of(AdvancedPoweredFurnaceBlockEntity::new,

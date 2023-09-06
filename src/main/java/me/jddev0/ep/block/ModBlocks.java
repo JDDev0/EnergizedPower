@@ -321,17 +321,17 @@ public final class ModBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final RegistryObject<Item> THERMAL_GENERATOR_ITEM = createBlockItem("thermal_generator", THERMAL_GENERATOR);
 
-    public static final RegistryObject<Block> POWERED_FURNACE = BLOCKS.register("powered_furnace",
-            () -> new PoweredFurnaceBlock(BlockBehaviour.Properties.of().
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).
-                    lightLevel(PoweredFurnaceBlock.LIGHT_EMISSION)));
-    public static final RegistryObject<Item> POWERED_FURNACE_ITEM = createBlockItem("powered_furnace", POWERED_FURNACE);
-
     public static final RegistryObject<Block> POWERED_LAMP = BLOCKS.register("powered_lamp",
             () -> new PoweredLampBlock(BlockBehaviour.Properties.of().
                     strength(.3f).sound(SoundType.GLASS).
                     lightLevel(PoweredLampBlock.LIGHT_EMISSION)));
     public static final RegistryObject<Item> POWERED_LAMP_ITEM = createBlockItem("powered_lamp", POWERED_LAMP);
+
+    public static final RegistryObject<Block> POWERED_FURNACE = BLOCKS.register("powered_furnace",
+            () -> new PoweredFurnaceBlock(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).
+                    lightLevel(PoweredFurnaceBlock.LIGHT_EMISSION)));
+    public static final RegistryObject<Item> POWERED_FURNACE_ITEM = createBlockItem("powered_furnace", POWERED_FURNACE);
 
     public static final RegistryObject<Block> ADVANCED_POWERED_FURNACE = BLOCKS.register("advanced_powered_furnace",
             () -> new AdvancedPoweredFurnaceBlock(BlockBehaviour.Properties.of().
