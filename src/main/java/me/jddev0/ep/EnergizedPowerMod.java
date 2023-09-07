@@ -10,6 +10,7 @@ import me.jddev0.ep.entity.ModEntityTypes;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.painting.ModPaintings;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.*;
 import me.jddev0.ep.villager.ModVillager;
@@ -54,6 +55,7 @@ public class EnergizedPowerMod {
         ModMenuTypes.register(modEventBus);
         ModVillager.register(modEventBus);
         ModEntityTypes.register(modEventBus);
+        ModPaintings.register(modEventBus);
 
         ModBlockBehaviors.register();
 
