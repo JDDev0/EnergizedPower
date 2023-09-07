@@ -186,12 +186,12 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
         FluidState fluidState = level.getFluidState(selfPos);
 
         return defaultBlockState().
-                setValue(UP, shouldConnectTo(level, selfPos, Direction.UP)).
-                setValue(DOWN, shouldConnectTo(level, selfPos, Direction.DOWN)).
-                setValue(NORTH, shouldConnectTo(level, selfPos, Direction.NORTH)).
-                setValue(SOUTH, shouldConnectTo(level, selfPos, Direction.SOUTH)).
-                setValue(EAST, shouldConnectTo(level, selfPos, Direction.EAST)).
-                setValue(WEST, shouldConnectTo(level, selfPos, Direction.WEST)).
+                setValue(UP, shouldConnectTo(level, selfPos, defaultBlockState(), Direction.UP)).
+                setValue(DOWN, shouldConnectTo(level, selfPos, defaultBlockState(), Direction.DOWN)).
+                setValue(NORTH, shouldConnectTo(level, selfPos, defaultBlockState(), Direction.NORTH)).
+                setValue(SOUTH, shouldConnectTo(level, selfPos, defaultBlockState(), Direction.SOUTH)).
+                setValue(EAST, shouldConnectTo(level, selfPos, defaultBlockState(), Direction.EAST)).
+                setValue(WEST, shouldConnectTo(level, selfPos, defaultBlockState(), Direction.WEST)).
                 setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
     }
 
@@ -314,7 +314,7 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
                     setValue(SOUTH, selfState.getValue(SOUTH)).
                     setValue(EAST, selfState.getValue(EAST)).
                     setValue(WEST, selfState.getValue(WEST)).
-                    setValue(pipeConnectionProperty, shouldConnectTo(level, selfPos, dir)).
+                    setValue(pipeConnectionProperty, shouldConnectTo(level, selfPos, selfState, dir)).
                     setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
         }
         level.setBlockAndUpdate(selfPos, newState);
@@ -327,14 +327,19 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
         FluidPipeBlockEntity.updateConnections(level, selfPos, newState, (FluidPipeBlockEntity)blockEntity);
     }
 
-    private ModBlockStateProperties.PipeConnection shouldConnectTo(Level level, BlockPos selfPos, Direction direction) {
+    private ModBlockStateProperties.PipeConnection shouldConnectTo(Level level, BlockPos selfPos, BlockState selfState, Direction direction) {
         BlockPos toPos = selfPos.relative(direction);
         BlockEntity blockEntity = level.getBlockEntity(toPos);
         if(blockEntity == null)
             return ModBlockStateProperties.PipeConnection.NOT_CONNECTED;
 
+        ModBlockStateProperties.PipeConnection currentConnectionState =
+                selfState.getValue(getPipeConnectionPropertyFromDirection(direction));
+        if(currentConnectionState == ModBlockStateProperties.PipeConnection.NOT_CONNECTED)
+            currentConnectionState = ModBlockStateProperties.PipeConnection.CONNECTED;
+
         LazyOptional<IFluidHandler> fluidStorageLazyOptional = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, direction.getOpposite());
-        return fluidStorageLazyOptional.isPresent()?ModBlockStateProperties.PipeConnection.CONNECTED:ModBlockStateProperties.PipeConnection.NOT_CONNECTED;
+        return fluidStorageLazyOptional.isPresent()?currentConnectionState:ModBlockStateProperties.PipeConnection.NOT_CONNECTED;
     }
 
     @Nullable
