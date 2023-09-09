@@ -288,4 +288,16 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
             return props;
         }
     }
+
+    public enum EnergyExtractionMode {
+        PUSH, PULL, BOTH;
+
+        public boolean isPush() {
+            return this == PUSH || this == BOTH;
+        }
+
+        public boolean isPull() {
+            return this == PULL || this == BOTH;
+        }
+    }
 }
