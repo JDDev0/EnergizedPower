@@ -181,22 +181,23 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 
         FluidState fluidState = level.getFluidState(selfPos);
 
-        level.setBlockAndUpdate(selfPos, defaultBlockState().
+        BlockState newState = defaultBlockState().
                 setValue(UP, shouldConnectTo(level, selfPos, Direction.UP)).
                 setValue(DOWN, shouldConnectTo(level, selfPos, Direction.DOWN)).
                 setValue(NORTH, shouldConnectTo(level, selfPos, Direction.NORTH)).
                 setValue(SOUTH, shouldConnectTo(level, selfPos, Direction.SOUTH)).
                 setValue(EAST, shouldConnectTo(level, selfPos, Direction.EAST)).
                 setValue(WEST, shouldConnectTo(level, selfPos, Direction.WEST)).
-                setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER)
-        );
+                setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+
+        level.setBlockAndUpdate(selfPos, newState);
 
 
         BlockEntity blockEntity = level.getBlockEntity(selfPos);
         if(blockEntity == null || !(blockEntity instanceof CableBlockEntity))
             return;
 
-        CableBlockEntity.updateConnections(level, selfPos, selfState, (CableBlockEntity)blockEntity);
+        CableBlockEntity.updateConnections(level, selfPos, newState, (CableBlockEntity)blockEntity);
     }
 
     private boolean shouldConnectTo(Level level, BlockPos selfPos, Direction direction) {
