@@ -2,8 +2,10 @@ package me.jddev0.ep.config;
 
 import com.mojang.logging.LogUtils;
 import me.jddev0.ep.config.value.DoubleConfigValue;
+import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.config.validation.ValueValidators;
 import me.jddev0.ep.config.value.BooleanConfigValue;
+import me.jddev0.ep.config.value.EnumConfigValue;
 import me.jddev0.ep.config.value.FloatConfigValue;
 import me.jddev0.ep.config.value.LongConfigValue;
 import net.fabricmc.loader.api.FabricLoader;
@@ -152,6 +154,15 @@ public final class ModConfigs {
     public static final ConfigValue<Long> COMMON_EHV_TRANSFORMERS_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
             "block.ehv_transformers", "EHV Transformers", 2097152
     );
+
+    public static final ConfigValue<CableBlock.EnergyExtractionMode> COMMON_CABLES_ENERGY_EXTRACTION_MODE = COMMON_CONFIG.register(new EnumConfigValue<>(
+            "block.cables.energy_extraction_mode", "The energy extraction mode defines how cables extract energy." +
+            " PUSH: Producers must push energy into cables. PULL: Cables pull energy from cables." +
+            " BOTH: Both systems are used. (Set to PULL for the behavior of cables before version 2.1.1," +
+            " Set to BOTH for compatibility with any FE energy producers)",
+            CableBlock.EnergyExtractionMode.BOTH,
+            CableBlock.EnergyExtractionMode.values(), CableBlock.EnergyExtractionMode::valueOf
+    ));
 
     public static final ConfigValue<Long> COMMON_COPPER_CABLE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
             "block.copper_cable", "Copper Cable", 1024
