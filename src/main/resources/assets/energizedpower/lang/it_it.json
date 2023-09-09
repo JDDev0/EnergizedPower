@@ -13,7 +13,7 @@
 
   "item.energizedpower.copper_plate": "Piastra di rame",
   "item.energizedpower.iron_plate": "Piastra di ferro",
-  "item.energizedpower.gold_plate": "PiaStra d'oro",
+  "item.energizedpower.gold_plate": "Piastra d'oro",
 
   "item.energizedpower.sawdust": "Segatura",
 
@@ -94,11 +94,11 @@
   "item.energizedpower.netherite_hammer": "Martello di Netherite",
 
   "item.energizedpower.wrench": "Chiave inglese",
-  "tooltip.energizedpower.wrench.txt.shift": "The Wrench can be used to configure blocks.",
+  "tooltip.energizedpower.wrench.txt.shift": "La chiave inglese può essere utilizzata per configurare i blocchi.",
   "tooltip.energizedpower.wrench.select_face": "quadrante selezionato: %s",
-  "tooltip.energizedpower.wrench.not_configurable": "This block can not be configured.",
+  "tooltip.energizedpower.wrench.not_configurable": "Questo blocco non può essere configurato.",
 
-  "tooltip.energizedpower.wrench_configurable": "This block can be configured with a Wrench.",
+  "tooltip.energizedpower.wrench_configurable": "Questo blocco può essere configurato con una chiave inglese.",
 
   "item.energizedpower.battery_box_minecart": "Carrello da miniera con vano batteria",
   "item.energizedpower.advanced_battery_box_minecart": "Carrello da miniera con scatola batteria avanzata",
@@ -109,33 +109,33 @@
   "block.energizedpower.sawdust_block": "Blocco di segatura",
   "item.energizedpower.sawdust_block": "Blocco di segatura",
 
-  "block.energizedpower.item_conveyor_belt": "Item Conveyor Belt",
-  "item.energizedpower.item_conveyor_belt": "Item Conveyor Belt",
+  "block.energizedpower.item_conveyor_belt": "Nastro trasportatore di articoli",
+  "item.energizedpower.item_conveyor_belt": "Nastro trasportatore di articoli",
 
-  "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "Slope was set to %s.",
+  "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "La pendenza era impostata su %s.",
 
-  "block.energizedpower.item_conveyor_belt_loader": "Item Conveyor Belt Loader",
-  "item.energizedpower.item_conveyor_belt_loader": "Item Conveyor Belt Loader",
-  "container.energizedpower.item_conveyor_belt_loader": "Item Conveyor Belt Loader",
+  "block.energizedpower.item_conveyor_belt_loader": "Caricatore nastro trasportatore",
+  "item.energizedpower.item_conveyor_belt_loader": "Caricatore nastro trasportatore",
+  "container.energizedpower.item_conveyor_belt_loader": "Caricatore nastro trasportatore",
 
-  "block.energizedpower.item_conveyor_belt_sorter": "Item Conveyor Belt Sorter",
-  "item.energizedpower.item_conveyor_belt_sorter": "Item Conveyor Belt Sorter",
-  "container.energizedpower.item_conveyor_belt_sorter": "Item Conveyor Belt Sorter",
+  "block.energizedpower.item_conveyor_belt_sorter": "Selezionatore di nastri trasportatori di articoli",
+  "item.energizedpower.item_conveyor_belt_sorter": "Selezionatore di nastri trasportatori di articoli",
+  "container.energizedpower.item_conveyor_belt_sorter": "Selezionatore di nastri trasportatori di articoli",
 
-  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Output %d: No conveyor belt connected",
-  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "Output %d: Belt connected",
-  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.ignore_nbt": "Ignore NBT",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Uscita %d: Nessun nastro trasportatore collegato",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "Uscita %d: Nastro trasportatore collegato",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.ignore_nbt": "Ignora NBT",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "Whitelist",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "Blacklist",
 
-  "block.energizedpower.item_conveyor_belt_switch": "Item Conveyor Belt Switch",
-  "item.energizedpower.item_conveyor_belt_switch": "Item Conveyor Belt Switch",
+  "block.energizedpower.item_conveyor_belt_switch": "Interruttore del nastro trasportatore",
+  "item.energizedpower.item_conveyor_belt_switch": "Interruttore del nastro trasportatore",
 
-  "block.energizedpower.item_conveyor_belt_splitter": "Item Conveyor Belt Splitter",
-  "item.energizedpower.item_conveyor_belt_splitter": "Item Conveyor Belt Splitter",
+  "block.energizedpower.item_conveyor_belt_splitter": "Separatore di nastri trasportatori",
+  "item.energizedpower.item_conveyor_belt_splitter": "Separatore di nastri trasportatori",
 
-  "block.energizedpower.item_conveyor_belt_merger": "Item Conveyor Belt Merger",
-  "item.energizedpower.item_conveyor_belt_merger": "Item Conveyor Belt Merger",
+  "block.energizedpower.item_conveyor_belt_merger": "Unione nastri trasportatori",
+  "item.energizedpower.item_conveyor_belt_merger": "Unione nastri trasportatori",
 
   "block.energizedpower.fluid_pipe": "Tubo fluido",
   "item.energizedpower.fluid_pipe": "Tubo fluido",
@@ -157,8 +157,8 @@
   "item.energizedpower.charger": "Caricabatterie",
   "container.energizedpower.charger": "Caricabatterie",
 
-  "tooltip.energizedpower.chargers.txt.shift.1": "Chargers can be used to craft Energized Copper Ingots.",
-  "tooltip.energizedpower.chargers.txt.shift.2": "But you should use the Energizer instead, because chargers energize very inefficiently.",
+  "tooltip.energizedpower.chargers.txt.shift.1": "I caricabatterie possono essere usati per creare lingotti di rame energizzati.",
+  "tooltip.energizedpower.chargers.txt.shift.2": "Ma dovresti usare invece l'energizzatore, perché i caricabatterie forniscono energia in modo molto inefficiente.",
 
   "tooltip.energizedpower.charger.item_energy_left.txt": "Questo articolo richiede che %s sia completamente carico.",
 
@@ -290,22 +290,22 @@
 
   "block.energizedpower.thermal_generator": "Generatore termico",
   "item.energizedpower.thermal_generator": "Generatore termico",
-  "container.energizedpower.thermal_generator": "Thermal Generator",
+  "container.energizedpower.thermal_generator": "Generatore Termico",
 
   "tooltip.energizedpower.thermal_generator.txt": "Questo fluido produrrà %s fino a completo esaurimento",
 
-  "block.energizedpower.powered_lamp": "Powered Lamp",
-  "item.energizedpower.powered_lamp": "Powered Lamp",
+  "block.energizedpower.powered_lamp": "Lampada alimentata",
+  "item.energizedpower.powered_lamp": "Lampada alimentata",
 
   "block.energizedpower.powered_furnace": "Fornace alimentata",
   "item.energizedpower.powered_furnace": "Fornace alimentata",
   "container.energizedpower.powered_furnace": "Fornace alimentata",
 
-  "block.energizedpower.advanced_powered_furnace": "Advanced Powered Furnace",
-  "item.energizedpower.advanced_powered_furnace": "Advanced Powered Furnace",
-  "container.energizedpower.advanced_powered_furnace": "Advanced Powered Furnace",
+  "block.energizedpower.advanced_powered_furnace": "Fornace ad alimentazione avanzata",
+  "item.energizedpower.advanced_powered_furnace": "Fornace ad alimentazione avanzata",
+  "container.energizedpower.advanced_powered_furnace": "Fornace ad alimentazione avanzata",
 
-  "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt": "These recipes require %s to finish.",
+  "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt": "Queste ricette richiedono %s per essere completate.",
 
   "block.energizedpower.crusher": "Frantoio",
   "item.energizedpower.crusher": "Frantoio",
@@ -406,9 +406,9 @@
   "block_state.energizedpower.pipe_connection.connected": "Connesso/Inserimento",
   "block_state.energizedpower.pipe_connection.extract": "Estrazione",
 
-  "tooltip.energizedpower.conveyor_belt_direction.slope.flat": "Flat",
-  "tooltip.energizedpower.conveyor_belt_direction.slope.ascending": "Ascending",
-  "tooltip.energizedpower.conveyor_belt_direction.slope.descending": "Descending",
+  "tooltip.energizedpower.conveyor_belt_direction.slope.flat": "Piatto",
+  "tooltip.energizedpower.conveyor_belt_direction.slope.ascending": "Ascendente",
+  "tooltip.energizedpower.conveyor_belt_direction.slope.descending": "Discendente",
 
   "itemGroup.energizedpower.tab": "Potenza energizzata",
 
@@ -541,32 +541,32 @@
   "advancements.energizedpower.thermal_generator.title": "Alimentato da liquidi caldi",
   "advancements.energizedpower.thermal_generator.description": "Consuma liquidi caldi per generare energia.",
 
-  "advancements.energizedpower.powered_lamp.title": "Electric lights",
-  "advancements.energizedpower.powered_lamp.description": "Convert power to light.",
+  "advancements.energizedpower.powered_lamp.title": "Lampade elettriche",
+  "advancements.energizedpower.powered_lamp.description": "Converti l'energia in luce.",
 
   "advancements.energizedpower.powered_furnace.title": "Fornace alimentato",
   "advancements.energizedpower.powered_furnace.description": "Fornace alimentata.",
 
-  "advancements.energizedpower.advanced_powered_furnace.title": "Fast smelting",
-  "advancements.energizedpower.advanced_powered_furnace.description": "Smelt multiple items at once with power.",
+  "advancements.energizedpower.advanced_powered_furnace.title": "Fusione veloce",
+  "advancements.energizedpower.advanced_powered_furnace.description": "Fondi più oggetti contemporaneamente con più potenza.",
 
-  "advancements.energizedpower.item_conveyor_belt.title": "Item Transport",
-  "advancements.energizedpower.item_conveyor_belt.description": "Transport items with item conveyor belts.",
+  "advancements.energizedpower.item_conveyor_belt.title": "Trasporto articoli",
+  "advancements.energizedpower.item_conveyor_belt.description": "Trasportare articoli con nastri trasportatori.",
 
-  "advancements.energizedpower.item_conveyor_belt_loader.title": "Item Loader",
-  "advancements.energizedpower.item_conveyor_belt_loader.description": "Load Items on an item conveyor belt.",
+  "advancements.energizedpower.item_conveyor_belt_loader.title": "Caricatore di articoli",
+  "advancements.energizedpower.item_conveyor_belt_loader.description": "Carica gli articoli su un nastro trasportatore.",
 
-  "advancements.energizedpower.item_conveyor_belt_sorter.title": "Automatic Sorting",
-  "advancements.energizedpower.item_conveyor_belt_sorter.description": "Sort Items with the Item Conveyor Belt Sorter.",
+  "advancements.energizedpower.item_conveyor_belt_sorter.title": "Ordinamento automatico",
+  "advancements.energizedpower.item_conveyor_belt_sorter.description": "Ordina gli articoli con lo smistatore del nastro trasportatore di articoli.",
 
-  "advancements.energizedpower.item_conveyor_belt_switch.title": "Conveyor Belt Switch",
-  "advancements.energizedpower.item_conveyor_belt_switch.description": "Select a direction.",
+  "advancements.energizedpower.item_conveyor_belt_switch.title": "Interruttore del nastro trasportatore",
+  "advancements.energizedpower.item_conveyor_belt_switch.description": "Seleziona una direzione.",
 
-  "advancements.energizedpower.item_conveyor_belt_splitter.title": "Conveyor Belt Splitter",
-  "advancements.energizedpower.item_conveyor_belt_splitter.description": "Distribute items evenly to multiple outputs.",
+  "advancements.energizedpower.item_conveyor_belt_splitter.title": "Separatore di nastri trasportatori",
+  "advancements.energizedpower.item_conveyor_belt_splitter.description": "Distribuire gli elementi in modo uniforme su più uscite.",
 
-  "advancements.energizedpower.item_conveyor_belt_merger.title": "Conveyor Belt Merger",
-  "advancements.energizedpower.item_conveyor_belt_merger.description": "Merge items evenly from multiple inputs.",
+  "advancements.energizedpower.item_conveyor_belt_merger.title": "Unione di nastri trasportatori",
+  "advancements.energizedpower.item_conveyor_belt_merger.description": "Unisci elementi in modo uniforme da più ingressi.",
 
   "advancements.energizedpower.fluid_pipe.title": "Trasporto fluido",
   "advancements.energizedpower.fluid_pipe.description": "Trasportare fluidi con tubi per fluidi.",
@@ -587,7 +587,7 @@
   "advancements.energizedpower.energized_crystal_matrix_cable.description": "Quando ho bisogno di trasportare così tanta energia?",
 
   "advancements.energizedpower.transformers.title": "Trasformatori",
-  "advancements.energizedpower.transformers.description": "Can connect different tiers of cables.",
+  "advancements.energizedpower.transformers.description": "Può collegare diversi livelli di cavi.",
 
   "advancements.energizedpower.hv_transformers.title": "HV Trasformatori",
   "advancements.energizedpower.hv_transformers.description": "Può trasferire più potenza.",
@@ -614,7 +614,7 @@
   "advancements.energizedpower.hammer.description": "I martelli possono essere usati per creare lastre.",
 
   "advancements.energizedpower.wrench.title": "Configurazione con la chiave inglese",
-  "advancements.energizedpower.wrench.description": "Configure blocks with a wrench.",
+  "advancements.energizedpower.wrench.description": "Configura i blocchi con una chiave inglese.",
 
   "advancements.energizedpower.battery_box_minecart.title": "Potenza sui binari",
   "advancements.energizedpower.battery_box_minecart.description": "Energia per trasporto su rotaie.",
@@ -656,7 +656,7 @@
   "advancements.energizedpower.inventory_coal_engine.description": "Produci e distribuisci energia nel tuo inventario.",
 
   "advancements.energizedpower.silicon.title": "Silicio",
-  "advancements.energizedpower.silicon.description": "Now you can power-up your factory!",
+  "advancements.energizedpower.silicon.description": "Ora puoi potenziare la tua fabbrica!",
 
   "advancements.energizedpower.solar_panel_1.title": "Studente sull'energia solare",
   "advancements.energizedpower.solar_panel_1.description": "Il pannello solare di livello I...",
@@ -679,8 +679,8 @@
   "advancements.energizedpower.minecart_charger.title": "Carica il carrello da miniera!",
   "advancements.energizedpower.minecart_charger.description": "Ricarica i carrelli da miniera.",
 
-  "advancements.energizedpower.advanced_minecart_charger.title": "Advanced minecart charging",
-  "advancements.energizedpower.advanced_minecart_charger.description": "Charges minecarts quicker.",
+  "advancements.energizedpower.advanced_minecart_charger.title": "Ricarica avanzata del carrello da miniera",
+  "advancements.energizedpower.advanced_minecart_charger.description": "Ricarica i carrelli da miniera più velocemente.",
 
   "advancements.energizedpower.minecart_uncharger.title": "Scarica il carrello da miniera!",
   "advancements.energizedpower.minecart_uncharger.description": "Scarica i carrelli da miniera.",
@@ -752,7 +752,7 @@
 
   "book.energizedpower.page.hammers": "I martelli possono essere usati per creare lastre.",
 
-  "book.energizedpower.page.wrench": "The Wrench can be used to configure blocks.",
+  "book.energizedpower.page.wrench": "La chiave inglese può essere utilizzata per configurare i blocchi.",
 
 
   "book.energizedpower.page.chapter.energy_items.title": "Articoli energetici",
@@ -770,7 +770,7 @@
   "book.energizedpower.page.energy_analyzer.2": "Può essere utilizzato facendo clic sui blocchi di energia.",
 
   "book.energizedpower.page.fluid_analyzer.1": "L'analizzatore di fluidi può essere utilizzato per ottenere la statistica dei fluidi.",
-  "book.energizedpower.page.fluid_analyzer.2": "It can be used by clicking on blocks which contain fluids.",
+  "book.energizedpower.page.fluid_analyzer.2": "Può essere utilizzato facendo clic sui blocchi che contengono fluidi.",
 
   "book.energizedpower.page.batteries.1": "Le batterie possono immagazzinare energia.",
   "book.energizedpower.page.batteries.2": "Possono essere caricati dal caricatore o con generatori di inventario e possono essere scaricati dallo scaricatore.",
@@ -846,10 +846,10 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_consumption.title": "Consumo",
   "book.energizedpower.page.chapter.energy_blocks.energy_consumption": "Blocchi per il consumo di energia",
 
-  "book.energizedpower.page.powered_lamp": "The Powered Lamp is like a Redstone Lamp but requires energy instead of an active redstone signal.",
+  "book.energizedpower.page.powered_lamp": "La lampada alimentata è come una lampada di redstone ma richiede energia invece di un segnale di redstone attivo.",
 
-  "book.energizedpower.page.powered_furnaces.1": "Powered Furnaces works like the Furnace. Instead of coal they use power and they are faster than the normal furnace.",
-  "book.energizedpower.page.powered_furnaces.2": "The advanced version of the Powered Furnace has 3 input/output slot pairs.",
+  "book.energizedpower.page.powered_furnaces.1": "Le Fornaci Alimentate funzionano come la Fornace. Invece del carbone usano l'energia e sono più veloci delle normali fornaci.",
+  "book.energizedpower.page.powered_furnaces.2": "La versione avanzata della Fornace alimentata dispone di 3 coppie di slot di ingresso/uscita.",
 
   "book.energizedpower.page.auto_crafter.1": "L'Auto Crafter crea automaticamente gli oggetti.",
   "book.energizedpower.page.auto_crafter.2": "La ricetta può essere impostata utilizzando gli slot del modello.",
@@ -899,43 +899,43 @@
   "book.energizedpower.page.fluid_pipe.3": "Un singolo blocco di tubazioni del fluido può estrarre solo un tipo di fluido alla volta, anche quando più lati sono configurati come estrazione.",
 
 
-  "book.energizedpower.page.chapter.item_transportation.title": "Item Transportation",
-  "book.energizedpower.page.chapter.item_transportation": "Blocks that can transport Items.",
+  "book.energizedpower.page.chapter.item_transportation.title": "Trasporto articoli",
+  "book.energizedpower.page.chapter.item_transportation": "Blocchi che possono trasportare oggetti.",
 
-  "book.energizedpower.page.item_conveyor_belt_1.1": "Item Conveyor belts can transport items.",
-  "book.energizedpower.page.item_conveyor_belt_1.2": "The slope of conveyor belts can be configured with a Wrench.",
-  "book.energizedpower.page.item_conveyor_belt_1.3": "Conveyor belts can be loaded with hoppers and any block which can insert items into blocks.",
-  "book.energizedpower.page.item_conveyor_belt_1.4": "Conveyor belts can insert items into blocks in front of the conveyor belt.",
+  "book.energizedpower.page.item_conveyor_belt_1.1": "I nastri trasportatori di articoli possono trasportare articoli.",
+  "book.energizedpower.page.item_conveyor_belt_1.2": "La pendenza dei nastri trasportatori può essere configurata con una chiave inglese.",
+  "book.energizedpower.page.item_conveyor_belt_1.3": "I nastri trasportatori possono essere caricati con tramogge e qualsiasi blocco in grado di inserire oggetti nei blocchi.",
+  "book.energizedpower.page.item_conveyor_belt_1.4": "I nastri trasportatori possono inserire oggetti nei blocchi davanti al nastro trasportatore.",
 
-  "book.energizedpower.page.item_conveyor_belt_2.1": "Alternatively they can be unloaded with hoppers and other blocks which can extract items from blocks.",
-  "book.energizedpower.page.item_conveyor_belt_2.2": "Conveyor belts are compatible with the AE2 item tunnel.",
+  "book.energizedpower.page.item_conveyor_belt_2.1": "In alternativa possono essere scaricati con tramogge e altri blocchi in grado di estrarre oggetti dai blocchi.",
+  "book.energizedpower.page.item_conveyor_belt_2.2": "I nastri trasportatori sono compatibili con il tunnel portaoggetti AE2.",
 
-  "book.energizedpower.page.item_conveyor_belt_loader_1.1": "The Item Conveyor Belt Loader can extract items from any storage blocks (even other conveyor belts) and load them onto a conveyor belt.",
-  "book.energizedpower.page.item_conveyor_belt_loader_1.2": "The larger square must face the block where items are extracted from and the smaller square must face a conveyor belt.",
+  "book.energizedpower.page.item_conveyor_belt_loader_1.1": "Il caricatore del nastro trasportatore di articoli può estrarre articoli da qualsiasi blocco di stoccaggio (anche altri nastri trasportatori) e caricarli su un nastro trasportatore.",
+  "book.energizedpower.page.item_conveyor_belt_loader_1.2": "Il quadrato più grande deve essere rivolto verso il blocco da cui vengono estratti gli oggetti e il quadrato più piccolo deve essere rivolto verso un nastro trasportatore.",
 
-  "book.energizedpower.page.item_conveyor_belt_loader_2.1": "Alternatively items can be extracted from the loader with hoppers and other blocks which can extract items from blocks.",
-  "book.energizedpower.page.item_conveyor_belt_loader_2.2": "It can be stacked vertically and horizontally.",
-  "book.energizedpower.page.item_conveyor_belt_loader_2.3": "It can be disabled with a redstone signal.",
+  "book.energizedpower.page.item_conveyor_belt_loader_2.1": "In alternativa gli articoli possono essere estratti dal caricatore con tramogge e altri blocchi in grado di estrarre articoli dai blocchi.",
+  "book.energizedpower.page.item_conveyor_belt_loader_2.2": "Può essere impilato verticalmente e orizzontalmente.",
+  "book.energizedpower.page.item_conveyor_belt_loader_2.3": "Può essere disattivato con un segnale di redstone.",
 
-  "book.energizedpower.page.item_conveyor_belt_sorter_1.1": "The Item Conveyor Belt Sorter takes items from an input conveyor belt and routes them to certain output conveyor belt.",
-  "book.energizedpower.page.item_conveyor_belt_sorter_1.2": "The input conveyor belt must face the large square and must not be ascending.",
+  "book.energizedpower.page.item_conveyor_belt_sorter_1.1": "Lo smistatore del nastro trasportatore di articoli preleva gli articoli da un nastro trasportatore di ingresso e li instrada verso un determinato nastro trasportatore di uscita.",
+  "book.energizedpower.page.item_conveyor_belt_sorter_1.2": "Il nastro trasportatore di ingresso deve essere rivolto verso il piazzale grande e non deve essere in salita.",
 
-  "book.energizedpower.page.item_conveyor_belt_sorter_2.1": "There are no restrictions for the output conveyor belts.",
-  "book.energizedpower.page.item_conveyor_belt_sorter_2.2": "The outputs are color coded (red: first output and always on the left side relative to the input, yellow: second output and on the opposite side relative to the input, green: third output and on the right side relative to the input).",
-  "book.energizedpower.page.item_conveyor_belt_sorter_2.3": "The item will be routed to the first output where the filter matched (Priority: OUT 1, OUT 2, OUT 3).",
+  "book.energizedpower.page.item_conveyor_belt_sorter_2.1": "Non ci sono restrizioni per i nastri trasportatori in uscita.",
+  "book.energizedpower.page.item_conveyor_belt_sorter_2.2": "Le uscite sono codificate a colori (rosso: prima uscita e sempre sul lato sinistro rispetto all'ingresso, giallo: seconda uscita e sul lato opposto rispetto all'ingresso, verde: terza uscita e sul lato destro rispetto all'ingresso).",
+  "book.energizedpower.page.item_conveyor_belt_sorter_2.3": "L'elemento verrà indirizzato alla prima uscita a cui corrisponde il filtro (Priorità: uscita 1, udcita 2, uscita 3).",
 
-  "book.energizedpower.page.item_conveyor_belt_sorter_3.1": "The filter matches if at least one pattern item of the output filter row matches the input item.",
-  "book.energizedpower.page.item_conveyor_belt_sorter_3.2": "Pattern items can be placed by taking the item from the inventory and left-clicking a pattern slot. The filter can be reset by left-clicking without an item.",
-  "book.energizedpower.page.item_conveyor_belt_sorter_3.3": "To allow any items select blacklist without any pattern items. If an output is not connected the filter should be set to whitelist without any pattern items.",
+  "book.energizedpower.page.item_conveyor_belt_sorter_3.1": "Il filtro corrisponde se almeno un elemento del modello della riga del filtro di uscita corrisponde all'elemento di ingresso.",
+  "book.energizedpower.page.item_conveyor_belt_sorter_3.2": "Gli oggetti del modello possono essere posizionati prendendo l'oggetto dall'inventario e facendo clic con il pulsante sinistro del mouse su uno slot del modello. Il filtro può essere reimpostato facendo clic con il pulsante sinistro del mouse senza un elemento.",
+  "book.energizedpower.page.item_conveyor_belt_sorter_3.3": "Per consentire qualsiasi elemento, selezionare la lista nera senza elementi del modello. Se un'uscita non è collegata, il filtro deve essere impostato sulla whitelist senza alcun elemento del modello.",
 
-  "book.energizedpower.page.item_conveyor_belt_sorter_4.1": "A redstone signal of strength 15 will be emitted if no filter matches (If no output is connected or if it is full no redstone signal will be emitted).",
+  "book.energizedpower.page.item_conveyor_belt_sorter_4.1": "Se nessun filtro corrisponde, verrà emesso un segnale di redstone di intensità 15 (se non è collegata alcuna uscita o se è piena, non verrà emesso alcun segnale di redstone).",
 
-  "book.energizedpower.page.item_conveyor_belt_switch.1": "The Item Conveyor Belt Switch takes items from the input conveyor belt (Must face the large square and must not be ascending) and puts them onto the output conveyor belt on the side with the green indicator.",
-  "book.energizedpower.page.item_conveyor_belt_switch.2": "As long as a redstone signal is applied, the other output will be selected.",
+  "book.energizedpower.page.item_conveyor_belt_switch.1": "L'interruttore del nastro trasportatore degli articoli prende gli articoli dal nastro trasportatore di ingresso (deve essere rivolto verso il quadrato grande e non deve essere in salita) e li inserisce sul nastro trasportatore di uscita sul lato con l'indicatore verde.",
+  "book.energizedpower.page.item_conveyor_belt_switch.2": "Finché viene applicato un segnale di redstone, verrà selezionata l'altra uscita.",
 
-  "book.energizedpower.page.item_conveyor_belt_splitter": "The Item Conveyor Belt Splitter takes items from the input conveyor belt (Must face the large square and must not be ascending) and puts them evenly on the connected output conveyor belts.",
+  "book.energizedpower.page.item_conveyor_belt_splitter": "Il divisore del nastro trasportatore di articoli prende gli articoli dal nastro trasportatore di ingresso (deve essere rivolto verso il quadrato grande e non deve essere in salita) e li posiziona uniformemente sui nastri trasportatori di uscita collegati.",
 
-  "book.energizedpower.page.item_conveyor_belt_merger": "The Item Conveyor Belt Merger takes items evenly from the connected input conveyor belts (They must face a large square and must not be ascending) and puts them on the output conveyor belt.",
+  "book.energizedpower.page.item_conveyor_belt_merger": "L'unione del nastro trasportatore degli articoli preleva gli articoli in modo uniforme dai nastri trasportatori di ingresso collegati (devono essere rivolti verso un grande quadrato e non devono essere ascendenti) e li inserisce sul nastro trasportatore di uscita.",
 
 
   "book.energizedpower.page.chapter.entities.title": "Entità",
