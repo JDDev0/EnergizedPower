@@ -2,12 +2,14 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.CableBlock;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.networking.ModMessages;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -20,6 +22,8 @@ import team.reborn.energy.api.base.SimpleEnergyStorage;
 import java.util.*;
 
 public class CableBlockEntity extends BlockEntity {
+    private static final CableBlock.EnergyExtractionMode ENERGY_EXTRACTION_MODE = ModConfigs.COMMON_CABLES_ENERGY_EXTRACTION_MODE.getValue();
+
     private final CableBlock.Tier tier;
 
     final LimitingEnergyStorage energyStorage;
@@ -46,7 +50,9 @@ public class CableBlockEntity extends BlockEntity {
 
         this.tier = tier;
 
-        internalEnergyStorage = new SimpleEnergyStorage(0, 0, 0) {
+        long capacity = ENERGY_EXTRACTION_MODE.isPush()?tier.getMaxTransfer():0;
+
+        internalEnergyStorage = new SimpleEnergyStorage(capacity, capacity, capacity) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
@@ -64,7 +70,7 @@ public class CableBlockEntity extends BlockEntity {
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, 0, 0);
+        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, capacity, 0);
     }
 
     public CableBlock.Tier getTier() {
@@ -111,7 +117,7 @@ public class CableBlockEntity extends BlockEntity {
             if(energyStorage == null)
                 continue;
 
-            if(energyStorage.supportsExtraction())
+            if(ENERGY_EXTRACTION_MODE.isPull() && energyStorage.supportsExtraction())
                 blockEntity.producers.put(Pair.of(testPos, direction.getOpposite()), energyStorage);
 
             if(energyStorage.supportsInsertion())
@@ -161,7 +167,8 @@ public class CableBlockEntity extends BlockEntity {
         List<EnergyStorage> energyProduction = new LinkedList<>();
         List<Long> energyProductionValues = new LinkedList<>();
 
-        long productionSum = 0;
+        //Prioritize stored energy for PUSH mode
+        long productionSum = blockEntity.internalEnergyStorage.amount; //Will always be 0 if in PULL only mode
         for(EnergyStorage energyStorage:blockEntity.producers.values()) {
             try(Transaction transaction = Transaction.openOuter()) {
                 long extracted = energyStorage.extract(MAX_TRANSFER, transaction);
@@ -202,11 +209,23 @@ public class CableBlockEntity extends BlockEntity {
 
         long transferLeft = Math.min(Math.min(MAX_TRANSFER, productionSum), consumptionSum);
 
+        long extractInternally = 0;
+        if(ENERGY_EXTRACTION_MODE.isPush()) {
+            //Prioritize stored energy for PUSH mode
+            extractInternally = Math.min(blockEntity.internalEnergyStorage.amount, transferLeft);
+            try(Transaction transaction = Transaction.openOuter()) {
+                blockEntity.internalEnergyStorage.extract(extractInternally, transaction);
+
+                transaction.commit();
+            }
+        }
+
         List<Long> energyProductionDistributed = new LinkedList<>();
         for(int i = 0;i < energyProduction.size();i++)
             energyProductionDistributed.add(0L);
 
-        long productionLeft = transferLeft;
+        //Set to 0 for PUSH only mode
+        long productionLeft = ENERGY_EXTRACTION_MODE.isPull()?transferLeft - extractInternally:0;
         int divisor = energyProduction.size();
         outer:
         while(productionLeft > 0) {
@@ -272,5 +291,22 @@ public class CableBlockEntity extends BlockEntity {
                 }
             }
         }
+    }
+
+    @Override
+    protected void writeNbt(NbtCompound nbt) {
+        if(ENERGY_EXTRACTION_MODE.isPush())
+            nbt.putLong("energy", internalEnergyStorage.amount);
+
+
+        super.writeNbt(nbt);
+    }
+
+    @Override
+    public void readNbt(NbtCompound nbt) {
+        super.readNbt(nbt);
+
+        if(ENERGY_EXTRACTION_MODE.isPush())
+            internalEnergyStorage.amount = nbt.getLong("energy");
     }
 }
