@@ -188,12 +188,12 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
         FluidState fluidState = level.getFluidState(selfPos);
 
         return getDefaultState().
-                with(UP, shouldConnectTo(level, selfPos, Direction.UP)).
-                with(DOWN, shouldConnectTo(level, selfPos, Direction.DOWN)).
-                with(NORTH, shouldConnectTo(level, selfPos, Direction.NORTH)).
-                with(SOUTH, shouldConnectTo(level, selfPos, Direction.SOUTH)).
-                with(EAST, shouldConnectTo(level, selfPos, Direction.EAST)).
-                with(WEST, shouldConnectTo(level, selfPos, Direction.WEST)).
+                with(UP, shouldConnectTo(level, selfPos, getDefaultState(), Direction.UP)).
+                with(DOWN, shouldConnectTo(level, selfPos, getDefaultState(), Direction.DOWN)).
+                with(NORTH, shouldConnectTo(level, selfPos, getDefaultState(), Direction.NORTH)).
+                with(SOUTH, shouldConnectTo(level, selfPos, getDefaultState(), Direction.SOUTH)).
+                with(EAST, shouldConnectTo(level, selfPos, getDefaultState(), Direction.EAST)).
+                with(WEST, shouldConnectTo(level, selfPos, getDefaultState(), Direction.WEST)).
                 with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
     }
 
@@ -316,7 +316,7 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
                     with(SOUTH, selfState.get(SOUTH)).
                     with(EAST, selfState.get(EAST)).
                     with(WEST, selfState.get(WEST)).
-                    with(pipeConnectionProperty, shouldConnectTo(level, selfPos, dir)).
+                    with(pipeConnectionProperty, shouldConnectTo(level, selfPos, selfState, dir)).
                     with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
         }
         level.setBlockState(selfPos, newState);
@@ -329,14 +329,19 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
         FluidPipeBlockEntity.updateConnections(level, selfPos, newState, (FluidPipeBlockEntity)blockEntity);
     }
 
-    private ModBlockStateProperties.PipeConnection shouldConnectTo(World level, BlockPos selfPos, Direction direction) {
+    private ModBlockStateProperties.PipeConnection shouldConnectTo(World level, BlockPos selfPos, BlockState selfState, Direction direction) {
         BlockPos toPos = selfPos.offset(direction);
         BlockEntity blockEntity = level.getBlockEntity(toPos);
         if(blockEntity == null)
             return ModBlockStateProperties.PipeConnection.NOT_CONNECTED;
 
+        ModBlockStateProperties.PipeConnection currentConnectionState =
+                selfState.get(getPipeConnectionPropertyFromDirection(direction));
+        if(currentConnectionState == ModBlockStateProperties.PipeConnection.NOT_CONNECTED)
+            currentConnectionState = ModBlockStateProperties.PipeConnection.CONNECTED;
+
         Storage<FluidVariant> fluidStorage = FluidStorage.SIDED.find(level, toPos, direction.getOpposite());
-        return fluidStorage == null?ModBlockStateProperties.PipeConnection.NOT_CONNECTED:ModBlockStateProperties.PipeConnection.CONNECTED;
+        return fluidStorage == null?ModBlockStateProperties.PipeConnection.NOT_CONNECTED:currentConnectionState;
     }
 
     @Nullable
