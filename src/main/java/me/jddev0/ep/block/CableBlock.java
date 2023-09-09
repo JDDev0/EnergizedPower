@@ -180,22 +180,23 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 
         FluidState fluidState = level.getFluidState(selfPos);
 
-        level.setBlockState(selfPos, getDefaultState().
+        BlockState newState = getDefaultState().
                 with(UP, shouldConnectTo(level, selfPos, Direction.UP)).
                 with(DOWN, shouldConnectTo(level, selfPos, Direction.DOWN)).
                 with(NORTH, shouldConnectTo(level, selfPos, Direction.NORTH)).
                 with(SOUTH, shouldConnectTo(level, selfPos, Direction.SOUTH)).
                 with(EAST, shouldConnectTo(level, selfPos, Direction.EAST)).
                 with(WEST, shouldConnectTo(level, selfPos, Direction.WEST)).
-                with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER)
-        );
+                with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+
+        level.setBlockState(selfPos, newState);
 
 
         BlockEntity blockEntity = level.getBlockEntity(selfPos);
         if(blockEntity == null || !(blockEntity instanceof CableBlockEntity))
             return;
 
-        CableBlockEntity.updateConnections(level, selfPos, selfState, (CableBlockEntity)blockEntity);
+        CableBlockEntity.updateConnections(level, selfPos, newState, (CableBlockEntity)blockEntity);
     }
 
     private boolean shouldConnectTo(World level, BlockPos selfPos, Direction direction) {
