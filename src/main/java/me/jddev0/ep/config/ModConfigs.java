@@ -164,7 +164,7 @@ public final class ModConfigs {
                     "- PULL: Cables pull energy from cables.\n" +
                     "- BOTH: Both systems are used.\n" +
                     "=> Set to PULL for the behavior of cables before version 2.1.1.\n" +
-                    "=> Set to BOTH for compatibility with any FE energy producers.",
+                    "=> Set to BOTH for compatibility with any E energy producers.",
             CableBlock.EnergyExtractionMode.BOTH,
             CableBlock.EnergyExtractionMode.values(), CableBlock.EnergyExtractionMode::valueOf
     ));
