@@ -330,7 +330,7 @@ public final class ModBlocks {
 
     public static final RegistryObject<Block> POWERED_LAMP = BLOCKS.register("powered_lamp",
             () -> new PoweredLampBlock(BlockBehaviour.Properties.of(Material.BUILDABLE_GLASS).
-                    strength(.3f).lightLevel(PoweredLampBlock.LIGHT_EMISSION).sound(SoundType.GLASS).
+                    strength(.3f).sound(SoundType.GLASS).
                     lightLevel(PoweredLampBlock.LIGHT_EMISSION)));
     public static final RegistryObject<Item> POWERED_LAMP_ITEM = createBlockItem("powered_lamp", POWERED_LAMP);
 
