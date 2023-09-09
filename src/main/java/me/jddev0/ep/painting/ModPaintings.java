@@ -13,6 +13,7 @@ public final class ModPaintings {
     }
 
     public static final PaintingVariant GEAR = registerPainting("gear", new PaintingVariant(32, 32));
+    public static final PaintingVariant FACTORY = registerPainting("factory", new PaintingVariant(32, 32));
 
     public static void register() {
 
