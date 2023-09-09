@@ -3,7 +3,6 @@ package me.jddev0.ep;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.behavior.ModBlockBehaviors;
 import me.jddev0.ep.block.entity.ModBlockEntities;
-import me.jddev0.ep.block.entity.renderer.ItemConveyorBeltBlockEntityRenderer;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.ModEntityTypes;
 import me.jddev0.ep.entity.data.ModTrackedDataHandlers;
@@ -11,6 +10,7 @@ import me.jddev0.ep.event.PlayerInteractHandler;
 import me.jddev0.ep.event.ServerStartingHandler;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.painting.ModPaintings;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.ModMenuTypes;
 import me.jddev0.ep.villager.ModVillager;
@@ -41,6 +41,7 @@ public class EnergizedPowerMod implements ModInitializer {
 		ModVillager.register();
 		ModEntityTypes.register();
 		ModTrackedDataHandlers.register();
+		ModPaintings.register();
 
 		ModBlockBehaviors.register();
 
