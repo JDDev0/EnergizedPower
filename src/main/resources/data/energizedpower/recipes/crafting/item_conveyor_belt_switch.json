@@ -6,7 +6,7 @@
       "item": "minecraft:cobblestone"
     },
     "I": {
-      "tag": "c:iron_blocks"
+      "tag": "c:iron_plates"
     },
     "R": {
       "tag": "c:redstone_dusts"
