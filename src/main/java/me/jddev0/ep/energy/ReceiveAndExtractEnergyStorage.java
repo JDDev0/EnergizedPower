@@ -120,8 +120,11 @@ public class ReceiveAndExtractEnergyStorage implements IEnergizedPowerEnergyStor
 
     @Override
     public void loadNBT(Tag tag) {
-        if(!(tag instanceof IntTag))
-            throw new IllegalArgumentException("Tag must be of type IntTag!");
+        if(!(tag instanceof IntTag)) {
+            energy = 0;
+
+            return;
+        }
 
         energy = ((IntTag)tag).getAsInt();
     }
