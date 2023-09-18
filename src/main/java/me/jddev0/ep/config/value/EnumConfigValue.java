@@ -38,7 +38,7 @@ public class EnumConfigValue<T extends Enum<T>> extends ConfigValue<T> {
     public @NotNull List<String> getValidationCommentLines() {
         List<String> commentLines = new ArrayList<>();
 
-        commentLines.add("Value must be on of " + ENUM_VALUES);
+        commentLines.add("Value must be one of " + ENUM_VALUES);
 
         commentLines.addAll(super.getValidationCommentLines());
 
@@ -48,7 +48,7 @@ public class EnumConfigValue<T extends Enum<T>> extends ConfigValue<T> {
     @Override
     protected @NotNull T readInternal(@NotNull String rawValue) throws ConfigValidationException {
         if(ENUM_VALUES.stream().noneMatch(enumValue -> enumValue.name().equals(rawValue)))
-            throw new ConfigValidationException("Value must be on of " + ENUM_VALUES);
+            throw new ConfigValidationException("Value must be one of " + ENUM_VALUES);
 
         try {
             return VALUE_OF_FUNCTION.apply(rawValue);
