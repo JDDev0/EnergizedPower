@@ -74,8 +74,5 @@ public class InfinityEnergyStorage implements IEnergizedPowerEnergyStorage {
     }
 
     @Override
-    public void loadNBT(Tag tag) {
-        if(!(tag instanceof CompoundTag))
-            throw new IllegalArgumentException("Tag must be of type IntTag!");
-    }
+    public void loadNBT(Tag tag) {}
 }
