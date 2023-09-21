@@ -22,9 +22,9 @@ public final class ModBlockBehaviors {
         DispenserBlock.registerBehavior(Items.SHEARS, new ShearsDispenserBehavior() {
             @Override
             protected ItemStack dispenseSilently(BlockPointer blockSource, ItemStack itemStack) {
-                ServerWorld level = blockSource.getWorld();
+                ServerWorld level = blockSource.world();
                 if(!level.isClient()) {
-                    BlockPos blockPos = blockSource.getPos().offset(blockSource.getBlockState().get(DispenserBlock.FACING));
+                    BlockPos blockPos = blockSource.pos().offset(blockSource.state().get(DispenserBlock.FACING));
                     if(tryCraftCableInsulator(level, blockPos)) {
                         if(itemStack.damage(1, level.getRandom(), null))
                             itemStack.setCount(0);

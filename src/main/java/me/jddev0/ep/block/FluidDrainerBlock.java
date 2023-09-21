@@ -78,6 +78,6 @@ public class FluidDrainerBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.FLUID_DRAINER_ENTITY, FluidDrainerBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.FLUID_DRAINER_ENTITY, FluidDrainerBlockEntity::tick);
     }
 }

@@ -1,10 +1,12 @@
 package me.jddev0.ep.recipe;
 
-import com.google.gson.*;
+import com.mojang.datafixers.util.Either;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.codec.ArrayCodec;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -14,19 +16,13 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.world.World;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class HeatGeneratorRecipe implements Recipe<SimpleInventory> {
-    private final Identifier id;
     private final Fluid[] input;
     private final long energyProduction;
 
-    public HeatGeneratorRecipe(Identifier id, Fluid[] input, long energyProduction) {
-        this.id = id;
+    public HeatGeneratorRecipe(Fluid[] input, long energyProduction) {
         this.input = input;
         this.energyProduction = energyProduction;
     }
@@ -55,18 +51,13 @@ public class HeatGeneratorRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getOutput(DynamicRegistryManager registryAccess) {
+    public ItemStack getResult(DynamicRegistryManager registryAccess) {
         return ItemStack.EMPTY;
     }
 
     @Override
     public ItemStack createIcon() {
         return new ItemStack(ModBlocks.HEAT_GENERATOR_ITEM);
-    }
-
-    @Override
-    public Identifier getId() {
-        return id;
     }
 
     @Override
@@ -97,45 +88,30 @@ public class HeatGeneratorRecipe implements Recipe<SimpleInventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "heat_generator");
 
-        private void addFluidsFromJsonElement(JsonElement inputJson, List<Fluid> inputFluids) {
-            if(!inputJson.isJsonPrimitive() || !inputJson.getAsJsonPrimitive().isString())
-                throw new JsonSyntaxException("Input must be a single fluid or a list of at least one fluid");
+        private final Codec<HeatGeneratorRecipe> CODEC_SINGLE_FLUID = RecordCodecBuilder.create((instance) -> {
+            return instance.group(Registries.FLUID.getCodec().fieldOf("input").forGetter((recipe) -> {
+                return recipe.input[0];
+            }), Codec.LONG.fieldOf("energy").forGetter((recipe) -> {
+                return recipe.energyProduction;
+            })).apply(instance, (f, e) -> new HeatGeneratorRecipe(new Fluid[] {f}, e));
+        });
 
-            Identifier fluidId = Identifier.tryParse(inputJson.getAsJsonPrimitive().getAsString());
+        private final Codec<HeatGeneratorRecipe> CODEC_FLUID_ARRAY = RecordCodecBuilder.create((instance) -> {
+            return instance.group(new ArrayCodec<>(Registries.FLUID.getCodec(), Fluid[]::new).fieldOf("input").forGetter((recipe) -> {
+                return recipe.input;
+            }), Codec.LONG.fieldOf("energy").forGetter((recipe) -> {
+                return recipe.energyProduction;
+            })).apply(instance, HeatGeneratorRecipe::new);
+        });
 
-            Fluid fluid = Registries.FLUID.get(fluidId);
-            if(fluid == null || fluid == Fluids.EMPTY)
-                throw new JsonSyntaxException("Unknown fluid '" + fluidId + "'");
-
-            inputFluids.add(fluid);
+        @Override
+        public Codec<HeatGeneratorRecipe> codec() {
+            return Codec.either(CODEC_FLUID_ARRAY, CODEC_SINGLE_FLUID).
+                    xmap(e -> e.left().orElseGet(() -> e.right().orElseThrow()), Either::left);
         }
 
         @Override
-        public HeatGeneratorRecipe read(Identifier recipeID, JsonObject json) {
-            List<Fluid> input = new LinkedList<>();
-
-            JsonElement inputJson = json.get("input");
-            if(inputJson.isJsonPrimitive()) {
-                addFluidsFromJsonElement(inputJson, input);
-            }else if(inputJson.isJsonArray()) {
-                JsonArray inputJsonArray = inputJson.getAsJsonArray();
-
-                if(inputJsonArray.isEmpty())
-                    throw new JsonSyntaxException("Input must contain at least one fluid");
-
-                for(JsonElement inputJsonEle:inputJsonArray)
-                    addFluidsFromJsonElement(inputJsonEle, input);
-            }else {
-                throw new JsonSyntaxException("Input must be a single fluid or a list of at least one fluid");
-            }
-
-            long energyProduction = JsonHelper.getLong(json, "energy");
-
-            return new HeatGeneratorRecipe(recipeID, input.toArray(new Fluid[0]), energyProduction);
-        }
-
-        @Override
-        public HeatGeneratorRecipe read(Identifier recipeID, PacketByteBuf buffer) {
+        public HeatGeneratorRecipe read(PacketByteBuf buffer) {
             int fluidCount = buffer.readInt();
             Fluid[] input = new Fluid[fluidCount];
             for(int i = 0;i < fluidCount;i++)
@@ -143,7 +119,7 @@ public class HeatGeneratorRecipe implements Recipe<SimpleInventory> {
 
             long energyProduction = buffer.readLong();
 
-            return new HeatGeneratorRecipe(recipeID, input, energyProduction);
+            return new HeatGeneratorRecipe(input, energyProduction);
         }
 
         @Override

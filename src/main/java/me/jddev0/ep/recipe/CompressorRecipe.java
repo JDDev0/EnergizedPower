@@ -1,25 +1,24 @@
 package me.jddev0.ep.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 public class CompressorRecipe implements Recipe<SimpleInventory> {
-    private final Identifier id;
     private final ItemStack output;
     private final Ingredient input;
 
-    public CompressorRecipe(Identifier id, ItemStack output, Ingredient input) {
-        this.id = id;
+    public CompressorRecipe(ItemStack output, Ingredient input) {
         this.output = output;
         this.input = input;
     }
@@ -51,7 +50,7 @@ public class CompressorRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getOutput(DynamicRegistryManager registryManage) {
+    public ItemStack getResult(DynamicRegistryManager registryManage) {
         return output.copy();
     }
 
@@ -65,11 +64,6 @@ public class CompressorRecipe implements Recipe<SimpleInventory> {
     @Override
     public ItemStack createIcon() {
         return new ItemStack(ModBlocks.COMPRESSOR_ITEM);
-    }
-
-    @Override
-    public Identifier getId() {
-        return id;
     }
 
     @Override
@@ -100,20 +94,25 @@ public class CompressorRecipe implements Recipe<SimpleInventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "compressor");
 
-        @Override
-        public CompressorRecipe read(Identifier recipeID, JsonObject json) {
-            Ingredient input = Ingredient.fromJson(json.get("ingredient"));
-            ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "output"));
+        private final Codec<CompressorRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
+                return recipe.output;
+            }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
+                return recipe.input;
+            })).apply(instance, CompressorRecipe::new);
+        });
 
-            return new CompressorRecipe(recipeID, output, input);
+        @Override
+        public Codec<CompressorRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public CompressorRecipe read(Identifier recipeID, PacketByteBuf buffer) {
+        public CompressorRecipe read(PacketByteBuf buffer) {
             Ingredient input = Ingredient.fromPacket(buffer);
             ItemStack output = buffer.readItemStack();
 
-            return new CompressorRecipe(recipeID, output, input);
+            return new CompressorRecipe(output, input);
         }
 
         @Override

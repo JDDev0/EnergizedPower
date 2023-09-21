@@ -9,6 +9,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.CrusherRecipe;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
@@ -23,10 +24,10 @@ public class CrusherEMIRecipe implements EmiRecipe {
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
-    public CrusherEMIRecipe(CrusherRecipe recipe) {
-        this.id = recipe.getId();
-        this.input = List.of(EmiIngredient.of(recipe.getInputItem()));
-        this.output = List.of(EmiStack.of(recipe.getOutputItem()));
+    public CrusherEMIRecipe(RecipeEntry<CrusherRecipe> recipe) {
+        this.id = recipe.id();
+        this.input = List.of(EmiIngredient.of(recipe.value().getInputItem()));
+        this.output = List.of(EmiStack.of(recipe.value().getOutputItem()));
     }
 
     @Override

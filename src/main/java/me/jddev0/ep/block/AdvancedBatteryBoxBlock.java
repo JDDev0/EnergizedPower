@@ -75,7 +75,7 @@ public class AdvancedBatteryBoxBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.ADVANCED_BATTERY_BOX_ENTITY, AdvancedBatteryBoxBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.ADVANCED_BATTERY_BOX_ENTITY, AdvancedBatteryBoxBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

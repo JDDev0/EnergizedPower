@@ -22,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.screen.PropertyDelegate;
@@ -64,7 +65,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     private final InventoryChangedListener updatePatternListener = container -> updateRecipe();
     private boolean hasRecipeLoaded = false;
     private Identifier recipeIdForSetRecipe;
-    private CraftingRecipe craftingRecipe;
+    private RecipeEntry<CraftingRecipe> craftingRecipe;
     private CraftingInventory oldCopyOfRecipe;
     private final ScreenHandler dummyContainerMenu = new ScreenHandler(null, -1) {
         @Override
@@ -218,7 +219,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         nbt.putLong("energy", internalEnergyStorage.amount);
 
         if(craftingRecipe != null)
-            nbt.put("recipe.id", NbtString.of(craftingRecipe.getId().toString()));
+            nbt.put("recipe.id", NbtString.of(craftingRecipe.id().toString()));
 
         nbt.put("recipe.progress", NbtInt.of(progress));
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
@@ -380,7 +381,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         for(int i = 0;i < patternSlotsForRecipe.size();i++)
             copyOfPatternSlots.setStack(i, patternSlotsForRecipe.getStack(i));
 
-        List<CraftingRecipe> recipes = world.getRecipeManager().
+        List<RecipeEntry<CraftingRecipe>> recipes = world.getRecipeManager().
                 getAllMatches(RecipeType.CRAFTING, copyOfPatternSlots, world);
 
         //No recipe found
@@ -391,12 +392,12 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         }
 
         if(recipeIdForSetRecipe == null)
-            recipeIdForSetRecipe = (craftingRecipe == null || craftingRecipe.getId() == null)?recipes.get(0).getId():
-                    craftingRecipe.getId();
+            recipeIdForSetRecipe = (craftingRecipe == null || craftingRecipe.id() == null)?recipes.get(0).id():
+                    craftingRecipe.id();
 
         for(int i = 0;i < recipes.size();i++) {
-            if(Objects.equals(recipes.get(i).getId(), recipeIdForSetRecipe)) {
-                recipeIdForSetRecipe = recipes.get((i + 1) % recipes.size()).getId();
+            if(Objects.equals(recipes.get(i).id(), recipeIdForSetRecipe)) {
+                recipeIdForSetRecipe = recipes.get((i + 1) % recipes.size()).id();
 
                 break;
             }
@@ -415,13 +416,13 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         if(world == null)
             return;
 
-        CraftingRecipe oldRecipe = null;
+        RecipeEntry<CraftingRecipe> oldRecipe = null;
         ItemStack oldResult = null;
         if(hasRecipeLoaded && craftingRecipe != null && oldCopyOfRecipe != null) {
             oldRecipe = craftingRecipe;
 
-            oldResult = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(oldCopyOfRecipe, world.getRegistryManager()):
-                    craftingRecipe.getOutput(world.getRegistryManager());
+            oldResult = craftingRecipe.value() instanceof SpecialCraftingRecipe?craftingRecipe.value().craft(oldCopyOfRecipe, world.getRegistryManager()):
+                    craftingRecipe.value().getResult(world.getRegistryManager());
         }
 
         hasRecipeLoaded = true;
@@ -431,19 +432,19 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         for(int i = 0;i < patternSlotsForRecipe.size();i++)
             copyOfPatternSlots.setStack(i, patternSlotsForRecipe.getStack(i));
 
-        Optional<Pair<Identifier, CraftingRecipe>> recipe = world.getRecipeManager().
+        Optional<Pair<Identifier, RecipeEntry<CraftingRecipe>>> recipe = world.getRecipeManager().
                 getFirstMatch(RecipeType.CRAFTING, copyOfPatternSlots, world, recipeIdForSetRecipe);
         if(recipe.isPresent()) {
             craftingRecipe = recipe.get().getSecond();
 
             //Recipe with saved recipe id does not exist or pattern items are not compatible with recipe
-            if(recipeIdForSetRecipe != null && !Objects.equals(craftingRecipe.getId(), recipeIdForSetRecipe)) {
-                recipeIdForSetRecipe = craftingRecipe.getId();
+            if(recipeIdForSetRecipe != null && !Objects.equals(craftingRecipe.id(), recipeIdForSetRecipe)) {
+                recipeIdForSetRecipe = craftingRecipe.id();
                 resetProgress();
             }
 
-            ItemStack resultItemStack = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(copyOfPatternSlots, world.getRegistryManager()):
-                    craftingRecipe.getOutput(world.getRegistryManager());
+            ItemStack resultItemStack = craftingRecipe.value() instanceof SpecialCraftingRecipe?craftingRecipe.value().craft(copyOfPatternSlots, world.getRegistryManager()):
+                    craftingRecipe.value().getResult(world.getRegistryManager());
 
             patternResultSlots.setStack(0, resultItemStack);
 
@@ -501,12 +502,12 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
 
         List<ItemStack> outputItemStacks = new ArrayList<>(10);
 
-        ItemStack resultItemStack = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(copyOfPatternSlots, world.getRegistryManager()):
-                craftingRecipe.getOutput(world.getRegistryManager());
+        ItemStack resultItemStack = craftingRecipe.value() instanceof SpecialCraftingRecipe?craftingRecipe.value().craft(copyOfPatternSlots, world.getRegistryManager()):
+                craftingRecipe.value().getResult(world.getRegistryManager());
 
         outputItemStacks.add(resultItemStack);
 
-        for(ItemStack remainingItem:craftingRecipe.getRemainder(copyOfPatternSlots))
+        for(ItemStack remainingItem:craftingRecipe.value().getRemainder(copyOfPatternSlots))
             if(!remainingItem.isEmpty())
                 outputItemStacks.add(remainingItem);
 
@@ -611,13 +612,13 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
 
 
         List<ItemStack> outputItemStacks = new ArrayList<>(10);
-        ItemStack resultItemStack = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(copyOfPatternSlots, world.getRegistryManager()):
-                craftingRecipe.getOutput(world.getRegistryManager());
+        ItemStack resultItemStack = craftingRecipe.value() instanceof SpecialCraftingRecipe?craftingRecipe.value().craft(copyOfPatternSlots, world.getRegistryManager()):
+                craftingRecipe.value().getResult(world.getRegistryManager());
 
         if(!resultItemStack.isEmpty())
             outputItemStacks.add(resultItemStack);
 
-        for(ItemStack remainingItem:craftingRecipe.getRemainder(copyOfPatternSlots))
+        for(ItemStack remainingItem:craftingRecipe.value().getRemainder(copyOfPatternSlots))
             if(!remainingItem.isEmpty())
                 outputItemStacks.add(remainingItem);
 
@@ -678,13 +679,13 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         for(int i = 0;i < patternSlotsForRecipe.size();i++)
             copyOfPatternSlots.setStack(i, patternSlotsForRecipe.getStack(i));
 
-        ItemStack resultItemStack = craftingRecipe instanceof SpecialCraftingRecipe?craftingRecipe.craft(copyOfPatternSlots, world.getRegistryManager()):
-                craftingRecipe.getOutput(world.getRegistryManager());
+        ItemStack resultItemStack = craftingRecipe.value() instanceof SpecialCraftingRecipe?craftingRecipe.value().craft(copyOfPatternSlots, world.getRegistryManager()):
+                craftingRecipe.value().getResult(world.getRegistryManager());
 
         if(ItemStack.areItemsEqual(itemStack, resultItemStack) && ItemStack.canCombine(itemStack, resultItemStack))
             return true;
 
-        for(ItemStack remainingItem:craftingRecipe.getRemainder(copyOfPatternSlots))
+        for(ItemStack remainingItem:craftingRecipe.value().getRemainder(copyOfPatternSlots))
             if(ItemStack.areItemsEqual(itemStack, remainingItem) && ItemStack.canCombine(itemStack, remainingItem))
                 return true;
 

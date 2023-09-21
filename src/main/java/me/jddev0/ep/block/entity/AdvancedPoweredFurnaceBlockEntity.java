@@ -24,6 +24,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtInt;
 import net.minecraft.nbt.NbtLong;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.screen.PropertyDelegate;
@@ -264,11 +265,11 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
                 inventory.setStack(0, blockEntity.internalInventory.getStack(i));
                 inventory.setStack(1, blockEntity.internalInventory.getStack(3 + i));
 
-                Optional<SmeltingRecipe> recipe = level.getRecipeManager().getFirstMatch(RecipeType.SMELTING, inventory, level);
+                Optional<RecipeEntry<SmeltingRecipe>> recipe = level.getRecipeManager().getFirstMatch(RecipeType.SMELTING, inventory, level);
                 if(recipe.isEmpty())
                     continue;
 
-                int cookingTime = recipe.get().getCookTime();
+                int cookingTime = recipe.get().value().getCookingTime();
                 if(blockEntity.maxProgress[i] == 0)
                     blockEntity.maxProgress[i] = (int)Math.ceil(cookingTime * RECIPE_DURATION_MULTIPLIER / 12.f); //Default Cooking Time = 200 -> maxProgress = 16 (= 200 / 12)
 
@@ -333,14 +334,14 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
         inventory.setStack(0, blockEntity.internalInventory.getStack(index));
         inventory.setStack(1, blockEntity.internalInventory.getStack(3 + index));
 
-        Optional<SmeltingRecipe> recipe = level.getRecipeManager().getFirstMatch(RecipeType.SMELTING, inventory, level);
+        Optional<RecipeEntry<SmeltingRecipe>> recipe = level.getRecipeManager().getFirstMatch(RecipeType.SMELTING, inventory, level);
 
         if(!hasRecipe(index, blockEntity) || recipe.isEmpty())
             return;
 
         blockEntity.internalInventory.removeStack(index, 1);
-        blockEntity.internalInventory.setStack(3 + index, new ItemStack(recipe.get().getOutput(level.getRegistryManager()).getItem(),
-                blockEntity.internalInventory.getStack(3 + index).getCount() + recipe.get().getOutput(level.getRegistryManager()).getCount()));
+        blockEntity.internalInventory.setStack(3 + index, new ItemStack(recipe.get().value().getResult(level.getRegistryManager()).getItem(),
+                blockEntity.internalInventory.getStack(3 + index).getCount() + recipe.get().value().getResult(level.getRegistryManager()).getCount()));
 
         blockEntity.resetProgress(index, blockPos, state);
     }
@@ -352,9 +353,9 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
         inventory.setStack(0, blockEntity.internalInventory.getStack(index));
         inventory.setStack(1, blockEntity.internalInventory.getStack(3 + index));
 
-        Optional<SmeltingRecipe> recipe = level.getRecipeManager().getFirstMatch(RecipeType.SMELTING, inventory, level);
+        Optional<RecipeEntry<SmeltingRecipe>> recipe = level.getRecipeManager().getFirstMatch(RecipeType.SMELTING, inventory, level);
 
-        return recipe.isPresent() && canInsertItemIntoOutputSlot(index, blockEntity.internalInventory, recipe.get().getOutput(level.getRegistryManager()));
+        return recipe.isPresent() && canInsertItemIntoOutputSlot(index, blockEntity.internalInventory, recipe.get().value().getResult(level.getRegistryManager()));
     }
 
     private static boolean canInsertItemIntoOutputSlot(int index, SimpleInventory inventory, ItemStack itemStack) {

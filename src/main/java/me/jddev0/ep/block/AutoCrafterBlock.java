@@ -89,7 +89,7 @@ public class AutoCrafterBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.AUTO_CRAFTER_ENTITY, AutoCrafterBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.AUTO_CRAFTER_ENTITY, AutoCrafterBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

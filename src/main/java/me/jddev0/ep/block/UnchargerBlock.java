@@ -78,6 +78,6 @@ public class UnchargerBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.UNCHARGER_ENTITY, UnchargerBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.UNCHARGER_ENTITY, UnchargerBlockEntity::tick);
     }
 }

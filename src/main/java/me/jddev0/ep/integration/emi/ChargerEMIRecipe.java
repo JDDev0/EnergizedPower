@@ -12,6 +12,7 @@ import me.jddev0.ep.block.entity.ChargerBlockEntity;
 import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -29,11 +30,11 @@ public class ChargerEMIRecipe implements EmiRecipe {
     private final List<EmiStack> output;
     private final long energyConsumption;
 
-    public ChargerEMIRecipe(ChargerRecipe recipe) {
-        this.id = recipe.getId();
-        this.input = List.of(EmiIngredient.of(recipe.getInputItem()));
-        this.output = List.of(EmiStack.of(recipe.getOutputItem()));
-        this.energyConsumption = (long)(recipe.getEnergyConsumption() * ChargerBlockEntity.CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);
+    public ChargerEMIRecipe(RecipeEntry<ChargerRecipe> recipe) {
+        this.id = recipe.id();
+        this.input = List.of(EmiIngredient.of(recipe.value().getInputItem()));
+        this.output = List.of(EmiStack.of(recipe.value().getOutputItem()));
+        this.energyConsumption = (long)(recipe.value().getEnergyConsumption() * ChargerBlockEntity.CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);
     }
 
     @Override

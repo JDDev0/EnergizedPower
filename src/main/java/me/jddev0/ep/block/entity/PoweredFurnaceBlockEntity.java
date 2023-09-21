@@ -24,6 +24,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtInt;
 import net.minecraft.nbt.NbtLong;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.screen.PropertyDelegate;
@@ -225,11 +226,11 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
             return;
 
         if(hasRecipe(blockEntity)) {
-            Optional<SmeltingRecipe> recipe = level.getRecipeManager().getFirstMatch(RecipeType.SMELTING, blockEntity.internalInventory, level);
+            Optional<RecipeEntry<SmeltingRecipe>> recipe = level.getRecipeManager().getFirstMatch(RecipeType.SMELTING, blockEntity.internalInventory, level);
             if(recipe.isEmpty())
                 return;
 
-            int cookingTime = recipe.get().getCookTime();
+            int cookingTime = recipe.get().value().getCookingTime();
             if(blockEntity.maxProgress == 0)
                 blockEntity.maxProgress = (int)Math.ceil(cookingTime * RECIPE_DURATION_MULTIPLIER / 6.f); //Default Cooking Time = 200 -> maxProgress = 34 (= 200 / 6)
 
@@ -284,14 +285,14 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
     private static void craftItem(BlockPos blockPos, BlockState state, PoweredFurnaceBlockEntity blockEntity) {
         World level = blockEntity.world;
 
-        Optional<SmeltingRecipe> recipe = level.getRecipeManager().getFirstMatch(RecipeType.SMELTING, blockEntity.internalInventory, level);
+        Optional<RecipeEntry<SmeltingRecipe>> recipe = level.getRecipeManager().getFirstMatch(RecipeType.SMELTING, blockEntity.internalInventory, level);
 
         if(!hasRecipe(blockEntity) || recipe.isEmpty())
             return;
 
         blockEntity.internalInventory.removeStack(0, 1);
-        blockEntity.internalInventory.setStack(1, new ItemStack(recipe.get().getOutput(level.getRegistryManager()).getItem(),
-                blockEntity.internalInventory.getStack(1).getCount() + recipe.get().getOutput(level.getRegistryManager()).getCount()));
+        blockEntity.internalInventory.setStack(1, new ItemStack(recipe.get().value().getResult(level.getRegistryManager()).getItem(),
+                blockEntity.internalInventory.getStack(1).getCount() + recipe.get().value().getResult(level.getRegistryManager()).getCount()));
 
         blockEntity.resetProgress(blockPos, state);
     }
@@ -299,9 +300,9 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
     private static boolean hasRecipe(PoweredFurnaceBlockEntity blockEntity) {
         World level = blockEntity.world;
 
-        Optional<SmeltingRecipe> recipe = level.getRecipeManager().getFirstMatch(RecipeType.SMELTING, blockEntity.internalInventory, level);
+        Optional<RecipeEntry<SmeltingRecipe>> recipe = level.getRecipeManager().getFirstMatch(RecipeType.SMELTING, blockEntity.internalInventory, level);
 
-        return recipe.isPresent() && canInsertItemIntoOutputSlot(blockEntity.internalInventory, recipe.get().getOutput(level.getRegistryManager()));
+        return recipe.isPresent() && canInsertItemIntoOutputSlot(blockEntity.internalInventory, recipe.get().value().getResult(level.getRegistryManager()));
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleInventory inventory, ItemStack itemStack) {

@@ -13,6 +13,7 @@ import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.screen.ModMenuTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeManager;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
@@ -68,28 +69,28 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
     private void registerRecipes(EmiRegistry registry) {
         RecipeManager recipeManager = registry.getRecipeManager();
 
-        for(ChargerRecipe recipe:recipeManager.listAllOfType(ChargerRecipe.Type.INSTANCE))
+        for(RecipeEntry<ChargerRecipe> recipe:recipeManager.listAllOfType(ChargerRecipe.Type.INSTANCE))
             registry.addRecipe(new ChargerEMIRecipe(recipe));
 
-        for(CrusherRecipe recipe:recipeManager.listAllOfType(CrusherRecipe.Type.INSTANCE))
+        for(RecipeEntry<CrusherRecipe> recipe:recipeManager.listAllOfType(CrusherRecipe.Type.INSTANCE))
             registry.addRecipe(new CrusherEMIRecipe(recipe));
 
-        for(PulverizerRecipe recipe:recipeManager.listAllOfType(PulverizerRecipe.Type.INSTANCE))
+        for(RecipeEntry<PulverizerRecipe> recipe:recipeManager.listAllOfType(PulverizerRecipe.Type.INSTANCE))
             registry.addRecipe(new PulverizerEMIRecipe(recipe));
 
-        for(SawmillRecipe recipe:recipeManager.listAllOfType(SawmillRecipe.Type.INSTANCE))
+        for(RecipeEntry<SawmillRecipe> recipe:recipeManager.listAllOfType(SawmillRecipe.Type.INSTANCE))
             registry.addRecipe(new SawmillEMIRecipe(recipe));
 
-        for(CompressorRecipe recipe:recipeManager.listAllOfType(CompressorRecipe.Type.INSTANCE))
+        for(RecipeEntry<CompressorRecipe> recipe:recipeManager.listAllOfType(CompressorRecipe.Type.INSTANCE))
             registry.addRecipe(new CompressorEMIRecipe(recipe));
 
-        for(PlantGrowthChamberRecipe recipe:recipeManager.listAllOfType(PlantGrowthChamberRecipe.Type.INSTANCE))
+        for(RecipeEntry<PlantGrowthChamberRecipe> recipe:recipeManager.listAllOfType(PlantGrowthChamberRecipe.Type.INSTANCE))
             registry.addRecipe(new PlantGrowthChamberEMIRecipe(recipe));
 
-        for(PlantGrowthChamberFertilizerRecipe recipe:recipeManager.listAllOfType(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE))
+        for(RecipeEntry<PlantGrowthChamberFertilizerRecipe> recipe:recipeManager.listAllOfType(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE))
             registry.addRecipe(new PlantGrowthChamberFertilizerEMIRecipe(recipe));
 
-        for(EnergizerRecipe recipe:recipeManager.listAllOfType(EnergizerRecipe.Type.INSTANCE))
+        for(RecipeEntry<EnergizerRecipe> recipe:recipeManager.listAllOfType(EnergizerRecipe.Type.INSTANCE))
             registry.addRecipe(new EnergizerEMIRecipe(recipe));
 
         registry.addRecipe(new DispenserEMIRecipe(new DispenserEMIRecipe.DispenserRecipe(

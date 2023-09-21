@@ -1,29 +1,32 @@
 package me.jddev0.ep.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class PulverizerRecipe implements Recipe<SimpleInventory> {
-    private final Identifier id;
     private final OutputItemStackWithPercentages output;
     private final OutputItemStackWithPercentages secondaryOutput;
     private final Ingredient input;
 
-    public PulverizerRecipe(Identifier id, OutputItemStackWithPercentages output, OutputItemStackWithPercentages secondaryOutput, Ingredient input) {
-        this.id = id;
+    public PulverizerRecipe(OutputItemStackWithPercentages output, OutputItemStackWithPercentages secondaryOutput, Ingredient input) {
         this.output = output;
         this.secondaryOutput = secondaryOutput;
         this.input = input;
@@ -85,7 +88,7 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getOutput(DynamicRegistryManager registryAccess) {
+    public ItemStack getResult(DynamicRegistryManager registryAccess) {
         return ItemStack.EMPTY;
     }
 
@@ -99,11 +102,6 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
     @Override
     public ItemStack createIcon() {
         return new ItemStack(ModBlocks.PULVERIZER_ITEM);
-    }
-
-    @Override
-    public Identifier getId() {
-        return id;
     }
 
     @Override
@@ -134,43 +132,24 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "pulverizer");
 
+        private final Codec<PulverizerRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+            return instance.group(OutputItemStackWithPercentages.createCodec(true).fieldOf("output").forGetter((recipe) -> {
+                return recipe.output;
+            }), OutputItemStackWithPercentages.createCodec(false).optionalFieldOf("secondaryOutput",
+                    new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0])).forGetter((recipe) -> {
+                return recipe.secondaryOutput;
+            }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
+                return recipe.input;
+            })).apply(instance, PulverizerRecipe::new);
+        });
+
         @Override
-        public PulverizerRecipe read(Identifier recipeID, JsonObject json) {
-            Ingredient input = Ingredient.fromJson(json.get("ingredient"));
-
-            OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[2];
-            for(int i = 0;i < 2;i++) {
-                JsonObject outputJson = json.getAsJsonObject(i == 0?"output":"secondaryOutput");
-
-                ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(outputJson, "output"));
-
-                JsonArray percentagesJson = JsonHelper.getArray(outputJson, "percentages");
-                double[] percentages = new double[percentagesJson.size()];
-                boolean minimumAtLeastOneFlag = false;
-                for(int j = 0;j < percentagesJson.size();j++) {
-                    double value = percentagesJson.get(j).getAsDouble();
-
-                    minimumAtLeastOneFlag |= (int)value >= 1;
-                    percentages[j] = value;
-                }
-
-                if(i == 0 && !minimumAtLeastOneFlag)
-                    throw new JsonSyntaxException("The primary output must have a minimum count of at least 1 (At least one percentage value must be >= 1.0)");
-
-                outputs[i] = new OutputItemStackWithPercentages(output, percentages);
-
-                if(!json.has("secondaryOutput")) {
-                    outputs[1] = new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0]);
-
-                    break;
-                }
-            }
-
-            return new PulverizerRecipe(recipeID, outputs[0], outputs[1], input);
+        public Codec<PulverizerRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public PulverizerRecipe read(Identifier recipeID, PacketByteBuf buffer) {
+        public PulverizerRecipe read(PacketByteBuf buffer) {
             Ingredient input = Ingredient.fromPacket(buffer);
 
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[2];
@@ -185,7 +164,7 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
                 outputs[i] = new OutputItemStackWithPercentages(output, percentages);
             }
 
-            return new PulverizerRecipe(recipeID, outputs[0], outputs[1], input);
+            return new PulverizerRecipe(outputs[0], outputs[1], input);
         }
 
         @Override
@@ -203,5 +182,39 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
         }
     }
 
-    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages) {}
+    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages) {
+        private static Codec<double[]> createDoubleArrayCodec(boolean atLeastOnePercentageValue) {
+            return new Codec<>() {
+                private static final Codec<List<Double>> DOUBLE_LIST_CODEC = Codec.doubleRange(0, 1).listOf();
+
+                @Override
+                public <T> DataResult<Pair<double[], T>> decode(DynamicOps<T> ops, T input) {
+                    return DOUBLE_LIST_CODEC.decode(ops, input).flatMap(res -> {
+                        boolean errorFlag = atLeastOnePercentageValue && res.getFirst().stream().noneMatch(d -> (int)(double)d >= 1);
+
+                        Pair<double[], T> newRes = Pair.of(res.getFirst().stream().mapToDouble(Double::doubleValue).toArray(), res.getSecond());
+                        if(errorFlag)
+                            return DataResult.error(() -> "The primary output must have a minimum count of at least 1 (At least one percentage value must be >= 1.0)", newRes);
+
+                        return DataResult.success(newRes);
+                    });
+                }
+
+                @Override
+                public <T> DataResult<T> encode(double[] input, DynamicOps<T> ops, T prefix) {
+                    return DOUBLE_LIST_CODEC.encode(Arrays.stream(input).boxed().toList(), ops, prefix);
+                }
+            };
+        }
+
+        public static Codec<OutputItemStackWithPercentages> createCodec(boolean atLeastOnePercentageValue) {
+            return RecordCodecBuilder.create((instance) -> {
+                return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((output) -> {
+                    return output.output;
+                }), createDoubleArrayCodec(atLeastOnePercentageValue).fieldOf("percentages").forGetter((output) -> {
+                    return output.percentages;
+                })).apply(instance, OutputItemStackWithPercentages::new);
+            });
+        }
+    }
 }

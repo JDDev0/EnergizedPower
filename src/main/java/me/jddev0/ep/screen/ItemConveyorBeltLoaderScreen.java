@@ -33,7 +33,7 @@ public class ItemConveyorBeltLoaderScreen extends HandledScreen<ItemConveyorBelt
 
     @Override
     public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-        renderBackground(drawContext);
+        renderBackground(drawContext, mouseX, mouseY, delta);
 
         super.render(drawContext, mouseX, mouseY, delta);
 

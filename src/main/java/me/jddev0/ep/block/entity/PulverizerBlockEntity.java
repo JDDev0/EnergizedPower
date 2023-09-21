@@ -24,6 +24,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtInt;
 import net.minecraft.nbt.NbtLong;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -219,7 +220,7 @@ public class PulverizerBlockEntity extends BlockEntity implements ExtendedScreen
             return;
 
         if(hasRecipe(blockEntity)) {
-            Optional<PulverizerRecipe> recipe = level.getRecipeManager().getFirstMatch(PulverizerRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
+            Optional<RecipeEntry<PulverizerRecipe>> recipe = level.getRecipeManager().getFirstMatch(PulverizerRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
             if(recipe.isEmpty())
                 return;
 
@@ -268,12 +269,12 @@ public class PulverizerBlockEntity extends BlockEntity implements ExtendedScreen
     private static void craftItem(BlockPos blockPos, BlockState state, PulverizerBlockEntity blockEntity) {
         World level = blockEntity.world;
 
-        Optional<PulverizerRecipe> recipe = level.getRecipeManager().getFirstMatch(PulverizerRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
+        Optional<RecipeEntry<PulverizerRecipe>> recipe = level.getRecipeManager().getFirstMatch(PulverizerRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
 
         if(!hasRecipe(blockEntity) || recipe.isEmpty())
             return;
 
-        ItemStack[] outputs = recipe.get().generateOutputs(level.random);
+        ItemStack[] outputs = recipe.get().value().generateOutputs(level.random);
 
         blockEntity.internalInventory.removeStack(0, 1);
         blockEntity.internalInventory.setStack(1, new ItemStack(outputs[0].getItem(),
@@ -288,11 +289,11 @@ public class PulverizerBlockEntity extends BlockEntity implements ExtendedScreen
     private static boolean hasRecipe(PulverizerBlockEntity blockEntity) {
         World level = blockEntity.world;
 
-        Optional<PulverizerRecipe> recipe = level.getRecipeManager().getFirstMatch(PulverizerRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
+        Optional<RecipeEntry<PulverizerRecipe>> recipe = level.getRecipeManager().getFirstMatch(PulverizerRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
         if(recipe.isEmpty())
             return false;
 
-        ItemStack[] maxOutputs = recipe.get().getMaxOutputCounts();
+        ItemStack[] maxOutputs = recipe.get().value().getMaxOutputCounts();
 
         return canInsertItemIntoOutputSlot(blockEntity.internalInventory, maxOutputs[0]) &&
                 (maxOutputs[1].isEmpty() || canInsertItemIntoSecondaryOutputSlot(blockEntity.internalInventory, maxOutputs[1]));

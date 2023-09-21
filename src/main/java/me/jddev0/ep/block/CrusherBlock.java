@@ -78,6 +78,6 @@ public class CrusherBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.CRUSHER_ENTITY, CrusherBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.CRUSHER_ENTITY, CrusherBlockEntity::tick);
     }
 }

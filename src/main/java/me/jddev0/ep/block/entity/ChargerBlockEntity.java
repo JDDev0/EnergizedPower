@@ -25,6 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtLong;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -252,10 +253,10 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
             ItemStack stack = blockEntity.internalInventory.getStack(0);
             long energyConsumptionPerTick = 0;
 
-            Optional<ChargerRecipe> recipe = level.getRecipeManager().getFirstMatch(ChargerRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
+            Optional<RecipeEntry<ChargerRecipe>> recipe = level.getRecipeManager().getFirstMatch(ChargerRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
             if(recipe.isPresent()) {
                 if(blockEntity.energyConsumptionLeft == -1)
-                    blockEntity.energyConsumptionLeft = (long)(recipe.get().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);
+                    blockEntity.energyConsumptionLeft = (long)(recipe.get().value().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);
 
                 if(blockEntity.internalEnergyStorage.amount == 0) {
                     markDirty(level, blockPos, state);
@@ -310,7 +311,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
 
             if(blockEntity.energyConsumptionLeft <= 0) {
                 recipe.ifPresent(chargerRecipe ->
-                        blockEntity.internalInventory.setStack(0, new ItemStack(chargerRecipe.getOutput(level.getRegistryManager()).getItem())));
+                        blockEntity.internalInventory.setStack(0, new ItemStack(chargerRecipe.value().getResult(level.getRegistryManager()).getItem())));
 
                 blockEntity.resetProgress();
             }
@@ -329,7 +330,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
     private boolean hasRecipe() {
         ItemStack stack = internalInventory.getStack(0);
 
-        Optional<ChargerRecipe> recipe = world == null?Optional.empty():
+        Optional<RecipeEntry<ChargerRecipe>> recipe = world == null?Optional.empty():
                 world.getRecipeManager().getFirstMatch(ChargerRecipe.Type.INSTANCE, internalInventory, world);
 
         if(recipe.isPresent())

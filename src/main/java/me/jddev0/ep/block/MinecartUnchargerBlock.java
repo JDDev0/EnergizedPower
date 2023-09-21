@@ -101,7 +101,7 @@ public class MinecartUnchargerBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.MINECART_UNCHARGER_ENTITY, MinecartUnchargerBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.MINECART_UNCHARGER_ENTITY, MinecartUnchargerBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

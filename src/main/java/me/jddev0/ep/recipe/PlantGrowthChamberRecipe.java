@@ -2,8 +2,15 @@ package me.jddev0.ep.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.codec.ArrayCodec;
+import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -12,17 +19,19 @@ import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class PlantGrowthChamberRecipe implements Recipe<SimpleInventory> {
-    private final Identifier id;
     private final OutputItemStackWithPercentages[] outputs;
     private final Ingredient input;
     private final int ticks;
 
-    public PlantGrowthChamberRecipe(Identifier id, OutputItemStackWithPercentages[] outputs, Ingredient input, int ticks) {
-        this.id = id;
+    public PlantGrowthChamberRecipe(OutputItemStackWithPercentages[] outputs, Ingredient input, int ticks) {
         this.outputs = outputs;
         this.input = input;
         this.ticks = ticks;
@@ -85,7 +94,7 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getOutput(DynamicRegistryManager registryAccess) {
+    public ItemStack getResult(DynamicRegistryManager registryAccess) {
         return ItemStack.EMPTY;
     }
 
@@ -99,11 +108,6 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleInventory> {
     @Override
     public ItemStack createIcon() {
         return new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM);
-    }
-
-    @Override
-    public Identifier getId() {
-        return id;
     }
 
     @Override
@@ -134,31 +138,23 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleInventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "plant_growth_chamber");
 
+        private final Codec<PlantGrowthChamberRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+            return instance.group(new ArrayCodec<>(OutputItemStackWithPercentages.CODEC, OutputItemStackWithPercentages[]::new).fieldOf("outputs").forGetter((recipe) -> {
+                return recipe.outputs;
+            }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
+                return recipe.input;
+            }), Codecs.POSITIVE_INT.fieldOf("ticks").forGetter((recipe) -> {
+                return recipe.ticks;
+            })).apply(instance, PlantGrowthChamberRecipe::new);
+        });
+
         @Override
-        public PlantGrowthChamberRecipe read(Identifier recipeID, JsonObject json) {
-            Ingredient input = Ingredient.fromJson(json.get("ingredient"));
-            int ticks = JsonHelper.getInt(json, "ticks");
-
-            JsonArray outputsJson = JsonHelper.getArray(json, "outputs");
-            OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[outputsJson.size()];
-            for(int i = 0;i < outputsJson.size();i++) {
-                JsonObject outputJson = outputsJson.get(i).getAsJsonObject();
-
-                ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(outputJson, "output"));
-
-                JsonArray percentagesJson = JsonHelper.getArray(outputJson, "percentages");
-                double[] percentages = new double[percentagesJson.size()];
-                for(int j = 0;j < percentagesJson.size();j++)
-                    percentages[j] = percentagesJson.get(j).getAsDouble();
-
-                outputs[i] = new OutputItemStackWithPercentages(output, percentages);
-            }
-
-            return new PlantGrowthChamberRecipe(recipeID, outputs, input, ticks);
+        public Codec<PlantGrowthChamberRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public PlantGrowthChamberRecipe read(Identifier recipeID, PacketByteBuf buffer) {
+        public PlantGrowthChamberRecipe read(PacketByteBuf buffer) {
             Ingredient input = Ingredient.fromPacket(buffer);
             int ticks = buffer.readInt();
 
@@ -175,7 +171,7 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleInventory> {
                 outputs[i] = new OutputItemStackWithPercentages(output, percentages);
             }
 
-            return new PlantGrowthChamberRecipe(recipeID, outputs, input, ticks);
+            return new PlantGrowthChamberRecipe(outputs, input, ticks);
         }
 
         @Override
@@ -194,5 +190,29 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleInventory> {
         }
     }
 
-    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages) {}
+    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages) {
+        private static final Codec<double[]> DOUBLE_ARRAY_CODEC = new Codec<>() {
+            private static final Codec<List<Double>> DOUBLE_LIST_CODEC = Codec.doubleRange(0, 1).listOf();
+
+            @Override
+            public <T> DataResult<Pair<double[], T>> decode(DynamicOps<T> ops, T input) {
+                return DOUBLE_LIST_CODEC.decode(ops, input).map(res -> {
+                    return Pair.of(res.getFirst().stream().mapToDouble(Double::doubleValue).toArray(), res.getSecond());
+                });
+            }
+
+            @Override
+            public <T> DataResult<T> encode(double[] input, DynamicOps<T> ops, T prefix) {
+                return DOUBLE_LIST_CODEC.encode(Arrays.stream(input).boxed().toList(), ops, prefix);
+            }
+        };
+
+        public static final Codec<OutputItemStackWithPercentages> CODEC = RecordCodecBuilder.create((instance) -> {
+            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((output) -> {
+                return output.output;
+            }), DOUBLE_ARRAY_CODEC.fieldOf("percentages").forGetter((output) -> {
+                return output.percentages;
+            })).apply(instance, OutputItemStackWithPercentages::new);
+        });
+    }
 }

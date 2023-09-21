@@ -79,7 +79,7 @@ public class ChargingStationBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.CHARGING_STATION_ENTITY, ChargingStationBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.CHARGING_STATION_ENTITY, ChargingStationBlockEntity::tick);
     }
 
     @Override

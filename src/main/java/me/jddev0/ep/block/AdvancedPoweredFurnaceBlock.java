@@ -117,6 +117,6 @@ public class AdvancedPoweredFurnaceBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.ADVANCED_POWERED_FURNACE_ENTITY, AdvancedPoweredFurnaceBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.ADVANCED_POWERED_FURNACE_ENTITY, AdvancedPoweredFurnaceBlockEntity::tick);
     }
 }

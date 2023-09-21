@@ -26,6 +26,7 @@ import net.minecraft.nbt.NbtDouble;
 import net.minecraft.nbt.NbtInt;
 import net.minecraft.nbt.NbtLong;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -253,22 +254,22 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
             return;
 
         if(hasRecipe(blockEntity)) {
-            Optional<PlantGrowthChamberRecipe> recipe = level.getRecipeManager().getFirstMatch(PlantGrowthChamberRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
+            Optional<RecipeEntry<PlantGrowthChamberRecipe>> recipe = level.getRecipeManager().getFirstMatch(PlantGrowthChamberRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
             if(recipe.isEmpty())
                 return;
 
-            Optional<PlantGrowthChamberFertilizerRecipe> fertilizerRecipe = level.getRecipeManager().getFirstMatch(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE,
+            Optional<RecipeEntry<PlantGrowthChamberFertilizerRecipe>> fertilizerRecipe = level.getRecipeManager().getFirstMatch(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE,
                     blockEntity.internalInventory, level);
 
             if(blockEntity.maxProgress == 0) {
                 if(fertilizerRecipe.isPresent()) {
-                    blockEntity.speedMultiplier = fertilizerRecipe.get().getSpeedMultiplier();
-                    blockEntity.energyConsumptionMultiplier = fertilizerRecipe.get().getEnergyConsumptionMultiplier();
+                    blockEntity.speedMultiplier = fertilizerRecipe.get().value().getSpeedMultiplier();
+                    blockEntity.energyConsumptionMultiplier = fertilizerRecipe.get().value().getEnergyConsumptionMultiplier();
 
                     blockEntity.internalInventory.removeStack(1, 1);
                 }
 
-                blockEntity.maxProgress = (int)(recipe.get().getTicks() * RECIPE_DURATION_MULTIPLIER / blockEntity.speedMultiplier);
+                blockEntity.maxProgress = (int)(recipe.get().value().getTicks() * RECIPE_DURATION_MULTIPLIER / blockEntity.speedMultiplier);
             }
 
             final long fertilizedEnergyUsagePerTick = (long)(ENERGY_USAGE_PER_TICK * blockEntity.energyConsumptionMultiplier);
@@ -321,14 +322,14 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     private static void craftItem(BlockPos blockPos, BlockState state, PlantGrowthChamberBlockEntity blockEntity) {
         World level = blockEntity.world;
 
-        Optional<PlantGrowthChamberRecipe> recipe = level.getRecipeManager().getFirstMatch(PlantGrowthChamberRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
+        Optional<RecipeEntry<PlantGrowthChamberRecipe>> recipe = level.getRecipeManager().getFirstMatch(PlantGrowthChamberRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
 
         if(!hasRecipe(blockEntity) || recipe.isEmpty())
             return;
 
         blockEntity.internalInventory.removeStack(0, 1);
 
-        List<ItemStack> itemStacksInsert = new ArrayList<>(Arrays.asList(recipe.get().generateOutputs(level.random)));
+        List<ItemStack> itemStacksInsert = new ArrayList<>(Arrays.asList(recipe.get().value().generateOutputs(level.random)));
 
         List<Integer> emptyIndices = new ArrayList<>(4);
         outer:
@@ -373,9 +374,9 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     private static boolean hasRecipe(PlantGrowthChamberBlockEntity blockEntity) {
         World level = blockEntity.world;
 
-        Optional<PlantGrowthChamberRecipe> recipe = level.getRecipeManager().getFirstMatch(PlantGrowthChamberRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
+        Optional<RecipeEntry<PlantGrowthChamberRecipe>> recipe = level.getRecipeManager().getFirstMatch(PlantGrowthChamberRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
 
-        return recipe.isPresent() && canInsertItemsIntoOutputSlots(blockEntity.internalInventory, new ArrayList<>(Arrays.asList(recipe.get().getMaxOutputCounts())));
+        return recipe.isPresent() && canInsertItemsIntoOutputSlots(blockEntity.internalInventory, new ArrayList<>(Arrays.asList(recipe.get().value().getMaxOutputCounts())));
     }
 
     private static boolean canInsertItemsIntoOutputSlots(SimpleInventory inventory, List<ItemStack> itemsStacks) {

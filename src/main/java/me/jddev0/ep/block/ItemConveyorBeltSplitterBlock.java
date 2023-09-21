@@ -64,6 +64,6 @@ public class ItemConveyorBeltSplitterBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.ITEM_CONVEYOR_BELT_SPLITTER_ENTITY, ItemConveyorBeltSplitterBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.ITEM_CONVEYOR_BELT_SPLITTER_ENTITY, ItemConveyorBeltSplitterBlockEntity::tick);
     }
 }

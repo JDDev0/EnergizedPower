@@ -168,7 +168,7 @@ public class ItemConveyorBeltBlock extends BlockWithEntity implements WrenchConf
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

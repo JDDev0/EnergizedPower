@@ -110,6 +110,6 @@ public class BlockPlacerBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.BLOCK_PLACER_ENTITY, BlockPlacerBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.BLOCK_PLACER_ENTITY, BlockPlacerBlockEntity::tick);
     }
 }

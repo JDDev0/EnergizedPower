@@ -10,6 +10,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -27,11 +28,11 @@ public class PlantGrowthChamberFertilizerEMIRecipe implements EmiRecipe {
     private final double speedMultiplier;
     private final double energyConsumptionMultiplier;
 
-    public PlantGrowthChamberFertilizerEMIRecipe(PlantGrowthChamberFertilizerRecipe recipe) {
-        this.id = recipe.getId();
-        this.input = List.of(EmiIngredient.of(recipe.getInput()));
-        this.speedMultiplier = recipe.getSpeedMultiplier();
-        this.energyConsumptionMultiplier = recipe.getEnergyConsumptionMultiplier();
+    public PlantGrowthChamberFertilizerEMIRecipe(RecipeEntry<PlantGrowthChamberFertilizerRecipe> recipe) {
+        this.id = recipe.id();
+        this.input = List.of(EmiIngredient.of(recipe.value().getInput()));
+        this.speedMultiplier = recipe.value().getSpeedMultiplier();
+        this.energyConsumptionMultiplier = recipe.value().getEnergyConsumptionMultiplier();
     }
 
     @Override

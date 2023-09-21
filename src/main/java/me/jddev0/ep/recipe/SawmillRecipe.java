@@ -1,8 +1,11 @@
 package me.jddev0.ep.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.datafixers.util.Either;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.item.ModItems;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
@@ -10,22 +13,20 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 
 public class SawmillRecipe implements Recipe<SimpleInventory> {
-    private final Identifier id;
     private final ItemStack output;
     private final ItemStack secondaryOutput;
     private final Ingredient input;
 
-    public SawmillRecipe(Identifier id, ItemStack output, Ingredient input, int sawdustAmount) {
-        this(id, output, new ItemStack(ModItems.SAWDUST, sawdustAmount), input);
+    public SawmillRecipe(ItemStack output, Ingredient input, int sawdustAmount) {
+        this(output, new ItemStack(ModItems.SAWDUST, sawdustAmount), input);
     }
 
-    public SawmillRecipe(Identifier id, ItemStack output, ItemStack secondaryOutput, Ingredient input) {
-        this.id = id;
+    public SawmillRecipe(ItemStack output, ItemStack secondaryOutput, Ingredient input) {
         this.output = output;
         this.input = input;
         this.secondaryOutput = secondaryOutput;
@@ -62,7 +63,7 @@ public class SawmillRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getOutput(DynamicRegistryManager registryManage) {
+    public ItemStack getResult(DynamicRegistryManager registryManage) {
         return output.copy();
     }
 
@@ -76,11 +77,6 @@ public class SawmillRecipe implements Recipe<SimpleInventory> {
     @Override
     public ItemStack createIcon() {
         return new ItemStack(ModBlocks.SAWMILL_ITEM);
-    }
-
-    @Override
-    public Identifier getId() {
-        return id;
     }
 
     @Override
@@ -111,28 +107,39 @@ public class SawmillRecipe implements Recipe<SimpleInventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "sawmill");
 
+        private final Codec<SawmillRecipe> CODEC_ITEM_STACK = RecordCodecBuilder.create((instance) -> {
+            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
+                return recipe.output;
+            }), CodecFix.ITEM_STACK_CODEC.fieldOf("secondaryOutput").forGetter((recipe) -> {
+                return recipe.secondaryOutput;
+            }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
+                return recipe.input;
+            })).apply(instance, SawmillRecipe::new);
+        });
+
+        private final Codec<SawmillRecipe> CODEC_SAWDUST_AMOUNT = RecordCodecBuilder.create((instance) -> {
+            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
+                return recipe.output;
+            }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
+                return recipe.input;
+            }), Codec.INT.fieldOf("sawdustAmount").forGetter((recipe) -> {
+                return recipe.secondaryOutput.getCount();
+            })).apply(instance, SawmillRecipe::new);
+        });
+
         @Override
-        public SawmillRecipe read(Identifier recipeID, JsonObject json) {
-            Ingredient input = Ingredient.fromJson(json.get("ingredient"));
-            ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "output"));
-
-            if(json.has("secondaryOutput")) {
-                ItemStack secondaryOutput = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "secondaryOutput"));
-                return new SawmillRecipe(recipeID, output, secondaryOutput, input);
-            }
-
-            int sawdustAmount = json.get("sawdustAmount").getAsInt();
-
-            return new SawmillRecipe(recipeID, output, input, sawdustAmount);
+        public Codec<SawmillRecipe> codec() {
+            return Codec.either(CODEC_ITEM_STACK, CODEC_SAWDUST_AMOUNT).
+                    xmap(e -> e.left().orElseGet(() -> e.right().orElseThrow()), Either::left);
         }
 
         @Override
-        public SawmillRecipe read(Identifier recipeID, PacketByteBuf buffer) {
+        public SawmillRecipe read(PacketByteBuf buffer) {
             Ingredient input = Ingredient.fromPacket(buffer);
             ItemStack output = buffer.readItemStack();
             ItemStack secondaryOutput = buffer.readItemStack();
 
-            return new SawmillRecipe(recipeID, output, secondaryOutput, input);
+            return new SawmillRecipe(output, secondaryOutput, input);
         }
 
         @Override

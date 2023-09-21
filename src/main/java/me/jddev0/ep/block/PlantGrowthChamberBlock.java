@@ -110,6 +110,6 @@ public class PlantGrowthChamberBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.PLANT_GROWTH_CHAMBER_ENTITY, PlantGrowthChamberBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.PLANT_GROWTH_CHAMBER_ENTITY, PlantGrowthChamberBlockEntity::tick);
     }
 }

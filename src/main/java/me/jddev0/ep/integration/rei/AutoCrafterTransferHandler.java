@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,7 @@ public class AutoCrafterTransferHandler implements TransferHandler {
         buf.writeBlockPos(container.getBlockEntity().getPos());
         for(ItemStack itemStack:itemStacks)
             buf.writeItemStack(itemStack);
-        buf.writeIdentifier(recipe.getId());
+        //buf.writeIdentifier(recipe.getId()); //TODO
         ClientPlayNetworking.send(ModMessages.SET_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID, buf);
 
         return Result.createSuccessful().blocksFurtherHandling();

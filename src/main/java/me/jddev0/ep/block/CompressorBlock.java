@@ -78,6 +78,6 @@ public class CompressorBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.COMPRESSOR_ENTITY, CompressorBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.COMPRESSOR_ENTITY, CompressorBlockEntity::tick);
     }
 }

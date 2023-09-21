@@ -50,6 +50,6 @@ public class HeatGeneratorBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.HEAT_GENERATOR_ENTITY, HeatGeneratorBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.HEAT_GENERATOR_ENTITY, HeatGeneratorBlockEntity::tick);
     }
 }

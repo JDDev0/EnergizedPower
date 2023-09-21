@@ -78,6 +78,6 @@ public class SawmillBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.SAWMILL_ENTITY, SawmillBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.SAWMILL_ENTITY, SawmillBlockEntity::tick);
     }
 }

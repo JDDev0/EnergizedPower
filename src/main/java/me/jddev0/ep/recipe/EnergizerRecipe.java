@@ -1,29 +1,29 @@
 package me.jddev0.ep.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 
 public class EnergizerRecipe implements Recipe<SimpleInventory> {
-    private final Identifier id;
     private final ItemStack output;
     private final Ingredient input;
     private final int energyConsumption;
 
-    public EnergizerRecipe(Identifier id, ItemStack output, Ingredient input, int energyNeeds) {
-        this.id = id;
+    public EnergizerRecipe(ItemStack output, Ingredient input, int energyConsumption) {
         this.output = output;
         this.input = input;
-        this.energyConsumption = energyNeeds;
+        this.energyConsumption = energyConsumption;
     }
 
     public ItemStack getOutputItem() {
@@ -57,7 +57,7 @@ public class EnergizerRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getOutput(DynamicRegistryManager registryManage) {
+    public ItemStack getResult(DynamicRegistryManager registryManage) {
         return output.copy();
     }
 
@@ -71,11 +71,6 @@ public class EnergizerRecipe implements Recipe<SimpleInventory> {
     @Override
     public ItemStack createIcon() {
         return new ItemStack(ModBlocks.ENERGIZER_ITEM);
-    }
-
-    @Override
-    public Identifier getId() {
-        return id;
     }
 
     @Override
@@ -106,22 +101,28 @@ public class EnergizerRecipe implements Recipe<SimpleInventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "energizer");
 
-        @Override
-        public EnergizerRecipe read(Identifier recipeID, JsonObject json) {
-            Ingredient input = Ingredient.fromJson(json.get("ingredient"));
-            int energyConsumption = JsonHelper.getInt(json, "energy");
-            ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "output"));
+        private final Codec<EnergizerRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
+                return recipe.output;
+            }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
+                return recipe.input;
+            }), Codecs.POSITIVE_INT.fieldOf("energy").forGetter((recipe) -> {
+                return recipe.energyConsumption;
+            })).apply(instance, EnergizerRecipe::new);
+        });
 
-            return new EnergizerRecipe(recipeID, output, input, energyConsumption);
+        @Override
+        public Codec<EnergizerRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public EnergizerRecipe read(Identifier recipeID, PacketByteBuf buffer) {
+        public EnergizerRecipe read(PacketByteBuf buffer) {
             Ingredient input = Ingredient.fromPacket(buffer);
             int energyConsumption = buffer.readInt();
             ItemStack output = buffer.readItemStack();
 
-            return new EnergizerRecipe(recipeID, output, input, energyConsumption);
+            return new EnergizerRecipe(output, input, energyConsumption);
         }
 
         @Override

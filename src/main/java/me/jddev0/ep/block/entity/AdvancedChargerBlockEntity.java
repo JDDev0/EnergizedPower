@@ -25,6 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtLong;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -266,10 +267,10 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
                 SimpleInventory inventory = new SimpleInventory(1);
                 inventory.setStack(0, blockEntity.internalInventory.getStack(i));
 
-                Optional<ChargerRecipe> recipe = level.getRecipeManager().getFirstMatch(ChargerRecipe.Type.INSTANCE, inventory, level);
+                Optional<RecipeEntry<ChargerRecipe>> recipe = level.getRecipeManager().getFirstMatch(ChargerRecipe.Type.INSTANCE, inventory, level);
                 if(recipe.isPresent()) {
                     if(blockEntity.energyConsumptionLeft[i] == -1)
-                        blockEntity.energyConsumptionLeft[i] = (long)(recipe.get().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);;
+                        blockEntity.energyConsumptionLeft[i] = (long)(recipe.get().value().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);;
 
                     if(blockEntity.internalEnergyStorage.amount == 0) {
                         markDirty(level, blockPos, state);
@@ -324,8 +325,8 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
 
                 if(blockEntity.energyConsumptionLeft[i] <= 0) {
                     final int index = i;
-                    recipe.ifPresent(AdvancedChargerRecipe ->
-                            blockEntity.internalInventory.setStack(index, new ItemStack(AdvancedChargerRecipe.getOutput(level.getRegistryManager()).getItem())));
+                    recipe.ifPresent(advancedChargerRecipe ->
+                            blockEntity.internalInventory.setStack(index, new ItemStack(advancedChargerRecipe.value().getResult(level.getRegistryManager()).getItem())));
 
                     blockEntity.resetProgress(i);
                 }
@@ -347,7 +348,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
         SimpleInventory inventory = new SimpleInventory(1);
         inventory.setStack(0, internalInventory.getStack(index));
 
-        Optional<ChargerRecipe> recipe = world == null?Optional.empty():
+        Optional<RecipeEntry<ChargerRecipe>> recipe = world == null?Optional.empty():
                 world.getRecipeManager().getFirstMatch(ChargerRecipe.Type.INSTANCE, inventory, world);
 
         if(recipe.isPresent())

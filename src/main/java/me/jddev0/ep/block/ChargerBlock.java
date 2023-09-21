@@ -88,7 +88,7 @@ public class ChargerBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.CHARGER_ENTITY, ChargerBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.CHARGER_ENTITY, ChargerBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

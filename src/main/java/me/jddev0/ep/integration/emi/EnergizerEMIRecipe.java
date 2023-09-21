@@ -12,6 +12,7 @@ import me.jddev0.ep.block.entity.EnergizerBlockEntity;
 import me.jddev0.ep.recipe.EnergizerRecipe;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -29,11 +30,11 @@ public class EnergizerEMIRecipe implements EmiRecipe {
     private final List<EmiStack> output;
     private final long energyConsumption;
 
-    public EnergizerEMIRecipe(EnergizerRecipe recipe) {
-        this.id = recipe.getId();
-        this.input = List.of(EmiIngredient.of(recipe.getInputItem()));
-        this.output = List.of(EmiStack.of(recipe.getOutputItem()));
-        this.energyConsumption = (long)(recipe.getEnergyConsumption() * EnergizerBlockEntity.ENERGY_CONSUMPTION_MULTIPLIER);
+    public EnergizerEMIRecipe(RecipeEntry<EnergizerRecipe> recipe) {
+        this.id = recipe.id();
+        this.input = List.of(EmiIngredient.of(recipe.value().getInputItem()));
+        this.output = List.of(EmiStack.of(recipe.value().getOutputItem()));
+        this.energyConsumption = (long)(recipe.value().getEnergyConsumption() * EnergizerBlockEntity.ENERGY_CONSUMPTION_MULTIPLIER);
     }
 
     @Override

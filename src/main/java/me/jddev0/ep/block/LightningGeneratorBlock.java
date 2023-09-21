@@ -114,7 +114,7 @@ public class LightningGeneratorBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.LIGHTING_GENERATOR_ENTITY, LightningGeneratorBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.LIGHTING_GENERATOR_ENTITY, LightningGeneratorBlockEntity::tick);
     }
 
     @Override

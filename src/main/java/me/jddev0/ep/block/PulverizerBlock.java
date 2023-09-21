@@ -78,6 +78,6 @@ public class PulverizerBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.PULVERIZER_ENTITY, PulverizerBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.PULVERIZER_ENTITY, PulverizerBlockEntity::tick);
     }
 }

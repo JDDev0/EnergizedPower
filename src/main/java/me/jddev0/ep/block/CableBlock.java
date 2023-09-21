@@ -226,7 +226,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, CableBlockEntity.getEntityTypeFromTier(tier), CableBlockEntity::tick);
+        return validateTicker(type, CableBlockEntity.getEntityTypeFromTier(tier), CableBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

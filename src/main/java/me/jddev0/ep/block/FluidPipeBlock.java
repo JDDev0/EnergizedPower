@@ -347,7 +347,7 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.FLUID_PIPE_ENTITY, FluidPipeBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.FLUID_PIPE_ENTITY, FluidPipeBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

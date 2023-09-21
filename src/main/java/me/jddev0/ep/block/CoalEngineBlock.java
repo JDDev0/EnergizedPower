@@ -143,6 +143,6 @@ public class CoalEngineBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.COAL_ENGINE_ENTITY, CoalEngineBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.COAL_ENGINE_ENTITY, CoalEngineBlockEntity::tick);
     }
 }

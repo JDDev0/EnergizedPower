@@ -16,6 +16,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -106,7 +107,7 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
         if(level.isClient())
             return;
 
-        List<HeatGeneratorRecipe> recipes = level.getRecipeManager().listAllOfType(HeatGeneratorRecipe.Type.INSTANCE);
+        List<RecipeEntry<HeatGeneratorRecipe>> recipes = level.getRecipeManager().listAllOfType(HeatGeneratorRecipe.Type.INSTANCE);
 
         long productionSum = 0;
         for(Direction direction:Direction.values()) {
@@ -114,10 +115,10 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
             FluidState fluidState = level.getFluidState(checkPos);
 
             outer:
-            for(HeatGeneratorRecipe recipe:recipes) {
-                for(Fluid fluid:recipe.getInput()) {
+            for(RecipeEntry<HeatGeneratorRecipe> recipe:recipes) {
+                for(Fluid fluid:recipe.value().getInput()) {
                     if(fluidState.isOf(fluid)) {
-                        productionSum += recipe.getEnergyProduction();
+                        productionSum += recipe.value().getEnergyProduction();
 
                         break outer;
                     }

@@ -96,6 +96,6 @@ public class ThermalGeneratorBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.THERMAL_GENERATOR_ENTITY, ThermalGeneratorBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.THERMAL_GENERATOR_ENTITY, ThermalGeneratorBlockEntity::tick);
     }
 }

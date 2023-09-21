@@ -11,6 +11,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.recipe.SawmillRecipe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
@@ -25,16 +26,16 @@ public class SawmillEMIRecipe implements EmiRecipe {
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
-    public SawmillEMIRecipe(SawmillRecipe recipe) {
-        this.id = recipe.getId();
-        this.input = List.of(EmiIngredient.of(recipe.getInputItem()));
+    public SawmillEMIRecipe(RecipeEntry<SawmillRecipe> recipe) {
+        this.id = recipe.id();
+        this.input = List.of(EmiIngredient.of(recipe.value().getInputItem()));
 
-        EmiStack emiOutputItem = EmiStack.of(recipe.getOutputItem());
+        EmiStack emiOutputItem = EmiStack.of(recipe.value().getOutputItem());
 
-        if(recipe.getSecondaryOutput().isEmpty())
+        if(recipe.value().getSecondaryOutput().isEmpty())
             this.output = List.of(emiOutputItem);
         else
-            this.output = List.of(emiOutputItem, EmiStack.of(recipe.getSecondaryOutput()));
+            this.output = List.of(emiOutputItem, EmiStack.of(recipe.value().getSecondaryOutput()));
     }
 
     @Override

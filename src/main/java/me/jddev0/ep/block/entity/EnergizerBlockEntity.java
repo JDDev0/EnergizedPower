@@ -25,6 +25,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtInt;
 import net.minecraft.nbt.NbtLong;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -221,11 +222,11 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
             return;
 
         if(hasRecipe(blockEntity)) {
-            Optional<EnergizerRecipe> recipe = level.getRecipeManager().getFirstMatch(EnergizerRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
+            Optional<RecipeEntry<EnergizerRecipe>> recipe = level.getRecipeManager().getFirstMatch(EnergizerRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
             if(recipe.isEmpty())
                 return;
 
-            long energyConsumption = recipe.get().getEnergyConsumption();
+            long energyConsumption = recipe.get().value().getEnergyConsumption();
             energyConsumption = (long)(energyConsumption * ENERGY_CONSUMPTION_MULTIPLIER);
             if(blockEntity.progress == 0)
                 blockEntity.energyConsumptionLeft = energyConsumption;
@@ -284,14 +285,14 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
     private static void craftItem(BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {
         World level = blockEntity.world;
 
-        Optional<EnergizerRecipe> recipe = level.getRecipeManager().getFirstMatch(EnergizerRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
+        Optional<RecipeEntry<EnergizerRecipe>> recipe = level.getRecipeManager().getFirstMatch(EnergizerRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
 
         if(!hasRecipe(blockEntity) || recipe.isEmpty())
             return;
 
         blockEntity.internalInventory.removeStack(0, 1);
-        blockEntity.internalInventory.setStack(1, new ItemStack(recipe.get().getOutput(level.getRegistryManager()).getItem(),
-                blockEntity.internalInventory.getStack(1).getCount() + recipe.get().getOutput(level.getRegistryManager()).getCount()));
+        blockEntity.internalInventory.setStack(1, new ItemStack(recipe.get().value().getResult(level.getRegistryManager()).getItem(),
+                blockEntity.internalInventory.getStack(1).getCount() + recipe.get().value().getResult(level.getRegistryManager()).getCount()));
 
         blockEntity.resetProgress(blockPos, state);
     }
@@ -299,9 +300,9 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
     private static boolean hasRecipe(EnergizerBlockEntity blockEntity) {
         World level = blockEntity.world;
 
-        Optional<EnergizerRecipe> recipe = level.getRecipeManager().getFirstMatch(EnergizerRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
+        Optional<RecipeEntry<EnergizerRecipe>> recipe = level.getRecipeManager().getFirstMatch(EnergizerRecipe.Type.INSTANCE, blockEntity.internalInventory, level);
 
-        return recipe.isPresent() && canInsertItemIntoOutputSlot(blockEntity.internalInventory, recipe.get().getOutput(level.getRegistryManager()));
+        return recipe.isPresent() && canInsertItemIntoOutputSlot(blockEntity.internalInventory, recipe.get().value().getResult(level.getRegistryManager()));
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleInventory inventory, ItemStack itemStack) {

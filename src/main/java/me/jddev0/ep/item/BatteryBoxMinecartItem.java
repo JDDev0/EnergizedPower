@@ -32,12 +32,12 @@ public class BatteryBoxMinecartItem extends Item {
 
         @Override
         public ItemStack dispenseSilently(BlockPointer blockSource, ItemStack itemStack) {
-            Direction direction = blockSource.getBlockState().get(DispenserBlock.FACING);
-            World level = blockSource.getWorld();
-            double xOffset = blockSource.getX() + direction.getOffsetX() * 1.125;
-            double yOffset = Math.floor(blockSource.getY()) + direction.getOffsetY();
-            double zOffset = blockSource.getZ() + direction.getOffsetZ() * 1.125;
-            BlockPos blockPos = blockSource.getPos().offset(direction);
+            Direction direction = blockSource.state().get(DispenserBlock.FACING);
+            World level = blockSource.world();
+            double xOffset = blockSource.centerPos().getX() + direction.getOffsetX() * 1.125;
+            double yOffset = Math.floor(blockSource.centerPos().getY()) + direction.getOffsetY();
+            double zOffset = blockSource.centerPos().getZ() + direction.getOffsetZ() * 1.125;
+            BlockPos blockPos = blockSource.pos().offset(direction);
             BlockState blockState = level.getBlockState(blockPos);
             RailShape railShape = blockState.getBlock() instanceof AbstractRailBlock?
                     blockState.get(((AbstractRailBlock)blockState.getBlock()).getShapeProperty()):

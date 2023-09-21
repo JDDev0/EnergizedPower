@@ -35,12 +35,13 @@
 	],
 	"accessWidener" : "energizedpower.accesswidener",
 	"depends": {
-		"fabricloader": ">=0.14.21",
-		"minecraft": "~1.20.1",
+		"fabricloader": ">=0.14.22",
+		"minecraft": "~1.20.2",
 		"java": ">=17",
 		"fabric-api": "*"
 	},
 	"suggests": {
+		"emi": "*",
 		"jei": "*",
 		"rei": "*"
 	}
