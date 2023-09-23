@@ -1,26 +1,26 @@
 package me.jddev0.ep.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 public class ChargerRecipe implements Recipe<SimpleContainer> {
-    private final ResourceLocation id;
     private final ItemStack output;
     private final Ingredient input;
     private final int energyConsumption;
 
-    public ChargerRecipe(ResourceLocation id, ItemStack output, Ingredient input, int energyNeeds) {
-        this.id = id;
+    public ChargerRecipe(ItemStack output, Ingredient input, int energyNeeds) {
         this.output = output;
         this.input = input;
         this.energyConsumption = energyNeeds;
@@ -74,11 +74,6 @@ public class ChargerRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ResourceLocation getId() {
-        return id;
-    }
-
-    @Override
     public boolean isSpecial() {
         return true;
     }
@@ -106,22 +101,28 @@ public class ChargerRecipe implements Recipe<SimpleContainer> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "charger");
 
-        @Override
-        public ChargerRecipe fromJson(ResourceLocation recipeID, JsonObject json) {
-            Ingredient input = Ingredient.fromJson(json.get("ingredient"));
-            int energyConsumption = GsonHelper.getAsInt(json, "energy");
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
+        private final Codec<ChargerRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
+                return recipe.output;
+            }), Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
+                return recipe.input;
+            }), ExtraCodecs.POSITIVE_INT.fieldOf("energy").forGetter((recipe) -> {
+                return recipe.energyConsumption;
+            })).apply(instance, ChargerRecipe::new);
+        });
 
-            return new ChargerRecipe(recipeID, output, input, energyConsumption);
+        @Override
+        public Codec<ChargerRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public ChargerRecipe fromNetwork(ResourceLocation recipeID, FriendlyByteBuf buffer) {
+        public ChargerRecipe fromNetwork(FriendlyByteBuf buffer) {
             Ingredient input = Ingredient.fromNetwork(buffer);
             int energyConsumption = buffer.readInt();
             ItemStack output = buffer.readItem();
 
-            return new ChargerRecipe(recipeID, output, input, energyConsumption);
+            return new ChargerRecipe(output, input, energyConsumption);
         }
 
         @Override

@@ -25,6 +25,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.Level;
@@ -223,11 +224,11 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
             for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
                 inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-            Optional<SmeltingRecipe> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
+            Optional<RecipeHolder<SmeltingRecipe>> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
             if(recipe.isEmpty())
                 return;
 
-            int cookingTime = recipe.get().getCookingTime();
+            int cookingTime = recipe.get().value().getCookingTime();
             if(blockEntity.maxProgress == 0)
                 blockEntity.maxProgress = (int)Math.ceil(cookingTime * RECIPE_DURATION_MULTIPLIER / 6.f); //Default Cooking Time = 200 -> maxProgress = 34 (= 200 / 6)
 
@@ -283,14 +284,14 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
         for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-        Optional<SmeltingRecipe> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
+        Optional<RecipeHolder<SmeltingRecipe>> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
 
         if(!hasRecipe(blockEntity) || recipe.isEmpty())
             return;
 
         blockEntity.itemHandler.extractItem(0, 1, false);
-        blockEntity.itemHandler.setStackInSlot(1, new ItemStack(recipe.get().getResultItem(level.registryAccess()).getItem(),
-                blockEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().getResultItem(level.registryAccess()).getCount()));
+        blockEntity.itemHandler.setStackInSlot(1, new ItemStack(recipe.get().value().getResultItem(level.registryAccess()).getItem(),
+                blockEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().value().getResultItem(level.registryAccess()).getCount()));
 
         blockEntity.resetProgress(blockPos, state);
     }
@@ -302,9 +303,9 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
         for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-        Optional<SmeltingRecipe> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
+        Optional<RecipeHolder<SmeltingRecipe>> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
 
-        return recipe.isPresent() && canInsertItemIntoOutputSlot(inventory, recipe.get().getResultItem(level.registryAccess()));
+        return recipe.isPresent() && canInsertItemIntoOutputSlot(inventory, recipe.get().value().getResultItem(level.registryAccess()));
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {

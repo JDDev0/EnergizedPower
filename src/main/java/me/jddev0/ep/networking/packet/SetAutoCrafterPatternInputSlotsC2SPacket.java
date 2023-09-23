@@ -10,11 +10,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class SetAutoCrafterPatternInputSlotsC2SPacket {
     private final BlockPos pos;
@@ -51,8 +50,7 @@ public class SetAutoCrafterPatternInputSlotsC2SPacket {
         buffer.writeResourceLocation(recipeId);
     }
 
-    public boolean handle(Supplier<NetworkEvent.Context> supplier) {
-        NetworkEvent.Context context = supplier.get();
+    public boolean handle(CustomPayloadEvent.Context context) {
         context.enqueueWork(() -> {
             Level level = context.getSender().level();
             if(!level.hasChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ())))

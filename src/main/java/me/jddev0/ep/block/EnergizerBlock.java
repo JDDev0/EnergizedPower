@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.ToIntFunction;
@@ -88,7 +87,7 @@ public class EnergizerBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof EnergizerBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (EnergizerBlockEntity)blockEntity, blockPos);
+        ((ServerPlayer)player).openMenu((EnergizerBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }

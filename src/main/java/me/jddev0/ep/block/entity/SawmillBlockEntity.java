@@ -25,6 +25,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -217,7 +218,7 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
             for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
                 inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-            Optional<SawmillRecipe> recipe = level.getRecipeManager().getRecipeFor(SawmillRecipe.Type.INSTANCE, inventory, level);
+            Optional<RecipeHolder<SawmillRecipe>> recipe = level.getRecipeManager().getRecipeFor(SawmillRecipe.Type.INSTANCE, inventory, level);
             if(recipe.isEmpty())
                 return;
 
@@ -267,17 +268,17 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
         for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-        Optional<SawmillRecipe> recipe = level.getRecipeManager().getRecipeFor(SawmillRecipe.Type.INSTANCE, inventory, level);
+        Optional<RecipeHolder<SawmillRecipe>> recipe = level.getRecipeManager().getRecipeFor(SawmillRecipe.Type.INSTANCE, inventory, level);
 
         if(!hasRecipe(blockEntity) || recipe.isEmpty())
             return;
 
         blockEntity.itemHandler.extractItem(0, 1, false);
-        blockEntity.itemHandler.setStackInSlot(1, new ItemStack(recipe.get().getResultItem(level.registryAccess()).getItem(),
-                blockEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().getResultItem(level.registryAccess()).getCount()));
-        if(!recipe.get().getSecondaryOutput().isEmpty())
-            blockEntity.itemHandler.setStackInSlot(2, new ItemStack(recipe.get().getSecondaryOutput().getItem(),
-                    blockEntity.itemHandler.getStackInSlot(2).getCount() + recipe.get().getSecondaryOutput().getCount()));
+        blockEntity.itemHandler.setStackInSlot(1, new ItemStack(recipe.get().value().getResultItem(level.registryAccess()).getItem(),
+                blockEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().value().getResultItem(level.registryAccess()).getCount()));
+        if(!recipe.get().value().getSecondaryOutput().isEmpty())
+            blockEntity.itemHandler.setStackInSlot(2, new ItemStack(recipe.get().value().getSecondaryOutput().getItem(),
+                    blockEntity.itemHandler.getStackInSlot(2).getCount() + recipe.get().value().getSecondaryOutput().getCount()));
 
         blockEntity.resetProgress(blockPos, state);
     }
@@ -289,10 +290,10 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
         for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-        Optional<SawmillRecipe> recipe = level.getRecipeManager().getRecipeFor(SawmillRecipe.Type.INSTANCE, inventory, level);
+        Optional<RecipeHolder<SawmillRecipe>> recipe = level.getRecipeManager().getRecipeFor(SawmillRecipe.Type.INSTANCE, inventory, level);
 
-        return recipe.isPresent() && canInsertItemIntoOutputSlot(inventory, recipe.get().getResultItem(level.registryAccess())) &&
-                (recipe.get().getSecondaryOutput().isEmpty() || canInsertItemIntoSecondaryOutputSlot(inventory, recipe.get().getSecondaryOutput()));
+        return recipe.isPresent() && canInsertItemIntoOutputSlot(inventory, recipe.get().value().getResultItem(level.registryAccess())) &&
+                (recipe.get().value().getSecondaryOutput().isEmpty() || canInsertItemIntoSecondaryOutputSlot(inventory, recipe.get().value().getSecondaryOutput()));
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {

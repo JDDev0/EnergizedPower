@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 
 import java.util.function.Supplier;
 
@@ -32,8 +32,7 @@ public class EnergySyncS2CPacket {
         buffer.writeBlockPos(pos);
     }
 
-    public boolean handle(Supplier<NetworkEvent.Context> supplier) {
-        NetworkEvent.Context context = supplier.get();
+    public boolean handle(CustomPayloadEvent.Context context) {
         context.enqueueWork(() -> {
             BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(pos);
 

@@ -16,6 +16,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -112,7 +113,7 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
         if(level.isClientSide)
             return;
 
-        List<HeatGeneratorRecipe> recipes = level.getRecipeManager().getAllRecipesFor(HeatGeneratorRecipe.Type.INSTANCE);
+        List<RecipeHolder<HeatGeneratorRecipe>> recipes = level.getRecipeManager().getAllRecipesFor(HeatGeneratorRecipe.Type.INSTANCE);
 
         int productionSum = 0;
         for(Direction direction:Direction.values()) {
@@ -120,10 +121,10 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
             FluidState fluidState = level.getFluidState(checkPos);
 
             outer:
-            for(HeatGeneratorRecipe recipe:recipes) {
-                for(Fluid fluid:recipe.getInput()) {
+            for(RecipeHolder<HeatGeneratorRecipe> recipe:recipes) {
+                for(Fluid fluid:recipe.value().getInput()) {
                     if(fluidState.is(fluid)) {
-                        productionSum += recipe.getEnergyProduction();
+                        productionSum += recipe.value().getEnergyProduction();
 
                         break outer;
                     }

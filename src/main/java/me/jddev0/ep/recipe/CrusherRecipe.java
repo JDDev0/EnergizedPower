@@ -1,25 +1,24 @@
 package me.jddev0.ep.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 public class CrusherRecipe implements Recipe<SimpleContainer> {
-    private final ResourceLocation id;
     private final ItemStack output;
     private final Ingredient input;
 
-    public CrusherRecipe(ResourceLocation id, ItemStack output, Ingredient input) {
-        this.id = id;
+    public CrusherRecipe(ItemStack output, Ingredient input) {
         this.output = output;
         this.input = input;
     }
@@ -68,11 +67,6 @@ public class CrusherRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ResourceLocation getId() {
-        return id;
-    }
-
-    @Override
     public boolean isSpecial() {
         return true;
     }
@@ -100,20 +94,25 @@ public class CrusherRecipe implements Recipe<SimpleContainer> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "crusher");
 
-        @Override
-        public CrusherRecipe fromJson(ResourceLocation recipeID, JsonObject json) {
-            Ingredient input = Ingredient.fromJson(json.get("ingredient"));
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
+        private final Codec<CrusherRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
+                return recipe.output;
+            }), Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
+                return recipe.input;
+            })).apply(instance, CrusherRecipe::new);
+        });
 
-            return new CrusherRecipe(recipeID, output, input);
+        @Override
+        public Codec<CrusherRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public CrusherRecipe fromNetwork(ResourceLocation recipeID, FriendlyByteBuf buffer) {
+        public CrusherRecipe fromNetwork(FriendlyByteBuf buffer) {
             Ingredient input = Ingredient.fromNetwork(buffer);
             ItemStack output = buffer.readItem();
 
-            return new CrusherRecipe(recipeID, output, input);
+            return new CrusherRecipe(output, input);
         }
 
         @Override

@@ -2,7 +2,7 @@ package me.jddev0.ep.block.behavior;
 
 import me.jddev0.ep.item.ModItems;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -21,9 +21,9 @@ public final class ModBlockBehaviors {
         DispenserBlock.registerBehavior(Items.SHEARS, new ShearsDispenseItemBehavior() {
             @Override
             protected ItemStack execute(BlockSource blockSource, ItemStack itemStack) {
-                Level level = blockSource.getLevel();
+                Level level = blockSource.level();
                 if(!level.isClientSide()) {
-                    BlockPos blockPos = blockSource.getPos().relative(blockSource.getBlockState().getValue(DispenserBlock.FACING));
+                    BlockPos blockPos = blockSource.pos().relative(blockSource.state().getValue(DispenserBlock.FACING));
                     if(tryCraftCableInsulator(level, blockPos)) {
                         if(itemStack.hurt(1, level.getRandom(), null))
                             itemStack.setCount(0);

@@ -7,10 +7,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.network.*;
 
 public final class ModMessages {
     private ModMessages() {}
@@ -24,10 +21,8 @@ public final class ModMessages {
     }
 
     public static void register() {
-        SimpleChannel net = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(EnergizedPowerMod.MODID, "messages")).
-                networkProtocolVersion(() -> "1.0").
-                clientAcceptedVersions(v -> true).
-                serverAcceptedVersions(v -> true).
+        SimpleChannel net = ChannelBuilder.named(new ResourceLocation(EnergizedPowerMod.MODID, "messages")).
+                networkProtocolVersion(1).
                 simpleChannel();
 
         INSTANCE = net;
@@ -108,22 +103,22 @@ public final class ModMessages {
     }
 
     public static <MSG> void sendToServer(MSG message) {
-        INSTANCE.sendToServer(message);
+        INSTANCE.send(message, PacketDistributor.SERVER.noArg());
     }
 
     public static <MSG> void sendToPlayer(MSG message, ServerPlayer player) {
-        INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
+        INSTANCE.send(message, PacketDistributor.PLAYER.with(player));
     }
 
     public static <MSG> void sendToPlayerNear(MSG message, PacketDistributor.TargetPoint targetPoint) {
-        INSTANCE.send(PacketDistributor.NEAR.with(() -> targetPoint), message);
+        INSTANCE.send(message, PacketDistributor.NEAR.with(targetPoint));
     }
 
     public static <MSG> void sendToPlayersWithinXBlocks(MSG message, BlockPos pos, ResourceKey<Level> dimension, int distance) {
-        INSTANCE.send(PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(pos.getX(), pos.getY(), pos.getZ(), distance, dimension)), message);
+        INSTANCE.send(message, PacketDistributor.NEAR.with(new PacketDistributor.TargetPoint(pos.getX(), pos.getY(), pos.getZ(), distance, dimension)));
     }
 
     public static <MSG> void sendToAllPlayers(MSG message) {
-        INSTANCE.send(PacketDistributor.ALL.noArg(), message);
+        INSTANCE.send(message, PacketDistributor.ALL.noArg());
     }
 }

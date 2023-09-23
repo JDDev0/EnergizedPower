@@ -19,7 +19,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class PlantGrowthChamberBlock extends BaseEntityBlock {
@@ -79,7 +78,7 @@ public class PlantGrowthChamberBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof PlantGrowthChamberBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (PlantGrowthChamberBlockEntity)blockEntity, blockPos);
+        ((ServerPlayer)player).openMenu((PlantGrowthChamberBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }

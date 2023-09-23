@@ -1,25 +1,24 @@
 package me.jddev0.ep.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 public class CompressorRecipe implements Recipe<SimpleContainer> {
-    private final ResourceLocation id;
     private final ItemStack output;
     private final Ingredient input;
 
-    public CompressorRecipe(ResourceLocation id, ItemStack output, Ingredient input) {
-        this.id = id;
+    public CompressorRecipe(ItemStack output, Ingredient input) {
         this.output = output;
         this.input = input;
     }
@@ -68,11 +67,6 @@ public class CompressorRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ResourceLocation getId() {
-        return id;
-    }
-
-    @Override
     public boolean isSpecial() {
         return true;
     }
@@ -100,20 +94,25 @@ public class CompressorRecipe implements Recipe<SimpleContainer> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "compressor");
 
-        @Override
-        public CompressorRecipe fromJson(ResourceLocation recipeID, JsonObject json) {
-            Ingredient input = Ingredient.fromJson(json.get("ingredient"));
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
+        private final Codec<CompressorRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
+                return recipe.output;
+            }), Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
+                return recipe.input;
+            })).apply(instance, CompressorRecipe::new);
+        });
 
-            return new CompressorRecipe(recipeID, output, input);
+        @Override
+        public Codec<CompressorRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public CompressorRecipe fromNetwork(ResourceLocation recipeID, FriendlyByteBuf buffer) {
+        public CompressorRecipe fromNetwork(FriendlyByteBuf buffer) {
             Ingredient input = Ingredient.fromNetwork(buffer);
             ItemStack output = buffer.readItem();
 
-            return new CompressorRecipe(recipeID, output, input);
+            return new CompressorRecipe(output, input);
         }
 
         @Override

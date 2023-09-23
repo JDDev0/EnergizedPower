@@ -14,6 +14,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,11 +32,11 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
     private final List<EmiStack> output;
     private final int ticks;
 
-    public PlantGrowthChamberEMIRecipe(PlantGrowthChamberRecipe recipe) {
-        this.id = recipe.getId();
-        this.input = List.of(EmiIngredient.of(recipe.getInput()));
-        this.output = Arrays.stream(recipe.getMaxOutputCounts()).map(EmiStack::of).toList();
-        this.ticks = (int)(recipe.getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
+    public PlantGrowthChamberEMIRecipe(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
+        this.id = recipe.id();
+        this.input = List.of(EmiIngredient.of(recipe.value().getInput()));
+        this.output = Arrays.stream(recipe.value().getMaxOutputCounts()).map(EmiStack::of).toList();
+        this.ticks = (int)(recipe.value().getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
     }
 
     @Override

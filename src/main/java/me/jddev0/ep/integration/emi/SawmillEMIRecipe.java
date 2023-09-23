@@ -10,6 +10,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.SawmillRecipe;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.List;
 
@@ -23,16 +24,16 @@ public class SawmillEMIRecipe implements EmiRecipe {
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
-    public SawmillEMIRecipe(SawmillRecipe recipe) {
-        this.id = recipe.getId();
-        this.input = List.of(EmiIngredient.of(recipe.getInput()));
+    public SawmillEMIRecipe(RecipeHolder<SawmillRecipe> recipe) {
+        this.id = recipe.id();
+        this.input = List.of(EmiIngredient.of(recipe.value().getInput()));
 
-        EmiStack emiOutputItem = EmiStack.of(recipe.getOutput());
+        EmiStack emiOutputItem = EmiStack.of(recipe.value().getOutput());
 
-        if(recipe.getSecondaryOutput().isEmpty())
+        if(recipe.value().getSecondaryOutput().isEmpty())
             this.output = List.of(emiOutputItem);
         else
-            this.output = List.of(emiOutputItem, EmiStack.of(recipe.getSecondaryOutput()));
+            this.output = List.of(emiOutputItem, EmiStack.of(recipe.value().getSecondaryOutput()));
     }
 
     @Override

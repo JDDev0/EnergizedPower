@@ -1,26 +1,24 @@
 package me.jddev0.ep.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 public class PlantGrowthChamberFertilizerRecipe implements Recipe<SimpleContainer> {
-    private final ResourceLocation id;
     private final Ingredient input;
     private final double speedMultiplier;
     private final double energyConsumptionMultiplier;
 
-    public PlantGrowthChamberFertilizerRecipe(ResourceLocation id, Ingredient input, double speedMultiplier, double energyConsumptionMultiplier) {
-        this.id = id;
+    public PlantGrowthChamberFertilizerRecipe(Ingredient input, double speedMultiplier, double energyConsumptionMultiplier) {
         this.input = input;
         this.speedMultiplier = speedMultiplier;
         this.energyConsumptionMultiplier = energyConsumptionMultiplier;
@@ -74,11 +72,6 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<SimpleContaine
     }
 
     @Override
-    public ResourceLocation getId() {
-        return id;
-    }
-
-    @Override
     public boolean isSpecial() {
         return true;
     }
@@ -106,22 +99,28 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<SimpleContaine
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "plant_growth_chamber_fertilizer");
 
-        @Override
-        public PlantGrowthChamberFertilizerRecipe fromJson(ResourceLocation recipeID, JsonObject json) {
-            Ingredient input = Ingredient.fromJson(json.get("ingredient"));
-            double speedMultiplier = GsonHelper.getAsDouble(json, "speedMultiplier");
-            double energyConsumptionMultiplier = GsonHelper.getAsDouble(json, "energyConsumptionMultiplier");
+        private final Codec<PlantGrowthChamberFertilizerRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+            return instance.group(Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
+                return recipe.input;
+            }), Codec.DOUBLE.fieldOf("speedMultiplier").forGetter((recipe) -> {
+                return recipe.speedMultiplier;
+            }), Codec.DOUBLE.fieldOf("energyConsumptionMultiplier").forGetter((recipe) -> {
+                return recipe.energyConsumptionMultiplier;
+            })).apply(instance, PlantGrowthChamberFertilizerRecipe::new);
+        });
 
-            return new PlantGrowthChamberFertilizerRecipe(recipeID, input, speedMultiplier, energyConsumptionMultiplier);
+        @Override
+        public Codec<PlantGrowthChamberFertilizerRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public PlantGrowthChamberFertilizerRecipe fromNetwork(ResourceLocation recipeID, FriendlyByteBuf buffer) {
+        public PlantGrowthChamberFertilizerRecipe fromNetwork(FriendlyByteBuf buffer) {
             Ingredient input = Ingredient.fromNetwork(buffer);
             double speedMultiplier = buffer.readDouble();
             double energyConsumptionMultiplier = buffer.readDouble();
 
-            return new PlantGrowthChamberFertilizerRecipe(recipeID, input, speedMultiplier, energyConsumptionMultiplier);
+            return new PlantGrowthChamberFertilizerRecipe(input, speedMultiplier, energyConsumptionMultiplier);
         }
 
         @Override

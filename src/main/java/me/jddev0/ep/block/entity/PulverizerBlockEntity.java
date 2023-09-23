@@ -25,6 +25,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -217,7 +218,7 @@ public class PulverizerBlockEntity extends BlockEntity implements MenuProvider, 
             for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
                 inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-            Optional<PulverizerRecipe> recipe = level.getRecipeManager().getRecipeFor(PulverizerRecipe.Type.INSTANCE, inventory, level);
+            Optional<RecipeHolder<PulverizerRecipe>> recipe = level.getRecipeManager().getRecipeFor(PulverizerRecipe.Type.INSTANCE, inventory, level);
             if(recipe.isEmpty())
                 return;
 
@@ -267,12 +268,12 @@ public class PulverizerBlockEntity extends BlockEntity implements MenuProvider, 
         for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-        Optional<PulverizerRecipe> recipe = level.getRecipeManager().getRecipeFor(PulverizerRecipe.Type.INSTANCE, inventory, level);
+        Optional<RecipeHolder<PulverizerRecipe>> recipe = level.getRecipeManager().getRecipeFor(PulverizerRecipe.Type.INSTANCE, inventory, level);
 
         if(!hasRecipe(blockEntity) || recipe.isEmpty())
             return;
 
-        ItemStack[] outputs = recipe.get().generateOutputs(level.random);
+        ItemStack[] outputs = recipe.get().value().generateOutputs(level.random);
 
         blockEntity.itemHandler.extractItem(0, 1, false);
         blockEntity.itemHandler.setStackInSlot(1, new ItemStack(outputs[0].getItem(),
@@ -291,11 +292,11 @@ public class PulverizerBlockEntity extends BlockEntity implements MenuProvider, 
         for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-        Optional<PulverizerRecipe> recipe = level.getRecipeManager().getRecipeFor(PulverizerRecipe.Type.INSTANCE, inventory, level);
+        Optional<RecipeHolder<PulverizerRecipe>> recipe = level.getRecipeManager().getRecipeFor(PulverizerRecipe.Type.INSTANCE, inventory, level);
         if(recipe.isEmpty())
             return false;
 
-        ItemStack[] maxOutputs = recipe.get().getMaxOutputCounts();
+        ItemStack[] maxOutputs = recipe.get().value().getMaxOutputCounts();
 
         return canInsertItemIntoOutputSlot(inventory, maxOutputs[0]) &&
                 (maxOutputs[1].isEmpty() || canInsertItemIntoSecondaryOutputSlot(inventory, maxOutputs[1]));

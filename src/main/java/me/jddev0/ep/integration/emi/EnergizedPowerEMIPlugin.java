@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraftforge.common.Tags;
 
@@ -69,28 +70,28 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
     private void registerRecipes(EmiRegistry registry) {
         RecipeManager recipeManager = registry.getRecipeManager();
 
-        for(ChargerRecipe recipe:recipeManager.getAllRecipesFor(ChargerRecipe.Type.INSTANCE))
+        for(RecipeHolder<ChargerRecipe> recipe:recipeManager.getAllRecipesFor(ChargerRecipe.Type.INSTANCE))
             registry.addRecipe(new ChargerEMIRecipe(recipe));
 
-        for(CrusherRecipe recipe:recipeManager.getAllRecipesFor(CrusherRecipe.Type.INSTANCE))
+        for(RecipeHolder<CrusherRecipe> recipe:recipeManager.getAllRecipesFor(CrusherRecipe.Type.INSTANCE))
             registry.addRecipe(new CrusherEMIRecipe(recipe));
 
-        for(PulverizerRecipe recipe:recipeManager.getAllRecipesFor(PulverizerRecipe.Type.INSTANCE))
+        for(RecipeHolder<PulverizerRecipe> recipe:recipeManager.getAllRecipesFor(PulverizerRecipe.Type.INSTANCE))
             registry.addRecipe(new PulverizerEMIRecipe(recipe));
 
-        for(SawmillRecipe recipe:recipeManager.getAllRecipesFor(SawmillRecipe.Type.INSTANCE))
+        for(RecipeHolder<SawmillRecipe> recipe:recipeManager.getAllRecipesFor(SawmillRecipe.Type.INSTANCE))
             registry.addRecipe(new SawmillEMIRecipe(recipe));
 
-        for(CompressorRecipe recipe:recipeManager.getAllRecipesFor(CompressorRecipe.Type.INSTANCE))
+        for(RecipeHolder<CompressorRecipe> recipe:recipeManager.getAllRecipesFor(CompressorRecipe.Type.INSTANCE))
             registry.addRecipe(new CompressorEMIRecipe(recipe));
 
-        for(PlantGrowthChamberRecipe recipe:recipeManager.getAllRecipesFor(PlantGrowthChamberRecipe.Type.INSTANCE))
+        for(RecipeHolder<PlantGrowthChamberRecipe> recipe:recipeManager.getAllRecipesFor(PlantGrowthChamberRecipe.Type.INSTANCE))
             registry.addRecipe(new PlantGrowthChamberEMIRecipe(recipe));
 
-        for(PlantGrowthChamberFertilizerRecipe recipe:recipeManager.getAllRecipesFor(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE))
+        for(RecipeHolder<PlantGrowthChamberFertilizerRecipe> recipe:recipeManager.getAllRecipesFor(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE))
             registry.addRecipe(new PlantGrowthChamberFertilizerEMIRecipe(recipe));
 
-        for(EnergizerRecipe recipe:recipeManager.getAllRecipesFor(EnergizerRecipe.Type.INSTANCE))
+        for(RecipeHolder<EnergizerRecipe> recipe:recipeManager.getAllRecipesFor(EnergizerRecipe.Type.INSTANCE))
             registry.addRecipe(new EnergizerEMIRecipe(recipe));
 
         registry.addRecipe(new DispenserEMIRecipe(new DispenserEMIRecipe.DispenserRecipe(

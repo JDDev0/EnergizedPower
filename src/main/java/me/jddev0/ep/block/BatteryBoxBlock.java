@@ -23,7 +23,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -67,7 +66,7 @@ public class BatteryBoxBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof BatteryBoxBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (BatteryBoxBlockEntity)blockEntity, blockPos);
+        ((ServerPlayer)player).openMenu((BatteryBoxBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }

@@ -5,8 +5,8 @@ import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
@@ -31,12 +31,12 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
 
         @Override
         public ItemStack execute(BlockSource blockSource, ItemStack itemStack) {
-            Direction direction = blockSource.getBlockState().getValue(DispenserBlock.FACING);
-            Level level = blockSource.getLevel();
-            double xOffset = blockSource.x() + direction.getStepX() * 1.125;
-            double yOffset = Math.floor(blockSource.y()) + direction.getStepY();
-            double zOffset = blockSource.z() + direction.getStepZ() * 1.125;
-            BlockPos blockPos = blockSource.getPos().relative(direction);
+            Direction direction = blockSource.state().getValue(DispenserBlock.FACING);
+            Level level = blockSource.level();
+            double xOffset = blockSource.center().x() + direction.getStepX() * 1.125;
+            double yOffset = Math.floor(blockSource.center().y()) + direction.getStepY();
+            double zOffset = blockSource.center().z() + direction.getStepZ() * 1.125;
+            BlockPos blockPos = blockSource.pos().relative(direction);
             BlockState blockState = level.getBlockState(blockPos);
             RailShape railShape = blockState.getBlock() instanceof BaseRailBlock?
                     ((BaseRailBlock)blockState.getBlock()).getRailDirection(blockState, level, blockPos, null):

@@ -21,6 +21,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -85,9 +86,9 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
                 if(!super.isFluidValid(stack) || level == null)
                     return false;
 
-                List<ThermalGeneratorRecipe> recipes = level.getRecipeManager().getAllRecipesFor(ThermalGeneratorRecipe.Type.INSTANCE);
+                List<RecipeHolder<ThermalGeneratorRecipe>> recipes = level.getRecipeManager().getAllRecipesFor(ThermalGeneratorRecipe.Type.INSTANCE);
 
-                return recipes.stream().map(ThermalGeneratorRecipe::getInput).
+                return recipes.stream().map(RecipeHolder::value).map(ThermalGeneratorRecipe::getInput).
                         anyMatch(inputs -> Arrays.stream(inputs).anyMatch(input -> stack.getFluid() == input));
             }
         };
@@ -97,14 +98,14 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
                 if(level == null || index > 1)
                     return 0;
 
-                List<ThermalGeneratorRecipe> recipes = level.getRecipeManager().getAllRecipesFor(ThermalGeneratorRecipe.Type.INSTANCE);
+                List<RecipeHolder<ThermalGeneratorRecipe>> recipes = level.getRecipeManager().getAllRecipesFor(ThermalGeneratorRecipe.Type.INSTANCE);
 
                 int rawProduction = 0;
                 outer:
-                for(ThermalGeneratorRecipe recipe:recipes) {
-                    for(Fluid fluid:recipe.getInput()) {
+                for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
+                    for(Fluid fluid:recipe.value().getInput()) {
                         if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid().getFluid() == fluid) {
-                            rawProduction = recipe.getEnergyProduction();
+                            rawProduction = recipe.value().getEnergyProduction();
                             rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER);
 
                             break outer;
@@ -209,14 +210,14 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
         if(level.isClientSide)
             return;
 
-        List<ThermalGeneratorRecipe> recipes = level.getRecipeManager().getAllRecipesFor(ThermalGeneratorRecipe.Type.INSTANCE);
+        List<RecipeHolder<ThermalGeneratorRecipe>> recipes = level.getRecipeManager().getAllRecipesFor(ThermalGeneratorRecipe.Type.INSTANCE);
 
         int rawProduction = 0;
         outer:
-        for(ThermalGeneratorRecipe recipe:recipes) {
-            for(Fluid fluid:recipe.getInput()) {
+        for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
+            for(Fluid fluid:recipe.value().getInput()) {
                 if(blockEntity.fluidStorage.getFluid().getFluid() == fluid) {
-                    rawProduction = recipe.getEnergyProduction();
+                    rawProduction = recipe.value().getEnergyProduction();
                     rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER);
 
                     break outer;

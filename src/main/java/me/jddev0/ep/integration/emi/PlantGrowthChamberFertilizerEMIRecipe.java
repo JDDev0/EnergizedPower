@@ -13,6 +13,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.List;
 
@@ -27,11 +28,11 @@ public class PlantGrowthChamberFertilizerEMIRecipe implements EmiRecipe {
     private final double speedMultiplier;
     private final double energyConsumptionMultiplier;
 
-    public PlantGrowthChamberFertilizerEMIRecipe(PlantGrowthChamberFertilizerRecipe recipe) {
-        this.id = recipe.getId();
-        this.input = List.of(EmiIngredient.of(recipe.getInput()));
-        this.speedMultiplier = recipe.getSpeedMultiplier();
-        this.energyConsumptionMultiplier = recipe.getEnergyConsumptionMultiplier();
+    public PlantGrowthChamberFertilizerEMIRecipe(RecipeHolder<PlantGrowthChamberFertilizerRecipe> recipe) {
+        this.id = recipe.id();
+        this.input = List.of(EmiIngredient.of(recipe.value().getInput()));
+        this.speedMultiplier = recipe.value().getSpeedMultiplier();
+        this.energyConsumptionMultiplier = recipe.value().getEnergyConsumptionMultiplier();
     }
 
     @Override

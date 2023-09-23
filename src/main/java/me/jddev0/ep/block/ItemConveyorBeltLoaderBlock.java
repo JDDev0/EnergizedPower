@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltLoaderBlock extends BaseEntityBlock {
@@ -81,7 +80,7 @@ public class ItemConveyorBeltLoaderBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof ItemConveyorBeltLoaderBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (ItemConveyorBeltLoaderBlockEntity)blockEntity, blockPos);
+        ((ServerPlayer)player).openMenu((ItemConveyorBeltLoaderBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }

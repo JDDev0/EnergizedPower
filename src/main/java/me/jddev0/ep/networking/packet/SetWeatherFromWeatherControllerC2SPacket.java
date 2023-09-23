@@ -10,9 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 
 public class SetWeatherFromWeatherControllerC2SPacket {
     private final BlockPos pos;
@@ -33,8 +31,7 @@ public class SetWeatherFromWeatherControllerC2SPacket {
         buffer.writeInt(weatherType);
     }
 
-    public boolean handle(Supplier<NetworkEvent.Context> supplier) {
-        NetworkEvent.Context context = supplier.get();
+    public boolean handle(CustomPayloadEvent.Context context) {
         context.enqueueWork(() -> {
             Level level = context.getSender().level();
             if(!level.hasChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ())))

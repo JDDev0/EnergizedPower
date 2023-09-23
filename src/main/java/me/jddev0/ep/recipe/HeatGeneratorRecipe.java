@@ -1,12 +1,14 @@
 package me.jddev0.ep.recipe;
 
-import com.google.gson.*;
+import com.mojang.datafixers.util.Either;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.codec.ArrayCodec;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -14,16 +16,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
-    private final ResourceLocation id;
     private final Fluid[] input;
     private final int energyProduction;
 
-    public HeatGeneratorRecipe(ResourceLocation id, Fluid[] input, int energyProduction) {
-        this.id = id;
+    public HeatGeneratorRecipe(Fluid[] input, int energyProduction) {
         this.input = input;
         this.energyProduction = energyProduction;
     }
@@ -62,11 +59,6 @@ public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ResourceLocation getId() {
-        return id;
-    }
-
-    @Override
     public boolean isSpecial() {
         return true;
     }
@@ -94,45 +86,30 @@ public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "heat_generator");
 
-        private void addFluidsFromJsonElement(JsonElement inputJson, List<Fluid> inputFluids) {
-            if(!inputJson.isJsonPrimitive() || !inputJson.getAsJsonPrimitive().isString())
-                throw new JsonSyntaxException("Input must be a single fluid or a list of at least one fluid");
+        private final Codec<HeatGeneratorRecipe> CODEC_SINGLE_FLUID = RecordCodecBuilder.create((instance) -> {
+            return instance.group(ForgeRegistries.FLUIDS.getCodec().fieldOf("input").forGetter((recipe) -> {
+                return recipe.input[0];
+            }), Codec.INT.fieldOf("energy").forGetter((recipe) -> {
+                return recipe.energyProduction;
+            })).apply(instance, (f, e) -> new HeatGeneratorRecipe(new Fluid[] {f}, e));
+        });
 
-            ResourceLocation fluidId = ResourceLocation.tryParse(inputJson.getAsJsonPrimitive().getAsString());
+        private final Codec<HeatGeneratorRecipe> CODEC_FLUID_ARRAY = RecordCodecBuilder.create((instance) -> {
+            return instance.group(new ArrayCodec<>(ForgeRegistries.FLUIDS.getCodec(), Fluid[]::new).fieldOf("input").forGetter((recipe) -> {
+                return recipe.input;
+            }), Codec.INT.fieldOf("energy").forGetter((recipe) -> {
+                return recipe.energyProduction;
+            })).apply(instance, HeatGeneratorRecipe::new);
+        });
 
-            Fluid fluid = ForgeRegistries.FLUIDS.getValue(fluidId);
-            if(fluid == null)
-                throw new JsonSyntaxException("Unknown fluid '" + fluidId + "'");
-
-            inputFluids.add(fluid);
+        @Override
+        public Codec<HeatGeneratorRecipe> codec() {
+            return Codec.either(CODEC_FLUID_ARRAY, CODEC_SINGLE_FLUID).
+                    xmap(e -> e.left().orElseGet(() -> e.right().orElseThrow()), Either::left);
         }
 
         @Override
-        public HeatGeneratorRecipe fromJson(ResourceLocation recipeID, JsonObject json) {
-            List<Fluid> input = new LinkedList<>();
-
-            JsonElement inputJson = json.get("input");
-            if(inputJson.isJsonPrimitive()) {
-                addFluidsFromJsonElement(inputJson, input);
-            }else if(inputJson.isJsonArray()) {
-                JsonArray inputJsonArray = inputJson.getAsJsonArray();
-
-                if(inputJsonArray.isEmpty())
-                    throw new JsonSyntaxException("Input must contain at least one fluid");
-
-                for(JsonElement inputJsonEle:inputJsonArray)
-                    addFluidsFromJsonElement(inputJsonEle, input);
-            }else {
-                throw new JsonSyntaxException("Input must be a single fluid or a list of at least one fluid");
-            }
-
-            int energyProduction = GsonHelper.getAsInt(json, "energy");
-
-            return new HeatGeneratorRecipe(recipeID, input.toArray(new Fluid[0]), energyProduction);
-        }
-
-        @Override
-        public HeatGeneratorRecipe fromNetwork(ResourceLocation recipeID, FriendlyByteBuf buffer) {
+        public HeatGeneratorRecipe fromNetwork(FriendlyByteBuf buffer) {
             int fluidCount = buffer.readInt();
             Fluid[] input = new Fluid[fluidCount];
             for(int i = 0;i < fluidCount;i++)
@@ -140,7 +117,7 @@ public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
 
             int energyProduction = buffer.readInt();
 
-            return new HeatGeneratorRecipe(recipeID, input, energyProduction);
+            return new HeatGeneratorRecipe(input, energyProduction);
         }
 
         @Override

@@ -25,6 +25,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.Level;
@@ -258,11 +259,11 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Me
                 inventory.setItem(0, blockEntity.itemHandler.getStackInSlot(i));
                 inventory.setItem(1, blockEntity.itemHandler.getStackInSlot(3 + i));
 
-                Optional<SmeltingRecipe> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
+                Optional<RecipeHolder<SmeltingRecipe>> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
                 if(recipe.isEmpty())
                     continue;
 
-                int cookingTime = recipe.get().getCookingTime();
+                int cookingTime = recipe.get().value().getCookingTime();
                 if(blockEntity.maxProgress[i] == 0)
                     blockEntity.maxProgress[i] = (int)Math.ceil(cookingTime * RECIPE_DURATION_MULTIPLIER / 12.f); //Default Cooking Time = 200 -> maxProgress = 16 (= 200 / 12)
 
@@ -324,14 +325,14 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Me
         inventory.setItem(0, blockEntity.itemHandler.getStackInSlot(index));
         inventory.setItem(1, blockEntity.itemHandler.getStackInSlot(3 + index));
 
-        Optional<SmeltingRecipe> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
+        Optional<RecipeHolder<SmeltingRecipe>> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
 
         if(!hasRecipe(index, blockEntity) || recipe.isEmpty())
             return;
 
         blockEntity.itemHandler.extractItem(index, 1, false);
-        blockEntity.itemHandler.setStackInSlot(3 + index, new ItemStack(recipe.get().getResultItem(level.registryAccess()).getItem(),
-                blockEntity.itemHandler.getStackInSlot(3 + index).getCount() + recipe.get().getResultItem(level.registryAccess()).getCount()));
+        blockEntity.itemHandler.setStackInSlot(3 + index, new ItemStack(recipe.get().value().getResultItem(level.registryAccess()).getItem(),
+                blockEntity.itemHandler.getStackInSlot(3 + index).getCount() + recipe.get().value().getResultItem(level.registryAccess()).getCount()));
 
         blockEntity.resetProgress(index, blockPos, state);
     }
@@ -343,13 +344,13 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Me
         inventory.setItem(0, blockEntity.itemHandler.getStackInSlot(index));
         inventory.setItem(1, blockEntity.itemHandler.getStackInSlot(3 + index));
 
-        Optional<SmeltingRecipe> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
+        Optional<RecipeHolder<SmeltingRecipe>> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
 
         inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
         for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-        return recipe.isPresent() && canInsertItemIntoOutputSlot(index, inventory, recipe.get().getResultItem(level.registryAccess()));
+        return recipe.isPresent() && canInsertItemIntoOutputSlot(index, inventory, recipe.get().value().getResultItem(level.registryAccess()));
     }
 
     private static boolean canInsertItemIntoOutputSlot(int index, SimpleContainer inventory, ItemStack itemStack) {

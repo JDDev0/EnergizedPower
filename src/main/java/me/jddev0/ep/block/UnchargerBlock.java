@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class UnchargerBlock extends BaseEntityBlock {
@@ -71,7 +70,7 @@ public class UnchargerBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof UnchargerBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (UnchargerBlockEntity)blockEntity, blockPos);
+        ((ServerPlayer)player).openMenu((UnchargerBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }

@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidFillerBlock extends BaseEntityBlock {
@@ -71,7 +70,7 @@ public class FluidFillerBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof FluidFillerBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (FluidFillerBlockEntity)blockEntity, blockPos);
+        ((ServerPlayer)player).openMenu((FluidFillerBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }

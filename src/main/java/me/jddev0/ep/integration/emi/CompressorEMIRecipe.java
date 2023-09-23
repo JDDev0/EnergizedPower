@@ -10,6 +10,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.CompressorRecipe;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.List;
 
@@ -23,10 +24,10 @@ public class CompressorEMIRecipe implements EmiRecipe {
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
-    public CompressorEMIRecipe(CompressorRecipe recipe) {
-        this.id = recipe.getId();
-        this.input = List.of(EmiIngredient.of(recipe.getInput()));
-        this.output = List.of(EmiStack.of(recipe.getOutput()));
+    public CompressorEMIRecipe(RecipeHolder<CompressorRecipe> recipe) {
+        this.id = recipe.id();
+        this.input = List.of(EmiIngredient.of(recipe.value().getInput()));
+        this.output = List.of(EmiStack.of(recipe.value().getOutput()));
     }
 
     @Override

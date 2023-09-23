@@ -9,9 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 
 public class PopEnergizedPowerBookFromLecternC2SPacket {
     private final BlockPos pos;
@@ -28,8 +26,7 @@ public class PopEnergizedPowerBookFromLecternC2SPacket {
         buffer.writeBlockPos(pos);
     }
 
-    public boolean handle(Supplier<NetworkEvent.Context> supplier) {
-        NetworkEvent.Context context = supplier.get();
+    public boolean handle(CustomPayloadEvent.Context context) {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             if(!player.mayBuild())

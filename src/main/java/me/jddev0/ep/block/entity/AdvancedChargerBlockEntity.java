@@ -25,6 +25,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -252,10 +253,10 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
                 SimpleContainer inventory = new SimpleContainer(1);
                 inventory.setItem(0, blockEntity.itemHandler.getStackInSlot(i));
 
-                Optional<ChargerRecipe> recipe = level.getRecipeManager().getRecipeFor(ChargerRecipe.Type.INSTANCE, inventory, level);
+                Optional<RecipeHolder<ChargerRecipe>> recipe = level.getRecipeManager().getRecipeFor(ChargerRecipe.Type.INSTANCE, inventory, level);
                 if(recipe.isPresent()) {
                     if(blockEntity.energyConsumptionLeft[i] == -1)
-                        blockEntity.energyConsumptionLeft[i] = (int)(recipe.get().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);;
+                        blockEntity.energyConsumptionLeft[i] = (int)(recipe.get().value().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);;
 
                     if(blockEntity.energyStorage.getEnergy() == 0) {
                         setChanged(level, blockPos, state);
@@ -301,7 +302,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
                 if(blockEntity.energyConsumptionLeft[i] <= 0) {
                     final int index = i;
                     recipe.ifPresent(chargerRecipe -> blockEntity.itemHandler.setStackInSlot(index,
-                            new ItemStack(chargerRecipe.getResultItem(level.registryAccess()).getItem())));
+                            new ItemStack(chargerRecipe.value().getResultItem(level.registryAccess()).getItem())));
 
                     blockEntity.resetProgress(i);
                 }
@@ -325,7 +326,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
         SimpleContainer inventory = new SimpleContainer(1);
         inventory.setItem(0, itemHandler.getStackInSlot(index));
 
-        Optional<ChargerRecipe> recipe = level.getRecipeManager().getRecipeFor(ChargerRecipe.Type.INSTANCE, inventory, level);
+        Optional<RecipeHolder<ChargerRecipe>> recipe = level.getRecipeManager().getRecipeFor(ChargerRecipe.Type.INSTANCE, inventory, level);
 
         return recipe.isPresent();
     }
