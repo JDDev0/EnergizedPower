@@ -163,8 +163,8 @@ dependencies {
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:12.+"
 
     // JEI integration
-    compileOnly fg.deobf("mezz.jei:jei-1.20.1-common-api:15.2.0.23")
-    compileOnly fg.deobf("mezz.jei:jei-1.20.1-forge-api:15.2.0.23")
+    compileOnly fg.deobf("mezz.jei:jei-1.20.2-common-api:16.0.0.28")
+    compileOnly fg.deobf("mezz.jei:jei-1.20.2-forge-api:16.0.0.28")
 
     // EMI integration
     compileOnly fg.deobf("dev.emi:emi-forge:1.0.19+1.20.1:api")

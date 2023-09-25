@@ -16,13 +16,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AutoCrafterTransferHandler implements IRecipeTransferHandler<AutoCrafterMenu, CraftingRecipe> {
+public class AutoCrafterTransferHandler implements IRecipeTransferHandler<AutoCrafterMenu, RecipeHolder<CraftingRecipe>> {
     private final IRecipeTransferHandlerHelper helper;
 
     public AutoCrafterTransferHandler(IRecipeTransferHandlerHelper helper) {
@@ -40,13 +41,14 @@ public class AutoCrafterTransferHandler implements IRecipeTransferHandler<AutoCr
     }
 
     @Override
-    public RecipeType<CraftingRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<CraftingRecipe>> getRecipeType() {
         return null;
     }
 
     @Override
-    public @Nullable IRecipeTransferError transferRecipe(AutoCrafterMenu container, CraftingRecipe recipe, IRecipeSlotsView recipeSlots, Player player, boolean maxTransfer, boolean doTransfer) {
-        if(!recipe.canCraftInDimensions(3, 3))
+    public @Nullable IRecipeTransferError transferRecipe(AutoCrafterMenu container, RecipeHolder<CraftingRecipe> recipe, IRecipeSlotsView recipeSlots, Player player,
+                                                         boolean maxTransfer, boolean doTransfer) {
+        if(!recipe.value().canCraftInDimensions(3, 3))
             return helper.createUserErrorWithTooltip(Component.translatable("recipes.energizedpower.transfer.too_large"));
 
         if(!doTransfer)
@@ -59,8 +61,7 @@ public class AutoCrafterTransferHandler implements IRecipeTransferHandler<AutoCr
         for(int i = 0;i < len;i++)
             itemStacks.add(inputSlots.get(i).getDisplayedItemStack().orElse(ItemStack.EMPTY).copy());
 
-        //TODO
-        //ModMessages.sendToServer(new SetAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getBlockPos(), itemStacks, recipe.getId()));
+        ModMessages.sendToServer(new SetAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getBlockPos(), itemStacks, recipe.id()));
 
         return null;
     }

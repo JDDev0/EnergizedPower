@@ -18,10 +18,10 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<PlantGrowthChamberFertilizerRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "plant_growth_chamber_fertilizer");
-    public static final RecipeType<PlantGrowthChamberFertilizerRecipe> TYPE = new RecipeType<>(UID, PlantGrowthChamberFertilizerRecipe.class);
+public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<RecipeHolder<PlantGrowthChamberFertilizerRecipe>> {
+    public static final RecipeType<RecipeHolder<PlantGrowthChamberFertilizerRecipe>> TYPE = RecipeType.createFromVanilla(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable fertlizerSlot;
@@ -36,7 +36,7 @@ public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<Pla
     }
 
     @Override
-    public RecipeType<PlantGrowthChamberFertilizerRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<PlantGrowthChamberFertilizerRecipe>> getRecipeType() {
         return TYPE;
     }
 
@@ -56,21 +56,21 @@ public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<Pla
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, PlantGrowthChamberFertilizerRecipe recipe, IFocusGroup iFocusGroup) {
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 1).addIngredients(recipe.getInput());
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<PlantGrowthChamberFertilizerRecipe> recipe, IFocusGroup iFocusGroup) {
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 1).addIngredients(recipe.value().getInput());
     }
 
     @Override
-    public void draw(PlantGrowthChamberFertilizerRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<PlantGrowthChamberFertilizerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         fertlizerSlot.draw(guiGraphics, 0, 0);
 
         Font font = Minecraft.getInstance().font;
-        Component component = Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier", recipe.getSpeedMultiplier());
+        Component component = Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier", recipe.value().getSpeedMultiplier());
         int textWidth = font.width(component);
 
         guiGraphics.drawString(Minecraft.getInstance().font, component, 144 - textWidth, 5, 0xFFFFFFFF, false);
 
-        component = Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier", recipe.getEnergyConsumptionMultiplier());
+        component = Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier", recipe.value().getEnergyConsumptionMultiplier());
         textWidth = font.width(component);
 
         guiGraphics.drawString(Minecraft.getInstance().font, component, 144 - textWidth, 22, 0xFFFFFFFF, false);

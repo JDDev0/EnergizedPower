@@ -14,10 +14,10 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class CrusherCategory implements IRecipeCategory<CrusherRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "crusher");
-    public static final RecipeType<CrusherRecipe> TYPE = new RecipeType<>(UID, CrusherRecipe.class);
+public class CrusherCategory implements IRecipeCategory<RecipeHolder<CrusherRecipe>> {
+    public static final RecipeType<RecipeHolder<CrusherRecipe>> TYPE = RecipeType.createFromVanilla(CrusherRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -30,7 +30,7 @@ public class CrusherCategory implements IRecipeCategory<CrusherRecipe> {
     }
 
     @Override
-    public RecipeType<CrusherRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<CrusherRecipe>> getRecipeType() {
         return TYPE;
     }
 
@@ -50,9 +50,9 @@ public class CrusherCategory implements IRecipeCategory<CrusherRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, CrusherRecipe recipe, IFocusGroup iFocusGroup) {
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).addIngredients(recipe.getInput());
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<CrusherRecipe> recipe, IFocusGroup iFocusGroup) {
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).addIngredients(recipe.value().getInput());
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 5).addItemStack(recipe.getOutput());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 5).addItemStack(recipe.value().getOutput());
     }
 }

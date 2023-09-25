@@ -14,12 +14,12 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.List;
 
-public class PulverizerCategory implements IRecipeCategory<PulverizerRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "pulverizer");
-    public static final RecipeType<PulverizerRecipe> TYPE = new RecipeType<>(UID, PulverizerRecipe.class);
+public class PulverizerCategory implements IRecipeCategory<RecipeHolder<PulverizerRecipe>> {
+    public static final RecipeType<RecipeHolder<PulverizerRecipe>> TYPE = RecipeType.createFromVanilla(PulverizerRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -32,7 +32,7 @@ public class PulverizerCategory implements IRecipeCategory<PulverizerRecipe> {
     }
 
     @Override
-    public RecipeType<PulverizerRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<PulverizerRecipe>> getRecipeType() {
         return TYPE;
     }
 
@@ -52,10 +52,10 @@ public class PulverizerCategory implements IRecipeCategory<PulverizerRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, PulverizerRecipe recipe, IFocusGroup iFocusGroup) {
-        iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).addIngredients(recipe.getInput());
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<PulverizerRecipe> recipe, IFocusGroup iFocusGroup) {
+        iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).addIngredients(recipe.value().getInput());
 
-        ItemStack[] outputEntries = recipe.getMaxOutputCounts();
+        ItemStack[] outputEntries = recipe.value().getMaxOutputCounts();
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).addItemStack(outputEntries[0]);
 

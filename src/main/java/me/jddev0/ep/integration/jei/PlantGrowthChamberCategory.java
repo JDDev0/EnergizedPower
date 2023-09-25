@@ -19,14 +19,14 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PlantGrowthChamberCategory implements IRecipeCategory<PlantGrowthChamberRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "plant_growth_chamber");
-    public static final RecipeType<PlantGrowthChamberRecipe> TYPE = new RecipeType<>(UID, PlantGrowthChamberRecipe.class);
+public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<PlantGrowthChamberRecipe>> {
+    public static final RecipeType<RecipeHolder<PlantGrowthChamberRecipe>> TYPE = RecipeType.createFromVanilla(PlantGrowthChamberRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -39,7 +39,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<PlantGrowthCh
     }
 
     @Override
-    public RecipeType<PlantGrowthChamberRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<PlantGrowthChamberRecipe>> getRecipeType() {
         return TYPE;
     }
 
@@ -59,14 +59,14 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<PlantGrowthCh
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, PlantGrowthChamberRecipe recipe, IFocusGroup iFocusGroup) {
-        iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 10).addIngredients(recipe.getInput());
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<PlantGrowthChamberRecipe> recipe, IFocusGroup iFocusGroup) {
+        iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 10).addIngredients(recipe.value().getInput());
 
         List<List<ItemStack>> outputSlotEntries = new ArrayList<>(4);
         for(int i = 0;i < 4;i++)
             outputSlotEntries.add(new LinkedList<>());
 
-        ItemStack[] outputEntries = recipe.getMaxOutputCounts();
+        ItemStack[] outputEntries = recipe.value().getMaxOutputCounts();
         for(int i = 0;i < outputEntries.length;i++)
             outputSlotEntries.get(i % 4).add(outputEntries[i]);
 
@@ -77,9 +77,9 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<PlantGrowthCh
     }
 
     @Override
-    public void draw(PlantGrowthChamberRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<PlantGrowthChamberRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         Font font = Minecraft.getInstance().font;
-        int ticks = (int)(recipe.getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
+        int ticks = (int)(recipe.value().getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
         Component component = Component.translatable("recipes.energizedpower.plant_growth_chamber.ticks", ticks);
         int textWidth = font.width(component);
 

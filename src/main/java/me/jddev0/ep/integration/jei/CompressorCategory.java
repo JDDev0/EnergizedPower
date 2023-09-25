@@ -14,10 +14,10 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class CompressorCategory implements IRecipeCategory<CompressorRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "compressor");
-    public static final RecipeType<CompressorRecipe> TYPE = new RecipeType<>(UID, CompressorRecipe.class);
+public class CompressorCategory implements IRecipeCategory<RecipeHolder<CompressorRecipe>> {
+    public static final RecipeType<RecipeHolder<CompressorRecipe>> TYPE = RecipeType.createFromVanilla(CompressorRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -30,7 +30,7 @@ public class CompressorCategory implements IRecipeCategory<CompressorRecipe> {
     }
 
     @Override
-    public RecipeType<CompressorRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<CompressorRecipe>> getRecipeType() {
         return TYPE;
     }
 
@@ -50,9 +50,9 @@ public class CompressorCategory implements IRecipeCategory<CompressorRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, CompressorRecipe recipe, IFocusGroup iFocusGroup) {
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).addIngredients(recipe.getInput());
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<CompressorRecipe> recipe, IFocusGroup iFocusGroup) {
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).addIngredients(recipe.value().getInput());
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 5).addItemStack(recipe.getOutput());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 5).addItemStack(recipe.value().getOutput());
     }
 }
