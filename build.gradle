@@ -170,7 +170,7 @@ dependencies {
     compileOnly fg.deobf("dev.emi:emi-forge:1.0.19+1.20.1:api")
 
     // Curios integration
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.2.0-beta.3+1.20.1:api")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:6.0.0+1.20.2:api")
 
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
