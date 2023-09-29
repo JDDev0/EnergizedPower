@@ -14,6 +14,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -28,7 +29,7 @@ public class AutoCrafterTransferHandler implements TransferHandler {
 
         Display display = context.getDisplay();
         Object origin = DisplayRegistry.getInstance().getDisplayOrigin(display);
-        if(!(origin instanceof CraftingRecipe recipe))
+        if(!(origin instanceof RecipeEntry<?> recipeEntry) || !(recipeEntry.value() instanceof CraftingRecipe recipe))
             return Result.createNotApplicable();
 
         if(!recipe.fits(3, 3))
@@ -65,7 +66,7 @@ public class AutoCrafterTransferHandler implements TransferHandler {
         buf.writeBlockPos(container.getBlockEntity().getPos());
         for(ItemStack itemStack:itemStacks)
             buf.writeItemStack(itemStack);
-        //buf.writeIdentifier(recipe.getId()); //TODO
+        buf.writeIdentifier(recipeEntry.id());
         ClientPlayNetworking.send(ModMessages.SET_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID, buf);
 
         return Result.createSuccessful().blocksFurtherHandling();

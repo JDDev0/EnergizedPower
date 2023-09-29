@@ -60,7 +60,7 @@ public class ChargerCategory implements DisplayCategory<ChargerDisplay> {
         widgets.add(Widgets.createSlot(new Point(x + 92, y + 15)).disableBackground().markOutput().
                 entries(display.getOutputEntries().get(0)));
 
-        long energyConsumption = (long)(display.recipe().getEnergyConsumption() * ChargerBlockEntity.CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);
+        long energyConsumption = (long)(display.recipe().value().getEnergyConsumption() * ChargerBlockEntity.CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
                 Text.literal(EnergyUtils.getEnergyWithPrefix(energyConsumption)).formatted(Formatting.YELLOW)).
                 noShadow().rightAligned());

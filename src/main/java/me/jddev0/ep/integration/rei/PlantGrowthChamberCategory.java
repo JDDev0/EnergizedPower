@@ -72,7 +72,7 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
         widgets.add(Widgets.createSlot(new Point(x + 91, y + 19)).disableBackground().markOutput().
                 entries(outputSlotEntries.get(3)));
 
-        int ticks = (int)(display.recipe().getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
+        int ticks = (int)(display.recipe().value().getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
                         Text.translatable("recipes.energizedpower.plant_growth_chamber.ticks", ticks)).
                 noShadow().rightAligned());
