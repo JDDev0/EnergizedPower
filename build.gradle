@@ -167,7 +167,7 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-1.20.2-forge-api:16.0.0.28")
 
     // EMI integration
-    compileOnly fg.deobf("dev.emi:emi-forge:1.0.19+1.20.1:api")
+    compileOnly fg.deobf("dev.emi:emi-forge:1.0.21+1.20.2:api")
 
     // Curios integration
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:6.0.0+1.20.2:api")
