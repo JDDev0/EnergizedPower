@@ -126,7 +126,7 @@ A tutorial world showcasing all the features of this mod can be downloaded on Cu
 
 ## Supported versions:
 Mod version: MC version
-- 2.1.x: 1.20.1, 1.19.4, 1.19.3, 1.19.2
+- 2.1.x: 1.20.2, 1.20.1, 1.19.4, 1.19.3, 1.19.2
 - 2.0.x: 1.20.1, 1.19.4, 1.19.3, 1.19.2
 - 1.7.x: 1.20.1, 1.20, 1.19.4, 1.19.3, 1.19.2, 1.18.2
 - 1.6.x: 1.19.4, 1.19.3, 1.19.2, 1.18.2
