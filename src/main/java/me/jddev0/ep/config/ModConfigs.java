@@ -238,53 +238,53 @@ public final class ModConfigs {
     );
 
     public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_1_CAPACITY = registerEnergyCapacityConfigValue(
-            "block.solar_panel_1", "Solar Panel (Tier I)", 32 * 20 * 2
+            "block.solar_panel_1", "Solar Panel (Tier I)", 16 * 20 * 2
     );
     public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_1_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
-            "block.solar_panel_1", "Solar Panel (Tier I)", 32 * 4
+            "block.solar_panel_1", "Solar Panel (Tier I)", 16 * 4
     );
     public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_1_ENERGY_PEAK_PRODUCTION = registerEnergyPeakProductionConfigValue(
-            "block.solar_panel_1", "Solar Panel (Tier I)", 32
+            "block.solar_panel_1", "Solar Panel (Tier I)", 16
     );
 
     public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_2_CAPACITY = registerEnergyCapacityConfigValue(
-            "block.solar_panel_2", "Solar Panel (Tier II)", 256 * 20 * 2
+            "block.solar_panel_2", "Solar Panel (Tier II)", 128 * 20 * 2
     );
     public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_2_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
-            "block.solar_panel_2", "Solar Panel (Tier II)", 256 * 4
+            "block.solar_panel_2", "Solar Panel (Tier II)", 128 * 4
     );
     public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_2_ENERGY_PEAK_PRODUCTION = registerEnergyPeakProductionConfigValue(
-            "block.solar_panel_2", "Solar Panel (Tier II)", 256
+            "block.solar_panel_2", "Solar Panel (Tier II)", 128
     );
 
     public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_3_CAPACITY = registerEnergyCapacityConfigValue(
-            "block.solar_panel_3", "Solar Panel (Tier III)", 2048 * 20 * 2
+            "block.solar_panel_3", "Solar Panel (Tier III)", 1024 * 20 * 2
     );
     public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_3_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
-            "block.solar_panel_3", "Solar Panel (Tier III)", 2048 * 4
+            "block.solar_panel_3", "Solar Panel (Tier III)", 1024 * 4
     );
     public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_3_ENERGY_PEAK_PRODUCTION = registerEnergyPeakProductionConfigValue(
-            "block.solar_panel_3", "Solar Panel (Tier III)", 2048
+            "block.solar_panel_3", "Solar Panel (Tier III)", 1024
     );
 
     public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_4_CAPACITY = registerEnergyCapacityConfigValue(
-            "block.solar_panel_4", "Solar Panel (Tier IV)", 32768 * 20 * 2
+            "block.solar_panel_4", "Solar Panel (Tier IV)", 8192 * 20 * 2
     );
     public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_4_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
-            "block.solar_panel_4", "Solar Panel (Tier IV)", 32768 * 4
+            "block.solar_panel_4", "Solar Panel (Tier IV)", 8192 * 4
     );
     public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_4_ENERGY_PEAK_PRODUCTION = registerEnergyPeakProductionConfigValue(
-            "block.solar_panel_4", "Solar Panel (Tier IV)", 32768
+            "block.solar_panel_4", "Solar Panel (Tier IV)", 8192
     );
 
     public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_5_CAPACITY = registerEnergyCapacityConfigValue(
-            "block.solar_panel_5", "Solar Panel (Tier V)", 262144 * 12
+            "block.solar_panel_5", "Solar Panel (Tier V)", 65536 * 20
     );
     public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_5_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
-            "block.solar_panel_5", "Solar Panel (Tier V)", 262144 * 8
+            "block.solar_panel_5", "Solar Panel (Tier V)", 65536 * 8
     );
     public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_5_ENERGY_PEAK_PRODUCTION = registerEnergyPeakProductionConfigValue(
-            "block.solar_panel_5", "Solar Panel (Tier V)", 262144
+            "block.solar_panel_5", "Solar Panel (Tier V)", 65536
     );
 
     public static final ConfigValue<Integer> COMMON_MINECART_CHARGER_CAPACITY = registerEnergyCapacityConfigValue(
