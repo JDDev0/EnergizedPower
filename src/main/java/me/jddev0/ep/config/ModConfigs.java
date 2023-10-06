@@ -287,6 +287,16 @@ public final class ModConfigs {
             "block.solar_panel_5", "Solar Panel (Tier V)", 65536
     );
 
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_6_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.solar_panel_6", "Solar Panel (Tier VI)", 262144 * 8
+    );
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_6_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.solar_panel_6", "Solar Panel (Tier VI)", 262144 * 4
+    );
+    public static final ConfigValue<Integer> COMMON_SOLAR_PANEL_6_ENERGY_PEAK_PRODUCTION = registerEnergyPeakProductionConfigValue(
+            "block.solar_panel_6", "Solar Panel (Tier VI)", 262144
+    );
+
     public static final ConfigValue<Integer> COMMON_MINECART_CHARGER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.minecart_charger", "Minecart Charger", 16384
     );

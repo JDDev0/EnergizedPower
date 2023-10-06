@@ -132,6 +132,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.SOLAR_PANEL_ITEM_3);
             event.accept(ModBlocks.SOLAR_PANEL_ITEM_4);
             event.accept(ModBlocks.SOLAR_PANEL_ITEM_5);
+            event.accept(ModBlocks.SOLAR_PANEL_ITEM_6);
 
             event.accept(ModBlocks.BATTERY_BOX_ITEM);
             event.accept(ModBlocks.ADVANCED_BATTERY_BOX_ITEM);
@@ -258,6 +259,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_3.get(), SolarPanelScreen::new);
             MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_4.get(), SolarPanelScreen::new);
             MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_5.get(), SolarPanelScreen::new);
+            MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_6.get(), SolarPanelScreen::new);
 
             MenuScreens.register(ModMenuTypes.INVENTORY_CHARGER_MENU.get(), InventoryChargerScreen::new);
 

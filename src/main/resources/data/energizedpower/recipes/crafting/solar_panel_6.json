@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "forge:glass_panes/colorless"
+    },
+    "A": {
+      "tag": "forge:gems/amethyst"
+    },
+    "E": {
+      "tag": "forge:ingots/energized_gold"
+    },
+    "S": {
+      "item": "energizedpower:solar_panel_5"
+    },
+    "R": {
+      "item": "energizedpower:reinforced_advanced_solar_cell"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "SAS",
+    "RER"
+  ],
+  "result": {
+    "item": "energizedpower:solar_panel_6"
+  }
+}

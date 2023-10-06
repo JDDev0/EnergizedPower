@@ -42,6 +42,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
             case TIER_3 -> ModBlockEntities.SOLAR_PANEL_ENTITY_3.get();
             case TIER_4 -> ModBlockEntities.SOLAR_PANEL_ENTITY_4.get();
             case TIER_5 -> ModBlockEntities.SOLAR_PANEL_ENTITY_5.get();
+            case TIER_6 -> ModBlockEntities.SOLAR_PANEL_ENTITY_6.get();
         };
     }
 
