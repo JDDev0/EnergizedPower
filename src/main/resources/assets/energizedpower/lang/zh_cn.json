@@ -275,6 +275,9 @@
   "block.energizedpower.solar_panel_5": "太阳能电池板（V级）",
   "item.energizedpower.solar_panel_5": "太阳能电池板（V级）",
   "container.energizedpower.solar_panel_5": "太阳能电池板（V级）",
+  "block.energizedpower.solar_panel_6": "太阳能电池板（VI级）",
+  "item.energizedpower.solar_panel_6": "太阳能电池板（VI级）",
+  "container.energizedpower.solar_panel_6": "太阳能电池板（VI级）",
 
   "tooltip.energizedpower.solar_panel.txt.shift.1": "This block produces up to %s/t.",
   "tooltip.energizedpower.solar_panel.txt.shift.2": "该方块的效率取决于当前的时间。",
@@ -679,10 +682,13 @@
   "advancements.energizedpower.solar_panel_3.description": "III 级--基本太阳能电池板中最好的。",
 
   "advancements.energizedpower.solar_panel_4.title": "太阳能经理",
-  "advancements.energizedpower.solar_panel_4.description": "IV 级：只剩一个了!",
+  "advancements.energizedpower.solar_panel_4.description": "Tier IV: More than basic!",
 
-  "advancements.energizedpower.solar_panel_5.title": "太阳能雇主",
-  "advancements.energizedpower.solar_panel_5.description": "V 级 - 你得到了最好的太阳能电池板!",
+  "advancements.energizedpower.solar_panel_5.title": "Solar Power Director",
+  "advancements.energizedpower.solar_panel_5.description": "Tier V - Only one tier left!",
+
+  "advancements.energizedpower.solar_panel_6.title": "Solar Power Employer",
+  "advancements.energizedpower.solar_panel_6.description": "Tier VI - You have got the best solar panel!",
 
   "advancements.energizedpower.uncharger.title": "还给我!",
   "advancements.energizedpower.uncharger.description": "将物品中的能量释放出来",
@@ -836,8 +842,7 @@
   "book.energizedpower.page.solar_cells.2": "There are three solar cells: Basic, Advanced, and Reinforced Advanced",
 
   "book.energizedpower.page.solar_panels.1": "太阳能电池板在白天产生能量。太阳能电池板的效率取决于那天的时间和天气情况。",
-  "book.energizedpower.page.solar_panels.2": "一共有5种太阳能电池板。",
-  "book.energizedpower.page.solar_panels.3": "IV 级和 V 级的太阳能电池板需要充能铜锭。",
+  "book.energizedpower.page.solar_panels.2": "一共有6种太阳能电池板。",
 
   "book.energizedpower.page.coal_engine.1": "煤炭发动机通过燃烧物品产生能量。",
   "book.energizedpower.page.coal_engine.2": "剩余的物品将自动拿出。",
