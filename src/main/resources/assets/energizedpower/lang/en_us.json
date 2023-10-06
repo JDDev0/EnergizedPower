@@ -23,6 +23,7 @@
 
   "item.energizedpower.basic_solar_cell": "Basic Solar Cell",
   "item.energizedpower.advanced_solar_cell": "Advanced Solar Cell",
+  "item.energizedpower.reinforced_advanced_solar_cell": "Reinforced Advanced Solar Cell",
 
   "item.energizedpower.energized_power_book": "Energized Power Book",
   "book.energizedpower.front.cover.text": "This is the guide book for this mod!",
@@ -452,6 +453,9 @@
   "advancements.energizedpower.advanced_solar_cell.title": "Advanced Solar Power",
   "advancements.energizedpower.advanced_solar_cell.description": "Required for advanced solar panels...",
 
+  "advancements.energizedpower.reinforced_advanced_solar_cell.title": "Even better solar energy",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Required for the best solar panels...",
+
   "advancements.energizedpower.auto_crafter.title": "Automation is the future",
   "advancements.energizedpower.auto_crafter.description": "Who needs manual crafting tables when this block can do it automatically?",
 
@@ -829,7 +833,7 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_production": "Blocks for energy production",
 
   "book.energizedpower.page.solar_cells.1": "Solar Cells are the base crafting item for every solar panel.",
-  "book.energizedpower.page.solar_cells.2": "There are two solar cells: Basic and Advanced",
+  "book.energizedpower.page.solar_cells.2": "There are three solar cells: Basic, Advanced, and Reinforced Advanced",
 
   "book.energizedpower.page.solar_panels.1": "Solar Panels produce energy during the day. The efficiency depends on the time and on the weather.",
   "book.energizedpower.page.solar_panels.2": "There are 5 Solar Panel Tiers.",
