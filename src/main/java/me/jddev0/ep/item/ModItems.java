@@ -55,6 +55,9 @@ public final class ModItems {
     public static final RegistryObject<Item> ADVANCED_FERTILIZER = ITEMS.register("advanced_fertilizer",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> RAW_GEAR_PRESS_MOLD = ITEMS.register("raw_gear_press_mold",
+            () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> BASIC_SOLAR_CELL = ITEMS.register("basic_solar_cell",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ADVANCED_SOLAR_CELL = ITEMS.register("advanced_solar_cell",

@@ -200,6 +200,7 @@ public class EnergizedPowerMod {
             event.accept(ModItems.BASIC_FERTILIZER);
             event.accept(ModItems.GOOD_FERTILIZER);
             event.accept(ModItems.ADVANCED_FERTILIZER);
+            event.accept(ModItems.RAW_GEAR_PRESS_MOLD);
             event.accept(ModItems.SILICON);
             event.accept(ModItems.COPPER_DUST);
             event.accept(ModItems.IRON_DUST);
