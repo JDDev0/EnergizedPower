@@ -23,7 +23,9 @@
   "item.energizedpower.good_fertilizer": "Guter Dünger",
   "item.energizedpower.advanced_fertilizer": "Fortgeschrittener Dünger",
 
-  "item.energizedpower.raw_gear_press_mold": "Rohes Zahnrad-Pressform",
+  "item.energizedpower.raw_gear_press_mold": "Rohe Zahnrad-Pressform",
+
+  "item.energizedpower.gear_press_mold": "Zahnrad-Pressform",
 
   "item.energizedpower.basic_solar_cell": "Basis Solarzelle",
   "item.energizedpower.advanced_solar_cell": "Fortgeschrittene Solarzelle",
