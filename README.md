@@ -33,7 +33,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Heat Generator
 - Thermal Generator
 - Lightning Generator
-- Solar Panels (5 Tiers)
+- Solar Panels (6 Tiers) (6th tier: (**In next release (v2.2.0)**))
 - Transformers (Can be used to connect different tiers of cables):
   - 3 tiers: MV, HV, and EHV
   - 3 types (for each tier): 1 to n, 3 to 3, and n to 1
