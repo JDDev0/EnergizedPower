@@ -21,12 +21,14 @@ public class DispenserEMIRecipe implements EmiRecipe {
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final ResourceLocation id;
+    private final List<EmiIngredient> catalysts;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
     public DispenserEMIRecipe(DispenserRecipe recipe) {
         this.id = recipe.id();
-        this.input = List.of(EmiIngredient.of(recipe.tool()), EmiIngredient.of(recipe.block()));
+        this.catalysts = List.of(EmiIngredient.of(recipe.tool()));
+        this.input = List.of(EmiIngredient.of(recipe.block()));
         this.output = List.of(EmiStack.of(recipe.output()));
     }
 
@@ -38,6 +40,11 @@ public class DispenserEMIRecipe implements EmiRecipe {
     @Override
     public ResourceLocation getId() {
         return id;
+    }
+
+    @Override
+    public List<EmiIngredient> getCatalysts() {
+        return catalysts;
     }
 
     @Override
@@ -64,8 +71,9 @@ public class DispenserEMIRecipe implements EmiRecipe {
     public void addWidgets(WidgetHolder widgets) {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 41, 4);
 
-        widgets.addSlot(input.get(0), 0, 4);
-        widgets.addSlot(input.get(1), 18, 4);
+        widgets.addSlot(catalysts.get(0), 0, 4);
+
+        widgets.addSlot(input.get(0), 18, 4);
 
         widgets.addSlot(output.get(0), 79, 4).recipeContext(this);
     }
