@@ -23,6 +23,7 @@
 
   "item.energizedpower.basic_solar_cell": "Basis Solarzelle",
   "item.energizedpower.advanced_solar_cell": "Fortgeschrittene Solarzelle",
+  "item.energizedpower.reinforced_advanced_solar_cell": "Verstärkte Fortgeschrittene Solarzelle",
 
   "item.energizedpower.energized_power_book": "Energized Power Buch",
   "book.energizedpower.front.cover.text": "Das ist das Guide-Buch für diese Mod!",
@@ -452,6 +453,9 @@
   "advancements.energizedpower.advanced_solar_cell.title": "Fortgeschrittener Solar-Strom",
   "advancements.energizedpower.advanced_solar_cell.description": "Erforderlich für fortgeschrittene Solar Panels...",
 
+  "advancements.energizedpower.reinforced_advanced_solar_cell.title": "Noch besserer Solar-Strom",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Erforderlich für die besten Solar Panels...",
+
   "advancements.energizedpower.auto_crafter.title": "Automatisierung ist die Zukunft",
   "advancements.energizedpower.auto_crafter.description": "Wer braucht schon manuelles Herstellen, wenn dieser Block das automatisch kann?",
 
@@ -829,7 +833,7 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_production": "Blöcke für die Energie-Produktion",
 
   "book.energizedpower.page.solar_cells.1": "Solarzellen sind die Basis-Crafting-Items für jedes Solarpanel.",
-  "book.energizedpower.page.solar_cells.2": "Es gibt zwei Typen: Basis und fortgeschritten",
+  "book.energizedpower.page.solar_cells.2": "Es gibt drei Typen: Basis, fortgeschritten, und verstärkt fortgeschritten",
 
   "book.energizedpower.page.solar_panels.1": "Solarpanels produzieren während dem Tag Energie. Die Effizienz hängt von der Zeit und dem Wetter ab.",
   "book.energizedpower.page.solar_panels.2": "Es gibt 5 Solarpanel-Typen.",
