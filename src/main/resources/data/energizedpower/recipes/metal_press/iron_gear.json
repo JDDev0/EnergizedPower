@@ -1,0 +1,14 @@
+{
+  "type": "energizedpower:metal_press",
+  "ingredient": [
+    {
+      "tag": "forge:plates/iron"
+    }
+  ],
+  "pressMold": {
+    "item": "energizedpower:gear_press_mold"
+  },
+  "output": {
+    "item": "energizedpower:iron_gear"
+  }
+}

@@ -63,6 +63,7 @@
     "energizedpower:crafting/item_conveyor_belt_switch",
     "energizedpower:crafting/item_conveyor_belt_splitter",
     "energizedpower:crafting/lightning_generator",
+    "energizedpower:crafting/metal_press",
     "energizedpower:crafting/minecart_charger",
     "energizedpower:crafting/minecart_uncharger",
     "energizedpower:crafting/plant_growth_chamber",
@@ -92,6 +93,8 @@
     "energizedpower:crafting/weather_controller",
     "energizedpower:crafting/wooden_hammer",
     "energizedpower:crafting/wrench",
+
+    "energizedpower:metal_press/iron_gear",
 
     "energizedpower:press_mold_maker/raw_gear_press_mold",
 
