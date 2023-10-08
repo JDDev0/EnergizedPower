@@ -207,6 +207,11 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item COMPRESSOR_ITEM = createBlockItem("compressor", COMPRESSOR);
 
+    public static final Block METAL_PRESS = registerBlock("metal_press",
+            new MetalPressBlock(FabricBlockSettings.create().
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item METAL_PRESS_ITEM = createBlockItem("metal_press", METAL_PRESS);
+
     public static final Block PLANT_GROWTH_CHAMBER = registerBlock("plant_growth_chamber",
             new PlantGrowthChamberBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

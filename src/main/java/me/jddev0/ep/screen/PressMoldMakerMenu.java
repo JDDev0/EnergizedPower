@@ -31,7 +31,7 @@ public class PressMoldMakerMenu extends ScreenHandler {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> inv.player.getWorld() == null || stack.isOf(Items.CLAY_BALL);
+                    case 0 -> stack.isOf(Items.CLAY_BALL);
                     case 1 -> false;
                     default -> super.isValid(slot, stack);
                 };
@@ -45,6 +45,7 @@ public class PressMoldMakerMenu extends ScreenHandler {
         this.blockEntity = (PressMoldMakerBlockEntity)blockEntity;
 
         this.inv = inv;
+        checkSize(this.inv, 2);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
 

@@ -343,6 +343,10 @@
   "item.energizedpower.compressor": "压缩机",
   "container.energizedpower.compressor": "压缩机",
 
+  "block.energizedpower.metal_press": "Metal Press",
+  "item.energizedpower.metal_press": "Metal Press",
+  "container.energizedpower.metal_press": "Metal Press",
+
   "block.energizedpower.plant_growth_chamber": "植物培养室",
   "item.energizedpower.plant_growth_chamber": "植物培养室",
   "container.energizedpower.plant_growth_chamber": "植物培养室",
@@ -449,6 +453,7 @@
   "emi.category.energizedpower.pulverizer": "Pulverizer",
   "emi.category.energizedpower.sawmill": "锯木机",
   "emi.category.energizedpower.compressor": "压缩机",
+  "emi.category.energizedpower.metal_press": "Metal Press",
   "emi.category.energizedpower.plant_growth_chamber": "植物生长箱",
   "emi.category.energizedpower.plant_growth_chamber_fertilizer": "培养室（肥料）",
   "emi.category.energizedpower.energizer": "物品充能站",
