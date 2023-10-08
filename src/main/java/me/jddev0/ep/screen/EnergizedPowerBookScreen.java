@@ -226,8 +226,8 @@ public class EnergizedPowerBookScreen extends Screen {
     }
 
     @Override
-    public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-        renderBackground(drawContext, mouseX, mouseY, delta);
+    public void renderBackground(DrawContext drawContext, int mouseX, int mouseY, float delta) {
+        super.renderBackground(drawContext, mouseX, mouseY, delta);
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
@@ -263,13 +263,9 @@ public class EnergizedPowerBookScreen extends Screen {
         if(currentPage == 0) {
             renderFrontCover(drawContext);
 
-            super.render(drawContext, mouseX, mouseY, delta);
-
             return;
         }else if(currentPage == getPageCount() - 1) {
             renderImageCentered(drawContext, ENERGIZED_COPPER_INGOT, -1);
-
-            super.render(drawContext, mouseX, mouseY, delta);
 
             return;
         }
@@ -329,8 +325,6 @@ public class EnergizedPowerBookScreen extends Screen {
             if(style != null)
                 drawContext.drawHoverEvent(textRenderer, style, mouseX, mouseY);
         }
-
-        super.render(drawContext, mouseX, mouseY, delta);
     }
 
     private void renderFrontCover(DrawContext drawContext) {
