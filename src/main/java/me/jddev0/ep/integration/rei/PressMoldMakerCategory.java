@@ -45,7 +45,6 @@ public class PressMoldMakerCategory implements DisplayCategory<PressMoldMakerDis
         int y = bounds.y + PADDING;
 
         widgets.add(Widgets.createSlotBackground(new Point(x, y + 5)));
-        widgets.add(Widgets.createSlotBackground(new Point(x + 18, y + 5)));
 
         widgets.add(Widgets.createArrow(new Point(x + 24, y + 5)));
 
