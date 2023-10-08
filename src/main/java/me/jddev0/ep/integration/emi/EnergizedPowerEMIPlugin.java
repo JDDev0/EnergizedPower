@@ -60,6 +60,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
         registry.addCategory(EnergizerEMIRecipe.CATEGORY);
         registry.addWorkstation(EnergizerEMIRecipe.CATEGORY, EnergizerEMIRecipe.ITEM);
 
+        registry.addCategory(PressMoldMakerEMIRecipe.CATEGORY);
+        registry.addWorkstation(PressMoldMakerEMIRecipe.CATEGORY, PressMoldMakerEMIRecipe.ITEM);
+
         registry.addCategory(DispenserEMIRecipe.CATEGORY);
         registry.addWorkstation(DispenserEMIRecipe.CATEGORY, DispenserEMIRecipe.ITEM);
 
@@ -93,6 +96,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
         for(RecipeHolder<EnergizerRecipe> recipe:recipeManager.getAllRecipesFor(EnergizerRecipe.Type.INSTANCE))
             registry.addRecipe(new EnergizerEMIRecipe(recipe));
+
+        for(RecipeHolder<PressMoldMakerRecipe> recipe:recipeManager.getAllRecipesFor(PressMoldMakerRecipe.Type.INSTANCE))
+            registry.addRecipe(new PressMoldMakerEMIRecipe(recipe));
 
         registry.addRecipe(new DispenserEMIRecipe(new DispenserEMIRecipe.DispenserRecipe(
                 new ResourceLocation(EnergizedPowerMod.MODID, "dispenser/energizedpower/cable_insulator"),

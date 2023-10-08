@@ -123,6 +123,8 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.EHV_TRANSFORMER_3_TO_3_ITEM);
             event.accept(ModBlocks.EHV_TRANSFORMER_N_TO_1_ITEM);
 
+            event.accept(ModBlocks.PRESS_MOLD_MAKER_ITEM);
+
             event.accept(ModBlocks.COAL_ENGINE_ITEM);
             event.accept(ModBlocks.HEAT_GENERATOR_ITEM);
             event.accept(ModBlocks.THERMAL_GENERATOR_ITEM);
@@ -263,6 +265,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_4.get(), SolarPanelScreen::new);
             MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_5.get(), SolarPanelScreen::new);
             MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_6.get(), SolarPanelScreen::new);
+            MenuScreens.register(ModMenuTypes.PRESS_MOLD_MAKER_MENU.get(), PressMoldMakerScreen::new);
 
             MenuScreens.register(ModMenuTypes.INVENTORY_CHARGER_MENU.get(), InventoryChargerScreen::new);
 

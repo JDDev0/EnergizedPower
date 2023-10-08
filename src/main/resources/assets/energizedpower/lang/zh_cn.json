@@ -150,6 +150,16 @@
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Connection type of face (%s) was set to %s.",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Connection type of face (%s) could not be changed.",
 
+  "block.energizedpower.press_mold_maker": "Press Mold Maker",
+  "item.energizedpower.press_mold_maker": "Press Mold Maker",
+  "container.energizedpower.press_mold_maker": "Press Mold Maker",
+
+  "tooltip.energizedpower.press_mold_maker.btn.up": "Scroll up",
+  "tooltip.energizedpower.press_mold_maker.btn.down": "Scroll down",
+
+  "tooltip.energizedpower.press_mold_maker.btn.recipes.1": "%dx %s",
+  "tooltip.energizedpower.press_mold_maker.btn.recipes.2": "Requires %dx %s",
+
   "block.energizedpower.auto_crafter": "自动合成机",
   "item.energizedpower.auto_crafter": "自动合成机",
   "container.energizedpower.auto_crafter": "自动合成机",
@@ -442,6 +452,7 @@
   "emi.category.energizedpower.plant_growth_chamber": "植物生长箱",
   "emi.category.energizedpower.plant_growth_chamber_fertilizer": "培养室（肥料）",
   "emi.category.energizedpower.energizer": "物品充能站",
+  "emi.category.energizedpower.press_mold_maker": "Press Mold Maker",
   "emi.category.energizedpower.dispenser": "自动取物器",
   "emi.category.energizedpower.in_world_crafting": "世界工艺品",
 

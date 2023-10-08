@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "item": "minecraft:smooth_stone"
+    },
+    "B": {
+      "item": "minecraft:bricks"
+    },
+    "s": {
+      "item": "minecraft:stone_shovel"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BsB",
+    "SSS"
+  ],
+  "result": {
+    "item": "energizedpower:press_mold_maker"
+  }
+}

@@ -52,6 +52,12 @@ public final class ModMessages {
                 consumerMainThread(OpenEnergizedPowerBookS2CPacket::handle).
                 add();
 
+        net.messageBuilder(SyncPressMoldMakerRecipeListS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT).
+                decoder(SyncPressMoldMakerRecipeListS2CPacket::new).
+                encoder(SyncPressMoldMakerRecipeListS2CPacket::toBytes).
+                consumerMainThread(SyncPressMoldMakerRecipeListS2CPacket::handle).
+                add();
+
         //Client -> Server
         net.messageBuilder(PopEnergizedPowerBookFromLecternC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
                 decoder(PopEnergizedPowerBookFromLecternC2SPacket::new).
@@ -99,6 +105,12 @@ public final class ModMessages {
                 decoder(CycleAutoCrafterRecipeOutputC2SPacket::new).
                 encoder(CycleAutoCrafterRecipeOutputC2SPacket::toBytes).
                 consumerMainThread(CycleAutoCrafterRecipeOutputC2SPacket::handle).
+                add();
+
+        net.messageBuilder(CraftPressMoldMakerRecipeC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+                decoder(CraftPressMoldMakerRecipeC2SPacket::new).
+                encoder(CraftPressMoldMakerRecipeC2SPacket::toBytes).
+                consumerMainThread(CraftPressMoldMakerRecipeC2SPacket::handle).
                 add();
     }
 
