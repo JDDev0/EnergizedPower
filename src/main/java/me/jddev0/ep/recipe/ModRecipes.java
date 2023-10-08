@@ -69,6 +69,11 @@ public final class ModRecipes {
     public static final RegistryObject<RecipeType<PressMoldMakerRecipe>> PRESS_MOLD_MAKER_TYPE = TYPES.
             register("press_mold_maker", () -> PressMoldMakerRecipe.Type.INSTANCE);
 
+    public static final RegistryObject<RecipeSerializer<MetalPressRecipe>> METAL_PRESS_SERIALIZER = SERIALIZERS.
+            register("metal_press", () -> MetalPressRecipe.Serializer.INSTANCE);
+    public static final RegistryObject<RecipeType<MetalPressRecipe>> METAL_PRESS_TYPE = TYPES.
+            register("metal_press", () -> MetalPressRecipe.Type.INSTANCE);
+
     public static void register(IEventBus modEventBus) {
         SERIALIZERS.register(modEventBus);
         TYPES.register(modEventBus);

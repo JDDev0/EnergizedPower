@@ -377,6 +377,19 @@ public final class ModConfigs {
             "block.compressor", "Compressor", 100
     );
 
+    public static final ConfigValue<Integer> COMMON_METAL_PRESS_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.metal_press", "Metal Press", 2048
+    );
+    public static final ConfigValue<Integer> COMMON_METAL_PRESS_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.metal_press", "Metal Press", 256
+    );
+    public static final ConfigValue<Integer> COMMON_METAL_PRESS_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.metal_press", "Metal Press", 16
+    );
+    public static final ConfigValue<Integer> COMMON_METAL_PRESS_RECIPE_DURATION = registerRecipeDurationConfigValue(
+            "block.metal_press", "Metal Press", 250
+    );
+
     public static final ConfigValue<Integer> COMMON_ENERGIZER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.energizer", "Energizer", 65536
     );
