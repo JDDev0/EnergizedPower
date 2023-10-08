@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "energizedpower:energized_crystal_matrix"
+    },
+    "S": {
+      "tag": "c:silicon"
+    },
+    "R": {
+      "tag": "c:redstone_dusts"
+    },
+    "A": {
+      "item": "energizedpower:advanced_solar_cell"
+    }
+  },
+  "pattern": [
+    "CSC",
+    "RAR",
+    "CSC"
+  ],
+  "result": {
+    "item": "energizedpower:reinforced_advanced_solar_cell"
+  }
+}
