@@ -49,9 +49,9 @@ public class MetalPressCategory implements DisplayCategory<MetalPressDisplay> {
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 47, 22, 98, 34));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 13)).disableBackground().markInput().
-                entries(display.getInputEntries().get(0)));
-        widgets.add(Widgets.createSlot(new Point(x + 37, y + 1)).disableBackground().markInput().
                 entries(display.getInputEntries().get(1)));
+        widgets.add(Widgets.createSlot(new Point(x + 37, y + 1)).disableBackground().markInput().
+                entries(display.getInputEntries().get(0)));
         widgets.add(Widgets.createSlot(new Point(x + 77, y + 13)).disableBackground().markOutput().
                 entries(display.getOutputEntries().get(0)));
 
