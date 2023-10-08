@@ -41,6 +41,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
                 new PlantGrowthChamberCategory(registration.getJeiHelpers().getGuiHelper()),
                 new PlantGrowthChamberFertilizerCategory(registration.getJeiHelpers().getGuiHelper()),
                 new EnergizerCategory(registration.getJeiHelpers().getGuiHelper()),
+                new PressMoldMakerCategory(registration.getJeiHelpers().getGuiHelper()),
 
                 new InWorldCategory(registration.getJeiHelpers().getGuiHelper()),
                 new DispenserCategory(registration.getJeiHelpers().getGuiHelper())
@@ -65,6 +66,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipes(PlantGrowthChamberCategory.TYPE, recipeManager.getAllRecipesFor(PlantGrowthChamberRecipe.Type.INSTANCE));
         registration.addRecipes(PlantGrowthChamberFertilizerCategory.TYPE, recipeManager.getAllRecipesFor(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE));
         registration.addRecipes(EnergizerCategory.TYPE, recipeManager.getAllRecipesFor(EnergizerRecipe.Type.INSTANCE));
+        registration.addRecipes(PressMoldMakerCategory.TYPE, recipeManager.getAllRecipesFor(PressMoldMakerRecipe.Type.INSTANCE));
 
         registration.addRecipes(InWorldCategory.TYPE, Arrays.asList(
                 new InWorldCategory.InWorldRecipe(Ingredient.of(Tags.Items.SHEARS), Ingredient.of(ItemTags.WOOL),
@@ -94,6 +96,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()), PlantGrowthChamberCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()), PlantGrowthChamberFertilizerCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.ENERGIZER_ITEM.get()), EnergizerCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.PRESS_MOLD_MAKER_ITEM.get()), PressMoldMakerCategory.TYPE);
 
         registration.addRecipeCatalyst(new ItemStack(Items.SHEARS), InWorldCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(Items.DISPENSER), DispenserCategory.TYPE);
@@ -119,6 +122,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipeClickArea(PlantGrowthChamberScreen.class, 34, 16, 18, 17, PlantGrowthChamberFertilizerCategory.TYPE);
         registration.addRecipeClickArea(PlantGrowthChamberScreen.class, 34, 53, 18, 17, PlantGrowthChamberFertilizerCategory.TYPE);
         registration.addRecipeClickArea(EnergizerScreen.class, 89, 34, 24, 17, EnergizerCategory.TYPE);
+        registration.addRecipeClickArea(PressMoldMakerScreen.class, 7, 34, 18, 18, PressMoldMakerCategory.TYPE);
 
         registration.addRecipeClickArea(DispenserScreen.class, 7, 16, 54, 54, DispenserCategory.TYPE);
         registration.addRecipeClickArea(DispenserScreen.class, 115, 16, 54, 54, DispenserCategory.TYPE);

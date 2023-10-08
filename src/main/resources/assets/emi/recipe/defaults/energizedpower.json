@@ -66,6 +66,7 @@
     "energizedpower:crafting/minecart_charger",
     "energizedpower:crafting/minecart_uncharger",
     "energizedpower:crafting/plant_growth_chamber",
+    "energizedpower:crafting/press_mold_maker",
     "energizedpower:crafting/powered_furnace",
     "energizedpower:crafting/powered_lamp",
     "energizedpower:crafting/pulverizer",
@@ -91,6 +92,8 @@
     "energizedpower:crafting/weather_controller",
     "energizedpower:crafting/wooden_hammer",
     "energizedpower:crafting/wrench",
+
+    "energizedpower:press_mold_maker/raw_gear_press_mold",
 
     "energizedpower:smelting/gear_press_mold",
     "energizedpower:smelting/silicon_from_smelting_nether_quartz",
