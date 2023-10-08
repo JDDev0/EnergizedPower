@@ -275,6 +275,9 @@
   "block.energizedpower.solar_panel_5": "Solar Panel (Tier V)",
   "item.energizedpower.solar_panel_5": "Solar Panel (Tier V)",
   "container.energizedpower.solar_panel_5": "Solar Panel (Tier V)",
+  "block.energizedpower.solar_panel_6": "Solar Panel (Tier VI)",
+  "item.energizedpower.solar_panel_6": "Solar Panel (Tier VI)",
+  "container.energizedpower.solar_panel_6": "Solar Panel (Tier VI)",
 
   "tooltip.energizedpower.solar_panel.txt.shift.1": "This block produces up to %s/t.",
   "tooltip.energizedpower.solar_panel.txt.shift.2": "The efficiency depends on the current time",
@@ -679,10 +682,13 @@
   "advancements.energizedpower.solar_panel_3.description": "Tier III - The best of the basic solar panels",
 
   "advancements.energizedpower.solar_panel_4.title": "Solar Power Manager",
-  "advancements.energizedpower.solar_panel_4.description": "Tier IV: Only one to go!",
+  "advancements.energizedpower.solar_panel_4.description": "Tier IV: More than basic!",
 
-  "advancements.energizedpower.solar_panel_5.title": "Solar Power Employer",
-  "advancements.energizedpower.solar_panel_5.description": "Tier V - You have got the best solar panel!",
+  "advancements.energizedpower.solar_panel_5.title": "Solar Power Director",
+  "advancements.energizedpower.solar_panel_5.description": "Tier V - Only one tier left!",
+
+  "advancements.energizedpower.solar_panel_6.title": "Solar Power Employer",
+  "advancements.energizedpower.solar_panel_6.description": "Tier VI - You have got the best solar panel!",
 
   "advancements.energizedpower.uncharger.title": "Give it back!",
   "advancements.energizedpower.uncharger.description": "Uncharges your energy items.",
@@ -836,8 +842,7 @@
   "book.energizedpower.page.solar_cells.2": "There are three solar cells: Basic, Advanced, and Reinforced Advanced",
 
   "book.energizedpower.page.solar_panels.1": "Solar Panels produce energy during the day. The efficiency depends on the time and on the weather.",
-  "book.energizedpower.page.solar_panels.2": "There are 5 Solar Panel Tiers.",
-  "book.energizedpower.page.solar_panels.3": "Tier IV and Tier V require Energized Copper Ingots.",
+  "book.energizedpower.page.solar_panels.2": "There are 6 Solar Panel Tiers.",
 
   "book.energizedpower.page.coal_engine.1": "The Coal Engine produces energy by burning items.",
   "book.energizedpower.page.coal_engine.2": "Remainder items can be extracted automatically.",

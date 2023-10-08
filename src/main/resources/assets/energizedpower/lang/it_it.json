@@ -275,6 +275,9 @@
   "block.energizedpower.solar_panel_5": "Pannello solare (Livello V)",
   "item.energizedpower.solar_panel_5": "Pannello solare (Livello V)",
   "container.energizedpower.solar_panel_5": "Pannello solare (Livello V)",
+  "block.energizedpower.solar_panel_6": "Pannello solare (Livello VI)",
+  "item.energizedpower.solar_panel_6": "Pannello solare (Livello VI)",
+  "container.energizedpower.solar_panel_6": "Pannello solare (Livello VI)",
 
   "tooltip.energizedpower.solar_panel.txt.shift.1": "Questo blocco produce fino a %s/t.",
   "tooltip.energizedpower.solar_panel.txt.shift.2": "L'efficienza dipende dall'ora corrente",
@@ -679,10 +682,13 @@
   "advancements.energizedpower.solar_panel_3.description": "Tier III - Il meglio dei pannelli solari di base",
 
   "advancements.energizedpower.solar_panel_4.title": "Gestore dell'energia solare",
-  "advancements.energizedpower.solar_panel_4.description": "Livello IV: ne resta solo uno!",
+  "advancements.energizedpower.solar_panel_4.description": "Tier IV: More than basic!",
 
-  "advancements.energizedpower.solar_panel_5.title": "Datore di lavoro di energia solare",
-  "advancements.energizedpower.solar_panel_5.description": "Livello V - Hai il miglior pannello solare!",
+  "advancements.energizedpower.solar_panel_5.title": "Solar Power Director",
+  "advancements.energizedpower.solar_panel_5.description": "Tier V - Only one tier left!",
+
+  "advancements.energizedpower.solar_panel_6.title": "Solar Power Employer",
+  "advancements.energizedpower.solar_panel_6.description": "Tier VI - You have got the best solar panel!",
 
   "advancements.energizedpower.uncharger.title": "Restituiscilo!",
   "advancements.energizedpower.uncharger.description": "Scarica i tuoi oggetti energetici.",
@@ -836,8 +842,7 @@
   "book.energizedpower.page.solar_cells.2": "There are three solar cells: Basic, Advanced, and Reinforced Advanced",
 
   "book.energizedpower.page.solar_panels.1": "I pannelli solari producono energia durante il giorno. L'efficienza dipende dal tempo e dal meteo.",
-  "book.energizedpower.page.solar_panels.2": "Ci sono 5 livelli di pannelli solari.",
-  "book.energizedpower.page.solar_panels.3": "I livelli IV e V richiedono lingotti di rame energizzati.",
+  "book.energizedpower.page.solar_panels.2": "Ci sono 6 livelli di pannelli solari.",
 
   "book.energizedpower.page.coal_engine.1": "La macchina a carbone produce energia bruciando oggetti.",
   "book.energizedpower.page.coal_engine.2": "Gli elementi rimanenti possono essere estratti automaticamente.",
