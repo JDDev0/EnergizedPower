@@ -275,6 +275,9 @@
   "block.energizedpower.solar_panel_5": "Solarpanel (MK V)",
   "item.energizedpower.solar_panel_5": "Solarpanel (MK V)",
   "container.energizedpower.solar_panel_5": "Solarpanel (MK V)",
+  "block.energizedpower.solar_panel_6": "Solarpanel (MK VI)",
+  "item.energizedpower.solar_panel_6": "Solarpanel (MK VI)",
+  "container.energizedpower.solar_panel_6": "Solarpanel (MK VI)",
 
   "tooltip.energizedpower.solar_panel.txt.shift.1": "Dieses Panel kann bis zu %s/t produzieren.",
   "tooltip.energizedpower.solar_panel.txt.shift.2": "Die Effizienz hängt von der aktuellen Zeit und dem Wetter ab",
@@ -679,10 +682,13 @@
   "advancements.energizedpower.solar_panel_3.description": "MK III - Das beste der Basis-Solarpanels",
 
   "advancements.energizedpower.solar_panel_4.title": "Solarstrom-Manager",
-  "advancements.energizedpower.solar_panel_4.description": "MK IV: Nur noch ein Panel ist besser!",
+  "advancements.energizedpower.solar_panel_4.description": "MK IV: Besser als Basis-Solarpanels!",
 
-  "advancements.energizedpower.solar_panel_5.title": "Solarstrom-Arbeitgeber",
-  "advancements.energizedpower.solar_panel_5.description": "MK V - Du hast das beste Solarpanel!",
+  "advancements.energizedpower.solar_panel_5.title": "Solarstrom-Director",
+  "advancements.energizedpower.solar_panel_5.description": "MK V - Nur mehr ein Panel ist besser!",
+
+  "advancements.energizedpower.solar_panel_6.title": "Solarstrom-Arbeitgeber",
+  "advancements.energizedpower.solar_panel_6.description": "MK VI - Du hast das beste Solarpanel!",
 
   "advancements.energizedpower.uncharger.title": "Gib sie zurück!",
   "advancements.energizedpower.uncharger.description": "Entläd deine Energie-Items.",
@@ -836,8 +842,7 @@
   "book.energizedpower.page.solar_cells.2": "Es gibt drei Typen: Basis, fortgeschritten, und verstärkt fortgeschritten",
 
   "book.energizedpower.page.solar_panels.1": "Solarpanels produzieren während dem Tag Energie. Die Effizienz hängt von der Zeit und dem Wetter ab.",
-  "book.energizedpower.page.solar_panels.2": "Es gibt 5 Solarpanel-Typen.",
-  "book.energizedpower.page.solar_panels.3": "MK IV und MK V benötigen energetisierte Kupferbarren.",
+  "book.energizedpower.page.solar_panels.2": "Es gibt 6 Solarpanel-Typen.",
 
   "book.energizedpower.page.coal_engine.1": "Der Kohlegenerator produziert Energie indem er Items verbrennt.",
   "book.energizedpower.page.coal_engine.2": "Zurückbleibende Items (z.B. Lavaeimer: Eimer) können automatisch extrahiert werden.",
