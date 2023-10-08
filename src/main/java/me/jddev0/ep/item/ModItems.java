@@ -62,6 +62,9 @@ public final class ModItems {
     public static final Item RAW_GEAR_PRESS_MOLD = registerItem("raw_gear_press_mold",
             new Item(new FabricItemSettings()));
 
+    public static final Item GEAR_PRESS_MOLD = registerItem("gear_press_mold",
+            new Item(new FabricItemSettings()));
+
     public static final Item BASIC_SOLAR_CELL = registerItem("basic_solar_cell",
             new Item(new FabricItemSettings()));
     public static final Item ADVANCED_SOLAR_CELL = registerItem("advanced_solar_cell",
