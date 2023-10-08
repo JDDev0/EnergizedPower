@@ -87,6 +87,11 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
+    public static final BlockEntityType<PressMoldMakerBlockEntity> PRESS_MOLD_MAKER_ENTITY = registerInventoryStorage(
+            createBlockEntity("press_mold_maker", ModBlocks.PRESS_MOLD_MAKER, PressMoldMakerBlockEntity::new),
+            (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)
+    );
+
     public static final BlockEntityType<CrusherBlockEntity> CRUSHER_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
                     createBlockEntity("crusher", ModBlocks.CRUSHER, CrusherBlockEntity::new),
