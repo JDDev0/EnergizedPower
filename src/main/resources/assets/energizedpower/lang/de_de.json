@@ -150,6 +150,16 @@
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Verbindungs-Typ der Blockseite (%s) wurde zu %s gesetzt.",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Verbindungs-Typ der Blockseite (%s) konnte nicht geändert werden.",
 
+  "block.energizedpower.press_mold_maker": "Pressform-Hersteller",
+  "item.energizedpower.press_mold_maker": "Pressform-Hersteller",
+  "container.energizedpower.press_mold_maker": "Pressform-Hersteller",
+
+  "tooltip.energizedpower.press_mold_maker.btn.up": "Nach oben scrollen",
+  "tooltip.energizedpower.press_mold_maker.btn.down": "Nach unten scrollen",
+
+  "tooltip.energizedpower.press_mold_maker.btn.recipes.1": "%dx %s",
+  "tooltip.energizedpower.press_mold_maker.btn.recipes.2": "Benötigt %dx %s",
+
   "block.energizedpower.auto_crafter": "Automatische Werkbank",
   "item.energizedpower.auto_crafter": "Automatische Werkbank",
   "container.energizedpower.auto_crafter": "Automatische Werkbank",
@@ -442,6 +452,7 @@
   "emi.category.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
   "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Wachstums-Kammer (Dünger)",
   "emi.category.energizedpower.energizer": "Energetisierer",
+  "emi.category.energizedpower.press_mold_maker": "Pressform-Hersteller",
   "emi.category.energizedpower.dispenser": "Werfer",
   "emi.category.energizedpower.in_world_crafting": "In-Welt Herstellung",
 

@@ -158,6 +158,11 @@ public final class ModBlocks {
     public static final Item EHV_TRANSFORMER_N_TO_1_ITEM = createTransformerBlockItem("ehv_transformer_n_to_1",
             EHV_TRANSFORMER_N_TO_1);
 
+    public static final Block PRESS_MOLD_MAKER = registerBlock("press_mold_maker",
+            new PressMoldMakerBlock(FabricBlockSettings.create().mapColor(MapColor.RED).
+                    instrument(Instrument.BASEDRUM).requiresTool().strength(2.0f, 6.0f).sounds(BlockSoundGroup.STONE)));
+    public static final Item PRESS_MOLD_MAKER_ITEM = createBlockItem("press_mold_maker", PRESS_MOLD_MAKER);
+
     public static final Block AUTO_CRAFTER = registerBlock("auto_crafter",
             new AutoCrafterBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

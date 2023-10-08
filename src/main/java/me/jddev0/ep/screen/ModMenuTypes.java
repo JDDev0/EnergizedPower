@@ -117,6 +117,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<SolarPanelMenu> SOLAR_PANEL_MENU_6 = createScreenHandlerType("solar_panel_6",
             new ExtendedScreenHandlerType<>(SolarPanelMenu::new));
 
+    public static final ScreenHandlerType<PressMoldMakerMenu> PRESS_MOLD_MAKER_MENU = createScreenHandlerType("press_mold_maker",
+            new ExtendedScreenHandlerType<>(PressMoldMakerMenu::new));
+
     public static final ScreenHandlerType<InventoryChargerMenu> INVENTORY_CHARGER_MENU = createScreenHandlerType("inventory_charger",
             new ScreenHandlerType<>(InventoryChargerMenu::new, FeatureFlags.VANILLA_FEATURES));
 

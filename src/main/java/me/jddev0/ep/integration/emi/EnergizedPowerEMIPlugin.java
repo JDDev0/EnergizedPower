@@ -6,7 +6,6 @@ import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.stack.EmiStack;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.integration.rei.PlantGrowthChamberCategory;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.registry.tags.CommonItemTags;
@@ -59,6 +58,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
         registry.addCategory(EnergizerEMIRecipe.CATEGORY);
         registry.addWorkstation(EnergizerEMIRecipe.CATEGORY, EnergizerEMIRecipe.ITEM);
 
+        registry.addCategory(PressMoldMakerEMIRecipe.CATEGORY);
+        registry.addWorkstation(PressMoldMakerEMIRecipe.CATEGORY, PressMoldMakerEMIRecipe.ITEM);
+
         registry.addCategory(DispenserEMIRecipe.CATEGORY);
         registry.addWorkstation(DispenserEMIRecipe.CATEGORY, DispenserEMIRecipe.ITEM);
 
@@ -92,6 +94,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
         for(RecipeEntry<EnergizerRecipe> recipe:recipeManager.listAllOfType(EnergizerRecipe.Type.INSTANCE))
             registry.addRecipe(new EnergizerEMIRecipe(recipe));
+
+        for(RecipeEntry<PressMoldMakerRecipe> recipe:recipeManager.listAllOfType(PressMoldMakerRecipe.Type.INSTANCE))
+            registry.addRecipe(new PressMoldMakerEMIRecipe(recipe));
 
         registry.addRecipe(new DispenserEMIRecipe(new DispenserEMIRecipe.DispenserRecipe(
                 new Identifier(EnergizedPowerMod.MODID, "dispenser/energizedpower/cable_insulator"),
