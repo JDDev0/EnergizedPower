@@ -343,6 +343,10 @@
   "item.energizedpower.compressor": "Kompressor",
   "container.energizedpower.compressor": "Kompressor",
 
+  "block.energizedpower.metal_press": "Metalpresse",
+  "item.energizedpower.metal_press": "Metalpresse",
+  "container.energizedpower.metal_press": "Metalpresse",
+
   "block.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
   "item.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
   "container.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
@@ -449,6 +453,7 @@
   "emi.category.energizedpower.pulverizer": "Pulverisierer",
   "emi.category.energizedpower.sawmill": "Sägewerk",
   "emi.category.energizedpower.compressor": "Kompressor",
+  "emi.category.energizedpower.metal_press": "Metalpresse",
   "emi.category.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
   "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Wachstums-Kammer (Dünger)",
   "emi.category.energizedpower.energizer": "Energetisierer",

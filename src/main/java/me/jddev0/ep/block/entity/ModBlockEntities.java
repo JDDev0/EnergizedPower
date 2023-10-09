@@ -123,6 +123,16 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
+    public static final BlockEntityType<MetalPressBlockEntity> METAL_PRESS_ENTITY = registerEnergyStorage(
+            registerInventoryStorage(
+                    createBlockEntity("metal_press", ModBlocks.METAL_PRESS, MetalPressBlockEntity::new),
+                    (blockEntity, side) -> (side == Direction.UP)?
+                            blockEntity.cachedSidedInventoryStorageTop.apply(side):
+                            blockEntity.cachedSidedInventoryStorageOthers.apply(side)
+            ),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
+
     public static final BlockEntityType<PlantGrowthChamberBlockEntity> PLANT_GROWTH_CHAMBER_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
                 createBlockEntity("plant_growth_chamber", ModBlocks.PLANT_GROWTH_CHAMBER, PlantGrowthChamberBlockEntity::new),

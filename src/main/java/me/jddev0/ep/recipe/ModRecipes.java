@@ -65,6 +65,11 @@ public final class ModRecipes {
     public static final RecipeType<PressMoldMakerRecipe> PRESS_MOLD_MAKER_TYPE = createRecipeType("press_mold_maker",
             PressMoldMakerRecipe.Type.INSTANCE);
 
+    public static final RecipeSerializer<MetalPressRecipe> METAL_PRESS_SERIALIZER = createSerializer("metal_press",
+            MetalPressRecipe.Serializer.INSTANCE);
+    public static final RecipeType<MetalPressRecipe> METAL_PRESS_TYPE = createRecipeType("metal_press",
+            MetalPressRecipe.Type.INSTANCE);
+
     private static <T extends Recipe<?>> RecipeSerializer<T> createSerializer(String name, RecipeSerializer<T> instance) {
         return Registry.register(Registry.RECIPE_SERIALIZER, new Identifier(EnergizedPowerMod.MODID, name), instance);
     }
