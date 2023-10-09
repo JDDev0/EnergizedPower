@@ -21,6 +21,7 @@ public class SolarPanelMenu extends AbstractContainerMenu implements EnergyStora
             case TIER_3 -> ModMenuTypes.SOLAR_PANEL_MENU_3.get();
             case TIER_4 -> ModMenuTypes.SOLAR_PANEL_MENU_4.get();
             case TIER_5 -> ModMenuTypes.SOLAR_PANEL_MENU_5.get();
+            case TIER_6 -> ModMenuTypes.SOLAR_PANEL_MENU_6.get();
         };
     }
 

@@ -46,6 +46,7 @@ public class SolarPanelBlock extends BaseEntityBlock {
             case TIER_3 -> ModBlocks.SOLAR_PANEL_3.get();
             case TIER_4 -> ModBlocks.SOLAR_PANEL_4.get();
             case TIER_5 -> ModBlocks.SOLAR_PANEL_5.get();
+            case TIER_6 -> ModBlocks.SOLAR_PANEL_6.get();
         };
     }
 
@@ -144,6 +145,11 @@ public class SolarPanelBlock extends BaseEntityBlock {
         TIER_5("solar_panel_5", ModConfigs.COMMON_SOLAR_PANEL_5_ENERGY_PEAK_PRODUCTION.getValue(),
                 ModConfigs.COMMON_SOLAR_PANEL_5_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_SOLAR_PANEL_5_CAPACITY.getValue(),
+                BlockBehaviour.Properties.of(Material.METAL).
+                        requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
+        TIER_6("solar_panel_6", ModConfigs.COMMON_SOLAR_PANEL_6_ENERGY_PEAK_PRODUCTION.getValue(),
+                ModConfigs.COMMON_SOLAR_PANEL_6_TRANSFER_RATE.getValue(),
+                ModConfigs.COMMON_SOLAR_PANEL_6_CAPACITY.getValue(),
                 BlockBehaviour.Properties.of(Material.METAL).
                         requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL));
 
