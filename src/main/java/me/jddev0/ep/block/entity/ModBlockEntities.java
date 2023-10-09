@@ -233,6 +233,10 @@ public final class ModBlockEntities {
             createSolarPanelBlockEntity("solar_panel_5", ModBlocks.SOLAR_PANEL_5),
         (blockEntity, direction) -> (direction == null || direction == Direction.DOWN)?blockEntity.energyStorage:null
     );
+    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_6 = registerEnergyStorage(
+            createSolarPanelBlockEntity("solar_panel_6", ModBlocks.SOLAR_PANEL_6),
+        (blockEntity, direction) -> (direction == null || direction == Direction.DOWN)?blockEntity.energyStorage:null
+    );
 
     public static final BlockEntityType<TransformerBlockEntity> MV_TRANSFORMER_1_TO_N_ENTITY = registerEnergyStorage(
             createBlockEntity("transformer_1_to_n", ModBlocks.MV_TRANSFORMER_1_TO_N, (blockPos, state) ->

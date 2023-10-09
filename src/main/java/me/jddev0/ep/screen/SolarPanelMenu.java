@@ -23,6 +23,7 @@ public class SolarPanelMenu extends ScreenHandler implements EnergyStorageMenu {
             case TIER_3 -> ModMenuTypes.SOLAR_PANEL_MENU_3;
             case TIER_4 -> ModMenuTypes.SOLAR_PANEL_MENU_4;
             case TIER_5 -> ModMenuTypes.SOLAR_PANEL_MENU_5;
+            case TIER_6 -> ModMenuTypes.SOLAR_PANEL_MENU_6;
         };
     }
 
