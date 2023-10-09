@@ -131,6 +131,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<SolarPanelMenu>> SOLAR_PANEL_MENU_6 = registerMenuType("solar_panel_6",
             SolarPanelMenu::new);
 
+    public static final RegistryObject<MenuType<PressMoldMakerMenu>> PRESS_MOLD_MAKER_MENU = registerMenuType("press_mold_maker",
+            PressMoldMakerMenu::new);
+
     public static void register(IEventBus modEventBus) {
         MENUS.register(modEventBus);
     }
