@@ -120,6 +120,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<PressMoldMakerMenu> PRESS_MOLD_MAKER_MENU = createScreenHandlerType("press_mold_maker",
             new ExtendedScreenHandlerType<>(PressMoldMakerMenu::new));
 
+    public static final ScreenHandlerType<MetalPressMenu> METAL_PRESS_MENU = createScreenHandlerType("metal_press",
+            new ExtendedScreenHandlerType<>(MetalPressMenu::new));
+
     public static final ScreenHandlerType<InventoryChargerMenu> INVENTORY_CHARGER_MENU = createScreenHandlerType("inventory_charger",
             new ScreenHandlerType<>(InventoryChargerMenu::new, FeatureFlags.VANILLA_FEATURES));
 
