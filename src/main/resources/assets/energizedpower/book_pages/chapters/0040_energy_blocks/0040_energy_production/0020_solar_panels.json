@@ -13,16 +13,6 @@
       "translate": "book.energizedpower.page.solar_panels.2",
       "color": "black",
       "bold": true,
-      "font": "uniform",
-      "extra": [
-        "\n"
-      ]
-    },
-    {
-      "translate": "book.energizedpower.page.solar_panels.3",
-      "color": "black",
-      "bold": false,
-      "italic": true,
       "font": "uniform"
     }
   ],
@@ -31,6 +21,7 @@
     "energizedpower:solar_panel_2",
     "energizedpower:solar_panel_3",
     "energizedpower:solar_panel_4",
-    "energizedpower:solar_panel_5"
+    "energizedpower:solar_panel_5",
+    "energizedpower:solar_panel_6"
   ]
 }

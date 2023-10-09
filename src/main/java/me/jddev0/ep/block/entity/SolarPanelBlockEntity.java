@@ -43,6 +43,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
             case TIER_3 -> ModBlockEntities.SOLAR_PANEL_ENTITY_3;
             case TIER_4 -> ModBlockEntities.SOLAR_PANEL_ENTITY_4;
             case TIER_5 -> ModBlockEntities.SOLAR_PANEL_ENTITY_5;
+            case TIER_6 -> ModBlockEntities.SOLAR_PANEL_ENTITY_6;
         };
     }
 
