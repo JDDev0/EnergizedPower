@@ -58,6 +58,8 @@ public final class ModItems {
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final Item ADVANCED_SOLAR_CELL = registerItem("advanced_solar_cell",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+    public static final Item REINFORCED_ADVANCED_SOLAR_CELL = registerItem("reinforced_advanced_solar_cell",
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Item ENERGIZED_POWER_BOOK = registerItem("energized_power_book",
             new EnergizedPowerBookItem(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxCount(1)));

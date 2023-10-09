@@ -23,6 +23,7 @@
 
   "item.energizedpower.basic_solar_cell": "基本太阳能单元",
   "item.energizedpower.advanced_solar_cell": "高级太阳能单元",
+  "item.energizedpower.reinforced_advanced_solar_cell": "Reinforced Advanced Solar Cell",
 
   "item.energizedpower.energized_power_book": "Energized Power 书",
   "book.energizedpower.front.cover.text": "这个是这个模组的指南书！",
@@ -452,6 +453,9 @@
   "advancements.energizedpower.advanced_solar_cell.title": "高级太阳能",
   "advancements.energizedpower.advanced_solar_cell.description": "高级太阳能电池板需要...",
 
+  "advancements.energizedpower.reinforced_advanced_solar_cell.title": "Even better solar energy",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Required for the best solar panels...",
+
   "advancements.energizedpower.auto_crafter.title": "未来自动化",
   "advancements.energizedpower.auto_crafter.description": "如果这个方块可以自动制作，谁还愿意手动制作？",
 
@@ -829,7 +833,7 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_production": "Blocks for energy production",
 
   "book.energizedpower.page.solar_cells.1": "太阳能单元是制作太阳能电池板的基本物品。",
-  "book.energizedpower.page.solar_cells.2": "一共有两种太阳能电池板：基本太阳能单元和高级太阳能单元。",
+  "book.energizedpower.page.solar_cells.2": "There are three solar cells: Basic, Advanced, and Reinforced Advanced",
 
   "book.energizedpower.page.solar_panels.1": "太阳能电池板在白天产生能量。太阳能电池板的效率取决于那天的时间和天气情况。",
   "book.energizedpower.page.solar_panels.2": "一共有5种太阳能电池板。",
