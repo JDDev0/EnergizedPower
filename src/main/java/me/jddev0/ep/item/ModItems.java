@@ -42,6 +42,9 @@ public final class ModItems {
     public static final Item GOLD_PLATE = registerItem("gold_plate",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final Item IRON_GEAR = registerItem("iron_gear",
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final Item SAWDUST = registerItem("sawdust",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
