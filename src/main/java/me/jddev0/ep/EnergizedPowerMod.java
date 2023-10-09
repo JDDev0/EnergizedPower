@@ -151,6 +151,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.PULVERIZER_ITEM);
             event.accept(ModBlocks.SAWMILL_ITEM);
             event.accept(ModBlocks.COMPRESSOR_ITEM);
+            event.accept(ModBlocks.METAL_PRESS_ITEM);
             event.accept(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM);
             event.accept(ModBlocks.BLOCK_PLACER_ITEM);
             event.accept(ModBlocks.FLUID_FILLER_ITEM);
@@ -269,6 +270,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_5.get(), SolarPanelScreen::new);
             MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_6.get(), SolarPanelScreen::new);
             MenuScreens.register(ModMenuTypes.PRESS_MOLD_MAKER_MENU.get(), PressMoldMakerScreen::new);
+            MenuScreens.register(ModMenuTypes.METAL_PRESS_MENU.get(), MetalPressScreen::new);
 
             MenuScreens.register(ModMenuTypes.INVENTORY_CHARGER_MENU.get(), InventoryChargerScreen::new);
 

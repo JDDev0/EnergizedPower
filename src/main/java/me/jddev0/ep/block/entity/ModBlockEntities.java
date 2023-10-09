@@ -81,6 +81,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("compressor", () -> BlockEntityType.Builder.of(CompressorBlockEntity::new,
                     ModBlocks.COMPRESSOR.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<MetalPressBlockEntity>> METAL_PRESS_ENTITY =
+            BLOCK_ENTITIES.register("metal_press", () -> BlockEntityType.Builder.of(MetalPressBlockEntity::new,
+                    ModBlocks.METAL_PRESS.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<PlantGrowthChamberBlockEntity>> PLANT_GROWTH_CHAMBER_ENTITY =
             BLOCK_ENTITIES.register("plant_growth_chamber", () -> BlockEntityType.Builder.of(PlantGrowthChamberBlockEntity::new,
                     ModBlocks.PLANT_GROWTH_CHAMBER.get()).build(null));
