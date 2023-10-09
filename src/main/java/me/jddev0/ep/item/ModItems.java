@@ -40,6 +40,9 @@ public final class ModItems {
     public static final RegistryObject<Item> GOLD_PLATE = ITEMS.register("gold_plate",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final RegistryObject<Item> IRON_GEAR = ITEMS.register("iron_gear",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final RegistryObject<Item> SAWDUST = ITEMS.register("sawdust",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
