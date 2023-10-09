@@ -306,6 +306,10 @@ public final class ModBlocks {
             () -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_5));
     public static final RegistryObject<Item> SOLAR_PANEL_ITEM_5 = createSolarPanelBlockItem("solar_panel_5", SOLAR_PANEL_5);
 
+    public static final RegistryObject<SolarPanelBlock> SOLAR_PANEL_6 = BLOCKS.register("solar_panel_6",
+            () -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_6));
+    public static final RegistryObject<Item> SOLAR_PANEL_ITEM_6 = createSolarPanelBlockItem("solar_panel_6", SOLAR_PANEL_6);
+
     public static final RegistryObject<Block> COAL_ENGINE = BLOCKS.register("coal_engine",
             () -> new CoalEngineBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).

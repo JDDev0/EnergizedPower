@@ -140,6 +140,8 @@ public final class ModBlockEntities {
             createSolarPanelBlockEntity("solar_panel_4", ModBlocks.SOLAR_PANEL_4);
     public static final RegistryObject<BlockEntityType<SolarPanelBlockEntity>> SOLAR_PANEL_ENTITY_5 =
             createSolarPanelBlockEntity("solar_panel_5", ModBlocks.SOLAR_PANEL_5);
+    public static final RegistryObject<BlockEntityType<SolarPanelBlockEntity>> SOLAR_PANEL_ENTITY_6 =
+            createSolarPanelBlockEntity("solar_panel_6", ModBlocks.SOLAR_PANEL_6);
 
     public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> MV_TRANSFORMER_1_TO_N_ENTITY =
             BLOCK_ENTITIES.register("transformer_1_to_n", () -> BlockEntityType.Builder.of((blockPos, state) ->
