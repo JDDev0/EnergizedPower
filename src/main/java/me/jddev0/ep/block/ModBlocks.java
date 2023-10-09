@@ -188,6 +188,12 @@ public final class ModBlocks {
     public static final RegistryObject<Item> CREATIVE_BATTERY_BOX_ITEM = ModItems.ITEMS.register("creative_battery_box",
             () -> new CreativeBatteryBoxBlock.Item(CREATIVE_BATTERY_BOX.get(), new Item.Properties()));
 
+    public static final RegistryObject<Block> PRESS_MOLD_MAKER = BLOCKS.register("press_mold_maker",
+            () -> new PressMoldMakerBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_RED).
+                    requiresCorrectToolForDrops().strength(2.0f, 6.0f).sound(SoundType.STONE)));
+
+    public static final RegistryObject<Item> PRESS_MOLD_MAKER_ITEM = createBlockItem("press_mold_maker", PRESS_MOLD_MAKER);
+
     public static final RegistryObject<Block> AUTO_CRAFTER = BLOCKS.register("auto_crafter",
             () -> new AutoCrafterBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));

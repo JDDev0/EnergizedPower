@@ -150,6 +150,16 @@
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Il tipo di connessione del quadrante (%s) è stato impostato su %s.",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Impossibile modificare il tipo di connessione del quadrante (%s).",
 
+  "block.energizedpower.press_mold_maker": "Press Mold Maker",
+  "item.energizedpower.press_mold_maker": "Press Mold Maker",
+  "container.energizedpower.press_mold_maker": "Press Mold Maker",
+
+  "tooltip.energizedpower.press_mold_maker.btn.up": "Scroll up",
+  "tooltip.energizedpower.press_mold_maker.btn.down": "Scroll down",
+
+  "tooltip.energizedpower.press_mold_maker.btn.recipes.1": "%dx %s",
+  "tooltip.energizedpower.press_mold_maker.btn.recipes.2": "Requires %dx %s",
+
   "block.energizedpower.auto_crafter": "Auto Crafter",
   "item.energizedpower.auto_crafter": "Auto Crafter",
   "container.energizedpower.auto_crafter": "Auto Crafter",
@@ -442,6 +452,7 @@
   "emi.category.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
   "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Camera di crescita (fertilizzante)",
   "emi.category.energizedpower.energizer": "Energizzante",
+  "emi.category.energizedpower.press_mold_maker": "Press Mold Maker",
   "emi.category.energizedpower.dispenser": "Distributore",
   "emi.category.energizedpower.in_world_crafting": "Creazione nel mondo",
 

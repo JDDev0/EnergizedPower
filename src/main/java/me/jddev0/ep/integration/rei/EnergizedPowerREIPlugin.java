@@ -60,6 +60,9 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.add(new EnergizerCategory());
         registry.addWorkstations(EnergizerCategory.CATEGORY, EntryStacks.of(ModBlocks.ENERGIZER_ITEM.get()));
 
+        registry.add(new PressMoldMakerCategory());
+        registry.addWorkstations(PressMoldMakerCategory.CATEGORY, EntryStacks.of(ModBlocks.PRESS_MOLD_MAKER_ITEM.get()));
+
 
         registry.add(new InWorldCategory());
         registry.addWorkstations(InWorldCategory.CATEGORY, EntryIngredients.ofItemTag(Tags.Items.SHEARS));
@@ -85,6 +88,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.registerRecipeFiller(PlantGrowthChamberFertilizerRecipe.class, PlantGrowthChamberFertilizerRecipe.Type.INSTANCE,
                 PlantGrowthChamberFertilizerDisplay::new);
         registry.registerRecipeFiller(EnergizerRecipe.class, EnergizerRecipe.Type.INSTANCE, EnergizerDisplay::new);
+        registry.registerRecipeFiller(PressMoldMakerRecipe.class, PressMoldMakerRecipe.Type.INSTANCE, PressMoldMakerDisplay::new);
 
         registry.add(new InWorldDisplay());
         registry.add(new DispenserDisplay());
@@ -126,6 +130,8 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
                 PlantGrowthChamberScreen.class, PlantGrowthChamberFertilizerCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(89, 34, 24, 17),
                 EnergizerScreen.class, EnergizerCategory.CATEGORY);
+        registry.registerContainerClickArea(new Rectangle(7, 34, 18, 18),
+                PressMoldMakerScreen.class, PressMoldMakerCategory.CATEGORY);
 
 
         registry.registerContainerClickArea(new Rectangle(7, 16, 54, 54),
