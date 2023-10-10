@@ -222,7 +222,8 @@ public final class ModBlocks {
     public static final RegistryObject<Block> METAL_PRESS = BLOCKS.register("metal_press",
             () -> new MetalPressBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> METAL_PRESS_ITEM = createBlockItem("metal_press", METAL_PRESS);
+    public static final RegistryObject<Item> METAL_PRESS_ITEM = ModItems.ITEMS.register("metal_press",
+            () -> new MetalPressBlock.Item(METAL_PRESS.get(), new Item.Properties()));
 
     public static final RegistryObject<Block> PLANT_GROWTH_CHAMBER = BLOCKS.register("plant_growth_chamber",
             () -> new PlantGrowthChamberBlock(BlockBehaviour.Properties.of().
