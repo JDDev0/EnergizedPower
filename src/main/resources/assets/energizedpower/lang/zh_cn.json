@@ -347,6 +347,8 @@
   "item.energizedpower.metal_press": "Metal Press",
   "container.energizedpower.metal_press": "Metal Press",
 
+  "tooltip.energizedpower.metal_press.txt.shift.1": "Press Molds can be created in the Press Mold Maker.",
+
   "block.energizedpower.plant_growth_chamber": "植物培养室",
   "item.energizedpower.plant_growth_chamber": "植物培养室",
   "container.energizedpower.plant_growth_chamber": "植物培养室",
