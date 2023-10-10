@@ -188,6 +188,7 @@ public class EnergizedPowerMod {
             event.accept(ModItems.ADVANCED_BATTERY_BOX_MINECART);
 
             event.accept(ModBlocks.BASIC_MACHINE_FRAME_ITEM);
+            event.accept(ModBlocks.HARDENED_MACHINE_FRAME_ITEM);
             event.accept(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM);
             event.accept(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM);
 

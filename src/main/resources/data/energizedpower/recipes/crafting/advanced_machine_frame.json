@@ -11,13 +11,13 @@
     "E": {
       "tag": "forge:ingots/energized_copper"
     },
-    "B": {
-      "item": "energizedpower:basic_machine_frame"
+    "H": {
+      "item": "energizedpower:hardened_machine_frame"
     }
   },
   "pattern": [
     "ESE",
-    "IBI",
+    "IHI",
     "ESE"
   ],
   "result": {
