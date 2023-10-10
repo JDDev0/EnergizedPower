@@ -5,6 +5,7 @@
       "tag": "forge:plates/iron"
     }
   ],
+  "inputCount": 2,
   "pressMold": {
     "item": "energizedpower:gear_press_mold"
   },
