@@ -11,17 +11,17 @@
     "I": {
       "tag": "forge:storage_blocks/iron"
     },
-    "R": {
-      "tag": "forge:storage_blocks/redstone"
+    "H": {
+      "item": "energizedpower:hardened_machine_frame"
     },
-    "B": {
-      "item": "energizedpower:basic_machine_frame"
+    "T": {
+      "item": "energizedpower:lv_transformer_3_to_3"
     }
   },
   "pattern": [
-    "CSI",
-    "RBR",
-    "CSI"
+    "CTI",
+    "SHS",
+    "CTI"
   ],
   "result": {
     "item": "energizedpower:transformer_3_to_3"
