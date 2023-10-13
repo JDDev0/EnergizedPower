@@ -9,7 +9,7 @@
       "tag": "forge:storage_blocks/silicon"
     },
     "c": {
-      "tag": "forge:plates/copper"
+      "tag": "forge:wires/copper"
     },
     "C": {
       "item": "energizedpower:coal_engine"
