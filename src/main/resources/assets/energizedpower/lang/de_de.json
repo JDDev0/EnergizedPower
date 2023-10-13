@@ -17,6 +17,8 @@
 
   "item.energizedpower.iron_gear": "Eisenzahnrad",
 
+  "item.energizedpower.iron_rod": "Eisenstange",
+
   "item.energizedpower.sawdust": "Sägemehl",
 
   "item.energizedpower.basic_fertilizer": "Basis Dünger",
@@ -25,7 +27,11 @@
 
   "item.energizedpower.raw_gear_press_mold": "Rohe Zahnrad-Pressform",
 
+  "item.energizedpower.raw_rod_press_mold": "Rohe Stangen-Pressform",
+
   "item.energizedpower.gear_press_mold": "Zahnrad-Pressform",
+
+  "item.energizedpower.rod_press_mold": "Stangen-Pressform",
 
   "item.energizedpower.basic_solar_cell": "Basis Solarzelle",
   "item.energizedpower.advanced_solar_cell": "Fortgeschrittene Solarzelle",
