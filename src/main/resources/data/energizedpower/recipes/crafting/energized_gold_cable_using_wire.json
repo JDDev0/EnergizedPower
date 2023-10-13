@@ -1,13 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "group": "energized_copper_cable",
+  "group": "energized_gold_cable",
   "key": {
     "I": {
       "item": "energizedpower:cable_insulator"
     },
     "E": {
-      "tag": "forge:ingots/energized_copper"
+      "tag": "forge:wires/energized_gold"
     }
   },
   "pattern": [
@@ -16,7 +16,7 @@
     "IEI"
   ],
   "result": {
-    "item": "energizedpower:energized_copper_cable",
+    "item": "energizedpower:energized_gold_cable",
     "count": 3
   }
 }
