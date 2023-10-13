@@ -208,7 +208,9 @@ public class EnergizedPowerMod {
             event.accept(ModItems.GOOD_FERTILIZER);
             event.accept(ModItems.ADVANCED_FERTILIZER);
             event.accept(ModItems.RAW_GEAR_PRESS_MOLD);
+            event.accept(ModItems.RAW_ROD_PRESS_MOLD);
             event.accept(ModItems.GEAR_PRESS_MOLD);
+            event.accept(ModItems.ROD_PRESS_MOLD);
             event.accept(ModItems.SILICON);
             event.accept(ModItems.COPPER_DUST);
             event.accept(ModItems.IRON_DUST);
@@ -217,6 +219,7 @@ public class EnergizedPowerMod {
             event.accept(ModItems.IRON_PLATE);
             event.accept(ModItems.GOLD_PLATE);
             event.accept(ModItems.IRON_GEAR);
+            event.accept(ModItems.IRON_ROD);
             event.accept(ModItems.ENERGIZED_COPPER_INGOT);
             event.accept(ModItems.ENERGIZED_GOLD_INGOT);
             event.accept(ModItems.ENERGIZED_COPPER_PLATE);
