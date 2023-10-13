@@ -11,14 +11,17 @@
     "i": {
       "tag": "forge:gears/iron"
     },
+    "r": {
+      "tag": "forge:rods/iron"
+    },
     "B": {
       "item": "energizedpower:basic_machine_frame"
     }
   },
   "pattern": [
-    "iIi",
+    "iIr",
     "SBS",
-    "iIi"
+    "rIi"
   ],
   "result": {
     "item": "energizedpower:hardened_machine_frame"
