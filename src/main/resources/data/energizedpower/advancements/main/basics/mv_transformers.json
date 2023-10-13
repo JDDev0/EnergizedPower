@@ -1,5 +1,5 @@
 {
-  "parent":  "energizedpower:main/basics/basic_machine_frame",
+  "parent":  "energizedpower:main/basics/hardened_machine_frame",
   "display": {
     "icon": {
       "item": "energizedpower:transformer_1_to_n"
