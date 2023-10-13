@@ -149,7 +149,7 @@ public class ModEvents {
             //Level 5
             addOffer(trades, 5,
                     new ItemStack(Items.EMERALD, 32),
-                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(ModBlocks.HARDENED_MACHINE_FRAME_ITEM.get()),
                     new ItemStack(ModBlocks.THERMAL_GENERATOR_ITEM.get()),
                     1, 30, .02f);
             addOffer(trades, 5,
