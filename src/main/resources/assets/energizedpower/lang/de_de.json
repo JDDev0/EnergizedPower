@@ -5,6 +5,9 @@
   "item.energizedpower.energized_copper_plate": "Energetisierte Kupferplatte",
   "item.energizedpower.energized_gold_plate": "Energetisierte Goldplatte",
 
+  "item.energizedpower.energized_copper_wire": "Energetisierter Kupferdraht",
+  "item.energizedpower.energized_gold_wire": "Energetisierter Golddraht",
+
   "item.energizedpower.silicon": "Silizium",
 
   "item.energizedpower.copper_dust": "Kupferstaub",
@@ -19,6 +22,9 @@
 
   "item.energizedpower.iron_rod": "Eisenstange",
 
+  "item.energizedpower.copper_wire": "Kupferdraht",
+  "item.energizedpower.gold_wire": "Golddraht",
+
   "item.energizedpower.sawdust": "Sägemehl",
 
   "item.energizedpower.basic_fertilizer": "Basis Dünger",
@@ -29,9 +35,13 @@
 
   "item.energizedpower.raw_rod_press_mold": "Rohe Stangen-Pressform",
 
+  "item.energizedpower.raw_wire_press_mold": "Rohe Draht-Pressform",
+
   "item.energizedpower.gear_press_mold": "Zahnrad-Pressform",
 
   "item.energizedpower.rod_press_mold": "Stangen-Pressform",
+
+  "item.energizedpower.wire_press_mold": "Draht-Pressform",
 
   "item.energizedpower.basic_solar_cell": "Basis Solarzelle",
   "item.energizedpower.advanced_solar_cell": "Fortgeschrittene Solarzelle",

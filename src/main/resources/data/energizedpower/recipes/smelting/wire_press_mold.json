@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "energizedpower:raw_wire_press_mold"
+  },
+  "result": "energizedpower:wire_press_mold"
+}
