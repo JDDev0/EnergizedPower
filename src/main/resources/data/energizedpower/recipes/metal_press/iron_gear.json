@@ -5,6 +5,7 @@
       "tag": "c:iron_plates"
     }
   ],
+  "inputCount": 2,
   "pressMold": {
     "item": "energizedpower:gear_press_mold"
   },
