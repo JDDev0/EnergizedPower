@@ -791,13 +791,12 @@
   "book.energizedpower.page.credits.title": "Crediti",
   "book.energizedpower.page.credits.subtitle": "Grazie per aver contribuito a Energized Power!",
 
-  "book.energizedpower.page.credits_1.1": "Texture lingotti di rame/oro energizzati",
-  "book.energizedpower.page.credits_1.2": "Texture della batteria",
-  "book.energizedpower.page.credits_1.3": "Texture Silicio",
-  "book.energizedpower.page.credits_1.4": "Texture Analizzatore di energia",
-
-  "book.energizedpower.page.credits_2.1": "Chinese (Simplified) translation",
-  "book.energizedpower.page.credits_2.2": "Italian translation",
+  "book.energizedpower.page.credits.1": "Texture lingotti di rame/oro energizzati",
+  "book.energizedpower.page.credits.2": "Texture della batteria",
+  "book.energizedpower.page.credits.3": "Texture Silicio",
+  "book.energizedpower.page.credits.4": "Texture Analizzatore di energia",
+  "book.energizedpower.page.credits.5": "Chinese (Simplified) translation",
+  "book.energizedpower.page.credits.6": "Italian translation",
 	
   "book.energizedpower.page.table_of_contents.title": "Sommario",
 
