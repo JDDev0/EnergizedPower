@@ -184,6 +184,6 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
             }
         }
 
-        EnergizedPowerBookScreen.pages = new ArrayList<>(pages);
+        EnergizedPowerBookScreen.setPages(pages);
     }
 }
