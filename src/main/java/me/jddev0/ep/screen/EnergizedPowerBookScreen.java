@@ -53,7 +53,7 @@ public class EnergizedPowerBookScreen extends Screen {
     public static final int IMAGE_CYCLE_DELAY = ModConfigs.CLIENT_ENERGIZED_POWER_BOOK_IMAGE_CYCLE_DELAY.getValue();
 
     private static final int MAX_CHARS_PER_LINE = 148;
-    private static final int MAX_LINES = 17;
+    private static final int MAX_LINES = 19;
 
     private static List<PageContent> pages = new LinkedList<>();
 
@@ -110,19 +110,17 @@ public class EnergizedPowerBookScreen extends Screen {
             }
 
             //Automatically split pages into multiple
-            //TODO use MAX_LINES after debug
-            int maxLineCountFirstPage = 18 - (imageResourceLocations != null || blockResourceLocations != null?6:0);
+            int maxLineCountFirstPage = MAX_LINES - (imageResourceLocations != null || blockResourceLocations != null?7:0);
 
             formattedPages.add(new FormattedPageContent(pageId, chapterTitleComponent,
                     formattedPageComponents.subList(0, Math.min(maxLineCountFirstPage, formattedPageComponents.size())),
                     imageResourceLocations, blockResourceLocations));
 
-            //TODO use MAX_LINES after debug
-            for(int i = maxLineCountFirstPage, splitPageCount = 2;i < formattedPageComponents.size();i += 18, splitPageCount++) {
+            for(int i = maxLineCountFirstPage, splitPageCount = 2;i < formattedPageComponents.size();i += MAX_LINES, splitPageCount++) {
                 Identifier tmpPageId = new Identifier(pageId.getNamespace(), pageId.getPath() + "/tmp_page_" + splitPageCount);
 
                 formattedPages.add(new FormattedPageContent(tmpPageId, null,
-                        formattedPageComponents.subList(i, Math.min(i + 18, formattedPageComponents.size())),
+                        formattedPageComponents.subList(i, Math.min(i + MAX_LINES, formattedPageComponents.size())),
                         null, null));
             }
         }
