@@ -5,6 +5,9 @@
   "item.energizedpower.energized_copper_plate": "Energized Copper Plate",
   "item.energizedpower.energized_gold_plate": "Energized Gold Plate",
 
+  "item.energizedpower.energized_copper_wire": "Energized Copper Wire",
+  "item.energizedpower.energized_gold_wire": "Energized Gold Wire",
+
   "item.energizedpower.silicon": "Silicon",
 
   "item.energizedpower.copper_dust": "Copper Dust",
@@ -19,6 +22,9 @@
 
   "item.energizedpower.iron_rod": "Iron Rod",
 
+  "item.energizedpower.copper_wire": "Copper Wire",
+  "item.energizedpower.gold_wire": "Gold Wire",
+
   "item.energizedpower.sawdust": "Sawdust",
 
   "item.energizedpower.basic_fertilizer": "Basic Fertilizer",
@@ -29,9 +35,13 @@
 
   "item.energizedpower.raw_rod_press_mold": "Raw Rod Press Mold",
 
+  "item.energizedpower.raw_wire_press_mold": "Raw Wire Press Mold",
+
   "item.energizedpower.gear_press_mold": "Gear Press Mold",
 
   "item.energizedpower.rod_press_mold": "Rod Press Mold",
+
+  "item.energizedpower.wire_press_mold": "Wire Press Mold",
 
   "item.energizedpower.basic_solar_cell": "Basic Solar Cell",
   "item.energizedpower.advanced_solar_cell": "Advanced Solar Cell",
