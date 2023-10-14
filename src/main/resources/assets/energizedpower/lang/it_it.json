@@ -955,6 +955,9 @@
 
   "book.energizedpower.page.compressor": "Il compressore comprime i lingotti in lastre.",
 
+  "book.energizedpower.page.metal_press.1": "The Metal Press creates metal products (e.g. wires) from metals.",
+  "book.energizedpower.page.metal_press.2": "Press Molds can be created in the Press Mold Maker.",
+
   "book.energizedpower.page.plant_growth_chamber.1": "La camera di crescita delle piante può aumentare la crescita e la resa delle piante.",
   "book.energizedpower.page.plant_growth_chamber.2": "Lo slot di ingresso destro è lo slot dei semi.",
   "book.energizedpower.page.plant_growth_chamber.3": "Lo slot di ingresso sinistro, utilizzabile opzionalmente, è lo slot del fertilizzante.",
