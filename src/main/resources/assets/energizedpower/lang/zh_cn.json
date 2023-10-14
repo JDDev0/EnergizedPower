@@ -824,6 +824,9 @@
   "book.energizedpower.page.plates.1": "板材是大部分机器制作所使用的材料。板材可以通过锤子或压缩机来制作。",
   "book.energizedpower.page.plates.2": "只有压缩机可以制作充能板材。",
 
+  "book.energizedpower.page.metal_products.1": "Metal products (gears, rods, and wires) are used in many recipes.",
+  "book.energizedpower.page.metal_products.2": "Metal products can be created in the Metal Press.",
+
   "book.energizedpower.page.energized_copper_ingot.1": "充能铜锭是充能站这样高级的机器需要的。",
   "book.energizedpower.page.energized_copper_ingot.2": "充能站是用这个锭做的，那倒不是吗？",
   "book.energizedpower.page.energized_copper_ingot.3": "充电站可以用来制作这种锭的。",

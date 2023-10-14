@@ -824,6 +824,9 @@
   "book.energizedpower.page.plates.1": "Plates are used as a crafting ingredient in most machines. Plates can be crafted with hammers or by using the compressor.",
   "book.energizedpower.page.plates.2": "Energized plates can be created in the compressor only.",
 
+  "book.energizedpower.page.metal_products.1": "Metal products (gears, rods, and wires) are used in many recipes.",
+  "book.energizedpower.page.metal_products.2": "Metal products can be created in the Metal Press.",
+
   "book.energizedpower.page.energized_copper_ingot.1": "Energized Copper Ingots are required for advanced machines like the energizer.",
   "book.energizedpower.page.energized_copper_ingot.2": "The energizer is crafted with this ingot, isn't it?",
   "book.energizedpower.page.energized_copper_ingot.3": "The charger can be used to craft this ingot.",
