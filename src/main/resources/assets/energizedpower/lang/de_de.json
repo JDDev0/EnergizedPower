@@ -347,6 +347,8 @@
   "item.energizedpower.metal_press": "Metalpresse",
   "container.energizedpower.metal_press": "Metalpresse",
 
+  "tooltip.energizedpower.metal_press.txt.shift.1": "Pressformen können im Pressform-Hersteller hergestellt werden.",
+
   "block.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
   "item.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
   "container.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
