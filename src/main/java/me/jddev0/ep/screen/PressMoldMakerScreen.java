@@ -117,6 +117,8 @@ public class PressMoldMakerScreen extends HandledScreen<PressMoldMakerMenu> {
                 itemRenderer.renderInGuiWithOverrides(poseStack, output, x + btnX + 2, y + btnY + 2, btnX + 2 + (btnY + 2) * this.backgroundWidth);
 
                 poseStack.pop();
+
+                RenderSystem.setShaderTexture(0, TEXTURE);
             }
         }
 
