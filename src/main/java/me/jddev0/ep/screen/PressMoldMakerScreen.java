@@ -113,6 +113,8 @@ public class PressMoldMakerScreen extends AbstractContainerScreen<PressMoldMaker
                 itemRenderer.renderAndDecorateItem(poseStack, output, x + btnX + 2, y + btnY + 2, btnX + 2 + (btnY + 2) * this.imageWidth);
 
                 poseStack.popPose();
+
+                RenderSystem.setShaderTexture(0, TEXTURE);
             }
         }
 
