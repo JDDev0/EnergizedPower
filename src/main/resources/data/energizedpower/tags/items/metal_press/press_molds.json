@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "energizedpower:gear_press_mold"
+    "energizedpower:gear_press_mold",
+    "energizedpower:rod_press_mold"
   ]
 }
