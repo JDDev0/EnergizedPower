@@ -24,6 +24,8 @@
   ],
   "block": [
     "energizedpower:minecart_charger",
-    "energizedpower:minecart_uncharger"
+    "energizedpower:minecart_uncharger",
+    "energizedpower:advanced_minecart_charger",
+    "energizedpower:advanced_minecart_uncharger"
   ]
 }
