@@ -377,6 +377,11 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item BASIC_MACHINE_FRAME_ITEM = createBlockItem("basic_machine_frame", BASIC_MACHINE_FRAME);
 
+    public static final Block HARDENED_MACHINE_FRAME = registerBlock("hardened_machine_frame",
+            new Block(FabricBlockSettings.create().
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item HARDENED_MACHINE_FRAME_ITEM = createBlockItem("hardened_machine_frame", HARDENED_MACHINE_FRAME);
+
     public static final Block ADVANCED_MACHINE_FRAME = registerBlock("advanced_machine_frame",
             new Block(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
