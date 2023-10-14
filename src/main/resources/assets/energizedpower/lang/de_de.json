@@ -955,6 +955,9 @@
 
   "book.energizedpower.page.compressor": "Der Kompressor komprimiert Barren in Platten.",
 
+  "book.energizedpower.page.metal_press.1": "Die Metallpresse erstellt Metall-Produkte (z.B. Drähte) von Metallen.",
+  "book.energizedpower.page.metal_press.2": "Pressformen können im Pressform-Hersteller hergestellt werden.",
+
   "book.energizedpower.page.plant_growth_chamber.1": "Die Pflanzenwachstums-Kammer kann das Pflanzenwachstum und -erträge verbessern.",
   "book.energizedpower.page.plant_growth_chamber.2": "Der rechte Eingabeslot ist der Samenslot.",
   "book.energizedpower.page.plant_growth_chamber.3": "Der linke, optional verwendbare Eingabeslot ist der Düngerslot.",
