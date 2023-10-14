@@ -48,6 +48,7 @@
   "item.energizedpower.reinforced_advanced_solar_cell": "Reinforced Advanced Solar Cell",
 
   "item.energizedpower.energized_power_book": "Libro del energized power",
+  "tooltip.energizedpower.energized_power_book.txt.shift.1": "Left click a block to open the block's book page.",
   "book.energizedpower.front.cover.text": "Questa è la guida per questa mod!",
 
   "item.energizedpower.cable_insulator": "Isolante per cavi",

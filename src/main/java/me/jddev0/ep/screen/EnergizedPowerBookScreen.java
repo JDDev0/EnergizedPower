@@ -64,6 +64,8 @@ public class EnergizedPowerBookScreen extends Screen {
     private PageTurnWidget backButton;
 
     private final LecternBlockEntity lecternBlockEntity;
+    private Identifier openOnPageForBlock;
+
     private List<FormattedPageContent> formattedPages;
 
     private int currentPage;
@@ -75,13 +77,22 @@ public class EnergizedPowerBookScreen extends Screen {
     }
 
     public EnergizedPowerBookScreen() {
-        this(null);
+        this(null, null);
+    }
+
+    public EnergizedPowerBookScreen(Identifier openOnPageForBlock) {
+        this(null, openOnPageForBlock);
     }
 
     public EnergizedPowerBookScreen(LecternBlockEntity lecternBlockEntity) {
+        this(lecternBlockEntity, null);
+    }
+
+    public EnergizedPowerBookScreen(LecternBlockEntity lecternBlockEntity, Identifier openOnPageForBlock) {
         super(NarratorManager.EMPTY);
 
         this.lecternBlockEntity = lecternBlockEntity;
+        this.openOnPageForBlock = openOnPageForBlock;
     }
 
     @Override
@@ -131,6 +142,24 @@ public class EnergizedPowerBookScreen extends Screen {
         this.formattedPages = new ArrayList<>(formattedPages);
 
         updateButtonVisibility();
+
+        if(openOnPageForBlock != null) {
+            outer:
+            for(int i = 0;i < formattedPages.size();i++) {
+                Identifier[] blockResourceLocations = formattedPages.get(i).getBlockResourceLocations();
+                if(blockResourceLocations != null) {
+                    for(Identifier block:blockResourceLocations) {
+                        if(block.equals(openOnPageForBlock)) {
+                            setPage(i);
+
+                            break outer;
+                        }
+                    }
+                }
+            }
+
+            openOnPageForBlock = null;
+        }
     }
 
     private void createMenuControls() {
