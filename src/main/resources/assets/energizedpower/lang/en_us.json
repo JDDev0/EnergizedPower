@@ -882,16 +882,15 @@
   "book.energizedpower.page.cables.2": "There are five cable tiers.",
   "book.energizedpower.page.cables.3": "A transformer is required to connect cables of different tiers.",
 
-  "book.energizedpower.page.transformers_1.1": "Transformers can be used to connect different tiers of cables.",
-  "book.energizedpower.page.transformers_1.2": "The larger, darker, diamond shaped sides are inputs.",
-  "book.energizedpower.page.transformers_1.3": "The smaller, brighter, square shaped sides are outputs.",
-  "book.energizedpower.page.transformers_1.4": "There are four tiers of transformers: LV, MV, HV, and EHV.",
-  "book.energizedpower.page.transformers_1.5": "For each tier there are three types of transformers: 1 to n, 3 to 3, and n to 1.",
-
-  "book.energizedpower.page.transformers_2.1": "Transformers can be used to reduce lag of cable networks by using them periodically instead of a cable block.",
-  "book.energizedpower.page.transformers_2.2": "Transformers can also be used to connect energized power cables to other mods' cables.",
-  "book.energizedpower.page.transformers_2.3": "Transformers can be used as battery blocks.",
-  "book.energizedpower.page.transformers_2.4": "Transformers can be used to extract energy from AE2 energy tunnels.",
+  "book.energizedpower.page.transformers.1": "Transformers can be used to connect different tiers of cables.",
+  "book.energizedpower.page.transformers.2": "The larger, darker, diamond shaped sides are inputs.",
+  "book.energizedpower.page.transformers.3": "The smaller, brighter, square shaped sides are outputs.",
+  "book.energizedpower.page.transformers.4": "There are four tiers of transformers: LV, MV, HV, and EHV.",
+  "book.energizedpower.page.transformers.5": "For each tier there are three types of transformers: 1 to n, 3 to 3, and n to 1.",
+  "book.energizedpower.page.transformers.6": "Transformers can be used to reduce lag of cable networks by using them periodically instead of a cable block.",
+  "book.energizedpower.page.transformers.7": "Transformers can also be used to connect energized power cables to other mods' cables.",
+  "book.energizedpower.page.transformers.8": "Transformers can be used as battery blocks.",
+  "book.energizedpower.page.transformers.9": "Transformers can be used to extract energy from AE2 energy tunnels.",
 
   "book.energizedpower.page.minecart_charger_uncharger.1": "The Minecart Charger can charge the Minecart with Battery Box and the Uncharger can uncharge it.",
   "book.energizedpower.page.minecart_charger_uncharger.2": "A Redstone Comparator can be used to get the current power level of a Minecart which is being charged or uncharged.",
@@ -949,14 +948,13 @@
 
   "book.energizedpower.page.compressor": "The Compressor compresses ingots into plates.",
 
-  "book.energizedpower.page.plant_growth_chamber_1.1": "The Plant Growth Chamber can boost plant growth and yield.",
-  "book.energizedpower.page.plant_growth_chamber_1.2": "The right input slot is the seed slot.",
-  "book.energizedpower.page.plant_growth_chamber_1.3": "The left, optionally usable input slot is the fertilizer slot.",
-  "book.energizedpower.page.plant_growth_chamber_1.4": "When the fertilizer slot is used, energy and speed multipliers are applied.",
-
-  "book.energizedpower.page.plant_growth_chamber_2.1": "Seeds can be inserted from the north, east, south, and west. Fertilizers can be inserted from the top and bottom. Outputs can be extracted from all block faces.",
-  "book.energizedpower.page.plant_growth_chamber_2.2": "If you'd like to use a fertilizer, the fertilizer must be inserted first.",
-  "book.energizedpower.page.plant_growth_chamber_2.3": "If you'd like to automate this blocks, you need to keep in mind that yields are randomized.",
+  "book.energizedpower.page.plant_growth_chamber.1": "The Plant Growth Chamber can boost plant growth and yield.",
+  "book.energizedpower.page.plant_growth_chamber.2": "The right input slot is the seed slot.",
+  "book.energizedpower.page.plant_growth_chamber.3": "The left, optionally usable input slot is the fertilizer slot.",
+  "book.energizedpower.page.plant_growth_chamber.4": "When the fertilizer slot is used, energy and speed multipliers are applied.",
+  "book.energizedpower.page.plant_growth_chamber.5": "Seeds can be inserted from the north, east, south, and west. Fertilizers can be inserted from the top and bottom. Outputs can be extracted from all block faces.",
+  "book.energizedpower.page.plant_growth_chamber.6": "If you'd like to use a fertilizer, the fertilizer must be inserted first.",
+  "book.energizedpower.page.plant_growth_chamber.7": "If you'd like to automate this blocks, you need to keep in mind that yields are randomized.",
 
   "book.energizedpower.page.block_placer.1": "The Block Placer can place all blocks (Even doors and seeds).",
   "book.energizedpower.page.block_placer.2": "Blocks will only be placed if possible.",
@@ -987,33 +985,28 @@
   "book.energizedpower.page.chapter.item_transportation.title": "Item Transportation",
   "book.energizedpower.page.chapter.item_transportation": "Blocks that can transport Items.",
 
-  "book.energizedpower.page.item_conveyor_belt_1.1": "Item Conveyor belts can transport items.",
-  "book.energizedpower.page.item_conveyor_belt_1.2": "The slope of conveyor belts can be configured with a Wrench.",
-  "book.energizedpower.page.item_conveyor_belt_1.3": "Conveyor belts can be loaded with hoppers and any block which can insert items into blocks.",
-  "book.energizedpower.page.item_conveyor_belt_1.4": "Conveyor belts can insert items into blocks in front of the conveyor belt.",
+  "book.energizedpower.page.item_conveyor_belt.1": "Item Conveyor belts can transport items.",
+  "book.energizedpower.page.item_conveyor_belt.2": "The slope of conveyor belts can be configured with a Wrench.",
+  "book.energizedpower.page.item_conveyor_belt.3": "Conveyor belts can be loaded with hoppers and any block which can insert items into blocks.",
+  "book.energizedpower.page.item_conveyor_belt.4": "Conveyor belts can insert items into blocks in front of the conveyor belt.",
+  "book.energizedpower.page.item_conveyor_belt.5": "Alternatively they can be unloaded with hoppers and other blocks which can extract items from blocks.",
+  "book.energizedpower.page.item_conveyor_belt.6": "Conveyor belts are compatible with the AE2 item tunnel.",
 
-  "book.energizedpower.page.item_conveyor_belt_2.1": "Alternatively they can be unloaded with hoppers and other blocks which can extract items from blocks.",
-  "book.energizedpower.page.item_conveyor_belt_2.2": "Conveyor belts are compatible with the AE2 item tunnel.",
+  "book.energizedpower.page.item_conveyor_belt_loader.1": "The Item Conveyor Belt Loader can extract items from any storage blocks (even other conveyor belts) and load them onto a conveyor belt.",
+  "book.energizedpower.page.item_conveyor_belt_loader.2": "The larger square must face the block where items are extracted from and the smaller square must face a conveyor belt.",
+  "book.energizedpower.page.item_conveyor_belt_loader.3": "Alternatively items can be extracted from the loader with hoppers and other blocks which can extract items from blocks.",
+  "book.energizedpower.page.item_conveyor_belt_loader.4": "It can be stacked vertically and horizontally.",
+  "book.energizedpower.page.item_conveyor_belt_loader.5": "It can be disabled with a redstone signal.",
 
-  "book.energizedpower.page.item_conveyor_belt_loader_1.1": "The Item Conveyor Belt Loader can extract items from any storage blocks (even other conveyor belts) and load them onto a conveyor belt.",
-  "book.energizedpower.page.item_conveyor_belt_loader_1.2": "The larger square must face the block where items are extracted from and the smaller square must face a conveyor belt.",
-
-  "book.energizedpower.page.item_conveyor_belt_loader_2.1": "Alternatively items can be extracted from the loader with hoppers and other blocks which can extract items from blocks.",
-  "book.energizedpower.page.item_conveyor_belt_loader_2.2": "It can be stacked vertically and horizontally.",
-  "book.energizedpower.page.item_conveyor_belt_loader_2.3": "It can be disabled with a redstone signal.",
-
-  "book.energizedpower.page.item_conveyor_belt_sorter_1.1": "The Item Conveyor Belt Sorter takes items from an input conveyor belt and routes them to certain output conveyor belt.",
-  "book.energizedpower.page.item_conveyor_belt_sorter_1.2": "The input conveyor belt must face the large square and must not be ascending.",
-
-  "book.energizedpower.page.item_conveyor_belt_sorter_2.1": "There are no restrictions for the output conveyor belts.",
-  "book.energizedpower.page.item_conveyor_belt_sorter_2.2": "The outputs are color coded (red: first output and always on the left side relative to the input, yellow: second output and on the opposite side relative to the input, green: third output and on the right side relative to the input).",
-  "book.energizedpower.page.item_conveyor_belt_sorter_2.3": "The item will be routed to the first output where the filter matched (Priority: OUT 1, OUT 2, OUT 3).",
-
-  "book.energizedpower.page.item_conveyor_belt_sorter_3.1": "The filter matches if at least one pattern item of the output filter row matches the input item.",
-  "book.energizedpower.page.item_conveyor_belt_sorter_3.2": "Pattern items can be placed by taking the item from the inventory and left-clicking a pattern slot. The filter can be reset by left-clicking without an item.",
-  "book.energizedpower.page.item_conveyor_belt_sorter_3.3": "To allow any items select blacklist without any pattern items. If an output is not connected the filter should be set to whitelist without any pattern items.",
-
-  "book.energizedpower.page.item_conveyor_belt_sorter_4.1": "A redstone signal of strength 15 will be emitted if no filter matches (If no output is connected or if it is full no redstone signal will be emitted).",
+  "book.energizedpower.page.item_conveyor_belt_sorter.1": "The Item Conveyor Belt Sorter takes items from an input conveyor belt and routes them to certain output conveyor belt.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.2": "The input conveyor belt must face the large square and must not be ascending.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.3": "There are no restrictions for the output conveyor belts.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.4": "The outputs are color coded (red: first output and always on the left side relative to the input, yellow: second output and on the opposite side relative to the input, green: third output and on the right side relative to the input).",
+  "book.energizedpower.page.item_conveyor_belt_sorter.5": "The item will be routed to the first output where the filter matched (Priority: OUT 1, OUT 2, OUT 3).",
+  "book.energizedpower.page.item_conveyor_belt_sorter.6": "The filter matches if at least one pattern item of the output filter row matches the input item.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.7": "Pattern items can be placed by taking the item from the inventory and left-clicking a pattern slot. The filter can be reset by left-clicking without an item.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.8": "To allow any items select blacklist without any pattern items. If an output is not connected the filter should be set to whitelist without any pattern items.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.9": "A redstone signal of strength 15 will be emitted if no filter matches (If no output is connected or if it is full no redstone signal will be emitted).",
 
   "book.energizedpower.page.item_conveyor_belt_switch.1": "The Item Conveyor Belt Switch takes items from the input conveyor belt (Must face the large square and must not be ascending) and puts them onto the output conveyor belt on the side with the green indicator.",
   "book.energizedpower.page.item_conveyor_belt_switch.2": "As long as a redstone signal is applied, the other output will be selected.",
@@ -1021,6 +1014,7 @@
   "book.energizedpower.page.item_conveyor_belt_splitter": "The Item Conveyor Belt Splitter takes items from the input conveyor belt (Must face the large square and must not be ascending) and puts them evenly on the connected output conveyor belts.",
 
   "book.energizedpower.page.item_conveyor_belt_merger": "The Item Conveyor Belt Merger takes items evenly from the connected input conveyor belts (They must face a large square and must not be ascending) and puts them on the output conveyor belt.",
+
 
   "book.energizedpower.page.chapter.entities.title": "Entities",
   "book.energizedpower.page.chapter.entities": "Things that can move.",
