@@ -89,7 +89,7 @@ public class EnergizedPowerMod implements ModInitializer {
         addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ITEM_CONVEYOR_BELT_SPLITTER_ITEM);
         addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ITEM_CONVEYOR_BELT_MERGER_ITEM);
 
-		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.FLUID_PIPE_ITEM);
+        addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.FLUID_PIPE_ITEM);
 
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.COPPER_CABLE_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.GOLD_CABLE_ITEM);
@@ -140,11 +140,11 @@ public class EnergizedPowerMod implements ModInitializer {
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.CHARGER_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ADVANCED_CHARGER_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.UNCHARGER_ITEM);
-		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ADVANCED_UNCHARGER_ITEM);
+        addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ADVANCED_UNCHARGER_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.MINECART_CHARGER_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ADVANCED_MINECART_CHARGER_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.MINECART_UNCHARGER_ITEM);
-		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ADVANCED_MINECART_UNCHARGER_ITEM);
+        addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ADVANCED_MINECART_UNCHARGER_ITEM);
 
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ENERGIZER_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.CHARGING_STATION_ITEM);
@@ -166,12 +166,13 @@ public class EnergizedPowerMod implements ModInitializer {
 		addEmptyAndFullyChargedItem(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.BATTERY_6, BatteryItem.Tier.BATTERY_6.getCapacity());
 		addEmptyAndFullyChargedItem(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.BATTERY_7, BatteryItem.Tier.BATTERY_7.getCapacity());
 		addEmptyAndFullyChargedItem(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.BATTERY_8, BatteryItem.Tier.BATTERY_8.getCapacity());
-		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.CREATIVE_BATTERY);
+        addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.CREATIVE_BATTERY);
 
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.BATTERY_BOX_MINECART);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.ADVANCED_BATTERY_BOX_MINECART);
 
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.BASIC_MACHINE_FRAME_ITEM);
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.HARDENED_MACHINE_FRAME_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ADVANCED_MACHINE_FRAME_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM);
 
