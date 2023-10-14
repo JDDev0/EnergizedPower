@@ -72,7 +72,8 @@ public class MetalPressBlockEntity extends BlockEntity implements ExtendedScreen
                 return switch(slot) {
                     case 0 -> world == null || world.getRecipeManager().listAllOfType(MetalPressRecipe.Type.INSTANCE).stream().
                             map(MetalPressRecipe::getInput).anyMatch(ingredient -> ingredient.test(stack));
-                    case 1 -> world == null || stack.isIn(EnergizedPowerItemTags.METAL_PRESS_MOLDS) && getStack(1).isEmpty();
+                    case 1 -> world == null || stack.isIn(EnergizedPowerItemTags.METAL_PRESS_MOLDS) &&
+                            (getStack(1).isEmpty() || stack.getCount() == 1);
                     case 2 -> false;
                     default -> super.isValid(slot, stack);
                 };
