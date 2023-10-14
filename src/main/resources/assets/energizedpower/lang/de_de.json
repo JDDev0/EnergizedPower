@@ -505,8 +505,8 @@
   "advancements.energizedpower.advanced_machine_frame.title": "Fortgeschrittene Maschinen",
   "advancements.energizedpower.advanced_machine_frame.description": "Fortgeschrittenere Maschinen benötigen dieses Basis-Crafting-Item.",
 
-  "advancements.energizedpower.reinforced_advanced_machine_frame.title": "Noch fortgeschrittenere Machinen",
-  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "Die fortgeschrittensten Machinen benötigen dieses Basis-Crafting-Item.",
+  "advancements.energizedpower.reinforced_advanced_machine_frame.title": "Noch fortgeschrittenere Maschinen",
+  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "Die fortgeschrittensten Maschinen benötigen dieses Basis-Crafting-Item.",
 
   "advancements.energizedpower.advanced_solar_cell.title": "Fortgeschrittener Solar-Strom",
   "advancements.energizedpower.advanced_solar_cell.description": "Erforderlich für fortgeschrittene Solar Panels...",
@@ -839,6 +839,12 @@
   "book.energizedpower.page.hammers": "Hämmer können verwendet werden, um Platten zu craften.",
 
   "book.energizedpower.page.wrench": "Der Schraubenschlüssel kann für die Konfiguration von Blöcken verwendet werden.",
+
+
+  "book.energizedpower.page.chapter.workbenches.title": "Werkbänke",
+  "book.energizedpower.page.chapter.workbenches": "Maschinen, die manuell bedient werden müssen.",
+
+  "book.energizedpower.page.press_mold_maker": "Pressform-Hersteller kann für die Herstellung von Pressformen für die Metallpresse verwendet werden.",
 
 
   "book.energizedpower.page.chapter.energy_items.title": "Energie-Items",
