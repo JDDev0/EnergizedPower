@@ -48,6 +48,7 @@
   "item.energizedpower.reinforced_advanced_solar_cell": "Reinforced Advanced Solar Cell",
 
   "item.energizedpower.energized_power_book": "Energized Power 书",
+  "tooltip.energizedpower.energized_power_book.txt.shift.1": "Left click a block to open the block's book page.",
   "book.energizedpower.front.cover.text": "这个是这个模组的指南书！",
 
   "item.energizedpower.cable_insulator": "电缆绝缘体",
