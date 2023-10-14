@@ -14,7 +14,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "energizedpower:crafting/transformer_3_to_3"
+        "recipe": "energizedpower:crafting/lv_transformer_1_to_n"
       }
     }
   },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "energizedpower:crafting/transformer_3_to_3"
+      "energizedpower:crafting/lv_transformer_1_to_n"
     ]
   }
 }

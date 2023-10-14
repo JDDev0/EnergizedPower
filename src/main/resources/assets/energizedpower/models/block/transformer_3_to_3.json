@@ -2,11 +2,11 @@
   "parent": "minecraft:block/cube",
   "textures": {
     "particle": "#up",
-    "down": "energizedpower:block/transformer_output",
-    "east": "energizedpower:block/transformer_output",
-    "north": "energizedpower:block/transformer_input",
-    "south": "energizedpower:block/transformer_output",
-    "up": "energizedpower:block/transformer_input",
-    "west": "energizedpower:block/transformer_input"
+    "down": "energizedpower:block/mv_transformer_output",
+    "east": "energizedpower:block/mv_transformer_output",
+    "north": "energizedpower:block/mv_transformer_input",
+    "south": "energizedpower:block/mv_transformer_output",
+    "up": "energizedpower:block/mv_transformer_input",
+    "west": "energizedpower:block/mv_transformer_input"
   }
 }

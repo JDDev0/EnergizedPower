@@ -151,6 +151,22 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<SolarPanelBlockEntity>> SOLAR_PANEL_ENTITY_6 =
             createSolarPanelBlockEntity("solar_panel_6", ModBlocks.SOLAR_PANEL_6);
 
+    public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> LV_TRANSFORMER_1_TO_N_ENTITY =
+            BLOCK_ENTITIES.register("lv_transformer_1_to_n", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_LV,
+                                    TransformerBlock.Type.TYPE_1_TO_N),
+                    ModBlocks.LV_TRANSFORMER_1_TO_N.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> LV_TRANSFORMER_3_TO_3_ENTITY =
+            BLOCK_ENTITIES.register("lv_transformer_3_to_3", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_LV,
+                                    TransformerBlock.Type.TYPE_3_TO_3),
+                    ModBlocks.LV_TRANSFORMER_3_TO_3.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> LV_TRANSFORMER_N_TO_1_ENTITY =
+            BLOCK_ENTITIES.register("lv_transformer_n_to_1", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_LV,
+                                    TransformerBlock.Type.TYPE_N_TO_1),
+                    ModBlocks.LV_TRANSFORMER_N_TO_1.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> MV_TRANSFORMER_1_TO_N_ENTITY =
             BLOCK_ENTITIES.register("transformer_1_to_n", () -> BlockEntityType.Builder.of((blockPos, state) ->
                             new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_MV,

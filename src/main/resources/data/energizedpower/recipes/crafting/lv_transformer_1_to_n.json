@@ -1,19 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "group": "energizedpower:transformer_1_to_n",
   "key": {
     "S": {
-      "tag": "forge:storage_blocks/silicon"
+      "tag": "forge:silicon"
     },
     "C": {
-      "tag": "forge:storage_blocks/copper"
+      "tag": "forge:plates/copper"
     },
     "I": {
-      "tag": "forge:storage_blocks/iron"
+      "tag": "forge:plates/iron"
     },
     "R": {
-      "tag": "forge:storage_blocks/redstone"
+      "tag": "forge:dusts/redstone"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
@@ -22,9 +21,9 @@
   "pattern": [
     "CSI",
     "RBR",
-    "CRI"
+    "CSI"
   ],
   "result": {
-    "item": "energizedpower:transformer_1_to_n"
+    "item": "energizedpower:lv_transformer_1_to_n"
   }
 }

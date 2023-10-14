@@ -7,6 +7,9 @@
     "energizedpower:energized_gold_cable",
     "energizedpower:energized_crystal_matrix_cable",
 
+    "energizedpower:lv_transformer_1_to_n",
+    "energizedpower:lv_transformer_3_to_3",
+    "energizedpower:lv_transformer_n_to_1",
     "energizedpower:transformer_1_to_n",
     "energizedpower:transformer_3_to_3",
     "energizedpower:transformer_n_to_1",
