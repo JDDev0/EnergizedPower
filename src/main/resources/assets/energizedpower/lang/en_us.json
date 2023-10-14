@@ -841,6 +841,12 @@
   "book.energizedpower.page.wrench": "The Wrench can be used to configure blocks.",
 
 
+  "book.energizedpower.page.chapter.workbenches.title": "Workbenches",
+  "book.energizedpower.page.chapter.workbenches": "Machines which must be operated manually.",
+
+  "book.energizedpower.page.press_mold_maker": "The Press Mold Maker can be used to create Press Molds for the Metal Press.",
+
+
   "book.energizedpower.page.chapter.energy_items.title": "Energy Items",
   "book.energizedpower.page.chapter.energy_items": "Items which can produce, consume, or store energy.",
 
