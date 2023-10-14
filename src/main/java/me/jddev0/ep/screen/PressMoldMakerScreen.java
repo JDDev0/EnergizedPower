@@ -140,8 +140,6 @@ public class PressMoldMakerScreen extends HandledScreen<PressMoldMakerMenu> {
 
     @Override
     public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-        renderBackground(drawContext, mouseX, mouseY, delta);
-
         super.render(drawContext, mouseX, mouseY, delta);
 
         drawMouseoverTooltip(drawContext, mouseX, mouseY);
