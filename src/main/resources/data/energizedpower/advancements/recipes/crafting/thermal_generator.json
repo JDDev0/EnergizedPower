@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_coal_engine": {
+    "has_hardened_machine_frame": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [ "energizedpower:coal_engine" ]
+            "items": [ "energizedpower:hardened_machine_frame" ]
           }
         ]
       }
@@ -20,7 +20,7 @@
   },
   "requirements": [
     [
-      "has_coal_engine",
+      "has_hardened_machine_frame",
       "has_the_recipe"
     ]
   ],

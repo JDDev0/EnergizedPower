@@ -173,7 +173,7 @@ public final class ModVillager {
         TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION, 5, factories -> {
             addOffer(factories,
                     new ItemStack(Items.EMERALD, 32),
-                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                    new ItemStack(ModBlocks.HARDENED_MACHINE_FRAME_ITEM),
                     new ItemStack(ModBlocks.THERMAL_GENERATOR_ITEM),
                     1, 30, .02f);
 
