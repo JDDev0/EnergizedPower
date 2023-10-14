@@ -190,8 +190,10 @@ public class EnergizedPowerMod implements ModInitializer {
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.ADVANCED_FERTILIZER);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.RAW_GEAR_PRESS_MOLD);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.RAW_ROD_PRESS_MOLD);
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.RAW_WIRE_PRESS_MOLD);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.GEAR_PRESS_MOLD);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.ROD_PRESS_MOLD);
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.WIRE_PRESS_MOLD);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.SILICON);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.COPPER_DUST);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.IRON_DUST);
@@ -201,10 +203,14 @@ public class EnergizedPowerMod implements ModInitializer {
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.GOLD_PLATE);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.IRON_GEAR);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.IRON_ROD);
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.COPPER_WIRE);
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.GOLD_WIRE);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.ENERGIZED_COPPER_INGOT);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.ENERGIZED_GOLD_INGOT);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.ENERGIZED_COPPER_PLATE);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.ENERGIZED_GOLD_PLATE);
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.ENERGIZED_COPPER_WIRE);
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.ENERGIZED_GOLD_WIRE);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.ENERGIZED_CRYSTAL_MATRIX);
 	}
 

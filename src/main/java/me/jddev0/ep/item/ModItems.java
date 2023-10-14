@@ -27,6 +27,11 @@ public final class ModItems {
     public static final Item ENERGIZED_GOLD_PLATE = registerItem("energized_gold_plate",
             new Item(new FabricItemSettings()));
 
+    public static final Item ENERGIZED_COPPER_WIRE = registerItem("energized_copper_wire",
+            new Item(new FabricItemSettings()));
+    public static final Item ENERGIZED_GOLD_WIRE = registerItem("energized_gold_wire",
+            new Item(new FabricItemSettings()));
+
     public static final Item SILICON = registerItem("silicon",
             new Item(new FabricItemSettings()));
 
@@ -50,6 +55,11 @@ public final class ModItems {
     public static final Item IRON_ROD = registerItem("iron_rod",
             new Item(new FabricItemSettings()));
 
+    public static final Item COPPER_WIRE = registerItem("copper_wire",
+            new Item(new FabricItemSettings()));
+    public static final Item GOLD_WIRE = registerItem("gold_wire",
+            new Item(new FabricItemSettings()));
+
     public static final Item SAWDUST = registerItem("sawdust",
             new Item(new FabricItemSettings()));
 
@@ -66,10 +76,14 @@ public final class ModItems {
             new Item(new FabricItemSettings()));
     public static final Item RAW_ROD_PRESS_MOLD = registerItem("raw_rod_press_mold",
             new Item(new FabricItemSettings()));
+    public static final Item RAW_WIRE_PRESS_MOLD = registerItem("raw_wire_press_mold",
+            new Item(new FabricItemSettings()));
 
     public static final Item GEAR_PRESS_MOLD = registerItem("gear_press_mold",
             new Item(new FabricItemSettings()));
     public static final Item ROD_PRESS_MOLD = registerItem("rod_press_mold",
+            new Item(new FabricItemSettings()));
+    public static final Item WIRE_PRESS_MOLD = registerItem("wire_press_mold",
             new Item(new FabricItemSettings()));
 
     public static final Item BASIC_SOLAR_CELL = registerItem("basic_solar_cell",
