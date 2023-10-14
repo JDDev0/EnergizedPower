@@ -24,7 +24,7 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.credits_1.1"
+          "translate": "book.energizedpower.page.credits.1"
         },
         ": ",
         {
@@ -51,7 +51,7 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.credits_1.2"
+          "translate": "book.energizedpower.page.credits.2"
         },
         ": ",
         {
@@ -78,7 +78,7 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.credits_1.3"
+          "translate": "book.energizedpower.page.credits.3"
         },
         ": ",
         {
@@ -105,7 +105,7 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.credits_1.4"
+          "translate": "book.energizedpower.page.credits.4"
         },
         ": ",
         {
@@ -115,6 +115,60 @@
           "clickEvent": {
             "action": "open_url",
             "value": "https://github.com/flashbulbs"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.tooltip.link"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "text": "\n• ",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "translate": "book.energizedpower.page.credits.5"
+        },
+        ": ",
+        {
+          "text": "HanJiang-cn",
+          "color": "blue",
+          "underlined": true,
+          "clickEvent": {
+            "action": "open_url",
+            "value": "https://github.com/HanJiang-cn"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.tooltip.link"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "text": "\n• ",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "translate": "book.energizedpower.page.credits.6"
+        },
+        ": ",
+        {
+          "text": "Roby1164",
+          "color": "blue",
+          "underlined": true,
+          "clickEvent": {
+            "action": "open_url",
+            "value": "https://github.com/Roby1164"
           },
           "hoverEvent": {
             "action": "show_text",
