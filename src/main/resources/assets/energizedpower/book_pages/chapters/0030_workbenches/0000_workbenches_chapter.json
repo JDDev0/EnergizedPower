@@ -1,11 +1,11 @@
 {
   "title": {
-    "translate": "book.energizedpower.page.chapter.energy_blocks.energy_storage.title",
+    "translate": "book.energizedpower.page.chapter.workbenches.title",
     "color": "gold"
   },
   "content": [
     {
-      "translate": "book.energizedpower.page.chapter.energy_blocks.energy_storage"
+      "translate": "book.energizedpower.page.chapter.workbenches"
     },
     {
       "text": "\n\n",
@@ -14,12 +14,12 @@
       "font": "uniform",
       "extra": [
         {
-          "translate": "book.energizedpower.page.energy_blocks.table_of_contents.title",
+          "translate": "book.energizedpower.page.table_of_contents.title",
           "color": "dark_green",
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0040_energy_blocks/0000_main/0010_table_of_contents"
+            "value": "energizedpower:chapters/0000_welcome/0020_table_of_contents"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -30,5 +30,6 @@
         }
       ]
     }
-  ]
+  ],
+  "block": "minecraft:crafting_table"
 }
