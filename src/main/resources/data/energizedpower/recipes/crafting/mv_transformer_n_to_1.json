@@ -11,19 +11,19 @@
     "I": {
       "tag": "c:iron_blocks"
     },
-    "R": {
-      "tag": "c:redstone_blocks"
+    "H": {
+      "item": "energizedpower:hardened_machine_frame"
     },
-    "B": {
-      "item": "energizedpower:basic_machine_frame"
+    "T": {
+      "item": "energizedpower:lv_transformer_n_to_1"
     }
   },
   "pattern": [
-    "CSI",
-    "RBR",
-    "CSI"
+    "CTI",
+    "SHS",
+    "CTI"
   ],
   "result": {
-    "item": "energizedpower:transformer_3_to_3"
+    "item": "energizedpower:transformer_n_to_1"
   }
 }
