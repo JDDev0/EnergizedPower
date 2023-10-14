@@ -36,6 +36,11 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
     public static BlockEntityType<TransformerBlockEntity> getEntityTypeFromTierAndType(TransformerBlock.Tier tier,
                                                                                        TransformerBlock.Type type) {
         return switch(tier) {
+            case TIER_LV -> switch (type) {
+                case TYPE_1_TO_N -> ModBlockEntities.LV_TRANSFORMER_1_TO_N_ENTITY;
+                case TYPE_3_TO_3 -> ModBlockEntities.LV_TRANSFORMER_3_TO_3_ENTITY;
+                case TYPE_N_TO_1 -> ModBlockEntities.LV_TRANSFORMER_N_TO_1_ENTITY;
+            };
             case TIER_MV -> switch (type) {
                 case TYPE_1_TO_N -> ModBlockEntities.MV_TRANSFORMER_1_TO_N_ENTITY;
                 case TYPE_3_TO_3 -> ModBlockEntities.MV_TRANSFORMER_3_TO_3_ENTITY;
@@ -56,6 +61,7 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
 
     public static long getMaxEnergyTransferFromTier(TransformerBlock.Tier tier) {
         return switch(tier) {
+            case TIER_LV -> ModConfigs.COMMON_LV_TRANSFORMERS_TRANSFER_RATE.getValue();
             case TIER_MV -> ModConfigs.COMMON_MV_TRANSFORMERS_TRANSFER_RATE.getValue();
             case TIER_HV -> ModConfigs.COMMON_HV_TRANSFORMERS_TRANSFER_RATE.getValue();
             case TIER_EHV -> ModConfigs.COMMON_EHV_TRANSFORMERS_TRANSFER_RATE.getValue();
