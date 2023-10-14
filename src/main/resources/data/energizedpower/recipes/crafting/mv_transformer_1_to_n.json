@@ -1,7 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "group": "energizedpower:transformer_n_to_1",
   "key": {
     "S": {
       "tag": "c:silicon_blocks"
@@ -12,19 +11,19 @@
     "I": {
       "tag": "c:iron_blocks"
     },
-    "R": {
-      "tag": "c:redstone_blocks"
+    "H": {
+      "item": "energizedpower:hardened_machine_frame"
     },
-    "B": {
-      "item": "energizedpower:basic_machine_frame"
+    "T": {
+      "item": "energizedpower:lv_transformer_1_to_n"
     }
   },
   "pattern": [
-    "CRI",
-    "RBR",
-    "CSI"
+    "CTI",
+    "SHS",
+    "CTI"
   ],
   "result": {
-    "item": "energizedpower:transformer_n_to_1"
+    "item": "energizedpower:transformer_1_to_n"
   }
 }

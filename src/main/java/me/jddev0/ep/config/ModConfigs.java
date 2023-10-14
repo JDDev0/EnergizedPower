@@ -145,6 +145,10 @@ public final class ModConfigs {
             "block.advanced_battery_box", "Advanced Battery Box", 262144
     );
 
+    public static final ConfigValue<Long> COMMON_LV_TRANSFORMERS_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.lv_transformers", "LV Transformers", 8192
+    );
+
     public static final ConfigValue<Long> COMMON_MV_TRANSFORMERS_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
             "block.mv_transformers", "MV Transformers", 65536
     );
