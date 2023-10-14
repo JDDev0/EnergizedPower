@@ -33,7 +33,8 @@ public class MetalPressMenu extends ScreenHandler implements EnergyStorageConsum
                 return switch(slot) {
                     case 0 -> inv.player.getWorld().getRecipeManager().listAllOfType(MetalPressRecipe.Type.INSTANCE).stream().
                             map(MetalPressRecipe::getInput).anyMatch(ingredient -> ingredient.test(stack));
-                    case 1 -> stack.isIn(EnergizedPowerItemTags.METAL_PRESS_MOLDS) && getStack(1).isEmpty();
+                    case 1 -> stack.isIn(EnergizedPowerItemTags.METAL_PRESS_MOLDS) &&
+                            (getStack(1).isEmpty() || stack.getCount() == 1);
                     case 2 -> false;
                     default -> super.isValid(slot, stack);
                 };
