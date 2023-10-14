@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
+  "group": "copper_cable",
   "key": {
     "I": {
       "item": "energizedpower:cable_insulator"
