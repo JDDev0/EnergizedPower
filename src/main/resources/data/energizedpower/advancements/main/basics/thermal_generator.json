@@ -1,5 +1,5 @@
 {
-  "parent":  "energizedpower:main/basics/coal_engine",
+  "parent":  "energizedpower:main/basics/hardened_machine_frame",
   "display": {
     "icon": {
       "item": "energizedpower:thermal_generator"
