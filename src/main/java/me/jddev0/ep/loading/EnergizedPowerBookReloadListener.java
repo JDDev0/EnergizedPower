@@ -195,6 +195,6 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
             }
         }
 
-        EnergizedPowerBookScreen.pages = new ArrayList<>(pages);
+        EnergizedPowerBookScreen.setPages(pages);
     }
 }
