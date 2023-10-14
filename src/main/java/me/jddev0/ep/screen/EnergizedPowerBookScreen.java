@@ -39,7 +39,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -53,18 +53,26 @@ public class EnergizedPowerBookScreen extends Screen {
 
     public static final int IMAGE_CYCLE_DELAY = ModConfigs.CLIENT_ENERGIZED_POWER_BOOK_IMAGE_CYCLE_DELAY.getValue();
 
+    private static final int MAX_CHARS_PER_LINE = 148;
+    private static final int MAX_LINES = 17;
+
+    private static List<PageContent> pages = new LinkedList<>();
+
     private int currentTick;
 
     private PageTurnWidget forwardButton;
     private PageTurnWidget backButton;
 
     private final LecternBlockEntity lecternBlockEntity;
+    private List<FormattedPageContent> formattedPages;
 
-    public static List<PageContent> pages = new LinkedList<>();
     private int currentPage;
     private Text currentPageNumberOutput = Text.empty();
     private boolean isCurrentPageCached;
-    private List<OrderedText> cachedPageComponents = Collections.emptyList();
+
+    public static void setPages(List<PageContent> pages) {
+        EnergizedPowerBookScreen.pages = new ArrayList<>(pages);
+    }
 
     public EnergizedPowerBookScreen() {
         this(null);
@@ -80,6 +88,51 @@ public class EnergizedPowerBookScreen extends Screen {
     protected void init() {
         this.createMenuControls();
         this.createPageControlButtons();
+
+        List<FormattedPageContent> formattedPages = new LinkedList<>();
+        formattedPages.add(new FormattedPageContent(new Identifier(EnergizedPowerMod.MODID, "front_cover"),
+                null,
+                textRenderer.wrapLines(Text.translatable("book.energizedpower.front.cover.text").
+                        formatted(Formatting.GRAY), MAX_CHARS_PER_LINE), null, null));
+        for(PageContent pageContent:pages) {
+            Identifier pageId = pageContent.getPageId();
+            Text chapterTitleComponent = pageContent.getChapterTitleComponent();
+            Identifier[] imageResourceLocations = pageContent.getImageResourceLocations();
+            Identifier[] blockResourceLocations = pageContent.getBlockResourceLocations();
+
+            List<OrderedText> formattedPageComponents = pageContent.getPageComponent() == null?new ArrayList<>(0):
+                    textRenderer.wrapLines(pageContent.getPageComponent(), MAX_CHARS_PER_LINE);
+
+            if(chapterTitleComponent != null) {
+                formattedPages.add(new FormattedPageContent(pageId, chapterTitleComponent, formattedPageComponents,
+                        imageResourceLocations, blockResourceLocations));
+
+                continue;
+            }
+
+            //Automatically split pages into multiple
+            //TODO use MAX_LINES after debug
+            int maxLineCountFirstPage = 18 - (imageResourceLocations != null || blockResourceLocations != null?6:0);
+
+            formattedPages.add(new FormattedPageContent(pageId, chapterTitleComponent,
+                    formattedPageComponents.subList(0, Math.min(maxLineCountFirstPage, formattedPageComponents.size())),
+                    imageResourceLocations, blockResourceLocations));
+
+            //TODO use MAX_LINES after debug
+            for(int i = maxLineCountFirstPage, splitPageCount = 2;i < formattedPageComponents.size();i += 18, splitPageCount++) {
+                Identifier tmpPageId = new Identifier(pageId.getNamespace(), pageId.getPath() + "/tmp_page_" + splitPageCount);
+
+                formattedPages.add(new FormattedPageContent(tmpPageId, null,
+                        formattedPageComponents.subList(i, Math.min(i + 18, formattedPageComponents.size())),
+                        null, null));
+            }
+        }
+        formattedPages.add(new FormattedPageContent(new Identifier(EnergizedPowerMod.MODID, "back_cover"),
+                null, new ArrayList<>(0), null, null));
+
+        this.formattedPages = new ArrayList<>(formattedPages);
+
+        updateButtonVisibility();
     }
 
     private void createMenuControls() {
@@ -105,7 +158,7 @@ public class EnergizedPowerBookScreen extends Screen {
     }
 
     private int getPageCount() {
-        return pages.size() + 2;  //"+ 2": Front cover and back cover are not in the content list
+        return formattedPages == null?0:formattedPages.size();
     }
 
     private void pageForward() {
@@ -185,13 +238,13 @@ public class EnergizedPowerBookScreen extends Screen {
     @Override
     public boolean handleTextClick(Style style) {
         ClickEvent clickEvent = style.getClickEvent();
-        if(clickEvent == null)
+        if(clickEvent == null || formattedPages == null)
             return false;
 
         if(clickEvent.getAction() == ClickEvent.Action.CHANGE_PAGE) {
             int oldCurrentPage = currentPage;
             try {
-                return setPage(Integer.parseInt(clickEvent.getValue()) - 1);
+                return setPage(Integer.parseInt(clickEvent.getValue()));
             }catch(NumberFormatException e) {
                 String pageIdString = clickEvent.getValue();
 
@@ -201,8 +254,8 @@ public class EnergizedPowerBookScreen extends Screen {
 
                 boolean containsKeyFlag = false;
                 int i = 0;
-                for(;i < pages.size();i++) {
-                    if(pages.get(i).getPageId().equals(pageId)) {
+                for(;i < formattedPages.size();i++) {
+                    if(formattedPages.get(i).getPageId().equals(pageId)) {
                         containsKeyFlag = true;
 
                         break;
@@ -212,7 +265,7 @@ public class EnergizedPowerBookScreen extends Screen {
                 if(!containsKeyFlag)
                     return false;
 
-                return setPage(i + 1); //"+ 1": Front cover is not contained in the pages list
+                return setPage(i);
             }finally {
                 if(currentPage != oldCurrentPage)
                     client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.f));
@@ -232,6 +285,9 @@ public class EnergizedPowerBookScreen extends Screen {
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
+        if(formattedPages == null)
+            return;
+
         int startX = (width - 226) / 2;
         if(currentPage == 0) {
             RenderSystem.setShaderTexture(0, FRONT_COVER);
@@ -247,21 +303,12 @@ public class EnergizedPowerBookScreen extends Screen {
         }
 
         if(!isCurrentPageCached) {
-            if(currentPage == 0) {
-                cachedPageComponents = textRenderer.wrapLines(Text.translatable("book.energizedpower.front.cover.text").formatted(Formatting.GRAY), 148);
-            }else if(currentPage == getPageCount() - 1) {
-                cachedPageComponents = Collections.emptyList();
-            }else {
-                //Front cover and back cover are not included
-                if(pages.get(currentPage - 1).getPageComponent() != null)
-                    cachedPageComponents = textRenderer.wrapLines(pages.get(currentPage - 1).getPageComponent(), 148);
-            }
             //First page is front cover (Number = 0)
             //Last page is back cover (Number = page count - 1)
             currentPageNumberOutput = Text.translatable("book.pageIndicator", currentPage, Math.max(getPageCount() - 1, 1));
-        }
 
-        isCurrentPageCached = true;
+            isCurrentPageCached = true;
+        }
 
         int textWidth = textRenderer.getWidth(currentPageNumberOutput);
         textRenderer.draw(poseStack, currentPageNumberOutput, (width - textWidth) / 2.f, 222, 0xFFFFFFFF);
@@ -282,15 +329,16 @@ public class EnergizedPowerBookScreen extends Screen {
 
         int yOffset = 0;
 
-        Identifier[] images = pages.get(currentPage - 1).getImageResourceLocations();
-        Identifier[] blocks = pages.get(currentPage - 1).getBlockResourceLocations();
+        Identifier[] images = formattedPages.get(currentPage).getImageResourceLocations();
+        Identifier[] blocks = formattedPages.get(currentPage).getBlockResourceLocations();
 
-        Text chapterTitleComponent = pages.get(currentPage - 1).getChapterTitleComponent();
+        Text chapterTitleComponent = formattedPages.get(currentPage).getChapterTitleComponent();
         if(chapterTitleComponent != null) {
             float scaleFactor = 1.5f;
 
             yOffset = (int)((230 / scaleFactor - textRenderer.fontHeight -
-                    (cachedPageComponents == null?0:((cachedPageComponents.size() + 1) * textRenderer.fontHeight / scaleFactor))) * .5f);
+                    (formattedPages.get(currentPage).getPageFormattedTexts().isEmpty()?0:
+                            ((formattedPages.get(currentPage).getPageFormattedTexts().size() + 1) * textRenderer.fontHeight / scaleFactor))) * .5f);
 
             if(images != null)
                 yOffset -= 60 * .5f / scaleFactor;
@@ -318,9 +366,9 @@ public class EnergizedPowerBookScreen extends Screen {
             yOffset += 60;
         }
 
-        if(cachedPageComponents != null) {
-            for(int i = 0;i < cachedPageComponents.size();i++) {
-                OrderedText formattedCharSequence = cachedPageComponents.get(i);
+        if(!formattedPages.get(currentPage).getPageFormattedTexts().isEmpty()) {
+            for(int i = 0;i < formattedPages.get(currentPage).getPageFormattedTexts().size();i++) {
+                OrderedText formattedCharSequence = formattedPages.get(currentPage).getPageFormattedTexts().get(i);
 
                 float x;
                 if(chapterTitleComponent == null)
@@ -355,8 +403,8 @@ public class EnergizedPowerBookScreen extends Screen {
         textWidth = textRenderer.getWidth(component);
         textRenderer.draw(poseStack, component, (width - textWidth) * .5f, 192 - 45.f, 0);
 
-        for(int i = 0;i < cachedPageComponents.size();i++) {
-            OrderedText formattedCharSequence = cachedPageComponents.get(i);
+        for(int i = 0;i < formattedPages.get(currentPage).getPageFormattedTexts().size();i++) {
+            OrderedText formattedCharSequence = formattedPages.get(currentPage).getPageFormattedTexts().get(i);
             textRenderer.draw(poseStack, formattedCharSequence, startX + 36.f, 120.f + 9 * i, 0);
         }
 
@@ -412,7 +460,7 @@ public class EnergizedPowerBookScreen extends Screen {
     }
 
     private Style getComponentStyleAt(double x, double y) {
-        if(cachedPageComponents.isEmpty())
+        if(formattedPages == null || formattedPages.get(currentPage).getPageFormattedTexts().isEmpty())
             return null;
 
         int componentX = MathHelper.floor(x - (width - 226) * .5 - 36.);
@@ -420,15 +468,16 @@ public class EnergizedPowerBookScreen extends Screen {
 
         //Translate for chapter pages and pages with graphics
         if(currentPage > 0 && currentPage < getPageCount() - 1) { //Ignore front and back cover pages
-            Identifier[] images = pages.get(currentPage - 1).getImageResourceLocations();
-            Identifier[] blocks = pages.get(currentPage - 1).getBlockResourceLocations();
+            Identifier[] images = formattedPages.get(currentPage).getImageResourceLocations();
+            Identifier[] blocks = formattedPages.get(currentPage).getBlockResourceLocations();
 
-            Text chapterTitleComponent = pages.get(currentPage - 1).getChapterTitleComponent();
+            Text chapterTitleComponent = formattedPages.get(currentPage).getChapterTitleComponent();
             if(chapterTitleComponent != null) {
                 float scaleFactor = 1.5f;
 
                 componentY = -(int)((230 / scaleFactor - textRenderer.fontHeight -
-                        (cachedPageComponents == null?0:((cachedPageComponents.size() + 1) * textRenderer.fontHeight / scaleFactor))) * .5f);
+                        (formattedPages.get(currentPage).getPageFormattedTexts().isEmpty()?0:
+                                ((formattedPages.get(currentPage).getPageFormattedTexts().size() + 1) * textRenderer.fontHeight / scaleFactor))) * .5f);
 
                 if(images != null)
                     componentY += 60 * .5f / scaleFactor;
@@ -449,10 +498,10 @@ public class EnergizedPowerBookScreen extends Screen {
 
             if(chapterTitleComponent != null) {
                 int componentIndex = componentY / 9;
-                if(componentIndex < 0 || componentIndex >= cachedPageComponents.size())
+                if(componentIndex < 0 || componentIndex >= formattedPages.get(currentPage).getPageFormattedTexts().size())
                     return null;
 
-                OrderedText formattedCharSequence = cachedPageComponents.get(componentIndex);
+                OrderedText formattedCharSequence = formattedPages.get(currentPage).getPageFormattedTexts().get(componentIndex);
                 componentX = MathHelper.floor(x - (width - textRenderer.getWidth(formattedCharSequence)) * .5f);
             }
         }
@@ -460,15 +509,15 @@ public class EnergizedPowerBookScreen extends Screen {
         if(componentX < 0 || componentY < 0)
             return null;
 
-        int componentCount = cachedPageComponents.size();
+        int componentCount = formattedPages.get(currentPage).getPageFormattedTexts().size();
         if(componentX > 178 || componentY >= 9 * componentCount + componentCount)
             return null;
 
         int componentIndex = componentY / 9;
-        if(componentIndex >= cachedPageComponents.size())
+        if(componentIndex >= formattedPages.get(currentPage).getPageFormattedTexts().size())
             return null;
 
-        return client.textRenderer.getTextHandler().getStyleAt(cachedPageComponents.get(componentIndex), componentX);
+        return client.textRenderer.getTextHandler().getStyleAt(formattedPages.get(currentPage).getPageFormattedTexts().get(componentIndex), componentX);
     }
 
     @Override
@@ -508,6 +557,45 @@ public class EnergizedPowerBookScreen extends Screen {
 
         public Text getPageComponent() {
             return pageComponent;
+        }
+
+        public Identifier[] getImageResourceLocations() {
+            return imageResourceLocations;
+        }
+
+        public Identifier[] getBlockResourceLocations() {
+            return blockResourceLocations;
+        }
+    }
+
+    @Environment(EnvType.CLIENT)
+    private static class FormattedPageContent {
+        private final Identifier pageId;
+        private final Text chapterTitleComponent;
+        private final List<OrderedText> pageFormattedTexts;
+        private final Identifier[] imageResourceLocations;
+        private final Identifier[] blockResourceLocations;
+
+        public FormattedPageContent(Identifier pageId, Text chapterTitleComponent,
+                                    List<OrderedText> pageFormattedTexts, Identifier[] imageResourceLocations,
+                                    Identifier[] blockResourceLocations) {
+            this.pageId = pageId;
+            this.chapterTitleComponent = chapterTitleComponent;
+            this.pageFormattedTexts = pageFormattedTexts;
+            this.imageResourceLocations = imageResourceLocations;
+            this.blockResourceLocations = blockResourceLocations;
+        }
+
+        public Identifier getPageId() {
+            return pageId;
+        }
+
+        public Text getChapterTitleComponent() {
+            return chapterTitleComponent;
+        }
+
+        public List<OrderedText> getPageFormattedTexts() {
+            return pageFormattedTexts;
         }
 
         public Identifier[] getImageResourceLocations() {
