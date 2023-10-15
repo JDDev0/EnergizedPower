@@ -9,14 +9,14 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 
 - Powered Lamp
 - Powered Furnace
-- Press Mold Maker (**In next release (v2.2.0)**)
+- Press Mold Maker
 - Advanced Powered Furnace (3 input/output slot pairs)
 - Auto Crafter (Can handle recipe conflicts, that is recipes with the same inputs)
 - Crusher
 - Pulverizer
 - Sawmill
 - Compressor
-- Metal Press (**In next release (v2.2.0)**)
+- Metal Press
 - Plant Growth Chamber
 - Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
 - Fluid Filler
@@ -35,7 +35,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Heat Generator
 - Thermal Generator
 - Lightning Generator
-- Solar Panels (6 Tiers) (6th tier: (**In next release (v2.2.0)**))
+- Solar Panels (6 Tiers)
 - Battery Box
 - Advanced Battery Box
 - Weather Controller
@@ -47,7 +47,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 - Cables (5 Tiers: Copper, Gold, Energized Copper, Energized Gold, and Energized Crystal Matrix)
 - Transformers (Can be used to connect different tiers of cables):
-  - 4 tiers: LV (**In next release (v2.2.0)**), MV, HV, and EHV
+  - 4 tiers: LV, MV, HV, and EHV
   - 3 types (for each tier): 1 to n, 3 to 3, and n to 1
 - Minecart with Battery Box
 - Minecart with Advanced Battery Box
@@ -129,6 +129,7 @@ A tutorial world showcasing all the features of this mod can be downloaded on Cu
 
 ## Supported versions:
 Mod version: MC version
+- 2.2.x: 1.20.2, 1.20.1, 1.19.4, 1.19.2
 - 2.1.x: 1.20.2, 1.20.1, 1.19.4, 1.19.3, 1.19.2
 - 2.0.x: 1.20.1, 1.19.4, 1.19.3, 1.19.2
 - 1.7.x: 1.20.1, 1.20, 1.19.4, 1.19.3, 1.19.2, 1.18.2
