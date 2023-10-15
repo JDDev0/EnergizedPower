@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:rods/iron"
+            "tag": "forge:plates/iron"
           }
         ]
       }
