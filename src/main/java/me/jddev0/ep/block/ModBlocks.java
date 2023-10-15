@@ -99,6 +99,30 @@ public final class ModBlocks {
     public static final RegistryObject<Item> ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM = ModItems.ITEMS.register("energized_crystal_matrix_cable",
             () -> new CableBlock.Item(ENERGIZED_CRYSTAL_MATRIX_CABLE.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), CableBlock.Tier.TIER_ENERGIZED_CRYSTAL_MATRIX));
 
+    public static final RegistryObject<TransformerBlock> LV_TRANSFORMER_1_TO_N = BLOCKS.register("lv_transformer_1_to_n",
+            () -> new TransformerBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
+                    TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_1_TO_N));
+    public static final RegistryObject<Item> LV_TRANSFORMER_1_TO_N_ITEM = ModItems.ITEMS.register("lv_transformer_1_to_n",
+            () -> new TransformerBlock.Item(LV_TRANSFORMER_1_TO_N.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB),
+                    TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_1_TO_N));
+
+    public static final RegistryObject<TransformerBlock> LV_TRANSFORMER_3_TO_3 = BLOCKS.register("lv_transformer_3_to_3",
+            () -> new TransformerBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
+                    TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_3_TO_3));
+    public static final RegistryObject<Item> LV_TRANSFORMER_3_TO_3_ITEM = ModItems.ITEMS.register("lv_transformer_3_to_3",
+            () -> new TransformerBlock.Item(LV_TRANSFORMER_3_TO_3.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB),
+                    TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_3_TO_3));
+
+    public static final RegistryObject<TransformerBlock> LV_TRANSFORMER_N_TO_1 = BLOCKS.register("lv_transformer_n_to_1",
+            () -> new TransformerBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
+                    TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_N_TO_1));
+    public static final RegistryObject<Item> LV_TRANSFORMER_N_TO_1_ITEM = ModItems.ITEMS.register("lv_transformer_n_to_1",
+            () -> new TransformerBlock.Item(LV_TRANSFORMER_N_TO_1.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB),
+                    TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_N_TO_1));
+
     public static final RegistryObject<TransformerBlock> MV_TRANSFORMER_1_TO_N = BLOCKS.register("transformer_1_to_n",
             () -> new TransformerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),

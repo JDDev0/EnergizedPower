@@ -232,6 +232,15 @@
   "tooltip.energizedpower.cable.txt.shift.2": "Cable insulators can be crafted by clicking on a wool block with shears.",
 
 
+  "block.energizedpower.lv_transformer_1_to_n": "LV Transformer (1 to n)",
+  "item.energizedpower.lv_transformer_1_to_n": "LV Transformer (1 to n)",
+
+  "block.energizedpower.lv_transformer_3_to_3": "LV Transformer (3 to 3)",
+  "item.energizedpower.lv_transformer_3_to_3": "LV Transformer (3 to 3)",
+
+  "block.energizedpower.lv_transformer_n_to_1": "LV Transformer (n to 1)",
+  "item.energizedpower.lv_transformer_n_to_1": "LV Transformer (n to 1)",
+
   "block.energizedpower.transformer_1_to_n": "MV Transformer (1 to n)",
   "item.energizedpower.transformer_1_to_n": "MV Transformer (1 to n)",
 
@@ -627,11 +636,14 @@
   "advancements.energizedpower.energized_crystal_matrix_cable.title": "Too much power",
   "advancements.energizedpower.energized_crystal_matrix_cable.description": "When do I even need to transport that much energy?",
 
-  "advancements.energizedpower.transformers.title": "Transformers",
-  "advancements.energizedpower.transformers.description": "Can connect different tiers of cables.",
+  "advancements.energizedpower.lv_transformers.title": "LV Transformers",
+  "advancements.energizedpower.lv_transformers.description": "Can connect different tiers of cables.",
+
+  "advancements.energizedpower.mv_transformers.title": "MV Transformers",
+  "advancements.energizedpower.mv_transformers.description": "Can transfer more power.",
 
   "advancements.energizedpower.hv_transformers.title": "HV Transformers",
-  "advancements.energizedpower.hv_transformers.description": "Can transfer more power.",
+  "advancements.energizedpower.hv_transformers.description": "Can transfer even more power.",
 
   "advancements.energizedpower.ehv_transformers.title": "EHV Transformers",
   "advancements.energizedpower.ehv_transformers.description": "Can transfer more than 2 million FE per tick.",
@@ -843,7 +855,7 @@
   "book.energizedpower.page.transformers_1.1": "Transformers can be used to connect different tiers of cables.",
   "book.energizedpower.page.transformers_1.2": "The larger, darker, diamond shaped sides are inputs.",
   "book.energizedpower.page.transformers_1.3": "The smaller, brighter, square shaped sides are outputs.",
-  "book.energizedpower.page.transformers_1.4": "There are three tiers of transformers: MV, HV, and EHV.",
+  "book.energizedpower.page.transformers_1.4": "There are four tiers of transformers: LV, MV, HV, and EHV.",
   "book.energizedpower.page.transformers_1.5": "For each tier there are three types of transformers: 1 to n, 3 to 3, and n to 1.",
 
   "book.energizedpower.page.transformers_2.1": "Transformers can be used to reduce lag of cable networks by using them periodically instead of a cable block.",
