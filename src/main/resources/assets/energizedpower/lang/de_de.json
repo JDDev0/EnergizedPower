@@ -48,6 +48,7 @@
   "item.energizedpower.reinforced_advanced_solar_cell": "Verstärkte Fortgeschrittene Solarzelle",
 
   "item.energizedpower.energized_power_book": "Energized Power Buch",
+  "tooltip.energizedpower.energized_power_book.txt.shift.1": "Drücke die linke Maustaste auf einen Block, um dessen Buchseite zu öffnen.",
   "book.energizedpower.front.cover.text": "Das ist das Guide-Buch für diese Mod!",
 
   "item.energizedpower.cable_insulator": "Kabelinsulator",
