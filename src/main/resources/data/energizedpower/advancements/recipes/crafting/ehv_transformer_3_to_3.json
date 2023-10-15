@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_hv_transformer_3_to_3": {
+    "has_reinforced_advanced_machine_frame": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [ "energizedpower:hv_transformer_3_to_3" ]
+            "items": [ "energizedpower:reinforced_advanced_machine_frame" ]
           }
         ]
       }
@@ -20,7 +20,7 @@
   },
   "requirements": [
     [
-      "has_hv_transformer_3_to_3",
+      "has_reinforced_advanced_machine_frame",
       "has_the_recipe"
     ]
   ],
