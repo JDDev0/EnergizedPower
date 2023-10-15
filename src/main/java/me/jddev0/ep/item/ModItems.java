@@ -45,6 +45,9 @@ public final class ModItems {
     public static final Item IRON_GEAR = registerItem("iron_gear",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final Item IRON_ROD = registerItem("iron_rod",
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final Item SAWDUST = registerItem("sawdust",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
@@ -59,8 +62,12 @@ public final class ModItems {
 
     public static final Item RAW_GEAR_PRESS_MOLD = registerItem("raw_gear_press_mold",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+    public static final Item RAW_ROD_PRESS_MOLD = registerItem("raw_rod_press_mold",
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Item GEAR_PRESS_MOLD = registerItem("gear_press_mold",
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+    public static final Item ROD_PRESS_MOLD = registerItem("rod_press_mold",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Item BASIC_SOLAR_CELL = registerItem("basic_solar_cell",
