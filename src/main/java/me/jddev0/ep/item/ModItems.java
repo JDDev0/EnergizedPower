@@ -23,6 +23,11 @@ public final class ModItems {
     public static final RegistryObject<Item> ENERGIZED_GOLD_PLATE = ITEMS.register("energized_gold_plate",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final RegistryObject<Item> ENERGIZED_COPPER_WIRE = ITEMS.register("energized_copper_wire",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+    public static final RegistryObject<Item> ENERGIZED_GOLD_WIRE = ITEMS.register("energized_gold_wire",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final RegistryObject<Item> SILICON = ITEMS.register("silicon",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
@@ -46,6 +51,11 @@ public final class ModItems {
     public static final RegistryObject<Item> IRON_ROD = ITEMS.register("iron_rod",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final RegistryObject<Item> COPPER_WIRE = ITEMS.register("copper_wire",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+    public static final RegistryObject<Item> GOLD_WIRE = ITEMS.register("gold_wire",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final RegistryObject<Item> SAWDUST = ITEMS.register("sawdust",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
@@ -62,10 +72,14 @@ public final class ModItems {
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> RAW_ROD_PRESS_MOLD = ITEMS.register("raw_rod_press_mold",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+    public static final RegistryObject<Item> RAW_WIRE_PRESS_MOLD = ITEMS.register("raw_wire_press_mold",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> GEAR_PRESS_MOLD = ITEMS.register("gear_press_mold",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> ROD_PRESS_MOLD = ITEMS.register("rod_press_mold",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+    public static final RegistryObject<Item> WIRE_PRESS_MOLD = ITEMS.register("wire_press_mold",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> BASIC_SOLAR_CELL = ITEMS.register("basic_solar_cell",

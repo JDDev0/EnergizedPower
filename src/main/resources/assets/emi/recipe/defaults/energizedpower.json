@@ -98,15 +98,21 @@
     "energizedpower:crafting/wooden_hammer",
     "energizedpower:crafting/wrench",
 
+    "energizedpower:metal_press/copper_wire",
+    "energizedpower:metal_press/energized_copper_wire",
+    "energizedpower:metal_press/energized_gold_wire",
+    "energizedpower:metal_press/gold_wire",
     "energizedpower:metal_press/iron_gear",
     "energizedpower:metal_press/iron_rod",
 
     "energizedpower:press_mold_maker/raw_gear_press_mold",
     "energizedpower:press_mold_maker/raw_rod_press_mold",
+    "energizedpower:press_mold_maker/raw_wire_press_mold",
 
     "energizedpower:smelting/gear_press_mold",
     "energizedpower:smelting/rod_press_mold",
     "energizedpower:smelting/silicon_from_smelting_nether_quartz",
+    "energizedpower:smelting/wire_press_mold",
 
     "energizedpower:smithing/netherite_hammer"
   ]
