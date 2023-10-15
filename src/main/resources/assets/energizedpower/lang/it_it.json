@@ -405,6 +405,9 @@
   "block.energizedpower.basic_machine_frame": "Telaio base della macchina",
   "item.energizedpower.basic_machine_frame": "Telaio base della macchina",
 
+  "block.energizedpower.hardened_machine_frame": "Hardened Machine Frame",
+  "item.energizedpower.hardened_machine_frame": "Hardened Machine Frame",
+
   "block.energizedpower.advanced_machine_frame": "Telaio macchina avanzato",
   "item.energizedpower.advanced_machine_frame": "Telaio macchina avanzato",
 
@@ -827,7 +830,7 @@
   "book.energizedpower.page.chapter.energy_blocks.general": "Informazioni generali sui blocchi energetici",
 
   "book.energizedpower.page.machine_frames.1": "I telai delle macchine sono il blocco di creazione di base per ogni macchina.",
-  "book.energizedpower.page.machine_frames.2": "Esistono tre tipi di macchina: Base, Avanzata e Avanzata rinforzata",
+  "book.energizedpower.page.machine_frames.2": "There are four machine frames: Basic, Hardened, Advanced, and Reinforced Advanced",
 
 
   "book.energizedpower.page.chapter.energy_blocks.energy_transportation.title": "Trasporto",
