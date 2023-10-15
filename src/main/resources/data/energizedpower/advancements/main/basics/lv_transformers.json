@@ -2,25 +2,25 @@
   "parent":  "energizedpower:main/basics/copper_cable",
   "display": {
     "icon": {
-      "item": "energizedpower:transformer_1_to_n"
+      "item": "energizedpower:lv_transformer_1_to_n"
     },
     "title": {
-      "translate": "advancements.energizedpower.transformers.title"
+      "translate": "advancements.energizedpower.lv_transformers.title"
     },
     "description": {
-      "translate": "advancements.energizedpower.transformers.description"
+      "translate": "advancements.energizedpower.lv_transformers.description"
     },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true
   },
   "criteria": {
-    "has_transformer": {
+    "has_lv_transformer": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [ "energizedpower:transformer_1_to_n", "energizedpower:transformer_3_to_3", "energizedpower:transformer_n_to_1" ]
+            "items": [ "energizedpower:lv_transformer_1_to_n", "energizedpower:lv_transformer_3_to_3", "energizedpower:lv_transformer_n_to_1" ]
           }
         ]
       }
@@ -28,7 +28,7 @@
   },
   "requirements": [
     [
-      "has_transformer"
+      "has_lv_transformer"
     ]
   ]
 }

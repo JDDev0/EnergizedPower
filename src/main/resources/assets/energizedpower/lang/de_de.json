@@ -232,6 +232,15 @@
   "tooltip.energizedpower.cable.txt.shift.2": "Kabelinsulatoren können durch das Klicken auf einen Wolleblock mit einer Schere hergestellt werden.",
 
 
+  "block.energizedpower.lv_transformer_1_to_n": "LV-Trafo (1 zu n)",
+  "item.energizedpower.lv_transformer_1_to_n": "LV-Trafo (1 zu n)",
+
+  "block.energizedpower.lv_transformer_3_to_3": "LV-Trafo (3 zu 3)",
+  "item.energizedpower.lv_transformer_3_to_3": "LV-Trafo (3 zu 3)",
+
+  "block.energizedpower.lv_transformer_n_to_1": "LV-Trafo (n zu 1)",
+  "item.energizedpower.lv_transformer_n_to_1": "LV-Trafo (n zu 1)",
+
   "block.energizedpower.transformer_1_to_n": "MV-Trafo (1 zu n)",
   "item.energizedpower.transformer_1_to_n": "MV-Trafo (1 zu n)",
 
@@ -627,11 +636,14 @@
   "advancements.energizedpower.energized_crystal_matrix_cable.title": "Zu viel Strom",
   "advancements.energizedpower.energized_crystal_matrix_cable.description": "Wann muss ich überhaupt so viel Strom transportieren?",
 
-  "advancements.energizedpower.transformers.title": "Trafos",
-  "advancements.energizedpower.transformers.description": "Trafos können verschiedene Kabeltypen verbinden.",
+  "advancements.energizedpower.lv_transformers.title": "LV-Trafos",
+  "advancements.energizedpower.lv_transformers.description": "LV-Trafos können verschiedene Kabeltypen verbinden.",
+
+  "advancements.energizedpower.mv_transformers.title": "MV-Trafos",
+  "advancements.energizedpower.mv_transformers.description": "MV-Trafos können mehr Strom transferieren.",
 
   "advancements.energizedpower.hv_transformers.title": "HV-Trafos",
-  "advancements.energizedpower.hv_transformers.description": "HV-Trafos können mehr Strom transferieren.",
+  "advancements.energizedpower.hv_transformers.description": "HV-Trafos können noch mehr Strom transferieren.",
 
   "advancements.energizedpower.ehv_transformers.title": "EHV-Trafos",
   "advancements.energizedpower.ehv_transformers.description": "EHV-Trafos können mehr als 2 Millionen E pro Tick transferieren.",
@@ -843,7 +855,7 @@
   "book.energizedpower.page.transformers_1.1": "Trafos können Kabel von verschiedenen Typen verbinden.",
   "book.energizedpower.page.transformers_1.2": "Die größeren, dunkleren, Rauten-förmigen Seiten sind Eingänge.",
   "book.energizedpower.page.transformers_1.3": "Die kleineren, helleren, Quadrat-förmigen Seiten sind Ausgänge.",
-  "book.energizedpower.page.transformers_1.4": "Es gibt drei Trafostärken: MV, HV und EHV.",
+  "book.energizedpower.page.transformers_1.4": "Es gibt vier Trafostärken: LV, MV, HV und EHV.",
   "book.energizedpower.page.transformers_1.5": "Für jeden dieser drei Typen gibt es drei Typen: 1 zu n, 3 zu 3 und n zu 1.",
 
   "book.energizedpower.page.transformers_2.1": "Trafos können Lags-Reduzieren, indem sie manchmal statt einem Kabel-Block plaziert werden.",
