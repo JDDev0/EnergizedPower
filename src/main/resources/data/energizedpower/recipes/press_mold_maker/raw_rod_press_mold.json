@@ -1,0 +1,7 @@
+{
+  "type": "energizedpower:press_mold_maker",
+  "clayCount": 9,
+  "output": {
+    "item": "energizedpower:raw_rod_press_mold"
+  }
+}

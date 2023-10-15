@@ -17,6 +17,8 @@
 
   "item.energizedpower.iron_gear": "Iron Gear",
 
+  "item.energizedpower.iron_rod": "Iron Rod",
+
   "item.energizedpower.sawdust": "Sawdust",
 
   "item.energizedpower.basic_fertilizer": "Basic Fertilizer",
@@ -25,7 +27,11 @@
 
   "item.energizedpower.raw_gear_press_mold": "Raw Gear Press Mold",
 
+  "item.energizedpower.raw_rod_press_mold": "Raw Rod Press Mold",
+
   "item.energizedpower.gear_press_mold": "Gear Press Mold",
+
+  "item.energizedpower.rod_press_mold": "Rod Press Mold",
 
   "item.energizedpower.basic_solar_cell": "Basic Solar Cell",
   "item.energizedpower.advanced_solar_cell": "Advanced Solar Cell",
