@@ -204,6 +204,8 @@ public class MetalPressBlockEntity extends BlockEntity implements ExtendedScreen
         buffer.writeLong(internalEnergyStorage.capacity);
         buffer.writeBlockPos(getPos());
 
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
+
         return new MetalPressMenu(id, this, inventory, internalInventory, this.data);
     }
 
