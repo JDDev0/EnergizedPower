@@ -5,8 +5,8 @@
   "item.energizedpower.energized_copper_plate": "Piastra di rame energizzata",
   "item.energizedpower.energized_gold_plate": "Piastra d'oro energizzata",
 
-  "item.energizedpower.energized_copper_wire": "Energized Copper Wire",
-  "item.energizedpower.energized_gold_wire": "Energized Gold Wire",
+  "item.energizedpower.energized_copper_wire": "Filo di rame energizzato",
+  "item.energizedpower.energized_gold_wire": "Filo d'oro energizzato",
 
   "item.energizedpower.silicon": "Silicio",
 
@@ -18,12 +18,12 @@
   "item.energizedpower.iron_plate": "Piastra di ferro",
   "item.energizedpower.gold_plate": "Piastra d'oro",
 
-  "item.energizedpower.iron_gear": "Iron Gear",
+  "item.energizedpower.iron_gear": "Ingranaggio di ferro",
 
-  "item.energizedpower.iron_rod": "Iron Rod",
+  "item.energizedpower.iron_rod": "Barra di ferro",
 
-  "item.energizedpower.copper_wire": "Copper Wire",
-  "item.energizedpower.gold_wire": "Gold Wire",
+  "item.energizedpower.copper_wire": "Flio di rame",
+  "item.energizedpower.gold_wire": "Filo d'oro",
 
   "item.energizedpower.sawdust": "Segatura",
 
@@ -31,24 +31,24 @@
   "item.energizedpower.good_fertilizer": "Buon fertilizzante",
   "item.energizedpower.advanced_fertilizer": "Fertilizzante avanzato",
 
-  "item.energizedpower.raw_gear_press_mold": "Raw Gear Press Mold",
+  "item.energizedpower.raw_gear_press_mold": "Stampo pressa per ingranaggi grezzi",
 
-  "item.energizedpower.raw_rod_press_mold": "Raw Rod Press Mold",
+  "item.energizedpower.raw_rod_press_mold": "Stampo pressa per barra grezza",
 
-  "item.energizedpower.raw_wire_press_mold": "Raw Wire Press Mold",
+  "item.energizedpower.raw_wire_press_mold": "Stampo pressa per filo grezzo",
 
-  "item.energizedpower.gear_press_mold": "Gear Press Mold",
+  "item.energizedpower.gear_press_mold": "Stampo pressa ingranaggi",
 
-  "item.energizedpower.rod_press_mold": "Rod Press Mold",
+  "item.energizedpower.rod_press_mold": "Stampo pressa barra",
 
-  "item.energizedpower.wire_press_mold": "Wire Press Mold",
+  "item.energizedpower.wire_press_mold": "Stampo pressa Filo",
 
   "item.energizedpower.basic_solar_cell": "Cella solare di base",
   "item.energizedpower.advanced_solar_cell": "Cella solare avanzata",
-  "item.energizedpower.reinforced_advanced_solar_cell": "Reinforced Advanced Solar Cell",
+  "item.energizedpower.reinforced_advanced_solar_cell": "Cella solare avanzata rinforzata",
 
   "item.energizedpower.energized_power_book": "Libro del energized power",
-  "tooltip.energizedpower.energized_power_book.txt.shift.1": "Left click a block to open the block's book page.",
+  "tooltip.energizedpower.energized_power_book.txt.shift.1": "Fare clic con il tasto sinistro del mouse su un blocco per aprire la pagina del libro del blocco.",
   "book.energizedpower.front.cover.text": "Questa è la guida per questa mod!",
 
   "item.energizedpower.cable_insulator": "Isolante per cavi",
@@ -140,17 +140,17 @@
 
   "block.energizedpower.item_conveyor_belt_loader": "Caricatore nastro trasportatore",
   "item.energizedpower.item_conveyor_belt_loader": "Caricatore nastro trasportatore",
-  "container.energizedpower.item_conveyor_belt_loader": "Conveyor Belt Loader",
+  "container.energizedpower.item_conveyor_belt_loader": "Caricatore nastro trasportatore",
 
   "block.energizedpower.item_conveyor_belt_sorter": "Selezionatore di nastri trasportatori di articoli",
   "item.energizedpower.item_conveyor_belt_sorter": "Selezionatore di nastri trasportatori di articoli",
-  "container.energizedpower.item_conveyor_belt_sorter": "Conveyor Belt Sorter",
+  "container.energizedpower.item_conveyor_belt_sorter": "Selezionatore di nastri trasportatori di articoli",
 
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Uscita %d: Nessun nastro trasportatore collegato",
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "Uscita %d: Nastro trasportatore collegato",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.ignore_nbt": "Ignora NBT",
-  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "Whitelist",
-  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "Blacklist",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "Lista bianca",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "Lista nera",
 
   "block.energizedpower.item_conveyor_belt_switch": "Interruttore del nastro trasportatore",
   "item.energizedpower.item_conveyor_belt_switch": "Interruttore del nastro trasportatore",
@@ -167,15 +167,15 @@
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Il tipo di connessione del quadrante (%s) è stato impostato su %s.",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Impossibile modificare il tipo di connessione del quadrante (%s).",
 
-  "block.energizedpower.press_mold_maker": "Press Mold Maker",
-  "item.energizedpower.press_mold_maker": "Press Mold Maker",
-  "container.energizedpower.press_mold_maker": "Press Mold Maker",
+  "block.energizedpower.press_mold_maker": "Pressa creatore di stampi",
+  "item.energizedpower.press_mold_maker": "Pressa creatore di stampi",
+  "container.energizedpower.press_mold_maker": "Pressa creatore di stampi",
 
-  "tooltip.energizedpower.press_mold_maker.btn.up": "Scroll up",
-  "tooltip.energizedpower.press_mold_maker.btn.down": "Scroll down",
+  "tooltip.energizedpower.press_mold_maker.btn.up": "Scorri verso l'alto",
+  "tooltip.energizedpower.press_mold_maker.btn.down": "Scorri verso il basso",
 
   "tooltip.energizedpower.press_mold_maker.btn.recipes.1": "%dx %s",
-  "tooltip.energizedpower.press_mold_maker.btn.recipes.2": "Requires %dx %s",
+  "tooltip.energizedpower.press_mold_maker.btn.recipes.2": "Richiede %dx %s",
 
   "block.energizedpower.auto_crafter": "Auto Crafter",
   "item.energizedpower.auto_crafter": "Auto Crafter",
@@ -192,7 +192,7 @@
   "container.energizedpower.charger": "Caricabatterie",
 
   "tooltip.energizedpower.chargers.txt.shift.1": "I caricabatterie possono essere usati per creare lingotti di rame energizzati.",
-  "tooltip.energizedpower.chargers.txt.shift.2": "Ma dovresti usare invece l'energizzatore,\nperché i caricabatterie forniscono energia in modo molto inefficiente.",
+  "tooltip.energizedpower.chargers.txt.shift.2": "Ma dovresti usare invece l'energizzatore, perché i caricabatterie si energizzano in modo molto inefficiente.",
 
   "tooltip.energizedpower.charger.item_energy_left.txt": "Questo articolo richiede che %s sia completamente carico.",
 
@@ -369,11 +369,11 @@
   "item.energizedpower.compressor": "Compressore",
   "container.energizedpower.compressor": "Compressore",
 
-  "block.energizedpower.metal_press": "Metal Press",
-  "item.energizedpower.metal_press": "Metal Press",
-  "container.energizedpower.metal_press": "Metal Press",
+  "block.energizedpower.metal_press": "Pressa per metallo",
+  "item.energizedpower.metal_press": "Pressa per metallo",
+  "container.energizedpower.metal_press": "Pressa per metallo",
 
-  "tooltip.energizedpower.metal_press.txt.shift.1": "Press Molds can be created in the Press Mold Maker.",
+  "tooltip.energizedpower.metal_press.txt.shift.1": "Gli stampi per pressa possono essere creati nella Pressa creatore di stampi",
 
   "block.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
   "item.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
@@ -431,8 +431,8 @@
   "block.energizedpower.basic_machine_frame": "Telaio base della macchina",
   "item.energizedpower.basic_machine_frame": "Telaio base della macchina",
 
-  "block.energizedpower.hardened_machine_frame": "Hardened Machine Frame",
-  "item.energizedpower.hardened_machine_frame": "Hardened Machine Frame",
+  "block.energizedpower.hardened_machine_frame": "Telaio della macchina temprata",
+  "item.energizedpower.hardened_machine_frame": "Telaio della macchina temprata",
 
   "block.energizedpower.advanced_machine_frame": "Telaio macchina avanzato",
   "item.energizedpower.advanced_machine_frame": "Telaio macchina avanzato",
@@ -448,7 +448,7 @@
   "tooltip.energizedpower.transfer_rate.txt": "Velocità di trasferimento: %s/t",
   "tooltip.energizedpower.not_enough_energy.txt": "Energia insufficiente",
   "tooltip.energizedpower.ready.txt": "Pronto",
-  "tooltip.energizedpower.infinite.txt": "Infinite",
+  "tooltip.energizedpower.infinite.txt": "Infinito",
 
   "tooltip.energizedpower.direction.down": "Giù",
   "tooltip.energizedpower.direction.up": "Su",
@@ -484,11 +484,11 @@
   "emi.category.energizedpower.pulverizer": "Polverizzatore",
   "emi.category.energizedpower.sawmill": "Segheria",
   "emi.category.energizedpower.compressor": "Compressore",
-  "emi.category.energizedpower.metal_press": "Metal Press",
+  "emi.category.energizedpower.metal_press": "Pressa per metallo",
   "emi.category.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
   "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Camera di crescita (fertilizzante)",
   "emi.category.energizedpower.energizer": "Energizzante",
-  "emi.category.energizedpower.press_mold_maker": "Press Mold Maker",
+  "emi.category.energizedpower.press_mold_maker": "Pressa creatore di stampi",
   "emi.category.energizedpower.dispenser": "Distributore",
   "emi.category.energizedpower.in_world_crafting": "Creazione nel mondo",
 
@@ -500,8 +500,8 @@
   "painting.energizedpower.factory.author": "JDDev0",
 
 
-  "advancements.energizedpower.hardened_machine_frame.title": "Hardened Machines",
-  "advancements.energizedpower.hardened_machine_frame.description": "Required for better machines.",
+  "advancements.energizedpower.hardened_machine_frame.title": "Macchine temprate",
+  "advancements.energizedpower.hardened_machine_frame.description": "Necessario per macchine migliori.",
 
   "advancements.energizedpower.advanced_machine_frame.title": "Macchine avanzate",
   "advancements.energizedpower.advanced_machine_frame.description": "Le macchine più avanzate necessitano di questo oggetto di creazione di base.",
@@ -512,17 +512,17 @@
   "advancements.energizedpower.advanced_solar_cell.title": "Energia solare avanzata",
   "advancements.energizedpower.advanced_solar_cell.description": "Richiesto per pannelli solari avanzati...",
 
-  "advancements.energizedpower.reinforced_advanced_solar_cell.title": "Even better solar energy",
-  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Required for the best solar panels...",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.title": "Energia solare ancora migliore",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Necessario per i migliori pannelli solari...",
 
-  "advancements.energizedpower.press_mold_maker.title": "Press Mold Maker",
-  "advancements.energizedpower.press_mold_maker.description": "Use this block to make press molds for the Metal Press.",
+  "advancements.energizedpower.press_mold_maker.title": "Pressa creatore di stampi",
+  "advancements.energizedpower.press_mold_maker.description": "Usa questo blocco per realizzare stampi per la pressa per metalli.",
 
-  "advancements.energizedpower.raw_press_molds.title": "Raw Press Mold",
-  "advancements.energizedpower.raw_press_molds.description": "Use Clay Balls to make a Raw Press Mold. (Don't forget to cook it...)",
+  "advancements.energizedpower.raw_press_molds.title": "Stampo per pressa grezza",
+  "advancements.energizedpower.raw_press_molds.description": "Usa le palline di argilla per creare uno stampo per pressa grezza. (Non dimenticare di cucinarlo...)",
 
-  "advancements.energizedpower.press_molds.title": "Press Mold",
-  "advancements.energizedpower.press_molds.description": "Cooked Press Molds can be used in the Metal Press.",
+  "advancements.energizedpower.press_molds.title": "Stampa stampo",
+  "advancements.energizedpower.press_molds.description": "Gli stampi per pressa cotti possono essere utilizzati nella pressa per metallo.",
 
   "advancements.energizedpower.auto_crafter.title": "L'automazione è il futuro",
   "advancements.energizedpower.auto_crafter.description": "Chi ha bisogno di tabelle di creazione manuale quando questo blocco può farlo automaticamente?",
@@ -539,8 +539,8 @@
   "advancements.energizedpower.compressor.title": "Compressione",
   "advancements.energizedpower.compressor.description": "Crea lastre.",
 
-  "advancements.energizedpower.metal_press.title": "Metal Press",
-  "advancements.energizedpower.metal_press.description": "Form metals.",
+  "advancements.energizedpower.metal_press.title": "Pressa per metallo",
+  "advancements.energizedpower.metal_press.description": "Formare metalli.",
 
   "advancements.energizedpower.plant_growth_chamber.title": "Crescita delle piante più rapida",
   "advancements.energizedpower.plant_growth_chamber.description": "Migliora la velocità e le rese con la Camera di Crescita delle Piante.",
@@ -668,16 +668,16 @@
   "advancements.energizedpower.energized_crystal_matrix_cable.title": "Troppa potenza",
   "advancements.energizedpower.energized_crystal_matrix_cable.description": "Quando ho bisogno di trasportare così tanta energia?",
 
-  "advancements.energizedpower.lv_transformers.title": "LV Transformers",
-  "advancements.energizedpower.lv_transformers.description": "Can connect different tiers of cables.",
+  "advancements.energizedpower.lv_transformers.title": "LV Trasformatore",
+  "advancements.energizedpower.lv_transformers.description": "È possibile collegare diversi livelli di cavi.",
 
-  "advancements.energizedpower.mv_transformers.title": "MV Transformers",
-  "advancements.energizedpower.mv_transformers.description": "Can transfer more power.",
+  "advancements.energizedpower.mv_transformers.title": "MV Trasformatore",
+  "advancements.energizedpower.mv_transformers.description": "Può trasferire più potenza.",
 
-  "advancements.energizedpower.hv_transformers.title": "HV Transformers",
+  "advancements.energizedpower.hv_transformers.title": "HV Trasformatore",
   "advancements.energizedpower.hv_transformers.description": "Can transfer even more power.",
 
-  "advancements.energizedpower.ehv_transformers.title": "EHV Trasformatori",
+  "advancements.energizedpower.ehv_transformers.title": "EHV Trasformatore",
   "advancements.energizedpower.ehv_transformers.description": "Può trasferire più di 2 milioni di FE per tick.",
 
   "advancements.energizedpower.battery_box.title": "Scatola batteria",
@@ -753,13 +753,13 @@
   "advancements.energizedpower.solar_panel_3.description": "Tier III - Il meglio dei pannelli solari di base",
 
   "advancements.energizedpower.solar_panel_4.title": "Gestore dell'energia solare",
-  "advancements.energizedpower.solar_panel_4.description": "Tier IV: More than basic!",
+  "advancements.energizedpower.solar_panel_4.description": "Livello IV: più che semplice!",
 
-  "advancements.energizedpower.solar_panel_5.title": "Solar Power Director",
-  "advancements.energizedpower.solar_panel_5.description": "Tier V - Only one tier left!",
+  "advancements.energizedpower.solar_panel_5.title": "Direttore dell'energia solare",
+  "advancements.energizedpower.solar_panel_5.description": "Livello V: rimane solo un livello!",
 
-  "advancements.energizedpower.solar_panel_6.title": "Solar Power Employer",
-  "advancements.energizedpower.solar_panel_6.description": "Tier VI - You have got the best solar panel!",
+  "advancements.energizedpower.solar_panel_6.title": "Datore di lavoro di energia solare",
+  "advancements.energizedpower.solar_panel_6.description": "Livello VI: hai il miglior pannello solare!",
 
   "advancements.energizedpower.uncharger.title": "Restituiscilo!",
   "advancements.energizedpower.uncharger.description": "Scarica i tuoi oggetti energetici.",
@@ -824,8 +824,8 @@
   "book.energizedpower.page.plates.1": "Le lastre sono usate come ingrediente di lavorazione nella maggior parte delle macchine. Le lastre possono essere realizzate con martelli o utilizzando il compressore.",
   "book.energizedpower.page.plates.2": "Le lastre energizzate possono essere create solo nel compressore.",
 
-  "book.energizedpower.page.metal_products.1": "Metal products (gears, rods, and wires) are used in many recipes.",
-  "book.energizedpower.page.metal_products.2": "Metal products can be created in the Metal Press.",
+  "book.energizedpower.page.metal_products.1": "I prodotti metallici (ingranaggi, barre e fili) vengono utilizzati in molte ricette.",
+  "book.energizedpower.page.metal_products.2": "I prodotti in metallo possono essere creati nella pressa per metalli.",
 
   "book.energizedpower.page.energized_copper_ingot.1": "I lingotti di rame energizzati sono necessari per macchine avanzate come l'energizzatore.",
   "book.energizedpower.page.energized_copper_ingot.2": "L'energizzante è realizzato con questo lingotto, vero?",
@@ -845,10 +845,10 @@
   "book.energizedpower.page.wrench": "La chiave inglese può essere utilizzata per configurare i blocchi.",
 
 
-  "book.energizedpower.page.chapter.workbenches.title": "Workbenches",
-  "book.energizedpower.page.chapter.workbenches": "Machines which must be operated manually.",
+  "book.energizedpower.page.chapter.workbenches.title": "Banchi da lavoro",
+  "book.energizedpower.page.chapter.workbenches": "Macchine che devono essere azionate manualmente.",
 
-  "book.energizedpower.page.press_mold_maker": "The Press Mold Maker can be used to create Press Molds for the Metal Press.",
+  "book.energizedpower.page.press_mold_maker": "La Pressa creatore di stampi può essere utilizzato per creare stampi per la pressa metalli.",
 
 
   "book.energizedpower.page.chapter.energy_items.title": "Articoli energetici",
@@ -882,7 +882,7 @@
   "book.energizedpower.page.chapter.energy_blocks.general": "Informazioni generali sui blocchi energetici",
 
   "book.energizedpower.page.machine_frames.1": "I telai delle macchine sono il blocco di creazione di base per ogni macchina.",
-  "book.energizedpower.page.machine_frames.2": "There are four machine frames: Basic, Hardened, Advanced, and Reinforced Advanced",
+  "book.energizedpower.page.machine_frames.2": "Sono disponibili quattro telai macchina: Base, temprato, Avanzato e Avanzato rinforzato",
 
 
   "book.energizedpower.page.chapter.energy_blocks.energy_transportation.title": "Trasporto",
@@ -895,7 +895,7 @@
   "book.energizedpower.page.transformers.1": "I trasformatori possono essere utilizzati per collegare diversi livelli di cavi.",
   "book.energizedpower.page.transformers.2": "I lati più grandi, più scuri, a forma di diamante sono ingressi.",
   "book.energizedpower.page.transformers.3": "I lati più piccoli, più luminosi e di forma quadrata sono le uscite.",
-  "book.energizedpower.page.transformers.4": "There are four tiers of transformers: LV, MV, HV, and EHV.",
+  "book.energizedpower.page.transformers.4": "Esistono quattro livelli di trasformatori: LV, MV, HV ed EHV.",
   "book.energizedpower.page.transformers.5": "Per ogni livello ci sono tre tipi di trasformatori: 1 to n, 3 to 3, and n to 1.",
   "book.energizedpower.page.transformers.6": "I trasformatori possono essere utilizzati per ridurre il ritardo delle reti via cavo utilizzandoli periodicamente al posto di un blocco cavi.",
   "book.energizedpower.page.transformers.7": "I trasformatori possono essere utilizzati anche per collegare i cavi di alimentazione sotto tensione ai cavi di altri mod.",
@@ -917,7 +917,7 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_production": "Blocchi per la produzione di energia",
 
   "book.energizedpower.page.solar_cells.1": "Le celle solari sono l'oggetto di creazione di base per ogni pannello solare.",
-  "book.energizedpower.page.solar_cells.2": "There are three solar cells: Basic, Advanced, and Reinforced Advanced",
+  "book.energizedpower.page.solar_cells.2": "Esistono tre celle solari: Base, Avanzata e Avanzata Rinforzata",
 
   "book.energizedpower.page.solar_panels.1": "I pannelli solari producono energia durante il giorno. L'efficienza dipende dal tempo e dal meteo.",
   "book.energizedpower.page.solar_panels.2": "Ci sono 6 livelli di pannelli solari.",
@@ -958,8 +958,8 @@
 
   "book.energizedpower.page.compressor": "Il compressore comprime i lingotti in lastre.",
 
-  "book.energizedpower.page.metal_press.1": "The Metal Press creates metal products (e.g. wires) from metals.",
-  "book.energizedpower.page.metal_press.2": "Press Molds can be created in the Press Mold Maker.",
+  "book.energizedpower.page.metal_press.1": "La Pressa per metallo crea prodotti metallici (ad esempio fili) da metalli.",
+  "book.energizedpower.page.metal_press.2": "Gli stampi per pressa possono essere creati nella Pressa creatore di stampi.",
 
   "book.energizedpower.page.plant_growth_chamber.1": "La camera di crescita delle piante può aumentare la crescita e la resa delle piante.",
   "book.energizedpower.page.plant_growth_chamber.2": "Lo slot di ingresso destro è lo slot dei semi.",
@@ -1049,3 +1049,4 @@
   "book.energizedpower.page.small_solar_farm.title": "Piccola fattoria solare",
   "book.energizedpower.page.small_solar_farm.1": "La piccola fattoria solare è una struttura con alcuni pannelli solari che producono energia. Può essere trovato nei biomi Deserto, Badlands e Savanna."
 }
+
