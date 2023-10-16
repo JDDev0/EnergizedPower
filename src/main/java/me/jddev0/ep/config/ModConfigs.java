@@ -3,15 +3,16 @@ package me.jddev0.ep.config;
 import com.mojang.logging.LogUtils;
 import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.config.validation.ValueValidators;
-import me.jddev0.ep.config.value.BooleanConfigValue;
-import me.jddev0.ep.config.value.EnumConfigValue;
-import me.jddev0.ep.config.value.FloatConfigValue;
-import me.jddev0.ep.config.value.IntegerConfigValue;
+import me.jddev0.ep.config.value.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.loading.FMLPaths;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public final class ModConfigs {
@@ -422,6 +423,9 @@ public final class ModConfigs {
     public static final ConfigValue<Integer> COMMON_AUTO_CRAFTER_RECIPE_DURATION = registerRecipeDurationConfigValue(
             "block.auto_crafter", "Auto Crafter", 100
     );
+    public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
+            "block.auto_crafter", "Auto Crafter", new ArrayList<>(0)
+    );
 
     public static final ConfigValue<Integer> COMMON_HEAT_GENERATOR_CAPACITY = registerEnergyCapacityConfigValue(
             "block.heat_generator", "Heat Generator", 10000
@@ -784,6 +788,16 @@ public final class ModConfigs {
                 "The multiplier by which the time a recipe of the " + itemName + " requires is multiplied by",
                 1.f,
                 0.f, null
+        ));
+    }
+
+    private static ConfigValue<List<@NotNull ResourceLocation>> registerRecipeBlacklistValue(String baseConfigKey, String itemName,
+                                                                                             @NotNull List<@NotNull ResourceLocation> defaultValue) {
+        return COMMON_CONFIG.register(new ResourceLocationListConfigValue(
+                baseConfigKey + ".recipe_blacklist",
+                "The recipe blacklist for the " + itemName + ".\n" +
+                        "The blacklist is a list of recipe ids which can not be crafted in the " + itemName,
+                defaultValue
         ));
     }
 
