@@ -274,7 +274,7 @@ public class CompressorBlockEntity extends BlockEntity implements MenuProvider, 
             return;
 
         blockEntity.itemHandler.extractItem(0, 1, false);
-        blockEntity.itemHandler.setStackInSlot(1, new ItemStack(recipe.get().value().getResultItem(level.registryAccess()).getItem(),
+        blockEntity.itemHandler.setStackInSlot(1, recipe.get().value().getResultItem(level.registryAccess()).copyWithCount(
                 blockEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().value().getResultItem(level.registryAccess()).getCount()));
 
         blockEntity.resetProgress(blockPos, state);

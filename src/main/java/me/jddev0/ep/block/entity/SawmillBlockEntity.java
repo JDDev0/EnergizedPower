@@ -274,10 +274,10 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
             return;
 
         blockEntity.itemHandler.extractItem(0, 1, false);
-        blockEntity.itemHandler.setStackInSlot(1, new ItemStack(recipe.get().value().getResultItem(level.registryAccess()).getItem(),
+        blockEntity.itemHandler.setStackInSlot(1, recipe.get().value().getResultItem(level.registryAccess()).copyWithCount(
                 blockEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().value().getResultItem(level.registryAccess()).getCount()));
         if(!recipe.get().value().getSecondaryOutput().isEmpty())
-            blockEntity.itemHandler.setStackInSlot(2, new ItemStack(recipe.get().value().getSecondaryOutput().getItem(),
+            blockEntity.itemHandler.setStackInSlot(2, recipe.get().value().getSecondaryOutput().copyWithCount(
                     blockEntity.itemHandler.getStackInSlot(2).getCount() + recipe.get().value().getSecondaryOutput().getCount()));
 
         blockEntity.resetProgress(blockPos, state);
