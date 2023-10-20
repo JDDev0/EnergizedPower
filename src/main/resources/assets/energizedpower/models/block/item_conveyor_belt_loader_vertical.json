@@ -9,8 +9,8 @@
         "up": { "texture": "#up", "cullface": "up" },
         "north": { "texture": "#north", "cullface": "north" },
         "south": { "texture": "#south", "cullface": "south" },
-        "west": { "texture": "#side_vertical", "cullface": "west" },
-        "east": { "uv": [ 16, 0, 0, 16 ], "texture": "#side_vertical", "cullface": "east" }
+        "west": { "rotation": 270, "texture": "#side", "cullface": "west" },
+        "east": { "rotation": 90, "texture": "#side", "cullface": "east" }
       }
     }
   ],
@@ -20,6 +20,6 @@
     "north": "energizedpower:block/item_conveyor_belt_loader_top",
     "south": "energizedpower:block/item_conveyor_belt_loader_top",
     "down": "energizedpower:block/item_conveyor_belt_loader_back",
-    "side_vertical": "energizedpower:block/item_conveyor_belt_loader_side_vertical"
+    "side": "energizedpower:block/item_conveyor_belt_loader_side"
   }
 }
