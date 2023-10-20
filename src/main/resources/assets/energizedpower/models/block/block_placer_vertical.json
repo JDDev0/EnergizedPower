@@ -9,8 +9,8 @@
         "up": { "texture": "#up", "cullface": "up" },
         "north": { "texture": "#north", "cullface": "north" },
         "south": { "texture": "#south", "cullface": "south" },
-        "west": { "texture": "#side_vertical", "cullface": "west" },
-        "east": { "uv": [ 16, 0, 0, 16 ], "texture": "#side_vertical", "cullface": "east" }
+        "west": { "rotation": 270, "texture": "#side", "cullface": "west" },
+        "east": { "rotation": 90, "texture": "#side", "cullface": "east" }
       }
     }
   ],
@@ -19,7 +19,6 @@
     "up": "energizedpower:block/block_placer_front",
     "north": "energizedpower:block/block_placer_top",
     "south": "energizedpower:block/block_placer_bottom",
-    "side": "energizedpower:block/block_placer_side",
-    "side_vertical": "energizedpower:block/block_placer_side_vertical"
+    "side": "energizedpower:block/block_placer_side"
   }
 }
