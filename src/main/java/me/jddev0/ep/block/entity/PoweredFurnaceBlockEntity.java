@@ -16,7 +16,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -39,9 +41,12 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 
 public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+    private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_POWERED_FURNACE_RECIPE_BLACKLIST.getValue();
+
     private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER.getValue();
@@ -223,7 +228,7 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
             for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
                 inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-            Optional<SmeltingRecipe> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
+            Optional<SmeltingRecipe> recipe = blockEntity.getRecipeFor(inventory, level);
             if(recipe.isEmpty())
                 return;
 
@@ -283,7 +288,7 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
         for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-        Optional<SmeltingRecipe> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
+        Optional<SmeltingRecipe> recipe = blockEntity.getRecipeFor(inventory, level);
 
         if(!hasRecipe(blockEntity) || recipe.isEmpty())
             return;
@@ -302,7 +307,7 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
         for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-        Optional<SmeltingRecipe> recipe = level.getRecipeManager().getRecipeFor(RecipeType.SMELTING, inventory, level);
+        Optional<SmeltingRecipe> recipe = blockEntity.getRecipeFor(inventory, level);
 
         return recipe.isPresent() && canInsertItemIntoOutputSlot(inventory, recipe.get().getResultItem(level.registryAccess()));
     }
@@ -312,6 +317,13 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
 
         return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameTags(inventoryItemStack, itemStack)) &&
                 inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount();
+    }
+
+    private Optional<SmeltingRecipe> getRecipeFor(Container container, Level level) {
+        return level.getRecipeManager().getAllRecipesFor(RecipeType.SMELTING).
+                stream().filter(recipe -> !RECIPE_BLACKLIST.contains(recipe.getId())).
+                filter(recipe -> recipe.matches(container, level)).
+                findFirst();
     }
 
     public int getEnergy() {
