@@ -275,10 +275,10 @@ public class PulverizerBlockEntity extends BlockEntity implements MenuProvider, 
         ItemStack[] outputs = recipe.get().generateOutputs(level.random);
 
         blockEntity.itemHandler.extractItem(0, 1, false);
-        blockEntity.itemHandler.setStackInSlot(1, new ItemStack(outputs[0].getItem(),
+        blockEntity.itemHandler.setStackInSlot(1, outputs[0].copyWithCount(
                 blockEntity.itemHandler.getStackInSlot(1).getCount() + outputs[0].getCount()));
         if(!outputs[1].isEmpty())
-            blockEntity.itemHandler.setStackInSlot(2, new ItemStack(outputs[1].getItem(),
+            blockEntity.itemHandler.setStackInSlot(2, outputs[1].copyWithCount(
                     blockEntity.itemHandler.getStackInSlot(2).getCount() + outputs[1].getCount()));
 
         blockEntity.resetProgress(blockPos, state);

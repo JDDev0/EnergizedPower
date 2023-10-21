@@ -156,7 +156,7 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements MenuProvid
             return;
 
         itemHandler.extractItem(0, pressMoldMakerRecipe.getClayCount(), false);
-        itemHandler.setStackInSlot(1, new ItemStack(pressMoldMakerRecipe.getResultItem(level.registryAccess()).getItem(),
+        itemHandler.setStackInSlot(1, pressMoldMakerRecipe.getResultItem(level.registryAccess()).copyWithCount(
                 itemHandler.getStackInSlot(1).getCount() + pressMoldMakerRecipe.getResultItem(level.registryAccess()).getCount()));
     }
 
