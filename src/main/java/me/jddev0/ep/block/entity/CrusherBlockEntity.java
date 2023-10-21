@@ -9,6 +9,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.CrusherRecipe;
 import me.jddev0.ep.screen.CrusherMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -274,7 +275,7 @@ public class CrusherBlockEntity extends BlockEntity implements ExtendedScreenHan
             return;
 
         blockEntity.internalInventory.removeStack(0, 1);
-        blockEntity.internalInventory.setStack(1, new ItemStack(recipe.get().getOutput().getItem(),
+        blockEntity.internalInventory.setStack(1, ItemStackUtils.copyWithCount(recipe.get().getOutput(),
                 blockEntity.internalInventory.getStack(1).getCount() + recipe.get().getOutput().getCount()));
 
         blockEntity.resetProgress(blockPos, state);

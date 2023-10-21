@@ -9,6 +9,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.screen.ChargerMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -310,7 +311,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
 
             if(blockEntity.energyConsumptionLeft <= 0) {
                 recipe.ifPresent(chargerRecipe ->
-                        blockEntity.internalInventory.setStack(0, new ItemStack(chargerRecipe.getOutput().getItem())));
+                        blockEntity.internalInventory.setStack(0, ItemStackUtils.copyWithCount(chargerRecipe.getOutput(), 1)));
 
                 blockEntity.resetProgress();
             }

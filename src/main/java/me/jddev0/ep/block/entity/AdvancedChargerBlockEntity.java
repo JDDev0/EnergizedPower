@@ -9,6 +9,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.screen.AdvancedChargerMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -325,7 +326,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
                 if(blockEntity.energyConsumptionLeft[i] <= 0) {
                     final int index = i;
                     recipe.ifPresent(AdvancedChargerRecipe ->
-                            blockEntity.internalInventory.setStack(index, new ItemStack(AdvancedChargerRecipe.getOutput().getItem())));
+                            blockEntity.internalInventory.setStack(index, ItemStackUtils.copyWithCount(AdvancedChargerRecipe.getOutput(), 1)));
 
                     blockEntity.resetProgress(i);
                 }

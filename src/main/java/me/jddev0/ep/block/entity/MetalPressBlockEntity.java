@@ -10,6 +10,7 @@ import me.jddev0.ep.recipe.MetalPressRecipe;
 import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
 import me.jddev0.ep.screen.MetalPressMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -303,7 +304,7 @@ public class MetalPressBlockEntity extends BlockEntity implements ExtendedScreen
             return;
 
         blockEntity.internalInventory.removeStack(0, recipe.get().getInputCount());
-        blockEntity.internalInventory.setStack(2, new ItemStack(recipe.get().getOutput().getItem(),
+        blockEntity.internalInventory.setStack(2, ItemStackUtils.copyWithCount(recipe.get().getOutput(),
                 blockEntity.internalInventory.getStack(2).getCount() + recipe.get().getOutput().getCount()));
 
         blockEntity.resetProgress(blockPos, state);

@@ -7,6 +7,7 @@ import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.PressMoldMakerMenu;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
@@ -165,7 +166,7 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements ExtendedSc
             return;
 
         internalInventory.removeStack(0, pressMoldMakerRecipe.getClayCount());
-        internalInventory.setStack(1, new ItemStack(pressMoldMakerRecipe.getOutput().getItem(),
+        internalInventory.setStack(1, ItemStackUtils.copyWithCount(pressMoldMakerRecipe.getOutput(),
                 internalInventory.getStack(1).getCount() + pressMoldMakerRecipe.getOutput().getCount()));
     }
 

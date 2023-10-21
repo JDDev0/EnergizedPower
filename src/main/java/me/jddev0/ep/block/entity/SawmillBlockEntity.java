@@ -9,6 +9,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.SawmillRecipe;
 import me.jddev0.ep.screen.SawmillMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -274,10 +275,10 @@ public class SawmillBlockEntity extends BlockEntity implements ExtendedScreenHan
             return;
 
         blockEntity.internalInventory.removeStack(0, 1);
-        blockEntity.internalInventory.setStack(1, new ItemStack(recipe.get().getOutput().getItem(),
+        blockEntity.internalInventory.setStack(1, ItemStackUtils.copyWithCount(recipe.get().getOutput(),
                 blockEntity.internalInventory.getStack(1).getCount() + recipe.get().getOutput().getCount()));
         if(!recipe.get().getSecondaryOutput().isEmpty())
-            blockEntity.internalInventory.setStack(2, new ItemStack(recipe.get().getSecondaryOutput().getItem(),
+            blockEntity.internalInventory.setStack(2, ItemStackUtils.copyWithCount(recipe.get().getSecondaryOutput(),
                     blockEntity.internalInventory.getStack(2).getCount() + recipe.get().getSecondaryOutput().getCount()));
 
         blockEntity.resetProgress(blockPos, state);

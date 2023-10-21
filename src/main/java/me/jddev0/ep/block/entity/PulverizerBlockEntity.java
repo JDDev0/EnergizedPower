@@ -9,6 +9,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.PulverizerRecipe;
 import me.jddev0.ep.screen.PulverizerMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -276,10 +277,10 @@ public class PulverizerBlockEntity extends BlockEntity implements ExtendedScreen
         ItemStack[] outputs = recipe.get().generateOutputs(level.random);
 
         blockEntity.internalInventory.removeStack(0, 1);
-        blockEntity.internalInventory.setStack(1, new ItemStack(outputs[0].getItem(),
+        blockEntity.internalInventory.setStack(1, ItemStackUtils.copyWithCount(outputs[0],
                 blockEntity.internalInventory.getStack(1).getCount() + outputs[0].getCount()));
         if(!outputs[1].isEmpty())
-            blockEntity.internalInventory.setStack(2, new ItemStack(outputs[1].getItem(),
+            blockEntity.internalInventory.setStack(2, ItemStackUtils.copyWithCount(outputs[1],
                     blockEntity.internalInventory.getStack(2).getCount() + outputs[1].getCount()));
 
         blockEntity.resetProgress(blockPos, state);

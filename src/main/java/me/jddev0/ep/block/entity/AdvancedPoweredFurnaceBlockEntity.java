@@ -9,6 +9,7 @@ import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.AdvancedPoweredFurnaceMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -344,7 +345,7 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
             return;
 
         blockEntity.internalInventory.removeStack(index, 1);
-        blockEntity.internalInventory.setStack(3 + index, new ItemStack(recipe.get().getOutput().getItem(),
+        blockEntity.internalInventory.setStack(3 + index, ItemStackUtils.copyWithCount(recipe.get().getOutput(),
                 blockEntity.internalInventory.getStack(3 + index).getCount() + recipe.get().getOutput().getCount()));
 
         blockEntity.resetProgress(index, blockPos, state);
