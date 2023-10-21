@@ -289,7 +289,7 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
             return;
 
         blockEntity.itemHandler.extractItem(0, 1, false);
-        blockEntity.itemHandler.setStackInSlot(1, new ItemStack(recipe.get().getResultItem(level.registryAccess()).getItem(),
+        blockEntity.itemHandler.setStackInSlot(1, recipe.get().getResultItem(level.registryAccess()).copyWithCount(
                 blockEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().getResultItem(level.registryAccess()).getCount()));
 
         blockEntity.resetProgress(blockPos, state);

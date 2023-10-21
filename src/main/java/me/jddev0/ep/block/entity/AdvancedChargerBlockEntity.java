@@ -301,7 +301,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
                 if(blockEntity.energyConsumptionLeft[i] <= 0) {
                     final int index = i;
                     recipe.ifPresent(chargerRecipe -> blockEntity.itemHandler.setStackInSlot(index,
-                            new ItemStack(chargerRecipe.getResultItem(level.registryAccess()).getItem())));
+                            chargerRecipe.getResultItem(level.registryAccess()).copyWithCount(1)));
 
                     blockEntity.resetProgress(i);
                 }

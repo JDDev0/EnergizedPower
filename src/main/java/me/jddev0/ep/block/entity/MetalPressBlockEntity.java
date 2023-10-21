@@ -288,7 +288,7 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
             return;
 
         blockEntity.itemHandler.extractItem(0, recipe.get().getInputCount(), false);
-        blockEntity.itemHandler.setStackInSlot(2, new ItemStack(recipe.get().getResultItem(level.registryAccess()).getItem(),
+        blockEntity.itemHandler.setStackInSlot(2, recipe.get().getResultItem(level.registryAccess()).copyWithCount(
                 blockEntity.itemHandler.getStackInSlot(2).getCount() + recipe.get().getResultItem(level.registryAccess()).getCount()));
 
         blockEntity.resetProgress(blockPos, state);
