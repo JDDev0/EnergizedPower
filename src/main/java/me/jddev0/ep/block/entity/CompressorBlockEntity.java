@@ -274,7 +274,7 @@ public class CompressorBlockEntity extends BlockEntity implements ExtendedScreen
             return;
 
         blockEntity.internalInventory.removeStack(0, 1);
-        blockEntity.internalInventory.setStack(1, new ItemStack(recipe.get().getOutput(level.getRegistryManager()).getItem(),
+        blockEntity.internalInventory.setStack(1, recipe.get().getOutput(level.getRegistryManager()).copyWithCount(
                 blockEntity.internalInventory.getStack(1).getCount() + recipe.get().getOutput(level.getRegistryManager()).getCount()));
 
         blockEntity.resetProgress(blockPos, state);

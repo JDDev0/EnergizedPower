@@ -274,10 +274,10 @@ public class SawmillBlockEntity extends BlockEntity implements ExtendedScreenHan
             return;
 
         blockEntity.internalInventory.removeStack(0, 1);
-        blockEntity.internalInventory.setStack(1, new ItemStack(recipe.get().getOutput(level.getRegistryManager()).getItem(),
+        blockEntity.internalInventory.setStack(1, recipe.get().getOutput(level.getRegistryManager()).copyWithCount(
                 blockEntity.internalInventory.getStack(1).getCount() + recipe.get().getOutput(level.getRegistryManager()).getCount()));
         if(!recipe.get().getSecondaryOutput().isEmpty())
-            blockEntity.internalInventory.setStack(2, new ItemStack(recipe.get().getSecondaryOutput().getItem(),
+            blockEntity.internalInventory.setStack(2, recipe.get().getSecondaryOutput().copyWithCount(
                     blockEntity.internalInventory.getStack(2).getCount() + recipe.get().getSecondaryOutput().getCount()));
 
         blockEntity.resetProgress(blockPos, state);

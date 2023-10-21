@@ -303,7 +303,7 @@ public class MetalPressBlockEntity extends BlockEntity implements ExtendedScreen
             return;
 
         blockEntity.internalInventory.removeStack(0, recipe.get().getInputCount());
-        blockEntity.internalInventory.setStack(2, new ItemStack(recipe.get().getOutput(level.getRegistryManager()).getItem(),
+        blockEntity.internalInventory.setStack(2, recipe.get().getOutput(level.getRegistryManager()).copyWithCount(
                 blockEntity.internalInventory.getStack(2).getCount() + recipe.get().getOutput(level.getRegistryManager()).getCount()));
 
         blockEntity.resetProgress(blockPos, state);

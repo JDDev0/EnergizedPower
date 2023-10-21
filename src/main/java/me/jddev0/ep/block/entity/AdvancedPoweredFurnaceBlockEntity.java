@@ -344,7 +344,7 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
             return;
 
         blockEntity.internalInventory.removeStack(index, 1);
-        blockEntity.internalInventory.setStack(3 + index, new ItemStack(recipe.get().getOutput(level.getRegistryManager()).getItem(),
+        blockEntity.internalInventory.setStack(3 + index, recipe.get().getOutput(level.getRegistryManager()).copyWithCount(
                 blockEntity.internalInventory.getStack(3 + index).getCount() + recipe.get().getOutput(level.getRegistryManager()).getCount()));
 
         blockEntity.resetProgress(index, blockPos, state);
