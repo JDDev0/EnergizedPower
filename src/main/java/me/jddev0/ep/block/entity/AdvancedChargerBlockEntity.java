@@ -324,8 +324,8 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
 
                 if(blockEntity.energyConsumptionLeft[i] <= 0) {
                     final int index = i;
-                    recipe.ifPresent(AdvancedChargerRecipe ->
-                            blockEntity.internalInventory.setStack(index, new ItemStack(AdvancedChargerRecipe.getOutput(level.getRegistryManager()).getItem())));
+                    recipe.ifPresent(advancedChargerRecipe ->
+                            blockEntity.internalInventory.setStack(index, advancedChargerRecipe.getOutput(level.getRegistryManager()).copyWithCount(1)));
 
                     blockEntity.resetProgress(i);
                 }

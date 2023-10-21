@@ -165,7 +165,7 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements ExtendedSc
             return;
 
         internalInventory.removeStack(0, pressMoldMakerRecipe.getClayCount());
-        internalInventory.setStack(1, new ItemStack(pressMoldMakerRecipe.getOutput(world.getRegistryManager()).getItem(),
+        internalInventory.setStack(1, pressMoldMakerRecipe.getOutput(world.getRegistryManager()).copyWithCount(
                 internalInventory.getStack(1).getCount() + pressMoldMakerRecipe.getOutput(world.getRegistryManager()).getCount()));
     }
 
