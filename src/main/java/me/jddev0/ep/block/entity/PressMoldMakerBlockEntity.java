@@ -33,6 +33,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -177,7 +178,9 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements ExtendedSc
 
     private List<Pair<PressMoldMakerRecipe, Boolean>> createRecipeList() {
         List<PressMoldMakerRecipe> recipes = world.getRecipeManager().listAllOfType(PressMoldMakerRecipe.Type.INSTANCE);
-        return recipes.stream().map(recipe -> Pair.of(recipe, recipe.matches(inventory, world))).
+        return recipes.stream().
+                sorted(Comparator.comparing(recipe -> recipe.getOutput().getTranslationKey())).
+                map(recipe -> Pair.of(recipe, recipe.matches(inventory, world))).
                 collect(Collectors.toList());
     }
 
