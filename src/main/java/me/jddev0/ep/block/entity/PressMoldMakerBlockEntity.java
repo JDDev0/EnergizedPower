@@ -33,6 +33,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -172,7 +173,9 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements MenuProvid
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         List<PressMoldMakerRecipe> recipes = level.getRecipeManager().getAllRecipesFor(PressMoldMakerRecipe.Type.INSTANCE);
-        return recipes.stream().map(recipe -> Pair.of(recipe, recipe.matches(inventory, level))).
+        return recipes.stream().
+                sorted(Comparator.comparing(recipe -> recipe.getResultItem().getDescriptionId())).
+                map(recipe -> Pair.of(recipe, recipe.matches(inventory, level))).
                 collect(Collectors.toList());
     }
 
