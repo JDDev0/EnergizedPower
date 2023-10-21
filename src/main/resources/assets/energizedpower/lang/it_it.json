@@ -192,7 +192,8 @@
   "container.energizedpower.charger": "Caricabatterie",
 
   "tooltip.energizedpower.chargers.txt.shift.1": "I caricabatterie possono essere usati per creare lingotti di rame energizzati.",
-  "tooltip.energizedpower.chargers.txt.shift.2": "Ma dovresti usare invece l'energizzatore, perché i caricabatterie si energizzano in modo molto inefficiente.",
+  "tooltip.energizedpower.chargers.txt.shift.2.1": "Ma dovresti usare invece l'energizzatore,",
+  "tooltip.energizedpower.chargers.txt.shift.2.2": "perché i caricabatterie si energizzano in modo molto inefficiente.",
 
   "tooltip.energizedpower.charger.item_energy_left.txt": "Questo articolo richiede che %s sia completamente carico.",
 
