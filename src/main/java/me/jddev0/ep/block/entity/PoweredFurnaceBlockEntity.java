@@ -18,6 +18,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -31,6 +32,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -40,10 +42,13 @@ import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
 public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+    private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_POWERED_FURNACE_RECIPE_BLACKLIST.getValue();
+
     public static final long CAPACITY = ModConfigs.COMMON_POWERED_FURNACE_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_POWERED_FURNACE_TRANSFER_RATE.getValue();
     private static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_TICK.getValue();
@@ -225,7 +230,7 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
             return;
 
         if(hasRecipe(blockEntity)) {
-            Optional<SmeltingRecipe> recipe = level.getRecipeManager().getFirstMatch(RecipeType.SMELTING, blockEntity.internalInventory, level);
+            Optional<SmeltingRecipe> recipe = blockEntity.getRecipeFor(blockEntity.internalInventory, level);
             if(recipe.isEmpty())
                 return;
 
@@ -284,7 +289,7 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
     private static void craftItem(BlockPos blockPos, BlockState state, PoweredFurnaceBlockEntity blockEntity) {
         World level = blockEntity.world;
 
-        Optional<SmeltingRecipe> recipe = level.getRecipeManager().getFirstMatch(RecipeType.SMELTING, blockEntity.internalInventory, level);
+        Optional<SmeltingRecipe> recipe = blockEntity.getRecipeFor(blockEntity.internalInventory, level);
 
         if(!hasRecipe(blockEntity) || recipe.isEmpty())
             return;
@@ -299,7 +304,7 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
     private static boolean hasRecipe(PoweredFurnaceBlockEntity blockEntity) {
         World level = blockEntity.world;
 
-        Optional<SmeltingRecipe> recipe = level.getRecipeManager().getFirstMatch(RecipeType.SMELTING, blockEntity.internalInventory, level);
+        Optional<SmeltingRecipe> recipe = blockEntity.getRecipeFor(blockEntity.internalInventory, level);
 
         return recipe.isPresent() && canInsertItemIntoOutputSlot(blockEntity.internalInventory, recipe.get().getOutput(level.getRegistryManager()));
     }
@@ -309,6 +314,13 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
 
         return (inventoryItemStack.isEmpty() || ItemStack.canCombine(inventoryItemStack, itemStack)) &&
                 inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount();
+    }
+
+    private Optional<SmeltingRecipe> getRecipeFor(Inventory container, World level) {
+        return level.getRecipeManager().listAllOfType(RecipeType.SMELTING).
+                stream().filter(recipe -> !RECIPE_BLACKLIST.contains(recipe.getId())).
+                filter(recipe -> recipe.matches(container, level)).
+                findFirst();
     }
 
     public long getEnergy() {
