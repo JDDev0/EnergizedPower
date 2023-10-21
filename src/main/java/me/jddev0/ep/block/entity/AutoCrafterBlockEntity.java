@@ -41,8 +41,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+    private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
+
     private boolean secondaryExtractMode;
 
     private final ReceiveOnlyEnergyStorage energyStorage;
@@ -374,8 +377,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
             copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
 
-        List<CraftingRecipe> recipes = level.getRecipeManager().
-                getRecipesFor(RecipeType.CRAFTING, copyOfPatternSlots, level);
+        List<CraftingRecipe> recipes = getRecipesFor(copyOfPatternSlots, level);
 
         //No recipe found
         if(recipes.isEmpty()) {
@@ -425,8 +427,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
             copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
 
-        Optional<Pair<ResourceLocation, CraftingRecipe>> recipe = level.getRecipeManager().
-                getRecipeFor(RecipeType.CRAFTING, copyOfPatternSlots, level, recipeIdForSetRecipe);
+        Optional<Pair<ResourceLocation, CraftingRecipe>> recipe = getRecipeFor(copyOfPatternSlots, level, recipeIdForSetRecipe);
         if(recipe.isPresent()) {
             craftingRecipe = recipe.get().getSecond();
 
@@ -746,6 +747,20 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         return copyOfContainer;
     }
 
+    private List<CraftingRecipe> getRecipesFor(CraftingContainer patternSlots, Level level) {
+        return level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING).
+                stream().filter(recipe -> !RECIPE_BLACKLIST.contains(recipe.getId())).
+                filter(recipe -> recipe.matches(patternSlots, level)).
+                sorted(Comparator.comparing(recipe -> recipe.getResultItem(level.registryAccess()).getDescriptionId())).
+                toList();
+    }
+
+    private Optional<Pair<ResourceLocation, CraftingRecipe>> getRecipeFor(CraftingContainer patternSlots, Level level, ResourceLocation recipeId) {
+        List<CraftingRecipe> recipes = getRecipesFor(patternSlots, level);
+        Optional<CraftingRecipe> recipe = recipes.stream().filter(r -> r.getId().equals(recipeId)).findFirst();
+
+        return recipe.or(() -> recipes.stream().findFirst()).map(r -> Pair.of(r.getId(), r));
+    }
 
     public void setIgnoreNBT(boolean ignoreNBT) {
         this.ignoreNBT = ignoreNBT;
