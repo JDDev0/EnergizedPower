@@ -277,10 +277,10 @@ public class PulverizerBlockEntity extends BlockEntity implements ExtendedScreen
         ItemStack[] outputs = recipe.get().value().generateOutputs(level.random);
 
         blockEntity.internalInventory.removeStack(0, 1);
-        blockEntity.internalInventory.setStack(1, new ItemStack(outputs[0].getItem(),
+        blockEntity.internalInventory.setStack(1, outputs[0].copyWithCount(
                 blockEntity.internalInventory.getStack(1).getCount() + outputs[0].getCount()));
         if(!outputs[1].isEmpty())
-            blockEntity.internalInventory.setStack(2, new ItemStack(outputs[1].getItem(),
+            blockEntity.internalInventory.setStack(2, outputs[1].copyWithCount(
                     blockEntity.internalInventory.getStack(2).getCount() + outputs[1].getCount()));
 
         blockEntity.resetProgress(blockPos, state);
