@@ -492,6 +492,9 @@ public final class ModConfigs {
             1.f,
             0.f, null
     ));
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_POWERED_FURNACE_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
+            "block.powered_furnace", "Powered Furnace", new ArrayList<>(0)
+    );
 
     public static final ConfigValue<Long> COMMON_ADVANCED_POWERED_FURNACE_CAPACITY = registerEnergyCapacityConfigValue(
             "block.advanced_powered_furnace", "Advanced Powered Furnace", 32768
