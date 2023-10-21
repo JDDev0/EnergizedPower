@@ -10,6 +10,7 @@ import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.AdvancedPoweredFurnaceMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.InventoryUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -335,7 +336,7 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Me
             return;
 
         blockEntity.itemHandler.extractItem(index, 1, false);
-        blockEntity.itemHandler.setStackInSlot(3 + index, new ItemStack(recipe.get().getResultItem().getItem(),
+        blockEntity.itemHandler.setStackInSlot(3 + index, ItemStackUtils.copyWithCount(recipe.get().getResultItem(),
                 blockEntity.itemHandler.getStackInSlot(3 + index).getCount() + recipe.get().getResultItem().getCount()));
 
         blockEntity.resetProgress(index, blockPos, state);

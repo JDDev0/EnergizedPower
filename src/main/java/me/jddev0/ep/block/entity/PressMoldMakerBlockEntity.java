@@ -7,6 +7,7 @@ import me.jddev0.ep.networking.packet.SyncPressMoldMakerRecipeListS2CPacket;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.PressMoldMakerMenu;
 import me.jddev0.ep.util.InventoryUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -156,7 +157,7 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements MenuProvid
             return;
 
         itemHandler.extractItem(0, pressMoldMakerRecipe.getClayCount(), false);
-        itemHandler.setStackInSlot(1, new ItemStack(pressMoldMakerRecipe.getResultItem().getItem(),
+        itemHandler.setStackInSlot(1, ItemStackUtils.copyWithCount(pressMoldMakerRecipe.getResultItem(),
                 itemHandler.getStackInSlot(1).getCount() + pressMoldMakerRecipe.getResultItem().getCount()));
     }
 

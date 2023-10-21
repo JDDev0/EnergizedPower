@@ -11,6 +11,7 @@ import me.jddev0.ep.recipe.SawmillRecipe;
 import me.jddev0.ep.screen.SawmillMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.InventoryUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -274,10 +275,10 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
             return;
 
         blockEntity.itemHandler.extractItem(0, 1, false);
-        blockEntity.itemHandler.setStackInSlot(1, new ItemStack(recipe.get().getResultItem().getItem(),
+        blockEntity.itemHandler.setStackInSlot(1, ItemStackUtils.copyWithCount(recipe.get().getResultItem(),
                 blockEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().getResultItem().getCount()));
         if(!recipe.get().getSecondaryOutput().isEmpty())
-            blockEntity.itemHandler.setStackInSlot(2, new ItemStack(recipe.get().getSecondaryOutput().getItem(),
+            blockEntity.itemHandler.setStackInSlot(2, ItemStackUtils.copyWithCount(recipe.get().getSecondaryOutput(),
                     blockEntity.itemHandler.getStackInSlot(2).getCount() + recipe.get().getSecondaryOutput().getCount()));
 
         blockEntity.resetProgress(blockPos, state);

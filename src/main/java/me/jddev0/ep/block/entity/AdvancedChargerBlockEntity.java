@@ -10,6 +10,7 @@ import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.screen.AdvancedChargerMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.InventoryUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -301,7 +302,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
                 if(blockEntity.energyConsumptionLeft[i] <= 0) {
                     final int index = i;
                     recipe.ifPresent(chargerRecipe -> blockEntity.itemHandler.setStackInSlot(index,
-                            new ItemStack(chargerRecipe.getResultItem().getItem())));
+                            ItemStackUtils.copyWithCount(chargerRecipe.getResultItem(), 1)));
 
                     blockEntity.resetProgress(i);
                 }
