@@ -40,9 +40,12 @@ import team.reborn.energy.api.base.LimitingEnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+    private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
+
     public static final long CAPACITY = ModConfigs.COMMON_AUTO_CRAFTER_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_AUTO_CRAFTER_TRANSFER_RATE.getValue();
     public final static long ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT = ModConfigs.COMMON_AUTO_CRAFTER_ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT.getValue();
@@ -380,8 +383,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         for(int i = 0;i < patternSlotsForRecipe.size();i++)
             copyOfPatternSlots.setStack(i, patternSlotsForRecipe.getStack(i));
 
-        List<CraftingRecipe> recipes = world.getRecipeManager().
-                getAllMatches(RecipeType.CRAFTING, copyOfPatternSlots, world);
+        List<CraftingRecipe> recipes = getRecipesFor(copyOfPatternSlots, world);
 
         //No recipe found
         if(recipes.isEmpty()) {
@@ -430,8 +432,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         for(int i = 0;i < patternSlotsForRecipe.size();i++)
             copyOfPatternSlots.setStack(i, patternSlotsForRecipe.getStack(i));
 
-        Optional<Pair<Identifier, CraftingRecipe>> recipe = world.getRecipeManager().
-                getFirstMatch(RecipeType.CRAFTING, copyOfPatternSlots, world, recipeIdForSetRecipe);
+        Optional<Pair<Identifier, CraftingRecipe>> recipe = getRecipeFor(copyOfPatternSlots, world, recipeIdForSetRecipe);
         if(recipe.isPresent()) {
             craftingRecipe = recipe.get().getSecond();
 
@@ -752,6 +753,20 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         return copyOfContainer;
     }
 
+    private List<CraftingRecipe> getRecipesFor(CraftingInventory patternSlots, World level) {
+        return level.getRecipeManager().listAllOfType(RecipeType.CRAFTING).
+                stream().filter(recipe -> !RECIPE_BLACKLIST.contains(recipe.getId())).
+                filter(recipe -> recipe.matches(patternSlots, level)).
+                sorted(Comparator.comparing(recipe -> recipe.getOutput().getTranslationKey())).
+                toList();
+    }
+
+    private Optional<Pair<Identifier, CraftingRecipe>> getRecipeFor(CraftingInventory patternSlots, World level, Identifier recipeId) {
+        List<CraftingRecipe> recipes = getRecipesFor(patternSlots, level);
+        Optional<CraftingRecipe> recipe = recipes.stream().filter(r -> r.getId().equals(recipeId)).findFirst();
+
+        return recipe.or(() -> recipes.stream().findFirst()).map(r -> Pair.of(r.getId(), r));
+    }
 
     public void setIgnoreNBT(boolean ignoreNBT) {
         this.ignoreNBT = ignoreNBT;

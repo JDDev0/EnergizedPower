@@ -10,10 +10,15 @@ import me.jddev0.ep.config.value.FloatConfigValue;
 import me.jddev0.ep.config.value.LongConfigValue;
 import net.fabricmc.loader.api.FabricLoader;
 import me.jddev0.ep.config.value.IntegerConfigValue;
+import me.jddev0.ep.config.value.*;
+import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public final class ModConfigs {
@@ -424,6 +429,9 @@ public final class ModConfigs {
     public static final ConfigValue<Integer> COMMON_AUTO_CRAFTER_RECIPE_DURATION = registerRecipeDurationConfigValue(
             "block.auto_crafter", "Auto Crafter", 100
     );
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
+            "block.auto_crafter", "Auto Crafter", new ArrayList<>(0)
+    );
 
     public static final ConfigValue<Long> COMMON_HEAT_GENERATOR_CAPACITY = registerEnergyCapacityConfigValue(
             "block.heat_generator", "Heat Generator", 10000
@@ -786,6 +794,16 @@ public final class ModConfigs {
                 "The multiplier by which the time a recipe of the " + itemName + " requires is multiplied by",
                 1.f,
                 0.f, null
+        ));
+    }
+
+    private static ConfigValue<List<@NotNull Identifier>> registerRecipeBlacklistValue(String baseConfigKey, String itemName,
+                                                                                       @NotNull List<@NotNull Identifier> defaultValue) {
+        return COMMON_CONFIG.register(new IdentifierListConfigValue(
+                baseConfigKey + ".recipe_blacklist",
+                "The recipe blacklist for the " + itemName + ".\n" +
+                        "The blacklist is a list of recipe ids which can not be crafted in the " + itemName,
+                defaultValue
         ));
     }
 
