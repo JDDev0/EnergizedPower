@@ -8,6 +8,15 @@ import java.util.List;
 public final class ItemStackUtils {
     private ItemStackUtils() {}
 
+    public static ItemStack copyWithCount(ItemStack itemStack, int count) {
+        if(itemStack.isEmpty())
+            return ItemStack.EMPTY;
+
+        itemStack = itemStack.copy();
+        itemStack.setCount(count);
+        return itemStack;
+    }
+
     public static List<ItemStack> combineItemStacks(List<ItemStack> itemStacks) {
         List<ItemStack> combinedItemStacks = new LinkedList<>();
         for(ItemStack itemStack:itemStacks) {
