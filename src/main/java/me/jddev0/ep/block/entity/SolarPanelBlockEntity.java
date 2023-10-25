@@ -27,14 +27,14 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
-import team.reborn.energy.api.base.SimpleEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 
 public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
     private final SolarPanelBlock.Tier tier;
     private final long maxTransfer;
 
     final LimitingEnergyStorage energyStorage;
-    private final SimpleEnergyStorage internalEnergyStorage;
+    private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     public static BlockEntityType<SolarPanelBlockEntity> getEntityTypeFromTier(SolarPanelBlock.Tier tier) {
         return switch(tier) {
@@ -54,7 +54,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
 
         maxTransfer = tier.getMaxTransfer();
         long capacity = tier.getCapacity();
-        internalEnergyStorage = new SimpleEnergyStorage(capacity, capacity, capacity) {
+        internalEnergyStorage = new EnergizedPowerEnergyStorage(capacity, capacity, capacity) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
@@ -180,6 +180,6 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
 
     @Override
     public void setCapacity(long capacity) {
-        //Does nothing (capacity is final)
+        internalEnergyStorage.capacity = capacity;
     }
 }

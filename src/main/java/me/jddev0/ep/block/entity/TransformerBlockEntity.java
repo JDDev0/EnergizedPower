@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
-import team.reborn.energy.api.base.SimpleEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
 
     final LimitingEnergyStorage energyStorageInsert;
     final LimitingEnergyStorage energyStorageExtract;
-    private final SimpleEnergyStorage internalEnergyStorage;
+    private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     public static BlockEntityType<TransformerBlockEntity> getEntityTypeFromTierAndType(TransformerBlock.Tier tier,
                                                                                        TransformerBlock.Type type) {
@@ -76,7 +76,7 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
 
         maxTransferRate = getMaxEnergyTransferFromTier(this.tier);
 
-        internalEnergyStorage = new SimpleEnergyStorage(maxTransferRate, maxTransferRate, maxTransferRate) {
+        internalEnergyStorage = new EnergizedPowerEnergyStorage(maxTransferRate, maxTransferRate, maxTransferRate) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
@@ -259,6 +259,6 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
 
     @Override
     public void setCapacity(long capacity) {
-        //Does nothing (capacity is final)
+        internalEnergyStorage.capacity = capacity;
     }
 }
