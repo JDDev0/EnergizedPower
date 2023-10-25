@@ -16,18 +16,18 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
-import team.reborn.energy.api.base.SimpleEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 
 public class PoweredLampBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
     public static final long MAX_RECEIVE = ModConfigs.COMMON_POWERED_LAMP_TRANSFER_RATE.getValue();
 
     final LimitingEnergyStorage energyStorage;
-    private final SimpleEnergyStorage internalEnergyStorage;
+    private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     public PoweredLampBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.POWERED_LAMP_ENTITY, blockPos, blockState);
 
-        internalEnergyStorage = new SimpleEnergyStorage(MAX_RECEIVE, MAX_RECEIVE, MAX_RECEIVE) {
+        internalEnergyStorage = new EnergizedPowerEnergyStorage(MAX_RECEIVE, MAX_RECEIVE, MAX_RECEIVE) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
@@ -93,6 +93,6 @@ public class PoweredLampBlockEntity extends BlockEntity implements EnergyStorage
 
     @Override
     public void setCapacity(long capacity) {
-        //Does nothing (capacity is final)
+        internalEnergyStorage.capacity = capacity;
     }
 }
