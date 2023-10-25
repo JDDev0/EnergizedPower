@@ -40,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
-import team.reborn.energy.api.base.SimpleEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -56,7 +56,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
     private final SimpleInventory internalInventory;
 
     final LimitingEnergyStorage energyStorage;
-    private final SimpleEnergyStorage internalEnergyStorage;
+    private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     protected final PropertyDelegate data;
     private long energyConsumptionLeft = -1;
@@ -151,7 +151,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
         });
         cachedSidedInventoryStorage = new CachedSidedInventoryStorage<>(inventory);
 
-        internalEnergyStorage = new SimpleEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
+        internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
@@ -354,6 +354,6 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
 
     @Override
     public void setCapacity(long capacity) {
-        //Does nothing (capacity is final)
+        internalEnergyStorage.capacity = capacity;
     }
 }

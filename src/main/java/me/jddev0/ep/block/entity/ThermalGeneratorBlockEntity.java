@@ -34,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
-import team.reborn.energy.api.base.SimpleEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -48,7 +48,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
     public static final double ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     final LimitingEnergyStorage energyStorage;
-    private final SimpleEnergyStorage internalEnergyStorage;
+    private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     final SimpleFluidStorage fluidStorage;
 
@@ -57,7 +57,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.THERMAL_GENERATOR_ENTITY, blockPos, blockState);
 
-        internalEnergyStorage = new SimpleEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
+        internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
@@ -353,7 +353,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
 
     @Override
     public void setCapacity(long capacity) {
-        //Does nothing (capacity is final)
+        internalEnergyStorage.capacity = capacity;
     }
 
     public long getEnergy() {

@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
-import team.reborn.energy.api.base.SimpleEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 
 import java.util.List;
 
@@ -40,12 +40,12 @@ public class ChargingStationBlockEntity extends BlockEntity implements ExtendedS
     public static final int MAX_CHARGING_DISTANCE = ModConfigs.COMMON_CHARGING_STATION_MAX_CHARGING_DISTANCE.getValue();
 
     final LimitingEnergyStorage energyStorage;
-    private final SimpleEnergyStorage internalEnergyStorage;
+    private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     public ChargingStationBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CHARGING_STATION_ENTITY, blockPos, blockState);
 
-        internalEnergyStorage = new SimpleEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
+        internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
@@ -176,6 +176,6 @@ public class ChargingStationBlockEntity extends BlockEntity implements ExtendedS
 
     @Override
     public void setCapacity(long capacity) {
-        //Does nothing (capacity is final)
+        internalEnergyStorage.capacity = capacity;
     }
 }

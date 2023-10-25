@@ -17,7 +17,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
-import team.reborn.energy.api.base.SimpleEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 
 import java.util.*;
 
@@ -27,7 +27,7 @@ public class CableBlockEntity extends BlockEntity {
     private final CableBlock.Tier tier;
 
     final LimitingEnergyStorage energyStorage;
-    private final SimpleEnergyStorage internalEnergyStorage;
+    private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     private boolean loaded;
 
@@ -52,7 +52,7 @@ public class CableBlockEntity extends BlockEntity {
 
         long capacity = ENERGY_EXTRACTION_MODE.isPush()?tier.getMaxTransfer():0;
 
-        internalEnergyStorage = new SimpleEnergyStorage(capacity, capacity, capacity) {
+        internalEnergyStorage = new EnergizedPowerEnergyStorage(capacity, capacity, capacity) {
             @Override
             protected void onFinalCommit() {
                 markDirty();

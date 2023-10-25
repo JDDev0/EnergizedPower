@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
-import team.reborn.energy.api.base.SimpleEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,12 +34,12 @@ public class LightningGeneratorBlockEntity extends BlockEntity implements Extend
     public static final long MAX_EXTRACT = ModConfigs.COMMON_LIGHTNING_GENERATOR_TRANSFER_RATE.getValue();
 
     final LimitingEnergyStorage energyStorage;
-    private final SimpleEnergyStorage internalEnergyStorage;
+    private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     public LightningGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.LIGHTING_GENERATOR_ENTITY, blockPos, blockState);
 
-        internalEnergyStorage = new SimpleEnergyStorage(LightningGeneratorBlock.ENERGY_PER_LIGHTNING_STRIKE,
+        internalEnergyStorage = new EnergizedPowerEnergyStorage(LightningGeneratorBlock.ENERGY_PER_LIGHTNING_STRIKE,
                 LightningGeneratorBlock.ENERGY_PER_LIGHTNING_STRIKE, LightningGeneratorBlock.ENERGY_PER_LIGHTNING_STRIKE) {
             @Override
             protected void onFinalCommit() {
@@ -202,6 +202,6 @@ public class LightningGeneratorBlockEntity extends BlockEntity implements Extend
 
     @Override
     public void setCapacity(long capacity) {
-        //Does nothing (capacity is final)
+        internalEnergyStorage.capacity = capacity;
     }
 }

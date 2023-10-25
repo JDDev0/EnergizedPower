@@ -38,7 +38,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
-import team.reborn.energy.api.base.SimpleEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,7 +61,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     private final SimpleInventory internalInventory;
 
     final LimitingEnergyStorage energyStorage;
-    private final SimpleEnergyStorage internalEnergyStorage;
+    private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     protected final PropertyDelegate data;
     private int progress;
@@ -139,7 +139,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
         }, (i, stack) -> i == 1, i -> i > 1 && i < 6);
         cachedSidedInventoryStorageTopBottom = new CachedSidedInventoryStorage<>(sidedInventoryTopBottom);
 
-        internalEnergyStorage = new SimpleEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
+        internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
@@ -442,6 +442,6 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
 
     @Override
     public void setCapacity(long capacity) {
-        //Does nothing (capacity is final)
+        internalEnergyStorage.capacity = capacity;
     }
 }
