@@ -28,7 +28,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
-import team.reborn.energy.api.base.SimpleEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class MinecartChargerBlockEntity extends BlockEntity implements ExtendedS
     public static final long MAX_TRANSFER = ModConfigs.COMMON_MINECART_CHARGER_TRANSFER_RATE.getValue();
 
     final LimitingEnergyStorage energyStorage;
-    private final SimpleEnergyStorage internalEnergyStorage;
+    private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     private boolean hasMinecartOld = true; //Default true (Force first update)
     private boolean hasMinecart = false; //Default false (Force first update)
@@ -45,7 +45,7 @@ public class MinecartChargerBlockEntity extends BlockEntity implements ExtendedS
     public MinecartChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.MINECART_CHARGER_ENTITY, blockPos, blockState);
 
-        internalEnergyStorage = new SimpleEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
+        internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
@@ -169,6 +169,6 @@ public class MinecartChargerBlockEntity extends BlockEntity implements ExtendedS
 
     @Override
     public void setCapacity(long capacity) {
-        //Does nothing (capacity is final)
+        internalEnergyStorage.capacity = capacity;
     }
 }

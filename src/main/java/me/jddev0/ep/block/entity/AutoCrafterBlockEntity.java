@@ -38,7 +38,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
-import team.reborn.energy.api.base.SimpleEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -56,7 +56,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     private final SimpleInventory internalInventory;
 
     final LimitingEnergyStorage energyStorage;
-    private final SimpleEnergyStorage internalEnergyStorage;
+    private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     private final SimpleInventory patternSlots = new SimpleInventory(3 * 3) {
         @Override
@@ -132,7 +132,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 isOutputOrCraftingRemainderOfInput(internalInventory.getStack(i)));
         cachedSidedInventoryStorage = new CachedSidedInventoryStorage<>(inventory);
 
-        internalEnergyStorage = new SimpleEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
+        internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
@@ -796,6 +796,6 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
 
     @Override
     public void setCapacity(long capacity) {
-        //Does nothing (capacity is final)
+        internalEnergyStorage.capacity = capacity;
     }
 }
