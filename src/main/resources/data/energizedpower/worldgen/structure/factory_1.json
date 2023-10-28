@@ -13,5 +13,6 @@
   },
   "project_start_to_heightmap": "WORLD_SURFACE_WG",
   "use_expansion_hack": false,
-  "spawn_overrides": {}
+  "spawn_overrides": {},
+  "terrain_adaptation": "beard_box"
 }
