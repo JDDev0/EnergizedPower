@@ -163,7 +163,7 @@ public final class ModConfigs {
             "block.cables.energy_extraction_mode",
             "The energy extraction mode defines how cables extract energy.\n" +
                     "- PUSH: Producers must push energy into cables.\n" +
-                    "- PULL: Cables pull energy from cables.\n" +
+                    "- PULL: Cables pull energy from producers.\n" +
                     "- BOTH: Both systems are used.\n" +
                     "=> Set to PULL for the behavior of cables before version 2.1.1.\n" +
                     "=> Set to BOTH for compatibility with any FE energy producers.",
