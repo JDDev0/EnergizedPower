@@ -96,6 +96,8 @@ public class EnergizedPowerMod {
             event.accept(ModItems.DIAMOND_HAMMER);
             event.accept(ModItems.NETHERITE_HAMMER);
 
+            event.accept(ModItems.CUTTER);
+
             event.accept(ModItems.WRENCH);
 
             event.accept(ModBlocks.ITEM_CONVEYOR_BELT_ITEM);
