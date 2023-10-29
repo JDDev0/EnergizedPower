@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "S": {
-      "tag": "forge:silicon"
+    "b": {
+      "item": "energizedpower:basic_circuit"
     },
     "I": {
       "tag": "forge:plates/iron"
@@ -20,7 +20,7 @@
   },
   "pattern": [
     "CTC",
-    "SBS",
+    "bBb",
     "ITI"
   ],
   "result": {
