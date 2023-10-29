@@ -733,6 +733,12 @@
   "advancements.energizedpower.gold_plate.title": "Lastra d'oro",
   "advancements.energizedpower.gold_plate.description": "Crea una lastra d'oro.",
 
+  "advancements.energizedpower.copper_wire.title": "Copper Wire",
+  "advancements.energizedpower.copper_wire.description": "Create a copper wire.",
+
+  "advancements.energizedpower.gold_wire.title": "Gold Wire",
+  "advancements.energizedpower.gold_wire.description": "Create a gold wire.",
+
   "advancements.energizedpower.energized_copper_plate.title": "Lastra di rame energizzata",
   "advancements.energizedpower.energized_copper_plate.description": "Crea una lastra di rame energizzata.",
 
