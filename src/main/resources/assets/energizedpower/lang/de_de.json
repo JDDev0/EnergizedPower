@@ -526,6 +526,12 @@
   "advancements.energizedpower.reinforced_advanced_solar_cell.title": "Noch besserer Solar-Strom",
   "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Erforderlich für die besten Solar Panels...",
 
+  "advancements.energizedpower.basic_circuit.title": "Basis Schaltkreis",
+  "advancements.energizedpower.basic_circuit.description": "Erstelle einen Basis Schaltkreis.",
+
+  "advancements.energizedpower.advanced_circuit.title": "Fortgeschrittener Schaltkreis",
+  "advancements.energizedpower.advanced_circuit.description": "Erstelle einen fortgeschrittenen Schaltkreis.",
+
   "advancements.energizedpower.press_mold_maker.title": "Pressform-Hersteller",
   "advancements.energizedpower.press_mold_maker.description": "Verwende diesen Block, um Pressformen für die Metallpresse herzustellen.",
 
