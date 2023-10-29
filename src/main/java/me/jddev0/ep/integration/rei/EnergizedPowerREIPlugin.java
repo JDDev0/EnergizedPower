@@ -104,6 +104,8 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
     public void registerScreens(ScreenRegistry registry) {
         registry.registerContainerClickArea(new Rectangle(89, 34, 24, 17),
                 AutoCrafterScreen.class, BuiltinPlugin.CRAFTING);
+        registry.registerContainerClickArea(new Rectangle(89, 34, 24, 17),
+                AdvancedAutoCrafterScreen.class, BuiltinPlugin.CRAFTING);
         registry.registerContainerClickArea(new Rectangle(80, 34, 24, 17),
                 PoweredFurnaceScreen.class, BuiltinPlugin.SMELTING);
         registry.registerContainerClickArea(new Rectangle(43, 34, 18, 18),
