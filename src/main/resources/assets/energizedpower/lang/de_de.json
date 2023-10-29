@@ -733,6 +733,12 @@
   "advancements.energizedpower.gold_plate.title": "Goldplatte",
   "advancements.energizedpower.gold_plate.description": "Erstelle eine Goldplatte.",
 
+  "advancements.energizedpower.copper_wire.title": "Kupferdraht",
+  "advancements.energizedpower.copper_wire.description": "Erstelle einen Kupferdraht.",
+
+  "advancements.energizedpower.gold_wire.title": "Golddraht",
+  "advancements.energizedpower.gold_wire.description": "Erstelle einen Golddraht.",
+
   "advancements.energizedpower.energized_copper_plate.title": "Energetisierte Kupferplatte",
   "advancements.energizedpower.energized_copper_plate.description": "Erstelle eine energetisierte Kupferplatte.",
 
