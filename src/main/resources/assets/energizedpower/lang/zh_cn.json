@@ -117,6 +117,8 @@
   "item.energizedpower.diamond_hammer": "钻石锤",
   "item.energizedpower.netherite_hammer": "下界合金锤",
 
+  "item.energizedpower.cutter": "Cutter",
+
   "item.energizedpower.wrench": "Wrench",
   "tooltip.energizedpower.wrench.txt.shift": "The Wrench can be used to configure blocks.",
   "tooltip.energizedpower.wrench.select_face": "Selected face: %s",
@@ -707,6 +709,9 @@
   "advancements.energizedpower.hammer.title": "好工具",
   "advancements.energizedpower.hammer.description": "锤子可以制造材。",
 
+  "advancements.energizedpower.cutter.title": "Cut, cut, cut",
+  "advancements.energizedpower.cutter.description": "Cutters can be used to craft wires.",
+
   "advancements.energizedpower.wrench.title": "Wrench configuration",
   "advancements.energizedpower.wrench.description": "Configure blocks with a wrench.",
 
@@ -850,6 +855,8 @@
   "book.energizedpower.page.chapter.tools": "也许会有帮助。",
 
   "book.energizedpower.page.hammers": "锤子是用来制造板材的工具。",
+
+  "book.energizedpower.page.cutters": "Cutters can be used to craft wires.",
 
   "book.energizedpower.page.wrench": "The Wrench can be used to configure blocks.",
 
