@@ -173,10 +173,6 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.WEATHER_CONTROLLER_ITEM);
             event.accept(ModBlocks.TIME_CONTROLLER_ITEM);
 
-            event.accept(ModItems.BASIC_SOLAR_CELL);
-            event.accept(ModItems.ADVANCED_SOLAR_CELL);
-            event.accept(ModItems.REINFORCED_ADVANCED_SOLAR_CELL);
-
             addEmptyAndFullyChargedItem(event, ModItems.INVENTORY_COAL_ENGINE, InventoryCoalEngineItem.CAPACITY);
             event.accept(ModItems.INVENTORY_CHARGER);
 
@@ -197,6 +193,10 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.HARDENED_MACHINE_FRAME_ITEM);
             event.accept(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM);
             event.accept(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM);
+
+            event.accept(ModItems.BASIC_SOLAR_CELL);
+            event.accept(ModItems.ADVANCED_SOLAR_CELL);
+            event.accept(ModItems.REINFORCED_ADVANCED_SOLAR_CELL);
 
             event.accept(ModBlocks.SILICON_BLOCK_ITEM);
             event.accept(ModBlocks.SAWDUST_BLOCK_ITEM);
