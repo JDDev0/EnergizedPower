@@ -2,6 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
+    "b": {
+      "item": "energizedpower:basic_circuit"
+    },
     "S": {
       "tag": "forge:silicon"
     },
@@ -17,7 +20,7 @@
   },
   "pattern": [
     "S S",
-    "CLC",
+    "bLb",
     "CBC"
   ],
   "result": {
