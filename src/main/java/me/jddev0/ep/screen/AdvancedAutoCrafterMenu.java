@@ -31,7 +31,12 @@ public class AdvancedAutoCrafterMenu extends ScreenHandler implements EnergyStor
     private final Inventory[] patternResultSlots;
 
     public AdvancedAutoCrafterMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(27), new Inventory[] {
+        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(27) {
+            @Override
+            public boolean isValid(int slot, ItemStack stack) {
+                return super.isValid(slot, stack) && slot >= 5;
+            }
+        }, new Inventory[] {
                 new SimpleInventory(9), new SimpleInventory(9), new SimpleInventory(9)
         }, new Inventory[] {
                 new SimpleInventory(1), new SimpleInventory(1), new SimpleInventory(1)
