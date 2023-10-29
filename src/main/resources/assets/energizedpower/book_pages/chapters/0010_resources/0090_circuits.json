@@ -1,0 +1,14 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.circuits",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "image": [
+    "energizedpower:textures/item/basic_circuit.png",
+    "energizedpower:textures/item/advanced_circuit.png"
+  ]
+}
