@@ -201,6 +201,8 @@ public class EnergizedPowerMod {
             event.accept(ModItems.ADVANCED_SOLAR_CELL);
             event.accept(ModItems.REINFORCED_ADVANCED_SOLAR_CELL);
 
+            event.accept(ModItems.BASIC_CIRCUIT);
+
             event.accept(ModBlocks.SILICON_BLOCK_ITEM);
             event.accept(ModBlocks.SAWDUST_BLOCK_ITEM);
             event.accept(ModItems.CABLE_INSULATOR);
