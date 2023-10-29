@@ -87,6 +87,10 @@ public class ModEvents {
                     new ItemStack(ModItems.COPPER_PLATE.get(), 3),
                     new ItemStack(Items.EMERALD, 8),
                     15, 6, .02f);
+            addOffer(trades, 2,
+                    new ItemStack(Items.EMERALD, 12),
+                    new ItemStack(ModItems.CUTTER.get()),
+                    2, 8, .02f);
 
             //Level 3
             addOffer(trades, 3,
