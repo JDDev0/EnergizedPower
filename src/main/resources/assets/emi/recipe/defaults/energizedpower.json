@@ -1,5 +1,11 @@
 {
   "recipes": [
+    "energizedpower:compressing/copper_plate_from_compressing_copper_ingot",
+    "energizedpower:compressing/iron_plate_from_compressing_iron_ingot",
+    "energizedpower:compressing/gold_plate_from_compressing_gold_ingot",
+    "energizedpower:compressing/energized_copper_plate_from_compressing_energized_copper_ingot",
+    "energizedpower:compressing/energized_gold_plate_from_compressing_energized_gold_ingot",
+
     "energizedpower:crafting/advanced_auto_crafter",
     "energizedpower:crafting/advanced_battery_box",
     "energizedpower:crafting/advanced_battery_box_minecart",
