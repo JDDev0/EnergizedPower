@@ -862,6 +862,8 @@
   "book.energizedpower.page.metal_products.1": "Metal products (gears, rods, and wires) are used in many recipes.",
   "book.energizedpower.page.metal_products.2": "Metal products can be created in the Metal Press.",
 
+  "book.energizedpower.page.circuits": "Circuits are used in some recipes.",
+
   "book.energizedpower.page.energized_copper_ingot.1": "Energized Copper Ingots are required for advanced machines like the energizer.",
   "book.energizedpower.page.energized_copper_ingot.2": "The energizer is crafted with this ingot, isn't it?",
   "book.energizedpower.page.energized_copper_ingot.3": "The charger can be used to craft this ingot.",

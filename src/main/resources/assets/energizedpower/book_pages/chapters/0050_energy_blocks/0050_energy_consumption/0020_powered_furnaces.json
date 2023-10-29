@@ -15,5 +15,8 @@
       "font": "uniform"
     }
   ],
-  "block": [ "energizedpower:powered_furnace", "energizedpower:advanced_powered_furnace" ]
+  "block": [
+    "energizedpower:powered_furnace",
+    "energizedpower:advanced_powered_furnace"
+  ]
 }
