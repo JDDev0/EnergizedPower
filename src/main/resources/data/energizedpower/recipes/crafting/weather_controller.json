@@ -2,6 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
+    "a": {
+      "item": "energizedpower:advanced_circuit"
+    },
     "C": {
       "item": "energizedpower:energized_crystal_matrix"
     },
@@ -20,7 +23,7 @@
   },
   "pattern": [
     "CAC",
-    "ERE",
+    "aRa",
     "rEr"
   ],
   "result": {
