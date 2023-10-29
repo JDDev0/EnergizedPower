@@ -147,6 +147,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.POWERED_FURNACE_ITEM);
             event.accept(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM);
             event.accept(ModBlocks.AUTO_CRAFTER_ITEM);
+            event.accept(ModBlocks.ADVANCED_AUTO_CRAFTER_ITEM);
             event.accept(ModBlocks.CRUSHER_ITEM);
             event.accept(ModBlocks.PULVERIZER_ITEM);
             event.accept(ModBlocks.SAWMILL_ITEM);
@@ -245,6 +246,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.ITEM_CONVEYOR_BELT_LOADER_MENU.get(), ItemConveyorBeltLoaderScreen::new);
             MenuScreens.register(ModMenuTypes.ITEM_CONVEYOR_BELT_SORTER_MENU.get(), ItemConveyorBeltSorterScreen::new);
             MenuScreens.register(ModMenuTypes.AUTO_CRAFTER_MENU.get(), AutoCrafterScreen::new);
+            MenuScreens.register(ModMenuTypes.ADVANCED_AUTO_CRAFTER_MENU.get(), AdvancedAutoCrafterScreen::new);
             MenuScreens.register(ModMenuTypes.CRUSHER_MENU.get(), CrusherScreen::new);
             MenuScreens.register(ModMenuTypes.PULVERIZER_MENU.get(), PulverizerScreen::new);
             MenuScreens.register(ModMenuTypes.SAWMILL_MENU.get(), SawmillScreen::new);
