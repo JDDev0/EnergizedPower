@@ -47,6 +47,8 @@
   "item.energizedpower.advanced_solar_cell": "Advanced Solar Cell",
   "item.energizedpower.reinforced_advanced_solar_cell": "Reinforced Advanced Solar Cell",
 
+  "item.energizedpower.basic_circuit": "Basic Circuit",
+
   "item.energizedpower.energized_power_book": "Energized Power Book",
   "tooltip.energizedpower.energized_power_book.txt.shift.1": "Left click a block to open the block's book page.",
   "book.energizedpower.front.cover.text": "This is the guide book for this mod!",

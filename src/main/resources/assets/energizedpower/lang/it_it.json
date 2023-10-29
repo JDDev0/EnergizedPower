@@ -47,6 +47,8 @@
   "item.energizedpower.advanced_solar_cell": "Cella solare avanzata",
   "item.energizedpower.reinforced_advanced_solar_cell": "Cella solare avanzata rinforzata",
 
+  "item.energizedpower.basic_circuit": "Basic Circuit",
+
   "item.energizedpower.energized_power_book": "Libro del energized power",
   "tooltip.energizedpower.energized_power_book.txt.shift.1": "Fare clic con il tasto sinistro del mouse su un blocco per aprire la pagina del libro del blocco.",
   "book.energizedpower.front.cover.text": "Questa è la guida per questa mod!",
