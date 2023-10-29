@@ -526,6 +526,12 @@
   "advancements.energizedpower.reinforced_advanced_solar_cell.title": "Energia solare ancora migliore",
   "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Necessario per i migliori pannelli solari...",
 
+  "advancements.energizedpower.basic_circuit.title": "Basic Circuit",
+  "advancements.energizedpower.basic_circuit.description": "Craft a basic circuit.",
+
+  "advancements.energizedpower.advanced_circuit.title": "Advanced Circuit",
+  "advancements.energizedpower.advanced_circuit.description": "Craft an advanced circuit.",
+
   "advancements.energizedpower.press_mold_maker.title": "Pressa creatore di stampi",
   "advancements.energizedpower.press_mold_maker.description": "Usa questo blocco per realizzare stampi per la pressa per metalli.",
 
@@ -1081,4 +1087,3 @@
   "book.energizedpower.page.small_solar_farm.title": "Piccola fattoria solare",
   "book.energizedpower.page.small_solar_farm.1": "La piccola fattoria solare è una struttura con alcuni pannelli solari che producono energia. Può essere trovato nei biomi Deserto, Badlands e Savanna."
 }
-
