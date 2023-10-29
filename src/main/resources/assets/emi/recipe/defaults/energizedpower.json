@@ -1,5 +1,6 @@
 {
   "recipes": [
+    "energizedpower:crafting/advanced_auto_crafter",
     "energizedpower:crafting/advanced_battery_box",
     "energizedpower:crafting/advanced_battery_box_minecart",
     "energizedpower:crafting/advanced_charger",

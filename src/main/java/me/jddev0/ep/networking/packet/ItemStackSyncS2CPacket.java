@@ -10,7 +10,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 
 public class ItemStackSyncS2CPacket {
-    public ItemStackSyncS2CPacket() {}
+    private ItemStackSyncS2CPacket() {}
 
     public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
         int slot = buf.readInt();

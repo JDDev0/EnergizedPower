@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "tag": "c:silicon"
+    },
+    "C": {
+      "tag": "c:energized_copper_plates"
+    },
+    "G": {
+      "tag": "c:energized_gold_plates"
+    },
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    },
+    "a": {
+      "item": "energizedpower:auto_crafter"
+    }
+  },
+  "pattern": [
+    "GaG",
+    "SAS",
+    "CaC"
+  ],
+  "result": {
+    "item": "energizedpower:advanced_auto_crafter"
+  }
+}

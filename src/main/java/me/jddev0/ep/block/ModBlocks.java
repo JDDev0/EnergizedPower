@@ -1,6 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.item.ModItems;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -189,6 +190,12 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item AUTO_CRAFTER_ITEM = createBlockItem("auto_crafter",
             new AutoCrafterBlock.Item(AUTO_CRAFTER, new FabricItemSettings()));
+
+    public static final Block ADVANCED_AUTO_CRAFTER = registerBlock("advanced_auto_crafter",
+            new AdvancedAutoCrafterBlock(FabricBlockSettings.create().
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item ADVANCED_AUTO_CRAFTER_ITEM = createBlockItem("advanced_auto_crafter",
+            new AdvancedAutoCrafterBlock.Item(ADVANCED_AUTO_CRAFTER, new FabricItemSettings()));
 
     public static final Block BATTERY_BOX = registerBlock("battery_box",
             new BatteryBoxBlock(FabricBlockSettings.create().
