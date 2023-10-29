@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "S": {
-      "tag": "forge:silicon"
+    "c": {
+      "item": "energizedpower:advanced_circuit"
     },
     "C": {
       "tag": "forge:plates/energized_copper"
@@ -20,7 +20,7 @@
   },
   "pattern": [
     "GaG",
-    "SAS",
+    "cAc",
     "CaC"
   ],
   "result": {
