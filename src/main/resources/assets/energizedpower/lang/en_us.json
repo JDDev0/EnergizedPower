@@ -733,6 +733,12 @@
   "advancements.energizedpower.gold_plate.title": "Gold Plate",
   "advancements.energizedpower.gold_plate.description": "Create a gold plate.",
 
+  "advancements.energizedpower.copper_wire.title": "Copper Wire",
+  "advancements.energizedpower.copper_wire.description": "Create a copper wire.",
+
+  "advancements.energizedpower.gold_wire.title": "Gold Wire",
+  "advancements.energizedpower.gold_wire.description": "Create a gold wire.",
+
   "advancements.energizedpower.energized_copper_plate.title": "Energized Copper Plate",
   "advancements.energizedpower.energized_copper_plate.description": "Create an energized copper plate.",
 
