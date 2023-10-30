@@ -161,6 +161,9 @@ public final class ModItems {
     public static final Item NETHERITE_HAMMER = registerItem("netherite_hammer",
             new HammerItem(ToolMaterials.NETHERITE, new FabricItemSettings().fireproof()));
 
+    public static final Item CUTTER = registerItem("cutter",
+            new CutterItem(ToolMaterials.IRON, new FabricItemSettings()));
+
     public static final Item WRENCH = registerItem("wrench",
             new WrenchItem(new FabricItemSettings().maxCount(1)));
 

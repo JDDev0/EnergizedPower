@@ -117,6 +117,8 @@
   "item.energizedpower.diamond_hammer": "Diamanthammer",
   "item.energizedpower.netherite_hammer": "Netherithammer",
 
+  "item.energizedpower.cutter": "Seitenschneider",
+
   "item.energizedpower.wrench": "Schraubenschlüssel",
   "tooltip.energizedpower.wrench.txt.shift": "Der Schraubenschlüssel kann für die Konfiguration von Blöcken verwendet werden.",
   "tooltip.energizedpower.wrench.select_face": "Selektierte Blockseite: %s",
@@ -707,6 +709,9 @@
   "advancements.energizedpower.hammer.title": "Ein gutes Werkzeug",
   "advancements.energizedpower.hammer.description": "Hämmer können für das Craften von Platten verwendet werden.",
 
+  "advancements.energizedpower.cutter.title": "Schnipp, Schnipp, Schnipp",
+  "advancements.energizedpower.cutter.description": "Seitenschneider können für das Craften von Drähten verwendet werden.",
+
   "advancements.energizedpower.wrench.title": "Schraubenschlüssel-Konfiguration",
   "advancements.energizedpower.wrench.description": "Konfiguriere Blöcke mit einem Schraubenschlüssel.",
 
@@ -850,6 +855,8 @@
   "book.energizedpower.page.chapter.tools": "Können hilfreich sein",
 
   "book.energizedpower.page.hammers": "Hämmer können verwendet werden, um Platten zu craften.",
+
+  "book.energizedpower.page.cutters": "Seitenschneider können für das Craften von Drähten verwendet werden.",
 
   "book.energizedpower.page.wrench": "Der Schraubenschlüssel kann für die Konfiguration von Blöcken verwendet werden.",
 
