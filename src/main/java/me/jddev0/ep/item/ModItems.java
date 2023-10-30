@@ -93,6 +93,9 @@ public final class ModItems {
     public static final Item REINFORCED_ADVANCED_SOLAR_CELL = registerItem("reinforced_advanced_solar_cell",
             new Item(new FabricItemSettings()));
 
+    public static final Item BASIC_CIRCUIT = registerItem("basic_circuit",
+            new Item(new FabricItemSettings()));
+
     public static final Item ENERGIZED_POWER_BOOK = registerItem("energized_power_book",
             new EnergizedPowerBookItem(new FabricItemSettings().maxCount(1)));
 
