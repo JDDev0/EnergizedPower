@@ -1,26 +1,26 @@
 {
-  "parent":  "energizedpower:main/basics/iron_plate",
+  "parent":  "energizedpower:main/basics/cutter",
   "display": {
     "icon": {
-      "item": "energizedpower:cutter"
+      "item": "energizedpower:gold_wire"
     },
     "title": {
-      "translate": "advancements.energizedpower.cutter.title"
+      "translate": "advancements.energizedpower.gold_wire.title"
     },
     "description": {
-      "translate": "advancements.energizedpower.cutter.description"
+      "translate": "advancements.energizedpower.gold_wire.description"
     },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true
   },
   "criteria": {
-    "has_cutter": {
+    "has_gold_wire": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "tag": "c:cutters"
+            "tag": "c:gold_wires"
           }
         ]
       }
@@ -28,7 +28,7 @@
   },
   "requirements": [
     [
-      "has_cutter"
+      "has_gold_wire"
     ]
   ]
 }
