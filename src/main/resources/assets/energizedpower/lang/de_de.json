@@ -48,6 +48,7 @@
   "item.energizedpower.reinforced_advanced_solar_cell": "Verstärkte Fortgeschrittene Solarzelle",
 
   "item.energizedpower.basic_circuit": "Basis Schaltkreis",
+  "item.energizedpower.advanced_circuit": "Fortgeschrittener Schaltkreis",
 
   "item.energizedpower.energized_power_book": "Energized Power Buch",
   "tooltip.energizedpower.energized_power_book.txt.shift.1": "Drücke die linke Maustaste auf einen Block, um dessen Buchseite zu öffnen.",
