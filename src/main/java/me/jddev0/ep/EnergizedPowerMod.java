@@ -3,7 +3,6 @@ package me.jddev0.ep;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.behavior.ModBlockBehaviors;
 import me.jddev0.ep.block.entity.ModBlockEntities;
-import me.jddev0.ep.block.entity.renderer.ItemConveyorBeltBlockEntityRenderer;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.ModEntityTypes;
 import me.jddev0.ep.event.PlayerInteractHandler;
@@ -182,6 +181,8 @@ public class EnergizedPowerMod implements ModInitializer {
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.BASIC_SOLAR_CELL);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.ADVANCED_SOLAR_CELL);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.REINFORCED_ADVANCED_SOLAR_CELL);
+
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.BASIC_CIRCUIT);
 
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.SILICON_BLOCK_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.SAWDUST_BLOCK_ITEM);
