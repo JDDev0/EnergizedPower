@@ -733,6 +733,12 @@
   "advancements.energizedpower.gold_plate.title": "金板",
   "advancements.energizedpower.gold_plate.description": "制作一个金板。",
 
+  "advancements.energizedpower.copper_wire.title": "Copper Wire",
+  "advancements.energizedpower.copper_wire.description": "Create a copper wire.",
+
+  "advancements.energizedpower.gold_wire.title": "Gold Wire",
+  "advancements.energizedpower.gold_wire.description": "Create a gold wire.",
+
   "advancements.energizedpower.energized_copper_plate.title": "充能铜板",
   "advancements.energizedpower.energized_copper_plate.description": "制作一个充能铜板",
 
