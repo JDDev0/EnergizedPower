@@ -31,6 +31,7 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
     private void registerCategories(EmiRegistry registry) {
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(ModBlocks.AUTO_CRAFTER_ITEM.get()));
+        registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(ModBlocks.ADVANCED_AUTO_CRAFTER_ITEM.get()));
         registry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(ModBlocks.POWERED_FURNACE_ITEM.get()));
         registry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()));
 
@@ -118,5 +119,6 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
     private void registerRecipeHandlers(EmiRegistry registry) {
         registry.addRecipeHandler(ModMenuTypes.AUTO_CRAFTER_MENU.get(), new AutoCrafterRecipeHandler());
+        registry.addRecipeHandler(ModMenuTypes.ADVANCED_AUTO_CRAFTER_MENU.get(), new AdvancedAutoCrafterRecipeHandler());
     }
 }

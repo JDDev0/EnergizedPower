@@ -30,6 +30,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
     @Override
     public void registerCategories(CategoryRegistry registry) {
         registry.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(ModBlocks.AUTO_CRAFTER_ITEM.get()));
+        registry.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(ModBlocks.ADVANCED_AUTO_CRAFTER_ITEM.get()));
         registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(ModBlocks.POWERED_FURNACE_ITEM.get()));
         registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()));
         registry.addWorkstations(BuiltinPlugin.FUEL, EntryStacks.of(ModBlocks.COAL_ENGINE_ITEM.get()));
@@ -77,6 +78,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
     @Override
     public void registerTransferHandlers(TransferHandlerRegistry registry) {
         registry.register(new AutoCrafterTransferHandler());
+        registry.register(new AdvancedAutoCrafterTransferHandler());
     }
 
     @Override

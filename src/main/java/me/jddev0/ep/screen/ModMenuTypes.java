@@ -28,6 +28,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<AutoCrafterMenu>> AUTO_CRAFTER_MENU = registerMenuType("auto_crafter",
             AutoCrafterMenu::new);
 
+    public static final RegistryObject<MenuType<AdvancedAutoCrafterMenu>> ADVANCED_AUTO_CRAFTER_MENU = registerMenuType("advanced_auto_crafter",
+            AdvancedAutoCrafterMenu::new);
+
     public static final RegistryObject<MenuType<CrusherMenu>> CRUSHER_MENU = registerMenuType("crusher",
             CrusherMenu::new);
 
