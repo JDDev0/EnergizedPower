@@ -117,6 +117,8 @@
   "item.energizedpower.diamond_hammer": "Diamond Hammer",
   "item.energizedpower.netherite_hammer": "Netherite Hammer",
 
+  "item.energizedpower.cutter": "Cutter",
+
   "item.energizedpower.wrench": "Wrench",
   "tooltip.energizedpower.wrench.txt.shift": "The Wrench can be used to configure blocks.",
   "tooltip.energizedpower.wrench.select_face": "Selected face: %s",
@@ -707,6 +709,9 @@
   "advancements.energizedpower.hammer.title": "A good tool",
   "advancements.energizedpower.hammer.description": "Hammers can be used to craft plates.",
 
+  "advancements.energizedpower.cutter.title": "Cut, cut, cut",
+  "advancements.energizedpower.cutter.description": "Cutters can be used to craft wires.",
+
   "advancements.energizedpower.wrench.title": "Wrench configuration",
   "advancements.energizedpower.wrench.description": "Configure blocks with a wrench.",
 
@@ -850,6 +855,8 @@
   "book.energizedpower.page.chapter.tools": "Can be helpful",
 
   "book.energizedpower.page.hammers": "Hammers can be used to craft plates.",
+
+  "book.energizedpower.page.cutters": "Cutters can be used to craft wires.",
 
   "book.energizedpower.page.wrench": "The Wrench can be used to configure blocks.",
 

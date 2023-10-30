@@ -1,0 +1,13 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.cutters",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "image": [
+    "energizedpower:textures/item/cutter.png"
+  ]
+}
