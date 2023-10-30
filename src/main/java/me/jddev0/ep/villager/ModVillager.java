@@ -99,6 +99,10 @@ public final class ModVillager {
                     new ItemStack(ModItems.COPPER_PLATE, 3),
                     new ItemStack(Items.EMERALD, 8),
                     15, 6, .02f);
+            addOffer(factories,
+                    new ItemStack(Items.EMERALD, 12),
+                    new ItemStack(ModItems.CUTTER),
+                    2, 8, .02f);
         });
 
         TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION, 3, factories -> {
