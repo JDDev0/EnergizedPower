@@ -745,6 +745,12 @@
   "advancements.energizedpower.energized_gold_plate.title": "Lastra d'oro energizzata",
   "advancements.energizedpower.energized_gold_plate.description": "Crea una lastra d'oro energizzata.",
 
+  "advancements.energizedpower.energized_copper_wire.title": "Energized Copper Wire",
+  "advancements.energizedpower.energized_copper_wire.description": "Create an energized copper wire.",
+
+  "advancements.energizedpower.energized_gold_wire.title": "Energized Gold Wire",
+  "advancements.energizedpower.energized_gold_wire.description": "Create an energized gold wire.",
+
   "advancements.energizedpower.energizedpower_basics.title": "Energized Power (Basi)",
   "advancements.energizedpower.energizedpower_basics.description": "Questo è l'inizio del tuo viaggio di Energized Power.",
 

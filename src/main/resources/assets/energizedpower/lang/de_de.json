@@ -745,6 +745,12 @@
   "advancements.energizedpower.energized_gold_plate.title": "Energetisierte Goldplatte",
   "advancements.energizedpower.energized_gold_plate.description": "Erstelle eine energetisierte Goldplatte.",
 
+  "advancements.energizedpower.energized_copper_wire.title": "Energetisierter Kupferdraht",
+  "advancements.energizedpower.energized_copper_wire.description": "Erstelle einen energetisierten Kupferdraht.",
+
+  "advancements.energizedpower.energized_gold_wire.title": "Energetisierter Golddraht",
+  "advancements.energizedpower.energized_gold_wire.description": "Erstelle einen energetisierten Golddraht.",
+
   "advancements.energizedpower.energizedpower_basics.title": "Energized Power (Grundlegendes)",
   "advancements.energizedpower.energizedpower_basics.description": "Das ist der Start deiner Energized Power-Reise.",
 
