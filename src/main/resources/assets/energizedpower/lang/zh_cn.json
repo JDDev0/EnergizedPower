@@ -186,6 +186,11 @@
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "输出模式 1：只会输出和剩下的物品。",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "输出模式 2：所有物品都需要有输入项目",
   "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Cycle through recipes",
+  "tooltip.energizedpower.auto_crafter.recipe_index": "Recipe %d",
+
+  "block.energizedpower.advanced_auto_crafter": "Advanced Auto Crafter",
+  "item.energizedpower.advanced_auto_crafter": "Advanced Auto Crafter",
+  "container.energizedpower.advanced_auto_crafter": "Advanced Auto Crafter",
 
   "block.energizedpower.charger": "充能站",
   "item.energizedpower.charger": "充能站",
@@ -527,6 +532,9 @@
 
   "advancements.energizedpower.auto_crafter.title": "未来自动化",
   "advancements.energizedpower.auto_crafter.description": "如果这个方块可以自动制作，谁还愿意手动制作？",
+
+  "advancements.energizedpower.advanced_auto_crafter.title": "Power crafting",
+  "advancements.energizedpower.advanced_auto_crafter.description": "Craft multiple recipes with the same block.",
 
   "advancements.energizedpower.crusher.title": "粉碎",
   "advancements.energizedpower.crusher.description": "石头，砂岩，圆石，沙砾，或其他方块。",
@@ -946,9 +954,10 @@
   "book.energizedpower.page.powered_furnaces.1": "Powered Furnaces works like the Furnace. Instead of coal they use power and they are faster than the normal furnace.",
   "book.energizedpower.page.powered_furnaces.2": "The advanced version of the Powered Furnace has 3 input/output slot pairs.",
 
-  "book.energizedpower.page.auto_crafter.1": "自动合成机会自动合成物品。",
-  "book.energizedpower.page.auto_crafter.2": "可以通过使用自动合成机中的合成槽来放置配方。",
-  "book.energizedpower.page.auto_crafter.3": "The Auto Crafter can handle recipe conflicts, that is recipes with the same inputs. To do this, use the \"Cycle through recipes\" button or set the pattern via a recipe viewer mod (like REI).",
+  "book.energizedpower.page.auto_crafters.1": "自动合成机会自动合成物品。",
+  "book.energizedpower.page.auto_crafters.2": "可以通过使用自动合成机中的合成槽来放置配方。",
+  "book.energizedpower.page.auto_crafters.3": "The Auto Crafter can handle recipe conflicts, that is recipes with the same inputs. To do this, use the \"Cycle through recipes\" button or set the pattern via a recipe viewer mod (like REI).",
+  "book.energizedpower.page.auto_crafters.4": "The advanced version of the Auto Crafter supports multiple recipes at once.",
 
   "book.energizedpower.page.crusher": "粉碎机可以粉碎石头、砂岩、圆石和沙砾等方块。",
 

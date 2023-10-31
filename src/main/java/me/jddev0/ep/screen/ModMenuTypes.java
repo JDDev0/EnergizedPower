@@ -19,6 +19,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<AutoCrafterMenu> AUTO_CRAFTER_MENU = createScreenHandlerType("auto_crafter",
             new ExtendedScreenHandlerType<>(AutoCrafterMenu::new));
 
+    public static final ScreenHandlerType<AdvancedAutoCrafterMenu> ADVANCED_AUTO_CRAFTER_MENU = createScreenHandlerType("advanced_auto_crafter",
+            new ExtendedScreenHandlerType<>(AdvancedAutoCrafterMenu::new));
+
     public static final ScreenHandlerType<CrusherMenu> CRUSHER_MENU = createScreenHandlerType("crusher",
             new ExtendedScreenHandlerType<>(CrusherMenu::new));
 
