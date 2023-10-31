@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "i": {
+      "tag": "c:iron_nuggets"
+    },
+    "I": {
+      "tag": "c:iron_plates"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "I I",
+    " i ",
+    "S S"
+  ],
+  "result": {
+    "item": "energizedpower:cutter"
+  }
+}
