@@ -94,6 +94,8 @@ public final class ModItems {
 
     public static final Item BASIC_CIRCUIT = registerItem("basic_circuit",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+    public static final Item ADVANCED_CIRCUIT = registerItem("advanced_circuit",
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Item ENERGIZED_POWER_BOOK = registerItem("energized_power_book",
             new EnergizedPowerBookItem(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxCount(1)));
