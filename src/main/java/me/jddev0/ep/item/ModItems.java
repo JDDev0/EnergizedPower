@@ -148,6 +148,9 @@ public final class ModItems {
     public static final RegistryObject<Item> NETHERITE_HAMMER = ITEMS.register("netherite_hammer",
             () -> new HammerItem(Tiers.NETHERITE, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).fireResistant()));
 
+    public static final RegistryObject<Item> CUTTER = ITEMS.register("cutter",
+            () -> new CutterItem(Tiers.IRON, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final RegistryObject<Item> WRENCH = ITEMS.register("wrench",
             () -> new WrenchItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
 
