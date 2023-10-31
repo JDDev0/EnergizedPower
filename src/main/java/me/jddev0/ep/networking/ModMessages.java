@@ -20,12 +20,16 @@ public final class ModMessages {
     public static Identifier SYNC_PRESS_MOLD_MAKER_RECIPE_LIST_ID = new Identifier(EnergizedPowerMod.MODID, "sync_press_mold_maker_recipe_list");
     public static Identifier POP_ENERGIZED_POWER_BOOK_FROM_LECTERN_ID = new Identifier(EnergizedPowerMod.MODID, "pop_energized_power_book_from_lectern");
     public static Identifier SET_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID = new Identifier(EnergizedPowerMod.MODID, "set_auto_crafter_pattern_input_slots");
+    public static Identifier SET_ADVANCED_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID = new Identifier(EnergizedPowerMod.MODID, "set_advanced_auto_crafter_pattern_input_slots");
     public static Identifier SET_WEATHER_FROM_WEATHER_CONTROLLER_ID = new Identifier(EnergizedPowerMod.MODID, "set_weather_from_weather_controller");
     public static Identifier SET_TIME_FROM_TIME_CONTROLLER_ID = new Identifier(EnergizedPowerMod.MODID, "set_time_from_time_controller");
     public static Identifier SET_AUTO_CRAFTER_CHECKBOX_ID = new Identifier(EnergizedPowerMod.MODID, "set_auto_crafter_checkbox");
+    public static Identifier SET_ADVANCED_AUTO_CRAFTER_RECIPE_INDEX_ID = new Identifier(EnergizedPowerMod.MODID, "set_advanced_auto_crafter_recipe_index");
+    public static Identifier SET_ADVANCED_AUTO_CRAFTER_CHECKBOX_ID = new Identifier(EnergizedPowerMod.MODID, "set_advanced_auto_crafter_checkbox");
     public static Identifier SET_BLOCK_PLACER_CHECKBOX_ID = new Identifier(EnergizedPowerMod.MODID, "set_block_placer_checkbox");
     public static Identifier SET_ITEM_CONVEYOR_BELT_SORTER_CHECKBOX_ID = new Identifier(EnergizedPowerMod.MODID, "set_item_conveyor_belt_sorter_checkbox");
     public static Identifier CYCLE_AUTO_CRAFTER_RECIPE_OUTPUT_ID = new Identifier(EnergizedPowerMod.MODID, "cycle_auto_crafter_recipe_output");
+    public static Identifier CYCLE_ADVANCED_AUTO_CRAFTER_RECIPE_OUTPUT_ID = new Identifier(EnergizedPowerMod.MODID, "cycle_advanced_auto_crafter_recipe_output");
     public static Identifier CRAFT_PRESS_MOLD_MAKER_RECIPE_ID = new Identifier(EnergizedPowerMod.MODID, "craft_press_mold_maker_recipe");
 
     private ModMessages() {}
@@ -47,17 +51,25 @@ public final class ModMessages {
 
         ServerPlayNetworking.registerGlobalReceiver(SET_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID, SetAutoCrafterPatternInputSlotsC2SPacket::receive);
 
+        ServerPlayNetworking.registerGlobalReceiver(SET_ADVANCED_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::receive);
+
         ServerPlayNetworking.registerGlobalReceiver(SET_WEATHER_FROM_WEATHER_CONTROLLER_ID, SetWeatherFromWeatherControllerC2SPacket::receive);
 
         ServerPlayNetworking.registerGlobalReceiver(SET_TIME_FROM_TIME_CONTROLLER_ID, SetTimeFromTimeControllerC2SPacket::receive);
 
         ServerPlayNetworking.registerGlobalReceiver(SET_AUTO_CRAFTER_CHECKBOX_ID, SetAutoCrafterCheckboxC2SPacket::receive);
 
+        ServerPlayNetworking.registerGlobalReceiver(SET_ADVANCED_AUTO_CRAFTER_RECIPE_INDEX_ID, SetAdvancedAutoCrafterRecipeIndexC2SPacket::receive);
+
+        ServerPlayNetworking.registerGlobalReceiver(SET_ADVANCED_AUTO_CRAFTER_CHECKBOX_ID, SetAdvancedAutoCrafterCheckboxC2SPacket::receive);
+
         ServerPlayNetworking.registerGlobalReceiver(SET_BLOCK_PLACER_CHECKBOX_ID, SetBlockPlacerCheckboxC2SPacket::receive);
 
         ServerPlayNetworking.registerGlobalReceiver(SET_ITEM_CONVEYOR_BELT_SORTER_CHECKBOX_ID, SetItemConveyorBeltSorterCheckboxC2SPacket::receive);
 
         ServerPlayNetworking.registerGlobalReceiver(CYCLE_AUTO_CRAFTER_RECIPE_OUTPUT_ID, CycleAutoCrafterRecipeOutputC2SPacket::receive);
+
+        ServerPlayNetworking.registerGlobalReceiver(CYCLE_ADVANCED_AUTO_CRAFTER_RECIPE_OUTPUT_ID, CycleAdvancedAutoCrafterRecipeOutputC2SPacket::receive);
 
         ServerPlayNetworking.registerGlobalReceiver(CRAFT_PRESS_MOLD_MAKER_RECIPE_ID, CraftPressMoldMakerRecipeC2SPacket::receive);
     }

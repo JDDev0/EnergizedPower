@@ -87,6 +87,14 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
+    public static final BlockEntityType<AdvancedAutoCrafterBlockEntity> ADVANCED_AUTO_CRAFTER_ENTITY = registerEnergyStorage(
+            registerInventoryStorage(
+                    createBlockEntity("advanced_auto_crafter", ModBlocks.ADVANCED_AUTO_CRAFTER, AdvancedAutoCrafterBlockEntity::new),
+                    (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)
+            ),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
+
     public static final BlockEntityType<PressMoldMakerBlockEntity> PRESS_MOLD_MAKER_ENTITY = registerInventoryStorage(
             createBlockEntity("press_mold_maker", ModBlocks.PRESS_MOLD_MAKER, PressMoldMakerBlockEntity::new),
             (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)

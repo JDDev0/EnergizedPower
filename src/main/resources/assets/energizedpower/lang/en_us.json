@@ -186,6 +186,11 @@
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "Extract Mode 1: Output and leftover items only",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "Extract Mode 2: Everything expect input items",
   "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Cycle through recipes",
+  "tooltip.energizedpower.auto_crafter.recipe_index": "Recipe %d",
+
+  "block.energizedpower.advanced_auto_crafter": "Advanced Auto Crafter",
+  "item.energizedpower.advanced_auto_crafter": "Advanced Auto Crafter",
+  "container.energizedpower.advanced_auto_crafter": "Advanced Auto Crafter",
 
   "block.energizedpower.charger": "Charger",
   "item.energizedpower.charger": "Charger",
@@ -527,6 +532,9 @@
 
   "advancements.energizedpower.auto_crafter.title": "Automation is the future",
   "advancements.energizedpower.auto_crafter.description": "Who needs manual crafting tables when this block can do it automatically?",
+
+  "advancements.energizedpower.advanced_auto_crafter.title": "Power crafting",
+  "advancements.energizedpower.advanced_auto_crafter.description": "Craft multiple recipes with the same block.",
 
   "advancements.energizedpower.crusher.title": "Crush it",
   "advancements.energizedpower.crusher.description": "Crush Stone, Sandstone, Cobblestone, Gravel, or other blocks.",
@@ -946,9 +954,10 @@
   "book.energizedpower.page.powered_furnaces.1": "Powered Furnaces works like the Furnace. Instead of coal they use power and they are faster than the normal furnace.",
   "book.energizedpower.page.powered_furnaces.2": "The advanced version of the Powered Furnace has 3 input/output slot pairs.",
 
-  "book.energizedpower.page.auto_crafter.1": "The Auto Crafter crafts items automatically.",
-  "book.energizedpower.page.auto_crafter.2": "The recipe can be set by using the pattern slots.",
-  "book.energizedpower.page.auto_crafter.3": "The Auto Crafter can handle recipe conflicts, that is recipes with the same inputs. To do this, use the \"Cycle through recipes\" button or set the pattern via a recipe viewer mod (like REI).",
+  "book.energizedpower.page.auto_crafters.1": "The Auto Crafter crafts items automatically.",
+  "book.energizedpower.page.auto_crafters.2": "The recipe can be set by using the pattern slots.",
+  "book.energizedpower.page.auto_crafters.3": "The Auto Crafter can handle recipe conflicts, that is recipes with the same inputs. To do this, use the \"Cycle through recipes\" button or set the pattern via a recipe viewer mod (like REI).",
+  "book.energizedpower.page.auto_crafters.4": "The advanced version of the Auto Crafter supports multiple recipes at once.",
 
   "book.energizedpower.page.crusher": "The Crusher can crush blocks like Stone, Sandstone, Cobblestone, and Gravel.",
 

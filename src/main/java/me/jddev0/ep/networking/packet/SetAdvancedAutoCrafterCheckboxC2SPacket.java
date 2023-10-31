@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.block.entity.ItemConveyorBeltSorterBlockEntity;
+import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.network.PacketByteBuf;
@@ -11,8 +11,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 
-public class SetItemConveyorBeltSorterCheckboxC2SPacket {
-    private SetItemConveyorBeltSorterCheckboxC2SPacket() {}
+public class SetAdvancedAutoCrafterCheckboxC2SPacket {
+    private SetAdvancedAutoCrafterCheckboxC2SPacket() {}
 
     public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
                            PacketByteBuf buf, PacketSender responseSender) {
@@ -26,15 +26,15 @@ public class SetItemConveyorBeltSorterCheckboxC2SPacket {
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if(!(blockEntity instanceof ItemConveyorBeltSorterBlockEntity itemConveyorBeltSorterBlockEntity))
+            if(!(blockEntity instanceof AdvancedAutoCrafterBlockEntity advancedAutoCrafterBlockEntity))
                 return;
 
             switch(checkboxId) {
-                //Whitelist [3x]
-                case 0, 1, 2 -> itemConveyorBeltSorterBlockEntity.setWhitelist(checkboxId, checked);
+                //Ignore NBT
+                case 0 -> advancedAutoCrafterBlockEntity.setIgnoreNBT(checked);
 
-                //Ignore NBT [3x]
-                case 3, 4, 5 -> itemConveyorBeltSorterBlockEntity.setIgnoreNBT(checkboxId - 3, checked);
+                //Secondary extract mode
+                case 1 -> advancedAutoCrafterBlockEntity.setSecondaryExtractMode(checked);
             }
         });
     }
