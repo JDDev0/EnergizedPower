@@ -157,10 +157,6 @@ public class EnergizedPowerMod implements ModInitializer {
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.WEATHER_CONTROLLER_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.TIME_CONTROLLER_ITEM);
 
-		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.BASIC_SOLAR_CELL);
-		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.ADVANCED_SOLAR_CELL);
-		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.REINFORCED_ADVANCED_SOLAR_CELL);
-
 		addEmptyAndFullyChargedItem(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.INVENTORY_COAL_ENGINE, InventoryCoalEngineItem.CAPACITY);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.INVENTORY_CHARGER);
 
@@ -181,6 +177,10 @@ public class EnergizedPowerMod implements ModInitializer {
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.HARDENED_MACHINE_FRAME_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.ADVANCED_MACHINE_FRAME_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM);
+
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.BASIC_SOLAR_CELL);
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.ADVANCED_SOLAR_CELL);
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModItems.REINFORCED_ADVANCED_SOLAR_CELL);
 
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.SILICON_BLOCK_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB, ModBlocks.SAWDUST_BLOCK_ITEM);
