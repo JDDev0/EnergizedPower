@@ -76,6 +76,12 @@ public final class ModMessages {
                 consumerMainThread(SetAutoCrafterPatternInputSlotsC2SPacket::handle).
                 add();
 
+        net.messageBuilder(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+                decoder(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::new).
+                encoder(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::toBytes).
+                consumerMainThread(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::handle).
+                add();
+
         net.messageBuilder(SetWeatherFromWeatherControllerC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
                 decoder(SetWeatherFromWeatherControllerC2SPacket::new).
                 encoder(SetWeatherFromWeatherControllerC2SPacket::toBytes).
@@ -94,6 +100,18 @@ public final class ModMessages {
                 consumerMainThread(SetAutoCrafterCheckboxC2SPacket::handle).
                 add();
 
+        net.messageBuilder(SetAdvancedAutoCrafterRecipeIndexC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+                decoder(SetAdvancedAutoCrafterRecipeIndexC2SPacket::new).
+                encoder(SetAdvancedAutoCrafterRecipeIndexC2SPacket::toBytes).
+                consumerMainThread(SetAdvancedAutoCrafterRecipeIndexC2SPacket::handle).
+                add();
+
+        net.messageBuilder(SetAdvancedAutoCrafterCheckboxC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+                decoder(SetAdvancedAutoCrafterCheckboxC2SPacket::new).
+                encoder(SetAdvancedAutoCrafterCheckboxC2SPacket::toBytes).
+                consumerMainThread(SetAdvancedAutoCrafterCheckboxC2SPacket::handle).
+                add();
+
         net.messageBuilder(SetBlockPlacerCheckboxC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
                 decoder(SetBlockPlacerCheckboxC2SPacket::new).
                 encoder(SetBlockPlacerCheckboxC2SPacket::toBytes).
@@ -110,6 +128,12 @@ public final class ModMessages {
                 decoder(CycleAutoCrafterRecipeOutputC2SPacket::new).
                 encoder(CycleAutoCrafterRecipeOutputC2SPacket::toBytes).
                 consumerMainThread(CycleAutoCrafterRecipeOutputC2SPacket::handle).
+                add();
+
+        net.messageBuilder(CycleAdvancedAutoCrafterRecipeOutputC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+                decoder(CycleAdvancedAutoCrafterRecipeOutputC2SPacket::new).
+                encoder(CycleAdvancedAutoCrafterRecipeOutputC2SPacket::toBytes).
+                consumerMainThread(CycleAdvancedAutoCrafterRecipeOutputC2SPacket::handle).
                 add();
 
         net.messageBuilder(CraftPressMoldMakerRecipeC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).

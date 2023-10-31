@@ -426,6 +426,25 @@ public final class ModConfigs {
             "block.auto_crafter", "Auto Crafter", new ArrayList<>(0)
     );
 
+    public static final ConfigValue<Integer> COMMON_ADVANCED_AUTO_CRAFTER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.advanced_auto_crafter", "Advanced Auto Crafter", 16384
+    );
+    public static final ConfigValue<Integer> COMMON_ADVANCED_AUTO_CRAFTER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.advanced_auto_crafter", "Advanced Auto Crafter", 1024
+    );
+    public static final ConfigValue<Integer> COMMON_ADVANCED_AUTO_CRAFTER_ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.advanced_auto_crafter.energy_consumption_per_tick_per_ingredient",
+            "The energy consumption of the Advanced Auto Crafter if active in FE per tick per ingredient",
+            16,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_DURATION = registerRecipeDurationConfigValue(
+            "block.advanced_auto_crafter", "Advanced Auto Crafter", 50
+    );
+    public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
+            "block.advanced_auto_crafter", "Advanced Auto Crafter", new ArrayList<>(0)
+    );
+
     public static final ConfigValue<Integer> COMMON_HEAT_GENERATOR_CAPACITY = registerEnergyCapacityConfigValue(
             "block.heat_generator", "Heat Generator", 10000
     );

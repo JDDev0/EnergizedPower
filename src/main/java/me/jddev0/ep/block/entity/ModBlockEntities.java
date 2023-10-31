@@ -61,6 +61,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("auto_crafter", () -> BlockEntityType.Builder.of(AutoCrafterBlockEntity::new,
                     ModBlocks.AUTO_CRAFTER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<AdvancedAutoCrafterBlockEntity>> ADVANCED_AUTO_CRAFTER_ENTITY =
+            BLOCK_ENTITIES.register("advanced_auto_crafter", () -> BlockEntityType.Builder.of(AdvancedAutoCrafterBlockEntity::new,
+                    ModBlocks.ADVANCED_AUTO_CRAFTER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<PressMoldMakerBlockEntity>> PRESS_MOLD_MAKER_ENTITY =
             BLOCK_ENTITIES.register("press_mold_maker", () -> BlockEntityType.Builder.of(PressMoldMakerBlockEntity::new,
                     ModBlocks.PRESS_MOLD_MAKER.get()).build(null));
