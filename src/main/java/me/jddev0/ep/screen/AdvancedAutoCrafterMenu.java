@@ -14,8 +14,8 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.SlotItemHandler;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements EnergyStorageConsumerIndicatorBarMenu {
     private final AdvancedAutoCrafterBlockEntity blockEntity;
@@ -48,7 +48,7 @@ public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements En
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
+        this.blockEntity.getCapability(Capabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
             for(int i = 0;i < 3;i++)
                 for(int j = 0;j < 9;j++)
                     addSlot(new SlotItemHandler(itemHandler, 9 * i + j, 8 + 18 * j, 75 + 18 * i));

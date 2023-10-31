@@ -16,9 +16,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedList;
@@ -107,11 +107,11 @@ public class FluidAnalyzerItem extends EnergizedPowerEnergyItem {
             return InteractionResult.SUCCESS;
         }
 
-        LazyOptional<IFluidHandler> fluidStorageLazyOptional = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER);
+        LazyOptional<IFluidHandler> fluidStorageLazyOptional = blockEntity.getCapability(Capabilities.FLUID_HANDLER);
         addOutputTextForFluidStorage(components, fluidStorageLazyOptional.isPresent()?fluidStorageLazyOptional.orElse(null):null, false);
 
         components.add(Component.translatable("txt.energizedpower.fluid_analyzer.output_side_information").withStyle(ChatFormatting.GOLD));
-        LazyOptional<IFluidHandler> fluidStorageLazyOptionalSided = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, useOnContext.getClickedFace());
+        LazyOptional<IFluidHandler> fluidStorageLazyOptionalSided = blockEntity.getCapability(Capabilities.FLUID_HANDLER, useOnContext.getClickedFace());
         addOutputTextForFluidStorage(components, fluidStorageLazyOptionalSided.isPresent()?fluidStorageLazyOptional.orElse(null):null, true);
 
         useItem(stack, useOnContext.getPlayer(), components);

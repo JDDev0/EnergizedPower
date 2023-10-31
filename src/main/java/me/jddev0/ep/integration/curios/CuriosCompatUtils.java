@@ -2,8 +2,8 @@ package me.jddev0.ep.integration.curios;
 
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandlerModifiable;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.util.ICuriosHelper;
 
@@ -29,7 +29,8 @@ public final class CuriosCompatUtils {
         if(!isCuriosAvailable())
             return itemStacks;
 
-        ICuriosHelper curiosHelper = CuriosApi.getCuriosHelper();
+        //TODO re-enable
+        /*ICuriosHelper curiosHelper = CuriosApi.getCuriosHelper();
         if(curiosHelper == null)
             return itemStacks;
 
@@ -45,7 +46,7 @@ public final class CuriosCompatUtils {
 
             if(!itemStack.isEmpty())
                 itemStacks.add(itemStack);
-        }
+        }*/
 
         return itemStacks;
     }

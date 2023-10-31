@@ -1,6 +1,6 @@
 package me.jddev0.ep.fluid;
 
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 /**
  * Used for FluidSyncS2CPacket

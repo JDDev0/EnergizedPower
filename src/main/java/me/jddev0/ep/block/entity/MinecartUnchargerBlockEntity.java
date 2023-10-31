@@ -24,10 +24,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -96,7 +96,7 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements MenuPro
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ForgeCapabilities.ENERGY) {
+        if(cap == Capabilities.ENERGY) {
             return lazyEnergyStorage.cast();
         }
 
@@ -175,7 +175,7 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements MenuPro
             if(testBlockEntity == null)
                 continue;
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = testBlockEntity.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite());
+            LazyOptional<IEnergyStorage> energyStorageLazyOptional = testBlockEntity.getCapability(Capabilities.ENERGY, direction.getOpposite());
             if(!energyStorageLazyOptional.isPresent())
                 continue;
 

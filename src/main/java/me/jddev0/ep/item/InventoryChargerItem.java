@@ -19,9 +19,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -111,7 +111,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
 
     private int addConsumerEnergyItem(List<IEnergyStorage> consumerItems, List<Integer> consumerEnergyValues,
                                       ItemStack itemStack, ItemStack testItemStack, Container inventoryChargerInventory) {
-        LazyOptional<IEnergyStorage> energyStorageLazyOptional = testItemStack.getCapability(ForgeCapabilities.ENERGY);
+        LazyOptional<IEnergyStorage> energyStorageLazyOptional = testItemStack.getCapability(Capabilities.ENERGY);
         if(!energyStorageLazyOptional.isPresent())
             return 0;
 
@@ -191,7 +191,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         for(int i = 0;i < inventory.getContainerSize();i++) {
             ItemStack stack = inventory.getItem(i);
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+            LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
             if(!energyStorageLazyOptional.isPresent())
                 continue;
 
@@ -279,7 +279,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
                 @Override
                 public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
                     if(slot >= 0 && slot < getContainerSize()) {
-                        LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+                        LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
                         if(!energyStorageLazyOptional.isPresent())
                             return false;
 
@@ -317,7 +317,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
             @Override
             public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
                 if(slot >= 0 && slot < getContainerSize()) {
-                    LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+                    LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
                     if(!energyStorageLazyOptional.isPresent())
                         return false;
 
@@ -346,7 +346,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         for(int i = 0;i < inventory.getContainerSize();i++) {
             ItemStack stack = inventory.getItem(i);
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+            LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
             if(!energyStorageLazyOptional.isPresent())
                 continue;
 
@@ -369,7 +369,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         for(int i = 0;i < inventory.getContainerSize();i++) {
             ItemStack stack = inventory.getItem(i);
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+            LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
             if(!energyStorageLazyOptional.isPresent())
                 continue;
 
@@ -392,7 +392,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         for(int i = 0;i < inventory.getContainerSize();i++) {
             ItemStack stack = inventory.getItem(i);
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+            LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
             if(!energyStorageLazyOptional.isPresent())
                 continue;
 

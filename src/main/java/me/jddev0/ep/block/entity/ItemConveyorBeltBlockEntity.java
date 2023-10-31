@@ -18,11 +18,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -72,7 +72,7 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ForgeCapabilities.ITEM_HANDLER) {
+        if(cap == Capabilities.ITEM_HANDLER) {
             if(side == null)
                 return lazyItemHandler.cast();
 
@@ -167,7 +167,7 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
         //Descending will insert on same height because it came from one block higher
 
         BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-        LazyOptional<IItemHandler> itemStackStorageLazyOptional = testBlockEntity == null?null:testBlockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, facingDirection.getOpposite());
+        LazyOptional<IItemHandler> itemStackStorageLazyOptional = testBlockEntity == null?null:testBlockEntity.getCapability(Capabilities.ITEM_HANDLER, facingDirection.getOpposite());
         if(itemStackStorageLazyOptional == null || !itemStackStorageLazyOptional.isPresent()) {
             //Check for descending belt facing the same direction one block lower (Will also work if this belt is ascending)
 
@@ -184,7 +184,7 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
             if(!(testBlockEntity instanceof ItemConveyorBeltBlockEntity))
                 return;
 
-            itemStackStorageLazyOptional = testBlockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, facingDirection.getOpposite());
+            itemStackStorageLazyOptional = testBlockEntity.getCapability(Capabilities.ITEM_HANDLER, facingDirection.getOpposite());
             if(!itemStackStorageLazyOptional.isPresent())
                 return;
         }

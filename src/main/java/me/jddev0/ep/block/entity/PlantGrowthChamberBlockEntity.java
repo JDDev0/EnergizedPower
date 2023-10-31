@@ -31,12 +31,12 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -163,7 +163,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ForgeCapabilities.ITEM_HANDLER) {
+        if(cap == Capabilities.ITEM_HANDLER) {
             if(side == null)
                 return lazyItemHandler.cast();
 
@@ -171,7 +171,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
                 return lazyItemHandlerTopBottomSided.cast();
 
             return lazyItemHandlerSidesSided.cast();
-        }else if(cap == ForgeCapabilities.ENERGY) {
+        }else if(cap == Capabilities.ENERGY) {
             return lazyEnergyStorage.cast();
         }
 

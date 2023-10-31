@@ -7,7 +7,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.*;
+import net.neoforged.neoforge.network.*;
+import net.neoforged.neoforge.network.simple.SimpleChannel;
 
 public final class ModMessages {
     private ModMessages() {}
@@ -21,117 +22,119 @@ public final class ModMessages {
     }
 
     public static void register() {
-        SimpleChannel net = ChannelBuilder.named(new ResourceLocation(EnergizedPowerMod.MODID, "messages")).
-                networkProtocolVersion(1).
+        SimpleChannel net = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(EnergizedPowerMod.MODID, "messages")).
+                networkProtocolVersion(() -> "1.0").
+                clientAcceptedVersions(v -> true).
+                serverAcceptedVersions(v -> true).
                 simpleChannel();
 
         INSTANCE = net;
 
         //Server -> Client
-        net.messageBuilder(EnergySyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT).
+        net.messageBuilder(EnergySyncS2CPacket.class, id(), PlayNetworkDirection.PLAY_TO_CLIENT).
                 decoder(EnergySyncS2CPacket::new).
                 encoder(EnergySyncS2CPacket::toBytes).
                 consumerMainThread(EnergySyncS2CPacket::handle).
                 add();
 
-        net.messageBuilder(FluidSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT).
+        net.messageBuilder(FluidSyncS2CPacket.class, id(), PlayNetworkDirection.PLAY_TO_CLIENT).
                 decoder(FluidSyncS2CPacket::new).
                 encoder(FluidSyncS2CPacket::toBytes).
                 consumerMainThread(FluidSyncS2CPacket::handle).
                 add();
 
-        net.messageBuilder(ItemStackSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT).
+        net.messageBuilder(ItemStackSyncS2CPacket.class, id(), PlayNetworkDirection.PLAY_TO_CLIENT).
                 decoder(ItemStackSyncS2CPacket::new).
                 encoder(ItemStackSyncS2CPacket::toBytes).
                 consumerMainThread(ItemStackSyncS2CPacket::handle).
                 add();
 
-        net.messageBuilder(OpenEnergizedPowerBookS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT).
+        net.messageBuilder(OpenEnergizedPowerBookS2CPacket.class, id(), PlayNetworkDirection.PLAY_TO_CLIENT).
                 decoder(OpenEnergizedPowerBookS2CPacket::new).
                 encoder(OpenEnergizedPowerBookS2CPacket::toBytes).
                 consumerMainThread(OpenEnergizedPowerBookS2CPacket::handle).
                 add();
 
-        net.messageBuilder(SyncPressMoldMakerRecipeListS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT).
+        net.messageBuilder(SyncPressMoldMakerRecipeListS2CPacket.class, id(), PlayNetworkDirection.PLAY_TO_CLIENT).
                 decoder(SyncPressMoldMakerRecipeListS2CPacket::new).
                 encoder(SyncPressMoldMakerRecipeListS2CPacket::toBytes).
                 consumerMainThread(SyncPressMoldMakerRecipeListS2CPacket::handle).
                 add();
 
         //Client -> Server
-        net.messageBuilder(PopEnergizedPowerBookFromLecternC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+        net.messageBuilder(PopEnergizedPowerBookFromLecternC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
                 decoder(PopEnergizedPowerBookFromLecternC2SPacket::new).
                 encoder(PopEnergizedPowerBookFromLecternC2SPacket::toBytes).
                 consumerMainThread(PopEnergizedPowerBookFromLecternC2SPacket::handle).
                 add();
 
-        net.messageBuilder(SetAutoCrafterPatternInputSlotsC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+        net.messageBuilder(SetAutoCrafterPatternInputSlotsC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
                 decoder(SetAutoCrafterPatternInputSlotsC2SPacket::new).
                 encoder(SetAutoCrafterPatternInputSlotsC2SPacket::toBytes).
                 consumerMainThread(SetAutoCrafterPatternInputSlotsC2SPacket::handle).
                 add();
 
-        net.messageBuilder(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+        net.messageBuilder(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
                 decoder(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::new).
                 encoder(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::toBytes).
                 consumerMainThread(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::handle).
                 add();
 
-        net.messageBuilder(SetWeatherFromWeatherControllerC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+        net.messageBuilder(SetWeatherFromWeatherControllerC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
                 decoder(SetWeatherFromWeatherControllerC2SPacket::new).
                 encoder(SetWeatherFromWeatherControllerC2SPacket::toBytes).
                 consumerMainThread(SetWeatherFromWeatherControllerC2SPacket::handle).
                 add();
 
-        net.messageBuilder(SetTimeFromTimeControllerC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+        net.messageBuilder(SetTimeFromTimeControllerC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
                 decoder(SetTimeFromTimeControllerC2SPacket::new).
                 encoder(SetTimeFromTimeControllerC2SPacket::toBytes).
                 consumerMainThread(SetTimeFromTimeControllerC2SPacket::handle).
                 add();
 
-        net.messageBuilder(SetAutoCrafterCheckboxC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+        net.messageBuilder(SetAutoCrafterCheckboxC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
                 decoder(SetAutoCrafterCheckboxC2SPacket::new).
                 encoder(SetAutoCrafterCheckboxC2SPacket::toBytes).
                 consumerMainThread(SetAutoCrafterCheckboxC2SPacket::handle).
                 add();
 
-        net.messageBuilder(SetAdvancedAutoCrafterRecipeIndexC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+        net.messageBuilder(SetAdvancedAutoCrafterRecipeIndexC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
                 decoder(SetAdvancedAutoCrafterRecipeIndexC2SPacket::new).
                 encoder(SetAdvancedAutoCrafterRecipeIndexC2SPacket::toBytes).
                 consumerMainThread(SetAdvancedAutoCrafterRecipeIndexC2SPacket::handle).
                 add();
 
-        net.messageBuilder(SetAdvancedAutoCrafterCheckboxC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+        net.messageBuilder(SetAdvancedAutoCrafterCheckboxC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
                 decoder(SetAdvancedAutoCrafterCheckboxC2SPacket::new).
                 encoder(SetAdvancedAutoCrafterCheckboxC2SPacket::toBytes).
                 consumerMainThread(SetAdvancedAutoCrafterCheckboxC2SPacket::handle).
                 add();
 
-        net.messageBuilder(SetBlockPlacerCheckboxC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+        net.messageBuilder(SetBlockPlacerCheckboxC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
                 decoder(SetBlockPlacerCheckboxC2SPacket::new).
                 encoder(SetBlockPlacerCheckboxC2SPacket::toBytes).
                 consumerMainThread(SetBlockPlacerCheckboxC2SPacket::handle).
                 add();
 
-        net.messageBuilder(SetItemConveyorBeltSorterCheckboxC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+        net.messageBuilder(SetItemConveyorBeltSorterCheckboxC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
                 decoder(SetItemConveyorBeltSorterCheckboxC2SPacket::new).
                 encoder(SetItemConveyorBeltSorterCheckboxC2SPacket::toBytes).
                 consumerMainThread(SetItemConveyorBeltSorterCheckboxC2SPacket::handle).
                 add();
 
-        net.messageBuilder(CycleAutoCrafterRecipeOutputC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+        net.messageBuilder(CycleAutoCrafterRecipeOutputC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
                 decoder(CycleAutoCrafterRecipeOutputC2SPacket::new).
                 encoder(CycleAutoCrafterRecipeOutputC2SPacket::toBytes).
                 consumerMainThread(CycleAutoCrafterRecipeOutputC2SPacket::handle).
                 add();
 
-        net.messageBuilder(CycleAdvancedAutoCrafterRecipeOutputC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+        net.messageBuilder(CycleAdvancedAutoCrafterRecipeOutputC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
                 decoder(CycleAdvancedAutoCrafterRecipeOutputC2SPacket::new).
                 encoder(CycleAdvancedAutoCrafterRecipeOutputC2SPacket::toBytes).
                 consumerMainThread(CycleAdvancedAutoCrafterRecipeOutputC2SPacket::handle).
                 add();
 
-        net.messageBuilder(CraftPressMoldMakerRecipeC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+        net.messageBuilder(CraftPressMoldMakerRecipeC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
                 decoder(CraftPressMoldMakerRecipeC2SPacket::new).
                 encoder(CraftPressMoldMakerRecipeC2SPacket::toBytes).
                 consumerMainThread(CraftPressMoldMakerRecipeC2SPacket::handle).
@@ -139,22 +142,22 @@ public final class ModMessages {
     }
 
     public static <MSG> void sendToServer(MSG message) {
-        INSTANCE.send(message, PacketDistributor.SERVER.noArg());
+        INSTANCE.sendToServer(message);
     }
 
     public static <MSG> void sendToPlayer(MSG message, ServerPlayer player) {
-        INSTANCE.send(message, PacketDistributor.PLAYER.with(player));
+        INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
     }
 
     public static <MSG> void sendToPlayerNear(MSG message, PacketDistributor.TargetPoint targetPoint) {
-        INSTANCE.send(message, PacketDistributor.NEAR.with(targetPoint));
+        INSTANCE.send(PacketDistributor.NEAR.with(() -> targetPoint), message);
     }
 
     public static <MSG> void sendToPlayersWithinXBlocks(MSG message, BlockPos pos, ResourceKey<Level> dimension, int distance) {
-        INSTANCE.send(message, PacketDistributor.NEAR.with(new PacketDistributor.TargetPoint(pos.getX(), pos.getY(), pos.getZ(), distance, dimension)));
+        INSTANCE.send(PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(pos.getX(), pos.getY(), pos.getZ(), distance, dimension)), message);
     }
 
     public static <MSG> void sendToAllPlayers(MSG message) {
-        INSTANCE.send(message, PacketDistributor.ALL.noArg());
+        INSTANCE.send(PacketDistributor.ALL.noArg(), message);
     }
 }

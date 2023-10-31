@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.neoforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class TimeControllerBlock extends BaseEntityBlock {
@@ -39,7 +40,7 @@ public class TimeControllerBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof TimeControllerBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        ((ServerPlayer)player).openMenu((TimeControllerBlockEntity)blockEntity, blockPos);
+        NetworkHooks.openScreen((ServerPlayer)player, (TimeControllerBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }

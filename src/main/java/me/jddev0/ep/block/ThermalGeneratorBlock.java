@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.neoforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class ThermalGeneratorBlock extends BaseEntityBlock {
@@ -64,7 +65,7 @@ public class ThermalGeneratorBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof ThermalGeneratorBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        ((ServerPlayer)player).openMenu((ThermalGeneratorBlockEntity)blockEntity, blockPos);
+        NetworkHooks.openScreen((ServerPlayer)player, (ThermalGeneratorBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }

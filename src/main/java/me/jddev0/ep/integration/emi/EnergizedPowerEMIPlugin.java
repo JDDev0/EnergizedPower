@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 
 @EmiEntrypoint
 public class EnergizedPowerEMIPlugin implements EmiPlugin {

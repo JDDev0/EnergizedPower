@@ -6,9 +6,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.network.CustomPayloadEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.network.NetworkEvent;
 
 public class OpenEnergizedPowerBookS2CPacket {
     private final BlockPos pos;
@@ -25,7 +25,7 @@ public class OpenEnergizedPowerBookS2CPacket {
         buffer.writeBlockPos(pos);
     }
 
-    public boolean handle(CustomPayloadEvent.Context context) {
+    public boolean handle(NetworkEvent.Context context) {
         context.enqueueWork(() -> {
             BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(pos);
 

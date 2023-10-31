@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.neoforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -80,7 +81,7 @@ public class AdvancedAutoCrafterBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof AdvancedAutoCrafterBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        ((ServerPlayer)player).openMenu((AdvancedAutoCrafterBlockEntity)blockEntity, blockPos);
+        NetworkHooks.openScreen((ServerPlayer)player, (AdvancedAutoCrafterBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }

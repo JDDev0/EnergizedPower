@@ -9,8 +9,8 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.SlotItemHandler;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class ItemConveyorBeltLoaderMenu extends AbstractContainerMenu {
     private final ItemConveyorBeltLoaderBlockEntity blockEntity;
@@ -29,7 +29,7 @@ public class ItemConveyorBeltLoaderMenu extends AbstractContainerMenu {
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
+        this.blockEntity.getCapability(Capabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
             addSlot(new SlotItemHandler(itemHandler, 0, 80, 35));
         });
     }

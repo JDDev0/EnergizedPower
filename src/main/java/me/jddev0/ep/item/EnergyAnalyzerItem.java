@@ -15,9 +15,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedList;
@@ -103,11 +103,11 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
             return InteractionResult.SUCCESS;
         }
 
-        LazyOptional<IEnergyStorage> energyStorageLazyOptional = blockEntity.getCapability(ForgeCapabilities.ENERGY);
+        LazyOptional<IEnergyStorage> energyStorageLazyOptional = blockEntity.getCapability(Capabilities.ENERGY);
         addOutputTextForEnergyStorage(components, energyStorageLazyOptional.isPresent()?energyStorageLazyOptional.orElse(null):null, false);
 
         components.add(Component.translatable("txt.energizedpower.energy_analyzer.output_side_information").withStyle(ChatFormatting.BLUE));
-        LazyOptional<IEnergyStorage> energyStorageLazyOptionalSided = blockEntity.getCapability(ForgeCapabilities.ENERGY, useOnContext.getClickedFace());
+        LazyOptional<IEnergyStorage> energyStorageLazyOptionalSided = blockEntity.getCapability(Capabilities.ENERGY, useOnContext.getClickedFace());
         addOutputTextForEnergyStorage(components, energyStorageLazyOptionalSided.isPresent()?energyStorageLazyOptionalSided.orElse(null):null, true);
 
         useItem(stack, useOnContext.getPlayer(), components);

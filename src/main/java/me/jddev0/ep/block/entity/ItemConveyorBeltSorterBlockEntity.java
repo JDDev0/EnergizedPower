@@ -24,9 +24,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -190,7 +190,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
                 return;
             }
 
-            LazyOptional<IItemHandler> itemStackStorageLazyOptional = inputBlockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, facing.getOpposite());
+            LazyOptional<IItemHandler> itemStackStorageLazyOptional = inputBlockEntity.getCapability(Capabilities.ITEM_HANDLER, facing.getOpposite());
             if(!itemStackStorageLazyOptional.isPresent()) {
                 updatePoweredState(level, blockPos, state, blockEntity, false);
 
@@ -273,7 +273,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
         if(!(outputBlockEntity instanceof ItemConveyorBeltBlockEntity))
             return null;
 
-        LazyOptional<IItemHandler> itemStackStorageLazyOptional = outputBlockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, direction.getOpposite());
+        LazyOptional<IItemHandler> itemStackStorageLazyOptional = outputBlockEntity.getCapability(Capabilities.ITEM_HANDLER, direction.getOpposite());
         if(!itemStackStorageLazyOptional.isPresent())
             return null;
 

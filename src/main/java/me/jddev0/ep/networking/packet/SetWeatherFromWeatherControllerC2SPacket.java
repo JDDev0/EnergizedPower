@@ -7,10 +7,10 @@ import net.minecraft.core.SectionPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.event.network.CustomPayloadEvent;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.network.NetworkEvent;
 
 public class SetWeatherFromWeatherControllerC2SPacket {
     private final BlockPos pos;
@@ -31,7 +31,7 @@ public class SetWeatherFromWeatherControllerC2SPacket {
         buffer.writeInt(weatherType);
     }
 
-    public boolean handle(CustomPayloadEvent.Context context) {
+    public boolean handle(NetworkEvent.Context context) {
         context.enqueueWork(() -> {
             Level level = context.getSender().level();
             if(!level.hasChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ())))
@@ -41,7 +41,7 @@ public class SetWeatherFromWeatherControllerC2SPacket {
             if(!(blockEntity instanceof WeatherControllerBlockEntity weatherControllerBlockEntity))
                 return;
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = weatherControllerBlockEntity.getCapability(ForgeCapabilities.ENERGY, null);
+            LazyOptional<IEnergyStorage> energyStorageLazyOptional = weatherControllerBlockEntity.getCapability(Capabilities.ENERGY, null);
             if(!energyStorageLazyOptional.isPresent())
                 return;
 

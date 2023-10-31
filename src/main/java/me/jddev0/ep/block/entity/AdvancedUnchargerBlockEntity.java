@@ -26,12 +26,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,7 +51,7 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             if(slot >= 0 && slot < 3) {
-                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
                 if(!energyStorageLazyOptional.isPresent())
                     return false;
 
@@ -69,7 +69,7 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
                 if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSameItem(stack, itemStack) ||
                         (!ItemStack.isSameItemSameTags(stack, itemStack) &&
                                 //Only check if NBT data is equal if one of stack or itemStack is no energy item
-                                !(stack.getCapability(ForgeCapabilities.ENERGY).isPresent() && itemStack.getCapability(ForgeCapabilities.ENERGY).isPresent()))))
+                                !(stack.getCapability(Capabilities.ENERGY).isPresent() && itemStack.getCapability(Capabilities.ENERGY).isPresent()))))
                     resetProgress(slot);
             }
 
@@ -88,7 +88,7 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
                     return false;
 
                 ItemStack stack = itemHandler.getStackInSlot(i);
-                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
                 if(!energyStorageLazyOptional.isPresent())
                     return true;
 
@@ -169,12 +169,12 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ForgeCapabilities.ITEM_HANDLER) {
+        if(cap == Capabilities.ITEM_HANDLER) {
             if(side == null)
                 return lazyItemHandler.cast();
 
             return lazyItemHandlerSided.cast();
-        }else if(cap == ForgeCapabilities.ENERGY) {
+        }else if(cap == Capabilities.ENERGY) {
             return lazyEnergyStorage.cast();
         }
 
@@ -246,7 +246,7 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
             if(blockEntity.hasRecipe(i)) {
                 ItemStack stack = blockEntity.itemHandler.getStackInSlot(i);
 
-                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
                 if(!energyStorageLazyOptional.isPresent())
                     continue;
 
@@ -296,7 +296,7 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
             if(testBlockEntity == null)
                 continue;
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = testBlockEntity.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite());
+            LazyOptional<IEnergyStorage> energyStorageLazyOptional = testBlockEntity.getCapability(Capabilities.ENERGY, direction.getOpposite());
             if(!energyStorageLazyOptional.isPresent())
                 continue;
 
@@ -354,7 +354,7 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
 
     private boolean hasRecipe(int index) {
         ItemStack stack = itemHandler.getStackInSlot(index);
-        return stack.getCapability(ForgeCapabilities.ENERGY).isPresent();
+        return stack.getCapability(Capabilities.ENERGY).isPresent();
     }
 
     public int getEnergy() {

@@ -6,7 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.event.network.CustomPayloadEvent;
+import net.neoforged.neoforge.network.NetworkEvent;
 
 public class ItemStackSyncS2CPacket {
     private final int slot;
@@ -31,7 +31,7 @@ public class ItemStackSyncS2CPacket {
         buffer.writeBlockPos(pos);
     }
 
-    public boolean handle(CustomPayloadEvent.Context context) {
+    public boolean handle(NetworkEvent.Context context) {
         context.enqueueWork(() -> {
             BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(pos);
 

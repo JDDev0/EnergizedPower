@@ -5,7 +5,7 @@ import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.config.validation.ValueValidators;
 import me.jddev0.ep.config.value.*;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.fml.loading.FMLPaths;
+import net.neoforged.fml.loading.FMLPaths;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 

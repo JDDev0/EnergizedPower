@@ -10,8 +10,8 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.SlotItemHandler;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class PoweredFurnaceMenu extends AbstractContainerMenu implements EnergyStorageConsumerIndicatorBarMenu {
     private final PoweredFurnaceBlockEntity blockEntity;
@@ -33,7 +33,7 @@ public class PoweredFurnaceMenu extends AbstractContainerMenu implements EnergyS
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
+        this.blockEntity.getCapability(Capabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
             addSlot(new SlotItemHandler(itemHandler, 0, 48, 35));
             addSlot(new SlotItemHandler(itemHandler, 1, 124, 35));
         });

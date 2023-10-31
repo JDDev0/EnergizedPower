@@ -28,16 +28,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,7 +55,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             if(slot == 0)
-                return stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent();
+                return stack.getCapability(Capabilities.FLUID_HANDLER_ITEM).isPresent();
 
             return super.isItemValid(slot, stack);
         }
@@ -67,8 +67,8 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
                 if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSameItem(stack, itemStack) ||
                         (!ItemStack.isSameItemSameTags(stack, itemStack) &&
                                 //Only check if NBT data is equal if one of stack or itemStack is no fluid item
-                                !(stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent() &&
-                                        itemStack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent()))))
+                                !(stack.getCapability(Capabilities.FLUID_HANDLER_ITEM).isPresent() &&
+                                        itemStack.getCapability(Capabilities.FLUID_HANDLER_ITEM).isPresent()))))
                     resetProgress();
             }
 
@@ -88,7 +88,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
 
                 ItemStack stack = itemHandler.getStackInSlot(i);
 
-                LazyOptional<IFluidHandlerItem> fluidStorageLazyOptional = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
+                LazyOptional<IFluidHandlerItem> fluidStorageLazyOptional = stack.getCapability(Capabilities.FLUID_HANDLER_ITEM);
                 if(!fluidStorageLazyOptional.isPresent())
                     return true;
 
@@ -187,14 +187,14 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ForgeCapabilities.ITEM_HANDLER) {
+        if(cap == Capabilities.ITEM_HANDLER) {
             if(side == null)
                 return lazyItemHandler.cast();
 
             return lazyItemHandlerSided.cast();
-        }else if(cap == ForgeCapabilities.FLUID_HANDLER) {
+        }else if(cap == Capabilities.FLUID_HANDLER) {
             return lazyFluidStorage.cast();
-        }else if(cap == ForgeCapabilities.ENERGY) {
+        }else if(cap == Capabilities.ENERGY) {
             return lazyEnergyStorage.cast();
         }
 
@@ -267,7 +267,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
             if(blockEntity.energyStorage.getEnergy() < ENERGY_USAGE_PER_TICK)
                 return;
 
-            LazyOptional<IFluidHandlerItem> fluidStorageLazyOptional = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
+            LazyOptional<IFluidHandlerItem> fluidStorageLazyOptional = stack.getCapability(Capabilities.FLUID_HANDLER_ITEM);
             if(!fluidStorageLazyOptional.isPresent())
                 return;
 
@@ -331,8 +331,8 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
 
     private boolean hasRecipe() {
         ItemStack stack = itemHandler.getStackInSlot(0);
-        if(stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent()) {
-            LazyOptional<IFluidHandlerItem> fluidStorageLazyOptional = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
+        if(stack.getCapability(Capabilities.FLUID_HANDLER_ITEM).isPresent()) {
+            LazyOptional<IFluidHandlerItem> fluidStorageLazyOptional = stack.getCapability(Capabilities.FLUID_HANDLER_ITEM);
             if(!fluidStorageLazyOptional.isPresent())
                 return false;
 

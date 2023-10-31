@@ -8,7 +8,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.event.network.CustomPayloadEvent;
+import net.neoforged.neoforge.network.NetworkEvent;
 
 public class CycleAutoCrafterRecipeOutputC2SPacket {
     private final BlockPos pos;
@@ -25,7 +25,7 @@ public class CycleAutoCrafterRecipeOutputC2SPacket {
         buffer.writeBlockPos(pos);
     }
 
-    public boolean handle(CustomPayloadEvent.Context context) {
+    public boolean handle(NetworkEvent.Context context) {
         context.enqueueWork(() -> {
             Level level = context.getSender().level();
             if(!level.hasChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ())))

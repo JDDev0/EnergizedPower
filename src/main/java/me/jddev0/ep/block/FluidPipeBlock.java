@@ -33,9 +33,9 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -124,7 +124,7 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
             return InteractionResult.SUCCESS;
         }
 
-        LazyOptional<IFluidHandler> fluidStorageLazyOptional = testBlockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, selectedFace.getOpposite());
+        LazyOptional<IFluidHandler> fluidStorageLazyOptional = testBlockEntity.getCapability(Capabilities.FLUID_HANDLER, selectedFace.getOpposite());
         if(!fluidStorageLazyOptional.isPresent()) {
             if(player instanceof ServerPlayer serverPlayer) {
                 serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
@@ -338,7 +338,7 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
         if(currentConnectionState == ModBlockStateProperties.PipeConnection.NOT_CONNECTED)
             currentConnectionState = ModBlockStateProperties.PipeConnection.CONNECTED;
 
-        LazyOptional<IFluidHandler> fluidStorageLazyOptional = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, direction.getOpposite());
+        LazyOptional<IFluidHandler> fluidStorageLazyOptional = blockEntity.getCapability(Capabilities.FLUID_HANDLER, direction.getOpposite());
         return fluidStorageLazyOptional.isPresent()?currentConnectionState:ModBlockStateProperties.PipeConnection.NOT_CONNECTED;
     }
 

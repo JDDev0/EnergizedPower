@@ -10,8 +10,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -20,13 +20,13 @@ import java.util.function.Supplier;
 public class EnergizedPowerEnergyItem extends Item {
     private final Supplier<IEnergizedPowerEnergyStorage> energyStorageProvider;
     protected static int getEnergy(ItemStack itemStack) {
-        return itemStack.getCapability(ForgeCapabilities.ENERGY).orElse(null).getEnergyStored();
+        return itemStack.getCapability(Capabilities.ENERGY).orElse(null).getEnergyStored();
     }
     protected static void setEnergy(ItemStack itemStack, int energy) {
-        ((ItemCapabilityEnergy)itemStack.getCapability(ForgeCapabilities.ENERGY).orElse(null)).setEnergy(energy);
+        ((ItemCapabilityEnergy)itemStack.getCapability(Capabilities.ENERGY).orElse(null)).setEnergy(energy);
     }
     protected static int getCapacity(ItemStack itemStack) {
-        return itemStack.getCapability(ForgeCapabilities.ENERGY).orElse(null).getMaxEnergyStored();
+        return itemStack.getCapability(Capabilities.ENERGY).orElse(null).getMaxEnergyStored();
     }
 
     public EnergizedPowerEnergyItem(Properties props, Supplier<IEnergizedPowerEnergyStorage> energyStorageProvider) {

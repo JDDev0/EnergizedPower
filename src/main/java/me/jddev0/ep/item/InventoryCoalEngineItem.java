@@ -17,10 +17,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedList;
@@ -70,7 +70,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
 
     private int addConsumerEnergyItem(List<IEnergyStorage> consumerItems, List<Integer> consumerEnergyValues,
                                       ItemStack itemStack, ItemStack testItemStack) {
-        LazyOptional<IEnergyStorage> energyStorageLazyOptional = testItemStack.getCapability(ForgeCapabilities.ENERGY);
+        LazyOptional<IEnergyStorage> energyStorageLazyOptional = testItemStack.getCapability(Capabilities.ENERGY);
         if(!energyStorageLazyOptional.isPresent())
             return 0;
 
@@ -202,7 +202,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
                 continue;
 
             ItemStack testItemStack = inventory.getItem(i);
-            int energyProduction = ForgeHooks.getBurnTime(testItemStack, null);
+            int energyProduction = CommonHooks.getBurnTime(testItemStack, null);
             if(energyProduction <= 0)
                 continue;
 

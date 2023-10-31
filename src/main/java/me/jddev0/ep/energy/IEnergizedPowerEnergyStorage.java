@@ -1,7 +1,7 @@
 package me.jddev0.ep.energy;
 
 import net.minecraft.nbt.Tag;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 
 public interface IEnergizedPowerEnergyStorage extends IEnergyStorage {
     int getEnergy();

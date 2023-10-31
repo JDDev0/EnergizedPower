@@ -26,10 +26,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -75,7 +75,7 @@ public class ChargingStationBlockEntity extends BlockEntity implements MenuProvi
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ForgeCapabilities.ENERGY) {
+        if(cap == Capabilities.ENERGY) {
             return lazyEnergyStorage.cast();
         }
 
@@ -133,7 +133,7 @@ public class ChargingStationBlockEntity extends BlockEntity implements MenuProvi
             for(int i = 0;i < inventory.getContainerSize();i++) {
                 ItemStack itemStack = inventory.getItem(i);
 
-                LazyOptional<IEnergyStorage> energyStorageLazyOptional = itemStack.getCapability(ForgeCapabilities.ENERGY);
+                LazyOptional<IEnergyStorage> energyStorageLazyOptional = itemStack.getCapability(Capabilities.ENERGY);
                 if(!energyStorageLazyOptional.isPresent())
                     continue;
 
@@ -148,7 +148,7 @@ public class ChargingStationBlockEntity extends BlockEntity implements MenuProvi
 
             List<ItemStack> curiosItemStacks = CuriosCompatUtils.getCuriosItemStacks(inventory);
             for(ItemStack itemStack:curiosItemStacks) {
-                LazyOptional<IEnergyStorage> energyStorageLazyOptional = itemStack.getCapability(ForgeCapabilities.ENERGY);
+                LazyOptional<IEnergyStorage> energyStorageLazyOptional = itemStack.getCapability(Capabilities.ENERGY);
                 if(!energyStorageLazyOptional.isPresent())
                     continue;
 

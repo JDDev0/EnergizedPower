@@ -2,7 +2,7 @@ package me.jddev0.ep.util;
 
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 
 public final class InventoryUtils {
     private InventoryUtils() {}

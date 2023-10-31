@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
-import net.minecraftforge.event.network.CustomPayloadEvent;
+import net.neoforged.neoforge.network.NetworkEvent;
 
 public class PopEnergizedPowerBookFromLecternC2SPacket {
     private final BlockPos pos;
@@ -26,7 +26,7 @@ public class PopEnergizedPowerBookFromLecternC2SPacket {
         buffer.writeBlockPos(pos);
     }
 
-    public boolean handle(CustomPayloadEvent.Context context) {
+    public boolean handle(NetworkEvent.Context context) {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             if(!player.mayBuild())

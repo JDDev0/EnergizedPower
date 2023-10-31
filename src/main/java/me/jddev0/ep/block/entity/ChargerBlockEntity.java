@@ -29,12 +29,12 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,7 +55,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
                 if(level == null || RecipeUtils.isIngredientOfAny(level, ChargerRecipe.Type.INSTANCE, stack))
                     return true;
 
-                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
                 if(!energyStorageLazyOptional.isPresent())
                     return false;
 
@@ -73,7 +73,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
                 if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSameItem(stack, itemStack) ||
                         (!ItemStack.isSameItemSameTags(stack, itemStack) &&
                                 //Only check if NBT data is equal if one of stack or itemStack is no energy item
-                                !(stack.getCapability(ForgeCapabilities.ENERGY).isPresent() && itemStack.getCapability(ForgeCapabilities.ENERGY).isPresent()))))
+                                !(stack.getCapability(Capabilities.ENERGY).isPresent() && itemStack.getCapability(Capabilities.ENERGY).isPresent()))))
                     resetProgress();
             }
 
@@ -98,7 +98,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
                 if(level == null || RecipeUtils.isIngredientOfAny(level, ChargerRecipe.Type.INSTANCE, stack))
                     return false;
 
-                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
                 if(!energyStorageLazyOptional.isPresent())
                     return true;
 
@@ -175,12 +175,12 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ForgeCapabilities.ITEM_HANDLER) {
+        if(cap == Capabilities.ITEM_HANDLER) {
             if(side == null)
                 return lazyItemHandler.cast();
 
             return lazyItemHandlerSided.cast();
-        }else if(cap == ForgeCapabilities.ENERGY) {
+        }else if(cap == Capabilities.ENERGY) {
             return lazyEnergyStorage.cast();
         }
 
@@ -257,7 +257,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
                 energyConsumptionPerTick = Math.min(blockEntity.energyConsumptionLeft, Math.min(blockEntity.energyStorage.getMaxReceive(),
                         blockEntity.energyStorage.getEnergy()));
             }else {
-                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
                 if(!energyStorageLazyOptional.isPresent())
                     return;
 
@@ -308,7 +308,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
 
     private boolean hasRecipe() {
         ItemStack stack = itemHandler.getStackInSlot(0);
-        if(stack.getCapability(ForgeCapabilities.ENERGY).isPresent())
+        if(stack.getCapability(Capabilities.ENERGY).isPresent())
             return true;
 
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());

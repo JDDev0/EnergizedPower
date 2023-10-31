@@ -27,13 +27,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -54,7 +54,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             if(slot == 0)
-                return ForgeHooks.getBurnTime(stack, null) > 0;
+                return CommonHooks.getBurnTime(stack, null) > 0;
 
             return super.isItemValid(slot, stack);
         }
@@ -67,7 +67,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
 
                 //Do not allow extraction of fuel items, allow for non fuel items (Bucket of Lava -> Empty Bucket)
                 ItemStack item = itemHandler.getStackInSlot(i);
-                return ForgeHooks.getBurnTime(item, null) <= 0;
+                return CommonHooks.getBurnTime(item, null) <= 0;
             }));
 
     private final ExtractOnlyEnergyStorage energyStorage;
@@ -146,12 +146,12 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ForgeCapabilities.ITEM_HANDLER) {
+        if(cap == Capabilities.ITEM_HANDLER) {
             if(side == null)
                 return lazyItemHandler.cast();
 
             return lazyItemHandlerSided.cast();
-        }else if(cap == ForgeCapabilities.ENERGY) {
+        }else if(cap == Capabilities.ENERGY) {
             return lazyEnergyStorage.cast();
         }
 
@@ -217,7 +217,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
 
             ItemStack item = inventory.getItem(0);
 
-            int energyProduction = ForgeHooks.getBurnTime(item, null);
+            int energyProduction = CommonHooks.getBurnTime(item, null);
             energyProduction = (int)(energyProduction * ENERGY_PRODUCTION_MULTIPLIER);
             if(blockEntity.progress == 0)
                 blockEntity.energyProductionLeft = energyProduction;
@@ -294,7 +294,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
             if(testBlockEntity == null)
                 continue;
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = testBlockEntity.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite());
+            LazyOptional<IEnergyStorage> energyStorageLazyOptional = testBlockEntity.getCapability(Capabilities.ENERGY, direction.getOpposite());
             if(!energyStorageLazyOptional.isPresent())
                 continue;
 
@@ -362,7 +362,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
 
         ItemStack item = inventory.getItem(0);
 
-        if(ForgeHooks.getBurnTime(item, null) <= 0)
+        if(CommonHooks.getBurnTime(item, null) <= 0)
             return false;
 
         return !item.hasCraftingRemainingItem() || item.getCount() == 1;

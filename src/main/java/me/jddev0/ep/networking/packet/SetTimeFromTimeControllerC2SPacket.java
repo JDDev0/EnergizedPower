@@ -6,10 +6,10 @@ import net.minecraft.core.SectionPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.event.network.CustomPayloadEvent;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.network.NetworkEvent;
 
 public class SetTimeFromTimeControllerC2SPacket {
     private final BlockPos pos;
@@ -30,7 +30,7 @@ public class SetTimeFromTimeControllerC2SPacket {
         buffer.writeInt(time);
     }
 
-    public boolean handle(CustomPayloadEvent.Context context) {
+    public boolean handle(NetworkEvent.Context context) {
         context.enqueueWork(() -> {
             Level level = context.getSender().level();
             if(!level.hasChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ())))
@@ -40,7 +40,7 @@ public class SetTimeFromTimeControllerC2SPacket {
             if(!(blockEntity instanceof TimeControllerBlockEntity timeControllerBlockEntity))
                 return;
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = timeControllerBlockEntity.getCapability(ForgeCapabilities.ENERGY, null);
+            LazyOptional<IEnergyStorage> energyStorageLazyOptional = timeControllerBlockEntity.getCapability(Capabilities.ENERGY, null);
             if(!energyStorageLazyOptional.isPresent())
                 return;
 

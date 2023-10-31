@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity.handler;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandlerModifiable;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiPredicate;
