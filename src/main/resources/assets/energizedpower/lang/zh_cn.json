@@ -48,6 +48,7 @@
   "item.energizedpower.reinforced_advanced_solar_cell": "Reinforced Advanced Solar Cell",
 
   "item.energizedpower.basic_circuit": "Basic Circuit",
+  "item.energizedpower.advanced_circuit": "Advanced Circuit",
 
   "item.energizedpower.energized_power_book": "Energized Power 书",
   "tooltip.energizedpower.energized_power_book.txt.shift.1": "Left click a block to open the block's book page.",
