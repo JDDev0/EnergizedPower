@@ -117,6 +117,8 @@
   "item.energizedpower.diamond_hammer": "Martello di diamante",
   "item.energizedpower.netherite_hammer": "Martello di Netherite",
 
+  "item.energizedpower.cutter": "Cutter",
+
   "item.energizedpower.wrench": "Chiave inglese",
   "tooltip.energizedpower.wrench.txt.shift": "La chiave inglese può essere utilizzata per configurare i blocchi.",
   "tooltip.energizedpower.wrench.select_face": "quadrante selezionato: %s",
@@ -707,6 +709,9 @@
   "advancements.energizedpower.hammer.title": "Un buon strumento",
   "advancements.energizedpower.hammer.description": "I martelli possono essere usati per creare lastre.",
 
+  "advancements.energizedpower.cutter.title": "Cut, cut, cut",
+  "advancements.energizedpower.cutter.description": "Cutters can be used to craft wires.",
+
   "advancements.energizedpower.wrench.title": "Configurazione con la chiave inglese",
   "advancements.energizedpower.wrench.description": "Configura i blocchi con una chiave inglese.",
 
@@ -850,6 +855,8 @@
   "book.energizedpower.page.chapter.tools": "Può essere utile",
 
   "book.energizedpower.page.hammers": "I martelli possono essere usati per creare lastre.",
+
+  "book.energizedpower.page.cutters": "Cutters can be used to craft wires.",
 
   "book.energizedpower.page.wrench": "La chiave inglese può essere utilizzata per configurare i blocchi.",
 
