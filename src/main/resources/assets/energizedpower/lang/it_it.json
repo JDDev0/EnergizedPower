@@ -186,6 +186,11 @@
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "Modalità di estrazione 1: solo gli elementi di output e rimanenti",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "Modalità di estrazione 2: tutto prevede anche elementi in ingresso",
   "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Scorri le ricette",
+  "tooltip.energizedpower.auto_crafter.recipe_index": "Recipe %d",
+
+  "block.energizedpower.advanced_auto_crafter": "Advanced Auto Crafter",
+  "item.energizedpower.advanced_auto_crafter": "Advanced Auto Crafter",
+  "container.energizedpower.advanced_auto_crafter": "Advanced Auto Crafter",
 
   "block.energizedpower.charger": "Caricabatterie",
   "item.energizedpower.charger": "Caricabatterie",
@@ -527,6 +532,9 @@
 
   "advancements.energizedpower.auto_crafter.title": "L'automazione è il futuro",
   "advancements.energizedpower.auto_crafter.description": "Chi ha bisogno di tabelle di creazione manuale quando questo blocco può farlo automaticamente?",
+
+  "advancements.energizedpower.advanced_auto_crafter.title": "Power crafting",
+  "advancements.energizedpower.advanced_auto_crafter.description": "Craft multiple recipes with the same block.",
 
   "advancements.energizedpower.crusher.title": "Frantumalo",
   "advancements.energizedpower.crusher.description": "Frantumare pietra, arenaria, ciottoli, ghiaia o altri blocchi.",
@@ -946,9 +954,10 @@
   "book.energizedpower.page.powered_furnaces.1": "Le Fornaci Alimentate funzionano come la Fornace. Invece del carbone usano l'energia e sono più veloci delle normali fornaci.",
   "book.energizedpower.page.powered_furnaces.2": "La versione avanzata della Fornace alimentata dispone di 3 coppie di slot di ingresso/uscita.",
 
-  "book.energizedpower.page.auto_crafter.1": "L'Auto Crafter crea automaticamente gli oggetti.",
-  "book.energizedpower.page.auto_crafter.2": "La ricetta può essere impostata utilizzando gli slot del modello.",
-  "book.energizedpower.page.auto_crafter.3": "L'Auto Crafter può gestire i conflitti di ricette, ovvero ricette con gli stessi input. Per fare ciò, usa il pulsante \"Scorri le ricette\" o imposta lo schema tramite un mod visualizzatore di ricette (come REI).",
+  "book.energizedpower.page.auto_crafters.1": "L'Auto Crafter crea automaticamente gli oggetti.",
+  "book.energizedpower.page.auto_crafters.2": "La ricetta può essere impostata utilizzando gli slot del modello.",
+  "book.energizedpower.page.auto_crafters.3": "L'Auto Crafter può gestire i conflitti di ricette, ovvero ricette con gli stessi input. Per fare ciò, usa il pulsante \"Scorri le ricette\" o imposta lo schema tramite un mod visualizzatore di ricette (come REI).",
+  "book.energizedpower.page.auto_crafters.4": "The advanced version of the Auto Crafter supports multiple recipes at once.",
 
   "book.energizedpower.page.crusher": "Il Frantumatore può frantumare blocchi come Pietra, Arenaria, Ciottoli e Ghiaia.",
 

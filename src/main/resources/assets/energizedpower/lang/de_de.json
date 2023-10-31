@@ -186,6 +186,11 @@
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "Extrahierungsmodus 1: Nur Ausgabe-Items und übrig bleibende Items",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "Extrahierungsmodus 2: Alles außer Eingabe-Items",
   "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Rezepte durchlaufen",
+  "tooltip.energizedpower.auto_crafter.recipe_index": "Rezept %d",
+
+  "block.energizedpower.advanced_auto_crafter": "Fortgeschrittene Automatische Werkbank",
+  "item.energizedpower.advanced_auto_crafter": "Fortgeschrittene Automatische Werkbank",
+  "container.energizedpower.advanced_auto_crafter": "Fortgeschrittene Automatische Werkbank",
 
   "block.energizedpower.charger": "Lader",
   "item.energizedpower.charger": "Lader",
@@ -527,6 +532,9 @@
 
   "advancements.energizedpower.auto_crafter.title": "Automatisierung ist die Zukunft",
   "advancements.energizedpower.auto_crafter.description": "Wer braucht schon manuelles Herstellen, wenn dieser Block das automatisch kann?",
+
+  "advancements.energizedpower.advanced_auto_crafter.title": "Power-Crafting",
+  "advancements.energizedpower.advanced_auto_crafter.description": "Crafte mehrere Rezepte mit dem selben Block.",
 
   "advancements.energizedpower.crusher.title": "Zerkleinere es",
   "advancements.energizedpower.crusher.description": "Zerkleinere Stein, Sandstein, Bruchstein, Kies oder andere Blöcke.",
@@ -946,9 +954,10 @@
   "book.energizedpower.page.powered_furnaces.1": "Elektroöfen funktionieren wie ein Ofen, verwenden aber statt Kohle Strom. Sie sind auch schneller als der normale Ofen.",
   "book.energizedpower.page.powered_furnaces.2": "Die fortgeschrittene Version vom Elektroofen hat 3 Eingabe-/Ausgabe-Slot-Paare.",
 
-  "book.energizedpower.page.auto_crafter.1": "Die automatische Werkbank stellt Items automatisch her.",
-  "book.energizedpower.page.auto_crafter.2": "Die Rezepte können in den Pattern-Feldern definiert werden.",
-  "book.energizedpower.page.auto_crafter.3": "Die automatische Werkbank kann mit Rezept-Konflikten umgehen, d.h. Rezepte mit den gleichen Items. Nutze dafür den \"Rezepte durchlaufen\"-Button oder setzte das Pattern mithilfe einer Recipe-Viewer-Mod (wie REI).",
+  "book.energizedpower.page.auto_crafters.1": "Die automatische Werkbank stellt Items automatisch her.",
+  "book.energizedpower.page.auto_crafters.2": "Die Rezepte können in den Pattern-Feldern definiert werden.",
+  "book.energizedpower.page.auto_crafters.3": "Die automatische Werkbank kann mit Rezept-Konflikten umgehen, d.h. Rezepte mit den gleichen Items. Nutze dafür den \"Rezepte durchlaufen\"-Button oder setzte das Pattern mithilfe einer Recipe-Viewer-Mod (wie REI).",
+  "book.energizedpower.page.auto_crafters.4": "Die fortgeschrittene Version der automatischen Werkbank untersützt mehrere Rezpte auf einmal.",
 
   "book.energizedpower.page.crusher": "Der Zerkleinerer kann Items wie Sand, Sandstein, Bruchstein und Kies zerkleinern.",
 
