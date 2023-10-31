@@ -89,6 +89,9 @@ public final class ModItems {
     public static final RegistryObject<Item> REINFORCED_ADVANCED_SOLAR_CELL = ITEMS.register("reinforced_advanced_solar_cell",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final RegistryObject<Item> BASIC_CIRCUIT = ITEMS.register("basic_circuit",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final RegistryObject<Item> ENERGIZED_POWER_BOOK = ITEMS.register("energized_power_book",
             () -> new EnergizedPowerBookItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
 
