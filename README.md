@@ -12,7 +12,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Press Mold Maker
 - Advanced Powered Furnace (3 input/output slot pairs)
 - Auto Crafter (Can handle recipe conflicts, that is recipes with the same inputs)
-- Advanced Auto Crafter (3 recipes at once) (**In next release (v2.3.0)**)
+- Advanced Auto Crafter (3 recipes at once)
 - Crusher
 - Pulverizer
 - Sawmill
@@ -130,6 +130,7 @@ A tutorial world showcasing all the features of this mod can be downloaded on Cu
 
 ## Supported versions:
 Mod version: MC version
+- 2.3.x: 1.20.2, 1.20.1, 1.19.4, 1.19.2
 - 2.2.x: 1.20.2, 1.20.1, 1.19.4, 1.19.2
 - 2.1.x: 1.20.2, 1.20.1, 1.19.4, 1.19.3, 1.19.2
 - 2.0.x: 1.20.1, 1.19.4, 1.19.3, 1.19.2
