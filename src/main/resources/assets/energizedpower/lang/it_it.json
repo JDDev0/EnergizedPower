@@ -47,8 +47,8 @@
   "item.energizedpower.advanced_solar_cell": "Cella solare avanzata",
   "item.energizedpower.reinforced_advanced_solar_cell": "Cella solare avanzata rinforzata",
 
-  "item.energizedpower.basic_circuit": "Basic Circuit",
-  "item.energizedpower.advanced_circuit": "Advanced Circuit",
+  "item.energizedpower.basic_circuit": "Circuito base",
+  "item.energizedpower.advanced_circuit": "Circiuto avanzato",
 
   "item.energizedpower.energized_power_book": "Libro del energized power",
   "tooltip.energizedpower.energized_power_book.txt.shift.1": "Fare clic con il tasto sinistro del mouse su un blocco per aprire la pagina del libro del blocco.",
@@ -120,7 +120,7 @@
   "item.energizedpower.diamond_hammer": "Martello di diamante",
   "item.energizedpower.netherite_hammer": "Martello di Netherite",
 
-  "item.energizedpower.cutter": "Cutter",
+  "item.energizedpower.cutter": "Taglierino",
 
   "item.energizedpower.wrench": "Chiave inglese",
   "tooltip.energizedpower.wrench.txt.shift": "La chiave inglese può essere utilizzata per configurare i blocchi.",
@@ -193,9 +193,9 @@
   "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Scorri le ricette",
   "tooltip.energizedpower.auto_crafter.recipe_index": "Recipe %d",
 
-  "block.energizedpower.advanced_auto_crafter": "Advanced Auto Crafter",
-  "item.energizedpower.advanced_auto_crafter": "Advanced Auto Crafter",
-  "container.energizedpower.advanced_auto_crafter": "Advanced Auto Crafter",
+  "block.energizedpower.advanced_auto_crafter": "Auto Crafter Avanzato",
+  "item.energizedpower.advanced_auto_crafter": "Auto Crafter Avanzato",
+  "container.energizedpower.advanced_auto_crafter": "Auto Crafter Avanzato",
 
   "block.energizedpower.charger": "Caricabatterie",
   "item.energizedpower.charger": "Caricabatterie",
@@ -526,11 +526,11 @@
   "advancements.energizedpower.reinforced_advanced_solar_cell.title": "Energia solare ancora migliore",
   "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Necessario per i migliori pannelli solari...",
 
-  "advancements.energizedpower.basic_circuit.title": "Basic Circuit",
-  "advancements.energizedpower.basic_circuit.description": "Craft a basic circuit.",
+  "advancements.energizedpower.basic_circuit.title": "Circuito di base",
+  "advancements.energizedpower.basic_circuit.description": "Crea un circuito di base.",
 
-  "advancements.energizedpower.advanced_circuit.title": "Advanced Circuit",
-  "advancements.energizedpower.advanced_circuit.description": "Craft an advanced circuit.",
+  "advancements.energizedpower.advanced_circuit.title": "Circuito Avanzato",
+  "advancements.energizedpower.advanced_circuit.description": "Crea un circuito avanzato.",
 
   "advancements.energizedpower.press_mold_maker.title": "Pressa creatore di stampi",
   "advancements.energizedpower.press_mold_maker.description": "Usa questo blocco per realizzare stampi per la pressa per metalli.",
@@ -544,8 +544,8 @@
   "advancements.energizedpower.auto_crafter.title": "L'automazione è il futuro",
   "advancements.energizedpower.auto_crafter.description": "Chi ha bisogno di tabelle di creazione manuale quando questo blocco può farlo automaticamente?",
 
-  "advancements.energizedpower.advanced_auto_crafter.title": "Power crafting",
-  "advancements.energizedpower.advanced_auto_crafter.description": "Craft multiple recipes with the same block.",
+  "advancements.energizedpower.advanced_auto_crafter.title": "Auto craft avanzato",
+  "advancements.energizedpower.advanced_auto_crafter.description": "Crea più ricette con lo stesso blocco.",
 
   "advancements.energizedpower.crusher.title": "Frantumalo",
   "advancements.energizedpower.crusher.description": "Frantumare pietra, arenaria, ciottoli, ghiaia o altri blocchi.",
@@ -718,8 +718,8 @@
   "advancements.energizedpower.hammer.title": "Un buon strumento",
   "advancements.energizedpower.hammer.description": "I martelli possono essere usati per creare lastre.",
 
-  "advancements.energizedpower.cutter.title": "Cut, cut, cut",
-  "advancements.energizedpower.cutter.description": "Cutters can be used to craft wires.",
+  "advancements.energizedpower.cutter.title": "Taglia, taglia, taglia",
+  "advancements.energizedpower.cutter.description": "Le tronchesi possono essere utilizzati per realizzare fili.",
 
   "advancements.energizedpower.wrench.title": "Configurazione con la chiave inglese",
   "advancements.energizedpower.wrench.description": "Configura i blocchi con una chiave inglese.",
@@ -739,11 +739,11 @@
   "advancements.energizedpower.gold_plate.title": "Lastra d'oro",
   "advancements.energizedpower.gold_plate.description": "Crea una lastra d'oro.",
 
-  "advancements.energizedpower.copper_wire.title": "Copper Wire",
-  "advancements.energizedpower.copper_wire.description": "Create a copper wire.",
+  "advancements.energizedpower.copper_wire.title": "Filo di rame",
+  "advancements.energizedpower.copper_wire.description": "Crea un filo di rame.",
 
-  "advancements.energizedpower.gold_wire.title": "Gold Wire",
-  "advancements.energizedpower.gold_wire.description": "Create a gold wire.",
+  "advancements.energizedpower.gold_wire.title": "Filo d'oro",
+  "advancements.energizedpower.gold_wire.description": "Crea un filo d'oro.",
 
   "advancements.energizedpower.energized_copper_plate.title": "Lastra di rame energizzata",
   "advancements.energizedpower.energized_copper_plate.description": "Crea una lastra di rame energizzata.",
@@ -751,11 +751,11 @@
   "advancements.energizedpower.energized_gold_plate.title": "Lastra d'oro energizzata",
   "advancements.energizedpower.energized_gold_plate.description": "Crea una lastra d'oro energizzata.",
 
-  "advancements.energizedpower.energized_copper_wire.title": "Energized Copper Wire",
-  "advancements.energizedpower.energized_copper_wire.description": "Create an energized copper wire.",
+  "advancements.energizedpower.energized_copper_wire.title": "Filo di rame energizzato",
+  "advancements.energizedpower.energized_copper_wire.description": "Crea un filo di rame energizzato.",
 
-  "advancements.energizedpower.energized_gold_wire.title": "Energized Gold Wire",
-  "advancements.energizedpower.energized_gold_wire.description": "Create an energized gold wire.",
+  "advancements.energizedpower.energized_gold_wire.title": "Filo d'oro energizzato",
+  "advancements.energizedpower.energized_gold_wire.description": "Crea un filo d'oro energizzato.",
 
   "advancements.energizedpower.energizedpower_basics.title": "Energized Power (Basi)",
   "advancements.energizedpower.energizedpower_basics.description": "Questo è l'inizio del tuo viaggio di Energized Power.",
@@ -879,7 +879,7 @@
 
   "book.energizedpower.page.hammers": "I martelli possono essere usati per creare lastre.",
 
-  "book.energizedpower.page.cutters": "Cutters can be used to craft wires.",
+  "book.energizedpower.page.cutters": "Le tronchesi possono essere utilizzati per realizzare fili.",
 
   "book.energizedpower.page.wrench": "La chiave inglese può essere utilizzata per configurare i blocchi.",
 
