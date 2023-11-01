@@ -202,6 +202,7 @@ public class EnergizedPowerMod {
             event.accept(ModItems.ADVANCED_CIRCUIT);
 
             event.accept(ModItems.TELEPORTER_MATRIX);
+            event.accept(ModItems.TELEPORTER_PROCESSING_UNIT);
 
             event.accept(ModBlocks.SILICON_BLOCK_ITEM);
             event.accept(ModBlocks.SAWDUST_BLOCK_ITEM);

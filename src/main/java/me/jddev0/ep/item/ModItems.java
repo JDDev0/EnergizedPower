@@ -96,6 +96,8 @@ public final class ModItems {
 
     public static final RegistryObject<Item> TELEPORTER_MATRIX = ITEMS.register("teleporter_matrix",
             () -> new TeleporterMatrixItem(new Item.Properties()));
+    public static final RegistryObject<Item> TELEPORTER_PROCESSING_UNIT = ITEMS.register("teleporter_processing_unit",
+            () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> ENERGIZED_POWER_BOOK = ITEMS.register("energized_power_book",
             () -> new EnergizedPowerBookItem(new Item.Properties().stacksTo(1)));

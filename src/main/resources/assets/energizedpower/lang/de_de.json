@@ -76,6 +76,8 @@
   "tooltip.energizedpower.teleporter_matrix.dimension": "Dimension: ",
   "tooltip.energizedpower.teleporter_matrix.txt.shift": "Die Teleporter-Matrix kann zum linken von Teleportern verwendet werden.",
 
+  "item.energizedpower.teleporter_processing_unit": "Teleporter Prozessoreinheit",
+
   "item.energizedpower.inventory_coal_engine": "Inventar Kohlegenerator",
   "tooltip.energizedpower.inventory_coal_engine.status": "Status: ",
   "tooltip.energizedpower.inventory_coal_engine.status.activated": "Aktiviert",
@@ -643,6 +645,9 @@
 
   "advancements.energizedpower.teleporter_matrix.title": "Teleporter-Matrix",
   "advancements.energizedpower.teleporter_matrix.description": "Der erste Schritt, um Teleportation zu erreichen.",
+
+  "advancements.energizedpower.teleporter_processing_unit.title": "Teleporter Prozessoreinheit",
+  "advancements.energizedpower.teleporter_processing_unit.description": "Das Gehirn eines Teleporters.",
 
   "advancements.energizedpower.weather_controller.title": "Steuere das Wetter",
   "advancements.energizedpower.weather_controller.description": "Ändere das Wetter mit dem Wetter-Controller.",
