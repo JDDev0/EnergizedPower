@@ -85,16 +85,6 @@ public class TeleporterMatrixItem extends Item {
         BlockPos blockPos = useOnContext.getClickedPos();
         BlockState state = level.getBlockState(blockPos);
         Block block = state.getBlock();
-        //TODO check if block is teleporter block
-        if(/*!(block instanceof TeleporterBlock)*/false) {
-            if(player instanceof ServerPlayer serverPlayer) {
-                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
-                        Component.translatable("tooltip.energizedpower.teleporter_matrix.set.invalid").withStyle(ChatFormatting.RED)
-                ));
-            }
-
-            return InteractionResult.SUCCESS;
-        }
 
         ItemStack itemStack = useOnContext.getItemInHand();
 
@@ -105,11 +95,22 @@ public class TeleporterMatrixItem extends Item {
 
         nbt.putString("dim", level.dimension().location().toString());
 
-        if(player instanceof ServerPlayer serverPlayer) {
-            serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
-                    Component.translatable("tooltip.energizedpower.teleporter_matrix.set").
-                            withStyle(ChatFormatting.GREEN)
-            ));
+        //TODO check if block is teleporter block
+        if(/*!(block instanceof TeleporterBlock)*/false) {
+            if(player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.teleporter_matrix.set.warning").
+                                withStyle(ChatFormatting.YELLOW)
+                ));
+            }
+        }else {
+            if(player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.teleporter_matrix.set").
+                                withStyle(ChatFormatting.GREEN)
+                ));
+            }
+
         }
 
         return InteractionResult.SUCCESS;
