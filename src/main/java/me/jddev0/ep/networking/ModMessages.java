@@ -89,6 +89,12 @@ public final class ModMessages {
                 consumerMainThread(SetTimeFromTimeControllerC2SPacket::handle).
                 add();
 
+        net.messageBuilder(UseTeleporterC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+                decoder(UseTeleporterC2SPacket::new).
+                encoder(UseTeleporterC2SPacket::toBytes).
+                consumerMainThread(UseTeleporterC2SPacket::handle).
+                add();
+
         net.messageBuilder(SetAutoCrafterCheckboxC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
                 decoder(SetAutoCrafterCheckboxC2SPacket::new).
                 encoder(SetAutoCrafterCheckboxC2SPacket::toBytes).
