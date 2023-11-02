@@ -41,6 +41,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Advanced Battery Box
 - Weather Controller
 - Time Controller
+- Teleporter (Highly configurable) (**In next release (v2.4.0)**)
 
 Every machine supports auto-insert and auto-extract of items from all block faces.
 
