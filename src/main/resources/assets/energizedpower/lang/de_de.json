@@ -467,6 +467,8 @@
   "tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_dimension": "Teleporter-Matrix enthält eine ungültige Dimension!",
   "tooltip.energizedpower.teleporter.use.teleporter_self_position": "Teleporation zum Teleporter selber ist nicht möglich!",
   "tooltip.energizedpower.teleporter.use.teleporter_matrix_no_teleporter": "Kein Teleporter wurde an den Teleporter-Matrix-Koordinaten gefunden!",
+  "tooltip.energizedpower.teleporter.use.intra_dimensional_disabled": "Intra-Dimensionale Teleportation ist deaktiviert",
+  "tooltip.energizedpower.teleporter.use.inter_dimensional_disabled": "Inter-Dimensionale Teleportation ist deaktiviert",
   "tooltip.energizedpower.teleporter.use.blacklist.dimension": "Teleportation für die Dimension \"%s\" ist deaktiviert!",
   "tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional": "Teleportation innerhalb der Dimension \"%s\" ist deaktiviert!",
   "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from": "Teleportation von der Dimension \"%s\" ist deaktiviert!",
