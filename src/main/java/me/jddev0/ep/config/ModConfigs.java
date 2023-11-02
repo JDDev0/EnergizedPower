@@ -279,12 +279,12 @@ public final class ModConfigs {
     ));
     public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_TELEPORTER_INTER_DIMENSIONAL_FROM_TYPE_BLACKLIST = COMMON_CONFIG.register(new ResourceLocationListConfigValue(
             "block.teleporter.inter_dimension_from_type_blacklist",
-            "Teleportation from dimension typess in this list are not allowed.\nTeleportation within and to dimension types in this list are still allowed.",
+            "Teleportation from dimension types in this list are not allowed.\nTeleportation within and to dimension types in this list are still allowed.",
             new ArrayList<>(0)
     ));
     public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_TYPE_BLACKLIST = COMMON_CONFIG.register(new ResourceLocationListConfigValue(
             "block.teleporter.inter_dimension_to_type_blacklist",
-            "Teleportation to dimension typess in this list are not allowed.\nTeleportation within and from dimension types in this list are still allowed.",
+            "Teleportation to dimension types in this list are not allowed.\nTeleportation within and from dimension types in this list are still allowed.",
             new ArrayList<>(0)
     ));
 
