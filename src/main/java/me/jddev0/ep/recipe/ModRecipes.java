@@ -7,6 +7,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.ForgeRegistries;
 import net.neoforged.neoforge.registries.RegistryObject;
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 
 public final class ModRecipes {
     private ModRecipes() {}
@@ -73,6 +74,10 @@ public final class ModRecipes {
             register("metal_press", () -> MetalPressRecipe.Serializer.INSTANCE);
     public static final RegistryObject<RecipeType<MetalPressRecipe>> METAL_PRESS_TYPE = TYPES.
             register("metal_press", () -> MetalPressRecipe.Type.INSTANCE);
+
+    public static final RegistryObject<RecipeSerializer<TeleporterMatrixSettingsCopyRecipe>>
+            TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER = SERIALIZERS.register("teleporter_matrix_settings_copy",
+            () -> new SimpleCraftingRecipeSerializer<>(TeleporterMatrixSettingsCopyRecipe::new));
 
     public static void register(IEventBus modEventBus) {
         SERIALIZERS.register(modEventBus);
