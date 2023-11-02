@@ -473,6 +473,10 @@
   "tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional": "Teleportation within the dimension \"%s\" is disabled!",
   "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from": "Teleportation from the dimension \"%s\" is disabled!",
   "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to": "Teleportation to the dimension \"%s\" is disabled!",
+  "tooltip.energizedpower.teleporter.use.blacklist.dimension_type": "Teleportation for a dimension of dimension type \"%s\" is disabled!",
+  "tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional_type": "Teleportation within a dimension of dimension type \"%s\" is disabled!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from_type": "Teleportation from a dimension of dimension type \"%s\" is disabled!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to_type": "Teleportation to a dimension of dimension type \"%s\" is disabled!",
 
   "block.energizedpower.basic_machine_frame": "Telaio base della macchina",
   "item.energizedpower.basic_machine_frame": "Telaio base della macchina",

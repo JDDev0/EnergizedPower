@@ -196,7 +196,61 @@ public class UseTeleporterC2SPacket {
                 return;
             }
 
-            //TODO add blacklist checks
+            ResourceLocation fromDimensionTypeId = level.dimensionTypeId().location();
+            ResourceLocation toDimensionTypeId = toDimension.dimensionTypeId().location();
+
+            //Dimension Type Blacklist
+            if(TeleporterBlockEntity.DIMENSION_TYPE_BLACKLIST.contains(fromDimensionTypeId)) {
+                player.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.teleporter.use.blacklist.dimension_type",
+                                        fromDimensionTypeId.toString()).
+                                withStyle(ChatFormatting.RED)
+                ));
+
+                return;
+            }
+            if(TeleporterBlockEntity.DIMENSION_TYPE_BLACKLIST.contains(toDimensionTypeId)) {
+                player.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.teleporter.use.blacklist.dimension_type",
+                                        toDimensionTypeId.toString()).
+                                withStyle(ChatFormatting.RED)
+                ));
+
+                return;
+            }
+
+            //Intra Dimension Type Blacklist
+            if(intraDimensional && TeleporterBlockEntity.INTRA_DIMENSIONAL_TYPE_BLACKLIST.contains(fromDimensionTypeId)) {
+                player.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional_type",
+                                        fromDimensionTypeId.toString()).
+                                withStyle(ChatFormatting.RED)
+                ));
+
+                return;
+            }
+
+            //Inter Dimension From Type Blacklist
+            if(!intraDimensional && TeleporterBlockEntity.INTER_DIMENSIONAL_FROM_TYPE_BLACKLIST.contains(fromDimensionTypeId)) {
+                player.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from_type",
+                                        fromDimensionTypeId.toString()).
+                                withStyle(ChatFormatting.RED)
+                ));
+
+                return;
+            }
+
+            //Inter Dimension To Type Blacklist
+            if(!intraDimensional && TeleporterBlockEntity.INTER_DIMENSIONAL_TO_TYPE_BLACKLIST.contains(toDimensionTypeId)) {
+                player.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to_type",
+                                        toDimensionTypeId.toString()).
+                                withStyle(ChatFormatting.RED)
+                ));
+
+                return;
+            }
 
             ///Do not check if chunk is loaded, chunk will be loaded by player after teleportation
             BlockEntity toBlockEntity = toDimension.getBlockEntity(toPos);
