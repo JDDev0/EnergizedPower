@@ -467,6 +467,10 @@
   "tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_dimension": "Teleporter Matrix contains an invalid dimension!",
   "tooltip.energizedpower.teleporter.use.teleporter_self_position": "Teleporation to the Teleporter itself is not possible!",
   "tooltip.energizedpower.teleporter.use.teleporter_matrix_no_teleporter": "No Teleporter found at Teleporter Matrix coordinates!",
+  "tooltip.energizedpower.teleporter.use.blacklist.dimension": "Teleportation for the dimension \"%s\" is disabled!",
+  "tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional": "Teleportation within the dimension \"%s\" is disabled!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from": "Teleportation from the dimension \"%s\" is disabled!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to": "Teleportation to the dimension \"%s\" is disabled!",
 
   "block.energizedpower.basic_machine_frame": "基础机器框架",
   "item.energizedpower.basic_machine_frame": "基础机器框架",
