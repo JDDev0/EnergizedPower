@@ -5,18 +5,19 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public record MetalPressDisplay(MetalPressRecipe recipe) implements Display {
+public record MetalPressDisplay(RecipeHolder<MetalPressRecipe> recipe) implements Display {
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(
-                EntryIngredients.of(recipe.getPressMold()),
-                EntryIngredients.ofItemStacks(Arrays.stream(recipe.getInput().getItems()).
-                        map(itemStack -> itemStack.copyWithCount(recipe.getInputCount())).
+                EntryIngredients.of(recipe.value().getPressMold()),
+                EntryIngredients.ofItemStacks(Arrays.stream(recipe.value().getInput().getItems()).
+                        map(itemStack -> itemStack.copyWithCount(recipe.value().getInputCount())).
                         collect(Collectors.toList()))
         );
     }
@@ -24,7 +25,7 @@ public record MetalPressDisplay(MetalPressRecipe recipe) implements Display {
     @Override
     public List<EntryIngredient> getOutputEntries() {
         return List.of(
-                EntryIngredients.of(recipe.getOutput())
+                EntryIngredients.of(recipe.value().getOutput())
         );
     }
 

@@ -1,5 +1,7 @@
 package me.jddev0.ep.integration.rei;
 
+import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.SetAdvancedAutoCrafterPatternInputSlotsC2SPacket;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.transfer.TransferHandler;
@@ -11,6 +13,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +26,7 @@ public class AdvancedAutoCrafterTransferHandler implements TransferHandler {
 
         Display display = context.getDisplay();
         Object origin = DisplayRegistry.getInstance().getDisplayOrigin(display);
-        if(!(origin instanceof CraftingRecipe recipe))
+        if(!(origin instanceof RecipeHolder<?> recipeEntry) || !(recipeEntry.value() instanceof CraftingRecipe recipe))
             return Result.createNotApplicable();
 
         if(!recipe.canCraftInDimensions(3, 3))
@@ -53,8 +56,7 @@ public class AdvancedAutoCrafterTransferHandler implements TransferHandler {
             }
         }
 
-        //TODO
-        //ModMessages.sendToServer(new SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getBlockPos(), itemStacks, recipe.getId()));
+        ModMessages.sendToServer(new SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getBlockPos(), itemStacks, recipeEntry.id()));
 
         return Result.createSuccessful().blocksFurtherHandling();
     }

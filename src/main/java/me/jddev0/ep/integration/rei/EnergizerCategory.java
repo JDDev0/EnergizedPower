@@ -56,7 +56,7 @@ public class EnergizerCategory implements DisplayCategory<EnergizerDisplay> {
         widgets.add(Widgets.createSlot(new Point(x + 93, y + 17)).disableBackground().markOutput().
                 entries(display.getOutputEntries().get(0)));
 
-        int energyConsumption = (int)(display.recipe().getEnergyConsumption() * EnergizerBlockEntity.ENERGY_CONSUMPTION_MULTIPLIER);
+        int energyConsumption = (int)(display.recipe().value().getEnergyConsumption() * EnergizerBlockEntity.ENERGY_CONSUMPTION_MULTIPLIER);
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
                         Component.literal(EnergyUtils.getEnergyWithPrefix(energyConsumption)).withStyle(ChatFormatting.YELLOW)).
                 noShadow().rightAligned());
