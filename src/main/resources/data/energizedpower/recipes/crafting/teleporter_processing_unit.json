@@ -8,14 +8,14 @@
     "T": {
       "item": "energizedpower:teleporter_matrix"
     },
-    "A": {
-      "item": "energizedpower:advanced_circuit"
+    "P": {
+      "item": "energizedpower:processing_unit"
     }
   },
   "pattern": [
-    "ATA",
+    "PTP",
     "TET",
-    "ATA"
+    "PTP"
   ],
   "result": {
     "item": "energizedpower:teleporter_processing_unit"
