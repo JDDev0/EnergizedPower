@@ -9,6 +9,7 @@
   ],
   "image": [
     "energizedpower:textures/item/basic_circuit.png",
-    "energizedpower:textures/item/advanced_circuit.png"
+    "energizedpower:textures/item/advanced_circuit.png",
+    "energizedpower:textures/item/processing_unit.png"
   ]
 }
