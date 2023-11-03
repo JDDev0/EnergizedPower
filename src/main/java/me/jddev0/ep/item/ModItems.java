@@ -93,6 +93,8 @@ public final class ModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ADVANCED_CIRCUIT = ITEMS.register("advanced_circuit",
             () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PROCESSING_UNIT = ITEMS.register("processing_unit",
+            () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> TELEPORTER_MATRIX = ITEMS.register("teleporter_matrix",
             () -> new TeleporterMatrixItem(new Item.Properties()));
