@@ -1081,6 +1081,9 @@
   "book.energizedpower.page.time_controller.1": "The Time Controller can change the time of the day. It requires energy to do so.",
   "book.energizedpower.page.time_controller.2": "It can not go back in time, the time value will always be incremented.",
 
+  "book.energizedpower.page.teleporter_matrix.1": "Teleporter Matrices are used for linking Teleporters.",
+  "book.energizedpower.page.teleporter_matrix.2": "The settings of a Teleporter Matrix can be copied by putting a linkend and one or more unlinked Teleporter Matricies into a Crafting Table.",
+
   "book.energizedpower.page.teleporter.1": "The Teleporter can teleport players. It requires energy and a linked Teleporter Matrix to do so.",
   "book.energizedpower.page.teleporter.2": "It outputs a redstone signal if the Teleporter is ready for teleportation.",
 
