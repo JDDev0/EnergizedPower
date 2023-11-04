@@ -82,16 +82,6 @@ public class TeleporterMatrixItem extends Item {
         BlockPos blockPos = useOnContext.getBlockPos();
         BlockState state = level.getBlockState(blockPos);
         Block block = state.getBlock();
-        //TODO check if block is teleporter block
-        if(/*!(block instanceof TeleporterBlock)*/false) {
-            if(player instanceof ServerPlayerEntity serverPlayer) {
-                serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
-                        Text.translatable("tooltip.energizedpower.teleporter_matrix.set.invalid").formatted(Formatting.RED)
-                ));
-            }
-
-            return ActionResult.SUCCESS;
-        }
 
         ItemStack itemStack = useOnContext.getStack();
 
@@ -102,11 +92,22 @@ public class TeleporterMatrixItem extends Item {
 
         nbt.putString("dim", level.getRegistryKey().getValue().toString());
 
-        if(player instanceof ServerPlayerEntity serverPlayer) {
-            serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
-                    Text.translatable("tooltip.energizedpower.teleporter_matrix.set").
-                            formatted(Formatting.GREEN)
-            ));
+        //TODO check if block is teleporter block
+        if(/*!(block instanceof TeleporterBlock)*/false) {
+            if(player instanceof ServerPlayerEntity serverPlayer) {
+                serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                        Text.translatable("tooltip.energizedpower.teleporter_matrix.set.warning").
+                                formatted(Formatting.YELLOW)
+                ));
+            }
+        }else {
+            if(player instanceof ServerPlayerEntity serverPlayer) {
+                serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                        Text.translatable("tooltip.energizedpower.teleporter_matrix.set").
+                                formatted(Formatting.GREEN)
+                ));
+            }
+
         }
 
         return ActionResult.SUCCESS;
