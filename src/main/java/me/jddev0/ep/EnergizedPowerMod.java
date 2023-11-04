@@ -204,6 +204,8 @@ public class EnergizedPowerMod {
             event.accept(ModItems.BASIC_CIRCUIT);
             event.accept(ModItems.ADVANCED_CIRCUIT);
 
+            event.accept(ModItems.TELEPORTER_MATRIX);
+
             event.accept(ModBlocks.SILICON_BLOCK_ITEM);
             event.accept(ModBlocks.SAWDUST_BLOCK_ITEM);
             event.accept(ModItems.CABLE_INSULATOR);

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "forge:gems/amethyst"
+    },
+    "E": {
+      "item": "energizedpower:energized_crystal_matrix"
+    },
+    "e": {
+      "tag": "forge:ender_pearls"
+    }
+  },
+  "pattern": [
+    "AEA",
+    "EeE",
+    "AEA"
+  ],
+  "result": {
+    "item": "energizedpower:teleporter_matrix"
+  }
+}
