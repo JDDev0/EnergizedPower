@@ -1081,6 +1081,9 @@
   "book.energizedpower.page.time_controller.1": "Der Zeit-Controller kann die Zeit des Tages ändern. Um das zu tun, benötigt er Energie.",
   "book.energizedpower.page.time_controller.2": "Er kann nicht in der Zeit zurückreisen, der \"time\"-Wert wird immer inkrementiert.",
 
+  "book.energizedpower.page.teleporter.1": "Der Teleporter kann Spieler teleportieren. Um das zu tun, benötigt er Energie und eine gebundene Teleporter-Matrix.",
+  "book.energizedpower.page.teleporter.2": "Er gibt ein Redstone-Singal aus, wenn er bereit ist, jemanden zu Teleportieren.",
+
 
   "book.energizedpower.page.chapter.fluid_blocks.title": "Flüssigkeits-Blöcke",
   "book.energizedpower.page.chapter.fluid_blocks": "Blöcke, die Flüssigkeiten lagern und transferieren können.",
