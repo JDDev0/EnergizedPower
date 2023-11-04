@@ -84,6 +84,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<ChargingStationMenu> CHARGING_STATION_MENU = createScreenHandlerType("charging_station",
             new ExtendedScreenHandlerType<>(ChargingStationMenu::new));
 
+    public static final ScreenHandlerType<TeleporterMenu> TELEPORTER_MENU = createScreenHandlerType("teleporter",
+            new ExtendedScreenHandlerType<>(TeleporterMenu::new));
+
     public static final ScreenHandlerType<HeatGeneratorMenu> HEAT_GENERATOR_MENU = createScreenHandlerType("heat_generator",
             new ExtendedScreenHandlerType<>(HeatGeneratorMenu::new));
 
