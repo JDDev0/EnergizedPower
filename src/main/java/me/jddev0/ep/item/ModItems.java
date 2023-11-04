@@ -98,6 +98,9 @@ public final class ModItems {
     public static final Item ADVANCED_CIRCUIT = registerItem("advanced_circuit",
             new Item(new FabricItemSettings()));
 
+    public static final Item TELEPORTER_MATRIX = registerItem("teleporter_matrix",
+            new TeleporterMatrixItem(new FabricItemSettings()));
+
     public static final Item ENERGIZED_POWER_BOOK = registerItem("energized_power_book",
             new EnergizedPowerBookItem(new FabricItemSettings().maxCount(1)));
 
