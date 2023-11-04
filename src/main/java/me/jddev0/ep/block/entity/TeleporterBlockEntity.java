@@ -15,6 +15,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
@@ -35,7 +36,18 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+    public static final List<@NotNull ResourceLocation> DIMENSION_BLACKLIST =
+            ModConfigs.COMMON_TELEPORTER_DIMENSION_BLACKLIST.getValue();
+    public static final List<@NotNull ResourceLocation> INTRA_DIMENSIONAL_BLACKLIST =
+            ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_BLACKLIST.getValue();
+    public static final List<@NotNull ResourceLocation> INTER_DIMENSIONAL_FROM_BLACKLIST =
+            ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_FROM_BLACKLIST.getValue();
+    public static final List<@NotNull ResourceLocation> INTER_DIMENSIONAL_TO_BLACKLIST =
+            ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_BLACKLIST.getValue();
+
     public static final int CAPACITY = ModConfigs.COMMON_TELEPORTER_CAPACITY.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
