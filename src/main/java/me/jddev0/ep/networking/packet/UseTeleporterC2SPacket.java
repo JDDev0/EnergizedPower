@@ -14,6 +14,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.util.math.Vec3d;
@@ -93,6 +94,64 @@ public class UseTeleporterC2SPacket {
             if(pos.equals(toPos) && level.getRegistryKey().equals(toDimension.getRegistryKey())) {
                 player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
                         Text.translatable("tooltip.energizedpower.teleporter.use.teleporter_self_position").
+                                formatted(Formatting.RED)
+                ));
+
+                return;
+            }
+
+            Identifier fromDimensionId = level.getRegistryKey().getValue();
+            Identifier toDimensionId = toDimension.getRegistryKey().getValue();
+
+            boolean intraDimensional = fromDimensionId.equals(toDimensionId);
+
+            //Dimension Blacklist
+            if(TeleporterBlockEntity.DIMENSION_BLACKLIST.contains(fromDimensionId)) {
+                player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                        Text.translatable("tooltip.energizedpower.teleporter.use.blacklist.dimension",
+                                        fromDimensionId.toString()).
+                                formatted(Formatting.RED)
+                ));
+
+                return;
+            }
+            if(TeleporterBlockEntity.DIMENSION_BLACKLIST.contains(toDimensionId)) {
+                player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                        Text.translatable("tooltip.energizedpower.teleporter.use.blacklist.dimension",
+                                        toDimensionId.toString()).
+                                formatted(Formatting.RED)
+                ));
+
+                return;
+            }
+
+            //Intra Dimension Blacklist
+            if(intraDimensional && TeleporterBlockEntity.INTRA_DIMENSIONAL_BLACKLIST.contains(fromDimensionId)) {
+                player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                        Text.translatable("tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional",
+                                        fromDimensionId.toString()).
+                                formatted(Formatting.RED)
+                ));
+
+                return;
+            }
+
+            //Inter Dimension From Blacklist
+            if(!intraDimensional && TeleporterBlockEntity.INTER_DIMENSIONAL_FROM_BLACKLIST.contains(fromDimensionId)) {
+                player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                        Text.translatable("tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from",
+                                        fromDimensionId.toString()).
+                                formatted(Formatting.RED)
+                ));
+
+                return;
+            }
+
+            //Inter Dimension To Blacklist
+            if(!intraDimensional && TeleporterBlockEntity.INTER_DIMENSIONAL_TO_BLACKLIST.contains(toDimensionId)) {
+                player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                        Text.translatable("tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to",
+                                        toDimensionId.toString()).
                                 formatted(Formatting.RED)
                 ));
 
