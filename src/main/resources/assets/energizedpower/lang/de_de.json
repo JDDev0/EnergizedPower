@@ -49,6 +49,7 @@
 
   "item.energizedpower.basic_circuit": "Basis Schaltkreis",
   "item.energizedpower.advanced_circuit": "Fortgeschrittener Schaltkreis",
+  "item.energizedpower.processing_unit": "Prozessoreinheit",
 
   "item.energizedpower.energized_power_book": "Energized Power Buch",
   "tooltip.energizedpower.energized_power_book.txt.shift.1": "Drücke die linke Maustaste auf einen Block, um dessen Buchseite zu öffnen.",
@@ -573,6 +574,9 @@
 
   "advancements.energizedpower.advanced_circuit.title": "Fortgeschrittener Schaltkreis",
   "advancements.energizedpower.advanced_circuit.description": "Erstelle einen fortgeschrittenen Schaltkreis.",
+
+  "advancements.energizedpower.processing_unit.title": "Prozessoreinheit",
+  "advancements.energizedpower.processing_unit.description": "Erstelle eine Prozessoreinheit.",
 
   "advancements.energizedpower.press_mold_maker.title": "Pressform-Hersteller",
   "advancements.energizedpower.press_mold_maker.description": "Verwende diesen Block, um Pressformen für die Metallpresse herzustellen.",
