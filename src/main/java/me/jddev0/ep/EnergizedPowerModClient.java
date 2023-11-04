@@ -4,6 +4,7 @@ import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.block.entity.renderer.ItemConveyorBeltBlockEntityRenderer;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.ModEntityTypes;
+import me.jddev0.ep.input.ModKeyBindings;
 import me.jddev0.ep.item.ActivatableItem;
 import me.jddev0.ep.item.WorkingItem;
 import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
@@ -48,6 +49,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(ModMenuTypes.ADVANCED_POWERED_FURNACE_MENU, AdvancedPoweredFurnaceScreen::new);
         HandledScreens.register(ModMenuTypes.WEATHER_CONTROLLER_MENU, WeatherControllerScreen::new);
         HandledScreens.register(ModMenuTypes.TIME_CONTROLLER_MENU, TimeControllerScreen::new);
+        HandledScreens.register(ModMenuTypes.TELEPORTER_MENU, TeleporterScreen::new);
         HandledScreens.register(ModMenuTypes.LIGHTNING_GENERATOR_MENU, LightningGeneratorScreen::new);
         HandledScreens.register(ModMenuTypes.CHARGING_STATION_MENU, ChargingStationScreen::new);
         HandledScreens.register(ModMenuTypes.HEAT_GENERATOR_MENU, HeatGeneratorScreen::new);
@@ -84,6 +86,8 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new EnergizedPowerBookReloadListener());
 
         ModMessages.registerPacketsS2C();
+
+        ModKeyBindings.register();
 
         EntityRendererRegistry.register(ModEntityTypes.BATTERY_BOX_MINECART,
                 entity -> new MinecartEntityRenderer<>(entity, new EntityModelLayer(
