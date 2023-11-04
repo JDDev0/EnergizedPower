@@ -96,6 +96,8 @@ public final class ModItems {
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final Item ADVANCED_CIRCUIT = registerItem("advanced_circuit",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+    public static final Item PROCESSING_UNIT = registerItem("processing_unit",
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Item TELEPORTER_MATRIX = registerItem("teleporter_matrix",
             new TeleporterMatrixItem(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
