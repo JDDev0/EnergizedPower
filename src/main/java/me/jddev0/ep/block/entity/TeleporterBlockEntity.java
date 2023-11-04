@@ -10,7 +10,6 @@ import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.TeleporterMenu;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -28,6 +27,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -37,8 +37,18 @@ import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
 
 import java.util.stream.IntStream;
+import java.util.List;
 
 public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+    public static final List<@NotNull Identifier> DIMENSION_BLACKLIST =
+            ModConfigs.COMMON_TELEPORTER_DIMENSION_BLACKLIST.getValue();
+    public static final List<@NotNull Identifier> INTRA_DIMENSIONAL_BLACKLIST =
+            ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_BLACKLIST.getValue();
+    public static final List<@NotNull Identifier> INTER_DIMENSIONAL_FROM_BLACKLIST =
+            ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_FROM_BLACKLIST.getValue();
+    public static final List<@NotNull Identifier> INTER_DIMENSIONAL_TO_BLACKLIST =
+            ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_BLACKLIST.getValue();
+
     public static final long CAPACITY = ModConfigs.COMMON_TELEPORTER_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_TELEPORTER_TRANSFER_RATE.getValue();
 
