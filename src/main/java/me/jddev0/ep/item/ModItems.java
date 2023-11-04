@@ -100,6 +100,8 @@ public final class ModItems {
 
     public static final Item TELEPORTER_MATRIX = registerItem("teleporter_matrix",
             new TeleporterMatrixItem(new FabricItemSettings()));
+    public static final Item TELEPORTER_PROCESSING_UNIT = registerItem("teleporter_processing_unit",
+            new Item(new FabricItemSettings()));
 
     public static final Item ENERGIZED_POWER_BOOK = registerItem("energized_power_book",
             new EnergizedPowerBookItem(new FabricItemSettings().maxCount(1)));
