@@ -1081,6 +1081,9 @@
   "book.energizedpower.page.time_controller.1": "Il controller del tempo può modificare l'ora del giorno. Richiede energia per farlo.",
   "book.energizedpower.page.time_controller.2": "Non può tornare indietro nel tempo, il valore temporale sarà sempre incrementato.",
 
+  "book.energizedpower.page.teleporter.1": "The Teleporter can teleport players. It requires energy and a linked Teleporter Matrix to do so.",
+  "book.energizedpower.page.teleporter.2": "It outputs a redstone signal if the Teleporter is ready for teleportation.",
+
 
   "book.energizedpower.page.chapter.fluid_blocks.title": "Blocchi con fluidi",
   "book.energizedpower.page.chapter.fluid_blocks": "Blocchi che possono immagazzinare e trasferire fluidi.",
