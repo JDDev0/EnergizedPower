@@ -243,6 +243,26 @@ public final class ModConfigs {
     public static final ConfigValue<Long> COMMON_TELEPORTER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
             "block.teleporter", "Teleporter", 65536
     );
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_TELEPORTER_DIMENSION_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
+            "block.teleporter.dimension_blacklist",
+            "Teleportation within, from, and to dimensions in this list are not allowed.",
+            new ArrayList<>(0)
+    ));
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_TELEPORTER_INTRA_DIMENSIONAL_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
+            "block.teleporter.intra_dimensional_blacklist",
+            "Teleportation within dimensions in this list are not allowed.\nTeleportation to and from dimensions in this list are still allowed.",
+            new ArrayList<>(0)
+    ));
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_TELEPORTER_INTER_DIMENSIONAL_FROM_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
+            "block.teleporter.inter_dimension_from_blacklist",
+            "Teleportation from dimensions in this list are not allowed.\nTeleportation within and to dimensions in this list are still allowed.",
+            new ArrayList<>(0)
+    ));
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
+            "block.teleporter.inter_dimension_to_blacklist",
+            "Teleportation to dimensions in this list are not allowed.\nTeleportation within and from dimensions in this list are still allowed.",
+            new ArrayList<>(0)
+    ));
 
     public static final ConfigValue<Long> COMMON_COAL_ENGINE_CAPACITY = registerEnergyCapacityConfigValue(
             "block.coal_engine", "Coal Engine", 2048
