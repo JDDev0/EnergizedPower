@@ -15,5 +15,5 @@ public final class ModKeyBindings {
     public static final String KEY_TELEPORTER_USE = "key.energizedpower.teleporter.use";
 
     public static final KeyMapping TELEPORTER_USE_KEY = new KeyMapping(KEY_TELEPORTER_USE,
-            KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_SHIFT, KEY_CATEGORY_ENERGIZED_POWER);
+            KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_V, KEY_CATEGORY_ENERGIZED_POWER);
 }
