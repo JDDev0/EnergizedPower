@@ -63,6 +63,19 @@
 
   "item.energizedpower.energized_crystal_matrix": "Energetisierte Kristall-Matrix",
 
+  "item.energizedpower.teleporter_matrix": "Teleporter-Matrix",
+  "item.energizedpower.teleporter_matrix.linked": "Teleporter-Matrix [Linked]",
+  "item.energizedpower.teleporter_matrix.unlinked": "Teleporter-Matrix [Unlinked]",
+  "tooltip.energizedpower.teleporter_matrix.cleared": "Teleporter-Matrix-Einstellungen wurden erfolgreich zurückgesetzt.",
+  "tooltip.energizedpower.teleporter_matrix.set": "Teleporter-Matrix-Einstellungen wurden erfolgreich gesetzt.",
+  "tooltip.energizedpower.teleporter_matrix.set.invalid": "Teleporter-Matrix-Einstellungen können nur zu einer Teleporter-Position gesetzt werden.",
+  "tooltip.energizedpower.teleporter_matrix.status": "Status: ",
+  "tooltip.energizedpower.teleporter_matrix.status.linked": "Linked",
+  "tooltip.energizedpower.teleporter_matrix.status.unlinked": "Unlinked",
+  "tooltip.energizedpower.teleporter_matrix.location": "Ort: ",
+  "tooltip.energizedpower.teleporter_matrix.dimension": "Dimension: ",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift": "Die Teleporter-Matrix kann zum linken von Teleportern verwendet werden.",
+
   "item.energizedpower.inventory_coal_engine": "Inventar Kohlegenerator",
   "tooltip.energizedpower.inventory_coal_engine.status": "Status: ",
   "tooltip.energizedpower.inventory_coal_engine.status.activated": "Aktiviert",
@@ -627,6 +640,9 @@
 
   "advancements.energizedpower.energized_crystal_matrix.title": "Energetisierte Kristall-Matrix",
   "advancements.energizedpower.energized_crystal_matrix.description": "Wird in manchen fortgeschrittenen Maschinen als Stabilisator verwendet.",
+
+  "advancements.energizedpower.teleporter_matrix.title": "Teleporter-Matrix",
+  "advancements.energizedpower.teleporter_matrix.description": "Der erste Schritt, um Teleportation zu erreichen.",
 
   "advancements.energizedpower.weather_controller.title": "Steuere das Wetter",
   "advancements.energizedpower.weather_controller.description": "Ändere das Wetter mit dem Wetter-Controller.",
