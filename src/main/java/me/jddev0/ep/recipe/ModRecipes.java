@@ -3,6 +3,7 @@ package me.jddev0.ep.recipe;
 import me.jddev0.ep.EnergizedPowerMod;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -73,6 +74,10 @@ public final class ModRecipes {
             register("metal_press", () -> MetalPressRecipe.Serializer.INSTANCE);
     public static final RegistryObject<RecipeType<MetalPressRecipe>> METAL_PRESS_TYPE = TYPES.
             register("metal_press", () -> MetalPressRecipe.Type.INSTANCE);
+
+    public static final RegistryObject<RecipeSerializer<TeleporterMatrixSettingsCopyRecipe>>
+            TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER = SERIALIZERS.register("teleporter_matrix_settings_copy",
+            () -> new SimpleRecipeSerializer<>(TeleporterMatrixSettingsCopyRecipe::new));
 
     public static void register(IEventBus modEventBus) {
         SERIALIZERS.register(modEventBus);
