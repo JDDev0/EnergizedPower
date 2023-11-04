@@ -63,6 +63,19 @@
 
   "item.energizedpower.energized_crystal_matrix": "Energized Crystal Matrix",
 
+  "item.energizedpower.teleporter_matrix": "Teleporter Matrix",
+  "item.energizedpower.teleporter_matrix.linked": "Teleporter Matrix [Linked]",
+  "item.energizedpower.teleporter_matrix.unlinked": "Teleporter Matrix [Unlinked]",
+  "tooltip.energizedpower.teleporter_matrix.cleared": "Teleporter Matrix settings were successfully cleared.",
+  "tooltip.energizedpower.teleporter_matrix.set": "Teleporter Matrix settings were successfully set.",
+  "tooltip.energizedpower.teleporter_matrix.set.invalid": "Teleporter Matrix settings can only be set to a Teleporter position.",
+  "tooltip.energizedpower.teleporter_matrix.status": "Status: ",
+  "tooltip.energizedpower.teleporter_matrix.status.linked": "Linked",
+  "tooltip.energizedpower.teleporter_matrix.status.unlinked": "Unlinked",
+  "tooltip.energizedpower.teleporter_matrix.location": "Location: ",
+  "tooltip.energizedpower.teleporter_matrix.dimension": "Dimension: ",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift": "The Teleporter Matrix can be used to link Teleporters.",
+
   "item.energizedpower.inventory_coal_engine": "Inventory Coal Engine",
   "tooltip.energizedpower.inventory_coal_engine.status": "状态: ",
   "tooltip.energizedpower.inventory_coal_engine.status.activated": "已激活",
@@ -627,6 +640,9 @@
 
   "advancements.energizedpower.energized_crystal_matrix.title": "能量晶体矩阵",
   "advancements.energizedpower.energized_crystal_matrix.description": "Used as a stabilizer in some advanced machines.",
+
+  "advancements.energizedpower.teleporter_matrix.title": "Teleporter Matrix",
+  "advancements.energizedpower.teleporter_matrix.description": "The first step to achieve teleportation.",
 
   "advancements.energizedpower.weather_controller.title": "控制天气",
   "advancements.energizedpower.weather_controller.description": "使用气象调控中心调控天气。",
