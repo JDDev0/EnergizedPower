@@ -1055,6 +1055,8 @@
 
   "book.energizedpower.page.metal_press.1": "La Pressa per metallo crea prodotti metallici (ad esempio fili) da metalli.",
   "book.energizedpower.page.metal_press.2": "Gli stampi per pressa possono essere creati nella Pressa creatore di stampi.",
+  "book.energizedpower.page.metal_press.3": "Press Molds can be inserted to and extracted from the top.",
+  "book.energizedpower.page.metal_press.4": "Inputs can be inserted to and outputs can be extracted from all other sides.",
 
   "book.energizedpower.page.plant_growth_chamber.1": "La camera di crescita delle piante può aumentare la crescita e la resa delle piante.",
   "book.energizedpower.page.plant_growth_chamber.2": "Lo slot di ingresso destro è lo slot dei semi.",
