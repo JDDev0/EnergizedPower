@@ -400,6 +400,12 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item TIME_CONTROLLER_ITEM = createBlockItem("time_controller", TIME_CONTROLLER);
 
+    public static final Block TELEPORTER = registerBlock("teleporter",
+            new TeleporterBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item TELEPORTER_ITEM = createBlockItem("teleporter",
+            new TeleporterBlock.Item(TELEPORTER, new FabricItemSettings()));
+
     public static final Block BASIC_MACHINE_FRAME = registerBlock("basic_machine_frame",
             new Block(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

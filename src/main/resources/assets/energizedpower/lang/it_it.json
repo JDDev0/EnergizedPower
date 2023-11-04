@@ -65,7 +65,7 @@
 
   "item.energizedpower.teleporter_matrix": "Teleporter Matrix",
   "item.energizedpower.teleporter_matrix.linked": "Teleporter Matrix [Linked]",
-  "item.energizedpower.teleporter_matrix.unlinked": "Teleporter Matrix [Unlinked]",
+  "item.energizedpower.teleporter_matrix.unbound": "Teleporter Matrix [Unlinked]",
   "tooltip.energizedpower.teleporter_matrix.cleared": "Teleporter Matrix settings were successfully cleared.",
   "tooltip.energizedpower.teleporter_matrix.set": "Teleporter Matrix settings were successfully set.",
   "tooltip.energizedpower.teleporter_matrix.set.warning": "Teleporter Matrix settings were set but do not point to a Teleporter position.",
@@ -74,7 +74,8 @@
   "tooltip.energizedpower.teleporter_matrix.status.unlinked": "Unlinked",
   "tooltip.energizedpower.teleporter_matrix.location": "Location: ",
   "tooltip.energizedpower.teleporter_matrix.dimension": "Dimension: ",
-  "tooltip.energizedpower.teleporter_matrix.txt.shift": "The Teleporter Matrix can be used to link Teleporters.",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.1": "Link by shift + left-clicking a Teleporter.",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.2": "Unlink by left-clicking in the air.",
 
   "item.energizedpower.teleporter_processing_unit": "Teleporter Processing Unit",
 
@@ -454,6 +455,19 @@
   "tooltip.energizedpower.time_controller.btn.night": "Imposta l'ora della notte",
   "tooltip.energizedpower.time_controller.btn.midnight": "Imposta l'ora a mezzanotte",
 
+  "block.energizedpower.teleporter": "Teleporter",
+  "item.energizedpower.teleporter": "Teleporter",
+  "container.energizedpower.teleporter": "Teleporter",
+
+  "tooltip.energizedpower.teleporter.use": "Press [%s] while above the Teleporter to teleport.",
+  "tooltip.energizedpower.teleporter.use.not_enough_energy": "Not enough energy!",
+  "tooltip.energizedpower.teleporter.use.no_teleporter_matrix": "No Teleporter Matrix present!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_not_bound": "Teleporter Matrix is not bound!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_position": "Teleporter Matrix contains an invalid position!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_dimension": "Teleporter Matrix contains an invalid dimension!",
+  "tooltip.energizedpower.teleporter.use.teleporter_self_position": "Teleporation to the Teleporter itself is not possible!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_no_teleporter": "No Teleporter found at Teleporter Matrix coordinates!",
+
   "block.energizedpower.basic_machine_frame": "Telaio base della macchina",
   "item.energizedpower.basic_machine_frame": "Telaio base della macchina",
 
@@ -524,6 +538,9 @@
 
   "painting.energizedpower.factory.title": "Factory",
   "painting.energizedpower.factory.author": "JDDev0",
+
+  "key.category.energizedpower": "Energized Power",
+  "key.energizedpower.teleporter.use": "Use Teleporter",
 
 
   "advancements.energizedpower.hardened_machine_frame.title": "Macchine temprate",
@@ -648,6 +665,9 @@
 
   "advancements.energizedpower.teleporter_processing_unit.title": "Teleporter Processing Unit",
   "advancements.energizedpower.teleporter_processing_unit.description": "The brain of Teleporters.",
+
+  "advancements.energizedpower.teleporter.title": "Faster than light",
+  "advancements.energizedpower.teleporter.description": "Craft a Teleporter.",
 
   "advancements.energizedpower.weather_controller.title": "Controlla il meteo",
   "advancements.energizedpower.weather_controller.description": "Cambia il tempo con il controller meteorologico.",

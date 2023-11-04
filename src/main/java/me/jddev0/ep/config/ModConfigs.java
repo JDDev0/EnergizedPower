@@ -237,6 +237,13 @@ public final class ModConfigs {
             "block.time_controller", "Time Controller", 32768
     );
 
+    public static final ConfigValue<Long> COMMON_TELEPORTER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.teleporter", "Teleporter", 8388608
+    );
+    public static final ConfigValue<Long> COMMON_TELEPORTER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.teleporter", "Teleporter", 65536
+    );
+
     public static final ConfigValue<Long> COMMON_COAL_ENGINE_CAPACITY = registerEnergyCapacityConfigValue(
             "block.coal_engine", "Coal Engine", 2048
     );

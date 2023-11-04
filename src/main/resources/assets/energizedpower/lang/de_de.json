@@ -64,17 +64,18 @@
   "item.energizedpower.energized_crystal_matrix": "Energetisierte Kristall-Matrix",
 
   "item.energizedpower.teleporter_matrix": "Teleporter-Matrix",
-  "item.energizedpower.teleporter_matrix.linked": "Teleporter-Matrix [Linked]",
-  "item.energizedpower.teleporter_matrix.unlinked": "Teleporter-Matrix [Unlinked]",
+  "item.energizedpower.teleporter_matrix.linked": "Teleporter-Matrix [Gebunden]",
+  "item.energizedpower.teleporter_matrix.unlinked": "Teleporter-Matrix [Ungebunden]",
   "tooltip.energizedpower.teleporter_matrix.cleared": "Teleporter-Matrix-Einstellungen wurden erfolgreich zurückgesetzt.",
   "tooltip.energizedpower.teleporter_matrix.set": "Teleporter-Matrix-Einstellungen wurden erfolgreich gesetzt.",
   "tooltip.energizedpower.teleporter_matrix.set.warning": "Teleporter-Matrix-Einstellungen wurden gesetzt, zeigen aber nicht auf eine Teleporter-Position.",
   "tooltip.energizedpower.teleporter_matrix.status": "Status: ",
-  "tooltip.energizedpower.teleporter_matrix.status.linked": "Linked",
-  "tooltip.energizedpower.teleporter_matrix.status.unlinked": "Unlinked",
+  "tooltip.energizedpower.teleporter_matrix.status.linked": "Gebunden",
+  "tooltip.energizedpower.teleporter_matrix.status.unlinked": "Ungebunden",
   "tooltip.energizedpower.teleporter_matrix.location": "Ort: ",
   "tooltip.energizedpower.teleporter_matrix.dimension": "Dimension: ",
-  "tooltip.energizedpower.teleporter_matrix.txt.shift": "Die Teleporter-Matrix kann zum linken von Teleportern verwendet werden.",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.1": "Wird durch SHIFT + Links-Klick auf einen Teleporter gebunden.",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.2": "Wird durch Links-Klick in der Luft ungebunden.",
 
   "item.energizedpower.teleporter_processing_unit": "Teleporter Prozessoreinheit",
 
@@ -454,6 +455,19 @@
   "tooltip.energizedpower.time_controller.btn.night": "Setze die Zeit auf Abend",
   "tooltip.energizedpower.time_controller.btn.midnight": "Setzte die Zeit auf Mitternacht",
 
+  "block.energizedpower.teleporter": "Teleporter",
+  "item.energizedpower.teleporter": "Teleporter",
+  "container.energizedpower.teleporter": "Teleporter",
+
+  "tooltip.energizedpower.teleporter.use": "Drücke [%s] während du auf dem Teleporter stehst, um dich zu teleportieren.",
+  "tooltip.energizedpower.teleporter.use.not_enough_energy": "Nicht genug Energie!",
+  "tooltip.energizedpower.teleporter.use.no_teleporter_matrix": "Keine Teleporter-Matrix vorhanden!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_not_bound": "Teleporter-Matrix ist nicht gebunden!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_position": "Teleporter-Matrix enthält eine ungültige Position!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_dimension": "Teleporter-Matrix enthält eine ungültige Dimension!",
+  "tooltip.energizedpower.teleporter.use.teleporter_self_position": "Teleporation zum Teleporter selber ist nicht möglich!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_no_teleporter": "Kein Teleporter wurde an den Teleporter-Matrix-Koordinaten gefunden!",
+
   "block.energizedpower.basic_machine_frame": "Basis Maschinenrahmen",
   "item.energizedpower.basic_machine_frame": "Basis Maschinenrahmen",
 
@@ -524,6 +538,9 @@
 
   "painting.energizedpower.factory.title": "Fabrik",
   "painting.energizedpower.factory.author": "JDDev0",
+
+  "key.category.energizedpower": "Energized Power",
+  "key.energizedpower.teleporter.use": "Teleporter benutzen",
 
 
   "advancements.energizedpower.hardened_machine_frame.title": "Gehärtete Maschinen",
@@ -648,6 +665,9 @@
 
   "advancements.energizedpower.teleporter_processing_unit.title": "Teleporter Prozessoreinheit",
   "advancements.energizedpower.teleporter_processing_unit.description": "Das Gehirn eines Teleporters.",
+
+  "advancements.energizedpower.teleporter.title": "Schneller als Licht",
+  "advancements.energizedpower.teleporter.description": "Crafte einen Teleporter.",
 
   "advancements.energizedpower.weather_controller.title": "Steuere das Wetter",
   "advancements.energizedpower.weather_controller.description": "Ändere das Wetter mit dem Wetter-Controller.",
