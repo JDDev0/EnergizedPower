@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "energizedpower:energized_crystal_matrix"
+    },
+    "T": {
+      "item": "energizedpower:teleporter_matrix"
+    },
+    "A": {
+      "item": "energizedpower:advanced_circuit"
+    }
+  },
+  "pattern": [
+    "ATA",
+    "TET",
+    "ATA"
+  ],
+  "result": {
+    "item": "energizedpower:teleporter_processing_unit"
+  }
+}
