@@ -1,5 +1,6 @@
 package me.jddev0.ep.item;
 
+import me.jddev0.ep.block.ModBlocks;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -92,22 +93,20 @@ public class TeleporterMatrixItem extends Item {
 
         nbt.putString("dim", level.getRegistryKey().getValue().toString());
 
-        //TODO check if block is teleporter block
-        if(/*!(block instanceof TeleporterBlock)*/false) {
-            if(player instanceof ServerPlayerEntity serverPlayer) {
-                serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
-                        Text.translatable("tooltip.energizedpower.teleporter_matrix.set.warning").
-                                formatted(Formatting.YELLOW)
-                ));
-            }
-        }else {
+        if(state.isOf(ModBlocks.TELEPORTER)) {
             if(player instanceof ServerPlayerEntity serverPlayer) {
                 serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
                         Text.translatable("tooltip.energizedpower.teleporter_matrix.set").
                                 formatted(Formatting.GREEN)
                 ));
             }
-
+        }else {
+            if(player instanceof ServerPlayerEntity serverPlayer) {
+                serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                        Text.translatable("tooltip.energizedpower.teleporter_matrix.set.warning").
+                                formatted(Formatting.YELLOW)
+                ));
+            }
         }
 
         return ActionResult.SUCCESS;
@@ -162,7 +161,9 @@ public class TeleporterMatrixItem extends Item {
         tooltip.add(Text.empty());
 
         if(Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift").
+            tooltip.add(Text.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift.1").
+                    formatted(Formatting.GRAY, Formatting.ITALIC));
+            tooltip.add(Text.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift.2").
                     formatted(Formatting.GRAY, Formatting.ITALIC));
         }else {
             tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
