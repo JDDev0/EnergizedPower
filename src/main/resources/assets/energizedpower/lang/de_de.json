@@ -68,7 +68,7 @@
   "item.energizedpower.teleporter_matrix.unlinked": "Teleporter-Matrix [Unlinked]",
   "tooltip.energizedpower.teleporter_matrix.cleared": "Teleporter-Matrix-Einstellungen wurden erfolgreich zurückgesetzt.",
   "tooltip.energizedpower.teleporter_matrix.set": "Teleporter-Matrix-Einstellungen wurden erfolgreich gesetzt.",
-  "tooltip.energizedpower.teleporter_matrix.set.invalid": "Teleporter-Matrix-Einstellungen können nur zu einer Teleporter-Position gesetzt werden.",
+  "tooltip.energizedpower.teleporter_matrix.set.warning": "Teleporter-Matrix-Einstellungen wurden gesetzt, zeigen aber nicht auf eine Teleporter-Position.",
   "tooltip.energizedpower.teleporter_matrix.status": "Status: ",
   "tooltip.energizedpower.teleporter_matrix.status.linked": "Linked",
   "tooltip.energizedpower.teleporter_matrix.status.unlinked": "Unlinked",
