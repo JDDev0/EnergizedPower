@@ -273,6 +273,26 @@ public final class ModConfigs {
             "Teleportation to dimensions in this list are not allowed.\nTeleportation within and from dimensions in this list are still allowed.",
             new ArrayList<>(0)
     ));
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_TELEPORTER_DIMENSION_TYPE_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
+            "block.teleporter.dimension_type_blacklist",
+            "Teleportation within, from, and to dimension types in this list are not allowed.",
+            new ArrayList<>(0)
+    ));
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_TELEPORTER_INTRA_DIMENSIONAL_TYPE_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
+            "block.teleporter.intra_dimensional_type_blacklist",
+            "Teleportation within dimension types in this list are not allowed.\nTeleportation to and from dimension types in this list are still allowed.",
+            new ArrayList<>(0)
+    ));
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_TELEPORTER_INTER_DIMENSIONAL_FROM_TYPE_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
+            "block.teleporter.inter_dimension_from_type_blacklist",
+            "Teleportation from dimension typess in this list are not allowed.\nTeleportation within and to dimension types in this list are still allowed.",
+            new ArrayList<>(0)
+    ));
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_TYPE_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
+            "block.teleporter.inter_dimension_to_type_blacklist",
+            "Teleportation to dimension typess in this list are not allowed.\nTeleportation within and from dimension types in this list are still allowed.",
+            new ArrayList<>(0)
+    ));
 
     public static final ConfigValue<Long> COMMON_COAL_ENGINE_CAPACITY = registerEnergyCapacityConfigValue(
             "block.coal_engine", "Coal Engine", 2048

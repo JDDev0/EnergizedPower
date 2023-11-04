@@ -50,6 +50,14 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
             ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_FROM_BLACKLIST.getValue();
     public static final List<@NotNull Identifier> INTER_DIMENSIONAL_TO_BLACKLIST =
             ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_BLACKLIST.getValue();
+    public static final List<@NotNull Identifier> DIMENSION_TYPE_BLACKLIST =
+            ModConfigs.COMMON_TELEPORTER_DIMENSION_TYPE_BLACKLIST.getValue();
+    public static final List<@NotNull Identifier> INTRA_DIMENSIONAL_TYPE_BLACKLIST =
+            ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_TYPE_BLACKLIST.getValue();
+    public static final List<@NotNull Identifier> INTER_DIMENSIONAL_FROM_TYPE_BLACKLIST =
+            ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_FROM_TYPE_BLACKLIST.getValue();
+    public static final List<@NotNull Identifier> INTER_DIMENSIONAL_TO_TYPE_BLACKLIST =
+            ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_TYPE_BLACKLIST.getValue();
 
     public static final long CAPACITY = ModConfigs.COMMON_TELEPORTER_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_TELEPORTER_TRANSFER_RATE.getValue();
