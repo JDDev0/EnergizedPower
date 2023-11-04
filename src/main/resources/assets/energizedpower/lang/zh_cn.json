@@ -49,6 +49,7 @@
 
   "item.energizedpower.basic_circuit": "Basic Circuit",
   "item.energizedpower.advanced_circuit": "Advanced Circuit",
+  "item.energizedpower.processing_unit": "Processing Unit",
 
   "item.energizedpower.energized_power_book": "Energized Power 书",
   "tooltip.energizedpower.energized_power_book.txt.shift.1": "Left click a block to open the block's book page.",
@@ -569,10 +570,13 @@
   "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Required for the best solar panels...",
 
   "advancements.energizedpower.basic_circuit.title": "Basic Circuit",
-  "advancements.energizedpower.basic_circuit.description": "Craft a basic circuit.",
+  "advancements.energizedpower.basic_circuit.description": "Craft a Basic Circuit.",
 
   "advancements.energizedpower.advanced_circuit.title": "Advanced Circuit",
-  "advancements.energizedpower.advanced_circuit.description": "Craft an advanced circuit.",
+  "advancements.energizedpower.advanced_circuit.description": "Craft an Advanced Circuit.",
+
+  "advancements.energizedpower.processing_unit.title": "Processing Unit",
+  "advancements.energizedpower.processing_unit.description": "Craft a Processing Unit.",
 
   "advancements.energizedpower.press_mold_maker.title": "Press Mold Maker",
   "advancements.energizedpower.press_mold_maker.description": "Use this block to make press molds for the Metal Press.",
