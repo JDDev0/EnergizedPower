@@ -1055,6 +1055,8 @@
 
   "book.energizedpower.page.metal_press.1": "The Metal Press creates metal products (e.g. wires) from metals.",
   "book.energizedpower.page.metal_press.2": "Press Molds can be created in the Press Mold Maker.",
+  "book.energizedpower.page.metal_press.3": "Press Molds can be inserted to and extracted from the top.",
+  "book.energizedpower.page.metal_press.4": "Inputs can be inserted to and outputs can be extracted from all other sides.",
 
   "book.energizedpower.page.plant_growth_chamber.1": "The Plant Growth Chamber can boost plant growth and yield.",
   "book.energizedpower.page.plant_growth_chamber.2": "The right input slot is the seed slot.",
