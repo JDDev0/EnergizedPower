@@ -1,5 +1,6 @@
 package me.jddev0.ep.item;
 
+import me.jddev0.ep.block.ModBlocks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -21,7 +22,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -84,7 +84,6 @@ public class TeleporterMatrixItem extends Item {
 
         BlockPos blockPos = useOnContext.getClickedPos();
         BlockState state = level.getBlockState(blockPos);
-        Block block = state.getBlock();
 
         ItemStack itemStack = useOnContext.getItemInHand();
 
@@ -95,22 +94,20 @@ public class TeleporterMatrixItem extends Item {
 
         nbt.putString("dim", level.dimension().location().toString());
 
-        //TODO check if block is teleporter block
-        if(/*!(block instanceof TeleporterBlock)*/false) {
-            if(player instanceof ServerPlayer serverPlayer) {
-                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
-                        Component.translatable("tooltip.energizedpower.teleporter_matrix.set.warning").
-                                withStyle(ChatFormatting.YELLOW)
-                ));
-            }
-        }else {
+        if(state.is(ModBlocks.TELEPORTER.get())) {
             if(player instanceof ServerPlayer serverPlayer) {
                 serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
                         Component.translatable("tooltip.energizedpower.teleporter_matrix.set").
                                 withStyle(ChatFormatting.GREEN)
                 ));
             }
-
+        }else {
+            if(player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.teleporter_matrix.set.warning").
+                                withStyle(ChatFormatting.YELLOW)
+                ));
+            }
         }
 
         return InteractionResult.SUCCESS;
@@ -165,7 +162,9 @@ public class TeleporterMatrixItem extends Item {
         components.add(Component.empty());
 
         if(Screen.hasShiftDown()) {
-            components.add(Component.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift").
+            components.add(Component.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift.1").
+                    withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+            components.add(Component.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift.2").
                     withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }else {
             components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));

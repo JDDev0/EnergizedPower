@@ -416,6 +416,12 @@ public final class ModBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final RegistryObject<Item> TIME_CONTROLLER_ITEM = createBlockItem("time_controller", TIME_CONTROLLER);
 
+    public static final RegistryObject<Block> TELEPORTER = BLOCKS.register("teleporter",
+            () -> new TeleporterBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> TELEPORTER_ITEM = ModItems.ITEMS.register("teleporter",
+            () -> new TeleporterBlock.Item(TELEPORTER.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final RegistryObject<Block> BASIC_MACHINE_FRAME = BLOCKS.register("basic_machine_frame",
             () -> new Block(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
