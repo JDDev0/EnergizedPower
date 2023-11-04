@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "energizedpower:block/teleporter"
+    },
+    "powered=true": {
+      "model": "energizedpower:block/teleporter_ready"
+    }
+  }
+}

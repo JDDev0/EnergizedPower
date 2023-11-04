@@ -273,6 +273,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("time_controller", () -> BlockEntityType.Builder.of(TimeControllerBlockEntity::new,
                     ModBlocks.TIME_CONTROLLER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<TeleporterBlockEntity>> TELEPORTER_ENTITY =
+            BLOCK_ENTITIES.register("teleporter", () -> BlockEntityType.Builder.of(TeleporterBlockEntity::new,
+                    ModBlocks.TELEPORTER.get()).build(null));
+
     public static void register(IEventBus modEventBus) {
         BLOCK_ENTITIES.register(modEventBus);
     }
