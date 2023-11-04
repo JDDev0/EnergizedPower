@@ -243,6 +243,16 @@ public final class ModConfigs {
     public static final ConfigValue<Long> COMMON_TELEPORTER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
             "block.teleporter", "Teleporter", 65536
     );
+    public static final ConfigValue<Boolean> COMMON_TELEPORTER_INTRA_DIMENSIONAL_ENABLED = COMMON_CONFIG.register(new BooleanConfigValue(
+            "block.teleporter.intra_dimensional_enabled",
+            "Intra dimensional teleportation (= within a dimension) is not allowed if set to false.",
+            true
+    ));
+    public static final ConfigValue<Boolean> COMMON_TELEPORTER_INTER_DIMENSIONAL_ENABLED = COMMON_CONFIG.register(new BooleanConfigValue(
+            "block.teleporter.inter_dimensional_enabled",
+            "Inter dimensional teleportation (= across multiple dimension) is not allowed if set to false.",
+            true
+    ));
     public static final ConfigValue<List<@NotNull Identifier>> COMMON_TELEPORTER_DIMENSION_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
             "block.teleporter.dimension_blacklist",
             "Teleportation within, from, and to dimensions in this list are not allowed.",

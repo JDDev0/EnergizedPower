@@ -105,6 +105,28 @@ public class UseTeleporterC2SPacket {
 
             boolean intraDimensional = fromDimensionId.equals(toDimensionId);
 
+            //Intra dimensional enabled
+            if(intraDimensional && !TeleporterBlockEntity.INTRA_DIMENSIONAL_ENABLED) {
+                player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                        Text.translatable("tooltip.energizedpower.teleporter.use.intra_dimensional_disabled",
+                                        fromDimensionId.toString()).
+                                formatted(Formatting.RED)
+                ));
+
+                return;
+            }
+
+            //Inter dimensional enabled
+            if(!intraDimensional && !TeleporterBlockEntity.INTER_DIMENSIONAL_ENABLED) {
+                player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
+                        Text.translatable("tooltip.energizedpower.teleporter.use.inter_dimensional_disabled",
+                                        fromDimensionId.toString()).
+                                formatted(Formatting.RED)
+                ));
+
+                return;
+            }
+
             //Dimension Blacklist
             if(TeleporterBlockEntity.DIMENSION_BLACKLIST.contains(fromDimensionId)) {
                 player.networkHandler.sendPacket(new OverlayMessageS2CPacket(

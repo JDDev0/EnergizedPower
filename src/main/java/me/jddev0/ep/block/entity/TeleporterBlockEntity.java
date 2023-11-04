@@ -40,6 +40,8 @@ import java.util.stream.IntStream;
 import java.util.List;
 
 public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+    public static final boolean INTRA_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_ENABLED.getValue();
+    public static final boolean INTER_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_ENABLED.getValue();
     public static final List<@NotNull Identifier> DIMENSION_BLACKLIST =
             ModConfigs.COMMON_TELEPORTER_DIMENSION_BLACKLIST.getValue();
     public static final List<@NotNull Identifier> INTRA_DIMENSIONAL_BLACKLIST =
