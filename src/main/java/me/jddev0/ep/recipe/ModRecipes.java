@@ -4,6 +4,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -70,6 +71,10 @@ public final class ModRecipes {
             MetalPressRecipe.Serializer.INSTANCE);
     public static final RecipeType<MetalPressRecipe> METAL_PRESS_TYPE = createRecipeType("metal_press",
             MetalPressRecipe.Type.INSTANCE);
+
+    public static final RecipeSerializer<TeleporterMatrixSettingsCopyRecipe>
+            TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER = createSerializer("teleporter_matrix_settings_copy",
+            new SpecialRecipeSerializer<>(TeleporterMatrixSettingsCopyRecipe::new));
 
     private static <T extends Recipe<?>> RecipeSerializer<T> createSerializer(String name, RecipeSerializer<T> instance) {
         return Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(EnergizedPowerMod.MODID, name), instance);
