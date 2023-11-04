@@ -1081,6 +1081,9 @@
   "book.energizedpower.page.time_controller.1": "Der Zeit-Controller kann die Zeit des Tages ändern. Um das zu tun, benötigt er Energie.",
   "book.energizedpower.page.time_controller.2": "Er kann nicht in der Zeit zurückreisen, der \"time\"-Wert wird immer inkrementiert.",
 
+  "book.energizedpower.page.teleporter_matrix.1": "Teleporter-Matrizen werden zum Verbinden von Teleportern verwendet.",
+  "book.energizedpower.page.teleporter_matrix.2": "Die Einstellungen einer Teleporter-Matrix können kopiert werden indem man eine gebundene und eine oder mehere ungebundene Teleporter-Matrizen in einen Crafting Table legt.",
+
   "book.energizedpower.page.teleporter.1": "Der Teleporter kann Spieler teleportieren. Um das zu tun, benötigt er Energie und eine gebundene Teleporter-Matrix.",
   "book.energizedpower.page.teleporter.2": "Er gibt ein Redstone-Singal aus, wenn er bereit ist, jemanden zu Teleportieren.",
 
