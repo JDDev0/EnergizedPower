@@ -49,6 +49,7 @@
 
   "item.energizedpower.basic_circuit": "Circuito base",
   "item.energizedpower.advanced_circuit": "Circiuto avanzato",
+  "item.energizedpower.processing_unit": "Processing Unit",
 
   "item.energizedpower.energized_power_book": "Libro del energized power",
   "tooltip.energizedpower.energized_power_book.txt.shift.1": "Fare clic con il tasto sinistro del mouse su un blocco per aprire la pagina del libro del blocco.",
@@ -573,6 +574,9 @@
 
   "advancements.energizedpower.advanced_circuit.title": "Circuito Avanzato",
   "advancements.energizedpower.advanced_circuit.description": "Crea un circuito avanzato.",
+
+  "advancements.energizedpower.processing_unit.title": "Processing Unit",
+  "advancements.energizedpower.processing_unit.description": "Craft a Processing Unit.",
 
   "advancements.energizedpower.press_mold_maker.title": "Pressa creatore di stampi",
   "advancements.energizedpower.press_mold_maker.description": "Usa questo blocco per realizzare stampi per la pressa per metalli.",

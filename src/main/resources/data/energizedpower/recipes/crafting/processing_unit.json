@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "tag": "c:energized_gold_wires"
+    },
+    "S": {
+      "tag": "c:silicon"
+    },
+    "A": {
+      "item": "energizedpower:advanced_circuit"
+    }
+  },
+  "pattern": [
+    "AEA",
+    "ESE",
+    "AEA"
+  ],
+  "result": {
+    "item": "energizedpower:processing_unit"
+  }
+}
