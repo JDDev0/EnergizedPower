@@ -1081,6 +1081,9 @@
   "book.energizedpower.page.time_controller.1": "时间控制器可以更改一天中的时间，但是需要电力维持。",
   "book.energizedpower.page.time_controller.2": "更改不可撤销，时间会继续向前。",
 
+  "book.energizedpower.page.teleporter.1": "The Teleporter can teleport players. It requires energy and a linked Teleporter Matrix to do so.",
+  "book.energizedpower.page.teleporter.2": "It outputs a redstone signal if the Teleporter is ready for teleportation.",
+
 
   "book.energizedpower.page.chapter.fluid_blocks.title": "Blocks with Fluids",
   "book.energizedpower.page.chapter.fluid_blocks": "Blocks that can store and transfer fluids.",
