@@ -84,6 +84,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<TimeControllerMenu>> TIME_CONTROLLER_MENU = registerMenuType("time_controller",
             TimeControllerMenu::new);
 
+    public static final RegistryObject<MenuType<TeleporterMenu>> TELEPORTER_MENU = registerMenuType("teleporter",
+            TeleporterMenu::new);
+
     public static final RegistryObject<MenuType<LightningGeneratorMenu>> LIGHTNING_GENERATOR_MENU = registerMenuType("lightning_generator",
             LightningGeneratorMenu::new);
 

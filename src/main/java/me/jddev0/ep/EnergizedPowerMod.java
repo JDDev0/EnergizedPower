@@ -7,6 +7,7 @@ import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.block.entity.renderer.ItemConveyorBeltBlockEntityRenderer;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.ModEntityTypes;
+import me.jddev0.ep.input.ModKeyBindings;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
 import me.jddev0.ep.networking.ModMessages;
@@ -26,6 +27,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
@@ -172,6 +174,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.CHARGING_STATION_ITEM);
             event.accept(ModBlocks.WEATHER_CONTROLLER_ITEM);
             event.accept(ModBlocks.TIME_CONTROLLER_ITEM);
+            event.accept(ModBlocks.TELEPORTER_ITEM);
 
             addEmptyAndFullyChargedItem(event, ModItems.INVENTORY_COAL_ENGINE, InventoryCoalEngineItem.CAPACITY);
             event.accept(ModItems.INVENTORY_CHARGER);
@@ -273,6 +276,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.ADVANCED_POWERED_FURNACE_MENU.get(), AdvancedPoweredFurnaceScreen::new);
             MenuScreens.register(ModMenuTypes.WEATHER_CONTROLLER_MENU.get(), WeatherControllerScreen::new);
             MenuScreens.register(ModMenuTypes.TIME_CONTROLLER_MENU.get(), TimeControllerScreen::new);
+            MenuScreens.register(ModMenuTypes.TELEPORTER_MENU.get(), TeleporterScreen::new);
             MenuScreens.register(ModMenuTypes.LIGHTNING_GENERATOR_MENU.get(), LightningGeneratorScreen::new);
             MenuScreens.register(ModMenuTypes.CHARGING_STATION_MENU.get(), ChargingStationScreen::new);
             MenuScreens.register(ModMenuTypes.HEAT_GENERATOR_MENU.get(), HeatGeneratorScreen::new);
@@ -321,6 +325,11 @@ public class EnergizedPowerMod {
         @SubscribeEvent
         public static void loadBookPages(RegisterClientReloadListenersEvent event) {
             event.registerReloadListener(new EnergizedPowerBookReloadListener());
+        }
+
+        @SubscribeEvent
+        public static void onKeyRegister(RegisterKeyMappingsEvent event) {
+            event.register(ModKeyBindings.TELEPORTER_USE_KEY);
         }
     }
 }
