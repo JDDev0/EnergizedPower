@@ -53,11 +53,11 @@ public class PlantGrowthChamberFertilizerCategory implements DisplayCategory<Pla
 
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 34),
                         Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier",
-                                display.recipe().getSpeedMultiplier())).
+                                display.recipe().value().getSpeedMultiplier())).
                 noShadow().rightAligned());
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
                         Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier",
-                                display.recipe().getEnergyConsumptionMultiplier())).
+                                display.recipe().value().getEnergyConsumptionMultiplier())).
                 noShadow().rightAligned());
 
         return widgets;

@@ -96,6 +96,8 @@ dependencies {
     compileOnly 'me.shedaniel.cloth:basic-math:0.6.1'
     compileOnly "dev.architectury:architectury-forge:10.0.8" //TODO debof
     compileOnly 'me.shedaniel:RoughlyEnoughItems-forge:12.0.634' //TODO debof
+    compileOnly "dev.architectury:architectury-forge:10.0.8" //TODO debof
+    compileOnly 'me.shedaniel:RoughlyEnoughItems-forge:13.0.675' //TODO debof
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:12.+"
 
     // JEI integration
