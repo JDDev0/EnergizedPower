@@ -31,7 +31,7 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
     private final TransformerBlock.Type type;
 
     private final ReceiveAndExtractEnergyStorage energyStorage;
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
     private final LazyOptional<IEnergyStorage> lazyEnergyStorageSidedReceive;
     private final LazyOptional<IEnergyStorage> lazyEnergyStorageSidedExtract;
 
@@ -98,6 +98,8 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
         lazyEnergyStorageSidedExtract = LazyOptional.of(
                 () -> new ReceiveExtractEnergyHandler(energyStorage, (maxReceive, simulate) -> false, (maxExtract, simulate) -> true)
         );
+
+        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     public TransformerBlock.Type getTransformerType() {
@@ -140,20 +142,6 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
     }
 
     @Override

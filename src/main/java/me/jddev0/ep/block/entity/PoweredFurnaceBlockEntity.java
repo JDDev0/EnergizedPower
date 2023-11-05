@@ -78,13 +78,13 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
             super.setStackInSlot(slot, stack);
         }
     };
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+    private final LazyOptional<IItemHandler> lazyItemHandler;
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1));
 
     private final ReceiveOnlyEnergyStorage energyStorage;
 
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     protected final ContainerData data;
     private int progress;
@@ -138,6 +138,9 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
                 return 7;
             }
         };
+
+        lazyItemHandler = LazyOptional.of(() -> itemHandler);
+        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -170,22 +173,6 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyItemHandler.invalidate();
-        lazyEnergyStorage.invalidate();
     }
 
     @Override

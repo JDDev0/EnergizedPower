@@ -26,7 +26,7 @@ public class CableBlockEntity extends BlockEntity {
     private final CableBlock.Tier tier;
 
     private final ReceiveOnlyEnergyStorage energyStorage;
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     private boolean loaded;
 
@@ -71,6 +71,8 @@ public class CableBlockEntity extends BlockEntity {
                 }
             };
         }
+
+        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     public CableBlock.Tier getTier() {
@@ -284,20 +286,6 @@ public class CableBlockEntity extends BlockEntity {
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
     }
 
     @Override

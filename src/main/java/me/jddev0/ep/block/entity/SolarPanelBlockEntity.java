@@ -33,7 +33,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
     private final int maxTransfer;
 
     private final ExtractOnlyEnergyStorage energyStorage;
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     public static BlockEntityType<SolarPanelBlockEntity> getEntityTypeFromTier(SolarPanelBlock.Tier tier) {
         return switch(tier) {
@@ -65,6 +65,8 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
                     );
             }
         };
+
+        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -138,20 +140,6 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
     }
 
     @Override

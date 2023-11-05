@@ -29,7 +29,7 @@ public class TimeControllerBlockEntity extends BlockEntity implements MenuProvid
 
     private final ReceiveOnlyEnergyStorage energyStorage;
 
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     public TimeControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.TIME_CONTROLLER_ENTITY.get(), blockPos, blockState);
@@ -46,6 +46,8 @@ public class TimeControllerBlockEntity extends BlockEntity implements MenuProvid
                     );
             }
         };
+
+        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -73,20 +75,6 @@ public class TimeControllerBlockEntity extends BlockEntity implements MenuProvid
 
     public void clearEnergy() {
         energyStorage.setEnergy(0);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
     }
 
     @Override

@@ -33,7 +33,7 @@ public class LightningGeneratorBlockEntity extends BlockEntity implements MenuPr
     public static final int MAX_EXTRACT = ModConfigs.COMMON_LIGHTNING_GENERATOR_TRANSFER_RATE.getValue();
 
     private final ExtractOnlyEnergyStorage energyStorage;
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     public LightningGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.LIGHTING_GENERATOR_ENTITY.get(), blockPos, blockState);
@@ -50,6 +50,8 @@ public class LightningGeneratorBlockEntity extends BlockEntity implements MenuPr
                     );
             }
         };
+
+        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -77,20 +79,6 @@ public class LightningGeneratorBlockEntity extends BlockEntity implements MenuPr
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
     }
 
     @Override

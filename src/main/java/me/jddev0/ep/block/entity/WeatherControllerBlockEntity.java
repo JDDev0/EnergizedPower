@@ -29,7 +29,7 @@ public class WeatherControllerBlockEntity extends BlockEntity implements MenuPro
 
     private final ReceiveOnlyEnergyStorage energyStorage;
 
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     public WeatherControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.WEATHER_CONTROLLER_ENTITY.get(), blockPos, blockState);
@@ -46,6 +46,8 @@ public class WeatherControllerBlockEntity extends BlockEntity implements MenuPro
                     );
             }
         };
+
+        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -73,20 +75,6 @@ public class WeatherControllerBlockEntity extends BlockEntity implements MenuPro
 
     public void clearEnergy() {
         energyStorage.setEnergy(0);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
     }
 
     @Override

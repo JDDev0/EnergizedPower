@@ -80,7 +80,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
             return 1;
         }
     };
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+    private final LazyOptional<IItemHandler> lazyItemHandler;
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
                 if(i != 0)
@@ -106,10 +106,10 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
 
     private final ReceiveOnlyEnergyStorage energyStorage;
 
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     private final FluidTank fluidStorage;
-    private LazyOptional<IFluidHandler> lazyFluidStorage = LazyOptional.empty();
+    private final LazyOptional<IFluidHandler> lazyFluidStorage;
 
     protected final ContainerData data;
     private int fluidDrainingLeft = -1;
@@ -165,6 +165,10 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
                 return 4;
             }
         };
+
+        lazyItemHandler = LazyOptional.of(() -> itemHandler);
+        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
+        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
     }
 
     @Override
@@ -199,24 +203,6 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyItemHandler.invalidate();
-        lazyEnergyStorage.invalidate();
-        lazyFluidStorage.invalidate();
     }
 
     @Override

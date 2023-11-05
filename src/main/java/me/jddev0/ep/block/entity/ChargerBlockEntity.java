@@ -85,7 +85,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
             return 1;
         }
     };
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+    private final LazyOptional<IItemHandler> lazyItemHandler;
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
                 if(i != 0)
@@ -111,7 +111,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
 
     private final ReceiveOnlyEnergyStorage energyStorage;
 
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     protected final ContainerData data;
     private int energyConsumptionLeft = -1;
@@ -153,6 +153,9 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
                 return 2;
             }
         };
+
+        lazyItemHandler = LazyOptional.of(() -> itemHandler);
+        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -185,22 +188,6 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyItemHandler.invalidate();
-        lazyEnergyStorage.invalidate();
     }
 
     @Override

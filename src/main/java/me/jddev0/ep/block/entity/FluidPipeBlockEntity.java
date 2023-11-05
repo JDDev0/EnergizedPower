@@ -27,7 +27,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
     public static int MAX_TRANSFER = ModConfigs.COMMON_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue();
 
     private final IFluidHandler fluidStorage;
-    private LazyOptional<IFluidHandler> lazyFluidStorage = LazyOptional.empty();
+    private final LazyOptional<IFluidHandler> lazyFluidStorage;
 
     private final Map<Pair<BlockPos, Direction>, IFluidHandler> producers = new HashMap<>();
     private final Map<Pair<BlockPos, Direction>, IFluidHandler> consumers = new HashMap<>();
@@ -72,6 +72,8 @@ public class FluidPipeBlockEntity extends BlockEntity {
                 return FluidStack.EMPTY;
             }
         };
+
+        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
     }
 
     public Map<Pair<BlockPos, Direction>, IFluidHandler> getProducers() {
@@ -362,20 +364,6 @@ public class FluidPipeBlockEntity extends BlockEntity {
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyFluidStorage.invalidate();
     }
 
     @Override

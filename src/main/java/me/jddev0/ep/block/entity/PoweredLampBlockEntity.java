@@ -24,7 +24,7 @@ public class PoweredLampBlockEntity extends BlockEntity implements EnergyStorage
     public static final int MAX_RECEIVE = ModConfigs.COMMON_POWERED_LAMP_TRANSFER_RATE.getValue();
 
     private final ReceiveOnlyEnergyStorage energyStorage;
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     public PoweredLampBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.POWERED_LAMP_ENTITY.get(), blockPos, blockState);
@@ -41,6 +41,8 @@ public class PoweredLampBlockEntity extends BlockEntity implements EnergyStorage
                     );
             }
         };
+
+        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -50,20 +52,6 @@ public class PoweredLampBlockEntity extends BlockEntity implements EnergyStorage
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
     }
 
     @Override

@@ -47,10 +47,10 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     private final ExtractOnlyEnergyStorage energyStorage;
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     private final FluidTank fluidStorage;
-    private LazyOptional<IFluidHandler> lazyFluidStorage = LazyOptional.empty();
+    private final LazyOptional<IFluidHandler> lazyFluidStorage;
 
     protected final ContainerData data;
 
@@ -134,6 +134,9 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
                 return 2;
             }
         };
+
+        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
+        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
     }
 
     @Override
@@ -172,22 +175,6 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
-        lazyFluidStorage.invalidate();
     }
 
     @Override

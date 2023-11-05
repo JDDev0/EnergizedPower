@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class CreativeBatteryBoxBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
     private final InfinityEnergyStorage energyStorage;
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     public CreativeBatteryBoxBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CREATIVE_BATTERY_BOX_ENTITY.get(), blockPos, blockState);
@@ -28,6 +28,8 @@ public class CreativeBatteryBoxBlockEntity extends BlockEntity implements Energy
                 setChanged();
             }
         };
+
+        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -37,20 +39,6 @@ public class CreativeBatteryBoxBlockEntity extends BlockEntity implements Energy
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
     }
 
     @Override

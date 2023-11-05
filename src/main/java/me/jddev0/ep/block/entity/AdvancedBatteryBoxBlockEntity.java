@@ -34,7 +34,7 @@ public class AdvancedBatteryBoxBlockEntity extends BlockEntity implements MenuPr
     public static final int MAX_TRANSFER = ModConfigs.COMMON_ADVANCED_BATTERY_BOX_TRANSFER_RATE.getValue();
 
     private final ReceiveAndExtractEnergyStorage energyStorage;
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
+    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     public AdvancedBatteryBoxBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ADVANCED_BATTERY_BOX_ENTITY.get(), blockPos, blockState);
@@ -51,6 +51,8 @@ public class AdvancedBatteryBoxBlockEntity extends BlockEntity implements MenuPr
                     );
             }
         };
+
+        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -80,20 +82,6 @@ public class AdvancedBatteryBoxBlockEntity extends BlockEntity implements MenuPr
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
     }
 
     @Override
