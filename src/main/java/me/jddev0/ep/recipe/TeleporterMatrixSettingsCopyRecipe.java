@@ -17,6 +17,7 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
         super(category);
     }
 
+    @Override
     public boolean matches(CraftingContainer container, Level level) {
         ItemStack linkedTransportMatrix = ItemStack.EMPTY;
         int count = 0;
@@ -45,6 +46,7 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
         return !linkedTransportMatrix.isEmpty() && count > 0;
     }
 
+    @Override
     public ItemStack assemble(CraftingContainer container, RegistryAccess registryAccess) {
         ItemStack linkedTransportMatrix = ItemStack.EMPTY;
         int count = 0;
@@ -74,10 +76,12 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
                 ItemStack.EMPTY;
     }
 
+    @Override
     public ItemStack getResultItem(RegistryAccess registryAccess) {
         return new ItemStack(ModItems.TELEPORTER_MATRIX.get(), 2);
     }
 
+    @Override
     public NonNullList<ItemStack> getRemainingItems(CraftingContainer container) {
         NonNullList<ItemStack> remainders = NonNullList.withSize(container.getContainerSize(), ItemStack.EMPTY);
 
@@ -100,10 +104,12 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
         return new ItemStack(ModItems.TELEPORTER_MATRIX.get());
     }
 
+    @Override
     public RecipeSerializer<?> getSerializer() {
         return ModRecipes.TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER.get();
     }
 
+    @Override
     public boolean canCraftInDimensions(int width, int height) {
         return width * height >= 2;
     }
