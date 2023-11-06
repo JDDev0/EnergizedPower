@@ -49,8 +49,6 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
             ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_FROM_BLACKLIST.getValue();
     public static final List<@NotNull ResourceLocation> INTER_DIMENSIONAL_TO_BLACKLIST =
             ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_BLACKLIST.getValue();
-
-    public static final int CAPACITY = ModConfigs.COMMON_TELEPORTER_CAPACITY.getValue();
     public static final List<@NotNull ResourceLocation> DIMENSION_TYPE_BLACKLIST =
             ModConfigs.COMMON_TELEPORTER_DIMENSION_TYPE_BLACKLIST.getValue();
     public static final List<@NotNull ResourceLocation> INTRA_DIMENSIONAL_TYPE_BLACKLIST =
@@ -59,6 +57,8 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
             ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_FROM_TYPE_BLACKLIST.getValue();
     public static final List<@NotNull ResourceLocation> INTER_DIMENSIONAL_TO_TYPE_BLACKLIST =
             ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_TYPE_BLACKLIST.getValue();
+
+    public static final int CAPACITY = ModConfigs.COMMON_TELEPORTER_CAPACITY.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
         @Override
