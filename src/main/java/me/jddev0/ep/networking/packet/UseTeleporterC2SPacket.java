@@ -5,13 +5,17 @@ import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.SectionPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
+import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -267,6 +271,11 @@ public class UseTeleporterC2SPacket {
 
             context.getSender().teleportTo((ServerLevel)toDimension, toPosCenter.x(), toPos.getY() + 1, toPosCenter.z(),
                     new HashSet<>(), 0, 0);
+
+            context.getSender().connection.send(new ClientboundSoundPacket(
+                    Holder.direct(SoundEvents.ENDERMAN_TELEPORT), SoundSource.BLOCKS,
+                    toPosCenter.x(), toPos.getY(), toPosCenter.z(), 1.f, 1.f,
+                    toDimension.getRandom().nextLong()));
         });
 
         return true;
