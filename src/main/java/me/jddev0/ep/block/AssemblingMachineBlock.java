@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
+import me.jddev0.ep.block.entity.AssemblingMachineBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
-import me.jddev0.ep.block.entity.StoneSolidifierBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,10 +21,10 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class StoneSolidifierBlock extends BaseEntityBlock {
+public class AssemblingMachineBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    protected StoneSolidifierBlock(Properties props) {
+    protected AssemblingMachineBlock(Properties props) {
         super(props);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
@@ -33,7 +33,7 @@ public class StoneSolidifierBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
-        return new StoneSolidifierBlockEntity(blockPos, state);
+        return new AssemblingMachineBlockEntity(blockPos, state);
     }
 
     @Override
@@ -49,10 +49,10 @@ public class StoneSolidifierBlock extends BaseEntityBlock {
     @Override
     public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(!(blockEntity instanceof StoneSolidifierBlockEntity stoneSolidifierBlockEntity))
+        if(!(blockEntity instanceof AssemblingMachineBlockEntity assemblingMachineBlockEntity))
             return super.getAnalogOutputSignal(state, level, blockPos);
 
-        return stoneSolidifierBlockEntity.getRedstoneOutput();
+        return assemblingMachineBlockEntity.getRedstoneOutput();
     }
 
     @Override
@@ -61,10 +61,10 @@ public class StoneSolidifierBlock extends BaseEntityBlock {
             return;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(!(blockEntity instanceof StoneSolidifierBlockEntity))
+        if(!(blockEntity instanceof AssemblingMachineBlockEntity))
             return;
 
-        ((StoneSolidifierBlockEntity)blockEntity).drops(level, blockPos);
+        ((AssemblingMachineBlockEntity)blockEntity).drops(level, blockPos);
 
         super.onRemove(state, level, blockPos, newState, isMoving);
     }
@@ -75,10 +75,10 @@ public class StoneSolidifierBlock extends BaseEntityBlock {
             return InteractionResult.sidedSuccess(level.isClientSide());
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(!(blockEntity instanceof StoneSolidifierBlockEntity))
+        if(!(blockEntity instanceof AssemblingMachineBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        ((ServerPlayer)player).openMenu((StoneSolidifierBlockEntity)blockEntity, blockPos);
+        ((ServerPlayer)player).openMenu((AssemblingMachineBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }
@@ -106,6 +106,6 @@ public class StoneSolidifierBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.STONE_SOLIDIFIER_ENTITY.get(), StoneSolidifierBlockEntity::tick);
+        return createTickerHelper(type, ModBlockEntities.ASSEMBLING_MACHINE_ENTITY.get(), AssemblingMachineBlockEntity::tick);
     }
 }

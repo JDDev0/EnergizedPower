@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "energizedpower:block/assembling_machine",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "energizedpower:block/assembling_machine"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/assembling_machine",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/assembling_machine",
+      "y": 270
+    }
+  }
+}

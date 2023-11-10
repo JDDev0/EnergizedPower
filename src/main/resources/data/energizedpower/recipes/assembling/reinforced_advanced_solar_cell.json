@@ -1,0 +1,32 @@
+{
+  "type": "energizedpower:assembling_machine",
+  "inputs": [
+    {
+      "input": {
+        "item": "energizedpower:advanced_solar_cell"
+      },
+      "count": 2
+    },
+    {
+      "input": {
+        "item": "energizedpower:energized_crystal_matrix"
+      },
+      "count": 4
+    },
+    {
+      "input": {
+        "tag": "forge:silicon"
+      },
+      "count": 2
+    },
+    {
+      "input": {
+        "tag": "forge:dusts/redstone"
+      },
+      "count": 2
+    }
+  ],
+  "output": {
+    "item": "energizedpower:reinforced_advanced_solar_cell"
+  }
+}
