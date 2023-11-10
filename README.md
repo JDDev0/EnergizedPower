@@ -18,6 +18,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Sawmill
 - Compressor
 - Metal Press
+- Assembling Machine (**In next release (v2.5.0)**)
 - Plant Growth Chamber
 - Stone Solidifier (**In next release (v2.5.0)**)
 - Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
