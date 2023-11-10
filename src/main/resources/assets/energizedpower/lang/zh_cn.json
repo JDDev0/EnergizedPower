@@ -1078,6 +1078,10 @@
   "book.energizedpower.page.metal_press.3": "Press Molds can be inserted to and extracted from the top.",
   "book.energizedpower.page.metal_press.4": "Inputs can be inserted to and outputs can be extracted from all other sides.",
 
+  "book.energizedpower.page.assembling_machine.1": "The Assembling Machine creates electronic components (e.g. circuits).",
+  "book.energizedpower.page.assembling_machine.2": "Outputs can be extracted from all sides.",
+  "book.energizedpower.page.assembling_machine.3": "Inputs can be inserted from all sides (Top/Bottom: All inputs slots, Front: Bottom slot, Back: Top slot, Left: Left slot, Right: Right slot).",
+
   "book.energizedpower.page.plant_growth_chamber.1": "The Plant Growth Chamber can boost plant growth and yield.",
   "book.energizedpower.page.plant_growth_chamber.2": "The right input slot is the seed slot.",
   "book.energizedpower.page.plant_growth_chamber.3": "The left, optionally usable input slot is the fertilizer slot.",
