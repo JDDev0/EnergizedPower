@@ -67,6 +67,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 ### Fluid transportation
 
 - Fluid Pipe
+- Drain (**In next release (v2.5.0)**)
 
 ### Item transportation
 
