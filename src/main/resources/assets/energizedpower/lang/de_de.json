@@ -1078,6 +1078,10 @@
   "book.energizedpower.page.metal_press.3": "Pressformen können von oben hinzugefügt und extrahiert werden.",
   "book.energizedpower.page.metal_press.4": "Eingaben können von allen anderen Seiten hinzugefügt werden und Ausgaben können auf diesen Seiten extrahiert werden.",
 
+  "book.energizedpower.page.assembling_machine.1": "Die Montagemaschine stellt elektronische Komponenten (z.B. Schaltkreise) her.",
+  "book.energizedpower.page.assembling_machine.2": "Ausgabe-Items können von allen Seiten extrahiert werden.",
+  "book.energizedpower.page.assembling_machine.3": "Eingabe-Items können von allen Seiten eingelegt werden (Oben/Unten: Alle Eingabe-Slots, Vorne: Unterer Slot, Hinten: Oberer Slot, Links: Linker Slot, Rechts: Rechter Slot).",
+
   "book.energizedpower.page.plant_growth_chamber.1": "Die Pflanzenwachstums-Kammer kann das Pflanzenwachstum und -erträge verbessern.",
   "book.energizedpower.page.plant_growth_chamber.2": "Der rechte Eingabeslot ist der Samenslot.",
   "book.energizedpower.page.plant_growth_chamber.3": "Der linke, optional verwendbare Eingabeslot ist der Düngerslot.",
