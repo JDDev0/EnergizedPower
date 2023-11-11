@@ -1,0 +1,8 @@
+{
+  "content": {
+    "translate": "book.energizedpower.page.crystal_growth_chamber",
+    "bold": true,
+    "font": "uniform"
+  },
+  "block": "energizedpower:crystal_growth_chamber"
+}

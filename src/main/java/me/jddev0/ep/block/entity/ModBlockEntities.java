@@ -278,6 +278,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("charging_station", () -> BlockEntityType.Builder.of(ChargingStationBlockEntity::new,
                     ModBlocks.CHARGING_STATION.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<CrystalGrowthChamberBlockEntity>> CRYSTAL_GROWTH_CHAMBER_ENTITY =
+            BLOCK_ENTITIES.register("crystal_growth_chamber", () -> BlockEntityType.Builder.of(CrystalGrowthChamberBlockEntity::new,
+                    ModBlocks.CRYSTAL_GROWTH_CHAMBER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<WeatherControllerBlockEntity>> WEATHER_CONTROLLER_ENTITY =
             BLOCK_ENTITIES.register("weather_controller", () -> BlockEntityType.Builder.of(WeatherControllerBlockEntity::new,
                     ModBlocks.WEATHER_CONTROLLER.get()).build(null));

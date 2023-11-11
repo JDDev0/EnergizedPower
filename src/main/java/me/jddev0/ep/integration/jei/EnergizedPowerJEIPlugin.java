@@ -43,6 +43,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
                 new PlantGrowthChamberCategory(registration.getJeiHelpers().getGuiHelper()),
                 new PlantGrowthChamberFertilizerCategory(registration.getJeiHelpers().getGuiHelper()),
                 new EnergizerCategory(registration.getJeiHelpers().getGuiHelper()),
+                new CrystalGrowthChamberCategory(registration.getJeiHelpers().getGuiHelper()),
                 new PressMoldMakerCategory(registration.getJeiHelpers().getGuiHelper()),
                 new StoneSolidifierCategory(registration.getJeiHelpers().getGuiHelper()),
 
@@ -73,6 +74,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipes(PlantGrowthChamberCategory.TYPE, recipeManager.getAllRecipesFor(PlantGrowthChamberRecipe.Type.INSTANCE));
         registration.addRecipes(PlantGrowthChamberFertilizerCategory.TYPE, recipeManager.getAllRecipesFor(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE));
         registration.addRecipes(EnergizerCategory.TYPE, recipeManager.getAllRecipesFor(EnergizerRecipe.Type.INSTANCE));
+        registration.addRecipes(CrystalGrowthChamberCategory.TYPE, recipeManager.getAllRecipesFor(CrystalGrowthChamberRecipe.Type.INSTANCE));
         registration.addRecipes(PressMoldMakerCategory.TYPE, recipeManager.getAllRecipesFor(PressMoldMakerRecipe.Type.INSTANCE));
         registration.addRecipes(StoneSolidifierCategory.TYPE, recipeManager.getAllRecipesFor(StoneSolidifierRecipe.Type.INSTANCE));
 
@@ -107,6 +109,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()), PlantGrowthChamberCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()), PlantGrowthChamberFertilizerCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.ENERGIZER_ITEM.get()), EnergizerCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM.get()), CrystalGrowthChamberCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.PRESS_MOLD_MAKER_ITEM.get()), PressMoldMakerCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.STONE_SOLIDIFIER_ITEM.get()), StoneSolidifierCategory.TYPE);
 
@@ -137,6 +140,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipeClickArea(PlantGrowthChamberScreen.class, 34, 16, 18, 17, PlantGrowthChamberFertilizerCategory.TYPE);
         registration.addRecipeClickArea(PlantGrowthChamberScreen.class, 34, 53, 18, 17, PlantGrowthChamberFertilizerCategory.TYPE);
         registration.addRecipeClickArea(EnergizerScreen.class, 89, 34, 24, 17, EnergizerCategory.TYPE);
+        registration.addRecipeClickArea(CrystalGrowthChamberScreen.class, 80, 34, 24, 17, CrystalGrowthChamberCategory.TYPE);
         registration.addRecipeClickArea(PressMoldMakerScreen.class, 7, 34, 18, 18, PressMoldMakerCategory.TYPE);
         registration.addRecipeClickArea(StoneSolidifierScreen.class, 69, 45, 20, 14, StoneSolidifierCategory.TYPE);
         registration.addRecipeClickArea(StoneSolidifierScreen.class, 123, 45, 20, 14, StoneSolidifierCategory.TYPE);
