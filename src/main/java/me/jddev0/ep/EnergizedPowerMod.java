@@ -157,6 +157,7 @@ public class EnergizedPowerMod implements ModInitializer {
 
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.ENERGIZER_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.CHARGING_STATION_ITEM);
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.WEATHER_CONTROLLER_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.TIME_CONTROLLER_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.TELEPORTER_ITEM);

@@ -65,6 +65,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
         registry.addCategory(EnergizerEMIRecipe.CATEGORY);
         registry.addWorkstation(EnergizerEMIRecipe.CATEGORY, EnergizerEMIRecipe.ITEM);
 
+        registry.addCategory(CrystalGrowthChamberEMIRecipe.CATEGORY);
+        registry.addWorkstation(CrystalGrowthChamberEMIRecipe.CATEGORY, CrystalGrowthChamberEMIRecipe.ITEM);
+
         registry.addCategory(PressMoldMakerEMIRecipe.CATEGORY);
         registry.addWorkstation(PressMoldMakerEMIRecipe.CATEGORY, PressMoldMakerEMIRecipe.ITEM);
 
@@ -110,6 +113,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
         for(RecipeEntry<EnergizerRecipe> recipe:recipeManager.listAllOfType(EnergizerRecipe.Type.INSTANCE))
             registry.addRecipe(new EnergizerEMIRecipe(recipe));
+
+        for(RecipeEntry<CrystalGrowthChamberRecipe> recipe:recipeManager.listAllOfType(CrystalGrowthChamberRecipe.Type.INSTANCE))
+            registry.addRecipe(new CrystalGrowthChamberEMIRecipe(recipe));
 
         for(RecipeEntry<PressMoldMakerRecipe> recipe:recipeManager.listAllOfType(PressMoldMakerRecipe.Type.INSTANCE))
             registry.addRecipe(new PressMoldMakerEMIRecipe(recipe));
