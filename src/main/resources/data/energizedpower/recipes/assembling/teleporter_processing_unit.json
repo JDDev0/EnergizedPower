@@ -1,0 +1,32 @@
+{
+  "type": "energizedpower:assembling_machine",
+  "inputs": [
+    {
+      "input": {
+        "item": "energizedpower:processing_unit"
+      },
+      "count": 4
+    },
+    {
+      "input": {
+        "item": "energizedpower:teleporter_matrix"
+      },
+      "count": 4
+    },
+    {
+      "input": {
+        "item": "energizedpower:energized_crystal_matrix"
+      },
+      "count": 2
+    },
+    {
+      "input": {
+        "tag": "c:silicon"
+      },
+      "count": 2
+    }
+  ],
+  "output": {
+    "item": "energizedpower:teleporter_processing_unit"
+  }
+}

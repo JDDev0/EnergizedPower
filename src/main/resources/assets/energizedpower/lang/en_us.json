@@ -402,6 +402,10 @@
 
   "tooltip.energizedpower.metal_press.txt.shift.1": "Press Molds can be created in the Press Mold Maker.",
 
+  "block.energizedpower.assembling_machine": "Assembling Machine",
+  "item.energizedpower.assembling_machine": "Assembling Machine",
+  "container.energizedpower.assembling_machine": "Assembling Machine",
+
   "block.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
   "item.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
   "container.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
@@ -544,6 +548,7 @@
   "emi.category.energizedpower.sawmill": "Sawmill",
   "emi.category.energizedpower.compressor": "Compressor",
   "emi.category.energizedpower.metal_press": "Metal Press",
+  "emi.category.energizedpower.assembling_machine": "Assembling Machine",
   "emi.category.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
   "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Growth Chamber (Fertilizer)",
   "emi.category.energizedpower.energizer": "Energizer",
@@ -616,6 +621,9 @@
 
   "advancements.energizedpower.metal_press.title": "Metal Press",
   "advancements.energizedpower.metal_press.description": "Form metals.",
+
+  "advancements.energizedpower.assembling_machine.title": "Assembling Machine",
+  "advancements.energizedpower.assembling_machine.description": "Craft electronic components in the Assembling Machine.",
 
   "advancements.energizedpower.plant_growth_chamber.title": "Faster Plant Growth",
   "advancements.energizedpower.plant_growth_chamber.description": "Improve the speed and the yields with the Plant Growth Chamber.",

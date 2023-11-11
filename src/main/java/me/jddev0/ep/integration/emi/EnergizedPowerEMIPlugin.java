@@ -53,6 +53,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
         registry.addCategory(MetalPressEMIRecipe.CATEGORY);
         registry.addWorkstation(MetalPressEMIRecipe.CATEGORY, MetalPressEMIRecipe.ITEM);
 
+        registry.addCategory(AssemblingMachineEMIRecipe.CATEGORY);
+        registry.addWorkstation(AssemblingMachineEMIRecipe.CATEGORY, AssemblingMachineEMIRecipe.ITEM);
+
         registry.addCategory(PlantGrowthChamberEMIRecipe.CATEGORY);
         registry.addWorkstation(PlantGrowthChamberEMIRecipe.CATEGORY, PlantGrowthChamberEMIRecipe.ITEM);
 
@@ -95,6 +98,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
         for(RecipeEntry<MetalPressRecipe> recipe:recipeManager.listAllOfType(MetalPressRecipe.Type.INSTANCE))
             registry.addRecipe(new MetalPressEMIRecipe(recipe));
+
+        for(RecipeEntry<AssemblingMachineRecipe> recipe:recipeManager.listAllOfType(AssemblingMachineRecipe.Type.INSTANCE))
+            registry.addRecipe(new AssemblingMachineEMIRecipe(recipe));
 
         for(RecipeEntry<PlantGrowthChamberRecipe> recipe:recipeManager.listAllOfType(PlantGrowthChamberRecipe.Type.INSTANCE))
             registry.addRecipe(new PlantGrowthChamberEMIRecipe(recipe));
