@@ -160,6 +160,17 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
+    public static final BlockEntityType<StoneSolidifierBlockEntity> STONE_SOLIDIFIER_ENTITY = registerEnergyStorage(
+            registerFluidStorage(
+                    registerInventoryStorage(
+                            createBlockEntity("stone_solidifier", ModBlocks.STONE_SOLIDIFIER, StoneSolidifierBlockEntity::new),
+                            (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)
+                    ),
+                    (blockEntity, direction) -> blockEntity.fluidStorage
+            ),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
+
     public static final BlockEntityType<FluidFillerBlockEntity> FLUID_FILLER_ENTITY = registerEnergyStorage(
             registerFluidStorage(
                     registerInventoryStorage(

@@ -75,11 +75,11 @@ public class FluidFillerMenu extends ScreenHandler implements EnergyStorageMenu 
     }
 
     public FluidStack getFluid() {
-        return blockEntity.getFluid();
+        return blockEntity.getFluid(0);
     }
 
     public long getTankCapacity() {
-        return blockEntity.getTankCapacity();
+        return blockEntity.getTankCapacity(0);
     }
 
     public long getFluidIndicatorBarValue() {

@@ -607,6 +607,22 @@ public final class ModConfigs {
             "block.plant_growth_chamber", "Plant Growth Chamber"
     );
 
+    public static final ConfigValue<Long> COMMON_STONE_SOLIDIFIER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.stone_solidifier", "Stone Solidifier", 4096
+    );
+    public static final ConfigValue<Long> COMMON_STONE_SOLIDIFIER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.stone_solidifier", "Stone Solidifier", 256
+    );
+    public static final ConfigValue<Long> COMMON_STONE_SOLIDIFIER_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.stone_solidifier", "Stone Solidifier", 128
+    );
+    public static final ConfigValue<Long> COMMON_STONE_SOLIDIFIER_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
+            "block.stone_solidifier", "Stone Solidifier", 4
+    );
+    public static final ConfigValue<Integer> COMMON_CSTONE_SOLIDIFIER_RECIPE_DURATION = registerRecipeDurationConfigValue(
+            "block.stone_solidifier", "Stone Solidifier", 25
+    );
+
     public static final ConfigValue<Long> COMMON_FLUID_FILLER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.fluid_filler", "Fluid Filler", 2048
     );

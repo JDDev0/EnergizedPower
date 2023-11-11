@@ -58,11 +58,11 @@ public class ThermalGeneratorMenu extends ScreenHandler implements EnergyStorage
     }
 
     public FluidStack getFluid() {
-        return blockEntity.getFluid();
+        return blockEntity.getFluid(0);
     }
 
     public long getTankCapacity() {
-        return blockEntity.getTankCapacity();
+        return blockEntity.getTankCapacity(0);
     }
 
     @Override

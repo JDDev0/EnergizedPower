@@ -140,6 +140,7 @@ public class EnergizedPowerMod implements ModInitializer {
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.COMPRESSOR_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.METAL_PRESS_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.PLANT_GROWTH_CHAMBER_ITEM);
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.STONE_SOLIDIFIER_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.BLOCK_PLACER_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.FLUID_FILLER_ITEM);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModBlocks.FLUID_DRAINER_ITEM);
