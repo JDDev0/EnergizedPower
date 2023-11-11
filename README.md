@@ -33,6 +33,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Minecart Uncharger
 - Advanced Minecart Uncharger
 - Charging Station
+- Crystal Growth Chamber (**In next release (v2.5.0)**)
 - Energizer
 - Coal Engine
 - Heat Generator
