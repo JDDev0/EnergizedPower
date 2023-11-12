@@ -250,6 +250,11 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item BLOCK_PLACER_ITEM = createBlockItem("block_placer", BLOCK_PLACER);
 
+    public static final Block ASSEMBLING_MACHINE = registerBlock("assembling_machine",
+            new AssemblingMachineBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item ASSEMBLING_MACHINE_ITEM = createBlockItem("assembling_machine", ASSEMBLING_MACHINE);
+
     public static final Block FLUID_FILLER = registerBlock("fluid_filler",
             new FluidFillerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

@@ -1,0 +1,31 @@
+{
+  "type": "energizedpower:assembling_machine",
+  "inputs": [
+    {
+      "input": {
+        "item": "minecraft:amethyst_shard"
+      },
+      "count": 6
+    },
+    {
+      "input": {
+        "tag": "c:diamonds"
+      },
+      "count": 2
+    },
+    {
+      "input": {
+        "tag": "c:emeralds"
+      },
+      "count": 2
+    },
+    {
+      "input": {
+        "tag": "c:redstone_dusts"
+      }
+    }
+  ],
+  "output": {
+    "item": "energizedpower:crystal_matrix"
+  }
+}

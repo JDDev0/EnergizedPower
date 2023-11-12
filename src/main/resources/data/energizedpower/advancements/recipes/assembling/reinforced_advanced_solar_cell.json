@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_energized_copper_ingot": {
+    "has_energized_crystal_matrix": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "tag": "c:energized_copper_ingots"
+            "items": [ "energizedpower:energized_crystal_matrix" ]
           }
         ]
       }
@@ -14,19 +14,19 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "energizedpower:crafting/advanced_solar_cell"
+        "recipe": "energizedpower:assembling/reinforced_advanced_solar_cell"
       }
     }
   },
   "requirements": [
     [
-      "has_energized_copper_ingot",
+      "has_energized_crystal_matrix",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "energizedpower:crafting/advanced_solar_cell"
+      "energizedpower:assembling/reinforced_advanced_solar_cell"
     ]
   }
 }
