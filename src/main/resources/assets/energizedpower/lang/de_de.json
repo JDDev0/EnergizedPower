@@ -402,6 +402,10 @@
 
   "tooltip.energizedpower.metal_press.txt.shift.1": "Pressformen können im Pressform-Hersteller hergestellt werden.",
 
+  "block.energizedpower.assembling_machine": "Montagemaschine",
+  "item.energizedpower.assembling_machine": "Montagemaschine",
+  "container.energizedpower.assembling_machine": "Montagemaschine",
+
   "block.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
   "item.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
   "container.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
@@ -544,6 +548,7 @@
   "emi.category.energizedpower.sawmill": "Sägewerk",
   "emi.category.energizedpower.compressor": "Kompressor",
   "emi.category.energizedpower.metal_press": "Metallpresse",
+  "emi.category.energizedpower.assembling_machine": "Montagemaschine",
   "emi.category.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
   "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Wachstums-Kammer (Dünger)",
   "emi.category.energizedpower.energizer": "Energetisierer",
@@ -616,6 +621,9 @@
 
   "advancements.energizedpower.metal_press.title": "Metallpresse",
   "advancements.energizedpower.metal_press.description": "Forme Metalle.",
+
+  "advancements.energizedpower.assembling_machine.title": "Montagemaschine",
+  "advancements.energizedpower.assembling_machine.description": "Stelle elektrische Komponenten in der Montagemaschine her.",
 
   "advancements.energizedpower.plant_growth_chamber.title": "Schnelleres Pflanzenwachstum",
   "advancements.energizedpower.plant_growth_chamber.description": "Verssere die Geschwindigkeit und den Ertrag mit der Pflanzenwachstums-Kammer.",

@@ -541,6 +541,19 @@ public final class ModConfigs {
             1, null
     ));
 
+    public static final ConfigValue<Integer> COMMON_ASSEMBLING_MACHINE_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.assembling_machine", "Assembling Machine", 8192
+    );
+    public static final ConfigValue<Integer> COMMON_ASSEMBLING_MACHINE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.assembling_machine", "Assembling Machine", 512
+    );
+    public static final ConfigValue<Integer> COMMON_ASSEMBLING_MACHINE_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.assembling_machine", "Assembling Machine", 256
+    );
+    public static final ConfigValue<Integer> COMMON_ASSEMBLING_MACHINE_RECIPE_DURATION = registerRecipeDurationConfigValue(
+            "block.assembling_machine", "Assembling Machine", 200
+    );
+
     public static final ConfigValue<Integer> COMMON_POWERED_LAMP_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
             "block.powered_lamp", "Powered Lamp", 16
     );

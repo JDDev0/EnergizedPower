@@ -1,0 +1,32 @@
+{
+  "type": "energizedpower:assembling_machine",
+  "inputs": [
+    {
+      "input": {
+        "item": "energizedpower:basic_solar_cell"
+      },
+      "count": 2
+    },
+    {
+      "input": {
+        "tag": "forge:ingots/energized_copper"
+      },
+      "count": 4
+    },
+    {
+      "input": {
+        "tag": "forge:ingots/iron"
+      },
+      "count": 2
+    },
+    {
+      "input": {
+        "tag": "forge:dusts/redstone"
+      },
+      "count": 2
+    }
+  ],
+  "output": {
+    "item": "energizedpower:advanced_solar_cell"
+  }
+}
