@@ -2,7 +2,6 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.*;
-import me.jddev0.ep.block.StoneSolidifierBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
