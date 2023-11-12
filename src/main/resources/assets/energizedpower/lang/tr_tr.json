@@ -1,0 +1,1203 @@
+{
+  "item.energizedpower.energized_copper_ingot": "Enerjilendirilmiş Bakır Külçesi",
+  "item.energizedpower.energized_gold_ingot": "Enerjilendirilmiş Altın Külçesi",
+
+  "item.energizedpower.energized_copper_plate": "Enerjilendirilmiş Bakır Plaka",
+  "item.energizedpower.energized_gold_plate": "Enerjilendirilmiş Altın Plaka",
+
+  "item.energizedpower.energized_copper_wire": "Enerjilendirilmiş Bakır Tel",
+  "item.energizedpower.energized_gold_wire": "Enerjilendirilmiş Altın Tel",
+
+  "item.energizedpower.silicon": "Silikon",
+
+  "item.energizedpower.copper_dust": "Bakır Tozu",
+  "item.energizedpower.iron_dust": "Demir Tozu",
+  "item.energizedpower.gold_dust": "Altın Tozu",
+
+  "item.energizedpower.copper_plate": "Bakır Plaka",
+  "item.energizedpower.iron_plate": "Demir Plaka",
+  "item.energizedpower.gold_plate": "Altın Plaka",
+
+  "item.energizedpower.iron_gear": "Demir Dişli",
+
+  "item.energizedpower.iron_rod": "Demir Çubuk",
+
+  "item.energizedpower.copper_wire": "Bakır Tel",
+  "item.energizedpower.gold_wire": "Altın Tel",
+
+  "item.energizedpower.sawdust": "Talaş",
+
+  "item.energizedpower.basic_fertilizer": "Basit Gübreleyici",
+  "item.energizedpower.good_fertilizer": "İyi Gübreleyici",
+  "item.energizedpower.advanced_fertilizer": "Gelişmiş Gübreleyici",
+
+  "item.energizedpower.raw_gear_press_mold": "Ham Dişli Pres Kalıbı",
+
+  "item.energizedpower.raw_rod_press_mold": "Ham Çubuk Pres Kalıbı",
+
+  "item.energizedpower.raw_wire_press_mold": "Ham Tel Pres Kalıbı",
+
+  "item.energizedpower.gear_press_mold": "Dişli Pres Kalıbı",
+
+  "item.energizedpower.rod_press_mold": "Çubuk Pres Kalıbı",
+
+  "item.energizedpower.wire_press_mold": "Tel Pres Kalıbı",
+
+  "item.energizedpower.basic_solar_cell": "Temel Güneş Pili",
+  "item.energizedpower.advanced_solar_cell": "Gelişmiş Güneş Pili",
+  "item.energizedpower.reinforced_advanced_solar_cell": "Güçlendirilmiş ve Gelişmiş Güneş Pili",
+
+  "item.energizedpower.basic_circuit": "Basit Devre",
+  "item.energizedpower.advanced_circuit": "Gelişmiş Devre",
+  "item.energizedpower.processing_unit": "İşlemci Birimi",
+
+  "item.energizedpower.energized_power_book": "Enerjilendilmiş Mod Kitabı",
+  "tooltip.energizedpower.energized_power_book.txt.shift.1": "Bu kitabı açmak için sol tık yapın!.",
+  "book.energizedpower.front.cover.text": "Bu kitap mod için yardımcı kitapdır!",
+
+  "item.energizedpower.cable_insulator": "Kablo İzalotörü",
+  "tooltip.energizedpower.cable_insulator.txt.shift.1": "Bu eşya, makas ile bir yün bloğuna tıklanarak üretilebilir.",
+
+  "item.energizedpower.saw_blade": "Testere Bıçağı",
+
+  "item.energizedpower.crystal_matrix": "Matrix Kristali",
+
+  "item.energizedpower.energized_crystal_matrix": "Enerjili Matrix Kristali",
+
+  "item.energizedpower.teleporter_matrix": "Işınlayıcı Matrix",
+  "item.energizedpower.teleporter_matrix.linked": "Işınlayıcı Matrix [Bağlı]",
+  "item.energizedpower.teleporter_matrix.unlinked": "Işınlayıcı Matrix [Bağlanmamış!]",
+  "tooltip.energizedpower.teleporter_matrix.cleared": "Işınlayıcı Matrix'in ayarları başarıyla temizlendi.",
+  "tooltip.energizedpower.teleporter_matrix.set": "Işınlayıcı Matrix başarıyla ayarlandı.",
+  "tooltip.energizedpower.teleporter_matrix.set.warning": "Işınlayıcı Matrisi ayarları yapıldı ancak bir Işınlayıcı konumuna işaret etmiyor.",
+  "tooltip.energizedpower.teleporter_matrix.status": "Durum: ",
+  "tooltip.energizedpower.teleporter_matrix.status.linked": "Bağlı",
+  "tooltip.energizedpower.teleporter_matrix.status.unlinked": "Bağlanmamış",
+  "tooltip.energizedpower.teleporter_matrix.location": "Konum: ",
+  "tooltip.energizedpower.teleporter_matrix.dimension": "Boyut: ",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.1": "Bir Işınlayıcıya shift + sol tıklayarak bağlanıldı.",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.2": "Hava sağ tık ile silin.",
+
+  "item.energizedpower.teleporter_processing_unit": "Işınlayıcı İşlemci Birimi",
+
+  "item.energizedpower.inventory_coal_engine": "Envanter Kömür Motoru",
+  "tooltip.energizedpower.inventory_coal_engine.status": "Durum: ",
+  "tooltip.energizedpower.inventory_coal_engine.status.activated": "Aktif",
+  "tooltip.energizedpower.inventory_coal_engine.status.deactivated": "Aktif Değil",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.1": "Aktivasyon durumu bu alete hava sağ tık ile değiştirilebir",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.2": "Etkin öğeler envanterden alınacak ancak kısayol çubuğundan alınmayacak.",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning": "Şimdi Yakıyor: ",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.energy_production_left": "Enerji üretimi kaldı: %s",
+
+  "item.energizedpower.inventory_charger": "Envanter Şarjı",
+  "container.energizedpower.inventory_charger": "Envantör Şarjı",
+  "tooltip.energizedpower.inventory_charger.txt.shift.1": "Bu öğeyi havada kullanarak bu öğenin envanterini açın",
+
+  "item.energizedpower.battery_1": "Batarya (Seviye I)",
+  "item.energizedpower.battery_2": "Batarya (Seviye II)",
+  "item.energizedpower.battery_3": "Batarya (Seviye III)",
+  "item.energizedpower.battery_4": "Batarya (Seviye IV)",
+  "item.energizedpower.battery_5": "Batarya (Seviye V)",
+  "item.energizedpower.battery_6": "Batarya (Seviye VI)",
+  "item.energizedpower.battery_7": "Batarya (Seviye VII)",
+  "item.energizedpower.battery_8": "Batarya (Seviye VIII)",
+  "tooltip.energizedpower.battery.txt.shift.1": "Bu batarya %s/t aktarım yapabilir.",
+
+  "item.energizedpower.creative_battery": "Yaratıcı Mod Bataryası",
+
+  "item.energizedpower.energy_analyzer": "Enerji Analizörü",
+  "tooltip.energizedpower.energy_analyzer.txt.shift.1": "Bilgi almak için bir enerji bloğuna tıklayın.",
+  "tooltip.energizedpower.energy_analyzer.txt.shift.2": "%s kullanımda kullanılacak",
+  "txt.energizedpower.energy_analyzer.output_side_information": "Tıklanan blok yüzü için bilgiler:",
+  "txt.energizedpower.energy_analyzer.no_energy_left": "Enerji Analizörü'nün yeteli bataryası yok!(%s minumum gerekli).",
+  "txt.energizedpower.energy_analyzer.no_block_entity": "Bu bir enerji bloğu değil!.",
+  "txt.energizedpower.energy_analyzer.no_energy_block": "Bu blok (FE) enerji bloğu değildir.",
+  "txt.energizedpower.energy_analyzer.no_energy_block_side": "Bu blok yüzü (FE) enerji bloğu değildir.",
+  "txt.energizedpower.energy_analyzer.energy_output": "Enerji: %s / %s.",
+  "txt.energizedpower.energy_analyzer.energy_can_receive": "Bu blok Enerji harcar.",
+  "txt.energizedpower.energy_analyzer.energy_can_extract": "Bu blok Enerji üretir.",
+  "txt.energizedpower.energy_analyzer.energy_can_receive_side": "Bu blok yüzü enerji harcar.",
+  "txt.energizedpower.energy_analyzer.energy_can_extract_side": "Bu blok yüzü enerji üretir.",
+
+  "item.energizedpower.fluid_analyzer": "Sıvı Analizörü",
+  "tooltip.energizedpower.fluid_analyzer.txt.shift.1": "Bilgi almak için sıvı içeren bir bloğa tıklayın.",
+  "tooltip.energizedpower.fluid_analyzer.txt.shift.2": "%s her kullanımda kullanılacak",
+  "txt.energizedpower.fluid_analyzer.output_side_information": "Tıklanan blok yüzünün bilgileri:",
+  "txt.energizedpower.fluid_analyzer.no_energy_left": "Sıvı Analizörü'nün yeterli gücü yok! (%s minimum gerekli).",
+  "txt.energizedpower.fluid_analyzer.no_fluid_block": "Bu blokta sıvı yok!.",
+  "txt.energizedpower.fluid_analyzer.no_fluid_block_side": "Bu blok yüzü sıvı içermiyor!.",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_count": "Sıvı Tankı sayısı : %d",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_count_side": "Tıklanan yüzün sıvı tankı sayısı: %d",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_fluid_content": "Sıvı tankı %d: %s%s / %s.",
+
+  "item.energizedpower.wooden_hammer": "Kütük Çekiç",
+  "item.energizedpower.stone_hammer": "Taş Çekiç",
+  "item.energizedpower.iron_hammer": "Demir Çekiç",
+  "item.energizedpower.golden_hammer": "Altın Çekiç",
+  "item.energizedpower.diamond_hammer": "Elmas Çekiç",
+  "item.energizedpower.netherite_hammer": "Netherite Çekiç",
+
+  "item.energizedpower.cutter": "Kesici",
+
+  "item.energizedpower.wrench": "İngiliz Anahtarı",
+  "tooltip.energizedpower.wrench.txt.shift": "Bu İngiliz Anahtarı blokları yapılandırmakta kullanılabilir.",
+  "tooltip.energizedpower.wrench.select_face": "Seçilen yüz: %s",
+  "tooltip.energizedpower.wrench.not_configurable": "Bu blok yapılandırlamaz!.",
+
+  "tooltip.energizedpower.wrench_configurable": "Bu blok İngiliz Anahtarıyla yapılandırlabilir.",
+
+  "item.energizedpower.battery_box_minecart": "Batarya Kutusuyla Maden Arabası",
+  "item.energizedpower.advanced_battery_box_minecart": "Batarya Bloğuyla Maden Arabası",
+
+  "block.energizedpower.silicon_block": "Silikon Bloğu",
+  "item.energizedpower.silicon_block": "Silikon Bloğu",
+
+  "block.energizedpower.sawdust_block": "Talaş Bloğu",
+  "item.energizedpower.sawdust_block": "Talaş Bloğu",
+
+  "block.energizedpower.item_conveyor_belt": "Konveyor Bandı Eşyası",
+  "item.energizedpower.item_conveyor_belt": "Konveyor Bandı Eşyası",
+
+  "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "Eğim şuna ayarlandı %s.",
+
+  "block.energizedpower.item_conveyor_belt_loader": "Konveyor Bandı Yükleyicsi",
+  "item.energizedpower.item_conveyor_belt_loader": "Konveyor Bandı Yükleyicisi Eşyasır",
+  "container.energizedpower.item_conveyor_belt_loader": "Konveyor Bandı Yükleyicisi",
+
+  "block.energizedpower.item_conveyor_belt_sorter": "Konveyor Bandı Ayırıcı",
+  "item.energizedpower.item_conveyor_belt_sorter": "Konveyor Bandı Ayırıcı Eşyası",
+  "container.energizedpower.item_conveyor_belt_sorter": "Konveyor Bandı Ayırıcı",
+
+  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Çıkış %d: Band bağlanmamış!",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "Çıkış %d: Band Bağlandı!",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.ignore_nbt": "NBT'yi yoksay",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "Beyaz Liste",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "Karaliste",
+
+  "block.energizedpower.item_conveyor_belt_switch": "Konveyor Bandı Şalteri ",
+  "item.energizedpower.item_conveyor_belt_switch": "Konveyor Bandı Şalteri Eşyası",
+
+  "block.energizedpower.item_conveyor_belt_splitter": "Konveyor Bandı Bölücü",
+  "item.energizedpower.item_conveyor_belt_splitter": "Konveyor Bandı Bölücü Eşyası",
+
+  "block.energizedpower.item_conveyor_belt_merger": "Konveyor Bandı Birleştirici Eşyası",
+  "item.energizedpower.item_conveyor_belt_merger": "Konveyor Bandı Birleştricisi",
+
+  "block.energizedpower.fluid_pipe": "Sıvı Borusu",
+  "item.energizedpower.fluid_pipe": "Sıvı Borusu",
+
+  "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Yüzün bağlantı tipi (%s) şuna ayarlandı %s.",
+  "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Yüzün bağlantı tipi (%s) değiştirilemez!.",
+
+  "block.energizedpower.press_mold_maker": "Pres Kalıbı Yapıcı",
+  "item.energizedpower.press_mold_maker": "Pres Kalıbı Yapıcı",
+  "container.energizedpower.press_mold_maker": "Pres Kablıbı Yapıcı",
+
+  "tooltip.energizedpower.press_mold_maker.btn.up": "Yukarı Kaydır",
+  "tooltip.energizedpower.press_mold_maker.btn.down": "Aşağı İndir",
+
+  "tooltip.energizedpower.press_mold_maker.btn.recipes": "Gerektirir %dx %s",
+
+  "block.energizedpower.auto_crafter": "Otomatik Eşya Yapıcı",
+  "item.energizedpower.auto_crafter": "Otomatik Eşya Yapıcı",
+  "container.energizedpower.auto_crafter": "Eşya Yapıcı",
+
+  "tooltip.energizedpower.auto_crafter.txt.shift.1": "Bu blok şunu %s/t içerik başına kullanır .",
+  "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "NBT'yi görmezden gel",
+  "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "Çıkarma Modu 1: Çıkış ve Kalan Eşyalar Sadece",
+  "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "Çıkarma Modu 2: Giriş Eşyaları dışında her şey",
+  "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Tarifler arası döngü?",
+  "tooltip.energizedpower.auto_crafter.recipe_index": "Tarif %d",
+
+  "block.energizedpower.advanced_auto_crafter": "Gelişmiş Otomatik Eşya Yapıcı",
+  "item.energizedpower.advanced_auto_crafter": "Gelişmiş Otomatik Eşya Yapıcı",
+  "container.energizedpower.advanced_auto_crafter": "Gelişmiş Otomatik Eşya Yapıcı",
+
+  "block.energizedpower.charger": "Şarj",
+  "item.energizedpower.charger": "Şarj",
+  "container.energizedpower.charger": "Sarj",
+
+  "tooltip.energizedpower.chargers.txt.shift.1": "Sarjlar Bakır Külçe yapımında kullanılabilir.",
+  "tooltip.energizedpower.chargers.txt.shift.2.1": "Ama kesinlikle Enerjici kullanmalısın,",
+  "tooltip.energizedpower.chargers.txt.shift.2.2": "Çünkü Şarjlar verimsizdir.",
+
+  "tooltip.energizedpower.charger.item_energy_left.txt": "Bu eşya %s Full sarj olmayı gerektiriyor.",
+
+  "block.energizedpower.advanced_charger": "Gelişmiş Sarj",
+  "item.energizedpower.advanced_charger": "Gelişmiş Şarj",
+  "container.energizedpower.advanced_charger": "Gelişmiş Şarj",
+
+  "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "Bu eşyalar %s Full şarj olmayı gerektiyor.",
+
+  "block.energizedpower.uncharger": "Sarj Etmez",
+  "item.energizedpower.uncharger": "Şarj Etmez",
+  "container.energizedpower.uncharger": "Şarj Etmez",
+
+  "tooltip.energizedpower.uncharger.item_energy_left.txt": "Bu eşya %s kaldı.",
+
+  "block.energizedpower.advanced_uncharger": "Gelişmiş Şarj Etmez",
+  "item.energizedpower.advanced_uncharger": "Gelişmiş Şarj Etmez",
+  "container.energizedpower.advanced_uncharger": "Gelişmiş Şarj Etmez",
+
+  "tooltip.energizedpower.advanced_uncharger.items_energy_left.txt": "Bu eşyalarda %s kaldı.",
+
+  "block.energizedpower.minecart_charger": "Maden Arabası Şarjı",
+  "item.energizedpower.minecart_charger": "Maden Arabası Şarjı",
+  "container.energizedpower.minecart_charger": "Maden Arabası Şarjı",
+
+  "block.energizedpower.advanced_minecart_charger": "Gelişmiş Maden Arabası Şarjı",
+  "item.energizedpower.advanced_minecart_charger": "Gelişmiş Maden Arabası Şarjı",
+  "container.energizedpower.advanced_minecart_charger": "Gelişmiş Maden Arabası Şarjı",
+
+  "block.energizedpower.minecart_uncharger": "Maden Arabası Şarj Etmez",
+  "item.energizedpower.minecart_uncharger": "Maden Arabası Şarj Etmez",
+  "container.energizedpower.minecart_uncharger": "Maden Arabası Şarj Etmez",
+
+  "block.energizedpower.advanced_minecart_uncharger": "Gelişmiş Maden Arabası Şarj Etmez",
+  "item.energizedpower.advanced_minecart_uncharger": "Gelişmiş Maden Arabası Şarj Etmez",
+  "container.energizedpower.advanced_minecart_uncharger": "Gelişmiş Maden Arabası Şarj Etmez",
+
+  "block.energizedpower.copper_cable": "Bakır Kablo",
+  "item.energizedpower.copper_cable": "Bakır Kablo",
+
+  "block.energizedpower.gold_cable": "Altın Kablo",
+  "item.energizedpower.gold_cable": "Altın Kablo",
+
+  "block.energizedpower.energized_copper_cable": "Enerjilendirilmiş Bakır Kablo",
+  "item.energizedpower.energized_copper_cable": "Enerjilendirilmiş Bakır Kablo",
+
+  "block.energizedpower.energized_gold_cable": "Enerjilendirilmiş Altın Kablo",
+  "item.energizedpower.energized_gold_cable": "Enerjilendirilmiş Altın Kablo",
+
+  "block.energizedpower.energized_crystal_matrix_cable": "Enerjilendirilmiş Matrix Kablo",
+  "item.energizedpower.energized_crystal_matrix_cable": "Enerjilendirilmil Matrix Kablo",
+
+  "tooltip.energizedpower.cable.txt.shift.1": "Bu kablo şu kadar trans edebilir %s/t.",
+  "tooltip.energizedpower.cable.txt.shift.2": "Kablo izolatörleri, makas ile bir yün bloğa tıklanarak üretilebilir.",
+
+
+  "block.energizedpower.lv_transformer_1_to_n": "LV Dönüştürücü (1 den n)",
+  "item.energizedpower.lv_transformer_1_to_n": "LV Dönüştürücü (1 den n)",
+
+  "block.energizedpower.lv_transformer_3_to_3": "LV Dönüştürücü (3 den 3)",
+  "item.energizedpower.lv_transformer_3_to_3": "LV Dönüştürücü (3 den 3)",
+
+  "block.energizedpower.lv_transformer_n_to_1": "LV Transformer (n den 1)",
+  "item.energizedpower.lv_transformer_n_to_1": "LV Transformer (n den 1)",
+
+  "block.energizedpower.transformer_1_to_n": "MV Dönüştürücü (1 den n)",
+  "item.energizedpower.transformer_1_to_n": "MV Dönüştürücü (1 to n)",
+
+  "block.energizedpower.transformer_3_to_3": "MV Dönüştürücü (3 den 3)",
+  "item.energizedpower.transformer_3_to_3": "MV Dönüştürücü (3 den 3)",
+
+  "block.energizedpower.transformer_n_to_1": "MV Dönüştürücü (n den 1)",
+  "item.energizedpower.transformer_n_to_1": "MV Dönüştürücü (n den 1)",
+
+  "block.energizedpower.hv_transformer_1_to_n": "HV Dönüştürücü (1 den n)",
+  "item.energizedpower.hv_transformer_1_to_n": "HV Dönüştürücü (1 den n)",
+
+  "block.energizedpower.hv_transformer_3_to_3": "HV Dönüştürücü (3 den 3)",
+  "item.energizedpower.hv_transformer_3_to_3": "HV Dönüştürücü (3 den 3)",
+
+  "block.energizedpower.hv_transformer_n_to_1": "HV Dönüştürücü (n den 1)",
+  "item.energizedpower.hv_transformer_n_to_1": "HV Dönüştürücü (n den 1)",
+
+  "block.energizedpower.ehv_transformer_1_to_n": "EHV Dönüştürücü (1 den n)",
+  "item.energizedpower.ehv_transformer_1_to_n": "EHV Dönüştürücü (1 den n)",
+
+  "block.energizedpower.ehv_transformer_3_to_3": "EHV Dönüştürücü (3 den 3)",
+  "item.energizedpower.ehv_transformer_3_to_3": "EHV Dönüştürücü (3 den 3)",
+
+  "block.energizedpower.ehv_transformer_n_to_1": "EHV Dönüştürücü (n den 1)",
+  "item.energizedpower.ehv_transformer_n_to_1": "EHV Dönüştürücü (n den 1)",
+
+  "tooltip.energizedpower.transformer.txt.shift.1": "Bu blok farklı seviyelerde kabloları bağlayabilir.",
+  "tooltip.energizedpower.transformer.txt.shift.2": "Büyük,siyah,elmas şekilli şeyler giriştir.",
+  "tooltip.energizedpower.transformer.txt.shift.3": "Küçük,parlak,kare şekilli şeyler çıkıştır.",
+
+  "block.energizedpower.battery_box": "Batarya Kutusu",
+  "item.energizedpower.battery_box": "Batarya Kutusu",
+  "container.energizedpower.battery_box": "Batarya Kutusu",
+
+  "block.energizedpower.advanced_battery_box": "Gelişmiş Batarya Kutusu",
+  "item.energizedpower.advanced_battery_box": "Gelişmiş Batarya Kutusu",
+  "container.energizedpower.advanced_battery_box": "Gelişmiş Batarya Kutusu",
+
+  "block.energizedpower.creative_battery_box": "Yaratıcı Mod Batarya Kutusu",
+  "item.energizedpower.creative_battery_box": "Yaratıcı Mod Batarya Kutusu",
+  "container.energizedpower.creative_battery_box": "Yaratıcı Mod Batarya Kutusu",
+
+
+  "block.energizedpower.solar_panel_1": "Solar Panel (Seviye I)",
+  "item.energizedpower.solar_panel_1": "Solar Panel (Seviye I)",
+  "container.energizedpower.solar_panel_1": "Solar Panel (Seviye I)",
+  "block.energizedpower.solar_panel_2": "Solar Panel (Seviye II)",
+  "item.energizedpower.solar_panel_2": "Solar Panel (Seviye II)",
+  "container.energizedpower.solar_panel_2": "Solar Panel (Seviye II)",
+  "block.energizedpower.solar_panel_3": "Solar Panel (Seviye III)",
+  "item.energizedpower.solar_panel_3": "Solar Panel (Seviye III)",
+  "container.energizedpower.solar_panel_3": "Solar Panel (Seviye III)",
+  "block.energizedpower.solar_panel_4": "Solar Panel (Seviye IV)",
+  "item.energizedpower.solar_panel_4": "Solar Panel (Seviye IV)",
+  "container.energizedpower.solar_panel_4": "Solar Panel (Seviye IV)",
+  "block.energizedpower.solar_panel_5": "Solar Panel (Seviye V)",
+  "item.energizedpower.solar_panel_5": "Solar Panel (Seviye V)",
+  "container.energizedpower.solar_panel_5": "Solar Panel (Seviye V)",
+  "block.energizedpower.solar_panel_6": "Solar Panel (Seviye VI)",
+  "item.energizedpower.solar_panel_6": "Solar Panel (Seviye VI)",
+  "container.energizedpower.solar_panel_6": "Solar Panel (Seviye VI)",
+
+  "tooltip.energizedpower.solar_panel.txt.shift.1": "Bu blok şuna kadar üretir %s/t.",
+  "tooltip.energizedpower.solar_panel.txt.shift.2": "Verimlilik şuan ki zamana bağlıdır",
+
+  "block.energizedpower.coal_engine": "Kömür Motoru",
+  "item.energizedpower.coal_engine": "Kömür Motoru",
+  "container.energizedpower.coal_engine": "Kömür Motoru",
+
+  "tooltip.energizedpower.coal_engine.txt": "Bu eşyalar  %s yanana kadar enerji üretir",
+
+  "block.energizedpower.heat_generator": "Isı Jenaratörü",
+  "item.energizedpower.heat_generator": "Isı Jenaratörü",
+  "container.energizedpower.heat_generator": "Isı Jenaratörü",
+
+  "block.energizedpower.thermal_generator": "Termal Jenaratör",
+  "item.energizedpower.thermal_generator": "Termal Jenaratör",
+  "container.energizedpower.thermal_generator": "Termal Jeneratör",
+
+  "tooltip.energizedpower.thermal_generator.txt": "Bu sıvı  %s sıfırı tüketene kadar enerji üretir",
+
+  "block.energizedpower.powered_lamp": "Elektirikli Ampul",
+  "item.energizedpower.powered_lamp": "Elektrikli Ampul",
+
+  "block.energizedpower.powered_furnace": "Elektirikli Fırın",
+  "item.energizedpower.powered_furnace": "Elektirikli Fırın",
+  "container.energizedpower.powered_furnace": "Elektrikli Fırın",
+
+  "block.energizedpower.advanced_powered_furnace": "Gelişmiş Elektrikli Fırın",
+  "item.energizedpower.advanced_powered_furnace": "Gelişmiş Elektrikli Fırın",
+  "container.energizedpower.advanced_powered_furnace": "Gelişmiş Elektrikli Fırın",
+
+  "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt": "Bu tarif bitirelbirmek için şu kadar gerektirir. %s",
+
+  "block.energizedpower.crusher": "Ezici",
+  "item.energizedpower.crusher": "Ezici",
+  "container.energizedpower.crusher": "Ezici",
+
+  "block.energizedpower.pulverizer": "Pulverizatör",
+  "item.energizedpower.pulverizer": "Pulverizatör",
+  "container.energizedpower.pulverizer": "Pulverizatör",
+
+  "block.energizedpower.sawmill": "Odun Testersi",
+  "item.energizedpower.sawmill": "Odun Testeresi",
+  "container.energizedpower.sawmill": "Odun Testerisi",
+
+  "block.energizedpower.compressor": "Kompresör",
+  "item.energizedpower.compressor": "Kompresör",
+  "container.energizedpower.compressor": "Kompresör",
+
+  "block.energizedpower.metal_press": "Metal Pres",
+  "item.energizedpower.metal_press": "Metal Pres",
+  "container.energizedpower.metal_press": "Metal Pres",
+
+  "tooltip.energizedpower.metal_press.txt.shift.1": "Pres Kalıpları,Pres Kalıbı üreticisinde üretilebilir.",
+
+  "block.energizedpower.assembling_machine": "Assembling Machine",
+  "item.energizedpower.assembling_machine": "Assembling Machine",
+  "container.energizedpower.assembling_machine": "Assembling Machine",
+
+  "block.energizedpower.plant_growth_chamber": "Bitki Büyütme Çemberi",
+  "item.energizedpower.plant_growth_chamber": "Bitki Büyütme Çemberi",
+  "container.energizedpower.plant_growth_chamber": "Bitki Büyütme Çemberi",
+
+  "block.energizedpower.stone_solidifier": "Stone Solidifier",
+  "item.energizedpower.stone_solidifier": "Stone Solidifier",
+  "container.energizedpower.stone_solidifier": "Stone Solidifier",
+
+  "tooltip.energizedpower.stone_solidifier.btn.up": "Next recipe",
+  "tooltip.energizedpower.stone_solidifier.btn.down": "Previous recipe",
+
+  "block.energizedpower.block_placer": "Block Yerleştirici",
+  "item.energizedpower.block_placer": "Block Yerleştirici",
+  "container.energizedpower.block_placer": "Block Yerleştirici",
+
+  "tooltip.energizedpower.block_placer.block_energy_left.txt": "Bu blok hayla koymak için %s gerektiyor.",
+  "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Ters Rotasyon",
+
+  "block.energizedpower.fluid_filler": "Sıvı Doldurucu",
+  "item.energizedpower.fluid_filler": "Sıvı Doldurucu",
+  "container.energizedpower.fluid_filler": "Sıvı Doldurucu",
+
+  "block.energizedpower.fluid_drainer": "Sıvı Çekici",
+  "item.energizedpower.fluid_drainer": "Sıvı Çekici",
+  "container.energizedpower.fluid_drainer": "Sıvı Çekici",
+
+  "block.energizedpower.drain": "Drain",
+  "item.energizedpower.drain": "Drain",
+  "container.energizedpower.drain": "Drain",
+
+  "tooltip.energizedpower.drain.txt.shift": "The Drain drains fluid source blocks above the block.",
+
+  "block.energizedpower.lightning_generator": "Yıldırım Jenaratörü",
+  "item.energizedpower.lightning_generator": "Yıldırım Jenaratörü",
+  "container.energizedpower.lightning_generator": "Yıldırım Jenaratörü",
+
+  "tooltip.energizedpower.lightning_generator.txt.shift.1": "Bu blok %s yıldırım başına üretir.",
+  "tooltip.energizedpower.lightning_generator.txt.shift.2": "Bir yıldırım bloğu çubuğu bunun üstüne koyulmalıdır yoksa işlevsiz olur",
+
+  "block.energizedpower.energizer": "Enerjileyici",
+  "item.energizedpower.energizer": "Enerjileyici",
+  "container.energizedpower.energizer": "Enerjileyici",
+
+  "block.energizedpower.charging_station": "Şarj İstasyonu",
+  "item.energizedpower.charging_station": "Şarj İstasyonu",
+  "container.energizedpower.charging_station": "Şarj İstasyonu",
+
+  "tooltip.energizedpower.charging_station.txt.shift.1": "Şarj istasyonu envater içindeki şarj edilebilir ürünleri şarj edebilir.",
+
+  "block.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
+  "item.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
+  "container.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
+
+  "block.energizedpower.weather_controller": "Hava Durumu Kontrolcüsü",
+  "item.energizedpower.weather_controller": "Hava Durumu Kontrolcüsü",
+  "container.energizedpower.weather_controller": "Hava Durumu Kontrolcüsü",
+
+  "tooltip.energizedpower.weather_controller.btn.clear": "Hava açık olarak değiştirildi",
+  "tooltip.energizedpower.weather_controller.btn.rain": "Hava yağmurlu olarak değiştirildi",
+  "tooltip.energizedpower.weather_controller.btn.thunder": "Hava Fırtına olarak değiştirildi",
+
+  "block.energizedpower.time_controller": "Zaman Kontrolcüsü",
+  "item.energizedpower.time_controller": "Zaman Kontrolcüsü",
+  "container.energizedpower.time_controller": "Zaman Kontrolcüsü",
+
+  "tooltip.energizedpower.time_controller.btn.day": "Saat gündüz yapıldı",
+  "tooltip.energizedpower.time_controller.btn.noon": "Saat öğlen yapıldı",
+  "tooltip.energizedpower.time_controller.btn.night": "Saat akşam yapıldı",
+  "tooltip.energizedpower.time_controller.btn.midnight": "Saat gece yarısı yapıldı",
+
+  "block.energizedpower.teleporter": "Işınlayıcı",
+  "item.energizedpower.teleporter": "Işınlayıcı",
+  "container.energizedpower.teleporter": "Işınlayıcı",
+
+  "tooltip.energizedpower.teleporter.use": "Işınlayıcının üstünde shifte basarak ışınlanın [%s] .",
+  "tooltip.energizedpower.teleporter.use.not_enough_energy": "YETERSİZ ENERJİ!",
+  "tooltip.energizedpower.teleporter.use.no_teleporter_matrix": "Işınlayıcı Matrix Hazırda yok!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_not_bound": "Işınlayıcı Matrix bağımlı değil!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_position": "Işınlayıcı Matrix kabul edilebilir bir konumda değil!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_dimension": "Işınlayıcı Matrix kabul edilebilir bir boyutta değil!",
+  "tooltip.energizedpower.teleporter.use.teleporter_self_position": "Işınlayıcıya ışınlanmak mümkün değil[Aksi halde takılı kalırsınız]!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_no_teleporter": "Matrix kordinatlarında ışınlayıcı yok!",
+  "tooltip.energizedpower.teleporter.use.intra_dimensional_disabled": "İç boyutlu ışınlanma kapatıldı!",
+  "tooltip.energizedpower.teleporter.use.inter_dimensional_disabled": "Ara boyutlar arası ışınlanma kapatıldı",
+  "tooltip.energizedpower.teleporter.use.blacklist.dimension": "Boyut \"%s\" ışınlamak kapatıldı!",
+  "tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional": "Boyut arasında ışınlanma kapatıldı \"%s\"!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from": "Boyuttan ışınlanmak \"%s\" kapatıldı!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to": "Boyuttan ışınlanmak \"%s\" kapatılmış!",
+  "tooltip.energizedpower.teleporter.use.blacklist.dimension_type": "Farklı bir boyut tipinden farklısına ışınlanmak \"%s\" kapatılmış!",
+  "tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional_type": "Bir boyut içinden başkasına ışınlanmak  \"%s\" kapatılmış!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from_type": "Bir boyut tipinden başkasına ışınlanmak kapatılmış \"%s\"!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to_type": "Bir boyuttan diğerine ışınlanmak \"%s\" kapatılmış!",
+
+  "block.energizedpower.basic_machine_frame": "Basit Makina Çerçevesi",
+  "item.energizedpower.basic_machine_frame": "Basit Makina Çerçevesi",
+
+  "block.energizedpower.hardened_machine_frame": "Sert Makina Çerçevesi",
+  "item.energizedpower.hardened_machine_frame": "Sert Makina Çerçevesi",
+
+  "block.energizedpower.advanced_machine_frame": "Gelişmiş Makina Çerçevesi",
+  "item.energizedpower.advanced_machine_frame": "Gelişmiş Maskina Çerçevesi",
+
+  "block.energizedpower.reinforced_advanced_machine_frame": "Dahada güçlendirilmiş ve geliştirilmiş Makina Çerçevesi",
+  "item.energizedpower.reinforced_advanced_machine_frame": "Dahada güçlendirilmiş ve geliştirilmiş Makina Çerçevesi",
+
+  "tooltip.energizedpower.count_with_item.txt": "%dx %s",
+
+  "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
+  "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
+  "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "Bu tarif %s bitmek için istiyor.",
+  "tooltip.energizedpower.shift_details.txt": "[SHIFT]'e daha fazla detay için basın",
+  "tooltip.energizedpower.capacity.txt": "Kapasite: %s",
+  "tooltip.energizedpower.transfer_rate.txt": "Transfer değeri: %s/t",
+  "tooltip.energizedpower.not_enough_energy.txt": "YETERSİZ ENERJİ",
+  "tooltip.energizedpower.ready.txt": "Hazır",
+  "tooltip.energizedpower.infinite.txt": "∞Sonsuz∞",
+
+  "tooltip.energizedpower.direction.down": "Aşağı",
+  "tooltip.energizedpower.direction.up": "Yukarı",
+  "tooltip.energizedpower.direction.north": "Kuzey",
+  "tooltip.energizedpower.direction.south": "Güney",
+  "tooltip.energizedpower.direction.west": "Batı",
+  "tooltip.energizedpower.direction.east": "Doğu",
+
+  "block_state.energizedpower.pipe_connection.not_connected": "Bağlı değil",
+  "block_state.energizedpower.pipe_connection.connected": "Bağlanıldı/Eklendi",
+  "block_state.energizedpower.pipe_connection.extract": "Çıkarma",
+
+  "tooltip.energizedpower.conveyor_belt_direction.slope.flat": "Düz",
+  "tooltip.energizedpower.conveyor_belt_direction.slope.ascending": "Yükselen",
+  "tooltip.energizedpower.conveyor_belt_direction.slope.descending": "Alçalan",
+
+  "itemGroup.energizedpower.tab": "Enerjilendirilmiş Güç",
+
+  "entity.minecraft.villager.energizedpower.electrician": "Elektirikci",
+
+  "entity.energizedpower.battery_box_minecart": "Batarya Kutusu Maden Arabası",
+  "entity.energizedpower.advanced_battery_box_minecart": "Gelişmiş Batarya Kutusu Maden Arabası",
+
+  "recipes.energizedpower.in_world_crafting": "Cihan içi oluşturma",
+  "recipes.energizedpower.info.ticks": "Tıkırtı: %d",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer": "Büyütme Çembereri (Gübreleyici)",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx Hız",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx Enerji Tüketimi",
+  "recipes.energizedpower.transfer.too_large": "Bu tarif bu konteyner için ÇOK büyük",
+
+  "emi.category.energizedpower.charger": "Şarj",
+  "emi.category.energizedpower.crusher": "Ezici",
+  "emi.category.energizedpower.pulverizer": "Pulverizör",
+  "emi.category.energizedpower.sawmill": "Odun Testeresi",
+  "emi.category.energizedpower.compressor": "Kompresör",
+  "emi.category.energizedpower.metal_press": "Metal Pres",
+  "emi.category.energizedpower.assembling_machine": "Assembling Machine",
+  "emi.category.energizedpower.plant_growth_chamber": "Bitki Büyütme Çemberi",
+  "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Büyütme Çemberi (Gübreleyici)",
+  "emi.category.energizedpower.energizer": "Enerjileyici",
+  "emi.category.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
+  "emi.category.energizedpower.press_mold_maker": "Pres Kalıbı Yapar",
+  "emi.category.energizedpower.stone_solidifier": "Stone Solidifier",
+  "emi.category.energizedpower.dispenser": "Bırakıcı",
+  "emi.category.energizedpower.in_world_crafting": "Cihan içi yaratma",
+
+
+  "painting.energizedpower.gear.title": "Vites",
+  "painting.energizedpower.gear.author": "JDDev0",
+
+  "painting.energizedpower.factory.title": "Fabrika",
+  "painting.energizedpower.factory.author": "JDDev0",
+
+  "key.category.energizedpower": "Enerjilendirilmiş Güç",
+  "key.energizedpower.teleporter.use": "Işınlayıcı Kullan",
+
+
+  "advancements.energizedpower.hardened_machine_frame.title": "Sert Makinaler",
+  "advancements.energizedpower.hardened_machine_frame.description": "Daha iyi makineler,daha iyi iş!.",
+
+  "advancements.energizedpower.advanced_machine_frame.title": "Gelişmiş Makinalar",
+  "advancements.energizedpower.advanced_machine_frame.description": "Daha gelişmiş makinaler şu eşya tabanını ister.",
+
+  "advancements.energizedpower.reinforced_advanced_machine_frame.title": "DAHA GELİŞMİŞ MAKİNALAR",
+  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "EN GÜÇLÜ makinalar bu eşya tabanını ister.",
+
+  "advancements.energizedpower.advanced_solar_cell.title": "Gelişmiş Solar Enerji",
+  "advancements.energizedpower.advanced_solar_cell.description": "Gelişmiş Solar Paneller için gerekli...",
+
+  "advancements.energizedpower.reinforced_advanced_solar_cell.title": "DAHA İYİ SOLAR ENERJİ",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "En iyi Solar Paneller için gerekir...",
+
+  "advancements.energizedpower.basic_circuit.title": "Basit Devre",
+  "advancements.energizedpower.basic_circuit.description": "Enerji Devirmi başlıyor!.",
+
+  "advancements.energizedpower.advanced_circuit.title": "Gelişmiş Devre",
+  "advancements.energizedpower.advanced_circuit.description": "Devre yapmakta çok iyisin!.",
+
+  "advancements.energizedpower.processing_unit.title": "İşlemci birimi",
+  "advancements.energizedpower.processing_unit.description": "İşlemci birimi ürettin,tebrikler!.",
+
+  "advancements.energizedpower.press_mold_maker.title": "Pres Kalıbı Üreticisi",
+  "advancements.energizedpower.press_mold_maker.description": "Bu bloğu Metal Pres yapmak için kullan.",
+
+  "advancements.energizedpower.raw_press_molds.title": "Ham Pres Kalıbı",
+  "advancements.energizedpower.raw_press_molds.description": "Killeri kullanarak Ham Pres Kalıbı yap! Sonra ise pişir!...)",
+
+  "advancements.energizedpower.press_molds.title": "Pres Kalıbı",
+  "advancements.energizedpower.press_molds.description": "Pişmiş Pres Kalıpları Metal versiyonlara geçiş aşamasıdır.",
+
+  "advancements.energizedpower.auto_crafter.title": "Gelecek:OTOMASYON",
+  "advancements.energizedpower.auto_crafter.description": "Armut piş ağzıma düş misali,kim saatlerini yorarki manüel için?",
+
+  "advancements.energizedpower.advanced_auto_crafter.title": "Güç ile yarat!",
+  "advancements.energizedpower.advanced_auto_crafter.description": "Birden fazla tarifi aynı blokta yap.",
+
+  "advancements.energizedpower.crusher.title": "Ez onu!",
+  "advancements.energizedpower.crusher.description": "Ez:Taş,Kumtaşı,Kırıktaş,Çakıl ve diğer bloklar.",
+
+  "advancements.energizedpower.pulverizer.title": "Pulverizörleme!",
+  "advancements.energizedpower.pulverizer.description": "Madenleri verimlemek için onları pulverizörle.",
+
+  "advancements.energizedpower.sawmill.title": "Odun Kesmek!",
+  "advancements.energizedpower.sawmill.description": "Motorlu Testere ile ağacı kes{Doğa'ya dikkat et!}.",
+
+  "advancements.energizedpower.compressor.title": "Kompresörleme",
+  "advancements.energizedpower.compressor.description": "*plaka oluşturur*.",
+
+  "advancements.energizedpower.metal_press.title": "Metal Pres",
+  "advancements.energizedpower.metal_press.description": "Metal Oluşturur.",
+
+  "advancements.energizedpower.assembling_machine.title": "Assembling Machine",
+  "advancements.energizedpower.assembling_machine.description": "Craft electronic components in the Assembling Machine.",
+
+  "advancements.energizedpower.plant_growth_chamber.title": "Hızlı bitki büyümesi",
+  "advancements.energizedpower.plant_growth_chamber.description": "Bitki Büyütme Çemberi ile bitkilerin büyüme hızını arttır.",
+
+  "advancements.energizedpower.stone_solidifier.title": "Stone Solidifier",
+  "advancements.energizedpower.stone_solidifier.description": "Create stone blocks from Water and Lava.",
+
+  "advancements.energizedpower.block_placer.title": "Bloğu yerleştir",
+  "advancements.energizedpower.block_placer.description": "Bloklar otomatik yerleştirilir.",
+
+  "advancements.energizedpower.fluid_filler.title": "Sıvı Eşyasını Doldur",
+  "advancements.energizedpower.fluid_filler.description": "Eşyaları sıvı ile doldur.",
+
+  "advancements.energizedpower.fluid_drainer.title": "Sıvı Eşyasını Boşalt",
+  "advancements.energizedpower.fluid_drainer.description": "Eşyaları sıvıdan arındır.",
+
+  "advancements.energizedpower.drain.title": "The Drain",
+  "advancements.energizedpower.drain.description": "Drain fluids source blocks.",
+
+  "advancements.energizedpower.basic_machine_frame.title": "Makinaların Atası",
+  "advancements.energizedpower.basic_machine_frame.description": "Bu tüm basit makineler için yaratma masasıdır.",
+
+  "advancements.energizedpower.basic_solar_cell.title": "Solar Güç Temelleri",
+  "advancements.energizedpower.basic_solar_cell.description": "İlk Solar Hücrenizin 2si Solar panel için gerekli olacak.",
+
+  "advancements.energizedpower.battery_1.title": "Bataryalar",
+  "advancements.energizedpower.battery_1.description": "Eşya formunda enerji depolar.",
+
+  "advancements.energizedpower.battery_2.title": "Enerji x4",
+  "advancements.energizedpower.battery_2.description": "Bu batarya Seviye IV batarya kadar güç sağlar.",
+
+  "advancements.energizedpower.battery_3.title": "Daha Fazla Enerji",
+  "advancements.energizedpower.battery_3.description": "Seviye III:Seviye IInin 2 katı",
+
+  "advancements.energizedpower.battery_4.title": "Daha fazlasınımı istiyorsun?",
+  "advancements.energizedpower.battery_4.description": "Yani...Bu Seviye IV - Dört tane daha kaldı",
+
+  "advancements.energizedpower.battery_5.title": "Normal bir bakırın son seviyesi!",
+  "advancements.energizedpower.battery_5.description": "Seviye V: Bataryayı bir dahakine enerjilendirmek zorundasın!..",
+
+  "advancements.energizedpower.battery_6.title": "Enerjilendirilmiş Bataryalar",
+  "advancements.energizedpower.battery_6.description": "Seviye VI: Bataryanı daha iyisi için enerjilendirdin!.",
+
+  "advancements.energizedpower.battery_7.title": "Sen \"DAHA FAZLA\" mı dedin?",
+  "advancements.energizedpower.battery_7.description": "Seviye VII: Çeyrek MİLYON FE kapasitesi! Daha iyisini yapabilirmiyiz?",
+
+  "advancements.energizedpower.battery_8.title": "DAHA FAZLA GÜÇE İHTİYACIM VAR!",
+  "advancements.energizedpower.battery_8.description": "Dostum,bu son tier bataryaydı,yani daha fazla yok!(Bataryan 1 MİLYON FE kapasiteye sahip!)",
+
+  "advancements.energizedpower.battery_8_fully_charged.title": "Enerjilerin Efendisi",
+  "advancements.energizedpower.battery_8_fully_charged.description": "Sen neymissin be...Tesla falan mı? Ne kadar zamanını aldı 1 MİLYON FE'yi doldurmak?{Bu arada tebrikler kanki,iyi iş}",
+
+  "advancements.energizedpower.cable_insulator.title": "Kablo üşüyor,sanırım?",
+  "advancements.energizedpower.cable_insulator.description": "Kablonu bu malzemeyle kapla. (Yüne makasla tıklayıp üretebilirsin [Bırakıcıda olur!])",
+
+  "advancements.energizedpower.charger.title": "Şarj Et!",
+  "advancements.energizedpower.charger.description": "Eşyalarını bu blok ile şarj et!.",
+
+  "advancements.energizedpower.inventory_charger.title": "Lokal Şarj!",
+  "advancements.energizedpower.inventory_charger.description": "Envanterindeki Şarj edilebilir ürünleri envanterinde şarj et!.",
+
+  "advancements.energizedpower.advanced_charger.title": "Paralel Şarj!",
+  "advancements.energizedpower.advanced_charger.description": "Enerji ürünlerini paralel şarj et!.",
+
+  "advancements.energizedpower.advanced_uncharger.title": "Paralel Şarj Düşürme",
+  "advancements.energizedpower.advanced_uncharger.description": "Enerji ürünlerini paralel şarj düşürt.",
+
+  "advancements.energizedpower.charging_station.title": "Kablosuz Şarj",
+  "advancements.energizedpower.charging_station.description": "Teknoloji o kadar gelişti ha?.",
+
+  "advancements.energizedpower.crystal_growth_chamber.title": "Crystal growth",
+  "advancements.energizedpower.crystal_growth_chamber.description": "Grow crystals in the Crystal Growth Chamber.",
+
+  "advancements.energizedpower.energized_crystal_matrix.title": "Enejili Matrix Kristali",
+  "advancements.energizedpower.energized_crystal_matrix.description": "Bazı Gelişmiş makinelerde stabilizer görevi görür.",
+
+  "advancements.energizedpower.teleporter_matrix.title": "Işınlayıcı Matrix",
+  "advancements.energizedpower.teleporter_matrix.description": "Işınlanmanın ilk adımı.",
+
+  "advancements.energizedpower.teleporter_processing_unit.title": "Işınlayıcı İşlemci Birimi",
+  "advancements.energizedpower.teleporter_processing_unit.description": "Işınlayıcıların beyni.",
+
+  "advancements.energizedpower.teleporter.title": "IŞIKTAN HIZLI!",
+  "advancements.energizedpower.teleporter.description": "Işınlayıcı Oluştur.",
+
+  "advancements.energizedpower.weather_controller.title": "Havayı Kontrol Et!",
+  "advancements.energizedpower.weather_controller.description": "Hava Kontrolcüsü ile havayı kontrol et!.",
+
+  "advancements.energizedpower.time_controller.title": "Zamanı Kontrol Et!",
+  "advancements.energizedpower.time_controller.description": "Zaman Kontrolcüsü ile zamanı kontrol et!.",
+
+  "advancements.energizedpower.coal_engine.title": "Kömür Tarafından!",
+  "advancements.energizedpower.coal_engine.description": "En verimli yoldan olmasada enerji üretmenin yolu.",
+
+  "advancements.energizedpower.heat_generator.title": "Isı tarafından",
+  "advancements.energizedpower.heat_generator.description": "Biraz terledim gibi...Isıdan enerji üret",
+
+  "advancements.energizedpower.thermal_generator.title": "Sıcak sıvı tarfından",
+  "advancements.energizedpower.thermal_generator.description": "Amam dikkat,bir yerini yakma!.",
+
+  "advancements.energizedpower.powered_lamp.title": "Elektrik Ampulleri",
+  "advancements.energizedpower.powered_lamp.description": "Edison olmuşsun bakıyorum!.",
+
+  "advancements.energizedpower.powered_furnace.title": "Güçlendirilmiş Fırın",
+  "advancements.energizedpower.powered_furnace.description": "Hangi marka? Beko,Arçelik,Profilo?.",
+
+  "advancements.energizedpower.advanced_powered_furnace.title": "Hızlı eritme",
+  "advancements.energizedpower.advanced_powered_furnace.description": "Aynı anda birçok cismi erit.",
+
+  "advancements.energizedpower.item_conveyor_belt.title": "Eşya Taşımacılığı",
+  "advancements.energizedpower.item_conveyor_belt.description": "Eşyaları Konveyor ile taşı.",
+
+  "advancements.energizedpower.item_conveyor_belt_loader.title": "Eşya Yükleyici",
+  "advancements.energizedpower.item_conveyor_belt_loader.description": "Topla gel abi! Tüm eşyaları Konveyora bırak.",
+
+  "advancements.energizedpower.item_conveyor_belt_sorter.title": "Oto Ayırma",
+  "advancements.energizedpower.item_conveyor_belt_sorter.description": "Konveyor Ayırıcı ile eşyaları ayır.",
+
+  "advancements.energizedpower.item_conveyor_belt_switch.title": "Konveyor Şalteri",
+  "advancements.energizedpower.item_conveyor_belt_switch.description": "Hangi yön?.",
+
+  "advancements.energizedpower.item_conveyor_belt_splitter.title": "Konveyor Ayırma",
+  "advancements.energizedpower.item_conveyor_belt_splitter.description": "Tüm eşyaları farklı çıkışlara ayır.",
+
+  "advancements.energizedpower.item_conveyor_belt_merger.title": "Konveyor Birleştirici",
+  "advancements.energizedpower.item_conveyor_belt_merger.description": "Eşyaları bir çok farklı çıkıştan birleştir.",
+
+  "advancements.energizedpower.fluid_pipe.title": "Sıvı Taşımacılığı",
+  "advancements.energizedpower.fluid_pipe.description": "Transport fluids with fluid pipes.",
+
+  "advancements.energizedpower.copper_cable.title": "Enerji Taşımacılığı",
+  "advancements.energizedpower.copper_cable.description": "Kablo ile enerji taşı.",
+
+  "advancements.energizedpower.gold_cable.title": "Daha fazla güç,daha fazla taşıma",
+  "advancements.energizedpower.gold_cable.description": "Daha iyi bir kablo ile daha çok enerji taşı",
+
+  "advancements.energizedpower.energized_copper_cable.title": "Kaldırmak için çok fazla güç!",
+  "advancements.energizedpower.energized_copper_cable.description": "Çok güçlü akım ile bir kablo!",
+
+  "advancements.energizedpower.energized_gold_cable.title": "GÜÇ,GÜÇ,GÜÇ!",
+  "advancements.energizedpower.energized_gold_cable.description": "Bu kablo G.O.A.T yani en iyisininde iyisi!.",
+
+  "advancements.energizedpower.energized_crystal_matrix_cable.title": "ÇOK FAZLA GÜÇ",
+  "advancements.energizedpower.energized_crystal_matrix_cable.description": "Bu  kadar enerji transferini nerede yapacağım??",
+
+  "advancements.energizedpower.lv_transformers.title": "LV Transformatörler",
+  "advancements.energizedpower.lv_transformers.description": "Farklı Seviye Kabloları Bağlayabilir.",
+
+  "advancements.energizedpower.mv_transformers.title": "MV Transformatörler",
+  "advancements.energizedpower.mv_transformers.description": "Daha fazla güç transfer edilebilir.",
+
+  "advancements.energizedpower.hv_transformers.title": "HV Transformatörler",
+  "advancements.energizedpower.hv_transformers.description": "Daha fazla güç kaldırabilir.",
+
+  "advancements.energizedpower.ehv_transformers.title": "EHV Transformatörler",
+  "advancements.energizedpower.ehv_transformers.description": "Saniye başına 2 MİLYON FE kaldırabilir",
+
+  "advancements.energizedpower.battery_box.title": "Battarya Kutusu",
+  "advancements.energizedpower.battery_box.description": "Batarya kutusu ile enerji depola.",
+
+  "advancements.energizedpower.advanced_battery_box.title": "Gelişmiş Batarya Kutusu!",
+  "advancements.energizedpower.advanced_battery_box.description": "En iyi batarya eşyasından daha fazla enerji depola.",
+
+  "advancements.energizedpower.energizedpower_advanced.title": "Enerjili Güç (Gelişmiş)",
+  "advancements.energizedpower.energizedpower_advanced.description": "Enerjili Bakır normal Bakırdan daha iyi.",
+
+  "advancements.energizedpower.energized_gold_ingot.title": "Parlak Külçe",
+  "advancements.energizedpower.energized_gold_ingot.description": "Bu enerjili altın külçe çok parlak.",
+
+  "advancements.energizedpower.energized_power_book.title": "Sınırsız Bilgi ve Baykuş!",
+  "advancements.energizedpower.energized_power_book.description": "Umarın gerçekten baykuş gibi bunu ezberlemeyeceksindir!.",
+
+  "advancements.energizedpower.hammer.title": "İyi bir eşya",
+  "advancements.energizedpower.hammer.description": "Çekiç!.",
+
+  "advancements.energizedpower.cutter.title": "Kes,kes,kes...",
+  "advancements.energizedpower.cutter.description": "Kesiciler kablo üretebilir!.",
+
+  "advancements.energizedpower.wrench.title": "İngiliz neysi?",
+  "advancements.energizedpower.wrench.description": "Bir İngiliz Anahtarı ile blokları ayarla.",
+
+  "advancements.energizedpower.battery_box_minecart.title": "Raydaki enerji",
+  "advancements.energizedpower.battery_box_minecart.description": "Rayda daha fazla enerji transfer et!.",
+
+  "advancements.energizedpower.advanced_battery_box_minecart.title": "Rayda daha fazla güç",
+  "advancements.energizedpower.advanced_battery_box_minecart.description": "Raylarda daha fazla güç depola.",
+
+  "advancements.energizedpower.copper_plate.title": "Bakır Plaka",
+  "advancements.energizedpower.copper_plate.description": "Bakır plaka üret.",
+
+  "advancements.energizedpower.iron_plate.title": "Vur ona!",
+  "advancements.energizedpower.iron_plate.description": "Demir plaka üret.",
+
+  "advancements.energizedpower.gold_plate.title": "Altın Plaka",
+  "advancements.energizedpower.gold_plate.description": "Bu çok parlak!.",
+
+  "advancements.energizedpower.copper_wire.title": "Bakır Tel",
+  "advancements.energizedpower.copper_wire.description": "Bakırlar peşini bırakmıyor.",
+
+  "advancements.energizedpower.gold_wire.title": "Altın Tel",
+  "advancements.energizedpower.gold_wire.description": "ALtın kablo Yarat.",
+
+  "advancements.energizedpower.energized_copper_plate.title": "Enerjilendirilmiş Bakır Plaka",
+  "advancements.energizedpower.energized_copper_plate.description": "Enerjili Bakır Plaka!.",
+
+  "advancements.energizedpower.energized_gold_plate.title": "Enerjili ALtın Plaka",
+  "advancements.energizedpower.energized_gold_plate.description": "Parlak ve yansıtıcı...",
+
+  "advancements.energizedpower.energized_copper_wire.title": "Enerjili Bakır Tel",
+  "advancements.energizedpower.energized_copper_wire.description": "Şimdi dokunmak tehlikeli işte...",
+
+  "advancements.energizedpower.energized_gold_wire.title": "Enerjili Altın Tel",
+  "advancements.energizedpower.energized_gold_wire.description": "Altın Telde yalıtım var değil mi?.",
+
+  "advancements.energizedpower.energizedpower_basics.title": "Enerjili Güç (Temeller)",
+  "advancements.energizedpower.energizedpower_basics.description": "Yolcu kalmasın!",
+
+  "advancements.energizedpower.energizer.title": "Verimli Enerjileme",
+  "advancements.energizedpower.energizer.description": "Bakır Külçelerini bu makine daha hızlı enerjiler.",
+
+  "advancements.energizedpower.lightning_generator.title": "Bulut Gücü!",
+  "advancements.energizedpower.lightning_generator.description": "Şimşekten Enerji üretmek?.",
+
+  "advancements.energizedpower.energy_analyzer.title": "Analiz Etmenin Efendisi",
+  "advancements.energizedpower.energy_analyzer.description": "Tüm Enerji Bloklarını Analiz Et! - GUI leri olmasa bile!",
+
+  "advancements.energizedpower.fluid_analyzer.title": "Sıvı Analizörü",
+  "advancements.energizedpower.fluid_analyzer.description": "Sıvı içeren blokları analiz et!",
+
+  "advancements.energizedpower.inventory_coal_engine.title": "Envanter gücü",
+  "advancements.energizedpower.inventory_coal_engine.description": "Enerjiyi envanterinde üret ve dağıt!.",
+
+  "advancements.energizedpower.silicon.title": "Silikon",
+  "advancements.energizedpower.silicon.description": "İşler değişmeye başlıyor!",
+
+  "advancements.energizedpower.solar_panel_1.title": "Solar Panel Eğitimi",
+  "advancements.energizedpower.solar_panel_1.description": "Seviye I...",
+
+  "advancements.energizedpower.solar_panel_2.title": "Solar Panel İntörnü",
+  "advancements.energizedpower.solar_panel_2.description": "Seviye Iden daha iyi!",
+
+  "advancements.energizedpower.solar_panel_3.title": "Solar Panel İşçisi",
+  "advancements.energizedpower.solar_panel_3.description": "Seviye III - Basitlerin en gelişmişi",
+
+  "advancements.energizedpower.solar_panel_4.title": "Solar Panel Müdürü",
+  "advancements.energizedpower.solar_panel_4.description": "Seviye IV: Basitten daha fazlası!",
+
+  "advancements.energizedpower.solar_panel_5.title": "Solar Panel Direktörü",
+  "advancements.energizedpower.solar_panel_5.description": "Seviye V - Sadece I Seviye kaldı!",
+
+  "advancements.energizedpower.solar_panel_6.title": "Solar Panellerin Efendisi",
+  "advancements.energizedpower.solar_panel_6.description": "Seviye VI - Panellerin hepsini bitirdin!",
+
+  "advancements.energizedpower.uncharger.title": "ONU G-E-R-I VER!!",
+  "advancements.energizedpower.uncharger.description": "Enerji ürünlerinin şarjını azalt.",
+
+  "advancements.energizedpower.minecart_charger.title": "Maden Arabasını Şarj et!",
+  "advancements.energizedpower.minecart_charger.description": "Maden Arabasını neden şarj edersin ki?.",
+
+  "advancements.energizedpower.advanced_minecart_charger.title": "Gelişmiş Minecrart Şarjı",
+  "advancements.energizedpower.advanced_minecart_charger.description": "DAHA HIZLI!.",
+
+  "advancements.energizedpower.minecart_uncharger.title": "Minecart Şarjını Düşür!",
+  "advancements.energizedpower.minecart_uncharger.description": "Şarjını Düşür!",
+
+  "advancements.energizedpower.advanced_minecart_uncharger.title": "Gelişmiş Şarj Düşürme",
+  "advancements.energizedpower.advanced_minecart_uncharger.description": "DAHA HIZLI şarj düşürme!",
+
+
+  "book.energizedpower.tooltip.link": "Linki aç",
+  "book.energizedpower.tooltip.page": "Sayfaya git",
+
+
+  "book.energizedpower.page.welcome.title": "Hoşgeldiniz!!",
+  "book.energizedpower.page.welcome.1": "Bu mod fazlaca makina ve enerji ürünü ekler!.",
+  "book.energizedpower.page.welcome.2": "Resmi Mod Wikisi",
+  "book.energizedpower.page.welcome.3": "Özellik önerisi? Bunu buradan yap!",
+  "book.energizedpower.page.welcome.3.link": "Sorunlar",
+  "book.energizedpower.page.welcome.4": "Discord Sunucusu",
+  "book.energizedpower.page.welcome.4.link": "Discord",
+
+  "book.energizedpower.page.credits.title": "Krediler",
+  "book.energizedpower.page.credits.subtitle": "Modu oynadığınız için teşekkürler,iyi maceralar!",
+
+  "book.energizedpower.page.credits.1": "Enerjili Bakır/Altın Külçesi Texturelerı",
+  "book.energizedpower.page.credits.2": "Batarya Texture'ı",
+  "book.energizedpower.page.credits.3": "Silikon Texture'ı",
+  "book.energizedpower.page.credits.4": "Enerji Analizörü Texture'ı",
+  "book.energizedpower.page.credits.5": "Çince (Basit) çeviri",
+  "book.energizedpower.page.credits.6": "Italyanca Çeviri",
+  "book.energizedpower.page.credits.7": "Türkçe Çeviri",
+
+  "book.energizedpower.page.table_of_contents.title": "İçindekiler",
+
+
+  "book.energizedpower.page.chapter.resources.title": "Kaynaklar",
+  "book.energizedpower.page.chapter.resources.1": "Kaynaklar eşya yaratmak için vardır.",
+
+  "book.energizedpower.page.cable_insulator.1": "Kablo İnsülatörü Kablo tarifi için gereklidir.",
+  "book.energizedpower.page.cable_insulator.2": "Yün bloğuna makas ile tıklayarak elde edilebilir.",
+  "book.energizedpower.page.cable_insulator.3": "Bırakıcı ilede elde edilebilir.",
+
+  "book.energizedpower.page.saw_blade": "Testere bıçağı testere oluşturmak için gereklidir.",
+
+  "book.energizedpower.page.silicon.1": "Silikon bu modda birçok tarifte kullanılır.",
+  "book.energizedpower.page.silicon.2": "Nether Kuvarsını eriterek elde edilebilir.",
+
+  "book.energizedpower.page.sawdust.1": "Talaş Testereden çıkar ve Talaş bloğu oluşturur.",
+  "book.energizedpower.page.sawdust.2": "Talaş köür olarak kullanılabilir.",
+
+  "book.energizedpower.page.fertilizers": "Gübreleyiciler Bitki Büyütme Çemberinde Kullanılabilir.",
+
+  "book.energizedpower.page.ore_dusts": "Maden tozları külçeye dönüştürelebilir.",
+
+  "book.energizedpower.page.plates.1": "Plakalar birçok makinada malzeme olarak kullanılır. Plakalar çekiçle veya kompresörle üretilebilir .",
+  "book.energizedpower.page.plates.2": "Enerjili plakalar SADECE kompresdörde üretilerbilir.",
+
+  "book.energizedpower.page.metal_products.1": "Metal ürenler bir çok tarifte kullanılır.",
+  "book.energizedpower.page.metal_products.2": "Metal ürünler Metal Preste kullanılabilir.",
+
+  "book.energizedpower.page.circuits": "Devreler bazı tariflerde kullanılır.",
+
+  "book.energizedpower.page.energized_copper_ingot.1": "Enerjili Bakır Külçesi Enerjilendirici gibi gelişmiş makinalarda kullanılır.",
+  "book.energizedpower.page.energized_copper_ingot.2": "Enerjilendirici bu külçeyele yapılır değil mi?",
+  "book.energizedpower.page.energized_copper_ingot.3": "Şarhj bu külçeyi yapmakta kullanılabilir.",
+  "book.energizedpower.page.energized_copper_ingot.4": " [Ama bu pahalıdır]",
+
+  "book.energizedpower.page.energized_gold_ingot": "Enerjili Altın Külçeler gelişmiş makinalarda kullanılır (örnek.Şarj İstasyonu).",
+
+  "book.energizedpower.page.energized_crystal_matrix": "Enerjili Kristal Matrix gelişmiş bazı makinalarda kullanılır.",
+
+
+  "book.energizedpower.page.chapter.tools.title": "Alet Edevatlar",
+  "book.energizedpower.page.chapter.tools": "Yardımcı Olacaklar",
+
+  "book.energizedpower.page.hammers": "Çekiçler Plaka Üretir.",
+
+  "book.energizedpower.page.cutters": "Kesici Tel Üretir.",
+
+  "book.energizedpower.page.wrench": "İngiliz Anahtarı blokları configüre eder.",
+
+
+  "book.energizedpower.page.chapter.workbenches.title": "Çalışma Masaları",
+  "book.energizedpower.page.chapter.workbenches": "Manuel Çalışan Makineler.",
+
+  "book.energizedpower.page.press_mold_maker": "Pres Kalıbı Üreticisi Metal Pres için Kalıp üretir.",
+
+
+  "book.energizedpower.page.chapter.energy_items.title": "Enerji Eşyaları",
+  "book.energizedpower.page.chapter.energy_items": "Enerji Üreten,harcayan,depolayan ürünler.",
+
+  "book.energizedpower.page.inventory_coal_engine.1": "Buı eşya envanterine enerji dağıtabilir.",
+  "book.energizedpower.page.inventory_coal_engine.2": "Havaya tıklayarak aktive olabilir.",
+  "book.energizedpower.page.inventory_coal_engine.3": "Yakıt Otomatik olarak envanterden alınacak.",
+  "book.energizedpower.page.inventory_coal_engine.4": " [Hotbar Dahil]",
+
+  "book.energizedpower.page.inventory_charger.1": "Bu eşya envanterine enerji dağıtır.",
+  "book.energizedpower.page.inventory_charger.2": "Şarjlı bataryalar entegre edilmelidir.",
+
+  "book.energizedpower.page.energy_analyzer.1": "Enerji Analizörü GUIsiz bloklar için kullanılır.",
+  "book.energizedpower.page.energy_analyzer.2": "Enerji Bloklarına tıklayarak.",
+
+  "book.energizedpower.page.fluid_analyzer.1": "Sıvı Analizörü sıvıları anazliz eder.",
+  "book.energizedpower.page.fluid_analyzer.2": "Sıvı içeren bloklara tıklayarak analiz edilebilir.",
+
+  "book.energizedpower.page.batteries.1": "Bataryalar eneji Depolayabilir.",
+  "book.energizedpower.page.batteries.2": "Jenaratör ile Şarj olup,Şarj Düşürücü ile Şarjları Azaltılabilir.",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.title": "Enerji Blokları",
+  "book.energizedpower.page.chapter.energy_blocks": "Bloklar enerji üreteilir,transfer edebilir ve depolyabilir.",
+
+  "book.energizedpower.page.energy_blocks.table_of_contents.title": "İçindekiler\n(Enerji Blokları)",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.general.title": "Genel",
+  "book.energizedpower.page.chapter.energy_blocks.general": "Enerji blokları hakkında genel açıklama",
+
+  "book.energizedpower.page.machine_frames.1": "Makina Çerçevesi her blok için tabandır.",
+  "book.energizedpower.page.machine_frames.2": "Dört Çerçeve vardır,Basit,Tarım,Gelişmiş,Güçlendirilmiş",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_transportation.title": "Taşımacılık",
+  "book.energizedpower.page.chapter.energy_blocks.energy_transportation": "Enerji Taşımacılığı için bloklar",
+
+  "book.energizedpower.page.cables.1": "Kablolar enerji üreten bloklardan enerji taşır.",
+  "book.energizedpower.page.cables.2": "5 farklı kablo seviyesi vardır.",
+  "book.energizedpower.page.cables.3": "Transformatör farklı seviye kablo bağlamak için gereklidir.",
+
+  "book.energizedpower.page.transformers.1": "Transformatörler birçok farklı seviye kabloyu bağlabilir.",
+  "book.energizedpower.page.transformers.2": "Büyük,Siyah yerler giriştir.",
+  "book.energizedpower.page.transformers.3": "Küçük,parlak yerler çıkıştır.",
+  "book.energizedpower.page.transformers.4": "Dört seviye Transformatör vardır: LV, MV, HV ve EHV.",
+  "book.energizedpower.page.transformers.5": "Farklı Transformatörler için farklı seviyeler vardır: 1 den n, 3 den 3 ve n den 1.",
+  "book.energizedpower.page.transformers.6": "Transformatörler konularak kabloların lagını önleyebilir.",
+  "book.energizedpower.page.transformers.7": "Transformatörler diğer modların kablolarınıda kablolarınıda bağlayabilir(Yaşasın!).",
+  "book.energizedpower.page.transformers.8": "Transformatörler enerji blokları olarak kullanılabilir.",
+  "book.energizedpower.page.transformers.9": "Transformatörler AE2 tünelden enerji alabilir.",
+
+  "book.energizedpower.page.minecart_charger_uncharger.1": "Minecart Şarj Cihazı, Pil Kutulu Minecart'ı şarj edebilir ve Uncharger ise şarjını boşaltabilir.",
+  "book.energizedpower.page.minecart_charger_uncharger.2": "Bir Redstone Karşılaştırıcı, şarj edilen veya şarj edilmeyen bir Minecart'ın mevcut güç seviyesini elde etmek için kullanılabilir.",
+  "book.energizedpower.page.minecart_charger_uncharger.3": "Gelişmiş versiyonlar daha yüksek transfer oranına sahiptir.",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_storage.title": "Depolama",
+  "book.energizedpower.page.chapter.energy_blocks.energy_storage": "Enerji Depolama için blokla",
+
+  "book.energizedpower.page.battery_box": "Batarya kutuları enerji depolayabilir.",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_production.title": "Üretim",
+  "book.energizedpower.page.chapter.energy_blocks.energy_production": "Enerji Üretimi Blokları",
+
+  "book.energizedpower.page.solar_cells.1": "Solar Hücreler enerji depolayabilir.",
+  "book.energizedpower.page.solar_cells.2": "Üç Hücre Vardur: Basit, Gelişmiş, and Güçlendirilmiş Gelişmiş",
+
+  "book.energizedpower.page.solar_panels.1": "Solar Paneller gün içinde enerji üretir,verimlilik gün içinde değişir",
+  "book.energizedpower.page.solar_panels.2": "6 Solar Panel Seviyesi vardır.",
+
+  "book.energizedpower.page.coal_engine.1": "Kömür motoru eşya yakarak enerji üretir.",
+  "book.energizedpower.page.coal_engine.2": "Kalan eşyalar otomatikce çekilebilir.",
+
+  "book.energizedpower.page.heat_generator.1": "Isı Jenatörü Lav bloğu dokunduğunda çalışır.",
+  "book.energizedpower.page.heat_generator.2": "Isı Jenaratörü Durgun lavda daha fazla,akan lavda daha az enerji üretir.",
+  "book.energizedpower.page.heat_generator.3": "Lav ne kadar fazla yüzeye dokunursa,enerji üretimi o kadar fazla olur.",
+  "book.energizedpower.page.heat_generator.4": "Modlu oynuyorsanız,diğer sıcak sıvılarda desteklenir.",
+
+  "book.energizedpower.page.thermal_generator.1": "Termal Jenaratör Sıcak sıvı ile çalışır.",
+  "book.energizedpower.page.thermal_generator.2": "Modlu oynuyorsanız yine sıcak sıvılar çalışır.",
+
+  "book.energizedpower.page.lightning_generator.1": "Yıldırım Jenaratörü güçlü miktarda enerji üretir.",
+  "book.energizedpower.page.lightning_generator.2": "Paratoner bu bloğun üstüne MUTLAKA konulmalıdır.",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_consumption.title": "Tüketim",
+  "book.energizedpower.page.chapter.energy_blocks.energy_consumption": "Enerji Tüketen Bloklar",
+
+  "book.energizedpower.page.powered_lamp": "Güçlendirilmiş lamba redstone olan gibidir,ama elektrik ile çalışır.",
+
+  "book.energizedpower.page.powered_furnaces.1": "Güçlü Fırınlar normal Fırın gibidir,sadece elektrik ve hızlı pişirme özelleğine sahiplerdir.",
+  "book.energizedpower.page.powered_furnaces.2": "Gelişmiş versiyon 3 slota sahiptir.",
+
+  "book.energizedpower.page.auto_crafters.1": "Oto Oluştrucu eşyaları Otomatik Oluşturur.",
+  "book.energizedpower.page.auto_crafters.2": "Tarif slotları kullanarak ayarlanabilir.",
+  "book.energizedpower.page.auto_crafters.3": "Oto Oluşturucu çatışmaları yapar, bunlar farklı tarifler ama farklı girişlerdir.Bunu yapmak için, \"Tarif arasında dönüp dur\" butonunu veya tarif gösterici modu kullanın (Rougly Enough Items gibi).",
+  "book.energizedpower.page.auto_crafters.4": "Gelişmiş Oto Oluşturucu farklı tarifleri destekler.",
+
+  "book.energizedpower.page.crusher": "Ezici taş gibi blokları ezebilir.",
+
+  "book.energizedpower.page.pulverizer": "Pulverizör Maden Tozlarını külçeye dönüştürebilir.",
+
+  "book.energizedpower.page.sawmill.1": "Testere blokları ve eşyaları kesebilir",
+  "book.energizedpower.page.sawmill.2": "Yakıt olarak kullanılabilecek talaş bloklarına dönüştürülebilen talaş üretilecek.",
+
+  "book.energizedpower.page.compressor": "Kompresör Plakaları Kompresörler.",
+
+  "book.energizedpower.page.metal_press.1": "Metal Pres, metallerden metal ürünler (örneğin teller) oluşturur.",
+  "book.energizedpower.page.metal_press.2": "Pres Kalıpları Pres kalıbı oluşturucusunda oluşturulabilir.",
+  "book.energizedpower.page.metal_press.3": "Pres Kalıplar üstten takılabilir ve çıkarılabilir.",
+  "book.energizedpower.page.metal_press.4": "Girişler diğer tüm taraflara eklenebilir ve çıkışlar diğer tüm taraflardan çıkarılabilir.",
+
+  "book.energizedpower.page.assembling_machine.1": "The Assembling Machine creates electronic components (e.g. circuits).",
+  "book.energizedpower.page.assembling_machine.2": "Outputs can be extracted from all sides.",
+  "book.energizedpower.page.assembling_machine.3": "Inputs can be inserted from all sides (Top/Bottom: All inputs slots, Front: Bottom slot, Back: Top slot, Left: Left slot, Right: Right slot).",
+
+  "book.energizedpower.page.plant_growth_chamber.1": "Bitki Büyüme Odası bitki büyümesini ve verimini artırabilir.",
+  "book.energizedpower.page.plant_growth_chamber.2": "Sağ giriş yuvası tohum yuvasıdır.",
+  "book.energizedpower.page.plant_growth_chamber.3": "Sol, isteğe bağlı olarak kullanılabilen giriş yuvası gübre yuvasıdır.",
+  "book.energizedpower.page.plant_growth_chamber.4": "Gübre yuvası kullanıldığında, enerji ve hız çarpanları uygulanır.",
+  "book.energizedpower.page.plant_growth_chamber.5": "Tohumlar kuzeyden, doğudan, güneyden ve batıdan yerleştirilebilir. Gübreler üstten ve alttan eklenebilir. Çıktılar tüm blok yüzeylerinden alınabilir.",
+  "book.energizedpower.page.plant_growth_chamber.6": "Eğer bir gübre kullanmak istiyorsanız, önce gübre yerleştirilmelidir.",
+  "book.energizedpower.page.plant_growth_chamber.7": "Bu blokları otomatikleştirmek isterseniz, verimlerin rastgele olduğunu aklınızda bulundurmanız gerekir.",
+
+  "book.energizedpower.page.stone_solidifier.1": "The Stone Solidifier produces Stone blocks from Water and Lava.",
+  "book.energizedpower.page.stone_solidifier.2": "Fluids must be inserted with a pipe.",
+
+  "book.energizedpower.page.block_placer.1": "Blok Yerleştirici tüm blokları yerleştirebilir (Kapılar ve tohumlar dahil).",
+  "book.energizedpower.page.block_placer.2": "Bloklar yalnızca mümkünse yerleştirilecektir.",
+
+  "book.energizedpower.page.fluid_filler_fluid_drainer": "Sıvı Doldurucu öğelere sıvı doldurabilir ve Sıvı Boşaltıcı öğelerden sıvı boşaltabilir.",
+
+  "book.energizedpower.page.charger_uncharger.1": "Şarj Cihazı öğeleri şarj edebilir ve Şarj Cihazı öğelerin şarjını boşaltabilir.",
+  "book.energizedpower.page.charger_uncharger.2": "Şarj Aletinin gelişmiş versiyonu ve Şarj Aletinin 3 yuvası vardır.",
+
+  "book.energizedpower.page.charging_station": "Şarj İstasyonu öğeleri kablosuz olarak şarj edebilir.",
+
+  "book.energizedpower.page.crystal_growth_chamber": "The Crystal Growth Chamber can be used to grow crystals like amethysts.",
+
+  "book.energizedpower.page.energizer": "Energizer eşyalara çok verimli bir şekilde enerji verebilir.",
+
+  "book.energizedpower.page.weather_controller": "Hava Durumu Denetleyicisi hava durumunu geçici olarak değiştirebilir. Bunu yapmak için enerji gerektirir.",
+
+  "book.energizedpower.page.time_controller.1": "Zaman Kontrolörü günün saatini değiştirebilir. Bunu yapmak için enerjiye ihtiyaç duyar.",
+  "book.energizedpower.page.time_controller.2": "Zamanda geriye gidemez, zaman değeri her zaman artacaktır.",
+
+  "book.energizedpower.page.teleporter_matrix.1": "Işınlayıcı Matrisleri Işınlayıcıları bağlamak için kullanılır.",
+  "book.energizedpower.page.teleporter_matrix.2": "Bir Işınlayıcı Matrisinin ayarları, bir bağlantı ucu ve bir veya daha fazla bağlantısız Işınlayıcı Matrisini bir Üretim Tablosuna koyarak kopyalanabilir.",
+
+  "book.energizedpower.page.teleporter.1": "Işınlayıcı oyuncuları ışınlayabilir. Bunu yapmak için enerji ve bağlantılı bir Işınlayıcı Matrisi gerektirir.",
+  "book.energizedpower.page.teleporter.2": "Işınlayıcı ışınlanmaya hazırsa bir kırmızı taş sinyali verir.",
+
+
+  "book.energizedpower.page.chapter.fluid_blocks.title": "Akışkanlı Bloklar",
+  "book.energizedpower.page.chapter.fluid_blocks": "Akışkanları depolayabilen ve aktarabilen bloklar.",
+
+  "book.energizedpower.page.fluid_pipe.1": "Akışkan boruları akışkanları transfer edebilir.",
+  "book.energizedpower.page.fluid_pipe.2": "Her boru tarafının modu bir Anahtar ile yapılandırılabilir.",
+  "book.energizedpower.page.fluid_pipe.3": "Tek bir akışkan borusu bloğu, birden fazla taraf çıkarma olarak yapılandırılmış olsa bile aynı anda yalnızca bir akışkan türünü çıkarabilir.",
+
+  "book.energizedpower.page.drain": "The Drain drains fluid source blocks above the block.",
+
+
+  "book.energizedpower.page.chapter.item_transportation.title": "Ürün Taşımacılığı",
+  "book.energizedpower.page.chapter.item_transportation": "Öğeleri taşıyabilen bloklar.",
+
+  "book.energizedpower.page.item_conveyor_belt.1": "Öğe Konveyör bantları öğeleri taşıyabilir.",
+  "book.energizedpower.page.item_conveyor_belt.2": "Konveyör bantlarının eğimi bir Anahtar ile yapılandırılabilir.",
+  "book.energizedpower.page.item_conveyor_belt.3": "Konveyör bantları haznelerle ve bloklara öğe yerleştirebilen herhangi bir blokla yüklenebilir.",
+  "book.energizedpower.page.item_conveyor_belt.4": "Konveyör bantları, öğeleri konveyör bandının önündeki bloklara yerleştirebilir.",
+  "book.energizedpower.page.item_conveyor_belt.5": "Alternatif olarak, öğeleri bloklardan çıkarabilen hazneler ve diğer bloklarla boşaltılabilirler.",
+  "book.energizedpower.page.item_conveyor_belt.6": "Konveyör bantları AE2 öğe tüneli ile uyumludur.",
+
+  "book.energizedpower.page.item_conveyor_belt_loader.1": "Öğe Konveyör Bant Yükleyici, öğeleri herhangi bir depolama bloğundan (hatta diğer konveyör bantlarından) çıkarabilir ve bir konveyör bandına yükleyebilir.",
+  "book.energizedpower.page.item_conveyor_belt_loader.2": "Büyük kare öğelerin çıkarıldığı bloğa bakmalı ve küçük kare bir taşıma bandına bakmalıdır.",
+  "book.energizedpower.page.item_conveyor_belt_loader.3": "Alternatif olarak öğeler yükleyiciden haznelerle ve bloklardan öğe çıkarabilen diğer bloklarla çıkarılabilir.",
+  "book.energizedpower.page.item_conveyor_belt_loader.4": "Dikey ve yatay olarak istiflenebilir.",
+  "book.energizedpower.page.item_conveyor_belt_loader.5": "Bir kırmızı taş sinyali ile devre dışı bırakılabilir.",
+
+  "book.energizedpower.page.item_conveyor_belt_sorter.1": "Öğe Konveyör Bant Sıralayıcısı, öğeleri bir giriş konveyör bandından alır ve bunları belirli bir çıkış konveyör bandına yönlendirir.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.2": "Giriş konveyör bandı büyük kareye bakmalı ve yükselmemelidir.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.3": "Çıkış konveyör bantları için herhangi bir kısıtlama yoktur.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.4": "Çıkışlar renk kodludur (kırmızı: ilk çıkış ve her zaman girişe göre sol tarafta, sarı: ikinci çıkış ve girişe göre karşı tarafta, yeşil: üçüncü çıkış ve girişe göre sağ tarafta).",
+  "book.energizedpower.page.item_conveyor_belt_sorter.5": "Öğe, filtrenin eşleştiği ilk çıkışa yönlendirilecektir (Öncelik: ÇIKIŞ 1, ÇIKIŞ 2, ÇIKIŞ 3).",
+  "book.energizedpower.page.item_conveyor_belt_sorter.6": "Çıktı filtresi satırındaki en az bir desen öğesi girdi öğesiyle eşleşiyorsa filtre eşleşir.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.7": "Kalıp öğeler, envanterden öğe alınarak ve bir kalıp yuvasına sol tıklanarak yerleştirilebilir. Filtre, öğe olmadan sol tıklanarak sıfırlanabilir.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.8": "Herhangi bir öğeye izin vermek için herhangi bir desen öğesi olmadan kara listeyi seçin. Eğer bir çıkış bağlı değilse, filtre herhangi bir desen öğesi olmadan beyaz listeye ayarlanmalıdır.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.9": "Hiçbir filtre eşleşmezse 15 gücünde bir kırmızı taş sinyali yayılacaktır (Hiçbir çıkış bağlı değilse veya doluysa kırmızı taş sinyali yayılmayacaktır).",
+
+  "book.energizedpower.page.item_conveyor_belt_switch.1": "Öğe Konveyör Bant Anahtarı öğeleri giriş konveyör bandından alır (büyük kareye bakmalı ve yükselmemelidir) ve onları yeşil göstergeli taraftaki çıkış konveyör bandına koyar.",
+  "book.energizedpower.page.item_conveyor_belt_switch.2": "Bir kırmızı taş sinyali uygulandığı sürece, diğer çıkış seçilecektir.",
+
+  "book.energizedpower.page.item_conveyor_belt_splitter": "Öğe Konveyör Bandı Ayırıcı, giriş konveyör bandındaki öğeleri alır (büyük kareye bakmalı ve yükselmemelidir) ve bunları bağlı çıkış konveyör bantlarına eşit olarak yerleştirir.",
+
+  "book.energizedpower.page.item_conveyor_belt_merger": "Öğe Konveyör Bandı Birleştirici, bağlı giriş konveyör bantlarından öğeleri eşit olarak alır (Büyük bir kareye bakmalı ve yükselmemelidir) ve bunları çıkış konveyör bandına koyar.",
+
+
+  "book.energizedpower.page.chapter.entities.title": "Varlıklar",
+  "book.energizedpower.page.chapter.entities": "Hareket edebilen şeyler.",
+
+  "book.energizedpower.page.battery_box_minecarts": "Battery Box Minecart'lar raylar üzerinde enerji taşıyabilir. Minecart Şarj Aletleri ile şarj edilebilir ve Minecart Şarj Aletleri ile şarjı boşaltılabilir.",
+
+
+  "book.energizedpower.page.chapter.structures.title": "Yapılar",
+  "book.energizedpower.page.chapter.structures": "Dünyanızda üretilmekte olan yapılar.",
+
+  "book.energizedpower.page.electrician.title": "Elektrikçi Köylü",
+  "book.energizedpower.page.electrician.1": "Elektrikçi köylü, elektrikçi evinde bulunabilir.",
+  "book.energizedpower.page.electrician.2": "Elektrikçi evi her vanilya köy tipinde bulunabilir.",
+  "book.energizedpower.page.electrician.3": "Temel Makine Çerçevesi bir elektrikçi köylü elde etmek için kullanılabilir.",
+
+  "book.energizedpower.page.factory.title": "Fabrika Binası",
+  "book.energizedpower.page.factory.1": "Fabrika binası bazı makineler ve binanın ortasında ilginç bir şey içeriyor. Orman ve Çiçek Ormanı biyomlarında bulunabilir.",
+
+  "book.energizedpower.page.small_solar_farm.title": "Küçük Güneş Çiftliği",
+  "book.energizedpower.page.small_solar_farm.1": "Küçük güneş çiftliği, enerji üreten bazı Güneş Panellerine sahip bir yapıdır. Çöl, Çorak Topraklar ve Savan biyomlarında bulunabilir."
+}
