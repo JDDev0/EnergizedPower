@@ -1,12 +1,11 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.block.entity.FluidDrainerBlockEntity;
+import me.jddev0.ep.block.entity.StoneSolidifierBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.util.ByteUtils;
-import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -21,37 +20,32 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class FluidDrainerMenu extends ScreenHandler implements EnergyStorageMenu {
-    private final FluidDrainerBlockEntity blockEntity;
+public class StoneSolidifierMenu extends ScreenHandler implements EnergyStorageConsumerIndicatorBarMenu {
+    private final StoneSolidifierBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
     private final PropertyDelegate data;
 
-    public FluidDrainerMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
+    public StoneSolidifierMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
         this(id, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), inv, new SimpleInventory(1) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 if(slot == 0)
-                    return ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM) != null;
+                    return false;
 
                 return super.isValid(slot, stack);
             }
-
-            @Override
-            public int getMaxCountPerStack() {
-                return 1;
-            }
-        }, new ArrayPropertyDelegate(8));
+        }, new ArrayPropertyDelegate(9));
     }
 
-    public FluidDrainerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
-        super(ModMenuTypes.FLUID_DRAINER_MENU, id);
+    public StoneSolidifierMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
+        super(ModMenuTypes.STONE_SOLIDIFIER_MENU, id);
 
-        this.blockEntity = (FluidDrainerBlockEntity)blockEntity;
+        this.blockEntity = (StoneSolidifierBlockEntity)blockEntity;
 
         this.inv = inv;
         checkSize(this.inv, 1);
-        checkDataCount(data, 8);
+        checkDataCount(data, 9);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -59,7 +53,7 @@ public class FluidDrainerMenu extends ScreenHandler implements EnergyStorageMenu
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
-        addSlot(new ConstraintInsertSlot(this.inv, 0, 80, 35));
+        addSlot(new ConstraintInsertSlot(this.inv, 0, 98, 44));
 
         addProperties(this.data);
     }
@@ -74,20 +68,36 @@ public class FluidDrainerMenu extends ScreenHandler implements EnergyStorageMenu
         return blockEntity.getCapacity();
     }
 
-    public FluidStack getFluid() {
-        return blockEntity.getFluid(0);
-    }
-
-    public long getTankCapacity() {
-        return blockEntity.getTankCapacity(0);
-    }
-
-    public long getFluidIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1), (short)data.get(2), (short)data.get(3));
-    }
-
-    public long getFluidIndicatorPendingBarValue() {
+    @Override
+    public long getEnergyIndicatorBarValue() {
         return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5), (short)data.get(6), (short)data.get(7));
+    }
+
+    public FluidStack getFluid(int tank) {
+        return blockEntity.getFluid(tank);
+    }
+
+    public long getTankCapacity(int tank) {
+        return blockEntity.getTankCapacity(tank);
+    }
+
+    /**
+     * @return Same as isCrafting but energy requirements are ignored
+     */
+    public boolean isCraftingActive() {
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0;
+    }
+
+    public boolean isCrafting() {
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(8) == 1;
+    }
+
+    public int getScaledProgressArrowSize() {
+        int progress = ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
+        int maxProgress = ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
+        int progressArrowSize = 20;
+
+        return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
     }
 
     @Override
@@ -100,11 +110,8 @@ public class FluidDrainerMenu extends ScreenHandler implements EnergyStorageMenu
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
-            //Player inventory slot -> Merge into tile inventory
-            //Allow only 1 item
-            if(slots.get(4 * 9).hasStack() || !insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
-                return ItemStack.EMPTY;
-            }
+            //There is no input slot
+            return ItemStack.EMPTY;
         }else if(index < 4 * 9 + 1) {
             //Tile inventory slot -> Merge into player inventory
             if(!insertItem(sourceItem, 0, 4 * 9, false)) {
@@ -126,7 +133,7 @@ public class FluidDrainerMenu extends ScreenHandler implements EnergyStorageMenu
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.FLUID_DRAINER);
+        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.STONE_SOLIDIFIER);
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
@@ -145,5 +152,9 @@ public class FluidDrainerMenu extends ScreenHandler implements EnergyStorageMenu
 
     public BlockEntity getBlockEntity() {
         return blockEntity;
+    }
+
+    public StoneSolidifierRecipe getCurrentRecipe() {
+        return blockEntity.getCurrentRecipe();
     }
 }

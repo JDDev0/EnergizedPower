@@ -18,6 +18,7 @@ public final class ModMessages {
     public static Identifier ITEM_STACK_SYNC_ID = new Identifier(EnergizedPowerMod.MODID, "item_stack_sync");
     public static Identifier OPEN_ENERGIZED_POWER_BOOK_ID = new Identifier(EnergizedPowerMod.MODID, "open_energized_power_book");
     public static Identifier SYNC_PRESS_MOLD_MAKER_RECIPE_LIST_ID = new Identifier(EnergizedPowerMod.MODID, "sync_press_mold_maker_recipe_list");
+    public static Identifier SYNC_STONE_SOLIDIFIER_CURRENT_RECIPE_ID = new Identifier(EnergizedPowerMod.MODID, "sync_stone_solidifier_current_recipe");
     public static Identifier POP_ENERGIZED_POWER_BOOK_FROM_LECTERN_ID = new Identifier(EnergizedPowerMod.MODID, "pop_energized_power_book_from_lectern");
     public static Identifier SET_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID = new Identifier(EnergizedPowerMod.MODID, "set_auto_crafter_pattern_input_slots");
     public static Identifier SET_ADVANCED_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID = new Identifier(EnergizedPowerMod.MODID, "set_advanced_auto_crafter_pattern_input_slots");
@@ -32,6 +33,7 @@ public final class ModMessages {
     public static Identifier CYCLE_AUTO_CRAFTER_RECIPE_OUTPUT_ID = new Identifier(EnergizedPowerMod.MODID, "cycle_auto_crafter_recipe_output");
     public static Identifier CYCLE_ADVANCED_AUTO_CRAFTER_RECIPE_OUTPUT_ID = new Identifier(EnergizedPowerMod.MODID, "cycle_advanced_auto_crafter_recipe_output");
     public static Identifier CRAFT_PRESS_MOLD_MAKER_RECIPE_ID = new Identifier(EnergizedPowerMod.MODID, "craft_press_mold_maker_recipe");
+    public static Identifier CHANGE_STONE_SOLIDIFIER_RECIPE_INDEX_ID = new Identifier(EnergizedPowerMod.MODID, "change_stone_solidifer_recipe_index");
 
     private ModMessages() {}
 
@@ -45,6 +47,8 @@ public final class ModMessages {
         ClientPlayNetworking.registerGlobalReceiver(OPEN_ENERGIZED_POWER_BOOK_ID, OpenEnergizedPowerBookS2CPacket::receive);
 
         ClientPlayNetworking.registerGlobalReceiver(SYNC_PRESS_MOLD_MAKER_RECIPE_LIST_ID, SyncPressMoldMakerRecipeListS2CPacket::receive);
+
+        ClientPlayNetworking.registerGlobalReceiver(SYNC_STONE_SOLIDIFIER_CURRENT_RECIPE_ID, SyncStoneSolidifierCurrentRecipeS2CPacket::receive);
     }
 
     public static void registerPacketsC2S() {
@@ -75,6 +79,8 @@ public final class ModMessages {
         ServerPlayNetworking.registerGlobalReceiver(CYCLE_ADVANCED_AUTO_CRAFTER_RECIPE_OUTPUT_ID, CycleAdvancedAutoCrafterRecipeOutputC2SPacket::receive);
 
         ServerPlayNetworking.registerGlobalReceiver(CRAFT_PRESS_MOLD_MAKER_RECIPE_ID, CraftPressMoldMakerRecipeC2SPacket::receive);
+
+        ServerPlayNetworking.registerGlobalReceiver(CHANGE_STONE_SOLIDIFIER_RECIPE_INDEX_ID, ChangeStoneSolidifierRecipeIndexC2SPacket::receive);
     }
 
     public static void broadcastServerPacket(MinecraftServer server, Identifier channelName, PacketByteBuf buf) {

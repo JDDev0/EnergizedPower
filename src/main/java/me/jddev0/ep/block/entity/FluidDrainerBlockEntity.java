@@ -183,6 +183,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
 
                 if(world != null && !world.isClient()) {
                     PacketByteBuf buffer = PacketByteBufs.create();
+                    buffer.writeInt(0);
                     getFluid().toPacket(buffer);
                     buffer.writeLong(capacity);
                     buffer.writeBlockPos(getPos());
@@ -235,6 +236,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
 
         buffer = PacketByteBufs.create();
+        buffer.writeInt(0);
         fluidStorage.getFluid().toPacket(buffer);
         buffer.writeLong(fluidStorage.getCapacity());
         buffer.writeBlockPos(getPos());
@@ -387,11 +389,11 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
         return false;
     }
 
-    public FluidStack getFluid() {
+    public FluidStack getFluid(int tank) {
         return fluidStorage.getFluid();
     }
 
-    public long getTankCapacity() {
+    public long getTankCapacity(int tank) {
         return fluidStorage.getCapacity();
     }
 
@@ -414,12 +416,12 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     @Override
-    public void setFluid(FluidStack fluidStack) {
+    public void setFluid(int tank, FluidStack fluidStack) {
         fluidStorage.setFluid(fluidStack);
     }
 
     @Override
-    public void setTankCapacity(long capacity) {
+    public void setTankCapacity(int tank, long capacity) {
         //Does nothing (capacity is final)
     }
 }
