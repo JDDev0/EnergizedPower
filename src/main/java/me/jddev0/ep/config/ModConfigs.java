@@ -674,6 +674,16 @@ public final class ModConfigs {
             1L, null
     ));
 
+    public static final ConfigValue<Long> COMMON_DRAIN_FLUID_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
+            "block.drain", "Drain", 2
+    );
+    public static final ConfigValue<Integer> COMMON_DRAIN_DRAIN_DURATION = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.drain.drain_duration",
+            "The amount of ticks the Drain requires to drain 1000 mB (milli Buckets) from the fluid source block above.",
+            20,
+            1, null
+    ));
+
     public static final ConfigValue<Long> COMMON_FLUID_PIPE_FLUID_TRANSFER_RATE = COMMON_CONFIG.register(new LongConfigValue(
             "block.fluid_pipe.fluid_transfer_rate",
             "The transfer rate per tank and face of a Fluid Pipe face in the extraction state in mB (milli Buckets)",
