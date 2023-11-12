@@ -5,6 +5,7 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
@@ -17,6 +18,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.List;
+import java.util.Locale;
 
 public class CrystalGrowthChamberEMIRecipe implements EmiRecipe {
     public static final ResourceLocation SIMPLIFIED_TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/block/crystal_growth_chamber_side.png");
@@ -27,12 +29,14 @@ public class CrystalGrowthChamberEMIRecipe implements EmiRecipe {
     private final ResourceLocation id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
+    private final CrystalGrowthChamberRecipe.OutputItemStackWithPercentages outputWithPercentages;
     private final int ticks;
 
     public CrystalGrowthChamberEMIRecipe(RecipeHolder<CrystalGrowthChamberRecipe> recipe) {
         this.id = recipe.id();
         this.input = List.of(EmiIngredient.of(recipe.value().getInput(), recipe.value().getInputCount()));
         this.output = List.of(EmiStack.of(recipe.value().getMaxOutputCount()));
+        this.outputWithPercentages = recipe.value().getOutput();
         this.ticks = (int)(recipe.value().getTicks() * CrystalGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
     }
 
@@ -72,7 +76,15 @@ public class CrystalGrowthChamberEMIRecipe implements EmiRecipe {
         widgets.addTexture(texture, 0, 0, 98, 38, 47, 30);
 
         widgets.addSlot(input.get(0), 0, 4).drawBack(false);
-        widgets.addSlot(output.get(0), 76, 4).drawBack(false).recipeContext(this);
+        SlotWidget outputSlot = widgets.addSlot(output.get(0), 76, 4).drawBack(false).recipeContext(this);
+        {
+            outputSlot.appendTooltip(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+
+            double[] percentages = outputWithPercentages.percentages();
+            for(int i = 0;i < percentages.length;i++)
+                outputSlot.appendTooltip(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+
+        }
 
         Component ticksText = Component.translatable("recipes.energizedpower.info.ticks", ticks);
         widgets.addText(ticksText.getVisualOrderText(),

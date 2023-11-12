@@ -17,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.List;
+import java.util.Locale;
 
 public class PulverizerCategory implements IRecipeCategory<RecipeHolder<PulverizerRecipe>> {
     public static final RecipeType<RecipeHolder<PulverizerRecipe>> TYPE = RecipeType.createFromVanilla(PulverizerRecipe.Type.INSTANCE);
@@ -57,9 +58,26 @@ public class PulverizerCategory implements IRecipeCategory<RecipeHolder<Pulveriz
 
         ItemStack[] outputEntries = recipe.value().getMaxOutputCounts();
 
-        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).addItemStack(outputEntries[0]);
+        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).addItemStack(outputEntries[0]).
+                addTooltipCallback((view, tooltip) -> {
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+
+                    double[] percentages = recipe.value().getOutput().percentages();
+                    for(int i = 0;i < percentages.length;i++)
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+                });
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 92, 5).
-                addItemStacks(outputEntries[1].isEmpty()?List.of():List.of(outputEntries[1]));
+                addItemStacks(outputEntries[1].isEmpty()?List.of():List.of(outputEntries[1])).
+                addTooltipCallback((view, tooltip) -> {
+                    if(view.isEmpty())
+                        return;
+
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+
+                    double[] percentages = recipe.value().getSecondaryOutput().percentages();
+                    for(int i = 0;i < percentages.length;i++)
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+                });
     }
 }
