@@ -46,6 +46,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<PlantGrowthChamberMenu>> PLANT_GROWTH_CHAMBER_MENU = registerMenuType("plant_growth_chamber",
             PlantGrowthChamberMenu::new);
 
+    public static final RegistryObject<MenuType<StoneSolidifierMenu>> STONE_SOLIDIFIER_MENU = registerMenuType("stone_solidifier",
+            StoneSolidifierMenu::new);
+
     public static final RegistryObject<MenuType<BlockPlacerMenu>> BLOCK_PLACER_MENU = registerMenuType("block_placer",
             BlockPlacerMenu::new);
 

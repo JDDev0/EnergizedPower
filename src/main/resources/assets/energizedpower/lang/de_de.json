@@ -196,8 +196,7 @@
   "tooltip.energizedpower.press_mold_maker.btn.up": "Nach oben scrollen",
   "tooltip.energizedpower.press_mold_maker.btn.down": "Nach unten scrollen",
 
-  "tooltip.energizedpower.press_mold_maker.btn.recipes.1": "%dx %s",
-  "tooltip.energizedpower.press_mold_maker.btn.recipes.2": "Benötigt %dx %s",
+  "tooltip.energizedpower.press_mold_maker.btn.recipes": "Benötigt %dx %s",
 
   "block.energizedpower.auto_crafter": "Automatische Werkbank",
   "item.energizedpower.auto_crafter": "Automatische Werkbank",
@@ -407,6 +406,13 @@
   "item.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
   "container.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
 
+  "block.energizedpower.stone_solidifier": "Stein-Festiger",
+  "item.energizedpower.stone_solidifier": "Stein-Festiger",
+  "container.energizedpower.stone_solidifier": "Stein-Festiger",
+
+  "tooltip.energizedpower.stone_solidifier.btn.up": "Nächstes Rezept",
+  "tooltip.energizedpower.stone_solidifier.btn.down": "Vorheriges Rezept",
+
   "block.energizedpower.block_placer": "Blockplatzierer",
   "item.energizedpower.block_placer": "Blockplatzierer",
   "container.energizedpower.block_placer": "Blockplatzierer",
@@ -491,6 +497,8 @@
   "block.energizedpower.reinforced_advanced_machine_frame": "Verstärkter Fortgeschrittener Maschinenrahmen",
   "item.energizedpower.reinforced_advanced_machine_frame": "Verstärkter Fortgeschrittener Maschinenrahmen",
 
+  "tooltip.energizedpower.count_with_item.txt": "%dx %s",
+
   "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
   "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "Dieses Rezept benötigt noch %s um fertiggestellt zu werden.",
@@ -540,6 +548,7 @@
   "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Wachstums-Kammer (Dünger)",
   "emi.category.energizedpower.energizer": "Energetisierer",
   "emi.category.energizedpower.press_mold_maker": "Pressform-Hersteller",
+  "emi.category.energizedpower.stone_solidifier": "Stein-Festiger",
   "emi.category.energizedpower.dispenser": "Werfer",
   "emi.category.energizedpower.in_world_crafting": "In-Welt Herstellung",
 
@@ -610,6 +619,9 @@
 
   "advancements.energizedpower.plant_growth_chamber.title": "Schnelleres Pflanzenwachstum",
   "advancements.energizedpower.plant_growth_chamber.description": "Verssere die Geschwindigkeit und den Ertrag mit der Pflanzenwachstums-Kammer.",
+
+  "advancements.energizedpower.stone_solidifier.title": "Stein-Festiger",
+  "advancements.energizedpower.stone_solidifier.description": "Erstelle Stein-Blöcke aus Wasser und Lava.",
 
   "advancements.energizedpower.block_placer.title": "Platziere den Block",
   "advancements.energizedpower.block_placer.description": "Blöcke werden automatisch in der Welt platziert.",
@@ -1065,6 +1077,9 @@
   "book.energizedpower.page.plant_growth_chamber.5": "Samen können vom Norden, Osten, Süden und Westen hinzugefügt werden. Dünger können von oben und unten hinzugefügt werden. Ausgänge können von allen Blockseiten extrahiert werden.",
   "book.energizedpower.page.plant_growth_chamber.6": "Wenn du einen Dünger verwenden möchtest, muss der Dünger zuerst hinzugefügt werden.",
   "book.energizedpower.page.plant_growth_chamber.7": "Wenn du diesen Block automatisieren willst, musst du wissen, dass Erträge randomisiert sind.",
+
+  "book.energizedpower.page.stone_solidifier.1": "Der Stein-Festiger produziert Stein-Blöcke von Wasser und Lava.",
+  "book.energizedpower.page.stone_solidifier.2": "Flüssigkeiten müssen mit einem Rohr eingegeben werden.",
 
   "book.energizedpower.page.block_placer.1": "Der Blockplatzierer kann Blöcke platzieren (Sogar Türen und Samen).",
   "book.energizedpower.page.block_placer.2": "Blöcke werden nur platziert, wenn es möglich ist.",

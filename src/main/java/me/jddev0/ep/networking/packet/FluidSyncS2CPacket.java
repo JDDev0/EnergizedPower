@@ -9,23 +9,27 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.network.NetworkEvent;
 
 public class FluidSyncS2CPacket {
+    private final int tank;
     private final FluidStack fluidStack;
     private final int capacity;
     private final BlockPos pos;
 
-    public FluidSyncS2CPacket(FluidStack fluidStack, int capacity, BlockPos pos) {
+    public FluidSyncS2CPacket(int tank, FluidStack fluidStack, int capacity, BlockPos pos) {
+        this.tank = tank;
         this.fluidStack = fluidStack;
         this.capacity = capacity;
         this.pos = pos;
     }
 
     public FluidSyncS2CPacket(FriendlyByteBuf buffer) {
+        tank = buffer.readInt();
         fluidStack = buffer.readFluidStack();
         capacity = buffer.readInt();
         pos = buffer.readBlockPos();
     }
 
     public void toBytes(FriendlyByteBuf buffer) {
+        buffer.writeInt(tank);
         buffer.writeFluidStack(fluidStack);
         buffer.writeInt(capacity);
         buffer.writeBlockPos(pos);
@@ -38,8 +42,8 @@ public class FluidSyncS2CPacket {
             //BlockEntity
             if(blockEntity instanceof FluidStoragePacketUpdate) {
                 FluidStoragePacketUpdate fluidStorage = (FluidStoragePacketUpdate)blockEntity;
-                fluidStorage.setFluid(fluidStack);
-                fluidStorage.setTankCapacity(capacity);
+                fluidStorage.setFluid(tank, fluidStack);
+                fluidStorage.setTankCapacity(tank, capacity);
             }
         });
 

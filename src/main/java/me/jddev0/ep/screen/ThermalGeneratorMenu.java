@@ -51,11 +51,11 @@ public class ThermalGeneratorMenu extends AbstractContainerMenu implements Energ
     }
 
     public FluidStack getFluid() {
-        return blockEntity.getFluid();
+        return blockEntity.getFluid(0);
     }
 
     public int getTankCapacity() {
-        return blockEntity.getTankCapacity();
+        return blockEntity.getTankCapacity(0);
     }
 
     @Override

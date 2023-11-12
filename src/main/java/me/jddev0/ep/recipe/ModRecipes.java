@@ -75,6 +75,11 @@ public final class ModRecipes {
     public static final RegistryObject<RecipeType<MetalPressRecipe>> METAL_PRESS_TYPE = TYPES.
             register("metal_press", () -> MetalPressRecipe.Type.INSTANCE);
 
+    public static final RegistryObject<RecipeSerializer<StoneSolidifierRecipe>> STONE_SOLIDIFIER_SERIALIZER = SERIALIZERS.
+            register("stone_solidifier", () -> StoneSolidifierRecipe.Serializer.INSTANCE);
+    public static final RegistryObject<RecipeType<StoneSolidifierRecipe>> STONE_SOLIDIFIER_TYPE = TYPES.
+            register("stone_solidifier", () -> StoneSolidifierRecipe.Type.INSTANCE);
+
     public static final RegistryObject<RecipeSerializer<TeleporterMatrixSettingsCopyRecipe>>
             TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER = SERIALIZERS.register("teleporter_matrix_settings_copy",
             () -> new SimpleCraftingRecipeSerializer<>(TeleporterMatrixSettingsCopyRecipe::new));

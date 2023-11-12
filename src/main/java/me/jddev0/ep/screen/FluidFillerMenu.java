@@ -52,11 +52,11 @@ public class FluidFillerMenu extends AbstractContainerMenu implements EnergyStor
     }
 
     public FluidStack getFluid() {
-        return blockEntity.getFluid();
+        return blockEntity.getFluid(0);
     }
 
     public int getTankCapacity() {
-        return blockEntity.getTankCapacity();
+        return blockEntity.getTankCapacity(0);
     }
 
     public int getFluidIndicatorBarValue() {

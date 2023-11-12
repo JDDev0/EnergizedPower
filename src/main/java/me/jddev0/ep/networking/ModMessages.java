@@ -61,6 +61,12 @@ public final class ModMessages {
                 consumerMainThread(SyncPressMoldMakerRecipeListS2CPacket::handle).
                 add();
 
+        net.messageBuilder(SyncStoneSolidifierCurrentRecipeS2CPacket.class, id(), PlayNetworkDirection.PLAY_TO_CLIENT).
+                decoder(SyncStoneSolidifierCurrentRecipeS2CPacket::new).
+                encoder(SyncStoneSolidifierCurrentRecipeS2CPacket::toBytes).
+                consumerMainThread(SyncStoneSolidifierCurrentRecipeS2CPacket::handle).
+                add();
+
         //Client -> Server
         net.messageBuilder(PopEnergizedPowerBookFromLecternC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
                 decoder(PopEnergizedPowerBookFromLecternC2SPacket::new).
@@ -144,6 +150,12 @@ public final class ModMessages {
                 decoder(CraftPressMoldMakerRecipeC2SPacket::new).
                 encoder(CraftPressMoldMakerRecipeC2SPacket::toBytes).
                 consumerMainThread(CraftPressMoldMakerRecipeC2SPacket::handle).
+                add();
+
+        net.messageBuilder(ChangeStoneSolidifierRecipeIndexC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
+                decoder(ChangeStoneSolidifierRecipeIndexC2SPacket::new).
+                encoder(ChangeStoneSolidifierRecipeIndexC2SPacket::toBytes).
+                consumerMainThread(ChangeStoneSolidifierRecipeIndexC2SPacket::handle).
                 add();
     }
 

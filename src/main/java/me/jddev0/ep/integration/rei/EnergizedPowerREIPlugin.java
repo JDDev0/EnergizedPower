@@ -67,6 +67,9 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.add(new PressMoldMakerCategory());
         registry.addWorkstations(PressMoldMakerCategory.CATEGORY, EntryStacks.of(ModBlocks.PRESS_MOLD_MAKER_ITEM.get()));
 
+        registry.add(new StoneSolidifierCategory());
+        registry.addWorkstations(StoneSolidifierCategory.CATEGORY, EntryStacks.of(ModBlocks.STONE_SOLIDIFIER_ITEM.get()));
+
 
         registry.add(new InWorldCategory());
         registry.addWorkstations(InWorldCategory.CATEGORY, EntryIngredients.ofItemTag(Tags.Items.SHEARS));
@@ -95,6 +98,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
                 PlantGrowthChamberFertilizerDisplay::new);
         registry.registerRecipeFiller(EnergizerRecipe.class, EnergizerRecipe.Type.INSTANCE, EnergizerDisplay::new);
         registry.registerRecipeFiller(PressMoldMakerRecipe.class, PressMoldMakerRecipe.Type.INSTANCE, PressMoldMakerDisplay::new);
+        registry.registerRecipeFiller(StoneSolidifierRecipe.class, StoneSolidifierRecipe.Type.INSTANCE, StoneSolidifierDisplay::new);
 
         registry.add(new InWorldDisplay());
         registry.add(new DispenserDisplay());
@@ -142,6 +146,10 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
                 EnergizerScreen.class, EnergizerCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(7, 34, 18, 18),
                 PressMoldMakerScreen.class, PressMoldMakerCategory.CATEGORY);
+        registry.registerContainerClickArea(new Rectangle(69, 45, 20, 14),
+                StoneSolidifierScreen.class, StoneSolidifierCategory.CATEGORY);
+        registry.registerContainerClickArea(new Rectangle(123, 45, 20, 14),
+                StoneSolidifierScreen.class, StoneSolidifierCategory.CATEGORY);
 
 
         registry.registerContainerClickArea(new Rectangle(7, 16, 54, 54),

@@ -138,7 +138,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
 
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
-                            new FluidSyncS2CPacket(fluid, capacity, getBlockPos()),
+                            new FluidSyncS2CPacket(0, fluid, capacity, getBlockPos()),
                             getBlockPos(), level.dimension(), 32
                     );
             }
@@ -180,7 +180,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()), (ServerPlayer)player);
-        ModMessages.sendToPlayer(new FluidSyncS2CPacket(fluidStorage.getFluid(), fluidStorage.getCapacity(), worldPosition), (ServerPlayer)player);
+        ModMessages.sendToPlayer(new FluidSyncS2CPacket(0, fluidStorage.getFluid(), fluidStorage.getCapacity(), worldPosition), (ServerPlayer)player);
 
         return new FluidFillerMenu(id, inventory, this, this.data);
     }
@@ -283,7 +283,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
             int fluidSumFillable = Math.min(blockEntity.fluidStorage.getFluidAmount(),
                     blockEntity.fluidFillingSumPending);
 
-            FluidStack fluidStackToFill = blockEntity.getFluid();
+            FluidStack fluidStackToFill = blockEntity.getFluid(0);
 
             int fluidSumFilled = fluidStorage.fill(new FluidStack(fluidStackToFill.getFluid(), fluidSumFillable,
                     fluidStackToFill.getTag()), IFluidHandler.FluidAction.EXECUTE);
@@ -335,11 +335,11 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
         return false;
     }
 
-    public FluidStack getFluid() {
+    public FluidStack getFluid(int tank) {
         return fluidStorage.getFluid();
     }
 
-    public int getTankCapacity() {
+    public int getTankCapacity(int tank) {
         return fluidStorage.getCapacity();
     }
 
@@ -362,12 +362,12 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     @Override
-    public void setFluid(FluidStack fluidStack) {
+    public void setFluid(int tank, FluidStack fluidStack) {
         fluidStorage.setFluid(fluidStack);
     }
 
     @Override
-    public void setTankCapacity(int capacity) {
+    public void setTankCapacity(int tank, int capacity) {
         fluidStorage.setCapacity(capacity);
     }
 }

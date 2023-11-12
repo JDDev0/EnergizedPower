@@ -158,6 +158,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.COMPRESSOR_ITEM);
             event.accept(ModBlocks.METAL_PRESS_ITEM);
             event.accept(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM);
+            event.accept(ModBlocks.STONE_SOLIDIFIER_ITEM);
             event.accept(ModBlocks.BLOCK_PLACER_ITEM);
             event.accept(ModBlocks.FLUID_FILLER_ITEM);
             event.accept(ModBlocks.FLUID_DRAINER_ITEM);
@@ -264,6 +265,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.SAWMILL_MENU.get(), SawmillScreen::new);
             MenuScreens.register(ModMenuTypes.COMPRESSOR_MENU.get(), CompressorScreen::new);
             MenuScreens.register(ModMenuTypes.PLANT_GROWTH_CHAMBER_MENU.get(), PlantGrowthChamberScreen::new);
+            MenuScreens.register(ModMenuTypes.STONE_SOLIDIFIER_MENU.get(), StoneSolidifierScreen::new);
             MenuScreens.register(ModMenuTypes.BLOCK_PLACER_MENU.get(), BlockPlacerScreen::new);
             MenuScreens.register(ModMenuTypes.FLUID_FILLER_MENU.get(), FluidFillerScreen::new);
             MenuScreens.register(ModMenuTypes.FLUID_DRAINER_MENU.get(), FluidDrainerScreen::new);
