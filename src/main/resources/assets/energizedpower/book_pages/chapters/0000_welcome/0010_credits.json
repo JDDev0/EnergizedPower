@@ -178,6 +178,33 @@
           }
         }
       ]
+    },
+    {
+      "text": "\n• ",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "translate": "book.energizedpower.page.credits.7"
+        },
+        ": ",
+        {
+          "text": "Eyyüp Berk ÖZASLAN",
+          "color": "blue",
+          "underlined": true,
+          "clickEvent": {
+            "action": "open_url",
+            "value": "https://github.com/EyyupBerkOZASLAN"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.tooltip.link"
+            }
+          }
+        }
+      ]
     }
   ]
 }
