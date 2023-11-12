@@ -8,10 +8,13 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
+import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -253,6 +256,10 @@ public class UseTeleporterC2SPacket {
 
             player.teleport((ServerWorld)toDimension, toPosCenter.getX(), toPos.getY() + 1, toPosCenter.getZ(),
                     0, 0);
+
+            player.networkHandler.sendPacket(new PlaySoundS2CPacket(SoundEvents.ENTITY_ENDERMAN_TELEPORT,
+                    SoundCategory.BLOCKS, toPosCenter.getX(), toPos.getY(), toPosCenter.getZ(), 1.f, 1.f,
+                    toDimension.getRandom().nextLong()));
         });
     }
 }
