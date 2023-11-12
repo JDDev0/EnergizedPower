@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_energized_crystal_matrix": {
+    "has_hardened_machine_frame": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [ "energizedpower:energized_crystal_matrix" ]
+            "items": [ "energizedpower:hardened_machine_frame" ]
           }
         ]
       }
@@ -14,19 +14,19 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "energizedpower:crafting/reinforced_advanced_solar_cell"
+        "recipe": "energizedpower:crafting/assembling_machine"
       }
     }
   },
   "requirements": [
     [
-      "has_energized_crystal_matrix",
+      "has_hardened_machine_frame",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "energizedpower:crafting/reinforced_advanced_solar_cell"
+      "energizedpower:crafting/assembling_machine"
     ]
   }
 }

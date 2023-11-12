@@ -132,6 +132,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<MetalPressMenu> METAL_PRESS_MENU = createScreenHandlerType("metal_press",
             new ExtendedScreenHandlerType<>(MetalPressMenu::new));
 
+    public static final ScreenHandlerType<AssemblingMachineMenu> ASSEMBLING_MACHINE_MENU = createScreenHandlerType("assembling_machine",
+            new ExtendedScreenHandlerType<>(AssemblingMachineMenu::new));
+
     public static final ScreenHandlerType<InventoryChargerMenu> INVENTORY_CHARGER_MENU = createScreenHandlerType("inventory_charger",
             new ScreenHandlerType<>(InventoryChargerMenu::new, FeatureFlags.VANILLA_FEATURES));
 

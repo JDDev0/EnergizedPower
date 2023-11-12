@@ -14,7 +14,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "energizedpower:crafting/advanced_circuit"
+        "recipe": "energizedpower:assembling/advanced_circuit"
       }
     }
   },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "energizedpower:crafting/teleporter_processing_unit"
+      "energizedpower:assembling/teleporter_processing_unit"
     ]
   }
 }

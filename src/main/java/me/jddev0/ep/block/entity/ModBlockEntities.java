@@ -160,6 +160,14 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
+    public static final BlockEntityType<AssemblingMachineBlockEntity> ASSEMBLING_MACHINE_ENTITY = registerEnergyStorage(
+            registerInventoryStorage(
+                    createBlockEntity("assembling_machine", ModBlocks.ASSEMBLING_MACHINE, AssemblingMachineBlockEntity::new),
+                    AssemblingMachineBlockEntity::getInventoryStorageForDirection
+            ),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
+
     public static final BlockEntityType<StoneSolidifierBlockEntity> STONE_SOLIDIFIER_ENTITY = registerEnergyStorage(
             registerFluidStorage(
                     registerInventoryStorage(
