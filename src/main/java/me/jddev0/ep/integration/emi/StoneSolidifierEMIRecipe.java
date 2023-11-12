@@ -10,8 +10,6 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluids;
 
 import java.util.List;
@@ -75,6 +73,4 @@ public class StoneSolidifierEMIRecipe implements EmiRecipe {
 
         widgets.addSlot(output.get(0), 79, 4).recipeContext(this);
     }
-
-    record InWorldRecipe(ResourceLocation id, Ingredient tool, Ingredient block, ItemStack output) {}
 }
