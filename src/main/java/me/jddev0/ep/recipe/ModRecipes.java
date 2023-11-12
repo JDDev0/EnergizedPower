@@ -72,6 +72,11 @@ public final class ModRecipes {
     public static final RecipeType<MetalPressRecipe> METAL_PRESS_TYPE = createRecipeType("metal_press",
             MetalPressRecipe.Type.INSTANCE);
 
+    public static final RecipeSerializer<AssemblingMachineRecipe> ASSEMBLING_MACHINE_SERIALIZER =
+            createSerializer("assembling_machine", AssemblingMachineRecipe.Serializer.INSTANCE);
+    public static final RecipeType<AssemblingMachineRecipe> ASSEMBLING_MACHINE_TYPE =
+            createRecipeType("assembling_machine", AssemblingMachineRecipe.Type.INSTANCE);
+
     public static final RecipeSerializer<StoneSolidifierRecipe> STONE_SOLIDIFIER_SERIALIZER = createSerializer("stone_solidifier",
             StoneSolidifierRecipe.Serializer.INSTANCE);
     public static final RecipeType<StoneSolidifierRecipe> STONE_SOLIDIFIER_TYPE = createRecipeType("stone_solidifier",

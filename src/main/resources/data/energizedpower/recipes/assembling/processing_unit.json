@@ -1,0 +1,26 @@
+{
+  "type": "energizedpower:assembling_machine",
+  "inputs": [
+    {
+      "input": {
+        "item": "energizedpower:advanced_circuit"
+      },
+      "count": 4
+    },
+    {
+      "input": {
+        "tag": "c:energized_gold_wires"
+      },
+      "count": 6
+    },
+    {
+      "input": {
+        "tag": "c:silicon"
+      },
+      "count": 6
+    }
+  ],
+  "output": {
+    "item": "energizedpower:processing_unit"
+  }
+}
