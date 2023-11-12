@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.*;
+import me.jddev0.ep.block.StoneSolidifierBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -96,6 +97,10 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<BlockPlacerBlockEntity>> BLOCK_PLACER_ENTITY =
             BLOCK_ENTITIES.register("block_placer", () -> BlockEntityType.Builder.of(BlockPlacerBlockEntity::new,
                     ModBlocks.BLOCK_PLACER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<StoneSolidifierBlockEntity>> STONE_SOLIDIFIER_ENTITY =
+            BLOCK_ENTITIES.register("stone_solidifier", () -> BlockEntityType.Builder.of(StoneSolidifierBlockEntity::new,
+                    ModBlocks.STONE_SOLIDIFIER.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<FluidFillerBlockEntity>> FLUID_FILLER_ENTITY =
             BLOCK_ENTITIES.register("fluid_filler", () -> BlockEntityType.Builder.of(FluidFillerBlockEntity::new,
