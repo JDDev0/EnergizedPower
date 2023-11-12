@@ -90,6 +90,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.BLOCK_PLACER_MENU.get(), BlockPlacerScreen::new);
             MenuScreens.register(ModMenuTypes.FLUID_FILLER_MENU.get(), FluidFillerScreen::new);
             MenuScreens.register(ModMenuTypes.FLUID_DRAINER_MENU.get(), FluidDrainerScreen::new);
+            MenuScreens.register(ModMenuTypes.DRAIN_MENU.get(), DrainScreen::new);
             MenuScreens.register(ModMenuTypes.CHARGER_MENU.get(), ChargerScreen::new);
             MenuScreens.register(ModMenuTypes.ADVANCED_CHARGER_MENU.get(), AdvancedChargerScreen::new);
             MenuScreens.register(ModMenuTypes.UNCHARGER_MENU.get(), UnchargerScreen::new);

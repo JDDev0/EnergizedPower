@@ -432,6 +432,12 @@
   "item.energizedpower.fluid_drainer": "Fluid Drainer",
   "container.energizedpower.fluid_drainer": "Fluid Drainer",
 
+  "block.energizedpower.drain": "Drain",
+  "item.energizedpower.drain": "Drain",
+  "container.energizedpower.drain": "Drain",
+
+  "tooltip.energizedpower.drain.txt.shift": "The Drain drains fluid source blocks above the block.",
+
   "block.energizedpower.lightning_generator": "人造闪电发生器",
   "item.energizedpower.lightning_generator": "人造闪电发生器",
   "container.energizedpower.lightning_generator": "人造闪电发生器",
@@ -639,6 +645,9 @@
 
   "advancements.energizedpower.fluid_drainer.title": "Drain the fluid item",
   "advancements.energizedpower.fluid_drainer.description": "Drain fluids from items.",
+
+  "advancements.energizedpower.drain.title": "The Drain",
+  "advancements.energizedpower.drain.description": "Drain fluids source blocks.",
 
   "advancements.energizedpower.basic_machine_frame.title": "机器根基",
   "advancements.energizedpower.basic_machine_frame.description": "这是制作每个机器的基本物品。",
@@ -1123,6 +1132,8 @@
   "book.energizedpower.page.fluid_pipe.1": "Fluid pipes can transfer fluids.",
   "book.energizedpower.page.fluid_pipe.2": "The mode of every pipe side can be configured with a Wrench.",
   "book.energizedpower.page.fluid_pipe.3": "A single fluid pipe block can only extract one fluid type at once even when multiple sides are configured as extraction.",
+
+  "book.energizedpower.page.drain": "The Drain drains fluid source blocks above the block.",
 
 
   "book.energizedpower.page.chapter.item_transportation.title": "Item Transportation",
