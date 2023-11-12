@@ -200,6 +200,11 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
+    public static final BlockEntityType<DrainBlockEntity> DRAIN_ENTITY = registerFluidStorage(
+            createBlockEntity("drain", ModBlocks.DRAIN, DrainBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.fluidStorage
+    );
+
     public static final BlockEntityType<ChargerBlockEntity> CHARGER_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
                 createBlockEntity("charger", ModBlocks.CHARGER, ChargerBlockEntity::new),

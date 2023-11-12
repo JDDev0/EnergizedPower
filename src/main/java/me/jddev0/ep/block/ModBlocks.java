@@ -270,6 +270,12 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item FLUID_DRAINER_ITEM = createBlockItem("fluid_drainer", FLUID_DRAINER);
 
+    public static final Block DRAIN = registerBlock("drain",
+            new DrainBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item DRAIN_ITEM = createBlockItem("drain",
+            new DrainBlock.Item(DRAIN, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final Block CHARGER = registerBlock("charger",
             new ChargerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
