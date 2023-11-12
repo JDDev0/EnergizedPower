@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "i": {
+      "tag": "c:iron_plates"
+    },
+    "I": {
+      "tag": "c:iron_blocks"
+    },
+    "B": {
+      "item": "minecraft:iron_bars"
+    },
+    "G": {
+      "tag": "c:glass_blocks_colorless"
+    }
+  },
+  "pattern": [
+    "IBI",
+    "iGi",
+    "IiI"
+  ],
+  "result": {
+    "item": "energizedpower:drain"
+  }
+}
