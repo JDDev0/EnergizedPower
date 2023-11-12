@@ -81,6 +81,11 @@ public final class ModRecipes {
     public static final RecipeType<StoneSolidifierRecipe> STONE_SOLIDIFIER_TYPE = createRecipeType("stone_solidifier",
             StoneSolidifierRecipe.Type.INSTANCE);
 
+    public static final RecipeSerializer<CrystalGrowthChamberRecipe> CRYSTAL_GROWTH_CHAMBER_SERIALIZER =
+            createSerializer("crystal_growth_chamber", CrystalGrowthChamberRecipe.Serializer.INSTANCE);
+    public static final RecipeType<CrystalGrowthChamberRecipe> CRYSTAL_GROWTH_CHAMBER_TYPE =
+            createRecipeType("crystal_growth_chamber", CrystalGrowthChamberRecipe.Type.INSTANCE);
+
     public static final RecipeSerializer<TeleporterMatrixSettingsCopyRecipe>
             TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER = createSerializer("teleporter_matrix_settings_copy",
             new SpecialRecipeSerializer<>(TeleporterMatrixSettingsCopyRecipe::new));

@@ -424,6 +424,14 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
+    public static final BlockEntityType<CrystalGrowthChamberBlockEntity> CRYSTAL_GROWTH_CHAMBER_ENTITY = registerEnergyStorage(
+            registerInventoryStorage(
+                    createBlockEntity("crystal_growth_chamber", ModBlocks.CRYSTAL_GROWTH_CHAMBER, CrystalGrowthChamberBlockEntity::new),
+                    (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)
+            ),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
+
     public static final BlockEntityType<WeatherControllerBlockEntity> WEATHER_CONTROLLER_ENTITY = registerEnergyStorage(
             createBlockEntity("weather_controller", ModBlocks.WEATHER_CONTROLLER, WeatherControllerBlockEntity::new),
             (blockEntity, direction) -> blockEntity.energyStorage
