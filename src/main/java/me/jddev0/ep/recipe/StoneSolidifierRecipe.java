@@ -100,8 +100,8 @@ public class StoneSolidifierRecipe implements Recipe<SimpleInventory> {
 
         @Override
         public StoneSolidifierRecipe read(Identifier recipeID, JsonObject json) {
-            int waterAmount = json.get("waterAmount").getAsInt();
-            int lavaAmount = json.get("lavaAmount").getAsInt();
+            long waterAmount = json.get("waterAmount").getAsLong();
+            long lavaAmount = json.get("lavaAmount").getAsLong();
             ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "output"));
 
             return new StoneSolidifierRecipe(recipeID, output, waterAmount, lavaAmount);
