@@ -432,6 +432,12 @@
   "item.energizedpower.fluid_drainer": "Flüssigkeits-Entleerer",
   "container.energizedpower.fluid_drainer": "Flüssigkeits-Entleerer",
 
+  "block.energizedpower.drain": "Ablauf",
+  "item.energizedpower.drain": "Ablauf",
+  "container.energizedpower.drain": "Ablauf",
+
+  "tooltip.energizedpower.drain.txt.shift": "Der Ablauf leitet Flüssigkeits-Blöcke oberhalb des Blocks ab.",
+
   "block.energizedpower.lightning_generator": "Blitz-Generator",
   "item.energizedpower.lightning_generator": "Blitz-Generator",
   "container.energizedpower.lightning_generator": "Blitz-Generator",
@@ -639,6 +645,9 @@
 
   "advancements.energizedpower.fluid_drainer.title": "Entleere Flüssigkeits-Items",
   "advancements.energizedpower.fluid_drainer.description": "Entleere Flüssigkeiten von Items.",
+
+  "advancements.energizedpower.drain.title": "Der Ablauf",
+  "advancements.energizedpower.drain.description": "Leite Flüssigkeits-Blöcke ab.",
 
   "advancements.energizedpower.basic_machine_frame.title": "Die Grundlage für Maschinen",
   "advancements.energizedpower.basic_machine_frame.description": "Das ist das Basis-Crafting-Item für jede Maschine.",
@@ -1123,6 +1132,8 @@
   "book.energizedpower.page.fluid_pipe.1": "Flüssigkeitsrohre können Flüssigkeiten transferieren.",
   "book.energizedpower.page.fluid_pipe.2": "Jede Rohr-Seite kann mit einem Schraubenschlüssel konfiguriert werden.",
   "book.energizedpower.page.fluid_pipe.3": "Ein einzelner Flüssigkeitsrohr-Block kann nur eine Flüssigkeitsart zur gleichen Zeit extrahieren, auch wenn mehrere Seiten als Extraktion konfiguriert wurden.",
+
+  "book.energizedpower.page.drain": "Der Ablauf leitet Flüssigkeits-Blöcke oberhalb des Blocks ab.",
 
 
   "book.energizedpower.page.chapter.item_transportation.title": "Item-Transport",

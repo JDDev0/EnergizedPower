@@ -432,6 +432,12 @@
   "item.energizedpower.fluid_drainer": "Drenaggio fluido",
   "container.energizedpower.fluid_drainer": "Drenaggio fluido",
 
+  "block.energizedpower.drain": "Drain",
+  "item.energizedpower.drain": "Drain",
+  "container.energizedpower.drain": "Drain",
+
+  "tooltip.energizedpower.drain.txt.shift": "The Drain drains fluid source blocks above the block.",
+
   "block.energizedpower.lightning_generator": "Generatore da fulmini",
   "item.energizedpower.lightning_generator": "Generatore da fulmini",
   "container.energizedpower.lightning_generator": "Generatore da fulmini",
@@ -639,6 +645,9 @@
 
   "advancements.energizedpower.fluid_drainer.title": "Svuota l'oggetto dal fluido",
   "advancements.energizedpower.fluid_drainer.description": "Scarica i liquidi dagli oggetti.",
+
+  "advancements.energizedpower.drain.title": "The Drain",
+  "advancements.energizedpower.drain.description": "Drain fluids source blocks.",
 
   "advancements.energizedpower.basic_machine_frame.title": "La Fondazione delle Macchine",
   "advancements.energizedpower.basic_machine_frame.description": "Questo è l'oggetto di creazione base per ogni macchina base.",
@@ -1123,6 +1132,8 @@
   "book.energizedpower.page.fluid_pipe.1": "I tubi del fluido possono trasferire fluidi.",
   "book.energizedpower.page.fluid_pipe.2": "La modalità di ogni lato del tubo può essere configurata con una chiave inglese.",
   "book.energizedpower.page.fluid_pipe.3": "Un singolo blocco di tubazioni del fluido può estrarre solo un tipo di fluido alla volta, anche quando più lati sono configurati come estrazione.",
+
+  "book.energizedpower.page.drain": "The Drain drains fluid source blocks above the block.",
 
 
   "book.energizedpower.page.chapter.item_transportation.title": "Trasporto articoli",

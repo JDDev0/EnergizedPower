@@ -1,0 +1,11 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.drain",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "block": "energizedpower:drain"
+}
