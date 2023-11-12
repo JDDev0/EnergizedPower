@@ -196,8 +196,7 @@
   "tooltip.energizedpower.press_mold_maker.btn.up": "Scroll up",
   "tooltip.energizedpower.press_mold_maker.btn.down": "Scroll down",
 
-  "tooltip.energizedpower.press_mold_maker.btn.recipes.1": "%dx %s",
-  "tooltip.energizedpower.press_mold_maker.btn.recipes.2": "Requires %dx %s",
+  "tooltip.energizedpower.press_mold_maker.btn.recipes": "Requires %dx %s",
 
   "block.energizedpower.auto_crafter": "Auto Crafter",
   "item.energizedpower.auto_crafter": "Auto Crafter",
@@ -407,6 +406,13 @@
   "item.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
   "container.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
 
+  "block.energizedpower.stone_solidifier": "Stone Solidifier",
+  "item.energizedpower.stone_solidifier": "Stone Solidifier",
+  "container.energizedpower.stone_solidifier": "Stone Solidifier",
+
+  "tooltip.energizedpower.stone_solidifier.btn.up": "Next recipe",
+  "tooltip.energizedpower.stone_solidifier.btn.down": "Previous recipe",
+
   "block.energizedpower.block_placer": "Block Placer",
   "item.energizedpower.block_placer": "Block Placer",
   "container.energizedpower.block_placer": "Block Placer",
@@ -491,6 +497,8 @@
   "block.energizedpower.reinforced_advanced_machine_frame": "Reinforced Advanced Machine Frame",
   "item.energizedpower.reinforced_advanced_machine_frame": "Reinforced Advanced Machine Frame",
 
+  "tooltip.energizedpower.count_with_item.txt": "%dx %s",
+
   "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
   "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "This recipe requires %s to finish.",
@@ -540,6 +548,7 @@
   "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Growth Chamber (Fertilizer)",
   "emi.category.energizedpower.energizer": "Energizer",
   "emi.category.energizedpower.press_mold_maker": "Press Mold Maker",
+  "emi.category.energizedpower.stone_solidifier": "Stone Solidifier",
   "emi.category.energizedpower.dispenser": "Dispenser",
   "emi.category.energizedpower.in_world_crafting": "In-World Crafting",
 
@@ -610,6 +619,9 @@
 
   "advancements.energizedpower.plant_growth_chamber.title": "Faster Plant Growth",
   "advancements.energizedpower.plant_growth_chamber.description": "Improve the speed and the yields with the Plant Growth Chamber.",
+
+  "advancements.energizedpower.stone_solidifier.title": "Stone Solidifier",
+  "advancements.energizedpower.stone_solidifier.description": "Create stone blocks from Water and Lava.",
 
   "advancements.energizedpower.block_placer.title": "Place the block",
   "advancements.energizedpower.block_placer.description": "Blocks are placed automatically in the world.",
@@ -1065,6 +1077,9 @@
   "book.energizedpower.page.plant_growth_chamber.5": "Seeds can be inserted from the north, east, south, and west. Fertilizers can be inserted from the top and bottom. Outputs can be extracted from all block faces.",
   "book.energizedpower.page.plant_growth_chamber.6": "If you'd like to use a fertilizer, the fertilizer must be inserted first.",
   "book.energizedpower.page.plant_growth_chamber.7": "If you'd like to automate this blocks, you need to keep in mind that yields are randomized.",
+
+  "book.energizedpower.page.stone_solidifier.1": "The Stone Solidifier produces Stone blocks from Water and Lava.",
+  "book.energizedpower.page.stone_solidifier.2": "Fluids must be inserted with a pipe.",
 
   "book.energizedpower.page.block_placer.1": "The Block Placer can place all blocks (Even doors and seeds).",
   "book.energizedpower.page.block_placer.2": "Blocks will only be placed if possible.",

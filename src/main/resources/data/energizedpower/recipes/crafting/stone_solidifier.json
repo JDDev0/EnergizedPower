@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "tag": "forge:silicon"
+    },
+    "G": {
+      "tag": "forge:glass/colorless"
+    },
+    "I": {
+      "tag": "forge:plates/iron"
+    },
+    "i": {
+      "tag": "forge:gears/iron"
+    },
+    "C": {
+      "tag": "forge:storage_blocks/copper"
+    },
+    "H": {
+      "item": "energizedpower:hardened_machine_frame"
+    }
+  },
+  "pattern": [
+    "iSi",
+    "GHG",
+    "CIC"
+  ],
+  "result": {
+    "item": "energizedpower:stone_solidifier"
+  }
+}

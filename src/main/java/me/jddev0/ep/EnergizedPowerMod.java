@@ -86,6 +86,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.SAWMILL_MENU.get(), SawmillScreen::new);
             MenuScreens.register(ModMenuTypes.COMPRESSOR_MENU.get(), CompressorScreen::new);
             MenuScreens.register(ModMenuTypes.PLANT_GROWTH_CHAMBER_MENU.get(), PlantGrowthChamberScreen::new);
+            MenuScreens.register(ModMenuTypes.STONE_SOLIDIFIER_MENU.get(), StoneSolidifierScreen::new);
             MenuScreens.register(ModMenuTypes.BLOCK_PLACER_MENU.get(), BlockPlacerScreen::new);
             MenuScreens.register(ModMenuTypes.FLUID_FILLER_MENU.get(), FluidFillerScreen::new);
             MenuScreens.register(ModMenuTypes.FLUID_DRAINER_MENU.get(), FluidDrainerScreen::new);
