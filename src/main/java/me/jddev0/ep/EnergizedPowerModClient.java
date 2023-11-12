@@ -54,6 +54,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(ModMenuTypes.TELEPORTER_MENU, TeleporterScreen::new);
         HandledScreens.register(ModMenuTypes.LIGHTNING_GENERATOR_MENU, LightningGeneratorScreen::new);
         HandledScreens.register(ModMenuTypes.CHARGING_STATION_MENU, ChargingStationScreen::new);
+        HandledScreens.register(ModMenuTypes.CRYSTAL_GROWTH_CHAMBER_MENU, CrystalGrowthChamberScreen::new);
         HandledScreens.register(ModMenuTypes.HEAT_GENERATOR_MENU, HeatGeneratorScreen::new);
         HandledScreens.register(ModMenuTypes.THERMAL_GENERATOR_MENU, ThermalGeneratorScreen::new);
         HandledScreens.register(ModMenuTypes.BATTERY_BOX_MENU, BatteryBoxScreen::new);

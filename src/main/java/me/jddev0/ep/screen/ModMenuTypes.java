@@ -90,6 +90,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<ChargingStationMenu> CHARGING_STATION_MENU = createScreenHandlerType("charging_station",
             new ExtendedScreenHandlerType<>(ChargingStationMenu::new));
 
+    public static final ScreenHandlerType<CrystalGrowthChamberMenu> CRYSTAL_GROWTH_CHAMBER_MENU = createScreenHandlerType("crystal_growth_chamber",
+            new ExtendedScreenHandlerType<>(CrystalGrowthChamberMenu::new));
+
     public static final ScreenHandlerType<TeleporterMenu> TELEPORTER_MENU = createScreenHandlerType("teleporter",
             new ExtendedScreenHandlerType<>(TeleporterMenu::new));
 

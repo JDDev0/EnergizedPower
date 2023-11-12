@@ -406,6 +406,11 @@ public final class ModBlocks {
     public static final Item CHARGING_STATION_ITEM = createBlockItem("charging_station",
             new ChargingStationBlock.Item(CHARGING_STATION, new FabricItemSettings()));
 
+    public static final Block CRYSTAL_GROWTH_CHAMBER = registerBlock("crystal_growth_chamber",
+            new CrystalGrowthChamberBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item CRYSTAL_GROWTH_CHAMBER_ITEM = createBlockItem("crystal_growth_chamber", CRYSTAL_GROWTH_CHAMBER);
+
     public static final Block WEATHER_CONTROLLER = registerBlock("weather_controller",
             new WeatherControllerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": {
+      "item": "minecraft:amethyst_block"
+    },
+    "R": {
+      "tag": "c:redstone_dusts"
+    },
+    "E": {
+      "tag": "c:energized_copper_plates"
+    },
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    }
+  },
+  "pattern": [
+    "aRa",
+    "EAE",
+    "aRa"
+  ],
+  "result": {
+    "item": "energizedpower:crystal_growth_chamber"
+  }
+}
