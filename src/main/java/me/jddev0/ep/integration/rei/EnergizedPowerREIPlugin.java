@@ -55,6 +55,9 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.add(new MetalPressCategory());
         registry.addWorkstations(MetalPressCategory.CATEGORY, EntryStacks.of(ModBlocks.METAL_PRESS_ITEM.get()));
 
+        registry.add(new AssemblingMachineCategory());
+        registry.addWorkstations(AssemblingMachineCategory.CATEGORY, EntryStacks.of(ModBlocks.ASSEMBLING_MACHINE_ITEM.get()));
+
         registry.add(new PlantGrowthChamberCategory());
         registry.addWorkstations(PlantGrowthChamberCategory.CATEGORY, EntryStacks.of(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()));
 
@@ -92,6 +95,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.registerRecipeFiller(SawmillRecipe.class, SawmillRecipe.Type.INSTANCE, SawmillDisplay::new);
         registry.registerRecipeFiller(CompressorRecipe.class, CompressorRecipe.Type.INSTANCE, CompressorDisplay::new);
         registry.registerRecipeFiller(MetalPressRecipe.class, MetalPressRecipe.Type.INSTANCE, MetalPressDisplay::new);
+        registry.registerRecipeFiller(AssemblingMachineRecipe.class, AssemblingMachineRecipe.Type.INSTANCE, AssemblingMachineDisplay::new);
         registry.registerRecipeFiller(PlantGrowthChamberRecipe.class, PlantGrowthChamberRecipe.Type.INSTANCE,
                 PlantGrowthChamberDisplay::new);
         registry.registerRecipeFiller(PlantGrowthChamberFertilizerRecipe.class, PlantGrowthChamberFertilizerRecipe.Type.INSTANCE,
@@ -136,6 +140,8 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
                 CompressorScreen.class, CompressorCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(80, 41, 24, 10),
                 MetalPressScreen.class, MetalPressCategory.CATEGORY);
+        registry.registerContainerClickArea(new Rectangle(100, 36, 24, 17),
+                AssemblingMachineScreen.class, AssemblingMachineCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(94, 34, 24, 17),
                 PlantGrowthChamberScreen.class, PlantGrowthChamberCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(34, 16, 18, 17),

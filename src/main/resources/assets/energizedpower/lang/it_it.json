@@ -402,6 +402,10 @@
 
   "tooltip.energizedpower.metal_press.txt.shift.1": "Gli stampi per pressa possono essere creati nella Pressa creatore di stampi",
 
+  "block.energizedpower.assembling_machine": "Assembling Machine",
+  "item.energizedpower.assembling_machine": "Assembling Machine",
+  "container.energizedpower.assembling_machine": "Assembling Machine",
+
   "block.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
   "item.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
   "container.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
@@ -544,6 +548,7 @@
   "emi.category.energizedpower.sawmill": "Segheria",
   "emi.category.energizedpower.compressor": "Compressore",
   "emi.category.energizedpower.metal_press": "Pressa per metallo",
+  "emi.category.energizedpower.assembling_machine": "Assembling Machine",
   "emi.category.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
   "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Camera di crescita (fertilizzante)",
   "emi.category.energizedpower.energizer": "Energizzante",
@@ -616,6 +621,9 @@
 
   "advancements.energizedpower.metal_press.title": "Pressa per metallo",
   "advancements.energizedpower.metal_press.description": "Formare metalli.",
+
+  "advancements.energizedpower.assembling_machine.title": "Assembling Machine",
+  "advancements.energizedpower.assembling_machine.description": "Craft electronic components in the Assembling Machine.",
 
   "advancements.energizedpower.plant_growth_chamber.title": "Crescita delle piante più rapida",
   "advancements.energizedpower.plant_growth_chamber.description": "Migliora la velocità e le rese con la Camera di Crescita delle Piante.",

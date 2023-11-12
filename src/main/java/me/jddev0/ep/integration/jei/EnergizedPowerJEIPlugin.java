@@ -39,6 +39,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
                 new SawmillCategory(registration.getJeiHelpers().getGuiHelper()),
                 new CompressorCategory(registration.getJeiHelpers().getGuiHelper()),
                 new MetalPressCategory(registration.getJeiHelpers().getGuiHelper()),
+                new AssemblingMachineCategory(registration.getJeiHelpers().getGuiHelper()),
                 new PlantGrowthChamberCategory(registration.getJeiHelpers().getGuiHelper()),
                 new PlantGrowthChamberFertilizerCategory(registration.getJeiHelpers().getGuiHelper()),
                 new EnergizerCategory(registration.getJeiHelpers().getGuiHelper()),
@@ -68,6 +69,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipes(SawmillCategory.TYPE, recipeManager.getAllRecipesFor(SawmillRecipe.Type.INSTANCE));
         registration.addRecipes(CompressorCategory.TYPE, recipeManager.getAllRecipesFor(CompressorRecipe.Type.INSTANCE));
         registration.addRecipes(MetalPressCategory.TYPE, recipeManager.getAllRecipesFor(MetalPressRecipe.Type.INSTANCE));
+        registration.addRecipes(AssemblingMachineCategory.TYPE, recipeManager.getAllRecipesFor(AssemblingMachineRecipe.Type.INSTANCE));
         registration.addRecipes(PlantGrowthChamberCategory.TYPE, recipeManager.getAllRecipesFor(PlantGrowthChamberRecipe.Type.INSTANCE));
         registration.addRecipes(PlantGrowthChamberFertilizerCategory.TYPE, recipeManager.getAllRecipesFor(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE));
         registration.addRecipes(EnergizerCategory.TYPE, recipeManager.getAllRecipesFor(EnergizerRecipe.Type.INSTANCE));
@@ -101,6 +103,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.SAWMILL_ITEM.get()), SawmillCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.COMPRESSOR_ITEM.get()), CompressorCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.METAL_PRESS_ITEM.get()), MetalPressCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.ASSEMBLING_MACHINE_ITEM.get()), AssemblingMachineCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()), PlantGrowthChamberCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()), PlantGrowthChamberFertilizerCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.ENERGIZER_ITEM.get()), EnergizerCategory.TYPE);
@@ -129,6 +132,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipeClickArea(SawmillScreen.class, 68, 34, 24, 17, SawmillCategory.TYPE);
         registration.addRecipeClickArea(CompressorScreen.class, 79, 30, 26, 25, CompressorCategory.TYPE);
         registration.addRecipeClickArea(MetalPressScreen.class, 80, 41, 24, 10, MetalPressCategory.TYPE);
+        registration.addRecipeClickArea(AssemblingMachineScreen.class, 100, 36, 24, 17, AssemblingMachineCategory.TYPE);
         registration.addRecipeClickArea(PlantGrowthChamberScreen.class, 94, 34, 24, 17, PlantGrowthChamberCategory.TYPE);
         registration.addRecipeClickArea(PlantGrowthChamberScreen.class, 34, 16, 18, 17, PlantGrowthChamberFertilizerCategory.TYPE);
         registration.addRecipeClickArea(PlantGrowthChamberScreen.class, 34, 53, 18, 17, PlantGrowthChamberFertilizerCategory.TYPE);
