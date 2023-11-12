@@ -14,7 +14,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "energizedpower:crafting/crystal_matrix"
+        "recipe": "energizedpower:assembling/crystal_matrix"
       }
     }
   },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "energizedpower:crafting/crystal_matrix"
+      "energizedpower:assembling/crystal_matrix"
     ]
   }
 }
