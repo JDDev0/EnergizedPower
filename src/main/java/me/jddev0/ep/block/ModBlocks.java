@@ -256,6 +256,11 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item FLUID_FILLER_ITEM = createBlockItem("fluid_filler", FLUID_FILLER);
 
+    public static final Block STONE_SOLIDIFIER = registerBlock("stone_solidifier",
+            new StoneSolidifierBlock(FabricBlockSettings.create().
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item STONE_SOLIDIFIER_ITEM = createBlockItem("stone_solidifier", STONE_SOLIDIFIER);
+
     public static final Block FLUID_DRAINER = registerBlock("fluid_drainer",
             new FluidDrainerBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

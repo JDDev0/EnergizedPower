@@ -162,9 +162,9 @@ public class PressMoldMakerScreen extends HandledScreen<PressMoldMakerMenu> {
                 ItemStack output = recipe.getOutputItem();
                 if(!output.isEmpty()) {
                     List<Text> components = new ArrayList<>(2);
-                    components.add(Text.translatable("tooltip.energizedpower.press_mold_maker.btn.recipes.1", output.getCount(),
+                    components.add(Text.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
                             output.getName()));
-                    components.add(Text.translatable("tooltip.energizedpower.press_mold_maker.btn.recipes.2", recipe.getClayCount(),
+                    components.add(Text.translatable("tooltip.energizedpower.press_mold_maker.btn.recipes", recipe.getClayCount(),
                             Text.translatable(Items.CLAY_BALL.getTranslationKey())).formatted(Formatting.ITALIC));
 
                     drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
