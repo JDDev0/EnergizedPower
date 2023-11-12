@@ -7,6 +7,7 @@ import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
@@ -21,9 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<PlantGrowthChamberRecipe>> {
     public static final RecipeType<RecipeHolder<PlantGrowthChamberRecipe>> TYPE = RecipeType.createFromVanilla(PlantGrowthChamberRecipe.Type.INSTANCE);
@@ -70,10 +69,36 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
         for(int i = 0;i < outputEntries.length;i++)
             outputSlotEntries.get(i % 4).add(outputEntries[i]);
 
-        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 73, 1).addItemStacks(outputSlotEntries.get(0));
-        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 91, 1).addItemStacks(outputSlotEntries.get(1));
-        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 73, 19).addItemStacks(outputSlotEntries.get(2));
-        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 91, 19).addItemStacks(outputSlotEntries.get(3));
+        IRecipeSlotTooltipCallback callback = (view, tooltip) -> {
+            if(view.isEmpty())
+                return;
+
+            Optional<ItemStack> optionalItemStack = view.getDisplayedItemStack();
+            if(optionalItemStack.isEmpty())
+                return;
+
+            tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+
+            PlantGrowthChamberRecipe.OutputItemStackWithPercentages[] outputs = recipe.value().getOutputs();
+            for(int i = 0;i < outputs.length;i++) {
+                if(ItemStack.isSameItemSameTags(optionalItemStack.get(), outputs[i].output())) {
+                    double[] percentages = outputs[i].percentages();
+                    for(int j = 0;j < percentages.length;j++)
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", j + 1, 100 * percentages[j])));
+
+                    return;
+                }
+            }
+        };
+
+        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 73, 1).addItemStacks(outputSlotEntries.get(0)).
+                addTooltipCallback(callback);
+        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 91, 1).addItemStacks(outputSlotEntries.get(1)).
+                addTooltipCallback(callback);
+        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 73, 19).addItemStacks(outputSlotEntries.get(2)).
+                addTooltipCallback(callback);
+        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 91, 19).addItemStacks(outputSlotEntries.get(3)).
+                addTooltipCallback(callback);
     }
 
     @Override

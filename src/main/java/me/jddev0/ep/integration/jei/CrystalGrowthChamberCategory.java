@@ -22,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class CrystalGrowthChamberCategory implements IRecipeCategory<RecipeHolder<CrystalGrowthChamberRecipe>> {
@@ -64,7 +65,14 @@ public class CrystalGrowthChamberCategory implements IRecipeCategory<RecipeHolde
                         map(itemStack -> itemStack.copyWithCount(recipe.value().getInputCount())).
                         collect(Collectors.toList()));
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 5).addItemStack(recipe.value().getMaxOutputCount());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 5).addItemStack(recipe.value().getMaxOutputCount()).
+                addTooltipCallback((view, tooltip) -> {
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+
+                    double[] percentages = recipe.value().getOutput().percentages();
+                    for(int i = 0;i < percentages.length;i++)
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+                });
     }
 
     @Override

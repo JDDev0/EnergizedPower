@@ -19,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthChamberDisplay> {
     public static final CategoryIdentifier<PlantGrowthChamberDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "plant_growth_chamber");
@@ -60,8 +61,19 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
             outputSlotEntries.add(new LinkedList<>());
 
         List<EntryIngredient> outputEntries = display.getOutputEntries();
-        for(int i = 0;i < outputEntries.size();i++)
-            outputSlotEntries.get(i % 4).addAll(outputEntries.get(i));
+        for(int i = 0;i < outputEntries.size();i++) {
+            int index = i;
+            outputSlotEntries.get(i % 4).addAll(outputEntries.get(i).map(stack -> {
+                List<Component> tooltip = new LinkedList<>();
+                tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+
+                double[] percentages = display.recipe().value().getOutputs()[index].percentages();
+                for(int j = 0;j < percentages.length;j++)
+                    tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", j + 1, 100 * percentages[j])));
+
+                return stack.tooltip(tooltip);
+            }));
+        }
 
         widgets.add(Widgets.createSlot(new Point(x + 73, y + 1)).disableBackground().markOutput().
                 entries(outputSlotEntries.get(0)));

@@ -13,8 +13,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class PulverizerCategory implements DisplayCategory<PulverizerDisplay> {
     public static final CategoryIdentifier<PulverizerDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "pulverizer");
@@ -51,9 +50,27 @@ public class PulverizerCategory implements DisplayCategory<PulverizerDisplay> {
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().
                 entries(display.getInputEntries().get(0)));
         widgets.add(Widgets.createSlot(new Point(x + 65, y + 5)).disableBackground().markOutput().
-                entries(display.getOutputEntries().get(0)));
+                entries(display.getOutputEntries().get(0).map(stack -> {
+                    List<Component> tooltip = new LinkedList<>();
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+
+                    double[] percentages = display.recipe().value().getOutput().percentages();
+                    for(int i = 0;i < percentages.length;i++)
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+
+                    return stack.tooltip(tooltip);
+                })));
         widgets.add(Widgets.createSlot(new Point(x + 92, y + 5)).disableBackground().markOutput().
-                entries(display.getOutputEntries().size() == 2?display.getOutputEntries().get(1):new ArrayList<>(0)));
+                entries(display.getOutputEntries().size() == 2?display.getOutputEntries().get(1).map(stack -> {
+                    List<Component> tooltip = new LinkedList<>();
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+
+                    double[] percentages = display.recipe().value().getSecondaryOutput().percentages();
+                    for(int i = 0;i < percentages.length;i++)
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+
+                    return stack.tooltip(tooltip);
+                }):new ArrayList<>(0)));
 
         return widgets;
     }
