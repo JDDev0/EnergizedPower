@@ -161,9 +161,9 @@ public class PressMoldMakerScreen extends AbstractContainerScreen<PressMoldMaker
                 ItemStack output = recipe.getOutput();
                 if(!output.isEmpty()) {
                     List<Component> components = new ArrayList<>(2);
-                    components.add(Component.translatable("tooltip.energizedpower.press_mold_maker.btn.recipes.1", output.getCount(),
+                    components.add(Component.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
                             output.getHoverName()));
-                    components.add(Component.translatable("tooltip.energizedpower.press_mold_maker.btn.recipes.2", recipe.getClayCount(),
+                    components.add(Component.translatable("tooltip.energizedpower.press_mold_maker.btn.recipes", recipe.getClayCount(),
                             Component.translatable(Items.CLAY_BALL.getDescriptionId())).withStyle(ChatFormatting.ITALIC));
 
                     renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
