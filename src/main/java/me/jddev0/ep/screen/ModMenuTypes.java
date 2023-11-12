@@ -58,6 +58,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<FluidDrainerMenu>> FLUID_DRAINER_MENU = registerMenuType("fluid_drainer",
             FluidDrainerMenu::new);
 
+    public static final RegistryObject<MenuType<DrainMenu>> DRAIN_MENU = registerMenuType("drain",
+            DrainMenu::new);
+
     public static final RegistryObject<MenuType<ChargerMenu>> CHARGER_MENU = registerMenuType("charger",
             ChargerMenu::new);
 
