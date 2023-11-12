@@ -87,7 +87,7 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
         widgets.addSlot(EmiIngredient.of(outputSlotEntries.get(2)), 72, 18).drawBack(false).recipeContext(this);
         widgets.addSlot(EmiIngredient.of(outputSlotEntries.get(3)), 90, 18).drawBack(false).recipeContext(this);
 
-        Text ticksText = Text.translatable("recipes.energizedpower.plant_growth_chamber.ticks", ticks);
+        Text ticksText = Text.translatable("recipes.energizedpower.info.ticks", ticks);
         widgets.addText(ticksText.asOrderedText(),
                 widgets.getWidth() - MinecraftClient.getInstance().textRenderer.getWidth(ticksText),
                 widgets.getHeight() - MinecraftClient.getInstance().textRenderer.fontHeight, Formatting.WHITE.getColorValue(), false);
