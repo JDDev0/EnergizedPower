@@ -421,6 +421,11 @@ public final class ModBlocks {
     public static final RegistryObject<Item> CHARGING_STATION_ITEM = ModItems.ITEMS.register("charging_station",
             () -> new ChargingStationBlock.Item(CHARGING_STATION.get(), new Item.Properties()));
 
+    public static final RegistryObject<Block> CRYSTAL_GROWTH_CHAMBER = BLOCKS.register("crystal_growth_chamber",
+            () -> new CrystalGrowthChamberBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> CRYSTAL_GROWTH_CHAMBER_ITEM = createBlockItem("crystal_growth_chamber", CRYSTAL_GROWTH_CHAMBER);
+
     public static final RegistryObject<Block> WEATHER_CONTROLLER = BLOCKS.register("weather_controller",
             () -> new WeatherControllerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));

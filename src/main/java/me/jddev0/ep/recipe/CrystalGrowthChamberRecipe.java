@@ -1,0 +1,186 @@
+package me.jddev0.ep.recipe;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.block.ModBlocks;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.Level;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class CrystalGrowthChamberRecipe implements Recipe<SimpleContainer> {
+    private final ResourceLocation id;
+    private final OutputItemStackWithPercentages output;
+    private final Ingredient input;
+    private final int inputCount;
+    private final int ticks;
+
+    public CrystalGrowthChamberRecipe(ResourceLocation id, OutputItemStackWithPercentages output, Ingredient input,
+                                      int inputCount, int ticks) {
+        this.id = id;
+        this.output = output;
+        this.input = input;
+        this.inputCount = inputCount;
+        this.ticks = ticks;
+    }
+
+    public OutputItemStackWithPercentages getOutput() {
+        return output;
+    }
+
+    public Ingredient getInput() {
+        return input;
+    }
+
+    public int getInputCount() {
+        return inputCount;
+    }
+
+    public int getTicks() {
+        return ticks;
+    }
+
+    public ItemStack getMaxOutputCount() {
+        return output.output.copyWithCount(output.percentages.length);
+    }
+
+    public ItemStack generateOutput(RandomSource randomSource) {
+        int count = 0;
+
+        for(double percentage:output.percentages)
+            if(randomSource.nextDouble() <= percentage)
+                count++;
+
+        return output.output.copyWithCount(count);
+    }
+
+    @Override
+    public boolean matches(SimpleContainer container, Level level) {
+        if(level.isClientSide)
+            return false;
+
+        return input.test(container.getItem(0)) && container.getItem(0).getCount() >= inputCount;
+    }
+
+    @Override
+    public ItemStack assemble(SimpleContainer container, RegistryAccess registryAccess) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public boolean canCraftInDimensions(int width, int height) {
+        return true;
+    }
+
+    @Override
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public ItemStack getToastSymbol() {
+        return new ItemStack(ModBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM.get());
+    }
+
+    @Override
+    public ResourceLocation getId() {
+        return id;
+    }
+
+    @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
+    public RecipeSerializer<?> getSerializer() {
+        return Serializer.INSTANCE;
+    }
+
+    @Override
+    public RecipeType<?> getType() {
+        return Type.INSTANCE;
+    }
+
+    public static final class Type implements RecipeType<CrystalGrowthChamberRecipe> {
+        private Type() {}
+
+        public static final Type INSTANCE = new Type();
+        public static final String ID = "crystal_growth_chamber";
+    }
+
+    public static final class Serializer implements RecipeSerializer<CrystalGrowthChamberRecipe> {
+        private Serializer() {}
+
+        public static final Serializer INSTANCE = new Serializer();
+        public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "crystal_growth_chamber");
+
+        @Override
+        public CrystalGrowthChamberRecipe fromJson(ResourceLocation recipeID, JsonObject json) {
+            Ingredient input = Ingredient.fromJson(json.get("ingredient"));
+            int inputCount = json.has("inputCount")?GsonHelper.getAsInt(json, "inputCount"):1;
+            int ticks = GsonHelper.getAsInt(json, "ticks");
+
+            JsonObject outputJson = json.get("output").getAsJsonObject();
+
+            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(outputJson, "output"));
+
+            JsonArray percentagesJson = GsonHelper.getAsJsonArray(outputJson, "percentages");
+            double[] percentages = new double[percentagesJson.size()];
+            for(int j = 0;j < percentagesJson.size();j++)
+                percentages[j] = percentagesJson.get(j).getAsDouble();
+
+            OutputItemStackWithPercentages outputWithPercentages = new OutputItemStackWithPercentages(output, percentages);
+
+            return new CrystalGrowthChamberRecipe(recipeID, outputWithPercentages, input, inputCount, ticks);
+        }
+
+        @Override
+        public CrystalGrowthChamberRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+            Ingredient input = Ingredient.fromNetwork(buffer);
+            int inputCount = buffer.readInt();
+            int ticks = buffer.readInt();
+
+            ItemStack output = buffer.readItem();
+
+            int percentageCount = buffer.readInt();
+            double[] percentages = new double[percentageCount];
+            for(int j = 0;j < percentageCount;j++)
+                percentages[j] = buffer.readDouble();
+
+            OutputItemStackWithPercentages outputItemStackWithPercentages = new OutputItemStackWithPercentages(output, percentages);
+
+            return new CrystalGrowthChamberRecipe(recipeId, outputItemStackWithPercentages, input, inputCount, ticks);
+        }
+
+        @Override
+        public void toNetwork(FriendlyByteBuf buffer, CrystalGrowthChamberRecipe recipe) {
+            recipe.input.toNetwork(buffer);
+            buffer.writeInt(recipe.inputCount);
+            buffer.writeInt(recipe.ticks);
+
+            buffer.writeItemStack(recipe.output.output, false);
+
+            buffer.writeInt(recipe.output.percentages.length);
+            for(double percentage:recipe.output.percentages)
+                buffer.writeDouble(percentage);
+        }
+    }
+
+    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages) {}
+}
