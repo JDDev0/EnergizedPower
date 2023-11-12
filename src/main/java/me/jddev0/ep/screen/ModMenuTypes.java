@@ -99,6 +99,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<ChargingStationMenu>> CHARGING_STATION_MENU = registerMenuType("charging_station",
             ChargingStationMenu::new);
 
+    public static final RegistryObject<MenuType<CrystalGrowthChamberMenu>> CRYSTAL_GROWTH_CHAMBER_MENU = registerMenuType("crystal_growth_chamber",
+            CrystalGrowthChamberMenu::new);
+
     public static final RegistryObject<MenuType<HeatGeneratorMenu>> HEAT_GENERATOR_MENU = registerMenuType("heat_generator",
             HeatGeneratorMenu::new);
 

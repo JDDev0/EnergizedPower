@@ -224,6 +224,19 @@ public final class ModConfigs {
             1, 25
     ));
 
+    public static final ConfigValue<Integer> COMMON_CRYSTAL_GROWTH_CHAMBER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.crystal_growth_chamber", "Crystal Growth Chamber", 32768
+    );
+    public static final ConfigValue<Integer> COMMON_CRYSTAL_GROWTH_CHAMBER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.crystal_growth_chamber", "Crystal Growth Chamber", 2048
+    );
+    public static final ConfigValue<Integer> COMMON_CRYSTAL_GROWTH_CHAMBER_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.crystal_growth_chamber", "Crystal Growth Chamber", 1024
+    );
+    public static final ConfigValue<Float> COMMON_CRYSTAL_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER = registerRecipeDurationMultiplierConfigValue(
+            "block.crystal_growth_chamber", "Crystal Growth Chamber"
+    );
+
     public static final ConfigValue<Integer> COMMON_TIME_CONTROLLER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.time_controller", "Time Controller", 8388608
     );
