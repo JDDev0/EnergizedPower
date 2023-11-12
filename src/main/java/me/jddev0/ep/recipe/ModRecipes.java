@@ -75,6 +75,11 @@ public final class ModRecipes {
     public static final RegistryObject<RecipeType<MetalPressRecipe>> METAL_PRESS_TYPE = TYPES.
             register("metal_press", () -> MetalPressRecipe.Type.INSTANCE);
 
+    public static final RegistryObject<RecipeSerializer<AssemblingMachineRecipe>> ASSEMBLING_MACHINE_SERIALIZER = SERIALIZERS.
+            register("assembling_machine", () -> AssemblingMachineRecipe.Serializer.INSTANCE);
+    public static final RegistryObject<RecipeType<AssemblingMachineRecipe>> ASSEMBLING_MACHINE_TYPE = TYPES.
+            register("assembling_machine", () -> AssemblingMachineRecipe.Type.INSTANCE);
+
     public static final RegistryObject<RecipeSerializer<StoneSolidifierRecipe>> STONE_SOLIDIFIER_SERIALIZER = SERIALIZERS.
             register("stone_solidifier", () -> StoneSolidifierRecipe.Serializer.INSTANCE);
     public static final RegistryObject<RecipeType<StoneSolidifierRecipe>> STONE_SOLIDIFIER_TYPE = TYPES.

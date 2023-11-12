@@ -1,0 +1,31 @@
+{
+  "type": "energizedpower:assembling_machine",
+  "inputs": [
+    {
+      "input": {
+        "tag": "forge:gems/amethyst"
+      },
+      "count": 6
+    },
+    {
+      "input": {
+        "tag": "forge:gems/diamond"
+      },
+      "count": 2
+    },
+    {
+      "input": {
+        "tag": "forge:gems/emerald"
+      },
+      "count": 2
+    },
+    {
+      "input": {
+        "tag": "forge:dusts/redstone"
+      }
+    }
+  ],
+  "output": {
+    "item": "energizedpower:crystal_matrix"
+  }
+}

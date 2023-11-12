@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_energized_gold_wire": {
+    "has_energized_copper_wire": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "tag": "forge:wires/energized_gold"
+            "tag": "forge:wires/energized_copper"
           }
         ]
       }
@@ -14,19 +14,19 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "energizedpower:crafting/processing_unit"
+        "recipe": "energizedpower:assembling/advanced_circuit"
       }
     }
   },
   "requirements": [
     [
-      "has_energized_gold_wire",
+      "has_energized_copper_wire",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "energizedpower:crafting/processing_unit"
+      "energizedpower:assembling/advanced_circuit"
     ]
   }
 }
