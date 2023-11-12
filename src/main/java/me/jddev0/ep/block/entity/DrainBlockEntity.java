@@ -219,6 +219,9 @@ public class DrainBlockEntity extends BlockEntity implements MenuProvider, Fluid
 
         FluidState fluidState = level.getFluidState(aboveBlockPos);
 
+        if(fluidState.isEmpty())
+            return false;
+
         return blockEntity.fluidStorage.fill(new FluidStack(fluidState.getType(), 1000), IFluidHandler.FluidAction.SIMULATE) == 1000;
     }
 
