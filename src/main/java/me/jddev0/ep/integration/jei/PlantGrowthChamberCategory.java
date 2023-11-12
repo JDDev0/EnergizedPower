@@ -80,7 +80,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
     public void draw(RecipeHolder<PlantGrowthChamberRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         Font font = Minecraft.getInstance().font;
         int ticks = (int)(recipe.value().getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
-        Component component = Component.translatable("recipes.energizedpower.plant_growth_chamber.ticks", ticks);
+        Component component = Component.translatable("recipes.energizedpower.info.ticks", ticks);
         int textWidth = font.width(component);
 
         guiGraphics.drawString(Minecraft.getInstance().font, component, 108 - textWidth, 40, 0xFFFFFFFF, false);

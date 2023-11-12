@@ -175,6 +175,8 @@ public class EnergizedPowerMod {
 
             event.accept(ModBlocks.ENERGIZER_ITEM);
             event.accept(ModBlocks.CHARGING_STATION_ITEM);
+            event.accept(ModBlocks.CRYSTAL_GROWTH_CHAMBER);
+
             event.accept(ModBlocks.WEATHER_CONTROLLER_ITEM);
             event.accept(ModBlocks.TIME_CONTROLLER_ITEM);
             event.accept(ModBlocks.TELEPORTER_ITEM);
@@ -285,6 +287,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.TELEPORTER_MENU.get(), TeleporterScreen::new);
             MenuScreens.register(ModMenuTypes.LIGHTNING_GENERATOR_MENU.get(), LightningGeneratorScreen::new);
             MenuScreens.register(ModMenuTypes.CHARGING_STATION_MENU.get(), ChargingStationScreen::new);
+            MenuScreens.register(ModMenuTypes.CRYSTAL_GROWTH_CHAMBER_MENU.get(), CrystalGrowthChamberScreen::new);
             MenuScreens.register(ModMenuTypes.HEAT_GENERATOR_MENU.get(), HeatGeneratorScreen::new);
             MenuScreens.register(ModMenuTypes.THERMAL_GENERATOR_MENU.get(), ThermalGeneratorScreen::new);
             MenuScreens.register(ModMenuTypes.BATTERY_BOX_MENU.get(), BatteryBoxScreen::new);

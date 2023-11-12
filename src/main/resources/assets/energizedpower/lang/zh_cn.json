@@ -453,6 +453,10 @@
   "item.energizedpower.charging_station": "无线充能站",
   "container.energizedpower.charging_station": "无线充能站",
 
+  "block.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
+  "item.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
+  "container.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
+
   "tooltip.energizedpower.charging_station.txt.shift.1": "无线充电站可以为玩家物品栏内的物品充能。",
 
   "block.energizedpower.weather_controller": "气象调控中心",
@@ -542,7 +546,7 @@
   "entity.energizedpower.advanced_battery_box_minecart": "Advanced Battery Box Minecart",
 
   "recipes.energizedpower.in_world_crafting": "世界工匠",
-  "recipes.energizedpower.plant_growth_chamber.ticks": "花费 %d 刻",
+  "recipes.energizedpower.info.ticks": "花费 %d 刻",
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "培养室（肥料）",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "花费 %.2fx ",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "能量消耗 %.2fx",
@@ -558,6 +562,7 @@
   "emi.category.energizedpower.plant_growth_chamber": "植物生长箱",
   "emi.category.energizedpower.plant_growth_chamber_fertilizer": "培养室（肥料）",
   "emi.category.energizedpower.energizer": "物品充能站",
+  "emi.category.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
   "emi.category.energizedpower.press_mold_maker": "Press Mold Maker",
   "emi.category.energizedpower.stone_solidifier": "Stone Solidifier",
   "emi.category.energizedpower.dispenser": "自动取物器",
@@ -699,6 +704,9 @@
 
   "advancements.energizedpower.charging_station.title": "无线充能",
   "advancements.energizedpower.charging_station.description": "物品充能使用无线方式。",
+
+  "advancements.energizedpower.crystal_growth_chamber.title": "Crystal growth",
+  "advancements.energizedpower.crystal_growth_chamber.description": "Grow crystals in the Crystal Growth Chamber.",
 
   "advancements.energizedpower.energized_crystal_matrix.title": "能量晶体矩阵",
   "advancements.energizedpower.energized_crystal_matrix.description": "Used as a stabilizer in some advanced machines.",
@@ -1111,6 +1119,8 @@
   "book.energizedpower.page.charger_uncharger.2": "The advanced version of the Charger and the Uncharger have 3 slots.",
 
   "book.energizedpower.page.charging_station": "无线充能站可以在一定的范围内为玩家物品栏中的物品充能。",
+
+  "book.energizedpower.page.crystal_growth_chamber": "The Crystal Growth Chamber can be used to grow crystals like amethysts.",
 
   "book.energizedpower.page.energizer": "Energizer 可以很好地给物品充能。",
 
