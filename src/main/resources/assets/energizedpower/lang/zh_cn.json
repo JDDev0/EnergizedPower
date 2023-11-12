@@ -196,8 +196,7 @@
   "tooltip.energizedpower.press_mold_maker.btn.up": "Scroll up",
   "tooltip.energizedpower.press_mold_maker.btn.down": "Scroll down",
 
-  "tooltip.energizedpower.press_mold_maker.btn.recipes.1": "%dx %s",
-  "tooltip.energizedpower.press_mold_maker.btn.recipes.2": "Requires %dx %s",
+  "tooltip.energizedpower.press_mold_maker.btn.recipes": "Requires %dx %s",
 
   "block.energizedpower.auto_crafter": "自动合成机",
   "item.energizedpower.auto_crafter": "自动合成机",
@@ -411,6 +410,13 @@
   "item.energizedpower.block_placer": "方块放置器",
   "container.energizedpower.block_placer": "方块放置器",
 
+  "block.energizedpower.stone_solidifier": "Stone Solidifier",
+  "item.energizedpower.stone_solidifier": "Stone Solidifier",
+  "container.energizedpower.stone_solidifier": "Stone Solidifier",
+
+  "tooltip.energizedpower.stone_solidifier.btn.up": "Next recipe",
+  "tooltip.energizedpower.stone_solidifier.btn.down": "Previous recipe",
+
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "该方块需要 %s 来放置方块。",
   "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Inverse Rotation",
 
@@ -491,6 +497,8 @@
   "block.energizedpower.reinforced_advanced_machine_frame": "Reinforced Advanced Machine Frame",
   "item.energizedpower.reinforced_advanced_machine_frame": "Reinforced Advanced Machine Frame",
 
+  "tooltip.energizedpower.count_with_item.txt": "%dx %s",
+
   "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
   "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "这个配方需要 %s 才能合成。",
@@ -540,6 +548,7 @@
   "emi.category.energizedpower.plant_growth_chamber_fertilizer": "培养室（肥料）",
   "emi.category.energizedpower.energizer": "物品充能站",
   "emi.category.energizedpower.press_mold_maker": "Press Mold Maker",
+  "emi.category.energizedpower.stone_solidifier": "Stone Solidifier",
   "emi.category.energizedpower.dispenser": "自动取物器",
   "emi.category.energizedpower.in_world_crafting": "世界工艺品",
 
@@ -610,6 +619,9 @@
 
   "advancements.energizedpower.plant_growth_chamber.title": "更快生长的植物",
   "advancements.energizedpower.plant_growth_chamber.description": "用植物培养室提高植物生长速度和收获量。",
+
+  "advancements.energizedpower.stone_solidifier.title": "Stone Solidifier",
+  "advancements.energizedpower.stone_solidifier.description": "Create stone blocks from Water and Lava.",
 
   "advancements.energizedpower.block_placer.title": "放置方块",
   "advancements.energizedpower.block_placer.description": "方块被自动放置在世界中。",
@@ -1065,6 +1077,9 @@
   "book.energizedpower.page.plant_growth_chamber.5": "Seeds can be inserted from the north, east, south, and west. Fertilizers can be inserted from the top and bottom. Outputs can be extracted from all block faces.",
   "book.energizedpower.page.plant_growth_chamber.6": "If you'd like to use a fertilizer, the fertilizer must be inserted first.",
   "book.energizedpower.page.plant_growth_chamber.7": "If you'd like to automate this blocks, you need to keep in mind that yields are randomized.",
+
+  "book.energizedpower.page.stone_solidifier.1": "The Stone Solidifier produces Stone blocks from Water and Lava.",
+  "book.energizedpower.page.stone_solidifier.2": "Fluids must be inserted with a pipe.",
 
   "book.energizedpower.page.block_placer.1": "方块放置器可以放置所有的方块（甚至可以是门和种子）。",
   "book.energizedpower.page.block_placer.2": "只有在可以放置方块的情况下才会放置方块。",

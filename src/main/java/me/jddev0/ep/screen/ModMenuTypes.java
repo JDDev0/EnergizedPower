@@ -61,6 +61,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<PlantGrowthChamberMenu> PLANT_GROWTH_CHAMBER_MENU = createScreenHandlerType("plant_growth_chamber",
             new ExtendedScreenHandlerType<>(PlantGrowthChamberMenu::new));
 
+    public static final ScreenHandlerType<StoneSolidifierMenu> STONE_SOLIDIFIER_MENU = createScreenHandlerType("stone_solidifier",
+            new ExtendedScreenHandlerType<>(StoneSolidifierMenu::new));
+
     public static final ScreenHandlerType<CoalEngineMenu> COAL_ENGINE_MENU = createScreenHandlerType("coal_engine",
             new ExtendedScreenHandlerType<>(CoalEngineMenu::new));
 

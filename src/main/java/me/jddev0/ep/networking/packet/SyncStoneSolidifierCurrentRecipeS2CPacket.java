@@ -1,7 +1,7 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.fluid.FluidStack;
-import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
+import me.jddev0.ep.block.entity.StoneSolidifierBlockEntity;
+import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
@@ -9,24 +9,23 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 
-public class FluidSyncS2CPacket {
-   private FluidSyncS2CPacket() {}
+public class SyncStoneSolidifierCurrentRecipeS2CPacket {
+    private SyncStoneSolidifierCurrentRecipeS2CPacket() {}
 
     public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
-        int tank = buf.readInt();
-        FluidStack fluidStack = FluidStack.fromPacket(buf);
-        long capacity = buf.readLong();
         BlockPos pos = buf.readBlockPos();
+        StoneSolidifierRecipe currentRecipe = buf.readBoolean()?StoneSolidifierRecipe.Serializer.INSTANCE.read(
+                buf.readIdentifier(), buf):null;
 
         client.execute(() -> {
             if(client.world == null)
                 return;
 
             BlockEntity blockEntity = client.world.getBlockEntity(pos);
-            if(blockEntity instanceof FluidStoragePacketUpdate) {
-                FluidStoragePacketUpdate fluidStorage = (FluidStoragePacketUpdate)blockEntity;
-                fluidStorage.setFluid(tank, fluidStack);
-                fluidStorage.setTankCapacity(tank, capacity);
+
+            //BlockEntity
+            if(blockEntity instanceof StoneSolidifierBlockEntity stoneSolidifierBlockEntity) {
+                stoneSolidifierBlockEntity.setCurrentRecipe(currentRecipe);
             }
         });
     }
