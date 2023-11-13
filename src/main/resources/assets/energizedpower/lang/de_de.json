@@ -551,6 +551,7 @@
   "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx Geschwindigkeit",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx Energieverbrauch",
   "recipes.energizedpower.transfer.too_large": "Dieses Rezept ist für diesen Container zu groß!",
+  "recipes.energizedpower.transfer.output_odds": "Wahrscheinlichkeit pro Item:",
 
   "emi.category.energizedpower.charger": "Lader",
   "emi.category.energizedpower.crusher": "Zerkleinerer",
