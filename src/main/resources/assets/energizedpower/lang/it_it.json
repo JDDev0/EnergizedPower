@@ -49,7 +49,7 @@
 
   "item.energizedpower.basic_circuit": "Circuito base",
   "item.energizedpower.advanced_circuit": "Circiuto avanzato",
-  "item.energizedpower.processing_unit": "Processing Unit",
+  "item.energizedpower.processing_unit": "Unità di elaborazione",
 
   "item.energizedpower.energized_power_book": "Libro del energized power",
   "tooltip.energizedpower.energized_power_book.txt.shift.1": "Fare clic con il tasto sinistro del mouse su un blocco per aprire la pagina del libro del blocco.",
@@ -64,21 +64,21 @@
 
   "item.energizedpower.energized_crystal_matrix": "Matrice di cristallo energizzata",
 
-  "item.energizedpower.teleporter_matrix": "Teleporter Matrix",
-  "item.energizedpower.teleporter_matrix.linked": "Teleporter Matrix [Linked]",
-  "item.energizedpower.teleporter_matrix.unbound": "Teleporter Matrix [Unlinked]",
-  "tooltip.energizedpower.teleporter_matrix.cleared": "Teleporter Matrix settings were successfully cleared.",
-  "tooltip.energizedpower.teleporter_matrix.set": "Teleporter Matrix settings were successfully set.",
-  "tooltip.energizedpower.teleporter_matrix.set.warning": "Teleporter Matrix settings were set but do not point to a Teleporter position.",
-  "tooltip.energizedpower.teleporter_matrix.status": "Status: ",
-  "tooltip.energizedpower.teleporter_matrix.status.linked": "Linked",
-  "tooltip.energizedpower.teleporter_matrix.status.unlinked": "Unlinked",
-  "tooltip.energizedpower.teleporter_matrix.location": "Location: ",
-  "tooltip.energizedpower.teleporter_matrix.dimension": "Dimension: ",
-  "tooltip.energizedpower.teleporter_matrix.txt.shift.1": "Link by shift + left-clicking a Teleporter.",
-  "tooltip.energizedpower.teleporter_matrix.txt.shift.2": "Unlink by left-clicking in the air.",
+  "item.energizedpower.teleporter_matrix": "Matrice Teletrasporto",
+  "item.energizedpower.teleporter_matrix.linked": "Matrice Teletrasporto [Collegato]",
+  "item.energizedpower.teleporter_matrix.unbound": "Matrice Teletrasporto [Scollegato]",
+  "tooltip.energizedpower.teleporter_matrix.cleared": "Le impostazioni della Matrice del teletrasporto sono state cancellate con successo.",
+  "tooltip.energizedpower.teleporter_matrix.set": "Le impostazioni della Matrice del teletrasporto sono state impostate correttamente.",
+  "tooltip.energizedpower.teleporter_matrix.set.warning": "Le impostazioni della Matrice del teletrasporto sono state configurate ma non puntano a una posizione di teletrasporto.",
+  "tooltip.energizedpower.teleporter_matrix.status": "Stato: ",
+  "tooltip.energizedpower.teleporter_matrix.status.linked": "Collegato",
+  "tooltip.energizedpower.teleporter_matrix.status.unlinked": "Scollegato",
+  "tooltip.energizedpower.teleporter_matrix.location": "Posizione: ",
+  "tooltip.energizedpower.teleporter_matrix.dimension": "Dimensione: ",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.1": "Collegamento tramite Maiusc + clic con il pulsante sinistro del mouse su un Teletrasporto.",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.2": "Scollegalo facendo clic con il pulsante sinistro del mouse in aria.",
 
-  "item.energizedpower.teleporter_processing_unit": "Teleporter Processing Unit",
+  "item.energizedpower.teleporter_processing_unit": "Unità di elaborazione del teletrasporto",
 
   "item.energizedpower.inventory_coal_engine": "Inventario motore a carbone",
   "tooltip.energizedpower.inventory_coal_engine.status": "Stato: ",
@@ -207,7 +207,7 @@
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "Modalità di estrazione 1: solo gli elementi di output e rimanenti",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "Modalità di estrazione 2: tutto prevede anche elementi in ingresso",
   "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Scorri le ricette",
-  "tooltip.energizedpower.auto_crafter.recipe_index": "Recipe %d",
+  "tooltip.energizedpower.auto_crafter.recipe_index": "Ricetta %d",
 
   "block.energizedpower.advanced_auto_crafter": "Auto Crafter Avanzato",
   "item.energizedpower.advanced_auto_crafter": "Auto Crafter Avanzato",
@@ -402,20 +402,20 @@
 
   "tooltip.energizedpower.metal_press.txt.shift.1": "Gli stampi per pressa possono essere creati nella Pressa creatore di stampi",
 
-  "block.energizedpower.assembling_machine": "Assembling Machine",
-  "item.energizedpower.assembling_machine": "Assembling Machine",
-  "container.energizedpower.assembling_machine": "Assembling Machine",
+  "block.energizedpower.assembling_machine": "Macchina per l'assemblaggio",
+  "item.energizedpower.assembling_machine": "Macchina per l'assemblaggio",
+  "container.energizedpower.assembling_machine": "Macchina per l'assemblaggio",
 
   "block.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
   "item.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
   "container.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
 
-  "block.energizedpower.stone_solidifier": "Stone Solidifier",
-  "item.energizedpower.stone_solidifier": "Stone Solidifier",
-  "container.energizedpower.stone_solidifier": "Stone Solidifier",
+  "block.energizedpower.stone_solidifier": "Solidificatore per pietre",
+  "item.energizedpower.stone_solidifier": "Solidificatore per pietre",
+  "container.energizedpower.stone_solidifier": "Solidificatore per pietre",
 
-  "tooltip.energizedpower.stone_solidifier.btn.up": "Next recipe",
-  "tooltip.energizedpower.stone_solidifier.btn.down": "Previous recipe",
+  "tooltip.energizedpower.stone_solidifier.btn.up": "Prossima ricetta",
+  "tooltip.energizedpower.stone_solidifier.btn.down": "Ricetta precedente",
 
   "block.energizedpower.block_placer": "Posizionatore di blocchi",
   "item.energizedpower.block_placer": "Posizionatore di blocchi",
@@ -432,11 +432,11 @@
   "item.energizedpower.fluid_drainer": "Drenaggio fluido",
   "container.energizedpower.fluid_drainer": "Drenaggio fluido",
 
-  "block.energizedpower.drain": "Drain",
-  "item.energizedpower.drain": "Drain",
-  "container.energizedpower.drain": "Drain",
+  "block.energizedpower.drain": "Drenaggio",
+  "item.energizedpower.drain": "Drenaggio",
+  "container.energizedpower.drain": "Drenaggio",
 
-  "tooltip.energizedpower.drain.txt.shift": "The Drain drains fluid source blocks above the block.",
+  "tooltip.energizedpower.drain.txt.shift": "Il drenaggio drena i blocchi della sorgente di fluido sopra il blocco.",
 
   "block.energizedpower.lightning_generator": "Generatore da fulmini",
   "item.energizedpower.lightning_generator": "Generatore da fulmini",
@@ -455,9 +455,9 @@
 
   "tooltip.energizedpower.charging_station.txt.shift.1": "La stazione di ricarica può essere utilizzata per caricare oggetti all'interno dell'inventario di un giocatore.",
 
-  "block.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
-  "item.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
-  "container.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
+  "block.energizedpower.crystal_growth_chamber": "Camera di crescita dei cristalli",
+  "item.energizedpower.crystal_growth_chamber": "Camera di crescita dei cristalli",
+  "container.energizedpower.crystal_growth_chamber": "Camera di crescita dei cristalli",
 
   "block.energizedpower.weather_controller": "Controllore meteo",
   "item.energizedpower.weather_controller": "Controllore meteo",
@@ -471,33 +471,33 @@
   "item.energizedpower.time_controller": "Controllore del tempo",
   "container.energizedpower.time_controller": "Controllore del tempo",
 
-  "tooltip.energizedpower.time_controller.btn.day": "Imposta l'ora del giorno",
+  "tooltip.energizedpower.time_controller.btn.day": "Imposta l'ora di giorno",
   "tooltip.energizedpower.time_controller.btn.noon": "Imposta l'ora a mezzogiorno",
-  "tooltip.energizedpower.time_controller.btn.night": "Imposta l'ora della notte",
+  "tooltip.energizedpower.time_controller.btn.night": "Imposta l'ora di notte",
   "tooltip.energizedpower.time_controller.btn.midnight": "Imposta l'ora a mezzanotte",
 
-  "block.energizedpower.teleporter": "Teleporter",
-  "item.energizedpower.teleporter": "Teleporter",
-  "container.energizedpower.teleporter": "Teleporter",
+  "block.energizedpower.teleporter": "Teletrasporto",
+  "item.energizedpower.teleporter": "Teletrasporto",
+  "container.energizedpower.teleporter": "Teletrasporto",
 
-  "tooltip.energizedpower.teleporter.use": "Press [%s] while above the Teleporter to teleport.",
-  "tooltip.energizedpower.teleporter.use.not_enough_energy": "Not enough energy!",
-  "tooltip.energizedpower.teleporter.use.no_teleporter_matrix": "No Teleporter Matrix present!",
-  "tooltip.energizedpower.teleporter.use.teleporter_matrix_not_bound": "Teleporter Matrix is not bound!",
-  "tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_position": "Teleporter Matrix contains an invalid position!",
-  "tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_dimension": "Teleporter Matrix contains an invalid dimension!",
-  "tooltip.energizedpower.teleporter.use.teleporter_self_position": "Teleporation to the Teleporter itself is not possible!",
-  "tooltip.energizedpower.teleporter.use.teleporter_matrix_no_teleporter": "No Teleporter found at Teleporter Matrix coordinates!",
-  "tooltip.energizedpower.teleporter.use.intra_dimensional_disabled": "Intra dimensional teleportation is disabled",
-  "tooltip.energizedpower.teleporter.use.inter_dimensional_disabled": "Inter dimensional teleportation is disabled",
-  "tooltip.energizedpower.teleporter.use.blacklist.dimension": "Teleportation for the dimension \"%s\" is disabled!",
-  "tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional": "Teleportation within the dimension \"%s\" is disabled!",
-  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from": "Teleportation from the dimension \"%s\" is disabled!",
-  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to": "Teleportation to the dimension \"%s\" is disabled!",
-  "tooltip.energizedpower.teleporter.use.blacklist.dimension_type": "Teleportation for a dimension of dimension type \"%s\" is disabled!",
-  "tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional_type": "Teleportation within a dimension of dimension type \"%s\" is disabled!",
-  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from_type": "Teleportation from a dimension of dimension type \"%s\" is disabled!",
-  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to_type": "Teleportation to a dimension of dimension type \"%s\" is disabled!",
+  "tooltip.energizedpower.teleporter.use": "Premi [%s] mentre sei sopra il Teletrasporto per teletrasportarti.",
+  "tooltip.energizedpower.teleporter.use.not_enough_energy": "Energia non sufficiente!",
+  "tooltip.energizedpower.teleporter.use.no_teleporter_matrix": "Nessun teletrasporto Matrix presente!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_not_bound": "Il teletrasporto Matrix non è vincolato!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_position": "Il teletrasporto Matrix contiene una posizione non valida!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_dimension": "Il teletrasporto Matrix contiene una dimensione non valida!",
+  "tooltip.energizedpower.teleporter.use.teleporter_self_position": "Il teletrasporto allo stesso teletrasporto non è possibile!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_no_teleporter": "Nessun Teletrasporto trovato alle coordinate del teletrasporto Matrix!",
+  "tooltip.energizedpower.teleporter.use.intra_dimensional_disabled": "Il teletrasporto intradimensionale è disabilitato",
+  "tooltip.energizedpower.teleporter.use.inter_dimensional_disabled": "Il teletrasporto interdimensionale è disabilitato",
+  "tooltip.energizedpower.teleporter.use.blacklist.dimension": "Il teletrasporto per la dimensione \"%s\" è disabilitato!",
+  "tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional": "Il teletrasporto all'interno della dimensione \"%s\" è disabilitato!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from": "Il teletrasporto dalla dimensione \"%s\" è disabilitato!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to": "Il teletrasporto alla dimensione \"%s\" è disabilitato!",
+  "tooltip.energizedpower.teleporter.use.blacklist.dimension_type": "Il teletrasporto per una dimensione di tipo \"%s\" è disabilitato!",
+  "tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional_type": "Il teletrasporto all'interno di una dimensione di tipo \"%s\" è disabilitato!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from_type": "Il teletrasporto da una dimensione di tipo \"%s\" è disabilitato!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to_type": "Il teletrasporto in una dimensione di tipo \"%s\" è disabilitato!",
 
   "block.energizedpower.basic_machine_frame": "Telaio base della macchina",
   "item.energizedpower.basic_machine_frame": "Telaio base della macchina",
@@ -559,13 +559,13 @@
   "emi.category.energizedpower.sawmill": "Segheria",
   "emi.category.energizedpower.compressor": "Compressore",
   "emi.category.energizedpower.metal_press": "Pressa per metallo",
-  "emi.category.energizedpower.assembling_machine": "Assembling Machine",
+  "emi.category.energizedpower.assembling_machine": "Macchina per l'assemblaggio",
   "emi.category.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
   "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Camera di crescita (fertilizzante)",
   "emi.category.energizedpower.energizer": "Energizzante",
-  "emi.category.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
+  "emi.category.energizedpower.crystal_growth_chamber": "Camera di crescita dei cristalli",
   "emi.category.energizedpower.press_mold_maker": "Pressa creatore di stampi",
-  "emi.category.energizedpower.stone_solidifier": "Stone Solidifier",
+  "emi.category.energizedpower.stone_solidifier": "Solidificatore per pietre",
   "emi.category.energizedpower.dispenser": "Distributore",
   "emi.category.energizedpower.in_world_crafting": "Creazione nel mondo",
 
@@ -577,7 +577,7 @@
   "painting.energizedpower.factory.author": "JDDev0",
 
   "key.category.energizedpower": "Energized Power",
-  "key.energizedpower.teleporter.use": "Use Teleporter",
+  "key.energizedpower.teleporter.use": "Usa il teletrasporto",
 
 
   "advancements.energizedpower.hardened_machine_frame.title": "Macchine temprate",
@@ -601,8 +601,8 @@
   "advancements.energizedpower.advanced_circuit.title": "Circuito Avanzato",
   "advancements.energizedpower.advanced_circuit.description": "Crea un circuito avanzato.",
 
-  "advancements.energizedpower.processing_unit.title": "Processing Unit",
-  "advancements.energizedpower.processing_unit.description": "Craft a Processing Unit.",
+  "advancements.energizedpower.processing_unit.title": "Unità di elaborazione",
+  "advancements.energizedpower.processing_unit.description": "Crea un'unità di elaborazione.",
 
   "advancements.energizedpower.press_mold_maker.title": "Pressa creatore di stampi",
   "advancements.energizedpower.press_mold_maker.description": "Usa questo blocco per realizzare stampi per la pressa per metalli.",
@@ -634,14 +634,14 @@
   "advancements.energizedpower.metal_press.title": "Pressa per metallo",
   "advancements.energizedpower.metal_press.description": "Formare metalli.",
 
-  "advancements.energizedpower.assembling_machine.title": "Assembling Machine",
-  "advancements.energizedpower.assembling_machine.description": "Craft electronic components in the Assembling Machine.",
+  "advancements.energizedpower.assembling_machine.title": "Macchina per l'assemblaggio",
+  "advancements.energizedpower.assembling_machine.description": "Realizza componenti elettronici nella macchina di assemblaggio.",
 
   "advancements.energizedpower.plant_growth_chamber.title": "Crescita delle piante più rapida",
   "advancements.energizedpower.plant_growth_chamber.description": "Migliora la velocità e le rese con la Camera di Crescita delle Piante.",
 
-  "advancements.energizedpower.stone_solidifier.title": "Stone Solidifier",
-  "advancements.energizedpower.stone_solidifier.description": "Create stone blocks from Water and Lava.",
+  "advancements.energizedpower.stone_solidifier.title": "Solidificatore per pietre",
+  "advancements.energizedpower.stone_solidifier.description": "Crea blocchi di pietra da Acqua e Lava.",
 
   "advancements.energizedpower.block_placer.title": "Posiziona il blocco",
   "advancements.energizedpower.block_placer.description": "I blocchi vengono posizionati automaticamente nel mondo.",
@@ -652,8 +652,8 @@
   "advancements.energizedpower.fluid_drainer.title": "Svuota l'oggetto dal fluido",
   "advancements.energizedpower.fluid_drainer.description": "Scarica i liquidi dagli oggetti.",
 
-  "advancements.energizedpower.drain.title": "The Drain",
-  "advancements.energizedpower.drain.description": "Drain fluids source blocks.",
+  "advancements.energizedpower.drain.title": "Il drenaggio",
+  "advancements.energizedpower.drain.description": "Drenare i blocchi della fonte dei fluidi.",
 
   "advancements.energizedpower.basic_machine_frame.title": "La Fondazione delle Macchine",
   "advancements.energizedpower.basic_machine_frame.description": "Questo è l'oggetto di creazione base per ogni macchina base.",
@@ -706,20 +706,20 @@
   "advancements.energizedpower.charging_station.title": "Ricarica senza fili",
   "advancements.energizedpower.charging_station.description": "Carica gli articoli energetici in modalità wireless.",
 
-  "advancements.energizedpower.crystal_growth_chamber.title": "Crystal growth",
-  "advancements.energizedpower.crystal_growth_chamber.description": "Grow crystals in the Crystal Growth Chamber.",
+  "advancements.energizedpower.crystal_growth_chamber.title": "Crescita dei cristalli",
+  "advancements.energizedpower.crystal_growth_chamber.description": "Fai crescere i cristalli nella Camera di Crescita dei Cristalli.",
 
   "advancements.energizedpower.energized_crystal_matrix.title": "Matrice di cristallo energizzata",
   "advancements.energizedpower.energized_crystal_matrix.description": "Utilizzato come stabilizzatore in alcune macchine avanzate.",
 
-  "advancements.energizedpower.teleporter_matrix.title": "Teleporter Matrix",
-  "advancements.energizedpower.teleporter_matrix.description": "The first step to achieve teleportation.",
+  "advancements.energizedpower.teleporter_matrix.title": "Teletrasporto Matrix",
+  "advancements.energizedpower.teleporter_matrix.description": "Il primo passo per ottenere il teletrasporto.",
 
-  "advancements.energizedpower.teleporter_processing_unit.title": "Teleporter Processing Unit",
-  "advancements.energizedpower.teleporter_processing_unit.description": "The brain of Teleporters.",
+  "advancements.energizedpower.teleporter_processing_unit.title": "Unità di elaborazione del teletrasporto",
+  "advancements.energizedpower.teleporter_processing_unit.description": "Il cervello dei teletrasporti.",
 
-  "advancements.energizedpower.teleporter.title": "Faster than light",
-  "advancements.energizedpower.teleporter.description": "Craft a Teleporter.",
+  "advancements.energizedpower.teleporter.title": "Più veloce della luce",
+  "advancements.energizedpower.teleporter.description": "Realizza un teletrasporto.",
 
   "advancements.energizedpower.weather_controller.title": "Controlla il meteo",
   "advancements.energizedpower.weather_controller.description": "Cambia il tempo con il controller meteorologico.",
@@ -788,7 +788,7 @@
   "advancements.energizedpower.mv_transformers.description": "Può trasferire più potenza.",
 
   "advancements.energizedpower.hv_transformers.title": "HV Trasformatore",
-  "advancements.energizedpower.hv_transformers.description": "Can transfer even more power.",
+  "advancements.energizedpower.hv_transformers.description": "Può trasferire ancora più potenza.",
 
   "advancements.energizedpower.ehv_transformers.title": "EHV Trasformatore",
   "advancements.energizedpower.ehv_transformers.description": "Può trasferire più di 2 milioni di FE per tick.",
@@ -1081,7 +1081,7 @@
   "book.energizedpower.page.auto_crafters.1": "L'Auto Crafter crea automaticamente gli oggetti.",
   "book.energizedpower.page.auto_crafters.2": "La ricetta può essere impostata utilizzando gli slot del modello.",
   "book.energizedpower.page.auto_crafters.3": "L'Auto Crafter può gestire i conflitti di ricette, ovvero ricette con gli stessi input. Per fare ciò, usa il pulsante \"Scorri le ricette\" o imposta lo schema tramite un mod visualizzatore di ricette (come REI).",
-  "book.energizedpower.page.auto_crafters.4": "The advanced version of the Auto Crafter supports multiple recipes at once.",
+  "book.energizedpower.page.auto_crafters.4": "La versione avanzata di Auto Crafter supporta più ricette contemporaneamente.",
 
   "book.energizedpower.page.crusher": "Il Frantumatore può frantumare blocchi come Pietra, Arenaria, Ciottoli e Ghiaia.",
 
@@ -1094,12 +1094,12 @@
 
   "book.energizedpower.page.metal_press.1": "La Pressa per metallo crea prodotti metallici (ad esempio fili) da metalli.",
   "book.energizedpower.page.metal_press.2": "Gli stampi per pressa possono essere creati nella Pressa creatore di stampi.",
-  "book.energizedpower.page.metal_press.3": "Press Molds can be inserted to and extracted from the top.",
-  "book.energizedpower.page.metal_press.4": "Inputs can be inserted to and outputs can be extracted from all other sides.",
+  "book.energizedpower.page.metal_press.3": "Gli stampi per pressa possono essere inseriti ed estratti dall'alto.",
+  "book.energizedpower.page.metal_press.4": "Il carico e lo scarico possono essere inseriti ed estratti da tutti gli altri lati.",
 
-  "book.energizedpower.page.assembling_machine.1": "The Assembling Machine creates electronic components (e.g. circuits).",
-  "book.energizedpower.page.assembling_machine.2": "Outputs can be extracted from all sides.",
-  "book.energizedpower.page.assembling_machine.3": "Inputs can be inserted from all sides (Top/Bottom: All inputs slots, Front: Bottom slot, Back: Top slot, Left: Left slot, Right: Right slot).",
+  "book.energizedpower.page.assembling_machine.1": "La macchina assemblatrice crea componenti elettronici (es. circuiti).",
+  "book.energizedpower.page.assembling_machine.2": "Le uscite possono essere estratte da tutti i lati.",
+  "book.energizedpower.page.assembling_machine.3": "Gli ingressi possono essere inseriti da tutti i lati (in alto/in basso: tutti gli slot degli ingressi, anteriore: slot inferiore, posteriore: slot superiore, sinistra: slot sinistro, destra: slot destro).",
 
   "book.energizedpower.page.plant_growth_chamber.1": "La camera di crescita delle piante può aumentare la crescita e la resa delle piante.",
   "book.energizedpower.page.plant_growth_chamber.2": "Lo slot di ingresso destro è lo slot dei semi.",
@@ -1109,8 +1109,8 @@
   "book.energizedpower.page.plant_growth_chamber.6": "Se desideri utilizzare un fertilizzante, il fertilizzante deve essere inserito per primo.",
   "book.energizedpower.page.plant_growth_chamber.7": "Se desideri automatizzare questi blocchi, devi tenere presente che i rendimenti sono randomizzati.",
 
-  "book.energizedpower.page.stone_solidifier.1": "The Stone Solidifier produces Stone blocks from Water and Lava.",
-  "book.energizedpower.page.stone_solidifier.2": "Fluids must be inserted with a pipe.",
+  "book.energizedpower.page.stone_solidifier.1": "Il Solidificatore della Pietra produce blocchi di Pietra da Acqua e Lava.",
+  "book.energizedpower.page.stone_solidifier.2": "I fluidi devono essere inseriti tramite un tubo.",
 
   "book.energizedpower.page.block_placer.1": "Il piazzatore di blocchi può posizionare tutti i blocchi (anche porte e semi).",
   "book.energizedpower.page.block_placer.2": "I blocchi verranno posizionati solo se possibile.",
@@ -1122,7 +1122,7 @@
 
   "book.energizedpower.page.charging_station": "La stazione di ricarica può caricare gli articoli in modalità wireless.",
 
-  "book.energizedpower.page.crystal_growth_chamber": "The Crystal Growth Chamber can be used to grow crystals like amethysts.",
+  "book.energizedpower.page.crystal_growth_chamber": "La Camera di Crescita dei Cristalli può essere utilizzata per far crescere cristalli come le ametiste.",
 
   "book.energizedpower.page.energizer": "L'Energizer può energizzare gli oggetti in modo molto efficiente.",
 
@@ -1131,11 +1131,11 @@
   "book.energizedpower.page.time_controller.1": "Il controller del tempo può modificare l'ora del giorno. Richiede energia per farlo.",
   "book.energizedpower.page.time_controller.2": "Non può tornare indietro nel tempo, il valore temporale sarà sempre incrementato.",
 
-  "book.energizedpower.page.teleporter_matrix.1": "Teleporter Matrices are used for linking Teleporters.",
-  "book.energizedpower.page.teleporter_matrix.2": "The settings of a Teleporter Matrix can be copied by putting a linkend and one or more unlinked Teleporter Matricies into a Crafting Table.",
+  "book.energizedpower.page.teleporter_matrix.1": "Le delle matrici del teletrasporto vengono utilizzate per collegare i teletrasporti.",
+  "book.energizedpower.page.teleporter_matrix.2": "Le impostazioni delle matrici del teletrasporto possono essere copiate inserendo uno o più teletrasporti collegati e una o più non collegate in un tavolo di creazione.",
 
-  "book.energizedpower.page.teleporter.1": "The Teleporter can teleport players. It requires energy and a linked Teleporter Matrix to do so.",
-  "book.energizedpower.page.teleporter.2": "It outputs a redstone signal if the Teleporter is ready for teleportation.",
+  "book.energizedpower.page.teleporter.1": "Il Teletrasporto può teletrasportare i giocatori. Per farlo richiede energia e una matrice del teletrasporto collegato.",
+  "book.energizedpower.page.teleporter.2": "Emette un segnale di redstone se il Teletrasporto è pronto per il teletrasporto.",
 
 
   "book.energizedpower.page.chapter.fluid_blocks.title": "Blocchi con fluidi",
@@ -1145,7 +1145,7 @@
   "book.energizedpower.page.fluid_pipe.2": "La modalità di ogni lato del tubo può essere configurata con una chiave inglese.",
   "book.energizedpower.page.fluid_pipe.3": "Un singolo blocco di tubazioni del fluido può estrarre solo un tipo di fluido alla volta, anche quando più lati sono configurati come estrazione.",
 
-  "book.energizedpower.page.drain": "The Drain drains fluid source blocks above the block.",
+  "book.energizedpower.page.drain": "Il drenaggio drena i blocchi della sorgente di fluido sopra il blocco.",
 
 
   "book.energizedpower.page.chapter.item_transportation.title": "Trasporto articoli",
