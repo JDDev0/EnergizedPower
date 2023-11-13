@@ -16,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
+import java.util.Locale;
 
 public class PulverizerCategory implements IRecipeCategory<PulverizerRecipe> {
     public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "pulverizer");
@@ -57,9 +58,26 @@ public class PulverizerCategory implements IRecipeCategory<PulverizerRecipe> {
 
         ItemStack[] outputEntries = recipe.getMaxOutputCounts();
 
-        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).addItemStack(outputEntries[0]);
+        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).addItemStack(outputEntries[0]).
+                addTooltipCallback((view, tooltip) -> {
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+
+                    double[] percentages = recipe.getOutput().percentages();
+                    for(int i = 0;i < percentages.length;i++)
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+                });
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 92, 5).
-                addItemStacks(outputEntries[1].isEmpty()?List.of():List.of(outputEntries[1]));
+                addItemStacks(outputEntries[1].isEmpty()?List.of():List.of(outputEntries[1])).
+                addTooltipCallback((view, tooltip) -> {
+                    if(view.isEmpty())
+                        return;
+
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+
+                    double[] percentages = recipe.getSecondaryOutput().percentages();
+                    for(int i = 0;i < percentages.length;i++)
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+                });
     }
 }
