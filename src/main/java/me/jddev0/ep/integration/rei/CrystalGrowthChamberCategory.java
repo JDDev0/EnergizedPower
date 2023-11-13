@@ -11,11 +11,12 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CrystalGrowthChamberCategory implements DisplayCategory<CrystalGrowthChamberDisplay> {
     public static final CategoryIdentifier<CrystalGrowthChamberDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "crystal_growth_chamber");
@@ -52,7 +53,16 @@ public class CrystalGrowthChamberCategory implements DisplayCategory<CrystalGrow
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().
                 entries(display.getInputEntries().get(0)));
         widgets.add(Widgets.createSlot(new Point(x + 77, y + 5)).disableBackground().markOutput().
-                entries(display.getOutputEntries().get(0)));
+                entries(display.getOutputEntries().get(0).map(stack -> {
+                    List<Component> tooltip = new LinkedList<>();
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+
+                    double[] percentages = display.recipe().getOutput().percentages();
+                    for(int i = 0;i < percentages.length;i++)
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+
+                    return stack.tooltip(tooltip);
+                })));
 
         int ticks = (int)(display.recipe().getTicks() * CrystalGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
