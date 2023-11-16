@@ -15,6 +15,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
@@ -36,10 +37,15 @@ import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+    private static final List<@NotNull ResourceLocation> PLACEMENT_BLACKLIST = ModConfigs.COMMON_BLOCK_PLACER_PLACEMENT_BLACKLIST.getValue();
+
     private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_BLOCK_PLACER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
@@ -323,7 +329,10 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
         if(itemStack.isEmpty())
             return false;
 
-        return itemStack.getItem() instanceof BlockItem;
+        if(!(itemStack.getItem() instanceof BlockItem blockItemStack))
+            return false;
+
+        return !PLACEMENT_BLACKLIST.contains(ForgeRegistries.BLOCKS.getKey(blockItemStack.getBlock()));
     }
 
     public void setInverseRotation(boolean inverseRotation) {

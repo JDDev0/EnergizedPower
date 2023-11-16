@@ -553,6 +553,11 @@ public final class ModConfigs {
             20,
             1, null
     ));
+    public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_BLOCK_PLACER_PLACEMENT_BLACKLIST = COMMON_CONFIG.register(new ResourceLocationListConfigValue(
+            "block.block_placer.placement_blacklist",
+            "Blocks in this list can not be placed by the Block Placer.",
+            new ArrayList<>(0)
+    ));
 
     public static final ConfigValue<Integer> COMMON_ASSEMBLING_MACHINE_CAPACITY = registerEnergyCapacityConfigValue(
             "block.assembling_machine", "Assembling Machine", 8192
