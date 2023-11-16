@@ -68,7 +68,6 @@ Every machine supports auto-insert and auto-extract of items from all block face
 ### Fluid transportation
 
 - Fluid Pipe
-- Drain
 
 ### Item transportation
 
@@ -78,6 +77,9 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - Item Conveyor Belt Switch
 - Item Conveyor Belt Splitter
 - Item Conveyor Belt Merger
+
+### Misc
+- Drain
 
 ### Integrations
 
