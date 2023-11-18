@@ -5,6 +5,8 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.BlockPlacerMenu;
@@ -43,7 +45,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     private static final List<@NotNull ResourceLocation> PLACEMENT_BLACKLIST = ModConfigs.COMMON_BLOCK_PLACER_PLACEMENT_BLACKLIST.getValue();
 
     private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_BLOCK_PLACER_ENERGY_CONSUMPTION_PER_TICK.getValue();
@@ -94,6 +96,8 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
     private boolean hasEnoughEnergy;
     private boolean inverseRotation;
 
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+
     public BlockPlacerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.BLOCK_PLACER_ENTITY.get(), blockPos, blockState);
 
@@ -119,6 +123,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
                     case 4, 5 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 6 -> hasEnoughEnergy?1:0;
                     case 7 -> inverseRotation?1:0;
+                    case 8 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -134,12 +139,13 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
                     );
                     case 4, 5, 6 -> {}
                     case 7 -> BlockPlacerBlockEntity.this.inverseRotation = value != 0;
+                    case 8 -> BlockPlacerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 8;
+                return 9;
             }
         };
 
@@ -189,6 +195,8 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
 
         nbt.putBoolean("inverse_rotation", inverseRotation);
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.saveAdditional(nbt);
     }
 
@@ -203,6 +211,8 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
 
         inverseRotation = nbt.getBoolean("inverse_rotation");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -215,6 +225,9 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, BlockPlacerBlockEntity blockEntity) {
         if(level.isClientSide)
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.getValue(BlockPlacerBlock.POWERED)))
             return;
 
         if(hasRecipe(blockEntity)) {
@@ -356,5 +369,11 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
     @Override
     public void setCapacity(int capacity) {
         energyStorage.setCapacityWithoutUpdate(capacity);
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
     }
 }
