@@ -72,6 +72,17 @@ public class BlockPlacerScreen extends AbstractGenericEnergyStorageContainerScre
         }
     }
 
+    private void renderConfiguration(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
+        RedstoneMode redstoneMode = menu.getRedstoneMode();
+        int ordinal = redstoneMode.ordinal();
+
+        if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
+            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 20, 20, 20);
+        }else {
+            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
+        }
+    }
+
     @Override
     protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         super.renderTooltip(guiGraphics, mouseX, mouseY);
@@ -92,17 +103,6 @@ public class BlockPlacerScreen extends AbstractGenericEnergyStorageContainerScre
             components.add(Component.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.name().toLowerCase()));
 
             guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
-        }
-    }
-
-    private void renderConfiguration(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
-        RedstoneMode redstoneMode = menu.getRedstoneMode();
-        int ordinal = redstoneMode.ordinal();
-
-        if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
-            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 20, 20, 20);
-        }else {
-            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
         }
     }
 }
