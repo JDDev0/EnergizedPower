@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class BlockPlacerScreen extends AbstractGenericEnergyStorageContainerScreen<BlockPlacerMenu> {
-    protected final ResourceLocation CONFIGURATION_ICONS_TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+    private final ResourceLocation CONFIGURATION_ICONS_TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
 
     public BlockPlacerScreen(BlockPlacerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
