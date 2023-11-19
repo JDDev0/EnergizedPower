@@ -19,6 +19,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
@@ -26,8 +29,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ChargerBlock extends BaseEntityBlock {
+    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+
     public ChargerBlock(Properties props) {
         super(props);
+
+        this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false));
     }
 
     @Nullable
@@ -81,6 +88,33 @@ public class ChargerBlock extends BaseEntityBlock {
         NetworkHooks.openScreen((ServerPlayer)player, (ChargerBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
+    }
+
+    @Override
+    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
+        super.neighborChanged(selfState, level, selfPos, fromBlock, fromPos, isMoving);
+
+        if(level.isClientSide())
+            return;
+
+        boolean isPowered = level.hasNeighborSignal(selfPos);
+        if(isPowered != selfState.getValue(POWERED))
+            level.setBlock(selfPos, selfState.setValue(POWERED, isPowered), 3);
+    }
+
+    @Override
+    public void onPlace(BlockState selfState, Level level, BlockPos selfPos, BlockState oldState, boolean isMoving) {
+        if(level.isClientSide())
+            return;
+
+        boolean isPowered = level.hasNeighborSignal(selfPos);
+        if(isPowered != selfState.getValue(POWERED))
+            level.setBlock(selfPos, selfState.setValue(POWERED, isPowered), 2);
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
+        stateBuilder.add(POWERED);
     }
 
     @Nullable

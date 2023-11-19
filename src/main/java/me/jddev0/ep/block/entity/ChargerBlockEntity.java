@@ -1,9 +1,12 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.ChargerBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.recipe.ChargerRecipe;
@@ -39,7 +42,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class ChargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+public class ChargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     public static final float CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
@@ -115,6 +118,8 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
     protected final ContainerData data;
     private int energyConsumptionLeft = -1;
 
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+
     public ChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CHARGER_ENTITY.get(), blockPos, blockState);
 
@@ -136,6 +141,7 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
             public int get(int index) {
                 return switch(index) {
                     case 0, 1 -> ByteUtils.get2Bytes(ChargerBlockEntity.this.energyConsumptionLeft, index);
+                    case 2 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -144,12 +150,13 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
             public void set(int index, int value) {
                 switch(index) {
                     case 0, 1 -> {}
+                    case 2 -> ChargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 2;
+                return 3;
             }
         };
     }
@@ -209,6 +216,8 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
 
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.saveAdditional(nbt);
     }
 
@@ -220,6 +229,8 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
         energyStorage.loadNBT(nbt.get("energy"));
 
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -232,6 +243,9 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ChargerBlockEntity blockEntity) {
         if(level.isClientSide)
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.getValue(ChargerBlock.POWERED)))
             return;
 
         if(blockEntity.hasRecipe()) {
@@ -335,5 +349,11 @@ public class ChargerBlockEntity extends BlockEntity implements MenuProvider, Ene
     @Override
     public void setCapacity(int capacity) {
         energyStorage.setCapacityWithoutUpdate(capacity);
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
     }
 }
