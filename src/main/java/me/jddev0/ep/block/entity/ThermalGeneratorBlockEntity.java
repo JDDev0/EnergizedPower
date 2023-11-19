@@ -1,9 +1,12 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.ThermalGeneratorBlock;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
@@ -41,7 +44,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate,
-        FluidStoragePacketUpdate {
+        FluidStoragePacketUpdate, RedstoneModeUpdate {
     private static final int MAX_EXTRACT = ModConfigs.COMMON_THERMAL_GENERATOR_TRANSFER_RATE.getValue();
 
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
@@ -53,6 +56,8 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
     private LazyOptional<IFluidHandler> lazyFluidStorage = LazyOptional.empty();
 
     protected final ContainerData data;
+
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
 
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.THERMAL_GENERATOR_ENTITY.get(), blockPos, blockState);
@@ -95,6 +100,9 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
         data = new ContainerData() {
             @Override
             public int get(int index) {
+                if(index == 2)
+                    return redstoneMode.ordinal();
+
                 if(level == null || index > 1)
                     return 0;
 
@@ -126,12 +134,13 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
             public void set(int index, int value) {
                 switch(index) {
                     case 0, 1 -> {}
+                    case 2 -> ThermalGeneratorBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 2;
+                return 3;
             }
         };
     }
@@ -195,6 +204,8 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
         nbt.put("energy", energyStorage.saveNBT());
         nbt.put("fluid", fluidStorage.writeToNBT(new CompoundTag()));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.saveAdditional(nbt);
     }
 
@@ -204,9 +215,21 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
 
         energyStorage.loadNBT(nbt.get("energy"));
         fluidStorage.readFromNBT(nbt.getCompound("fluid"));
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
+        if(level.isClientSide)
+            return;
+
+        if(blockEntity.redstoneMode.isActive(state.getValue(ThermalGeneratorBlock.POWERED)))
+            tickRecipe(level, blockPos, state, blockEntity);
+
+        transferEnergy(level, blockPos, state, blockEntity);
+    }
+
+    private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
         if(level.isClientSide)
             return;
 
@@ -242,8 +265,6 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
             blockEntity.energyStorage.setEnergy(Math.min(blockEntity.energyStorage.getCapacity(),
                     blockEntity.energyStorage.getEnergy() + production));
         }
-
-        transferEnergy(level, blockPos, state, blockEntity);
     }
 
     private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
@@ -346,5 +367,11 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
     @Override
     public void setTankCapacity(int tank, int capacity) {
         fluidStorage.setCapacity(capacity);
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
     }
 }
