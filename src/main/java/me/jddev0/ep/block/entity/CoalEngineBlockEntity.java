@@ -207,7 +207,15 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
         if(level.isClientSide)
             return;
 
-        if(!blockEntity.redstoneMode.isActive(state.getValue(CoalEngineBlock.POWERED)))
+        if(blockEntity.redstoneMode.isActive(state.getValue(CoalEngineBlock.POWERED)))
+            tickRecipe(level, blockPos, state, blockEntity);
+
+        transferEnergy(level, blockPos, state, blockEntity);
+    }
+
+
+    private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
+        if(level.isClientSide)
             return;
 
         if(blockEntity.maxProgress > 0 || hasRecipe(blockEntity)) {
@@ -276,8 +284,6 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
             blockEntity.resetProgress(blockPos, state);
             setChanged(level, blockPos, state);
         }
-
-        transferEnergy(level, blockPos, state, blockEntity);
     }
 
     private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
