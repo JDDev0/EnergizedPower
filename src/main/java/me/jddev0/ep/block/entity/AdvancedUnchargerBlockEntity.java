@@ -1,9 +1,12 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.UnchargerBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.AdvancedUnchargerMenu;
@@ -38,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     public static final int MAX_EXTRACT_PER_SLOT = ModConfigs.COMMON_ADVANCED_UNCHARGER_TRANSFER_RATE_PER_SLOT.getValue();
     public static final int MAX_EXTRACT = MAX_EXTRACT_PER_SLOT * 3;
 
@@ -108,6 +111,8 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
             -1, -1, -1
     };
 
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+
     public AdvancedUnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ADVANCED_UNCHARGER_ENTITY.get(), blockPos, blockState);
 
@@ -131,6 +136,7 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
                     case 0, 1 -> ByteUtils.get2Bytes(AdvancedUnchargerBlockEntity.this.energyProductionLeft[0], index);
                     case 2, 3 -> ByteUtils.get2Bytes(AdvancedUnchargerBlockEntity.this.energyProductionLeft[1], index - 2);
                     case 4, 5 -> ByteUtils.get2Bytes(AdvancedUnchargerBlockEntity.this.energyProductionLeft[2], index - 4);
+                    case 6 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -139,12 +145,13 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
             public void set(int index, int value) {
                 switch(index) {
                     case 0, 1, 2, 3, 4, 5 -> {}
+                    case 6 -> AdvancedUnchargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 6;
+                return 7;
             }
         };
 
@@ -192,6 +199,8 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
         for(int i = 0;i < 3;i++)
             nbt.put("recipe.energy_production_left." + i, IntTag.valueOf(energyProductionLeft[i]));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.saveAdditional(nbt);
     }
 
@@ -204,6 +213,8 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
 
         for(int i = 0;i < 3;i++)
             energyProductionLeft[i] = nbt.getInt("recipe.energy_production_left." + i);
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -218,7 +229,9 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
         if(level.isClientSide)
             return;
 
-        tickRecipe(level, blockPos, state, blockEntity);
+        if(blockEntity.redstoneMode.isActive(state.getValue(UnchargerBlock.POWERED)))
+            tickRecipe(level, blockPos, state, blockEntity);
+
         transferEnergy(level, blockPos, state, blockEntity);
     }
 
@@ -360,5 +373,11 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
     @Override
     public void setCapacity(int capacity) {
         energyStorage.setCapacityWithoutUpdate(capacity);
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
     }
 }
