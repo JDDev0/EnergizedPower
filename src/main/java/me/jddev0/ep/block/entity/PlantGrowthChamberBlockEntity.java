@@ -1,9 +1,12 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.PlantGrowthChamberBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
@@ -44,7 +47,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER.getValue();
@@ -94,6 +97,8 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
     private double speedMultiplier = 1;
     private double energyConsumptionMultiplier = 1;
 
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+
     public PlantGrowthChamberBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.PLANT_GROWTH_CHAMBER_ENTITY.get(), blockPos, blockState);
 
@@ -118,6 +123,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
                     case 2, 3 -> ByteUtils.get2Bytes(PlantGrowthChamberBlockEntity.this.maxProgress, index - 2);
                     case 4, 5 -> ByteUtils.get2Bytes(PlantGrowthChamberBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 6 -> hasEnoughEnergy?1:0;
+                    case 7 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -132,12 +138,13 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
                             PlantGrowthChamberBlockEntity.this.maxProgress, (short)value, index - 2
                     );
                     case 4, 5, 6 -> {}
+                    case 7 -> PlantGrowthChamberBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 7;
+                return 8;
             }
         };
     }
@@ -204,6 +211,8 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
         nbt.put("recipe.speed_multiplier", DoubleTag.valueOf(speedMultiplier));
         nbt.put("recipe.energy_consumption_multiplier", DoubleTag.valueOf(energyConsumptionMultiplier));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.saveAdditional(nbt);
     }
 
@@ -219,6 +228,8 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
         speedMultiplier = nbt.getDouble("recipe.speed_multiplier");
         energyConsumptionMultiplier = nbt.getDouble("recipe.energy_consumption_multiplier");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -231,6 +242,10 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, PlantGrowthChamberBlockEntity blockEntity) {
         if(level.isClientSide)
+            return;
+        
+        
+        if(!blockEntity.redstoneMode.isActive(state.getValue(PlantGrowthChamberBlock.POWERED)))
             return;
 
         if(hasRecipe(blockEntity)) {
@@ -430,5 +445,11 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
     @Override
     public void setCapacity(int capacity) {
         energyStorage.setCapacityWithoutUpdate(capacity);
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
     }
 }

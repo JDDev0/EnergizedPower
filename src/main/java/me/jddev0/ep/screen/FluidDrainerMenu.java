@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.FluidDrainerBlockEntity;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -20,13 +21,13 @@ public class FluidDrainerMenu extends AbstractContainerMenu implements EnergySto
     private final ContainerData data;
 
     public FluidDrainerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(4));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(5));
     }
 
     public FluidDrainerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.FLUID_DRAINER_MENU.get(), id);
 
-        checkContainerDataCount(data, 4);
+        checkContainerDataCount(data, 5);
         this.blockEntity = (FluidDrainerBlockEntity)blockEntity;
         this.level = inv.player.level();
         this.data = data;
@@ -65,6 +66,10 @@ public class FluidDrainerMenu extends AbstractContainerMenu implements EnergySto
 
     public int getFluidIndicatorPendingBarValue() {
         return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(4));
     }
 
     @Override
