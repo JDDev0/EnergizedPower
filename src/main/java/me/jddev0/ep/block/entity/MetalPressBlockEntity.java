@@ -1,9 +1,12 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.MetalPressBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.recipe.MetalPressRecipe;
@@ -40,7 +43,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_METAL_PRESS_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(3) {
@@ -95,6 +98,8 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
     private int energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
 
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+
     public MetalPressBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.METAL_PRESS_ENTITY.get(), blockPos, blockState);
 
@@ -119,6 +124,7 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
                     case 2, 3 -> ByteUtils.get2Bytes(MetalPressBlockEntity.this.maxProgress, index - 2);
                     case 4, 5 -> ByteUtils.get2Bytes(MetalPressBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 6 -> hasEnoughEnergy?1:0;
+                    case 7 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -133,12 +139,13 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
                             MetalPressBlockEntity.this.maxProgress, (short)value, index - 2
                     );
                     case 4, 5, 6 -> {}
+                    case 7 -> MetalPressBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 7;
+                return 8;
             }
         };
 
@@ -189,6 +196,8 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
         nbt.put("recipe.progress", IntTag.valueOf(progress));
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.saveAdditional(nbt);
     }
 
@@ -201,6 +210,8 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
 
         progress = nbt.getInt("recipe.progress");
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -213,6 +224,9 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, MetalPressBlockEntity blockEntity) {
         if(level.isClientSide)
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.getValue(MetalPressBlock.POWERED)))
             return;
 
         if(hasRecipe(blockEntity)) {
@@ -317,5 +331,11 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
     @Override
     public void setCapacity(int capacity) {
         energyStorage.setCapacityWithoutUpdate(capacity);
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
     }
 }
