@@ -6,7 +6,9 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import me.jddev0.ep.networking.packet.ChangeStoneSolidifierRecipeIndexC2SPacket;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.util.FluidUtils;
@@ -35,6 +37,8 @@ import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class StoneSolidifierScreen extends AbstractGenericEnergyStorageContainerScreen<StoneSolidifierMenu> {
+    private final ResourceLocation CONFIGURATION_ICONS_TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+
     public StoneSolidifierScreen(StoneSolidifierMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
@@ -65,6 +69,13 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageContainer
                         diff == 1));
             }
 
+            if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
+                //Redstone Mode
+
+                ModMessages.sendToServer(new ChangeRedstoneModeC2SPacket(menu.getBlockEntity().getBlockPos()));
+                clicked = true;
+            }
+
             if(clicked)
                 minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.f));
         }
@@ -89,6 +100,8 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageContainer
         renderButtons(guiGraphics, x, y, mouseX, mouseY);
 
         renderProgressArrows(guiGraphics, x, y);
+
+        renderConfiguration(guiGraphics, x, y, mouseX, mouseY);
     }
 
     private void renderFluidMeterContent(int tank, GuiGraphics guiGraphics, int x, int y) {
@@ -191,6 +204,17 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageContainer
         }
     }
 
+    private void renderConfiguration(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
+        RedstoneMode redstoneMode = menu.getRedstoneMode();
+        int ordinal = redstoneMode.ordinal();
+
+        if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
+            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 20, 20, 20);
+        }else {
+            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
+        }
+    }
+
     @Override
     protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         super.renderTooltip(guiGraphics, mouseX, mouseY);
@@ -246,6 +270,17 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageContainer
         if(isHovering(116, 19, 11, 12, mouseX, mouseY)) {
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.stone_solidifier.btn.down"));
+
+            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+        }
+
+        if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
+            //Redstone Mode
+
+            RedstoneMode redstoneMode = menu.getRedstoneMode();
+
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.name().toLowerCase()));
 
             guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
         }
