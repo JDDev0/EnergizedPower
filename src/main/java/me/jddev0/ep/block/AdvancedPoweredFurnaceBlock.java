@@ -26,6 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.ToIntFunction;
 
 public class AdvancedPoweredFurnaceBlock extends BaseEntityBlock {
+    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
@@ -35,7 +36,7 @@ public class AdvancedPoweredFurnaceBlock extends BaseEntityBlock {
     protected AdvancedPoweredFurnaceBlock(Properties props) {
         super(props);
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false).setValue(FACING, Direction.NORTH).setValue(LIT, false));
     }
 
     @Nullable
@@ -92,6 +93,28 @@ public class AdvancedPoweredFurnaceBlock extends BaseEntityBlock {
     }
 
     @Override
+    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
+        super.neighborChanged(selfState, level, selfPos, fromBlock, fromPos, isMoving);
+
+        if(level.isClientSide())
+            return;
+
+        boolean isPowered = level.hasNeighborSignal(selfPos);
+        if(isPowered != selfState.getValue(POWERED))
+            level.setBlock(selfPos, selfState.setValue(POWERED, isPowered), 3);
+    }
+
+    @Override
+    public void onPlace(BlockState selfState, Level level, BlockPos selfPos, BlockState oldState, boolean isMoving) {
+        if(level.isClientSide())
+            return;
+
+        boolean isPowered = level.hasNeighborSignal(selfPos);
+        if(isPowered != selfState.getValue(POWERED))
+            level.setBlock(selfPos, selfState.setValue(POWERED, isPowered), 2);
+    }
+
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
@@ -108,7 +131,7 @@ public class AdvancedPoweredFurnaceBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
-        stateBuilder.add(FACING, LIT);
+        stateBuilder.add(POWERED, FACING, LIT);
     }
 
     @Nullable
