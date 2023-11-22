@@ -5,6 +5,8 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.recipe.EnergizerRecipe;
@@ -41,7 +43,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     public static final float ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_ENERGIZER_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(2) {
@@ -84,6 +86,8 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
     private int energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
 
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+
     public EnergizerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ENERGIZER_ENTITY.get(), blockPos, blockState);
 
@@ -108,6 +112,7 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
                     case 2, 3 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.maxProgress, index - 2);
                     case 4, 5 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 6 -> hasEnoughEnergy?1:0;
+                    case 7 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -122,12 +127,13 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
                             EnergizerBlockEntity.this.maxProgress, (short)value, index - 2
                     );
                     case 4, 5, 6 -> {}
+                    case 7 -> EnergizerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 7;
+                return 8;
             }
         };
     }
@@ -188,6 +194,8 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
         nbt.put("recipe.progress", IntTag.valueOf(progress));
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.saveAdditional(nbt);
     }
 
@@ -200,6 +208,8 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
 
         progress = nbt.getInt("recipe.progress");
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -212,6 +222,9 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {
         if(level.isClientSide)
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.getValue(EnergizerBlock.POWERED)))
             return;
 
         if(hasRecipe(blockEntity)) {
@@ -331,5 +344,11 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
     @Override
     public void setCapacity(int capacity) {
         energyStorage.setCapacityWithoutUpdate(capacity);
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
     }
 }
