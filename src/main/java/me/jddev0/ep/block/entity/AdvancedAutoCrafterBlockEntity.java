@@ -1,10 +1,13 @@
 package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
+import me.jddev0.ep.block.AdvancedAutoCrafterBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
@@ -43,7 +46,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
     private boolean secondaryExtractMode = false;
@@ -149,6 +152,8 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
     };
     private int currentRecipeIndex = 0;
 
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+
     public AdvancedAutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ADVANCED_AUTO_CRAFTER_ENTITY.get(), blockPos, blockState);
 
@@ -189,6 +194,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
                     case 23 -> ignoreNBT[2]?1:0;
                     case 24 -> secondaryExtractMode?1:0;
                     case 25 -> currentRecipeIndex;
+                    case 26 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -220,12 +226,13 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
                     case 23 -> AdvancedAutoCrafterBlockEntity.this.ignoreNBT[2] = value != 0;
                     case 24 -> AdvancedAutoCrafterBlockEntity.this.secondaryExtractMode = value != 0;
                     case 25 -> AdvancedAutoCrafterBlockEntity.this.currentRecipeIndex = value;
+                    case 26 -> AdvancedAutoCrafterBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 26;
+                return 27;
             }
         };
     }
@@ -299,6 +306,8 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
 
         nbt.putInt("current_recipe_index", currentRecipeIndex);
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.saveAdditional(nbt);
     }
 
@@ -346,6 +355,8 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
         currentRecipeIndex = nbt.getInt("current_recipe_index");
         if(currentRecipeIndex < 0 || currentRecipeIndex >= 3)
             currentRecipeIndex = 0;
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     private void loadPatternContainer(int index, Tag tag) {
@@ -375,6 +386,9 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedAutoCrafterBlockEntity blockEntity) {
         if(level.isClientSide)
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.getValue(AdvancedAutoCrafterBlock.POWERED)))
             return;
 
         for(int i = 0;i < 3;i++) {
@@ -900,5 +914,11 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
     @Override
     public void setCapacity(int capacity) {
         energyStorage.setCapacityWithoutUpdate(capacity);
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
     }
 }
