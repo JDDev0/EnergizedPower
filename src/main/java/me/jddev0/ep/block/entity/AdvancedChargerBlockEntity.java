@@ -1,9 +1,12 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.AdvancedChargerBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.recipe.ChargerRecipe;
@@ -40,7 +43,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     public static final int MAX_RECEIVE_PER_SLOT = ModConfigs.COMMON_ADVANCED_CHARGER_TRANSFER_RATE_PER_SLOT.getValue();
 
     public static final float CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_ADVANCED_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
@@ -120,6 +123,8 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
             -1, -1, -1
     };
 
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+
     public AdvancedChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ADVANCED_CHARGER_ENTITY.get(), blockPos, blockState);
 
@@ -143,6 +148,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
                     case 0, 1 -> ByteUtils.get2Bytes(AdvancedChargerBlockEntity.this.energyConsumptionLeft[0], index);
                     case 2, 3 -> ByteUtils.get2Bytes(AdvancedChargerBlockEntity.this.energyConsumptionLeft[1], index - 2);
                     case 4, 5 -> ByteUtils.get2Bytes(AdvancedChargerBlockEntity.this.energyConsumptionLeft[2], index - 4);
+                    case 6 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -151,12 +157,13 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
             public void set(int index, int value) {
                 switch(index) {
                     case 0, 1, 2, 3, 4, 5 -> {}
+                    case 6 -> AdvancedChargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 6;
+                return 7;
             }
         };
     }
@@ -217,6 +224,8 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
         for(int i = 0;i < 3;i++)
             nbt.put("recipe.energy_consumption_left." + i, IntTag.valueOf(energyConsumptionLeft[i]));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.saveAdditional(nbt);
     }
 
@@ -229,6 +238,8 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
 
         for(int i = 0;i < 3;i++)
             energyConsumptionLeft[i] = nbt.getInt("recipe.energy_consumption_left." + i);
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -241,6 +252,9 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedChargerBlockEntity blockEntity) {
         if(level.isClientSide)
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.getValue(AdvancedChargerBlock.POWERED)))
             return;
 
         final int maxReceivePerSlot = (int)Math.min(MAX_RECEIVE_PER_SLOT, Math.ceil(blockEntity.energyStorage.getEnergy() / 3.));
@@ -347,5 +361,11 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
     @Override
     public void setCapacity(int capacity) {
         energyStorage.setCapacityWithoutUpdate(capacity);
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
     }
 }
