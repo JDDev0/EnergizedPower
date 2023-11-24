@@ -1186,6 +1186,15 @@
   "book.energizedpower.page.item_conveyor_belt_merger": "Öğe Konveyör Bandı Birleştirici, bağlı giriş konveyör bantlarından öğeleri eşit olarak alır (Büyük bir kareye bakmalı ve yükselmemelidir) ve bunları çıkış konveyör bandına koyar.",
 
 
+  "book.energizedpower.page.chapter.machine_configuration.title": "Configuration",
+  "book.energizedpower.page.chapter.machine_configuration": "Configuration of machines",
+
+  "book.energizedpower.page.redstone_mode_configuration.1": "There are 3 redstone modes:",
+  "book.energizedpower.page.redstone_mode_configuration.2": "Ignore: The machine is always active",
+  "book.energizedpower.page.redstone_mode_configuration.3": "High: The machine is only active if a redstone signal of strength 1 or higher is present",
+  "book.energizedpower.page.redstone_mode_configuration.4": "Low: The machine is only active if no redstone signal is present",
+
+
   "book.energizedpower.page.chapter.entities.title": "Varlıklar",
   "book.energizedpower.page.chapter.entities": "Hareket edebilen şeyler.",
 
