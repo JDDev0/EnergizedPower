@@ -4,6 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.StoneSolidifierBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
@@ -35,7 +36,7 @@ public class StoneSolidifierMenu extends ScreenHandler implements EnergyStorageC
 
                 return super.isValid(slot, stack);
             }
-        }, new ArrayPropertyDelegate(9));
+        }, new ArrayPropertyDelegate(10));
     }
 
     public StoneSolidifierMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
@@ -45,7 +46,7 @@ public class StoneSolidifierMenu extends ScreenHandler implements EnergyStorageC
 
         this.inv = inv;
         checkSize(this.inv, 1);
-        checkDataCount(data, 9);
+        checkDataCount(data, 10);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -98,6 +99,10 @@ public class StoneSolidifierMenu extends ScreenHandler implements EnergyStorageC
         int progressArrowSize = 20;
 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(9));
     }
 
     @Override
