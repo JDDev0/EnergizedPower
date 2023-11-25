@@ -4,6 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.CompressorBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.CompressorRecipe;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.entity.BlockEntity;
@@ -36,7 +37,7 @@ public class CompressorMenu extends ScreenHandler implements EnergyStorageConsum
                     default -> super.isValid(slot, stack);
                 };
             }
-        }, new ArrayPropertyDelegate(9));
+        }, new ArrayPropertyDelegate(10));
     }
 
     public CompressorMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
@@ -47,7 +48,7 @@ public class CompressorMenu extends ScreenHandler implements EnergyStorageConsum
 
         this.inv = inv;
         checkSize(this.inv, 2);
-        checkDataCount(data, 9);
+        checkDataCount(data, 10);
         this.level = playerInventory.player.world;
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -93,6 +94,10 @@ public class CompressorMenu extends ScreenHandler implements EnergyStorageConsum
         int progressArrowSize = 26;
 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(9));
     }
 
     @Override
