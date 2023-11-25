@@ -1,10 +1,13 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.ThermalGeneratorBlock;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.ThermalGeneratorRecipe;
 import me.jddev0.ep.screen.ThermalGeneratorMenu;
@@ -42,7 +45,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ThermalGeneratorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate,
-        FluidStoragePacketUpdate {
+        FluidStoragePacketUpdate, RedstoneModeUpdate {
     private static final long CAPACITY = ModConfigs.COMMON_THERMAL_GENERATOR_CAPACITY.getValue();
     private static final long MAX_EXTRACT = ModConfigs.COMMON_THERMAL_GENERATOR_TRANSFER_RATE.getValue();
 
@@ -54,6 +57,8 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
     final SimpleFluidStorage fluidStorage;
 
     protected final PropertyDelegate data;
+
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
 
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.THERMAL_GENERATOR_ENTITY, blockPos, blockState);
@@ -122,6 +127,9 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
         data = new PropertyDelegate() {
             @Override
             public int get(int index) {
+                if(index == 4)
+                    return redstoneMode.ordinal();
+
                 if(world == null || index > 3)
                     return 0;
 
@@ -152,12 +160,13 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
             public void set(int index, int value) {
                 switch(index) {
                     case 0, 1, 2, 3 -> {}
+                    case 4 -> ThermalGeneratorBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 4;
+                return 5;
             }
         };
     }
@@ -211,6 +220,8 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
         nbt.putLong("energy", internalEnergyStorage.amount);
         nbt.put("fluid", fluidStorage.toNBT(new NbtCompound()));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.writeNbt(nbt);
     }
 
@@ -220,9 +231,21 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
 
         internalEnergyStorage.amount = nbt.getLong("energy");
         fluidStorage.fromNBT(nbt.getCompound("fluid"));
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
+        if(level.isClient())
+            return;
+
+        if(blockEntity.redstoneMode.isActive(state.get(ThermalGeneratorBlock.POWERED)))
+            tickRecipe(level, blockPos, state, blockEntity);
+
+        transferEnergy(level, blockPos, state, blockEntity);
+    }
+
+    private static void tickRecipe(World level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
         if(level.isClient())
             return;
 
@@ -262,8 +285,6 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
                 transaction.commit();
             }
         }
-
-        transferEnergy(level, blockPos, state, blockEntity);
     }
 
     private static void transferEnergy(World level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
@@ -375,5 +396,11 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
     @Override
     public void setTankCapacity(int tank, long capacity) {
         //Does nothing (capacity is final)
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
     }
 }
