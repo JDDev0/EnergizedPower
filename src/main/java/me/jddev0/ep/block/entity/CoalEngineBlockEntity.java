@@ -5,6 +5,8 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.CoalEngineMenu;
@@ -40,7 +42,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     public static final int MAX_EXTRACT = ModConfigs.COMMON_COAL_ENGINE_TRANSFER_RATE.getValue();
 
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
@@ -79,6 +81,8 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
     private int energyProductionLeft = -1;
     private boolean hasEnoughCapacityForProduction;
 
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+
     public CoalEngineBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.COAL_ENGINE_ENTITY.get(), blockPos, blockState);
 
@@ -102,6 +106,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
                     case 2, 3 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.maxProgress, index - 2);
                     case 4, 5 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.energyProductionLeft, index - 4);
                     case 6 -> hasEnoughCapacityForProduction?1:0;
+                    case 7 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -116,12 +121,13 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
                             CoalEngineBlockEntity.this.maxProgress, (short)value, index - 2
                     );
                     case 4, 5, 6 -> {}
+                    case 7 -> CoalEngineBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 7;
+                return 8;
             }
         };
     }
@@ -183,6 +189,8 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
         nbt.put("recipe.max_progress", IntTag.valueOf(maxProgress));
         nbt.put("recipe.energy_production_left", IntTag.valueOf(energyProductionLeft));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.saveAdditional(nbt);
     }
 
@@ -196,6 +204,8 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
         progress = nbt.getInt("recipe.progress");
         maxProgress = nbt.getInt("recipe.max_progress");
         energyProductionLeft = nbt.getInt("recipe.energy_production_left");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -208,6 +218,9 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
         if(level.isClientSide)
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.getValue(CoalEngineBlock.POWERED)))
             return;
 
         if(blockEntity.maxProgress > 0 || hasRecipe(blockEntity)) {
@@ -384,5 +397,11 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
     @Override
     public void setCapacity(int capacity) {
         energyStorage.setCapacityWithoutUpdate(capacity);
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
     }
 }
