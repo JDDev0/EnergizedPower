@@ -229,7 +229,15 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
         if(level.isClient())
             return;
 
-        if(!blockEntity.redstoneMode.isActive(state.get(CoalEngineBlock.POWERED)))
+        if(blockEntity.redstoneMode.isActive(state.get(CoalEngineBlock.POWERED)))
+            tickRecipe(level, blockPos, state, blockEntity);
+
+        transferEnergy(level, blockPos, state, blockEntity);
+    }
+
+
+    private static void tickRecipe(World level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
+        if(level.isClient())
             return;
 
         if(blockEntity.maxProgress > 0 || hasRecipe(blockEntity)) {
@@ -299,8 +307,6 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
             blockEntity.resetProgress(blockPos, state);
             markDirty(level, blockPos, state);
         }
-
-        transferEnergy(level, blockPos, state, blockEntity);
     }
 
     private static void transferEnergy(World level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
