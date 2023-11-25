@@ -1,10 +1,13 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
+import me.jddev0.ep.block.PlantGrowthChamberBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
@@ -47,7 +50,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-public class PlantGrowthChamberBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+public class PlantGrowthChamberBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     private static final long CAPACITY = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_CAPACITY.getValue();
 
     private static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_ENERGY_CONSUMPTION_PER_TICK.getValue();
@@ -71,6 +74,8 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     private boolean hasEnoughEnergy;
     private double speedMultiplier = 1;
     private double energyConsumptionMultiplier = 1;
+
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
 
     public PlantGrowthChamberBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.PLANT_GROWTH_CHAMBER_ENTITY, blockPos, blockState);
@@ -168,6 +173,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
                     case 2, 3 -> ByteUtils.get2Bytes(PlantGrowthChamberBlockEntity.this.maxProgress, index - 2);
                     case 4, 5, 6, 7 -> ByteUtils.get2Bytes(PlantGrowthChamberBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 8 -> hasEnoughEnergy?1:0;
+                    case 9 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -182,12 +188,13 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
                             PlantGrowthChamberBlockEntity.this.maxProgress, (short)value, index - 2
                     );
                     case 4, 5, 6, 7, 8 -> {}
+                    case 9 -> PlantGrowthChamberBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 9;
+                return 10;
             }
         };
     }
@@ -229,6 +236,8 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
         nbt.put("recipe.speed_multiplier", NbtDouble.of(speedMultiplier));
         nbt.put("recipe.energy_consumption_multiplier", NbtDouble.of(energyConsumptionMultiplier));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.writeNbt(nbt);
     }
 
@@ -243,6 +252,8 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
         speedMultiplier = nbt.getDouble("recipe.speed_multiplier");
         energyConsumptionMultiplier = nbt.getDouble("recipe.energy_consumption_multiplier");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -251,6 +262,10 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
 
     public static void tick(World level, BlockPos blockPos, BlockState state, PlantGrowthChamberBlockEntity blockEntity) {
         if(level.isClient())
+            return;
+        
+        
+        if(!blockEntity.redstoneMode.isActive(state.get(PlantGrowthChamberBlock.POWERED)))
             return;
 
         if(hasRecipe(blockEntity)) {
@@ -442,5 +457,11 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     @Override
     public void setCapacity(long capacity) {
         internalEnergyStorage.capacity = capacity;
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
     }
 }

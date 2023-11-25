@@ -5,6 +5,7 @@ import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.entity.BlockEntity;
@@ -38,7 +39,7 @@ public class PlantGrowthChamberMenu extends ScreenHandler implements EnergyStora
                     default -> super.isValid(slot, stack);
                 };
             }
-        }, new ArrayPropertyDelegate(9));
+        }, new ArrayPropertyDelegate(10));
     }
 
     public PlantGrowthChamberMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
@@ -48,7 +49,7 @@ public class PlantGrowthChamberMenu extends ScreenHandler implements EnergyStora
 
         this.inv = inv;
         checkSize(this.inv, 6);
-        checkDataCount(data, 9);
+        checkDataCount(data, 10);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -98,6 +99,10 @@ public class PlantGrowthChamberMenu extends ScreenHandler implements EnergyStora
         int progressArrowSize = 24;
 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(9));
     }
 
     @Override

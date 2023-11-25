@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
+import me.jddev0.ep.block.FluidFillerBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
@@ -8,6 +9,8 @@ import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.FluidFillerMenu;
 import me.jddev0.ep.util.ByteUtils;
@@ -47,7 +50,7 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import java.util.stream.IntStream;
 
 public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate,
-        FluidStoragePacketUpdate {
+        FluidStoragePacketUpdate, RedstoneModeUpdate {
     public static final long CAPACITY = ModConfigs.COMMON_FLUID_FILLER_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_FLUID_FILLER_TRANSFER_RATE.getValue();
 
@@ -71,6 +74,8 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
     private long fluidFillingSumPending = 0;
 
     private boolean forceAllowStackUpdateFlag = false;
+
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
 
     public FluidFillerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.FLUID_FILLER_ENTITY, blockPos, blockState);
@@ -218,6 +223,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
                 return switch(index) {
                     case 0, 1, 2, 3 -> ByteUtils.get2Bytes(FluidFillerBlockEntity.this.fluidFillingLeft, index);
                     case 4, 5, 6, 7 -> ByteUtils.get2Bytes(FluidFillerBlockEntity.this.fluidFillingSumPending, index - 4);
+                    case 8 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -226,12 +232,13 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
             public void set(int index, int value) {
                 switch(index) {
                     case 0, 1, 2, 3, 4, 5, 6, 7 -> {}
+                    case 8 -> FluidFillerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 8;
+                return 9;
             }
         };
     }
@@ -282,6 +289,8 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
         FluidUtils.writeFluidAmountInMilliBucketsWithLeftover(fluidFillingSumPending,
                 "recipe.fluid_filling_sum_pending", "recipe.fluid_filling_sum_pending_leftover_droplets", nbt);
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.writeNbt(nbt);
     }
 
@@ -297,6 +306,8 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
                 "recipe.fluid_filling_left_leftover_droplets", nbt);
         fluidFillingSumPending = FluidUtils.readFluidAmountInMilliBucketsWithLeftover("recipe.fluid_filling_sum_pending",
                 "recipe.fluid_filling_sum_pending_leftover_droplets", nbt);
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -305,6 +316,9 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
 
     public static void tick(World level, BlockPos blockPos, BlockState state, FluidFillerBlockEntity blockEntity) {
         if(level.isClient())
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.get(FluidFillerBlock.POWERED)))
             return;
 
         if(blockEntity.hasRecipe()) {
@@ -465,5 +479,11 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
     @Override
     public void setTankCapacity(int tank, long capacity) {
         //Does nothing (capacity is final)
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
     }
 }
