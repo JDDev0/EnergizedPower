@@ -4,6 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import me.jddev0.ep.inventory.PatternResultSlot;
 import me.jddev0.ep.inventory.PatternSlot;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -31,7 +32,7 @@ public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements En
                 new SimpleContainer(9), new SimpleContainer(9), new SimpleContainer(9)
         }, new Container[] {
                 new SimpleContainer(1), new SimpleContainer(1), new SimpleContainer(1)
-        }, new SimpleContainerData(26));
+        }, new SimpleContainerData(27));
     }
 
     public AdvancedAutoCrafterMenu(int id, Inventory inv, BlockEntity blockEntity, Container[] patternSlots, Container[] patternResultSlots, ContainerData data) {
@@ -40,7 +41,7 @@ public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements En
         this.patternSlots = patternSlots;
         this.patternResultSlots = patternResultSlots;
 
-        checkContainerDataCount(data, 26);
+        checkContainerDataCount(data, 27);
         this.blockEntity = (AdvancedAutoCrafterBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -148,6 +149,10 @@ public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements En
 
     public int getRecipeIndex() {
         return data.get(25);
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(26));
     }
 
     @Override

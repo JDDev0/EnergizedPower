@@ -1,8 +1,11 @@
 package me.jddev0.ep.screen;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import me.jddev0.ep.networking.packet.CycleAdvancedAutoCrafterRecipeOutputC2SPacket;
 import me.jddev0.ep.networking.packet.SetAdvancedAutoCrafterCheckboxC2SPacket;
 import me.jddev0.ep.networking.packet.SetAdvancedAutoCrafterRecipeIndexC2SPacket;
@@ -20,6 +23,8 @@ import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageContainerScreen<AdvancedAutoCrafterMenu> {
+    private final ResourceLocation CONFIGURATION_ICONS_TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+
     public AdvancedAutoCrafterScreen(AdvancedAutoCrafterMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
@@ -54,6 +59,11 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageConta
 
                 ModMessages.sendToServer(new SetAdvancedAutoCrafterRecipeIndexC2SPacket(menu.getBlockEntity().getBlockPos(), menu.getRecipeIndex() + 1));
                 clicked = true;
+            }else if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
+                //Redstone Mode
+
+                ModMessages.sendToServer(new ChangeRedstoneModeC2SPacket(menu.getBlockEntity().getBlockPos()));
+                clicked = true;
             }
 
             if(clicked)
@@ -72,6 +82,8 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageConta
 
         renderProgressArrow(poseStack, x, y);
         renderCheckboxes(poseStack, x, y, mouseX, mouseY);
+
+        renderConfiguration(poseStack, x, y, mouseX, mouseY);
     }
 
     private void renderProgressArrow(PoseStack poseStack, int x, int y) {
@@ -97,6 +109,18 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageConta
         }
 
         blit(poseStack, x + 96, y + 16, 176 + 11 * menu.getRecipeIndex(), 81, 11, 11);
+    }
+
+    private void renderConfiguration(PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
+        RedstoneMode redstoneMode = menu.getRedstoneMode();
+        int ordinal = redstoneMode.ordinal();
+
+        RenderSystem.setShaderTexture(0, CONFIGURATION_ICONS_TEXTURE);
+        if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
+            blit(poseStack, x - 22, y + 2, 20 * ordinal, 20, 20, 20);
+        }else {
+            blit(poseStack, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
+        }
     }
 
     @Override
@@ -129,6 +153,15 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageConta
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.auto_crafter.recipe_index", menu.getRecipeIndex() + 1));
+
+            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+        }else if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
+            //Redstone Mode
+
+            RedstoneMode redstoneMode = menu.getRedstoneMode();
+
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.name().toLowerCase()));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
         }
