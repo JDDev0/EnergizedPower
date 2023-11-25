@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.UnchargerBlock;
+import me.jddev0.ep.block.AdvancedUnchargerBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
@@ -242,7 +242,7 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
         if(level.isClientSide)
             return;
 
-        if(blockEntity.redstoneMode.isActive(state.getValue(UnchargerBlock.POWERED)))
+        if(blockEntity.redstoneMode.isActive(state.getValue(AdvancedUnchargerBlock.POWERED)))
             tickRecipe(level, blockPos, state, blockEntity);
 
         transferEnergy(level, blockPos, state, blockEntity);
