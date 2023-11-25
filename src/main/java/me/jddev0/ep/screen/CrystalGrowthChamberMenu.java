@@ -4,6 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.CrystalGrowthChamberBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.CrystalGrowthChamberRecipe;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -38,7 +39,7 @@ public class CrystalGrowthChamberMenu extends ScreenHandler implements EnergySto
                     default -> super.isValid(slot, stack);
                 };
             }
-        }, new ArrayPropertyDelegate(9));
+        }, new ArrayPropertyDelegate(10));
     }
 
     public CrystalGrowthChamberMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
@@ -95,6 +96,10 @@ public class CrystalGrowthChamberMenu extends ScreenHandler implements EnergySto
         int progressArrowSize = 24;
 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(9));
     }
 
     @Override
