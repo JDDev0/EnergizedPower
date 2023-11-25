@@ -7,8 +7,9 @@ import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
 import me.jddev0.ep.screen.AssemblingMachineMenu;
 import me.jddev0.ep.util.ByteUtils;
@@ -45,7 +46,7 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-public class AssemblingMachineBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+public class AssemblingMachineBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     private static final long CAPACITY = ModConfigs.COMMON_ASSEMBLING_MACHINE_CAPACITY.getValue();
 
     private static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_ASSEMBLING_MACHINE_ENERGY_CONSUMPTION_PER_TICK.getValue();
@@ -75,6 +76,8 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
     private int maxProgress = ModConfigs.COMMON_ASSEMBLING_MACHINE_RECIPE_DURATION.getValue();
     private long energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
+
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
 
     public AssemblingMachineBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ASSEMBLING_MACHINE_ENTITY, blockPos, blockState);
@@ -226,6 +229,7 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
                     case 2, 3 -> ByteUtils.get2Bytes(AssemblingMachineBlockEntity.this.maxProgress, index - 2);
                     case 4, 5, 6, 7 -> ByteUtils.get2Bytes(AssemblingMachineBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 8 -> hasEnoughEnergy?1:0;
+                    case 9 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -240,12 +244,13 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
                             AssemblingMachineBlockEntity.this.maxProgress, (short)value, index - 2
                     );
                     case 4, 5, 6, 7, 8 -> {}
+                    case 9 -> AssemblingMachineBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 9;
+                return 10;
             }
         };
     }
@@ -306,6 +311,8 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
         nbt.put("recipe.progress", NbtInt.of(progress));
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.writeNbt(nbt);
     }
 
@@ -318,6 +325,8 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
 
         progress = nbt.getInt("recipe.progress");
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -326,6 +335,9 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
 
     public static void tick(World level, BlockPos blockPos, BlockState state, AssemblingMachineBlockEntity blockEntity) {
         if(level.isClient())
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.get(AssemblingMachineBlock.POWERED)))
             return;
 
         if(hasRecipe(blockEntity)) {
@@ -458,5 +470,11 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
     @Override
     public void setCapacity(long capacity) {
         internalEnergyStorage.capacity = capacity;
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
     }
 }
