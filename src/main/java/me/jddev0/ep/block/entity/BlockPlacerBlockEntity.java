@@ -31,9 +31,11 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -41,8 +43,11 @@ import team.reborn.energy.api.base.LimitingEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 
 import java.util.stream.IntStream;
+import java.util.List;
 
 public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+    private static final List<@NotNull Identifier> PLACEMENT_BLACKLIST = ModConfigs.COMMON_BLOCK_PLACER_PLACEMENT_BLACKLIST.getValue();
+
     public static final long CAPACITY = ModConfigs.COMMON_BLOCK_PLACER_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_BLOCK_PLACER_TRANSFER_RATE.getValue();
     private static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_BLOCK_PLACER_ENERGY_CONSUMPTION_PER_TICK.getValue();
@@ -347,7 +352,10 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
         if(itemStack.isEmpty())
             return false;
 
-        return itemStack.getItem() instanceof BlockItem;
+        if(!(itemStack.getItem() instanceof BlockItem blockItemStack))
+            return false;
+
+        return !PLACEMENT_BLACKLIST.contains(Registry.BLOCK.getId(blockItemStack.getBlock()));
     }
 
     public void setInverseRotation(boolean inverseRotation) {
