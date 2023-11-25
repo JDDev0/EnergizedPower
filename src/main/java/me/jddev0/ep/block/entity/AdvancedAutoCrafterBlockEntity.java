@@ -2,11 +2,14 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
+import me.jddev0.ep.block.AdvancedAutoCrafterBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
@@ -44,7 +47,7 @@ import team.reborn.energy.api.base.LimitingEnergyStorage;
 import java.util.*;
 import java.util.stream.IntStream;
 
-public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
     public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_CAPACITY.getValue();
@@ -135,6 +138,8 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
     };
     private int currentRecipeIndex = 0;
 
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+
     public AdvancedAutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ADVANCED_AUTO_CRAFTER_ENTITY, blockPos, blockState);
 
@@ -218,6 +223,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
                     case 29 -> ignoreNBT[2]?1:0;
                     case 30 -> secondaryExtractMode?1:0;
                     case 31 -> currentRecipeIndex;
+                    case 32 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -249,12 +255,13 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
                     case 29 -> AdvancedAutoCrafterBlockEntity.this.ignoreNBT[2] = value != 0;
                     case 30 -> AdvancedAutoCrafterBlockEntity.this.secondaryExtractMode = value != 0;
                     case 31 -> AdvancedAutoCrafterBlockEntity.this.currentRecipeIndex = value;
+                    case 32 -> AdvancedAutoCrafterBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 32;
+                return 33;
             }
         };
     }
@@ -307,6 +314,8 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
 
         nbt.putInt("current_recipe_index", currentRecipeIndex);
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.writeNbt(nbt);
     }
 
@@ -354,6 +363,8 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
         currentRecipeIndex = nbt.getInt("current_recipe_index");
         if(currentRecipeIndex < 0 || currentRecipeIndex >= 3)
             currentRecipeIndex = 0;
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     private void loadPatternContainer(int index, NbtElement tag) {
@@ -379,6 +390,9 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
 
     public static void tick(World level, BlockPos blockPos, BlockState state, AdvancedAutoCrafterBlockEntity blockEntity) {
         if(level.isClient())
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.get(AdvancedAutoCrafterBlock.POWERED)))
             return;
 
         for(int i = 0;i < 3;i++) {
@@ -908,5 +922,11 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
     @Override
     public void setCapacity(long capacity) {
         internalEnergyStorage.capacity = capacity;
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
     }
 }
