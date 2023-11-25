@@ -1,10 +1,13 @@
 package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
+import me.jddev0.ep.block.AutoCrafterBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.AutoCrafterMenu;
@@ -42,7 +45,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
     private boolean secondaryExtractMode;
@@ -105,6 +108,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     private boolean hasEnoughEnergy;
     private boolean ignoreNBT;
 
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+
     public AutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.AUTO_CRAFTER_ENTITY.get(), blockPos, blockState);
 
@@ -133,6 +138,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                     case 6 -> hasEnoughEnergy?1:0;
                     case 7 -> ignoreNBT?1:0;
                     case 8 -> secondaryExtractMode?1:0;
+                    case 9 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -149,12 +155,13 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                     case 4, 5, 6 -> {}
                     case 7 -> AutoCrafterBlockEntity.this.ignoreNBT = value != 0;
                     case 8 -> AutoCrafterBlockEntity.this.secondaryExtractMode = value != 0;
+                    case 9 -> AutoCrafterBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 9;
+                return 10;
             }
         };
     }
@@ -222,6 +229,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         nbt.putBoolean("ignore_nbt", ignoreNBT);
         nbt.putBoolean("secondary_extract_mode", secondaryExtractMode);
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.saveAdditional(nbt);
     }
 
@@ -261,6 +270,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
 
         ignoreNBT = nbt.getBoolean("ignore_nbt");
         secondaryExtractMode = nbt.getBoolean("secondary_extract_mode");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     private void loadPatternContainer(Tag tag) {
@@ -298,6 +309,9 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             if(blockEntity.craftingRecipe == null)
                 blockEntity.resetProgress();
         }
+
+        if(!blockEntity.redstoneMode.isActive(state.getValue(AutoCrafterBlock.POWERED)))
+            return;
 
         int itemCount = 0;
         for(int i = 0;i < blockEntity.patternSlots.getContainerSize();i++)
@@ -788,5 +802,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     @Override
     public void setCapacity(int capacity) {
         energyStorage.setCapacityWithoutUpdate(capacity);
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
     }
 }
