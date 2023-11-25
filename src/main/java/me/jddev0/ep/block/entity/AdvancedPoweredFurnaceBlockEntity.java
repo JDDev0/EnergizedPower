@@ -6,6 +6,8 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.AdvancedPoweredFurnaceMenu;
 import me.jddev0.ep.util.ByteUtils;
@@ -47,7 +49,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_RECIPE_BLACKLIST.getValue();
 
     public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_CAPACITY.getValue();
@@ -76,6 +78,8 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
     private boolean[] hasEnoughEnergy = new boolean[] {
             false, false, false
     };
+
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
 
     public AdvancedPoweredFurnaceBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ADVANCED_POWERED_FURNACE_ENTITY, blockPos, blockState);
@@ -163,6 +167,7 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
                     case 24 -> AdvancedPoweredFurnaceBlockEntity.this.hasEnoughEnergy[0]?0:1;
                     case 25 -> AdvancedPoweredFurnaceBlockEntity.this.hasEnoughEnergy[1]?0:1;
                     case 26 -> AdvancedPoweredFurnaceBlockEntity.this.hasEnoughEnergy[2]?0:1;
+                    case 27 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -189,12 +194,13 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
                             AdvancedPoweredFurnaceBlockEntity.this.maxProgress[2], (short)value, index - 22
                     );
                     case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 24, 25, 26 -> {}
+                    case 27 -> AdvancedPoweredFurnaceBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 27;
+                return 28;
             }
         };
     }
@@ -238,6 +244,8 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
         for(int i = 0;i < 3;i++)
             nbt.put("recipe.energy_consumption_left." + i, NbtLong.of(energyConsumptionLeft[i]));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.writeNbt(nbt);
     }
 
@@ -254,6 +262,8 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
             maxProgress[i] = nbt.getInt("recipe.max_progress." + i);
         for(int i = 0;i < 3;i++)
             energyConsumptionLeft[i] = nbt.getLong("recipe.energy_consumption_left." + i);
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -262,6 +272,9 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
 
     public static void tick(World level, BlockPos blockPos, BlockState state, AdvancedPoweredFurnaceBlockEntity blockEntity) {
         if(level.isClient())
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.get(AdvancedPoweredFurnaceBlock.POWERED)))
             return;
 
         for(int i = 0;i < 3;i++) {
@@ -393,5 +406,11 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
     @Override
     public void setCapacity(long capacity) {
         internalEnergyStorage.capacity = capacity;
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
     }
 }

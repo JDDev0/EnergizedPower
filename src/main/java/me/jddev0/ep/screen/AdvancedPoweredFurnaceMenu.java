@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AdvancedPoweredFurnaceBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.entity.BlockEntity;
@@ -36,7 +37,7 @@ public class AdvancedPoweredFurnaceMenu extends ScreenHandler implements EnergyS
                     default -> super.isValid(slot, stack);
                 };
             }
-        }, new ArrayPropertyDelegate(27));
+        }, new ArrayPropertyDelegate(28));
     }
 
     public AdvancedPoweredFurnaceMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
@@ -47,7 +48,7 @@ public class AdvancedPoweredFurnaceMenu extends ScreenHandler implements EnergyS
 
         this.inv = inv;
         checkSize(this.inv, 6);
-        checkDataCount(data, 27);
+        checkDataCount(data, 28);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -115,6 +116,10 @@ public class AdvancedPoweredFurnaceMenu extends ScreenHandler implements EnergyS
         int progressArrowSize = 17;
 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(27));
     }
 
     @Override
