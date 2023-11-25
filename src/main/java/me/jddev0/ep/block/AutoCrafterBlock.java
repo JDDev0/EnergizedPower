@@ -35,7 +35,6 @@ public class AutoCrafterBlock extends BlockWithEntity {
     public static final BooleanProperty POWERED = Properties.POWERED;
 
     public AutoCrafterBlock(FabricBlockSettings props) {
-
         super(props);
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false));
