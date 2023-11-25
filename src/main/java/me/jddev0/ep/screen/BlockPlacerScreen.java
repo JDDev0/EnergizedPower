@@ -21,7 +21,7 @@ import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class BlockPlacerScreen extends AbstractGenericEnergyStorageHandledScreen<BlockPlacerMenu> {
-    protected final Identifier CONFIGURATION_ICONS_TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+    private final Identifier CONFIGURATION_ICONS_TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
 
     public BlockPlacerScreen(BlockPlacerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,

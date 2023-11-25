@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.CoalEngineBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.entity.BlockEntity;
@@ -36,7 +37,7 @@ public class CoalEngineMenu extends ScreenHandler implements EnergyStorageProduc
 
                 return super.isValid(slot, stack);
             }
-        }, new ArrayPropertyDelegate(9));
+        }, new ArrayPropertyDelegate(10));
     }
 
     public CoalEngineMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
@@ -46,7 +47,7 @@ public class CoalEngineMenu extends ScreenHandler implements EnergyStorageProduc
 
         this.inv = inv;
         checkSize(this.inv, 1);
-        checkDataCount(data, 9);
+        checkDataCount(data, 10);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -91,6 +92,10 @@ public class CoalEngineMenu extends ScreenHandler implements EnergyStorageProduc
         int progressFlameSize = 14;
 
         return (maxProgress == 0 || progress == 0)?0:(progress * progressFlameSize / maxProgress);
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(9));
     }
 
     @Override
