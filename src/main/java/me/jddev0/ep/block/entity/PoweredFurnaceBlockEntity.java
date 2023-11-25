@@ -6,6 +6,8 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.PoweredFurnaceMenu;
 import me.jddev0.ep.util.ByteUtils;
@@ -47,7 +49,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_POWERED_FURNACE_RECIPE_BLACKLIST.getValue();
 
     public static final long CAPACITY = ModConfigs.COMMON_POWERED_FURNACE_CAPACITY.getValue();
@@ -68,6 +70,8 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
     private int maxProgress;
     private long energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
+
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
 
     public PoweredFurnaceBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.POWERED_FURNACE_ENTITY, blockPos, blockState);
@@ -147,6 +151,7 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
                     case 2, 3 -> ByteUtils.get2Bytes(PoweredFurnaceBlockEntity.this.maxProgress, index - 2);
                     case 4, 5, 6, 7 -> ByteUtils.get2Bytes(PoweredFurnaceBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 8 -> hasEnoughEnergy?1:0;
+                    case 9 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -161,12 +166,13 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
                             PoweredFurnaceBlockEntity.this.maxProgress, (short)value, index - 2
                     );
                     case 4, 5, 6, 7, 8 -> {}
+                    case 9 -> PoweredFurnaceBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 9;
+                return 10;
             }
         };
     }
@@ -207,6 +213,8 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
         nbt.put("recipe.max_progress", NbtInt.of(maxProgress));
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.writeNbt(nbt);
     }
 
@@ -220,6 +228,8 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
         progress = nbt.getInt("recipe.progress");
         maxProgress = nbt.getInt("recipe.max_progress");
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -228,6 +238,9 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
 
     public static void tick(World level, BlockPos blockPos, BlockState state, PoweredFurnaceBlockEntity blockEntity) {
         if(level.isClient())
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.get(PoweredFurnaceBlock.POWERED)))
             return;
 
         if(hasRecipe(blockEntity)) {
@@ -340,5 +353,11 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements ExtendedSc
     @Override
     public void setCapacity(long capacity) {
         internalEnergyStorage.capacity = capacity;
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
     }
 }
