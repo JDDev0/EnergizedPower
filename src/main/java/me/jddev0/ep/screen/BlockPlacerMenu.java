@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.BlockPlacerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -40,7 +41,7 @@ public class BlockPlacerMenu extends ScreenHandler implements EnergyStorageConsu
             public int getMaxCountPerStack() {
                 return 1;
             }
-        }, new ArrayPropertyDelegate(10));
+        }, new ArrayPropertyDelegate(11));
     }
 
     public BlockPlacerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
@@ -50,7 +51,7 @@ public class BlockPlacerMenu extends ScreenHandler implements EnergyStorageConsu
 
         this.inv = inv;
         checkSize(this.inv, 1);
-        checkDataCount(data, 10);
+        checkDataCount(data, 11);
         this.level = playerInventory.player.world;
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -91,6 +92,10 @@ public class BlockPlacerMenu extends ScreenHandler implements EnergyStorageConsu
 
     public boolean isInverseRotation() {
         return data.get(9) != 0;
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(10));
     }
 
     @Override

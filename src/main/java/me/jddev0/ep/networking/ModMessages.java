@@ -34,6 +34,7 @@ public final class ModMessages {
     public static Identifier CYCLE_ADVANCED_AUTO_CRAFTER_RECIPE_OUTPUT_ID = new Identifier(EnergizedPowerMod.MODID, "cycle_advanced_auto_crafter_recipe_output");
     public static Identifier CRAFT_PRESS_MOLD_MAKER_RECIPE_ID = new Identifier(EnergizedPowerMod.MODID, "craft_press_mold_maker_recipe");
     public static Identifier CHANGE_STONE_SOLIDIFIER_RECIPE_INDEX_ID = new Identifier(EnergizedPowerMod.MODID, "change_stone_solidifer_recipe_index");
+    public static Identifier CHANGE_REDSTONE_MODE_ID = new Identifier(EnergizedPowerMod.MODID, "change_redstone_mode");
 
     private ModMessages() {}
 
@@ -81,6 +82,8 @@ public final class ModMessages {
         ServerPlayNetworking.registerGlobalReceiver(CRAFT_PRESS_MOLD_MAKER_RECIPE_ID, CraftPressMoldMakerRecipeC2SPacket::receive);
 
         ServerPlayNetworking.registerGlobalReceiver(CHANGE_STONE_SOLIDIFIER_RECIPE_INDEX_ID, ChangeStoneSolidifierRecipeIndexC2SPacket::receive);
+
+        ServerPlayNetworking.registerGlobalReceiver(CHANGE_REDSTONE_MODE_ID, ChangeRedstoneModeC2SPacket::receive);
     }
 
     public static void broadcastServerPacket(MinecraftServer server, Identifier channelName, PacketByteBuf buf) {
