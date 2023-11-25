@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.StoneSolidifierBlockEntity;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -21,13 +22,13 @@ public class StoneSolidifierMenu extends AbstractContainerMenu implements Energy
     private final ContainerData data;
 
     public StoneSolidifierMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.getLevel().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(7));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(8));
     }
 
     public StoneSolidifierMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.STONE_SOLIDIFIER_MENU.get(), id);
 
-        checkContainerDataCount(data, 7);
+        checkContainerDataCount(data, 8);
         this.blockEntity = (StoneSolidifierBlockEntity)blockEntity;
         this.level = inv.player.getLevel();
         this.data = data;
@@ -82,6 +83,10 @@ public class StoneSolidifierMenu extends AbstractContainerMenu implements Energy
         int progressArrowSize = 20;
 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(7));
     }
 
     @Override
