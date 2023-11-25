@@ -22,6 +22,7 @@ import java.util.Optional;
 @Environment(EnvType.CLIENT)
 public class CoalEngineScreen extends AbstractGenericEnergyStorageHandledScreen<CoalEngineMenu> {
     private final Identifier CONFIGURATION_ICONS_TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+
     public CoalEngineScreen(CoalEngineMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.coal_engine.txt",

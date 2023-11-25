@@ -1,10 +1,13 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
+import me.jddev0.ep.block.UnchargerBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.UnchargerMenu;
 import me.jddev0.ep.util.ByteUtils;
@@ -43,7 +46,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     public static final long CAPACITY = ModConfigs.COMMON_UNCHARGER_CAPACITY.getValue();
     public static final long MAX_EXTRACT = ModConfigs.COMMON_UNCHARGER_TRANSFER_RATE.getValue();
 
@@ -56,6 +59,8 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
 
     protected final PropertyDelegate data;
     private long energyProductionLeft = -1;
+
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
 
     public UnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.UNCHARGER_ENTITY, blockPos, blockState);
@@ -164,6 +169,7 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
             public int get(int index) {
                 return switch(index) {
                     case 0, 1, 2, 3 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.energyProductionLeft, index);
+                    case 4 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -172,12 +178,13 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
             public void set(int index, int value) {
                 switch(index) {
                     case 0, 1, 2, 3 -> {}
+                    case 4 -> UnchargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 4;
+                return 5;
             }
         };
     }
@@ -216,6 +223,8 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
 
         nbt.put("recipe.energy_production_left", NbtLong.of(energyProductionLeft));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.writeNbt(nbt);
     }
 
@@ -227,6 +236,8 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
         internalEnergyStorage.amount = nbt.getLong("energy");
 
         energyProductionLeft = nbt.getLong("recipe.energy_production_left");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -237,7 +248,9 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
         if(level.isClient())
             return;
 
-        tickRecipe(level, blockPos, state, blockEntity);
+        if(blockEntity.redstoneMode.isActive(state.get(UnchargerBlock.POWERED)))
+           tickRecipe(level, blockPos, state, blockEntity);
+
         transferEnergy(level, blockPos, state, blockEntity);
     }
 
@@ -379,5 +392,11 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
     @Override
     public void setCapacity(long capacity) {
         internalEnergyStorage.capacity = capacity;
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
     }
 }
