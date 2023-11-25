@@ -1,10 +1,13 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.FluidFillerBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
@@ -42,7 +45,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate,
-        FluidStoragePacketUpdate {
+        FluidStoragePacketUpdate, RedstoneModeUpdate {
     public static final int MAX_FLUID_FILLING_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_FLUID_ITEM_TRANSFER_RATE.getValue();
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
@@ -115,6 +118,8 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
     private int fluidFillingLeft = -1;
     private int fluidFillingSumPending = 0;
 
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+
     public FluidFillerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.FLUID_FILLER_ENTITY.get(), blockPos, blockState);
 
@@ -149,6 +154,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
                 return switch(index) {
                     case 0, 1 -> ByteUtils.get2Bytes(FluidFillerBlockEntity.this.fluidFillingLeft, index);
                     case 2, 3 -> ByteUtils.get2Bytes(FluidFillerBlockEntity.this.fluidFillingSumPending, index - 2);
+                    case 4 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -157,12 +163,13 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
             public void set(int index, int value) {
                 switch(index) {
                     case 0, 1, 2, 3 -> {}
+                    case 4 -> FluidFillerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 4;
+                return 5;
             }
         };
     }
@@ -228,6 +235,8 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
         nbt.put("recipe.fluid_filling_left", IntTag.valueOf(fluidFillingLeft));
         nbt.put("recipe.fluid_filling_sum_pending", IntTag.valueOf(fluidFillingSumPending));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.saveAdditional(nbt);
     }
 
@@ -241,6 +250,8 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
 
         fluidFillingLeft = nbt.getInt("recipe.fluid_filling_left");
         fluidFillingSumPending = nbt.getInt("recipe.fluid_filling_sum_pending");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -253,6 +264,9 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, FluidFillerBlockEntity blockEntity) {
         if(level.isClientSide)
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.getValue(FluidFillerBlock.POWERED)))
             return;
 
         if(blockEntity.hasRecipe()) {
@@ -383,5 +397,11 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
     @Override
     public void setTankCapacity(int tank, int capacity) {
         fluidStorage.setCapacity(capacity);
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
     }
 }
