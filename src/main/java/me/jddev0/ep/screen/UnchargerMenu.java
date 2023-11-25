@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.UnchargerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.minecraft.block.entity.BlockEntity;
@@ -49,7 +50,7 @@ public class UnchargerMenu extends ScreenHandler implements EnergyStorageProduce
             public int getMaxCountPerStack() {
                 return 1;
             }
-        }, new ArrayPropertyDelegate(4));
+        }, new ArrayPropertyDelegate(5));
     }
 
     public UnchargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
@@ -85,6 +86,10 @@ public class UnchargerMenu extends ScreenHandler implements EnergyStorageProduce
     @Override
     public long getEnergyIndicatorBarValue() {
         return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1), (short)data.get(2), (short)data.get(3));
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(4));
     }
 
     @Override
