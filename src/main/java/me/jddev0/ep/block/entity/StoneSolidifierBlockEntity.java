@@ -1,11 +1,14 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.StoneSolidifierBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
@@ -52,7 +55,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate,
-        FluidStoragePacketUpdate {
+        FluidStoragePacketUpdate, RedstoneModeUpdate {
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_STONE_SOLIDIFIER_CONSUMPTION_PER_TICK.getValue();
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_STONE_SOLIDIFIER_TANK_CAPACITY.getValue();
 
@@ -89,6 +92,8 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
     private int maxProgress = ModConfigs.COMMON_CSTONE_SOLIDIFIER_RECIPE_DURATION.getValue();
     private int energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
+
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
 
     public StoneSolidifierBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.STONE_SOLIDIFIER_ENTITY.get(), blockPos, blockState);
@@ -143,6 +148,7 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
                     case 2, 3 -> ByteUtils.get2Bytes(StoneSolidifierBlockEntity.this.maxProgress, index - 2);
                     case 4, 5 -> ByteUtils.get2Bytes(StoneSolidifierBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 6 -> hasEnoughEnergy?1:0;
+                    case 7 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -157,12 +163,13 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
                             StoneSolidifierBlockEntity.this.maxProgress, (short)value, index - 2
                     );
                     case 4, 5, 6 -> {}
+                    case 7 -> StoneSolidifierBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 7;
+                return 8;
             }
         };
     }
@@ -235,6 +242,8 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
         nbt.put("recipe.progress", IntTag.valueOf(progress));
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.saveAdditional(nbt);
     }
 
@@ -258,6 +267,8 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
 
         progress = nbt.getInt("recipe.progress");
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -281,6 +292,9 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
 
             blockEntity.currentRecipeIdForLoad = null;
         }
+
+        if(!blockEntity.redstoneMode.isActive(state.getValue(StoneSolidifierBlock.POWERED)))
+            return;
 
         if(hasRecipe(blockEntity)) {
             if(blockEntity.currentRecipe == null)
@@ -447,5 +461,11 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
     @Override
     public void setTankCapacity(int tank, int capacity) {
         fluidStorage.setCapacity(tank, capacity);
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
     }
 }
