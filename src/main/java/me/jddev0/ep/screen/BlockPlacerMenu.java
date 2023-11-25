@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.BlockPlacerBlockEntity;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,13 +20,13 @@ public class BlockPlacerMenu extends AbstractContainerMenu implements EnergyStor
     private final ContainerData data;
 
     public BlockPlacerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(8));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
     }
 
     public BlockPlacerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.BLOCK_PLACER_MENU.get(), id);
 
-        checkContainerDataCount(data, 8);
+        checkContainerDataCount(data, 9);
         this.blockEntity = (BlockPlacerBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -68,6 +69,10 @@ public class BlockPlacerMenu extends AbstractContainerMenu implements EnergyStor
 
     public boolean isInverseRotation() {
         return data.get(7) != 0;
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(8));
     }
 
     @Override

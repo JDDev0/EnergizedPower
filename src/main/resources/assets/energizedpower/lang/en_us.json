@@ -538,6 +538,10 @@
   "tooltip.energizedpower.conveyor_belt_direction.slope.ascending": "Ascending",
   "tooltip.energizedpower.conveyor_belt_direction.slope.descending": "Descending",
 
+  "tooltip.energizedpower.machine_configuration.redstone_mode.ignore": "Redstone Mode: Ignore",
+  "tooltip.energizedpower.machine_configuration.redstone_mode.high": "Redstone Mode: High",
+  "tooltip.energizedpower.machine_configuration.redstone_mode.low": "Redstone Mode: Low",
+
   "itemGroup.energizedpower.tab": "Energized Power",
 
   "entity.minecraft.villager.energizedpower.electrician": "Electrician",
