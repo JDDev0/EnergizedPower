@@ -4,6 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AssemblingMachineBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -42,7 +43,7 @@ public class AssemblingMachineMenu extends ScreenHandler implements EnergyStorag
                     default -> super.isValid(slot, stack);
                 };
             }
-        }, new ArrayPropertyDelegate(9));
+        }, new ArrayPropertyDelegate(10));
     }
 
     public AssemblingMachineMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
@@ -53,7 +54,7 @@ public class AssemblingMachineMenu extends ScreenHandler implements EnergyStorag
 
         this.inv = inv;
         checkSize(this.inv, 5);
-        checkDataCount(data, 9);
+        checkDataCount(data, 10);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -102,6 +103,10 @@ public class AssemblingMachineMenu extends ScreenHandler implements EnergyStorag
         int progressArrowSize = 24;
 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(9));
     }
 
     @Override
