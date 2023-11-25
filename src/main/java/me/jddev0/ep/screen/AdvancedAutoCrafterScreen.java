@@ -1,6 +1,7 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.networking.ModMessages;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -20,6 +21,8 @@ import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageHandledScreen<AdvancedAutoCrafterMenu> {
+    private final Identifier CONFIGURATION_ICONS_TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+
     public AdvancedAutoCrafterScreen(AdvancedAutoCrafterMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
@@ -67,6 +70,13 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageHandl
                 buf.writeInt(handler.getRecipeIndex() + 1);
                 ClientPlayNetworking.send(ModMessages.SET_ADVANCED_AUTO_CRAFTER_RECIPE_INDEX_ID, buf);
                 clicked = true;
+            }else if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+                //Redstone Mode
+
+                PacketByteBuf buf = PacketByteBufs.create();
+                buf.writeBlockPos(handler.getBlockEntity().getPos());
+                ClientPlayNetworking.send(ModMessages.CHANGE_REDSTONE_MODE_ID, buf);
+                clicked = true;
             }
 
             if(clicked)
@@ -85,6 +95,8 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageHandl
 
         renderProgressArrow(drawContext, x, y);
         renderCheckboxes(drawContext, x, y, mouseX, mouseY);
+
+        renderConfiguration(drawContext, x, y, mouseX, mouseY);
     }
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
@@ -110,6 +122,17 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageHandl
         }
 
         drawContext.drawTexture(TEXTURE, x + 96, y + 16, 176 + 11 * handler.getRecipeIndex(), 81, 11, 11);
+    }
+
+    private void renderConfiguration(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
+        RedstoneMode redstoneMode = handler.getRedstoneMode();
+        int ordinal = redstoneMode.ordinal();
+
+        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 20, 20, 20);
+        }else {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
+        }
     }
 
     @Override
@@ -142,6 +165,15 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageHandl
 
             List<Text> components = new ArrayList<>(2);
             components.add(Text.translatable("tooltip.energizedpower.auto_crafter.recipe_index", handler.getRecipeIndex() + 1));
+
+            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+        }else if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            //Redstone Mode
+
+            RedstoneMode redstoneMode = handler.getRedstoneMode();
+
+            List<Text> components = new ArrayList<>(2);
+            components.add(Text.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.name().toLowerCase()));
 
             drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
         }

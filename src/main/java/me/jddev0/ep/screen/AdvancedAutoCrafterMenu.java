@@ -5,6 +5,7 @@ import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.PatternResultSlot;
 import me.jddev0.ep.inventory.PatternSlot;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -40,7 +41,7 @@ public class AdvancedAutoCrafterMenu extends ScreenHandler implements EnergyStor
                 new SimpleInventory(9), new SimpleInventory(9), new SimpleInventory(9)
         }, new Inventory[] {
                 new SimpleInventory(1), new SimpleInventory(1), new SimpleInventory(1)
-        }, new ArrayPropertyDelegate(32));
+        }, new ArrayPropertyDelegate(33));
     }
 
     public AdvancedAutoCrafterMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
@@ -54,7 +55,7 @@ public class AdvancedAutoCrafterMenu extends ScreenHandler implements EnergyStor
 
         this.inv = inv;
         checkSize(this.inv, 27);
-        checkDataCount(data, 32);
+        checkDataCount(data, 33);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -161,6 +162,10 @@ public class AdvancedAutoCrafterMenu extends ScreenHandler implements EnergyStor
 
     public int getRecipeIndex() {
         return data.get(31);
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(32));
     }
 
     @Override
