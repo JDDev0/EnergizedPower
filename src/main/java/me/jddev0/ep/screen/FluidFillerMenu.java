@@ -4,6 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.FluidFillerBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
@@ -41,7 +42,7 @@ public class FluidFillerMenu extends ScreenHandler implements EnergyStorageMenu 
             public int getMaxCountPerStack() {
                 return 1;
             }
-        }, new ArrayPropertyDelegate(8));
+        }, new ArrayPropertyDelegate(9));
     }
 
     public FluidFillerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
@@ -51,7 +52,7 @@ public class FluidFillerMenu extends ScreenHandler implements EnergyStorageMenu 
 
         this.inv = inv;
         checkSize(this.inv, 1);
-        checkDataCount(data, 8);
+        checkDataCount(data, 9);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -88,6 +89,10 @@ public class FluidFillerMenu extends ScreenHandler implements EnergyStorageMenu 
 
     public long getFluidIndicatorPendingBarValue() {
         return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5), (short)data.get(6), (short)data.get(7));
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(8));
     }
 
     @Override
