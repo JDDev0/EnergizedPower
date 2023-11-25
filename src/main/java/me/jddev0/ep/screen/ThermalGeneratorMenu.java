@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.ThermalGeneratorBlockEntity;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -18,13 +19,13 @@ public class ThermalGeneratorMenu extends AbstractContainerMenu implements Energ
     private final ContainerData data;
 
     public ThermalGeneratorMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(2));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(3));
     }
 
     public ThermalGeneratorMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.THERMAL_GENERATOR_MENU.get(), id);
 
-        checkContainerDataCount(data, 2);
+        checkContainerDataCount(data, 3);
         this.blockEntity = (ThermalGeneratorBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -56,6 +57,10 @@ public class ThermalGeneratorMenu extends AbstractContainerMenu implements Energ
 
     public int getTankCapacity() {
         return blockEntity.getTankCapacity(0);
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(2));
     }
 
     @Override
