@@ -1,10 +1,13 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
+import me.jddev0.ep.block.ChargerBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.screen.ChargerMenu;
@@ -45,7 +48,7 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     public static final long CAPACITY = ModConfigs.COMMON_CHARGER_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_CHARGER_TRANSFER_RATE.getValue();
 
@@ -60,6 +63,8 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
 
     protected final PropertyDelegate data;
     private long energyConsumptionLeft = -1;
+
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
 
     public ChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CHARGER_ENTITY, blockPos, blockState);
@@ -176,6 +181,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
             public int get(int index) {
                 return switch(index) {
                     case 0, 1, 2, 3 -> ByteUtils.get2Bytes(ChargerBlockEntity.this.energyConsumptionLeft, index);
+                    case 4 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -184,12 +190,13 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
             public void set(int index, int value) {
                 switch(index) {
                     case 0, 1, 2, 3 -> {}
+                    case 4 -> ChargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 4;
+                return 5;
             }
         };
     }
@@ -228,6 +235,8 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
 
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.writeNbt(nbt);
     }
 
@@ -239,6 +248,8 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
         internalEnergyStorage.amount = nbt.getLong("energy");
 
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -247,6 +258,9 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
 
     public static void tick(World level, BlockPos blockPos, BlockState state, ChargerBlockEntity blockEntity) {
         if(level.isClient())
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.get(ChargerBlock.POWERED)))
             return;
 
         if(blockEntity.hasRecipe()) {
@@ -355,5 +369,11 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
     @Override
     public void setCapacity(long capacity) {
         internalEnergyStorage.capacity = capacity;
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
     }
 }

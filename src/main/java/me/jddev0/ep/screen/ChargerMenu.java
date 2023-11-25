@@ -4,6 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.ChargerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.ChargerRecipe;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
@@ -54,7 +55,7 @@ public class ChargerMenu extends ScreenHandler implements EnergyStorageConsumerI
             public int getMaxCountPerStack() {
                 return 1;
             }
-        }, new ArrayPropertyDelegate(4));
+        }, new ArrayPropertyDelegate(5));
     }
 
     public ChargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
@@ -64,7 +65,7 @@ public class ChargerMenu extends ScreenHandler implements EnergyStorageConsumerI
 
         this.inv = inv;
         checkSize(this.inv, 1);
-        checkDataCount(data, 4);
+        checkDataCount(data, 5);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -90,6 +91,10 @@ public class ChargerMenu extends ScreenHandler implements EnergyStorageConsumerI
     @Override
     public long getEnergyIndicatorBarValue() {
         return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1), (short)data.get(2), (short)data.get(3));
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(4));
     }
 
     @Override
