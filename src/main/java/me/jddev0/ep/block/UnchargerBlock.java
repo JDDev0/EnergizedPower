@@ -3,6 +3,7 @@ package me.jddev0.ep.block;
 import me.jddev0.ep.block.entity.UnchargerBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -10,6 +11,9 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -18,8 +22,12 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class UnchargerBlock extends BlockWithEntity {
+    public static final BooleanProperty POWERED = Properties.POWERED;
+
     public UnchargerBlock(FabricBlockSettings props) {
         super(props);
+
+        this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false));
     }
 
     @Nullable
@@ -73,6 +81,33 @@ public class UnchargerBlock extends BlockWithEntity {
         player.openHandledScreen((UnchargerBlockEntity)blockEntity);
 
         return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public void neighborUpdate(BlockState selfState, World level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
+        super.neighborUpdate(selfState, level, selfPos, fromBlock, fromPos, isMoving);
+
+        if(level.isClient())
+            return;
+
+        boolean isPowered = level.isReceivingRedstonePower(selfPos);
+        if(isPowered != selfState.get(POWERED))
+            level.setBlockState(selfPos, selfState.with(POWERED, isPowered), 3);
+    }
+
+    @Override
+    public void onBlockAdded(BlockState selfState, World level, BlockPos selfPos, BlockState oldState, boolean isMoving) {
+        if(level.isClient())
+            return;
+
+        boolean isPowered = level.isReceivingRedstonePower(selfPos);
+        if(isPowered != selfState.get(POWERED))
+            level.setBlockState(selfPos, selfState.with(POWERED, isPowered), 2);
+    }
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
+        stateBuilder.add(POWERED);
     }
 
     @Nullable
