@@ -1,11 +1,14 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
+import me.jddev0.ep.block.CrystalGrowthChamberBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.CrystalGrowthChamberRecipe;
 import me.jddev0.ep.screen.CrystalGrowthChamberMenu;
@@ -41,7 +44,7 @@ import team.reborn.energy.api.base.LimitingEnergyStorage;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-public class CrystalGrowthChamberBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+public class CrystalGrowthChamberBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     public static final long CAPACITY = ModConfigs.COMMON_CRYSTAL_GROWTH_CHAMBER_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_ENERGIZED_CRYSTAL_MATRIX_CABLE_TRANSFER_RATE.getValue();
     private static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_CRYSTAL_GROWTH_CHAMBER_ENERGY_CONSUMPTION_PER_TICK.getValue();
@@ -60,6 +63,8 @@ public class CrystalGrowthChamberBlockEntity extends BlockEntity implements Exte
     private int maxProgress;
     private long energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
+
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
 
     public CrystalGrowthChamberBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CRYSTAL_GROWTH_CHAMBER_ENTITY, blockPos, blockState);
@@ -142,6 +147,7 @@ public class CrystalGrowthChamberBlockEntity extends BlockEntity implements Exte
                     case 2, 3 -> ByteUtils.get2Bytes(CrystalGrowthChamberBlockEntity.this.maxProgress, index - 2);
                     case 4, 5, 6, 7 -> ByteUtils.get2Bytes(CrystalGrowthChamberBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 8 -> hasEnoughEnergy?1:0;
+                    case 9 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -156,12 +162,13 @@ public class CrystalGrowthChamberBlockEntity extends BlockEntity implements Exte
                             CrystalGrowthChamberBlockEntity.this.maxProgress, (short)value, index - 2
                     );
                     case 4, 5, 6, 7, 8 -> {}
+                    case 9 -> CrystalGrowthChamberBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 9;
+                return 10;
             }
         };
     }
@@ -202,6 +209,8 @@ public class CrystalGrowthChamberBlockEntity extends BlockEntity implements Exte
         nbt.put("recipe.max_progress", NbtInt.of(maxProgress));
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.writeNbt(nbt);
     }
 
@@ -215,6 +224,8 @@ public class CrystalGrowthChamberBlockEntity extends BlockEntity implements Exte
         progress = nbt.getInt("recipe.progress");
         maxProgress = nbt.getInt("recipe.max_progress");
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -223,6 +234,9 @@ public class CrystalGrowthChamberBlockEntity extends BlockEntity implements Exte
 
     public static void tick(World level, BlockPos blockPos, BlockState state, CrystalGrowthChamberBlockEntity blockEntity) {
         if(level.isClient())
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.get(CrystalGrowthChamberBlock.POWERED)))
             return;
 
         if(hasRecipe(blockEntity)) {
@@ -328,5 +342,11 @@ public class CrystalGrowthChamberBlockEntity extends BlockEntity implements Exte
     @Override
     public void setCapacity(long capacity) {
         internalEnergyStorage.capacity = capacity;
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
     }
 }
