@@ -25,6 +25,7 @@ import net.minecraft.nbt.IntTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
@@ -37,7 +38,6 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.neoforged.neoforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 @Mod(EnergizedPowerMod.MODID)
@@ -80,9 +80,9 @@ public class EnergizedPowerMod {
         return itemStack;
     }
 
-    private void addEmptyAndFullyChargedItem(BuildCreativeModeTabContentsEvent event, RegistryObject<Item> item, int capacity) {
+    private void addEmptyAndFullyChargedItem(BuildCreativeModeTabContentsEvent event, ItemLike item, int capacity) {
         event.accept(item);
-        event.accept(getChargedItemStack(item.get(), capacity));
+        event.accept(getChargedItemStack(item.asItem(), capacity));
     }
 
     private void addCreativeTab(BuildCreativeModeTabContentsEvent event) {

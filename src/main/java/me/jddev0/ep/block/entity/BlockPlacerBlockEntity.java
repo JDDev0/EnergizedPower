@@ -14,6 +14,7 @@ import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
@@ -39,7 +40,6 @@ import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -345,7 +345,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
         if(!(itemStack.getItem() instanceof BlockItem blockItemStack))
             return false;
 
-        return !PLACEMENT_BLACKLIST.contains(ForgeRegistries.BLOCKS.getKey(blockItemStack.getBlock()));
+        return !PLACEMENT_BLACKLIST.contains(BuiltInRegistries.BLOCK.getKey(blockItemStack.getBlock()));
     }
 
     public void setInverseRotation(boolean inverseRotation) {

@@ -7,6 +7,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.SimpleContainer;
@@ -14,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 
 public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
     private final Fluid[] input;
@@ -87,7 +87,7 @@ public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
         public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "heat_generator");
 
         private final Codec<HeatGeneratorRecipe> CODEC_SINGLE_FLUID = RecordCodecBuilder.create((instance) -> {
-            return instance.group(ForgeRegistries.FLUIDS.getCodec().fieldOf("input").forGetter((recipe) -> {
+            return instance.group(BuiltInRegistries.FLUID.byNameCodec().fieldOf("input").forGetter((recipe) -> {
                 return recipe.input[0];
             }), Codec.INT.fieldOf("energy").forGetter((recipe) -> {
                 return recipe.energyProduction;
@@ -95,7 +95,7 @@ public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
         });
 
         private final Codec<HeatGeneratorRecipe> CODEC_FLUID_ARRAY = RecordCodecBuilder.create((instance) -> {
-            return instance.group(new ArrayCodec<>(ForgeRegistries.FLUIDS.getCodec(), Fluid[]::new).fieldOf("input").forGetter((recipe) -> {
+            return instance.group(new ArrayCodec<>(BuiltInRegistries.FLUID.byNameCodec(), Fluid[]::new).fieldOf("input").forGetter((recipe) -> {
                 return recipe.input;
             }), Codec.INT.fieldOf("energy").forGetter((recipe) -> {
                 return recipe.energyProduction;
@@ -113,7 +113,7 @@ public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
             int fluidCount = buffer.readInt();
             Fluid[] input = new Fluid[fluidCount];
             for(int i = 0;i < fluidCount;i++)
-                input[i] = ForgeRegistries.FLUIDS.getValue(buffer.readResourceLocation());
+                input[i] = BuiltInRegistries.FLUID.get(buffer.readResourceLocation());
 
             int energyProduction = buffer.readInt();
 
@@ -124,8 +124,8 @@ public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
         public void toNetwork(FriendlyByteBuf buffer, HeatGeneratorRecipe recipe) {
             buffer.writeInt(recipe.getInput().length);
             for(Fluid fluid:recipe.input) {
-                ResourceLocation fluidId = ForgeRegistries.FLUIDS.getKey(fluid);
-                if(fluidId == null)
+                ResourceLocation fluidId = BuiltInRegistries.FLUID.getKey(fluid);
+                if(fluidId == null || fluidId.equals(new ResourceLocation("empty")))
                     throw new IllegalArgumentException("Unregistered fluid '" + fluid + "'");
 
                 buffer.writeResourceLocation(fluidId);

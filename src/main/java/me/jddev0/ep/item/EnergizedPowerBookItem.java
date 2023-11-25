@@ -5,6 +5,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
@@ -15,7 +16,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -58,7 +58,7 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
         if(!level.isClientSide)
             return false;
 
-        showBookViewScreen(ForgeRegistries.BLOCKS.getKey(state.getBlock()));
+        showBookViewScreen(BuiltInRegistries.BLOCK.getKey(state.getBlock()));
 
         return false;
     }

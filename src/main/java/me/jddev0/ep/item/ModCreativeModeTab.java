@@ -6,15 +6,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.RegistryObject;
 
 public class ModCreativeModeTab {
     private ModCreativeModeTab() {}
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, EnergizedPowerMod.MODID);
 
-    public static final RegistryObject<CreativeModeTab> ENERGIZED_POWER_TAB = CREATIVE_MODE_TABS.register("main",
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ENERGIZED_POWER_TAB = CREATIVE_MODE_TABS.register("main",
             () -> CreativeModeTab.builder().
                     title(Component.translatable("itemGroup.energizedpower.tab")).
                     icon(() -> new ItemStack(ModItems.ENERGIZED_COPPER_INGOT.get())).

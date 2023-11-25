@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -33,7 +34,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -439,7 +439,7 @@ public class EnergizedPowerBookScreen extends Screen {
         if(y == -1) //Centered
             y = (int)((230 - 64) * .5f) + 2;
 
-        Block block = ForgeRegistries.BLOCKS.getValue(blockResourceLocation);
+        Block block = BuiltInRegistries.BLOCK.get(blockResourceLocation);
         ItemStack itemStack = new ItemStack(block);
 
         ItemRenderer itemRenderer = minecraft.getItemRenderer();
