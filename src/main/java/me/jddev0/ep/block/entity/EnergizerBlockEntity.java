@@ -6,6 +6,8 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.EnergizerRecipe;
 import me.jddev0.ep.screen.EnergizerMenu;
@@ -42,7 +44,7 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     public static final long CAPACITY = ModConfigs.COMMON_ENERGIZER_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_ENERGIZER_TRANSFER_RATE.getValue();
 
@@ -60,6 +62,8 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
     private int maxProgress = ModConfigs.COMMON_ENERGIZER_RECIPE_DURATION.getValue();
     private long energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
+
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
 
     public EnergizerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ENERGIZER_ENTITY, blockPos, blockState);
@@ -139,6 +143,7 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
                     case 2, 3 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.maxProgress, index - 2);
                     case 4, 5, 6, 7 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 8 -> hasEnoughEnergy?1:0;
+                    case 9 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -153,12 +158,13 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
                             EnergizerBlockEntity.this.maxProgress, (short)value, index - 2
                     );
                     case 4, 5, 6, 7, 8 -> {}
+                    case 9 -> EnergizerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 9;
+                return 10;
             }
         };
     }
@@ -198,6 +204,8 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
         nbt.put("recipe.progress", NbtInt.of(progress));
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.writeNbt(nbt);
     }
 
@@ -210,6 +218,8 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
 
         progress = nbt.getInt("recipe.progress");
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -218,6 +228,9 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
 
     public static void tick(World level, BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {
         if(level.isClient())
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.get(EnergizerBlock.POWERED)))
             return;
 
         if(hasRecipe(blockEntity)) {
@@ -327,5 +340,11 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
     @Override
     public void setCapacity(long capacity) {
         internalEnergyStorage.capacity = capacity;
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
     }
 }
