@@ -31,6 +31,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.ToIntFunction;
 
 public class EnergizerBlock extends BlockWithEntity {
+    public static final BooleanProperty POWERED = Properties.POWERED;
+
     public static final BooleanProperty LIT = Properties.LIT;
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 
@@ -40,7 +42,7 @@ public class EnergizerBlock extends BlockWithEntity {
     protected EnergizerBlock(FabricBlockSettings props) {
         super(props);
 
-        this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(LIT, false));
+        this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false).with(FACING, Direction.NORTH).with(LIT, false));
     }
 
     @Nullable
@@ -97,6 +99,28 @@ public class EnergizerBlock extends BlockWithEntity {
     }
 
     @Override
+    public void neighborUpdate(BlockState selfState, World level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
+        super.neighborUpdate(selfState, level, selfPos, fromBlock, fromPos, isMoving);
+
+        if(level.isClient())
+            return;
+
+        boolean isPowered = level.isReceivingRedstonePower(selfPos);
+        if(isPowered != selfState.get(POWERED))
+            level.setBlockState(selfPos, selfState.with(POWERED, isPowered), 3);
+    }
+
+    @Override
+    public void onBlockAdded(BlockState selfState, World level, BlockPos selfPos, BlockState oldState, boolean isMoving) {
+        if(level.isClient())
+            return;
+
+        boolean isPowered = level.isReceivingRedstonePower(selfPos);
+        if(isPowered != selfState.get(POWERED))
+            level.setBlockState(selfPos, selfState.with(POWERED, isPowered), 2);
+    }
+
+    @Override
     public BlockState getPlacementState(ItemPlacementContext context) {
         return this.getDefaultState().with(FACING, context.getHorizontalPlayerFacing().getOpposite());
     }
@@ -113,7 +137,7 @@ public class EnergizerBlock extends BlockWithEntity {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
-        stateBuilder.add(FACING, LIT);
+        stateBuilder.add(POWERED, FACING, LIT);
     }
 
     @Override
