@@ -13,6 +13,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
@@ -26,12 +27,13 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class ThermalGeneratorBlock extends BlockWithEntity {
+    public static final BooleanProperty POWERED = Properties.POWERED;
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 
     protected ThermalGeneratorBlock(FabricBlockSettings props) {
         super(props);
 
-        this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
+        this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false).with(FACING, Direction.NORTH));
     }
 
     @Nullable
@@ -74,6 +76,28 @@ public class ThermalGeneratorBlock extends BlockWithEntity {
     }
 
     @Override
+    public void neighborUpdate(BlockState selfState, World level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
+        super.neighborUpdate(selfState, level, selfPos, fromBlock, fromPos, isMoving);
+
+        if(level.isClient())
+            return;
+
+        boolean isPowered = level.isReceivingRedstonePower(selfPos);
+        if(isPowered != selfState.get(POWERED))
+            level.setBlockState(selfPos, selfState.with(POWERED, isPowered), 3);
+    }
+
+    @Override
+    public void onBlockAdded(BlockState selfState, World level, BlockPos selfPos, BlockState oldState, boolean isMoving) {
+        if(level.isClient())
+            return;
+
+        boolean isPowered = level.isReceivingRedstonePower(selfPos);
+        if(isPowered != selfState.get(POWERED))
+            level.setBlockState(selfPos, selfState.with(POWERED, isPowered), 2);
+    }
+
+    @Override
     public BlockState getPlacementState(ItemPlacementContext context) {
         return this.getDefaultState().with(FACING, context.getPlayerFacing().getOpposite());
     }
@@ -90,7 +114,7 @@ public class ThermalGeneratorBlock extends BlockWithEntity {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
-        stateBuilder.add(FACING);
+        stateBuilder.add(POWERED, FACING);
     }
 
     @Nullable
