@@ -1,6 +1,8 @@
 package me.jddev0.ep.screen;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.networking.ModMessages;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -20,6 +22,8 @@ import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class BlockPlacerScreen extends AbstractGenericEnergyStorageHandledScreen<BlockPlacerMenu> {
+    protected final Identifier CONFIGURATION_ICONS_TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+
     public BlockPlacerScreen(BlockPlacerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.block_placer.block_energy_left.txt",
@@ -40,6 +44,13 @@ public class BlockPlacerScreen extends AbstractGenericEnergyStorageHandledScreen
                 buf.writeBoolean(!handler.isInverseRotation());
                 ClientPlayNetworking.send(ModMessages.SET_BLOCK_PLACER_CHECKBOX_ID, buf);
                 clicked = true;
+            }else if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+                //Redstone Mode
+
+                PacketByteBuf buf = PacketByteBufs.create();
+                buf.writeBlockPos(handler.getBlockEntity().getPos());
+                ClientPlayNetworking.send(ModMessages.CHANGE_REDSTONE_MODE_ID, buf);
+                clicked = true;
             }
 
             if(clicked)
@@ -57,6 +68,8 @@ public class BlockPlacerScreen extends AbstractGenericEnergyStorageHandledScreen
         int y = (height - backgroundHeight) / 2;
 
         renderCheckboxes(poseStack, x, y, mouseX, mouseY);
+
+        renderConfiguration(poseStack, x, y, mouseX, mouseY);
     }
 
     private void renderCheckboxes(MatrixStack poseStack, int x, int y, int mouseX, int mouseY) {
@@ -64,6 +77,18 @@ public class BlockPlacerScreen extends AbstractGenericEnergyStorageHandledScreen
             //Inverse rotation checkbox
 
             drawTexture(poseStack, x + 158, y + 16, 176, 53, 11, 11);
+        }
+    }
+
+    private void renderConfiguration(MatrixStack poseStack, int x, int y, int mouseX, int mouseY) {
+        RedstoneMode redstoneMode = handler.getRedstoneMode();
+        int ordinal = redstoneMode.ordinal();
+
+        RenderSystem.setShaderTexture(0, CONFIGURATION_ICONS_TEXTURE);
+        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            drawTexture(poseStack, x - 22, y + 2, 20 * ordinal, 20, 20, 20);
+        }else {
+            drawTexture(poseStack, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
         }
     }
 
@@ -76,6 +101,15 @@ public class BlockPlacerScreen extends AbstractGenericEnergyStorageHandledScreen
 
             List<Text> components = new ArrayList<>(2);
             components.add(Text.translatable("tooltip.energizedpower.block_placer.cbx.inverse_rotation"));
+
+            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+        }else if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            //Redstone Mode
+
+            RedstoneMode redstoneMode = handler.getRedstoneMode();
+
+            List<Text> components = new ArrayList<>(2);
+            components.add(Text.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.name().toLowerCase()));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
         }

@@ -6,6 +6,8 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.BlockPlacerMenu;
 import me.jddev0.ep.util.ByteUtils;
@@ -45,7 +47,7 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import java.util.stream.IntStream;
 import java.util.List;
 
-public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     private static final List<@NotNull Identifier> PLACEMENT_BLACKLIST = ModConfigs.COMMON_BLOCK_PLACER_PLACEMENT_BLACKLIST.getValue();
 
     public static final long CAPACITY = ModConfigs.COMMON_BLOCK_PLACER_CAPACITY.getValue();
@@ -65,6 +67,8 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
     private long energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
     private boolean inverseRotation;
+
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
 
     public BlockPlacerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.BLOCK_PLACER_ENTITY, blockPos, blockState);
@@ -150,6 +154,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
                     case 4, 5, 6, 7 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 8 -> hasEnoughEnergy?1:0;
                     case 9 -> inverseRotation?1:0;
+                    case 10 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -165,12 +170,13 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
                     );
                     case 4, 5, 6, 7, 8 -> {}
                     case 9 -> BlockPlacerBlockEntity.this.inverseRotation = value != 0;
+                    case 10 -> BlockPlacerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 10;
+                return 11;
             }
         };
     }
@@ -212,6 +218,8 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
 
         nbt.putBoolean("inverse_rotation", inverseRotation);
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.writeNbt(nbt);
     }
 
@@ -226,6 +234,8 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
 
         inverseRotation = nbt.getBoolean("inverse_rotation");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -234,6 +244,9 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
 
     public static void tick(World level, BlockPos blockPos, BlockState state, BlockPlacerBlockEntity blockEntity) {
         if(level.isClient())
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.get(BlockPlacerBlock.POWERED)))
             return;
 
         if(hasRecipe(blockEntity)) {
@@ -379,5 +392,11 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
     @Override
     public void setCapacity(long capacity) {
         internalEnergyStorage.capacity = capacity;
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
     }
 }
