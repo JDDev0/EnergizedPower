@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
+import me.jddev0.ep.block.FluidDrainerBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
@@ -8,6 +9,8 @@ import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.FluidDrainerMenu;
 import me.jddev0.ep.util.ByteUtils;
@@ -47,7 +50,7 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import java.util.stream.IntStream;
 
 public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate,
-        FluidStoragePacketUpdate {
+        FluidStoragePacketUpdate, RedstoneModeUpdate {
     public static final long CAPACITY = ModConfigs.COMMON_FLUID_DRAINER_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_FLUID_DRAINER_TRANSFER_RATE.getValue();
 
@@ -72,6 +75,8 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
     private long fluidDrainingSumPending = 0;
 
     private boolean forceAllowStackUpdateFlag = false;
+
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
 
     public FluidDrainerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.FLUID_DRAINER_ENTITY, blockPos, blockState);
@@ -202,6 +207,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
                 return switch(index) {
                     case 0, 1, 2, 3 -> ByteUtils.get2Bytes(FluidDrainerBlockEntity.this.fluidDrainingLeft, index);
                     case 4, 5, 6, 7 -> ByteUtils.get2Bytes(FluidDrainerBlockEntity.this.fluidDrainingSumPending, index - 4);
+                    case 8 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -210,12 +216,13 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
             public void set(int index, int value) {
                 switch(index) {
                     case 0, 1, 2, 3, 4, 5, 6, 7 -> {}
+                    case 8 -> FluidDrainerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 8;
+                return 9;
             }
         };
     }
@@ -266,6 +273,8 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
         FluidUtils.writeFluidAmountInMilliBucketsWithLeftover(fluidDrainingSumPending,
                 "recipe.fluid_draining_sum_pending", "recipe.fluid_draining_sum_pending_leftover_droplets", nbt);
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.writeNbt(nbt);
     }
 
@@ -281,6 +290,8 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
                 "recipe.fluid_draining_left_leftover_droplets", nbt);
         fluidDrainingSumPending = FluidUtils.readFluidAmountInMilliBucketsWithLeftover("recipe.fluid_draining_sum_pending",
                 "recipe.fluid_draining_sum_pending_leftover_droplets", nbt);
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -289,6 +300,9 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
 
     public static void tick(World level, BlockPos blockPos, BlockState state, FluidDrainerBlockEntity blockEntity) {
         if(level.isClient())
+            return;
+
+        if(!blockEntity.redstoneMode.isActive(state.get(FluidDrainerBlock.POWERED)))
             return;
 
         if(blockEntity.hasRecipe()) {
@@ -423,5 +437,11 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
     @Override
     public void setTankCapacity(int tank, long capacity) {
         //Does nothing (capacity is final)
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
     }
 }
