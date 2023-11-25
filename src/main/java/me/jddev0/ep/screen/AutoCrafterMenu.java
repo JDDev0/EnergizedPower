@@ -5,6 +5,7 @@ import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.PatternResultSlot;
 import me.jddev0.ep.inventory.PatternSlot;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -36,7 +37,7 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageConsu
             public boolean isValid(int slot, ItemStack stack) {
                 return super.isValid(slot, stack) && slot >= 3;
             }
-        }, new SimpleInventory(9), new SimpleInventory(1), new ArrayPropertyDelegate(11));
+        }, new SimpleInventory(9), new SimpleInventory(1), new ArrayPropertyDelegate(12));
     }
 
     public AutoCrafterMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, Inventory patternSlots,
@@ -50,7 +51,7 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageConsu
 
         this.inv = inv;
         checkSize(this.inv, 18);
-        checkDataCount(data, 11);
+        checkDataCount(data, 12);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -130,6 +131,10 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageConsu
 
     public boolean isSecondaryExtractMode() {
         return data.get(10) != 0;
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(11));
     }
 
     @Override

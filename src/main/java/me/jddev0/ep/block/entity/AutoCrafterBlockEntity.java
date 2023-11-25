@@ -2,10 +2,13 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
+import me.jddev0.ep.block.AutoCrafterBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import me.jddev0.ep.util.ByteUtils;
@@ -40,10 +43,9 @@ import team.reborn.energy.api.base.LimitingEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
     public static final long CAPACITY = ModConfigs.COMMON_AUTO_CRAFTER_CAPACITY.getValue();
@@ -89,6 +91,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     private boolean hasEnoughEnergy;
     private boolean ignoreNBT;
     private boolean secondaryExtractMode;
+
+    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
 
     public AutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.AUTO_CRAFTER_ENTITY, blockPos, blockState);
@@ -161,6 +165,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                     case 8 -> hasEnoughEnergy?1:0;
                     case 9 -> ignoreNBT?1:0;
                     case 10 -> secondaryExtractMode?1:0;
+                    case 11 -> redstoneMode.ordinal();
                     default -> 0;
                 };
             }
@@ -177,12 +182,13 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                     case 4, 5, 6, 7, 8 -> {}
                     case 9 -> AutoCrafterBlockEntity.this.ignoreNBT = value != 0;
                     case 10 -> AutoCrafterBlockEntity.this.secondaryExtractMode = value != 0;
+                    case 11 -> AutoCrafterBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 11;
+                return 12;
             }
         };
     }
@@ -229,6 +235,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         nbt.putBoolean("ignore_nbt", ignoreNBT);
         nbt.putBoolean("secondary_extract_mode", secondaryExtractMode);
 
+        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+
         super.writeNbt(nbt);
     }
 
@@ -268,6 +276,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
 
         ignoreNBT = nbt.getBoolean("ignore_nbt");
         secondaryExtractMode = nbt.getBoolean("secondary_extract_mode");
+
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
     }
 
     private void loadPatternContainer(NbtElement tag) {
@@ -301,6 +311,9 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
             if(blockEntity.craftingRecipe == null)
                 blockEntity.resetProgress();
         }
+
+        if(!blockEntity.redstoneMode.isActive(state.get(AutoCrafterBlock.POWERED)))
+            return;
 
         int itemCount = 0;
         for(int i = 0;i < blockEntity.patternSlots.size();i++)
@@ -796,5 +809,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     @Override
     public void setCapacity(long capacity) {
         internalEnergyStorage.capacity = capacity;
+    }
+
+    @Override
+    public void setNextRedstoneMode() {
+        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
     }
 }
