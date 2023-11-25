@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.PulverizerBlockEntity;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,13 +20,13 @@ public class PulverizerMenu extends AbstractContainerMenu implements EnergyStora
     private final ContainerData data;
 
     public PulverizerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(7));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(8));
     }
 
     public PulverizerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.PULVERIZER_MENU.get(), id);
 
-        checkContainerDataCount(data, 7);
+        checkContainerDataCount(data, 8);
         this.blockEntity = (PulverizerBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -74,6 +75,10 @@ public class PulverizerMenu extends AbstractContainerMenu implements EnergyStora
         int progressArrowSize = 24;
 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
+    }
+
+    public RedstoneMode getRedstoneMode() {
+        return RedstoneMode.fromIndex(data.get(7));
     }
 
     @Override
