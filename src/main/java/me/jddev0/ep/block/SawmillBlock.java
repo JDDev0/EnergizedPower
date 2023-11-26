@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -96,13 +97,8 @@ public class SawmillBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void onPlace(BlockState selfState, Level level, BlockPos selfPos, BlockState oldState, boolean isMoving) {
-        if(level.isClientSide())
-            return;
-
-        boolean isPowered = level.hasNeighborSignal(selfPos);
-        if(isPowered != selfState.getValue(POWERED))
-            level.setBlock(selfPos, selfState.setValue(POWERED, isPowered), 2);
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState().setValue(POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos()));
     }
 
     @Override
