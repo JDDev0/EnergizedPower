@@ -555,7 +555,7 @@
   "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx Hız",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx Enerji Tüketimi",
   "recipes.energizedpower.transfer.too_large": "Bu tarif bu konteyner için ÇOK büyük",
-  "recipes.energizedpower.transfer.output_odds": "Odds per item:",
+  "recipes.energizedpower.transfer.output_percentages": "Percentages per item:",
 
   "emi.category.energizedpower.charger": "Şarj",
   "emi.category.energizedpower.crusher": "Ezici",

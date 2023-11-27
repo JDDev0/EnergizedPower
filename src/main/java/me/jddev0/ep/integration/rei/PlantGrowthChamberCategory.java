@@ -65,7 +65,7 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
             int index = i;
             outputSlotEntries.get(i % 4).addAll(outputEntries.get(i).map(stack -> {
                 List<Component> tooltip = new LinkedList<>();
-                tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+                tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                 double[] percentages = display.recipe().value().getOutputs()[index].percentages();
                 for(int j = 0;j < percentages.length;j++)
