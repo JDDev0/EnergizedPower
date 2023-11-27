@@ -60,7 +60,7 @@ public class PulverizerCategory implements IRecipeCategory<PulverizerRecipe> {
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).addItemStack(outputEntries[0]).
                 addTooltipCallback((view, tooltip) -> {
-                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                     double[] percentages = recipe.getOutput().percentages();
                     for(int i = 0;i < percentages.length;i++)
@@ -73,7 +73,7 @@ public class PulverizerCategory implements IRecipeCategory<PulverizerRecipe> {
                     if(view.isEmpty())
                         return;
 
-                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                     double[] percentages = recipe.getSecondaryOutput().percentages();
                     for(int i = 0;i < percentages.length;i++)
