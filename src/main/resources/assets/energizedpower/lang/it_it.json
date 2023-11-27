@@ -555,7 +555,7 @@
   "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx Velocità",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx Consumo di energia",
   "recipes.energizedpower.transfer.too_large": "Questa ricetta è troppo grande per questo contenitore!",
-  "recipes.energizedpower.transfer.output_percentages": "Percentages per item:",
+  "recipes.energizedpower.transfer.output_percentages": "Percentage per item:",
 
   "emi.category.energizedpower.charger": "Caricabatterie",
   "emi.category.energizedpower.crusher": "Frantoio",

@@ -555,7 +555,7 @@
   "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "花费 %.2fx ",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "能量消耗 %.2fx",
   "recipes.energizedpower.transfer.too_large": "这配方对于这个容器太大了！",
-  "recipes.energizedpower.transfer.output_percentages": "Percentages per item:",
+  "recipes.energizedpower.transfer.output_percentages": "Percentage per item:",
 
   "emi.category.energizedpower.charger": "充能站",
   "emi.category.energizedpower.crusher": "粉碎机",
