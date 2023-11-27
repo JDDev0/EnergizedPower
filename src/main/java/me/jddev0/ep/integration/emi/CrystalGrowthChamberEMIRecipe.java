@@ -77,7 +77,7 @@ public class CrystalGrowthChamberEMIRecipe implements EmiRecipe {
         widgets.addSlot(input.get(0), 0, 4).drawBack(false);
         SlotWidget outputSlot = widgets.addSlot(output.get(0), 76, 4).drawBack(false).recipeContext(this);
         {
-            outputSlot.appendTooltip(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+            outputSlot.appendTooltip(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
             double[] percentages = outputWithPercentages.percentages();
             for(int i = 0;i < percentages.length;i++)

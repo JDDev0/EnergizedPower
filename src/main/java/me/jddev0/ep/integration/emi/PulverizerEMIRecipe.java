@@ -76,7 +76,7 @@ public class PulverizerEMIRecipe implements EmiRecipe {
         widgets.addSlot(input.get(0), 0, 4).drawBack(false);
         SlotWidget outputSlot = widgets.addSlot(output.get(0), 64, 4).drawBack(false).recipeContext(this);
         {
-            outputSlot.appendTooltip(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+            outputSlot.appendTooltip(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
             double[] percentages = outputWithPercentages.percentages();
             for(int i = 0;i < percentages.length;i++)
@@ -85,7 +85,7 @@ public class PulverizerEMIRecipe implements EmiRecipe {
         }
         SlotWidget secondaryOutputSlot = widgets.addSlot(output.size() == 2?output.get(1):EmiStack.EMPTY, 91, 4).drawBack(false).recipeContext(this);
         if(output.size() == 2) {
-            secondaryOutputSlot.appendTooltip(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+            secondaryOutputSlot.appendTooltip(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
             double[] percentages = secondaryOutputWithPercentages.percentages();
             for(int i = 0;i < percentages.length;i++)

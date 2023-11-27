@@ -77,7 +77,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<PlantGrowthCh
             if(optionalItemStack.isEmpty())
                 return;
 
-            tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+            tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
             PlantGrowthChamberRecipe.OutputItemStackWithPercentages[] outputs = recipe.getOutputs();
             for(int i = 0;i < outputs.length;i++) {

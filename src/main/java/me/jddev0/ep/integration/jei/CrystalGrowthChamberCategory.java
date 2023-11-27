@@ -67,7 +67,7 @@ public class CrystalGrowthChamberCategory implements IRecipeCategory<CrystalGrow
 
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 5).addItemStack(recipe.getMaxOutputCount()).
                 addTooltipCallback((view, tooltip) -> {
-                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_odds"));
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                     double[] percentages = recipe.getOutput().percentages();
                     for(int i = 0;i < percentages.length;i++)
