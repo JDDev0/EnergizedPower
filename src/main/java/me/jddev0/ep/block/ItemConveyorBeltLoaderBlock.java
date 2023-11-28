@@ -99,18 +99,9 @@ public class ItemConveyorBeltLoaderBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void onPlace(BlockState selfState, Level level, BlockPos selfPos, BlockState oldState, boolean isMoving) {
-        if(level.isClientSide())
-            return;
-
-        boolean isPowered = level.hasNeighborSignal(selfPos);
-        if(isPowered == selfState.getValue(ENABLED))
-            level.setBlock(selfPos, selfState.setValue(ENABLED, !isPowered), 2);
-    }
-
-    @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).
+                setValue(ENABLED, !context.getLevel().hasNeighborSignal(context.getClickedPos()));
     }
 
     @Override
