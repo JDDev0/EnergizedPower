@@ -15,6 +15,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
@@ -27,6 +28,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -34,6 +36,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.entity.EntityTypeTest;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -44,8 +49,10 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
     public static final boolean INTRA_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_ENABLED.getValue();
@@ -202,6 +209,24 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
             level.setBlock(worldPosition, getBlockState().setValue(TeleporterBlock.POWERED, powered), 3);
 
         setChanged();
+    }
+
+    public void onRedstoneTriggered() {
+        Optional<Player> player = level.getEntities(EntityTypeTest.forClass(Player.class), AABB.of(BoundingBox.fromCorners(
+                new Vec3i(worldPosition.getX() - 2, worldPosition.getY() - 2,
+                        worldPosition.getZ() - 2),
+                new Vec3i(worldPosition.getX() + 2, worldPosition.getY() + 2,
+                        worldPosition.getZ() + 2))), EntitySelector.NO_SPECTATORS.
+                and(entity -> entity.distanceToSqr(worldPosition.getCenter()) <= 4)).stream().
+                min(Comparator.comparing(entity -> entity.distanceToSqr(worldPosition.getCenter())));
+
+        if(player.isEmpty())
+            return;
+
+        if(!(player.get() instanceof ServerPlayer serverPlayer))
+            return;
+
+        teleportPlayer(serverPlayer);
     }
 
     public void teleportPlayer(ServerPlayer player) {
