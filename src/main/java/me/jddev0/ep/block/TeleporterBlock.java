@@ -29,11 +29,12 @@ import java.util.List;
 
 public class TeleporterBlock extends BaseEntityBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    public static final BooleanProperty TRIGGERED = BlockStateProperties.TRIGGERED;
 
     public TeleporterBlock(Properties props) {
         super(props);
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false).setValue(TRIGGERED, false));
     }
 
     @Nullable
@@ -100,8 +101,29 @@ public class TeleporterBlock extends BaseEntityBlock {
     }
 
     @Override
+    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
+        super.neighborChanged(selfState, level, selfPos, fromBlock, fromPos, isMoving);
+
+        if(level.isClientSide())
+            return;
+
+        boolean isPowered = level.hasNeighborSignal(selfPos);
+        if(isPowered != selfState.getValue(TRIGGERED)) {
+            if(isPowered) {
+                BlockEntity blockEntity = level.getBlockEntity(selfPos);
+                if(!(blockEntity instanceof TeleporterBlockEntity teleporterBlockEntity))
+                    throw new IllegalStateException("Container is invalid");
+
+                teleporterBlockEntity.onRedstoneTriggered();
+            }
+
+            level.setBlock(selfPos, selfState.setValue(TRIGGERED, isPowered), 2);
+        }
+    }
+
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
-        stateBuilder.add(POWERED);
+        stateBuilder.add(POWERED, TRIGGERED);
     }
 
     public static class Item extends BlockItem {
