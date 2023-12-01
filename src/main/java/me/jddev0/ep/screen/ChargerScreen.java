@@ -77,7 +77,7 @@ public class ChargerScreen extends AbstractGenericEnergyStorageContainerScreen<C
             RedstoneMode redstoneMode = menu.getRedstoneMode();
 
             List<Component> components = new ArrayList<>(2);
-            components.add(Component.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.name().toLowerCase()));
+            components.add(Component.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.getSerializedName()));
 
             guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
         }
