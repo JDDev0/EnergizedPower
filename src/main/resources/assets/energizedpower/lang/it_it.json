@@ -480,7 +480,9 @@
   "item.energizedpower.teleporter": "Teletrasporto",
   "container.energizedpower.teleporter": "Teletrasporto",
 
-  "tooltip.energizedpower.teleporter.use": "Premi [%s] mentre sei sopra il Teletrasporto per teletrasportarti.",
+  "tooltip.energizedpower.teleporter.txt.shift.1": "Premi [%s] mentre sei sopra il Teletrasporto per teletrasportarti.",
+  "tooltip.energizedpower.teleporter.txt.shift.2": "Teleporteration of players can also be triggered with redstone.",
+
   "tooltip.energizedpower.teleporter.use.not_enough_energy": "Energia non sufficiente!",
   "tooltip.energizedpower.teleporter.use.no_teleporter_matrix": "Nessun teletrasporto Matrix presente!",
   "tooltip.energizedpower.teleporter.use.teleporter_matrix_not_bound": "Il teletrasporto Matrix non è vincolato!",
