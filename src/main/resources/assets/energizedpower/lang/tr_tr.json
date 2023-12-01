@@ -480,7 +480,9 @@
   "item.energizedpower.teleporter": "Işınlayıcı",
   "container.energizedpower.teleporter": "Işınlayıcı",
 
-  "tooltip.energizedpower.teleporter.use": "Işınlayıcının üstünde shifte basarak ışınlanın [%s] .",
+  "tooltip.energizedpower.teleporter.txt.shift.1": "Işınlayıcının üstünde shifte basarak ışınlanın [%s].",
+  "tooltip.energizedpower.teleporter.txt.shift.2": "Teleporteration of players can also be triggered with redstone.",
+
   "tooltip.energizedpower.teleporter.use.not_enough_energy": "YETERSİZ ENERJİ!",
   "tooltip.energizedpower.teleporter.use.no_teleporter_matrix": "Işınlayıcı Matrix Hazırda yok!",
   "tooltip.energizedpower.teleporter.use.teleporter_matrix_not_bound": "Işınlayıcı Matrix bağımlı değil!",

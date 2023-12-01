@@ -480,7 +480,9 @@
   "item.energizedpower.teleporter": "Teleporter",
   "container.energizedpower.teleporter": "Teleporter",
 
-  "tooltip.energizedpower.teleporter.use": "Drücke [%s] während du auf dem Teleporter stehst, um dich zu teleportieren.",
+  "tooltip.energizedpower.teleporter.txt.shift.1": "Drücke [%s] während du auf dem Teleporter stehst, um dich zu teleportieren.",
+  "tooltip.energizedpower.teleporter.txt.shift.2": "Teleporteration von Spielern kann auch mit Redstone ausgelöst werden.",
+
   "tooltip.energizedpower.teleporter.use.not_enough_energy": "Nicht genug Energie!",
   "tooltip.energizedpower.teleporter.use.no_teleporter_matrix": "Keine Teleporter-Matrix vorhanden!",
   "tooltip.energizedpower.teleporter.use.teleporter_matrix_not_bound": "Teleporter-Matrix ist nicht gebunden!",
