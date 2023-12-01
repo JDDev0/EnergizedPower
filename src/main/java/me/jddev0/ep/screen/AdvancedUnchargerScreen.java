@@ -79,7 +79,7 @@ public class AdvancedUnchargerScreen extends AbstractGenericEnergyStorageContain
             RedstoneMode redstoneMode = menu.getRedstoneMode();
 
             List<Component> components = new ArrayList<>(2);
-            components.add(Component.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.name().toLowerCase()));
+            components.add(Component.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.getSerializedName()));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
         }
