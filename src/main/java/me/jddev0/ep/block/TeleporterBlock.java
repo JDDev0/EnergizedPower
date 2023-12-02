@@ -138,8 +138,10 @@ public class TeleporterBlock extends BlockWithEntity {
         @Override
         public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
             if(Screen.hasShiftDown()) {
-                tooltip.add(Text.translatable("tooltip.energizedpower.teleporter.use",
+                tooltip.add(Text.translatable("tooltip.energizedpower.teleporter.txt.shift.1",
                         Text.keybind(ModKeyBindings.KEY_TELEPORTER_USE)).formatted(Formatting.GRAY, Formatting.ITALIC));
+                tooltip.add(Text.translatable("tooltip.energizedpower.teleporter.txt.shift.2").
+                        formatted(Formatting.GRAY, Formatting.ITALIC));
             }else {
                 tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
