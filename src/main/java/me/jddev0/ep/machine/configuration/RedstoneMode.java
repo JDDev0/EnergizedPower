@@ -1,8 +1,11 @@
 package me.jddev0.ep.machine.configuration;
 
+import net.minecraft.util.StringIdentifiable;
 import org.jetbrains.annotations.NotNull;
 
-public enum RedstoneMode {
+import java.util.Locale;
+
+public enum RedstoneMode implements StringIdentifiable {
     IGNORE, HIGH, LOW;
 
     /**
@@ -23,5 +26,11 @@ public enum RedstoneMode {
             case HIGH -> powered;
             case LOW -> !powered;
         };
+    }
+
+    @Override
+    @NotNull
+    public String asString() {
+        return name().toLowerCase(Locale.US);
     }
 }

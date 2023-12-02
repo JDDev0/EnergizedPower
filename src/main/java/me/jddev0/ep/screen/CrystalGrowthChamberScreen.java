@@ -88,7 +88,7 @@ public class CrystalGrowthChamberScreen extends AbstractGenericEnergyStorageHand
             RedstoneMode redstoneMode = handler.getRedstoneMode();
 
             List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.name().toLowerCase()));
+            components.add(Text.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.asString()));
 
             drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
         }
