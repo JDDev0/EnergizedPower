@@ -11,12 +11,19 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.TeleporterMenu;
 import me.jddev0.ep.util.InventoryUtils;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
+import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -27,6 +34,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -36,6 +44,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
@@ -193,6 +202,229 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
             level.setBlock(worldPosition, getBlockState().setValue(TeleporterBlock.POWERED, powered), 3);
 
         setChanged();
+    }
+
+    public void teleportPlayer(ServerPlayer player) {
+        LazyOptional<IEnergyStorage> energyStorageLazyOptional = getCapability(ForgeCapabilities.ENERGY, null);
+        if(!energyStorageLazyOptional.isPresent())
+            return;
+
+        IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
+        if(energyStorage.getEnergyStored() < TeleporterBlockEntity.CAPACITY) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.not_enough_energy").
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+
+        ItemStack teleporterMatrixItemStack = getStack(0);
+        if(!teleporterMatrixItemStack.is(ModItems.TELEPORTER_MATRIX.get())) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.no_teleporter_matrix").
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+
+        if(!TeleporterMatrixItem.isLinked(teleporterMatrixItemStack)) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.teleporter_matrix_not_bound").
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+
+        BlockPos toPos = TeleporterMatrixItem.getBlockPos(level, teleporterMatrixItemStack);
+        if(toPos == null) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_position").
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+
+        Level toDimension = TeleporterMatrixItem.getDimension(level, teleporterMatrixItemStack);
+        if(!(toDimension instanceof ServerLevel)) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_dimension").
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+
+        if(worldPosition.equals(toPos) && level.dimension().equals(toDimension.dimension())) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.teleporter_self_position").
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+
+        ResourceLocation fromDimensionId = level.dimension().location();
+        ResourceLocation toDimensionId = toDimension.dimension().location();
+
+        boolean intraDimensional = fromDimensionId.equals(toDimensionId);
+
+        //Intra dimensional enabled
+        if(intraDimensional && !TeleporterBlockEntity.INTRA_DIMENSIONAL_ENABLED) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.intra_dimensional_disabled",
+                                    fromDimensionId.toString()).
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+
+        //Inter dimensional enabled
+        if(!intraDimensional && !TeleporterBlockEntity.INTER_DIMENSIONAL_ENABLED) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.inter_dimensional_disabled",
+                                    fromDimensionId.toString()).
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+
+        //Dimension Blacklist
+        if(TeleporterBlockEntity.DIMENSION_BLACKLIST.contains(fromDimensionId)) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.blacklist.dimension",
+                                    fromDimensionId.toString()).
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+        if(TeleporterBlockEntity.DIMENSION_BLACKLIST.contains(toDimensionId)) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.blacklist.dimension",
+                                    toDimensionId.toString()).
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+
+        //Intra Dimension Blacklist
+        if(intraDimensional && TeleporterBlockEntity.INTRA_DIMENSIONAL_BLACKLIST.contains(fromDimensionId)) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional",
+                                    fromDimensionId.toString()).
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+
+        //Inter Dimension From Blacklist
+        if(!intraDimensional && TeleporterBlockEntity.INTER_DIMENSIONAL_FROM_BLACKLIST.contains(fromDimensionId)) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from",
+                                    fromDimensionId.toString()).
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+
+        //Inter Dimension To Blacklist
+        if(!intraDimensional && TeleporterBlockEntity.INTER_DIMENSIONAL_TO_BLACKLIST.contains(toDimensionId)) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to",
+                                    toDimensionId.toString()).
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+
+        ResourceLocation fromDimensionTypeId = level.dimensionTypeId().location();
+        ResourceLocation toDimensionTypeId = toDimension.dimensionTypeId().location();
+
+        //Dimension Type Blacklist
+        if(TeleporterBlockEntity.DIMENSION_TYPE_BLACKLIST.contains(fromDimensionTypeId)) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.blacklist.dimension_type",
+                                    fromDimensionTypeId.toString()).
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+        if(TeleporterBlockEntity.DIMENSION_TYPE_BLACKLIST.contains(toDimensionTypeId)) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.blacklist.dimension_type",
+                                    toDimensionTypeId.toString()).
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+
+        //Intra Dimension Type Blacklist
+        if(intraDimensional && TeleporterBlockEntity.INTRA_DIMENSIONAL_TYPE_BLACKLIST.contains(fromDimensionTypeId)) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional_type",
+                                    fromDimensionTypeId.toString()).
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+
+        //Inter Dimension From Type Blacklist
+        if(!intraDimensional && TeleporterBlockEntity.INTER_DIMENSIONAL_FROM_TYPE_BLACKLIST.contains(fromDimensionTypeId)) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from_type",
+                                    fromDimensionTypeId.toString()).
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+
+        //Inter Dimension To Type Blacklist
+        if(!intraDimensional && TeleporterBlockEntity.INTER_DIMENSIONAL_TO_TYPE_BLACKLIST.contains(toDimensionTypeId)) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to_type",
+                                    toDimensionTypeId.toString()).
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+
+        ///Do not check if chunk is loaded, chunk will be loaded by player after teleportation
+        BlockEntity toBlockEntity = toDimension.getBlockEntity(toPos);
+        if(!(toBlockEntity instanceof TeleporterBlockEntity)) {
+            player.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.teleporter.use.teleporter_matrix_no_teleporter").
+                            withStyle(ChatFormatting.RED)
+            ));
+
+            return;
+        }
+
+        clearEnergy();
+
+        Vec3 toPosCenter = toPos.getCenter();
+
+        player.teleportTo((ServerLevel)toDimension, toPosCenter.x(), toPos.getY() + 1, toPosCenter.z(),
+                new HashSet<>(), 0, 0);
+
+        player.connection.send(new ClientboundSoundPacket(
+                Holder.direct(SoundEvents.ENDERMAN_TELEPORT), SoundSource.BLOCKS,
+                toPosCenter.x(), toPos.getY(), toPosCenter.z(), 1.f, 1.f,
+                toDimension.getRandom().nextLong()));
     }
 
     public int getSlotCount() {
