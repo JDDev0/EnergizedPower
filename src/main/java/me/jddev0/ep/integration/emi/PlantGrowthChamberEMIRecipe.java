@@ -92,7 +92,7 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
         for(int i = 0;i < outputsWithPercentages.length;i++) {
             SlotWidget outputSlot = outputSlots[i % 4];
 
-            Text oddsText = Text.translatable("recipes.energizedpower.transfer.output_odds");
+            Text oddsText = Text.translatable("recipes.energizedpower.transfer.output_percentages");
 
             if(i >= 4 || i + 4 < outputsWithPercentages.length) {
                 outputSlot.appendTooltip(Text.translatable(outputsWithPercentages[i].output().getTranslationKey()).
