@@ -6,6 +6,8 @@ import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Locale;
+
 public final class ModBlockStateProperties {
     private ModBlockStateProperties() {}
 
@@ -37,7 +39,7 @@ public final class ModBlockStateProperties {
         @Override
         @NotNull
         public String asString() {
-            return name().toLowerCase();
+            return name().toLowerCase(Locale.US);
         }
 
         public String getTranslationKey() {
@@ -146,7 +148,7 @@ public final class ModBlockStateProperties {
         @Override
         @NotNull
         public String asString() {
-            return name().toLowerCase();
+            return name().toLowerCase(Locale.US);
         }
 
         public String getTranslationKey() {

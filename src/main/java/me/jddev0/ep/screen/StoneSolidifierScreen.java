@@ -292,7 +292,7 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageHandledSc
             RedstoneMode redstoneMode = handler.getRedstoneMode();
 
             List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.name().toLowerCase()));
+            components.add(Text.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.asString()));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
         }
