@@ -215,10 +215,10 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
                         worldPosition.getZ() - 2),
                 new Vec3i(worldPosition.getX() + 2, worldPosition.getY() + 2,
                         worldPosition.getZ() + 2))), EntitySelector.NO_SPECTATORS.
-                and(entity -> entity.distanceToSqr(new Vec3(worldPosition.getX() - .5,
-                        worldPosition.getY() - .5, worldPosition.getZ() - .5)) <= 4)).stream().
-                min(Comparator.comparing(entity -> entity.distanceToSqr(new Vec3(worldPosition.getX() - .5,
-                        worldPosition.getY() - .5, worldPosition.getZ() - .5))));
+                and(entity -> entity.distanceToSqr(new Vec3(worldPosition.getX() + .5,
+                        worldPosition.getY() - .5, worldPosition.getZ() + .5)) <= 4)).stream().
+                min(Comparator.comparing(entity -> entity.distanceToSqr(new Vec3(worldPosition.getX() + .5,
+                        worldPosition.getY() - .5, worldPosition.getZ() + .5))));
 
         if(player.isEmpty())
             return;
