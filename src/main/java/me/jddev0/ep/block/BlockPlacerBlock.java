@@ -102,18 +102,9 @@ public class BlockPlacerBlock extends BlockWithEntity {
     }
 
     @Override
-    public void onBlockAdded(BlockState selfState, World level, BlockPos selfPos, BlockState oldState, boolean isMoving) {
-        if(level.isClient())
-            return;
-
-        boolean isPowered = level.isReceivingRedstonePower(selfPos);
-        if(isPowered != selfState.get(POWERED))
-            level.setBlockState(selfPos, selfState.with(POWERED, isPowered), 2);
-    }
-
-    @Override
     public BlockState getPlacementState(ItemPlacementContext context) {
-        return this.getDefaultState().with(FACING, context.getPlayerLookDirection().getOpposite());
+        return this.getDefaultState().with(FACING, context.getPlayerLookDirection().getOpposite()).
+                with(POWERED, context.getWorld().isReceivingRedstonePower(context.getBlockPos()));
     }
 
     @Override
