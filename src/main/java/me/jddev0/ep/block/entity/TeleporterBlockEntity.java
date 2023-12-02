@@ -25,6 +25,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -34,18 +35,18 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.TypeFilter;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
 
-import java.util.HashSet;
+import java.util.Comparator;
 import java.util.stream.IntStream;
 import java.util.List;
+import java.util.Optional;
 
 public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
     public static final boolean INTRA_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_ENABLED.getValue();
@@ -203,6 +204,27 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
             world.setBlockState(pos, getCachedState().with(TeleporterBlock.POWERED, powered), 3);
 
         markDirty();
+    }
+
+    public void onRedstoneTriggered() {
+        if(Transaction.isOpen())
+            return;
+
+        Optional<PlayerEntity> player = world.getEntitiesByType(TypeFilter.instanceOf(PlayerEntity.class), Box.from(BlockBox.create(
+                new Vec3i(pos.getX() - 2, pos.getY() - 2, pos.getZ() - 2),
+                new Vec3i(pos.getX() + 2, pos.getY() + 2, pos.getZ() + 2))), EntityPredicates.EXCEPT_SPECTATOR.
+                        and(entity -> entity.squaredDistanceTo(new Vec3d(pos.getX() + .5,
+                                pos.getY() - .5, pos.getZ() + .5)) <= 4)).stream().
+                min(Comparator.comparing(entity -> entity.squaredDistanceTo(new Vec3d(pos.getX() + .5,
+                        pos.getY() - .5, pos.getZ() + .5))));
+
+        if(player.isEmpty())
+            return;
+
+        if(!(player.get() instanceof ServerPlayerEntity serverPlayer))
+            return;
+
+        teleportPlayer(serverPlayer);
     }
 
     public void teleportPlayer(ServerPlayerEntity player) {
