@@ -106,7 +106,7 @@ dependencies {
     compileOnly "dev.emi:emi-forge:1.0.23+1.20.2:api" //TODO debof
 
     // Curios integration
-    compileOnly "top.theillusivec4.curios:curios-forge:6.0.0+1.20.2:api" //TODO debof
+    compileOnly "top.theillusivec4.curios:curios-neoforge:6.1.0+1.20.2:api"
 
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
