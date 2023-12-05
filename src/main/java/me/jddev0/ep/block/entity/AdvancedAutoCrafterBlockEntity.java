@@ -295,7 +295,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
+        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks));
         for(int i = 0;i < 3;i++)
             nbt.put("pattern." + i, savePatternContainer(i));
         nbt.putLong("energy", internalEnergyStorage.amount);
@@ -337,7 +337,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
     public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
 
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
+        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks);
         for(int i = 0;i < 3;i++)
             loadPatternContainer(i, nbt.get("pattern." + i));
         internalEnergyStorage.amount = nbt.getLong("energy");
@@ -385,7 +385,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
     }
 
     public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory.stacks);
+        ItemScatterer.spawn(level, worldPosition, internalInventory.heldStacks);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, AdvancedAutoCrafterBlockEntity blockEntity) {

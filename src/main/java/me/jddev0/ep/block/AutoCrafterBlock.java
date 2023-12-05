@@ -1,14 +1,14 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -33,12 +33,23 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class AutoCrafterBlock extends BlockWithEntity {
+    public static final MapCodec<AutoCrafterBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
+            return (FabricBlockSettings)block.getSettings();
+        })).apply(instance, AutoCrafterBlock::new);
+    });
+
     public static final BooleanProperty POWERED = Properties.POWERED;
 
     public AutoCrafterBlock(FabricBlockSettings props) {
         super(props);
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Nullable

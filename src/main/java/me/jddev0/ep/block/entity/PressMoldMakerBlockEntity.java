@@ -138,7 +138,7 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements ExtendedSc
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
+        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks));
 
         super.writeNbt(nbt);
     }
@@ -147,11 +147,11 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements ExtendedSc
     public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
 
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
+        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks);
     }
 
     public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory.stacks);
+        ItemScatterer.spawn(level, worldPosition, internalInventory.heldStacks);
     }
 
     public void craftItem(Identifier recipeId) {

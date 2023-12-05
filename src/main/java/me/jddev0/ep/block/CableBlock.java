@@ -1,6 +1,9 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.CableBlockEntity;
+import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -24,6 +27,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -37,6 +41,11 @@ import team.reborn.energy.api.EnergyStorage;
 import java.util.List;
 
 public class CableBlock extends BlockWithEntity implements Waterloggable {
+    public static final MapCodec<CableBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(Codecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
+                forGetter(CableBlock::getTier)).apply(instance, CableBlock::new);
+    });
+
     public static final BooleanProperty UP = Properties.UP;
     public static final BooleanProperty DOWN = Properties.DOWN;
     public static final BooleanProperty NORTH = Properties.NORTH;
@@ -67,6 +76,11 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 
     public Tier getTier() {
         return tier;
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Nullable

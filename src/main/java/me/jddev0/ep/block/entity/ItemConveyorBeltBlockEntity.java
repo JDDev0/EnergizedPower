@@ -133,7 +133,7 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
+        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks));
 
         super.writeNbt(nbt);
     }
@@ -142,11 +142,11 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
     public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
 
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
+        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks);
     }
 
     public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory.stacks);
+        ItemScatterer.spawn(level, worldPosition, internalInventory.heldStacks);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltBlockEntity blockEntity) {

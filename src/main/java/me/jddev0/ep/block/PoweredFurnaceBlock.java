@@ -1,7 +1,10 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.PoweredFurnaceBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.codec.CodecFix;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -29,6 +32,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.ToIntFunction;
 
 public class PoweredFurnaceBlock extends BlockWithEntity {
+    public static final MapCodec<PoweredFurnaceBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
+            return (FabricBlockSettings)block.getSettings();
+        })).apply(instance, PoweredFurnaceBlock::new);
+    });
+
     public static final BooleanProperty POWERED = Properties.POWERED;
 
     public static final BooleanProperty LIT = Properties.LIT;
@@ -41,6 +50,11 @@ public class PoweredFurnaceBlock extends BlockWithEntity {
         super(props);
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false).with(FACING, Direction.NORTH).with(LIT, false));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Nullable

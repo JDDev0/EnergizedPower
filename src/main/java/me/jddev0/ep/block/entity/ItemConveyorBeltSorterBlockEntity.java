@@ -108,7 +108,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Ex
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
-        nbt.put("pattern", Inventories.writeNbt(new NbtCompound(), patternSlots.stacks));
+        nbt.put("pattern", Inventories.writeNbt(new NbtCompound(), patternSlots.heldStacks));
 
         for(int i = 0;i < 3;i++)
             nbt.putBoolean("recipe.whitelist." + i, whitelist[i]);
@@ -122,7 +122,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Ex
     public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
 
-        Inventories.readNbt(nbt.getCompound("pattern"), patternSlots.stacks);
+        Inventories.readNbt(nbt.getCompound("pattern"), patternSlots.heldStacks);
 
         for(int i = 0;i < 3;i++)
             whitelist[i] = nbt.getBoolean("recipe.whitelist." + i);

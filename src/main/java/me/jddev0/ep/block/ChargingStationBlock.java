@@ -1,7 +1,10 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.ChargingStationBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.codec.CodecFix;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -34,6 +37,12 @@ import java.util.List;
 import java.util.function.ToIntFunction;
 
 public class ChargingStationBlock extends BlockWithEntity {
+    public static final MapCodec<ChargingStationBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
+            return (FabricBlockSettings)block.getSettings();
+        })).apply(instance, ChargingStationBlock::new);
+    });
+
     public static final BooleanProperty CHARGING = BooleanProperty.of("charging");
 
     public static final ToIntFunction<BlockState> LIGHT_EMISSION =
@@ -44,6 +53,11 @@ public class ChargingStationBlock extends BlockWithEntity {
         super(props);
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(CHARGING, false));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Nullable

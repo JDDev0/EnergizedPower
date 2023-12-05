@@ -1,7 +1,10 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.ItemConveyorBeltMergerBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.codec.CodecFix;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -22,12 +25,23 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltMergerBlock extends BlockWithEntity {
+    public static final MapCodec<ItemConveyorBeltMergerBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
+            return (FabricBlockSettings)block.getSettings();
+        })).apply(instance, ItemConveyorBeltMergerBlock::new);
+    });
+
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 
     protected ItemConveyorBeltMergerBlock(FabricBlockSettings props) {
         super(props);
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Nullable

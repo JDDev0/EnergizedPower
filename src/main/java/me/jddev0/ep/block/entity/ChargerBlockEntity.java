@@ -230,7 +230,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
+        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks));
         nbt.putLong("energy", internalEnergyStorage.amount);
 
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
@@ -244,7 +244,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
     public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
 
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
+        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks);
         internalEnergyStorage.amount = nbt.getLong("energy");
 
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
@@ -253,7 +253,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
     }
 
     public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory.stacks);
+        ItemScatterer.spawn(level, worldPosition, internalInventory.heldStacks);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, ChargerBlockEntity blockEntity) {

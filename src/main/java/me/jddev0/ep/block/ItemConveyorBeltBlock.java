@@ -1,7 +1,10 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.ItemConveyorBeltBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.codec.CodecFix;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
@@ -37,6 +40,12 @@ import java.util.List;
 import static me.jddev0.ep.block.ModBlockStateProperties.ConveyorBeltDirection;
 
 public class ItemConveyorBeltBlock extends BlockWithEntity implements WrenchConfigurable {
+    public static final MapCodec<ItemConveyorBeltBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
+            return (FabricBlockSettings)block.getSettings();
+        })).apply(instance, ItemConveyorBeltBlock::new);
+    });
+
     public static final EnumProperty<ConveyorBeltDirection> FACING = ModBlockStateProperties.CONVEYOR_BELT_FACING;
 
     protected static final VoxelShape SHAPE_FLAT = Block.createCuboidShape(0., 0., 0., 16., 2., 16.);
@@ -46,6 +55,11 @@ public class ItemConveyorBeltBlock extends BlockWithEntity implements WrenchConf
         super(props);
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, ConveyorBeltDirection.NORTH_SOUTH));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Nullable

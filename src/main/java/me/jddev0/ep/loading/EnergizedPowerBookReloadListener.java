@@ -18,7 +18,6 @@ import net.minecraft.util.profiler.Profiler;
 import org.slf4j.Logger;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Environment(EnvType.CLIENT)
 public class EnergizedPowerBookReloadListener extends JsonDataLoader implements IdentifiableResourceReloadListener {
@@ -92,11 +91,11 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
 
                 Text chapterTitleComponent = null;
                 if(object.has("title"))
-                    chapterTitleComponent = Text.Serializer.fromJson(object.get("title"));
+                    chapterTitleComponent = Text.Serialization.fromJsonTree(object.get("title"));
 
                 Text contentComponent = null;
                 if(object.has("content"))
-                    contentComponent = Text.Serializer.fromJson(object.get("content"));
+                    contentComponent = Text.Serialization.fromJsonTree(object.get("content"));
 
                 Identifier[] imageResourceLocations = null;
                 if(object.has("image")) {

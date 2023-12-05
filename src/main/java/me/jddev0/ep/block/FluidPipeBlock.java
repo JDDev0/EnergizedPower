@@ -1,7 +1,10 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.FluidPipeBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.codec.CodecFix;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
@@ -44,6 +47,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, WrenchConfigurable {
+    public static final MapCodec<FluidPipeBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
+            return (FabricBlockSettings)block.getSettings();
+        })).apply(instance, FluidPipeBlock::new);
+    });
+
     public static final EnumProperty<ModBlockStateProperties.PipeConnection> UP = ModBlockStateProperties.PIPE_CONNECTION_UP;
     public static final EnumProperty<ModBlockStateProperties.PipeConnection> DOWN = ModBlockStateProperties.PIPE_CONNECTION_DOWN;
     public static final EnumProperty<ModBlockStateProperties.PipeConnection> NORTH = ModBlockStateProperties.PIPE_CONNECTION_NORTH;
@@ -82,6 +91,11 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
                 with(EAST, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
                 with(WEST, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
                 with(WATERLOGGED, false));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Nullable

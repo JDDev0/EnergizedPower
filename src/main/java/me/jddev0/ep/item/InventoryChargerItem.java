@@ -280,7 +280,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
                 public void markDirty() {
                     super.markDirty();
 
-                    itemStack.getOrCreateNbt().put("inventory", Inventories.writeNbt(new NbtCompound(), this.stacks));
+                    itemStack.getOrCreateNbt().put("inventory", Inventories.writeNbt(new NbtCompound(), this.heldStacks));
                 }
 
                 @Override
@@ -316,7 +316,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
             public void markDirty() {
                 super.markDirty();
 
-                itemStack.getOrCreateNbt().put("inventory", Inventories.writeNbt(new NbtCompound(), this.stacks));
+                itemStack.getOrCreateNbt().put("inventory", Inventories.writeNbt(new NbtCompound(), this.heldStacks));
             }
 
             @Override

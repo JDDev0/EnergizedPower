@@ -1,6 +1,9 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.TransformerBlockEntity;
+import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -23,6 +26,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -31,6 +35,16 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class TransformerBlock extends BlockWithEntity {
+    public static final MapCodec<TransformerBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
+            return (FabricBlockSettings)block.getSettings();
+        }), Codecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
+                        forGetter(TransformerBlock::getTier),
+                Codecs.NON_EMPTY_STRING.xmap(Type::valueOf, Type::toString).fieldOf("transformer_type").
+                        forGetter(TransformerBlock::getTransformerType)
+        ).apply(instance, TransformerBlock::new);
+    });
+
     public static final DirectionProperty FACING = Properties.FACING;
 
     private final Tier tier;
@@ -51,6 +65,11 @@ public class TransformerBlock extends BlockWithEntity {
 
     public Type getTransformerType() {
         return type;
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Nullable

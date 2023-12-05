@@ -1,6 +1,9 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.TeleporterBlockEntity;
+import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.input.ModKeyBindings;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -31,6 +34,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class TeleporterBlock extends BlockWithEntity {
+    public static final MapCodec<TeleporterBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
+            return (FabricBlockSettings)block.getSettings();
+        })).apply(instance, TeleporterBlock::new);
+    });
+
     public static final BooleanProperty POWERED = Properties.POWERED;
     public static final BooleanProperty TRIGGERED = Properties.TRIGGERED;
 
@@ -38,6 +47,11 @@ public class TeleporterBlock extends BlockWithEntity {
         super(props);
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false).with(TRIGGERED, false));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Nullable

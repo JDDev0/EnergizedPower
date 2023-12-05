@@ -1,7 +1,10 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.block.entity.PoweredLampBlockEntity;
+import me.jddev0.ep.codec.CodecFix;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -20,6 +23,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.ToIntFunction;
 
 public class PoweredLampBlock extends BlockWithEntity {
+    public static final MapCodec<PoweredLampBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
+            return (FabricBlockSettings)block.getSettings();
+        })).apply(instance, PoweredLampBlock::new);
+    });
+
     public static final IntProperty LEVEL = Properties.LEVEL_15;
 
     public static final ToIntFunction<BlockState> LIGHT_EMISSION =
@@ -29,6 +38,11 @@ public class PoweredLampBlock extends BlockWithEntity {
         super(props);
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(LEVEL, 0));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Nullable

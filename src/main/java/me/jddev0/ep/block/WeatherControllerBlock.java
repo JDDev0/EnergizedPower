@@ -1,6 +1,9 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
+import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.config.ModConfigs;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.BlockRenderType;
@@ -16,10 +19,21 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class WeatherControllerBlock extends BlockWithEntity {
+    public static final MapCodec<WeatherControllerBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
+            return (FabricBlockSettings)block.getSettings();
+        })).apply(instance, WeatherControllerBlock::new);
+    });
+
     public static int WEATHER_CHANGED_TICKS = ModConfigs.COMMON_WEATHER_CONTROLLER_CONTROL_DURATION.getValue();
 
     public WeatherControllerBlock(FabricBlockSettings props) {
         super(props);
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Nullable

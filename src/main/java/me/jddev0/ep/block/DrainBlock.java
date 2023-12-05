@@ -1,7 +1,10 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.DrainBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.codec.CodecFix;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -28,6 +31,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class DrainBlock extends BlockWithEntity {
+    public static final MapCodec<DrainBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
+            return (FabricBlockSettings)block.getSettings();
+        })).apply(instance, DrainBlock::new);
+    });
+
     public DrainBlock(FabricBlockSettings props) {
         super(props);
     }
@@ -36,6 +45,11 @@ public class DrainBlock extends BlockWithEntity {
     @Override
     public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
         return new DrainBlockEntity(blockPos, state);
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Override

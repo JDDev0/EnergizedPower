@@ -59,7 +59,7 @@ public class MinecartAdvancedBatteryBox extends AbstractMinecartBatteryBox {
     }
 
     @Override
-    protected Item getItem() {
+    protected Item asItem() {
         return ModItems.ADVANCED_BATTERY_BOX_MINECART;
     }
 

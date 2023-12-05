@@ -2,6 +2,7 @@ package me.jddev0.ep.codec;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -25,4 +26,6 @@ public final class CodecFix {
         nbt.ifPresent(itemStack::setNbt);
         return itemStack;
     }
+
+    public static final Codec<FabricBlockSettings> FABRIC_BLOCK_SETTINGS_CODEC = Codec.unit(FabricBlockSettings::create);
 }

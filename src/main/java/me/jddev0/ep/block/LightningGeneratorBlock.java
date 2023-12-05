@@ -1,7 +1,10 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.LightningGeneratorBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -36,6 +39,12 @@ import java.util.List;
 import java.util.function.ToIntFunction;
 
 public class LightningGeneratorBlock extends BlockWithEntity {
+    public static final MapCodec<LightningGeneratorBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
+            return (FabricBlockSettings)block.getSettings();
+        })).apply(instance, LightningGeneratorBlock::new);
+    });
+
     public static final long ENERGY_PER_LIGHTNING_STRIKE = ModConfigs.COMMON_LIGHTNING_GENERATOR_CAPACITY.getValue();
 
     public static final BooleanProperty HIT_BY_LIGHTNING_BOLT = BooleanProperty.of("hit_by_lightning_bolt");
@@ -49,6 +58,11 @@ public class LightningGeneratorBlock extends BlockWithEntity {
         super(props);
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(HIT_BY_LIGHTNING_BOLT, false));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Nullable
