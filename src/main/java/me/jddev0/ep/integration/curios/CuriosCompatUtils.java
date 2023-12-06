@@ -29,8 +29,7 @@ public final class CuriosCompatUtils {
         if(!isCuriosAvailable())
             return itemStacks;
 
-        //TODO re-enable
-        /*ICuriosHelper curiosHelper = CuriosApi.getCuriosHelper();
+        ICuriosHelper curiosHelper = CuriosApi.getCuriosHelper();
         if(curiosHelper == null)
             return itemStacks;
 
@@ -46,7 +45,7 @@ public final class CuriosCompatUtils {
 
             if(!itemStack.isEmpty())
                 itemStacks.add(itemStack);
-        }*/
+        }
 
         return itemStacks;
     }
