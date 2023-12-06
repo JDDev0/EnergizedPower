@@ -162,7 +162,7 @@ public class AssemblingMachineRecipe implements Recipe<SimpleContainer> {
                 buffer.writeInt(recipe.inputs[i].count);
             }
 
-            buffer.writeItemStack(recipe.output, false);
+            buffer.writeItem(recipe.output);
         }
     }
 

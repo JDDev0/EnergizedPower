@@ -19,9 +19,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -34,7 +32,6 @@ public class BatteryBoxBlockEntity extends BlockEntity implements MenuProvider, 
     public static final int MAX_TRANSFER = ModConfigs.COMMON_BATTERY_BOX_TRANSFER_RATE.getValue();
 
     private final ReceiveAndExtractEnergyStorage energyStorage;
-    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     public BatteryBoxBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.BATTERY_BOX_ENTITY.get(), blockPos, blockState);
@@ -51,8 +48,6 @@ public class BatteryBoxBlockEntity extends BlockEntity implements MenuProvider, 
                     );
             }
         };
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -75,13 +70,8 @@ public class BatteryBoxBlockEntity extends BlockEntity implements MenuProvider, 
         return Math.min(Mth.floor((float)energyStorage.getEnergy() / energyStorage.getCapacity() * 14.f) + (isEmptyFlag?0:1), 15);
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == Capabilities.ENERGY) {
-            return lazyEnergyStorage.cast();
-        }
-
-        return super.getCapability(cap, side);
+    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return energyStorage;
     }
 
     @Override
@@ -116,15 +106,10 @@ public class BatteryBoxBlockEntity extends BlockEntity implements MenuProvider, 
             BlockPos testPos = blockPos.relative(direction);
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-            if(testBlockEntity == null)
-                continue;
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = testBlockEntity.getCapability(Capabilities.ENERGY, direction.getOpposite());
-            if(!energyStorageLazyOptional.isPresent())
-                continue;
-
-            IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-            if(!energyStorage.canReceive())
+            IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, testPos,
+                    level.getBlockState(testPos), testBlockEntity, direction.getOpposite());
+            if(energyStorage == null || !energyStorage.canReceive())
                 continue;
 
             int received = energyStorage.receiveEnergy(Math.min(MAX_TRANSFER, blockEntity.energyStorage.getEnergy()), true);

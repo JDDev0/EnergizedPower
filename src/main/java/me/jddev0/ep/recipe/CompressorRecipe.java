@@ -118,7 +118,7 @@ public class CompressorRecipe implements Recipe<SimpleContainer> {
         @Override
         public void toNetwork(FriendlyByteBuf buffer, CompressorRecipe recipe) {
             recipe.input.toNetwork(buffer);
-            buffer.writeItemStack(recipe.output, false);
+            buffer.writeItem(recipe.output);
         }
     }
 }

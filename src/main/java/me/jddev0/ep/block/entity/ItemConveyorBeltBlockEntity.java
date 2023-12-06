@@ -18,9 +18,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -56,36 +55,26 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
             return 1;
         }
     };
-    private final LazyOptional<IItemHandler> lazyItemHandler;
-    private final LazyOptional<IItemHandler> lazyItemHandlerFrontSided = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 3));
-    private final LazyOptional<IItemHandler> lazyItemHandlerOthersSided = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 3));
+    private final IItemHandler itemHandlerFrontSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 3);
+    private final IItemHandler itemHandlerOthersSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 3);
 
     public ItemConveyorBeltBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ITEM_CONVEYOR_BELT_ENTITY.get(), blockPos, blockState);
-
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
     }
 
     public int getRedstoneOutput() {
         return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == Capabilities.ITEM_HANDLER) {
-            if(side == null)
-                return lazyItemHandler.cast();
+    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
 
-            Direction facing = getBlockState().getValue(ItemConveyorBeltBlock.FACING).getDirection();
-            if(side.getOpposite() == facing)
-                return lazyItemHandlerFrontSided.cast();
+        Direction facing = getBlockState().getValue(ItemConveyorBeltBlock.FACING).getDirection();
+        if(side.getOpposite() == facing)
+            return itemHandlerFrontSided;
 
-            return lazyItemHandlerOthersSided.cast();
-        }
-
-        return super.getCapability(cap, side);
+        return itemHandlerOthersSided;
     }
 
     @Override
@@ -155,8 +144,9 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
         //Descending will insert on same height because it came from one block higher
 
         BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-        LazyOptional<IItemHandler> itemStackStorageLazyOptional = testBlockEntity == null?null:testBlockEntity.getCapability(Capabilities.ITEM_HANDLER, facingDirection.getOpposite());
-        if(itemStackStorageLazyOptional == null || !itemStackStorageLazyOptional.isPresent()) {
+        IItemHandler itemStackStorage = level.getCapability(Capabilities.ItemHandler.BLOCK, testPos,
+                level.getBlockState(testPos), testBlockEntity, facingDirection.getOpposite());
+        if(itemStackStorage == null) {
             //Check for descending belt facing the same direction one block lower (Will also work if this belt is ascending)
 
             testPos = testPos.relative(Direction.DOWN);
@@ -172,15 +162,18 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
             if(!(testBlockEntity instanceof ItemConveyorBeltBlockEntity))
                 return;
 
-            itemStackStorageLazyOptional = testBlockEntity.getCapability(Capabilities.ITEM_HANDLER, facingDirection.getOpposite());
-            if(!itemStackStorageLazyOptional.isPresent())
+            itemStackStorage = level.getCapability(Capabilities.ItemHandler.BLOCK, testPos, testBlockState,
+                    testBlockEntity, facingDirection.getOpposite());
+            if(itemStackStorage == null)
                 return;
         }
+        if(itemStackToInsert.is(Tags.Items.SEEDS_WHEAT))
+            System.out.println("test");
 
-        IItemHandler itemStackStorage = itemStackStorageLazyOptional.orElseGet(null);
         for(int i = 0;i < itemStackStorage.getSlots();i++) {
             if(itemStackStorage.insertItem(i, itemStackToInsert, false).isEmpty()) {
                 blockEntity.itemHandler.setStackInSlot(blockEntity.itemHandler.getSlots() - 1, ItemStack.EMPTY);
+
 
                 break;
             }

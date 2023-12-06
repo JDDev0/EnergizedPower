@@ -19,8 +19,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -111,12 +110,8 @@ public class InventoryChargerItem extends Item implements MenuProvider {
 
     private int addConsumerEnergyItem(List<IEnergyStorage> consumerItems, List<Integer> consumerEnergyValues,
                                       ItemStack itemStack, ItemStack testItemStack, Container inventoryChargerInventory) {
-        LazyOptional<IEnergyStorage> energyStorageLazyOptional = testItemStack.getCapability(Capabilities.ENERGY);
-        if(!energyStorageLazyOptional.isPresent())
-            return 0;
-
-        IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-        if(!energyStorage.canReceive())
+        IEnergyStorage energyStorage = testItemStack.getCapability(Capabilities.EnergyStorage.ITEM);
+        if(energyStorage == null || !energyStorage.canReceive())
             return 0;
 
         int received = energyStorage.receiveEnergy(getMaxTransfer(inventoryChargerInventory), true);
@@ -182,6 +177,9 @@ public class InventoryChargerItem extends Item implements MenuProvider {
             if(energy > 0)
                 consumerItems.get(i).receiveEnergy(energy, false);
         }
+
+        //Fix for energy is not extracted from batteries
+        inventoryChargerInventory.setChanged();
     }
 
     public void extractEnergyFromBatteries(int energyProductionLeft, Container inventory) {
@@ -191,11 +189,9 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         for(int i = 0;i < inventory.getContainerSize();i++) {
             ItemStack stack = inventory.getItem(i);
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
-            if(!energyStorageLazyOptional.isPresent())
+            IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+            if(energyStorage == null)
                 continue;
-
-            IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
 
             int extracted = energyStorage.extractEnergy(energyStorage.getMaxEnergyStored(), true);
             if(extracted <= 0)
@@ -279,12 +275,8 @@ public class InventoryChargerItem extends Item implements MenuProvider {
                 @Override
                 public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
                     if(slot >= 0 && slot < getContainerSize()) {
-                        LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
-                        if(!energyStorageLazyOptional.isPresent())
-                            return false;
-
-                        IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-                        return energyStorage.canExtract();
+                        IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+                        return energyStorage != null && energyStorage.canExtract();
                     }
 
                     return super.canPlaceItem(slot, stack);
@@ -317,12 +309,8 @@ public class InventoryChargerItem extends Item implements MenuProvider {
             @Override
             public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
                 if(slot >= 0 && slot < getContainerSize()) {
-                    LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
-                    if(!energyStorageLazyOptional.isPresent())
-                        return false;
-
-                    IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-                    return energyStorage.canExtract();
+                    IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+                    return energyStorage != null && energyStorage.canExtract();
                 }
 
                 return super.canPlaceItem(slot, stack);
@@ -346,11 +334,10 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         for(int i = 0;i < inventory.getContainerSize();i++) {
             ItemStack stack = inventory.getItem(i);
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
-            if(!energyStorageLazyOptional.isPresent())
+            IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+            if(energyStorage == null)
                 continue;
 
-            IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
             int value = energyStorage.getEnergyStored();
 
             //Prevent overflow
@@ -369,11 +356,10 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         for(int i = 0;i < inventory.getContainerSize();i++) {
             ItemStack stack = inventory.getItem(i);
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
-            if(!energyStorageLazyOptional.isPresent())
+            IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+            if(energyStorage == null)
                 continue;
 
-            IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
             int value = energyStorage.getMaxEnergyStored();
 
             //Prevent overflow
@@ -392,11 +378,10 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         for(int i = 0;i < inventory.getContainerSize();i++) {
             ItemStack stack = inventory.getItem(i);
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
-            if(!energyStorageLazyOptional.isPresent())
+            IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+            if(energyStorage == null)
                 continue;
 
-            IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
             int value = energyStorage.extractEnergy(energyStorage.getMaxEnergyStored(), true);
 
             //Prevent overflow

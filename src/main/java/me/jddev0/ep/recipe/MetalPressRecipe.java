@@ -150,8 +150,8 @@ public class MetalPressRecipe implements Recipe<SimpleContainer> {
         public void toNetwork(FriendlyByteBuf buffer, MetalPressRecipe recipe) {
             recipe.input.toNetwork(buffer);
             buffer.writeInt(recipe.inputCount);
-            buffer.writeItemStack(recipe.pressMold, false);
-            buffer.writeItemStack(recipe.output, false);
+            buffer.writeItem(recipe.pressMold);
+            buffer.writeItem(recipe.output);
         }
     }
 }

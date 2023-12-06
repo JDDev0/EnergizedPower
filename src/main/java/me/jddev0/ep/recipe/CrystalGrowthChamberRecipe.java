@@ -164,7 +164,7 @@ public class CrystalGrowthChamberRecipe implements Recipe<SimpleContainer> {
             buffer.writeInt(recipe.inputCount);
             buffer.writeInt(recipe.ticks);
 
-            buffer.writeItemStack(recipe.output.output, false);
+            buffer.writeItem(recipe.output.output);
 
             buffer.writeInt(recipe.output.percentages.length);
             for(double percentage:recipe.output.percentages)

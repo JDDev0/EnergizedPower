@@ -40,9 +40,7 @@ import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -96,13 +94,9 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
             return 1;
         }
     };
-    private final LazyOptional<IItemHandler> lazyItemHandler;
-    private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> true));
+    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> true);
 
     private final ReceiveOnlyEnergyStorage energyStorage;
-
-    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
 
     public TeleporterBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -121,9 +115,6 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
                     );
             }
         };
-
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -144,18 +135,15 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
         return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == Capabilities.ITEM_HANDLER) {
-            if(side == null)
-                return lazyItemHandler.cast();
+    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
 
-            return lazyItemHandlerSided.cast();
-        }else if(cap == Capabilities.ENERGY) {
-            return lazyEnergyStorage.cast();
-        }
+        return itemHandlerSided;
+    }
 
-        return super.getCapability(cap, side);
+    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return energyStorage;
     }
 
     @Override
@@ -217,11 +205,11 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
     }
 
     public void teleportPlayer(ServerPlayer player) {
-        LazyOptional<IEnergyStorage> energyStorageLazyOptional = getCapability(Capabilities.ENERGY, null);
-        if(!energyStorageLazyOptional.isPresent())
+        IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, getBlockPos(),
+                getBlockState(), this, null);
+        if(energyStorage == null)
             return;
 
-        IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
         if(energyStorage.getEnergyStored() < TeleporterBlockEntity.CAPACITY) {
             player.connection.send(new ClientboundSetActionBarTextPacket(
                     Component.translatable("tooltip.energizedpower.teleporter.use.not_enough_energy").

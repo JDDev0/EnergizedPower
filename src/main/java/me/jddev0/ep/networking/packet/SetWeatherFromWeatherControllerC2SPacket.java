@@ -7,8 +7,7 @@ import net.minecraft.core.SectionPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.network.NetworkEvent;
 
@@ -41,11 +40,11 @@ public class SetWeatherFromWeatherControllerC2SPacket {
             if(!(blockEntity instanceof WeatherControllerBlockEntity weatherControllerBlockEntity))
                 return;
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = weatherControllerBlockEntity.getCapability(Capabilities.ENERGY, null);
-            if(!energyStorageLazyOptional.isPresent())
+            IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, pos,
+                    level.getBlockState(pos), weatherControllerBlockEntity, null);
+            if(energyStorage == null)
                 return;
 
-            IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
             if(energyStorage.getEnergyStored() < WeatherControllerBlockEntity.CAPACITY)
                 return;
 

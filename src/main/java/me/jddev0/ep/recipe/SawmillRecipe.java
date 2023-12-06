@@ -144,8 +144,8 @@ public class SawmillRecipe implements Recipe<SimpleContainer> {
         @Override
         public void toNetwork(FriendlyByteBuf buffer, SawmillRecipe recipe) {
             recipe.input.toNetwork(buffer);
-            buffer.writeItemStack(recipe.output, false);
-            buffer.writeItemStack(recipe.secondaryOutput, false);
+            buffer.writeItem(recipe.output);
+            buffer.writeItem(recipe.secondaryOutput);
         }
     }
 }

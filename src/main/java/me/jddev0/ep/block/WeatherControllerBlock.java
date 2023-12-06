@@ -1,5 +1,6 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import net.minecraft.core.BlockPos;
@@ -17,10 +18,17 @@ import net.neoforged.neoforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class WeatherControllerBlock extends BaseEntityBlock {
+    public static final MapCodec<WeatherControllerBlock> CODEC = simpleCodec(WeatherControllerBlock::new);
+
     public static int WEATHER_CHANGED_TICKS = ModConfigs.COMMON_WEATHER_CONTROLLER_CONTROL_DURATION.getValue();
 
     public WeatherControllerBlock(Properties props) {
         super(props);
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable

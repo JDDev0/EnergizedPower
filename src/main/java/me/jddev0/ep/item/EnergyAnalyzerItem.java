@@ -15,8 +15,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
@@ -95,20 +94,13 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
         components.add(level.getBlockState(blockPos).getBlock().getName().withStyle(ChatFormatting.UNDERLINE, ChatFormatting.AQUA));
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(blockEntity == null) {
-            components.add(Component.translatable("txt.energizedpower.energy_analyzer.no_block_entity").withStyle(ChatFormatting.RED));
 
-            useItem(stack, useOnContext.getPlayer(), components);
-
-            return InteractionResult.SUCCESS;
-        }
-
-        LazyOptional<IEnergyStorage> energyStorageLazyOptional = blockEntity.getCapability(Capabilities.ENERGY);
-        addOutputTextForEnergyStorage(components, energyStorageLazyOptional.isPresent()?energyStorageLazyOptional.orElse(null):null, false);
+        IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, blockPos, level.getBlockState(blockPos), blockEntity, null);
+        addOutputTextForEnergyStorage(components, energyStorage, false);
 
         components.add(Component.translatable("txt.energizedpower.energy_analyzer.output_side_information").withStyle(ChatFormatting.BLUE));
-        LazyOptional<IEnergyStorage> energyStorageLazyOptionalSided = blockEntity.getCapability(Capabilities.ENERGY, useOnContext.getClickedFace());
-        addOutputTextForEnergyStorage(components, energyStorageLazyOptionalSided.isPresent()?energyStorageLazyOptionalSided.orElse(null):null, true);
+        IEnergyStorage energyStorageSided = level.getCapability(Capabilities.EnergyStorage.BLOCK, blockPos, level.getBlockState(blockPos), blockEntity, useOnContext.getClickedFace());
+        addOutputTextForEnergyStorage(components, energyStorageSided, true);
 
         useItem(stack, useOnContext.getPlayer(), components);
 

@@ -32,9 +32,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -60,12 +58,8 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
                 if(level == null || RecipeUtils.isIngredientOfAny(level, ChargerRecipe.Type.INSTANCE, stack))
                     return true;
 
-                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
-                if(!energyStorageLazyOptional.isPresent())
-                    return false;
-
-                IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-                return energyStorage.canReceive();
+                IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+                return energyStorage != null && energyStorage.canReceive();
             }
 
             return super.isItemValid(slot, stack);
@@ -78,7 +72,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
                 if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSameItem(stack, itemStack) ||
                         (!ItemStack.isSameItemSameTags(stack, itemStack) &&
                                 //Only check if NBT data is equal if one of stack or itemStack is no energy item
-                                !(stack.getCapability(Capabilities.ENERGY).isPresent() && itemStack.getCapability(Capabilities.ENERGY).isPresent()))))
+                                !(stack.getCapability(Capabilities.EnergyStorage.ITEM) != null && itemStack.getCapability(Capabilities.EnergyStorage.ITEM) != null))))
                     resetProgress(slot);
             }
 
@@ -90,33 +84,25 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
             return 1;
         }
     };
-    private final LazyOptional<IItemHandler> lazyItemHandler;
-    private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
-                if(i < 0 || i > 2)
-                    return false;
+    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
+        if(i < 0 || i > 2)
+            return false;
 
-                ItemStack stack = itemHandler.getStackInSlot(i);
-                if(level != null && RecipeUtils.isResultOfAny(level, ChargerRecipe.Type.INSTANCE, stack))
-                    return true;
+        ItemStack stack = itemHandler.getStackInSlot(i);
+        if(level != null && RecipeUtils.isResultOfAny(level, ChargerRecipe.Type.INSTANCE, stack))
+            return true;
 
-                if(level == null || RecipeUtils.isIngredientOfAny(level, ChargerRecipe.Type.INSTANCE, stack))
-                    return false;
+        if(level == null || RecipeUtils.isIngredientOfAny(level, ChargerRecipe.Type.INSTANCE, stack))
+            return false;
 
-                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
-                if(!energyStorageLazyOptional.isPresent())
-                    return true;
+        IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+        if(energyStorage == null || !energyStorage.canReceive())
+            return true;
 
-                IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-                if(!energyStorage.canReceive())
-                    return true;
-
-                return energyStorage.receiveEnergy(MAX_RECEIVE_PER_SLOT, true) == 0;
-            }));
+        return energyStorage.receiveEnergy(MAX_RECEIVE_PER_SLOT, true) == 0;
+    });
 
     private final ReceiveOnlyEnergyStorage energyStorage;
-
-    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     protected final ContainerData data;
     private int[] energyConsumptionLeft = new int[] {
@@ -166,9 +152,6 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
                 return 7;
             }
         };
-
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -189,18 +172,15 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
         return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == Capabilities.ITEM_HANDLER) {
-            if(side == null)
-                return lazyItemHandler.cast();
+    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
 
-            return lazyItemHandlerSided.cast();
-        }else if(cap == Capabilities.ENERGY) {
-            return lazyEnergyStorage.cast();
-        }
+        return itemHandlerSided;
+    }
 
-        return super.getCapability(cap, side);
+    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return energyStorage;
     }
 
     @Override
@@ -268,12 +248,8 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
                     energyConsumptionPerTick = Math.min(blockEntity.energyConsumptionLeft[i], Math.min(maxReceivePerSlot,
                             blockEntity.energyStorage.getEnergy()));
                 }else {
-                    LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(Capabilities.ENERGY);
-                    if(!energyStorageLazyOptional.isPresent())
-                        continue;
-
-                    IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-                    if(!energyStorage.canReceive())
+                    IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+                    if(energyStorage == null || !energyStorage.canReceive())
                         continue;
 
                     blockEntity.energyConsumptionLeft[i] = energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored();
@@ -321,7 +297,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements MenuProvi
 
     private boolean hasRecipe(int index) {
         ItemStack stack = itemHandler.getStackInSlot(index);
-        if(stack.getCapability(Capabilities.ENERGY).isPresent())
+        if(stack.getCapability(Capabilities.EnergyStorage.ITEM) != null)
             return true;
 
         SimpleContainer inventory = new SimpleContainer(1);

@@ -129,7 +129,7 @@ public class EnergizerRecipe implements Recipe<SimpleContainer> {
         public void toNetwork(FriendlyByteBuf buffer, EnergizerRecipe recipe) {
             recipe.input.toNetwork(buffer);
             buffer.writeInt(recipe.energyConsumption);
-            buffer.writeItemStack(recipe.output, false);
+            buffer.writeItem(recipe.output);
         }
     }
 }

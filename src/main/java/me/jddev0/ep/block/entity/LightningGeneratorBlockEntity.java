@@ -19,9 +19,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -33,7 +31,6 @@ public class LightningGeneratorBlockEntity extends BlockEntity implements MenuPr
     public static final int MAX_EXTRACT = ModConfigs.COMMON_LIGHTNING_GENERATOR_TRANSFER_RATE.getValue();
 
     private final ExtractOnlyEnergyStorage energyStorage;
-    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     public LightningGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.LIGHTING_GENERATOR_ENTITY.get(), blockPos, blockState);
@@ -50,8 +47,6 @@ public class LightningGeneratorBlockEntity extends BlockEntity implements MenuPr
                     );
             }
         };
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -72,13 +67,8 @@ public class LightningGeneratorBlockEntity extends BlockEntity implements MenuPr
         energyStorage.setEnergy(energyStorage.getCapacity());
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == Capabilities.ENERGY) {
-            return lazyEnergyStorage.cast();
-        }
-
-        return super.getCapability(cap, side);
+    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return energyStorage;
     }
 
     @Override
@@ -113,15 +103,10 @@ public class LightningGeneratorBlockEntity extends BlockEntity implements MenuPr
             BlockPos testPos = blockPos.relative(direction);
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-            if(testBlockEntity == null)
-                continue;
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = testBlockEntity.getCapability(Capabilities.ENERGY, direction.getOpposite());
-            if(!energyStorageLazyOptional.isPresent())
-                continue;
-
-            IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-            if(!energyStorage.canReceive())
+            IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, testPos,
+                    level.getBlockState(testPos), testBlockEntity, direction.getOpposite());
+            if(energyStorage == null || !energyStorage.canReceive())
                 continue;
 
             int received = energyStorage.receiveEnergy(Math.min(MAX_EXTRACT, blockEntity.energyStorage.getEnergy()), true);

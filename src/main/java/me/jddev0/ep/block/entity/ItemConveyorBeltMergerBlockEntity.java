@@ -12,8 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 
@@ -56,11 +55,10 @@ public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
             if(!(outputBlockEntity instanceof ItemConveyorBeltBlockEntity))
                 return;
 
-            LazyOptional<IItemHandler> outputItemStackStorageLazyOptional = outputBlockEntity.getCapability(Capabilities.ITEM_HANDLER, facing.getOpposite());
-            if(!outputItemStackStorageLazyOptional.isPresent())
+            IItemHandler outputBeltItemStackStorage = level.getCapability(Capabilities.ItemHandler.BLOCK, outputPos,
+                    outputBlockState, outputBlockEntity, facing.getOpposite());
+            if(outputBeltItemStackStorage == null)
                 return;
-
-            IItemHandler outputBeltItemStackStorage = outputItemStackStorageLazyOptional.orElse(null);
 
             for(int j = 0;j < 3;j++) {
                 int index = (blockEntity.currentInputIndex + j) % 3;
@@ -88,11 +86,11 @@ public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
                 if(!(inputBlockEntity instanceof ItemConveyorBeltBlockEntity))
                     continue;
 
-                LazyOptional<IItemHandler> inputItemStackStorageLazyOptional = inputBlockEntity.getCapability(Capabilities.ITEM_HANDLER, inputDirection.getOpposite());
-                if(!inputItemStackStorageLazyOptional.isPresent())
+                IItemHandler inputBeltItemStackStorage = level.getCapability(Capabilities.ItemHandler.BLOCK, inputPos,
+                        inputBlockState, inputBlockEntity, inputDirection.getOpposite());
+                if(inputBeltItemStackStorage == null)
                     continue;
 
-                IItemHandler inputBeltItemStackStorage = inputItemStackStorageLazyOptional.orElseGet(null);
                 ItemStack itemStackToSwitch = inputBeltItemStackStorage.getStackInSlot(inputBeltItemStackStorage.getSlots() - 1);
                 if(itemStackToSwitch.isEmpty())
                     continue;

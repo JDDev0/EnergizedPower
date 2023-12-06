@@ -22,9 +22,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -38,7 +36,6 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_HEAT_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     private final ExtractOnlyEnergyStorage energyStorage;
-    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.HEAT_GENERATOR_ENTITY.get(), blockPos, blockState);
@@ -56,8 +53,6 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
                     );
             }
         };
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -74,13 +69,8 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
         return new HeatGeneratorMenu(id, inventory, this);
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == Capabilities.ENERGY) {
-            return lazyEnergyStorage.cast();
-        }
-
-        return super.getCapability(cap, side);
+    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return energyStorage;
     }
 
     @Override
@@ -141,15 +131,10 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
             BlockPos testPos = blockPos.relative(direction);
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-            if(testBlockEntity == null)
-                continue;
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = testBlockEntity.getCapability(Capabilities.ENERGY, direction.getOpposite());
-            if(!energyStorageLazyOptional.isPresent())
-                continue;
-
-            IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-            if(!energyStorage.canReceive())
+            IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, testPos,
+                    level.getBlockState(testPos), testBlockEntity, direction.getOpposite());
+            if(energyStorage == null || !energyStorage.canReceive())
                 continue;
 
             int received = energyStorage.receiveEnergy(Math.min(MAX_EXTRACT, blockEntity.energyStorage.getEnergy()), true);

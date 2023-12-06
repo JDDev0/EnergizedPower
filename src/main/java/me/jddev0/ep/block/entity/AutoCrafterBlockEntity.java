@@ -35,9 +35,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -53,8 +50,6 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     private boolean secondaryExtractMode;
 
     private final ReceiveOnlyEnergyStorage energyStorage;
-
-    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
     private final ItemStackHandler itemHandler = new ItemStackHandler(18) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -70,10 +65,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             return slot >= 3;
         }
     };
-    private final LazyOptional<IItemHandler> lazyItemHandler;
-    private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 3,
-                    i -> secondaryExtractMode?!isInput(itemHandler.getStackInSlot(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i))));
+    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 3,
+                    i -> secondaryExtractMode?!isInput(itemHandler.getStackInSlot(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i)));
 
     private final SimpleContainer patternSlots = new SimpleContainer(3 * 3) {
         @Override
@@ -166,9 +159,6 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                 return 10;
             }
         };
-
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -189,18 +179,15 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == Capabilities.ITEM_HANDLER) {
-            if(side == null)
-                return lazyItemHandler.cast();
+    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
 
-            return lazyItemHandlerSided.cast();
-        }else if(cap == Capabilities.ENERGY) {
-            return lazyEnergyStorage.cast();
-        }
+        return itemHandlerSided;
+    }
 
-        return super.getCapability(cap, side);
+    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return energyStorage;
     }
 
     @Override

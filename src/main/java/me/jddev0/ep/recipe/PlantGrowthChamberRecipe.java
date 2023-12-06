@@ -178,7 +178,7 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleContainer> {
 
             buffer.writeInt(recipe.outputs.length);
             for(OutputItemStackWithPercentages output:recipe.outputs) {
-                buffer.writeItemStack(output.output, false);
+                buffer.writeItem(output.output);
 
                 buffer.writeInt(output.percentages.length);
                 for(double percentage:output.percentages)

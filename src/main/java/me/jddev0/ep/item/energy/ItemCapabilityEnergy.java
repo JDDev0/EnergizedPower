@@ -1,21 +1,14 @@
 package me.jddev0.ep.item.energy;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.energy.IEnergyStorage;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ItemCapabilityEnergy implements ICapabilityProvider, IEnergyStorage {
+public class ItemCapabilityEnergy implements IEnergyStorage {
     private final ItemStack itemStack;
     private final IEnergizedPowerEnergyStorage energyStorage;
-    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     public ItemCapabilityEnergy(ItemStack itemStack, @Nullable CompoundTag nbt, IEnergizedPowerEnergyStorage energyStorage) {
         this.itemStack = itemStack;
@@ -23,17 +16,6 @@ public class ItemCapabilityEnergy implements ICapabilityProvider, IEnergyStorage
 
         if(nbt != null && nbt.contains("energy"))
             this.energyStorage.loadNBT(nbt.get("energy"));
-
-        lazyEnergyStorage = LazyOptional.of(() -> this);
-    }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == Capabilities.ENERGY) {
-            return lazyEnergyStorage.cast();
-        }
-
-        return LazyOptional.empty();
     }
 
     @Override
@@ -84,5 +66,9 @@ public class ItemCapabilityEnergy implements ICapabilityProvider, IEnergyStorage
 
     public void setCapacity(int capacity) {
         energyStorage.setCapacity(capacity);
+    }
+
+    public IEnergizedPowerEnergyStorage getEnergyStorage() {
+        return energyStorage;
     }
 }

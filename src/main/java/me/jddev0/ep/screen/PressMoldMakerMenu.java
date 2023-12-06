@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.PressMoldMakerBlockEntity;
+import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -12,7 +13,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class PressMoldMakerMenu extends AbstractContainerMenu {
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        this.blockEntity.getCapability(Capabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
+        ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
             addSlot(new SlotItemHandler(itemHandler, 0, 8, 17));
             addSlot(new SlotItemHandler(itemHandler, 1, 8, 53));
         });

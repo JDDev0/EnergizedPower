@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.StoneSolidifierBlockEntity;
+import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.util.ByteUtils;
@@ -13,11 +14,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
-
-import java.util.List;
 
 public class StoneSolidifierMenu extends AbstractContainerMenu implements EnergyStorageConsumerIndicatorBarMenu {
     private final StoneSolidifierBlockEntity blockEntity;
@@ -39,7 +37,7 @@ public class StoneSolidifierMenu extends AbstractContainerMenu implements Energy
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        this.blockEntity.getCapability(Capabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
+        ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
             addSlot(new SlotItemHandler(itemHandler, 0, 98, 44));
         });
 

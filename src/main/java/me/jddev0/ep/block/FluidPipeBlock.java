@@ -1,5 +1,6 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.FluidPipeBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import net.minecraft.ChatFormatting;
@@ -33,8 +34,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -42,6 +42,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, WrenchConfigurable {
+    public static final MapCodec<FluidPipeBlock> CODEC = simpleCodec(FluidPipeBlock::new);
+
     public static final EnumProperty<ModBlockStateProperties.PipeConnection> UP = ModBlockStateProperties.PIPE_CONNECTION_UP;
     public static final EnumProperty<ModBlockStateProperties.PipeConnection> DOWN = ModBlockStateProperties.PIPE_CONNECTION_DOWN;
     public static final EnumProperty<ModBlockStateProperties.PipeConnection> NORTH = ModBlockStateProperties.PIPE_CONNECTION_NORTH;
@@ -82,6 +84,11 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
                 setValue(WATERLOGGED, false));
     }
 
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
+    }
+
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
@@ -109,7 +116,7 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
         Player player = useOnContext.getPlayer();
 
         BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-        if(testBlockEntity == null || testBlockEntity instanceof FluidPipeBlockEntity) {
+        if(testBlockEntity instanceof FluidPipeBlockEntity) {
             //Connections to non-fluid blocks nor connections to another pipe can not be modified
 
             if(player instanceof ServerPlayer serverPlayer) {
@@ -124,8 +131,9 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
             return InteractionResult.SUCCESS;
         }
 
-        LazyOptional<IFluidHandler> fluidStorageLazyOptional = testBlockEntity.getCapability(Capabilities.FLUID_HANDLER, selectedFace.getOpposite());
-        if(!fluidStorageLazyOptional.isPresent()) {
+        IFluidHandler fluidStorage = level.getCapability(Capabilities.FluidHandler.BLOCK, testPos,
+                level.getBlockState(testPos), testBlockEntity, selectedFace.getOpposite());
+        if(fluidStorage == null) {
             if(player instanceof ServerPlayer serverPlayer) {
                 serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
                         Component.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible",
@@ -138,7 +146,6 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
             return InteractionResult.SUCCESS;
         }
 
-        IFluidHandler fluidStorage = fluidStorageLazyOptional.orElse(null);
         if(fluidStorage.getTanks() == 0) {
             if(player instanceof ServerPlayer serverPlayer) {
                 serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
@@ -330,16 +337,15 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
     private ModBlockStateProperties.PipeConnection shouldConnectTo(Level level, BlockPos selfPos, BlockState selfState, Direction direction) {
         BlockPos toPos = selfPos.relative(direction);
         BlockEntity blockEntity = level.getBlockEntity(toPos);
-        if(blockEntity == null)
-            return ModBlockStateProperties.PipeConnection.NOT_CONNECTED;
 
         ModBlockStateProperties.PipeConnection currentConnectionState =
                 selfState.getValue(getPipeConnectionPropertyFromDirection(direction));
         if(currentConnectionState == ModBlockStateProperties.PipeConnection.NOT_CONNECTED)
             currentConnectionState = ModBlockStateProperties.PipeConnection.CONNECTED;
 
-        LazyOptional<IFluidHandler> fluidStorageLazyOptional = blockEntity.getCapability(Capabilities.FLUID_HANDLER, direction.getOpposite());
-        return fluidStorageLazyOptional.isPresent()?currentConnectionState:ModBlockStateProperties.PipeConnection.NOT_CONNECTED;
+        IFluidHandler fluidStorage = level.getCapability(Capabilities.FluidHandler.BLOCK, toPos,
+                level.getBlockState(toPos), blockEntity, direction.getOpposite());
+        return fluidStorage == null?ModBlockStateProperties.PipeConnection.NOT_CONNECTED:currentConnectionState;
     }
 
     @Nullable

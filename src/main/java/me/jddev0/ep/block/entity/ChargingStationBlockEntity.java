@@ -26,9 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -39,7 +37,6 @@ public class ChargingStationBlockEntity extends BlockEntity implements MenuProvi
     public static final int MAX_CHARGING_DISTANCE = ModConfigs.COMMON_CHARGING_STATION_MAX_CHARGING_DISTANCE.getValue();
 
     private final ReceiveOnlyEnergyStorage energyStorage;
-    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     public ChargingStationBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CHARGING_STATION_ENTITY.get(), blockPos, blockState);
@@ -57,8 +54,6 @@ public class ChargingStationBlockEntity extends BlockEntity implements MenuProvi
                     );
             }
         };
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -75,13 +70,8 @@ public class ChargingStationBlockEntity extends BlockEntity implements MenuProvi
         return new ChargingStationMenu(id, inventory, this);
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == Capabilities.ENERGY) {
-            return lazyEnergyStorage.cast();
-        }
-
-        return super.getCapability(cap, side);
+    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return energyStorage;
     }
 
     @Override
@@ -121,12 +111,8 @@ public class ChargingStationBlockEntity extends BlockEntity implements MenuProvi
             for(int i = 0;i < inventory.getContainerSize();i++) {
                 ItemStack itemStack = inventory.getItem(i);
 
-                LazyOptional<IEnergyStorage> energyStorageLazyOptional = itemStack.getCapability(Capabilities.ENERGY);
-                if(!energyStorageLazyOptional.isPresent())
-                    continue;
-
-                IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-                if(!energyStorage.canReceive())
+                IEnergyStorage energyStorage = itemStack.getCapability(Capabilities.EnergyStorage.ITEM);
+                if(energyStorage == null || !energyStorage.canReceive())
                     continue;
 
                 energyPerTickLeft -= energyStorage.receiveEnergy(energyPerTickLeft, false);
@@ -136,12 +122,8 @@ public class ChargingStationBlockEntity extends BlockEntity implements MenuProvi
 
             List<ItemStack> curiosItemStacks = CuriosCompatUtils.getCuriosItemStacks(inventory);
             for(ItemStack itemStack:curiosItemStacks) {
-                LazyOptional<IEnergyStorage> energyStorageLazyOptional = itemStack.getCapability(Capabilities.ENERGY);
-                if(!energyStorageLazyOptional.isPresent())
-                    continue;
-
-                IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-                if(!energyStorage.canReceive())
+                IEnergyStorage energyStorage = itemStack.getCapability(Capabilities.EnergyStorage.ITEM);
+                if(energyStorage == null || !energyStorage.canReceive())
                     continue;
 
                 energyPerTickLeft -= energyStorage.receiveEnergy(energyPerTickLeft, false);

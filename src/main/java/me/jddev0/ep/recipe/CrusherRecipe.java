@@ -118,7 +118,7 @@ public class CrusherRecipe implements Recipe<SimpleContainer> {
         @Override
         public void toNetwork(FriendlyByteBuf buffer, CrusherRecipe recipe) {
             recipe.input.toNetwork(buffer);
-            buffer.writeItemStack(recipe.output, false);
+            buffer.writeItem(recipe.output);
         }
     }
 }

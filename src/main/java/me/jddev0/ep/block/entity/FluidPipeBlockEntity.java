@@ -10,9 +10,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +25,6 @@ public class FluidPipeBlockEntity extends BlockEntity {
     public static int MAX_TRANSFER = ModConfigs.COMMON_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue();
 
     private final IFluidHandler fluidStorage;
-    private final LazyOptional<IFluidHandler> lazyFluidStorage;
 
     private final Map<Pair<BlockPos, Direction>, IFluidHandler> producers = new HashMap<>();
     private final Map<Pair<BlockPos, Direction>, IFluidHandler> consumers = new HashMap<>();
@@ -73,7 +70,6 @@ public class FluidPipeBlockEntity extends BlockEntity {
             }
         };
 
-        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
     }
 
     public Map<Pair<BlockPos, Direction>, IFluidHandler> getProducers() {
@@ -100,8 +96,6 @@ public class FluidPipeBlockEntity extends BlockEntity {
             BlockPos testPos = blockPos.relative(direction);
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-            if(testBlockEntity == null)
-                continue;
 
             if(testBlockEntity instanceof FluidPipeBlockEntity) {
                 blockEntity.pipeBlocks.add(testPos);
@@ -109,12 +103,9 @@ public class FluidPipeBlockEntity extends BlockEntity {
                 continue;
             }
 
-            LazyOptional<IFluidHandler> fluidStorageLazyOptional = testBlockEntity.getCapability(Capabilities.FLUID_HANDLER, direction.getOpposite());
-            if(!fluidStorageLazyOptional.isPresent())
-                continue;
-
-            IFluidHandler fluidStorage = fluidStorageLazyOptional.orElse(null);
-            if(fluidStorage.getTanks() == 0)
+            IFluidHandler fluidStorage = level.getCapability(Capabilities.FluidHandler.BLOCK, testPos,
+                    level.getBlockState(testPos), testBlockEntity, direction.getOpposite());
+            if(fluidStorage == null || fluidStorage.getTanks() == 0)
                 continue;
 
             ModBlockStateProperties.PipeConnection pipeConnection = state.getValue(FluidPipeBlock.getPipeConnectionPropertyFromDirection(direction));
@@ -357,13 +348,8 @@ public class FluidPipeBlockEntity extends BlockEntity {
         }
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == Capabilities.FLUID_HANDLER) {
-            return lazyFluidStorage.cast();
-        }
-
-        return super.getCapability(cap, side);
+    public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
+        return fluidStorage;
     }
 
     @Override

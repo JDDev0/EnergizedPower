@@ -1,5 +1,6 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.block.entity.PoweredLampBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -17,6 +18,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.ToIntFunction;
 
 public class PoweredLampBlock extends BaseEntityBlock {
+    public static final MapCodec<PoweredLampBlock> CODEC = simpleCodec(PoweredLampBlock::new);
+
     public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL;
 
     public static final ToIntFunction<BlockState> LIGHT_EMISSION =
@@ -26,6 +29,11 @@ public class PoweredLampBlock extends BaseEntityBlock {
         super(props);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(LEVEL, 0));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable

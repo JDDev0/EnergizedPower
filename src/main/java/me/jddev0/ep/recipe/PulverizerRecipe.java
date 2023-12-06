@@ -173,7 +173,7 @@ public class PulverizerRecipe implements Recipe<SimpleContainer> {
 
             for(int i = 0;i < 2;i++) {
                 OutputItemStackWithPercentages output = i == 0?recipe.output:recipe.secondaryOutput;
-                buffer.writeItemStack(output.output, false);
+                buffer.writeItem(output.output);
 
                 buffer.writeInt(output.percentages.length);
                 for(double percentage:output.percentages)

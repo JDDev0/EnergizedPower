@@ -9,6 +9,8 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.ModEntityTypes;
 import me.jddev0.ep.input.ModKeyBindings;
 import me.jddev0.ep.item.*;
+import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
+import me.jddev0.ep.item.energy.ItemCapabilityEnergy;
 import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.painting.ModPaintings;
@@ -21,12 +23,15 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.common.NeoForge;
@@ -65,6 +70,7 @@ public class EnergizedPowerMod {
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::addCreativeTab);
+        modEventBus.addListener(this::registerCapabilities);
 
         NeoForge.EVENT_BUS.register(this);
     }
@@ -247,6 +253,20 @@ public class EnergizedPowerMod {
             event.accept(ModItems.ENERGIZED_GOLD_WIRE);
             event.accept(ModItems.ENERGIZED_CRYSTAL_MATRIX);
         }
+    }
+
+    public void registerCapabilities(RegisterCapabilitiesEvent event) {
+        //Items
+        for(Item item:BuiltInRegistries.ITEM) {
+            if(item instanceof EnergizedPowerEnergyItem energizedPowerEnergyItem) {
+                event.registerItem(Capabilities.EnergyStorage.ITEM, (stack, ctx) -> {
+                    return new ItemCapabilityEnergy(stack, stack.getTag(), energizedPowerEnergyItem.getEnergyStorageProvider().get());
+                }, item);
+            }
+        }
+
+        //Block Entities
+        ModBlockEntities.registerCapabilities(event);
     }
 
     @SubscribeEvent

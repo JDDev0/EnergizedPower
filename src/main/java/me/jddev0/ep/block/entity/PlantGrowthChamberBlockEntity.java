@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.AssemblingMachineBlock;
 import me.jddev0.ep.block.PlantGrowthChamberBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
@@ -34,9 +35,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -80,15 +78,10 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
             super.setStackInSlot(slot, stack);
         }
     };
-    private final LazyOptional<IItemHandler> lazyItemHandler;
-    private final LazyOptional<IItemHandler> lazyItemHandlerSidesSided = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 1 && i < 6));
-    private final LazyOptional<IItemHandler> lazyItemHandlerTopBottomSided = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i > 1 && i < 6));
+    private final IItemHandler itemHandlerSidesSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 1 && i < 6);
+    private final IItemHandler itemHandlerTopBottomSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i > 1 && i < 6);
 
     private final ReceiveOnlyEnergyStorage energyStorage;
-
-    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     protected final ContainerData data;
     private int progress;
@@ -148,9 +141,6 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
                 return 8;
             }
         };
-
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -171,21 +161,18 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
         return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == Capabilities.ITEM_HANDLER) {
-            if(side == null)
-                return lazyItemHandler.cast();
+    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
 
-            if(side == Direction.UP || side == Direction.DOWN)
-                return lazyItemHandlerTopBottomSided.cast();
+        if(side == Direction.UP || side == Direction.DOWN)
+            return itemHandlerTopBottomSided;
 
-            return lazyItemHandlerSidesSided.cast();
-        }else if(cap == Capabilities.ENERGY) {
-            return lazyEnergyStorage.cast();
-        }
+        return itemHandlerSidesSided;
+    }
 
-        return super.getCapability(cap, side);
+    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return energyStorage;
     }
 
     @Override

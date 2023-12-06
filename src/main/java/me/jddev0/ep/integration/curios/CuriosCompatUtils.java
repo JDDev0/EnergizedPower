@@ -2,13 +2,13 @@ package me.jddev0.ep.integration.curios;
 
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.util.ICuriosHelper;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 public final class CuriosCompatUtils {
     private CuriosCompatUtils() {}
@@ -29,15 +29,13 @@ public final class CuriosCompatUtils {
         if(!isCuriosAvailable())
             return itemStacks;
 
-        //TODO re-enable
-        /*ICuriosHelper curiosHelper = CuriosApi.getCuriosHelper();
+        ICuriosHelper curiosHelper = CuriosApi.getCuriosHelper();
         if(curiosHelper == null)
             return itemStacks;
 
-        LazyOptional<IItemHandlerModifiable> itemHandlerModifiableLazyOptional = curiosHelper.
-                getEquippedCurios(inventory.player);
+        Optional<IItemHandlerModifiable> itemHandlerModifiableLazyOptional = curiosHelper.getEquippedCurios(inventory.player);
 
-        if(itemHandlerModifiableLazyOptional == null || !itemHandlerModifiableLazyOptional.isPresent())
+        if(itemHandlerModifiableLazyOptional.isEmpty())
             return itemStacks;
 
         IItemHandlerModifiable itemHandlerModifiable = itemHandlerModifiableLazyOptional.orElseGet(null);
@@ -46,7 +44,7 @@ public final class CuriosCompatUtils {
 
             if(!itemStack.isEmpty())
                 itemStacks.add(itemStack);
-        }*/
+        }
 
         return itemStacks;
     }

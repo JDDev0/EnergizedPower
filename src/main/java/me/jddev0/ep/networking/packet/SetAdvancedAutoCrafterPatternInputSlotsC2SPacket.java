@@ -45,7 +45,7 @@ public class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket {
         buffer.writeBlockPos(pos);
 
         for(ItemStack itemStack:itemStacks)
-            buffer.writeItemStack(itemStack, false);
+            buffer.writeItem(itemStack);
 
         buffer.writeResourceLocation(recipeId);
     }

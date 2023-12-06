@@ -21,9 +21,7 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -33,7 +31,6 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
     private final int maxTransfer;
 
     private final ExtractOnlyEnergyStorage energyStorage;
-    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     public static BlockEntityType<SolarPanelBlockEntity> getEntityTypeFromTier(SolarPanelBlock.Tier tier) {
         return switch(tier) {
@@ -65,8 +62,6 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
                     );
             }
         };
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -116,15 +111,10 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
         BlockPos testPos = blockPos.relative(Direction.DOWN);
 
         BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-        if(testBlockEntity == null)
-            return;
 
-        LazyOptional<IEnergyStorage> energyStorageLazyOptional = testBlockEntity.getCapability(Capabilities.ENERGY, Direction.DOWN.getOpposite());
-        if(!energyStorageLazyOptional.isPresent())
-            return;
-
-        IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-        if(!energyStorage.canReceive())
+        IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, testPos,
+                level.getBlockState(testPos), testBlockEntity, Direction.DOWN.getOpposite());
+        if(energyStorage == null || !energyStorage.canReceive())
             return;
 
         int amount = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getEnergy(), blockEntity.maxTransfer), false);
@@ -132,14 +122,11 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
             blockEntity.energyStorage.extractEnergy(amount, false);
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == Capabilities.ENERGY) {
-            if(side == null || side == Direction.DOWN)
-                return lazyEnergyStorage.cast();
-        }
+    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        if(side == null || side == Direction.DOWN)
+            return energyStorage;
 
-        return super.getCapability(cap, side);
+        return null;
     }
 
     @Override

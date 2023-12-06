@@ -1,5 +1,6 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.ItemConveyorBeltBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import net.minecraft.ChatFormatting;
@@ -35,6 +36,8 @@ import java.util.List;
 import static me.jddev0.ep.block.ModBlockStateProperties.ConveyorBeltDirection;
 
 public class ItemConveyorBeltBlock extends BaseEntityBlock implements WrenchConfigurable {
+    public static final MapCodec<ItemConveyorBeltBlock> CODEC = simpleCodec(ItemConveyorBeltBlock::new);
+
     public static final EnumProperty<ConveyorBeltDirection> FACING = ModBlockStateProperties.CONVEYOR_BELT_FACING;
 
     protected static final VoxelShape SHAPE_FLAT = Block.box(0., 0., 0., 16., 2., 16.);
@@ -44,6 +47,11 @@ public class ItemConveyorBeltBlock extends BaseEntityBlock implements WrenchConf
         super(props);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, ConveyorBeltDirection.NORTH_SOUTH));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable

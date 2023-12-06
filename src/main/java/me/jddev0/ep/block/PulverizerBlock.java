@@ -1,5 +1,6 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.block.entity.PulverizerBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -24,12 +25,19 @@ import net.neoforged.neoforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class PulverizerBlock extends BaseEntityBlock {
+    public static final MapCodec<PulverizerBlock> CODEC = simpleCodec(PulverizerBlock::new);
+
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public PulverizerBlock(Properties props) {
         super(props);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable

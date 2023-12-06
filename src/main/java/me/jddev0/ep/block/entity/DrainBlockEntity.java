@@ -25,9 +25,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
@@ -37,7 +35,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class DrainBlockEntity extends BlockEntity implements MenuProvider, FluidStoragePacketUpdate {
     private final FluidTank fluidStorage;
-    private final LazyOptional<IFluidHandler> lazyFluidStorage;
 
     protected final ContainerData data;
     private int progress;
@@ -86,7 +83,6 @@ public class DrainBlockEntity extends BlockEntity implements MenuProvider, Fluid
             }
         };
 
-        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
     }
 
     @Override
@@ -115,13 +111,8 @@ public class DrainBlockEntity extends BlockEntity implements MenuProvider, Fluid
         return Math.min(Mth.floor(fullnessPercent * 14.f) + (isEmptyFlag?0:1), 15);
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == Capabilities.FLUID_HANDLER) {
-            return lazyFluidStorage.cast();
-        }
-
-        return super.getCapability(cap, side);
+    public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
+        return fluidStorage;
     }
 
     @Override
@@ -168,15 +159,12 @@ public class DrainBlockEntity extends BlockEntity implements MenuProvider, Fluid
                     if(!bucketItemStack.isEmpty()) {
                         level.gameEvent(null, GameEvent.FLUID_PICKUP, aboveBlockPos);
 
-                        LazyOptional<IFluidHandlerItem> fluidStorageLazyOptional = bucketItemStack.getCapability(Capabilities.FLUID_HANDLER_ITEM);
-                        if(fluidStorageLazyOptional.isPresent()) {
-                            IFluidHandlerItem fluidStorage = fluidStorageLazyOptional.orElse(null);
-                            if(fluidStorage.getTanks() == 1) {
-                                FluidStack fluidStack = fluidStorage.getFluidInTank(0);
+                        IFluidHandlerItem fluidStorage = bucketItemStack.getCapability(Capabilities.FluidHandler.ITEM);
+                        if(fluidStorage != null && fluidStorage.getTanks() == 1) {
+                            FluidStack fluidStack = fluidStorage.getFluidInTank(0);
 
-                                if(!fluidStack.isEmpty())
-                                    blockEntity.fluidStorage.fill(fluidStack.copy(), IFluidHandler.FluidAction.EXECUTE);
-                            }
+                            if(!fluidStack.isEmpty())
+                                blockEntity.fluidStorage.fill(fluidStack.copy(), IFluidHandler.FluidAction.EXECUTE);
                         }
                     }
                 }

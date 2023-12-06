@@ -1,5 +1,6 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.ItemConveyorBeltSorterBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -25,6 +26,8 @@ import net.neoforged.neoforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltSorterBlock extends BaseEntityBlock {
+    public static final MapCodec<ItemConveyorBeltSorterBlock> CODEC = simpleCodec(ItemConveyorBeltSorterBlock::new);
+
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
@@ -32,6 +35,11 @@ public class ItemConveyorBeltSorterBlock extends BaseEntityBlock {
         super(props);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false).setValue(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable

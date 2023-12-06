@@ -14,9 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -31,9 +29,8 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
     private final TransformerBlock.Type type;
 
     private final ReceiveAndExtractEnergyStorage energyStorage;
-    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
-    private final LazyOptional<IEnergyStorage> lazyEnergyStorageSidedReceive;
-    private final LazyOptional<IEnergyStorage> lazyEnergyStorageSidedExtract;
+    private final IEnergyStorage energyStorageSidedReceive;
+    private final IEnergyStorage energyStorageSidedExtract;
 
     public static BlockEntityType<TransformerBlockEntity> getEntityTypeFromTierAndType(TransformerBlock.Tier tier,
                                                                                        TransformerBlock.Type type) {
@@ -91,15 +88,9 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
             }
         };
 
-        lazyEnergyStorageSidedReceive = LazyOptional.of(
-                () -> new ReceiveExtractEnergyHandler(energyStorage, (maxReceive, simulate) -> true, (maxExtract, simulate) -> false)
-        );
+        energyStorageSidedReceive = new ReceiveExtractEnergyHandler(energyStorage, (maxReceive, simulate) -> true, (maxExtract, simulate) -> false);
 
-        lazyEnergyStorageSidedExtract = LazyOptional.of(
-                () -> new ReceiveExtractEnergyHandler(energyStorage, (maxReceive, simulate) -> false, (maxExtract, simulate) -> true)
-        );
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
+        energyStorageSidedExtract = new ReceiveExtractEnergyHandler(energyStorage, (maxReceive, simulate) -> false, (maxExtract, simulate) -> true);
     }
 
     public TransformerBlock.Type getTransformerType() {
@@ -110,38 +101,33 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
         return tier;
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == Capabilities.ENERGY) {
-            if(side == null)
-                return lazyEnergyStorage.cast();
+    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        if(side == null)
+            return energyStorage;
 
-            Direction facing = getBlockState().getValue(TransformerBlock.FACING);
+        Direction facing = getBlockState().getValue(TransformerBlock.FACING);
 
-            switch(type) {
-                case TYPE_1_TO_N, TYPE_N_TO_1 -> {
-                    LazyOptional<IEnergyStorage> singleSide = type == TransformerBlock.Type.TYPE_1_TO_N?
-                            lazyEnergyStorageSidedReceive:lazyEnergyStorageSidedExtract;
+        switch(type) {
+            case TYPE_1_TO_N, TYPE_N_TO_1 -> {
+                IEnergyStorage singleSide = type == TransformerBlock.Type.TYPE_1_TO_N?energyStorageSidedReceive:energyStorageSidedExtract;
 
-                    LazyOptional<IEnergyStorage> multipleSide = type == TransformerBlock.Type.TYPE_1_TO_N?
-                            lazyEnergyStorageSidedExtract:lazyEnergyStorageSidedReceive;
+                IEnergyStorage multipleSide = type == TransformerBlock.Type.TYPE_1_TO_N?energyStorageSidedExtract:energyStorageSidedReceive;
 
-                    if(facing == side)
-                        return singleSide.cast();
+                if(facing == side)
+                    return singleSide;
 
-                    return multipleSide.cast();
-                }
-                case TYPE_3_TO_3 -> {
-                   if(facing.getCounterClockWise(Direction.Axis.X) == side || facing.getCounterClockWise(Direction.Axis.Y) == side
-                           || facing.getCounterClockWise(Direction.Axis.Z) == side)
-                       return lazyEnergyStorageSidedReceive.cast();
-                   else
-                       return lazyEnergyStorageSidedExtract.cast();
-                }
+                return multipleSide;
+            }
+            case TYPE_3_TO_3 -> {
+                if(facing.getCounterClockWise(Direction.Axis.X) == side || facing.getCounterClockWise(Direction.Axis.Y) == side
+                        || facing.getCounterClockWise(Direction.Axis.Z) == side)
+                    return energyStorageSidedReceive;
+                else
+                    return energyStorageSidedExtract;
             }
         }
 
-        return super.getCapability(cap, side);
+        return null;
     }
 
     @Override
@@ -200,15 +186,10 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
             BlockPos testPos = blockPos.relative(direction);
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-            if(testBlockEntity == null)
-                continue;
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = testBlockEntity.getCapability(Capabilities.ENERGY, direction.getOpposite());
-            if(!energyStorageLazyOptional.isPresent())
-                continue;
-
-            IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-            if(!energyStorage.canReceive())
+            IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, testPos,
+                    level.getBlockState(testPos), testBlockEntity, direction.getOpposite());
+            if(energyStorage == null || !energyStorage.canReceive())
                 continue;
 
             int received = energyStorage.receiveEnergy(Math.min(blockEntity.maxTransferRate, blockEntity.energyStorage.getEnergy()), true);

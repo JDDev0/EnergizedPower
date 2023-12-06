@@ -117,7 +117,7 @@ public class PressMoldMakerRecipe implements Recipe<SimpleContainer> {
         @Override
         public void toNetwork(FriendlyByteBuf buffer, PressMoldMakerRecipe recipe) {
             buffer.writeInt(recipe.clayCount);
-            buffer.writeItemStack(recipe.output, false);
+            buffer.writeItem(recipe.output);
         }
     }
 }

@@ -1,5 +1,7 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.CableBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.util.EnergyUtils;
@@ -8,6 +10,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -30,14 +33,18 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+    public static final MapCodec<CableBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
+                forGetter(CableBlock::getTier)).apply(instance, CableBlock::new);
+    });
+
     public static final BooleanProperty UP = BlockStateProperties.UP;
     public static final BooleanProperty DOWN = BlockStateProperties.DOWN;
     public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
@@ -68,6 +75,11 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 
     public Tier getTier() {
         return tier;
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable
@@ -194,7 +206,7 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 
 
         BlockEntity blockEntity = level.getBlockEntity(selfPos);
-        if(blockEntity == null || !(blockEntity instanceof CableBlockEntity))
+        if(!(blockEntity instanceof CableBlockEntity))
             return;
 
         CableBlockEntity.updateConnections(level, selfPos, newState, (CableBlockEntity)blockEntity);
@@ -203,14 +215,13 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     private boolean shouldConnectTo(Level level, BlockPos selfPos, Direction direction) {
         BlockPos toPos = selfPos.relative(direction);
         BlockEntity blockEntity = level.getBlockEntity(toPos);
-        if(blockEntity == null)
-            return false;
 
         if(blockEntity instanceof CableBlockEntity cableBlockEntity && cableBlockEntity.getTier() != this.getTier())
             return false;
 
-        LazyOptional<IEnergyStorage> energyStorageLazyOptional = blockEntity.getCapability(Capabilities.ENERGY, direction.getOpposite());
-        return energyStorageLazyOptional.isPresent();
+        IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK,
+                toPos, level.getBlockState(toPos), blockEntity, direction.getOpposite());
+        return energyStorage != null;
     }
 
     public static class Item extends BlockItem {

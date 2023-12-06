@@ -120,7 +120,7 @@ public class StoneSolidifierRecipe implements Recipe<SimpleContainer> {
         public void toNetwork(FriendlyByteBuf buffer, StoneSolidifierRecipe recipe) {
             buffer.writeInt(recipe.waterAmount);
             buffer.writeInt(recipe.lavaAmount);
-            buffer.writeItemStack(recipe.output, false);
+            buffer.writeItem(recipe.output);
         }
     }
 }

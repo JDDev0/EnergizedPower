@@ -27,7 +27,7 @@ public class ItemStackSyncS2CPacket {
 
     public void toBytes(FriendlyByteBuf buffer) {
         buffer.writeInt(slot);
-        buffer.writeItemStack(itemStack, false);
+        buffer.writeItem(itemStack);
         buffer.writeBlockPos(pos);
     }
 

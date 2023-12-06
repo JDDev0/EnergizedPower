@@ -1,5 +1,6 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.AdvancedBatteryBoxBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.util.EnergyUtils;
@@ -29,8 +30,15 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class AdvancedBatteryBoxBlock extends BaseEntityBlock {
+    public static final MapCodec<AdvancedBatteryBoxBlock> CODEC = simpleCodec(AdvancedBatteryBoxBlock::new);
+
     public AdvancedBatteryBoxBlock(Properties props) {
         super(props);
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable

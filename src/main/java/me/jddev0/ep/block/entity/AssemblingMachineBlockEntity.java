@@ -31,9 +31,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -76,21 +73,13 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements MenuPro
             super.setStackInSlot(slot, stack);
         }
     };
-    private final LazyOptional<IItemHandler> lazyItemHandler;
-    private final LazyOptional<IItemHandler> lazyItemHandlerSidedTopBottom = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 4, i -> i == 4));
-    private final LazyOptional<IItemHandler> lazyItemHandlerSidedFront = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 3, i -> i == 4));
-    private final LazyOptional<IItemHandler> lazyItemHandlerSidedBack = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 4));
-    private final LazyOptional<IItemHandler> lazyItemHandlerSidedLeft = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 4));
-    private final LazyOptional<IItemHandler> lazyItemHandlerSidedRight = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 2, i -> i == 4));
+    private final IItemHandler itemHandlerSidedTopBottom = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 4, i -> i == 4);
+    private final IItemHandler itemHandlerSidedFront = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 3, i -> i == 4);
+    private final IItemHandler itemHandlerSidedBack = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 4);
+    private final IItemHandler itemHandlerSidedLeft = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 4);
+    private final IItemHandler itemHandlerSidedRight = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 2, i -> i == 4);
 
     private final ReceiveOnlyEnergyStorage energyStorage;
-
-    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     protected final ContainerData data;
     private int progress;
@@ -148,9 +137,6 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements MenuPro
                 return 8;
             }
         };
-
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -171,32 +157,29 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements MenuPro
         return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == Capabilities.ITEM_HANDLER) {
-            if(side == null)
-                return lazyItemHandler.cast();
+    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
 
-            Direction facing = getBlockState().getValue(AssemblingMachineBlock.FACING);
+        Direction facing = getBlockState().getValue(AssemblingMachineBlock.FACING);
 
-            if(facing == side)
-                return lazyItemHandlerSidedFront.cast();
+        if(facing == side)
+            return itemHandlerSidedFront;
 
-            if(facing.getOpposite() == side)
-                return lazyItemHandlerSidedBack.cast();
+        if(facing.getOpposite() == side)
+            return itemHandlerSidedBack;
 
-            if(facing.getClockWise() == side)
-                return lazyItemHandlerSidedLeft.cast();
+        if(facing.getClockWise() == side)
+            return itemHandlerSidedLeft;
 
-            if(facing.getCounterClockWise() == side)
-                return lazyItemHandlerSidedRight.cast();
+        if(facing.getCounterClockWise() == side)
+            return itemHandlerSidedRight;
 
-            return lazyItemHandlerSidedTopBottom.cast();
-        }else if(cap == Capabilities.ENERGY) {
-            return lazyEnergyStorage.cast();
-        }
+        return itemHandlerSidedTopBottom;
+    }
 
-        return super.getCapability(cap, side);
+    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return energyStorage;
     }
 
     @Override

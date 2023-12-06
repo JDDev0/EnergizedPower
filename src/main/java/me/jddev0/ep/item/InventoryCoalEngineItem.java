@@ -18,8 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.CommonHooks;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
@@ -70,12 +69,8 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
 
     private int addConsumerEnergyItem(List<IEnergyStorage> consumerItems, List<Integer> consumerEnergyValues,
                                       ItemStack itemStack, ItemStack testItemStack) {
-        LazyOptional<IEnergyStorage> energyStorageLazyOptional = testItemStack.getCapability(Capabilities.ENERGY);
-        if(!energyStorageLazyOptional.isPresent())
-            return 0;
-
-        IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-        if(!energyStorage.canReceive())
+        IEnergyStorage energyStorage = testItemStack.getCapability(Capabilities.EnergyStorage.ITEM);
+        if(energyStorage == null || !energyStorage.canReceive())
             return 0;
 
         int received = energyStorage.receiveEnergy(Math.min(MAX_EXTRACT, getEnergy(itemStack)), true);

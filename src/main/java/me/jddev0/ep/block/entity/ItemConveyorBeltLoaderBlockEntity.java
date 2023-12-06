@@ -20,9 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -42,14 +40,10 @@ public class ItemConveyorBeltLoaderBlockEntity extends BlockEntity  implements M
             return 1;
         }
     };
-    private final LazyOptional<IItemHandler> lazyItemHandler;
-    private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
-            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 0));
+    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 0);
 
     public ItemConveyorBeltLoaderBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ITEM_CONVEYOR_BELT_LOADER_ENTITY.get(), blockPos, blockState);
-
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
     }
 
     @Override
@@ -67,16 +61,11 @@ public class ItemConveyorBeltLoaderBlockEntity extends BlockEntity  implements M
         return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == Capabilities.ITEM_HANDLER) {
-            if(side == null)
-                return lazyItemHandler.cast();
+    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
 
-            return lazyItemHandlerSided.cast();
-        }
-
-        return super.getCapability(cap, side);
+        return itemHandlerSided;
     }
 
     @Override
@@ -127,11 +116,11 @@ public class ItemConveyorBeltLoaderBlockEntity extends BlockEntity  implements M
         if(!(testBlockEntity instanceof ItemConveyorBeltBlockEntity))
             return;
 
-        LazyOptional<IItemHandler> itemStackStorageLazyOptional = testBlockEntity.getCapability(Capabilities.ITEM_HANDLER, direction.getOpposite());
-        if(!itemStackStorageLazyOptional.isPresent())
+        IItemHandler itemStackStorage = level.getCapability(Capabilities.ItemHandler.BLOCK, testPos, testBlockState,
+                testBlockEntity, direction.getOpposite());
+        if(itemStackStorage == null)
             return;
 
-        IItemHandler itemStackStorage = itemStackStorageLazyOptional.orElseGet(null);
         for(int i = 0;i < itemStackStorage.getSlots();i++) {
             if(itemStackStorage.insertItem(i, itemStackToInsert, false).isEmpty()) {
                 blockEntity.itemHandler.setStackInSlot(0, ItemStack.EMPTY);
@@ -146,14 +135,12 @@ public class ItemConveyorBeltLoaderBlockEntity extends BlockEntity  implements M
 
         BlockPos testPos = blockPos.relative(direction);
         BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-        if(testBlockEntity == null)
+
+        IItemHandler itemStackStorage = level.getCapability(Capabilities.ItemHandler.BLOCK, testPos, level.getBlockState(testPos),
+                testBlockEntity, direction.getOpposite());
+        if(itemStackStorage == null)
             return;
 
-        LazyOptional<IItemHandler> itemStackStorageLazyOptional = testBlockEntity.getCapability(Capabilities.ITEM_HANDLER, direction.getOpposite());
-        if(!itemStackStorageLazyOptional.isPresent())
-            return;
-
-        IItemHandler itemStackStorage = itemStackStorageLazyOptional.orElseGet(null);
         for(int i = 0;i < itemStackStorage.getSlots();i++) {
             ItemStack extracted = itemStackStorage.extractItem(i, 1, false);
             if(!extracted.isEmpty()) {

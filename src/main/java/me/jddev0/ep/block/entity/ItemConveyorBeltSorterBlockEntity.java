@@ -24,8 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -190,14 +189,14 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
                 return;
             }
 
-            LazyOptional<IItemHandler> itemStackStorageLazyOptional = inputBlockEntity.getCapability(Capabilities.ITEM_HANDLER, facing.getOpposite());
-            if(!itemStackStorageLazyOptional.isPresent()) {
+            IItemHandler inputBeltItemStackStorage = level.getCapability(Capabilities.ItemHandler.BLOCK, inputPos,
+                    level.getBlockState(inputPos), inputBlockEntity, facing.getOpposite());
+            if(inputBeltItemStackStorage == null) {
                 updatePoweredState(level, blockPos, state, blockEntity, false);
 
                 return;
             }
 
-            IItemHandler inputBeltItemStackStorage = itemStackStorageLazyOptional.orElseGet(null);
             ItemStack itemStackToSort = inputBeltItemStackStorage.getStackInSlot(inputBeltItemStackStorage.getSlots() - 1);
             if(itemStackToSort.isEmpty()) {
                 updatePoweredState(level, blockPos, state, blockEntity, false);
@@ -273,11 +272,8 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
         if(!(outputBlockEntity instanceof ItemConveyorBeltBlockEntity))
             return null;
 
-        LazyOptional<IItemHandler> itemStackStorageLazyOptional = outputBlockEntity.getCapability(Capabilities.ITEM_HANDLER, direction.getOpposite());
-        if(!itemStackStorageLazyOptional.isPresent())
-            return null;
-
-        return itemStackStorageLazyOptional.orElseGet(null);
+        return level.getCapability(Capabilities.ItemHandler.BLOCK, outputPos, level.getBlockState(outputPos),
+                outputBlockEntity, direction.getOpposite());
     }
 
     private static boolean tryInsertItemStackIntoOutputBelt(ItemStack itemStackToSort, IItemHandler inputBeltItemStackStorage, IItemHandler outputBeltItemStackStorage) {

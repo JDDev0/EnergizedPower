@@ -16,8 +16,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -99,20 +98,13 @@ public class FluidAnalyzerItem extends EnergizedPowerEnergyItem {
         components.add(level.getBlockState(blockPos).getBlock().getName().withStyle(ChatFormatting.UNDERLINE, ChatFormatting.AQUA));
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(blockEntity == null) {
-            components.add(Component.translatable("txt.energizedpower.fluid_analyzer.no_fluid_block").withStyle(ChatFormatting.RED));
 
-            useItem(stack, useOnContext.getPlayer(), components);
-
-            return InteractionResult.SUCCESS;
-        }
-
-        LazyOptional<IFluidHandler> fluidStorageLazyOptional = blockEntity.getCapability(Capabilities.FLUID_HANDLER);
-        addOutputTextForFluidStorage(components, fluidStorageLazyOptional.isPresent()?fluidStorageLazyOptional.orElse(null):null, false);
+        IFluidHandler fluidStorage = level.getCapability(Capabilities.FluidHandler.BLOCK, blockPos, level.getBlockState(blockPos), blockEntity, null);
+        addOutputTextForFluidStorage(components, fluidStorage, false);
 
         components.add(Component.translatable("txt.energizedpower.fluid_analyzer.output_side_information").withStyle(ChatFormatting.GOLD));
-        LazyOptional<IFluidHandler> fluidStorageLazyOptionalSided = blockEntity.getCapability(Capabilities.FLUID_HANDLER, useOnContext.getClickedFace());
-        addOutputTextForFluidStorage(components, fluidStorageLazyOptionalSided.isPresent()?fluidStorageLazyOptional.orElse(null):null, true);
+        IFluidHandler fluidStorageSided = level.getCapability(Capabilities.FluidHandler.BLOCK, blockPos, level.getBlockState(blockPos), blockEntity, useOnContext.getClickedFace());
+        addOutputTextForFluidStorage(components, fluidStorageSided, true);
 
         useItem(stack, useOnContext.getPlayer(), components);
 
