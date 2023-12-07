@@ -1,5 +1,6 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.ItemConveyorBeltSplitterBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -17,12 +18,19 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltSplitterBlock extends BaseEntityBlock {
+    public static final MapCodec<ItemConveyorBeltSplitterBlock> CODEC = simpleCodec(ItemConveyorBeltSplitterBlock::new);
+
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     protected ItemConveyorBeltSplitterBlock(Properties props) {
         super(props);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable

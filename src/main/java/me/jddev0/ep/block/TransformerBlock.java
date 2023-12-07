@@ -1,5 +1,7 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.TransformerBlockEntity;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
@@ -7,6 +9,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -25,6 +28,15 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class TransformerBlock extends BaseEntityBlock {
+    public static final MapCodec<TransformerBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(propertiesCodec(),
+                ExtraCodecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
+                        forGetter(TransformerBlock::getTier),
+                ExtraCodecs.NON_EMPTY_STRING.xmap(Type::valueOf, Type::toString).fieldOf("transformer_type").
+                        forGetter(TransformerBlock::getTransformerType)
+        ).apply(instance, TransformerBlock::new);
+    });
+
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
     private final Tier tier;
@@ -45,6 +57,11 @@ public class TransformerBlock extends BaseEntityBlock {
 
     public Type getTransformerType() {
         return type;
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable

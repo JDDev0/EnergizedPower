@@ -1,5 +1,6 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.CreativeBatteryBoxBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import net.minecraft.ChatFormatting;
@@ -22,8 +23,15 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class CreativeBatteryBoxBlock extends BaseEntityBlock {
+    public static final MapCodec<CreativeBatteryBoxBlock> CODEC = simpleCodec(CreativeBatteryBoxBlock::new);
+
     public CreativeBatteryBoxBlock(Properties props) {
         super(props);
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable

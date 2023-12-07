@@ -1,5 +1,6 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.FluidPipeBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import net.minecraft.ChatFormatting;
@@ -42,6 +43,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, WrenchConfigurable {
+    public static final MapCodec<FluidPipeBlock> CODEC = simpleCodec(FluidPipeBlock::new);
+
     public static final EnumProperty<ModBlockStateProperties.PipeConnection> UP = ModBlockStateProperties.PIPE_CONNECTION_UP;
     public static final EnumProperty<ModBlockStateProperties.PipeConnection> DOWN = ModBlockStateProperties.PIPE_CONNECTION_DOWN;
     public static final EnumProperty<ModBlockStateProperties.PipeConnection> NORTH = ModBlockStateProperties.PIPE_CONNECTION_NORTH;
@@ -80,6 +83,11 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
                 setValue(EAST, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
                 setValue(WEST, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
                 setValue(WATERLOGGED, false));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable

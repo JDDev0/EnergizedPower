@@ -1,5 +1,6 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.util.EnergyUtils;
@@ -32,12 +33,19 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class AdvancedAutoCrafterBlock extends BaseEntityBlock {
+    public static final MapCodec<AdvancedAutoCrafterBlock> CODEC = simpleCodec(AdvancedAutoCrafterBlock::new);
+
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public AdvancedAutoCrafterBlock(Properties props) {
         super(props);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable

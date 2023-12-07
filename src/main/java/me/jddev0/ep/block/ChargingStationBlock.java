@@ -1,5 +1,6 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.ChargingStationBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import net.minecraft.ChatFormatting;
@@ -31,6 +32,8 @@ import java.util.List;
 import java.util.function.ToIntFunction;
 
 public class ChargingStationBlock extends BaseEntityBlock {
+    public static final MapCodec<ChargingStationBlock> CODEC = simpleCodec(ChargingStationBlock::new);
+
     public static final BooleanProperty CHARGING = BooleanProperty.create("charging");
 
     public static final ToIntFunction<BlockState> LIGHT_EMISSION =
@@ -40,6 +43,11 @@ public class ChargingStationBlock extends BaseEntityBlock {
         super(props);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(CHARGING, false));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable

@@ -1,5 +1,6 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.AdvancedMinecartChargerBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.util.EnergyUtils;
@@ -31,12 +32,19 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class AdvancedMinecartChargerBlock extends BaseEntityBlock {
+    public static final MapCodec<AdvancedMinecartChargerBlock> CODEC = simpleCodec(AdvancedMinecartChargerBlock::new);
+
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
     protected AdvancedMinecartChargerBlock(Properties props) {
         super(props);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable

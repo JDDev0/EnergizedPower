@@ -182,6 +182,9 @@ public class InventoryChargerItem extends Item implements MenuProvider {
             if(energy > 0)
                 consumerItems.get(i).receiveEnergy(energy, false);
         }
+
+        //Fix for energy is not extracted from batteries
+        inventoryChargerInventory.setChanged();
     }
 
     public void extractEnergyFromBatteries(int energyProductionLeft, Container inventory) {

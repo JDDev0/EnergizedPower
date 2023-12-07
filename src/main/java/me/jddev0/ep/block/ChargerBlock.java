@@ -1,5 +1,6 @@
 package me.jddev0.ep.block;
 
+import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.ChargerBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import net.minecraft.ChatFormatting;
@@ -29,12 +30,19 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ChargerBlock extends BaseEntityBlock {
+    public static final MapCodec<ChargerBlock> CODEC = simpleCodec(ChargerBlock::new);
+
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public ChargerBlock(Properties props) {
         super(props);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Nullable
