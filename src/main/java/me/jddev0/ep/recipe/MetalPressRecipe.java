@@ -1,6 +1,5 @@
 package me.jddev0.ep.recipe;
 
-import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
@@ -23,10 +22,6 @@ public class MetalPressRecipe implements Recipe<Inventory> {
     private final ItemStack pressMold;
     private final Ingredient input;
     private final int inputCount;
-
-    public MetalPressRecipe(ItemStack output, ItemStack pressMold, Ingredient input) {
-        this(output, pressMold, input, 1);
-    }
 
     public MetalPressRecipe(ItemStack output, ItemStack pressMold, Ingredient input, int inputCount) {
         this.output = output;
@@ -108,32 +103,21 @@ public class MetalPressRecipe implements Recipe<Inventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "metal_press");
 
-        private final Codec<MetalPressRecipe> CODEC_INPUT_COUNT = RecordCodecBuilder.create((instance) -> {
+        private final Codec<MetalPressRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
             }), CodecFix.ITEM_STACK_CODEC.fieldOf("pressMold").forGetter((recipe) -> {
                 return recipe.pressMold;
             }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
-            }), Codecs.POSITIVE_INT.fieldOf("inputCount").forGetter((recipe) -> {
+            }), Codecs.POSITIVE_INT.optionalFieldOf("inputCount", 1).forGetter((recipe) -> {
                 return recipe.inputCount;
-            })).apply(instance, MetalPressRecipe::new);
-        });
-
-        private final Codec<MetalPressRecipe> CODEC_INGREDIENT_ONLY = RecordCodecBuilder.create((instance) -> {
-            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
-                return recipe.output;
-            }), CodecFix.ITEM_STACK_CODEC.fieldOf("pressMold").forGetter((recipe) -> {
-                return recipe.pressMold;
-            }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
-                return recipe.input;
             })).apply(instance, MetalPressRecipe::new);
         });
 
         @Override
         public Codec<MetalPressRecipe> codec() {
-            return Codec.either(CODEC_INPUT_COUNT, CODEC_INGREDIENT_ONLY).
-                    xmap(e -> e.left().orElseGet(() -> e.right().orElseThrow()), Either::left);
+            return CODEC;
         }
 
         @Override
