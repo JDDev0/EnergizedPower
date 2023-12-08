@@ -1,6 +1,5 @@
 package me.jddev0.ep.recipe;
 
-import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
@@ -15,6 +14,8 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+
+import java.util.Optional;
 
 public class SawmillRecipe implements Recipe<SimpleContainer> {
     private final ItemStack output;
@@ -106,30 +107,25 @@ public class SawmillRecipe implements Recipe<SimpleContainer> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "sawmill");
 
-        private final Codec<SawmillRecipe> CODEC_ITEM_STACK = RecordCodecBuilder.create((instance) -> {
-            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
-                return recipe.output;
-            }), CodecFix.ITEM_STACK_CODEC.fieldOf("secondaryOutput").forGetter((recipe) -> {
-                return recipe.secondaryOutput;
-            }), Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
-                return recipe.input;
-            })).apply(instance, SawmillRecipe::new);
-        });
-
-        private final Codec<SawmillRecipe> CODEC_SAWDUST_AMOUNT = RecordCodecBuilder.create((instance) -> {
+        private final Codec<SawmillRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
             }), Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
-            }), Codec.INT.fieldOf("sawdustAmount").forGetter((recipe) -> {
-                return recipe.secondaryOutput.getCount();
-            })).apply(instance, SawmillRecipe::new);
+            }), Codec.INT.optionalFieldOf("sawdustAmount").forGetter((recipe) -> {
+                return Optional.of(recipe.secondaryOutput.getCount());
+            }), CodecFix.ITEM_STACK_CODEC.optionalFieldOf("secondaryOutput").forGetter((recipe) -> {
+                return Optional.of(recipe.secondaryOutput);
+            })).apply(instance, (output, ingredient, sawdustAmount, secondaryOutput) -> {
+                return secondaryOutput.map(o -> new SawmillRecipe(output, o, ingredient)).
+                        orElseGet(() -> sawdustAmount.map(a -> new SawmillRecipe(output, ingredient, a)).
+                                orElseThrow(() -> new IllegalArgumentException("Either \"sawdustAmount\" or \"secondaryOutput\" must be present")));
+            });
         });
 
         @Override
         public Codec<SawmillRecipe> codec() {
-            return Codec.either(CODEC_ITEM_STACK, CODEC_SAWDUST_AMOUNT).
-                    xmap(e -> e.left().orElseGet(() -> e.right().orElseThrow()), Either::left);
+            return CODEC;
         }
 
         @Override
