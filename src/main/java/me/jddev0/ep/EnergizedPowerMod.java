@@ -42,7 +42,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
 @Mod(EnergizedPowerMod.MODID)
@@ -50,9 +49,7 @@ public class EnergizedPowerMod {
     public static final String MODID = "energizedpower";
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public EnergizedPowerMod() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+    public EnergizedPowerMod(IEventBus modEventBus) {
         ModConfigs.registerConfigs(true);
 
         ModItems.register(modEventBus);
