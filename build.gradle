@@ -167,8 +167,8 @@ dependencies {
     // implementation fg.deobf("com.tterrag.registrate:Registrate:MC${mc_version}-${registrate_version}") // Adds registrate as a dependency
     // REI integration
     compileOnly 'me.shedaniel.cloth:basic-math:0.6.1'
-    compileOnly fg.deobf("dev.architectury:architectury-forge:10.0.8")
-    compileOnly fg.deobf('me.shedaniel:RoughlyEnoughItems-forge:13.0.675')
+    compileOnly fg.deobf("dev.architectury:architectury-forge:11.0.9")
+    compileOnly fg.deobf('me.shedaniel:RoughlyEnoughItems-forge:14.0.688')
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:12.+"
 
     // JEI integration
