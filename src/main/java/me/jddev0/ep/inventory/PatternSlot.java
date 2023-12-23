@@ -61,4 +61,9 @@ public class PatternSlot extends Slot {
 
         return Optional.empty();
     }
+
+    @Override
+    public boolean disablesDynamicDisplay() {
+        return true;
+    }
 }
