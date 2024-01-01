@@ -1,45 +1,51 @@
 package me.jddev0.ep.networking.packet;
 
+import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.StoneSolidifierBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.Level;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import org.jetbrains.annotations.NotNull;
 
-public class ChangeStoneSolidifierRecipeIndexC2SPacket {
-    private final BlockPos pos;
-    private final boolean downUp;
-
-    public ChangeStoneSolidifierRecipeIndexC2SPacket(BlockPos pos, boolean downUp) {
-        this.pos = pos;
-        this.downUp = downUp;
-    }
+public record ChangeStoneSolidifierRecipeIndexC2SPacket(BlockPos pos, boolean downUp) implements CustomPacketPayload {
+    public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "change_stone_solidifer_recipe_index");
 
     public ChangeStoneSolidifierRecipeIndexC2SPacket(FriendlyByteBuf buffer) {
-        pos = buffer.readBlockPos();
-        downUp = buffer.readBoolean();
+        this(buffer.readBlockPos(), buffer.readBoolean());
     }
 
-    public void toBytes(FriendlyByteBuf buffer) {
+    @Override
+    public void write(final FriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
         buffer.writeBoolean(downUp);
     }
 
-    public boolean handle(NetworkEvent.Context context) {
-        context.enqueueWork(() -> {
-            Level level = context.getSender().level();
-            if(!level.hasChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ())))
+    @Override
+    @NotNull
+    public ResourceLocation id() {
+        return ID;
+    }
+
+    public static void handle(final ChangeStoneSolidifierRecipeIndexC2SPacket data, final PlayPayloadContext context) {
+        context.workHandler().execute(() -> {
+            if(context.level().isEmpty() || !(context.level().get() instanceof ServerLevel level) ||
+                    context.player().isEmpty() || !(context.player().get() instanceof ServerPlayer player))
                 return;
 
-            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if(!level.hasChunk(SectionPos.blockToSectionCoord(data.pos.getX()), SectionPos.blockToSectionCoord(data.pos.getZ())))
+                return;
+
+            BlockEntity blockEntity = level.getBlockEntity(data.pos);
             if(!(blockEntity instanceof StoneSolidifierBlockEntity stoneSolidifierBlockEntity))
                 return;
 
-            stoneSolidifierBlockEntity.changeRecipeIndex(downUp);
+            stoneSolidifierBlockEntity.changeRecipeIndex(data.downUp);
         });
-
-        return true;
     }
 }

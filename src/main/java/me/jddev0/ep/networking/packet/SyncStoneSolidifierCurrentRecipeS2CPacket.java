@@ -1,20 +1,21 @@
 package me.jddev0.ep.networking.packet;
 
+import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.StoneSolidifierBlockEntity;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+public class SyncStoneSolidifierCurrentRecipeS2CPacket implements CustomPacketPayload {
+    public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "sync_stone_solidifier_current_recipe");
 
-public class SyncStoneSolidifierCurrentRecipeS2CPacket {
     private final BlockPos pos;
     private final RecipeHolder<StoneSolidifierRecipe> currentRecipe;
 
@@ -30,7 +31,8 @@ public class SyncStoneSolidifierCurrentRecipeS2CPacket {
                 StoneSolidifierRecipe.Serializer.INSTANCE.fromNetwork(buffer)):null;
     }
 
-    public void toBytes(FriendlyByteBuf buffer) {
+    @Override
+    public void write(final FriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
 
         if(currentRecipe == null) {
@@ -43,16 +45,23 @@ public class SyncStoneSolidifierCurrentRecipeS2CPacket {
         }
     }
 
-    public boolean handle(NetworkEvent.Context context) {
-        context.enqueueWork(() -> {
-            BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(pos);
+    @Override
+    @NotNull
+    public ResourceLocation id() {
+        return ID;
+    }
+
+    public static void handle(final SyncStoneSolidifierCurrentRecipeS2CPacket data, final PlayPayloadContext context) {
+        context.workHandler().execute(() -> {
+            if(context.level().isEmpty())
+                return;
+
+            BlockEntity blockEntity = context.level().get().getBlockEntity(data.pos);
 
             //BlockEntity
             if(blockEntity instanceof StoneSolidifierBlockEntity stoneSolidifierBlockEntity) {
-                stoneSolidifierBlockEntity.setCurrentRecipe(currentRecipe);
+                stoneSolidifierBlockEntity.setCurrentRecipe(data.currentRecipe);
             }
         });
-
-        return true;
     }
 }

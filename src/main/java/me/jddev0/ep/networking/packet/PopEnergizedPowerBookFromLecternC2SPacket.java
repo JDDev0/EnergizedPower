@@ -1,53 +1,60 @@
 package me.jddev0.ep.networking.packet;
 
+import me.jddev0.ep.EnergizedPowerMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
-import net.neoforged.neoforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import org.jetbrains.annotations.NotNull;
 
-public class PopEnergizedPowerBookFromLecternC2SPacket {
-    private final BlockPos pos;
-
-    public PopEnergizedPowerBookFromLecternC2SPacket(BlockPos pos) {
-        this.pos = pos;
-    }
+public record PopEnergizedPowerBookFromLecternC2SPacket(BlockPos pos) implements CustomPacketPayload {
+    public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "pop_energized_power_book_from_lectern");
 
     public PopEnergizedPowerBookFromLecternC2SPacket(FriendlyByteBuf buffer) {
-        pos = buffer.readBlockPos();
+        this(buffer.readBlockPos());
     }
 
-    public void toBytes(FriendlyByteBuf buffer) {
+    @Override
+    public void write(final FriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
     }
 
-    public boolean handle(NetworkEvent.Context context) {
-        context.enqueueWork(() -> {
-            ServerPlayer player = context.getSender();
+    @Override
+    @NotNull
+    public ResourceLocation id() {
+        return ID;
+    }
+
+    public static void handle(final PopEnergizedPowerBookFromLecternC2SPacket data, final PlayPayloadContext context) {
+        context.workHandler().execute(() -> {
+            if(context.level().isEmpty() || !(context.level().get() instanceof ServerLevel level) ||
+                    context.player().isEmpty() || !(context.player().get() instanceof ServerPlayer player))
+                return;
+
             if(!player.mayBuild())
                 return;
 
-            Level level = context.getSender().level();
-            if(!level.hasChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ())))
+            if(!level.hasChunk(SectionPos.blockToSectionCoord(data.pos.getX()), SectionPos.blockToSectionCoord(data.pos.getZ())))
                 return;
 
-            BlockEntity blockEntity = level.getBlockEntity(pos);
+            BlockEntity blockEntity = level.getBlockEntity(data.pos);
             if(!(blockEntity instanceof LecternBlockEntity lecternBlockEntity))
                 return;
 
             ItemStack itemStack = lecternBlockEntity.getBook();
 
             lecternBlockEntity.setBook(ItemStack.EMPTY);
-            LecternBlock.resetBookState(player, player.level(), pos, player.level().getBlockState(pos), false);
+            LecternBlock.resetBookState(player, player.level(), data.pos, player.level().getBlockState(data.pos), false);
             if(!player.getInventory().add(itemStack))
                 player.drop(itemStack, false);
         });
-
-        return true;
     }
 }

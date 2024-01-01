@@ -4,7 +4,6 @@ import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.CrystalGrowthChamberBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -21,7 +20,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class CrystalGrowthChamberBlock extends BaseEntityBlock {
@@ -88,7 +86,7 @@ public class CrystalGrowthChamberBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof CrystalGrowthChamberBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (CrystalGrowthChamberBlockEntity)blockEntity, blockPos);
+        player.openMenu((CrystalGrowthChamberBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }

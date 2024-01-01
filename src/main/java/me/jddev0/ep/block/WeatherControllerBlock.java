@@ -4,7 +4,6 @@ import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -14,7 +13,6 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class WeatherControllerBlock extends BaseEntityBlock {
@@ -51,7 +49,7 @@ public class WeatherControllerBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof WeatherControllerBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (WeatherControllerBlockEntity)blockEntity, blockPos);
+        player.openMenu((WeatherControllerBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }

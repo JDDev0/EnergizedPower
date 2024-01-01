@@ -3,7 +3,6 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -13,7 +12,6 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class TimeControllerBlock extends BaseEntityBlock {
@@ -48,7 +46,7 @@ public class TimeControllerBlock extends BaseEntityBlock {
         if(!(blockEntity instanceof TimeControllerBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        NetworkHooks.openScreen((ServerPlayer)player, (TimeControllerBlockEntity)blockEntity, blockPos);
+        player.openMenu((TimeControllerBlockEntity)blockEntity, blockPos);
 
         return InteractionResult.sidedSuccess(level.isClientSide());
     }

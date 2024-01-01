@@ -1,21 +1,27 @@
 package me.jddev0.ep.networking.packet;
 
+import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SetAutoCrafterPatternInputSlotsC2SPacket {
+public class SetAutoCrafterPatternInputSlotsC2SPacket implements CustomPacketPayload {
+    public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "set_auto_crafter_pattern_input_slots");
+
     private final BlockPos pos;
     private final List<ItemStack> itemStacks;
     private final ResourceLocation recipeId;
@@ -41,7 +47,8 @@ public class SetAutoCrafterPatternInputSlotsC2SPacket {
         recipeId = buffer.readResourceLocation();
     }
 
-    public void toBytes(FriendlyByteBuf buffer) {
+    @Override
+    public void write(final FriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
 
         for(ItemStack itemStack:itemStacks)
@@ -50,29 +57,36 @@ public class SetAutoCrafterPatternInputSlotsC2SPacket {
         buffer.writeResourceLocation(recipeId);
     }
 
-    public boolean handle(NetworkEvent.Context context) {
-        context.enqueueWork(() -> {
-            Level level = context.getSender().level();
-            if(!level.hasChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ())))
+    @Override
+    @NotNull
+    public ResourceLocation id() {
+        return ID;
+    }
+
+    public static void handle(final SetAutoCrafterPatternInputSlotsC2SPacket data, final PlayPayloadContext context) {
+        context.workHandler().execute(() -> {
+            if(context.level().isEmpty() || !(context.level().get() instanceof ServerLevel level) ||
+                    context.player().isEmpty() || !(context.player().get() instanceof ServerPlayer player))
                 return;
 
-            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if(!level.hasChunk(SectionPos.blockToSectionCoord(data.pos.getX()), SectionPos.blockToSectionCoord(data.pos.getZ())))
+                return;
+
+            BlockEntity blockEntity = level.getBlockEntity(data.pos);
             if(!(blockEntity instanceof AutoCrafterBlockEntity autoCrafterBlockEntity))
                 return;
 
-            AbstractContainerMenu menu = context.getSender().containerMenu;
+            AbstractContainerMenu menu = player.containerMenu;
 
             if(!(menu instanceof AutoCrafterMenu autoCrafterMenu))
                 return;
 
-            for(int i = 0;i < itemStacks.size();i++)
-                autoCrafterMenu.getPatternSlots().setItem(i, itemStacks.get(i));
+            for(int i = 0;i < data.itemStacks.size();i++)
+                autoCrafterMenu.getPatternSlots().setItem(i, data.itemStacks.get(i));
 
-            autoCrafterBlockEntity.setRecipeIdForSetRecipe(recipeId);
+            autoCrafterBlockEntity.setRecipeIdForSetRecipe(data.recipeId);
 
             autoCrafterBlockEntity.resetProgressAndMarkAsChanged();
         });
-
-        return true;
     }
 }

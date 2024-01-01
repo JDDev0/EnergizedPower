@@ -69,11 +69,13 @@ public class EnergizedPowerMod {
         modEventBus.addListener(this::addCreativeTab);
         modEventBus.addListener(this::registerCapabilities);
 
+        modEventBus.addListener(ModMessages::register);
+
         NeoForge.EVENT_BUS.register(this);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        ModMessages.register();
+
     }
 
     private ItemStack getChargedItemStack(Item item, int energy) {
