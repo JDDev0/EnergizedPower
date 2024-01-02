@@ -428,6 +428,10 @@
   "item.energizedpower.fluid_tank_small": "Flüssigkeits-Tank (Klein)",
   "container.energizedpower.fluid_tank_small": "Flüssigkeits-Tank (Klein)",
 
+  "block.energizedpower.fluid_tank_medium": "Flüssigkeits-Tank (Mittel)",
+  "item.energizedpower.fluid_tank_medium": "Flüssigkeits-Tank (Mittel)",
+  "container.energizedpower.fluid_tank_medium": "Flüssigkeits-Tank (Mittel)",
+
   "block.energizedpower.fluid_filler": "Flüssigkeits-Befüller",
   "item.energizedpower.fluid_filler": "Flüssigkeits-Befüller",
   "container.energizedpower.fluid_filler": "Flüssigkeits-Befüller",
