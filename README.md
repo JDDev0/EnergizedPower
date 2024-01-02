@@ -68,7 +68,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 ### Fluid transportation
 
 - Fluid Pipe
-- Fluid Tanks (Small, Medium) (**In next release (v2.7.0)**)
+- Fluid Tanks (Small, Medium, Large) (**In next release (v2.7.0)**)
 
 ### Item transportation
 
