@@ -157,6 +157,9 @@ public final class ModMenuTypes {
     public static final Supplier<MenuType<AssemblingMachineMenu>> ASSEMBLING_MACHINE_MENU = registerMenuType("assembling_machine",
             AssemblingMachineMenu::new);
 
+    public static final Supplier<MenuType<FluidTankMenu>> FLUID_TANK_SMALL = registerMenuType("fluid_tank_small",
+            FluidTankMenu::new);
+
     public static void register(IEventBus modEventBus) {
         MENUS.register(modEventBus);
     }
