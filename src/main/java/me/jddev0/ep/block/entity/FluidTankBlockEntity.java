@@ -34,6 +34,7 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
         return switch(tier) {
             case SMALL -> ModBlockEntities.FLUID_TANK_SMALL_ENTITY.get();
             case MEDIUM -> ModBlockEntities.FLUID_TANK_MEDIUM_ENTITY.get();
+            case LARGE -> ModBlockEntities.FLUID_TANK_LARGE_ENTITY.get();
         };
     }
 
