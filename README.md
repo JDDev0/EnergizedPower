@@ -68,6 +68,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 ### Fluid transportation
 
 - Fluid Pipe
+- Fluid Tanks (Small) (**In next release (v2.7.0)**)
 
 ### Item transportation
 
@@ -79,6 +80,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - Item Conveyor Belt Merger
 
 ### Misc
+
 - Drain
 
 ### Integrations
