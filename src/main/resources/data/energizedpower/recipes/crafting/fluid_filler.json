@@ -8,8 +8,8 @@
     "I": {
       "tag": "forge:plates/iron"
     },
-    "G": {
-      "tag": "forge:glass/colorless"
+    "F": {
+      "item": "energizedpower:fluid_tank_small"
     },
     "C": {
       "tag": "forge:plates/copper"
@@ -21,7 +21,7 @@
   "pattern": [
     "SIS",
     "IBI",
-    "CGC"
+    "CFC"
   ],
   "result": {
     "item": "energizedpower:fluid_filler"
