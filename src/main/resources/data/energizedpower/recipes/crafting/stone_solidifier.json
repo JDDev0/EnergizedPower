@@ -5,8 +5,8 @@
     "S": {
       "tag": "forge:silicon"
     },
-    "G": {
-      "tag": "forge:glass/colorless"
+    "F": {
+      "item": "energizedpower:fluid_tank_small"
     },
     "I": {
       "tag": "forge:plates/iron"
@@ -23,7 +23,7 @@
   },
   "pattern": [
     "iSi",
-    "GHG",
+    "FHF",
     "CIC"
   ],
   "result": {
