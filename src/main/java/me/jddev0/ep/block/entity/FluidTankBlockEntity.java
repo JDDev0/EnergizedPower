@@ -59,7 +59,7 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.fluid_tank_small");
+        return Component.translatable("container.energizedpower." + tier.getResourceId());
     }
 
     @Nullable
