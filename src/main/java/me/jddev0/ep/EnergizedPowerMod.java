@@ -115,7 +115,8 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.ITEM_CONVEYOR_BELT_SPLITTER_ITEM);
             event.accept(ModBlocks.ITEM_CONVEYOR_BELT_MERGER_ITEM);
 
-            event.accept(ModBlocks.FLUID_PIPE_ITEM);
+            event.accept(ModBlocks.IRON_FLUID_PIPE_ITEM);
+            event.accept(ModBlocks.GOLDEN_FLUID_PIPE_ITEM);
 
             event.accept(ModBlocks.COPPER_CABLE_ITEM);
             event.accept(ModBlocks.GOLD_CABLE_ITEM);

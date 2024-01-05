@@ -16,12 +16,18 @@ public final class ModBlockEntities {
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, EnergizedPowerMod.MODID);
 
-    public static final Supplier<BlockEntityType<FluidPipeBlockEntity>> FLUID_PIPE_ENTITY =
-            BLOCK_ENTITIES.register("fluid_pipe", () -> BlockEntityType.Builder.of(FluidPipeBlockEntity::new,
-                    ModBlocks.FLUID_PIPE.get()).build(null));
+    private static Supplier<BlockEntityType<FluidPipeBlockEntity>> createFluidPipeBlockEntity(String name,
+                                                                                              Supplier<FluidPipeBlock> blockSupplier) {
+        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new FluidPipeBlockEntity(blockPos, state,
+                blockSupplier.get().getTier()), blockSupplier.get()).build(null));
+    }
+    public static final Supplier<BlockEntityType<FluidPipeBlockEntity>> IRON_FLUID_PIPE_ENTITY =
+            createFluidPipeBlockEntity("fluid_pipe", ModBlocks.IRON_FLUID_PIPE);
+    public static final Supplier<BlockEntityType<FluidPipeBlockEntity>> GOLDEN_FLUID_PIPE_ENTITY =
+            createFluidPipeBlockEntity("golden_fluid_pipe", ModBlocks.GOLDEN_FLUID_PIPE);
 
     private static Supplier<BlockEntityType<FluidTankBlockEntity>> createFluidTankBlockEntity(String name,
-                                                                                                Supplier<FluidTankBlock> blockSupplier) {
+                                                                                              Supplier<FluidTankBlock> blockSupplier) {
         return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new FluidTankBlockEntity(blockPos, state,
                 blockSupplier.get().getTier()), blockSupplier.get()).build(null));
     }
@@ -314,7 +320,9 @@ public final class ModBlockEntities {
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::getFluidHandlerCapability);
+                IRON_FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
+                GOLDEN_FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::getFluidHandlerCapability);
 
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
                 FLUID_TANK_SMALL_ENTITY.get(), FluidTankBlockEntity::getFluidHandlerCapability);
