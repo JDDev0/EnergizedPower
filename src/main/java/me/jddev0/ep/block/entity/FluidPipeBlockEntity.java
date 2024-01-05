@@ -111,6 +111,8 @@ public class FluidPipeBlockEntity extends BlockEntity {
         LinkedList<BlockPos> pipeBlocksLeft = new LinkedList<>();
         pipeBlocksLeft.add(blockPos);
 
+        checkedPipes.add(blockPos);
+
         while(pipeBlocksLeft.size() > 0) {
             BlockPos checkPos = pipeBlocksLeft.pop();
 
