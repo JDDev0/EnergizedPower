@@ -127,6 +127,8 @@ public class CableBlockEntity extends BlockEntity {
         LinkedList<BlockPos> cableBlocksLeft = new LinkedList<>();
         cableBlocksLeft.add(blockPos);
 
+        checkedCables.add(blockPos);
+
         while(cableBlocksLeft.size() > 0) {
             BlockPos checkPos = cableBlocksLeft.pop();
 
