@@ -424,6 +424,10 @@
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "Questo blocco ha ancora bisogno di %s per essere posizionato.",
   "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Rotazione inversa",
 
+  "block.energizedpower.fluid_tank_small": "Fluid Tank (Small)",
+  "item.energizedpower.fluid_tank_small": "Fluid Tank (Small)",
+  "container.energizedpower.fluid_tank_small": "Fluid Tank (Small)",
+
   "block.energizedpower.fluid_filler": "Riempitivo fluido",
   "item.energizedpower.fluid_filler": "Riempitivo fluido",
   "container.energizedpower.fluid_filler": "Riempitivo fluido",
@@ -521,6 +525,7 @@
   "tooltip.energizedpower.shift_details.txt": "Premere [MAIUSC] per i dettagli",
   "tooltip.energizedpower.capacity.txt": "Capacità: %s",
   "tooltip.energizedpower.transfer_rate.txt": "Velocità di trasferimento: %s/t",
+  "tooltip.energizedpower.tank_capacity.txt": "Tank Capacity: %s",
   "tooltip.energizedpower.not_enough_energy.txt": "Energia insufficiente",
   "tooltip.energizedpower.ready.txt": "Pronto",
   "tooltip.energizedpower.infinite.txt": "Infinito",
