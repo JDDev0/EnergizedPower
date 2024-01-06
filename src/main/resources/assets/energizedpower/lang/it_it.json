@@ -792,6 +792,15 @@
   "advancements.energizedpower.golden_fluid_pipe.title": "Fast Fluid Transport",
   "advancements.energizedpower.golden_fluid_pipe.description": "Transport fluids faster with golden fluid pipes.",
 
+  "advancements.energizedpower.fluid_tank_small.title": "Simple Fluid Storage",
+  "advancements.energizedpower.fluid_tank_small.description": "Store fluids in a small Fluid Tank.",
+
+  "advancements.energizedpower.fluid_tank_medium.title": "Better Fluid Storage",
+  "advancements.energizedpower.fluid_tank_medium.description": "Store fluids in a medium Fluid Tank.",
+
+  "advancements.energizedpower.fluid_tank_large.title": "Large Fluid Storage",
+  "advancements.energizedpower.fluid_tank_large.description": "Store fluids in a large Fluid Tank.",
+
   "advancements.energizedpower.copper_cable.title": "Trasporto di energia",
   "advancements.energizedpower.copper_cable.description": "Trasporta energia con i cavi.",
 
