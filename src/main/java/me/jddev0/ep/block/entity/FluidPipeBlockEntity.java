@@ -3,12 +3,12 @@ package me.jddev0.ep.block.entity;
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.FluidPipeBlock;
 import me.jddev0.ep.block.ModBlockStateProperties;
-import me.jddev0.ep.config.ModConfigs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.capabilities.Capability;
 import net.neoforged.neoforge.common.capabilities.Capabilities;
@@ -24,7 +24,9 @@ import java.util.List;
 import java.util.Map;
 
 public class FluidPipeBlockEntity extends BlockEntity {
-    public static int MAX_TRANSFER = ModConfigs.COMMON_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue();
+    private final FluidPipeBlock.Tier tier;
+
+    private final int maxTransfer;
 
     private final IFluidHandler fluidStorage;
     private final LazyOptional<IFluidHandler> lazyFluidStorage;
@@ -32,9 +34,20 @@ public class FluidPipeBlockEntity extends BlockEntity {
     private final Map<Pair<BlockPos, Direction>, IFluidHandler> producers = new HashMap<>();
     private final Map<Pair<BlockPos, Direction>, IFluidHandler> consumers = new HashMap<>();
     private final List<BlockPos> pipeBlocks = new LinkedList<>();
+    
+    public static BlockEntityType<FluidPipeBlockEntity> getEntityTypeFromTier(FluidPipeBlock.Tier tier) {
+        return switch(tier) {
+            case IRON -> ModBlockEntities.IRON_FLUID_PIPE_ENTITY.get();
+            case GOLDEN -> ModBlockEntities.GOLDEN_FLUID_PIPE_ENTITY.get();
+        };
+    }
 
-    public FluidPipeBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.FLUID_PIPE_ENTITY.get(), blockPos, blockState);
+    public FluidPipeBlockEntity(BlockPos blockPos, BlockState blockState, FluidPipeBlock.Tier tier) {
+        super(getEntityTypeFromTier(tier), blockPos, blockState);
+
+        this.tier = tier;
+
+        maxTransfer = tier.getTransferRate();
 
         fluidStorage = new IFluidHandler() {
             @Override
@@ -76,6 +89,10 @@ public class FluidPipeBlockEntity extends BlockEntity {
         lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
     }
 
+    public FluidPipeBlock.Tier getTier() {
+        return tier;
+    }
+
     public Map<Pair<BlockPos, Direction>, IFluidHandler> getProducers() {
         return producers;
     }
@@ -103,7 +120,10 @@ public class FluidPipeBlockEntity extends BlockEntity {
             if(testBlockEntity == null)
                 continue;
 
-            if(testBlockEntity instanceof FluidPipeBlockEntity) {
+            if(testBlockEntity instanceof FluidPipeBlockEntity fluidPipeBlockEntity) {
+                if(fluidPipeBlockEntity.getTier() != blockEntity.getTier()) //Do not connect to different cable tiers
+                    continue;
+
                 blockEntity.pipeBlocks.add(testPos);
 
                 continue;
@@ -175,11 +195,18 @@ public class FluidPipeBlockEntity extends BlockEntity {
         //List of all fluid types which where already checked
         List<FluidStack> alreadyCheckedFluidTypes = new LinkedList<>();
 
+        extractedFluidType = FluidStack.EMPTY;
+
+        int recheckWithConsumptionSum = -1;
+
         //Try all fluid types but stop after the first fluid type which can be inserted somewhere
         while(true) {
             fluidProduction = new LinkedList<>();
 
-            extractedFluidType = FluidStack.EMPTY;
+            if(recheckWithConsumptionSum == -1) //Only check for new fluid type if no recheck is happening
+                extractedFluidType = FluidStack.EMPTY;
+            else
+                extractedFluidType.setAmount(recheckWithConsumptionSum); //Check with max consumption
 
             fluidProductionValues = new LinkedList<>();
 
@@ -202,7 +229,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
                                 continue tankLoop;
 
                         extractedFluidType = fluidStackInTank.copy();
-                        extractedFluidType.setAmount(MAX_TRANSFER);
+                        extractedFluidType.setAmount(blockEntity.maxTransfer);
                     }
 
                     if(!fluidStackInTank.isFluidEqual(extractedFluidType))
@@ -246,13 +273,17 @@ public class FluidPipeBlockEntity extends BlockEntity {
             if(consumers == null)
                 consumers = getConnectedConsumers(level, blockPos, new LinkedList<>());
 
+            //Set fluid amount to at most production sum (Fixes bug where 900 mB Lava would be tried to be inserted to a cauldron and vanishes)
+            extractedFluidType.setAmount(Math.min(blockEntity.maxTransfer, productionSum));
+
             for(IFluidHandler fluidStorage:consumers) {
                 boolean receivedAnything = false;
 
                 int fluidConsumptionValuesIndex = -1;
 
                 for(int i = 0;i < fluidStorage.getTanks();i++) {
-                    int received = fluidStorage.fill(extractedFluidType.copy(), IFluidHandler.FluidAction.SIMULATE);
+                    FluidStack extractedFluidTypeTmp = extractedFluidType.copy();
+                    int received = fluidStorage.fill(extractedFluidTypeTmp, IFluidHandler.FluidAction.SIMULATE);
                     if(received <= 0)
                         continue;
 
@@ -273,9 +304,17 @@ public class FluidPipeBlockEntity extends BlockEntity {
                     fluidConsumption.add(fluidStorage);
             }
 
-            //If something was consumed -> continue after while(true)
-            if(consumptionSum > 0)
+            //If everything was consumed -> continue after while(true) or recheck if production is supported with less consumption
+            if(consumptionSum > 0) {
+                //If not everything which was produced was consumed -> recheck if production works when not everything is consumed (Fixes infinite fluid production bug)
+                if(consumptionSum < productionSum) {
+                    recheckWithConsumptionSum = consumptionSum;
+
+                    continue;
+                }
+
                 break;
+            }
 
             alreadyCheckedFluidTypes.add(extractedFluidType);
         }

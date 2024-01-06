@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.FluidPipeBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.config.ModConfigs;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -9,6 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -70,8 +72,19 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
         };
     }
 
-    public FluidPipeBlock(Properties props) {
-        super(props);
+    private final Tier tier;
+
+    public static Block getBlockFromTier(Tier tier) {
+        return switch(tier) {
+            case IRON -> ModBlocks.IRON_FLUID_PIPE.get();
+            case GOLDEN -> ModBlocks.GOLDEN_FLUID_PIPE.get();
+        };
+    }
+
+    public FluidPipeBlock(Tier tier) {
+        super(tier.getProperties());
+
+        this.tier = tier;
 
         this.registerDefaultState(this.stateDefinition.any().setValue(UP, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
                 setValue(DOWN, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
@@ -82,10 +95,14 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
                 setValue(WATERLOGGED, false));
     }
 
+    public Tier getTier() {
+        return tier;
+    }
+
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
-        return new FluidPipeBlockEntity(blockPos, state);
+        return new FluidPipeBlockEntity(blockPos, state, tier);
     }
 
     @Override
@@ -333,6 +350,9 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
         if(blockEntity == null)
             return ModBlockStateProperties.PipeConnection.NOT_CONNECTED;
 
+        if(blockEntity instanceof FluidPipeBlockEntity fluidPipeBlockEntity && fluidPipeBlockEntity.getTier() != this.getTier())
+            return ModBlockStateProperties.PipeConnection.NOT_CONNECTED;
+
         ModBlockStateProperties.PipeConnection currentConnectionState =
                 selfState.getValue(getPipeConnectionPropertyFromDirection(direction));
         if(currentConnectionState == ModBlockStateProperties.PipeConnection.NOT_CONNECTED)
@@ -345,13 +365,20 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::tick);
+        return createTickerHelper(type, FluidPipeBlockEntity.getEntityTypeFromTier(tier), FluidPipeBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
+        private final Tier tier;
 
-        public Item(Block block, Properties props) {
+        public Item(Block block, Properties props, Tier tier) {
             super(block, props);
+
+            this.tier = tier;
+        }
+
+        public Tier getTier() {
+            return tier;
         }
 
         @Override
@@ -362,6 +389,37 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
             }else {
                 components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
+        }
+    }
+
+    public enum Tier {
+        IRON("fluid_pipe", ModConfigs.COMMON_IRON_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue(),
+                BlockBehaviour.Properties.of().
+                        requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)),
+        GOLDEN("golden_fluid_pipe", ModConfigs.COMMON_GOLDEN_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue(),
+                Properties.of().
+                        requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+
+        private final String resourceId;
+        private final int transferRate;
+        private final Properties props;
+
+        Tier(String resourceId, int transferRate, Properties props) {
+            this.resourceId = resourceId;
+            this.transferRate = transferRate;
+            this.props = props;
+        }
+
+        public String getResourceId() {
+            return resourceId;
+        }
+
+        public int getTransferRate() {
+            return transferRate;
+        }
+
+        public Properties getProperties() {
+            return props;
         }
     }
 }
