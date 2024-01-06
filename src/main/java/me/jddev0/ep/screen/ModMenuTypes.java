@@ -159,6 +159,8 @@ public final class ModMenuTypes {
 
     public static final Supplier<MenuType<FluidTankMenu>> FLUID_TANK_SMALL = registerMenuType("fluid_tank_small",
             FluidTankMenu::new);
+    public static final Supplier<MenuType<FluidTankMenu>> FLUID_TANK_MEDIUM = registerMenuType("fluid_tank_medium",
+            FluidTankMenu::new);
 
     public static void register(IEventBus modEventBus) {
         MENUS.register(modEventBus);

@@ -21,6 +21,7 @@ public class FluidTankMenu extends AbstractContainerMenu {
     public static MenuType<FluidTankMenu> getMenuTypeFromTier(FluidTankBlock.Tier tier) {
         return switch(tier) {
             case SMALL -> ModMenuTypes.FLUID_TANK_SMALL.get();
+            case MEDIUM -> ModMenuTypes.FLUID_TANK_MEDIUM.get();
         };
     }
 
