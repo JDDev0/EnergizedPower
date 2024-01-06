@@ -195,18 +195,11 @@ public class FluidPipeBlockEntity extends BlockEntity {
         //List of all fluid types which where already checked
         List<FluidStack> alreadyCheckedFluidTypes = new LinkedList<>();
 
-        extractedFluidType = FluidStack.EMPTY;
-
-        int recheckWithConsumptionSum = -1;
-
         //Try all fluid types but stop after the first fluid type which can be inserted somewhere
         while(true) {
             fluidProduction = new LinkedList<>();
 
-            if(recheckWithConsumptionSum == -1) //Only check for new fluid type if no recheck is happening
-                extractedFluidType = FluidStack.EMPTY;
-            else
-                extractedFluidType.setAmount(recheckWithConsumptionSum); //Check with max consumption
+            extractedFluidType = FluidStack.EMPTY;
 
             fluidProductionValues = new LinkedList<>();
 
@@ -304,17 +297,9 @@ public class FluidPipeBlockEntity extends BlockEntity {
                     fluidConsumption.add(fluidStorage);
             }
 
-            //If everything was consumed -> continue after while(true) or recheck if production is supported with less consumption
-            if(consumptionSum > 0) {
-                //If not everything which was produced was consumed -> recheck if production works when not everything is consumed (Fixes infinite fluid production bug)
-                if(consumptionSum < productionSum) {
-                    recheckWithConsumptionSum = consumptionSum;
-
-                    continue;
-                }
-
+            //If everything was consumed -> continue after while(true)
+            if(consumptionSum > 0)
                 break;
-            }
 
             alreadyCheckedFluidTypes.add(extractedFluidType);
         }
@@ -349,13 +334,32 @@ public class FluidPipeBlockEntity extends BlockEntity {
             }
         }
 
+        int realProduction = 0;
+        int realProductionAmountMissing = 0;
         for(int i = 0;i < fluidProduction.size();i++) {
-            int amount = fluidProductionDistributed.get(i);
+            int amount = fluidProductionDistributed.get(i) + realProductionAmountMissing;
             if(amount > 0) {
                 FluidStack extract = extractedFluidType.copy();
                 extract.setAmount(amount);
 
-                fluidProduction.get(i).drain(extract, IFluidHandler.FluidAction.EXECUTE);
+                FluidStack realExtract = fluidProduction.get(i).drain(extract, IFluidHandler.FluidAction.EXECUTE);
+                realProduction += realExtract.getAmount();
+                realProductionAmountMissing = amount - realExtract.getAmount();
+            }
+        }
+
+        //Retry extraction of all producers if something is missing
+        if(realProductionAmountMissing > 0) {
+            for(IFluidHandler producer:fluidProduction) {
+                FluidStack extract = extractedFluidType.copy();
+                extract.setAmount(realProductionAmountMissing);
+
+                FluidStack realExtract = producer.drain(extract, IFluidHandler.FluidAction.EXECUTE);
+                realProduction += realExtract.getAmount();
+                realProductionAmountMissing -= realExtract.getAmount();
+
+                if(realProductionAmountMissing == 0)
+                    break;
             }
         }
 
@@ -363,7 +367,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
         for(int i = 0;i < fluidConsumption.size();i++)
             fluidConsumptionDistributed.add(0);
 
-        int consumptionLeft = transferLeft;
+        int consumptionLeft = realProduction;
         divisor = fluidConsumption.size();
         outer:
         while(consumptionLeft > 0) {
@@ -385,13 +389,29 @@ public class FluidPipeBlockEntity extends BlockEntity {
             }
         }
 
+        int realConsumptionAmountMissing = 0;
         for(int i = 0;i < fluidConsumption.size();i++) {
-            int amount = fluidConsumptionDistributed.get(i);
+            int amount = fluidConsumptionDistributed.get(i) + realConsumptionAmountMissing;
             if(amount > 0) {
                 FluidStack insert = extractedFluidType.copy();
                 insert.setAmount(amount);
 
-                fluidConsumption.get(i).fill(insert, IFluidHandler.FluidAction.EXECUTE);
+                int realInsert = fluidConsumption.get(i).fill(insert, IFluidHandler.FluidAction.EXECUTE);
+                realConsumptionAmountMissing = amount - realInsert;
+            }
+        }
+
+        //Retry insertion to all consumers if something is missing
+        if(realConsumptionAmountMissing > 0) {
+            for(IFluidHandler consumer:fluidConsumption) {
+                FluidStack insert = extractedFluidType.copy();
+                insert.setAmount(realConsumptionAmountMissing);
+
+                int realInsert = consumer.fill(insert, IFluidHandler.FluidAction.EXECUTE);
+                realConsumptionAmountMissing -= realInsert;
+
+                if(realConsumptionAmountMissing == 0)
+                    break;
             }
         }
     }
