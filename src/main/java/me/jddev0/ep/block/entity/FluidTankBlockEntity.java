@@ -65,7 +65,7 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.fluid_tank_small");
+        return Text.translatable("container.energizedpower." + tier.getResourceId());
     }
 
     @Nullable
