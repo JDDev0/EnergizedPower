@@ -1181,6 +1181,9 @@
   "book.energizedpower.page.fluid_pipes.3": "Ein einzelner Flüssigkeitsrohr-Block kann nur eine Flüssigkeitsart zur gleichen Zeit extrahieren, auch wenn mehrere Seiten als Extraktion konfiguriert wurden.",
   "book.energizedpower.page.fluid_pipes.4": "Es gibt zwei Flüssigkeitsrohr-Typen: Eisen und Gold.",
 
+  "book.energizedpower.page.fluid_tanks.1": "Flüssigkeits-Tanks können Flüssigkeiten speichern.",
+  "book.energizedpower.page.fluid_tanks.2": "Es gibt drei Flüssigkeits-Tank-Typen: Klein, Mittel und Groß.",
+
   "book.energizedpower.page.drain": "Der Ablauf leitet Flüssigkeits-Blöcke oberhalb des Blocks ab.",
 
 

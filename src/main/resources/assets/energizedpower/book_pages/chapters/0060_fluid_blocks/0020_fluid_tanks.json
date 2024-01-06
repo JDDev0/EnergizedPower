@@ -1,0 +1,25 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.fluid_tanks.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.fluid_tanks.2",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform"
+    }
+  ],
+  "block": [
+    "energizedpower:fluid_tank_small",
+    "energizedpower:fluid_tank_medium",
+    "energizedpower:fluid_tank_large"
+  ]
+}
