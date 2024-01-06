@@ -5,8 +5,8 @@
     "S": {
       "tag": "c:silicon"
     },
-    "G": {
-      "tag": "c:glass_blocks_colorless"
+    "F": {
+      "item": "energizedpower:fluid_tank_small"
     },
     "I": {
       "tag": "c:iron_plates"
@@ -23,7 +23,7 @@
   },
   "pattern": [
     "iSi",
-    "GHG",
+    "FHF",
     "CIC"
   ],
   "result": {
