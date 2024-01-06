@@ -189,6 +189,7 @@
   "block.energizedpower.golden_fluid_pipe": "Golden Fluid Pipe",
   "item.energizedpower.golden_fluid_pipe": "Golden Fluid Pipe",
 
+  "tooltip.energizedpower.fluid_pipe.max_extraction": "Max extraction per extractor face: %s/t",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Il tipo di connessione del quadrante (%s) è stato impostato su %s.",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Impossibile modificare il tipo di connessione del quadrante (%s).",
 
