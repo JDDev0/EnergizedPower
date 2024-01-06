@@ -696,10 +696,17 @@ public final class ModConfigs {
             1, null
     ));
 
-    public static final ConfigValue<Integer> COMMON_FLUID_PIPE_FLUID_TRANSFER_RATE = COMMON_CONFIG.register(new IntegerConfigValue(
-            "block.fluid_pipe.fluid_transfer_rate",
-            "The transfer rate per tank and face of a Fluid Pipe face in the extraction state in mB (milli Buckets)",
+    public static final ConfigValue<Integer> COMMON_IRON_FLUID_PIPE_FLUID_TRANSFER_RATE = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.iron_fluid_pipe.fluid_transfer_rate",
+            "The transfer rate per tank and face of an Iron Fluid Pipe face in the extraction state in mB (milli Buckets)",
             100,
+            1, null
+    ));
+
+    public static final ConfigValue<Integer> COMMON_GOLDEN_FLUID_PIPE_FLUID_TRANSFER_RATE = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.golden_fluid_pipe.fluid_transfer_rate",
+            "The transfer rate per tank and face of a Golden Fluid Pipe face in the extraction state in mB (milli Buckets)",
+            1000,
             1, null
     ));
 
