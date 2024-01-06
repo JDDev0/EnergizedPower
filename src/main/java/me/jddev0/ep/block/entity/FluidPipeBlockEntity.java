@@ -261,7 +261,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
                     fluidConsumption.add(fluidStorage);
             }
 
-            //If something was consumed -> continue after while(true)
+            //If everything was consumed -> continue after while(true)
             if(consumptionSum > 0)
                 break;
 
@@ -298,15 +298,39 @@ public class FluidPipeBlockEntity extends BlockEntity {
             }
         }
 
+        long realProduction = 0;
+        long realProductionAmountMissing = 0;
         for(int i = 0;i < fluidProduction.size();i++) {
-            long amount = fluidProductionDistributed.get(i);
+            long amount = fluidProductionDistributed.get(i) + realProductionAmountMissing;
             if(amount > 0) {
                 FluidVariant extract = FluidVariant.of(extractedFluidType.getFluid(), extractedFluidType.copyNbt());
+                long realExtract;
                 try(Transaction transaction = Transaction.openOuter()) {
-                    fluidProduction.get(i).extract(extract, amount, transaction);
+                    realExtract = fluidProduction.get(i).extract(extract, amount, transaction);
 
                     transaction.commit();
                 }
+                realProduction += realExtract;
+                realProductionAmountMissing = amount - realExtract;
+            }
+        }
+
+        //Retry extraction of all producers if something is missing
+        if(realProductionAmountMissing > 0) {
+            for(Storage<FluidVariant> producer:fluidProduction) {
+                FluidVariant extract = FluidVariant.of(extractedFluidType.getFluid(), extractedFluidType.copyNbt());
+                long realExtract;
+                try(Transaction transaction = Transaction.openOuter()) {
+                    realExtract = producer.extract(extract, realProductionAmountMissing, transaction);
+
+                    transaction.commit();
+                }
+
+                realProduction += realExtract;
+                realProductionAmountMissing -= realExtract;
+
+                if(realProductionAmountMissing == 0)
+                    break;
             }
         }
 
@@ -314,7 +338,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
         for(int i = 0;i < fluidConsumption.size();i++)
             fluidConsumptionDistributed.add(0L);
 
-        long consumptionLeft = transferLeft;
+        long consumptionLeft = realProduction;
         divisor = fluidConsumption.size();
         outer:
         while(consumptionLeft > 0) {
@@ -336,15 +360,37 @@ public class FluidPipeBlockEntity extends BlockEntity {
             }
         }
 
+        long realConsumptionAmountMissing = 0;
         for(int i = 0;i < fluidConsumption.size();i++) {
-            long amount = fluidConsumptionDistributed.get(i);
+            long amount = fluidConsumptionDistributed.get(i) + realConsumptionAmountMissing;
             if(amount > 0) {
                 FluidVariant insert = FluidVariant.of(extractedFluidType.getFluid(), extractedFluidType.copyNbt());
+                long realInsert;
                 try(Transaction transaction = Transaction.openOuter()) {
-                    fluidConsumption.get(i).insert(insert, amount, transaction);
+                    realInsert = fluidConsumption.get(i).insert(insert, amount, transaction);
 
                     transaction.commit();
                 }
+
+                realConsumptionAmountMissing = amount - realInsert;
+            }
+        }
+
+        //Retry insertion to all consumers if something is missing
+        if(realConsumptionAmountMissing > 0) {
+            for(Storage<FluidVariant> consumer:fluidConsumption) {
+                FluidVariant insert = FluidVariant.of(extractedFluidType.getFluid(), extractedFluidType.copyNbt());
+                long realInsert;
+                try(Transaction transaction = Transaction.openOuter()) {
+                    realInsert = consumer.insert(insert, realConsumptionAmountMissing, transaction);
+
+                    transaction.commit();
+                }
+
+                realConsumptionAmountMissing -= realInsert;
+
+                if(realConsumptionAmountMissing == 0)
+                    break;
             }
         }
     }
