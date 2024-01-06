@@ -26,6 +26,8 @@ public final class ModBlockEntities {
             createFluidTankBlockEntity("fluid_tank_small", ModBlocks.FLUID_TANK_SMALL);
     public static final RegistryObject<BlockEntityType<FluidTankBlockEntity>> FLUID_TANK_MEDIUM_ENTITY =
             createFluidTankBlockEntity("fluid_tank_medium", ModBlocks.FLUID_TANK_MEDIUM);
+    public static final RegistryObject<BlockEntityType<FluidTankBlockEntity>> FLUID_TANK_LARGE_ENTITY =
+            createFluidTankBlockEntity("fluid_tank_large", ModBlocks.FLUID_TANK_LARGE);
 
     public static final RegistryObject<BlockEntityType<ItemConveyorBeltBlockEntity>> ITEM_CONVEYOR_BELT_ENTITY =
             BLOCK_ENTITIES.register("item_conveyor_belt", () -> BlockEntityType.Builder.of(ItemConveyorBeltBlockEntity::new,
