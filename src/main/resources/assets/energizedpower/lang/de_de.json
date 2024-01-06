@@ -792,6 +792,15 @@
   "advancements.energizedpower.golden_fluid_pipe.title": "Schneller Flüssigkeits-Transport",
   "advancements.energizedpower.golden_fluid_pipe.description": "Transportiere Flüssigkeiten schneller mit Gold-Flüssigkeitsrohren.",
 
+  "advancements.energizedpower.fluid_tank_small.title": "Einfacher Flüssigkeits-Speicher",
+  "advancements.energizedpower.fluid_tank_small.description": "Speichere Flüssigkeiten in einem kleinen Flüssigkeitstank.",
+
+  "advancements.energizedpower.fluid_tank_medium.title": "Besserer Flüssigkeits-Speicher",
+  "advancements.energizedpower.fluid_tank_medium.description": "Speichere Flüssigkeiten in einem mittleren Flüssigkeitstank.",
+
+  "advancements.energizedpower.fluid_tank_large.title": "Großer Flüssigkeits-Speicher",
+  "advancements.energizedpower.fluid_tank_large.description": "Speichere Flüssigkeiten in einem großen Flüssigkeitstank.",
+
   "advancements.energizedpower.copper_cable.title": "Energie-Transport",
   "advancements.energizedpower.copper_cable.description": "Transportiere Strom mit Kabel.",
 
