@@ -1166,9 +1166,10 @@
   "book.energizedpower.page.chapter.fluid_blocks.title": "Akışkanlı Bloklar",
   "book.energizedpower.page.chapter.fluid_blocks": "Akışkanları depolayabilen ve aktarabilen bloklar.",
 
-  "book.energizedpower.page.fluid_pipe.1": "Akışkan boruları akışkanları transfer edebilir.",
-  "book.energizedpower.page.fluid_pipe.2": "Her boru tarafının modu bir Anahtar ile yapılandırılabilir.",
-  "book.energizedpower.page.fluid_pipe.3": "Tek bir akışkan borusu bloğu, birden fazla taraf çıkarma olarak yapılandırılmış olsa bile aynı anda yalnızca bir akışkan türünü çıkarabilir.",
+  "book.energizedpower.page.fluid_pipes.1": "Akışkan boruları akışkanları transfer edebilir.",
+  "book.energizedpower.page.fluid_pipes.2": "Her boru tarafının modu bir Anahtar ile yapılandırılabilir.",
+  "book.energizedpower.page.fluid_pipes.3": "Tek bir akışkan borusu bloğu, birden fazla taraf çıkarma olarak yapılandırılmış olsa bile aynı anda yalnızca bir akışkan türünü çıkarabilir.",
+  "book.energizedpower.page.fluid_pipes.4": "There are two tiers of fluid pipes: Iron and Golden.",
 
   "book.energizedpower.page.drain": "The Drain drains fluid source blocks above the block.",
 
