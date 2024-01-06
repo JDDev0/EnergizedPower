@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.FluidPipeBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -396,6 +397,10 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
             if(Screen.hasShiftDown()) {
                 components.add(Component.translatable("tooltip.energizedpower.wrench_configurable").
                         withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+
+                components.add(Component.translatable("tooltip.energizedpower.fluid_pipe.max_extraction",
+                                FluidUtils.getFluidAmountWithPrefix(tier.getTransferRate())).
+                        withStyle(ChatFormatting.GRAY));
             }else {
                 components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
