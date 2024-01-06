@@ -786,7 +786,10 @@
   "advancements.energizedpower.item_conveyor_belt_merger.description": "Unisci elementi in modo uniforme da più ingressi.",
 
   "advancements.energizedpower.iron_fluid_pipe.title": "Trasporto fluido",
-  "advancements.energizedpower.iron_fluid_pipe.description": "Trasportare fluidi con tubi per fluidi.",
+  "advancements.energizedpower.iron_fluid_pipe.description": "Transport fluids with iron fluid pipes.",
+
+  "advancements.energizedpower.golden_fluid_pipe.title": "Fast Fluid Transport",
+  "advancements.energizedpower.golden_fluid_pipe.description": "Transport fluids faster with golden fluid pipes.",
 
   "advancements.energizedpower.copper_cable.title": "Trasporto di energia",
   "advancements.energizedpower.copper_cable.description": "Trasporta energia con i cavi.",
