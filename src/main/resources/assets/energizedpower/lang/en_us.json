@@ -786,7 +786,10 @@
   "advancements.energizedpower.item_conveyor_belt_merger.description": "Merge items evenly from multiple inputs.",
 
   "advancements.energizedpower.iron_fluid_pipe.title": "Fluid Transport",
-  "advancements.energizedpower.iron_fluid_pipe.description": "Transport fluids with fluid pipes.",
+  "advancements.energizedpower.iron_fluid_pipe.description": "Transport fluids with iron fluid pipes.",
+
+  "advancements.energizedpower.golden_fluid_pipe.title": "Fast Fluid Transport",
+  "advancements.energizedpower.golden_fluid_pipe.description": "Transport fluids faster with golden fluid pipes.",
 
   "advancements.energizedpower.copper_cable.title": "Energy Transport",
   "advancements.energizedpower.copper_cable.description": "Transport energy with cables.",
