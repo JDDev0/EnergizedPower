@@ -1,0 +1,34 @@
+{
+  "parent":  "energizedpower:main/basics/iron_fluid_pipe",
+  "display": {
+    "icon": {
+      "item": "energizedpower:golden_fluid_pipe"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.golden_fluid_pipe.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.golden_fluid_pipe.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_golden_fluid_pipe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:golden_fluid_pipe" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_golden_fluid_pipe"
+    ]
+  ]
+}
