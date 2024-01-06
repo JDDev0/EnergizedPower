@@ -35,6 +35,10 @@ public final class ModBlockEntities {
             createFluidTankBlockEntity("fluid_tank_small", ModBlocks.FLUID_TANK_SMALL),
             (blockEntity, direction) -> blockEntity.fluidStorage
     );
+    public static final BlockEntityType<FluidTankBlockEntity> FLUID_TANK_MEDIUM_ENTITY = registerFluidStorage(
+            createFluidTankBlockEntity("fluid_tank_medium", ModBlocks.FLUID_TANK_MEDIUM),
+            (blockEntity, direction) -> blockEntity.fluidStorage
+    );
 
     public static final BlockEntityType<ItemConveyorBeltBlockEntity> ITEM_CONVEYOR_BELT_ENTITY = registerInventoryStorage(
             createBlockEntity("item_conveyor_belt", ModBlocks.ITEM_CONVEYOR_BELT, ItemConveyorBeltBlockEntity::new),
