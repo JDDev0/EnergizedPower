@@ -18,6 +18,14 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("fluid_pipe", () -> BlockEntityType.Builder.of(FluidPipeBlockEntity::new,
                     ModBlocks.FLUID_PIPE.get()).build(null));
 
+    private static Supplier<BlockEntityType<FluidTankBlockEntity>> createFluidTankBlockEntity(String name,
+                                                                                                Supplier<FluidTankBlock> blockSupplier) {
+        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new FluidTankBlockEntity(blockPos, state,
+                blockSupplier.get().getTier()), blockSupplier.get()).build(null));
+    }
+    public static final Supplier<BlockEntityType<FluidTankBlockEntity>> FLUID_TANK_SMALL_ENTITY =
+            createFluidTankBlockEntity("fluid_tank_small", ModBlocks.FLUID_TANK_SMALL);
+
     public static final Supplier<BlockEntityType<ItemConveyorBeltBlockEntity>> ITEM_CONVEYOR_BELT_ENTITY =
             BLOCK_ENTITIES.register("item_conveyor_belt", () -> BlockEntityType.Builder.of(ItemConveyorBeltBlockEntity::new,
                     ModBlocks.ITEM_CONVEYOR_BELT.get()).build(null));

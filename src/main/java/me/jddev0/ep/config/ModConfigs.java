@@ -703,6 +703,10 @@ public final class ModConfigs {
             1, null
     ));
 
+    public static final ConfigValue<Integer> COMMON_FLUID_TANK_SMALL_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
+            "block.fluid_tank_small", "Fluid Tank (Small)", 8
+    );
+
     public static final ConfigValue<Integer> COMMON_CHARGER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.charger", "Charger", 8192
     );
