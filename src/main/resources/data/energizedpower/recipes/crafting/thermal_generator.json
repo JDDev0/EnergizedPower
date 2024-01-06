@@ -5,8 +5,8 @@
     "S": {
       "tag": "c:silicon"
     },
-    "G": {
-      "tag": "c:glass_blocks_colorless"
+    "F": {
+      "item": "energizedpower:fluid_tank_small"
     },
     "c": {
       "tag": "c:copper_plates"
@@ -24,7 +24,7 @@
   "pattern": [
     "cHc",
     "SES",
-    "CGC"
+    "CFC"
   ],
   "result": {
     "item": "energizedpower:thermal_generator"
