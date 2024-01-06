@@ -41,7 +41,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
             return;
 
         float height = ((fluidStack.getDropletsAmount() <= 0 || capacity == 0)?0:
-                (Math.min(fluidStack.getDropletsAmount(), capacity - 1) * 13.5f / capacity + 1));
+                (Math.min(fluidStack.getDropletsAmount(), capacity - 1) * 14.f / capacity));
 
         Direction facing = blockEntity.getCachedState().get(FluidTankBlock.FACING);
 
