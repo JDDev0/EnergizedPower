@@ -401,6 +401,11 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
             if(Screen.hasShiftDown()) {
                 tooltip.add(Text.translatable("tooltip.energizedpower.wrench_configurable").
                         formatted(Formatting.GRAY, Formatting.ITALIC));
+
+                tooltip.add(Text.translatable("tooltip.energizedpower.fluid_pipe.max_extraction",
+                                FluidUtils.getFluidAmountWithPrefix(FluidUtils.convertDropletsToMilliBuckets(
+                                        tier.getTransferRate()))).
+                        formatted(Formatting.GRAY));
             }else {
                 tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
