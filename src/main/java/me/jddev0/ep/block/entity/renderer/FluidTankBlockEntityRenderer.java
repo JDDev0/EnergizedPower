@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity.renderer;
 
+import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.block.entity.FluidTankBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
@@ -18,6 +19,7 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.screen.PlayerScreenHandler;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
@@ -38,8 +40,8 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
         if(fluidStack.isEmpty())
             return;
 
-        int height = (int)((fluidStack.getDropletsAmount() <= 0 || capacity == 0)?0:
-                (Math.min(fluidStack.getDropletsAmount(), capacity - 1) * 14 / capacity + 1));
+        float height = ((fluidStack.getDropletsAmount() <= 0 || capacity == 0)?0:
+                (Math.min(fluidStack.getDropletsAmount(), capacity - 1) * 13.5f / capacity + 1));
 
         Direction facing = blockEntity.getCachedState().get(FluidTankBlock.FACING);
 
@@ -130,6 +132,58 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
                     .normal(poseStack.peek().getNormalMatrix(), 0.f, 0.f, 0.f)
                     .next();
+        }
+
+        //Indicator bar
+        {
+            Sprite indicatorBarSprite = MinecraftClient.getInstance().getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).
+                    apply(new Identifier(EnergizedPowerMod.MODID, "block/fluid_tank_indicator_bar"));
+
+            float translateForMinMaxIndicatorBarHeight = height < 2?(height - 2) / 16.f:(height > 12?(height - 12) / 16.f:0.f);
+
+            poseStack.translate(0.f, translateForMinMaxIndicatorBarHeight, 0.f);
+
+            float ibu0 = indicatorBarSprite.getMinU();
+            float ibu1 = indicatorBarSprite.getMaxU();
+            float ibv0 = indicatorBarSprite.getMinV();
+            float ibv1 = indicatorBarSprite.getMaxV();
+
+            ibu1 = ibu0 + .0625f * (ibu1 - ibu0);
+            ibv1 = ibv0 + .0625f * (ibv1 - ibv0);
+
+            vertexConsumer.vertex(mat, .375f, .015f, -.05f)
+                    .color(255, 255, 255, 255)
+                    .texture(ibu0, ibv1)
+                    .overlay(packedOverlay)
+                    .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
+                    .normal(poseStack.peek().getNormalMatrix(), 0.f, 0.f, 0.f)
+                    .next();
+
+            vertexConsumer.vertex(mat, .625f, .015f, -.05f)
+                    .color(255, 255, 255, 255)
+                    .texture(ibu1, ibv1)
+                    .overlay(packedOverlay)
+                    .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
+                    .normal(poseStack.peek().getNormalMatrix(), 0.f, 0.f, 0.f)
+                    .next();
+
+            vertexConsumer.vertex(mat, .625f, -.015f, -.05f)
+                    .color(255, 255, 255, 255)
+                    .texture(ibu1, ibv0)
+                    .overlay(packedOverlay)
+                    .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
+                    .normal(poseStack.peek().getNormalMatrix(), 0.f, 0.f, 0.f)
+                    .next();
+
+            vertexConsumer.vertex(mat, .375f, -.015f, -.05f)
+                    .color(255, 255, 255, 255)
+                    .texture(ibu0, ibv0)
+                    .overlay(packedOverlay)
+                    .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
+                    .normal(poseStack.peek().getNormalMatrix(), 0.f, 0.f, 0.f)
+                    .next();
+
+            poseStack.translate(0.f, -translateForMinMaxIndicatorBarHeight, 0.f);
         }
 
         v1 = v1Orig;
