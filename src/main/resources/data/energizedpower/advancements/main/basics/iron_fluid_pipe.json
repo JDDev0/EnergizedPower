@@ -5,10 +5,10 @@
       "item": "energizedpower:fluid_pipe"
     },
     "title": {
-      "translate": "advancements.energizedpower.fluid_pipe.title"
+      "translate": "advancements.energizedpower.iron_fluid_pipe.title"
     },
     "description": {
-      "translate": "advancements.energizedpower.fluid_pipe.description"
+      "translate": "advancements.energizedpower.iron_fluid_pipe.description"
     },
     "frame": "task",
     "show_toast": true,

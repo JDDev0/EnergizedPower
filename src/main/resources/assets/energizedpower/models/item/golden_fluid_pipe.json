@@ -1,5 +1,5 @@
 {
-  "parent": "energizedpower:block/iron_fluid_pipe_core",
+  "parent": "energizedpower:block/golden_fluid_pipe_core",
   "display": {
     "gui": {
       "rotation": [ 30, 45, 0 ]
