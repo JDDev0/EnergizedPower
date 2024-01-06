@@ -1181,6 +1181,9 @@
   "book.energizedpower.page.fluid_pipes.3": "A single fluid pipe block can only extract one fluid type at once even when multiple sides are configured as extraction.",
   "book.energizedpower.page.fluid_pipes.4": "There are two tiers of fluid pipes: Iron and Golden.",
 
+  "book.energizedpower.page.fluid_tanks.1": "Fluid tanks can store fluids.",
+  "book.energizedpower.page.fluid_tanks.2": "There are three tiers of fluid tanks: Small, Medium, and Large.",
+
   "book.energizedpower.page.drain": "The Drain drains fluid source blocks above the block.",
 
 
