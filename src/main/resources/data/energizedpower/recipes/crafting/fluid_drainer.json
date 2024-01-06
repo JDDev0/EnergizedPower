@@ -8,8 +8,8 @@
     "I": {
       "tag": "c:iron_plates"
     },
-    "G": {
-      "tag": "c:glass_blocks_colorless"
+    "F": {
+      "item": "energizedpower:fluid_tank_small"
     },
     "C": {
       "tag": "c:copper_plates"
@@ -19,7 +19,7 @@
     }
   },
   "pattern": [
-    "CGC",
+    "CFC",
     "IBI",
     "SIS"
   ],
