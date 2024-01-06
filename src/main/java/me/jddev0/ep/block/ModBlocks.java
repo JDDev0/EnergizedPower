@@ -83,6 +83,11 @@ public final class ModBlocks {
     public static final DeferredItem<Item> FLUID_TANK_MEDIUM_ITEM = ModItems.ITEMS.register("fluid_tank_medium",
             () -> new FluidTankBlock.Item(FLUID_TANK_MEDIUM.get(), new Item.Properties(), FluidTankBlock.Tier.MEDIUM));
 
+    public static final DeferredBlock<FluidTankBlock> FLUID_TANK_LARGE = BLOCKS.register("fluid_tank_large",
+            () -> new FluidTankBlock(FluidTankBlock.Tier.LARGE));
+    public static final DeferredItem<Item> FLUID_TANK_LARGE_ITEM = ModItems.ITEMS.register("fluid_tank_large",
+            () -> new FluidTankBlock.Item(FLUID_TANK_LARGE.get(), new Item.Properties(), FluidTankBlock.Tier.LARGE));
+
     public static final DeferredBlock<CableBlock> COPPER_CABLE = BLOCKS.register("copper_cable",
             () -> new CableBlock(CableBlock.Tier.TIER_COPPER));
     public static final DeferredItem<Item> COPPER_CABLE_ITEM = ModItems.ITEMS.register("copper_cable",

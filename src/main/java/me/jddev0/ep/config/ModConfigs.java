@@ -711,6 +711,10 @@ public final class ModConfigs {
             "block.fluid_tank_medium", "Fluid Tank (Medium)", 32
     );
 
+    public static final ConfigValue<Integer> COMMON_FLUID_TANK_LARGE_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
+            "block.fluid_tank_large", "Fluid Tank (Large)", 128
+    );
+
     public static final ConfigValue<Integer> COMMON_CHARGER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.charger", "Charger", 8192
     );

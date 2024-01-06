@@ -164,6 +164,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.BLOCK_PLACER_ITEM);
             event.accept(ModBlocks.FLUID_TANK_SMALL_ITEM);
             event.accept(ModBlocks.FLUID_TANK_MEDIUM_ITEM);
+            event.accept(ModBlocks.FLUID_TANK_LARGE_ITEM);
             event.accept(ModBlocks.FLUID_FILLER_ITEM);
             event.accept(ModBlocks.FLUID_DRAINER_ITEM);
             event.accept(ModBlocks.DRAIN_ITEM);
@@ -310,6 +311,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.ASSEMBLING_MACHINE_MENU.get(), AssemblingMachineScreen::new);
             MenuScreens.register(ModMenuTypes.FLUID_TANK_SMALL.get(), FluidTankScreen::new);
             MenuScreens.register(ModMenuTypes.FLUID_TANK_MEDIUM.get(), FluidTankScreen::new);
+            MenuScreens.register(ModMenuTypes.FLUID_TANK_LARGE.get(), FluidTankScreen::new);
 
             MenuScreens.register(ModMenuTypes.INVENTORY_CHARGER_MENU.get(), InventoryChargerScreen::new);
 
@@ -337,6 +339,7 @@ public class EnergizedPowerMod {
             BlockEntityRenderers.register(ModBlockEntities.ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.FLUID_TANK_SMALL_ENTITY.get(), FluidTankBlockEntityRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.FLUID_TANK_MEDIUM_ENTITY.get(), FluidTankBlockEntityRenderer::new);
+            BlockEntityRenderers.register(ModBlockEntities.FLUID_TANK_LARGE_ENTITY.get(), FluidTankBlockEntityRenderer::new);
         }
 
         @SubscribeEvent
