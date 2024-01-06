@@ -3,7 +3,7 @@ package me.jddev0.ep.block.entity;
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.FluidPipeBlock;
 import me.jddev0.ep.block.ModBlockStateProperties;
-import me.jddev0.ep.util.FluidUtils;
+import me.jddev0.ep.fluid.FluidStack;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -11,10 +11,10 @@ import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import me.jddev0.ep.config.ModConfigs;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -22,19 +22,35 @@ import java.util.List;
 import java.util.Map;
 
 public class FluidPipeBlockEntity extends BlockEntity {
-    public static long MAX_TRANSFER = FluidUtils.convertMilliBucketsToDroplets(
-            ModConfigs.COMMON_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue());
+    private final FluidPipeBlock.Tier tier;
+
+    private final long maxTransfer;
 
     final Storage<FluidVariant> fluidStorage;
 
     private final Map<Pair<BlockPos, Direction>, Storage<FluidVariant>> producers = new HashMap<>();
     private final Map<Pair<BlockPos, Direction>, Storage<FluidVariant>> consumers = new HashMap<>();
     private final List<BlockPos> pipeBlocks = new LinkedList<>();
+    
+    public static BlockEntityType<FluidPipeBlockEntity> getEntityTypeFromTier(FluidPipeBlock.Tier tier) {
+        return switch(tier) {
+            case IRON -> ModBlockEntities.IRON_FLUID_PIPE_ENTITY;
+            case GOLDEN -> ModBlockEntities.GOLDEN_FLUID_PIPE_ENTITY;
+        };
+    }
 
-    public FluidPipeBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.FLUID_PIPE_ENTITY, blockPos, blockState);
+    public FluidPipeBlockEntity(BlockPos blockPos, BlockState blockState, FluidPipeBlock.Tier tier) {
+        super(getEntityTypeFromTier(tier), blockPos, blockState);
+
+        this.tier = tier;
+
+        maxTransfer = tier.getTransferRate();
 
         fluidStorage = Storage.empty();
+    }
+
+    public FluidPipeBlock.Tier getTier() {
+        return tier;
     }
 
     public Map<Pair<BlockPos, Direction>, Storage<FluidVariant>> getProducers() {
@@ -64,7 +80,10 @@ public class FluidPipeBlockEntity extends BlockEntity {
             if(testBlockEntity == null)
                 continue;
 
-            if(testBlockEntity instanceof FluidPipeBlockEntity) {
+            if(testBlockEntity instanceof FluidPipeBlockEntity fluidPipeBlockEntity) {
+                if(fluidPipeBlockEntity.getTier() != blockEntity.getTier()) //Do not connect to different cable tiers
+                    continue;
+
                 blockEntity.pipeBlocks.add(testPos);
 
                 continue;
@@ -170,7 +189,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
 
                     long extracted;
                     try(Transaction transaction = Transaction.openOuter()) {
-                        extracted = fluidStorage.extract(extractedFluidType, MAX_TRANSFER, transaction);
+                        extracted = fluidStorage.extract(extractedFluidType, blockEntity.maxTransfer, transaction);
                     }
 
                     if(extracted <= 0) {
@@ -218,7 +237,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
                 for(StorageView<FluidVariant> fluidView:fluidStorage) {
                     long received;
                     try(Transaction transaction = Transaction.openOuter()) {
-                        received = fluidStorage.insert(extractedFluidType, MAX_TRANSFER, transaction);
+                        received = fluidStorage.insert(extractedFluidType, Math.min(blockEntity.maxTransfer, productionSum), transaction);
                     }
                     if(received <= 0)
                         continue;

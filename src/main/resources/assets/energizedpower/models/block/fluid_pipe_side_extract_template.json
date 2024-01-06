@@ -1,11 +1,6 @@
 {
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:block/thin_block",
-	"textures": {
-		"fluid_pipe_side_inner": "energizedpower:block/fluid_pipe_side_inner_extract",
-		"particle": "energizedpower:block/fluid_pipe_side_outer_extract",
-		"fluid_pipe_side_outer": "energizedpower:block/fluid_pipe_side_outer_extract"
-	},
 	"elements": [
 		{
 			"name": "inner_center",
