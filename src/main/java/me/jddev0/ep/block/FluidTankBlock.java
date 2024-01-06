@@ -48,6 +48,7 @@ public class FluidTankBlock extends BlockWithEntity {
     public static Block getBlockFromTier(Tier tier) {
         return switch(tier) {
             case SMALL -> ModBlocks.FLUID_TANK_SMALL;
+            case MEDIUM -> ModBlocks.FLUID_TANK_MEDIUM;
         };
     }
 
@@ -160,6 +161,10 @@ public class FluidTankBlock extends BlockWithEntity {
     public enum Tier {
         SMALL("fluid_tank_small", FluidUtils.convertMilliBucketsToDroplets(
                 1000 * ModConfigs.COMMON_FLUID_TANK_SMALL_TANK_CAPACITY.getValue()),
+                FabricBlockSettings.create().
+                        requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
+        MEDIUM("fluid_tank_medium", FluidUtils.convertMilliBucketsToDroplets(
+                1000 * ModConfigs.COMMON_FLUID_TANK_MEDIUM_TANK_CAPACITY.getValue()),
                 FabricBlockSettings.create().
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL));
 

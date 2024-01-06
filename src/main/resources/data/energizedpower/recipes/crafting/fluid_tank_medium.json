@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "energizedpower:fluid_tank_small"
+    },
+    "I": {
+      "tag": "c:iron_plates"
+    }
+  },
+  "pattern": [
+    "IFI",
+    "IFI",
+    "IFI"
+  ],
+  "result": {
+    "item": "energizedpower:fluid_tank_medium"
+  }
+}
