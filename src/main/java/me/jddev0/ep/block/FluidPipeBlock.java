@@ -3,8 +3,7 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.FluidPipeBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
-import me.jddev0.ep.codec.CodecFix;
+import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
@@ -25,6 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
@@ -34,6 +34,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -41,6 +42,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import me.jddev0.ep.config.ModConfigs;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,9 +50,8 @@ import java.util.List;
 
 public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, WrenchConfigurable {
     public static final MapCodec<FluidPipeBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
-            return (FabricBlockSettings)block.getSettings();
-        })).apply(instance, FluidPipeBlock::new);
+        return instance.group(Codecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
+                forGetter(FluidPipeBlock::getTier)).apply(instance, FluidPipeBlock::new);
     });
 
     public static final EnumProperty<ModBlockStateProperties.PipeConnection> UP = ModBlockStateProperties.PIPE_CONNECTION_UP;
@@ -81,8 +82,19 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
         };
     }
 
-    public FluidPipeBlock(FabricBlockSettings props) {
-        super(props);
+    private final Tier tier;
+
+    public static Block getBlockFromTier(Tier tier) {
+        return switch(tier) {
+            case IRON -> ModBlocks.IRON_FLUID_PIPE;
+            case GOLDEN -> ModBlocks.GOLDEN_FLUID_PIPE;
+        };
+    }
+
+    public FluidPipeBlock(Tier tier) {
+        super(tier.getProperties());
+
+        this.tier = tier;
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(UP, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
                 with(DOWN, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
@@ -93,6 +105,10 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
                 with(WATERLOGGED, false));
     }
 
+    public Tier getTier() {
+        return tier;
+    }
+
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
         return CODEC;
@@ -101,7 +117,7 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
-        return new FluidPipeBlockEntity(blockPos, state);
+        return new FluidPipeBlockEntity(blockPos, state, tier);
     }
 
     @Override
@@ -349,6 +365,9 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
         if(blockEntity == null)
             return ModBlockStateProperties.PipeConnection.NOT_CONNECTED;
 
+        if(blockEntity instanceof FluidPipeBlockEntity fluidPipeBlockEntity && fluidPipeBlockEntity.getTier() != this.getTier())
+            return ModBlockStateProperties.PipeConnection.NOT_CONNECTED;
+
         ModBlockStateProperties.PipeConnection currentConnectionState =
                 selfState.get(getPipeConnectionPropertyFromDirection(direction));
         if(currentConnectionState == ModBlockStateProperties.PipeConnection.NOT_CONNECTED)
@@ -361,12 +380,20 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.FLUID_PIPE_ENTITY, FluidPipeBlockEntity::tick);
+        return validateTicker(type, FluidPipeBlockEntity.getEntityTypeFromTier(tier), FluidPipeBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
-        public Item(Block block, FabricItemSettings props) {
+        private final Tier tier;
+
+        public Item(Block block, FabricItemSettings props, Tier tier) {
             super(block, props);
+
+            this.tier = tier;
+        }
+
+        public Tier getTier() {
+            return tier;
         }
 
         @Override
@@ -377,6 +404,39 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
             }else {
                 tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
+        }
+    }
+
+    public enum Tier {
+        IRON("fluid_pipe", FluidUtils.convertMilliBucketsToDroplets(
+                ModConfigs.COMMON_IRON_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue()),
+                FabricBlockSettings.create().
+                        requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)),
+        GOLDEN("golden_fluid_pipe", FluidUtils.convertMilliBucketsToDroplets(
+                ModConfigs.COMMON_GOLDEN_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue()),
+                FabricBlockSettings.create().
+                        requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
+
+        private final String resourceId;
+        private final long transferRate;
+        private final FabricBlockSettings props;
+
+        Tier(String resourceId, long transferRate, FabricBlockSettings props) {
+            this.resourceId = resourceId;
+            this.transferRate = transferRate;
+            this.props = props;
+        }
+
+        public String getResourceId() {
+            return resourceId;
+        }
+
+        public long getTransferRate() {
+            return transferRate;
+        }
+
+        public FabricBlockSettings getProperties() {
+            return props;
         }
     }
 }

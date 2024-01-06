@@ -23,8 +23,15 @@ import java.util.function.BiFunction;
 public final class ModBlockEntities {
     private ModBlockEntities() {}
 
-    public static final BlockEntityType<FluidPipeBlockEntity> FLUID_PIPE_ENTITY = registerFluidStorage(
-            createBlockEntity("fluid_pipe", ModBlocks.FLUID_PIPE, FluidPipeBlockEntity::new),
+    private static BlockEntityType<FluidPipeBlockEntity> createFluidPipeBlockEntity(String name, FluidPipeBlock block) {
+        return createBlockEntity(name, block, (blockPos, state) -> new FluidPipeBlockEntity(blockPos, state, block.getTier()));
+    }
+    public static final BlockEntityType<FluidPipeBlockEntity> IRON_FLUID_PIPE_ENTITY = registerFluidStorage(
+            createFluidPipeBlockEntity("fluid_pipe", ModBlocks.IRON_FLUID_PIPE),
+            (blockEntity, direction) -> blockEntity.fluidStorage
+    );
+    public static final BlockEntityType<FluidPipeBlockEntity> GOLDEN_FLUID_PIPE_ENTITY = registerFluidStorage(
+            createFluidPipeBlockEntity("golden_fluid_pipe", ModBlocks.GOLDEN_FLUID_PIPE),
             (blockEntity, direction) -> blockEntity.fluidStorage
     );
 
