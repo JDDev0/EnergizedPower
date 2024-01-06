@@ -786,7 +786,10 @@
   "advancements.energizedpower.item_conveyor_belt_merger.description": "Eşyaları bir çok farklı çıkıştan birleştir.",
 
   "advancements.energizedpower.iron_fluid_pipe.title": "Sıvı Taşımacılığı",
-  "advancements.energizedpower.iron_fluid_pipe.description": "Transport fluids with fluid pipes.",
+  "advancements.energizedpower.iron_fluid_pipe.description": "Transport fluids with iron fluid pipes.",
+
+  "advancements.energizedpower.golden_fluid_pipe.title": "Fast Fluid Transport",
+  "advancements.energizedpower.golden_fluid_pipe.description": "Transport fluids faster with golden fluid pipes.",
 
   "advancements.energizedpower.copper_cable.title": "Enerji Taşımacılığı",
   "advancements.energizedpower.copper_cable.description": "Kablo ile enerji taşı.",

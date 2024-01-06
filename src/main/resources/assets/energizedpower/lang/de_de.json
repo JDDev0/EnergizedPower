@@ -786,7 +786,10 @@
   "advancements.energizedpower.item_conveyor_belt_merger.description": "Vereinige Items gleichmäßig von mehren Eingängen",
 
   "advancements.energizedpower.iron_fluid_pipe.title": "Flüssigkeits-Transport",
-  "advancements.energizedpower.iron_fluid_pipe.description": "Transportiere Flüssigkeiten mit Flüssigkeitsrohren.",
+  "advancements.energizedpower.iron_fluid_pipe.description": "Transportiere Flüssigkeiten mit Eisen-Flüssigkeitsrohren.",
+
+  "advancements.energizedpower.golden_fluid_pipe.title": "Schneller Flüssigkeits-Transport",
+  "advancements.energizedpower.golden_fluid_pipe.description": "Transportiere Flüssigkeiten schneller mit Gold-Flüssigkeitsrohren.",
 
   "advancements.energizedpower.copper_cable.title": "Energie-Transport",
   "advancements.energizedpower.copper_cable.description": "Transportiere Strom mit Kabel.",
