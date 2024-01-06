@@ -189,6 +189,7 @@
   "block.energizedpower.golden_fluid_pipe": "Gold-Flüssigkeitsrohr",
   "item.energizedpower.golden_fluid_pipe": "Gold-Flüssigkeitsrohr",
 
+  "tooltip.energizedpower.fluid_pipe.max_extraction": "Maximale Extraktion per Extraktions-Seite: %s/t",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Verbindungs-Typ der Blockseite (%s) wurde zu %s gesetzt.",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Verbindungs-Typ der Blockseite (%s) konnte nicht geändert werden.",
 
