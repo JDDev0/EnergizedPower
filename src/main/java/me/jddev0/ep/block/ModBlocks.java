@@ -1,6 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.item.ModItems;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -63,6 +64,10 @@ public final class ModBlocks {
     public static final Item FLUID_PIPE_ITEM = createBlockItem("fluid_pipe",
             new FluidPipeBlock.Item(FLUID_PIPE, new FabricItemSettings()));
 
+    public static final FluidTankBlock FLUID_TANK_SMALL = registerBlock("fluid_tank_small",
+            new FluidTankBlock(FluidTankBlock.Tier.SMALL));
+    public static final Item FLUID_TANK_SMALL_ITEM = createBlockItem("fluid_tank_small",
+            new FluidTankBlock.Item(FLUID_TANK_SMALL, new FabricItemSettings(), FluidTankBlock.Tier.SMALL));
 
     private static Item createCableBlockItem(String name, CableBlock block) {
         return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
