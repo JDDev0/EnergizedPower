@@ -1,0 +1,43 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.fluid_pipes.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.fluid_pipes.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.fluid_pipes.3",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.fluid_pipes.4",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform"
+    }
+  ],
+  "block": [
+    "energizedpower:fluid_pipe",
+    "energizedpower:golden_fluid_pipe"
+  ]
+}
