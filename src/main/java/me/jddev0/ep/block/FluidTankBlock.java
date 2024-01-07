@@ -151,8 +151,8 @@ public class FluidTankBlock extends BlockWithEntity {
         public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
             if(Screen.hasShiftDown()) {
                 tooltip.add(Text.translatable("tooltip.energizedpower.tank_capacity.txt",
-                                FluidUtils.getFluidAmountWithPrefix(FluidUtils.convertDropletsToMilliBuckets(tier.getTankCapacity())).
-                                        formatted(Formatting.GRAY)));
+                                FluidUtils.getFluidAmountWithPrefix(FluidUtils.convertDropletsToMilliBuckets(tier.getTankCapacity()))).
+                                        formatted(Formatting.GRAY));
             }else {
                 tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
