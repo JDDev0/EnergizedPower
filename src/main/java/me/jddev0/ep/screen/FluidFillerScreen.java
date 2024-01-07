@@ -148,15 +148,6 @@ public class FluidFillerScreen extends AbstractGenericEnergyStorageContainerScre
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-        renderBackground(guiGraphics);
-
-        super.render(guiGraphics, mouseX, mouseY, delta);
-
-        renderTooltip(guiGraphics, mouseX, mouseY);
-    }
-
-    @Override
     protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         super.renderTooltip(guiGraphics, mouseX, mouseY);
 
