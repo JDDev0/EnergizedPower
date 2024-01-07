@@ -6,18 +6,15 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.machine.configuration.RedstoneMode;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
+import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluid;
@@ -32,51 +29,37 @@ import java.util.List;
 import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
-public class FluidFillerScreen extends AbstractGenericEnergyStorageContainerScreen<FluidFillerMenu> {
-    private final ResourceLocation CONFIGURATION_ICONS_TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+public class FluidTankScreen extends AbstractContainerScreen<FluidTankMenu> {
+    private final ResourceLocation TEXTURE;
 
-    public FluidFillerScreen(FluidFillerMenu menu, Inventory inventory, Component component) {
-        super(menu, inventory, component,
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/fluid_filler.png"),
-                8, 17);
+    public FluidTankScreen(FluidTankMenu menu, Inventory inventory, Component component) {
+        super(menu, inventory, component);
+
+        TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/generic_fluid.png");
     }
 
-    @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-        if(mouseButton == 0) {
-            boolean clicked = false;
-            if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
-                //Redstone Mode
-
-                ModMessages.sendToServer(new ChangeRedstoneModeC2SPacket(menu.getBlockEntity().getBlockPos()));
-                clicked = true;
-            }
-
-            if(clicked)
-                minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.f));
-        }
-
-        return super.mouseClicked(mouseX, mouseY, mouseButton);
+    public FluidTankBlock.Tier getTier() {
+        return menu.getTier();
     }
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        super.renderBg(guiGraphics, partialTick, mouseX, mouseY);
-
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
+        guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
+
         renderFluidMeterContent(guiGraphics, x, y);
         renderFluidMeterOverlay(guiGraphics, x, y);
-
-        renderConfiguration(guiGraphics, x, y, mouseX, mouseY);
     }
 
     private void renderFluidMeterContent(GuiGraphics guiGraphics, int x, int y) {
         RenderSystem.enableBlend();
         guiGraphics.pose().pushPose();
 
-        guiGraphics.pose().translate(x + 152, y + 17, 0);
+        guiGraphics.pose().translate(x + 80, y + 17, 0);
 
         renderFluidStack(guiGraphics);
 
@@ -133,24 +116,11 @@ public class FluidFillerScreen extends AbstractGenericEnergyStorageContainerScre
     }
 
     private void renderFluidMeterOverlay(GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blit(TEXTURE, x + 152, y + 17, 176, 53, 16, 52);
-    }
-
-    private void renderConfiguration(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
-        RedstoneMode redstoneMode = menu.getRedstoneMode();
-        int ordinal = redstoneMode.ordinal();
-
-        if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
-            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 20, 20, 20);
-        }else {
-            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
-        }
+        guiGraphics.blit(TEXTURE, x + 80, y + 17, 176, 53, 16, 52);
     }
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-        renderBackground(guiGraphics);
-
         super.render(guiGraphics, mouseX, mouseY, delta);
 
         renderTooltip(guiGraphics, mouseX, mouseY);
@@ -160,7 +130,7 @@ public class FluidFillerScreen extends AbstractGenericEnergyStorageContainerScre
     protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         super.renderTooltip(guiGraphics, mouseX, mouseY);
 
-        if(isHovering(152, 17, 16, 52, mouseX, mouseY)) {
+        if(isHovering(80, 17, 16, 52, mouseX, mouseY)) {
             //Fluid meter
 
             List<Component> components = new ArrayList<>(2);
@@ -178,15 +148,6 @@ public class FluidFillerScreen extends AbstractGenericEnergyStorageContainerScre
             }
 
             components.add(tooltipComponent);
-
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
-        }else if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
-            //Redstone Mode
-
-            RedstoneMode redstoneMode = menu.getRedstoneMode();
-
-            List<Component> components = new ArrayList<>(2);
-            components.add(Component.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.getSerializedName()));
 
             guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
         }
