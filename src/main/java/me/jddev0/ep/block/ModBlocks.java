@@ -74,6 +74,11 @@ public final class ModBlocks {
     public static final RegistryObject<Item> FLUID_PIPE_ITEM = ModItems.ITEMS.register("fluid_pipe",
             () -> new FluidPipeBlock.Item(FLUID_PIPE.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final RegistryObject<FluidTankBlock> FLUID_TANK_SMALL = BLOCKS.register("fluid_tank_small",
+            () -> new FluidTankBlock(FluidTankBlock.Tier.SMALL));
+    public static final RegistryObject<Item> FLUID_TANK_SMALL_ITEM = ModItems.ITEMS.register("fluid_tank_small",
+            () -> new FluidTankBlock.Item(FLUID_TANK_SMALL.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), FluidTankBlock.Tier.SMALL));
+
     public static final RegistryObject<CableBlock> COPPER_CABLE = BLOCKS.register("copper_cable",
             () -> new CableBlock(CableBlock.Tier.TIER_COPPER));
     public static final RegistryObject<Item> COPPER_CABLE_ITEM = ModItems.ITEMS.register("copper_cable",
