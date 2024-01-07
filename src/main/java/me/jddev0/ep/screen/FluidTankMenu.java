@@ -23,6 +23,7 @@ public class FluidTankMenu extends ScreenHandler {
         return switch(tier) {
             case SMALL -> ModMenuTypes.FLUID_TANK_SMALL;
             case MEDIUM -> ModMenuTypes.FLUID_TANK_MEDIUM;
+            case LARGE -> ModMenuTypes.FLUID_TANK_LARGE;
         };
     }
 

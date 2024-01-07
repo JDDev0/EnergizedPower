@@ -38,6 +38,7 @@ public class FluidTankBlock extends BlockWithEntity {
         return switch(tier) {
             case SMALL -> ModBlocks.FLUID_TANK_SMALL;
             case MEDIUM -> ModBlocks.FLUID_TANK_MEDIUM;
+            case LARGE -> ModBlocks.FLUID_TANK_LARGE;
         };
     }
 
@@ -149,6 +150,10 @@ public class FluidTankBlock extends BlockWithEntity {
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
         MEDIUM("fluid_tank_medium", FluidUtils.convertMilliBucketsToDroplets(
                 1000 * ModConfigs.COMMON_FLUID_TANK_MEDIUM_TANK_CAPACITY.getValue()),
+                FabricBlockSettings.of(Material.METAL).
+                        requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
+        LARGE("fluid_tank_large", FluidUtils.convertMilliBucketsToDroplets(
+                1000 * ModConfigs.COMMON_FLUID_TANK_LARGE_TANK_CAPACITY.getValue()),
                 FabricBlockSettings.of(Material.METAL).
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL));
 
