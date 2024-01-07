@@ -183,8 +183,11 @@
   "block.energizedpower.item_conveyor_belt_merger": "Konveyor Bandı Birleştirici Eşyası",
   "item.energizedpower.item_conveyor_belt_merger": "Konveyor Bandı Birleştricisi",
 
-  "block.energizedpower.fluid_pipe": "Sıvı Borusu",
-  "item.energizedpower.fluid_pipe": "Sıvı Borusu",
+  "block.energizedpower.fluid_pipe": "Iron Fluid Pipe",
+  "item.energizedpower.fluid_pipe": "Iron Fluid Pipe",
+
+  "block.energizedpower.golden_fluid_pipe": "Golden Fluid Pipe",
+  "item.energizedpower.golden_fluid_pipe": "Golden Fluid Pipe",
 
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Yüzün bağlantı tipi (%s) şuna ayarlandı %s.",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Yüzün bağlantı tipi (%s) değiştirilemez!.",
@@ -782,8 +785,8 @@
   "advancements.energizedpower.item_conveyor_belt_merger.title": "Konveyor Birleştirici",
   "advancements.energizedpower.item_conveyor_belt_merger.description": "Eşyaları bir çok farklı çıkıştan birleştir.",
 
-  "advancements.energizedpower.fluid_pipe.title": "Sıvı Taşımacılığı",
-  "advancements.energizedpower.fluid_pipe.description": "Transport fluids with fluid pipes.",
+  "advancements.energizedpower.iron_fluid_pipe.title": "Sıvı Taşımacılığı",
+  "advancements.energizedpower.iron_fluid_pipe.description": "Transport fluids with fluid pipes.",
 
   "advancements.energizedpower.copper_cable.title": "Enerji Taşımacılığı",
   "advancements.energizedpower.copper_cable.description": "Kablo ile enerji taşı.",

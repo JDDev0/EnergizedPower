@@ -57,11 +57,15 @@ public final class ModBlocks {
                     requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
     public static final Item ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("item_conveyor_belt_merger", ITEM_CONVEYOR_BELT_MERGER);
 
-    public static final FluidPipeBlock FLUID_PIPE = registerBlock("fluid_pipe",
-            new FluidPipeBlock(FabricBlockSettings.of(Material.METAL).
-                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
-    public static final Item FLUID_PIPE_ITEM = createBlockItem("fluid_pipe",
-            new FluidPipeBlock.Item(FLUID_PIPE, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+    public static final FluidPipeBlock IRON_FLUID_PIPE = registerBlock("fluid_pipe",
+            new FluidPipeBlock(FluidPipeBlock.Tier.IRON));
+    public static final Item IRON_FLUID_PIPE_ITEM = createBlockItem("fluid_pipe",
+            new FluidPipeBlock.Item(IRON_FLUID_PIPE, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), FluidPipeBlock.Tier.IRON));
+
+    public static final FluidPipeBlock GOLDEN_FLUID_PIPE = registerBlock("golden_fluid_pipe",
+            new FluidPipeBlock(FluidPipeBlock.Tier.GOLDEN));
+    public static final Item GOLDEN_FLUID_PIPE_ITEM = createBlockItem("golden_fluid_pipe",
+            new FluidPipeBlock.Item(GOLDEN_FLUID_PIPE, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), FluidPipeBlock.Tier.GOLDEN));
 
     public static final FluidTankBlock FLUID_TANK_SMALL = registerBlock("fluid_tank_small",
             new FluidTankBlock(FluidTankBlock.Tier.SMALL));
