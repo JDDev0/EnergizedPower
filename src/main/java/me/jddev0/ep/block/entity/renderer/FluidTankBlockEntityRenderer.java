@@ -3,6 +3,7 @@ package me.jddev0.ep.block.entity.renderer;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Quaternion;
+import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.block.entity.FluidTankBlockEntity;
 import net.minecraft.client.Minecraft;
@@ -37,8 +38,8 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
         if(fluidStack.isEmpty())
             return;
 
-        int height = ((fluidStack.getAmount() <= 0 || capacity == 0)?0:
-                (Math.min(fluidStack.getAmount(), capacity - 1) * 14 / capacity + 1));
+        float height = ((fluidStack.getAmount() <= 0 || capacity == 0)?0:
+                (Math.min(fluidStack.getAmount(), capacity - 1) * 13.5f / capacity + 1));
 
         Direction facing = blockEntity.getBlockState().getValue(FluidTankBlock.FACING);
 
@@ -129,6 +130,58 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
                     .uv2(LightTexture.FULL_BRIGHT)
                     .normal(poseStack.last().normal(), 0.f, 0.f, 0.f)
                     .endVertex();
+        }
+
+        //Indicator bar
+        {
+            TextureAtlasSprite indicatorBarSprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).
+                    apply(new ResourceLocation(EnergizedPowerMod.MODID, "block/fluid_tank_indicator_bar"));
+
+            float translateForMinMaxIndicatorBarHeight = height < 2?(height - 2) / 16.f:(height > 12?(height - 12) / 16.f:0.f);
+
+            poseStack.translate(0.f, translateForMinMaxIndicatorBarHeight, 0.f);
+
+            float ibu0 = indicatorBarSprite.getU0();
+            float ibu1 = indicatorBarSprite.getU1();
+            float ibv0 = indicatorBarSprite.getV0();
+            float ibv1 = indicatorBarSprite.getV1();
+
+            ibu1 = ibu0 + .0625f * (ibu1 - ibu0);
+            ibv1 = ibv0 + .0625f * (ibv1 - ibv0);
+
+            vertexConsumer.vertex(mat, .375f, .015f, -.05f)
+                    .color(255, 255, 255, 255)
+                    .uv(ibu0, ibv1)
+                    .overlayCoords(packedOverlay)
+                    .uv2(LightTexture.FULL_BRIGHT)
+                    .normal(poseStack.last().normal(), 0.f, 0.f, 0.f)
+                    .endVertex();
+
+            vertexConsumer.vertex(mat, .625f, .015f, -.05f)
+                    .color(255, 255, 255, 255)
+                    .uv(ibu1, ibv1)
+                    .overlayCoords(packedOverlay)
+                    .uv2(LightTexture.FULL_BRIGHT)
+                    .normal(poseStack.last().normal(), 0.f, 0.f, 0.f)
+                    .endVertex();
+
+            vertexConsumer.vertex(mat, .625f, -.015f, -.05f)
+                    .color(255, 255, 255, 255)
+                    .uv(ibu1, ibv0)
+                    .overlayCoords(packedOverlay)
+                    .uv2(LightTexture.FULL_BRIGHT)
+                    .normal(poseStack.last().normal(), 0.f, 0.f, 0.f)
+                    .endVertex();
+
+            vertexConsumer.vertex(mat, .375f, -.015f, -.05f)
+                    .color(255, 255, 255, 255)
+                    .uv(ibu0, ibv0)
+                    .overlayCoords(packedOverlay)
+                    .uv2(LightTexture.FULL_BRIGHT)
+                    .normal(poseStack.last().normal(), 0.f, 0.f, 0.f)
+                    .endVertex();
+
+            poseStack.translate(0.f, -translateForMinMaxIndicatorBarHeight, 0.f);
         }
 
         v1 = v1Orig;
