@@ -13,9 +13,15 @@ public final class ModBlockEntities {
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, EnergizedPowerMod.MODID);
 
-    public static final RegistryObject<BlockEntityType<FluidPipeBlockEntity>> FLUID_PIPE_ENTITY =
-            BLOCK_ENTITIES.register("fluid_pipe", () -> BlockEntityType.Builder.of(FluidPipeBlockEntity::new,
-                    ModBlocks.FLUID_PIPE.get()).build(null));
+    private static RegistryObject<BlockEntityType<FluidPipeBlockEntity>> createFluidPipeBlockEntity(String name,
+                                                                                                    RegistryObject<FluidPipeBlock> blockSupplier) {
+        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new FluidPipeBlockEntity(blockPos, state,
+                blockSupplier.get().getTier()), blockSupplier.get()).build(null));
+    }
+    public static final RegistryObject<BlockEntityType<FluidPipeBlockEntity>> IRON_FLUID_PIPE_ENTITY =
+            createFluidPipeBlockEntity("fluid_pipe", ModBlocks.IRON_FLUID_PIPE);
+    public static final RegistryObject<BlockEntityType<FluidPipeBlockEntity>> GOLDEN_FLUID_PIPE_ENTITY =
+            createFluidPipeBlockEntity("golden_fluid_pipe", ModBlocks.GOLDEN_FLUID_PIPE);
 
     private static RegistryObject<BlockEntityType<FluidTankBlockEntity>> createFluidTankBlockEntity(String name,
                                                                                                     RegistryObject<FluidTankBlock> blockSupplier) {

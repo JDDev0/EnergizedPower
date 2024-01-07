@@ -68,11 +68,15 @@ public final class ModBlocks {
                     requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
     public static final RegistryObject<Item> ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("item_conveyor_belt_merger", ITEM_CONVEYOR_BELT_MERGER);
 
-    public static final RegistryObject<FluidPipeBlock> FLUID_PIPE = BLOCKS.register("fluid_pipe",
-            () -> new FluidPipeBlock(BlockBehaviour.Properties.of(Material.METAL).
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> FLUID_PIPE_ITEM = ModItems.ITEMS.register("fluid_pipe",
-            () -> new FluidPipeBlock.Item(FLUID_PIPE.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+    public static final RegistryObject<FluidPipeBlock> IRON_FLUID_PIPE = BLOCKS.register("fluid_pipe",
+            () -> new FluidPipeBlock(FluidPipeBlock.Tier.IRON));
+    public static final RegistryObject<Item> IRON_FLUID_PIPE_ITEM = ModItems.ITEMS.register("fluid_pipe",
+            () -> new FluidPipeBlock.Item(IRON_FLUID_PIPE.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), FluidPipeBlock.Tier.IRON));
+
+    public static final RegistryObject<FluidPipeBlock> GOLDEN_FLUID_PIPE = BLOCKS.register("golden_fluid_pipe",
+            () -> new FluidPipeBlock(FluidPipeBlock.Tier.GOLDEN));
+    public static final RegistryObject<Item> GOLDEN_FLUID_PIPE_ITEM = ModItems.ITEMS.register("golden_fluid_pipe",
+            () -> new FluidPipeBlock.Item(GOLDEN_FLUID_PIPE.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), FluidPipeBlock.Tier.GOLDEN));
 
     public static final RegistryObject<FluidTankBlock> FLUID_TANK_SMALL = BLOCKS.register("fluid_tank_small",
             () -> new FluidTankBlock(FluidTankBlock.Tier.SMALL));
