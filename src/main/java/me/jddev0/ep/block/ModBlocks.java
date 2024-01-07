@@ -63,6 +63,10 @@ public final class ModBlocks {
     public static final Item FLUID_PIPE_ITEM = createBlockItem("fluid_pipe",
             new FluidPipeBlock.Item(FLUID_PIPE, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final FluidTankBlock FLUID_TANK_SMALL = registerBlock("fluid_tank_small",
+            new FluidTankBlock(FluidTankBlock.Tier.SMALL));
+    public static final Item FLUID_TANK_SMALL_ITEM = createBlockItem("fluid_tank_small",
+            new FluidTankBlock.Item(FLUID_TANK_SMALL, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), FluidTankBlock.Tier.SMALL));
 
     private static Item createCableBlockItem(String name, CableBlock block) {
         return Registry.register(Registry.ITEM, new Identifier(EnergizedPowerMod.MODID, name),

@@ -1,10 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.block.CableBlock;
-import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.block.SolarPanelBlock;
-import me.jddev0.ep.block.TransformerBlock;
+import me.jddev0.ep.block.*;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
@@ -27,6 +24,14 @@ public final class ModBlockEntities {
 
     public static final BlockEntityType<FluidPipeBlockEntity> FLUID_PIPE_ENTITY = registerFluidStorage(
             createBlockEntity("fluid_pipe", ModBlocks.FLUID_PIPE, FluidPipeBlockEntity::new),
+            (blockEntity, direction) -> blockEntity.fluidStorage
+    );
+
+    private static BlockEntityType<FluidTankBlockEntity> createFluidTankBlockEntity(String name, FluidTankBlock block) {
+        return createBlockEntity(name, block, (blockPos, state) -> new FluidTankBlockEntity(blockPos, state, block.getTier()));
+    }
+    public static final BlockEntityType<FluidTankBlockEntity> FLUID_TANK_SMALL_ENTITY = registerFluidStorage(
+            createFluidTankBlockEntity("fluid_tank_small", ModBlocks.FLUID_TANK_SMALL),
             (blockEntity, direction) -> blockEntity.fluidStorage
     );
 
