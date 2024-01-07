@@ -67,8 +67,8 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 ### Fluid transportation
 
-- Fluid Pipes (Iron, Golden (**In next release (v2.7.0)**))
-- Fluid Tanks (Small, Medium, Large) (**In next release (v2.7.0)**)
+- Fluid Pipes (Iron and Golden)
+- Fluid Tanks (Small, Medium, and Large)
 
 ### Item transportation
 
@@ -141,6 +141,7 @@ A tutorial world showcasing all the features of this mod can be downloaded on Cu
 
 ## Supported versions:
 Mod version: MC version
+- 2.7.x: 1.20.4, 1.20.2, 1.20.1, 1.19.2
 - 2.6.x: 1.20.4, 1.20.3, 1.20.2, 1.20.1, 1.19.4, 1.19.2
 - 2.5.x: 1.20.2, 1.20.1, 1.19.4, 1.19.2
 - 2.4.x: 1.20.2, 1.20.1, 1.19.4, 1.19.2
