@@ -1,0 +1,7 @@
+{
+	"parent": "energizedpower:block/fluid_pipe_side_connected_template",
+	"textures": {
+		"fluid_pipe_side": "energizedpower:block/iron_fluid_pipe_side_connected",
+		"particle": "energizedpower:block/iron_fluid_pipe_side_connected"
+	}
+}
