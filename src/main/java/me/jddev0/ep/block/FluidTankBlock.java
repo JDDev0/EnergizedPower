@@ -41,6 +41,7 @@ public class FluidTankBlock extends BaseEntityBlock {
         return switch(tier) {
             case SMALL -> ModBlocks.FLUID_TANK_SMALL.get();
             case MEDIUM -> ModBlocks.FLUID_TANK_MEDIUM.get();
+            case LARGE -> ModBlocks.FLUID_TANK_LARGE.get();
         };
     }
 
@@ -150,6 +151,9 @@ public class FluidTankBlock extends BaseEntityBlock {
                 Properties.of(Material.METAL).
                         requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
         MEDIUM("fluid_tank_medium", 1000 * ModConfigs.COMMON_FLUID_TANK_MEDIUM_TANK_CAPACITY.getValue(),
+                Properties.of(Material.METAL).
+                        requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
+        LARGE("fluid_tank_large", 1000 * ModConfigs.COMMON_FLUID_TANK_LARGE_TANK_CAPACITY.getValue(),
                 Properties.of(Material.METAL).
                         requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL));
 

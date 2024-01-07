@@ -432,6 +432,10 @@
   "item.energizedpower.fluid_tank_medium": "Fluid Tank (Medium)",
   "container.energizedpower.fluid_tank_medium": "Fluid Tank (Medium)",
 
+  "block.energizedpower.fluid_tank_large": "Fluid Tank (Large)",
+  "item.energizedpower.fluid_tank_large": "Fluid Tank (Large)",
+  "container.energizedpower.fluid_tank_large": "Fluid Tank (Large)",
+
   "block.energizedpower.fluid_filler": "Fluid Filler",
   "item.energizedpower.fluid_filler": "Fluid Filler",
   "container.energizedpower.fluid_filler": "Fluid Filler",
