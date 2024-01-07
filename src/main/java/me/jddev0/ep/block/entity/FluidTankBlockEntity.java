@@ -32,6 +32,7 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
     public static BlockEntityType<FluidTankBlockEntity> getEntityTypeFromTier(FluidTankBlock.Tier tier) {
         return switch(tier) {
             case SMALL -> ModBlockEntities.FLUID_TANK_SMALL_ENTITY;
+            case MEDIUM -> ModBlockEntities.FLUID_TANK_MEDIUM_ENTITY;
         };
     }
 

@@ -74,6 +74,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(ModMenuTypes.METAL_PRESS_MENU, MetalPressScreen::new);
         HandledScreens.register(ModMenuTypes.ASSEMBLING_MACHINE_MENU, AssemblingMachineScreen::new);
         HandledScreens.register(ModMenuTypes.FLUID_TANK_SMALL, FluidTankScreen::new);
+        HandledScreens.register(ModMenuTypes.FLUID_TANK_MEDIUM, FluidTankScreen::new);
 
         HandledScreens.register(ModMenuTypes.INVENTORY_CHARGER_MENU, InventoryChargerScreen::new);
 
@@ -104,5 +105,6 @@ public class EnergizedPowerModClient implements ClientModInitializer {
 
         BlockEntityRendererFactories.register(ModBlockEntities.ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.FLUID_TANK_SMALL_ENTITY, FluidTankBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.FLUID_TANK_MEDIUM_ENTITY, FluidTankBlockEntityRenderer::new);
     }
 }
