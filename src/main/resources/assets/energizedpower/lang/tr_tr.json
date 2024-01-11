@@ -64,6 +64,8 @@
 
   "item.energizedpower.energized_crystal_matrix": "Enerjili Matrix Kristali",
 
+  "item.energizedpower.dirty_water_bucket": "Dirty Water Bucket",
+
   "item.energizedpower.teleporter_matrix": "Işınlayıcı Matrix",
   "item.energizedpower.teleporter_matrix.linked": "Işınlayıcı Matrix [Bağlı]",
   "item.energizedpower.teleporter_matrix.unlinked": "Işınlayıcı Matrix [Bağlanmamış!]",
@@ -528,6 +530,8 @@
 
   "block.energizedpower.reinforced_advanced_machine_frame": "Dahada güçlendirilmiş ve geliştirilmiş Makina Çerçevesi",
   "item.energizedpower.reinforced_advanced_machine_frame": "Dahada güçlendirilmiş ve geliştirilmiş Makina Çerçevesi",
+
+  "fluid_type.energizedpower.dirty_water": "Dirty Water",
 
   "tooltip.energizedpower.count_with_item.txt": "%dx %s",
 
