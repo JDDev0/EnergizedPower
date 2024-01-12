@@ -111,7 +111,7 @@ public class DrainScreen extends AbstractContainerScreen<DrainMenu> {
     }
 
     private void renderFluidMeterOverlay(GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blit(TEXTURE, x + 80, y + 17, 176, 53, 16, 52);
+        guiGraphics.blit(TEXTURE, x + 80, y + 17, 176, 0, 16, 52);
     }
 
     @Override
