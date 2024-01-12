@@ -14,6 +14,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Auto Crafter (Can handle recipe conflicts, that is recipes with the same inputs)
 - Advanced Auto Crafter (3 recipes at once)
 - Crusher
+- Advanced Crusher (**In next release (v2.8.0)**)
 - Pulverizer
 - Sawmill
 - Compressor
