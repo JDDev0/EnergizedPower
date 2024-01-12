@@ -36,6 +36,9 @@ public final class ModMenuTypes {
     public static final Supplier<MenuType<CrusherMenu>> CRUSHER_MENU = registerMenuType("crusher",
             CrusherMenu::new);
 
+    public static final Supplier<MenuType<AdvancedCrusherMenu>> ADVANCED_CRUSHER_MENU = registerMenuType("advanced_crusher",
+            AdvancedCrusherMenu::new);
+
     public static final Supplier<MenuType<PulverizerMenu>> PULVERIZER_MENU = registerMenuType("pulverizer",
             PulverizerMenu::new);
 
