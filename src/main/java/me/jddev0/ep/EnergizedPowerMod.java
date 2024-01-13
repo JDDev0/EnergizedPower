@@ -237,6 +237,7 @@ public class EnergizedPowerMod {
             event.accept(ModItems.SAW_BLADE);
             event.accept(ModItems.CRYSTAL_MATRIX);
             event.accept(ModItems.SAWDUST);
+            event.accept(ModItems.CHARCOAL_DUST);
             event.accept(ModItems.BASIC_FERTILIZER);
             event.accept(ModItems.GOOD_FERTILIZER);
             event.accept(ModItems.ADVANCED_FERTILIZER);
