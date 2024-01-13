@@ -58,6 +58,9 @@ public final class ModItems {
     public static final DeferredItem<Item> SAWDUST = ITEMS.register("sawdust",
             () -> new Item(new Item.Properties()));
 
+    public static final DeferredItem<Item> CHARCOAL_DUST = ITEMS.register("charcoal_dust",
+            () -> new Item(new Item.Properties()));
+
     public static final DeferredItem<Item> BASIC_FERTILIZER = ITEMS.register("basic_fertilizer",
             () -> new Item(new Item.Properties()));
 
