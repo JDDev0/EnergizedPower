@@ -85,6 +85,12 @@ public final class ModMessages {
 
         registrar.play(ChangeRedstoneModeC2SPacket.ID, ChangeRedstoneModeC2SPacket::new, handler -> handler.
                 server(ChangeRedstoneModeC2SPacket::handle));
+
+        registrar.play(SetFluidTankCheckboxC2SPacket.ID, SetFluidTankCheckboxC2SPacket::new, handler -> handler.
+                server(SetFluidTankCheckboxC2SPacket::handle));
+
+        registrar.play(SetFluidTankFilterC2SPacket.ID, SetFluidTankFilterC2SPacket::new, handler -> handler.
+                server(SetFluidTankFilterC2SPacket::handle));
     }
 
     public static void sendToServer(CustomPacketPayload message) {

@@ -4,7 +4,6 @@ import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
-import me.jddev0.ep.networking.packet.ItemStackSyncS2CPacket;
 import me.jddev0.ep.screen.FluidTankMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,6 +15,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -29,6 +29,11 @@ import org.jetbrains.annotations.Nullable;
 public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, FluidStoragePacketUpdate {
     private final FluidTankBlock.Tier tier;
     private final FluidTank fluidStorage;
+
+    protected final ContainerData data;
+
+    private boolean ignoreNBT;
+    private FluidStack fluidFilter = FluidStack.EMPTY;
 
     public static BlockEntityType<FluidTankBlockEntity> getEntityTypeFromTier(FluidTankBlock.Tier tier) {
         return switch(tier) {
@@ -54,6 +59,36 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
                             getBlockPos(), level.dimension(), 64
                     );
             }
+
+            @Override
+            public boolean isFluidValid(FluidStack stack) {
+                if(!super.isFluidValid(stack))
+                    return false;
+
+                return fluidFilter.isEmpty() || (ignoreNBT?fluidFilter.getFluid().isSame(stack.getFluid()):
+                        fluidFilter.isFluidEqual(stack));
+            }
+        };
+        data = new ContainerData() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0 -> ignoreNBT?1:0;
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0 -> FluidTankBlockEntity.this.ignoreNBT = value != 0;
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 1;
+            }
         };
     }
 
@@ -66,8 +101,9 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         ModMessages.sendToPlayer(new FluidSyncS2CPacket(0, fluidStorage.getFluid(), fluidStorage.getCapacity(), worldPosition), (ServerPlayer)player);
+        ModMessages.sendToPlayer(new FluidSyncS2CPacket(1, fluidFilter, 0, worldPosition), (ServerPlayer)player);
 
-        return new FluidTankMenu(id, inventory, this);
+        return new FluidTankMenu(id, inventory, this, data);
     }
 
     public FluidTankBlock.Tier getTier() {
@@ -107,6 +143,10 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
     protected void saveAdditional(CompoundTag nbt) {
         nbt.put("fluid", fluidStorage.writeToNBT(new CompoundTag()));
 
+        nbt.putBoolean("ignore_nbt", ignoreNBT);
+
+        nbt.put("fluid_filter", fluidFilter.writeToNBT(new CompoundTag()));
+
         super.saveAdditional(nbt);
     }
 
@@ -115,23 +155,55 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
         super.load(nbt);
 
         fluidStorage.readFromNBT(nbt.getCompound("fluid"));
+
+        ignoreNBT = nbt.getBoolean("ignore_nbt");
+
+        fluidFilter = FluidStack.loadFluidStackFromNBT(nbt.getCompound("fluid_filter"));
+    }
+
+    public void setIgnoreNBT(boolean ignoreNBT) {
+        this.ignoreNBT = ignoreNBT;
+        setChanged(level, getBlockPos(), getBlockState());
+    }
+
+    public void setFluidFilter(FluidStack fluidFilter) {
+        this.fluidFilter = fluidFilter.copy();
+        setChanged(level, getBlockPos(), getBlockState());
+
+        ModMessages.sendToPlayersWithinXBlocks(
+                new FluidSyncS2CPacket(1, fluidFilter, 0, getBlockPos()),
+                getBlockPos(), level.dimension(), 64
+        );
     }
 
     public FluidStack getFluid(int tank) {
-        return fluidStorage.getFluid();
+        return switch(tank) {
+            case 0 -> fluidStorage.getFluid();
+            case 1 -> fluidFilter;
+            default -> null;
+        };
     }
 
     public int getTankCapacity(int tank) {
+        if(tank != 0)
+            return 0;
+
         return fluidStorage.getCapacity();
     }
 
     @Override
     public void setFluid(int tank, FluidStack fluidStack) {
-        fluidStorage.setFluid(fluidStack);
+        switch(tank) {
+            case 0 -> fluidStorage.setFluid(fluidStack);
+            case 1 -> fluidFilter = fluidStack.copy();
+        }
     }
 
     @Override
     public void setTankCapacity(int tank, int capacity) {
+        if(tank != 0)
+            return;
+
         fluidStorage.setCapacity(capacity);
     }
 }
