@@ -95,7 +95,7 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageContainer
             renderFluidMeterOverlay(i, guiGraphics, x, y);
         }
 
-        renderCurrentRecipeOuput(guiGraphics, x, y);
+        renderCurrentRecipeOutput(guiGraphics, x, y);
 
         renderButtons(guiGraphics, x, y, mouseX, mouseY);
 
@@ -168,7 +168,7 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageContainer
         guiGraphics.blit(TEXTURE, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52);
     }
 
-    private void renderCurrentRecipeOuput(GuiGraphics guiGraphics, int x, int y) {
+    private void renderCurrentRecipeOutput(GuiGraphics guiGraphics, int x, int y) {
         RecipeHolder<StoneSolidifierRecipe> currentRecipe = menu.getCurrentRecipe();
         if(currentRecipe == null)
             return;
