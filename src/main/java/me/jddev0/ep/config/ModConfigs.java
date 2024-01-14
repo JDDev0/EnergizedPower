@@ -429,7 +429,7 @@ public final class ModConfigs {
     );
     public static final ConfigValue<Integer> COMMON_ADVANCED_CRUSHER_WATER_USAGE_PER_RECIPE = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.advanced_crusher.water_usage_per_recipe",
-            "The amount of Water in mB (milli Buckets) which will be converted to Dirty Water per completed recipe",
+            "The amount of Water in mB (milli Buckets) which will be converted to Dirty Water per completed recipe in the Advanced Crusher.",
             10,
             1, null
     ));
