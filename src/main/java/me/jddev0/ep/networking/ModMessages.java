@@ -37,6 +37,9 @@ public final class ModMessages {
         registrar.play(SyncStoneSolidifierCurrentRecipeS2CPacket.ID, SyncStoneSolidifierCurrentRecipeS2CPacket::new, handler -> handler.
                 client(SyncStoneSolidifierCurrentRecipeS2CPacket::handle));
 
+        registrar.play(SyncFiltrationPlantCurrentRecipeS2CPacket.ID, SyncFiltrationPlantCurrentRecipeS2CPacket::new, handler -> handler.
+                client(SyncFiltrationPlantCurrentRecipeS2CPacket::handle));
+
         //Client -> Server
         registrar.play(PopEnergizedPowerBookFromLecternC2SPacket.ID, PopEnergizedPowerBookFromLecternC2SPacket::new, handler -> handler.
                 server(PopEnergizedPowerBookFromLecternC2SPacket::handle));
@@ -91,6 +94,9 @@ public final class ModMessages {
 
         registrar.play(SetFluidTankFilterC2SPacket.ID, SetFluidTankFilterC2SPacket::new, handler -> handler.
                 server(SetFluidTankFilterC2SPacket::handle));
+
+        registrar.play(ChangeFiltrationPlantRecipeIndexC2SPacket.ID, ChangeFiltrationPlantRecipeIndexC2SPacket::new, handler -> handler.
+                server(ChangeFiltrationPlantRecipeIndexC2SPacket::handle));
     }
 
     public static void sendToServer(CustomPacketPayload message) {

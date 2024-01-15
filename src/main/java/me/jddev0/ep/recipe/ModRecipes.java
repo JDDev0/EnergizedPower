@@ -86,6 +86,11 @@ public final class ModRecipes {
     public static final Supplier<RecipeType<StoneSolidifierRecipe>> STONE_SOLIDIFIER_TYPE = TYPES.
             register("stone_solidifier", () -> StoneSolidifierRecipe.Type.INSTANCE);
 
+    public static final Supplier<RecipeSerializer<FiltrationPlantRecipe>> FILTRATION_PLANT_SERIALIZER = SERIALIZERS.
+            register("filtration_plant", () -> FiltrationPlantRecipe.Serializer.INSTANCE);
+    public static final Supplier<RecipeType<FiltrationPlantRecipe>> FILTRATION_PLANT_TYPE = TYPES.
+            register("filtration_plant", () -> FiltrationPlantRecipe.Type.INSTANCE);
+
     public static final Supplier<RecipeSerializer<CrystalGrowthChamberRecipe>> CRYSTAL_GROWTH_CHAMBER_SERIALIZER = SERIALIZERS.
             register("crystal_growth_chamber", () -> CrystalGrowthChamberRecipe.Serializer.INSTANCE);
     public static final Supplier<RecipeType<CrystalGrowthChamberRecipe>> CRYSTAL_GROWTH_CHAMBER_TYPE = TYPES.
