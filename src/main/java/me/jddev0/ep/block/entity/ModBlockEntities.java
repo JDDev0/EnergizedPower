@@ -102,6 +102,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("pulverizer", () -> BlockEntityType.Builder.of(PulverizerBlockEntity::new,
                     ModBlocks.PULVERIZER.get()).build(null));
 
+    public static final Supplier<BlockEntityType<AdvancedPulverizerBlockEntity>> ADVANCED_PULVERIZER_ENTITY =
+            BLOCK_ENTITIES.register("advanced_pulverizer", () -> BlockEntityType.Builder.of(AdvancedPulverizerBlockEntity::new,
+                    ModBlocks.ADVANCED_PULVERIZER.get()).build(null));
+
     public static final Supplier<BlockEntityType<SawmillBlockEntity>> SAWMILL_ENTITY =
             BLOCK_ENTITIES.register("sawmill", () -> BlockEntityType.Builder.of(SawmillBlockEntity::new,
                     ModBlocks.SAWMILL.get()).build(null));
@@ -385,6 +389,13 @@ public final class ModBlockEntities {
                 PULVERIZER_ENTITY.get(), PulverizerBlockEntity::getItemHandlerCapability);
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
                 PULVERIZER_ENTITY.get(), PulverizerBlockEntity::getEnergyStorageCapability);
+
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
+                ADVANCED_PULVERIZER_ENTITY.get(), AdvancedPulverizerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
+                ADVANCED_PULVERIZER_ENTITY.get(), AdvancedPulverizerBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
+                ADVANCED_PULVERIZER_ENTITY.get(), AdvancedPulverizerBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
                 SAWMILL_ENTITY.get(), SawmillBlockEntity::getItemHandlerCapability);

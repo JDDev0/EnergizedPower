@@ -264,6 +264,12 @@ public final class ModBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final DeferredItem<Item> PULVERIZER_ITEM = createBlockItem("pulverizer", PULVERIZER);
 
+    public static final DeferredBlock<Block> ADVANCED_PULVERIZER = BLOCKS.register("advanced_pulverizer",
+            () -> new AdvancedPulverizerBlock(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final DeferredItem<Item> ADVANCED_PULVERIZER_ITEM = ModItems.ITEMS.register("advanced_pulverizer",
+            () -> new AdvancedPulverizerBlock.Item(ADVANCED_PULVERIZER.get(), new Item.Properties()));
+
     public static final DeferredBlock<Block> SAWMILL = BLOCKS.register("sawmill",
             () -> new SawmillBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));

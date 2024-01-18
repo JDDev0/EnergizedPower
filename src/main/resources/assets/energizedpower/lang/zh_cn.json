@@ -404,6 +404,12 @@
   "item.energizedpower.pulverizer": "Pulverizer",
   "container.energizedpower.pulverizer": "Pulverizer",
 
+  "block.energizedpower.advanced_pulverizer": "Advanced Pulverizer",
+  "item.energizedpower.advanced_pulverizer": "Advanced Pulverizer",
+  "container.energizedpower.advanced_pulverizer": "Advanced Pulverizer",
+
+  "tooltip.energizedpower.advanced_pulverizer.txt.shift.1": "This machine consumes Water and produces Dirty Water.",
+
   "block.energizedpower.sawmill": "锯木机",
   "item.energizedpower.sawmill": "锯木机",
   "container.energizedpower.sawmill": "锯木机",
@@ -608,6 +614,7 @@
   "emi.category.energizedpower.charger": "充能站",
   "emi.category.energizedpower.crusher": "粉碎机",
   "emi.category.energizedpower.pulverizer": "Pulverizer",
+  "emi.category.energizedpower.advanced_pulverizer": "Advanced Pulverizer",
   "emi.category.energizedpower.sawmill": "锯木机",
   "emi.category.energizedpower.compressor": "压缩机",
   "emi.category.energizedpower.metal_press": "Metal Press",

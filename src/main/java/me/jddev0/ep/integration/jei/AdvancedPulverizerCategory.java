@@ -19,17 +19,18 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 import java.util.Locale;
 
-public class PulverizerCategory implements IRecipeCategory<RecipeHolder<PulverizerRecipe>> {
-    public static final RecipeType<RecipeHolder<PulverizerRecipe>> TYPE = RecipeType.createFromVanilla(PulverizerRecipe.Type.INSTANCE);
+public class AdvancedPulverizerCategory implements IRecipeCategory<RecipeHolder<PulverizerRecipe>> {
+    public static final RecipeType<RecipeHolder<PulverizerRecipe>> TYPE = new RecipeType<>(new ResourceLocation(EnergizedPowerMod.MODID, "advanced_pulverizer"),
+            RecipeType.createFromVanilla(PulverizerRecipe.Type.INSTANCE).getRecipeClass());
 
     private final IDrawable background;
     private final IDrawable icon;
 
-    public PulverizerCategory(IGuiHelper helper) {
+    public AdvancedPulverizerCategory(IGuiHelper helper) {
         ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/pulverizer.png");
         background = helper.createDrawable(texture, 42, 30, 109, 26);
 
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.PULVERIZER_ITEM.get()));
+        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.ADVANCED_PULVERIZER_ITEM.get()));
     }
 
     @Override
@@ -39,7 +40,7 @@ public class PulverizerCategory implements IRecipeCategory<RecipeHolder<Pulveriz
 
     @Override
     public Component getTitle() {
-        return Component.translatable("container.energizedpower.pulverizer");
+        return Component.translatable("container.energizedpower.advanced_pulverizer");
     }
 
     @Override
@@ -56,13 +57,13 @@ public class PulverizerCategory implements IRecipeCategory<RecipeHolder<Pulveriz
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<PulverizerRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).addIngredients(recipe.value().getInput());
 
-        ItemStack[] outputEntries = recipe.value().getMaxOutputCounts(false);
+        ItemStack[] outputEntries = recipe.value().getMaxOutputCounts(true);
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).addItemStack(outputEntries[0]).
                 addTooltipCallback((view, tooltip) -> {
                     tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
-                    double[] percentages = recipe.value().getOutput().percentages();
+                    double[] percentages = recipe.value().getOutput().percentagesAdvanced();
                     for(int i = 0;i < percentages.length;i++)
                         tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
                 });
@@ -75,7 +76,7 @@ public class PulverizerCategory implements IRecipeCategory<RecipeHolder<Pulveriz
 
                     tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
-                    double[] percentages = recipe.value().getSecondaryOutput().percentages();
+                    double[] percentages = recipe.value().getSecondaryOutput().percentagesAdvanced();
                     for(int i = 0;i < percentages.length;i++)
                         tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
                 });

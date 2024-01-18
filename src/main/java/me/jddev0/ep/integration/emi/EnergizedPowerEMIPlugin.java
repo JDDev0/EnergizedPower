@@ -47,6 +47,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
         registry.addCategory(PulverizerEMIRecipe.CATEGORY);
         registry.addWorkstation(PulverizerEMIRecipe.CATEGORY, PulverizerEMIRecipe.ITEM);
 
+        registry.addCategory(AdvancedPulverizerEMIRecipe.CATEGORY);
+        registry.addWorkstation(AdvancedPulverizerEMIRecipe.CATEGORY, AdvancedPulverizerEMIRecipe.ITEM);
+
         registry.addCategory(SawmillEMIRecipe.CATEGORY);
         registry.addWorkstation(SawmillEMIRecipe.CATEGORY, SawmillEMIRecipe.ITEM);
 
@@ -98,6 +101,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
         for(RecipeHolder<PulverizerRecipe> recipe:recipeManager.getAllRecipesFor(PulverizerRecipe.Type.INSTANCE))
             registry.addRecipe(new PulverizerEMIRecipe(recipe));
+
+        for(RecipeHolder<PulverizerRecipe> recipe:recipeManager.getAllRecipesFor(PulverizerRecipe.Type.INSTANCE))
+            registry.addRecipe(new AdvancedPulverizerEMIRecipe(recipe));
 
         for(RecipeHolder<SawmillRecipe> recipe:recipeManager.getAllRecipesFor(SawmillRecipe.Type.INSTANCE))
             registry.addRecipe(new SawmillEMIRecipe(recipe));
