@@ -16,6 +16,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Crusher
 - Advanced Crusher (**In next release (v2.8.0)**)
 - Pulverizer
+- Advanced Pulverizer (**In next release (v2.8.0)**)
 - Sawmill
 - Compressor
 - Metal Press
