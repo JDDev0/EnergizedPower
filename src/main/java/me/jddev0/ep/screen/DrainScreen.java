@@ -70,6 +70,8 @@ public class DrainScreen extends AbstractContainerScreen<DrainMenu> {
         Fluid fluid = fluidStack.getFluid();
         IClientFluidTypeExtensions fluidTypeExtensions = IClientFluidTypeExtensions.of(fluid);
         ResourceLocation stillFluidImageId = fluidTypeExtensions.getStillTexture(fluidStack);
+        if(stillFluidImageId == null)
+            stillFluidImageId = new ResourceLocation("air");
         TextureAtlasSprite stillFluidSprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).
                 apply(stillFluidImageId);
 
