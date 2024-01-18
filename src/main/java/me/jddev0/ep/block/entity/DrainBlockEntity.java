@@ -6,13 +6,13 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.screen.DrainMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Mth;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -103,16 +103,7 @@ public class DrainBlockEntity extends BlockEntity implements MenuProvider, Fluid
     }
 
     public int getRedstoneOutput() {
-        float fullnessPercent = 0;
-        boolean isEmptyFlag = true;
-
-        FluidStack fluid = fluidStorage.getFluid();
-        if(!fluid.isEmpty()) {
-            fullnessPercent = (float)fluid.getAmount() / fluidStorage.getCapacity();
-            isEmptyFlag = false;
-        }
-
-        return Math.min(Mth.floor(fullnessPercent * 14.f) + (isEmptyFlag?0:1), 15);
+        return FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
     }
 
     @Override

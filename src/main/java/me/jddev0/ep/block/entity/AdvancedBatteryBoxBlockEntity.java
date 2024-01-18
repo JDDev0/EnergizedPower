@@ -6,12 +6,12 @@ import me.jddev0.ep.energy.ReceiveAndExtractEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.AdvancedBatteryBoxMenu;
+import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Mth;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -70,9 +70,7 @@ public class AdvancedBatteryBoxBlockEntity extends BlockEntity implements MenuPr
     }
 
     public int getRedstoneOutput() {
-        boolean isEmptyFlag = energyStorage.getEnergy() == 0;
-
-        return Math.min(Mth.floor((float)energyStorage.getEnergy() / energyStorage.getCapacity() * 14.f) + (isEmptyFlag?0:1), 15);
+        return EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
     }
 
     @Override
