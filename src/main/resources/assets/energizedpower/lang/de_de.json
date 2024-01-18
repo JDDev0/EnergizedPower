@@ -596,6 +596,10 @@
   "tooltip.energizedpower.machine_configuration.redstone_mode.high": "Redstone-Mode: High",
   "tooltip.energizedpower.machine_configuration.redstone_mode.low": "Redstone-Mode: Low",
 
+  "tooltip.energizedpower.machine_configuration.comparator_mode.item": "Komparator-Mode: Item",
+  "tooltip.energizedpower.machine_configuration.comparator_mode.fluid": "Komparator-Mode: Flüssigkeit",
+  "tooltip.energizedpower.machine_configuration.comparator_mode.energy": "Komparator-Mode: Energie",
+
   "itemGroup.energizedpower.tab": "Energized Power",
 
   "entity.minecraft.villager.energizedpower.electrician": "Elektroniker",

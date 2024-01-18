@@ -97,6 +97,9 @@ public final class ModMessages {
 
         registrar.play(ChangeFiltrationPlantRecipeIndexC2SPacket.ID, ChangeFiltrationPlantRecipeIndexC2SPacket::new, handler -> handler.
                 server(ChangeFiltrationPlantRecipeIndexC2SPacket::handle));
+
+        registrar.play(ChangeComparatorModeC2SPacket.ID, ChangeComparatorModeC2SPacket::new, handler -> handler.
+                server(ChangeComparatorModeC2SPacket::handle));
     }
 
     public static void sendToServer(CustomPacketPayload message) {
