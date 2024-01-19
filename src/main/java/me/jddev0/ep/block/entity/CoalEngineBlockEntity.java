@@ -5,12 +5,15 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.CoalEngineMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -40,7 +43,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
+public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate,
+        ComparatorModeUpdate {
     public static final int MAX_EXTRACT = ModConfigs.COMMON_COAL_ENGINE_TRANSFER_RATE.getValue();
 
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
@@ -77,6 +81,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
     private boolean hasEnoughCapacityForProduction;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public CoalEngineBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.COAL_ENGINE_ENTITY.get(), blockPos, blockState);
@@ -102,6 +107,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
                     case 4, 5 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.energyProductionLeft, index - 4);
                     case 6 -> hasEnoughCapacityForProduction?1:0;
                     case 7 -> redstoneMode.ordinal();
+                    case 8 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -117,12 +123,13 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
                     );
                     case 4, 5, 6 -> {}
                     case 7 -> CoalEngineBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 8 -> CoalEngineBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 8;
+                return 9;
             }
         };
     }
@@ -142,7 +149,11 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
     }
 
     public int getRedstoneOutput() {
-        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+        return switch(comparatorMode) {
+            case ITEM -> InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+            case FLUID -> 0;
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
@@ -166,6 +177,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
         nbt.put("recipe.energy_production_left", IntTag.valueOf(energyProductionLeft));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.saveAdditional(nbt);
     }
@@ -182,6 +194,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
         energyProductionLeft = nbt.getInt("recipe.energy_production_left");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -379,6 +392,14 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        do {
+            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
+        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
         setChanged();
     }
 }

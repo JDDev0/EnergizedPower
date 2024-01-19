@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.MetalPressBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -21,13 +22,13 @@ public class MetalPressMenu extends AbstractContainerMenu implements EnergyStora
     private final ContainerData data;
 
     public MetalPressMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(8));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
     }
 
     public MetalPressMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.METAL_PRESS_MENU.get(), id);
 
-        checkContainerDataCount(data, 8);
+        checkContainerDataCount(data, 9);
         this.blockEntity = (MetalPressBlockEntity)blockEntity;
         this.level = inv.player.level();
         this.data = data;
@@ -80,6 +81,10 @@ public class MetalPressMenu extends AbstractContainerMenu implements EnergyStora
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(7));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(8));
     }
 
     @Override

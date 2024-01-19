@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -20,13 +21,13 @@ public class PlantGrowthChamberMenu extends AbstractContainerMenu implements Ene
     private final ContainerData data;
 
     public PlantGrowthChamberMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(8));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
     }
 
     public PlantGrowthChamberMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.PLANT_GROWTH_CHAMBER_MENU.get(), id);
 
-        checkContainerDataCount(data, 8);
+        checkContainerDataCount(data, 9);
         this.blockEntity = (PlantGrowthChamberBlockEntity)blockEntity;
         this.level = inv.player.level();
         this.data = data;
@@ -82,6 +83,10 @@ public class PlantGrowthChamberMenu extends AbstractContainerMenu implements Ene
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(7));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(8));
     }
 
     @Override

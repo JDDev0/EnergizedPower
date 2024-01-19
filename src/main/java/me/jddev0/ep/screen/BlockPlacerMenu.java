@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.BlockPlacerBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -20,13 +21,13 @@ public class BlockPlacerMenu extends AbstractContainerMenu implements EnergyStor
     private final ContainerData data;
 
     public BlockPlacerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(10));
     }
 
     public BlockPlacerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.BLOCK_PLACER_MENU.get(), id);
 
-        checkContainerDataCount(data, 9);
+        checkContainerDataCount(data, 10);
         this.blockEntity = (BlockPlacerBlockEntity)blockEntity;
         this.level = inv.player.level();
         this.data = data;
@@ -73,6 +74,10 @@ public class BlockPlacerMenu extends AbstractContainerMenu implements EnergyStor
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(8));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(9));
     }
 
     @Override

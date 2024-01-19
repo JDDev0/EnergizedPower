@@ -5,6 +5,8 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
@@ -12,6 +14,7 @@ import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.recipe.SawmillRecipe;
 import me.jddev0.ep.screen.SawmillMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
@@ -40,7 +43,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class SawmillBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
+public class SawmillBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate,
+        ComparatorModeUpdate {
     private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_SAWMILL_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(3) {
@@ -80,6 +84,7 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
     private boolean hasEnoughEnergy;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public SawmillBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.SAWMILL_ENTITY.get(), blockPos, blockState);
@@ -106,6 +111,7 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
                     case 4, 5 -> ByteUtils.get2Bytes(SawmillBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 6 -> hasEnoughEnergy?1:0;
                     case 7 -> redstoneMode.ordinal();
+                    case 8 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -121,12 +127,13 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
                     );
                     case 4, 5, 6 -> {}
                     case 7 -> SawmillBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 8 -> SawmillBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 8;
+                return 9;
             }
         };
     }
@@ -146,7 +153,11 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
     }
 
     public int getRedstoneOutput() {
-        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+        return switch(comparatorMode) {
+            case ITEM -> InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+            case FLUID -> 0;
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
@@ -169,6 +180,7 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.saveAdditional(nbt);
     }
@@ -184,6 +196,7 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -319,6 +332,14 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        do {
+            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
+        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
         setChanged();
     }
 }

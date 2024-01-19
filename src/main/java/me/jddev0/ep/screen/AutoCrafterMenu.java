@@ -5,6 +5,7 @@ import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.inventory.PatternResultSlot;
 import me.jddev0.ep.inventory.PatternSlot;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -28,7 +29,7 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
     private final Container patternResultSlots;
 
     public AutoCrafterMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainer(9), new SimpleContainer(1), new SimpleContainerData(10));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainer(9), new SimpleContainer(1), new SimpleContainerData(11));
     }
 
     public AutoCrafterMenu(int id, Inventory inv, BlockEntity blockEntity, Container patternSlots, Container patternResultSlots, ContainerData data) {
@@ -37,7 +38,7 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
         this.patternSlots = patternSlots;
         this.patternResultSlots = patternResultSlots;
 
-        checkContainerDataCount(data, 10);
+        checkContainerDataCount(data, 11);
         this.blockEntity = (AutoCrafterBlockEntity)blockEntity;
         this.level = inv.player.level();
         this.data = data;
@@ -123,6 +124,10 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(9));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(10));
     }
 
     @Override

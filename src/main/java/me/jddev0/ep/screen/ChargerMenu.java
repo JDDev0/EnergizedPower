@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.ChargerBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -20,13 +21,13 @@ public class ChargerMenu extends AbstractContainerMenu implements EnergyStorageC
     private final ContainerData data;
 
     public ChargerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(3));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(4));
     }
 
     public ChargerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.CHARGER_MENU.get(), id);
 
-        checkContainerDataCount(data, 3);
+        checkContainerDataCount(data, 4);
         this.blockEntity = (ChargerBlockEntity)blockEntity;
         this.level = inv.player.level();
         this.data = data;
@@ -58,6 +59,10 @@ public class ChargerMenu extends AbstractContainerMenu implements EnergyStorageC
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(2));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(3));
     }
 
     @Override
