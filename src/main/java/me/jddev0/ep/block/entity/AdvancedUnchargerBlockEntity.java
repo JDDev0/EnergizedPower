@@ -5,12 +5,15 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.AdvancedUnchargerMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -39,7 +42,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
+public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate,
+        ComparatorModeUpdate {
     public static final int MAX_EXTRACT_PER_SLOT = ModConfigs.COMMON_ADVANCED_UNCHARGER_TRANSFER_RATE_PER_SLOT.getValue();
     public static final int MAX_EXTRACT = MAX_EXTRACT_PER_SLOT * 3;
 
@@ -98,6 +102,7 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
     };
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public AdvancedUnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ADVANCED_UNCHARGER_ENTITY.get(), blockPos, blockState);
@@ -123,6 +128,7 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
                     case 2, 3 -> ByteUtils.get2Bytes(AdvancedUnchargerBlockEntity.this.energyProductionLeft[1], index - 2);
                     case 4, 5 -> ByteUtils.get2Bytes(AdvancedUnchargerBlockEntity.this.energyProductionLeft[2], index - 4);
                     case 6 -> redstoneMode.ordinal();
+                    case 7 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -132,12 +138,13 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
                 switch(index) {
                     case 0, 1, 2, 3, 4, 5 -> {}
                     case 6 -> AdvancedUnchargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 7 -> AdvancedUnchargerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 7;
+                return 8;
             }
         };
     }
@@ -157,7 +164,11 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
     }
 
     public int getRedstoneOutput() {
-        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+        return switch(comparatorMode) {
+            case ITEM -> InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+            case FLUID -> 0;
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
@@ -180,6 +191,7 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
             nbt.put("recipe.energy_production_left." + i, IntTag.valueOf(energyProductionLeft[i]));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.saveAdditional(nbt);
     }
@@ -195,6 +207,7 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
             energyProductionLeft[i] = nbt.getInt("recipe.energy_production_left." + i);
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -349,6 +362,14 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        do {
+            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
+        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
         setChanged();
     }
 }

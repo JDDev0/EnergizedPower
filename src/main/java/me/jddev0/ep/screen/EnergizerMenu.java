@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.EnergizerBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -20,13 +21,13 @@ public class EnergizerMenu extends AbstractContainerMenu implements EnergyStorag
     private final ContainerData data;
 
     public EnergizerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(8));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
     }
 
     public EnergizerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.ENERGIZER_MENU.get(), id);
 
-        checkContainerDataCount(data, 8);
+        checkContainerDataCount(data, 9);
         this.blockEntity = (EnergizerBlockEntity)blockEntity;
         this.level = inv.player.level();
         this.data = data;
@@ -78,6 +79,10 @@ public class EnergizerMenu extends AbstractContainerMenu implements EnergyStorag
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(7));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(8));
     }
 
     @Override
