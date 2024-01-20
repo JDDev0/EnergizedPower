@@ -1270,6 +1270,11 @@
   "book.energizedpower.page.redstone_mode_configuration.3": "High: Die Maschine ist nur aktiv, wenn ein Redstone-Singal der Stärke 1 oder höher vorhanden ist",
   "book.energizedpower.page.redstone_mode_configuration.4": "Low: Die Maschine ist nur aktiv, wenn kein Redstone-Signal vorhanden ist",
 
+  "book.energizedpower.page.comparator_mode_configuration.1": "Es gibt 3 Komparator-Modi:",
+  "book.energizedpower.page.comparator_mode_configuration.2": "Item: Die Komparator-Ausgabe wird abhängig von wie voll das Inventar der Maschine ist berechnet",
+  "book.energizedpower.page.comparator_mode_configuration.3": "Flüssigkeit: Die Komparator-Ausgabe wird abhängig von wie voll der/die Tank(s) der Maschine ist/sind berechnet",
+  "book.energizedpower.page.comparator_mode_configuration.4": "Energie: Die Komparator-Ausgabe wird abhängig von wie viel Energie in der Maschine ist berechnet",
+
 
   "book.energizedpower.page.chapter.entities.title": "Entitäten",
   "book.energizedpower.page.chapter.entities": "Dinge, die sich bewegen.",
