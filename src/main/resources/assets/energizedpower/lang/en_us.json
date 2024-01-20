@@ -1270,6 +1270,11 @@
   "book.energizedpower.page.redstone_mode_configuration.3": "High: The machine is only active if a redstone signal of strength 1 or higher is present",
   "book.energizedpower.page.redstone_mode_configuration.4": "Low: The machine is only active if no redstone signal is present",
 
+  "book.energizedpower.page.comparator_mode_configuration.1": "There are 3 comparator modes:",
+  "book.energizedpower.page.comparator_mode_configuration.2": "Item: The comparator output is calculated based on how full the inventory of the machine is",
+  "book.energizedpower.page.comparator_mode_configuration.3": "Fluid: The comparator output is calculated based on how full the tank(s) of the machines is/are",
+  "book.energizedpower.page.comparator_mode_configuration.4": "Energy: The comparator output is calculated based on how much energy is stored in the machine",
+
 
   "book.energizedpower.page.chapter.entities.title": "Entities",
   "book.energizedpower.page.chapter.entities": "Things that can move.",
