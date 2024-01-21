@@ -1174,7 +1174,8 @@
   "book.energizedpower.page.crushers.1": "粉碎机可以粉碎石头、砂岩、圆石和沙砾等方块。",
   "book.energizedpower.page.crushers.2": "The advanced version of the Crusher consumes Water and produces Dirty Water.",
 
-  "book.energizedpower.page.pulverizer": "The Pulverizer produces ore dusts which can be smelted to ingots.",
+  "book.energizedpower.page.pulverizers.1": "The Pulverizer produces ore dusts which can be smelted to ingots.",
+  "book.energizedpower.page.pulverizers.2": "The advanced version of the Pulverizer consumes Water and produces Dirty Water.",
 
   "book.energizedpower.page.sawmill.1": "锯木机可以据原木和一些物品。",
   "book.energizedpower.page.sawmill.2": "锯末是锯木机生产出的副产品，可以合成锯末块用于燃料。",
