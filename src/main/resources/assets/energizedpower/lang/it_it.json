@@ -803,6 +803,9 @@
   "advancements.energizedpower.thermal_generator.title": "Alimentato da liquidi caldi",
   "advancements.energizedpower.thermal_generator.description": "Consuma liquidi caldi per generare energia.",
 
+  "advancements.energizedpower.filtration_plant.title": "Fluid filtration",
+  "advancements.energizedpower.filtration_plant.description": "Craft a Filtration Plant.",
+
   "advancements.energizedpower.powered_lamp.title": "Lampade elettriche",
   "advancements.energizedpower.powered_lamp.description": "Converti l'energia in luce.",
 
