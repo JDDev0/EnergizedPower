@@ -6,12 +6,15 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.BlockPos;
@@ -47,7 +50,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
+public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate,
+        ComparatorModeUpdate {
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
     private boolean secondaryExtractMode;
@@ -111,6 +115,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     private boolean ignoreNBT;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public AutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.AUTO_CRAFTER_ENTITY.get(), blockPos, blockState);
@@ -141,6 +146,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                     case 7 -> ignoreNBT?1:0;
                     case 8 -> secondaryExtractMode?1:0;
                     case 9 -> redstoneMode.ordinal();
+                    case 10 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -158,12 +164,13 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                     case 7 -> AutoCrafterBlockEntity.this.ignoreNBT = value != 0;
                     case 8 -> AutoCrafterBlockEntity.this.secondaryExtractMode = value != 0;
                     case 9 -> AutoCrafterBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 10 -> AutoCrafterBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 10;
+                return 11;
             }
         };
     }
@@ -183,7 +190,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     public int getRedstoneOutput() {
-        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+        return switch(comparatorMode) {
+            case ITEM -> InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+            case FLUID -> 0;
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     @Override
@@ -232,6 +243,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         nbt.putBoolean("secondary_extract_mode", secondaryExtractMode);
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.saveAdditional(nbt);
     }
@@ -274,6 +286,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         secondaryExtractMode = nbt.getBoolean("secondary_extract_mode");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     private void loadPatternContainer(Tag tag) {
@@ -810,6 +823,14 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        do {
+            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
+        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
         setChanged();
     }
 }

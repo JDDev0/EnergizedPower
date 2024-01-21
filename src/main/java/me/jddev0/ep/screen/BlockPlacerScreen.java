@@ -1,8 +1,10 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.ChangeComparatorModeC2SPacket;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import me.jddev0.ep.networking.packet.SetBlockPlacerCheckboxC2SPacket;
 import net.minecraft.client.gui.GuiGraphics;
@@ -43,6 +45,11 @@ public class BlockPlacerScreen extends AbstractGenericEnergyStorageContainerScre
 
                 ModMessages.sendToServer(new ChangeRedstoneModeC2SPacket(menu.getBlockEntity().getBlockPos()));
                 clicked = true;
+            }else if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
+                //Comparator Mode
+
+                ModMessages.sendToServer(new ChangeComparatorModeC2SPacket(menu.getBlockEntity().getBlockPos()));
+                clicked = true;
             }
 
             if(clicked)
@@ -81,6 +88,15 @@ public class BlockPlacerScreen extends AbstractGenericEnergyStorageContainerScre
         }else {
             guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
         }
+
+        ComparatorMode comparatorMode = menu.getComparatorMode();
+        ordinal = comparatorMode.ordinal();
+
+        if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
+            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 60, 20, 20);
+        }else {
+            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 40, 20, 20);
+        }
     }
 
     @Override
@@ -101,6 +117,15 @@ public class BlockPlacerScreen extends AbstractGenericEnergyStorageContainerScre
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.getSerializedName()));
+
+            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+        }else if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
+            //Comparator Mode
+
+            ComparatorMode comparatorMode = menu.getComparatorMode();
+
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.machine_configuration.comparator_mode." + comparatorMode.getSerializedName()));
 
             guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
         }

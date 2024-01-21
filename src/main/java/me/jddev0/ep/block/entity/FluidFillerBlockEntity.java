@@ -6,6 +6,8 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
@@ -13,6 +15,8 @@ import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.screen.FluidFillerMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.EnergyUtils;
+import me.jddev0.ep.util.FluidUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -45,7 +49,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate,
-        FluidStoragePacketUpdate, RedstoneModeUpdate {
+        FluidStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
     public static final int MAX_FLUID_FILLING_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_FLUID_ITEM_TRANSFER_RATE.getValue();
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
@@ -119,6 +123,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
     private int fluidFillingSumPending = 0;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public FluidFillerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.FLUID_FILLER_ENTITY.get(), blockPos, blockState);
@@ -155,6 +160,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
                     case 0, 1 -> ByteUtils.get2Bytes(FluidFillerBlockEntity.this.fluidFillingLeft, index);
                     case 2, 3 -> ByteUtils.get2Bytes(FluidFillerBlockEntity.this.fluidFillingSumPending, index - 2);
                     case 4 -> redstoneMode.ordinal();
+                    case 5 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -164,12 +170,13 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
                 switch(index) {
                     case 0, 1, 2, 3 -> {}
                     case 4 -> FluidFillerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 5 -> FluidFillerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 5;
+                return 6;
             }
         };
     }
@@ -189,7 +196,11 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     public int getRedstoneOutput() {
-        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+        return switch(comparatorMode) {
+            case ITEM -> InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+            case FLUID -> FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     @Override
@@ -236,6 +247,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
         nbt.put("recipe.fluid_filling_sum_pending", IntTag.valueOf(fluidFillingSumPending));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.saveAdditional(nbt);
     }
@@ -252,6 +264,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
         fluidFillingSumPending = nbt.getInt("recipe.fluid_filling_sum_pending");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -402,6 +415,12 @@ public class FluidFillerBlockEntity extends BlockEntity implements MenuProvider,
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
         setChanged();
     }
 }
