@@ -1171,7 +1171,8 @@
   "book.energizedpower.page.auto_crafters.3": "Oto Oluşturucu çatışmaları yapar, bunlar farklı tarifler ama farklı girişlerdir.Bunu yapmak için, \"Tarif arasında dönüp dur\" butonunu veya tarif gösterici modu kullanın (Rougly Enough Items gibi).",
   "book.energizedpower.page.auto_crafters.4": "Gelişmiş Oto Oluşturucu farklı tarifleri destekler.",
 
-  "book.energizedpower.page.crusher": "Ezici taş gibi blokları ezebilir.",
+  "book.energizedpower.page.crushers.1": "Ezici taş gibi blokları ezebilir.",
+  "book.energizedpower.page.crushers.2": "The advanced version of the Crusher consumes Water and produces Dirty Water.",
 
   "book.energizedpower.page.pulverizer": "Pulverizör Maden Tozlarını külçeye dönüştürebilir.",
 
