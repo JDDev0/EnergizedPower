@@ -173,12 +173,35 @@
       "font": "uniform",
       "extra": [
         {
+          "translate": "book.energizedpower.page.chapter.fluids.title",
+          "color": "dark_green",
+          "underlined": true,
+          "clickEvent": {
+            "action": "change_page",
+            "value": "energizedpower:chapters/0080_fluids/0000_fluids_chapter"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.tooltip.page"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "text": "\n\n• ",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
           "translate": "book.energizedpower.page.chapter.machine_configuration.title",
           "color": "dark_green",
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0080_machine_configuration/0000_machine_configuration_chapter"
+            "value": "energizedpower:chapters/0090_machine_configuration/0000_machine_configuration_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -201,7 +224,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0090_entities/0000_entities_chapter"
+            "value": "energizedpower:chapters/0100_entities/0000_entities_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -224,7 +247,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0100_structures/0000_structures_chapter"
+            "value": "energizedpower:chapters/0110_structures/0000_structures_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
