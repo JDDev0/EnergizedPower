@@ -1,0 +1,23 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.pulverizers.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.pulverizers.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "block": [
+    "energizedpower:pulverizer",
+    "energizedpower:advanced_pulverizer"
+  ]
+}
