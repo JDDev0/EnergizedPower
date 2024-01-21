@@ -1226,7 +1226,7 @@
   "book.energizedpower.page.teleporter.2": "It outputs a redstone signal if the Teleporter is ready for teleportation.",
 
 
-  "book.energizedpower.page.chapter.fluid_blocks.title": "Blocks with Fluids",
+  "book.energizedpower.page.chapter.fluid_blocks.title": "Fluid Blocks",
   "book.energizedpower.page.chapter.fluid_blocks": "Blocks that can store and transfer fluids.",
 
   "book.energizedpower.page.fluid_pipes.1": "Fluid pipes can transfer fluids.",
