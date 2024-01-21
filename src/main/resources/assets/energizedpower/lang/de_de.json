@@ -60,6 +60,8 @@
   "item.energizedpower.cable_insulator": "Kabelinsulator",
   "tooltip.energizedpower.cable_insulator.txt.shift.1": "Dieses Item kann durch das Klicken auf einen Wolleblock mit einer Schere hergestellt werden.",
 
+  "item.energizedpower.charcoal_filter": "Holzkohle-Filter",
+
   "item.energizedpower.saw_blade": "Sägeblatt",
 
   "item.energizedpower.crystal_matrix": "Kristall-Matrix",

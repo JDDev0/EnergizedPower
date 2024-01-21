@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "C": {
+      "tag": "forge:dusts/charcoal"
+    },
+    "I": {
+      "tag": "forge:plates/iron"
+    }
+  },
+  "pattern": [
+    "PCP",
+    "CIC",
+    "PCP"
+  ],
+  "result": {
+    "item": "energizedpower:charcoal_filter"
+  }
+}
