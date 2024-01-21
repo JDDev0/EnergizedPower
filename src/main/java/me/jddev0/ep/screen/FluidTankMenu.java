@@ -9,15 +9,14 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
 public class FluidTankMenu extends ScreenHandler {
     private final FluidTankBlockEntity blockEntity;
     private final World level;
+    private final PropertyDelegate data;
 
     public static ScreenHandlerType<FluidTankMenu> getMenuTypeFromTier(FluidTankBlock.Tier tier) {
         return switch(tier) {
@@ -28,29 +27,38 @@ public class FluidTankMenu extends ScreenHandler {
     }
 
     public FluidTankMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
-        this(id, inv, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()));
+        this(id, inv, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), new ArrayPropertyDelegate(1));
     }
 
-    public FluidTankMenu(int id, PlayerInventory inv, BlockEntity blockEntity) {
+    public FluidTankMenu(int id, PlayerInventory inv, BlockEntity blockEntity, PropertyDelegate data) {
         super(getMenuTypeFromTier(((FluidTankBlockEntity)blockEntity).getTier()), id);
 
         this.blockEntity = (FluidTankBlockEntity)blockEntity;
+
+        checkDataCount(data, 1);
         this.level = inv.player.getWorld();
+        this.data = data;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
+
+        addProperties(this.data);
     }
 
     public FluidTankBlock.Tier getTier() {
         return blockEntity.getTier();
     }
 
-    public FluidStack getFluid() {
-        return blockEntity.getFluid(0);
+    public FluidStack getFluid(int tank) {
+        return blockEntity.getFluid(tank);
     }
 
-    public long getTankCapacity() {
-        return blockEntity.getTankCapacity(0);
+    public long getTankCapacity(int tank) {
+        return blockEntity.getTankCapacity(tank);
+    }
+
+    public boolean isIgnoreNBT() {
+        return data.get(0) != 0;
     }
 
     @Override
