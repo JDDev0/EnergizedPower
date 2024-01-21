@@ -1206,6 +1206,8 @@
   "book.energizedpower.page.stone_solidifier.1": "Der Stein-Festiger produziert Stein-Blöcke von Wasser und Lava.",
   "book.energizedpower.page.stone_solidifier.2": "Flüssigkeiten müssen mit einem Rohr eingegeben werden.",
 
+  "book.energizedpower.page.filtration_plant": "Die Filteranlage kann rohe Erze aus schmutzigem Wasser filtern.",
+
   "book.energizedpower.page.block_placer.1": "Der Blockplatzierer kann Blöcke platzieren (Sogar Türen und Samen).",
   "book.energizedpower.page.block_placer.2": "Blöcke werden nur platziert, wenn es möglich ist.",
 
