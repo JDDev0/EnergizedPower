@@ -803,6 +803,9 @@
   "advancements.energizedpower.thermal_generator.title": "Durch heiße Flüssigkeiten angetrieben",
   "advancements.energizedpower.thermal_generator.description": "Verbrauche heiße Flüssigkeiten, um Energize herzustellen.",
 
+  "advancements.energizedpower.filtration_plant.title": "Flüssigkeits-Filtrierung",
+  "advancements.energizedpower.filtration_plant.description": "Stelle eine Filteranlage her.",
+
   "advancements.energizedpower.powered_lamp.title": "Elektrisches Licht",
   "advancements.energizedpower.powered_lamp.description": "Konvertiere Strom zu Licht.",
 
