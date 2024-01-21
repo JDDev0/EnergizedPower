@@ -8,6 +8,8 @@ import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.fluid.ModFluids;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
@@ -15,9 +17,7 @@ import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.recipe.CrusherRecipe;
 import me.jddev0.ep.screen.AdvancedCrusherMenu;
-import me.jddev0.ep.util.ByteUtils;
-import me.jddev0.ep.util.InventoryUtils;
-import me.jddev0.ep.util.RecipeUtils;
+import me.jddev0.ep.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -51,7 +51,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class AdvancedCrusherBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate,
-        FluidStoragePacketUpdate, RedstoneModeUpdate {
+        FluidStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_ADVANCED_CRUSHER_ENERGY_CONSUMPTION_PER_TICK.getValue();
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_ADVANCED_CRUSHER_TANK_CAPACITY.getValue();
     public static final int WATER_CONSUMPTION_PER_RECIPE = ModConfigs.COMMON_ADVANCED_CRUSHER_WATER_USAGE_PER_RECIPE.getValue();
@@ -99,6 +99,7 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements MenuProvi
     private boolean hasEnoughEnergy;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public AdvancedCrusherBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ADVANCED_CRUSHER_ENTITY.get(), blockPos, blockState);
@@ -154,6 +155,7 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements MenuProvi
                     case 4, 5 -> ByteUtils.get2Bytes(AdvancedCrusherBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 6 -> hasEnoughEnergy?1:0;
                     case 7 -> redstoneMode.ordinal();
+                    case 8 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -169,12 +171,13 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements MenuProvi
                     );
                     case 4, 5, 6 -> {}
                     case 7 -> AdvancedCrusherBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 8 -> AdvancedCrusherBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 8;
+                return 9;
             }
         };
     }
@@ -195,7 +198,11 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements MenuProvi
     }
 
     public int getRedstoneOutput() {
-        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+        return switch(comparatorMode) {
+            case ITEM -> InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+            case FLUID -> FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     @Override
@@ -243,6 +250,7 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements MenuProvi
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.saveAdditional(nbt);
     }
@@ -260,6 +268,7 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements MenuProvi
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -407,6 +416,12 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements MenuProvi
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
         setChanged();
     }
 }
