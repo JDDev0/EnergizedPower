@@ -404,6 +404,12 @@
   "item.energizedpower.pulverizer": "Pulverizatör",
   "container.energizedpower.pulverizer": "Pulverizatör",
 
+  "block.energizedpower.advanced_pulverizer": "Advanced Pulverizer",
+  "item.energizedpower.advanced_pulverizer": "Advanced Pulverizer",
+  "container.energizedpower.advanced_pulverizer": "Advanced Pulverizer",
+
+  "tooltip.energizedpower.advanced_pulverizer.txt.shift.1": "This machine consumes Water and produces Dirty Water.",
+
   "block.energizedpower.sawmill": "Odun Testersi",
   "item.energizedpower.sawmill": "Odun Testeresi",
   "container.energizedpower.sawmill": "Odun Testerisi",
@@ -608,6 +614,7 @@
   "emi.category.energizedpower.charger": "Şarj",
   "emi.category.energizedpower.crusher": "Ezici",
   "emi.category.energizedpower.pulverizer": "Pulverizör",
+  "emi.category.energizedpower.advanced_pulverizer": "Advanced Pulverizer",
   "emi.category.energizedpower.sawmill": "Odun Testeresi",
   "emi.category.energizedpower.compressor": "Kompresör",
   "emi.category.energizedpower.metal_press": "Metal Pres",

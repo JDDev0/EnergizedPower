@@ -404,6 +404,12 @@
   "item.energizedpower.pulverizer": "Polverizzatore",
   "container.energizedpower.pulverizer": "Polverizzatore",
 
+  "block.energizedpower.advanced_pulverizer": "Advanced Pulverizer",
+  "item.energizedpower.advanced_pulverizer": "Advanced Pulverizer",
+  "container.energizedpower.advanced_pulverizer": "Advanced Pulverizer",
+
+  "tooltip.energizedpower.advanced_pulverizer.txt.shift.1": "This machine consumes Water and produces Dirty Water.",
+
   "block.energizedpower.sawmill": "Segheria",
   "item.energizedpower.sawmill": "Segheria",
   "container.energizedpower.sawmill": "Segheria",
@@ -608,6 +614,7 @@
   "emi.category.energizedpower.charger": "Caricabatterie",
   "emi.category.energizedpower.crusher": "Frantoio",
   "emi.category.energizedpower.pulverizer": "Polverizzatore",
+  "emi.category.energizedpower.advanced_pulverizer": "Advanced Pulverizer",
   "emi.category.energizedpower.sawmill": "Segheria",
   "emi.category.energizedpower.compressor": "Compressore",
   "emi.category.energizedpower.metal_press": "Pressa per metallo",
