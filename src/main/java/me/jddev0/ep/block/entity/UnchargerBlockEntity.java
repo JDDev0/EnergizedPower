@@ -5,12 +5,15 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.UnchargerMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -41,7 +44,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
+public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate,
+        ComparatorModeUpdate {
     public static final int MAX_EXTRACT = ModConfigs.COMMON_UNCHARGER_TRANSFER_RATE.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
@@ -109,6 +113,7 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
     private int energyProductionLeft = -1;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public UnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.UNCHARGER_ENTITY.get(), blockPos, blockState);
@@ -131,6 +136,7 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
                 return switch(index) {
                     case 0, 1 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.energyProductionLeft, index);
                     case 2 -> redstoneMode.ordinal();
+                    case 3 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -140,12 +146,13 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
                 switch(index) {
                     case 0, 1 -> {}
                     case 2 -> UnchargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 3 -> UnchargerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 3;
+                return 4;
             }
         };
     }
@@ -165,7 +172,11 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
     }
 
     public int getRedstoneOutput() {
-        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+        return switch(comparatorMode) {
+            case ITEM -> InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+            case FLUID -> 0;
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     @Override
@@ -206,6 +217,7 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
         nbt.put("recipe.energy_production_left", IntTag.valueOf(energyProductionLeft));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.saveAdditional(nbt);
     }
@@ -220,6 +232,7 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
         energyProductionLeft = nbt.getInt("recipe.energy_production_left");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -378,6 +391,14 @@ public class UnchargerBlockEntity extends BlockEntity implements MenuProvider, E
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        do {
+            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
+        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
         setChanged();
     }
 }
