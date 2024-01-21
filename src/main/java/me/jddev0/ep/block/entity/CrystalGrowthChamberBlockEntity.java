@@ -46,7 +46,7 @@ import java.util.stream.IntStream;
 
 public class CrystalGrowthChamberBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
     public static final long CAPACITY = ModConfigs.COMMON_CRYSTAL_GROWTH_CHAMBER_CAPACITY.getValue();
-    public static final long MAX_RECEIVE = ModConfigs.COMMON_ENERGIZED_CRYSTAL_MATRIX_CABLE_TRANSFER_RATE.getValue();
+    public static final long MAX_RECEIVE = ModConfigs.COMMON_CRYSTAL_GROWTH_CHAMBER_TRANSFER_RATE.getValue();
     private static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_CRYSTAL_GROWTH_CHAMBER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_CRYSTAL_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER.getValue();

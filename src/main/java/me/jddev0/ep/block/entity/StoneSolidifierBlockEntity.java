@@ -54,8 +54,8 @@ import java.util.stream.IntStream;
 
 public class StoneSolidifierBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate,
         FluidStoragePacketUpdate, RedstoneModeUpdate {
-    public static final long CAPACITY = ModConfigs.COMMON_FLUID_DRAINER_CAPACITY.getValue();
-    public static final long MAX_RECEIVE = ModConfigs.COMMON_FLUID_DRAINER_TRANSFER_RATE.getValue();
+    public static final long CAPACITY = ModConfigs.COMMON_STONE_SOLIDIFIER_CAPACITY.getValue();
+    public static final long MAX_RECEIVE = ModConfigs.COMMON_STONE_SOLIDIFIER_TRANSFER_RATE.getValue();
 
     public static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_STONE_SOLIDIFIER_CONSUMPTION_PER_TICK.getValue();
     public static final long TANK_CAPACITY = FluidUtils.convertMilliBucketsToDroplets(1000 *
