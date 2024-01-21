@@ -7,6 +7,7 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.ModEntityTypes;
 import me.jddev0.ep.event.PlayerInteractHandler;
 import me.jddev0.ep.event.ServerStartingHandler;
+import me.jddev0.ep.fluid.ModFluids;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.painting.ModPaintings;
@@ -43,6 +44,8 @@ public class EnergizedPowerMod implements ModInitializer {
 		ModVillager.register();
 		ModEntityTypes.register();
 		ModPaintings.register();
+
+        ModFluids.register();
 
 		ModBlockBehaviors.register();
 
@@ -231,6 +234,8 @@ public class EnergizedPowerMod implements ModInitializer {
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.ENERGIZED_COPPER_WIRE);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.ENERGIZED_GOLD_WIRE);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.ENERGIZED_CRYSTAL_MATRIX);
+
+		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModFluids.DIRTY_WATER_BUCKET_ITEM);
 	}
 
 	private void addToCreativeTab(RegistryKey<ItemGroup> groupKey, Item item) {

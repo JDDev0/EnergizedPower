@@ -64,6 +64,8 @@
 
   "item.energizedpower.energized_crystal_matrix": "Matrice di cristallo energizzata",
 
+  "item.energizedpower.dirty_water_bucket": "Dirty Water Bucket",
+
   "item.energizedpower.teleporter_matrix": "Matrice Teletrasporto",
   "item.energizedpower.teleporter_matrix.linked": "Matrice Teletrasporto [Collegato]",
   "item.energizedpower.teleporter_matrix.unbound": "Matrice Teletrasporto [Scollegato]",
@@ -528,6 +530,8 @@
 
   "block.energizedpower.reinforced_advanced_machine_frame": "Telaio macchina avanzato rinforzato",
   "item.energizedpower.reinforced_advanced_machine_frame": "Telaio macchina avanzato rinforzato",
+
+  "fluid_type.energizedpower.dirty_water": "Dirty Water",
 
   "tooltip.energizedpower.count_with_item.txt": "%dx %s",
 
