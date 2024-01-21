@@ -1206,6 +1206,8 @@
   "book.energizedpower.page.stone_solidifier.1": "The Stone Solidifier produces Stone blocks from Water and Lava.",
   "book.energizedpower.page.stone_solidifier.2": "Fluids must be inserted with a pipe.",
 
+  "book.energizedpower.page.filtration_plant": "The Filtration Plant can filter raw ores from Dirty Water.",
+
   "book.energizedpower.page.block_placer.1": "Blok Yerleştirici tüm blokları yerleştirebilir (Kapılar ve tohumlar dahil).",
   "book.energizedpower.page.block_placer.2": "Bloklar yalnızca mümkünse yerleştirilecektir.",
 
