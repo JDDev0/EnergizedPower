@@ -1,0 +1,12 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": {
+    "item": "minecraft:charcoal"
+  },
+  "output": {
+    "output": {
+      "item": "energizedpower:charcoal_dust"
+    },
+    "percentages": [ 1.0 ]
+  }
+}
