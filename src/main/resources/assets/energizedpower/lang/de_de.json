@@ -64,6 +64,8 @@
 
   "item.energizedpower.energized_crystal_matrix": "Energetisierte Kristall-Matrix",
 
+  "item.energizedpower.dirty_water_bucket": "Schmutziges-Wasser-Eimer",
+
   "item.energizedpower.teleporter_matrix": "Teleporter-Matrix",
   "item.energizedpower.teleporter_matrix.linked": "Teleporter-Matrix [Gebunden]",
   "item.energizedpower.teleporter_matrix.unlinked": "Teleporter-Matrix [Ungebunden]",
@@ -528,6 +530,8 @@
 
   "block.energizedpower.reinforced_advanced_machine_frame": "Verstärkter Fortgeschrittener Maschinenrahmen",
   "item.energizedpower.reinforced_advanced_machine_frame": "Verstärkter Fortgeschrittener Maschinenrahmen",
+
+  "fluid_type.energizedpower.dirty_water": "Schmutziges Wasser",
 
   "tooltip.energizedpower.count_with_item.txt": "%dx %s",
 
