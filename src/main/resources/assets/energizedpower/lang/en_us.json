@@ -1174,7 +1174,8 @@
   "book.energizedpower.page.crushers.1": "The Crusher can crush blocks like Stone, Sandstone, Cobblestone, and Gravel.",
   "book.energizedpower.page.crushers.2": "The advanced version of the Crusher consumes Water and produces Dirty Water.",
 
-  "book.energizedpower.page.pulverizer": "The Pulverizer produces ore dusts which can be smelted to ingots.",
+  "book.energizedpower.page.pulverizers.1": "The Pulverizer produces ore dusts which can be smelted to ingots.",
+  "book.energizedpower.page.pulverizers.2": "The advanced version of the Pulverizer consumes Water and produces Dirty Water.",
 
   "book.energizedpower.page.sawmill.1": "The Sawmill can saw wood blocks and items.",
   "book.energizedpower.page.sawmill.2": "Sawdust will be produced which can be crafted to sawdust blocks which can be used as fuel.",
