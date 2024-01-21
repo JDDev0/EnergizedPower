@@ -1174,7 +1174,8 @@
   "book.energizedpower.page.crushers.1": "Der Zerkleinerer kann Items wie Sand, Sandstein, Bruchstein und Kies zerkleinern.",
   "book.energizedpower.page.crushers.2": "Die fortgeschrittene Version des Zerkleinerers konsumiert Wasser und produziert schmutziges Wasser.",
 
-  "book.energizedpower.page.pulverizer": "Der Pulverisierer produziert Erzstaub, dieser kann in Barren geschmolzen werden.",
+  "book.energizedpower.page.pulverizers.1": "Der Pulverisierer produziert Erzstaub, dieser kann in Barren geschmolzen werden.",
+  "book.energizedpower.page.pulverizers.2": "Die fortgeschrittene Version des Pulverisierers konsumiert Wasser und produziert schmutziges Wasser.",
 
   "book.energizedpower.page.sawmill.1": "Das Sägewerk sägt Holz-Blöcke und -Items.",
   "book.energizedpower.page.sawmill.2": "Sägemehl wird dabei produziert und kann zu Sägemehlblöcken verarbeitet werden. Diese können dann als Treibstoff verwendet werden.",
