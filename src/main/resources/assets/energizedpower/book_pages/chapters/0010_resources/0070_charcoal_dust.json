@@ -1,0 +1,11 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.charcoal_dust",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "image": "energizedpower:textures/item/charcoal_dust.png"
+}
