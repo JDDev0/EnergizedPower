@@ -28,7 +28,7 @@ public class SetFluidTankFilterC2SPacket {
         buffer.writeFluidStack(fluidFilter);
     }
 
-    public void handle(CustomPayloadEvent.Context context) {
+    public boolean handle(CustomPayloadEvent.Context context) {
         context.enqueueWork(() -> {
             Level level = context.getSender().level();
             if(!level.hasChunk(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ())))
@@ -40,5 +40,7 @@ public class SetFluidTankFilterC2SPacket {
 
             fluidTankBlockEntity.setFluidFilter(fluidFilter);
         });
+
+        return true;
     }
 }
