@@ -1171,7 +1171,8 @@
   "book.energizedpower.page.auto_crafters.3": "Die automatische Werkbank kann mit Rezept-Konflikten umgehen, d.h. Rezepte mit den gleichen Items. Nutze dafür den \"Rezepte durchlaufen\"-Button oder setzte das Pattern mithilfe einer Recipe-Viewer-Mod (wie REI).",
   "book.energizedpower.page.auto_crafters.4": "Die fortgeschrittene Version der automatischen Werkbank untersützt mehrere Rezpte auf einmal.",
 
-  "book.energizedpower.page.crusher": "Der Zerkleinerer kann Items wie Sand, Sandstein, Bruchstein und Kies zerkleinern.",
+  "book.energizedpower.page.crushers.1": "Der Zerkleinerer kann Items wie Sand, Sandstein, Bruchstein und Kies zerkleinern.",
+  "book.energizedpower.page.crushers.2": "Die fortgeschrittene Version des Zerkleinerers konsumiert Wasser und produziert schmutziges Wasser.",
 
   "book.energizedpower.page.pulverizer": "Der Pulverisierer produziert Erzstaub, dieser kann in Barren geschmolzen werden.",
 
