@@ -1,5 +1,9 @@
 package me.jddev0.ep.util;
 
+import net.minecraft.util.Mth;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+
 import java.util.Locale;
 
 public final class FluidUtils {
@@ -23,5 +27,22 @@ public final class FluidUtils {
         }
 
         return String.format(Locale.ENGLISH, "%.2f%s mB", fluidAmountWithPrefix, FLUID_PREFIXES[prefixIndex]);
+    }
+
+    public static int getRedstoneSignalFromFluidHandler(IFluidHandler fluidHandler) {
+        float fullnessPercentSum = 0;
+        boolean isEmptyFlag = true;
+
+        int size = fluidHandler.getTanks();
+
+        for(int i = 0;i < size;i++) {
+            FluidStack fluid = fluidHandler.getFluidInTank(i);
+            if(!fluid.isEmpty()) {
+                fullnessPercentSum += (float) fluid.getAmount() / fluidHandler.getTankCapacity(i);
+                isEmptyFlag = false;
+            }
+        }
+
+        return Math.min(Mth.floor(fullnessPercentSum / size * 14.f) + (isEmptyFlag?0:1), 15);
     }
 }
