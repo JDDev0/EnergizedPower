@@ -803,6 +803,9 @@
   "advancements.energizedpower.thermal_generator.title": "Powered by hot liquids",
   "advancements.energizedpower.thermal_generator.description": "Consume hot liquids to generate energy.",
 
+  "advancements.energizedpower.filtration_plant.title": "Fluid filtration",
+  "advancements.energizedpower.filtration_plant.description": "Craft a Filtration Plant.",
+
   "advancements.energizedpower.powered_lamp.title": "Electric lights",
   "advancements.energizedpower.powered_lamp.description": "Convert power to light.",
 
