@@ -5,10 +5,7 @@ import me.jddev0.ep.block.entity.FluidTankBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -17,6 +14,7 @@ import net.minecraftforge.fluids.FluidStack;
 public class FluidTankMenu extends AbstractContainerMenu {
     private final FluidTankBlockEntity blockEntity;
     private final Level level;
+    private final ContainerData data;
 
     public static MenuType<FluidTankMenu> getMenuTypeFromTier(FluidTankBlock.Tier tier) {
         return switch(tier) {
@@ -27,29 +25,37 @@ public class FluidTankMenu extends AbstractContainerMenu {
     }
 
     public FluidTankMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(1));
     }
 
-    public FluidTankMenu(int id, Inventory inv, BlockEntity blockEntity) {
+    public FluidTankMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(getMenuTypeFromTier(((FluidTankBlockEntity)blockEntity).getTier()), id);
 
+        checkContainerDataCount(data, 1);
         this.blockEntity = (FluidTankBlockEntity)blockEntity;
         this.level = inv.player.level();
+        this.data = data;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
+
+        addDataSlots(this.data);
     }
 
     public FluidTankBlock.Tier getTier() {
         return blockEntity.getTier();
     }
 
-    public FluidStack getFluid() {
-        return blockEntity.getFluid(0);
+    public FluidStack getFluid(int tank) {
+        return blockEntity.getFluid(tank);
     }
 
-    public int getTankCapacity() {
-        return blockEntity.getTankCapacity(0);
+    public int getTankCapacity(int tank) {
+        return blockEntity.getTankCapacity(tank);
+    }
+
+    public boolean isIgnoreNBT() {
+        return data.get(0) != 0;
     }
 
     @Override
