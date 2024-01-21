@@ -1038,7 +1038,9 @@
 
   "book.energizedpower.page.ore_dusts": "Maden tozları külçeye dönüştürelebilir.",
 
-  "book.energizedpower.page.charcoal_dust": "Charcoal dust can be used to craft Charcoal Filters.",
+  "book.energizedpower.page.charcoal_dust": "Charcoal Dust can be used to craft Charcoal Filters.",
+
+  "book.energizedpower.page.charcoal_filter": "Charcoal Filters are used to filter Dirty Water in the Filtration Plant.",
 
   "book.energizedpower.page.plates.1": "Plakalar birçok makinada malzeme olarak kullanılır. Plakalar çekiçle veya kompresörle üretilebilir .",
   "book.energizedpower.page.plates.2": "Enerjili plakalar SADECE kompresdörde üretilerbilir.",
