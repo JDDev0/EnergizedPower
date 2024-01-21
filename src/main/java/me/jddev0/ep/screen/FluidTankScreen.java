@@ -113,7 +113,7 @@ public class FluidTankScreen extends HandledScreen<FluidTankMenu> {
     }
 
     private void renderFluidMeterOverlay(DrawContext drawContext, int x, int y) {
-        drawContext.drawTexture(TEXTURE, x + 80, y + 17, 176, 53, 16, 52);
+        drawContext.drawTexture(TEXTURE, x + 80, y + 17, 176, 0, 16, 52);
     }
 
     @Override
