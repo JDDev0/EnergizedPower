@@ -1274,6 +1274,13 @@
   "book.energizedpower.page.item_conveyor_belt_merger": "The Item Conveyor Belt Merger takes items evenly from the connected input conveyor belts (They must face a large square and must not be ascending) and puts them on the output conveyor belt.",
 
 
+  "book.energizedpower.page.chapter.fluids.title": "Fluids",
+  "book.energizedpower.page.chapter.fluids": "Fluids added in Energized Power",
+
+  "book.energizedpower.page.dirty_water.1": "Dirty Water is produced as a by-product in some machines which consume Water.",
+  "book.energizedpower.page.dirty_water.2": "Dirty Water can be cleaned in the Filtration Plant.",
+
+
   "book.energizedpower.page.chapter.machine_configuration.title": "Configuration",
   "book.energizedpower.page.chapter.machine_configuration": "Configuration of machines",
 

@@ -1274,6 +1274,13 @@
   "book.energizedpower.page.item_conveyor_belt_merger": "Der Item-Förderband-Vereiniger nimmt Items gleichmäßig von den verbundenen Eingabe-Förderbändern (Müssen zu einem großen Quadrat zeigen und dürfen nicht aufsteigend sein) und legt diese auf das Ausgabe-Förderband.",
 
 
+  "book.energizedpower.page.chapter.fluids.title": "Flüssigkeiten",
+  "book.energizedpower.page.chapter.fluids": "Flüssigkeiten, die von Energized Power hinzugefügt werden",
+
+  "book.energizedpower.page.dirty_water.1": "Schmutziges Wasser wird in manchen Maschinen, die Wasser konsumieren, als ein Nebenprodukt produziert.",
+  "book.energizedpower.page.dirty_water.2": "Schmutziges Wasser kann in der Filteranlage gereinigt werden.",
+
+
   "book.energizedpower.page.chapter.machine_configuration.title": "Konfiguration",
   "book.energizedpower.page.chapter.machine_configuration": "Konfiguration von Maschinen",
 
