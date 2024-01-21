@@ -1171,7 +1171,8 @@
   "book.energizedpower.page.auto_crafters.3": "The Auto Crafter can handle recipe conflicts, that is recipes with the same inputs. To do this, use the \"Cycle through recipes\" button or set the pattern via a recipe viewer mod (like REI).",
   "book.energizedpower.page.auto_crafters.4": "The advanced version of the Auto Crafter supports multiple recipes at once.",
 
-  "book.energizedpower.page.crusher": "The Crusher can crush blocks like Stone, Sandstone, Cobblestone, and Gravel.",
+  "book.energizedpower.page.crushers.1": "The Crusher can crush blocks like Stone, Sandstone, Cobblestone, and Gravel.",
+  "book.energizedpower.page.crushers.2": "The advanced version of the Crusher consumes Water and produces Dirty Water.",
 
   "book.energizedpower.page.pulverizer": "The Pulverizer produces ore dusts which can be smelted to ingots.",
 

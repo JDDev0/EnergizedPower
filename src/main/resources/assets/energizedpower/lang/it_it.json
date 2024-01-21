@@ -1171,7 +1171,8 @@
   "book.energizedpower.page.auto_crafters.3": "L'Auto Crafter può gestire i conflitti di ricette, ovvero ricette con gli stessi input. Per fare ciò, usa il pulsante \"Scorri le ricette\" o imposta lo schema tramite un mod visualizzatore di ricette (come REI).",
   "book.energizedpower.page.auto_crafters.4": "La versione avanzata di Auto Crafter supporta più ricette contemporaneamente.",
 
-  "book.energizedpower.page.crusher": "Il Frantumatore può frantumare blocchi come Pietra, Arenaria, Ciottoli e Ghiaia.",
+  "book.energizedpower.page.crushers.1": "Il Frantumatore può frantumare blocchi come Pietra, Arenaria, Ciottoli e Ghiaia.",
+  "book.energizedpower.page.crushers.2": "The advanced version of the Crusher consumes Water and produces Dirty Water.",
 
   "book.energizedpower.page.pulverizer": "Il Polverizzatore produce polveri di minerale che possono essere fuse in lingotti.",
 
