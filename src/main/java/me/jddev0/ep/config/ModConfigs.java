@@ -418,6 +418,28 @@ public final class ModConfigs {
             "block.crusher", "Crusher", 100
     );
 
+    public static final ConfigValue<Long> COMMON_ADVANCED_CRUSHER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.advanced_crusher", "Advanced Crusher", 4096
+    );
+    public static final ConfigValue<Long> COMMON_ADVANCED_CRUSHER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.advanced_crusher", "Advanced Crusher", 256
+    );
+    public static final ConfigValue<Long> COMMON_ADVANCED_CRUSHER_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.advanced_crusher", "Advanced Crusher", 32
+    );
+    public static final ConfigValue<Integer> COMMON_ADVANCED_CRUSHER_RECIPE_DURATION = registerRecipeDurationConfigValue(
+            "block.advanced_crusher", "Advanced Crusher", 50
+    );
+    public static final ConfigValue<Long> COMMON_ADVANCED_CRUSHER_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
+            "block.advanced_crusher", "Advanced Crusher", 8
+    );
+    public static final ConfigValue<Long> COMMON_ADVANCED_CRUSHER_WATER_USAGE_PER_RECIPE = COMMON_CONFIG.register(new LongConfigValue(
+            "block.advanced_crusher.water_usage_per_recipe",
+            "The amount of Water in mB (milli Buckets) which will be converted to Dirty Water per completed recipe",
+            10L,
+            1L, null
+    ));
+
     public static final ConfigValue<Long> COMMON_PULVERIZER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.pulverizer", "Pulverizer", 2048
     );
