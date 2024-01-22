@@ -428,7 +428,7 @@ public final class ModConfigs {
             "block.advanced_crusher", "Advanced Crusher", 32
     );
     public static final ConfigValue<Integer> COMMON_ADVANCED_CRUSHER_RECIPE_DURATION = registerRecipeDurationConfigValue(
-            "block.advanced_crusher", "Advanced Crusher", 50
+            "block.advanced_crusher", "Advanced Crusher", 25
     );
     public static final ConfigValue<Long> COMMON_ADVANCED_CRUSHER_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
             "block.advanced_crusher", "Advanced Crusher", 8
