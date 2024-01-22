@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:energized_copper_plates"
+    },
+    "F": {
+      "item": "energizedpower:fluid_tank_small"
+    },
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    },
+    "P": {
+      "item": "energizedpower:pulverizer"
+    }
+  },
+  "pattern": [
+    "CPC",
+    "FAF",
+    "CPC"
+  ],
+  "result": {
+    "item": "energizedpower:advanced_pulverizer"
+  }
+}
