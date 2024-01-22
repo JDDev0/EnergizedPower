@@ -21,6 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import me.jddev0.ep.util.EnergyUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
@@ -85,9 +86,7 @@ public class BatteryBoxBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
     public int getRedstoneOutput() {
-        boolean isEmptyFlag = internalEnergyStorage.amount == 0;
-
-        return Math.min(MathHelper.floor((float)internalEnergyStorage.amount / energyStorage.getCapacity() * 14.f) + (isEmptyFlag?0:1), 15);
+        return EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
     }
 
     @Override
