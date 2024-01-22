@@ -5,8 +5,6 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.SetFluidTankCheckboxC2SPacket;
-import me.jddev0.ep.networking.packet.SetFluidTankFilterC2SPacket;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -16,7 +14,6 @@ import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.minecraft.client.MinecraftClient;
@@ -65,7 +62,7 @@ public class FluidTankScreen extends HandledScreen<FluidTankMenu> {
                 buf.writeBlockPos(handler.getBlockEntity().getPos());
                 buf.writeInt(0);
                 buf.writeBoolean(!handler.isIgnoreNBT());
-                ClientPlayNetworking.send(ModMessages.SET_FLUID_TANK_CHECKBOX, buf);
+                ClientPlayNetworking.send(ModMessages.SET_FLUID_TANK_CHECKBOX_ID, buf);
                 clicked = true;
             }
 
@@ -91,7 +88,7 @@ public class FluidTankScreen extends HandledScreen<FluidTankMenu> {
                 PacketByteBuf buf = PacketByteBufs.create();
                 buf.writeBlockPos(handler.getBlockEntity().getPos());
                 fluidFilter.toPacket(buf);
-                ClientPlayNetworking.send(ModMessages.SET_FLUID_TANK_FILTER, buf);
+                ClientPlayNetworking.send(ModMessages.SET_FLUID_TANK_FILTER_ID, buf);
                 clicked = true;
             }
 
