@@ -5,6 +5,7 @@ import me.jddev0.ep.block.entity.MetalPressBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.MetalPressRecipe;
 import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
@@ -41,7 +42,7 @@ public class MetalPressMenu extends ScreenHandler implements EnergyStorageConsum
                     default -> super.isValid(slot, stack);
                 };
             }
-        }, new ArrayPropertyDelegate(10));
+        }, new ArrayPropertyDelegate(11));
     }
 
     public MetalPressMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
@@ -52,7 +53,7 @@ public class MetalPressMenu extends ScreenHandler implements EnergyStorageConsum
 
         this.inv = inv;
         checkSize(this.inv, 3);
-        checkDataCount(data, 10);
+        checkDataCount(data, 11);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -108,6 +109,10 @@ public class MetalPressMenu extends ScreenHandler implements EnergyStorageConsum
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(9));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(10));
     }
 
     @Override

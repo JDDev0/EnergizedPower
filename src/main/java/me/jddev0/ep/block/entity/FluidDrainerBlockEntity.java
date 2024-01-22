@@ -9,6 +9,8 @@ import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
@@ -42,6 +44,8 @@ import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import me.jddev0.ep.util.EnergyUtils;
+import me.jddev0.ep.util.FluidUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
@@ -50,7 +54,7 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import java.util.stream.IntStream;
 
 public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate,
-        FluidStoragePacketUpdate, RedstoneModeUpdate {
+        FluidStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
     public static final long CAPACITY = ModConfigs.COMMON_FLUID_DRAINER_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_FLUID_DRAINER_TRANSFER_RATE.getValue();
 
@@ -77,6 +81,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
     private boolean forceAllowStackUpdateFlag = false;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public FluidDrainerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.FLUID_DRAINER_ENTITY, blockPos, blockState);
@@ -208,6 +213,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
                     case 0, 1, 2, 3 -> ByteUtils.get2Bytes(FluidDrainerBlockEntity.this.fluidDrainingLeft, index);
                     case 4, 5, 6, 7 -> ByteUtils.get2Bytes(FluidDrainerBlockEntity.this.fluidDrainingSumPending, index - 4);
                     case 8 -> redstoneMode.ordinal();
+                    case 9 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -217,12 +223,13 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
                 switch(index) {
                     case 0, 1, 2, 3, 4, 5, 6, 7 -> {}
                     case 8 -> FluidDrainerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 9 -> FluidDrainerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 9;
+                return 10;
             }
         };
     }
@@ -259,7 +266,11 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     public int getRedstoneOutput() {
-        return ScreenHandler.calculateComparatorOutput(internalInventory);
+        return switch(comparatorMode) {
+            case ITEM -> ScreenHandler.calculateComparatorOutput(internalInventory);
+            case FLUID -> FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     @Override
@@ -274,6 +285,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
                 "recipe.fluid_draining_sum_pending", "recipe.fluid_draining_sum_pending_leftover_droplets", nbt);
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.writeNbt(nbt);
     }
@@ -292,6 +304,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
                 "recipe.fluid_draining_sum_pending_leftover_droplets", nbt);
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -442,6 +455,12 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
         markDirty();
     }
 }

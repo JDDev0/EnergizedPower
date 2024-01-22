@@ -24,6 +24,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;
@@ -50,6 +51,13 @@ public class FluidFillerScreen extends AbstractGenericEnergyStorageHandledScreen
                 PacketByteBuf buf = PacketByteBufs.create();
                 buf.writeBlockPos(handler.getBlockEntity().getPos());
                 ClientPlayNetworking.send(ModMessages.CHANGE_REDSTONE_MODE_ID, buf);
+                clicked = true;
+            }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+                //Comparator Mode
+
+                PacketByteBuf buf = PacketByteBufs.create();
+                buf.writeBlockPos(handler.getBlockEntity().getPos());
+                ClientPlayNetworking.send(ModMessages.CHANGE_COMPARATOR_MODE_ID, buf);
                 clicked = true;
             }
 
@@ -146,6 +154,15 @@ public class FluidFillerScreen extends AbstractGenericEnergyStorageHandledScreen
         }else {
             drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
         }
+
+        ComparatorMode comparatorMode = handler.getComparatorMode();
+        ordinal = comparatorMode.ordinal();
+
+        if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 60, 20, 20);
+        }else {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 40, 20, 20);
+        }
     }
 
     @Override
@@ -180,6 +197,15 @@ public class FluidFillerScreen extends AbstractGenericEnergyStorageHandledScreen
 
             List<Text> components = new ArrayList<>(2);
             components.add(Text.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.asString()));
+
+            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+        }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+            //Comparator Mode
+
+            ComparatorMode comparatorMode = handler.getComparatorMode();
+
+            List<Text> components = new ArrayList<>(2);
+            components.add(Text.translatable("tooltip.energizedpower.machine_configuration.comparator_mode." + comparatorMode.asString()));
 
             drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
         }

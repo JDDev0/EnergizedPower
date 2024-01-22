@@ -4,6 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.CrusherBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.CrusherRecipe;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
@@ -37,7 +38,7 @@ public class CrusherMenu extends ScreenHandler implements EnergyStorageConsumerI
                     default -> super.isValid(slot, stack);
                 };
             }
-        }, new ArrayPropertyDelegate(10));
+        }, new ArrayPropertyDelegate(11));
     }
 
     public CrusherMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
@@ -48,7 +49,7 @@ public class CrusherMenu extends ScreenHandler implements EnergyStorageConsumerI
 
         this.inv = inv;
         checkSize(this.inv, 2);
-        checkDataCount(data, 10);
+        checkDataCount(data, 11);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -98,6 +99,10 @@ public class CrusherMenu extends ScreenHandler implements EnergyStorageConsumerI
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(9));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(10));
     }
 
     @Override
