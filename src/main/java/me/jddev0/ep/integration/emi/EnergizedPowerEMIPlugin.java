@@ -75,6 +75,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
         registry.addCategory(StoneSolidifierEMIRecipe.CATEGORY);
         registry.addWorkstation(StoneSolidifierEMIRecipe.CATEGORY, StoneSolidifierEMIRecipe.ITEM);
 
+        registry.addCategory(FiltrationPlantEMIRecipe.CATEGORY);
+        registry.addWorkstation(FiltrationPlantEMIRecipe.CATEGORY, FiltrationPlantEMIRecipe.ITEM);
+
         registry.addCategory(DispenserEMIRecipe.CATEGORY);
         registry.addWorkstation(DispenserEMIRecipe.CATEGORY, DispenserEMIRecipe.ITEM);
 
@@ -123,6 +126,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
         for(RecipeEntry<StoneSolidifierRecipe> recipe:recipeManager.listAllOfType(StoneSolidifierRecipe.Type.INSTANCE))
             registry.addRecipe(new StoneSolidifierEMIRecipe(recipe));
+
+        for(RecipeEntry<FiltrationPlantRecipe> recipe:recipeManager.listAllOfType(FiltrationPlantRecipe.Type.INSTANCE))
+            registry.addRecipe(new FiltrationPlantEMIRecipe(recipe));
 
         registry.addRecipe(new DispenserEMIRecipe(new DispenserEMIRecipe.DispenserRecipe(
                 new Identifier(EnergizedPowerMod.MODID, "dispenser/energizedpower/cable_insulator"),

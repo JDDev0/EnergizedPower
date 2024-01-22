@@ -2,7 +2,7 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import me.jddev0.ep.block.entity.AdvancedCrusherBlockEntity;
+import me.jddev0.ep.block.entity.FiltrationPlantBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.codec.CodecFix;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -34,16 +34,16 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class AdvancedCrusherBlock extends BlockWithEntity {
-    public static final MapCodec<AdvancedCrusherBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+public class FiltrationPlantBlock extends BlockWithEntity {
+    public static final MapCodec<FiltrationPlantBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
             return (FabricBlockSettings)block.getSettings();
-        })).apply(instance, AdvancedCrusherBlock::new);
+        })).apply(instance, FiltrationPlantBlock::new);
     });
 
     public static final BooleanProperty POWERED = Properties.POWERED;
 
-    public AdvancedCrusherBlock(FabricBlockSettings props) {
+    public FiltrationPlantBlock(FabricBlockSettings props) {
         super(props);
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false));
@@ -57,7 +57,7 @@ public class AdvancedCrusherBlock extends BlockWithEntity {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
-        return new AdvancedCrusherBlockEntity(blockPos, state);
+        return new FiltrationPlantBlockEntity(blockPos, state);
     }
 
     @Override
@@ -73,10 +73,10 @@ public class AdvancedCrusherBlock extends BlockWithEntity {
     @Override
     public int getComparatorOutput(BlockState state, World level, BlockPos blockPos) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(!(blockEntity instanceof AdvancedCrusherBlockEntity advancedCrusherBlockEntity))
+        if(!(blockEntity instanceof FiltrationPlantBlockEntity filtrationPlantBlockEntity))
             return super.getComparatorOutput(state, level, blockPos);
 
-        return advancedCrusherBlockEntity.getRedstoneOutput();
+        return filtrationPlantBlockEntity.getRedstoneOutput();
     }
 
     @Override
@@ -85,10 +85,10 @@ public class AdvancedCrusherBlock extends BlockWithEntity {
             return;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(!(blockEntity instanceof AdvancedCrusherBlockEntity))
+        if(!(blockEntity instanceof FiltrationPlantBlockEntity))
             return;
 
-        ((AdvancedCrusherBlockEntity)blockEntity).drops(level, blockPos);
+        ((FiltrationPlantBlockEntity)blockEntity).drops(level, blockPos);
 
         super.onStateReplaced(state, level, blockPos, newState, isMoving);
     }
@@ -99,10 +99,10 @@ public class AdvancedCrusherBlock extends BlockWithEntity {
             return ActionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(!(blockEntity instanceof AdvancedCrusherBlockEntity))
+        if(!(blockEntity instanceof FiltrationPlantBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        player.openHandledScreen((AdvancedCrusherBlockEntity)blockEntity);
+        player.openHandledScreen((FiltrationPlantBlockEntity)blockEntity);
 
         return ActionResult.SUCCESS;
     }
@@ -132,7 +132,7 @@ public class AdvancedCrusherBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.ADVANCED_CRUSHER_ENTITY, AdvancedCrusherBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.FILTRATION_PLANT_ENTITY, FiltrationPlantBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
@@ -143,7 +143,7 @@ public class AdvancedCrusherBlock extends BlockWithEntity {
         @Override
         public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
             if(Screen.hasShiftDown()) {
-                tooltip.add(Text.translatable("tooltip.energizedpower.advanced_crusher.txt.shift.1").formatted(Formatting.GRAY));
+                tooltip.add(Text.translatable("tooltip.energizedpower.filtration_plant.txt.shift.1").formatted(Formatting.GRAY));
             }else {
                 tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }

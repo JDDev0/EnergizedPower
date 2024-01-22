@@ -433,6 +433,15 @@
   "tooltip.energizedpower.stone_solidifier.btn.up": "Prossima ricetta",
   "tooltip.energizedpower.stone_solidifier.btn.down": "Ricetta precedente",
 
+  "block.energizedpower.filtration_plant": "Filtration Plant",
+  "item.energizedpower.filtration_plant": "Filtration Plant",
+  "container.energizedpower.filtration_plant": "Filtration Plant",
+
+  "tooltip.energizedpower.filtration_plant.txt.shift.1": "This block requires Charcoal Filters.",
+  "tooltip.energizedpower.filtration_plant.btn.up": "Next recipe",
+  "tooltip.energizedpower.filtration_plant.btn.down": "Previous recipe",
+  "tooltip.energizedpower.filtration_plant.charcoal_filter_missing": "Charcoal Filter is missing!",
+
   "block.energizedpower.block_placer": "Posizionatore di blocchi",
   "item.energizedpower.block_placer": "Posizionatore di blocchi",
   "container.energizedpower.block_placer": "Posizionatore di blocchi",
@@ -609,6 +618,7 @@
   "emi.category.energizedpower.crystal_growth_chamber": "Camera di crescita dei cristalli",
   "emi.category.energizedpower.press_mold_maker": "Pressa creatore di stampi",
   "emi.category.energizedpower.stone_solidifier": "Solidificatore per pietre",
+  "emi.category.energizedpower.filtration_plant": "Filtration Plant",
   "emi.category.energizedpower.dispenser": "Distributore",
   "emi.category.energizedpower.in_world_crafting": "Creazione nel mondo",
 

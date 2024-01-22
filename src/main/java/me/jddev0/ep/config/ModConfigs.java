@@ -676,6 +676,27 @@ public final class ModConfigs {
             "block.stone_solidifier", "Stone Solidifier", 25
     );
 
+    public static final ConfigValue<Long> COMMON_FILTRATION_PLANT_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.filtration_plant", "Filtration Plant", 4096
+    );
+    public static final ConfigValue<Long> COMMON_FILTRATION_PLANT_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.filtration_plant", "Filtration Plant", 256
+    );
+    public static final ConfigValue<Long> COMMON_FILTRATION_PLANT_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.filtration_plant", "Filtration Plant", 128
+    );
+    public static final ConfigValue<Long> COMMON_FILTRATION_PLANT_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
+            "block.filtration_plant", "Filtration Plant", 8
+    );
+    public static final ConfigValue<Integer> COMMON_FILTRATION_PLANT_RECIPE_DURATION = registerRecipeDurationConfigValue(
+            "block.filtration_plant", "Filtration Plant", 1000
+    );
+    public static final ConfigValue<Long> COMMON_FILTRATION_PLANT_DIRTY_WATER_USAGE_PER_RECIPE = COMMON_CONFIG.register(new LongConfigValue(
+            "block.filtration_plant.water_usage_per_recipe",
+            "The amount of Dirty Water in mB (milli Buckets) which will be converted to Water per completed recipe in the Filtration Plant.",
+            100L,
+            1L, null
+    ));
     public static final ConfigValue<Long> COMMON_FLUID_FILLER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.fluid_filler", "Fluid Filler", 2048
     );
