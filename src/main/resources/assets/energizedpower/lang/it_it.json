@@ -1206,7 +1206,8 @@
   "book.energizedpower.page.stone_solidifier.1": "Il Solidificatore della Pietra produce blocchi di Pietra da Acqua e Lava.",
   "book.energizedpower.page.stone_solidifier.2": "I fluidi devono essere inseriti tramite un tubo.",
 
-  "book.energizedpower.page.filtration_plant": "The Filtration Plant can filter raw ores from Dirty Water.",
+  "book.energizedpower.page.filtration_plant.1": "The Filtration Plant can filter raw ores from Dirty Water.",
+  "book.energizedpower.page.filtration_plant.2": "Charcoal Filters can be inserted from every block face. Outputs can be extracted from block face.",
 
   "book.energizedpower.page.block_placer.1": "Il piazzatore di blocchi può posizionare tutti i blocchi (anche porte e semi).",
   "book.energizedpower.page.block_placer.2": "I blocchi verranno posizionati solo se possibile.",
