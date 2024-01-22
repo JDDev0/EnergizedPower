@@ -36,9 +36,10 @@ public final class ModMessages {
     public static Identifier CRAFT_PRESS_MOLD_MAKER_RECIPE_ID = new Identifier(EnergizedPowerMod.MODID, "craft_press_mold_maker_recipe");
     public static Identifier CHANGE_STONE_SOLIDIFIER_RECIPE_INDEX_ID = new Identifier(EnergizedPowerMod.MODID, "change_stone_solidifer_recipe_index");
     public static Identifier CHANGE_REDSTONE_MODE_ID = new Identifier(EnergizedPowerMod.MODID, "change_redstone_mode");
-    public static Identifier SET_FLUID_TANK_CHECKBOX = new Identifier(EnergizedPowerMod.MODID, "set_fluid_tank_checkbox");
-    public static Identifier SET_FLUID_TANK_FILTER = new Identifier(EnergizedPowerMod.MODID, "set_fluid_tank_filter");
-    public static Identifier CHANGE_FILTRATION_PLANT_RECIPE_INDEX = new Identifier(EnergizedPowerMod.MODID, "change_filtration_plant_recipe_index");
+    public static Identifier SET_FLUID_TANK_CHECKBOX_ID = new Identifier(EnergizedPowerMod.MODID, "set_fluid_tank_checkbox");
+    public static Identifier SET_FLUID_TANK_FILTER_ID = new Identifier(EnergizedPowerMod.MODID, "set_fluid_tank_filter");
+    public static Identifier CHANGE_FILTRATION_PLANT_RECIPE_INDEX_ID = new Identifier(EnergizedPowerMod.MODID, "change_filtration_plant_recipe_index");
+    public static Identifier CHANGE_COMPARATOR_MODE_ID = new Identifier(EnergizedPowerMod.MODID, "change_comparator_mode");
 
     private ModMessages() {}
 
@@ -91,11 +92,13 @@ public final class ModMessages {
 
         ServerPlayNetworking.registerGlobalReceiver(CHANGE_REDSTONE_MODE_ID, ChangeRedstoneModeC2SPacket::receive);
 
-        ServerPlayNetworking.registerGlobalReceiver(SET_FLUID_TANK_CHECKBOX, SetFluidTankCheckboxC2SPacket::receive);
+        ServerPlayNetworking.registerGlobalReceiver(SET_FLUID_TANK_CHECKBOX_ID, SetFluidTankCheckboxC2SPacket::receive);
 
-        ServerPlayNetworking.registerGlobalReceiver(SET_FLUID_TANK_FILTER, SetFluidTankFilterC2SPacket::receive);
+        ServerPlayNetworking.registerGlobalReceiver(SET_FLUID_TANK_FILTER_ID, SetFluidTankFilterC2SPacket::receive);
 
-        ServerPlayNetworking.registerGlobalReceiver(CHANGE_FILTRATION_PLANT_RECIPE_INDEX, ChangeFiltrationPlantRecipeIndexC2SPacket::receive);
+        ServerPlayNetworking.registerGlobalReceiver(CHANGE_FILTRATION_PLANT_RECIPE_INDEX_ID, ChangeFiltrationPlantRecipeIndexC2SPacket::receive);
+
+        ServerPlayNetworking.registerGlobalReceiver(CHANGE_COMPARATOR_MODE_ID, ChangeComparatorModeC2SPacket::receive);
     }
 
     public static void broadcastServerPacket(MinecraftServer server, Identifier channelName, PacketByteBuf buf) {
