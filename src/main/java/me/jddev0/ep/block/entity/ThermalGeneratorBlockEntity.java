@@ -202,16 +202,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
     }
 
     public int getRedstoneOutput() {
-        float fullnessPercent = 0;
-        boolean isEmptyFlag = true;
-
-        FluidStack fluid = fluidStorage.getFluid();
-        if(!fluidStorage.isEmpty()) {
-            fullnessPercent = (float)fluid.getDropletsAmount() / fluidStorage.getCapacity();
-            isEmptyFlag = false;
-        }
-
-        return Math.min(MathHelper.floor(fullnessPercent * 14.f) + (isEmptyFlag?0:1), 15);
+        return FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
     }
 
     @Override

@@ -24,6 +24,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import me.jddev0.ep.util.FluidUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -165,16 +166,7 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
     }
 
     public int getRedstoneOutput() {
-        float fullnessPercent = 0;
-        boolean isEmptyFlag = true;
-
-        FluidStack fluid = fluidStorage.getFluid();
-        if(!fluidStorage.isEmpty()) {
-            fullnessPercent = (float)fluid.getDropletsAmount() / fluidStorage.getCapacity();
-            isEmptyFlag = false;
-        }
-
-        return Math.min(MathHelper.floor(fullnessPercent * 14.f) + (isEmptyFlag?0:1), 15);
+        return FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
     }
 
     @Override
