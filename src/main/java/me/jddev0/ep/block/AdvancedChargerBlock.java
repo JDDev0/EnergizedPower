@@ -131,7 +131,10 @@ public class AdvancedChargerBlock extends BlockWithEntity {
             if(Screen.hasShiftDown()) {
                 tooltip.add(Text.translatable("tooltip.energizedpower.chargers.txt.shift.1").
                         formatted(Formatting.GRAY));
-                tooltip.add(Text.translatable("tooltip.energizedpower.chargers.txt.shift.2").
+                tooltip.add(Text.empty());
+                tooltip.add(Text.translatable("tooltip.energizedpower.chargers.txt.shift.2.1").
+                        formatted(Formatting.GRAY, Formatting.ITALIC));
+                tooltip.add(Text.translatable("tooltip.energizedpower.chargers.txt.shift.2.2").
                         formatted(Formatting.GRAY, Formatting.ITALIC));
             }else {
                 tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
