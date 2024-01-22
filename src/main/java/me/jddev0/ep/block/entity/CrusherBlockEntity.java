@@ -6,12 +6,15 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.CrusherRecipe;
 import me.jddev0.ep.screen.CrusherMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -45,7 +48,8 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-public class CrusherBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
+public class CrusherBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate,
+        ComparatorModeUpdate {
     public static final long CAPACITY = ModConfigs.COMMON_CRUSHER_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_CRUSHER_TRANSFER_RATE.getValue();
     private static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_CRUSHER_ENERGY_CONSUMPTION_PER_TICK.getValue();
@@ -64,6 +68,7 @@ public class CrusherBlockEntity extends BlockEntity implements ExtendedScreenHan
     private boolean hasEnoughEnergy;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public CrusherBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CRUSHER_ENTITY, blockPos, blockState);
@@ -144,6 +149,7 @@ public class CrusherBlockEntity extends BlockEntity implements ExtendedScreenHan
                     case 4, 5, 6, 7 -> ByteUtils.get2Bytes(CrusherBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 8 -> hasEnoughEnergy?1:0;
                     case 9 -> redstoneMode.ordinal();
+                    case 10 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -159,12 +165,13 @@ public class CrusherBlockEntity extends BlockEntity implements ExtendedScreenHan
                     );
                     case 4, 5, 6, 7, 8 -> {}
                     case 9 -> CrusherBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 10 -> CrusherBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 10;
+                return 11;
             }
         };
     }
@@ -175,7 +182,11 @@ public class CrusherBlockEntity extends BlockEntity implements ExtendedScreenHan
     }
 
     public int getRedstoneOutput() {
-        return ScreenHandler.calculateComparatorOutput(internalInventory);
+        return switch(comparatorMode) {
+            case ITEM -> ScreenHandler.calculateComparatorOutput(internalInventory);
+            case FLUID -> 0;
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     @Nullable
@@ -205,6 +216,7 @@ public class CrusherBlockEntity extends BlockEntity implements ExtendedScreenHan
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.writeNbt(nbt);
     }
@@ -220,6 +232,7 @@ public class CrusherBlockEntity extends BlockEntity implements ExtendedScreenHan
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -331,6 +344,14 @@ public class CrusherBlockEntity extends BlockEntity implements ExtendedScreenHan
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        do {
+            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
+        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
         markDirty();
     }
 }

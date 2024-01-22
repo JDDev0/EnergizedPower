@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.UnchargerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
@@ -50,7 +51,7 @@ public class UnchargerMenu extends ScreenHandler implements EnergyStorageProduce
             public int getMaxCountPerStack() {
                 return 1;
             }
-        }, new ArrayPropertyDelegate(5));
+        }, new ArrayPropertyDelegate(6));
     }
 
     public UnchargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
@@ -60,7 +61,7 @@ public class UnchargerMenu extends ScreenHandler implements EnergyStorageProduce
 
         this.inv = inv;
         checkSize(this.inv, 1);
-        checkDataCount(data, 4);
+        checkDataCount(data, 6);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -90,6 +91,10 @@ public class UnchargerMenu extends ScreenHandler implements EnergyStorageProduce
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(4));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(5));
     }
 
     @Override

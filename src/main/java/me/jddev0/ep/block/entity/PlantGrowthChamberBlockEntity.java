@@ -6,6 +6,8 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
@@ -13,6 +15,7 @@ import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
 import me.jddev0.ep.screen.PlantGrowthChamberMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -50,7 +53,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-public class PlantGrowthChamberBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
+public class PlantGrowthChamberBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate,
+        ComparatorModeUpdate {
     private static final long CAPACITY = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_CAPACITY.getValue();
 
     private static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_ENERGY_CONSUMPTION_PER_TICK.getValue();
@@ -76,6 +80,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     private double energyConsumptionMultiplier = 1;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public PlantGrowthChamberBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.PLANT_GROWTH_CHAMBER_ENTITY, blockPos, blockState);
@@ -174,6 +179,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
                     case 4, 5, 6, 7 -> ByteUtils.get2Bytes(PlantGrowthChamberBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 8 -> hasEnoughEnergy?1:0;
                     case 9 -> redstoneMode.ordinal();
+                    case 10 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -189,12 +195,13 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
                     );
                     case 4, 5, 6, 7, 8 -> {}
                     case 9 -> PlantGrowthChamberBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 10 -> PlantGrowthChamberBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 10;
+                return 11;
             }
         };
     }
@@ -205,7 +212,11 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     }
 
     public int getRedstoneOutput() {
-        return ScreenHandler.calculateComparatorOutput(internalInventory);
+        return switch(comparatorMode) {
+            case ITEM -> ScreenHandler.calculateComparatorOutput(internalInventory);
+            case FLUID -> 0;
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     @Nullable
@@ -237,6 +248,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
         nbt.put("recipe.energy_consumption_multiplier", NbtDouble.of(energyConsumptionMultiplier));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.writeNbt(nbt);
     }
@@ -254,6 +266,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
         energyConsumptionMultiplier = nbt.getDouble("recipe.energy_consumption_multiplier");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -462,6 +475,14 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        do {
+            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
+        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
         markDirty();
     }
 }
