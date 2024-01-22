@@ -63,6 +63,9 @@ public final class ModItems {
     public static final Item SAWDUST = registerItem("sawdust",
             new Item(new FabricItemSettings()));
 
+    public static final Item CHARCOAL_DUST = registerItem("charcoal_dust",
+            new Item(new FabricItemSettings()));
+
     public static final Item BASIC_FERTILIZER = registerItem("basic_fertilizer",
             new Item(new FabricItemSettings()));
 
