@@ -5,8 +5,6 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.ChangeFiltrationPlantRecipeIndexC2SPacket;
-import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import me.jddev0.ep.recipe.FiltrationPlantRecipe;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
@@ -71,7 +69,7 @@ public class FiltrationPlantScreen extends AbstractGenericEnergyStorageHandledSc
                 PacketByteBuf buf = PacketByteBufs.create();
                 buf.writeBlockPos(handler.getBlockEntity().getPos());
                 buf.writeBoolean(diff == 1);
-                ClientPlayNetworking.send(ModMessages.CHANGE_FILTRATION_PLANT_RECIPE_INDEX, buf);
+                ClientPlayNetworking.send(ModMessages.CHANGE_FILTRATION_PLANT_RECIPE_INDEX_ID, buf);
             }
 
             if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
