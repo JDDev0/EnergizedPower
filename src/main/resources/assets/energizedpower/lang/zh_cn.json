@@ -1206,7 +1206,8 @@
   "book.energizedpower.page.stone_solidifier.1": "The Stone Solidifier produces Stone blocks from Water and Lava.",
   "book.energizedpower.page.stone_solidifier.2": "Fluids must be inserted with a pipe.",
 
-  "book.energizedpower.page.filtration_plant": "The Filtration Plant can filter raw ores from Dirty Water.",
+  "book.energizedpower.page.filtration_plant.1": "The Filtration Plant can filter raw ores from Dirty Water.",
+  "book.energizedpower.page.filtration_plant.2": "Charcoal Filters can be inserted from every block face. Outputs can be extracted from block face.",
 
   "book.energizedpower.page.block_placer.1": "方块放置器可以放置所有的方块（甚至可以是门和种子）。",
   "book.energizedpower.page.block_placer.2": "只有在可以放置方块的情况下才会放置方块。",
