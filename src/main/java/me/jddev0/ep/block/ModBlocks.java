@@ -1,7 +1,6 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.item.ModItems;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -237,6 +236,12 @@ public final class ModBlocks {
             new CrusherBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item CRUSHER_ITEM = createBlockItem("crusher", CRUSHER);
+
+    public static final Block ADVANCED_CRUSHER = registerBlock("advanced_crusher",
+            new AdvancedCrusherBlock(FabricBlockSettings.create().
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item ADVANCED_CRUSHER_ITEM = createBlockItem("advanced_crusher",
+            new AdvancedCrusherBlock.Item(ADVANCED_CRUSHER, new FabricItemSettings()));
 
     public static final Block PULVERIZER = registerBlock("pulverizer",
             new PulverizerBlock(FabricBlockSettings.create().

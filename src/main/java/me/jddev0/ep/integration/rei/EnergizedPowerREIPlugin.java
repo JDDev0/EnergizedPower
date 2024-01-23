@@ -37,7 +37,8 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
                 EntryStacks.of(ModBlocks.ADVANCED_CHARGER_ITEM));
 
         registry.add(new CrusherCategory());
-        registry.addWorkstations(CrusherCategory.CATEGORY, EntryStacks.of(ModBlocks.CRUSHER_ITEM));
+        registry.addWorkstations(CrusherCategory.CATEGORY, EntryStacks.of(ModBlocks.CRUSHER_ITEM),
+                EntryStacks.of(ModBlocks.ADVANCED_CRUSHER_ITEM));
 
         registry.add(new PulverizerCategory());
         registry.addWorkstations(PulverizerCategory.CATEGORY, EntryStacks.of(ModBlocks.PULVERIZER_ITEM));
@@ -132,6 +133,8 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
 
         registry.registerContainerClickArea(new Rectangle(80, 34, 24, 17),
                 CrusherScreen.class, CrusherCategory.CATEGORY);
+        registry.registerContainerClickArea(new Rectangle(90, 34, 24, 17),
+                AdvancedCrusherScreen.class, CrusherCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(68, 34, 24, 17),
                 PulverizerScreen.class, PulverizerCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(68, 34, 24, 17),
