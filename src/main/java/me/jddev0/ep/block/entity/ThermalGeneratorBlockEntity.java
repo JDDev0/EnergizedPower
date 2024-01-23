@@ -6,12 +6,15 @@ import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.ThermalGeneratorRecipe;
 import me.jddev0.ep.screen.ThermalGeneratorMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -45,7 +48,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ThermalGeneratorBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate,
-        FluidStoragePacketUpdate, RedstoneModeUpdate {
+        FluidStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
     private static final long CAPACITY = ModConfigs.COMMON_THERMAL_GENERATOR_CAPACITY.getValue();
     private static final long MAX_EXTRACT = ModConfigs.COMMON_THERMAL_GENERATOR_TRANSFER_RATE.getValue();
 
@@ -59,6 +62,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
     protected final PropertyDelegate data;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.FLUID;
 
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.THERMAL_GENERATOR_ENTITY, blockPos, blockState);
@@ -129,6 +133,8 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
             public int get(int index) {
                 if(index == 4)
                     return redstoneMode.ordinal();
+                else if(index == 5)
+                    return comparatorMode.ordinal();
 
                 if(world == null || index > 3)
                     return 0;
@@ -161,12 +167,13 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
                 switch(index) {
                     case 0, 1, 2, 3 -> {}
                     case 4 -> ThermalGeneratorBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 5 -> ThermalGeneratorBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 5;
+                return 6;
             }
         };
     }
@@ -203,7 +210,11 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
     }
 
     public int getRedstoneOutput() {
-        return FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
+        return switch(comparatorMode) {
+            case ITEM -> 0;
+            case FLUID -> FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     @Override
@@ -212,6 +223,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
         nbt.put("fluid", fluidStorage.toNBT(new NbtCompound()));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.writeNbt(nbt);
     }
@@ -224,6 +236,8 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
         fluidStorage.fromNBT(nbt.getCompound("fluid"));
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = nbt.contains("configuration.comparator_mode")?
+                ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode")):ComparatorMode.FLUID;
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
@@ -392,6 +406,14 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        do {
+            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
+        }while(comparatorMode == ComparatorMode.ITEM); //Prevent the ITEM comparator mode from being selected
         markDirty();
     }
 }

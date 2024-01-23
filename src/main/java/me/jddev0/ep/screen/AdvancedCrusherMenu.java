@@ -4,6 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AdvancedCrusherBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.recipe.CrusherRecipe;
 import me.jddev0.ep.util.ByteUtils;
@@ -38,7 +39,7 @@ public class AdvancedCrusherMenu extends ScreenHandler implements EnergyStorageC
                     default -> super.isValid(slot, stack);
                 };
             }
-        }, new ArrayPropertyDelegate(10));
+        }, new ArrayPropertyDelegate(11));
     }
 
     public AdvancedCrusherMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
@@ -49,7 +50,7 @@ public class AdvancedCrusherMenu extends ScreenHandler implements EnergyStorageC
 
         this.inv = inv;
         checkSize(this.inv, 2);
-        checkDataCount(data, 10);
+        checkDataCount(data, 11);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -107,6 +108,10 @@ public class AdvancedCrusherMenu extends ScreenHandler implements EnergyStorageC
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(9));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(10));
     }
 
     @Override

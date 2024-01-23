@@ -4,6 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AdvancedChargerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.ChargerRecipe;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
@@ -55,7 +56,7 @@ public class AdvancedChargerMenu extends ScreenHandler implements EnergyStorageC
             public int getMaxCountPerStack() {
                 return 1;
             }
-        }, new ArrayPropertyDelegate(13));
+        }, new ArrayPropertyDelegate(14));
     }
 
     public AdvancedChargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
@@ -65,7 +66,7 @@ public class AdvancedChargerMenu extends ScreenHandler implements EnergyStorageC
 
         this.inv = inv;
         checkSize(this.inv, 3);
-        checkDataCount(data, 13);
+        checkDataCount(data, 14);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -115,6 +116,10 @@ public class AdvancedChargerMenu extends ScreenHandler implements EnergyStorageC
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(12));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(13));
     }
 
     @Override
