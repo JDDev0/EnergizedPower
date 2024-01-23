@@ -11,6 +11,7 @@ import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
+import net.fabricmc.fabric.api.transfer.v1.fluid.CauldronFluidContent;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
@@ -18,11 +19,14 @@ import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.FluidDrainable;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtInt;
@@ -31,6 +35,7 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -189,6 +194,38 @@ public class DrainBlockEntity extends BlockEntity implements ExtendedScreenHandl
                             }
                         }
                     }
+                }else {
+                    CauldronFluidContent cauldronFluidContent = CauldronFluidContent.getForBlock(aboveBlockState.getBlock());
+                    if(cauldronFluidContent != null) {
+                        Fluid cauldronFluid = cauldronFluidContent.fluid;
+                        if(cauldronFluid != Fluids.EMPTY && (blockEntity.fluidStorage.isEmpty() ||
+                                blockEntity.fluidStorage.getFluid().getFluid() == cauldronFluid)) {
+                            long cauldronAmountPerLevel = cauldronFluidContent.amountPerLevel;
+                            IntProperty cauldronLevelProp = cauldronFluidContent.levelProperty;
+
+                            long amountInsertable = blockEntity.fluidStorage.capacity - blockEntity.fluidStorage.amount;
+
+                            long cauldronAmount;
+                            if(cauldronLevelProp != null && aboveBlockState.contains(cauldronLevelProp))
+                                cauldronAmount = cauldronAmountPerLevel * aboveBlockState.get(cauldronLevelProp);
+                            else
+                                cauldronAmount = cauldronAmountPerLevel;
+
+                            if(cauldronAmount > 0 && cauldronAmount <= amountInsertable) {
+                                long inserted;
+                                try(Transaction transaction = Transaction.openOuter()) {
+                                    inserted = blockEntity.fluidStorage.insert(FluidVariant.of(cauldronFluid), cauldronAmount, transaction);
+                                    if(inserted == cauldronAmount) {
+                                        transaction.commit();
+                                    }
+                                }
+
+                                if(inserted == cauldronAmount) {
+                                    level.setBlockState(aboveBlockPos, Blocks.CAULDRON.getDefaultState(), 3);
+                                }
+                            }
+                        }
+                    }
                 }
 
                 blockEntity.resetProgress(blockPos, state);
@@ -212,17 +249,37 @@ public class DrainBlockEntity extends BlockEntity implements ExtendedScreenHandl
         BlockPos aboveBlockPos = blockPos.up();
         BlockState aboveBlockState = level.getBlockState(aboveBlockPos);
 
-        if(!(aboveBlockState.getBlock() instanceof FluidDrainable))
-            return false;
-
-        FluidState fluidState = level.getFluidState(aboveBlockPos);
-        if(fluidState.isEmpty())
-            return false;
-
-        try(Transaction transaction = Transaction.openOuter()) {
-            return blockEntity.fluidStorage.insert(FluidVariant.of(fluidState.getFluid()), FluidConstants.BLOCK,
-                    transaction) == FluidConstants.BLOCK;
+        if((aboveBlockState.getBlock() instanceof FluidDrainable)) {
+            FluidState fluidState = level.getFluidState(aboveBlockPos);
+            if(!fluidState.isEmpty()) {
+                try(Transaction transaction = Transaction.openOuter()) {
+                    return blockEntity.fluidStorage.insert(FluidVariant.of(fluidState.getFluid()), FluidConstants.BLOCK,
+                            transaction) == FluidConstants.BLOCK;
+                }
+            }
         }
+
+        CauldronFluidContent cauldronFluidContent = CauldronFluidContent.getForBlock(aboveBlockState.getBlock());
+        if(cauldronFluidContent == null)
+            return false;
+
+        Fluid cauldronFluid = cauldronFluidContent.fluid;
+        if(cauldronFluid == Fluids.EMPTY ||
+                (!blockEntity.fluidStorage.isEmpty() && blockEntity.fluidStorage.getFluid().getFluid() != cauldronFluid))
+            return false;
+
+        long cauldronAmountPerLevel = cauldronFluidContent.amountPerLevel;
+        IntProperty cauldronLevelProp = cauldronFluidContent.levelProperty;
+
+        long amountInsertable = blockEntity.fluidStorage.capacity - blockEntity.fluidStorage.amount;
+
+        long cauldronAmount;
+        if(cauldronLevelProp != null && aboveBlockState.contains(cauldronLevelProp))
+            cauldronAmount = cauldronAmountPerLevel * aboveBlockState.get(cauldronLevelProp);
+        else
+            cauldronAmount = cauldronAmountPerLevel;
+
+        return cauldronAmount > 0 && cauldronAmount <= amountInsertable;
     }
 
     public FluidStack getFluid(int tank) {
