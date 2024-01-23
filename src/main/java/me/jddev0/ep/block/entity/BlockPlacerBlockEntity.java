@@ -5,12 +5,15 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.BlockPlacerMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -45,7 +48,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
+public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate,
+        ComparatorModeUpdate {
     private static final List<@NotNull ResourceLocation> PLACEMENT_BLACKLIST = ModConfigs.COMMON_BLOCK_PLACER_PLACEMENT_BLACKLIST.getValue();
 
     private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_BLOCK_PLACER_ENERGY_CONSUMPTION_PER_TICK.getValue();
@@ -97,6 +101,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
     private boolean inverseRotation;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public BlockPlacerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.BLOCK_PLACER_ENTITY.get(), blockPos, blockState);
@@ -124,6 +129,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
                     case 6 -> hasEnoughEnergy?1:0;
                     case 7 -> inverseRotation?1:0;
                     case 8 -> redstoneMode.ordinal();
+                    case 9 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -140,12 +146,13 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
                     case 4, 5, 6 -> {}
                     case 7 -> BlockPlacerBlockEntity.this.inverseRotation = value != 0;
                     case 8 -> BlockPlacerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 9 -> BlockPlacerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 9;
+                return 10;
             }
         };
 
@@ -168,7 +175,11 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     public int getRedstoneOutput() {
-        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+        return switch(comparatorMode) {
+            case ITEM -> InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+            case FLUID -> 0;
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     @Override
@@ -196,6 +207,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
         nbt.putBoolean("inverse_rotation", inverseRotation);
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.saveAdditional(nbt);
     }
@@ -213,6 +225,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
         inverseRotation = nbt.getBoolean("inverse_rotation");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -374,6 +387,14 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        do {
+            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
+        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
         setChanged();
     }
 }

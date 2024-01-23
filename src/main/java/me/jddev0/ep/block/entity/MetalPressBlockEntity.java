@@ -5,6 +5,8 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
@@ -13,6 +15,7 @@ import me.jddev0.ep.recipe.MetalPressRecipe;
 import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
 import me.jddev0.ep.screen.MetalPressMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,7 +46,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
+public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate,
+        ComparatorModeUpdate {
     private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_METAL_PRESS_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(3) {
@@ -99,6 +103,7 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
     private boolean hasEnoughEnergy;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public MetalPressBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.METAL_PRESS_ENTITY.get(), blockPos, blockState);
@@ -125,6 +130,7 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
                     case 4, 5 -> ByteUtils.get2Bytes(MetalPressBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 6 -> hasEnoughEnergy?1:0;
                     case 7 -> redstoneMode.ordinal();
+                    case 8 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -140,12 +146,13 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
                     );
                     case 4, 5, 6 -> {}
                     case 7 -> MetalPressBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 8 -> MetalPressBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 8;
+                return 9;
             }
         };
 
@@ -168,7 +175,11 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
     }
 
     public int getRedstoneOutput() {
-        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+        return switch(comparatorMode) {
+            case ITEM -> InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+            case FLUID -> 0;
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     @Override
@@ -197,6 +208,7 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.saveAdditional(nbt);
     }
@@ -212,6 +224,7 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -336,6 +349,14 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        do {
+            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
+        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
         setChanged();
     }
 }
