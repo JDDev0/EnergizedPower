@@ -163,6 +163,18 @@ public final class ModMessages {
                 encoder(ChangeRedstoneModeC2SPacket::toBytes).
                 consumerMainThread(ChangeRedstoneModeC2SPacket::handle).
                 add();
+
+        net.messageBuilder(SetFluidTankCheckboxC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
+                decoder(SetFluidTankCheckboxC2SPacket::new).
+                encoder(SetFluidTankCheckboxC2SPacket::toBytes).
+                consumerMainThread(SetFluidTankCheckboxC2SPacket::handle).
+                add();
+
+        net.messageBuilder(SetFluidTankFilterC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
+                decoder(SetFluidTankFilterC2SPacket::new).
+                encoder(SetFluidTankFilterC2SPacket::toBytes).
+                consumerMainThread(SetFluidTankFilterC2SPacket::handle).
+                add();
     }
 
     public static <MSG> void sendToServer(MSG message) {

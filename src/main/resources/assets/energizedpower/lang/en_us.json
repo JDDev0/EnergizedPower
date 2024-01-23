@@ -448,6 +448,12 @@
   "item.energizedpower.fluid_tank_large": "Fluid Tank (Large)",
   "container.energizedpower.fluid_tank_large": "Fluid Tank (Large)",
 
+  "tooltip.energizedpower.fluid_tanks.cbx.ignore_nbt": "Ignore NBT",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.no_filter_set": "No filter set",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.filter_set": "Filter: %s",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.1": "Set the filter by left-clicking with an item which contains fluids.",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.2": "Unset the filter by left-clicking without an item.",
+
   "block.energizedpower.fluid_filler": "Fluid Filler",
   "item.energizedpower.fluid_filler": "Fluid Filler",
   "container.energizedpower.fluid_filler": "Fluid Filler",
