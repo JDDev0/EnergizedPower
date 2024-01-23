@@ -8,11 +8,14 @@ import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -45,7 +48,8 @@ import team.reborn.energy.api.base.LimitingEnergyStorage;
 import java.util.*;
 import java.util.stream.IntStream;
 
-public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
+public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate,
+        ComparatorModeUpdate {
     private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
     public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_CAPACITY.getValue();
@@ -136,6 +140,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
     private int currentRecipeIndex = 0;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public AdvancedAutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ADVANCED_AUTO_CRAFTER_ENTITY, blockPos, blockState);
@@ -221,6 +226,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
                     case 30 -> secondaryExtractMode?1:0;
                     case 31 -> currentRecipeIndex;
                     case 32 -> redstoneMode.ordinal();
+                    case 33 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -253,12 +259,13 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
                     case 30 -> AdvancedAutoCrafterBlockEntity.this.secondaryExtractMode = value != 0;
                     case 31 -> AdvancedAutoCrafterBlockEntity.this.currentRecipeIndex = value;
                     case 32 -> AdvancedAutoCrafterBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 33 -> AdvancedAutoCrafterBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 33;
+                return 34;
             }
         };
     }
@@ -287,7 +294,11 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
     }
 
     public int getRedstoneOutput() {
-        return ScreenHandler.calculateComparatorOutput(internalInventory);
+        return switch(comparatorMode) {
+            case ITEM -> ScreenHandler.calculateComparatorOutput(internalInventory);
+            case FLUID -> 0;
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     @Override
@@ -312,6 +323,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
         nbt.putInt("current_recipe_index", currentRecipeIndex);
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.writeNbt(nbt);
     }
@@ -362,6 +374,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
             currentRecipeIndex = 0;
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     private void loadPatternContainer(int index, NbtElement tag) {
@@ -924,6 +937,14 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        do {
+            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
+        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
         markDirty();
     }
 }

@@ -4,6 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.CrystalGrowthChamberBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.CrystalGrowthChamberRecipe;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
@@ -39,7 +40,7 @@ public class CrystalGrowthChamberMenu extends ScreenHandler implements EnergySto
                     default -> super.isValid(slot, stack);
                 };
             }
-        }, new ArrayPropertyDelegate(10));
+        }, new ArrayPropertyDelegate(11));
     }
 
     public CrystalGrowthChamberMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
@@ -50,7 +51,7 @@ public class CrystalGrowthChamberMenu extends ScreenHandler implements EnergySto
 
         this.inv = inv;
         checkSize(this.inv, 2);
-        checkDataCount(data, 9);
+        checkDataCount(data, 11);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -100,6 +101,10 @@ public class CrystalGrowthChamberMenu extends ScreenHandler implements EnergySto
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(9));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(10));
     }
 
     @Override

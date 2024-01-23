@@ -11,11 +11,11 @@ import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.fluid.ModFluids;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
-import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.recipe.CrusherRecipe;
 import me.jddev0.ep.screen.AdvancedCrusherMenu;
 import me.jddev0.ep.util.ByteUtils;
@@ -47,6 +47,7 @@ import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import me.jddev0.ep.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.base.LimitingEnergyStorage;
@@ -56,7 +57,7 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 public class AdvancedCrusherBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate,
-        FluidStoragePacketUpdate, RedstoneModeUpdate {
+        FluidStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
     public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_CRUSHER_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_ADVANCED_CRUSHER_TRANSFER_RATE.getValue();
 
@@ -82,6 +83,7 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements ExtendedS
     private boolean hasEnoughEnergy;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public AdvancedCrusherBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ADVANCED_CRUSHER_ENTITY, blockPos, blockState);
@@ -231,6 +233,7 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements ExtendedS
                     case 4, 5, 6, 7 -> ByteUtils.get2Bytes(AdvancedCrusherBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 8 -> hasEnoughEnergy?1:0;
                     case 9 -> redstoneMode.ordinal();
+                    case 10 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -246,12 +249,13 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements ExtendedS
                     );
                     case 4, 5, 6, 7, 8 -> {}
                     case 9 -> AdvancedCrusherBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 10 -> AdvancedCrusherBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 10;
+                return 11;
             }
         };
     }
@@ -262,7 +266,11 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements ExtendedS
     }
 
     public int getRedstoneOutput() {
-        return ScreenHandler.calculateComparatorOutput(internalInventory);
+        return switch(comparatorMode) {
+            case ITEM -> ScreenHandler.calculateComparatorOutput(internalInventory);
+            case FLUID -> FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     @Nullable
@@ -303,6 +311,7 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements ExtendedS
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.writeNbt(nbt);
     }
@@ -320,6 +329,7 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements ExtendedS
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -458,6 +468,12 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements ExtendedS
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
         markDirty();
     }
 }
