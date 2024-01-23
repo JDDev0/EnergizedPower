@@ -34,6 +34,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<CrusherMenu>> CRUSHER_MENU = registerMenuType("crusher",
             CrusherMenu::new);
 
+    public static final RegistryObject<MenuType<AdvancedCrusherMenu>> ADVANCED_CRUSHER_MENU = registerMenuType("advanced_crusher",
+            AdvancedCrusherMenu::new);
+
     public static final RegistryObject<MenuType<PulverizerMenu>> PULVERIZER_MENU = registerMenuType("pulverizer",
             PulverizerMenu::new);
 
