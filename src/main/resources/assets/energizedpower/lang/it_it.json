@@ -390,6 +390,12 @@
   "item.energizedpower.crusher": "Frantoio",
   "container.energizedpower.crusher": "Frantoio",
 
+  "block.energizedpower.advanced_crusher": "Advanced Crusher",
+  "item.energizedpower.advanced_crusher": "Advanced Crusher",
+  "container.energizedpower.advanced_crusher": "Advanced Crusher",
+
+  "tooltip.energizedpower.advanced_crusher.txt.shift.1": "This machine consumes Water and produces Dirty Water.",
+
   "block.energizedpower.pulverizer": "Polverizzatore",
   "item.energizedpower.pulverizer": "Polverizzatore",
   "container.energizedpower.pulverizer": "Polverizzatore",

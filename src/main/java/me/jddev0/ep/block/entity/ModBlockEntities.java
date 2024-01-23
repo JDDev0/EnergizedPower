@@ -92,6 +92,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("crusher", () -> BlockEntityType.Builder.of(CrusherBlockEntity::new,
                     ModBlocks.CRUSHER.get()).build(null));
 
+    public static final Supplier<BlockEntityType<AdvancedCrusherBlockEntity>> ADVANCED_CRUSHER_ENTITY =
+            BLOCK_ENTITIES.register("advanced_crusher", () -> BlockEntityType.Builder.of(AdvancedCrusherBlockEntity::new,
+                    ModBlocks.ADVANCED_CRUSHER.get()).build(null));
+
     public static final Supplier<BlockEntityType<PulverizerBlockEntity>> PULVERIZER_ENTITY =
             BLOCK_ENTITIES.register("pulverizer", () -> BlockEntityType.Builder.of(PulverizerBlockEntity::new,
                     ModBlocks.PULVERIZER.get()).build(null));

@@ -390,6 +390,12 @@
   "item.energizedpower.crusher": "Zerkleinerer",
   "container.energizedpower.crusher": "Zerkleinerer",
 
+  "block.energizedpower.advanced_crusher": "Fortgeschrittener Zerkleinerer",
+  "item.energizedpower.advanced_crusher": "Fortgeschrittener Zerkleinerer",
+  "container.energizedpower.advanced_crusher": "Fortgeschrittener Zerkleinerer",
+
+  "tooltip.energizedpower.advanced_crusher.txt.shift.1": "Diese Maschine konsumiert Wasser und produziert Schmutziges Wasser.",
+
   "block.energizedpower.pulverizer": "Pulverisierer",
   "item.energizedpower.pulverizer": "Pulverisierer",
   "container.energizedpower.pulverizer": "Pulverisierer",
