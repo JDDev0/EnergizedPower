@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class PulverizerRecipe implements Recipe<SimpleInventory> {
     private final OutputItemStackWithPercentages output;
@@ -44,22 +45,24 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
         return input;
     }
 
-    public ItemStack[] getMaxOutputCounts() {
+    public ItemStack[] getMaxOutputCounts(boolean advanced) {
         ItemStack[] generatedOutputs = new ItemStack[2];
 
-        generatedOutputs[0] = output.output.copyWithCount(output.percentages.length);
-        generatedOutputs[1] = secondaryOutput.output.copyWithCount(secondaryOutput.percentages.length);
+        generatedOutputs[0] = output.output.copyWithCount(advanced?output.percentagesAdvanced.length:
+                output.percentages.length);
+        generatedOutputs[1] = secondaryOutput.output.copyWithCount(advanced?secondaryOutput.percentagesAdvanced.length:
+                secondaryOutput.percentages.length);
 
         return generatedOutputs;
     }
 
-    public ItemStack[] generateOutputs(Random randomSource) {
+    public ItemStack[] generateOutputs(Random randomSource, boolean advanced) {
         ItemStack[] generatedOutputs = new ItemStack[2];
         for(int i = 0;i < 2;i++) {
             int count = 0;
             OutputItemStackWithPercentages output = i == 0?this.output:this.secondaryOutput;
 
-            for(double percentage:output.percentages)
+            for(double percentage:(advanced?output.percentagesAdvanced:output.percentages))
                 if(randomSource.nextDouble() <= percentage)
                     count++;
 
@@ -136,7 +139,7 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
             return instance.group(OutputItemStackWithPercentages.createCodec(true).fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
             }), OutputItemStackWithPercentages.createCodec(false).optionalFieldOf("secondaryOutput",
-                    new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0])).forGetter((recipe) -> {
+                    new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0], new double[0])).forGetter((recipe) -> {
                 return recipe.secondaryOutput;
             }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
@@ -161,7 +164,12 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
                 for(int j = 0;j < percentageCount;j++)
                     percentages[j] = buffer.readDouble();
 
-                outputs[i] = new OutputItemStackWithPercentages(output, percentages);
+                int percentageAdvancedCount = buffer.readInt();
+                double[] percentagesAdvanced = new double[percentageAdvancedCount];
+                for(int j = 0;j < percentageAdvancedCount;j++)
+                    percentagesAdvanced[j] = buffer.readDouble();
+
+                outputs[i] = new OutputItemStackWithPercentages(output, percentages, percentagesAdvanced);
             }
 
             return new PulverizerRecipe(outputs[0], outputs[1], input);
@@ -178,11 +186,15 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
                 buffer.writeInt(output.percentages.length);
                 for(double percentage:output.percentages)
                     buffer.writeDouble(percentage);
+
+                buffer.writeInt(output.percentagesAdvanced.length);
+                for(double percentage:output.percentagesAdvanced)
+                    buffer.writeDouble(percentage);
             }
         }
     }
 
-    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages) {
+    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages, double[] percentagesAdvanced) {
         private static Codec<double[]> createDoubleArrayCodec(boolean atLeastOnePercentageValue) {
             return new Codec<>() {
                 private static final Codec<List<Double>> DOUBLE_LIST_CODEC = Codec.doubleRange(0, 1).listOf();
@@ -213,7 +225,15 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
                     return output.output;
                 }), createDoubleArrayCodec(atLeastOnePercentageValue).fieldOf("percentages").forGetter((output) -> {
                     return output.percentages;
-                })).apply(instance, OutputItemStackWithPercentages::new);
+                }), createDoubleArrayCodec(atLeastOnePercentageValue).optionalFieldOf("percentagesAdvanced").forGetter((output) -> {
+                    return Optional.of(output.percentages);
+                })).apply(instance, (output, percentages, percentagesAdvanced) -> {
+                    if(percentagesAdvanced.isPresent())
+                        return new OutputItemStackWithPercentages(output, percentages, percentagesAdvanced.get());
+
+                    //Normal and advanced have the same percentages
+                    return new OutputItemStackWithPercentages(output, percentages, percentages);
+                });
             });
         }
     }

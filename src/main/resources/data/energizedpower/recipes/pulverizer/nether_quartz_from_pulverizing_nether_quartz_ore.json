@@ -7,6 +7,7 @@
     "output": {
       "item": "minecraft:quartz"
     },
-    "percentages": [ 1.0, 0.67, 0.17 ]
+    "percentages": [ 1.0, 0.67, 0.17 ],
+    "percentagesAdvanced": [ 1.0, 0.67, 0.33, 0.17 ]
   }
 }
