@@ -1,5 +1,8 @@
 package me.jddev0.ep.util;
 
+import net.minecraft.util.Mth;
+import net.neoforged.neoforge.energy.IEnergyStorage;
+
 import java.util.Locale;
 
 public final class EnergyUtils {
@@ -23,5 +26,11 @@ public final class EnergyUtils {
         }
 
         return String.format(Locale.ENGLISH, "%.2f%s FE", energyWithPrefix, ENERGY_PREFIXES[prefixIndex]);
+    }
+
+    public static int getRedstoneSignalFromEnergyStorage(IEnergyStorage energyStorage) {
+        boolean isEmptyFlag = energyStorage.getEnergyStored() == 0;
+
+        return Math.min(Mth.floor((float)energyStorage.getEnergyStored() / energyStorage.getMaxEnergyStored() * 14.f) + (isEmptyFlag?0:1), 15);
     }
 }
