@@ -437,6 +437,15 @@
   "tooltip.energizedpower.stone_solidifier.btn.up": "Next recipe",
   "tooltip.energizedpower.stone_solidifier.btn.down": "Previous recipe",
 
+  "block.energizedpower.filtration_plant": "Filtration Plant",
+  "item.energizedpower.filtration_plant": "Filtration Plant",
+  "container.energizedpower.filtration_plant": "Filtration Plant",
+
+  "tooltip.energizedpower.filtration_plant.txt.shift.1": "This block requires Charcoal Filters.",
+  "tooltip.energizedpower.filtration_plant.btn.up": "Next recipe",
+  "tooltip.energizedpower.filtration_plant.btn.down": "Previous recipe",
+  "tooltip.energizedpower.filtration_plant.charcoal_filter_missing": "Charcoal Filter is missing!",
+
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "该方块需要 %s 来放置方块。",
   "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Inverse Rotation",
 
@@ -609,6 +618,7 @@
   "emi.category.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
   "emi.category.energizedpower.press_mold_maker": "Press Mold Maker",
   "emi.category.energizedpower.stone_solidifier": "Stone Solidifier",
+  "emi.category.energizedpower.filtration_plant": "Filtration Plant",
   "emi.category.energizedpower.dispenser": "自动取物器",
   "emi.category.energizedpower.in_world_crafting": "世界工艺品",
 
