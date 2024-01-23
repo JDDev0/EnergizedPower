@@ -19,6 +19,7 @@ public final class ModMessages {
     public static Identifier OPEN_ENERGIZED_POWER_BOOK_ID = new Identifier(EnergizedPowerMod.MODID, "open_energized_power_book");
     public static Identifier SYNC_PRESS_MOLD_MAKER_RECIPE_LIST_ID = new Identifier(EnergizedPowerMod.MODID, "sync_press_mold_maker_recipe_list");
     public static Identifier SYNC_STONE_SOLIDIFIER_CURRENT_RECIPE_ID = new Identifier(EnergizedPowerMod.MODID, "sync_stone_solidifier_current_recipe");
+    public static Identifier SYNC_FILTRATION_PLANT_CURRENT_RECIPE_ID = new Identifier(EnergizedPowerMod.MODID, "sync_filtration_plant_current_recipe");
     public static Identifier POP_ENERGIZED_POWER_BOOK_FROM_LECTERN_ID = new Identifier(EnergizedPowerMod.MODID, "pop_energized_power_book_from_lectern");
     public static Identifier SET_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID = new Identifier(EnergizedPowerMod.MODID, "set_auto_crafter_pattern_input_slots");
     public static Identifier SET_ADVANCED_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID = new Identifier(EnergizedPowerMod.MODID, "set_advanced_auto_crafter_pattern_input_slots");
@@ -37,6 +38,7 @@ public final class ModMessages {
     public static Identifier CHANGE_REDSTONE_MODE_ID = new Identifier(EnergizedPowerMod.MODID, "change_redstone_mode");
     public static Identifier SET_FLUID_TANK_CHECKBOX = new Identifier(EnergizedPowerMod.MODID, "set_fluid_tank_checkbox");
     public static Identifier SET_FLUID_TANK_FILTER = new Identifier(EnergizedPowerMod.MODID, "set_fluid_tank_filter");
+    public static Identifier CHANGE_FILTRATION_PLANT_RECIPE_INDEX = new Identifier(EnergizedPowerMod.MODID, "change_filtration_plant_recipe_index");
 
     private ModMessages() {}
 
@@ -52,6 +54,8 @@ public final class ModMessages {
         ClientPlayNetworking.registerGlobalReceiver(SYNC_PRESS_MOLD_MAKER_RECIPE_LIST_ID, SyncPressMoldMakerRecipeListS2CPacket::receive);
 
         ClientPlayNetworking.registerGlobalReceiver(SYNC_STONE_SOLIDIFIER_CURRENT_RECIPE_ID, SyncStoneSolidifierCurrentRecipeS2CPacket::receive);
+
+        ClientPlayNetworking.registerGlobalReceiver(SYNC_FILTRATION_PLANT_CURRENT_RECIPE_ID, SyncFiltrationPlantCurrentRecipeS2CPacket::receive);
     }
 
     public static void registerPacketsC2S() {
@@ -90,6 +94,8 @@ public final class ModMessages {
         ServerPlayNetworking.registerGlobalReceiver(SET_FLUID_TANK_CHECKBOX, SetFluidTankCheckboxC2SPacket::receive);
 
         ServerPlayNetworking.registerGlobalReceiver(SET_FLUID_TANK_FILTER, SetFluidTankFilterC2SPacket::receive);
+
+        ServerPlayNetworking.registerGlobalReceiver(CHANGE_FILTRATION_PLANT_RECIPE_INDEX, ChangeFiltrationPlantRecipeIndexC2SPacket::receive);
     }
 
     public static void broadcastServerPacket(MinecraftServer server, Identifier channelName, PacketByteBuf buf) {
