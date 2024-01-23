@@ -4,6 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import me.jddev0.ep.inventory.PatternResultSlot;
 import me.jddev0.ep.inventory.PatternSlot;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -32,7 +33,7 @@ public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements En
                 new SimpleContainer(9), new SimpleContainer(9), new SimpleContainer(9)
         }, new Container[] {
                 new SimpleContainer(1), new SimpleContainer(1), new SimpleContainer(1)
-        }, new SimpleContainerData(27));
+        }, new SimpleContainerData(28));
     }
 
     public AdvancedAutoCrafterMenu(int id, Inventory inv, BlockEntity blockEntity, Container[] patternSlots, Container[] patternResultSlots, ContainerData data) {
@@ -41,7 +42,7 @@ public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements En
         this.patternSlots = patternSlots;
         this.patternResultSlots = patternResultSlots;
 
-        checkContainerDataCount(data, 27);
+        checkContainerDataCount(data, 28);
         this.blockEntity = (AdvancedAutoCrafterBlockEntity)blockEntity;
         this.level = inv.player.level();
         this.data = data;
@@ -153,6 +154,10 @@ public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements En
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(26));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(27));
     }
 
     @Override
