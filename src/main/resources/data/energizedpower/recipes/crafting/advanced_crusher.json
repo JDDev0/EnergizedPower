@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "c": {
+      "tag": "c:energized_copper_plates"
+    },
+    "F": {
+      "item": "energizedpower:fluid_tank_small"
+    },
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    },
+    "C": {
+      "item": "energizedpower:crusher"
+    }
+  },
+  "pattern": [
+    "cCc",
+    "FAF",
+    "cCc"
+  ],
+  "result": {
+    "item": "energizedpower:advanced_crusher"
+  }
+}
