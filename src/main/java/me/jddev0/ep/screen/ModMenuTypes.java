@@ -54,6 +54,9 @@ public final class ModMenuTypes {
     public static final Supplier<MenuType<StoneSolidifierMenu>> STONE_SOLIDIFIER_MENU = registerMenuType("stone_solidifier",
             StoneSolidifierMenu::new);
 
+    public static final Supplier<MenuType<FiltrationPlantMenu>> FILTRATION_PLANT_MENU = registerMenuType("filtration_plant",
+            FiltrationPlantMenu::new);
+
     public static final Supplier<MenuType<BlockPlacerMenu>> BLOCK_PLACER_MENU = registerMenuType("block_placer",
             BlockPlacerMenu::new);
 

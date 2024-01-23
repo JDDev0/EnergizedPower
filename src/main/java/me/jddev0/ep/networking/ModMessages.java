@@ -67,6 +67,12 @@ public final class ModMessages {
                 consumerMainThread(SyncStoneSolidifierCurrentRecipeS2CPacket::handle).
                 add();
 
+        net.messageBuilder(SyncFiltrationPlantCurrentRecipeS2CPacket.class, id(), PlayNetworkDirection.PLAY_TO_CLIENT).
+                decoder(SyncFiltrationPlantCurrentRecipeS2CPacket::new).
+                encoder(SyncFiltrationPlantCurrentRecipeS2CPacket::toBytes).
+                consumerMainThread(SyncFiltrationPlantCurrentRecipeS2CPacket::handle).
+                add();
+
         //Client -> Server
         net.messageBuilder(PopEnergizedPowerBookFromLecternC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
                 decoder(PopEnergizedPowerBookFromLecternC2SPacket::new).
@@ -174,6 +180,12 @@ public final class ModMessages {
                 decoder(SetFluidTankFilterC2SPacket::new).
                 encoder(SetFluidTankFilterC2SPacket::toBytes).
                 consumerMainThread(SetFluidTankFilterC2SPacket::handle).
+                add();
+
+        net.messageBuilder(ChangeFiltrationPlantRecipeIndexC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
+                decoder(ChangeFiltrationPlantRecipeIndexC2SPacket::new).
+                encoder(ChangeFiltrationPlantRecipeIndexC2SPacket::toBytes).
+                consumerMainThread(ChangeFiltrationPlantRecipeIndexC2SPacket::handle).
                 add();
     }
 
