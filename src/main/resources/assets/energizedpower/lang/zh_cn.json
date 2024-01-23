@@ -64,6 +64,8 @@
 
   "item.energizedpower.energized_crystal_matrix": "Energized Crystal Matrix",
 
+  "item.energizedpower.dirty_water_bucket": "Dirty Water Bucket",
+
   "item.energizedpower.teleporter_matrix": "Teleporter Matrix",
   "item.energizedpower.teleporter_matrix.linked": "Teleporter Matrix [Linked]",
   "item.energizedpower.teleporter_matrix.unlinked": "Teleporter Matrix [Unlinked]",
@@ -528,6 +530,8 @@
 
   "block.energizedpower.reinforced_advanced_machine_frame": "Reinforced Advanced Machine Frame",
   "item.energizedpower.reinforced_advanced_machine_frame": "Reinforced Advanced Machine Frame",
+
+  "fluid_type.energizedpower.dirty_water": "Dirty Water",
 
   "tooltip.energizedpower.count_with_item.txt": "%dx %s",
 
