@@ -404,6 +404,12 @@
   "item.energizedpower.pulverizer": "Pulverisierer",
   "container.energizedpower.pulverizer": "Pulverisierer",
 
+  "block.energizedpower.advanced_pulverizer": "Fortgeschrittener Pulverisierer",
+  "item.energizedpower.advanced_pulverizer": "Fortgeschrittener Pulverisierer",
+  "container.energizedpower.advanced_pulverizer": "Fortgeschrittener Pulverisierer",
+
+  "tooltip.energizedpower.advanced_pulverizer.txt.shift.1": "Diese Maschine konsumiert Wasser und produziert Schmutziges Wasser.",
+
   "block.energizedpower.sawmill": "Sägewerk",
   "item.energizedpower.sawmill": "Sägewerk",
   "container.energizedpower.sawmill": "Sägewerk",
@@ -608,6 +614,7 @@
   "emi.category.energizedpower.charger": "Lader",
   "emi.category.energizedpower.crusher": "Zerkleinerer",
   "emi.category.energizedpower.pulverizer": "Pulverisierer",
+  "emi.category.energizedpower.advanced_pulverizer": "Fortgeschrittener Pulverisierer",
   "emi.category.energizedpower.sawmill": "Sägewerk",
   "emi.category.energizedpower.compressor": "Kompressor",
   "emi.category.energizedpower.metal_press": "Metallpresse",

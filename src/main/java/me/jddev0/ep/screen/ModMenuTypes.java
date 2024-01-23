@@ -42,6 +42,9 @@ public final class ModMenuTypes {
     public static final Supplier<MenuType<PulverizerMenu>> PULVERIZER_MENU = registerMenuType("pulverizer",
             PulverizerMenu::new);
 
+    public static final Supplier<MenuType<AdvancedPulverizerMenu>> ADVANCED_PULVERIZER_MENU = registerMenuType("advanced_pulverizer",
+            AdvancedPulverizerMenu::new);
+
     public static final Supplier<MenuType<SawmillMenu>> SAWMILL_MENU = registerMenuType("sawmill",
             SawmillMenu::new);
 

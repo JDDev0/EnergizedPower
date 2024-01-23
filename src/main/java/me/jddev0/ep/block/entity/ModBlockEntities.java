@@ -100,6 +100,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("pulverizer", () -> BlockEntityType.Builder.of(PulverizerBlockEntity::new,
                     ModBlocks.PULVERIZER.get()).build(null));
 
+    public static final Supplier<BlockEntityType<AdvancedPulverizerBlockEntity>> ADVANCED_PULVERIZER_ENTITY =
+            BLOCK_ENTITIES.register("advanced_pulverizer", () -> BlockEntityType.Builder.of(AdvancedPulverizerBlockEntity::new,
+                    ModBlocks.ADVANCED_PULVERIZER.get()).build(null));
+
     public static final Supplier<BlockEntityType<SawmillBlockEntity>> SAWMILL_ENTITY =
             BLOCK_ENTITIES.register("sawmill", () -> BlockEntityType.Builder.of(SawmillBlockEntity::new,
                     ModBlocks.SAWMILL.get()).build(null));
