@@ -448,6 +448,12 @@
   "item.energizedpower.fluid_tank_large": "Flüssigkeits-Tank (Groß)",
   "container.energizedpower.fluid_tank_large": "Flüssigkeits-Tank (Groß)",
 
+  "tooltip.energizedpower.fluid_tanks.cbx.ignore_nbt": "NBT ignorieren",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.no_filter_set": "Kein Filter gesetzt",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.filter_set": "Filter: %s",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.1": "Setze den Filter mittels links-klick mit einem Item, dass eine Flüssigkeit enthält.",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.2": "Entferne den Filter mittels links-klick ohne einem Item.",
+
   "block.energizedpower.fluid_filler": "Flüssigkeits-Befüller",
   "item.energizedpower.fluid_filler": "Flüssigkeits-Befüller",
   "container.energizedpower.fluid_filler": "Flüssigkeits-Befüller",

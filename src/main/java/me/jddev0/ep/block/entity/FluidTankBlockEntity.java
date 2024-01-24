@@ -8,6 +8,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.FluidTankMenu;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -15,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -28,6 +30,11 @@ import org.jetbrains.annotations.Nullable;
 public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, FluidStoragePacketUpdate {
     private final FluidTankBlock.Tier tier;
     final SimpleFluidStorage fluidStorage;
+
+    protected final PropertyDelegate data;
+
+    private boolean ignoreNBT;
+    private FluidStack fluidFilter = new FluidStack(FluidVariant.blank(), 1);
 
     public static BlockEntityType<FluidTankBlockEntity> getEntityTypeFromTier(FluidTankBlock.Tier tier) {
         return switch(tier) {
@@ -60,6 +67,45 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
                     );
                 }
             }
+
+            private boolean isFluidValid(FluidVariant variant) {
+                return fluidFilter.isEmpty() || (ignoreNBT?(
+                        fluidFilter.getFluidVariant().isOf(variant.getFluid()) &&
+                                fluidFilter.getFluidVariant().nbtMatches(variant.getNbt())):
+                        fluidFilter.getFluidVariant().isOf(variant.getFluid()));
+            }
+
+            @Override
+            protected boolean canInsert(FluidVariant variant) {
+                return isFluidValid(variant);
+            }
+
+            @Override
+            protected boolean canExtract(FluidVariant variant) {
+                return isFluidValid(variant);
+            }
+        };
+
+        data = new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0 -> ignoreNBT?1:0;
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0 -> FluidTankBlockEntity.this.ignoreNBT = value != 0;
+                }
+            }
+
+            @Override
+            public int size() {
+                return 1;
+            }
         };
     }
 
@@ -79,7 +125,15 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.FLUID_SYNC_ID, buffer);
 
-        return new FluidTankMenu(id, inventory, this);
+        buffer = PacketByteBufs.create();
+        buffer.writeInt(1);
+        fluidFilter.toPacket(buffer);
+        buffer.writeLong(0);
+        buffer.writeBlockPos(getPos());
+
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.FLUID_SYNC_ID, buffer);
+
+        return new FluidTankMenu(id, inventory, this, this.data);
     }
 
     @Override
@@ -127,6 +181,10 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
     protected void writeNbt(NbtCompound nbt) {
         nbt.put("fluid", fluidStorage.toNBT(new NbtCompound()));
 
+        nbt.putBoolean("ignore_nbt", ignoreNBT);
+
+        nbt.put("fluid_filter", fluidFilter.toNBT(new NbtCompound()));
+
         super.writeNbt(nbt);
     }
 
@@ -135,19 +193,56 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
         super.readNbt(nbt);
 
         fluidStorage.fromNBT(nbt.getCompound("fluid"));
+
+        ignoreNBT = nbt.getBoolean("ignore_nbt");
+
+        fluidFilter = FluidStack.fromNbt(nbt.getCompound("fluid_filter"));
+    }
+
+    public void setIgnoreNBT(boolean ignoreNBT) {
+        this.ignoreNBT = ignoreNBT;
+        markDirty(world, getPos(), getCachedState());
+    }
+
+    public void setFluidFilter(FluidStack fluidFilter) {
+        this.fluidFilter = new FluidStack(fluidFilter.getFluid(), fluidFilter.getFluidVariant().copyNbt(),
+                fluidFilter.getDropletsAmount());
+        markDirty(world, getPos(), getCachedState());
+
+        PacketByteBuf buffer = PacketByteBufs.create();
+        buffer.writeInt(1);
+        fluidFilter.toPacket(buffer);
+        buffer.writeLong(0);
+        buffer.writeBlockPos(getPos());
+
+        ModMessages.sendServerPacketToPlayersWithinXBlocks(
+                getPos(), (ServerWorld)world, 32,
+                ModMessages.FLUID_SYNC_ID, buffer
+        );
     }
 
     public FluidStack getFluid(int tank) {
-        return fluidStorage.getFluid();
+        return switch(tank) {
+            case 0 -> fluidStorage.getFluid();
+            case 1 -> fluidFilter;
+            default -> null;
+        };
     }
 
     public long getTankCapacity(int tank) {
+        if(tank != 0)
+            return 0;
+
         return fluidStorage.getCapacity();
     }
 
     @Override
     public void setFluid(int tank, FluidStack fluidStack) {
-        fluidStorage.setFluid(fluidStack);
+        switch(tank) {
+            case 0 -> fluidStorage.setFluid(fluidStack);
+            case 1 -> fluidFilter = new FluidStack(fluidStack.getFluid(), fluidStack.getFluidVariant().copyNbt(),
+                    fluidStack.getDropletsAmount());
+        }
     }
 
     @Override
