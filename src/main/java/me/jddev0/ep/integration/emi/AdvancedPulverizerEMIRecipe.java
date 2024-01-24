@@ -17,10 +17,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-public class PulverizerEMIRecipe implements EmiRecipe {
-    public static final ResourceLocation SIMPLIFIED_TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/block/pulverizer_side.png");
-    public static final EmiStack ITEM = EmiStack.of(ModBlocks.PULVERIZER_ITEM.get());
-    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new ResourceLocation(EnergizedPowerMod.MODID, "pulverizer"),
+public class AdvancedPulverizerEMIRecipe implements EmiRecipe {
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/block/advanced_pulverizer_side.png");
+    public static final EmiStack ITEM = EmiStack.of(ModBlocks.ADVANCED_PULVERIZER_ITEM.get());
+    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new ResourceLocation(EnergizedPowerMod.MODID, "advanced_pulverizer"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final ResourceLocation id;
@@ -29,11 +29,11 @@ public class PulverizerEMIRecipe implements EmiRecipe {
     private final PulverizerRecipe.OutputItemStackWithPercentages outputWithPercentages;
     private final PulverizerRecipe.OutputItemStackWithPercentages secondaryOutputWithPercentages;
 
-    public PulverizerEMIRecipe(PulverizerRecipe recipe) {
+    public AdvancedPulverizerEMIRecipe(PulverizerRecipe recipe) {
         this.id = recipe.getId();
         this.input = List.of(EmiIngredient.of(recipe.getInput()));
 
-        this.output = Arrays.stream(recipe.getMaxOutputCounts(false)).filter(itemStack -> !itemStack.isEmpty()).map(EmiStack::of).toList();
+        this.output = Arrays.stream(recipe.getMaxOutputCounts(true)).filter(itemStack -> !itemStack.isEmpty()).map(EmiStack::of).toList();
         this.outputWithPercentages = recipe.getOutput();
         this.secondaryOutputWithPercentages = recipe.getSecondaryOutput();
     }
@@ -78,7 +78,7 @@ public class PulverizerEMIRecipe implements EmiRecipe {
         {
             outputSlot.appendTooltip(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
-            double[] percentages = outputWithPercentages.percentages();
+            double[] percentages = outputWithPercentages.percentagesAdvanced();
             for(int i = 0;i < percentages.length;i++)
                 outputSlot.appendTooltip(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
 
@@ -87,7 +87,7 @@ public class PulverizerEMIRecipe implements EmiRecipe {
         if(output.size() == 2) {
             secondaryOutputSlot.appendTooltip(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
-            double[] percentages = secondaryOutputWithPercentages.percentages();
+            double[] percentages = secondaryOutputWithPercentages.percentagesAdvanced();
             for(int i = 0;i < percentages.length;i++)
                 secondaryOutputSlot.appendTooltip(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
 

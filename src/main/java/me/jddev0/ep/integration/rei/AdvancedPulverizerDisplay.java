@@ -9,7 +9,7 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 import java.util.Arrays;
 import java.util.List;
 
-public record PulverizerDisplay(PulverizerRecipe recipe) implements Display {
+public record AdvancedPulverizerDisplay(PulverizerRecipe recipe) implements Display {
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(
@@ -19,11 +19,11 @@ public record PulverizerDisplay(PulverizerRecipe recipe) implements Display {
 
     @Override
     public List<EntryIngredient> getOutputEntries() {
-        return Arrays.stream(recipe.getMaxOutputCounts(false)).filter(itemStack -> !itemStack.isEmpty()).map(EntryIngredients::of).toList();
+        return Arrays.stream(recipe.getMaxOutputCounts(true)).filter(itemStack -> !itemStack.isEmpty()).map(EntryIngredients::of).toList();
     }
 
     @Override
-    public CategoryIdentifier<PulverizerDisplay> getCategoryIdentifier() {
-        return PulverizerCategory.CATEGORY;
+    public CategoryIdentifier<AdvancedPulverizerDisplay> getCategoryIdentifier() {
+        return AdvancedPulverizerCategory.CATEGORY;
     }
 }

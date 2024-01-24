@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -15,6 +16,10 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 public class PulverizerRecipe implements Recipe<SimpleContainer> {
     private final ResourceLocation id;
@@ -41,27 +46,24 @@ public class PulverizerRecipe implements Recipe<SimpleContainer> {
         return input;
     }
 
-    public ItemStack[] getMaxOutputCounts() {
+    public ItemStack[] getMaxOutputCounts(boolean advanced) {
         ItemStack[] generatedOutputs = new ItemStack[2];
 
-        ItemStack itemStackCopy = output.output.copy();
-        itemStackCopy.setCount(output.percentages.length);
-        generatedOutputs[0] = itemStackCopy;
-
-        itemStackCopy = secondaryOutput.output.copy();
-        itemStackCopy.setCount(secondaryOutput.percentages.length);
-        generatedOutputs[1] = itemStackCopy;
+        generatedOutputs[0] = ItemStackUtils.copyWithCount(output.output, advanced?output.percentagesAdvanced.length:
+                output.percentages.length);
+        generatedOutputs[1] = ItemStackUtils.copyWithCount(secondaryOutput.output, advanced?secondaryOutput.percentagesAdvanced.length:
+                secondaryOutput.percentages.length);
 
         return generatedOutputs;
     }
 
-    public ItemStack[] generateOutputs(RandomSource randomSource) {
+    public ItemStack[] generateOutputs(RandomSource randomSource, boolean advanced) {
         ItemStack[] generatedOutputs = new ItemStack[2];
         for(int i = 0;i < 2;i++) {
             int count = 0;
             OutputItemStackWithPercentages output = i == 0?this.output:this.secondaryOutput;
 
-            for(double percentage:output.percentages)
+            for(double percentage:(advanced?output.percentagesAdvanced:output.percentages))
                 if(randomSource.nextDouble() <= percentage)
                     count++;
 
@@ -164,10 +166,24 @@ public class PulverizerRecipe implements Recipe<SimpleContainer> {
                 if(i == 0 && !minimumAtLeastOneFlag)
                     throw new JsonSyntaxException("The primary output must have a minimum count of at least 1 (At least one percentage value must be >= 1.0)");
 
-                outputs[i] = new OutputItemStackWithPercentages(output, percentages);
+                JsonArray percentagesAdvancedJson = outputJson.has("percentagesAdvanced")?
+                        GsonHelper.getAsJsonArray(outputJson, "percentagesAdvanced"):percentagesJson;
+                double[] percentagesAdvanced = new double[percentagesAdvancedJson.size()];
+                minimumAtLeastOneFlag = false;
+                for(int j = 0;j < percentagesAdvancedJson.size();j++) {
+                    double value = percentagesAdvancedJson.get(j).getAsDouble();
+
+                    minimumAtLeastOneFlag |= (int)value >= 1;
+                    percentagesAdvanced[j] = value;
+                }
+
+                if(i == 0 && !minimumAtLeastOneFlag)
+                    throw new JsonSyntaxException("The primary output must have a minimum count of at least 1 (At least one percentage value must be >= 1.0)");
+
+                outputs[i] = new OutputItemStackWithPercentages(output, percentages, percentagesAdvanced);
 
                 if(!json.has("secondaryOutput")) {
-                    outputs[1] = new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0]);
+                    outputs[1] = new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0], new double[0]);
 
                     break;
                 }
@@ -189,7 +205,12 @@ public class PulverizerRecipe implements Recipe<SimpleContainer> {
                 for(int j = 0;j < percentageCount;j++)
                     percentages[j] = buffer.readDouble();
 
-                outputs[i] = new OutputItemStackWithPercentages(output, percentages);
+                int percentageAdvancedCount = buffer.readInt();
+                double[] percentagesAdvanced = new double[percentageAdvancedCount];
+                for(int j = 0;j < percentageAdvancedCount;j++)
+                    percentagesAdvanced[j] = buffer.readDouble();
+
+                outputs[i] = new OutputItemStackWithPercentages(output, percentages, percentagesAdvanced);
             }
 
             return new PulverizerRecipe(recipeID, outputs[0], outputs[1], input);
@@ -206,9 +227,13 @@ public class PulverizerRecipe implements Recipe<SimpleContainer> {
                 buffer.writeInt(output.percentages.length);
                 for(double percentage:output.percentages)
                     buffer.writeDouble(percentage);
+
+                buffer.writeInt(output.percentagesAdvanced.length);
+                for(double percentage:output.percentagesAdvanced)
+                    buffer.writeDouble(percentage);
             }
         }
     }
 
-    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages) {}
+    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages, double[] percentagesAdvanced) {}
 }
