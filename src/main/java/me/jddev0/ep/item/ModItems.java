@@ -110,6 +110,9 @@ public final class ModItems {
     public static final RegistryObject<Item> CABLE_INSULATOR = ITEMS.register("cable_insulator",
             () -> new CableInsulatorItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final RegistryObject<Item> CHARCOAL_FILTER = ITEMS.register("charcoal_filter",
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).durability(200).defaultDurability(200)));
+
     public static final RegistryObject<Item> SAW_BLADE = ITEMS.register("saw_blade",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
