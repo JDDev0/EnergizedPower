@@ -109,7 +109,7 @@ public class DrainScreen extends AbstractContainerScreen<DrainMenu> {
 
     private void renderFluidMeterOverlay(PoseStack poseStack, int x, int y) {
         RenderSystem.setShaderTexture(0, TEXTURE);
-        blit(poseStack, x + 80, y + 17, 176, 53, 16, 52);
+        blit(poseStack, x + 80, y + 17, 176, 0, 16, 52);
     }
 
     @Override
