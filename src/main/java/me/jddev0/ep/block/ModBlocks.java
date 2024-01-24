@@ -289,6 +289,12 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item STONE_SOLIDIFIER_ITEM = createBlockItem("stone_solidifier", STONE_SOLIDIFIER);
 
+    public static final Block FILTRATION_PLANT = registerBlock("filtration_plant",
+            new FiltrationPlantBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item FILTRATION_PLANT_ITEM = createBlockItem("filtration_plant",
+            new FiltrationPlantBlock.Item(FILTRATION_PLANT, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final Block FLUID_DRAINER = registerBlock("fluid_drainer",
             new FluidDrainerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
