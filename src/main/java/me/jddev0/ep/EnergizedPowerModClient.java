@@ -5,6 +5,7 @@ import me.jddev0.ep.block.entity.renderer.FluidTankBlockEntityRenderer;
 import me.jddev0.ep.block.entity.renderer.ItemConveyorBeltBlockEntityRenderer;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.ModEntityTypes;
+import me.jddev0.ep.fluid.ModFluids;
 import me.jddev0.ep.input.ModKeyBindings;
 import me.jddev0.ep.item.ActivatableItem;
 import me.jddev0.ep.item.WorkingItem;
@@ -12,10 +13,14 @@ import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.*;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
+import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.MinecartEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -103,6 +108,16 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntityTypes.ADVANCED_BATTERY_BOX_MINECART,
                 entity -> new MinecartEntityRenderer<>(entity, new EntityModelLayer(
                         new Identifier("minecraft", "chest_minecart"), "main")));
+
+        FluidRenderHandlerRegistry.INSTANCE.register(ModFluids.DIRTY_WATER, ModFluids.FLOWING_DIRTY_WATER,
+                new SimpleFluidRenderHandler(
+                        new Identifier("block/water_still"),
+                        new Identifier("block/water_flow"),
+                        0xC86F3900
+                ));
+
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(),
+                ModFluids.DIRTY_WATER, ModFluids.FLOWING_DIRTY_WATER);
 
         BlockEntityRendererFactories.register(ModBlockEntities.ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.FLUID_TANK_SMALL_ENTITY, FluidTankBlockEntityRenderer::new);
