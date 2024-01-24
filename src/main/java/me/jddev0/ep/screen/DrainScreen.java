@@ -110,7 +110,7 @@ public class DrainScreen extends HandledScreen<DrainMenu> {
 
     private void renderFluidMeterOverlay(MatrixStack poseStack, int x, int y) {
         RenderSystem.setShaderTexture(0, TEXTURE);
-        drawTexture(poseStack, x + 80, y + 17, 176, 53, 16, 52);
+        drawTexture(poseStack, x + 80, y + 17, 176, 0, 16, 52);
     }
 
     @Override
