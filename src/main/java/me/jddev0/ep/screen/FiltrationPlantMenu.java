@@ -5,6 +5,7 @@ import me.jddev0.ep.block.entity.FiltrationPlantBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.recipe.FiltrationPlantRecipe;
 import me.jddev0.ep.util.ByteUtils;
@@ -38,7 +39,7 @@ public class FiltrationPlantMenu extends ScreenHandler implements EnergyStorageC
                     default -> super.isValid(slot, stack);
                 };
             }
-        }, new ArrayPropertyDelegate(10));
+        }, new ArrayPropertyDelegate(11));
     }
 
     public FiltrationPlantMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
@@ -48,7 +49,7 @@ public class FiltrationPlantMenu extends ScreenHandler implements EnergyStorageC
 
         this.inv = inv;
         checkSize(this.inv, 4);
-        checkDataCount(data, 10);
+        checkDataCount(data, 11);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -108,6 +109,10 @@ public class FiltrationPlantMenu extends ScreenHandler implements EnergyStorageC
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(9));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(10));
     }
 
     @Override

@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.networking.ModMessages;
 import net.fabricmc.api.EnvType;
@@ -42,6 +43,13 @@ public class CrystalGrowthChamberScreen extends AbstractGenericEnergyStorageHand
                 buf.writeBlockPos(handler.getBlockEntity().getPos());
                 ClientPlayNetworking.send(ModMessages.CHANGE_REDSTONE_MODE_ID, buf);
                 clicked = true;
+            }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+                //Comparator Mode
+
+                PacketByteBuf buf = PacketByteBufs.create();
+                buf.writeBlockPos(handler.getBlockEntity().getPos());
+                ClientPlayNetworking.send(ModMessages.CHANGE_COMPARATOR_MODE_ID, buf);
+                clicked = true;
             }
 
             if(clicked)
@@ -78,6 +86,15 @@ public class CrystalGrowthChamberScreen extends AbstractGenericEnergyStorageHand
         }else {
             drawTexture(poseStack, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
         }
+
+        ComparatorMode comparatorMode = handler.getComparatorMode();
+        ordinal = comparatorMode.ordinal();
+
+        if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+            drawTexture(poseStack, x - 22, y + 26, 20 * ordinal, 60, 20, 20);
+        }else {
+            drawTexture(poseStack, x - 22, y + 26, 20 * ordinal, 40, 20, 20);
+        }
     }
 
     @Override
@@ -91,6 +108,15 @@ public class CrystalGrowthChamberScreen extends AbstractGenericEnergyStorageHand
 
             List<Text> components = new ArrayList<>(2);
             components.add(Text.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.asString()));
+
+            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+        }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+            //Comparator Mode
+
+            ComparatorMode comparatorMode = handler.getComparatorMode();
+
+            List<Text> components = new ArrayList<>(2);
+            components.add(Text.translatable("tooltip.energizedpower.machine_configuration.comparator_mode." + comparatorMode.asString()));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
         }

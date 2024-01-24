@@ -7,6 +7,8 @@ import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
@@ -14,6 +16,7 @@ import me.jddev0.ep.recipe.AssemblingMachineRecipe;
 import me.jddev0.ep.screen.AssemblingMachineMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.ItemStackUtils;
+import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -47,7 +50,8 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-public class AssemblingMachineBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
+public class AssemblingMachineBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate,
+        ComparatorModeUpdate {
     private static final long CAPACITY = ModConfigs.COMMON_ASSEMBLING_MACHINE_CAPACITY.getValue();
 
     private static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_ASSEMBLING_MACHINE_ENERGY_CONSUMPTION_PER_TICK.getValue();
@@ -79,6 +83,7 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
     private boolean hasEnoughEnergy;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public AssemblingMachineBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ASSEMBLING_MACHINE_ENTITY, blockPos, blockState);
@@ -231,6 +236,7 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
                     case 4, 5, 6, 7 -> ByteUtils.get2Bytes(AssemblingMachineBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 8 -> hasEnoughEnergy?1:0;
                     case 9 -> redstoneMode.ordinal();
+                    case 10 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -246,12 +252,13 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
                     );
                     case 4, 5, 6, 7, 8 -> {}
                     case 9 -> AssemblingMachineBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 10 -> AssemblingMachineBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 10;
+                return 11;
             }
         };
     }
@@ -283,7 +290,11 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
     }
 
     public int getRedstoneOutput() {
-        return ScreenHandler.calculateComparatorOutput(internalInventory);
+        return switch(comparatorMode) {
+            case ITEM -> ScreenHandler.calculateComparatorOutput(internalInventory);
+            case FLUID -> 0;
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     @Nullable
@@ -313,6 +324,7 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.writeNbt(nbt);
     }
@@ -328,6 +340,7 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -476,6 +489,14 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        do {
+            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
+        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
         markDirty();
     }
 }

@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.ThermalGeneratorBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
@@ -24,7 +25,7 @@ public class ThermalGeneratorMenu extends ScreenHandler implements EnergyStorage
     private final PropertyDelegate data;
 
     public ThermalGeneratorMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
-        this(id, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), inv, new ArrayPropertyDelegate(5));
+        this(id, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), inv, new ArrayPropertyDelegate(6));
     }
 
     public ThermalGeneratorMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory,
@@ -33,7 +34,7 @@ public class ThermalGeneratorMenu extends ScreenHandler implements EnergyStorage
 
         this.blockEntity = (ThermalGeneratorBlockEntity)blockEntity;
 
-        checkDataCount(data, 5);
+        checkDataCount(data, 6);
         this.level = playerInventory.player.getWorld();
         this.data = data;
 
@@ -68,6 +69,10 @@ public class ThermalGeneratorMenu extends ScreenHandler implements EnergyStorage
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(4));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(5));
     }
 
     @Override

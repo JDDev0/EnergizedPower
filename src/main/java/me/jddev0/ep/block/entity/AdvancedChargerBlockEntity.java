@@ -6,6 +6,8 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
@@ -13,6 +15,7 @@ import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.screen.AdvancedChargerMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.ItemStackUtils;
+import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -48,7 +51,8 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
+public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate,
+        ComparatorModeUpdate {
     public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_CHARGER_CAPACITY_PER_SLOT.getValue() * 3;
 
     public static final long MAX_RECEIVE_PER_SLOT = ModConfigs.COMMON_ADVANCED_CHARGER_TRANSFER_RATE_PER_SLOT.getValue();
@@ -69,6 +73,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
     };
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public AdvancedChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ADVANCED_CHARGER_ENTITY, blockPos, blockState);
@@ -188,6 +193,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
                     case 4, 5, 6, 7 -> ByteUtils.get2Bytes(AdvancedChargerBlockEntity.this.energyConsumptionLeft[1], index - 4);
                     case 8, 9, 10, 11 -> ByteUtils.get2Bytes(AdvancedChargerBlockEntity.this.energyConsumptionLeft[2], index - 8);
                     case 12 -> redstoneMode.ordinal();
+                    case 13 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -197,12 +203,13 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
                 switch(index) {
                     case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 -> {}
                     case 12 -> AdvancedChargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 13 -> AdvancedChargerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 13;
+                return 14;
             }
         };
     }
@@ -213,7 +220,11 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
     }
 
     public int getRedstoneOutput() {
-        return ScreenHandler.calculateComparatorOutput(internalInventory);
+        return switch(comparatorMode) {
+            case ITEM -> ScreenHandler.calculateComparatorOutput(internalInventory);
+            case FLUID -> 0;
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     @Nullable
@@ -243,6 +254,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
             nbt.put("recipe.energy_consumption_left." + i, NbtLong.of(energyConsumptionLeft[i]));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.writeNbt(nbt);
     }
@@ -258,6 +270,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
             energyConsumptionLeft[i] = nbt.getLong("recipe.energy_consumption_left." + i);
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -392,6 +405,14 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        do {
+            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
+        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
         markDirty();
     }
 }
