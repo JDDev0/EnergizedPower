@@ -453,6 +453,28 @@ public final class ModConfigs {
             "block.pulverizer", "Pulverizer", 100
     );
 
+    public static final ConfigValue<Long> COMMON_ADVANCED_PULVERIZER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.advanced_pulverizer", "Advanced Pulverizer", 4096
+    );
+    public static final ConfigValue<Long> COMMON_ADVANCED_PULVERIZER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.advanced_pulverizer", "Advanced Pulverizer", 256
+    );
+    public static final ConfigValue<Long> COMMON_ADVANCED_PULVERIZER_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.advanced_pulverizer", "Advanced Pulverizer", 32
+    );
+    public static final ConfigValue<Integer> COMMON_ADVANCED_PULVERIZER_RECIPE_DURATION = registerRecipeDurationConfigValue(
+            "block.advanced_pulverizer", "Advanced Pulverizer", 25
+    );
+    public static final ConfigValue<Long> COMMON_ADVANCED_PULVERIZER_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
+            "block.advanced_pulverizer", "Advanced Pulverizer", 8
+    );
+    public static final ConfigValue<Long> COMMON_ADVANCED_PULVERIZER_WATER_USAGE_PER_RECIPE = COMMON_CONFIG.register(new LongConfigValue(
+            "block.advanced_pulverizer.water_usage_per_recipe",
+            "The amount of Water in mB (milli Buckets) which will be converted to Dirty Water per completed recipe in the Advanced Pulverizer.",
+            10L,
+            1L, null
+    ));
+
     public static final ConfigValue<Long> COMMON_SAWMILL_CAPACITY = registerEnergyCapacityConfigValue(
             "block.sawmill", "Sawmill", 2048
     );

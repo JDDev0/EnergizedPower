@@ -248,6 +248,12 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item PULVERIZER_ITEM = createBlockItem("pulverizer", PULVERIZER);
 
+    public static final Block ADVANCED_PULVERIZER = registerBlock("advanced_pulverizer",
+            new AdvancedPulverizerBlock(FabricBlockSettings.create().
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item ADVANCED_PULVERIZER_ITEM = createBlockItem("advanced_pulverizer",
+            new AdvancedPulverizerBlock.Item(ADVANCED_PULVERIZER, new FabricItemSettings()));
+
     public static final Block SAWMILL = registerBlock("sawmill",
             new SawmillBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

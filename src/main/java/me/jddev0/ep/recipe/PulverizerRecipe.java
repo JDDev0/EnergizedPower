@@ -41,22 +41,24 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
         return input;
     }
 
-    public ItemStack[] getMaxOutputCounts() {
+    public ItemStack[] getMaxOutputCounts(boolean advanced) {
         ItemStack[] generatedOutputs = new ItemStack[2];
 
-        generatedOutputs[0] = output.output.copyWithCount(output.percentages.length);
-        generatedOutputs[1] = secondaryOutput.output.copyWithCount(secondaryOutput.percentages.length);
+        generatedOutputs[0] = output.output.copyWithCount(advanced?output.percentagesAdvanced.length:
+                output.percentages.length);
+        generatedOutputs[1] = secondaryOutput.output.copyWithCount(advanced?secondaryOutput.percentagesAdvanced.length:
+                secondaryOutput.percentages.length);
 
         return generatedOutputs;
     }
 
-    public ItemStack[] generateOutputs(Random randomSource) {
+    public ItemStack[] generateOutputs(Random randomSource, boolean advanced) {
         ItemStack[] generatedOutputs = new ItemStack[2];
         for(int i = 0;i < 2;i++) {
             int count = 0;
             OutputItemStackWithPercentages output = i == 0?this.output:this.secondaryOutput;
 
-            for(double percentage:output.percentages)
+            for(double percentage:(advanced?output.percentagesAdvanced:output.percentages))
                 if(randomSource.nextDouble() <= percentage)
                     count++;
 
@@ -157,10 +159,24 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
                 if(i == 0 && !minimumAtLeastOneFlag)
                     throw new JsonSyntaxException("The primary output must have a minimum count of at least 1 (At least one percentage value must be >= 1.0)");
 
-                outputs[i] = new OutputItemStackWithPercentages(output, percentages);
+                JsonArray percentagesAdvancedJson = outputJson.has("percentagesAdvanced")?
+                        JsonHelper.getArray(outputJson, "percentagesAdvanced"):percentagesJson;
+                double[] percentagesAdvanced = new double[percentagesAdvancedJson.size()];
+                minimumAtLeastOneFlag = false;
+                for(int j = 0;j < percentagesAdvancedJson.size();j++) {
+                    double value = percentagesAdvancedJson.get(j).getAsDouble();
+
+                    minimumAtLeastOneFlag |= (int)value >= 1;
+                    percentagesAdvanced[j] = value;
+                }
+
+                if(i == 0 && !minimumAtLeastOneFlag)
+                    throw new JsonSyntaxException("The primary output must have a minimum count of at least 1 (At least one percentage value must be >= 1.0)");
+
+                outputs[i] = new OutputItemStackWithPercentages(output, percentages, percentagesAdvanced);
 
                 if(!json.has("secondaryOutput")) {
-                    outputs[1] = new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0]);
+                    outputs[1] = new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0], new double[0]);
 
                     break;
                 }
@@ -182,7 +198,12 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
                 for(int j = 0;j < percentageCount;j++)
                     percentages[j] = buffer.readDouble();
 
-                outputs[i] = new OutputItemStackWithPercentages(output, percentages);
+                int percentageAdvancedCount = buffer.readInt();
+                double[] percentagesAdvanced = new double[percentageAdvancedCount];
+                for(int j = 0;j < percentageAdvancedCount;j++)
+                    percentagesAdvanced[j] = buffer.readDouble();
+
+                outputs[i] = new OutputItemStackWithPercentages(output, percentages, percentagesAdvanced);
             }
 
             return new PulverizerRecipe(recipeID, outputs[0], outputs[1], input);
@@ -199,9 +220,13 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
                 buffer.writeInt(output.percentages.length);
                 for(double percentage:output.percentages)
                     buffer.writeDouble(percentage);
+
+                buffer.writeInt(output.percentagesAdvanced.length);
+                for(double percentage:output.percentagesAdvanced)
+                    buffer.writeDouble(percentage);
             }
         }
     }
 
-    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages) {}
+    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages, double[] percentagesAdvanced) {}
 }

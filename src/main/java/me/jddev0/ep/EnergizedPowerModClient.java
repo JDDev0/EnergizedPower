@@ -40,6 +40,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(ModMenuTypes.CRUSHER_MENU, CrusherScreen::new);
         HandledScreens.register(ModMenuTypes.ADVANCED_CRUSHER_MENU, AdvancedCrusherScreen::new);
         HandledScreens.register(ModMenuTypes.PULVERIZER_MENU, PulverizerScreen::new);
+        HandledScreens.register(ModMenuTypes.ADVANCED_PULVERIZER_MENU, AdvancedPulverizerScreen::new);
         HandledScreens.register(ModMenuTypes.SAWMILL_MENU, SawmillScreen::new);
         HandledScreens.register(ModMenuTypes.COMPRESSOR_MENU, CompressorScreen::new);
         HandledScreens.register(ModMenuTypes.PLANT_GROWTH_CHAMBER_MENU, PlantGrowthChamberScreen::new);
