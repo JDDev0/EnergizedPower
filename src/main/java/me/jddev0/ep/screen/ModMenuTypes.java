@@ -37,6 +37,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<BlockPlacerMenu> BLOCK_PLACER_MENU = createScreenHandlerType("block_placer",
             new ExtendedScreenHandlerType<>(BlockPlacerMenu::new));
 
+    public static final ScreenHandlerType<AdvancedPulverizerMenu> ADVANCED_PULVERIZER_MENU = createScreenHandlerType("advanced_pulverizer",
+            new ExtendedScreenHandlerType<>(AdvancedPulverizerMenu::new));
+
     public static final ScreenHandlerType<FluidFillerMenu> FLUID_FILLER_MENU = createScreenHandlerType("fluid_filler",
             new ExtendedScreenHandlerType<>(FluidFillerMenu::new));
 
