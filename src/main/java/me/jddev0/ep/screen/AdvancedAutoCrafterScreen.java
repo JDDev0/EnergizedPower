@@ -3,12 +3,14 @@ package me.jddev0.ep.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import me.jddev0.ep.networking.packet.CycleAdvancedAutoCrafterRecipeOutputC2SPacket;
 import me.jddev0.ep.networking.packet.SetAdvancedAutoCrafterCheckboxC2SPacket;
 import me.jddev0.ep.networking.packet.SetAdvancedAutoCrafterRecipeIndexC2SPacket;
+import me.jddev0.ep.networking.packet.*;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -63,6 +65,11 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageConta
                 //Redstone Mode
 
                 ModMessages.sendToServer(new ChangeRedstoneModeC2SPacket(menu.getBlockEntity().getBlockPos()));
+                clicked = true;
+            }else if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
+                //Comparator Mode
+
+                ModMessages.sendToServer(new ChangeComparatorModeC2SPacket(menu.getBlockEntity().getBlockPos()));
                 clicked = true;
             }
 
@@ -121,6 +128,15 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageConta
         }else {
             blit(poseStack, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
         }
+
+        ComparatorMode comparatorMode = menu.getComparatorMode();
+        ordinal = comparatorMode.ordinal();
+
+        if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
+            blit(poseStack, x - 22, y + 26, 20 * ordinal, 60, 20, 20);
+        }else {
+            blit(poseStack, x - 22, y + 26, 20 * ordinal, 40, 20, 20);
+        }
     }
 
     @Override
@@ -162,6 +178,15 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageConta
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.getSerializedName()));
+
+            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+        }else if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
+            //Comparator Mode
+
+            ComparatorMode comparatorMode = menu.getComparatorMode();
+
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.machine_configuration.comparator_mode." + comparatorMode.getSerializedName()));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
         }

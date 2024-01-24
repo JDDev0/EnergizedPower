@@ -5,6 +5,8 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
@@ -12,6 +14,7 @@ import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
 import me.jddev0.ep.screen.AssemblingMachineMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.BlockPos;
@@ -43,7 +46,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class AssemblingMachineBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate {
+public class AssemblingMachineBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate,
+        ComparatorModeUpdate {
     private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_ASSEMBLING_MACHINE_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(5) {
@@ -99,6 +103,7 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements MenuPro
     private boolean hasEnoughEnergy;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public AssemblingMachineBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ASSEMBLING_MACHINE_ENTITY.get(), blockPos, blockState);
@@ -125,6 +130,7 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements MenuPro
                     case 4, 5 -> ByteUtils.get2Bytes(AssemblingMachineBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 6 -> hasEnoughEnergy?1:0;
                     case 7 -> redstoneMode.ordinal();
+                    case 8 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -140,12 +146,13 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements MenuPro
                     );
                     case 4, 5, 6 -> {}
                     case 7 -> AssemblingMachineBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 8 -> AssemblingMachineBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 8;
+                return 9;
             }
         };
     }
@@ -165,7 +172,11 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements MenuPro
     }
 
     public int getRedstoneOutput() {
-        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+        return switch(comparatorMode) {
+            case ITEM -> InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+            case FLUID -> 0;
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     @Override
@@ -221,6 +232,7 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements MenuPro
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.saveAdditional(nbt);
     }
@@ -236,6 +248,7 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements MenuPro
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -393,6 +406,14 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements MenuPro
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        do {
+            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
+        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
         setChanged();
     }
 }

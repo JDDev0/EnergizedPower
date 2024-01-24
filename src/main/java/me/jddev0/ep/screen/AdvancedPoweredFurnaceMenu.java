@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AdvancedPoweredFurnaceBlockEntity;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -20,13 +21,13 @@ public class AdvancedPoweredFurnaceMenu extends AbstractContainerMenu implements
     private final ContainerData data;
 
     public AdvancedPoweredFurnaceMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(22));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(23));
     }
 
     public AdvancedPoweredFurnaceMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.ADVANCED_POWERED_FURNACE_MENU.get(), id);
 
-        checkContainerDataCount(data, 22);
+        checkContainerDataCount(data, 23);
         this.blockEntity = (AdvancedPoweredFurnaceBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -99,6 +100,10 @@ public class AdvancedPoweredFurnaceMenu extends AbstractContainerMenu implements
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(21));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(22));
     }
 
     @Override

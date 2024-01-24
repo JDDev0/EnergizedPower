@@ -9,6 +9,8 @@ import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.fluid.ModFluids;
 import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
@@ -18,6 +20,8 @@ import me.jddev0.ep.networking.packet.SyncFiltrationPlantCurrentRecipeS2CPacket;
 import me.jddev0.ep.recipe.FiltrationPlantRecipe;
 import me.jddev0.ep.screen.FiltrationPlantMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.EnergyUtils;
+import me.jddev0.ep.util.FluidUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.BlockPos;
@@ -57,7 +61,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FiltrationPlantBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate,
-        FluidStoragePacketUpdate, RedstoneModeUpdate {
+        FluidStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_FILTRATION_PLANT_CONSUMPTION_PER_TICK.getValue();
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_FILTRATION_PLANT_TANK_CAPACITY.getValue();
     public static final int DIRTY_WATER_CONSUMPTION_PER_RECIPE = ModConfigs.COMMON_FILTRATION_PLANT_DIRTY_WATER_USAGE_PER_RECIPE.getValue();
@@ -97,6 +101,7 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements MenuProvi
     private FiltrationPlantRecipe currentRecipe = null;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public FiltrationPlantBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.FILTRATION_PLANT_ENTITY.get(), blockPos, blockState);
@@ -152,6 +157,7 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements MenuProvi
                     case 4, 5 -> ByteUtils.get2Bytes(FiltrationPlantBlockEntity.this.energyConsumptionLeft, index - 4);
                     case 6 -> hasEnoughEnergy?1:0;
                     case 7 -> redstoneMode.ordinal();
+                    case 8 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -167,12 +173,13 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements MenuProvi
                     );
                     case 4, 5, 6 -> {}
                     case 7 -> FiltrationPlantBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 8 -> FiltrationPlantBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 8;
+                return 9;
             }
         };
     }
@@ -195,7 +202,11 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements MenuProvi
     }
 
     public int getRedstoneOutput() {
-        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+        return switch(comparatorMode) {
+            case ITEM -> InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+            case FLUID -> FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     @Override
@@ -246,6 +257,7 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements MenuProvi
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.saveAdditional(nbt);
     }
@@ -272,6 +284,7 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements MenuProvi
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -496,6 +509,12 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements MenuProvi
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        setChanged();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
         setChanged();
     }
 }

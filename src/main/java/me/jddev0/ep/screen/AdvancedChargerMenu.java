@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AdvancedChargerBlockEntity;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -20,13 +21,13 @@ public class AdvancedChargerMenu extends AbstractContainerMenu implements Energy
     private final ContainerData data;
 
     public AdvancedChargerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(7));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(8));
     }
 
     public AdvancedChargerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.ADVANCED_CHARGER_MENU.get(), id);
 
-        checkContainerDataCount(data, 7);
+        checkContainerDataCount(data, 8);
         this.blockEntity = (AdvancedChargerBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -77,6 +78,10 @@ public class AdvancedChargerMenu extends AbstractContainerMenu implements Energy
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(6));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(7));
     }
 
     @Override

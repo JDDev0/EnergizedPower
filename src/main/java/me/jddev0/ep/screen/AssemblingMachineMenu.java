@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AssemblingMachineBlockEntity;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -20,13 +21,13 @@ public class AssemblingMachineMenu extends AbstractContainerMenu implements Ener
     private final ContainerData data;
 
     public AssemblingMachineMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(8));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
     }
 
     public AssemblingMachineMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.ASSEMBLING_MACHINE_MENU.get(), id);
 
-        checkContainerDataCount(data, 8);
+        checkContainerDataCount(data, 9);
         this.blockEntity = (AssemblingMachineBlockEntity)blockEntity;
         this.level = inv.player.getLevel();
         this.data = data;
@@ -81,6 +82,10 @@ public class AssemblingMachineMenu extends AbstractContainerMenu implements Ener
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(7));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(8));
     }
 
     @Override

@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AdvancedUnchargerBlockEntity;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -20,13 +21,13 @@ public class AdvancedUnchargerMenu extends AbstractContainerMenu implements Ener
     private final ContainerData data;
 
     public AdvancedUnchargerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(7));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(8));
     }
 
     public AdvancedUnchargerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.ADVANCED_UNCHARGER_MENU.get(), id);
 
-        checkContainerDataCount(data, 7);
+        checkContainerDataCount(data, 8);
         this.blockEntity = (AdvancedUnchargerBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -77,6 +78,10 @@ public class AdvancedUnchargerMenu extends AbstractContainerMenu implements Ener
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(6));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(7));
     }
 
     @Override
