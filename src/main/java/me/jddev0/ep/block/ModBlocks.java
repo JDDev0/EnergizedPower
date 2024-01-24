@@ -237,6 +237,12 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item CRUSHER_ITEM = createBlockItem("crusher", CRUSHER);
 
+    public static final Block ADVANCED_CRUSHER = registerBlock("advanced_crusher",
+            new AdvancedCrusherBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item ADVANCED_CRUSHER_ITEM = createBlockItem("advanced_crusher",
+            new AdvancedCrusherBlock.Item(ADVANCED_CRUSHER, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final Block PULVERIZER = registerBlock("pulverizer",
             new PulverizerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

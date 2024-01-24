@@ -127,6 +127,17 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
+    public static final BlockEntityType<AdvancedCrusherBlockEntity> ADVANCED_CRUSHER_ENTITY = registerEnergyStorage(
+            registerFluidStorage(
+                    registerInventoryStorage(
+                            createBlockEntity("advanced_crusher", ModBlocks.ADVANCED_CRUSHER, AdvancedCrusherBlockEntity::new),
+                            (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)
+                    ),
+                    (blockEntity, direction) -> blockEntity.fluidStorage
+            ),
+            (blockEntity, direction) -> blockEntity.energyStorage
+    );
+
     public static final BlockEntityType<PulverizerBlockEntity> PULVERIZER_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
                     createBlockEntity("pulverizer", ModBlocks.PULVERIZER, PulverizerBlockEntity::new),
