@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.UnchargerBlockEntity;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -20,13 +21,13 @@ public class UnchargerMenu extends AbstractContainerMenu implements EnergyStorag
     private final ContainerData data;
 
     public UnchargerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(3));
+        this(id, inv, inv.player.level.getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(4));
     }
 
     public UnchargerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(ModMenuTypes.UNCHARGER_MENU.get(), id);
 
-        checkContainerDataCount(data, 3);
+        checkContainerDataCount(data, 4);
         this.blockEntity = (UnchargerBlockEntity)blockEntity;
         this.level = inv.player.level;
         this.data = data;
@@ -58,6 +59,10 @@ public class UnchargerMenu extends AbstractContainerMenu implements EnergyStorag
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(2));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(3));
     }
 
     @Override
