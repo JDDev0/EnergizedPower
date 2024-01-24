@@ -113,6 +113,9 @@ public final class ModItems {
     public static final Item CABLE_INSULATOR = registerItem("cable_insulator",
             new CableInsulatorItem(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final Item CHARCOAL_FILTER = registerItem("charcoal_filter",
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxDamage(200).maxDamageIfAbsent(200)));
+
     public static final Item SAW_BLADE = registerItem("saw_blade",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
