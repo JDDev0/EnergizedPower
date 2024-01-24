@@ -189,6 +189,12 @@ public final class ModMessages {
                 encoder(ChangeFiltrationPlantRecipeIndexC2SPacket::toBytes).
                 consumerMainThread(ChangeFiltrationPlantRecipeIndexC2SPacket::handle).
                 add();
+
+        net.messageBuilder(ChangeComparatorModeC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+                decoder(ChangeComparatorModeC2SPacket::new).
+                encoder(ChangeComparatorModeC2SPacket::toBytes).
+                consumerMainThread(ChangeComparatorModeC2SPacket::handle).
+                add();
     }
 
     public static <MSG> void sendToServer(MSG message) {
