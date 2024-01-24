@@ -1,7 +1,16 @@
 {
   "content": [
     {
-      "translate": "book.energizedpower.page.drain",
+      "translate": "book.energizedpower.page.drain.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.drain.2",
       "color": "black",
       "bold": true,
       "font": "uniform"
