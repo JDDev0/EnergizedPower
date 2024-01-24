@@ -4,6 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.FluidDrainerBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
@@ -42,7 +43,7 @@ public class FluidDrainerMenu extends ScreenHandler implements EnergyStorageMenu
             public int getMaxCountPerStack() {
                 return 1;
             }
-        }, new ArrayPropertyDelegate(9));
+        }, new ArrayPropertyDelegate(10));
     }
 
     public FluidDrainerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
@@ -52,7 +53,7 @@ public class FluidDrainerMenu extends ScreenHandler implements EnergyStorageMenu
 
         this.inv = inv;
         checkSize(this.inv, 1);
-        checkDataCount(data, 9);
+        checkDataCount(data, 10);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
         this.data = data;
@@ -93,6 +94,10 @@ public class FluidDrainerMenu extends ScreenHandler implements EnergyStorageMenu
 
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(8));
+    }
+
+    public ComparatorMode getComparatorMode() {
+        return ComparatorMode.fromIndex(data.get(9));
     }
 
     @Override

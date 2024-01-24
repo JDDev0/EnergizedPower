@@ -6,6 +6,8 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
@@ -13,6 +15,7 @@ import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.screen.ChargerMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.ItemStackUtils;
+import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -48,7 +51,8 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate {
+public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate,
+        ComparatorModeUpdate {
     public static final long CAPACITY = ModConfigs.COMMON_CHARGER_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_CHARGER_TRANSFER_RATE.getValue();
 
@@ -65,6 +69,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
     private long energyConsumptionLeft = -1;
 
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public ChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.CHARGER_ENTITY, blockPos, blockState);
@@ -182,6 +187,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
                 return switch(index) {
                     case 0, 1, 2, 3 -> ByteUtils.get2Bytes(ChargerBlockEntity.this.energyConsumptionLeft, index);
                     case 4 -> redstoneMode.ordinal();
+                    case 5 -> comparatorMode.ordinal();
                     default -> 0;
                 };
             }
@@ -191,12 +197,13 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
                 switch(index) {
                     case 0, 1, 2, 3 -> {}
                     case 4 -> ChargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 5 -> ChargerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
             @Override
             public int size() {
-                return 5;
+                return 6;
             }
         };
     }
@@ -207,7 +214,11 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
     }
 
     public int getRedstoneOutput() {
-        return ScreenHandler.calculateComparatorOutput(internalInventory);
+        return switch(comparatorMode) {
+            case ITEM -> ScreenHandler.calculateComparatorOutput(internalInventory);
+            case FLUID -> 0;
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
     }
 
     @Nullable
@@ -236,6 +247,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
         super.writeNbt(nbt);
     }
@@ -250,6 +262,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -374,6 +387,14 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
+        markDirty();
+    }
+
+    @Override
+    public void setNextComparatorMode() {
+        do {
+            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
+        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
         markDirty();
     }
 }
