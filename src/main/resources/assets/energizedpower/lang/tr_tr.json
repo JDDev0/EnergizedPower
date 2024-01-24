@@ -1246,7 +1246,8 @@
   "book.energizedpower.page.fluid_tanks.1": "Fluid tanks can store fluids.",
   "book.energizedpower.page.fluid_tanks.2": "There are three tiers of fluid tanks: Small, Medium, and Large.",
 
-  "book.energizedpower.page.drain": "The Drain drains fluid source blocks above the block.",
+  "book.energizedpower.page.drain.1": "The Drain drains fluid source blocks above the block.",
+  "book.energizedpower.page.drain.2": "On the Fabric version the Drain can extract fluids from Cauldrons.",
 
 
   "book.energizedpower.page.chapter.item_transportation.title": "Ürün Taşımacılığı",
