@@ -255,6 +255,12 @@ public final class ModBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final RegistryObject<Item> CRUSHER_ITEM = createBlockItem("crusher", CRUSHER);
 
+    public static final RegistryObject<Block> ADVANCED_CRUSHER = BLOCKS.register("advanced_crusher",
+            () -> new AdvancedCrusherBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> ADVANCED_CRUSHER_ITEM = ModItems.ITEMS.register("advanced_crusher",
+            () -> new AdvancedCrusherBlock.Item(ADVANCED_CRUSHER.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final RegistryObject<Block> PULVERIZER = BLOCKS.register("pulverizer",
             () -> new PulverizerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
