@@ -307,6 +307,12 @@ public final class ModBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final RegistryObject<Item> STONE_SOLIDIFIER_ITEM = createBlockItem("stone_solidifier", STONE_SOLIDIFIER);
 
+
+    public static final RegistryObject<Block> FILTRATION_PLANT = BLOCKS.register("filtration_plant",
+            () -> new FiltrationPlantBlock(BlockBehaviour.Properties.of(Material.METAL).
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> FILTRATION_PLANT_ITEM = ModItems.ITEMS.register("filtration_plant",
+            () -> new FiltrationPlantBlock.Item(FILTRATION_PLANT.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Block> FLUID_DRAINER = BLOCKS.register("fluid_drainer",
             () -> new FluidDrainerBlock(BlockBehaviour.Properties.of(Material.METAL).
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
