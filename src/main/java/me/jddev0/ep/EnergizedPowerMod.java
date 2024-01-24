@@ -8,6 +8,8 @@ import me.jddev0.ep.block.entity.renderer.FluidTankBlockEntityRenderer;
 import me.jddev0.ep.block.entity.renderer.ItemConveyorBeltBlockEntityRenderer;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.ModEntityTypes;
+import me.jddev0.ep.fluid.ModFluidTypes;
+import me.jddev0.ep.fluid.ModFluids;
 import me.jddev0.ep.input.ModKeyBindings;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
@@ -18,6 +20,8 @@ import me.jddev0.ep.screen.*;
 import me.jddev0.ep.villager.ModVillager;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.MinecartRenderer;
@@ -55,6 +59,9 @@ public class EnergizedPowerMod {
         ModVillager.register(modEventBus);
         ModEntityTypes.register(modEventBus);
         ModPaintings.register(modEventBus);
+
+        ModFluids.register(modEventBus);
+        ModFluidTypes.register(modEventBus);
 
         ModBlockBehaviors.register();
 
@@ -149,6 +156,9 @@ public class EnergizedPowerMod {
             EntityRenderers.register(ModEntityTypes.ADVANCED_BATTERY_BOX_MINECART.get(),
                     entity -> new MinecartRenderer<>(entity, new ModelLayerLocation(
                             new ResourceLocation("minecraft", "chest_minecart"), "main")));
+
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.DIRTY_WATER.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_DIRTY_WATER.get(), RenderType.translucent());
 
             BlockEntityRenderers.register(ModBlockEntities.ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.FLUID_TANK_SMALL_ENTITY.get(), FluidTankBlockEntityRenderer::new);
