@@ -1,7 +1,11 @@
 package me.jddev0.ep.util;
 
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.math.MathHelper;
 
 import java.util.Locale;
 
@@ -67,5 +71,23 @@ public final class FluidUtils {
         nbtCompound.putLong(milliBucketsKey, milliBucketsAmount);
         if(dropletsLeftOverAmount > 0)
             nbtCompound.putLong(leftoverKey, dropletsLeftOverAmount);
+    }
+
+    public static int getRedstoneSignalFromFluidHandler(Storage<FluidVariant> fluidStorage) {
+        double fullnessPercentSum = 0;
+        boolean isEmptyFlag = true;
+
+        int size = 0;
+        for(StorageView<FluidVariant> fluidView:fluidStorage) {
+            if(++size > 100) //Limit max iterations to 100
+                break;
+
+            if(!fluidView.isResourceBlank()) {
+                fullnessPercentSum += (double)fluidView.getAmount() / fluidView.getCapacity();
+                isEmptyFlag = false;
+            }
+        }
+
+        return Math.min(MathHelper.floor(fullnessPercentSum / size * 14.f) + (isEmptyFlag?0:1), 15);
     }
 }

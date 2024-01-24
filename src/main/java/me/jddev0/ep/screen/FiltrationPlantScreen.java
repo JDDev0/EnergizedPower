@@ -68,7 +68,7 @@ public class FiltrationPlantScreen extends AbstractGenericEnergyStorageHandledSc
                 PacketByteBuf buf = PacketByteBufs.create();
                 buf.writeBlockPos(handler.getBlockEntity().getPos());
                 buf.writeBoolean(diff == 1);
-                ClientPlayNetworking.send(ModMessages.CHANGE_FILTRATION_PLANT_RECIPE_INDEX, buf);
+                ClientPlayNetworking.send(ModMessages.CHANGE_FILTRATION_PLANT_RECIPE_INDEX_ID, buf);
             }
 
             if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
