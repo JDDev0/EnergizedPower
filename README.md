@@ -14,16 +14,16 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Auto Crafter (Can handle recipe conflicts, that is recipes with the same inputs)
 - Advanced Auto Crafter (3 recipes at once)
 - Crusher
-- Advanced Crusher (**In next release (v2.8.0)**)
+- Advanced Crusher
 - Pulverizer
-- Advanced Pulverizer (**In next release (v2.8.0)**)
+- Advanced Pulverizer
 - Sawmill
 - Compressor
 - Metal Press
 - Assembling Machine
 - Plant Growth Chamber
 - Stone Solidifier
-- Filtration Plant (**In next release (v2.8.0)**)
+- Filtration Plant
 - Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
 - Fluid Filler
 - Fluid Drainer
@@ -143,6 +143,7 @@ A tutorial world showcasing all the features of this mod can be downloaded on Cu
 
 ## Supported versions:
 Mod version: MC version
+- 2.8.x: 1.20.4, 1.20.2, 1.20.1, 1.19.2
 - 2.7.x: 1.20.4, 1.20.2, 1.20.1, 1.19.2
 - 2.6.x: 1.20.4, 1.20.3, 1.20.2, 1.20.1, 1.19.4, 1.19.2
 - 2.5.x: 1.20.2, 1.20.1, 1.19.4, 1.19.2
