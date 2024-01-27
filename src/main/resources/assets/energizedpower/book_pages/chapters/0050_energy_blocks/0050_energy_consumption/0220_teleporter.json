@@ -13,7 +13,38 @@
       "color": "black",
       "bold": false,
       "italic": true,
-      "font": "uniform"
+      "font": "uniform",
+      "extra": [
+        "\n\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.teleporter.3.1",
+      "color": "black",
+      "bold": false,
+      "italic": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "text": " [",
+          "italic": false,
+          "font": "default"
+        },
+        {
+          "keybind": "key.energizedpower.teleporter.use",
+          "color": "dark_gray",
+          "italic": false,
+          "font": "default"
+        },
+        {
+          "text": "] ",
+          "italic": false,
+          "font": "default"
+        },
+        {
+          "translate": "book.energizedpower.page.teleporter.3.2"
+        }
+      ]
     }
   ],
   "block": "energizedpower:teleporter"
