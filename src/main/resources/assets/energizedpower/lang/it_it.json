@@ -1233,6 +1233,8 @@
 
   "book.energizedpower.page.teleporter.1": "Il Teletrasporto può teletrasportare i giocatori. Per farlo richiede energia e una matrice del teletrasporto collegato.",
   "book.energizedpower.page.teleporter.2": "Emette un segnale di redstone se il Teletrasporto è pronto per il teletrasporto.",
+  "book.energizedpower.page.teleporter.3.1": "The Teleporter can be triggered manually by pressing",
+  "book.energizedpower.page.teleporter.3.2": "while above the Teleporter.",
 
 
   "book.energizedpower.page.chapter.fluid_blocks.title": "Fluid Blocks",
