@@ -1233,6 +1233,8 @@
 
   "book.energizedpower.page.teleporter.1": "Der Teleporter kann Spieler teleportieren. Um das zu tun, benötigt er Energie und eine gebundene Teleporter-Matrix.",
   "book.energizedpower.page.teleporter.2": "Er gibt ein Redstone-Singal aus, wenn er bereit ist, jemanden zu Teleportieren.",
+  "book.energizedpower.page.teleporter.3.1": "Der Teleporter kann durch das Drücken von",
+  "book.energizedpower.page.teleporter.3.2": "manuell ausgelöst werden während man auf dem Teleporter steht.",
 
 
   "book.energizedpower.page.chapter.fluid_blocks.title": "Flüssigkeits-Blöcke",

@@ -1233,6 +1233,8 @@
 
   "book.energizedpower.page.teleporter.1": "Işınlayıcı oyuncuları ışınlayabilir. Bunu yapmak için enerji ve bağlantılı bir Işınlayıcı Matrisi gerektirir.",
   "book.energizedpower.page.teleporter.2": "Işınlayıcı ışınlanmaya hazırsa bir kırmızı taş sinyali verir.",
+  "book.energizedpower.page.teleporter.3.1": "The Teleporter can be triggered manually by pressing",
+  "book.energizedpower.page.teleporter.3.2": "while above the Teleporter.",
 
 
   "book.energizedpower.page.chapter.fluid_blocks.title": "Fluid Blocks",
