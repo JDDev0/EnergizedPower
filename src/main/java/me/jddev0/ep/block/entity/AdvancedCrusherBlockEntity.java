@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.CrusherBlock;
+import me.jddev0.ep.block.AdvancedCrusherBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
@@ -283,7 +283,7 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements MenuProvi
         if(level.isClientSide)
             return;
 
-        if(!blockEntity.redstoneMode.isActive(state.getValue(CrusherBlock.POWERED)))
+        if(!blockEntity.redstoneMode.isActive(state.getValue(AdvancedCrusherBlock.POWERED)))
             return;
 
         if(hasRecipe(blockEntity)) {
