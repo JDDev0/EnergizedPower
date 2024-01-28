@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.CrusherBlock;
+import me.jddev0.ep.block.FiltrationPlantBlock;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
@@ -296,7 +296,7 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements MenuProvi
             blockEntity.currentRecipeIdForLoad = null;
         }
 
-        if(!blockEntity.redstoneMode.isActive(state.getValue(CrusherBlock.POWERED)))
+        if(!blockEntity.redstoneMode.isActive(state.getValue(FiltrationPlantBlock.POWERED)))
             return;
 
         if(hasRecipe(blockEntity)) {
