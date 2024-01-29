@@ -99,14 +99,14 @@ dependencies {
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:12.+"
 
     // JEI integration
-    compileOnly "mezz.jei:jei-1.20.4-common-api:17.2.0.31"
-    compileOnly "mezz.jei:jei-1.20.4-neoforge-api:17.2.0.41"
+    compileOnly "mezz.jei:jei-1.20.4-common-api:17.3.0.43"
+    compileOnly "mezz.jei:jei-1.20.4-neoforge-api:17.3.0.43"
 
     // EMI integration
     compileOnly "dev.emi:emi-neoforge:1.1.0+1.20.4:api"
 
     // Curios integration
-    compileOnly "top.theillusivec4.curios:curios-neoforge:7.1.0+1.20.4:api"
+    compileOnly "top.theillusivec4.curios:curios-neoforge:7.2.0+1.20.4:api"
 
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
