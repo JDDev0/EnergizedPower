@@ -4,7 +4,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.type.util.ICuriosHelper;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -29,11 +29,8 @@ public final class CuriosCompatUtils {
         if(!isCuriosAvailable())
             return itemStacks;
 
-        ICuriosHelper curiosHelper = CuriosApi.getCuriosHelper();
-        if(curiosHelper == null)
-            return itemStacks;
-
-        Optional<IItemHandlerModifiable> itemHandlerModifiableLazyOptional = curiosHelper.getEquippedCurios(inventory.player);
+        Optional<IItemHandlerModifiable> itemHandlerModifiableLazyOptional = CuriosApi.getCuriosInventory(inventory.player)
+                .map(ICuriosItemHandler::getEquippedCurios);
 
         if(itemHandlerModifiableLazyOptional.isEmpty())
             return itemStacks;
