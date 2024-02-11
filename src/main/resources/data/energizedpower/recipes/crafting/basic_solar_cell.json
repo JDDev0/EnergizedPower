@@ -8,8 +8,8 @@
     "Q": {
       "tag": "forge:gems/quartz"
     },
-    "I": {
-      "tag": "forge:ingots/iron"
+    "T": {
+      "tag": "forge:ingots/tin"
     },
     "C": {
       "tag": "forge:ingots/copper"
@@ -18,7 +18,7 @@
   "pattern": [
     " C ",
     "SQS",
-    " I "
+    " T "
   ],
   "result": {
     "item": "energizedpower:basic_solar_cell"

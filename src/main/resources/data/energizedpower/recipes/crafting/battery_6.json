@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "tag": "forge:nuggets/iron"
+    "T": {
+      "tag": "forge:nuggets/tin"
     },
     "E": {
       "tag": "forge:plates/energized_copper"
@@ -13,7 +13,7 @@
     }
   },
   "pattern": [
-    "I I",
+    "T T",
     "EBE",
     "EBE"
   ],
