@@ -53,7 +53,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 ### Energy transportation
 
-- Cables (5 Tiers: Copper, Gold, Energized Copper, Energized Gold, and Energized Crystal Matrix)
+- Cables (6 Tiers: Tin (**In next release (v2.9.0)**), Copper, Gold, Energized Copper, Energized Gold, and Energized Crystal Matrix)
 - Transformers (Can be used to connect different tiers of cables):
   - 4 tiers: LV, MV, HV, and EHV
   - 3 types (for each tier): 1 to n, 3 to 3, and n to 1
