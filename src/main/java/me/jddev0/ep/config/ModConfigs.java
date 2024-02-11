@@ -171,6 +171,10 @@ public final class ModConfigs {
             CableBlock.EnergyExtractionMode.values(), CableBlock.EnergyExtractionMode::valueOf
     ));
 
+    public static final ConfigValue<Integer> COMMON_TIN_CABLE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.tin_cable", "Tin Cable", 128
+    );
+
     public static final ConfigValue<Integer> COMMON_COPPER_CABLE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
             "block.copper_cable", "Copper Cable", 1024
     );

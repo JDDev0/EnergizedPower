@@ -268,6 +268,8 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     }
 
     public enum Tier {
+        TIER_TIN("tin_cable", ModConfigs.COMMON_TIN_CABLE_TRANSFER_RATE.getValue(),
+                BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
         TIER_COPPER("copper_cable", ModConfigs.COMMON_COPPER_CABLE_TRANSFER_RATE.getValue(),
                 BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
         TIER_GOLD("gold_cable", ModConfigs.COMMON_GOLD_CABLE_TRANSFER_RATE.getValue(),

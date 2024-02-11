@@ -125,6 +125,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.IRON_FLUID_PIPE_ITEM);
             event.accept(ModBlocks.GOLDEN_FLUID_PIPE_ITEM);
 
+            event.accept(ModBlocks.TIN_CABLE_ITEM);
             event.accept(ModBlocks.COPPER_CABLE_ITEM);
             event.accept(ModBlocks.GOLD_CABLE_ITEM);
             event.accept(ModBlocks.ENERGIZED_COPPER_CABLE_ITEM);
