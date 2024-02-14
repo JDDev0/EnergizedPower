@@ -256,6 +256,8 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
     }
 
     public enum Tier {
+        TIER_TIN("tin_cable", ModConfigs.COMMON_TIN_CABLE_TRANSFER_RATE.getValue(),
+                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
         TIER_COPPER("copper_cable", ModConfigs.COMMON_COPPER_CABLE_TRANSFER_RATE.getValue(),
                 FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
         TIER_GOLD("gold_cable", ModConfigs.COMMON_GOLD_CABLE_TRANSFER_RATE.getValue(),

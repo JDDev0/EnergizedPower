@@ -288,6 +288,9 @@
   "item.energizedpower.advanced_minecart_uncharger": "Gelişmiş Maden Arabası Şarj Etmez",
   "container.energizedpower.advanced_minecart_uncharger": "Gelişmiş Maden Arabası Şarj Etmez",
 
+  "block.energizedpower.tin_cable": "Tin Cable",
+  "item.energizedpower.tin_cable": "Tin Cable",
+
   "block.energizedpower.copper_cable": "Bakır Kablo",
   "item.energizedpower.copper_cable": "Bakır Kablo",
 
@@ -869,6 +872,9 @@
   "advancements.energizedpower.fluid_tank_large.title": "Large Fluid Storage",
   "advancements.energizedpower.fluid_tank_large.description": "Store fluids in a large Fluid Tank.",
 
+  "advancements.energizedpower.tin_cable.title": "Basic Energy Transport",
+  "advancements.energizedpower.tin_cable.description": "Transport low amounts of energy with a Tin Cable.",
+
   "advancements.energizedpower.copper_cable.title": "Enerji Taşımacılığı",
   "advancements.energizedpower.copper_cable.description": "Kablo ile enerji taşı.",
 
@@ -1141,7 +1147,7 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_transportation": "Enerji Taşımacılığı için bloklar",
 
   "book.energizedpower.page.cables.1": "Kablolar enerji üreten bloklardan enerji taşır.",
-  "book.energizedpower.page.cables.2": "5 farklı kablo seviyesi vardır.",
+  "book.energizedpower.page.cables.2": "There are six cable tiers.",
   "book.energizedpower.page.cables.3": "Transformatör farklı seviye kablo bağlamak için gereklidir.",
 
   "book.energizedpower.page.transformers.1": "Transformatörler birçok farklı seviye kabloyu bağlabilir.",
