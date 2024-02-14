@@ -27,6 +27,7 @@
     "bBW"
   ],
   "result": {
-    "item": "energizedpower:good_fertilizer"
+    "item": "energizedpower:good_fertilizer",
+    "count": 4
   }
 }

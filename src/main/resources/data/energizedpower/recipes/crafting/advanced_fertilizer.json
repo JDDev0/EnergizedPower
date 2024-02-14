@@ -11,8 +11,8 @@
     "S": {
       "item": "minecraft:sweet_berries"
     },
-    "H": {
-      "item": "minecraft:honey_bottle"
+    "r": {
+      "tag": "c:red_dyes"
     },
     "T": {
       "item": "minecraft:red_tulip"
@@ -23,10 +23,11 @@
   },
   "pattern": [
     "MGS",
-    "GHG",
+    "GrG",
     "TGR"
   ],
   "result": {
-    "item": "energizedpower:advanced_fertilizer"
+    "item": "energizedpower:advanced_fertilizer",
+    "count": 4
   }
 }
