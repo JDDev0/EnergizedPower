@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "tin_ingot",
+  "key": {
+    "T": {
+      "tag": "forge:nuggets/tin"
+    }
+  },
+  "pattern": [
+    "TTT",
+    "TTT",
+    "TTT"
+  ],
+  "result": {
+    "item": "energizedpower:tin_ingot"
+  }
+}
