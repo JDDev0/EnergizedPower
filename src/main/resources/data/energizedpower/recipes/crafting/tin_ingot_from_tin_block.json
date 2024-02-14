@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "tin_ingot",
+  "ingredients": [
+    {
+      "tag": "forge:storage_blocks/tin"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "energizedpower:tin_ingot"
+  }
+}

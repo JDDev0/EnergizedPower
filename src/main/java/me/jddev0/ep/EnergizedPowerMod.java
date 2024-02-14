@@ -229,6 +229,7 @@ public class EnergizedPowerMod {
             event.accept(ModItems.TELEPORTER_MATRIX);
 
             event.accept(ModBlocks.SILICON_BLOCK_ITEM);
+            event.accept(ModBlocks.TIN_BLOCK_ITEM);
             event.accept(ModBlocks.SAWDUST_BLOCK_ITEM);
             event.accept(ModItems.CABLE_INSULATOR);
             event.accept(ModItems.CHARCOAL_FILTER);
@@ -246,14 +247,19 @@ public class EnergizedPowerMod {
             event.accept(ModItems.ROD_PRESS_MOLD);
             event.accept(ModItems.WIRE_PRESS_MOLD);
             event.accept(ModItems.SILICON);
+            event.accept(ModItems.TIN_DUST);
             event.accept(ModItems.COPPER_DUST);
             event.accept(ModItems.IRON_DUST);
             event.accept(ModItems.GOLD_DUST);
+            event.accept(ModItems.TIN_NUGGET);
+            event.accept(ModItems.TIN_INGOT);
+            event.accept(ModItems.TIN_PLATE);
             event.accept(ModItems.COPPER_PLATE);
             event.accept(ModItems.IRON_PLATE);
             event.accept(ModItems.GOLD_PLATE);
             event.accept(ModItems.IRON_GEAR);
             event.accept(ModItems.IRON_ROD);
+            event.accept(ModItems.TIN_WIRE);
             event.accept(ModItems.COPPER_WIRE);
             event.accept(ModItems.GOLD_WIRE);
             event.accept(ModItems.ENERGIZED_COPPER_INGOT);
@@ -265,6 +271,11 @@ public class EnergizedPowerMod {
             event.accept(ModItems.ENERGIZED_CRYSTAL_MATRIX);
 
             event.accept(ModFluids.DIRTY_WATER_BUCKET_ITEM);
+
+            event.accept(ModItems.RAW_TIN);
+            event.accept(ModBlocks.TIN_ORE_ITEM);
+            event.accept(ModBlocks.DEEPSLATE_TIN_ORE_ITEM);
+            event.accept(ModBlocks.RAW_TIN_BLOCK_ITEM);
         }
     }
 
