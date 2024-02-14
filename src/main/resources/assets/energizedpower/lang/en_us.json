@@ -10,10 +10,18 @@
 
   "item.energizedpower.silicon": "Silicon",
 
+  "item.energizedpower.raw_tin": "Raw Tin",
+
+  "item.energizedpower.tin_dust": "Tin Dust",
   "item.energizedpower.copper_dust": "Copper Dust",
   "item.energizedpower.iron_dust": "Iron Dust",
   "item.energizedpower.gold_dust": "Gold Dust",
 
+  "item.energizedpower.tin_nugget": "Tin Nugget",
+
+  "item.energizedpower.tin_ingot": "Tin Ingot",
+
+  "item.energizedpower.tin_plate": "Tin Plate",
   "item.energizedpower.copper_plate": "Copper Plate",
   "item.energizedpower.iron_plate": "Iron Plate",
   "item.energizedpower.gold_plate": "Gold Plate",
@@ -22,6 +30,7 @@
 
   "item.energizedpower.iron_rod": "Iron Rod",
 
+  "item.energizedpower.tin_wire": "Tin Wire",
   "item.energizedpower.copper_wire": "Copper Wire",
   "item.energizedpower.gold_wire": "Gold Wire",
 
@@ -158,8 +167,20 @@
   "block.energizedpower.silicon_block": "Block of Silicon",
   "item.energizedpower.silicon_block": "Block of Silicon",
 
+  "block.energizedpower.tin_block": "Block of Tin",
+  "item.energizedpower.tin_block": "Block of Tin",
+
   "block.energizedpower.sawdust_block": "Block of Sawdust",
   "item.energizedpower.sawdust_block": "Block of Sawdust",
+
+  "block.energizedpower.tin_ore": "Tin Ore",
+  "item.energizedpower.tin_ore": "Tin Ore",
+
+  "block.energizedpower.deepslate_tin_ore": "Deepslate Tin Ore",
+  "item.energizedpower.deepslate_tin_ore": "Deepslate Tin Ore",
+
+  "block.energizedpower.raw_tin_block": "Block of Raw Tin",
+  "item.energizedpower.raw_tin_block": "Block of Raw Tin",
 
   "block.energizedpower.item_conveyor_belt": "Item Conveyor Belt",
   "item.energizedpower.item_conveyor_belt": "Item Conveyor Belt",
@@ -905,6 +926,9 @@
   "advancements.energizedpower.advanced_battery_box_minecart.title": "Even more power on Rails",
   "advancements.energizedpower.advanced_battery_box_minecart.description": "Transport even more energy on rails.",
 
+  "advancements.energizedpower.tin_plate.title": "Tin Plate",
+  "advancements.energizedpower.tin_plate.description": "Create a tin plate.",
+
   "advancements.energizedpower.copper_plate.title": "Copper Plate",
   "advancements.energizedpower.copper_plate.description": "Create a copper plate.",
 
@@ -913,6 +937,9 @@
 
   "advancements.energizedpower.gold_plate.title": "Gold Plate",
   "advancements.energizedpower.gold_plate.description": "Create a gold plate.",
+
+  "advancements.energizedpower.tin_wire.title": "Tin Wire",
+  "advancements.energizedpower.tin_wire.description": "Create a tin wire.",
 
   "advancements.energizedpower.copper_wire.title": "Copper Wire",
   "advancements.energizedpower.copper_wire.description": "Create a copper wire.",

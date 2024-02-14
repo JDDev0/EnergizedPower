@@ -2,6 +2,12 @@
   "replace": false,
   "values": [
     "energizedpower:silicon_block",
+    "energizedpower:tin_block",
+
+    "energizedpower:tin_ore",
+    "energizedpower:deepslate_tin_ore",
+
+    "energizedpower:raw_tin_block",
 
     "energizedpower:item_conveyor_belt",
     "energizedpower:item_conveyor_belt_loader",
