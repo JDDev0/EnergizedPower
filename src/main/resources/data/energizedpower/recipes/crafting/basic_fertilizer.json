@@ -27,6 +27,7 @@
     "ABP"
   ],
   "result": {
-    "item": "energizedpower:basic_fertilizer"
+    "item": "energizedpower:basic_fertilizer",
+    "count": 4
   }
 }
