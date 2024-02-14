@@ -1,26 +1,26 @@
 {
-  "parent":  "energizedpower:main/basics/tin_cable",
+  "parent":  "energizedpower:main/basics/cable_insulator",
   "display": {
     "icon": {
-      "item": "energizedpower:copper_cable"
+      "item": "energizedpower:tin_cable"
     },
     "title": {
-      "translate": "advancements.energizedpower.copper_cable.title"
+      "translate": "advancements.energizedpower.tin_cable.title"
     },
     "description": {
-      "translate": "advancements.energizedpower.copper_cable.description"
+      "translate": "advancements.energizedpower.tin_cable.description"
     },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true
   },
   "criteria": {
-    "has_copper_cable": {
+    "has_tin_cable": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [ "energizedpower:copper_cable" ]
+            "items": [ "energizedpower:tin_cable" ]
           }
         ]
       }
@@ -28,7 +28,7 @@
   },
   "requirements": [
     [
-      "has_copper_cable"
+      "has_tin_cable"
     ]
   ]
 }
