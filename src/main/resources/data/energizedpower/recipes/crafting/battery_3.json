@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "tag": "c:iron_nuggets"
+    "T": {
+      "tag": "c:tin_nuggets"
     },
     "C": {
       "tag": "c:copper_plates"
@@ -16,7 +16,7 @@
     }
   },
   "pattern": [
-    "I I",
+    "T T",
     "BCB",
     "CSC"
   ],

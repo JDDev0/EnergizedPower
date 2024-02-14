@@ -8,8 +8,8 @@
     "Q": {
       "tag": "c:quartz"
     },
-    "I": {
-      "tag": "c:iron_ingots"
+    "T": {
+      "tag": "c:tin_ingots"
     },
     "C": {
       "tag": "c:copper_ingots"
@@ -18,7 +18,7 @@
   "pattern": [
     " C ",
     "SQS",
-    " I "
+    " T "
   ],
   "result": {
     "item": "energizedpower:basic_solar_cell"
