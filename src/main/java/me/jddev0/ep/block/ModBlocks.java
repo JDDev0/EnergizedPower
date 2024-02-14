@@ -108,6 +108,10 @@ public final class ModBlocks {
         return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
                 new CableBlock.Item(block, new FabricItemSettings(), block.getTier()));
     }
+    public static final CableBlock TIN_CABLE = registerBlock("tin_cable",
+            new CableBlock(CableBlock.Tier.TIER_TIN));
+    public static final Item TIN_CABLE_ITEM = createCableBlockItem("tin_cable", TIN_CABLE);
+
     public static final CableBlock COPPER_CABLE = registerBlock("copper_cable",
             new CableBlock(CableBlock.Tier.TIER_COPPER));
     public static final Item COPPER_CABLE_ITEM = createCableBlockItem("copper_cable", COPPER_CABLE);
