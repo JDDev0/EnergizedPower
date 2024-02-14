@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:compressor",
+  "ingredient": {
+    "tag": "forge:ingots/tin"
+  },
+  "output": {
+    "item": "energizedpower:tin_plate"
+  }
+}

@@ -2,9 +2,11 @@ package me.jddev0.ep.block;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.item.ModItems;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -31,10 +33,32 @@ public final class ModBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final RegistryObject<Item> SILICON_BLOCK_ITEM = createBlockItem("silicon_block", SILICON_BLOCK);
 
+    public static final RegistryObject<Block> TIN_BLOCK = BLOCKS.register("tin_block",
+            () -> new Block(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> TIN_BLOCK_ITEM = createBlockItem("tin_block", TIN_BLOCK);
+
     public static final RegistryObject<Block> SAWDUST_BLOCK = BLOCKS.register("sawdust_block",
             () -> new SimpleFlammableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).
                     strength(2.0f, 3.0f).sound(SoundType.WOOD), 5, 20));
     public static final RegistryObject<Item> SAWDUST_BLOCK_ITEM = createBlockItem("sawdust_block", SAWDUST_BLOCK);
+
+    public static final RegistryObject<Block> TIN_ORE = BLOCKS.register("tin_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
+                    .instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0f, 3.0f),
+                    ConstantInt.of(0)));
+    public static final RegistryObject<Item> TIN_ORE_ITEM = createBlockItem("tin_ore", TIN_ORE);
+
+    public static final RegistryObject<Block> DEEPSLATE_TIN_ORE = BLOCKS.register("deepslate_tin_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE)
+                    .requiresCorrectToolForDrops().strength(4.5f, 3.0f).sound(SoundType.DEEPSLATE),
+                    ConstantInt.of(0)));
+    public static final RegistryObject<Item> DEEPSLATE_TIN_ORE_ITEM = createBlockItem("deepslate_tin_ore", DEEPSLATE_TIN_ORE);
+
+    public static final RegistryObject<Block> RAW_TIN_BLOCK = BLOCKS.register("raw_tin_block",
+            () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.RAW_IRON)
+                    .instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(5.0f, 6.0f)));
+    public static final RegistryObject<Item> RAW_TIN_BLOCK_ITEM = createBlockItem("raw_tin_block", RAW_TIN_BLOCK);
 
     public static final RegistryObject<Block> ITEM_CONVEYOR_BELT = BLOCKS.register("item_conveyor_belt",
             () -> new ItemConveyorBeltBlock(BlockBehaviour.Properties.of().noCollission().
