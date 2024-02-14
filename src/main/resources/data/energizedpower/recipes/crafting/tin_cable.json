@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "tin_cable",
+  "key": {
+    "I": {
+      "item": "energizedpower:cable_insulator"
+    },
+    "T": {
+      "tag": "forge:ingots/tin"
+    }
+  },
+  "pattern": [
+    "ITI",
+    "ITI",
+    "ITI"
+  ],
+  "result": {
+    "item": "energizedpower:tin_cable",
+    "count": 9
+  }
+}
