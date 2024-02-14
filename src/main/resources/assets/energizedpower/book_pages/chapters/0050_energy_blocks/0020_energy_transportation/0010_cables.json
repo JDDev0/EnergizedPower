@@ -27,6 +27,7 @@
     }
   ],
   "block": [
+    "energizedpower:tin_cable",
     "energizedpower:copper_cable",
     "energizedpower:gold_cable",
     "energizedpower:energized_copper_cable",
