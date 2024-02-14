@@ -288,6 +288,9 @@
   "item.energizedpower.advanced_minecart_uncharger": "Advanced Minecart Uncharger",
   "container.energizedpower.advanced_minecart_uncharger": "Advanced Minecart Uncharger",
 
+  "block.energizedpower.tin_cable": "Tin Cable",
+  "item.energizedpower.tin_cable": "Tin Cable",
+
   "block.energizedpower.copper_cable": "绝缘铜质导线",
   "item.energizedpower.copper_cable": "绝缘铜质导线",
 
@@ -869,6 +872,9 @@
   "advancements.energizedpower.fluid_tank_large.title": "Large Fluid Storage",
   "advancements.energizedpower.fluid_tank_large.description": "Store fluids in a large Fluid Tank.",
 
+  "advancements.energizedpower.tin_cable.title": "Basic Energy Transport",
+  "advancements.energizedpower.tin_cable.description": "Transport low amounts of energy with a Tin Cable.",
+
   "advancements.energizedpower.copper_cable.title": "能量传输",
   "advancements.energizedpower.copper_cable.description": "用电缆传输能量。",
 
@@ -1141,7 +1147,7 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_transportation": "能量运输物品",
 
   "book.energizedpower.page.cables.1": "电缆是将从生能源的方块向由能源驱动输送能源的方块。",
-  "book.energizedpower.page.cables.2": "There are five cable tiers.",
+  "book.energizedpower.page.cables.2": "There are six cable tiers.",
   "book.energizedpower.page.cables.3": "如果有不同类型的电缆，需要变压器来连接这些电缆。",
 
   "book.energizedpower.page.transformers.1": "变压器用于连接不同类型的电缆。",
