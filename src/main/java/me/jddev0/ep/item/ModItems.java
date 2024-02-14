@@ -35,6 +35,11 @@ public final class ModItems {
     public static final Item SILICON = registerItem("silicon",
             new Item(new FabricItemSettings()));
 
+    public static final Item RAW_TIN = registerItem("raw_tin",
+            new Item(new FabricItemSettings()));
+
+    public static final Item TIN_DUST = registerItem("tin_dust",
+            new Item(new FabricItemSettings()));
     public static final Item COPPER_DUST = registerItem("copper_dust",
             new Item(new FabricItemSettings()));
     public static final Item IRON_DUST = registerItem("iron_dust",
@@ -42,6 +47,14 @@ public final class ModItems {
     public static final Item GOLD_DUST = registerItem("gold_dust",
             new Item(new FabricItemSettings()));
 
+    public static final Item TIN_NUGGET = registerItem("tin_nugget",
+            new Item(new FabricItemSettings()));
+
+    public static final Item TIN_INGOT = registerItem("tin_ingot",
+            new Item(new FabricItemSettings()));
+
+    public static final Item TIN_PLATE = registerItem("tin_plate",
+            new Item(new FabricItemSettings()));
     public static final Item COPPER_PLATE = registerItem("copper_plate",
             new Item(new FabricItemSettings()));
     public static final Item IRON_PLATE = registerItem("iron_plate",
@@ -55,6 +68,8 @@ public final class ModItems {
     public static final Item IRON_ROD = registerItem("iron_rod",
             new Item(new FabricItemSettings()));
 
+    public static final Item TIN_WIRE = registerItem("tin_wire",
+            new Item(new FabricItemSettings()));
     public static final Item COPPER_WIRE = registerItem("copper_wire",
             new Item(new FabricItemSettings()));
     public static final Item GOLD_WIRE = registerItem("gold_wire",

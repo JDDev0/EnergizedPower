@@ -2,6 +2,12 @@
   "replace": false,
   "values": [
     "energizedpower:silicon_block",
+    "energizedpower:tin_block",
+
+    "energizedpower:tin_ore",
+    "energizedpower:deepslate_tin_ore",
+
+    "energizedpower:raw_tin_block",
 
     "energizedpower:fluid_pipe",
     "energizedpower:golden_fluid_pipe",

@@ -1,0 +1,12 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": {
+    "tag": "c:tin_ingots"
+  },
+  "output": {
+    "output": {
+      "item": "energizedpower:tin_dust"
+    },
+    "percentages": [ 1.0 ]
+  }
+}
