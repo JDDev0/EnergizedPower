@@ -5,7 +5,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.type.util.ICuriosHelper;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -29,17 +29,15 @@ public final class CuriosCompatUtils {
         if(!isCuriosAvailable())
             return itemStacks;
 
-        ICuriosHelper curiosHelper = CuriosApi.getCuriosHelper();
-        if(curiosHelper == null)
+        LazyOptional<ICuriosItemHandler> curiosItemHandlerLazyOptional = CuriosApi.getCuriosInventory(inventory.player);
+
+        if(curiosItemHandlerLazyOptional == null || !curiosItemHandlerLazyOptional.isPresent())
             return itemStacks;
 
-        LazyOptional<IItemHandlerModifiable> itemHandlerModifiableLazyOptional = curiosHelper.
-                getEquippedCurios(inventory.player);
-
-        if(itemHandlerModifiableLazyOptional == null || !itemHandlerModifiableLazyOptional.isPresent())
+        IItemHandlerModifiable itemHandlerModifiable = curiosItemHandlerLazyOptional.orElseGet(null).getEquippedCurios();
+        if(itemHandlerModifiable == null)
             return itemStacks;
 
-        IItemHandlerModifiable itemHandlerModifiable = itemHandlerModifiableLazyOptional.orElseGet(null);
         for(int i = 0;i < itemHandlerModifiable.getSlots();i++) {
             ItemStack itemStack = itemHandlerModifiable.getStackInSlot(i);
 
