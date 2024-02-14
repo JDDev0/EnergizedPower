@@ -8,6 +8,7 @@
     }
   ],
   "image": [
+    "energizedpower:textures/item/tin_dust.png",
     "energizedpower:textures/item/copper_dust.png",
     "energizedpower:textures/item/iron_dust.png",
     "energizedpower:textures/item/gold_dust.png"
