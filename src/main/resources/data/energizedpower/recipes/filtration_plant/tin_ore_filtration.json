@@ -1,0 +1,16 @@
+{
+  "type": "energizedpower:filtration_plant",
+  "icon": "energizedpower:raw_tin",
+  "output": {
+    "output": {
+      "item": "minecraft:cobblestone"
+    },
+    "percentages": [ 0.33 ]
+  },
+  "secondaryOutput": {
+    "output": {
+      "item": "energizedpower:raw_tin"
+    },
+    "percentages": [ 0.05 ]
+  }
+}
