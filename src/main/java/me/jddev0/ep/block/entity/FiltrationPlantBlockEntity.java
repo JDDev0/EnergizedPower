@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.CrusherBlock;
+import me.jddev0.ep.block.FiltrationPlantBlock;
 import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
@@ -365,7 +365,7 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements ExtendedS
             blockEntity.currentRecipeIdForLoad = null;
         }
 
-        if(!blockEntity.redstoneMode.isActive(state.get(CrusherBlock.POWERED)))
+        if(!blockEntity.redstoneMode.isActive(state.get(FiltrationPlantBlock.POWERED)))
             return;
 
         if(hasRecipe(blockEntity)) {
