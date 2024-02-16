@@ -10,10 +10,18 @@
 
   "item.energizedpower.silicon": "Silizium",
 
+  "item.energizedpower.raw_tin": "Rohzinn",
+
+  "item.energizedpower.tin_dust": "Zinnstaub",
   "item.energizedpower.copper_dust": "Kupferstaub",
   "item.energizedpower.iron_dust": "Eisenstaub",
   "item.energizedpower.gold_dust": "Goldstaub",
 
+  "item.energizedpower.tin_nugget": "Zinnklumpen",
+
+  "item.energizedpower.tin_ingot": "Zinnbarren",
+
+  "item.energizedpower.tin_plate": "Zinnplatte",
   "item.energizedpower.copper_plate": "Kupferplatte",
   "item.energizedpower.iron_plate": "Eisenplatte",
   "item.energizedpower.gold_plate": "Goldplatte",
@@ -22,6 +30,7 @@
 
   "item.energizedpower.iron_rod": "Eisenstange",
 
+  "item.energizedpower.tin_wire": "Zinndraht",
   "item.energizedpower.copper_wire": "Kupferdraht",
   "item.energizedpower.gold_wire": "Golddraht",
 
@@ -158,8 +167,20 @@
   "block.energizedpower.silicon_block": "Siliziumblock",
   "item.energizedpower.silicon_block": "Siliziumblock",
 
+  "block.energizedpower.tin_block": "Zinnblock",
+  "item.energizedpower.tin_block": "Zinnblock",
+
   "block.energizedpower.sawdust_block": "Sägemehlblock",
   "item.energizedpower.sawdust_block": "Sägemehlblock",
+
+  "block.energizedpower.tin_ore": "Zinnerz",
+  "item.energizedpower.tin_ore": "Zinnerz",
+
+  "block.energizedpower.deepslate_tin_ore": "Tiefenschiefer-Zinnerz",
+  "item.energizedpower.deepslate_tin_ore": "Tiefenschiefer-Zinnerz",
+
+  "block.energizedpower.raw_tin_block": "Rohzinnblock",
+  "item.energizedpower.raw_tin_block": "Rohzinnblock",
 
   "block.energizedpower.item_conveyor_belt": "Item-Förderband",
   "item.energizedpower.item_conveyor_belt": "Item-Förderband",
@@ -905,6 +926,9 @@
   "advancements.energizedpower.advanced_battery_box_minecart.title": "Noch mehr Strom auf Schienen",
   "advancements.energizedpower.advanced_battery_box_minecart.description": "Transportiere noch mehr Strom auf Schienen.",
 
+  "advancements.energizedpower.tin_plate.title": "Zinnplatte",
+  "advancements.energizedpower.tin_plate.description": "Erstelle eine Zinnplatte.",
+
   "advancements.energizedpower.copper_plate.title": "Kupferplatte",
   "advancements.energizedpower.copper_plate.description": "Erstelle eine Kupferplatte.",
 
@@ -913,6 +937,9 @@
 
   "advancements.energizedpower.gold_plate.title": "Goldplatte",
   "advancements.energizedpower.gold_plate.description": "Erstelle eine Goldplatte.",
+
+  "advancements.energizedpower.tin_wire.title": "Zinndraht",
+  "advancements.energizedpower.tin_wire.description": "Erstelle eine Zinndraht.",
 
   "advancements.energizedpower.copper_wire.title": "Kupferdraht",
   "advancements.energizedpower.copper_wire.description": "Erstelle einen Kupferdraht.",

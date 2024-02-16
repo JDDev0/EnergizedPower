@@ -18,6 +18,7 @@
     }
   ],
   "image": [
+    "energizedpower:textures/item/tin_plate.png",
     "energizedpower:textures/item/copper_plate.png",
     "energizedpower:textures/item/iron_plate.png",
     "energizedpower:textures/item/gold_plate.png",

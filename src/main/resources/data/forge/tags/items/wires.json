@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "energizedpower:tin_wire",
     "energizedpower:copper_wire",
     "energizedpower:gold_wire",
     "energizedpower:energized_copper_wire",

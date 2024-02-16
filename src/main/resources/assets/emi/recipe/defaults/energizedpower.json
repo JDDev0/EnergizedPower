@@ -12,6 +12,7 @@
     "energizedpower:compressing/energized_gold_plate_from_compressing_energized_gold_ingot",
     "energizedpower:compressing/gold_plate_from_compressing_gold_ingot",
     "energizedpower:compressing/iron_plate_from_compressing_iron_ingot",
+    "energizedpower:compressing/tin_plate_from_compressing_tin_ingot",
 
     "energizedpower:crafting/advanced_auto_crafter",
     "energizedpower:crafting/advanced_battery_box",
@@ -100,6 +101,7 @@
     "energizedpower:crafting/powered_furnace",
     "energizedpower:crafting/powered_lamp",
     "energizedpower:crafting/pulverizer",
+    "energizedpower:crafting/raw_tin_block",
     "energizedpower:crafting/reinforced_advanced_machine_frame",
     "energizedpower:crafting/sawdust_block",
     "energizedpower:crafting/sawmill",
@@ -117,6 +119,8 @@
     "energizedpower:crafting/teleporter_matrix",
     "energizedpower:crafting/thermal_generator",
     "energizedpower:crafting/time_controller",
+    "energizedpower:crafting/tin_block",
+    "energizedpower:crafting/tin_nugget",
     "energizedpower:crafting/uncharger",
     "energizedpower:crafting/weather_controller",
     "energizedpower:crafting/wooden_hammer",
@@ -128,6 +132,7 @@
     "energizedpower:metal_press/gold_wire",
     "energizedpower:metal_press/iron_gear",
     "energizedpower:metal_press/iron_rod",
+    "energizedpower:metal_press/tin_wire",
 
     "energizedpower:press_mold_maker/raw_gear_press_mold",
     "energizedpower:press_mold_maker/raw_rod_press_mold",
