@@ -10,10 +10,18 @@
 
   "item.energizedpower.silicon": "Silicio",
 
+  "item.energizedpower.raw_tin": "Raw Tin",
+
+  "item.energizedpower.tin_dust": "Tin Dust",
   "item.energizedpower.copper_dust": "Polvere di rame",
   "item.energizedpower.iron_dust": "Polvere di ferro",
   "item.energizedpower.gold_dust": "Polvere di oro",
 
+  "item.energizedpower.tin_nugget": "Tin Nugget",
+
+  "item.energizedpower.tin_ingot": "Tin Ingot",
+
+  "item.energizedpower.tin_plate": "Tin Plate",
   "item.energizedpower.copper_plate": "Piastra di rame",
   "item.energizedpower.iron_plate": "Piastra di ferro",
   "item.energizedpower.gold_plate": "Piastra d'oro",
@@ -22,6 +30,7 @@
 
   "item.energizedpower.iron_rod": "Barra di ferro",
 
+  "item.energizedpower.tin_wire": "Tin Wire",
   "item.energizedpower.copper_wire": "Flio di rame",
   "item.energizedpower.gold_wire": "Filo d'oro",
 
@@ -158,8 +167,20 @@
   "block.energizedpower.silicon_block": "Blocco di Silicio",
   "item.energizedpower.silicon_block": "Blocco di Silicio",
 
+  "block.energizedpower.tin_block": "Block of Tin",
+  "item.energizedpower.tin_block": "Block of Tin",
+
   "block.energizedpower.sawdust_block": "Blocco di segatura",
   "item.energizedpower.sawdust_block": "Blocco di segatura",
+
+  "block.energizedpower.tin_ore": "Tin Ore",
+  "item.energizedpower.tin_ore": "Tin Ore",
+
+  "block.energizedpower.deepslate_tin_ore": "Deepslate Tin Ore",
+  "item.energizedpower.deepslate_tin_ore": "Deepslate Tin Ore",
+
+  "block.energizedpower.raw_tin_block": "Block of Raw Tin",
+  "item.energizedpower.raw_tin_block": "Block of Raw Tin",
 
   "block.energizedpower.item_conveyor_belt": "Nastro trasportatore di articoli",
   "item.energizedpower.item_conveyor_belt": "Nastro trasportatore di articoli",
@@ -905,6 +926,9 @@
   "advancements.energizedpower.advanced_battery_box_minecart.title": "Ancora più potenza sui binari",
   "advancements.energizedpower.advanced_battery_box_minecart.description": "Trasporta ancora più energia su rotaia.",
 
+  "advancements.energizedpower.tin_plate.title": "Tin Plate",
+  "advancements.energizedpower.tin_plate.description": "Create a tin plate.",
+
   "advancements.energizedpower.copper_plate.title": "Lastra di rame",
   "advancements.energizedpower.copper_plate.description": "Crea una lastra di rame.",
 
@@ -913,6 +937,9 @@
 
   "advancements.energizedpower.gold_plate.title": "Lastra d'oro",
   "advancements.energizedpower.gold_plate.description": "Crea una lastra d'oro.",
+
+  "advancements.energizedpower.tin_wire.title": "Tin Wire",
+  "advancements.energizedpower.tin_wire.description": "Create a tin wire.",
 
   "advancements.energizedpower.copper_wire.title": "Filo di rame",
   "advancements.energizedpower.copper_wire.description": "Crea un filo di rame.",

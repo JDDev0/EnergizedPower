@@ -10,10 +10,18 @@
 
   "item.energizedpower.silicon": "Silikon",
 
+  "item.energizedpower.raw_tin": "Raw Tin",
+
+  "item.energizedpower.tin_dust": "Tin Dust",
   "item.energizedpower.copper_dust": "Bakır Tozu",
   "item.energizedpower.iron_dust": "Demir Tozu",
   "item.energizedpower.gold_dust": "Altın Tozu",
 
+  "item.energizedpower.tin_nugget": "Tin Nugget",
+
+  "item.energizedpower.tin_ingot": "Tin Ingot",
+
+  "item.energizedpower.tin_plate": "Tin Plate",
   "item.energizedpower.copper_plate": "Bakır Plaka",
   "item.energizedpower.iron_plate": "Demir Plaka",
   "item.energizedpower.gold_plate": "Altın Plaka",
@@ -22,6 +30,7 @@
 
   "item.energizedpower.iron_rod": "Demir Çubuk",
 
+  "item.energizedpower.tin_wire": "Tin Wire",
   "item.energizedpower.copper_wire": "Bakır Tel",
   "item.energizedpower.gold_wire": "Altın Tel",
 
@@ -158,8 +167,20 @@
   "block.energizedpower.silicon_block": "Silikon Bloğu",
   "item.energizedpower.silicon_block": "Silikon Bloğu",
 
+  "block.energizedpower.tin_block": "Block of Tin",
+  "item.energizedpower.tin_block": "Block of Tin",
+
   "block.energizedpower.sawdust_block": "Talaş Bloğu",
   "item.energizedpower.sawdust_block": "Talaş Bloğu",
+
+  "block.energizedpower.tin_ore": "Tin Ore",
+  "item.energizedpower.tin_ore": "Tin Ore",
+
+  "block.energizedpower.deepslate_tin_ore": "Deepslate Tin Ore",
+  "item.energizedpower.deepslate_tin_ore": "Deepslate Tin Ore",
+
+  "block.energizedpower.raw_tin_block": "Block of Raw Tin",
+  "item.energizedpower.raw_tin_block": "Block of Raw Tin",
 
   "block.energizedpower.item_conveyor_belt": "Konveyor Bandı Eşyası",
   "item.energizedpower.item_conveyor_belt": "Konveyor Bandı Eşyası",
@@ -905,6 +926,9 @@
   "advancements.energizedpower.advanced_battery_box_minecart.title": "Rayda daha fazla güç",
   "advancements.energizedpower.advanced_battery_box_minecart.description": "Raylarda daha fazla güç depola.",
 
+  "advancements.energizedpower.tin_plate.title": "Tin Plate",
+  "advancements.energizedpower.tin_plate.description": "Create a tin plate.",
+
   "advancements.energizedpower.copper_plate.title": "Bakır Plaka",
   "advancements.energizedpower.copper_plate.description": "Bakır plaka üret.",
 
@@ -913,6 +937,9 @@
 
   "advancements.energizedpower.gold_plate.title": "Altın Plaka",
   "advancements.energizedpower.gold_plate.description": "Bu çok parlak!.",
+
+  "advancements.energizedpower.tin_wire.title": "Tin Wire",
+  "advancements.energizedpower.tin_wire.description": "Create a tin wire.",
 
   "advancements.energizedpower.copper_wire.title": "Bakır Tel",
   "advancements.energizedpower.copper_wire.description": "Bakırlar peşini bırakmıyor.",

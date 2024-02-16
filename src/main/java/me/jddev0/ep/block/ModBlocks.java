@@ -7,11 +7,13 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
+import net.minecraft.block.OreBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
 
 public final class ModBlocks {
     private ModBlocks() {}
@@ -21,11 +23,32 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item SILICON_BLOCK_ITEM = createBlockItem("silicon_block", SILICON_BLOCK);
 
+    public static final Block TIN_BLOCK = registerBlock("tin_block",
+            new Block(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item TIN_BLOCK_ITEM = createBlockItem("tin_block", TIN_BLOCK);
+
     public static final Block SAWDUST_BLOCK = registerBlock("sawdust_block",
             new Block(FabricBlockSettings.of(Material.WOOD, MapColor.OAK_TAN).
                     requiresTool().strength(2.0f, 3.0f).sounds(BlockSoundGroup.WOOD)));
     public static final Item SAWDUST_BLOCK_ITEM = createBlockItem("sawdust_block", SAWDUST_BLOCK);
 
+    public static final Block TIN_ORE = registerBlock("tin_ore",
+            new OreBlock(FabricBlockSettings.of(Material.STONE, MapColor.STONE_GRAY)
+                    .requiresTool().strength(3.0f, 3.0f), ConstantIntProvider.create(0)));
+    public static final Item TIN_ORE_ITEM = createBlockItem("tin_ore", TIN_ORE);
+
+    public static final Block DEEPSLATE_TIN_ORE = registerBlock("deepslate_tin_ore",
+            new OreBlock(FabricBlockSettings.of(Material.STONE, MapColor.DEEPSLATE_GRAY)
+                    .requiresTool().strength(4.5f, 3.0f).sounds(BlockSoundGroup.DEEPSLATE),
+                    ConstantIntProvider.create(0)));
+    public static final Item DEEPSLATE_TIN_ORE_ITEM = createBlockItem("deepslate_tin_ore", DEEPSLATE_TIN_ORE);
+
+    public static final Block RAW_TIN_BLOCK = registerBlock("raw_tin_block",
+            new Block(FabricBlockSettings.of(Material.STONE, MapColor.RAW_IRON_PINK)
+                    .requiresTool().strength(5.0f, 6.0f)));
+    public static final Item RAW_TIN_BLOCK_ITEM = createBlockItem("raw_tin_block", RAW_TIN_BLOCK);
+    
     public static final Block ITEM_CONVEYOR_BELT = registerBlock("item_conveyor_belt",
             new ItemConveyorBeltBlock(FabricBlockSettings.of(Material.METAL).noCollision().
                     strength(2.5f, 3.0f).sounds(BlockSoundGroup.METAL)));
