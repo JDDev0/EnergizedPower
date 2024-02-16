@@ -288,6 +288,9 @@
   "item.energizedpower.advanced_minecart_uncharger": "Advanced Minecart Uncharger",
   "container.energizedpower.advanced_minecart_uncharger": "Advanced Minecart Uncharger",
 
+  "block.energizedpower.tin_cable": "Tin Cable",
+  "item.energizedpower.tin_cable": "Tin Cable",
+
   "block.energizedpower.copper_cable": "Copper Cable",
   "item.energizedpower.copper_cable": "Copper Cable",
 
@@ -869,6 +872,9 @@
   "advancements.energizedpower.fluid_tank_large.title": "Large Fluid Storage",
   "advancements.energizedpower.fluid_tank_large.description": "Store fluids in a large Fluid Tank.",
 
+  "advancements.energizedpower.tin_cable.title": "Basic Energy Transport",
+  "advancements.energizedpower.tin_cable.description": "Transport low amounts of energy with a Tin Cable.",
+
   "advancements.energizedpower.copper_cable.title": "Energy Transport",
   "advancements.energizedpower.copper_cable.description": "Transport energy with cables.",
 
@@ -1141,7 +1147,7 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_transportation": "Blocks for energy transportation",
 
   "book.energizedpower.page.cables.1": "Cables are used to transport energy from producer blocks to consumer blocks.",
-  "book.energizedpower.page.cables.2": "There are five cable tiers.",
+  "book.energizedpower.page.cables.2": "There are six cable tiers.",
   "book.energizedpower.page.cables.3": "A transformer is required to connect cables of different tiers.",
 
   "book.energizedpower.page.transformers.1": "Transformers can be used to connect different tiers of cables.",
