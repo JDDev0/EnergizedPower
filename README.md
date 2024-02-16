@@ -53,7 +53,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 ### Energy transportation
 
-- Cables (6 Tiers: Tin (**In next release (v2.9.0)**), Copper, Gold, Energized Copper, Energized Gold, and Energized Crystal Matrix)
+- Cables (6 Tiers: Tin, Copper, Gold, Energized Copper, Energized Gold, and Energized Crystal Matrix)
 - Transformers (Can be used to connect different tiers of cables):
   - 4 tiers: LV, MV, HV, and EHV
   - 3 types (for each tier): 1 to n, 3 to 3, and n to 1
@@ -143,6 +143,7 @@ A tutorial world showcasing all the features of this mod can be downloaded on Cu
 
 ## Supported versions:
 Mod version: MC version
+- 2.9.x: 1.20.4, 1.20.2, 1.20.1, 1.19.2
 - 2.8.x: 1.20.4, 1.20.2, 1.20.1, 1.19.2
 - 2.7.x: 1.20.4, 1.20.2, 1.20.1, 1.19.2
 - 2.6.x: 1.20.4, 1.20.3, 1.20.2, 1.20.1, 1.19.4, 1.19.2
