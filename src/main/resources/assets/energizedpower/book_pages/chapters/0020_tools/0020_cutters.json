@@ -1,7 +1,16 @@
 {
   "content": [
     {
-      "translate": "book.energizedpower.page.cutters",
+      "translate": "book.energizedpower.page.cutters.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.cutters.2",
       "color": "black",
       "bold": true,
       "font": "uniform"
