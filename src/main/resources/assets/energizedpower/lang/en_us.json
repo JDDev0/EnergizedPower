@@ -307,7 +307,7 @@
   "item.energizedpower.energized_crystal_matrix_cable": "Energized Crystal Matrix Cable",
 
   "tooltip.energizedpower.cable.txt.shift.1": "This cable can transfer %s/t.",
-  "tooltip.energizedpower.cable.txt.shift.2": "Cable insulators can be crafted by clicking on a wool block with shears.",
+  "tooltip.energizedpower.cable.txt.shift.2": "Cutters can be used to break cables faster.",
 
 
   "block.energizedpower.lv_transformer_1_to_n": "LV Transformer (1 to n)",
@@ -1098,7 +1098,8 @@
 
   "book.energizedpower.page.hammers": "Hammers can be used to craft plates.",
 
-  "book.energizedpower.page.cutters": "Cutters can be used to craft wires.",
+  "book.energizedpower.page.cutters.1": "Cutters can be used to craft wires.",
+  "book.energizedpower.page.cutters.2": "Cutters can be used to break cables faster.",
 
   "book.energizedpower.page.wrench": "The Wrench can be used to configure blocks.",
 
