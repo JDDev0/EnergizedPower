@@ -307,7 +307,7 @@
   "item.energizedpower.energized_crystal_matrix_cable": "Enerjilendirilmil Matrix Kablo",
 
   "tooltip.energizedpower.cable.txt.shift.1": "Bu kablo şu kadar trans edebilir %s/t.",
-  "tooltip.energizedpower.cable.txt.shift.2": "Kablo izolatörleri, makas ile bir yün bloğa tıklanarak üretilebilir.",
+  "tooltip.energizedpower.cable.txt.shift.2": "Cutters can be used to break cables faster.",
 
 
   "block.energizedpower.lv_transformer_1_to_n": "LV Dönüştürücü (1 den n)",
@@ -1098,7 +1098,8 @@
 
   "book.energizedpower.page.hammers": "Çekiçler Plaka Üretir.",
 
-  "book.energizedpower.page.cutters": "Kesici Tel Üretir.",
+  "book.energizedpower.page.cutters.1": "Kesici Tel Üretir.",
+  "book.energizedpower.page.cutters.2": "Cutters can be used to break cables faster.",
 
   "book.energizedpower.page.wrench": "İngiliz Anahtarı blokları configüre eder.",
 
