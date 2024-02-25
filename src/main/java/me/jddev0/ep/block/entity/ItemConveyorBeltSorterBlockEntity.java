@@ -5,6 +5,7 @@ import me.jddev0.ep.block.ItemConveyorBeltSorterBlock;
 import me.jddev0.ep.block.ModBlockStateProperties;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.screen.ItemConveyorBeltSorterMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,7 +30,7 @@ import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements MenuProvider {
+public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements MenuProvider, CheckboxUpdate {
     private static final int TICKS_PER_ITEM = ModConfigs.COMMON_ITEM_CONVEYOR_BELT_SORTER_TICKS_PER_ITEM.getValue();
 
     private static final int PATTERN_SLOTS_PER_OUTPUT = 5;
@@ -301,5 +302,16 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
     public void setIgnoreNBT(int index, boolean ignoreNBT) {
         this.ignoreNBT[index] = ignoreNBT;
         setChanged(level, getBlockPos(), getBlockState());
+    }
+
+    @Override
+    public void setCheckbox(int checkboxId, boolean checked) {
+        switch(checkboxId) {
+            //Whitelist [3x]
+            case 0, 1, 2 -> setWhitelist(checkboxId, checked);
+
+            //Ignore NBT [3x]
+            case 3, 4, 5 -> setIgnoreNBT(checkboxId - 3, checked);
+        }
     }
 }

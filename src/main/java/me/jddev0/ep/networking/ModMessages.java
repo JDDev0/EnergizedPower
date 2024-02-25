@@ -59,20 +59,11 @@ public final class ModMessages {
         registrar.play(UseTeleporterC2SPacket.ID, UseTeleporterC2SPacket::new, handler -> handler.
                 server(UseTeleporterC2SPacket::handle));
 
-        registrar.play(SetAutoCrafterCheckboxC2SPacket.ID, SetAutoCrafterCheckboxC2SPacket::new, handler -> handler.
-                server(SetAutoCrafterCheckboxC2SPacket::handle));
+        registrar.play(SetCheckboxC2SPacket.ID, SetCheckboxC2SPacket::new, handler -> handler.
+                server(SetCheckboxC2SPacket::handle));
 
         registrar.play(SetAdvancedAutoCrafterRecipeIndexC2SPacket.ID, SetAdvancedAutoCrafterRecipeIndexC2SPacket::new, handler -> handler.
                 server(SetAdvancedAutoCrafterRecipeIndexC2SPacket::handle));
-
-        registrar.play(SetAdvancedAutoCrafterCheckboxC2SPacket.ID, SetAdvancedAutoCrafterCheckboxC2SPacket::new, handler -> handler.
-                server(SetAdvancedAutoCrafterCheckboxC2SPacket::handle));
-
-        registrar.play(SetBlockPlacerCheckboxC2SPacket.ID, SetBlockPlacerCheckboxC2SPacket::new, handler -> handler.
-                server(SetBlockPlacerCheckboxC2SPacket::handle));
-
-        registrar.play(SetItemConveyorBeltSorterCheckboxC2SPacket.ID, SetItemConveyorBeltSorterCheckboxC2SPacket::new, handler -> handler.
-                server(SetItemConveyorBeltSorterCheckboxC2SPacket::handle));
 
         registrar.play(CycleAutoCrafterRecipeOutputC2SPacket.ID, CycleAutoCrafterRecipeOutputC2SPacket::new, handler -> handler.
                 server(CycleAutoCrafterRecipeOutputC2SPacket::handle));
@@ -88,9 +79,6 @@ public final class ModMessages {
 
         registrar.play(ChangeRedstoneModeC2SPacket.ID, ChangeRedstoneModeC2SPacket::new, handler -> handler.
                 server(ChangeRedstoneModeC2SPacket::handle));
-
-        registrar.play(SetFluidTankCheckboxC2SPacket.ID, SetFluidTankCheckboxC2SPacket::new, handler -> handler.
-                server(SetFluidTankCheckboxC2SPacket::handle));
 
         registrar.play(SetFluidTankFilterC2SPacket.ID, SetFluidTankFilterC2SPacket::new, handler -> handler.
                 server(SetFluidTankFilterC2SPacket::handle));

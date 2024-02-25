@@ -6,7 +6,7 @@ import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeComparatorModeC2SPacket;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
-import me.jddev0.ep.networking.packet.SetBlockPlacerCheckboxC2SPacket;
+import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -38,7 +38,7 @@ public class BlockPlacerScreen extends AbstractGenericEnergyStorageContainerScre
             if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
                 //Inverse rotation checkbox
 
-                ModMessages.sendToServer(new SetBlockPlacerCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0, !menu.isInverseRotation()));
+                ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0, !menu.isInverseRotation()));
                 clicked = true;
             }else if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode

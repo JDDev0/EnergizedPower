@@ -1,7 +1,7 @@
 package me.jddev0.ep.networking.packet;
 
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.block.entity.BlockPlacerBlockEntity;
+import me.jddev0.ep.machine.CheckboxUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -13,10 +13,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.handling.PlayPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
-public record SetBlockPlacerCheckboxC2SPacket(BlockPos pos, int checkboxId, boolean checked) implements CustomPacketPayload {
-    public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "set_block_placer_checkbox");
+public record SetCheckboxC2SPacket(BlockPos pos, int checkboxId, boolean checked) implements CustomPacketPayload {
+    public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "set_checkbox");
 
-    public SetBlockPlacerCheckboxC2SPacket(FriendlyByteBuf buffer) {
+
+    public SetCheckboxC2SPacket(FriendlyByteBuf buffer) {
         this(buffer.readBlockPos(), buffer.readInt(), buffer.readBoolean());
     }
 
@@ -33,7 +34,7 @@ public record SetBlockPlacerCheckboxC2SPacket(BlockPos pos, int checkboxId, bool
         return ID;
     }
 
-    public static void handle(final SetBlockPlacerCheckboxC2SPacket data, final PlayPayloadContext context) {
+    public static void handle(final SetCheckboxC2SPacket data, final PlayPayloadContext context) {
         context.workHandler().execute(() -> {
             if(context.level().isEmpty() || !(context.level().get() instanceof ServerLevel level) ||
                     context.player().isEmpty() || !(context.player().get() instanceof ServerPlayer player))
@@ -43,13 +44,10 @@ public record SetBlockPlacerCheckboxC2SPacket(BlockPos pos, int checkboxId, bool
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(data.pos);
-            if(!(blockEntity instanceof BlockPlacerBlockEntity blockPlacerBlockEntity))
+            if(!(blockEntity instanceof CheckboxUpdate checkboxUpdate))
                 return;
 
-            switch(data.checkboxId) {
-                //Inverse rotation
-                case 0 -> blockPlacerBlockEntity.setInverseRotation(data.checked);
-            }
+            checkboxUpdate.setCheckbox(data.checkboxId, data.checked);
         });
     }
 }

@@ -8,7 +8,7 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.SetFluidTankCheckboxC2SPacket;
+import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.networking.packet.SetFluidTankFilterC2SPacket;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.ChatFormatting;
@@ -58,7 +58,7 @@ public class FluidTankScreen extends AbstractContainerScreen<FluidTankMenu> {
             if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
                 //Ignore NBT checkbox
 
-                ModMessages.sendToServer(new SetFluidTankCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0, !menu.isIgnoreNBT()));
+                ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0, !menu.isIgnoreNBT()));
                 clicked = true;
             }
 
