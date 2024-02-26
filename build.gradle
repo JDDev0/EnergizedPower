@@ -103,7 +103,7 @@ dependencies {
     compileOnly "mezz.jei:jei-1.20.4-neoforge-api:17.3.0.48"
 
     // EMI integration
-    compileOnly "dev.emi:emi-neoforge:1.1.0+1.20.4:api"
+    compileOnly "dev.emi:emi-neoforge:1.1.2+1.20.4:api"
 
     // Curios integration
     compileOnly "top.theillusivec4.curios:curios-neoforge:7.2.0+1.20.4:api"
