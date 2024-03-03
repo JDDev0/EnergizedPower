@@ -42,7 +42,7 @@ public class BlockPlacerScreen extends AbstractGenericEnergyStorageHandledScreen
                 buf.writeBlockPos(handler.getBlockEntity().getPos());
                 buf.writeInt(0);
                 buf.writeBoolean(!handler.isInverseRotation());
-                ClientPlayNetworking.send(ModMessages.SET_BLOCK_PLACER_CHECKBOX_ID, buf);
+                ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
                 clicked = true;
             }else if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
