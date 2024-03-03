@@ -307,7 +307,7 @@
   "item.energizedpower.energized_crystal_matrix_cable": "Cavo a matrice di cristallo energizzato",
 
   "tooltip.energizedpower.cable.txt.shift.1": "Questo cavo può trasferire %s/t.",
-  "tooltip.energizedpower.cable.txt.shift.2": "Gli isolanti per cavi possono essere realizzati facendo clic su un blocco di lana con le cesoie.",
+  "tooltip.energizedpower.cable.txt.shift.2": "Cutters can be used to break cables faster.",
 
 
   "block.energizedpower.lv_transformer_1_to_n": "LV Trasformatore (1 to n)",
@@ -1098,7 +1098,8 @@
 
   "book.energizedpower.page.hammers": "I martelli possono essere usati per creare lastre.",
 
-  "book.energizedpower.page.cutters": "Le tronchesi possono essere utilizzati per realizzare fili.",
+  "book.energizedpower.page.cutters.1": "Le tronchesi possono essere utilizzati per realizzare fili.",
+  "book.energizedpower.page.cutters.2": "Cutters can be used to break cables faster.",
 
   "book.energizedpower.page.wrench": "La chiave inglese può essere utilizzata per configurare i blocchi.",
 

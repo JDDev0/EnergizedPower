@@ -1,11 +1,13 @@
 package me.jddev0.ep.item;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.item.Vanishable;
 import net.minecraft.util.math.random.Random;
+import me.jddev0.ep.block.CableBlock;
 
 public class CutterItem extends ToolItem implements Vanishable {
     private final Random random = Random.create();
@@ -38,5 +40,13 @@ public class CutterItem extends ToolItem implements Vanishable {
     @Override
     public boolean hasRecipeRemainder() {
         return true;
+    }
+
+    @Override
+    public float getMiningSpeedMultiplier(ItemStack itemStack, BlockState blockState) {
+        if(blockState.getBlock() instanceof CableBlock)
+            return 15.f;
+
+        return super.getMiningSpeedMultiplier(itemStack, blockState);
     }
 }

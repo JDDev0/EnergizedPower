@@ -307,7 +307,7 @@
   "item.energizedpower.energized_crystal_matrix_cable": "Energetisiertes Kristall-Matrix-Kabel",
 
   "tooltip.energizedpower.cable.txt.shift.1": "Dieses Kabel kann %s/t transferieren.",
-  "tooltip.energizedpower.cable.txt.shift.2": "Kabelinsulatoren können durch das Klicken auf einen Wolleblock mit einer Schere hergestellt werden.",
+  "tooltip.energizedpower.cable.txt.shift.2": "Seitenschneider können verwendet werden, um Kabel schneller abzubauen.",
 
 
   "block.energizedpower.lv_transformer_1_to_n": "LV-Trafo (1 zu n)",
@@ -1098,7 +1098,8 @@
 
   "book.energizedpower.page.hammers": "Hämmer können verwendet werden, um Platten zu craften.",
 
-  "book.energizedpower.page.cutters": "Seitenschneider können für das Craften von Drähten verwendet werden.",
+  "book.energizedpower.page.cutters.1": "Seitenschneider können für das Craften von Drähten verwendet werden.",
+  "book.energizedpower.page.cutters.2": "Seitenschneider können verwendet werden, um Kabel schneller abzubauen.",
 
   "book.energizedpower.page.wrench": "Der Schraubenschlüssel kann für die Konfiguration von Blöcken verwendet werden.",
 
