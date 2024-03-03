@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.block.entity.ItemConveyorBeltSorterBlockEntity;
+import me.jddev0.ep.machine.CheckboxUpdate;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.network.PacketByteBuf;
@@ -11,11 +11,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 
-public class SetItemConveyorBeltSorterCheckboxC2SPacket {
-    private SetItemConveyorBeltSorterCheckboxC2SPacket() {}
+public class SetCheckboxC2SPacket {
+    private SetCheckboxC2SPacket() {}
 
     public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
-                           PacketByteBuf buf, PacketSender responseSender) {
+                               PacketByteBuf buf, PacketSender responseSender) {
         BlockPos pos = buf.readBlockPos();
         int checkboxId = buf.readInt();
         boolean checked = buf.readBoolean();
@@ -26,16 +26,10 @@ public class SetItemConveyorBeltSorterCheckboxC2SPacket {
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if(!(blockEntity instanceof ItemConveyorBeltSorterBlockEntity itemConveyorBeltSorterBlockEntity))
+            if(!(blockEntity instanceof CheckboxUpdate checkboxUpdate))
                 return;
 
-            switch(checkboxId) {
-                //Whitelist [3x]
-                case 0, 1, 2 -> itemConveyorBeltSorterBlockEntity.setWhitelist(checkboxId, checked);
-
-                //Ignore NBT [3x]
-                case 3, 4, 5 -> itemConveyorBeltSorterBlockEntity.setIgnoreNBT(checkboxId - 3, checked);
-            }
+            checkboxUpdate.setCheckbox(checkboxId, checked);
         });
     }
 }
