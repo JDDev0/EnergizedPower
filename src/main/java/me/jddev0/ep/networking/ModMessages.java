@@ -110,34 +110,16 @@ public final class ModMessages {
                 consumerMainThread(UseTeleporterC2SPacket::handle).
                 add();
 
-        net.messageBuilder(SetAutoCrafterCheckboxC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
-                decoder(SetAutoCrafterCheckboxC2SPacket::new).
-                encoder(SetAutoCrafterCheckboxC2SPacket::toBytes).
-                consumerMainThread(SetAutoCrafterCheckboxC2SPacket::handle).
+        net.messageBuilder(SetCheckboxC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
+                decoder(SetCheckboxC2SPacket::new).
+                encoder(SetCheckboxC2SPacket::toBytes).
+                consumerMainThread(SetCheckboxC2SPacket::handle).
                 add();
 
         net.messageBuilder(SetAdvancedAutoCrafterRecipeIndexC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
                 decoder(SetAdvancedAutoCrafterRecipeIndexC2SPacket::new).
                 encoder(SetAdvancedAutoCrafterRecipeIndexC2SPacket::toBytes).
                 consumerMainThread(SetAdvancedAutoCrafterRecipeIndexC2SPacket::handle).
-                add();
-
-        net.messageBuilder(SetAdvancedAutoCrafterCheckboxC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
-                decoder(SetAdvancedAutoCrafterCheckboxC2SPacket::new).
-                encoder(SetAdvancedAutoCrafterCheckboxC2SPacket::toBytes).
-                consumerMainThread(SetAdvancedAutoCrafterCheckboxC2SPacket::handle).
-                add();
-
-        net.messageBuilder(SetBlockPlacerCheckboxC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
-                decoder(SetBlockPlacerCheckboxC2SPacket::new).
-                encoder(SetBlockPlacerCheckboxC2SPacket::toBytes).
-                consumerMainThread(SetBlockPlacerCheckboxC2SPacket::handle).
-                add();
-
-        net.messageBuilder(SetItemConveyorBeltSorterCheckboxC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
-                decoder(SetItemConveyorBeltSorterCheckboxC2SPacket::new).
-                encoder(SetItemConveyorBeltSorterCheckboxC2SPacket::toBytes).
-                consumerMainThread(SetItemConveyorBeltSorterCheckboxC2SPacket::handle).
                 add();
 
         net.messageBuilder(CycleAutoCrafterRecipeOutputC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
@@ -168,12 +150,6 @@ public final class ModMessages {
                 decoder(ChangeRedstoneModeC2SPacket::new).
                 encoder(ChangeRedstoneModeC2SPacket::toBytes).
                 consumerMainThread(ChangeRedstoneModeC2SPacket::handle).
-                add();
-
-        net.messageBuilder(SetFluidTankCheckboxC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
-                decoder(SetFluidTankCheckboxC2SPacket::new).
-                encoder(SetFluidTankCheckboxC2SPacket::toBytes).
-                consumerMainThread(SetFluidTankCheckboxC2SPacket::handle).
                 add();
 
         net.messageBuilder(SetFluidTankFilterC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).

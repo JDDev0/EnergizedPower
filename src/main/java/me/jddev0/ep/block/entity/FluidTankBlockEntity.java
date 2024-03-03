@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
+import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.screen.FluidTankMenu;
@@ -29,7 +30,7 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, FluidStoragePacketUpdate {
+public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, FluidStoragePacketUpdate, CheckboxUpdate {
     private final FluidTankBlock.Tier tier;
     private final FluidTank fluidStorage;
     private final LazyOptional<IFluidHandler> lazyFluidStorage;
@@ -166,6 +167,14 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
     public void setIgnoreNBT(boolean ignoreNBT) {
         this.ignoreNBT = ignoreNBT;
         setChanged(level, getBlockPos(), getBlockState());
+    }
+
+    @Override
+    public void setCheckbox(int checkboxId, boolean checked) {
+        switch(checkboxId) {
+            //Ignore NBT
+            case 0 -> setIgnoreNBT(checked);
+        }
     }
 
     public void setFluidFilter(FluidStack fluidFilter) {
