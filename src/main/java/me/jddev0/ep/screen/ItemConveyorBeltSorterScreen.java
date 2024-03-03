@@ -3,7 +3,7 @@ package me.jddev0.ep.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.SetItemConveyorBeltSorterCheckboxC2SPacket;
+import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -37,12 +37,12 @@ public class ItemConveyorBeltSorterScreen extends AbstractContainerScreen<ItemCo
                 if(isHovering(136, 19 + i * 18, 13, 13, mouseX, mouseY)) {
                     //Whitelist checkbox [3x]
 
-                    ModMessages.sendToServer(new SetItemConveyorBeltSorterCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), i, !menu.isWhitelist(i)));
+                    ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), i, !menu.isWhitelist(i)));
                     clicked = true;
                 }else if(isHovering(153, 19 + i * 18, 13, 13, mouseX, mouseY)) {
                     //Ignore NBT checkbox [3x]
 
-                    ModMessages.sendToServer(new SetItemConveyorBeltSorterCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), i + 3, !menu.isIgnoreNBT(i)));
+                    ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), i + 3, !menu.isIgnoreNBT(i)));
                     clicked = true;
                 }
             }
