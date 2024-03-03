@@ -8,6 +8,7 @@ import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -50,7 +51,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate,
-        ComparatorModeUpdate {
+        ComparatorModeUpdate, CheckboxUpdate {
     private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
     public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_CAPACITY.getValue();
@@ -916,6 +917,17 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
     public void setSecondaryExtractMode(boolean secondaryExtractMode) {
         this.secondaryExtractMode = secondaryExtractMode;
         markDirty(world, getPos(), getCachedState());
+    }
+
+    @Override
+    public void setCheckbox(int checkboxId, boolean checked) {
+        switch(checkboxId) {
+            //Ignore NBT
+            case 0 -> setIgnoreNBT(checked);
+
+            //Secondary extract mode
+            case 1 -> setSecondaryExtractMode(checked);
+        }
     }
 
     public long getEnergy() {

@@ -45,7 +45,7 @@ public class AutoCrafterScreen extends AbstractGenericEnergyStorageHandledScreen
                 buf.writeBlockPos(handler.getBlockEntity().getPos());
                 buf.writeInt(0);
                 buf.writeBoolean(!handler.isIgnoreNBT());
-                ClientPlayNetworking.send(ModMessages.SET_AUTO_CRAFTER_CHECKBOX_ID, buf);
+                ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
                 clicked = true;
             }else if(isPointWithinBounds(158, 38, 11, 11, mouseX, mouseY)) {
                 //Extract mode checkbox
@@ -54,7 +54,7 @@ public class AutoCrafterScreen extends AbstractGenericEnergyStorageHandledScreen
                 buf.writeBlockPos(handler.getBlockEntity().getPos());
                 buf.writeInt(1);
                 buf.writeBoolean(!handler.isSecondaryExtractMode());
-                ClientPlayNetworking.send(ModMessages.SET_AUTO_CRAFTER_CHECKBOX_ID, buf);
+                ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
                 clicked = true;
             }else if(isPointWithinBounds(126, 16, 12, 12, mouseX, mouseY)) {
                 //Cycle through recipes

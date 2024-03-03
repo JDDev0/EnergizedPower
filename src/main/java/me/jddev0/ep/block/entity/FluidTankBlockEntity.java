@@ -4,6 +4,7 @@ import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.FluidTankMenu;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -28,7 +29,8 @@ import me.jddev0.ep.util.FluidUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, FluidStoragePacketUpdate {
+public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, FluidStoragePacketUpdate,
+        CheckboxUpdate {
     private final FluidTankBlock.Tier tier;
     final SimpleFluidStorage fluidStorage;
 
@@ -194,6 +196,14 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
     public void setIgnoreNBT(boolean ignoreNBT) {
         this.ignoreNBT = ignoreNBT;
         markDirty(world, getPos(), getCachedState());
+    }
+
+    @Override
+    public void setCheckbox(int checkboxId, boolean checked) {
+        switch(checkboxId) {
+            //Ignore NBT
+            case 0 -> setIgnoreNBT(checked);
+        }
     }
 
     public void setFluidFilter(FluidStack fluidFilter) {
