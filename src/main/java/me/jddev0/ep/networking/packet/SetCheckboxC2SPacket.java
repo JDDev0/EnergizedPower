@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.block.entity.FluidTankBlockEntity;
+import me.jddev0.ep.machine.CheckboxUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -10,18 +10,18 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class SetFluidTankCheckboxC2SPacket {
+public class SetCheckboxC2SPacket {
     private final BlockPos pos;
     private final int checkboxId;
     private final boolean checked;
 
-    public SetFluidTankCheckboxC2SPacket(BlockPos pos, int checkboxId, boolean checked) {
+    public SetCheckboxC2SPacket(BlockPos pos, int checkboxId, boolean checked) {
         this.pos = pos;
         this.checkboxId = checkboxId;
         this.checked = checked;
     }
 
-    public SetFluidTankCheckboxC2SPacket(FriendlyByteBuf buffer) {
+    public SetCheckboxC2SPacket(FriendlyByteBuf buffer) {
         this.pos = buffer.readBlockPos();
         this.checkboxId = buffer.readInt();
         this.checked = buffer.readBoolean();
@@ -41,13 +41,10 @@ public class SetFluidTankCheckboxC2SPacket {
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if(!(blockEntity instanceof FluidTankBlockEntity fluidTankBlockEntity))
+            if(!(blockEntity instanceof CheckboxUpdate checkboxUpdate))
                 return;
 
-            switch(checkboxId) {
-                //Ignore NBT
-                case 0 -> fluidTankBlockEntity.setIgnoreNBT(checked);
-            }
+            checkboxUpdate.setCheckbox(checkboxId, checked);
         });
     }
 }

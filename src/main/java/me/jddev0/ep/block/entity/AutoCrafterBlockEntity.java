@@ -6,6 +6,7 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -50,7 +51,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate,
-        ComparatorModeUpdate {
+        ComparatorModeUpdate, CheckboxUpdate {
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
     private boolean secondaryExtractMode;
@@ -799,6 +800,17 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     public void setSecondaryExtractMode(boolean secondaryExtractMode) {
         this.secondaryExtractMode = secondaryExtractMode;
         setChanged(level, getBlockPos(), getBlockState());
+    }
+
+    @Override
+    public void setCheckbox(int checkboxId, boolean checked) {
+        switch(checkboxId) {
+            //Ignore NBT
+            case 0 -> setIgnoreNBT(checked);
+
+            //Secondary extract mode
+            case 1 -> setSecondaryExtractMode(checked);
+        }
     }
 
     public int getEnergy() {
