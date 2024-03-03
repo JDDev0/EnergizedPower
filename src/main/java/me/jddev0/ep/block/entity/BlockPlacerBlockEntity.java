@@ -6,6 +6,7 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -51,7 +52,7 @@ import java.util.stream.IntStream;
 import java.util.List;
 
 public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate,
-        ComparatorModeUpdate {
+        ComparatorModeUpdate, CheckboxUpdate {
     private static final List<@NotNull Identifier> PLACEMENT_BLACKLIST = ModConfigs.COMMON_BLOCK_PLACER_PLACEMENT_BLACKLIST.getValue();
 
     public static final long CAPACITY = ModConfigs.COMMON_BLOCK_PLACER_CAPACITY.getValue();
@@ -387,6 +388,14 @@ public class BlockPlacerBlockEntity extends BlockEntity implements ExtendedScree
     public void setInverseRotation(boolean inverseRotation) {
         this.inverseRotation = inverseRotation;
         markDirty(world, getPos(), getCachedState());
+    }
+
+    @Override
+    public void setCheckbox(int checkboxId, boolean checked) {
+        switch(checkboxId) {
+            //Inverse rotation
+            case 0 -> setInverseRotation(checked);
+        }
     }
 
     public long getEnergy() {

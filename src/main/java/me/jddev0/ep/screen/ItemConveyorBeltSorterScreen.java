@@ -43,7 +43,7 @@ public class ItemConveyorBeltSorterScreen extends HandledScreen<ItemConveyorBelt
                     buf.writeBlockPos(handler.getBlockEntity().getPos());
                     buf.writeInt(i);
                     buf.writeBoolean(!handler.isWhitelist(i));
-                    ClientPlayNetworking.send(ModMessages.SET_ITEM_CONVEYOR_BELT_SORTER_CHECKBOX_ID, buf);
+                    ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
                     clicked = true;
                 }else if(isPointWithinBounds(153, 19 + i * 18, 13, 13, mouseX, mouseY)) {
                     //Ignore NBT checkbox [3x]
@@ -52,7 +52,7 @@ public class ItemConveyorBeltSorterScreen extends HandledScreen<ItemConveyorBelt
                     buf.writeBlockPos(handler.getBlockEntity().getPos());
                     buf.writeInt(i + 3);
                     buf.writeBoolean(!handler.isIgnoreNBT(i));
-                    ClientPlayNetworking.send(ModMessages.SET_ITEM_CONVEYOR_BELT_SORTER_CHECKBOX_ID, buf);
+                    ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
                     clicked = true;
                 }
             }

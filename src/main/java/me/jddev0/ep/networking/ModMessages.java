@@ -26,17 +26,13 @@ public final class ModMessages {
     public static Identifier SET_WEATHER_FROM_WEATHER_CONTROLLER_ID = new Identifier(EnergizedPowerMod.MODID, "set_weather_from_weather_controller");
     public static Identifier SET_TIME_FROM_TIME_CONTROLLER_ID = new Identifier(EnergizedPowerMod.MODID, "set_time_from_time_controller");
     public static Identifier USE_TELEPORTER_ID = new Identifier(EnergizedPowerMod.MODID, "use_teleporter");
-    public static Identifier SET_AUTO_CRAFTER_CHECKBOX_ID = new Identifier(EnergizedPowerMod.MODID, "set_auto_crafter_checkbox");
+    public static Identifier SET_CHECKBOX_ID = new Identifier(EnergizedPowerMod.MODID, "set_checkbox");
     public static Identifier SET_ADVANCED_AUTO_CRAFTER_RECIPE_INDEX_ID = new Identifier(EnergizedPowerMod.MODID, "set_advanced_auto_crafter_recipe_index");
-    public static Identifier SET_ADVANCED_AUTO_CRAFTER_CHECKBOX_ID = new Identifier(EnergizedPowerMod.MODID, "set_advanced_auto_crafter_checkbox");
-    public static Identifier SET_BLOCK_PLACER_CHECKBOX_ID = new Identifier(EnergizedPowerMod.MODID, "set_block_placer_checkbox");
-    public static Identifier SET_ITEM_CONVEYOR_BELT_SORTER_CHECKBOX_ID = new Identifier(EnergizedPowerMod.MODID, "set_item_conveyor_belt_sorter_checkbox");
     public static Identifier CYCLE_AUTO_CRAFTER_RECIPE_OUTPUT_ID = new Identifier(EnergizedPowerMod.MODID, "cycle_auto_crafter_recipe_output");
     public static Identifier CYCLE_ADVANCED_AUTO_CRAFTER_RECIPE_OUTPUT_ID = new Identifier(EnergizedPowerMod.MODID, "cycle_advanced_auto_crafter_recipe_output");
     public static Identifier CRAFT_PRESS_MOLD_MAKER_RECIPE_ID = new Identifier(EnergizedPowerMod.MODID, "craft_press_mold_maker_recipe");
     public static Identifier CHANGE_STONE_SOLIDIFIER_RECIPE_INDEX_ID = new Identifier(EnergizedPowerMod.MODID, "change_stone_solidifer_recipe_index");
     public static Identifier CHANGE_REDSTONE_MODE_ID = new Identifier(EnergizedPowerMod.MODID, "change_redstone_mode");
-    public static Identifier SET_FLUID_TANK_CHECKBOX_ID = new Identifier(EnergizedPowerMod.MODID, "set_fluid_tank_checkbox");
     public static Identifier SET_FLUID_TANK_FILTER_ID = new Identifier(EnergizedPowerMod.MODID, "set_fluid_tank_filter");
     public static Identifier CHANGE_FILTRATION_PLANT_RECIPE_INDEX_ID = new Identifier(EnergizedPowerMod.MODID, "change_filtration_plant_recipe_index");
     public static Identifier CHANGE_COMPARATOR_MODE_ID = new Identifier(EnergizedPowerMod.MODID, "change_comparator_mode");
@@ -72,15 +68,9 @@ public final class ModMessages {
 
         ServerPlayNetworking.registerGlobalReceiver(USE_TELEPORTER_ID, UseTeleporterC2SPacket::receive);
 
-        ServerPlayNetworking.registerGlobalReceiver(SET_AUTO_CRAFTER_CHECKBOX_ID, SetAutoCrafterCheckboxC2SPacket::receive);
+        ServerPlayNetworking.registerGlobalReceiver(SET_CHECKBOX_ID, SetCheckboxC2SPacket::receive);
 
         ServerPlayNetworking.registerGlobalReceiver(SET_ADVANCED_AUTO_CRAFTER_RECIPE_INDEX_ID, SetAdvancedAutoCrafterRecipeIndexC2SPacket::receive);
-
-        ServerPlayNetworking.registerGlobalReceiver(SET_ADVANCED_AUTO_CRAFTER_CHECKBOX_ID, SetAdvancedAutoCrafterCheckboxC2SPacket::receive);
-
-        ServerPlayNetworking.registerGlobalReceiver(SET_BLOCK_PLACER_CHECKBOX_ID, SetBlockPlacerCheckboxC2SPacket::receive);
-
-        ServerPlayNetworking.registerGlobalReceiver(SET_ITEM_CONVEYOR_BELT_SORTER_CHECKBOX_ID, SetItemConveyorBeltSorterCheckboxC2SPacket::receive);
 
         ServerPlayNetworking.registerGlobalReceiver(CYCLE_AUTO_CRAFTER_RECIPE_OUTPUT_ID, CycleAutoCrafterRecipeOutputC2SPacket::receive);
 
@@ -91,8 +81,6 @@ public final class ModMessages {
         ServerPlayNetworking.registerGlobalReceiver(CHANGE_STONE_SOLIDIFIER_RECIPE_INDEX_ID, ChangeStoneSolidifierRecipeIndexC2SPacket::receive);
 
         ServerPlayNetworking.registerGlobalReceiver(CHANGE_REDSTONE_MODE_ID, ChangeRedstoneModeC2SPacket::receive);
-
-        ServerPlayNetworking.registerGlobalReceiver(SET_FLUID_TANK_CHECKBOX_ID, SetFluidTankCheckboxC2SPacket::receive);
 
         ServerPlayNetworking.registerGlobalReceiver(SET_FLUID_TANK_FILTER_ID, SetFluidTankFilterC2SPacket::receive);
 

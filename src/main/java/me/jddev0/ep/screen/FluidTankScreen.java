@@ -62,7 +62,7 @@ public class FluidTankScreen extends HandledScreen<FluidTankMenu> {
                 buf.writeBlockPos(handler.getBlockEntity().getPos());
                 buf.writeInt(0);
                 buf.writeBoolean(!handler.isIgnoreNBT());
-                ClientPlayNetworking.send(ModMessages.SET_FLUID_TANK_CHECKBOX_ID, buf);
+                ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
                 clicked = true;
             }
 
