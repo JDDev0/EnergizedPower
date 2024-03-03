@@ -7,7 +7,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeComparatorModeC2SPacket;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import me.jddev0.ep.networking.packet.CycleAutoCrafterRecipeOutputC2SPacket;
-import me.jddev0.ep.networking.packet.SetAutoCrafterCheckboxC2SPacket;
+import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -42,12 +42,12 @@ public class AutoCrafterScreen extends AbstractGenericEnergyStorageContainerScre
             if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
                 //Ignore NBT checkbox
 
-                ModMessages.sendToServer(new SetAutoCrafterCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0, !menu.isIgnoreNBT()));
+                ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0, !menu.isIgnoreNBT()));
                 clicked = true;
             }else if(isHovering(158, 38, 11, 11, mouseX, mouseY)) {
                 //Extract mode checkbox
 
-                ModMessages.sendToServer(new SetAutoCrafterCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 1, !menu.isSecondaryExtractMode()));
+                ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 1, !menu.isSecondaryExtractMode()));
                 clicked = true;
             }else if(isHovering(126, 16, 12, 12, mouseX, mouseY)) {
                 //Cycle through recipes
