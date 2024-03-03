@@ -44,12 +44,12 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageConta
             if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
                 //Ignore NBT checkbox
 
-                ModMessages.sendToServer(new SetAdvancedAutoCrafterCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0, !menu.isIgnoreNBT()));
+                ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0, !menu.isIgnoreNBT()));
                 clicked = true;
             }else if(isHovering(158, 38, 11, 11, mouseX, mouseY)) {
                 //Extract mode checkbox
 
-                ModMessages.sendToServer(new SetAdvancedAutoCrafterCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 1, !menu.isSecondaryExtractMode()));
+                ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 1, !menu.isSecondaryExtractMode()));
                 clicked = true;
             }else if(isHovering(126, 16, 12, 12, mouseX, mouseY)) {
                 //Cycle through recipes
