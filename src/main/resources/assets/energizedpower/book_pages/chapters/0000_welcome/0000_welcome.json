@@ -92,6 +92,34 @@
           }
         }
       ]
+    },
+    {
+      "text": "\n",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "translate": "book.energizedpower.page.welcome.5",
+          "color": "black"
+        },
+        ": ",
+        {
+          "translate": "book.energizedpower.page.welcome.5.link",
+          "color": "blue",
+          "underlined": true,
+          "clickEvent": {
+            "action": "open_url",
+            "value": "https://www.reddit.com/r/EnergizedPower/"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.tooltip.link"
+            }
+          }
+        }
+      ]
     }
   ]
 }
