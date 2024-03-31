@@ -124,9 +124,11 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 *Feel free to include this mod in your ModPack :-)*
 
-## Discord
+## Community
 
-Invite Link: [https://discord.gg/sAKDNAU7yH](https://discord.gg/sAKDNAU7yH)
+Discord Invite Link: [https://discord.gg/sAKDNAU7yH](https://discord.gg/sAKDNAU7yH)
+
+Subreddit Link: [https://www.reddit.com/r/EnergizedPower/](https://www.reddit.com/r/EnergizedPower/)
 
 ## Credits
 
