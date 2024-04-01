@@ -374,6 +374,7 @@ public class EnergizedPowerMod {
             event.register(ModMenuTypes.THERMAL_GENERATOR_MENU.get(), ThermalGeneratorScreen::new);
             event.register(ModMenuTypes.BATTERY_BOX_MENU.get(), BatteryBoxScreen::new);
             event.register(ModMenuTypes.ADVANCED_BATTERY_BOX_MENU.get(), AdvancedBatteryBoxScreen::new);
+            event.register(ModMenuTypes.CREATIVE_BATTERY_BOX_MENU.get(), CreativeBatteryBoxScreen::new);
             event.register(ModMenuTypes.MINECART_CHARGER_MENU.get(), MinecartChargerScreen::new);
             event.register(ModMenuTypes.ADVANCED_MINECART_CHARGER_MENU.get(), AdvancedMinecartChargerScreen::new);
             event.register(ModMenuTypes.MINECART_UNCHARGER_MENU.get(), MinecartUnchargerScreen::new);

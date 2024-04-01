@@ -123,6 +123,8 @@ public final class ModMenuTypes {
             BatteryBoxMenu::new);
     public static final Supplier<MenuType<AdvancedBatteryBoxMenu>> ADVANCED_BATTERY_BOX_MENU = registerMenuType("advanced_battery_box",
             AdvancedBatteryBoxMenu::new);
+    public static final Supplier<MenuType<CreativeBatteryBoxMenu>> CREATIVE_BATTERY_BOX_MENU = registerMenuType("creative_battery_box",
+            CreativeBatteryBoxMenu::new);
 
     public static final Supplier<MenuType<MinecartChargerMenu>> MINECART_CHARGER_MENU = registerMenuType("minecart_charger",
             MinecartChargerMenu::new);
