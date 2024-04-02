@@ -47,24 +47,9 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
         addPlayerHotbar(inv);
 
         ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
-            addSlot(new SlotItemHandler(itemHandler, 0, 8, 75));
-            addSlot(new SlotItemHandler(itemHandler, 1, 26, 75));
-            addSlot(new SlotItemHandler(itemHandler, 2, 44, 75));
-            addSlot(new SlotItemHandler(itemHandler, 3, 62, 75));
-            addSlot(new SlotItemHandler(itemHandler, 4, 80, 75));
-            addSlot(new SlotItemHandler(itemHandler, 5, 98, 75));
-            addSlot(new SlotItemHandler(itemHandler, 6, 116, 75));
-            addSlot(new SlotItemHandler(itemHandler, 7, 134, 75));
-            addSlot(new SlotItemHandler(itemHandler, 8, 152, 75));
-            addSlot(new SlotItemHandler(itemHandler, 9, 8, 93));
-            addSlot(new SlotItemHandler(itemHandler, 10, 26, 93));
-            addSlot(new SlotItemHandler(itemHandler, 11, 44, 93));
-            addSlot(new SlotItemHandler(itemHandler, 12, 62, 93));
-            addSlot(new SlotItemHandler(itemHandler, 13, 80, 93));
-            addSlot(new SlotItemHandler(itemHandler, 14, 98, 93));
-            addSlot(new SlotItemHandler(itemHandler, 15, 116, 93));
-            addSlot(new SlotItemHandler(itemHandler, 16, 134, 93));
-            addSlot(new SlotItemHandler(itemHandler, 17, 152, 93));
+            for(int i = 0;i < 2;i++)
+                for(int j = 0;j < 9;j++)
+                    addSlot(new SlotItemHandler(itemHandler, 9 * i + j, 8 + 18 * j, 75 + 18 * i));
         });
 
         for(int i = 0;i < 3;i++)
