@@ -362,6 +362,8 @@
   "item.energizedpower.creative_battery_box": "Creative Battery Box",
   "container.energizedpower.creative_battery_box": "Creative Battery Box",
 
+  "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "Energy Production",
+  "tooltip.energizedpower.creative_battery_box.cbx.energy_consumption": "Energy Consumption",
 
   "block.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
   "item.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
