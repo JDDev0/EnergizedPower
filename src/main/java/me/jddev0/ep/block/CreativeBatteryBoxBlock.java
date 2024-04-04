@@ -13,10 +13,14 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -37,6 +41,21 @@ public class CreativeBatteryBoxBlock extends BlockWithEntity {
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
+    }
+
+    
+    @Override
+    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, Hand handItem, BlockHitResult hit) {
+        if(level.isClient())
+            return ActionResult.SUCCESS;
+
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof CreativeBatteryBoxBlockEntity))
+            throw new IllegalStateException("Container is invalid");
+
+        player.openHandledScreen((CreativeBatteryBoxBlockEntity)blockEntity);
+
+        return ActionResult.SUCCESS;
     }
 
     @Nullable

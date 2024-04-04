@@ -362,6 +362,9 @@
   "item.energizedpower.creative_battery_box": "Creative-Batterie-Box",
   "container.energizedpower.creative_battery_box": "Creative-Batterie-Box",
 
+  "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "Energie-Produktion",
+  "tooltip.energizedpower.creative_battery_box.cbx.energy_consumption": "Energie-Verbrauch",
+
 
   "block.energizedpower.solar_panel_1": "Solarpanel (MK I)",
   "item.energizedpower.solar_panel_1": "Solarpanel (MK I)",
@@ -1199,7 +1202,7 @@
 
 
   "book.energizedpower.page.chapter.energy_blocks.energy_consumption.title": "Verbrauch",
-  "book.energizedpower.page.chapter.energy_blocks.energy_consumption": "Blöcke für die Energie-Verbrauch",
+  "book.energizedpower.page.chapter.energy_blocks.energy_consumption": "Blöcke für den Energie-Verbrauch",
 
   "book.energizedpower.page.powered_lamp": "Die Elektrische Lampe ist wie eine Redstone-Lampe, braucht aber Strom statt einem aktiven Redstone-Signal.",
 
