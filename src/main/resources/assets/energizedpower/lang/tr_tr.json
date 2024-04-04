@@ -362,6 +362,9 @@
   "item.energizedpower.creative_battery_box": "Yaratıcı Mod Batarya Kutusu",
   "container.energizedpower.creative_battery_box": "Yaratıcı Mod Batarya Kutusu",
 
+  "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "Energy Production",
+  "tooltip.energizedpower.creative_battery_box.cbx.energy_consumption": "Energy Consumption",
+
 
   "block.energizedpower.solar_panel_1": "Solar Panel (Seviye I)",
   "item.energizedpower.solar_panel_1": "Solar Panel (Seviye I)",
