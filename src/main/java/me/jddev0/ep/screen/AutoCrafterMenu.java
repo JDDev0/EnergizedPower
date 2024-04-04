@@ -60,24 +60,9 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageConsu
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
-        addSlot(new ConstraintInsertSlot(this.inv, 0, 8, 75));
-        addSlot(new ConstraintInsertSlot(this.inv, 1, 26, 75));
-        addSlot(new ConstraintInsertSlot(this.inv, 2, 44, 75));
-        addSlot(new ConstraintInsertSlot(this.inv, 3, 62, 75));
-        addSlot(new ConstraintInsertSlot(this.inv, 4, 80, 75));
-        addSlot(new ConstraintInsertSlot(this.inv, 5, 98, 75));
-        addSlot(new ConstraintInsertSlot(this.inv, 6, 116, 75));
-        addSlot(new ConstraintInsertSlot(this.inv, 7, 134, 75));
-        addSlot(new ConstraintInsertSlot(this.inv, 8, 152, 75));
-        addSlot(new ConstraintInsertSlot(this.inv, 9, 8, 93));
-        addSlot(new ConstraintInsertSlot(this.inv, 10, 26, 93));
-        addSlot(new ConstraintInsertSlot(this.inv, 11, 44, 93));
-        addSlot(new ConstraintInsertSlot(this.inv, 12, 62, 93));
-        addSlot(new ConstraintInsertSlot(this.inv, 13, 80, 93));
-        addSlot(new ConstraintInsertSlot(this.inv, 14, 98, 93));
-        addSlot(new ConstraintInsertSlot(this.inv, 15, 116, 93));
-        addSlot(new ConstraintInsertSlot(this.inv, 16, 134, 93));
-        addSlot(new ConstraintInsertSlot(this.inv, 17, 152, 93));
+        for(int i = 0;i < 2;i++)
+            for(int j = 0;j < 9;j++)
+                addSlot(new ConstraintInsertSlot(this.inv, 9 * i + j, 8 + 18 * j, 75 + 18 * i));
 
         for(int i = 0;i < 3;i++)
             for(int j = 0;j < 3;j++)
