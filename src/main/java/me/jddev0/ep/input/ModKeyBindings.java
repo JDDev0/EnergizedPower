@@ -1,19 +1,17 @@
 package me.jddev0.ep.input;
 
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.UseTeleporterC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.lwjgl.glfw.GLFW;
@@ -29,9 +27,7 @@ public final class ModKeyBindings {
             KEY_TELEPORTER_USE, InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, KEY_CATEGORY_ENERGIZED_POWER));
 
     public static void register() {
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            checkTeleporterUseKey(client);
-        });
+        ClientTickEvents.END_CLIENT_TICK.register(ModKeyBindings::checkTeleporterUseKey);
     }
 
     private static void checkTeleporterUseKey(MinecraftClient client) {
@@ -50,9 +46,7 @@ public final class ModKeyBindings {
             if(!state.isOf(ModBlocks.TELEPORTER))
                 return;
 
-            PacketByteBuf buffer = PacketByteBufs.create();
-            buffer.writeBlockPos(blockPos);
-            ClientPlayNetworking.send(ModMessages.USE_TELEPORTER_ID, buffer);
+            ClientPlayNetworking.send(new UseTeleporterC2SPacket(blockPos));
         }
     }
 }

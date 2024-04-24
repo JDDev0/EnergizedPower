@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "energizedpower:energized_copper_ingot"
+      "id": "energizedpower:energized_copper_ingot"
     },
     "title": {
       "translate": "advancements.energizedpower.energizedpower_advanced.title"

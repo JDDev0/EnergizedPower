@@ -5,14 +5,12 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.SolarPanelBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.util.EnergyUtils;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
@@ -20,7 +18,6 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -84,7 +81,7 @@ public class SolarPanelBlock extends BlockWithEntity {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, Hand handItem, BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, BlockHitResult hit) {
         if(level.isClient())
             return ActionResult.SUCCESS;
 
@@ -106,7 +103,7 @@ public class SolarPanelBlock extends BlockWithEntity {
     public static class Item extends BlockItem {
         private final Tier tier;
 
-        public Item(Block block, FabricItemSettings props, Tier tier) {
+        public Item(Block block, Item.Settings props, Tier tier) {
             super(block, props);
 
             this.tier = tier;
@@ -117,7 +114,7 @@ public class SolarPanelBlock extends BlockWithEntity {
         }
 
         @Override
-        public void appendTooltip(ItemStack itemStack, @Nullable World level, List<Text> tooltip, TooltipContext context) {
+        public void appendTooltip(ItemStack stack, net.minecraft.item.Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
                 tooltip.add(Text.translatable("tooltip.energizedpower.solar_panel.txt.shift.1",
                         EnergyUtils.getEnergyWithPrefix(tier.getPeakFePerTick())).formatted(Formatting.GRAY));
@@ -132,41 +129,41 @@ public class SolarPanelBlock extends BlockWithEntity {
         TIER_1("solar_panel_1", ModConfigs.COMMON_SOLAR_PANEL_1_ENERGY_PEAK_PRODUCTION.getValue(),
                 ModConfigs.COMMON_SOLAR_PANEL_1_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_SOLAR_PANEL_1_CAPACITY.getValue(),
-                FabricBlockSettings.create().
+                AbstractBlock.Settings.create().
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
         TIER_2("solar_panel_2", ModConfigs.COMMON_SOLAR_PANEL_2_ENERGY_PEAK_PRODUCTION.getValue(),
                 ModConfigs.COMMON_SOLAR_PANEL_2_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_SOLAR_PANEL_2_CAPACITY.getValue(),
-                FabricBlockSettings.create().
+                AbstractBlock.Settings.create().
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
         TIER_3("solar_panel_3", ModConfigs.COMMON_SOLAR_PANEL_3_ENERGY_PEAK_PRODUCTION.getValue(),
                 ModConfigs.COMMON_SOLAR_PANEL_3_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_SOLAR_PANEL_3_CAPACITY.getValue(),
-                FabricBlockSettings.create().
+                AbstractBlock.Settings.create().
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
         TIER_4("solar_panel_4", ModConfigs.COMMON_SOLAR_PANEL_4_ENERGY_PEAK_PRODUCTION.getValue(),
                 ModConfigs.COMMON_SOLAR_PANEL_4_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_SOLAR_PANEL_4_CAPACITY.getValue(),
-                FabricBlockSettings.create().
+                AbstractBlock.Settings.create().
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
         TIER_5("solar_panel_5", ModConfigs.COMMON_SOLAR_PANEL_5_ENERGY_PEAK_PRODUCTION.getValue(),
                 ModConfigs.COMMON_SOLAR_PANEL_5_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_SOLAR_PANEL_5_CAPACITY.getValue(),
-                FabricBlockSettings.create().
+                AbstractBlock.Settings.create().
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
         TIER_6("solar_panel_6", ModConfigs.COMMON_SOLAR_PANEL_6_ENERGY_PEAK_PRODUCTION.getValue(),
                 ModConfigs.COMMON_SOLAR_PANEL_6_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_SOLAR_PANEL_6_CAPACITY.getValue(),
-                FabricBlockSettings.create().
+                AbstractBlock.Settings.create().
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL));
 
         private final String resourceId;
         private final long peakFePerTick;
         private final long maxTransfer;
         private final long capacity;
-        private final FabricBlockSettings props;
+        private final AbstractBlock.Settings props;
 
-        Tier(String resourceId, long peakFePerTick, long maxTransfer, long capacity, FabricBlockSettings props) {
+        Tier(String resourceId, long peakFePerTick, long maxTransfer, long capacity, AbstractBlock.Settings props) {
             this.resourceId = resourceId;
             this.peakFePerTick = peakFePerTick;
             this.maxTransfer = maxTransfer;
@@ -190,7 +187,7 @@ public class SolarPanelBlock extends BlockWithEntity {
             return capacity;
         }
 
-        public FabricBlockSettings getProperties() {
+        public AbstractBlock.Settings getProperties() {
             return props;
         }
     }

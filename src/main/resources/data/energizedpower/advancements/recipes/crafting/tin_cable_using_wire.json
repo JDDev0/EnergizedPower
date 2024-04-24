@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:tin_wires"
+            "tag": "c:wires/tin"
           }
         ]
       }

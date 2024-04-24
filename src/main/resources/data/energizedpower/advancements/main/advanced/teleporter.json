@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/reinforced_advanced_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:teleporter"
+      "id": "energizedpower:teleporter"
     },
     "title": {
       "translate": "advancements.energizedpower.teleporter.title"

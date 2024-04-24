@@ -3,17 +3,14 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.CableBlockEntity;
-import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.util.EnergyUtils;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItem;
@@ -246,7 +243,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
     public static class Item extends BlockItem {
         private final Tier tier;
 
-        public Item(Block block, FabricItemSettings props, Tier tier) {
+        public Item(Block block, Item.Settings props, Tier tier) {
             super(block, props);
 
             this.tier = tier;
@@ -257,7 +254,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
                 tooltip.add(Text.translatable("tooltip.energizedpower.cable.txt.shift.1",
                         EnergyUtils.getEnergyWithPrefix(tier.getMaxTransfer())).formatted(Formatting.GRAY));
@@ -271,23 +268,23 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 
     public enum Tier {
         TIER_TIN("tin_cable", ModConfigs.COMMON_TIN_CABLE_TRANSFER_RATE.getValue(),
-                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
+                AbstractBlock.Settings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
         TIER_COPPER("copper_cable", ModConfigs.COMMON_COPPER_CABLE_TRANSFER_RATE.getValue(),
-                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
+                AbstractBlock.Settings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
         TIER_GOLD("gold_cable", ModConfigs.COMMON_GOLD_CABLE_TRANSFER_RATE.getValue(),
-                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
+                AbstractBlock.Settings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
         TIER_ENERGIZED_COPPER("energized_copper_cable", ModConfigs.COMMON_ENERGIZED_COPPER_CABLE_TRANSFER_RATE.getValue(),
-                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
+                AbstractBlock.Settings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
         TIER_ENERGIZED_GOLD("energized_gold_cable", ModConfigs.COMMON_ENERGIZED_GOLD_CABLE_TRANSFER_RATE.getValue(),
-                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
+                AbstractBlock.Settings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
         TIER_ENERGIZED_CRYSTAL_MATRIX("energized_crystal_matrix_cable", ModConfigs.COMMON_ENERGIZED_CRYSTAL_MATRIX_CABLE_TRANSFER_RATE.getValue(),
-                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL));
+                AbstractBlock.Settings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL));
 
         private final String resourceId;
         private final long maxTransfer;
-        private final FabricBlockSettings props;
+        private final AbstractBlock.Settings props;
 
-        Tier(String resourceId, long maxTransfer, FabricBlockSettings props) {
+        Tier(String resourceId, long maxTransfer, AbstractBlock.Settings props) {
             this.resourceId = resourceId;
             this.maxTransfer = maxTransfer;
             this.props = props;
@@ -301,7 +298,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
             return maxTransfer;
         }
 
-        public FabricBlockSettings getProperties() {
+        public AbstractBlock.Settings getProperties() {
             return props;
         }
     }

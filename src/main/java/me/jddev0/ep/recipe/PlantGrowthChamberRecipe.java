@@ -1,11 +1,10 @@
 package me.jddev0.ep.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
@@ -13,11 +12,11 @@ import me.jddev0.ep.codec.ArrayCodec;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.*;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.random.Random;
@@ -84,7 +83,7 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack craft(SimpleInventory container, DynamicRegistryManager registryAccess) {
+    public ItemStack craft(SimpleInventory container, RegistryWrapper.WrapperLookup registries) {
         return ItemStack.EMPTY;
     }
 
@@ -94,7 +93,7 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getResult(DynamicRegistryManager registryAccess) {
+    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
         return ItemStack.EMPTY;
     }
 
@@ -138,7 +137,7 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleInventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "plant_growth_chamber");
 
-        private final Codec<PlantGrowthChamberRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<PlantGrowthChamberRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(new ArrayCodec<>(OutputItemStackWithPercentages.CODEC, OutputItemStackWithPercentages[]::new).fieldOf("outputs").forGetter((recipe) -> {
                 return recipe.outputs;
             }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
@@ -148,20 +147,27 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleInventory> {
             })).apply(instance, PlantGrowthChamberRecipe::new);
         });
 
+        private final PacketCodec<RegistryByteBuf, PlantGrowthChamberRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<PlantGrowthChamberRecipe> codec() {
+        public MapCodec<PlantGrowthChamberRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public PlantGrowthChamberRecipe read(PacketByteBuf buffer) {
-            Ingredient input = Ingredient.fromPacket(buffer);
+        public PacketCodec<RegistryByteBuf, PlantGrowthChamberRecipe> packetCodec() {
+            return PACKET_CODEC;
+        }
+
+        private static PlantGrowthChamberRecipe read(RegistryByteBuf buffer) {
+            Ingredient input = Ingredient.PACKET_CODEC.decode(buffer);
             int ticks = buffer.readInt();
 
             int outputCount = buffer.readInt();
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[outputCount];
             for(int i = 0;i < outputCount;i++) {
-                ItemStack output = buffer.readItemStack();
+                ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
 
                 int percentageCount = buffer.readInt();
                 double[] percentages = new double[percentageCount];
@@ -174,14 +180,13 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleInventory> {
             return new PlantGrowthChamberRecipe(outputs, input, ticks);
         }
 
-        @Override
-        public void write(PacketByteBuf buffer, PlantGrowthChamberRecipe recipe) {
-            recipe.input.write(buffer);
+        private static void write(RegistryByteBuf buffer, PlantGrowthChamberRecipe recipe) {
+            Ingredient.PACKET_CODEC.encode(buffer, recipe.input);
             buffer.writeInt(recipe.ticks);
 
             buffer.writeInt(recipe.outputs.length);
             for(OutputItemStackWithPercentages output:recipe.outputs) {
-                buffer.writeItemStack(output.output);
+                ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, output.output);
 
                 buffer.writeInt(output.percentages.length);
                 for(double percentage:output.percentages)

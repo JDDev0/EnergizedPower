@@ -1,18 +1,33 @@
 package me.jddev0.ep.fluid;
 
+import com.mojang.logging.LogUtils;
+import me.jddev0.ep.codec.PacketCodecFix;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.minecraft.component.ComponentChanges;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
+import org.slf4j.Logger;
 
 public class FluidStack {
+    private static final Logger LOGGER = LogUtils.getLogger();
+
+    public static final PacketCodec<RegistryByteBuf, FluidStack> PACKET_CODEC = PacketCodec.tuple(
+            FluidVariant.PACKET_CODEC, FluidStack::getFluidVariant,
+            PacketCodecFix.LONG, FluidStack::getDropletsAmount,
+            FluidStack::new
+    );
+
     private FluidVariant fluidVariant;
     private long dropletsAmount;
 
-    public static FluidStack fromNbt(NbtCompound nbtCompound) {
+    public static FluidStack fromNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registries) {
         Fluid fluid = Registries.FLUID.get(new Identifier(nbtCompound.getString("FluidName")));
 
         //Save milli buckets amount in "Amount" for compatibility with Forge
@@ -22,21 +37,20 @@ public class FluidStack {
                 nbtCompound.getLong("LeftoverDropletsAmount"):0;
         long dropletsAmount = FluidUtils.convertMilliBucketsToDroplets(milliBucketsAmount) + dropletsLeftOverAmount;
 
-        NbtCompound fluidNbt = nbtCompound.contains("Tag")?nbtCompound.getCompound("Tag"):null;
+        ComponentChanges fluidComponents = ComponentChanges.CODEC.parse(registries.getOps(NbtOps.INSTANCE),
+                nbtCompound.get("Components")).resultOrPartial((error) -> {
+            LOGGER.error("Tried to load invalid components: '{}'", error);
+        }).orElse(ComponentChanges.EMPTY);
 
-        return new FluidStack(fluid, fluidNbt, dropletsAmount);
-    }
-
-    public static FluidStack fromPacket(PacketByteBuf buf) {
-        return new FluidStack(FluidVariant.fromPacket(buf), buf.readLong());
+        return new FluidStack(fluid, fluidComponents, dropletsAmount);
     }
 
     public FluidStack(Fluid fluid, long dropletsAmount) {
         this(fluid, null, dropletsAmount);
     }
 
-    public FluidStack(Fluid fluid, NbtCompound fluidNbt, long dropletsAmount) {
-        this(FluidVariant.of(fluid, fluidNbt), dropletsAmount);
+    public FluidStack(Fluid fluid, ComponentChanges fluidComponents, long dropletsAmount) {
+        this(FluidVariant.of(fluid, fluidComponents), dropletsAmount);
     }
 
     public FluidStack(FluidVariant fluidVariant, long dropletsAmount) {
@@ -76,7 +90,7 @@ public class FluidStack {
         return fluidVariant.getFluid().getDefaultState().getBlockState().getBlock().getTranslationKey();
     }
 
-    public NbtCompound toNBT(NbtCompound nbtCompound) {
+    public NbtCompound toNBT(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registries) {
         nbtCompound.putString("FluidName", Registries.FLUID.getId(fluidVariant.getFluid()).toString());
 
         //Save milli buckets amount in "Amount" for compatibility with Forge
@@ -87,14 +101,11 @@ public class FluidStack {
         if(dropletsLeftOverAmount > 0)
             nbtCompound.putLong("LeftoverDropletsAmount", dropletsLeftOverAmount);
 
-        if(fluidVariant.getNbt() != null)
-            nbtCompound.put("Tag", fluidVariant.getNbt().copy());
+        if(fluidVariant.getComponents() != null) {
+            nbtCompound.put("Components", ComponentChanges.CODEC.encode(fluidVariant.getComponents(),
+                    NbtOps.INSTANCE, new NbtCompound()).getOrThrow());
+        }
 
         return nbtCompound;
-    }
-
-    public void toPacket(PacketByteBuf buf) {
-        fluidVariant.toPacket(buf);
-        buf.writeLong(dropletsAmount);
     }
 }

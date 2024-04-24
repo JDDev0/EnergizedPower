@@ -1,16 +1,15 @@
 package me.jddev0.ep.item;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.item.ToolMaterials;
-import net.minecraft.item.Vanishable;
 import net.minecraft.util.math.random.Random;
 
-public class HammerItem extends ToolItem implements Vanishable {
+public class HammerItem extends ToolItem {
     private final Random random = Random.create();
 
-    public HammerItem(ToolMaterials tier, FabricItemSettings props) {
+    public HammerItem(ToolMaterials tier, Item.Settings props) {
         super(tier, props);
     }
 
@@ -21,16 +20,9 @@ public class HammerItem extends ToolItem implements Vanishable {
     }
 
     @Override
-    public boolean isDamageable() {
-        //TODO improve [Equivalent to setNoRepair needed]
-        return false;
-    }
-
-    @Override
     public ItemStack getRecipeRemainder(ItemStack itemStack) {
         ItemStack copy = itemStack.copy();
-        if(copy.damage(1, random, null))
-            return ItemStack.EMPTY;
+        copy.damage(1, random, null, () -> copy.setCount(0));
 
         return copy;
     }

@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/energizedpower_basics",
   "display": {
     "icon": {
-      "item": "energizedpower:silicon"
+      "id": "energizedpower:silicon"
     },
     "title": {
       "translate": "advancements.energizedpower.silicon.title"

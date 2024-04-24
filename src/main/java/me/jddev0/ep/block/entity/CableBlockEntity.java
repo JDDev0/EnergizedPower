@@ -4,13 +4,13 @@ import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.networking.ModMessages;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -59,14 +59,9 @@ public class CableBlockEntity extends BlockEntity {
                 markDirty();
 
                 if(world != null && !world.isClient()) {
-                    PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(amount);
-                    buffer.writeLong(capacity);
-                    buffer.writeBlockPos(getPos());
-
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            ModMessages.ENERGY_SYNC_ID, buffer
+                            new EnergySyncS2CPacket(amount, capacity, getPos())
                     );
                 }
             }
@@ -297,17 +292,17 @@ public class CableBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         if(ENERGY_EXTRACTION_MODE.isPush())
             nbt.putLong("energy", internalEnergyStorage.amount);
 
 
-        super.writeNbt(nbt);
+        super.writeNbt(nbt, registries);
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
 
         if(ENERGY_EXTRACTION_MODE.isPush())
             internalEnergyStorage.amount = nbt.getLong("energy");

@@ -2,7 +2,7 @@
   "type": "energizedpower:metal_press",
   "ingredient": [
     {
-      "tag": "c:gold_plates"
+      "tag": "c:plates/gold"
     }
   ],
   "pressMold": {

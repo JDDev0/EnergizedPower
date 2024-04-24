@@ -1,6 +1,7 @@
 package me.jddev0.ep.recipe;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
@@ -8,9 +9,10 @@ import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.item.ModItems;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.*;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
@@ -52,7 +54,7 @@ public class SawmillRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack craft(SimpleInventory container, DynamicRegistryManager registryManager) {
+    public ItemStack craft(SimpleInventory container, RegistryWrapper.WrapperLookup registriesr) {
         return output;
     }
 
@@ -62,7 +64,7 @@ public class SawmillRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getResult(DynamicRegistryManager registryManage) {
+    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
         return output.copy();
     }
 
@@ -106,7 +108,7 @@ public class SawmillRecipe implements Recipe<SimpleInventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "sawmill");
 
-        private final Codec<SawmillRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<SawmillRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
             }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
@@ -122,25 +124,31 @@ public class SawmillRecipe implements Recipe<SimpleInventory> {
             });
         });
 
+        private final PacketCodec<RegistryByteBuf, SawmillRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<SawmillRecipe> codec() {
+        public MapCodec<SawmillRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public SawmillRecipe read(PacketByteBuf buffer) {
-            Ingredient input = Ingredient.fromPacket(buffer);
-            ItemStack output = buffer.readItemStack();
-            ItemStack secondaryOutput = buffer.readItemStack();
+        public PacketCodec<RegistryByteBuf, SawmillRecipe> packetCodec() {
+            return PACKET_CODEC;
+        }
+
+        private static SawmillRecipe read(RegistryByteBuf buffer) {
+            Ingredient input = Ingredient.PACKET_CODEC.decode(buffer);
+            ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
+            ItemStack secondaryOutput = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
 
             return new SawmillRecipe(output, secondaryOutput, input);
         }
 
-        @Override
-        public void write(PacketByteBuf buffer, SawmillRecipe recipe) {
-            recipe.input.write(buffer);
-            buffer.writeItemStack(recipe.output);
-            buffer.writeItemStack(recipe.secondaryOutput);
+        private static void write(RegistryByteBuf buffer, SawmillRecipe recipe) {
+            Ingredient.PACKET_CODEC.encode(buffer, recipe.input);
+            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output);
+            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.secondaryOutput);
         }
     }
 }

@@ -6,10 +6,10 @@
       "item": "minecraft:dried_kelp"
     },
     "I": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     },
     "R": {
-      "tag": "c:redstone_dusts"
+      "tag": "c:dusts/redstone"
     }
   },
   "pattern": [
@@ -18,7 +18,7 @@
     "IRI"
   ],
   "result": {
-    "item": "energizedpower:item_conveyor_belt",
+    "id": "energizedpower:item_conveyor_belt",
     "count": 6
   }
 }

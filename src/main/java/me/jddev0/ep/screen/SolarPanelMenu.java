@@ -7,9 +7,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class SolarPanelMenu extends ScreenHandler implements EnergyStorageMenu {
@@ -27,8 +27,8 @@ public class SolarPanelMenu extends ScreenHandler implements EnergyStorageMenu {
         };
     }
 
-    public SolarPanelMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv);
+    public SolarPanelMenu(int id, PlayerInventory inv, BlockPos pos) {
+        this(id, inv.player.getWorld().getBlockEntity(pos), inv);
     }
 
     public SolarPanelMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory) {

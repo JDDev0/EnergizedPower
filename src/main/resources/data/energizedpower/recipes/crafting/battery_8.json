@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "G": {
-      "tag": "c:gold_nuggets"
+      "tag": "c:nuggets/gold"
     },
     "E": {
-      "tag": "c:energized_gold_plates"
+      "tag": "c:plates/energized_gold"
     },
     "C": {
-      "tag": "c:copper_plates"
+      "tag": "c:plates/copper"
     },
     "B": {
       "item": "energizedpower:battery_7"
@@ -21,6 +21,6 @@
     "CBC"
   ],
   "result": {
-    "item": "energizedpower:battery_8"
+    "id": "energizedpower:battery_8"
   }
 }

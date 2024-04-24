@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/energized_gold_wire",
   "display": {
     "icon": {
-      "item": "energizedpower:processing_unit"
+      "id": "energizedpower:processing_unit"
     },
     "title": {
       "translate": "advancements.energizedpower.processing_unit.title"

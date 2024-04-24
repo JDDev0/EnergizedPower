@@ -1,29 +1,45 @@
 package me.jddev0.ep.networking.packet;
 
+import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.inventory.ItemStackPacketUpdate;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.packet.CustomPayload;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
-public class ItemStackSyncS2CPacket {
-    private ItemStackSyncS2CPacket() {}
+public record ItemStackSyncS2CPacket(int slot, ItemStack itemStack, BlockPos pos) implements CustomPayload {
+    public static final CustomPayload.Id<ItemStackSyncS2CPacket> ID =
+            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "item_stack_sync"));
+    public static final PacketCodec<RegistryByteBuf, ItemStackSyncS2CPacket> PACKET_CODEC =
+            PacketCodec.of(ItemStackSyncS2CPacket::write, ItemStackSyncS2CPacket::new);
 
-    public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
-        int slot = buf.readInt();
-        ItemStack itemStack = buf.readItemStack();
-        BlockPos pos = buf.readBlockPos();
+    public ItemStackSyncS2CPacket(RegistryByteBuf buffer) {
+        this(buffer.readInt(), ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer), buffer.readBlockPos());
+    }
 
-        client.execute(() -> {
-            if(client.world == null)
+    public void write(RegistryByteBuf buffer) {
+        buffer.writeInt(slot);
+        ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, itemStack);
+        buffer.writeBlockPos(pos);
+    }
+
+    @Override
+    public Id<? extends CustomPayload> getId() {
+        return ID;
+    }
+
+    public static void receive(ItemStackSyncS2CPacket data, ClientPlayNetworking.Context context) {
+        context.client().execute(() -> {
+            if(context.client().world == null)
                 return;
 
-            BlockEntity blockEntity = client.world.getBlockEntity(pos);
+            BlockEntity blockEntity = context.client().world.getBlockEntity(data.pos);
             if(blockEntity instanceof ItemStackPacketUpdate itemStackStorage) {
-                itemStackStorage.setItemStack(slot, itemStack);
+                itemStackStorage.setItemStack(data.slot, data.itemStack);
             }
         });
     }

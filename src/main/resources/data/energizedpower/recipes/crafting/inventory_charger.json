@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "c": {
-      "tag": "c:copper_plates"
+      "tag": "c:plates/copper"
     },
     "I": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     },
     "R": {
-      "tag": "c:redstone_dusts"
+      "tag": "c:dusts/redstone"
     },
     "S": {
       "tag": "c:silicon"
@@ -24,6 +24,6 @@
     "cIc"
   ],
   "result": {
-    "item": "energizedpower:inventory_charger"
+    "id": "energizedpower:inventory_charger"
   }
 }

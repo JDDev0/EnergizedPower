@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/energizedpower_basics",
   "display": {
     "icon": {
-      "item": "energizedpower:press_mold_maker"
+      "id": "energizedpower:press_mold_maker"
     },
     "title": {
       "translate": "advancements.energizedpower.press_mold_maker.title"

@@ -1,20 +1,17 @@
 package me.jddev0.ep.item;
 
 import me.jddev0.ep.util.EnergyUtils;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class CreativeBatteryItem extends Item {
-    public CreativeBatteryItem(FabricItemSettings props) {
+    public CreativeBatteryItem(Item.Settings props) {
         super(props);
     }
 
@@ -34,7 +31,7 @@ public class CreativeBatteryItem extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack itemStack, @Nullable World level, List<Text> tooltip, TooltipContext context) {
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.translatable("tooltip.energizedpower.energy_meter.content.txt",
                         EnergyUtils.getEnergyWithPrefix(Long.MAX_VALUE), EnergyUtils.getEnergyWithPrefix(Long.MAX_VALUE)).
                 formatted(Formatting.GRAY));

@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/basic_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:compressor"
+      "id": "energizedpower:compressor"
     },
     "title": {
       "translate": "advancements.energizedpower.compressor.title"

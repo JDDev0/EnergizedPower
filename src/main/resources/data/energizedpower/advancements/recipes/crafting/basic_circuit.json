@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:copper_wires"
+            "tag": "c:wires/iron"
           }
         ]
       }

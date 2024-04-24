@@ -10,6 +10,9 @@ import me.jddev0.ep.screen.EnergizedPowerBookScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.text.Text;
@@ -18,6 +21,7 @@ import net.minecraft.util.profiler.Profiler;
 import org.slf4j.Logger;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 @Environment(EnvType.CLIENT)
 public class EnergizedPowerBookReloadListener extends JsonDataLoader implements IdentifiableResourceReloadListener {
@@ -34,6 +38,18 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
 
     @Override
     protected void apply(Map<Identifier, JsonElement> elements, ResourceManager resourceManager, Profiler profilerFiller) {
+        RegistryWrapper.WrapperLookup registries = new RegistryWrapper.WrapperLookup() {
+            @Override
+            public Stream<RegistryKey<? extends Registry<?>>> streamAllRegistryKeys() {
+                return Stream.empty();
+            }
+
+            @Override
+            public <T> Optional<RegistryWrapper.Impl<T>> getOptionalWrapper(RegistryKey<? extends Registry<? extends T>> registryRef) {
+                return Optional.empty();
+            }
+        };
+
         List<EnergizedPowerBookScreen.PageContent> pages = new LinkedList<>();
 
         List<Map.Entry<Identifier, JsonElement>> elementEntries = elements.entrySet().stream().
@@ -91,11 +107,11 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
 
                 Text chapterTitleComponent = null;
                 if(object.has("title"))
-                    chapterTitleComponent = Text.Serialization.fromJsonTree(object.get("title"));
+                    chapterTitleComponent = Text.Serialization.fromJsonTree(object.get("title"), registries);
 
                 Text contentComponent = null;
                 if(object.has("content"))
-                    contentComponent = Text.Serialization.fromJsonTree(object.get("content"));
+                    contentComponent = Text.Serialization.fromJsonTree(object.get("content"), registries);
 
                 Identifier[] imageResourceLocations = null;
                 if(object.has("image")) {

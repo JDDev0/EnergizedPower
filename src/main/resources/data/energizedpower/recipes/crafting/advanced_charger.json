@@ -6,10 +6,10 @@
       "tag": "c:silicon"
     },
     "C": {
-      "tag": "c:energized_copper_plates"
+      "tag": "c:plates/energized_copper"
     },
     "G": {
-      "tag": "c:energized_gold_plates"
+      "tag": "c:plates/energized_gold"
     },
     "A": {
       "item": "energizedpower:advanced_machine_frame"
@@ -24,6 +24,6 @@
     "GcG"
   ],
   "result": {
-    "item": "energizedpower:advanced_charger"
+    "id": "energizedpower:advanced_charger"
   }
 }

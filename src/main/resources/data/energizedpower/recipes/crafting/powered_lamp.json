@@ -6,7 +6,7 @@
       "tag": "c:silicon"
     },
     "C": {
-      "tag": "c:copper_ingots"
+      "tag": "c:ingots/copper"
     },
     "R": {
       "item": "minecraft:redstone_lamp"
@@ -18,6 +18,6 @@
     "CSC"
   ],
   "result": {
-    "item": "energizedpower:powered_lamp"
+    "id": "energizedpower:powered_lamp"
   }
 }

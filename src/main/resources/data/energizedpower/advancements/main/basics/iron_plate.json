@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/hammer",
   "display": {
     "icon": {
-      "item": "energizedpower:iron_plate"
+      "id": "energizedpower:iron_plate"
     },
     "title": {
       "translate": "advancements.energizedpower.iron_plate.title"
@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:iron_plates"
+            "tag": "c:plates/iron"
           }
         ]
       }

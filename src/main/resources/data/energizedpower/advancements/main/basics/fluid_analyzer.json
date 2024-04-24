@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/battery_3",
   "display": {
     "icon": {
-      "item": "energizedpower:fluid_analyzer"
+      "id": "energizedpower:fluid_analyzer"
     },
     "title": {
       "translate": "advancements.energizedpower.fluid_analyzer.title"

@@ -1,8 +1,7 @@
 package me.jddev0.ep.fluid;
 
 import me.jddev0.ep.EnergizedPowerMod;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FluidBlock;
@@ -21,9 +20,9 @@ public final class ModFluids {
     public static final FlowableFluid DIRTY_WATER = registerFluid("dirty_water", new DirtyWaterFluid.Source());
     public static final FlowableFluid FLOWING_DIRTY_WATER = registerFluid("flowing_dirty_water", new DirtyWaterFluid.Flowing());
     public static final FluidBlock DIRTY_WATER_BLOCK = createBlock("dirty_water",
-            new DirtyWaterFluidBlock(DIRTY_WATER, FabricBlockSettings.copyOf(Blocks.WATER)));
+            new DirtyWaterFluidBlock(DIRTY_WATER, AbstractBlock.Settings.copy(Blocks.WATER)));
     public static final BucketItem DIRTY_WATER_BUCKET_ITEM = createItem("dirty_water_bucket",
-            new BucketItem(DIRTY_WATER, new FabricItemSettings().recipeRemainder(Items.BUCKET).maxCount(1)));
+            new BucketItem(DIRTY_WATER, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1)));
 
     private static <T extends Fluid> T registerFluid(String name, T fluid) {
         return Registry.register(Registries.FLUID, new Identifier(EnergizedPowerMod.MODID, name), fluid);

@@ -3,14 +3,13 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.EnergyUtils;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -18,14 +17,14 @@ public class BatteryItem extends EnergizedPowerEnergyItem {
     private final Tier tier;
 
     public BatteryItem(Tier tier) {
-        super(new FabricItemSettings().maxCount(1), tier.getCapacity(), tier.getMaxTransfer(), tier.getMaxTransfer());
+        super(new Settings().maxCount(1), tier.getCapacity(), tier.getMaxTransfer(), tier.getMaxTransfer());
 
         this.tier = tier;
     }
 
     @Override
-    public void appendTooltip(ItemStack itemStack, @Nullable World level, List<Text> tooltip, TooltipContext context) {
-        super.appendTooltip(itemStack, level, tooltip, context);
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+        super.appendTooltip(stack, context, tooltip, type);
 
         if(Screen.hasShiftDown()) {
             tooltip.add(Text.translatable("tooltip.energizedpower.battery.txt.shift.1",

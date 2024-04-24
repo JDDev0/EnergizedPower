@@ -6,10 +6,10 @@
       "tag": "c:silicon"
     },
     "I": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     },
     "C": {
-      "tag": "c:copper_plates"
+      "tag": "c:plates/copper"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
@@ -24,6 +24,6 @@
     "IFI"
   ],
   "result": {
-    "item": "energizedpower:powered_furnace"
+    "id": "energizedpower:powered_furnace"
   }
 }

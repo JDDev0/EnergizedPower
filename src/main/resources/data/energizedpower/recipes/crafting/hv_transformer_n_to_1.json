@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "c:silicon_blocks"
+      "tag": "c:storage_blocks/silicon"
     },
     "G": {
-      "tag": "c:energized_gold_plates"
+      "tag": "c:plates/energized_gold"
     },
     "A": {
       "item": "energizedpower:advanced_machine_frame"
@@ -21,6 +21,6 @@
     "GTG"
   ],
   "result": {
-    "item": "energizedpower:hv_transformer_n_to_1"
+    "id": "energizedpower:hv_transformer_n_to_1"
   }
 }

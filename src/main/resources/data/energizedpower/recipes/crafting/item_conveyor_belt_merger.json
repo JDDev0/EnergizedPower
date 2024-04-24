@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "C": {
-      "item": "minecraft:cobblestone"
+      "tag": "c:cobblestone/normal"
     },
     "I": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     },
     "R": {
-      "tag": "c:redstone_dusts"
+      "tag": "c:dusts/redstone"
     },
     "L": {
       "item": "energizedpower:item_conveyor_belt_loader"
@@ -21,6 +21,6 @@
     "CIC"
   ],
   "result": {
-    "item": "energizedpower:item_conveyor_belt_merger"
+    "id": "energizedpower:item_conveyor_belt_merger"
   }
 }

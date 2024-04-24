@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/coal_engine",
   "display": {
     "icon": {
-      "item": "energizedpower:inventory_coal_engine",
+      "id": "energizedpower:inventory_coal_engine",
       "nbt": "{\"active\": true, \"working\": true}"
     },
     "title": {

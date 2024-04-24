@@ -9,13 +9,13 @@
       "item": "energizedpower:fluid_tank_small"
     },
     "I": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     },
     "i": {
-      "tag": "c:iron_gears"
+      "tag": "c:gears/iron"
     },
     "C": {
-      "tag": "c:copper_blocks"
+      "tag": "c:storage_blocks/copper"
     },
     "H": {
       "item": "energizedpower:hardened_machine_frame"
@@ -27,6 +27,6 @@
     "CIC"
   ],
   "result": {
-    "item": "energizedpower:stone_solidifier"
+    "id": "energizedpower:stone_solidifier"
   }
 }

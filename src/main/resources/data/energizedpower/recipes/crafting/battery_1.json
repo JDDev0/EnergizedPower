@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "T": {
-      "tag": "c:tin_nuggets"
+      "tag": "c:nuggets/tin"
     },
     "C": {
-      "tag": "c:copper_plates"
+      "tag": "c:plates/copper"
     },
     "R": {
-      "tag": "c:redstone_dusts"
+      "tag": "c:dusts/redstone"
     },
     "c": {
       "tag": "minecraft:coals"
@@ -21,6 +21,6 @@
     "CcC"
   ],
   "result": {
-    "item": "energizedpower:battery_1"
+    "id": "energizedpower:battery_1"
   }
 }

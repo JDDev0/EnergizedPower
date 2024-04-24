@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "c:silicon_blocks"
+      "tag": "c:storage_blocks/silicon"
     },
     "C": {
-      "tag": "c:copper_blocks"
+      "tag": "c:storage_blocks/copper"
     },
     "I": {
-      "tag": "c:iron_blocks"
+      "tag": "c:storage_blocks/iron"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
@@ -24,6 +24,6 @@
     "SDC"
   ],
   "result": {
-    "item": "energizedpower:block_placer"
+    "id": "energizedpower:block_placer"
   }
 }

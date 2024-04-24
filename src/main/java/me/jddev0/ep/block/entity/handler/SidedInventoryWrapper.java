@@ -6,7 +6,6 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 import java.util.function.BiPredicate;

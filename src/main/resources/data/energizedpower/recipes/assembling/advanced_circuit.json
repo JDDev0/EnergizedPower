@@ -9,7 +9,7 @@
     },
     {
       "input": {
-        "tag": "c:energized_copper_wires"
+        "tag": "c:wires/energized_copper"
       },
       "count": 4
     },
@@ -21,7 +21,7 @@
     },
     {
       "input": {
-        "tag": "c:redstone_dusts"
+        "tag": "c:dusts/redstone"
       },
       "count": 2
     }

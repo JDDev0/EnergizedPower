@@ -1,22 +1,15 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.AdvancedMinecartUnchargerBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
-import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.util.EnergyUtils;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
@@ -35,15 +28,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class AdvancedMinecartUnchargerBlock extends BlockWithEntity {
-    public static final MapCodec<AdvancedMinecartUnchargerBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
-            return (FabricBlockSettings)block.getSettings();
-        })).apply(instance, AdvancedMinecartUnchargerBlock::new);
-    });
+    public static final MapCodec<AdvancedMinecartUnchargerBlock> CODEC = createCodec(AdvancedMinecartUnchargerBlock::new);
 
     public static final DirectionProperty FACING = Properties.FACING;
 
-    protected AdvancedMinecartUnchargerBlock(FabricBlockSettings props) {
+    protected AdvancedMinecartUnchargerBlock(AbstractBlock.Settings props) {
         super(props);
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
@@ -80,7 +69,7 @@ public class AdvancedMinecartUnchargerBlock extends BlockWithEntity {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, Hand handItem, BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, BlockHitResult hit) {
         if(level.isClient())
             return ActionResult.SUCCESS;
 
@@ -119,12 +108,12 @@ public class AdvancedMinecartUnchargerBlock extends BlockWithEntity {
     }
 
     public static class Item extends BlockItem {
-        public Item(Block block, FabricItemSettings props) {
+        public Item(Block block, Item.Settings props) {
             super(block, props);
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
                 tooltip.add(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
                                 EnergyUtils.getEnergyWithPrefix(AdvancedMinecartUnchargerBlockEntity.MAX_TRANSFER)).

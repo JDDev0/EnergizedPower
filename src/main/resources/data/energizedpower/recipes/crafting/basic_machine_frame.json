@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "c:silicon_blocks"
+      "tag": "c:storage_blocks/silicon"
     },
     "I": {
-      "tag": "c:iron_ingots"
+      "tag": "c:ingots/iron"
     },
     "C": {
-      "tag": "c:copper_ingots"
+      "tag": "c:ingots/copper"
     }
   },
   "pattern": [
@@ -18,6 +18,6 @@
     "CIC"
   ],
   "result": {
-    "item": "energizedpower:basic_machine_frame"
+    "id": "energizedpower:basic_machine_frame"
   }
 }

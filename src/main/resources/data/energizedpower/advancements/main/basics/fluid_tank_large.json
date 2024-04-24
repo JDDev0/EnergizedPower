@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/fluid_tank_medium",
   "display": {
     "icon": {
-      "item": "energizedpower:fluid_tank_large"
+      "id": "energizedpower:fluid_tank_large"
     },
     "title": {
       "translate": "advancements.energizedpower.fluid_tank_large.title"

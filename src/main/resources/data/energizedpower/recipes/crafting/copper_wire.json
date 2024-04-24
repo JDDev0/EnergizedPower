@@ -3,14 +3,14 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:cutters"
+      "tag": "c:tools/cutters"
     },
     {
-      "tag": "c:copper_plates"
+      "tag": "c:plates/copper"
     }
   ],
   "result": {
-    "item": "energizedpower:copper_wire",
+    "id": "energizedpower:copper_wire",
     "count": 2
   }
 }

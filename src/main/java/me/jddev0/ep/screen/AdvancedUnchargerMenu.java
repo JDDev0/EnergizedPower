@@ -13,12 +13,12 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
@@ -29,8 +29,8 @@ public class AdvancedUnchargerMenu extends ScreenHandler implements EnergyStorag
     private final World level;
     private final PropertyDelegate data;
 
-    public AdvancedUnchargerMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(3) {
+    public AdvancedUnchargerMenu(int id, PlayerInventory inv, BlockPos pos) {
+        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(3) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 if(slot >= 0 && slot < 3) {

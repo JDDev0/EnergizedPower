@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/battery_box",
   "display": {
     "icon": {
-      "item": "energizedpower:battery_box_minecart"
+      "id": "energizedpower:battery_box_minecart"
     },
     "title": {
       "translate": "advancements.energizedpower.battery_box_minecart.title"

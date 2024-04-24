@@ -1,19 +1,12 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.TeleporterBlockEntity;
-import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.input.ModKeyBindings;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
@@ -23,7 +16,6 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -34,16 +26,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class TeleporterBlock extends BlockWithEntity {
-    public static final MapCodec<TeleporterBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
-            return (FabricBlockSettings)block.getSettings();
-        })).apply(instance, TeleporterBlock::new);
-    });
+    public static final MapCodec<TeleporterBlock> CODEC = createCodec(TeleporterBlock::new);
 
     public static final BooleanProperty POWERED = Properties.POWERED;
     public static final BooleanProperty TRIGGERED = Properties.TRIGGERED;
 
-    public TeleporterBlock(FabricBlockSettings props) {
+    public TeleporterBlock(AbstractBlock.Settings props) {
         super(props);
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false).with(TRIGGERED, false));
@@ -104,7 +92,7 @@ public class TeleporterBlock extends BlockWithEntity {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, Hand handItem, BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, BlockHitResult hit) {
         if(level.isClient())
             return ActionResult.SUCCESS;
 
@@ -145,12 +133,12 @@ public class TeleporterBlock extends BlockWithEntity {
 
     public static class Item extends BlockItem {
 
-        public Item(Block block, FabricItemSettings props) {
+        public Item(Block block, Item.Settings props) {
             super(block, props);
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
                 tooltip.add(Text.translatable("tooltip.energizedpower.teleporter.txt.shift.1",
                         Text.keybind(ModKeyBindings.KEY_TELEPORTER_USE)).formatted(Formatting.GRAY, Formatting.ITALIC));

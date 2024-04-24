@@ -1,7 +1,7 @@
 {
   "type": "energizedpower:pulverizer",
   "ingredient": {
-    "tag": "c:raw_copper_ores"
+    "tag": "c:raw_materials/copper"
   },
   "output": {
     "output": {

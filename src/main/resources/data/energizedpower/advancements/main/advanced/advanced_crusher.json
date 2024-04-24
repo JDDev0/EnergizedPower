@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/advanced_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:advanced_crusher"
+      "id": "energizedpower:advanced_crusher"
     },
     "title": {
       "translate": "advancements.energizedpower.advanced_crusher.title"

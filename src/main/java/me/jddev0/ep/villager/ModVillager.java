@@ -15,10 +15,12 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
+import net.minecraft.village.TradedItem;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 
 import java.util.List;
+import java.util.Optional;
 
 public final class ModVillager {
     private ModVillager() {}
@@ -46,167 +48,167 @@ public final class ModVillager {
     private static void registerTrades() {
         TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION, 1, factories -> {
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 6),
-                    new ItemStack(Items.BOOK),
+                    new TradedItem(Items.EMERALD, 6),
+                    new TradedItem(Items.BOOK),
                     new ItemStack(ModItems.ENERGIZED_POWER_BOOK),
                     3, 3, .02f);
 
             addOffer(factories,
-                    new ItemStack(Items.COPPER_INGOT, 2),
+                    new TradedItem(Items.COPPER_INGOT, 2),
                     new ItemStack(Items.EMERALD, 1),
                     25, 1, .02f);
 
             addOffer(factories,
-                    new ItemStack(ModItems.SILICON, 3),
+                    new TradedItem(ModItems.SILICON, 3),
                     new ItemStack(Items.EMERALD, 2),
                     15, 2, .02f);
 
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 6),
+                    new TradedItem(Items.EMERALD, 6),
                     new ItemStack(ModItems.CABLE_INSULATOR, 16),
                     5, 3, .02f);
 
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 9),
+                    new TradedItem(Items.EMERALD, 9),
                     new ItemStack(ModItems.IRON_HAMMER),
                     2, 3, .02f);
         });
 
         TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION, 2, factories -> {
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 35),
+                    new TradedItem(Items.EMERALD, 35),
                     new ItemStack(ModBlocks.COPPER_CABLE_ITEM, 6),
                     3, 5, .02f);
 
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 6),
-                    new ItemStack(Items.COPPER_INGOT, 4),
+                    new TradedItem(Items.EMERALD, 6),
+                    new TradedItem(Items.COPPER_INGOT, 4),
                     new ItemStack(ModItems.BATTERY_2),
                     3, 7, .02f);
 
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 6),
-                    new ItemStack(Items.COPPER_INGOT, 12),
+                    new TradedItem(Items.EMERALD, 6),
+                    new TradedItem(Items.COPPER_INGOT, 12),
                     new ItemStack(ModItems.ENERGY_ANALYZER),
                     2, 8, .02f);
 
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 6),
-                    new ItemStack(Items.COPPER_INGOT, 12),
+                    new TradedItem(Items.EMERALD, 6),
+                    new TradedItem(Items.COPPER_INGOT, 12),
                     new ItemStack(ModItems.FLUID_ANALYZER),
                     2, 8, .02f);
 
             addOffer(factories,
-                    new ItemStack(ModItems.COPPER_PLATE, 3),
+                    new TradedItem(ModItems.COPPER_PLATE, 3),
                     new ItemStack(Items.EMERALD, 8),
                     15, 6, .02f);
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 12),
+                    new TradedItem(Items.EMERALD, 12),
                     new ItemStack(ModItems.CUTTER),
                     2, 8, .02f);
         });
 
         TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION, 3, factories -> {
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 21),
-                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                    new TradedItem(Items.EMERALD, 21),
+                    new TradedItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
                     new ItemStack(ModBlocks.COAL_ENGINE_ITEM),
                     3, 10, .02f);
 
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 31),
-                    new ItemStack(ModItems.BASIC_SOLAR_CELL, 2),
+                    new TradedItem(Items.EMERALD, 31),
+                    new TradedItem(ModItems.BASIC_SOLAR_CELL, 2),
                     new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_1),
                     3, 10, .02f);
 
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 33),
-                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                    new TradedItem(Items.EMERALD, 33),
+                    new TradedItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
                     new ItemStack(ModBlocks.FLUID_FILLER_ITEM),
                     3, 10, .02f);
 
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 38),
-                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                    new TradedItem(Items.EMERALD, 38),
+                    new TradedItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
                     new ItemStack(ModBlocks.AUTO_CRAFTER_ITEM),
                     3, 10, .02f);
 
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 46),
-                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                    new TradedItem(Items.EMERALD, 46),
+                    new TradedItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
                     new ItemStack(ModBlocks.CHARGER_ITEM),
                     3, 10, .02f);
 
             addOffer(factories,
-                    new ItemStack(ModItems.BASIC_SOLAR_CELL, 3),
+                    new TradedItem(ModItems.BASIC_SOLAR_CELL, 3),
                     new ItemStack(Items.EMERALD, 9),
                     15, 9, .02f);
         });
 
         TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION, 4, factories -> {
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 34),
-                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                    new TradedItem(Items.EMERALD, 34),
+                    new TradedItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
                     new ItemStack(ModBlocks.SAWMILL_ITEM),
                     3, 20, .02f);
 
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 39),
-                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                    new TradedItem(Items.EMERALD, 39),
+                    new TradedItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
                     new ItemStack(ModBlocks.CRUSHER_ITEM),
                     3, 20, .02f);
 
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 52),
-                    new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                    new TradedItem(Items.EMERALD, 52),
+                    new TradedItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
                     new ItemStack(ModBlocks.COMPRESSOR_ITEM),
                     3, 20, .02f);
 
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 29),
-                    new ItemStack(Items.COPPER_INGOT, 9),
+                    new TradedItem(Items.EMERALD, 29),
+                    new TradedItem(Items.COPPER_INGOT, 9),
                     new ItemStack(ModItems.BATTERY_4),
                     2, 19, .02f);
 
             addOffer(factories,
-                    new ItemStack(ModItems.SAWDUST, 17),
+                    new TradedItem(ModItems.SAWDUST, 17),
                     new ItemStack(Items.EMERALD, 4),
                     20, 18, .02f);
         });
 
         TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION, 5, factories -> {
             addOffer(factories,
-                    new ItemStack(Items.EMERALD, 32),
-                    new ItemStack(ModBlocks.HARDENED_MACHINE_FRAME_ITEM),
+                    new TradedItem(Items.EMERALD, 32),
+                    new TradedItem(ModBlocks.HARDENED_MACHINE_FRAME_ITEM),
                     new ItemStack(ModBlocks.THERMAL_GENERATOR_ITEM),
                     1, 30, .02f);
 
             addOffer(factories,
-                    new ItemStack(Items.EMERALD_BLOCK, 9),
-                    new ItemStack(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                    new TradedItem(Items.EMERALD_BLOCK, 9),
+                    new TradedItem(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
                     new ItemStack(ModBlocks.ENERGIZER_ITEM),
                     1, 30, .02f);
 
             addOffer(factories,
-                    new ItemStack(Items.EMERALD_BLOCK, 12),
-                    new ItemStack(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                    new TradedItem(Items.EMERALD_BLOCK, 12),
+                    new TradedItem(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
                     new ItemStack(ModBlocks.LIGHTNING_GENERATOR_ITEM),
                     1, 30, .02f);
 
             addOffer(factories,
-                    new ItemStack(ModItems.ENERGIZED_COPPER_INGOT),
+                    new TradedItem(ModItems.ENERGIZED_COPPER_INGOT),
                     new ItemStack(Items.EMERALD, 23),
                     15, 30, .02f);
         });
     }
 
-    private static void addOffer(List<TradeOffers.Factory> factories, ItemStack cost, ItemStack result, int maxUses,
+    private static void addOffer(List<TradeOffers.Factory> factories, TradedItem cost, ItemStack result, int maxUses,
                                  int xp, float priceMultiplier) {
-        factories.add(((entity, rand) -> new TradeOffer(cost, result, maxUses, xp, priceMultiplier)));
+        addOffer(factories, cost, null, result, maxUses, xp, priceMultiplier);
     }
 
-    private static void addOffer(List<TradeOffers.Factory> factories, ItemStack costA, ItemStack costB, ItemStack result,
+    private static void addOffer(List<TradeOffers.Factory> factories, TradedItem costA, TradedItem costB, ItemStack result,
                                  int maxUses, int xp, float priceMultiplier) {
-        factories.add(((entity, rand) -> new TradeOffer(costA, costB, result, maxUses, xp, priceMultiplier)));
+        factories.add(((entity, rand) -> new TradeOffer(costA, Optional.ofNullable(costB), result, maxUses, xp, priceMultiplier)));
     }
 }

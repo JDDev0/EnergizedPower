@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "T": {
-      "tag": "c:raw_tin_ores"
+      "tag": "c:raw_materials/tin"
     }
   },
   "pattern": [
@@ -12,6 +12,6 @@
     "TTT"
   ],
   "result": {
-    "item": "energizedpower:raw_tin_block"
+    "id": "energizedpower:raw_tin_block"
   }
 }

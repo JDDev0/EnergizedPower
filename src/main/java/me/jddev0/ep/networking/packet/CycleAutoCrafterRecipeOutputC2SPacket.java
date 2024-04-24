@@ -1,36 +1,52 @@
 package me.jddev0.ep.networking.packet;
 
+import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.screen.AutoCrafterMenu;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 
-public class CycleAutoCrafterRecipeOutputC2SPacket {
-    private CycleAutoCrafterRecipeOutputC2SPacket() {}
+public record CycleAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implements CustomPayload {
+    public static final CustomPayload.Id<CycleAutoCrafterRecipeOutputC2SPacket> ID =
+            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "cycle_auto_crafter_recipe_output"));
+    public static final PacketCodec<RegistryByteBuf, CycleAutoCrafterRecipeOutputC2SPacket> PACKET_CODEC =
+            PacketCodec.of(CycleAutoCrafterRecipeOutputC2SPacket::write, CycleAutoCrafterRecipeOutputC2SPacket::new);
 
-    public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
-                               PacketByteBuf buf, PacketSender responseSender) {
-        BlockPos pos = buf.readBlockPos();
+    public CycleAutoCrafterRecipeOutputC2SPacket(RegistryByteBuf buffer) {
+        this(buffer.readBlockPos());
+    }
 
-        server.execute(() -> {
-            World level = player.getWorld();
-            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ())))
+    public void write(RegistryByteBuf buffer) {
+        buffer.writeBlockPos(pos);
+    }
+
+    @Override
+    public Id<? extends CustomPayload> getId() {
+        return ID;
+    }
+
+    public static void receive(CycleAutoCrafterRecipeOutputC2SPacket data, ServerPlayNetworking.Context context) {
+        context.player().server.execute(() -> {
+            if(!context.player().canModifyBlocks())
                 return;
 
-            BlockEntity blockEntity = level.getBlockEntity(pos);
+            World level = context.player().getWorld();
+            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
+                return;
+
+            BlockEntity blockEntity = level.getBlockEntity(data.pos);
             if(!(blockEntity instanceof AutoCrafterBlockEntity autoCrafterBlockEntity))
                 return;
 
-            ScreenHandler menu = player.currentScreenHandler;
+            ScreenHandler menu = context.player().currentScreenHandler;
 
             if(!(menu instanceof AutoCrafterMenu))
                 return;

@@ -9,7 +9,7 @@ import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.ItemStackPacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import me.jddev0.ep.networking.packet.ItemStackSyncS2CPacket;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -20,7 +20,7 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ItemScatterer;
@@ -79,14 +79,9 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
 
                 for(int i = 0;i < size();i++)
                     if(world != null && !world.isClient()) {
-                        PacketByteBuf buffer = PacketByteBufs.create();
-                        buffer.writeInt(i);
-                        buffer.writeItemStack(getStack(i));
-                        buffer.writeBlockPos(getPos());
-
                         ModMessages.sendServerPacketToPlayersWithinXBlocks(
                                 getPos(), (ServerWorld)world, 64,
-                                ModMessages.ITEM_STACK_SYNC_ID, buffer
+                                new ItemStackSyncS2CPacket(i, getStack(i), getPos())
                         );
                     }
             }
@@ -132,17 +127,17 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks));
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
 
-        super.writeNbt(nbt);
+        super.writeNbt(nbt, registries);
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound nbt) {
-        super.readNbt(nbt);
+    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
 
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks);
+        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -156,17 +151,11 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
         //Sync item stacks to client every 5 seconds
         if(level.getTime() % 100 == 0) //TODO improve
             for(int i = 0;i < blockEntity.internalInventory.size();i++)
-                if(!level.isClient()) {
-                    PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeInt(i);
-                    buffer.writeItemStack(blockEntity.getStack(i));
-                    buffer.writeBlockPos(blockPos);
-
+                if(!level.isClient())
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             blockPos, (ServerWorld)level, 64,
-                            ModMessages.ITEM_STACK_SYNC_ID, buffer
+                            new ItemStackSyncS2CPacket(i, blockEntity.getStack(i), blockPos)
                     );
-                }
 
         if(level.getTime() % blockEntity.TICKS_PER_STEP == 0) {
             int slotCount = blockEntity.internalInventory.size();

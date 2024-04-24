@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "C": {
-      "item": "minecraft:cobblestone"
+      "tag": "c:cobblestone/normal"
     },
     "I": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     },
     "R": {
-      "tag": "c:redstone_dusts"
+      "tag": "c:dusts/redstone"
     },
     "l": {
       "item": "minecraft:lever"
@@ -24,6 +24,6 @@
     "CRC"
   ],
   "result": {
-    "item": "energizedpower:item_conveyor_belt_switch"
+    "id": "energizedpower:item_conveyor_belt_switch"
   }
 }

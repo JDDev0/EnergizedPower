@@ -106,7 +106,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
                     .texture(u0, v1)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek().getNormalMatrix(), 0.f, 0.f, 0.f)
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
                     .next();
 
             vertexConsumer.vertex(mat, .9375f, height * .0625f, 0.f)
@@ -114,7 +114,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
                     .texture(u1, v1)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek().getNormalMatrix(), 0.f, 0.f, 0.f)
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
                     .next();
 
             vertexConsumer.vertex(mat, .9375f, 0.f, 0.f)
@@ -122,7 +122,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
                     .texture(u1, v0)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek().getNormalMatrix(), 0.f, 0.f, 0.f)
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
                     .next();
 
             vertexConsumer.vertex(mat, .0625f, 0.f, 0.f)
@@ -130,7 +130,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
                     .texture(u0, v0)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek().getNormalMatrix(), 0.f, 0.f, 0.f)
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
                     .next();
         }
 
@@ -156,7 +156,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
                     .texture(ibu0, ibv1)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek().getNormalMatrix(), 0.f, 0.f, 0.f)
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
                     .next();
 
             vertexConsumer.vertex(mat, .625f, .015f, -.05f)
@@ -164,7 +164,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
                     .texture(ibu1, ibv1)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek().getNormalMatrix(), 0.f, 0.f, 0.f)
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
                     .next();
 
             vertexConsumer.vertex(mat, .625f, -.015f, -.05f)
@@ -172,7 +172,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
                     .texture(ibu1, ibv0)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek().getNormalMatrix(), 0.f, 0.f, 0.f)
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
                     .next();
 
             vertexConsumer.vertex(mat, .375f, -.015f, -.05f)
@@ -180,7 +180,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
                     .texture(ibu0, ibv0)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek().getNormalMatrix(), 0.f, 0.f, 0.f)
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
                     .next();
 
             poseStack.translate(0.f, -translateForMinMaxIndicatorBarHeight, 0.f);
@@ -199,7 +199,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
                     .texture(u0, v1)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek().getNormalMatrix(), 0.f, 0.f, 0.f)
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
                     .next();
 
             vertexConsumer.vertex(mat, .9375f, .875f, 0.f)
@@ -207,7 +207,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
                     .texture(u1, v1)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek().getNormalMatrix(), 0.f, 0.f, 0.f)
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
                     .next();
 
             vertexConsumer.vertex(mat, .9375f, 0.f, 0.f)
@@ -215,7 +215,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
                     .texture(u1, v0)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek().getNormalMatrix(), 0.f, 0.f, 0.f)
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
                     .next();
 
             vertexConsumer.vertex(mat, .0625f, 0.f, 0.f)
@@ -223,7 +223,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
                     .texture(u0, v0)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek().getNormalMatrix(), 0.f, 0.f, 0.f)
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
                     .next();
         }
 

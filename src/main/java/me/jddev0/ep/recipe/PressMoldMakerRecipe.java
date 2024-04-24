@@ -1,6 +1,6 @@
 package me.jddev0.ep.recipe;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
@@ -8,11 +8,12 @@ import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
@@ -44,7 +45,7 @@ public class PressMoldMakerRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public ItemStack craft(Inventory container, DynamicRegistryManager registryAccess) {
+    public ItemStack craft(Inventory container, RegistryWrapper.WrapperLookup registries) {
         return output;
     }
 
@@ -54,7 +55,7 @@ public class PressMoldMakerRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public ItemStack getResult(DynamicRegistryManager registryAccess) {
+    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
         return output.copy();
     }
 
@@ -91,7 +92,7 @@ public class PressMoldMakerRecipe implements Recipe<Inventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "press_mold_maker");
 
-        private final Codec<PressMoldMakerRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<PressMoldMakerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
             }), Codecs.POSITIVE_INT.fieldOf("clayCount").forGetter((recipe) -> {
@@ -99,23 +100,29 @@ public class PressMoldMakerRecipe implements Recipe<Inventory> {
             })).apply(instance, PressMoldMakerRecipe::new);
         });
 
+        private final PacketCodec<RegistryByteBuf, PressMoldMakerRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<PressMoldMakerRecipe> codec() {
+        public MapCodec<PressMoldMakerRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public PressMoldMakerRecipe read(PacketByteBuf buffer) {
+        public PacketCodec<RegistryByteBuf, PressMoldMakerRecipe> packetCodec() {
+            return PACKET_CODEC;
+        }
+
+        private static PressMoldMakerRecipe read(RegistryByteBuf buffer) {
             int clayCount = buffer.readInt();
-            ItemStack output = buffer.readItemStack();
+            ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
 
             return new PressMoldMakerRecipe(output, clayCount);
         }
 
-        @Override
-        public void write(PacketByteBuf buffer, PressMoldMakerRecipe recipe) {
+        private static void write(RegistryByteBuf buffer, PressMoldMakerRecipe recipe) {
             buffer.writeInt(recipe.clayCount);
-            buffer.writeItemStack(recipe.output);
+            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output);
         }
     }
 }

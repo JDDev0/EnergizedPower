@@ -1,15 +1,16 @@
 package me.jddev0.ep.recipe;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.*;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
@@ -40,7 +41,7 @@ public class CompressorRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack craft(SimpleInventory container, DynamicRegistryManager registryManage) {
+    public ItemStack craft(SimpleInventory container, RegistryWrapper.WrapperLookup registries) {
         return output;
     }
 
@@ -50,7 +51,7 @@ public class CompressorRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getResult(DynamicRegistryManager registryManage) {
+    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
         return output.copy();
     }
 
@@ -94,7 +95,7 @@ public class CompressorRecipe implements Recipe<SimpleInventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "compressor");
 
-        private final Codec<CompressorRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<CompressorRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
             }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
@@ -102,23 +103,29 @@ public class CompressorRecipe implements Recipe<SimpleInventory> {
             })).apply(instance, CompressorRecipe::new);
         });
 
+        private final PacketCodec<RegistryByteBuf, CompressorRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<CompressorRecipe> codec() {
+        public MapCodec<CompressorRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public CompressorRecipe read(PacketByteBuf buffer) {
-            Ingredient input = Ingredient.fromPacket(buffer);
-            ItemStack output = buffer.readItemStack();
+        public PacketCodec<RegistryByteBuf, CompressorRecipe> packetCodec() {
+            return PACKET_CODEC;
+        }
+
+        private static CompressorRecipe read(RegistryByteBuf buffer) {
+            Ingredient input = Ingredient.PACKET_CODEC.decode(buffer);
+            ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
 
             return new CompressorRecipe(output, input);
         }
 
-        @Override
-        public void write(PacketByteBuf buffer, CompressorRecipe recipe) {
-            recipe.input.write(buffer);
-            buffer.writeItemStack(recipe.output);
+        private static void write(RegistryByteBuf buffer, CompressorRecipe recipe) {
+            Ingredient.PACKET_CODEC.encode(buffer, recipe.input);
+            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output);
         }
     }
 }

@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/basic_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:coal_engine"
+      "id": "energizedpower:coal_engine"
     },
     "title": {
       "translate": "advancements.energizedpower.coal_engine.title"

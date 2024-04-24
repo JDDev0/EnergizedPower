@@ -1,21 +1,14 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.ChargingStationBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
-import me.jddev0.ep.codec.CodecFix;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
@@ -25,7 +18,6 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -37,11 +29,7 @@ import java.util.List;
 import java.util.function.ToIntFunction;
 
 public class ChargingStationBlock extends BlockWithEntity {
-    public static final MapCodec<ChargingStationBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
-            return (FabricBlockSettings)block.getSettings();
-        })).apply(instance, ChargingStationBlock::new);
-    });
+    public static final MapCodec<ChargingStationBlock> CODEC = createCodec(ChargingStationBlock::new);
 
     public static final BooleanProperty CHARGING = BooleanProperty.of("charging");
 
@@ -49,7 +37,7 @@ public class ChargingStationBlock extends BlockWithEntity {
             (state) -> state.get(CHARGING) ? 8 : 0;
 
 
-    public ChargingStationBlock(FabricBlockSettings props) {
+    public ChargingStationBlock(AbstractBlock.Settings props) {
         super(props);
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(CHARGING, false));
@@ -72,7 +60,7 @@ public class ChargingStationBlock extends BlockWithEntity {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, Hand handItem, BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, BlockHitResult hit) {
         if(level.isClient())
             return ActionResult.SUCCESS;
 
@@ -119,12 +107,12 @@ public class ChargingStationBlock extends BlockWithEntity {
     }
 
     public static class Item extends BlockItem {
-        public Item(Block block, FabricItemSettings props) {
+        public Item(Block block, Item.Settings props) {
             super(block, props);
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
                 tooltip.add(Text.translatable("tooltip.energizedpower.charging_station.txt.shift.1").formatted(Formatting.GRAY));
             }else {

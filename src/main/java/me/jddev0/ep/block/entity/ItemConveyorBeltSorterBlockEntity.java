@@ -22,7 +22,7 @@ import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -33,7 +33,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, CheckboxUpdate {
+public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, CheckboxUpdate {
     private static final int TICKS_PER_ITEM = ModConfigs.COMMON_ITEM_CONVEYOR_BELT_SORTER_TICKS_PER_ITEM.getValue();
 
     private static final int PATTERN_SLOTS_PER_OUTPUT = 5;
@@ -103,27 +103,27 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Ex
     }
 
     @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
+    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
+        return pos;
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        nbt.put("pattern", Inventories.writeNbt(new NbtCompound(), patternSlots.heldStacks));
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        nbt.put("pattern", Inventories.writeNbt(new NbtCompound(), patternSlots.heldStacks, registries));
 
         for(int i = 0;i < 3;i++)
             nbt.putBoolean("recipe.whitelist." + i, whitelist[i]);
         for(int i = 0;i < 3;i++)
             nbt.putBoolean("recipe.ignore_nbt." + i, ignoreNBT[i]);
 
-        super.writeNbt(nbt);
+        super.writeNbt(nbt, registries);
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound nbt) {
-        super.readNbt(nbt);
+    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
 
-        Inventories.readNbt(nbt.getCompound("pattern"), patternSlots.heldStacks);
+        Inventories.readNbt(nbt.getCompound("pattern"), patternSlots.heldStacks, registries);
 
         for(int i = 0;i < 3;i++)
             whitelist[i] = nbt.getBoolean("recipe.whitelist." + i);
@@ -247,7 +247,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Ex
                 continue;
 
             if(blockEntity.ignoreNBT[index]?ItemStack.areItemsEqual(itemStackToSort, patternItemStack):
-                    ItemStack.canCombine(itemStackToSort, patternItemStack))
+                    ItemStack.areItemsAndComponentsEqual(itemStackToSort, patternItemStack))
                 return blockEntity.whitelist[index];
         }
 

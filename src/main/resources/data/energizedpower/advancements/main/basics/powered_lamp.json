@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/silicon",
   "display": {
     "icon": {
-      "item": "energizedpower:powered_lamp"
+      "id": "energizedpower:powered_lamp"
     },
     "title": {
       "translate": "advancements.energizedpower.powered_lamp.title"

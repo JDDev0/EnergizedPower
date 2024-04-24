@@ -6,7 +6,7 @@
       "item": "energizedpower:fluid_tank_small"
     },
     "I": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     }
   },
   "pattern": [
@@ -15,6 +15,6 @@
     "IFI"
   ],
   "result": {
-    "item": "energizedpower:fluid_tank_medium"
+    "id": "energizedpower:fluid_tank_medium"
   }
 }

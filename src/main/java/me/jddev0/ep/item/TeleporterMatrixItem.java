@@ -1,17 +1,16 @@
 package me.jddev0.ep.item;
 
 import me.jddev0.ep.block.ModBlocks;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import me.jddev0.ep.component.DimensionalPositionComponent;
+import me.jddev0.ep.component.ModDataComponentTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -21,22 +20,16 @@ import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class TeleporterMatrixItem extends Item {
-    public TeleporterMatrixItem(FabricItemSettings props) {
+    public TeleporterMatrixItem(Item.Settings props) {
         super(props);
     }
 
     public static boolean isLinked(ItemStack itemStack) {
-        if(!itemStack.hasNbt())
-            return false;
-
-        NbtCompound nbt = itemStack.getNbt();
-        return nbt != null && nbt.contains("x", NbtElement.INT_TYPE) && nbt.contains("y", NbtElement.INT_TYPE) &&
-                nbt.contains("z", NbtElement.INT_TYPE) && nbt.contains("dim", NbtElement.STRING_TYPE);
+        return itemStack.contains(ModDataComponentTypes.DIMENSIONAL_POSITION);
     }
 
     public static BlockPos getBlockPos(World level, ItemStack itemStack) {
@@ -46,11 +39,11 @@ public class TeleporterMatrixItem extends Item {
         if(!isLinked(itemStack))
             return null;
 
-        NbtCompound nbt = itemStack.getNbt();
-        if(nbt == null)
+        DimensionalPositionComponent dimPos = itemStack.get(ModDataComponentTypes.DIMENSIONAL_POSITION);
+        if(dimPos == null)
             return null;
 
-        return new BlockPos(nbt.getInt("x"), nbt.getInt("y"), nbt.getInt("z"));
+        return new BlockPos(dimPos.x(), dimPos.y(), dimPos.z());
     }
 
     public static World getDimension(World level, ItemStack itemStack) {
@@ -60,15 +53,11 @@ public class TeleporterMatrixItem extends Item {
         if(!isLinked(itemStack))
             return null;
 
-        NbtCompound nbt = itemStack.getNbt();
-        if(nbt == null)
+        DimensionalPositionComponent dimPos = itemStack.get(ModDataComponentTypes.DIMENSIONAL_POSITION);
+        if(dimPos == null)
             return null;
 
-        Identifier dimensionId = Identifier.tryParse(nbt.getString("dim"));
-        if(dimensionId == null)
-            return null;
-
-        RegistryKey<World> dimensionKey = RegistryKey.of(RegistryKeys.WORLD, dimensionId);
+        RegistryKey<World> dimensionKey = RegistryKey.of(RegistryKeys.WORLD, dimPos.dimensionId());
         return level.getServer().getWorld(dimensionKey);
     }
 
@@ -85,13 +74,9 @@ public class TeleporterMatrixItem extends Item {
         Block block = state.getBlock();
 
         ItemStack itemStack = useOnContext.getStack();
-
-        NbtCompound nbt = itemStack.getOrCreateNbt();
-        nbt.putInt("x", blockPos.getX());
-        nbt.putInt("y", blockPos.getY());
-        nbt.putInt("z", blockPos.getZ());
-
-        nbt.putString("dim", level.getRegistryKey().getValue().toString());
+        itemStack.set(ModDataComponentTypes.DIMENSIONAL_POSITION,
+                new DimensionalPositionComponent(blockPos.getX(), blockPos.getY(), blockPos.getZ(),
+                        level.getRegistryKey().getValue()));
 
         if(state.isOf(ModBlocks.TELEPORTER)) {
             if(player instanceof ServerPlayerEntity serverPlayer) {
@@ -119,14 +104,8 @@ public class TeleporterMatrixItem extends Item {
         if(level.isClient())
             return TypedActionResult.success(itemStack);
 
-        NbtCompound nbt = itemStack.getNbt();
-        if(nbt != null) {
-            nbt.remove("x");
-            nbt.remove("y");
-            nbt.remove("z");
-
-            nbt.remove("dim");
-        }
+        if(itemStack.contains(ModDataComponentTypes.DIMENSIONAL_POSITION))
+            itemStack.remove(ModDataComponentTypes.DIMENSIONAL_POSITION);
 
         if(player instanceof ServerPlayerEntity serverPlayer) {
             serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
@@ -139,9 +118,9 @@ public class TeleporterMatrixItem extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        NbtCompound nbt = stack.getNbt();
-        boolean linked = isLinked(stack);
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+        DimensionalPositionComponent dimPos = stack.get(ModDataComponentTypes.DIMENSIONAL_POSITION);
+        boolean linked = isLinked(stack) && dimPos != null;
 
 
         tooltip.add(Text.translatable("tooltip.energizedpower.teleporter_matrix.status").formatted(Formatting.GRAY).
@@ -152,10 +131,9 @@ public class TeleporterMatrixItem extends Item {
             tooltip.add(Text.empty());
 
             tooltip.add(Text.translatable("tooltip.energizedpower.teleporter_matrix.location").
-                   append(Text.literal(nbt.getInt("x") + " " + nbt.getInt("y") +
-                           " " + nbt.getInt("z"))));
+                   append(Text.literal(dimPos.x() + " " + dimPos.y() + " " + dimPos.z())));
             tooltip.add(Text.translatable("tooltip.energizedpower.teleporter_matrix.dimension").
-                   append(Text.literal(nbt.getString("dim"))));
+                   append(Text.literal(dimPos.dimensionId().toString())));
         }
 
         tooltip.add(Text.empty());

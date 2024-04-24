@@ -11,9 +11,9 @@ import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.UnchargerMenu;
 import me.jddev0.ep.util.ByteUtils;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
@@ -27,7 +27,7 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtLong;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -49,7 +49,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate,
+public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, EnergyStoragePacketUpdate, RedstoneModeUpdate,
         ComparatorModeUpdate {
     public static final long CAPACITY = ModConfigs.COMMON_UNCHARGER_CAPACITY.getValue();
     public static final long MAX_EXTRACT = ModConfigs.COMMON_UNCHARGER_TRANSFER_RATE.getValue();
@@ -97,7 +97,7 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
                 if(slot == 0) {
                     ItemStack itemStack = getStack(slot);
                     if(!stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.areItemsEqual(stack, itemStack) ||
-                            (!ItemStack.canCombine(stack, itemStack) &&
+                            (!ItemStack.areItemsAndComponentsEqual(stack, itemStack) &&
                                     //Only check if NBT data is equal if one of stack or itemStack is no energy item
                                     !(EnergyStorageUtil.isEnergyStorage(stack) && EnergyStorageUtil.isEnergyStorage(itemStack)))))
                         resetProgress();
@@ -155,14 +155,9 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
                 markDirty();
 
                 if(world != null && !world.isClient()) {
-                    PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(amount);
-                    buffer.writeLong(capacity);
-                    buffer.writeBlockPos(getPos());
-
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            ModMessages.ENERGY_SYNC_ID, buffer
+                            new EnergySyncS2CPacket(amount, capacity, getPos())
                     );
                 }
             }
@@ -212,24 +207,20 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeLong(internalEnergyStorage.amount);
-        buffer.writeLong(internalEnergyStorage.capacity);
-        buffer.writeBlockPos(getPos());
-
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
+                new EnergySyncS2CPacket(internalEnergyStorage.amount, internalEnergyStorage.capacity, getPos()));
         
         return new UnchargerMenu(id, this, inventory, internalInventory, this.data);
     }
 
     @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
+    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
+        return pos;
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks));
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
         nbt.putLong("energy", internalEnergyStorage.amount);
 
         nbt.put("recipe.energy_production_left", NbtLong.of(energyProductionLeft));
@@ -237,14 +228,14 @@ public class UnchargerBlockEntity extends BlockEntity implements ExtendedScreenH
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
-        super.writeNbt(nbt);
+        super.writeNbt(nbt, registries);
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound nbt) {
-        super.readNbt(nbt);
+    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
 
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks);
+        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
         internalEnergyStorage.amount = nbt.getLong("energy");
 
         energyProductionLeft = nbt.getLong("recipe.energy_production_left");

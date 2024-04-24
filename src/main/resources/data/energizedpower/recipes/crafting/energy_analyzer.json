@@ -9,10 +9,10 @@
       "tag": "c:silicon"
     },
     "C": {
-      "tag": "c:copper_plates"
+      "tag": "c:plates/copper"
     },
     "R": {
-      "tag": "c:redstone_dusts"
+      "tag": "c:dusts/redstone"
     },
     "B": {
       "item": "energizedpower:battery_3"
@@ -24,6 +24,6 @@
     "CBC"
   ],
   "result": {
-    "item": "energizedpower:energy_analyzer"
+    "id": "energizedpower:energy_analyzer"
   }
 }

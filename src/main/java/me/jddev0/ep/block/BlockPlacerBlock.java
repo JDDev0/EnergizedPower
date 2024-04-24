@@ -1,15 +1,9 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.BlockPlacerBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
-import me.jddev0.ep.codec.CodecFix;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -22,7 +16,6 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -30,16 +23,12 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class BlockPlacerBlock extends BlockWithEntity {
-    public static final MapCodec<BlockPlacerBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
-            return (FabricBlockSettings)block.getSettings();
-        })).apply(instance, BlockPlacerBlock::new);
-    });
+    public static final MapCodec<BlockPlacerBlock> CODEC = createCodec(BlockPlacerBlock::new);
 
     public static final BooleanProperty POWERED = Properties.POWERED;
     public static final DirectionProperty FACING = Properties.FACING;
 
-    protected BlockPlacerBlock(FabricBlockSettings props) {
+    protected BlockPlacerBlock(AbstractBlock.Settings props) {
         super(props);
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false).with(FACING, Direction.NORTH));
@@ -90,7 +79,7 @@ public class BlockPlacerBlock extends BlockWithEntity {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, Hand handItem, BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, BlockHitResult hit) {
         if(level.isClient())
             return ActionResult.SUCCESS;
 

@@ -3,11 +3,11 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:raw_tin_blocks"
+      "tag": "c:storage_blocks/raw_tin"
     }
   ],
   "result": {
     "count": 9,
-    "item": "energizedpower:raw_tin"
+    "id": "energizedpower:raw_tin"
   }
 }

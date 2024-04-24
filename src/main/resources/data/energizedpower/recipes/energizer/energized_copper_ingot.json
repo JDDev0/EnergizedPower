@@ -1,7 +1,7 @@
 {
   "type": "energizedpower:energizer",
   "ingredient": {
-    "tag": "c:copper_ingots"
+    "tag": "c:ingots/copper"
   },
   "energy": 32768,
   "output": {

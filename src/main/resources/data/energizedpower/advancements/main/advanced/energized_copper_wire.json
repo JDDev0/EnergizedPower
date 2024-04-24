@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/energized_copper_plate",
   "display": {
     "icon": {
-      "item": "energizedpower:energized_copper_wire"
+      "id": "energizedpower:energized_copper_wire"
     },
     "title": {
       "translate": "advancements.energizedpower.energized_copper_wire.title"

@@ -3,19 +3,13 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.TransformerBlockEntity;
-import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.util.EnergyUtils;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -36,9 +30,8 @@ import java.util.List;
 
 public class TransformerBlock extends BlockWithEntity {
     public static final MapCodec<TransformerBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
-            return (FabricBlockSettings)block.getSettings();
-        }), Codecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
+        return instance.group(createSettingsCodec(),
+                Codecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
                         forGetter(TransformerBlock::getTier),
                 Codecs.NON_EMPTY_STRING.xmap(Type::valueOf, Type::toString).fieldOf("transformer_type").
                         forGetter(TransformerBlock::getTransformerType)
@@ -50,7 +43,7 @@ public class TransformerBlock extends BlockWithEntity {
     private final Tier tier;
     private final Type type;
 
-    protected TransformerBlock(FabricBlockSettings props, Tier tier, Type type) {
+    protected TransformerBlock(AbstractBlock.Settings props, Tier tier, Type type) {
         super(props);
 
         this.tier = tier;
@@ -113,7 +106,7 @@ public class TransformerBlock extends BlockWithEntity {
         private final Tier tier;
         private final Type type;
 
-        public Item(Block block, FabricItemSettings props, Tier tier, Type type) {
+        public Item(Block block, Item.Settings props, Tier tier, Type type) {
             super(block, props);
 
             this.tier = tier;
@@ -129,7 +122,7 @@ public class TransformerBlock extends BlockWithEntity {
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
                 tooltip.add(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
                                 EnergyUtils.getEnergyWithPrefix(TransformerBlockEntity.getMaxEnergyTransferFromTier(tier))).

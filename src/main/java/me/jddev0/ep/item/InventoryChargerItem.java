@@ -1,23 +1,22 @@
 package me.jddev0.ep.item;
 
+import me.jddev0.ep.component.ModDataComponentTypes;
+import me.jddev0.ep.component.InventoryComponent;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.InventoryChargerMenu;
 import me.jddev0.ep.util.EnergyUtils;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
@@ -41,7 +40,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
     public static final boolean TRANSFER_RATE_LIMIT_ENABLED = ModConfigs.COMMON_INVENTORY_CHARGER_TRANSFER_RATE_LIMIT_ENABLED.getValue();
     public static final long TRANSFER_RATE_LIMIT = ModConfigs.COMMON_INVENTORY_CHARGER_TRANSFER_RATE_LIMIT.getValue();
 
-    public InventoryChargerItem(FabricItemSettings props) {
+    public InventoryChargerItem(Item.Settings props) {
         super(props);
     }
 
@@ -94,8 +93,8 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
     }
 
     @Override
-    public void appendTooltip(ItemStack itemStack, @Nullable World level, List<Text> tooltip, TooltipContext context) {
-        SimpleInventory inventory = getInventory(itemStack);
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+        SimpleInventory inventory = getInventory(stack);
 
         long energy = getEnergy(inventory);
         long capacity = getCapacity(inventory);
@@ -270,17 +269,17 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
     }
 
     public static SimpleInventory getInventory(ItemStack itemStack) {
-        NbtCompound nbt = itemStack.getOrCreateNbt();
+        InventoryComponent inventory = itemStack.get(ModDataComponentTypes.INVENTORY);
 
-        if(nbt.contains("inventory")) {
-            DefaultedList<ItemStack> items = DefaultedList.ofSize(SLOT_COUNT, ItemStack.EMPTY);
-            Inventories.readNbt(nbt.getCompound("inventory"), items);
+        if(inventory != null) {
+            DefaultedList<ItemStack> items = DefaultedList.copyOf(ItemStack.EMPTY, inventory.stream().
+                    toArray(ItemStack[]::new));
             return new SimpleInventory(items.toArray(new ItemStack[0])) {
                 @Override
                 public void markDirty() {
                     super.markDirty();
 
-                    itemStack.getOrCreateNbt().put("inventory", Inventories.writeNbt(new NbtCompound(), this.heldStacks));
+                    itemStack.set(ModDataComponentTypes.INVENTORY, new InventoryComponent(heldStacks));
                 }
 
                 @Override
@@ -316,7 +315,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
             public void markDirty() {
                 super.markDirty();
 
-                itemStack.getOrCreateNbt().put("inventory", Inventories.writeNbt(new NbtCompound(), this.heldStacks));
+                itemStack.set(ModDataComponentTypes.INVENTORY, new InventoryComponent(heldStacks));
             }
 
             @Override

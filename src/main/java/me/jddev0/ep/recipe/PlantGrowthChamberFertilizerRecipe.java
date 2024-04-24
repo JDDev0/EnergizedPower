@@ -1,17 +1,19 @@
 package me.jddev0.ep.recipe;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
@@ -48,7 +50,7 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<SimpleInventor
     }
 
     @Override
-    public ItemStack craft(SimpleInventory container, DynamicRegistryManager registryAccess) {
+    public ItemStack craft(SimpleInventory container, RegistryWrapper.WrapperLookup registries) {
         return ItemStack.EMPTY;
     }
 
@@ -58,7 +60,7 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<SimpleInventor
     }
 
     @Override
-    public ItemStack getResult(DynamicRegistryManager registryAccess) {
+    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
         return ItemStack.EMPTY;
     }
 
@@ -102,7 +104,7 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<SimpleInventor
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "plant_growth_chamber_fertilizer");
 
-        private final Codec<PlantGrowthChamberFertilizerRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<PlantGrowthChamberFertilizerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
             }), Codec.DOUBLE.fieldOf("speedMultiplier").forGetter((recipe) -> {
@@ -112,23 +114,29 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<SimpleInventor
             })).apply(instance, PlantGrowthChamberFertilizerRecipe::new);
         });
 
+        private final PacketCodec<RegistryByteBuf, PlantGrowthChamberFertilizerRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<PlantGrowthChamberFertilizerRecipe> codec() {
+        public MapCodec<PlantGrowthChamberFertilizerRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public PlantGrowthChamberFertilizerRecipe read(PacketByteBuf buffer) {
-            Ingredient input = Ingredient.fromPacket(buffer);
+        public PacketCodec<RegistryByteBuf, PlantGrowthChamberFertilizerRecipe> packetCodec() {
+            return PACKET_CODEC;
+        }
+
+        private static PlantGrowthChamberFertilizerRecipe read(RegistryByteBuf buffer) {
+            Ingredient input = Ingredient.PACKET_CODEC.decode(buffer);
             double speedMultiplier = buffer.readDouble();
             double energyConsumptionMultiplier = buffer.readDouble();
 
             return new PlantGrowthChamberFertilizerRecipe(input, speedMultiplier, energyConsumptionMultiplier);
         }
 
-        @Override
-        public void write(PacketByteBuf buffer, PlantGrowthChamberFertilizerRecipe recipe) {
-            recipe.input.write(buffer);
+        private static void write(RegistryByteBuf buffer, PlantGrowthChamberFertilizerRecipe recipe) {
+            Ingredient.PACKET_CODEC.encode(buffer, recipe.input);
             buffer.writeDouble(recipe.speedMultiplier);
             buffer.writeDouble(recipe.energyConsumptionMultiplier);
         }

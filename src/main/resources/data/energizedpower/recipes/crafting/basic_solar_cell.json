@@ -6,13 +6,13 @@
       "tag": "c:silicon"
     },
     "Q": {
-      "tag": "c:quartz"
+      "tag": "c:gems/quartz"
     },
     "T": {
-      "tag": "c:tin_ingots"
+      "tag": "c:ingots/tin"
     },
     "C": {
-      "tag": "c:copper_ingots"
+      "tag": "c:ingots/copper"
     }
   },
   "pattern": [
@@ -21,6 +21,6 @@
     " T "
   ],
   "result": {
-    "item": "energizedpower:basic_solar_cell"
+    "id": "energizedpower:basic_solar_cell"
   }
 }

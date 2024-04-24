@@ -1,15 +1,16 @@
 package me.jddev0.ep.recipe;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.*;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.dynamic.Codecs;
@@ -47,7 +48,7 @@ public class EnergizerRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack craft(SimpleInventory container, DynamicRegistryManager registryManager) {
+    public ItemStack craft(SimpleInventory container, RegistryWrapper.WrapperLookup registriesr) {
         return output;
     }
 
@@ -57,7 +58,7 @@ public class EnergizerRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getResult(DynamicRegistryManager registryManage) {
+    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
         return output.copy();
     }
 
@@ -101,7 +102,7 @@ public class EnergizerRecipe implements Recipe<SimpleInventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "energizer");
 
-        private final Codec<EnergizerRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<EnergizerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
             }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
@@ -111,25 +112,31 @@ public class EnergizerRecipe implements Recipe<SimpleInventory> {
             })).apply(instance, EnergizerRecipe::new);
         });
 
+        private final PacketCodec<RegistryByteBuf, EnergizerRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<EnergizerRecipe> codec() {
+        public MapCodec<EnergizerRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public EnergizerRecipe read(PacketByteBuf buffer) {
-            Ingredient input = Ingredient.fromPacket(buffer);
+        public PacketCodec<RegistryByteBuf, EnergizerRecipe> packetCodec() {
+            return PACKET_CODEC;
+        }
+
+        private static EnergizerRecipe read(RegistryByteBuf buffer) {
+            Ingredient input = Ingredient.PACKET_CODEC.decode(buffer);
             int energyConsumption = buffer.readInt();
-            ItemStack output = buffer.readItemStack();
+            ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
 
             return new EnergizerRecipe(output, input, energyConsumption);
         }
 
-        @Override
-        public void write(PacketByteBuf buffer, EnergizerRecipe recipe) {
-            recipe.input.write(buffer);
+        private static void write(RegistryByteBuf buffer, EnergizerRecipe recipe) {
+            Ingredient.PACKET_CODEC.encode(buffer, recipe.input);
             buffer.writeInt(recipe.energyConsumption);
-            buffer.writeItemStack(recipe.output);
+            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output);
         }
     }
 }

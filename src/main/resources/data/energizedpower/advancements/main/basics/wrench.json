@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/energizedpower_basics",
   "display": {
     "icon": {
-      "item": "energizedpower:wrench"
+      "id": "energizedpower:wrench"
     },
     "title": {
       "translate": "advancements.energizedpower.wrench.title"

@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "G": {
-      "tag": "c:glass_panes_colorless"
+      "tag": "c:glass_panes/colorless"
     },
     "s": {
       "tag": "c:silicon"
     },
     "C": {
-      "tag": "c:copper_ingots"
+      "tag": "c:ingots/copper"
     },
     "S": {
       "item": "energizedpower:solar_panel_3"
@@ -24,6 +24,6 @@
     "ACA"
   ],
   "result": {
-    "item": "energizedpower:solar_panel_4"
+    "id": "energizedpower:solar_panel_4"
   }
 }

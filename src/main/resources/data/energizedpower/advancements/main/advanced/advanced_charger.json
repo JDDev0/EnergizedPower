@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/energized_gold_ingot",
   "display": {
     "icon": {
-      "item": "energizedpower:advanced_charger"
+      "id": "energizedpower:advanced_charger"
     },
     "title": {
       "translate": "advancements.energizedpower.advanced_charger.title"

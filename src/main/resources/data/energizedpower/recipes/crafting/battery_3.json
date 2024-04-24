@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "T": {
-      "tag": "c:tin_nuggets"
+      "tag": "c:nuggets/tin"
     },
     "C": {
-      "tag": "c:copper_plates"
+      "tag": "c:plates/copper"
     },
     "S": {
       "tag": "c:silicon"
@@ -21,6 +21,6 @@
     "CSC"
   ],
   "result": {
-    "item": "energizedpower:battery_3"
+    "id": "energizedpower:battery_3"
   }
 }

@@ -3,13 +3,13 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:hammers"
+      "tag": "c:tools/hammers"
     },
     {
-      "tag": "c:copper_ingots"
+      "tag": "c:ingots/copper"
     }
   ],
   "result": {
-    "item": "energizedpower:copper_plate"
+    "id": "energizedpower:copper_plate"
   }
 }

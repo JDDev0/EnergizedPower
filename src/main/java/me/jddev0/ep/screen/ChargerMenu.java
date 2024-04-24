@@ -15,12 +15,12 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
@@ -31,8 +31,8 @@ public class ChargerMenu extends ScreenHandler implements EnergyStorageConsumerI
     private final World level;
     private final PropertyDelegate data;
 
-    public ChargerMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1) {
+    public ChargerMenu(int id, PlayerInventory inv, BlockPos pos) {
+        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(1) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 if(inv.player.getWorld() == null || RecipeUtils.isIngredientOfAny(inv.player.getWorld(), ChargerRecipe.Type.INSTANCE, stack))

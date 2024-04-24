@@ -10,8 +10,8 @@ import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.TeleporterMenu;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
@@ -22,10 +22,11 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
 import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -50,7 +51,7 @@ import java.util.stream.IntStream;
 import java.util.List;
 import java.util.Optional;
 
-public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, EnergyStoragePacketUpdate {
     public static final boolean INTRA_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_ENABLED.getValue();
     public static final boolean INTER_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_ENABLED.getValue();
     public static final List<@NotNull Identifier> DIMENSION_BLACKLIST =
@@ -130,14 +131,9 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
                 setChangedAndUpdateReadyState();
 
                 if(world != null && !world.isClient()) {
-                    PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(amount);
-                    buffer.writeLong(capacity);
-                    buffer.writeBlockPos(getPos());
-
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            ModMessages.ENERGY_SYNC_ID, buffer
+                            new EnergySyncS2CPacket(amount, capacity, getPos())
                     );
                 }
             }
@@ -157,34 +153,30 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeLong(internalEnergyStorage.amount);
-        buffer.writeLong(internalEnergyStorage.capacity);
-        buffer.writeBlockPos(getPos());
-
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
+                new EnergySyncS2CPacket(internalEnergyStorage.amount, internalEnergyStorage.capacity, getPos()));
 
         return new TeleporterMenu(id, this, inventory, internalInventory);
     }
 
     @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
+    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
+        return pos;
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks));
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
         nbt.putLong("energy", internalEnergyStorage.amount);
 
-        super.writeNbt(nbt);
+        super.writeNbt(nbt, registries);
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound nbt) {
-        super.readNbt(nbt);
+    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
 
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks);
+        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
         internalEnergyStorage.amount = nbt.getLong("energy");
     }
 
@@ -369,8 +361,10 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
             return;
         }
 
-        Identifier fromDimensionTypeId = world.getDimensionKey().getValue();
-        Identifier toDimensionTypeId = toDimension.getDimensionKey().getValue();
+        Identifier fromDimensionTypeId = world.getDimensionEntry().getKey().map(RegistryKey::getValue).
+                orElse(new Identifier("empty"));
+        Identifier toDimensionTypeId = toDimension.getDimensionEntry().getKey().map(RegistryKey::getValue).
+                orElse(new Identifier("empty"));
 
         //Dimension Type Blacklist
         if(TeleporterBlockEntity.DIMENSION_TYPE_BLACKLIST.contains(fromDimensionTypeId)) {

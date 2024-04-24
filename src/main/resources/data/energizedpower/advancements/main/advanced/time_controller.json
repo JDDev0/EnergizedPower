@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/reinforced_advanced_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:time_controller"
+      "id": "energizedpower:time_controller"
     },
     "title": {
       "translate": "advancements.energizedpower.time_controller.title"

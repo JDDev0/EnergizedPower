@@ -4,8 +4,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.FluidPipeBlockEntity;
 import me.jddev0.ep.util.FluidUtils;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -14,7 +12,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -386,7 +384,7 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
     public static class Item extends BlockItem {
         private final Tier tier;
 
-        public Item(Block block, FabricItemSettings props, Tier tier) {
+        public Item(Block block, Item.Settings props, Tier tier) {
             super(block, props);
 
             this.tier = tier;
@@ -397,7 +395,7 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
                 tooltip.add(Text.translatable("tooltip.energizedpower.wrench_configurable").
                         formatted(Formatting.GRAY, Formatting.ITALIC));
@@ -415,18 +413,18 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
     public enum Tier {
         IRON("fluid_pipe", FluidUtils.convertMilliBucketsToDroplets(
                 ModConfigs.COMMON_IRON_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue()),
-                FabricBlockSettings.create().
+                AbstractBlock.Settings.create().
                         requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)),
         GOLDEN("golden_fluid_pipe", FluidUtils.convertMilliBucketsToDroplets(
                 ModConfigs.COMMON_GOLDEN_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue()),
-                FabricBlockSettings.create().
+                AbstractBlock.Settings.create().
                         requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
 
         private final String resourceId;
         private final long transferRate;
-        private final FabricBlockSettings props;
+        private final AbstractBlock.Settings props;
 
-        Tier(String resourceId, long transferRate, FabricBlockSettings props) {
+        Tier(String resourceId, long transferRate, AbstractBlock.Settings props) {
             this.resourceId = resourceId;
             this.transferRate = transferRate;
             this.props = props;
@@ -440,7 +438,7 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
             return transferRate;
         }
 
-        public FabricBlockSettings getProperties() {
+        public AbstractBlock.Settings getProperties() {
             return props;
         }
     }

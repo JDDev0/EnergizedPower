@@ -74,10 +74,10 @@ public class MinecartAdvancedBatteryBox extends AbstractMinecartBatteryBox {
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
 
-        dataTracker.startTracking(DATA_ID_ENERGY, 0L);
+        builder.add(DATA_ID_ENERGY, 0L);
     }
 
     @Override

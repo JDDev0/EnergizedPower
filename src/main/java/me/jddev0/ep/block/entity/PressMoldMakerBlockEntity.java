@@ -5,9 +5,9 @@ import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.SyncPressMoldMakerRecipeListS2CPacket;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.PressMoldMakerMenu;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -19,8 +19,8 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -40,7 +40,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class PressMoldMakerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
+public class PressMoldMakerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos> {
     private List<Pair<RecipeEntry<PressMoldMakerRecipe>, Boolean>> recipeList = new ArrayList<>();
 
     final CachedSidedInventoryStorage<PoweredFurnaceBlockEntity> cachedSidedInventoryStorage;
@@ -69,18 +69,9 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements ExtendedSc
                 if(world != null && !world.isClient()) {
                     List<Pair<RecipeEntry<PressMoldMakerRecipe>, Boolean>> recipeList = createRecipeList();
 
-                    PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeBlockPos(getPos());
-                    buffer.writeInt(recipeList.size());
-                    recipeList.forEach(entry -> {
-                        buffer.writeIdentifier(entry.getFirst().id());
-                        PressMoldMakerRecipe.Serializer.INSTANCE.write(buffer, entry.getFirst().value());
-                        buffer.writeBoolean(entry.getSecond());
-                    });
-
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            ModMessages.SYNC_PRESS_MOLD_MAKER_RECIPE_LIST_ID, buffer
+                            new SyncPressMoldMakerRecipeListS2CPacket(getPos(), recipeList)
                     );
                 }
             }
@@ -114,22 +105,15 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements ExtendedSc
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         List<Pair<RecipeEntry<PressMoldMakerRecipe>, Boolean>> recipeList = createRecipeList();
 
-        PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeBlockPos(getPos());
-        buffer.writeInt(recipeList.size());
-        recipeList.forEach(entry -> {
-            buffer.writeIdentifier(entry.getFirst().id());
-            PressMoldMakerRecipe.Serializer.INSTANCE.write(buffer, entry.getFirst().value());
-            buffer.writeBoolean(entry.getSecond());
-        });
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.SYNC_PRESS_MOLD_MAKER_RECIPE_LIST_ID, buffer);
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, new SyncPressMoldMakerRecipeListS2CPacket(
+                getPos(), recipeList));
 
         return new PressMoldMakerMenu(id, this, inventory, internalInventory);
     }
 
     @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
+    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
+        return pos;
     }
 
     public int getRedstoneOutput() {
@@ -137,17 +121,17 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements ExtendedSc
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks));
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
 
-        super.writeNbt(nbt);
+        super.writeNbt(nbt, registries);
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound nbt) {
-        super.readNbt(nbt);
+    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
 
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks);
+        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -173,8 +157,8 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements ExtendedSc
     private static boolean canInsertItemIntoOutputSlot(Inventory inventory, ItemStack itemStack) {
         ItemStack inventoryItemStack = inventory.getStack(1);
 
-        return (inventoryItemStack.isEmpty() || ItemStack.canCombine(inventoryItemStack, itemStack)) &&
-                inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount();
+        return inventoryItemStack.isEmpty() || (ItemStack.areItemsAndComponentsEqual(inventoryItemStack, itemStack) &&
+                inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount());
     }
 
     private List<Pair<RecipeEntry<PressMoldMakerRecipe>, Boolean>> createRecipeList() {

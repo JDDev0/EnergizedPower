@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/advanced_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:hv_transformer_1_to_n"
+      "id": "energizedpower:hv_transformer_1_to_n"
     },
     "title": {
       "translate": "advancements.energizedpower.hv_transformers.title"

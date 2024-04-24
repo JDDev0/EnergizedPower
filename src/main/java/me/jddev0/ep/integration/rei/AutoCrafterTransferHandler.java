@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.SetAutoCrafterPatternInputSlotsC2SPacket;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.transfer.TransferHandler;
@@ -10,13 +10,10 @@ import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,12 +59,8 @@ public class AutoCrafterTransferHandler implements TransferHandler {
         while(itemStacks.size() < 9)
             itemStacks.add(ItemStack.EMPTY);
 
-        PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeBlockPos(container.getBlockEntity().getPos());
-        for(ItemStack itemStack:itemStacks)
-            buf.writeItemStack(itemStack);
-        buf.writeIdentifier(recipeEntry.id());
-        ClientPlayNetworking.send(ModMessages.SET_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID, buf);
+        ClientPlayNetworking.send(new SetAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getPos(),
+                itemStacks, recipeEntry.id()));
 
         return Result.createSuccessful().blocksFurtherHandling();
     }

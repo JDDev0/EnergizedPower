@@ -17,12 +17,14 @@ import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
+import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
+import me.jddev0.ep.networking.packet.SyncFiltrationPlantCurrentRecipeS2CPacket;
 import me.jddev0.ep.recipe.FiltrationPlantRecipe;
 import me.jddev0.ep.screen.FiltrationPlantMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.FluidUtils;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
@@ -36,8 +38,8 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -57,7 +59,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class FiltrationPlantBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate,
+public class FiltrationPlantBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, EnergyStoragePacketUpdate,
         FluidStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
     public static final long CAPACITY = ModConfigs.COMMON_FILTRATION_PLANT_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_FILTRATION_PLANT_TRANSFER_RATE.getValue();
@@ -133,14 +135,9 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements ExtendedS
                 markDirty();
 
                 if(world != null && !world.isClient()) {
-                    PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(amount);
-                    buffer.writeLong(capacity);
-                    buffer.writeBlockPos(getPos());
-
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            ModMessages.ENERGY_SYNC_ID, buffer
+                            new EnergySyncS2CPacket(amount, capacity, getPos())
                     );
                 }
             }
@@ -154,15 +151,9 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements ExtendedS
                         markDirty();
 
                         if(world != null && !world.isClient()) {
-                            PacketByteBuf buffer = PacketByteBufs.create();
-                            buffer.writeInt(0);
-                            getFluid().toPacket(buffer);
-                            buffer.writeLong(capacity);
-                            buffer.writeBlockPos(getPos());
-
                             ModMessages.sendServerPacketToPlayersWithinXBlocks(
                                     getPos(), (ServerWorld)world, 32,
-                                    ModMessages.FLUID_SYNC_ID, buffer
+                                    new FluidSyncS2CPacket(0, getFluid(), capacity, getPos())
                             );
                         }
                     }
@@ -187,15 +178,9 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements ExtendedS
                         markDirty();
 
                         if(world != null && !world.isClient()) {
-                            PacketByteBuf buffer = PacketByteBufs.create();
-                            buffer.writeInt(1);
-                            getFluid().toPacket(buffer);
-                            buffer.writeLong(capacity);
-                            buffer.writeBlockPos(getPos());
-
                             ModMessages.sendServerPacketToPlayersWithinXBlocks(
                                     getPos(), (ServerWorld)world, 32,
-                                    ModMessages.FLUID_SYNC_ID, buffer
+                                    new FluidSyncS2CPacket(1, getFluid(), capacity, getPos())
                             );
                         }
                     }
@@ -260,39 +245,19 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements ExtendedS
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeLong(internalEnergyStorage.amount);
-        buffer.writeLong(internalEnergyStorage.capacity);
-        buffer.writeBlockPos(getPos());
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, new EnergySyncS2CPacket(internalEnergyStorage.amount, internalEnergyStorage.capacity, getPos()));
+        for(int i = 0;i < 2;i++)
+            ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, new FluidSyncS2CPacket(i,
+                    fluidStorage.parts.get(i).getFluid(), fluidStorage.parts.get(i).getCapacity(), getPos()));
 
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
-        for(int i = 0;i < 2;i++) {
-            buffer = PacketByteBufs.create();
-            buffer.writeInt(i);
-            fluidStorage.parts.get(i).getFluid().toPacket(buffer);
-            buffer.writeLong(fluidStorage.parts.get(i).getCapacity());
-            buffer.writeBlockPos(getPos());
-
-            ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.FLUID_SYNC_ID, buffer);
-        }
-
-        buffer = PacketByteBufs.create();
-        buffer.writeBlockPos(getPos());
-        if(currentRecipe == null) {
-            buffer.writeBoolean(false);
-        }else {
-            buffer.writeBoolean(true);
-            buffer.writeIdentifier(currentRecipe.id());
-            FiltrationPlantRecipe.Serializer.INSTANCE.write(buffer, currentRecipe.value());
-        }
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.SYNC_FILTRATION_PLANT_CURRENT_RECIPE_ID, buffer);
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, new SyncFiltrationPlantCurrentRecipeS2CPacket(getPos(), currentRecipe));
 
         return new FiltrationPlantMenu(id, this, inventory, internalInventory, this.data);
     }
 
     @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
+    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
+        return pos;
     }
 
     public int getRedstoneOutput() {
@@ -304,11 +269,11 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements ExtendedS
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks));
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
         nbt.putLong("energy", internalEnergyStorage.amount);
         for(int i = 0;i < fluidStorage.parts.size();i++)
-            nbt.put("fluid." + i, fluidStorage.parts.get(i).toNBT(new NbtCompound()));
+            nbt.put("fluid." + i, fluidStorage.parts.get(i).toNBT(new NbtCompound(), registries));
 
         if(currentRecipe != null)
             nbt.put("recipe.id", NbtString.of(currentRecipe.id().toString()));
@@ -319,17 +284,17 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements ExtendedS
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
-        super.writeNbt(nbt);
+        super.writeNbt(nbt, registries);
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound nbt) {
-        super.readNbt(nbt);
+    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
 
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks);
+        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
         internalEnergyStorage.amount = nbt.getLong("energy");
         for(int i = 0;i < fluidStorage.parts.size();i++)
-            fluidStorage.parts.get(i).fromNBT(nbt.getCompound("fluid." + i));
+            fluidStorage.parts.get(i).fromNBT(nbt.getCompound("fluid." + i), registries);
 
         if(nbt.contains("recipe.id")) {
             NbtElement tag = nbt.get("recipe.id");
@@ -428,14 +393,11 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements ExtendedS
         }
 
         for(int i = 0;i < 2;i++) {
-            ItemStack charcoalFilter = internalInventory.getStack(i).copy();
+            ItemStack charcoalFilter = internalInventory.getStack(i);
             if(charcoalFilter.isEmpty() && !charcoalFilter.isOf(ModItems.CHARCOAL_FILTER))
                 continue;
 
-            if(charcoalFilter.damage(1, world.random, null))
-                internalInventory.setStack(i, ItemStack.EMPTY);
-            else
-                internalInventory.setStack(i, charcoalFilter);
+            charcoalFilter.damage(1, world.random, null, () -> charcoalFilter.setCount(0));
         }
 
         ItemStack[] outputs = recipe.generateOutputs(world.random);
@@ -469,15 +431,15 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements ExtendedS
     private static boolean canInsertItemIntoOutputSlot(SimpleInventory inventory, ItemStack itemStack) {
         ItemStack inventoryItemStack = inventory.getStack(2);
 
-        return (inventoryItemStack.isEmpty() || ItemStack.canCombine(inventoryItemStack, itemStack)) &&
-                inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount();
+        return inventoryItemStack.isEmpty() || (ItemStack.areItemsAndComponentsEqual(inventoryItemStack, itemStack) &&
+                inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount());
     }
 
     private static boolean canInsertItemIntoSecondaryOutputSlot(SimpleInventory inventory, ItemStack itemStack) {
         ItemStack inventoryItemStack = inventory.getStack(3);
 
-        return (inventoryItemStack.isEmpty() || ItemStack.canCombine(inventoryItemStack, itemStack)) &&
-                inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount();
+        return inventoryItemStack.isEmpty() || (ItemStack.areItemsAndComponentsEqual(inventoryItemStack, itemStack) &&
+                inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount());
     }
 
     public void changeRecipeIndex(boolean downUp) {
@@ -511,18 +473,9 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements ExtendedS
 
         markDirty(world, getPos(), getCachedState());
 
-        PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeBlockPos(getPos());
-        if(currentRecipe == null) {
-            buffer.writeBoolean(false);
-        }else {
-            buffer.writeBoolean(true);
-            buffer.writeIdentifier(currentRecipe.id());
-            FiltrationPlantRecipe.Serializer.INSTANCE.write(buffer, currentRecipe.value());
-        }
         ModMessages.sendServerPacketToPlayersWithinXBlocks(
                 getPos(), (ServerWorld)world, 32,
-                ModMessages.SYNC_FILTRATION_PLANT_CURRENT_RECIPE_ID, buffer
+                new SyncFiltrationPlantCurrentRecipeS2CPacket(getPos(), currentRecipe)
         );
     }
 

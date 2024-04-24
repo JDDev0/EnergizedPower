@@ -5,17 +5,12 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.FluidTankBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.util.FluidUtils;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
@@ -96,7 +91,7 @@ public class FluidTankBlock extends BlockWithEntity {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, Hand handItem, BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, BlockHitResult hit) {
         if(level.isClient())
             return ActionResult.SUCCESS;
 
@@ -137,7 +132,7 @@ public class FluidTankBlock extends BlockWithEntity {
     public static class Item extends BlockItem {
         private final Tier tier;
 
-        public Item(Block block, FabricItemSettings props, Tier tier) {
+        public Item(Block block, Item.Settings props, Tier tier) {
             super(block, props);
 
             this.tier = tier;
@@ -148,7 +143,7 @@ public class FluidTankBlock extends BlockWithEntity {
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
                 tooltip.add(Text.translatable("tooltip.energizedpower.tank_capacity.txt",
                                 FluidUtils.getFluidAmountWithPrefix(FluidUtils.convertDropletsToMilliBuckets(tier.getTankCapacity()))).
@@ -162,22 +157,22 @@ public class FluidTankBlock extends BlockWithEntity {
     public enum Tier {
         SMALL("fluid_tank_small", FluidUtils.convertMilliBucketsToDroplets(
                 1000 * ModConfigs.COMMON_FLUID_TANK_SMALL_TANK_CAPACITY.getValue()),
-                FabricBlockSettings.create().
+                AbstractBlock.Settings.create().
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
         MEDIUM("fluid_tank_medium", FluidUtils.convertMilliBucketsToDroplets(
                 1000 * ModConfigs.COMMON_FLUID_TANK_MEDIUM_TANK_CAPACITY.getValue()),
-                FabricBlockSettings.create().
+                AbstractBlock.Settings.create().
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
         LARGE("fluid_tank_large", FluidUtils.convertMilliBucketsToDroplets(
                 1000 * ModConfigs.COMMON_FLUID_TANK_LARGE_TANK_CAPACITY.getValue()),
-                FabricBlockSettings.create().
+                AbstractBlock.Settings.create().
                         requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL));
 
         private final String resourceId;
         private final long tankCapacity;
-        private final FabricBlockSettings props;
+        private final AbstractBlock.Settings props;
 
-        Tier(String resourceId, long tankCapacity, FabricBlockSettings props) {
+        Tier(String resourceId, long tankCapacity, AbstractBlock.Settings props) {
             this.resourceId = resourceId;
             this.tankCapacity = tankCapacity;
             this.props = props;
@@ -191,7 +186,7 @@ public class FluidTankBlock extends BlockWithEntity {
             return tankCapacity;
         }
 
-        public FabricBlockSettings getProperties() {
+        public AbstractBlock.Settings getProperties() {
             return props;
         }
     }

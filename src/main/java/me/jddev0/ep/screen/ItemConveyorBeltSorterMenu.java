@@ -9,12 +9,12 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class ItemConveyorBeltSorterMenu extends ScreenHandler {
@@ -24,8 +24,8 @@ public class ItemConveyorBeltSorterMenu extends ScreenHandler {
 
     private final Inventory patternSlots;
 
-    public ItemConveyorBeltSorterMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
-        this(id, inv, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), new SimpleInventory(15), new ArrayPropertyDelegate(9));
+    public ItemConveyorBeltSorterMenu(int id, PlayerInventory inv, BlockPos pos) {
+        this(id, inv, inv.player.getWorld().getBlockEntity(pos), new SimpleInventory(15), new ArrayPropertyDelegate(9));
     }
 
     public ItemConveyorBeltSorterMenu(int id, PlayerInventory playerInventory, BlockEntity blockEntity, Inventory patternSlots, PropertyDelegate data) {

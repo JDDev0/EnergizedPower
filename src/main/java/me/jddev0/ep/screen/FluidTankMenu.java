@@ -8,9 +8,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class FluidTankMenu extends ScreenHandler {
@@ -26,8 +26,8 @@ public class FluidTankMenu extends ScreenHandler {
         };
     }
 
-    public FluidTankMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
-        this(id, inv, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), new ArrayPropertyDelegate(1));
+    public FluidTankMenu(int id, PlayerInventory inv, BlockPos pos) {
+        this(id, inv, inv.player.getWorld().getBlockEntity(pos), new ArrayPropertyDelegate(1));
     }
 
     public FluidTankMenu(int id, PlayerInventory inv, BlockEntity blockEntity, PropertyDelegate data) {

@@ -1,18 +1,17 @@
 package me.jddev0.ep.item;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.BlockState;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.item.ToolMaterials;
-import net.minecraft.item.Vanishable;
 import net.minecraft.util.math.random.Random;
 import me.jddev0.ep.block.CableBlock;
 
-public class CutterItem extends ToolItem implements Vanishable {
+public class CutterItem extends ToolItem {
     private final Random random = Random.create();
 
-    public CutterItem(ToolMaterials tier, FabricItemSettings props) {
+    public CutterItem(ToolMaterials tier, Item.Settings props) {
         super(tier, props);
     }
 
@@ -23,16 +22,9 @@ public class CutterItem extends ToolItem implements Vanishable {
     }
 
     @Override
-    public boolean isDamageable() {
-        //TODO improve [Equivalent to setNoRepair needed]
-        return false;
-    }
-
-    @Override
     public ItemStack getRecipeRemainder(ItemStack itemStack) {
         ItemStack copy = itemStack.copy();
-        if(copy.damage(1, random, null))
-            return ItemStack.EMPTY;
+        copy.damage(1, random, null, () -> copy.setCount(0));
 
         return copy;
     }
@@ -43,10 +35,10 @@ public class CutterItem extends ToolItem implements Vanishable {
     }
 
     @Override
-    public float getMiningSpeedMultiplier(ItemStack itemStack, BlockState blockState) {
+    public float getMiningSpeed(ItemStack itemStack, BlockState blockState) {
         if(blockState.getBlock() instanceof CableBlock)
             return 15.f;
 
-        return super.getMiningSpeedMultiplier(itemStack, blockState);
+        return super.getMiningSpeed(itemStack, blockState);
     }
 }

@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/item_conveyor_belt_loader",
   "display": {
     "icon": {
-      "item": "energizedpower:item_conveyor_belt_merger"
+      "id": "energizedpower:item_conveyor_belt_merger"
     },
     "title": {
       "translate": "advancements.energizedpower.item_conveyor_belt_merger.title"

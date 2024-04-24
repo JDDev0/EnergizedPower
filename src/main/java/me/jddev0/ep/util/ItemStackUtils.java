@@ -14,7 +14,7 @@ public final class ItemStackUtils {
             boolean inserted = false;
             int amountLeft = itemStack.getCount();
             for(ItemStack combinedItemStack:combinedItemStacks) {
-                if(ItemStack.areItemsEqual(itemStack, combinedItemStack) && ItemStack.canCombine(itemStack, combinedItemStack) &&
+                if(ItemStack.areItemsAndComponentsEqual(itemStack, combinedItemStack) &&
                         combinedItemStack.getMaxCount() > combinedItemStack.getCount()) {
                     int amount = Math.min(amountLeft, combinedItemStack.getMaxCount() - combinedItemStack.getCount());
                     amountLeft -= amount;

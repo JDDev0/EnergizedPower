@@ -4,15 +4,17 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.*;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.random.Random;
@@ -81,7 +83,7 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack craft(SimpleInventory container, DynamicRegistryManager registryAccess) {
+    public ItemStack craft(SimpleInventory container, RegistryWrapper.WrapperLookup registries) {
         return ItemStack.EMPTY;
     }
 
@@ -91,7 +93,7 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getResult(DynamicRegistryManager registryAccess) {
+    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
         return ItemStack.EMPTY;
     }
 
@@ -135,7 +137,7 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "pulverizer");
 
-        private final Codec<PulverizerRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<PulverizerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(OutputItemStackWithPercentages.createCodec(true).fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
             }), OutputItemStackWithPercentages.createCodec(false).optionalFieldOf("secondaryOutput",
@@ -146,18 +148,25 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
             })).apply(instance, PulverizerRecipe::new);
         });
 
+        private final PacketCodec<RegistryByteBuf, PulverizerRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<PulverizerRecipe> codec() {
+        public MapCodec<PulverizerRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public PulverizerRecipe read(PacketByteBuf buffer) {
-            Ingredient input = Ingredient.fromPacket(buffer);
+        public PacketCodec<RegistryByteBuf, PulverizerRecipe> packetCodec() {
+            return PACKET_CODEC;
+        }
+
+        private static PulverizerRecipe read(RegistryByteBuf buffer) {
+            Ingredient input = Ingredient.PACKET_CODEC.decode(buffer);
 
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[2];
             for(int i = 0;i < 2;i++) {
-                ItemStack output = buffer.readItemStack();
+                ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
 
                 int percentageCount = buffer.readInt();
                 double[] percentages = new double[percentageCount];
@@ -175,13 +184,12 @@ public class PulverizerRecipe implements Recipe<SimpleInventory> {
             return new PulverizerRecipe(outputs[0], outputs[1], input);
         }
 
-        @Override
-        public void write(PacketByteBuf buffer, PulverizerRecipe recipe) {
-            recipe.input.write(buffer);
+        private static void write(RegistryByteBuf buffer, PulverizerRecipe recipe) {
+            Ingredient.PACKET_CODEC.encode(buffer, recipe.input);
 
             for(int i = 0;i < 2;i++) {
                 OutputItemStackWithPercentages output = i == 0?recipe.output:recipe.secondaryOutput;
-                buffer.writeItemStack(output.output);
+                ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, output.output);
 
                 buffer.writeInt(output.percentages.length);
                 for(double percentage:output.percentages)

@@ -3,13 +3,13 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:hammers"
+      "tag": "c:tools/hammers"
     },
     {
-      "tag": "c:tin_ingots"
+      "tag": "c:ingots/tin"
     }
   ],
   "result": {
-    "item": "energizedpower:tin_plate"
+    "id": "energizedpower:tin_plate"
   }
 }

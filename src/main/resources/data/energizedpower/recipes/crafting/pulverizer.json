@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "I": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
@@ -18,6 +18,6 @@
     "ISI"
   ],
   "result": {
-    "item": "energizedpower:pulverizer"
+    "id": "energizedpower:pulverizer"
   }
 }

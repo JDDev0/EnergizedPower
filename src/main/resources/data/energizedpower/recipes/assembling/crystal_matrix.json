@@ -3,25 +3,25 @@
   "inputs": [
     {
       "input": {
-        "item": "minecraft:amethyst_shard"
+        "tag": "c:gems/amethyst"
       },
       "count": 6
     },
     {
       "input": {
-        "tag": "c:diamonds"
+        "tag": "c:gems/diamond"
       },
       "count": 2
     },
     {
       "input": {
-        "tag": "c:emeralds"
+        "tag": "c:gems/emerald"
       },
       "count": 2
     },
     {
       "input": {
-        "tag": "c:redstone_dusts"
+        "tag": "c:dusts/redstone"
       }
     }
   ],

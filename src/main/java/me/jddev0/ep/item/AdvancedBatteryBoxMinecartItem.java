@@ -2,18 +2,17 @@ package me.jddev0.ep.item;
 
 import me.jddev0.ep.entity.MinecartAdvancedBatteryBox;
 import me.jddev0.ep.util.EnergyUtils;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.AbstractRailBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.block.enums.RailShape;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.MinecartItem;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -23,7 +22,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -61,7 +59,7 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
 
             MinecartAdvancedBatteryBox minecartAdvancedBatteryBox = new MinecartAdvancedBatteryBox(level, xOffset,
                     yOffset + additionalYOffset, zOffset);
-            if(itemStack.hasCustomName())
+            if(itemStack.contains(DataComponentTypes.CUSTOM_NAME))
                 minecartAdvancedBatteryBox.setCustomName(itemStack.getName());
 
             level.spawnEntity(minecartAdvancedBatteryBox);
@@ -70,14 +68,14 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
         }
     };
 
-    public AdvancedBatteryBoxMinecartItem(FabricItemSettings props) {
+    public AdvancedBatteryBoxMinecartItem(Item.Settings props) {
         super(props);
 
         DispenserBlock.registerBehavior(this, DISPENSE_ITEM_BEHAVIOR);
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
         if(Screen.hasShiftDown()) {
             tooltip.add(Text.translatable("tooltip.energizedpower.capacity.txt",
                             EnergyUtils.getEnergyWithPrefix(MinecartAdvancedBatteryBox.CAPACITY)).
@@ -107,7 +105,7 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
 
             MinecartAdvancedBatteryBox minecartAdvancedBatteryBox = new MinecartAdvancedBatteryBox(level, blockPos.getX() + .5,
                     blockPos.getY() + .0625 + yOffset, blockPos.getZ() + .5);
-            if(itemStack.hasCustomName())
+            if(itemStack.contains(DataComponentTypes.CUSTOM_NAME))
                 minecartAdvancedBatteryBox.setCustomName(itemStack.getName());
 
             level.spawnEntity(minecartAdvancedBatteryBox);

@@ -12,11 +12,11 @@ import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
 import me.jddev0.ep.screen.AssemblingMachineMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.EnergyUtils;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -31,8 +31,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtInt;
 import net.minecraft.nbt.NbtLong;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -50,7 +50,7 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-public class AssemblingMachineBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate,
+public class AssemblingMachineBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, EnergyStoragePacketUpdate, RedstoneModeUpdate,
         ComparatorModeUpdate {
     private static final long CAPACITY = ModConfigs.COMMON_ASSEMBLING_MACHINE_CAPACITY.getValue();
 
@@ -106,8 +106,7 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
             public void setStack(int slot, ItemStack stack) {
                 if(slot >= 0 && slot < 4) {
                     ItemStack itemStack = getStack(slot);
-                    if(world != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.areItemsEqual(stack, itemStack) ||
-                            !ItemStack.canCombine(stack, itemStack)))
+                    if(world != null && !stack.isEmpty() && !itemStack.isEmpty() && ItemStack.areItemsAndComponentsEqual(stack, itemStack))
                         resetProgress(pos, world.getBlockState(pos));
                 }
 
@@ -213,14 +212,9 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
                 markDirty();
 
                 if(world != null && !world.isClient()) {
-                    PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(amount);
-                    buffer.writeLong(capacity);
-                    buffer.writeBlockPos(getPos());
-
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            ModMessages.ENERGY_SYNC_ID, buffer
+                            new EnergySyncS2CPacket(amount, capacity, getPos())
                     );
                 }
             }
@@ -300,24 +294,20 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeLong(internalEnergyStorage.amount);
-        buffer.writeLong(internalEnergyStorage.capacity);
-        buffer.writeBlockPos(getPos());
-
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
+                new EnergySyncS2CPacket(internalEnergyStorage.amount, internalEnergyStorage.capacity, getPos()));
 
         return new AssemblingMachineMenu(id, this, inventory, internalInventory, this.data);
     }
 
     @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
+    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
+        return pos;
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks));
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
         nbt.putLong("energy", internalEnergyStorage.amount);
 
         nbt.put("recipe.progress", NbtInt.of(progress));
@@ -326,14 +316,14 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
-        super.writeNbt(nbt);
+        super.writeNbt(nbt, registries);
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound nbt) {
-        super.readNbt(nbt);
+    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
 
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks);
+        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
         internalEnergyStorage.amount = nbt.getLong("energy");
 
         progress = nbt.getInt("recipe.progress");
@@ -464,8 +454,8 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
     private static boolean canInsertItemIntoOutputSlot(SimpleInventory inventory, ItemStack itemStack) {
         ItemStack inventoryItemStack = inventory.getStack(4);
 
-        return (inventoryItemStack.isEmpty() || ItemStack.canCombine(inventoryItemStack, itemStack)) &&
-                inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount();
+        return inventoryItemStack.isEmpty() || (ItemStack.areItemsAndComponentsEqual(inventoryItemStack, itemStack) &&
+                inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount());
     }
 
     public long getEnergy() {

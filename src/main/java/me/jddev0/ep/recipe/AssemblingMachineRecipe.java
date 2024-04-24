@@ -1,6 +1,7 @@
 package me.jddev0.ep.recipe;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
@@ -8,12 +9,13 @@ import me.jddev0.ep.codec.ArrayCodec;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
@@ -77,8 +79,9 @@ public class AssemblingMachineRecipe implements Recipe<SimpleInventory> {
         return true;
     }
 
+
     @Override
-    public ItemStack craft(SimpleInventory container, DynamicRegistryManager registryManage) {
+    public ItemStack craft(SimpleInventory container, RegistryWrapper.WrapperLookup registries) {
         return output;
     }
 
@@ -88,7 +91,7 @@ public class AssemblingMachineRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getResult(DynamicRegistryManager registryAccess) {
+    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
         return output.copy();
     }
 
@@ -125,7 +128,7 @@ public class AssemblingMachineRecipe implements Recipe<SimpleInventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "assembling_machine");
 
-        private final Codec<AssemblingMachineRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<AssemblingMachineRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
             }), new ArrayCodec<>(IngredientWithCount.CODEC, IngredientWithCount[]::new).fieldOf("inputs").forGetter((recipe) -> {
@@ -133,36 +136,42 @@ public class AssemblingMachineRecipe implements Recipe<SimpleInventory> {
             })).apply(instance, AssemblingMachineRecipe::new);
         });
 
+        private final PacketCodec<RegistryByteBuf, AssemblingMachineRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<AssemblingMachineRecipe> codec() {
+        public MapCodec<AssemblingMachineRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public AssemblingMachineRecipe read(PacketByteBuf buffer) {
+        public PacketCodec<RegistryByteBuf, AssemblingMachineRecipe> packetCodec() {
+            return PACKET_CODEC;
+        }
+
+        private static AssemblingMachineRecipe read(RegistryByteBuf buffer) {
             int len = buffer.readInt();
             IngredientWithCount[] inputs = new IngredientWithCount[len];
             for(int i = 0;i < len;i++) {
-                Ingredient input = Ingredient.fromPacket(buffer);
+                Ingredient input = Ingredient.PACKET_CODEC.decode(buffer);
                 int count = buffer.readInt();
 
                 inputs[i] = new IngredientWithCount(input, count);
             }
 
-            ItemStack output = buffer.readItemStack();
+            ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
 
             return new AssemblingMachineRecipe(output, inputs);
         }
 
-        @Override
-        public void write(PacketByteBuf buffer, AssemblingMachineRecipe recipe) {
+        private static void write(RegistryByteBuf buffer, AssemblingMachineRecipe recipe) {
             buffer.writeInt(recipe.inputs.length);
             for(int i = 0; i < recipe.inputs.length; i++) {
-                recipe.inputs[i].input.write(buffer);
+                Ingredient.PACKET_CODEC.encode(buffer, recipe.inputs[i].input);
                 buffer.writeInt(recipe.inputs[i].count);
             }
 
-            buffer.writeItemStack(recipe.output);
+            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output);
         }
     }
 

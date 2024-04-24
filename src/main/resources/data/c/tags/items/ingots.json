@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "energizedpower:tin_ingot",
+    "energizedpower:energized_copper_ingot",
+    "energizedpower:energized_gold_ingot"
+  ]
+}

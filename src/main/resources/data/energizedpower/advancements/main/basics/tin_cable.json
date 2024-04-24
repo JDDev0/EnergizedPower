@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/cable_insulator",
   "display": {
     "icon": {
-      "item": "energizedpower:tin_cable"
+      "id": "energizedpower:tin_cable"
     },
     "title": {
       "translate": "advancements.energizedpower.tin_cable.title"

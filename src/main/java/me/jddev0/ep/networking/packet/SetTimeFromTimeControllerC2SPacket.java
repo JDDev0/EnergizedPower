@@ -1,36 +1,52 @@
 package me.jddev0.ep.networking.packet;
 
+import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.TimeCommand;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.packet.CustomPayload;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 import team.reborn.energy.api.EnergyStorage;
 
-public final class SetTimeFromTimeControllerC2SPacket {
-    private SetTimeFromTimeControllerC2SPacket() {}
+public record SetTimeFromTimeControllerC2SPacket(BlockPos pos, int time) implements CustomPayload {
+    public static final CustomPayload.Id<SetTimeFromTimeControllerC2SPacket> ID =
+            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "set_time_from_time_controller"));
+    public static final PacketCodec<RegistryByteBuf, SetTimeFromTimeControllerC2SPacket> PACKET_CODEC =
+            PacketCodec.of(SetTimeFromTimeControllerC2SPacket::write, SetTimeFromTimeControllerC2SPacket::new);
 
-    public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
-                               PacketByteBuf buf, PacketSender responseSender) {
-        BlockPos pos = buf.readBlockPos();
-        int time = buf.readInt();
+    public SetTimeFromTimeControllerC2SPacket(RegistryByteBuf buffer) {
+        this(buffer.readBlockPos(), buffer.readInt());
+    }
 
-        server.execute(() -> {
-            World level = player.getWorld();
-            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ())))
+    public void write(RegistryByteBuf buffer) {
+        buffer.writeBlockPos(pos);
+        buffer.writeInt(time);
+    }
+
+    @Override
+    public Id<? extends CustomPayload> getId() {
+        return ID;
+    }
+
+    public static void receive(SetTimeFromTimeControllerC2SPacket data, ServerPlayNetworking.Context context) {
+        context.player().server.execute(() -> {
+            if(!context.player().canModifyBlocks())
                 return;
 
-            BlockEntity blockEntity = level.getBlockEntity(pos);
+            World level = context.player().getWorld();
+            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
+                return;
+
+            BlockEntity blockEntity = level.getBlockEntity(data.pos);
             if(!(blockEntity instanceof TimeControllerBlockEntity timeControllerBlockEntity))
                 return;
 
-            EnergyStorage energyStorage = EnergyStorage.SIDED.find(player.getWorld(), pos, null);
+            EnergyStorage energyStorage = EnergyStorage.SIDED.find(context.player().getWorld(), data.pos, null);
             if(energyStorage == null)
                 return;
 
@@ -39,17 +55,17 @@ public final class SetTimeFromTimeControllerC2SPacket {
 
             timeControllerBlockEntity.clearEnergy();
 
-            if(time < 0 || time > 24000)
+            if(data.time < 0 || data.time > 24000)
                 return;
 
-            long currentTime = player.getWorld().getTimeOfDay();
+            long currentTime = context.player().getWorld().getTimeOfDay();
 
             int currentDayTime = (int)(currentTime % 24000);
 
-            if(currentDayTime <= time)
-                player.getServerWorld().setTimeOfDay(currentTime - currentDayTime + time);
+            if(currentDayTime <= data.time)
+                context.player().getServerWorld().setTimeOfDay(currentTime - currentDayTime + data.time);
             else
-                player.getServerWorld().setTimeOfDay(currentTime + 24000 - currentDayTime + time);
+                context.player().getServerWorld().setTimeOfDay(currentTime + 24000 - currentDayTime + data.time);
         });
     }
 }

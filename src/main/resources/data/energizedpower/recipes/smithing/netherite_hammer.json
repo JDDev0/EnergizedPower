@@ -7,7 +7,7 @@
     "item": "energizedpower:diamond_hammer"
   },
   "result": {
-    "item": "energizedpower:netherite_hammer"
+    "id": "energizedpower:netherite_hammer"
   },
   "template": {
     "item": "minecraft:netherite_upgrade_smithing_template"

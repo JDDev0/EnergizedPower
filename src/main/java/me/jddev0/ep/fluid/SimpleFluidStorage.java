@@ -3,6 +3,7 @@ package me.jddev0.ep.fluid;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.fluid.base.SingleFluidStorage;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 
 public class SimpleFluidStorage extends SingleFluidStorage {
     public final long capacity;
@@ -29,12 +30,12 @@ public class SimpleFluidStorage extends SingleFluidStorage {
         return capacity;
     }
 
-    public NbtCompound toNBT(NbtCompound nbt) {
-        return getFluid().toNBT(nbt);
+    public NbtCompound toNBT(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        return getFluid().toNBT(nbt, registries);
     }
 
-    public void fromNBT(NbtCompound nbt) {
-        FluidStack fluidStack = FluidStack.fromNbt(nbt);
+    public void fromNBT(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        FluidStack fluidStack = FluidStack.fromNbt(nbt, registries);
 
         variant = fluidStack.getFluidVariant();
         amount = fluidStack.getDropletsAmount();

@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/energized_gold_ingot",
   "display": {
     "icon": {
-      "item": "energizedpower:advanced_powered_furnace"
+      "id": "energizedpower:advanced_powered_furnace"
     },
     "title": {
       "translate": "advancements.energizedpower.advanced_powered_furnace.title"

@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "i": {
-      "tag": "c:iron_gears"
+      "tag": "c:gears/iron"
     },
     "I": {
-      "tag": "c:iron_blocks"
+      "tag": "c:storage_blocks/iron"
     },
     "F": {
       "item": "energizedpower:fluid_tank_small"
@@ -27,6 +27,6 @@
     "IfI"
   ],
   "result": {
-    "item": "energizedpower:filtration_plant"
+    "id": "energizedpower:filtration_plant"
   }
 }

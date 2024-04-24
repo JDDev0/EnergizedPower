@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "G": {
-      "tag": "c:glass_panes_colorless"
+      "tag": "c:glass_panes/colorless"
     },
     "C": {
-      "tag": "c:copper_ingots"
+      "tag": "c:ingots/copper"
     },
     "R": {
-      "tag": "c:redstone_dusts"
+      "tag": "c:dusts/redstone"
     },
     "S": {
       "item": "energizedpower:solar_panel_1"
@@ -24,6 +24,6 @@
     "CRC"
   ],
   "result": {
-    "item": "energizedpower:solar_panel_2"
+    "id": "energizedpower:solar_panel_2"
   }
 }

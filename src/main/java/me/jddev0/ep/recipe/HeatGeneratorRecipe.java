@@ -2,6 +2,7 @@ package me.jddev0.ep.recipe;
 
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
@@ -9,11 +10,12 @@ import me.jddev0.ep.codec.ArrayCodec;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -41,7 +43,7 @@ public class HeatGeneratorRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack craft(SimpleInventory container, DynamicRegistryManager registryAccess) {
+    public ItemStack craft(SimpleInventory container, RegistryWrapper.WrapperLookup registries) {
         return ItemStack.EMPTY;
     }
 
@@ -51,7 +53,7 @@ public class HeatGeneratorRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getResult(DynamicRegistryManager registryAccess) {
+    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
         return ItemStack.EMPTY;
     }
 
@@ -88,8 +90,7 @@ public class HeatGeneratorRecipe implements Recipe<SimpleInventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "heat_generator");
 
-
-        private final Codec<HeatGeneratorRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<HeatGeneratorRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(Codec.either(new ArrayCodec<>(Registries.FLUID.getCodec(), Fluid[]::new),
                     Registries.FLUID.getCodec()).fieldOf("input").forGetter((recipe) -> {
                 return Either.left(recipe.input);
@@ -103,13 +104,20 @@ public class HeatGeneratorRecipe implements Recipe<SimpleInventory> {
             });
         });
 
+        private final PacketCodec<RegistryByteBuf, HeatGeneratorRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<HeatGeneratorRecipe> codec() {
+        public MapCodec<HeatGeneratorRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public HeatGeneratorRecipe read(PacketByteBuf buffer) {
+        public PacketCodec<RegistryByteBuf, HeatGeneratorRecipe> packetCodec() {
+            return PACKET_CODEC;
+        }
+
+        private static HeatGeneratorRecipe read(RegistryByteBuf buffer) {
             int fluidCount = buffer.readInt();
             Fluid[] input = new Fluid[fluidCount];
             for(int i = 0;i < fluidCount;i++)
@@ -120,8 +128,7 @@ public class HeatGeneratorRecipe implements Recipe<SimpleInventory> {
             return new HeatGeneratorRecipe(input, energyProduction);
         }
 
-        @Override
-        public void write(PacketByteBuf buffer, HeatGeneratorRecipe recipe) {
+        private static void write(RegistryByteBuf buffer, HeatGeneratorRecipe recipe) {
             buffer.writeInt(recipe.getInput().length);
             for(Fluid fluid:recipe.input) {
                 Identifier fluidId = Registries.FLUID.getId(fluid);

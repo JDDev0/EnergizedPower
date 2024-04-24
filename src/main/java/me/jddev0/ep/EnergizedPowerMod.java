@@ -3,6 +3,7 @@ package me.jddev0.ep;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.behavior.ModBlockBehaviors;
 import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.component.ModDataComponentTypes;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.ModEntityTypes;
 import me.jddev0.ep.event.PlayerInteractHandler;
@@ -23,11 +24,10 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtLong;
 import net.minecraft.registry.RegistryKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import team.reborn.energy.api.base.SimpleEnergyItem;
+import team.reborn.energy.api.EnergyStorage;
 
 public class EnergizedPowerMod implements ModInitializer {
 	public static final String MODID = "energizedpower";
@@ -36,6 +36,8 @@ public class EnergizedPowerMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
         ModConfigs.registerConfigs(true);
+
+		ModDataComponentTypes.register();
 
 		ModItems.register();
 		ModBlocks.register();
@@ -55,6 +57,7 @@ public class EnergizedPowerMod implements ModInitializer {
 
 		ModOreGeneration.register();
 
+		ModMessages.registerTypedPayloads();
 		ModMessages.registerPacketsC2S();
 
 		PlayerInteractHandler.EVENT.register(new PlayerInteractHandler());
@@ -65,7 +68,7 @@ public class EnergizedPowerMod implements ModInitializer {
 
 	private ItemStack getChargedItemStack(Item item, long energy) {
 		ItemStack itemStack = new ItemStack(item);
-		itemStack.getOrCreateNbt().put(SimpleEnergyItem.ENERGY_KEY, NbtLong.of(energy));
+		itemStack.set(EnergyStorage.ENERGY_COMPONENT, energy);
 
 		return itemStack;
 	}

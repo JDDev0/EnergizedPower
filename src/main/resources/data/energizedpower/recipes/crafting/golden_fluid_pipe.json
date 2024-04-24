@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "G": {
-      "tag": "c:gold_ingots"
+      "tag": "c:ingots/gold"
     },
     "g": {
-      "tag": "c:gold_plates"
+      "tag": "c:plates/gold"
     }
   },
   "pattern": [
@@ -15,7 +15,7 @@
     "GgG"
   ],
   "result": {
-    "item": "energizedpower:golden_fluid_pipe",
+    "id": "energizedpower:golden_fluid_pipe",
     "count": 12
   }
 }

@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/silicon",
   "display": {
     "icon": {
-      "item": "energizedpower:basic_machine_frame"
+      "id": "energizedpower:basic_machine_frame"
     },
     "title": {
       "translate": "advancements.energizedpower.basic_machine_frame.title"

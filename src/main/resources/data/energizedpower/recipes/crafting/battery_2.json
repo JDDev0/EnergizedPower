@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "T": {
-      "tag": "c:tin_nuggets"
+      "tag": "c:nuggets/tin"
     },
     "I": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     },
     "C": {
-      "tag": "c:copper_plates"
+      "tag": "c:plates/copper"
     },
     "c": {
       "tag": "minecraft:coals"
@@ -24,6 +24,6 @@
     "IcI"
   ],
   "result": {
-    "item": "energizedpower:battery_2"
+    "id": "energizedpower:battery_2"
   }
 }

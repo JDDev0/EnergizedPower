@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "A": {
-      "item": "minecraft:amethyst_shard"
+      "tag": "c:gems/amethyst"
     },
     "E": {
       "item": "energizedpower:energized_crystal_matrix"
@@ -18,6 +18,6 @@
     "AEA"
   ],
   "result": {
-    "item": "energizedpower:teleporter_matrix"
+    "id": "energizedpower:teleporter_matrix"
   }
 }

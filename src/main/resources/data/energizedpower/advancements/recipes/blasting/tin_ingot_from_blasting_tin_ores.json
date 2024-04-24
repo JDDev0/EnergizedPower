@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:tin_ores"
+            "tag": "c:ores/tin"
           }
         ]
       }

@@ -4,18 +4,19 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.Ingredient;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
@@ -77,7 +78,7 @@ public class FiltrationPlantRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack craft(SimpleInventory container, DynamicRegistryManager registryAccess) {
+    public ItemStack craft(SimpleInventory container, RegistryWrapper.WrapperLookup registries) {
         return ItemStack.EMPTY;
     }
 
@@ -87,7 +88,7 @@ public class FiltrationPlantRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getResult(DynamicRegistryManager registryAccess) {
+    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
         return ItemStack.EMPTY;
     }
 
@@ -124,7 +125,7 @@ public class FiltrationPlantRecipe implements Recipe<SimpleInventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "filtration_plant");
 
-        private final Codec<FiltrationPlantRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<FiltrationPlantRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(OutputItemStackWithPercentages.CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
             }), OutputItemStackWithPercentages.CODEC.optionalFieldOf("secondaryOutput",
@@ -135,16 +136,23 @@ public class FiltrationPlantRecipe implements Recipe<SimpleInventory> {
             })).apply(instance, FiltrationPlantRecipe::new);
         });
 
+        private final PacketCodec<RegistryByteBuf, FiltrationPlantRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<FiltrationPlantRecipe> codec() {
+        public MapCodec<FiltrationPlantRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public FiltrationPlantRecipe read(PacketByteBuf buffer) {
+        public PacketCodec<RegistryByteBuf, FiltrationPlantRecipe> packetCodec() {
+            return PACKET_CODEC;
+        }
+
+        private static FiltrationPlantRecipe read(RegistryByteBuf buffer) {
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[2];
             for(int i = 0;i < 2;i++) {
-                ItemStack output = buffer.readItemStack();
+                ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
 
                 int percentageCount = buffer.readInt();
                 double[] percentages = new double[percentageCount];
@@ -159,11 +167,10 @@ public class FiltrationPlantRecipe implements Recipe<SimpleInventory> {
             return new FiltrationPlantRecipe(outputs[0], outputs[1], icon);
         }
 
-        @Override
-        public void write(PacketByteBuf buffer, FiltrationPlantRecipe recipe) {
+        private static void write(RegistryByteBuf buffer, FiltrationPlantRecipe recipe) {
             for(int i = 0;i < 2;i++) {
                 OutputItemStackWithPercentages output = i == 0?recipe.output:recipe.secondaryOutput;
-                buffer.writeItemStack(output.output);
+                ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, output.output);
 
                 buffer.writeInt(output.percentages.length);
                 for(double percentage:output.percentages)

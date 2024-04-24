@@ -2,34 +2,50 @@ package me.jddev0.ep.networking.packet;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.FiltrationPlantBlockEntity;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.packet.CustomPayload;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 
-public class ChangeFiltrationPlantRecipeIndexC2SPacket {
-    private ChangeFiltrationPlantRecipeIndexC2SPacket() {}
+public record ChangeFiltrationPlantRecipeIndexC2SPacket(BlockPos pos, boolean downUp) implements CustomPayload {
+    public static final CustomPayload.Id<ChangeFiltrationPlantRecipeIndexC2SPacket> ID =
+            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "change_filtration_plant_recipe_index"));
+    public static final PacketCodec<RegistryByteBuf, ChangeFiltrationPlantRecipeIndexC2SPacket> PACKET_CODEC =
+            PacketCodec.of(ChangeFiltrationPlantRecipeIndexC2SPacket::write, ChangeFiltrationPlantRecipeIndexC2SPacket::new);
 
-    public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
-                               PacketByteBuf buf, PacketSender responseSender) {
-        BlockPos pos = buf.readBlockPos();
-        boolean downUp = buf.readBoolean();
+    public ChangeFiltrationPlantRecipeIndexC2SPacket(RegistryByteBuf buffer) {
+        this(buffer.readBlockPos(), buffer.readBoolean());
+    }
 
-        server.execute(() -> {
-            World level = player.getWorld();
-            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ())))
+    public void write(RegistryByteBuf buffer) {
+        buffer.writeBlockPos(pos);
+        buffer.writeBoolean(downUp);
+    }
+
+    @Override
+    public Id<? extends CustomPayload> getId() {
+        return ID;
+    }
+
+    public static void receive(ChangeFiltrationPlantRecipeIndexC2SPacket data, ServerPlayNetworking.Context context) {
+        context.player().server.execute(() -> {
+            if(!context.player().canModifyBlocks())
                 return;
 
-            BlockEntity blockEntity = level.getBlockEntity(pos);
+            World level = context.player().getWorld();
+            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
+                return;
+
+            BlockEntity blockEntity = level.getBlockEntity(data.pos);
             if(!(blockEntity instanceof FiltrationPlantBlockEntity filtrationPlantBlockEntity))
                 return;
 
-            filtrationPlantBlockEntity.changeRecipeIndex(downUp);
+            filtrationPlantBlockEntity.changeRecipeIndex(data.downUp);
         });
     }
 }

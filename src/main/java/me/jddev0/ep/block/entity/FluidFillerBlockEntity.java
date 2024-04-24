@@ -14,10 +14,11 @@ import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
+import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.screen.FluidFillerMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.FluidUtils;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
@@ -34,7 +35,7 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -52,7 +53,7 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 
 import java.util.stream.IntStream;
 
-public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate,
+public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, EnergyStoragePacketUpdate,
         FluidStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
     public static final long CAPACITY = ModConfigs.COMMON_FLUID_FILLER_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_FLUID_FILLER_TRANSFER_RATE.getValue();
@@ -103,7 +104,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
                 if(slot == 0) {
                     ItemStack itemStack = getStack(slot);
                     if(!forceAllowStackUpdateFlag && !stack.isEmpty() && !itemStack.isEmpty() &&
-                            (!ItemStack.areItemsEqual(stack, itemStack) || (!ItemStack.canCombine(stack, itemStack) &&
+                            (!ItemStack.areItemsEqual(stack, itemStack) || (!ItemStack.areItemsAndComponentsEqual(stack, itemStack) &&
                                     //Only check if NBT data is equal if one of stack or itemStack is no fluid item
                                     !(ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM) != null &&
                                             ContainerItemContext.withConstant(itemStack).find(FluidStorage.ITEM) != null))))
@@ -186,14 +187,9 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
                 markDirty();
 
                 if(world != null && !world.isClient()) {
-                    PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(amount);
-                    buffer.writeLong(capacity);
-                    buffer.writeBlockPos(getPos());
-
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            ModMessages.ENERGY_SYNC_ID, buffer
+                            new EnergySyncS2CPacket(amount, capacity, getPos())
                     );
                 }
             }
@@ -207,15 +203,9 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
                 markDirty();
 
                 if(world != null && !world.isClient()) {
-                    PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeInt(0);
-                    getFluid().toPacket(buffer);
-                    buffer.writeLong(capacity);
-                    buffer.writeBlockPos(getPos());
-
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            ModMessages.FLUID_SYNC_ID, buffer
+                            new FluidSyncS2CPacket(0, getFluid(), capacity, getPos())
                     );
                 }
             }
@@ -257,27 +247,15 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeLong(internalEnergyStorage.amount);
-        buffer.writeLong(internalEnergyStorage.capacity);
-        buffer.writeBlockPos(getPos());
-
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
-
-        buffer = PacketByteBufs.create();
-        buffer.writeInt(0);
-        fluidStorage.getFluid().toPacket(buffer);
-        buffer.writeLong(fluidStorage.getCapacity());
-        buffer.writeBlockPos(getPos());
-
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.FLUID_SYNC_ID, buffer);
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, new EnergySyncS2CPacket(internalEnergyStorage.amount, internalEnergyStorage.capacity, getPos()));
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, new FluidSyncS2CPacket(0, fluidStorage.getFluid(), fluidStorage.getCapacity(), getPos()));
 
         return new FluidFillerMenu(id, this, inventory, internalInventory, this.data);
     }
 
     @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
+    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
+        return pos;
     }
 
     public int getRedstoneOutput() {
@@ -289,10 +267,10 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks));
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
         nbt.putLong("energy", internalEnergyStorage.amount);
-        nbt.put("fluid", fluidStorage.toNBT(new NbtCompound()));
+        nbt.put("fluid", fluidStorage.toNBT(new NbtCompound(), registries));
 
         FluidUtils.writeFluidAmountInMilliBucketsWithLeftover(fluidFillingLeft,
                 "recipe.fluid_filling_left", "recipe.fluid_filling_left_leftover_droplets", nbt);
@@ -302,16 +280,16 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
-        super.writeNbt(nbt);
+        super.writeNbt(nbt, registries);
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound nbt) {
-        super.readNbt(nbt);
+    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
 
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks);
+        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
         internalEnergyStorage.amount = nbt.getLong("energy");
-        fluidStorage.fromNBT(nbt.getCompound("fluid"));
+        fluidStorage.fromNBT(nbt.getCompound("fluid"), registries);
 
         fluidFillingLeft = FluidUtils.readFluidAmountInMilliBucketsWithLeftover("recipe.fluid_filling_left",
                 "recipe.fluid_filling_left_leftover_droplets", nbt);

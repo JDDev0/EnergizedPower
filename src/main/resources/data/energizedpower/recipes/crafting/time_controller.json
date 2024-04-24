@@ -12,10 +12,10 @@
       "item": "minecraft:clock"
     },
     "r": {
-      "tag": "c:redstone_blocks"
+      "tag": "c:storage_blocks/redstone"
     },
     "E": {
-      "tag": "c:energized_gold_plates"
+      "tag": "c:plates/energized_gold"
     },
     "R": {
       "item": "energizedpower:reinforced_advanced_machine_frame"
@@ -27,6 +27,6 @@
     "rEr"
   ],
   "result": {
-    "item": "energizedpower:time_controller"
+    "id": "energizedpower:time_controller"
   }
 }

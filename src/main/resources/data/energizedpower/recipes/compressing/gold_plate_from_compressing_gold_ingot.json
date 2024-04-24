@@ -1,7 +1,7 @@
 {
   "type": "energizedpower:compressor",
   "ingredient": {
-    "tag": "c:gold_ingots"
+    "tag": "c:ingots/gold"
   },
   "output": {
     "item": "energizedpower:gold_plate"

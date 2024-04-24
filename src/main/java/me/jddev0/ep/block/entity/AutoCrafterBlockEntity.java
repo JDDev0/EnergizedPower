@@ -13,11 +13,11 @@ import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.ItemStackUtils;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
@@ -27,11 +27,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -50,7 +50,7 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import java.util.*;
 import java.util.stream.IntStream;
 
-public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate, RedstoneModeUpdate,
+public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, EnergyStoragePacketUpdate, RedstoneModeUpdate,
         ComparatorModeUpdate, CheckboxUpdate {
     private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
@@ -148,14 +148,9 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 markDirty();
 
                 if(world != null && !world.isClient()) {
-                    PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(amount);
-                    buffer.writeLong(capacity);
-                    buffer.writeBlockPos(getPos());
-
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            ModMessages.ENERGY_SYNC_ID, buffer
+                            new EnergySyncS2CPacket(amount, capacity, getPos())
                     );
                 }
             }
@@ -210,19 +205,15 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeLong(internalEnergyStorage.amount);
-        buffer.writeLong(internalEnergyStorage.capacity);
-        buffer.writeBlockPos(getPos());
-
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
+                new EnergySyncS2CPacket(internalEnergyStorage.amount, internalEnergyStorage.capacity, getPos()));
 
         return new AutoCrafterMenu(id, this, inventory, internalInventory, patternSlots, patternResultSlots, data);
     }
 
     @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
+    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
+        return pos;
     }
 
     public int getRedstoneOutput() {
@@ -234,9 +225,9 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks));
-        nbt.put("pattern", savePatternContainer());
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
+        nbt.put("pattern", savePatternContainer(registries));
         nbt.putLong("energy", internalEnergyStorage.amount);
 
         if(craftingRecipe != null)
@@ -251,17 +242,16 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
-        super.writeNbt(nbt);
+        super.writeNbt(nbt, registries);
     }
 
-    private NbtElement savePatternContainer() {
+    private NbtElement savePatternContainer(RegistryWrapper.WrapperLookup registries) {
         NbtList nbtTagList = new NbtList();
         for(int i = 0;i < patternSlots.size();i++)  {
             if(!patternSlots.getStack(i).isEmpty()) {
                 NbtCompound itemTag = new NbtCompound();
                 itemTag.putInt("Slot", i);
-                patternSlots.getStack(i).writeNbt(itemTag);
-                nbtTagList.add(itemTag);
+                nbtTagList.add(patternSlots.getStack(i).encode(registries, itemTag));
             }
         }
 
@@ -269,11 +259,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound nbt) {
-        super.readNbt(nbt);
+    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
 
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks);
-        loadPatternContainer(nbt.get("pattern"));
+        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
+        loadPatternContainer(nbt.get("pattern"), registries);
         internalEnergyStorage.amount = nbt.getLong("energy");
 
         if(nbt.contains("recipe.id")) {
@@ -295,7 +285,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
-    private void loadPatternContainer(NbtElement tag) {
+    private void loadPatternContainer(NbtElement tag, RegistryWrapper.WrapperLookup registries) {
         if(!(tag instanceof NbtList))
             throw new IllegalArgumentException("Tag must be of type ListTag!");
 
@@ -306,7 +296,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
             int slot = itemTags.getInt("Slot");
 
             if(slot >= 0 && slot < patternSlots.size()) {
-                patternSlots.setStack(slot, ItemStack.fromNbt(itemTags));
+                patternSlots.setStack(slot, ItemStack.fromNbtOrEmpty(registries, itemTags));
             }
         }
         patternSlots.addListener(updatePatternListener);
@@ -476,7 +466,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
 
             patternResultSlots.setStack(0, resultItemStack);
 
-            if(oldRecipe != null && oldResult != null && oldCopyOfRecipe != null && (craftingRecipe != oldRecipe || !ItemStack.areEqual(resultItemStack, oldResult)))
+            if(oldRecipe != null && oldResult != null && oldCopyOfRecipe != null && (craftingRecipe != oldRecipe || ItemStack.areItemsAndComponentsEqual(resultItemStack, oldResult)))
                 resetProgress();
 
             oldCopyOfRecipe = new CraftingInventory(dummyContainerMenu, 3, 3);
@@ -507,7 +497,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         for(ItemStack itemStack:itemStacksExtract) {
             for(int i = 0;i < internalInventory.size();i++) {
                 ItemStack testItemStack = internalInventory.getStack(i);
-                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.canCombine(itemStack, testItemStack)) {
+                if(ItemStack.areItemsAndComponentsEqual(itemStack, testItemStack)) {
                     ItemStack ret = internalInventory.removeStack(i, itemStack.getCount());
                     if(!ret.isEmpty()) {
                         int amount = ret.getCount();
@@ -555,7 +545,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                     continue;
                 }
 
-                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.canCombine(itemStack, testItemStack)) {
+                if(ItemStack.areItemsAndComponentsEqual(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getMaxCount() - testItemStack.getCount());
                     if(amount > 0) {
                         internalInventory.setStack(i, internalInventory.getStack(i).copyWithCount(testItemStack.getCount() + amount));
@@ -609,7 +599,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                     continue;
                 }
 
-                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.canCombine(itemStack, testItemStack)) {
+                if(ItemStack.areItemsAndComponentsEqual(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getCount());
                     checkedIndices.add(j);
 
@@ -668,7 +658,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                     continue;
                 }
 
-                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.canCombine(itemStack, testItemStack)) {
+                if(ItemStack.areItemsAndComponentsEqual(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getMaxCount() - testItemStack.getCount());
 
                     if(amount + testItemStack.getCount() == testItemStack.getMaxCount())
@@ -710,11 +700,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         ItemStack resultItemStack = craftingRecipe.value() instanceof SpecialCraftingRecipe?craftingRecipe.value().craft(copyOfPatternSlots, world.getRegistryManager()):
                 craftingRecipe.value().getResult(world.getRegistryManager());
 
-        if(ItemStack.areItemsEqual(itemStack, resultItemStack) && ItemStack.canCombine(itemStack, resultItemStack))
+        if(ItemStack.areItemsEqual(itemStack, resultItemStack) && ItemStack.areItemsAndComponentsEqual(itemStack, resultItemStack))
             return true;
 
         for(ItemStack remainingItem:craftingRecipe.value().getRemainder(copyOfPatternSlots))
-            if(ItemStack.areItemsEqual(itemStack, remainingItem) && ItemStack.canCombine(itemStack, remainingItem))
+            if(ItemStack.areItemsEqual(itemStack, remainingItem) && ItemStack.areItemsAndComponentsEqual(itemStack, remainingItem))
                 return true;
 
         return false;
@@ -727,7 +717,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         for(int i = 0;i < patternSlots.size();i++)
             if(ignoreNBT?ItemStack.areItemsEqual(itemStack, patternSlots.getStack(i)):
                     (ItemStack.areItemsEqual(itemStack, patternSlots.getStack(i)) &&
-                            ItemStack.canCombine(itemStack, patternSlots.getStack(i))))
+                            ItemStack.areItemsAndComponentsEqual(itemStack, patternSlots.getStack(i))))
                 return true;
 
         return false;
@@ -752,7 +742,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 if(testItemStack.getCount() <= 0)
                     continue;
 
-                if(ItemStack.areItemsEqual(itemStack, testItemStack) && ItemStack.canCombine(itemStack, testItemStack)) {
+                if(ItemStack.areItemsAndComponentsEqual(itemStack, testItemStack)) {
                     usedItemCounts.put(j, usedCount + 1);
                     continue outer;
                 }

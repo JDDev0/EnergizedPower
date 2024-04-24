@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/advanced_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:advanced_pulverizer"
+      "id": "energizedpower:advanced_pulverizer"
     },
     "title": {
       "translate": "advancements.energizedpower.advanced_pulverizer.title"

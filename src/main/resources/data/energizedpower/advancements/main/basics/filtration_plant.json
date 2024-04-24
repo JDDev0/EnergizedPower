@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/hardened_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:filtration_plant"
+      "id": "energizedpower:filtration_plant"
     },
     "title": {
       "translate": "advancements.energizedpower.filtration_plant.title"

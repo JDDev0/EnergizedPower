@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:tin_dusts"
+            "tag": "c:dusts/tin"
           }
         ]
       }

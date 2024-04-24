@@ -3,11 +3,12 @@ package me.jddev0.ep.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.fluid.FluidStack;
+import me.jddev0.ep.networking.packet.ChangeComparatorModeC2SPacket;
+import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -17,13 +18,11 @@ import net.minecraft.client.texture.MissingSprite;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
-import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import org.joml.Matrix4f;
 
@@ -48,16 +47,12 @@ public class FluidDrainerScreen extends AbstractGenericEnergyStorageHandledScree
             if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                ClientPlayNetworking.send(ModMessages.CHANGE_REDSTONE_MODE_ID, buf);
+                 ClientPlayNetworking.send(new ChangeRedstoneModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
             }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
                 //Comparator Mode
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                ClientPlayNetworking.send(ModMessages.CHANGE_COMPARATOR_MODE_ID, buf);
+                 ClientPlayNetworking.send(new ChangeComparatorModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
             }
 

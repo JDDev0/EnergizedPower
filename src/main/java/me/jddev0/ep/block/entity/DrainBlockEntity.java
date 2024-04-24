@@ -5,10 +5,10 @@ import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.screen.DrainMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.FluidUtils;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.CauldronFluidContent;
@@ -30,7 +30,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtInt;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -38,7 +38,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.NotNull;
@@ -46,7 +45,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 
-public class DrainBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, FluidStoragePacketUpdate {
+public class DrainBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, FluidStoragePacketUpdate {
     final SimpleFluidStorage fluidStorage;
 
     protected final PropertyDelegate data;
@@ -63,15 +62,9 @@ public class DrainBlockEntity extends BlockEntity implements ExtendedScreenHandl
                 markDirty();
 
                 if(world != null && !world.isClient()) {
-                    PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeInt(0);
-                    getFluid().toPacket(buffer);
-                    buffer.writeLong(capacity);
-                    buffer.writeBlockPos(getPos());
-
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            ModMessages.FLUID_SYNC_ID, buffer
+                            new FluidSyncS2CPacket(0, getFluid(), capacity, getPos())
                     );
                 }
             }
@@ -114,20 +107,15 @@ public class DrainBlockEntity extends BlockEntity implements ExtendedScreenHandl
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeInt(0);
-        fluidStorage.getFluid().toPacket(buffer);
-        buffer.writeLong(fluidStorage.getCapacity());
-        buffer.writeBlockPos(getPos());
-
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.FLUID_SYNC_ID, buffer);
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, new FluidSyncS2CPacket(0, fluidStorage.getFluid(),
+                fluidStorage.getCapacity(), getPos()));
 
         return new DrainMenu(id, this, inventory, this.data);
     }
 
     @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
+    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
+        return pos;
     }
 
     public int getRedstoneOutput() {
@@ -135,19 +123,19 @@ public class DrainBlockEntity extends BlockEntity implements ExtendedScreenHandl
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        nbt.put("fluid", fluidStorage.toNBT(new NbtCompound()));
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        nbt.put("fluid", fluidStorage.toNBT(new NbtCompound(), registries));
 
         nbt.put("drain.progress", NbtInt.of(progress));
 
-        super.writeNbt(nbt);
+        super.writeNbt(nbt, registries);
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound nbt) {
-        super.readNbt(nbt);
+    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
 
-        fluidStorage.fromNBT(nbt.getCompound("fluid"));
+        fluidStorage.fromNBT(nbt.getCompound("fluid"), registries);
 
         progress = nbt.getInt("drain.progress");
     }

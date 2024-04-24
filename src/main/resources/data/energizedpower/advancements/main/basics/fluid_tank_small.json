@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/iron_fluid_pipe",
   "display": {
     "icon": {
-      "item": "energizedpower:fluid_tank_small"
+      "id": "energizedpower:fluid_tank_small"
     },
     "title": {
       "translate": "advancements.energizedpower.fluid_tank_small.title"

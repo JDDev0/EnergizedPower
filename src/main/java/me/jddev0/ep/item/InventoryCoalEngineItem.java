@@ -1,26 +1,26 @@
 package me.jddev0.ep.item;
 
+import me.jddev0.ep.component.CurrentItemStackComponent;
+import me.jddev0.ep.component.ModDataComponentTypes;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.EnergyUtils;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 
@@ -33,23 +33,23 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
 
     public static final double ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_INVENTORY_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
-    public InventoryCoalEngineItem(FabricItemSettings props) {
+    public InventoryCoalEngineItem(Item.Settings props) {
         super(props, CAPACITY, 0, MAX_EXTRACT);
     }
 
     @Override
-    public void appendTooltip(ItemStack itemStack, @Nullable World level, List<Text> tooltip, TooltipContext context) {
-        super.appendTooltip(itemStack, level, tooltip, context);
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+        super.appendTooltip(stack, context, tooltip, type);
 
-        boolean active = isActive(itemStack);
+        boolean active = isActive(stack);
 
         tooltip.add(Text.translatable("tooltip.energizedpower.inventory_coal_engine.status").formatted(Formatting.GRAY).
                 append(Text.translatable("tooltip.energizedpower.inventory_coal_engine.status." +
                         (active?"activated":"deactivated")).formatted(active?Formatting.GREEN:Formatting.RED)));
 
         if(Screen.hasShiftDown()) {
-            long energyProductionLeft = getEnergyProductionLeft(itemStack);
-            ItemStack item = getCurrentBurningItem(itemStack);
+            long energyProductionLeft = getEnergyProductionLeft(stack);
+            ItemStack item = getCurrentBurningItem(stack);
             if(energyProductionLeft > 0 && item != null) {
                 tooltip.add(Text.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning").
                         formatted(Formatting.GRAY).
@@ -162,29 +162,29 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
         if(energyProductionLeft > 0) {
             int progress = getProgress(itemStack);
             int maxProgress = getMaxProgress(itemStack);
-            ItemStack getCurrentBurningItem = getCurrentBurningItem(itemStack);
-            if(progress >= 0 && maxProgress > 0 && progress < maxProgress && getCurrentBurningItem != null) {
+            ItemStack currentBurningItem = getCurrentBurningItem(itemStack);
+            if(progress >= 0 && maxProgress > 0 && progress < maxProgress && currentBurningItem != null) {
                 long energyProductionPerTick = energyProductionLeft / (maxProgress - progress);
                 if(getEnergyCapacity(itemStack) - getEnergy(itemStack) < energyProductionPerTick) {
                     //Not enough energy storage for production
                     if(isWorking(itemStack))
-                        itemStack.getOrCreateNbt().putBoolean("working", false);
+                        itemStack.set(ModDataComponentTypes.WORKING, false);
 
                     return;
                 }
 
                 if(!isWorking(itemStack))
-                    itemStack.getOrCreateNbt().putBoolean("working", true);
+                    itemStack.set(ModDataComponentTypes.WORKING, true);
 
                 setEnergy(itemStack, getEnergy(itemStack) + energyProductionPerTick);
 
-                itemStack.getOrCreateNbt().putLong("energy_production_left", energyProductionLeft - energyProductionPerTick);
+                itemStack.set(ModDataComponentTypes.ENERGY_PRODUCTION_LEFT, energyProductionLeft - energyProductionPerTick);
 
                 progress++;
                 if(progress == maxProgress) {
                     resetProgress(itemStack);
                 }else {
-                    itemStack.getOrCreateNbt().putInt("progress", progress);
+                    itemStack.set(ModDataComponentTypes.PROGRESS, progress);
 
                     return;
                 }
@@ -209,15 +209,15 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
 
             energyProduction = (long)(energyProduction * ENERGY_PRODUCTION_MULTIPLIER);
 
-            itemStack.getOrCreateNbt().putLong("energy_production_left", energyProduction);
-            itemStack.getOrCreateNbt().put("item", testItemStack.writeNbt(new NbtCompound()));
-            itemStack.getOrCreateNbt().putInt("progress", 0);
+            itemStack.set(ModDataComponentTypes.ENERGY_PRODUCTION_LEFT, energyProduction);
+            itemStack.set(ModDataComponentTypes.CURRENT_ITEM, new CurrentItemStackComponent(testItemStack));
+            itemStack.set(ModDataComponentTypes.PROGRESS, 0);
 
             //Change max progress if item would output more than max extract
             if(energyProduction / 100 <= MAX_EXTRACT)
-                itemStack.getOrCreateNbt().putInt("max_progress", 100);
+                itemStack.set(ModDataComponentTypes.MAX_PROGRESS, 100);
             else
-                itemStack.getOrCreateNbt().putInt("max_progress", (int)Math.ceil((double)energyProduction / MAX_EXTRACT));
+                itemStack.set(ModDataComponentTypes.MAX_PROGRESS, (int)Math.ceil((double)energyProduction / MAX_EXTRACT));
 
             ItemStack newItemStack = testItemStack.copy();
             newItemStack.decrement(1);
@@ -241,86 +241,43 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
         if(level.isClient())
             return TypedActionResult.success(itemStack);
 
-        itemStack.getOrCreateNbt().putBoolean("active", !isActive(itemStack));
+        itemStack.set(ModDataComponentTypes.ACTIVE, !isActive(itemStack));
 
         return TypedActionResult.success(itemStack);
     }
 
     private void resetProgress(ItemStack itemStack) {
-        itemStack.getOrCreateNbt().remove("energy_production_left");
-        itemStack.getOrCreateNbt().remove("progress");
-        itemStack.getOrCreateNbt().remove("max_progress");
-        itemStack.getOrCreateNbt().remove("item");
-
-        if(isWorking(itemStack))
-            itemStack.getOrCreateNbt().putBoolean("working", false);
+        itemStack.remove(ModDataComponentTypes.ENERGY_PRODUCTION_LEFT);
+        itemStack.remove(ModDataComponentTypes.PROGRESS);
+        itemStack.remove(ModDataComponentTypes.MAX_PROGRESS);
+        itemStack.remove(ModDataComponentTypes.CURRENT_ITEM);
+        itemStack.remove(ModDataComponentTypes.WORKING);
     }
 
     private int getProgress(ItemStack itemStack) {
-        if(!itemStack.hasNbt())
-            return -1;
-
-        NbtCompound nbt = itemStack.getNbt();
-        if(nbt == null || !nbt.contains("progress"))
-            return -1;
-
-        return nbt.getInt("progress");
+        return itemStack.getOrDefault(ModDataComponentTypes.PROGRESS, -1);
     }
 
     private int getMaxProgress(ItemStack itemStack) {
-        if(!itemStack.hasNbt())
-            return -1;
-
-        NbtCompound nbt = itemStack.getNbt();
-        if(nbt == null || !nbt.contains("max_progress"))
-            return -1;
-
-        return nbt.getInt("max_progress");
+        return itemStack.getOrDefault(ModDataComponentTypes.MAX_PROGRESS, -1);
     }
 
     private ItemStack getCurrentBurningItem(ItemStack itemStack) {
-        if(!itemStack.hasNbt())
-            return null;
-
-        NbtCompound nbt = itemStack.getNbt();
-        if(nbt == null || !nbt.contains("item"))
-            return null;
-
-        return ItemStack.fromNbt(nbt.getCompound("item"));
+        CurrentItemStackComponent currentItem = itemStack.get(ModDataComponentTypes.CURRENT_ITEM);
+        return currentItem == null?null:currentItem.getCurrentItem();
     }
 
     private long getEnergyProductionLeft(ItemStack itemStack) {
-        if(!itemStack.hasNbt())
-            return -1;
-
-        NbtCompound nbt = itemStack.getNbt();
-        if(nbt == null || !nbt.contains("energy_production_left"))
-            return -1;
-
-        return nbt.getLong("energy_production_left");
+        return itemStack.getOrDefault(ModDataComponentTypes.ENERGY_PRODUCTION_LEFT, -1L);
     }
 
     @Override
     public boolean isActive(ItemStack itemStack) {
-        if(!itemStack.hasNbt())
-            return false;
-
-        NbtCompound nbt = itemStack.getNbt();
-        if(nbt == null || !nbt.contains("active"))
-            return false;
-
-        return nbt.getBoolean("active");
+        return itemStack.getOrDefault(ModDataComponentTypes.ACTIVE, false);
     }
 
     @Override
     public boolean isWorking(ItemStack itemStack) {
-        if(!itemStack.hasNbt())
-            return false;
-
-        NbtCompound nbt = itemStack.getNbt();
-        if(nbt == null || !nbt.contains("working"))
-            return false;
-
-        return nbt.getBoolean("working");
+        return itemStack.getOrDefault(ModDataComponentTypes.WORKING, false);
     }
 }

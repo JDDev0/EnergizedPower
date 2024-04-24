@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/item_conveyor_belt_loader",
   "display": {
     "icon": {
-      "item": "energizedpower:item_conveyor_belt_splitter"
+      "id": "energizedpower:item_conveyor_belt_splitter"
     },
     "title": {
       "translate": "advancements.energizedpower.item_conveyor_belt_splitter.title"

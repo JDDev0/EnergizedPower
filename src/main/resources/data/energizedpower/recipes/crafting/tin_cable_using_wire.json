@@ -7,7 +7,7 @@
       "item": "energizedpower:cable_insulator"
     },
     "T": {
-      "tag": "c:tin_wires"
+      "tag": "c:wires/tin"
     }
   },
   "pattern": [
@@ -16,7 +16,7 @@
     "ITI"
   ],
   "result": {
-    "item": "energizedpower:tin_cable",
+    "id": "energizedpower:tin_cable",
     "count": 9
   }
 }

@@ -6,7 +6,7 @@
       "item": "minecraft:stick"
     },
     "I": {
-      "tag": "c:iron_ingots"
+      "tag": "c:ingots/iron"
     }
   },
   "pattern": [
@@ -15,6 +15,6 @@
     "S  "
   ],
   "result": {
-    "item": "energizedpower:iron_hammer"
+    "id": "energizedpower:iron_hammer"
   }
 }

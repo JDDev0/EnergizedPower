@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "energizedpower:iron_hammer"
   },
-  "result": "minecraft:iron_nugget"
+  "result": {
+    "id": "minecraft:iron_nugget"
+  }
 }

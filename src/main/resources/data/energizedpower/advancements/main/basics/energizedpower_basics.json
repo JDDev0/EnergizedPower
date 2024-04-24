@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:copper_ingot"
+      "id": "minecraft:copper_ingot"
     },
     "title": {
       "translate": "advancements.energizedpower.energizedpower_basics.title"
@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:copper_ingots"
+            "tag": "c:ingots/copper"
           }
         ]
       }

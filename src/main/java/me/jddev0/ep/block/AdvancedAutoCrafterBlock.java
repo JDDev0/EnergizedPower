@@ -1,24 +1,18 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
-import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.util.EnergyUtils;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
@@ -27,7 +21,6 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -36,15 +29,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class AdvancedAutoCrafterBlock extends BlockWithEntity {
-    public static final MapCodec<AdvancedAutoCrafterBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
-            return (FabricBlockSettings)block.getSettings();
-        })).apply(instance, AdvancedAutoCrafterBlock::new);
-    });
+    public static final MapCodec<AdvancedAutoCrafterBlock> CODEC = createCodec(AdvancedAutoCrafterBlock::new);
 
     public static final BooleanProperty POWERED = Properties.POWERED;
 
-    public AdvancedAutoCrafterBlock(FabricBlockSettings props) {
+    public AdvancedAutoCrafterBlock(AbstractBlock.Settings props) {
         super(props);
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false));
@@ -95,7 +84,7 @@ public class AdvancedAutoCrafterBlock extends BlockWithEntity {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, Hand handItem, BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, BlockHitResult hit) {
         if(level.isClient())
             return ActionResult.SUCCESS;
 
@@ -137,12 +126,12 @@ public class AdvancedAutoCrafterBlock extends BlockWithEntity {
     }
 
     public static class Item extends BlockItem {
-        public Item(Block block, FabricItemSettings props) {
+        public Item(Block block, Item.Settings props) {
             super(block, props);
         }
 
         @Override
-        public void appendTooltip(ItemStack itemStack, @Nullable World level, List<Text> tooltip, TooltipContext context) {
+        public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
                 tooltip.add(Text.translatable("tooltip.energizedpower.auto_crafter.txt.shift.1",
                         EnergyUtils.getEnergyWithPrefix(AdvancedAutoCrafterBlockEntity.ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT)).formatted(Formatting.GRAY));

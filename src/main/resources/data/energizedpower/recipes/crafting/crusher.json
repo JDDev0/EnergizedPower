@@ -6,10 +6,10 @@
       "tag": "c:silicon"
     },
     "C": {
-      "tag": "c:copper_plates"
+      "tag": "c:plates/copper"
     },
     "I": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
@@ -24,6 +24,6 @@
     "CIC"
   ],
   "result": {
-    "item": "energizedpower:crusher"
+    "id": "energizedpower:crusher"
   }
 }

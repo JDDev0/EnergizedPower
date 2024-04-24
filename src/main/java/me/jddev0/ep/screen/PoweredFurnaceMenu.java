@@ -13,13 +13,13 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class PoweredFurnaceMenu extends ScreenHandler implements EnergyStorageConsumerIndicatorBarMenu {
@@ -28,8 +28,8 @@ public class PoweredFurnaceMenu extends ScreenHandler implements EnergyStorageCo
     private final World level;
     private final PropertyDelegate data;
 
-    public PoweredFurnaceMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(2) {
+    public PoweredFurnaceMenu(int id, PlayerInventory inv, BlockPos pos) {
+        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(2) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {

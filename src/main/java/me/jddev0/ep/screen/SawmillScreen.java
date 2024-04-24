@@ -3,7 +3,8 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
-import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.ChangeComparatorModeC2SPacket;
+import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -38,16 +39,12 @@ public class SawmillScreen extends AbstractGenericEnergyStorageHandledScreen<Saw
             if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                ClientPlayNetworking.send(ModMessages.CHANGE_REDSTONE_MODE_ID, buf);
+                 ClientPlayNetworking.send(new ChangeRedstoneModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
             }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
                 //Comparator Mode
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                ClientPlayNetworking.send(ModMessages.CHANGE_COMPARATOR_MODE_ID, buf);
+                 ClientPlayNetworking.send(new ChangeComparatorModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
             }
 

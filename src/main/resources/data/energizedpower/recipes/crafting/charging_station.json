@@ -3,16 +3,16 @@
   "category": "misc",
   "key": {
     "I": {
-      "tag": "c:iron_blocks"
+      "tag": "c:storage_blocks/iron"
     },
     "R": {
-      "tag": "c:redstone_blocks"
+      "tag": "c:storage_blocks/redstone"
     },
     "E": {
-      "tag": "c:energized_gold_plates"
+      "tag": "c:plates/energized_gold"
     },
     "C": {
-      "tag": "c:copper_blocks"
+      "tag": "c:storage_blocks/copper"
     },
     "A": {
       "item": "energizedpower:advanced_machine_frame"
@@ -24,6 +24,6 @@
     "ECE"
   ],
   "result": {
-    "item": "energizedpower:charging_station"
+    "id": "energizedpower:charging_station"
   }
 }

@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/energized_crystal_matrix",
   "display": {
     "icon": {
-      "item": "energizedpower:reinforced_advanced_solar_cell"
+      "id": "energizedpower:reinforced_advanced_solar_cell"
     },
     "title": {
       "translate": "advancements.energizedpower.reinforced_advanced_solar_cell.title"

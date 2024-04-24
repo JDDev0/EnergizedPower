@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/hardened_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:thermal_generator"
+      "id": "energizedpower:thermal_generator"
     },
     "title": {
       "translate": "advancements.energizedpower.thermal_generator.title"

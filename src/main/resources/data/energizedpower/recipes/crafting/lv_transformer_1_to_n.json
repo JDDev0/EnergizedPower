@@ -6,13 +6,13 @@
       "tag": "c:silicon"
     },
     "C": {
-      "tag": "c:copper_plates"
+      "tag": "c:plates/copper"
     },
     "I": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     },
     "R": {
-      "tag": "c:redstone_dusts"
+      "tag": "c:dusts/redstone"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
@@ -24,6 +24,6 @@
     "CSI"
   ],
   "result": {
-    "item": "energizedpower:lv_transformer_1_to_n"
+    "id": "energizedpower:lv_transformer_1_to_n"
   }
 }

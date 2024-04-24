@@ -3,19 +3,19 @@
   "category": "misc",
   "key": {
     "G": {
-      "tag": "c:gold_plates"
+      "tag": "c:plates/gold"
     },
     "R": {
-      "tag": "c:redstone_dusts"
+      "tag": "c:dusts/redstone"
     },
     "E": {
-      "tag": "c:energized_copper_plates"
+      "tag": "c:plates/energized_copper"
     },
     "c": {
-      "tag": "c:copper_plates"
+      "tag": "c:plates/copper"
     },
     "C": {
-      "tag": "c:copper_blocks"
+      "tag": "c:storage_blocks/copper"
     },
     "A": {
       "item": "energizedpower:advanced_machine_frame"
@@ -27,6 +27,6 @@
     "ECE"
   ],
   "result": {
-    "item": "energizedpower:lightning_generator"
+    "id": "energizedpower:lightning_generator"
   }
 }

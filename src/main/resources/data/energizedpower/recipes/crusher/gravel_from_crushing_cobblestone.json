@@ -1,7 +1,7 @@
 {
   "type": "energizedpower:crusher",
   "ingredient": {
-    "item": "minecraft:cobblestone"
+    "tag": "c:cobblestone/normal"
   },
   "output": {
     "item": "minecraft:gravel"

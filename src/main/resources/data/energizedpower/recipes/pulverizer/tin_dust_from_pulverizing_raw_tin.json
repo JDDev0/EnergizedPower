@@ -1,7 +1,7 @@
 {
   "type": "energizedpower:pulverizer",
   "ingredient": {
-    "tag": "c:raw_tin_ores"
+    "tag": "c:raw_materials/tin"
   },
   "output": {
     "output": {

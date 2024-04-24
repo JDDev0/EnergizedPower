@@ -6,10 +6,10 @@
       "tag": "c:silicon"
     },
     "I": {
-      "tag": "c:iron_ingots"
+      "tag": "c:ingots/iron"
     },
     "E": {
-      "tag": "c:energized_copper_ingots"
+      "tag": "c:ingots/energized_copper"
     },
     "H": {
       "item": "energizedpower:hardened_machine_frame"
@@ -21,6 +21,6 @@
     "ESE"
   ],
   "result": {
-    "item": "energizedpower:advanced_machine_frame"
+    "id": "energizedpower:advanced_machine_frame"
   }
 }

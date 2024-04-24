@@ -1,44 +1,57 @@
 package me.jddev0.ep.networking.packet;
 
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import me.jddev0.ep.EnergizedPowerMod;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.LecternBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.LecternBlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.packet.CustomPayload;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.WorldChunk;
 
-public final class PopEnergizedPowerBookFromLecternC2SPacket {
-    private PopEnergizedPowerBookFromLecternC2SPacket() {}
+public record PopEnergizedPowerBookFromLecternC2SPacket(BlockPos pos) implements CustomPayload {
+    public static final CustomPayload.Id<PopEnergizedPowerBookFromLecternC2SPacket> ID =
+            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "pop_energized_power_book_from_lectern"));
+    public static final PacketCodec<RegistryByteBuf, PopEnergizedPowerBookFromLecternC2SPacket> PACKET_CODEC =
+            PacketCodec.of(PopEnergizedPowerBookFromLecternC2SPacket::write, PopEnergizedPowerBookFromLecternC2SPacket::new);
 
-    public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
-                               PacketByteBuf buf, PacketSender responseSender) {
-        BlockPos pos = buf.readBlockPos();
+    public PopEnergizedPowerBookFromLecternC2SPacket(RegistryByteBuf buffer) {
+        this(buffer.readBlockPos());
+    }
 
-        server.execute(() -> {
-            if(!player.canModifyBlocks())
+    public void write(RegistryByteBuf buffer) {
+        buffer.writeBlockPos(pos);
+    }
+
+    @Override
+    public Id<? extends CustomPayload> getId() {
+        return ID;
+    }
+
+    public static void receive(PopEnergizedPowerBookFromLecternC2SPacket data, ServerPlayNetworking.Context context) {
+        context.player().server.execute(() -> {
+            if(!context.player().canModifyBlocks())
                 return;
 
-            World level = player.getWorld();
-            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ())))
+            World level = context.player().getWorld();
+            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
                 return;
 
-            BlockEntity blockEntity = level.getBlockEntity(pos);
+            BlockEntity blockEntity = level.getBlockEntity(data.pos);
             if(!(blockEntity instanceof LecternBlockEntity lecternBlockEntity))
                 return;
 
             ItemStack itemStack = lecternBlockEntity.getBook();
 
             lecternBlockEntity.setBook(ItemStack.EMPTY);
-            LecternBlock.setHasBook(player, player.getWorld(), pos, player.getWorld().getBlockState(pos), false);
-            if(!player.getInventory().insertStack(itemStack))
-                player.dropItem(itemStack, false);
+            LecternBlock.setHasBook(context.player(), context.player().getWorld(), data.pos, context.player().getWorld().getBlockState(data.pos), false);
+            if(!context.player().getInventory().insertStack(itemStack))
+                context.player().dropItem(itemStack, false);
         });
     }
 }

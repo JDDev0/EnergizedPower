@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/coal_engine",
   "display": {
     "icon": {
-      "item": "energizedpower:heat_generator"
+      "id": "energizedpower:heat_generator"
     },
     "title": {
       "translate": "advancements.energizedpower.heat_generator.title"

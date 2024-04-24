@@ -6,8 +6,8 @@ import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.screen.FluidTankMenu;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.block.BlockState;
@@ -16,20 +16,20 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import me.jddev0.ep.util.FluidUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, FluidStoragePacketUpdate,
+public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, FluidStoragePacketUpdate,
         CheckboxUpdate {
     private final FluidTankBlock.Tier tier;
     final SimpleFluidStorage fluidStorage;
@@ -58,15 +58,9 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
                 markDirty();
 
                 if(world != null && !world.isClient()) {
-                    PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeInt(0);
-                    getFluid().toPacket(buffer);
-                    buffer.writeLong(capacity);
-                    buffer.writeBlockPos(getPos());
-
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            ModMessages.FLUID_SYNC_ID, buffer
+                            new FluidSyncS2CPacket(0, getFluid(), capacity, getPos())
                     );
                 }
             }
@@ -74,7 +68,7 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
             private boolean isFluidValid(FluidVariant variant) {
                 return fluidFilter.isEmpty() || (ignoreNBT?(
                         fluidFilter.getFluidVariant().isOf(variant.getFluid()) &&
-                                fluidFilter.getFluidVariant().nbtMatches(variant.getNbt())):
+                                fluidFilter.getFluidVariant().componentsMatch(variant.getComponents())):
                         fluidFilter.getFluidVariant().isOf(variant.getFluid()));
             }
 
@@ -120,28 +114,17 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeInt(0);
-        fluidStorage.getFluid().toPacket(buffer);
-        buffer.writeLong(fluidStorage.getCapacity());
-        buffer.writeBlockPos(getPos());
-
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.FLUID_SYNC_ID, buffer);
-
-        buffer = PacketByteBufs.create();
-        buffer.writeInt(1);
-        fluidFilter.toPacket(buffer);
-        buffer.writeLong(0);
-        buffer.writeBlockPos(getPos());
-
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.FLUID_SYNC_ID, buffer);
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
+                new FluidSyncS2CPacket(0, fluidStorage.getFluid(), fluidStorage.getCapacity(), getPos()));
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
+                new FluidSyncS2CPacket(1, fluidFilter, 0, getPos()));
 
         return new FluidTankMenu(id, inventory, this, this.data);
     }
 
     @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
+    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
+        return pos;
     }
 
     public FluidTankBlock.Tier getTier() {
@@ -154,15 +137,9 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
 
         //Sync item stacks to client every 5 seconds
         if(level.getTime() % 100 == 0) { //TODO improve
-            PacketByteBuf buffer = PacketByteBufs.create();
-            buffer.writeInt(0);
-            blockEntity.fluidStorage.getFluid().toPacket(buffer);
-            buffer.writeLong(blockEntity.fluidStorage.getCapacity());
-            buffer.writeBlockPos(blockPos);
-
             ModMessages.sendServerPacketToPlayersWithinXBlocks(
                     blockPos, (ServerWorld)level, 32,
-                    ModMessages.FLUID_SYNC_ID, buffer
+                    new FluidSyncS2CPacket(0, blockEntity.fluidStorage.getFluid(), blockEntity.fluidStorage.getCapacity(), blockPos)
             );
         }
     }
@@ -172,25 +149,25 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        nbt.put("fluid", fluidStorage.toNBT(new NbtCompound()));
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        nbt.put("fluid", fluidStorage.toNBT(new NbtCompound(), registries));
 
         nbt.putBoolean("ignore_nbt", ignoreNBT);
 
-        nbt.put("fluid_filter", fluidFilter.toNBT(new NbtCompound()));
+        nbt.put("fluid_filter", fluidFilter.toNBT(new NbtCompound(), registries));
 
-        super.writeNbt(nbt);
+        super.writeNbt(nbt, registries);
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound nbt) {
-        super.readNbt(nbt);
+    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
 
-        fluidStorage.fromNBT(nbt.getCompound("fluid"));
+        fluidStorage.fromNBT(nbt.getCompound("fluid"), registries);
 
         ignoreNBT = nbt.getBoolean("ignore_nbt");
 
-        fluidFilter = FluidStack.fromNbt(nbt.getCompound("fluid_filter"));
+        fluidFilter = FluidStack.fromNbt(nbt.getCompound("fluid_filter"), registries);
     }
 
     public void setIgnoreNBT(boolean ignoreNBT) {
@@ -206,20 +183,14 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
         }
     }
 
-    public void setFluidFilter(FluidStack fluidFilter) {
-        this.fluidFilter = new FluidStack(fluidFilter.getFluid(), fluidFilter.getFluidVariant().copyNbt(),
+    public void setFluidFilter(FluidStack fluidFilter, DynamicRegistryManager registries) {
+        this.fluidFilter = new FluidStack(fluidFilter.getFluid(), fluidFilter.getFluidVariant().getComponents(),
                 fluidFilter.getDropletsAmount());
         markDirty(world, getPos(), getCachedState());
 
-        PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeInt(1);
-        fluidFilter.toPacket(buffer);
-        buffer.writeLong(0);
-        buffer.writeBlockPos(getPos());
-
         ModMessages.sendServerPacketToPlayersWithinXBlocks(
                 getPos(), (ServerWorld)world, 32,
-                ModMessages.FLUID_SYNC_ID, buffer
+                new FluidSyncS2CPacket(1, fluidFilter, 0, getPos())
         );
     }
 
@@ -242,7 +213,7 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
     public void setFluid(int tank, FluidStack fluidStack) {
         switch(tank) {
             case 0 -> fluidStorage.setFluid(fluidStack);
-            case 1 -> fluidFilter = new FluidStack(fluidStack.getFluid(), fluidStack.getFluidVariant().copyNbt(),
+            case 1 -> fluidFilter = new FluidStack(fluidStack.getFluid(), fluidStack.getFluidVariant().getComponents(),
                     fluidStack.getDropletsAmount());
         }
     }

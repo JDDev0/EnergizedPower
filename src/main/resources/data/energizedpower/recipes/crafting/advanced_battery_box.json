@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "c:silicon_blocks"
+      "tag": "c:storage_blocks/silicon"
     },
     "E": {
-      "tag": "c:energized_gold_plates"
+      "tag": "c:plates/energized_gold"
     },
     "B": {
       "item": "energizedpower:battery_8"
@@ -21,6 +21,6 @@
     "BSB"
   ],
   "result": {
-    "item": "energizedpower:advanced_battery_box"
+    "id": "energizedpower:advanced_battery_box"
   }
 }

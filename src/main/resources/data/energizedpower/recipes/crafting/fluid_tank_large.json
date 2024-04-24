@@ -6,7 +6,7 @@
       "item": "energizedpower:fluid_tank_medium"
     },
     "I": {
-      "tag": "c:iron_blocks"
+      "tag": "c:storage_blocks/iron"
     }
   },
   "pattern": [
@@ -15,6 +15,6 @@
     "IFI"
   ],
   "result": {
-    "item": "energizedpower:fluid_tank_large"
+    "id": "energizedpower:fluid_tank_large"
   }
 }

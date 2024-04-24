@@ -3,11 +3,11 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:tin_ingots"
+      "tag": "c:ingots/tin"
     }
   ],
   "result": {
     "count": 9,
-    "item": "energizedpower:tin_nugget"
+    "id": "energizedpower:tin_nugget"
   }
 }

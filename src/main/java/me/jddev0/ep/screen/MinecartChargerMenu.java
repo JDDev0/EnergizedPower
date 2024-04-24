@@ -7,18 +7,18 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class MinecartChargerMenu extends ScreenHandler implements EnergyStorageMenu {
     private final MinecartChargerBlockEntity blockEntity;
     private final World level;
 
-    public MinecartChargerMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv);
+    public MinecartChargerMenu(int id, PlayerInventory inv, BlockPos pos) {
+        this(id, inv.player.getWorld().getBlockEntity(pos), inv);
     }
 
     public MinecartChargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory) {

@@ -1,15 +1,9 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.ItemConveyorBeltSwitchBlockEntity;
 import me.jddev0.ep.block.entity.ModBlockEntities;
-import me.jddev0.ep.codec.CodecFix;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -26,16 +20,12 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltSwitchBlock extends BlockWithEntity {
-    public static final MapCodec<ItemConveyorBeltSwitchBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(CodecFix.FABRIC_BLOCK_SETTINGS_CODEC.fieldOf("properties").forGetter(block -> {
-            return (FabricBlockSettings)block.getSettings();
-        })).apply(instance, ItemConveyorBeltSwitchBlock::new);
-    });
+    public static final MapCodec<ItemConveyorBeltSwitchBlock> CODEC = createCodec(ItemConveyorBeltSwitchBlock::new);
 
     public static final BooleanProperty POWERED = Properties.POWERED;
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 
-    protected ItemConveyorBeltSwitchBlock(FabricBlockSettings props) {
+    protected ItemConveyorBeltSwitchBlock(AbstractBlock.Settings props) {
         super(props);
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false).with(FACING, Direction.NORTH));

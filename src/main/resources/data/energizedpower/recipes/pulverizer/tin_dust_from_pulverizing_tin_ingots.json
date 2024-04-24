@@ -1,7 +1,7 @@
 {
   "type": "energizedpower:pulverizer",
   "ingredient": {
-    "tag": "c:tin_ingots"
+    "tag": "c:ingots/tin"
   },
   "output": {
     "output": {

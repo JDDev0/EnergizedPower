@@ -6,13 +6,13 @@
       "tag": "c:silicon"
     },
     "I": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     },
     "R": {
-      "tag": "c:redstone_dusts"
+      "tag": "c:dusts/redstone"
     },
     "c": {
-      "tag": "c:copper_plates"
+      "tag": "c:plates/copper"
     },
     "C": {
       "item": "energizedpower:coal_engine"
@@ -24,6 +24,6 @@
     "cIc"
   ],
   "result": {
-    "item": "energizedpower:inventory_coal_engine"
+    "id": "energizedpower:inventory_coal_engine"
   }
 }

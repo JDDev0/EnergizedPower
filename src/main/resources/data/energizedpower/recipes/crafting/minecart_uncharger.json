@@ -3,16 +3,16 @@
   "category": "misc",
   "key": {
     "C": {
-      "tag": "c:copper_blocks"
+      "tag": "c:storage_blocks/copper"
     },
     "c": {
-      "tag": "c:copper_plates"
+      "tag": "c:plates/copper"
     },
     "I": {
-      "tag": "c:iron_blocks"
+      "tag": "c:storage_blocks/iron"
     },
     "i": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     },
     "S": {
       "tag": "c:silicon"
@@ -27,6 +27,6 @@
     "cCc"
   ],
   "result": {
-    "item": "energizedpower:minecart_uncharger"
+    "id": "energizedpower:minecart_uncharger"
   }
 }

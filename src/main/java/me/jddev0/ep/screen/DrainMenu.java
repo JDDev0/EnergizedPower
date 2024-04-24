@@ -9,12 +9,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class DrainMenu extends ScreenHandler {
@@ -22,8 +22,8 @@ public class DrainMenu extends ScreenHandler {
     private final World level;
     private final PropertyDelegate data;
 
-    public DrainMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
-        this(id, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), inv, new ArrayPropertyDelegate(4));
+    public DrainMenu(int id, PlayerInventory inv, BlockPos pos) {
+        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new ArrayPropertyDelegate(4));
     }
 
     public DrainMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, PropertyDelegate data) {

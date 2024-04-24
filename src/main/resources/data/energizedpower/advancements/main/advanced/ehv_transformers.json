@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/reinforced_advanced_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:ehv_transformer_1_to_n"
+      "id": "energizedpower:ehv_transformer_1_to_n"
     },
     "title": {
       "translate": "advancements.energizedpower.ehv_transformers.title"

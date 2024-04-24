@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/energized_crystal_matrix",
   "display": {
     "icon": {
-      "item": "energizedpower:teleporter_matrix"
+      "id": "energizedpower:teleporter_matrix"
     },
     "title": {
       "translate": "advancements.energizedpower.teleporter_matrix.title"

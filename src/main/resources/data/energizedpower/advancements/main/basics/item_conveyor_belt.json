@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/iron_plate",
   "display": {
     "icon": {
-      "item": "energizedpower:item_conveyor_belt"
+      "id": "energizedpower:item_conveyor_belt"
     },
     "title": {
       "translate": "advancements.energizedpower.item_conveyor_belt.title"

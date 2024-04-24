@@ -9,7 +9,7 @@
     },
     {
       "input": {
-        "tag": "c:energized_gold_wires"
+        "tag": "c:wires/energized_gold"
       },
       "count": 6
     },

@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/metal_press",
   "display": {
     "icon": {
-      "item": "energizedpower:hardened_machine_frame"
+      "id": "energizedpower:hardened_machine_frame"
     },
     "title": {
       "translate": "advancements.energizedpower.hardened_machine_frame.title"

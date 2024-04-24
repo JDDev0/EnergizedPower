@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:saw_dusts"
+            "tag": "c:dusts/wood"
           }
         ]
       }

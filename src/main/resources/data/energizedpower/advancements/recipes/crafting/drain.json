@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:iron_blocks"
+            "tag": "c:storage_blocks/iron"
           }
         ]
       }

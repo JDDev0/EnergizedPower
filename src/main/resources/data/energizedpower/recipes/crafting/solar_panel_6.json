@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "G": {
-      "tag": "c:glass_panes_colorless"
+      "tag": "c:glass_panes/colorless"
     },
     "A": {
-      "item": "minecraft:amethyst_shard"
+      "tag": "c:gems/amethyst"
     },
     "E": {
-      "tag": "c:energized_gold_ingots"
+      "tag": "c:ingots/energized_gold"
     },
     "S": {
       "item": "energizedpower:solar_panel_5"
@@ -24,6 +24,6 @@
     "RER"
   ],
   "result": {
-    "item": "energizedpower:solar_panel_6"
+    "id": "energizedpower:solar_panel_6"
   }
 }

@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "energizedpower:raw_rod_press_mold"
   },
-  "result": "energizedpower:rod_press_mold"
+  "result": {
+    "id": "energizedpower:rod_press_mold"
+  }
 }

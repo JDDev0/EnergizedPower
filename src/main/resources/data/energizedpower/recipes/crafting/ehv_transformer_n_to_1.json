@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "c:silicon_blocks"
+      "tag": "c:storage_blocks/silicon"
     },
     "C": {
       "item": "energizedpower:energized_crystal_matrix"
@@ -21,6 +21,6 @@
     "CTC"
   ],
   "result": {
-    "item": "energizedpower:ehv_transformer_n_to_1"
+    "id": "energizedpower:ehv_transformer_n_to_1"
   }
 }

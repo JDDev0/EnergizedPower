@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:iron_plates"
+            "tag": "c:plates/iron"
           }
         ]
       }

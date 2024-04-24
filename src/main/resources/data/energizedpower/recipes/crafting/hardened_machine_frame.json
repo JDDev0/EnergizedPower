@@ -6,13 +6,13 @@
       "tag": "c:silicon"
     },
     "I": {
-      "tag": "c:iron_blocks"
+      "tag": "c:storage_blocks/iron"
     },
     "i": {
-      "tag": "c:iron_gears"
+      "tag": "c:gears/iron"
     },
     "r": {
-      "tag": "c:iron_rods"
+      "tag": "c:rods/iron"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
@@ -24,6 +24,6 @@
     "rIi"
   ],
   "result": {
-    "item": "energizedpower:hardened_machine_frame"
+    "id": "energizedpower:hardened_machine_frame"
   }
 }

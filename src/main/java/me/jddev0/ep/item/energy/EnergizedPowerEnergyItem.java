@@ -1,15 +1,12 @@
 package me.jddev0.ep.item.energy;
 
 import me.jddev0.ep.util.EnergyUtils;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.base.SimpleEnergyItem;
 
 import java.util.List;
@@ -20,7 +17,7 @@ public class EnergizedPowerEnergyItem extends Item implements SimpleEnergyItem {
     private final long maxExtract;
 
 
-    public EnergizedPowerEnergyItem(FabricItemSettings props, long capacity, long maxReceive, long maxExtract) {
+    public EnergizedPowerEnergyItem(Item.Settings props, long capacity, long maxReceive, long maxExtract) {
         super(props);
 
         this.capacity = capacity;
@@ -67,9 +64,9 @@ public class EnergizedPowerEnergyItem extends Item implements SimpleEnergyItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack itemStack, @Nullable World level, List<Text> tooltip, TooltipContext context) {
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.translatable("tooltip.energizedpower.energy_meter.content.txt",
-                        EnergyUtils.getEnergyWithPrefix(getEnergy(itemStack)), EnergyUtils.getEnergyWithPrefix(getEnergyCapacity(itemStack))).
+                        EnergyUtils.getEnergyWithPrefix(getEnergy(stack)), EnergyUtils.getEnergyWithPrefix(getEnergyCapacity(stack))).
                 formatted(Formatting.GRAY));
     }
 }

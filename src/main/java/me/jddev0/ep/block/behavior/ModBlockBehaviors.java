@@ -26,8 +26,7 @@ public final class ModBlockBehaviors {
                 if(!level.isClient()) {
                     BlockPos blockPos = blockSource.pos().offset(blockSource.state().get(DispenserBlock.FACING));
                     if(tryCraftCableInsulator(level, blockPos)) {
-                        if(itemStack.damage(1, level.getRandom(), null))
-                            itemStack.setCount(0);
+                        itemStack.damage(1, level.getRandom(), null, () -> itemStack.setCount(0));
 
                         setSuccess(true);
 

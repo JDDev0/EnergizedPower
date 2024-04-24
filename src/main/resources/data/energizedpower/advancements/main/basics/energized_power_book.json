@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/energizedpower_basics",
   "display": {
     "icon": {
-      "item": "energizedpower:energized_power_book"
+      "id": "energizedpower:energized_power_book"
     },
     "title": {
       "translate": "advancements.energizedpower.energized_power_book.title"

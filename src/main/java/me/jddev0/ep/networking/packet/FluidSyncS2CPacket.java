@@ -1,32 +1,48 @@
 package me.jddev0.ep.networking.packet;
 
+import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.packet.CustomPayload;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
-public class FluidSyncS2CPacket {
-   private FluidSyncS2CPacket() {}
+public record FluidSyncS2CPacket(int tank, FluidStack fluidStack, long capacity, BlockPos pos) implements CustomPayload {
+    public static final CustomPayload.Id<FluidSyncS2CPacket> ID =
+            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "fluid_sync"));
+    public static final PacketCodec<RegistryByteBuf, FluidSyncS2CPacket> PACKET_CODEC =
+            PacketCodec.of(FluidSyncS2CPacket::write, FluidSyncS2CPacket::new);
 
-    public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
-        int tank = buf.readInt();
-        FluidStack fluidStack = FluidStack.fromPacket(buf);
-        long capacity = buf.readLong();
-        BlockPos pos = buf.readBlockPos();
+    public FluidSyncS2CPacket(RegistryByteBuf buffer) {
+        this(buffer.readInt(), FluidStack.PACKET_CODEC.decode(buffer), buffer.readLong(), buffer.readBlockPos());
+    }
 
-        client.execute(() -> {
-            if(client.world == null)
+    public void write(RegistryByteBuf buffer) {
+        buffer.writeInt(tank);
+        FluidStack.PACKET_CODEC.encode(buffer, fluidStack);
+        buffer.writeLong(capacity);
+        buffer.writeBlockPos(pos);
+    }
+
+    @Override
+    public Id<? extends CustomPayload> getId() {
+        return ID;
+    }
+
+    public static void receive(FluidSyncS2CPacket data, ClientPlayNetworking.Context context) {
+        context.client().execute(() -> {
+            if(context.client().world == null)
                 return;
 
-            BlockEntity blockEntity = client.world.getBlockEntity(pos);
+            BlockEntity blockEntity = context.client().world.getBlockEntity(data.pos);
             if(blockEntity instanceof FluidStoragePacketUpdate) {
                 FluidStoragePacketUpdate fluidStorage = (FluidStoragePacketUpdate)blockEntity;
-                fluidStorage.setFluid(tank, fluidStack);
-                fluidStorage.setTankCapacity(tank, capacity);
+                fluidStorage.setFluid(data.tank, data.fluidStack);
+                fluidStorage.setTankCapacity(data.tank, data.capacity);
             }
         });
     }

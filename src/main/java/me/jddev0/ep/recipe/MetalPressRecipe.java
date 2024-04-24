@@ -1,18 +1,19 @@
 package me.jddev0.ep.recipe;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
@@ -52,11 +53,11 @@ public class MetalPressRecipe implements Recipe<Inventory> {
             return false;
 
         return input.test(container.getStack(0)) && container.getStack(0).getCount() >= inputCount &&
-                ItemStack.canCombine(pressMold, container.getStack(1));
+                ItemStack.areItemsAndComponentsEqual(pressMold, container.getStack(1));
     }
 
     @Override
-    public ItemStack craft(Inventory container, DynamicRegistryManager registryManage) {
+    public ItemStack craft(Inventory container, RegistryWrapper.WrapperLookup registries) {
         return output;
     }
 
@@ -66,7 +67,7 @@ public class MetalPressRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public ItemStack getResult(DynamicRegistryManager registryManage) {
+    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
         return output.copy();
     }
 
@@ -103,7 +104,7 @@ public class MetalPressRecipe implements Recipe<Inventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "metal_press");
 
-        private final Codec<MetalPressRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<MetalPressRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
             }), CodecFix.ITEM_STACK_CODEC.fieldOf("pressMold").forGetter((recipe) -> {
@@ -115,27 +116,33 @@ public class MetalPressRecipe implements Recipe<Inventory> {
             })).apply(instance, MetalPressRecipe::new);
         });
 
+        private final PacketCodec<RegistryByteBuf, MetalPressRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<MetalPressRecipe> codec() {
+        public MapCodec<MetalPressRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public MetalPressRecipe read(PacketByteBuf buffer) {
-            Ingredient input = Ingredient.fromPacket(buffer);
+        public PacketCodec<RegistryByteBuf, MetalPressRecipe> packetCodec() {
+            return PACKET_CODEC;
+        }
+
+        private static MetalPressRecipe read(RegistryByteBuf buffer) {
+            Ingredient input = Ingredient.PACKET_CODEC.decode(buffer);
             int inputCount = buffer.readInt();
-            ItemStack pressMold = buffer.readItemStack();
-            ItemStack output = buffer.readItemStack();
+            ItemStack pressMold = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
+            ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
 
             return new MetalPressRecipe(output, pressMold, input, inputCount);
         }
 
-        @Override
-        public void write(PacketByteBuf buffer, MetalPressRecipe recipe) {
-            recipe.input.write(buffer);
+        private static void write(RegistryByteBuf buffer, MetalPressRecipe recipe) {
+            Ingredient.PACKET_CODEC.encode(buffer, recipe.input);
             buffer.writeInt(recipe.inputCount);
-            buffer.writeItemStack(recipe.pressMold);
-            buffer.writeItemStack(recipe.output);
+            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.pressMold);
+            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output);
         }
     }
 }

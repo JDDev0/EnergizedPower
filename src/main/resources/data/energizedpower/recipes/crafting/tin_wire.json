@@ -3,14 +3,14 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:cutters"
+      "tag": "c:tools/cutters"
     },
     {
-      "tag": "c:tin_plates"
+      "tag": "c:plates/tin"
     }
   ],
   "result": {
-    "item": "energizedpower:tin_wire",
+    "id": "energizedpower:tin_wire",
     "count": 2
   }
 }

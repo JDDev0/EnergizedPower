@@ -6,10 +6,10 @@
       "tag": "c:silicon"
     },
     "S": {
-      "tag": "c:silicon_blocks"
+      "tag": "c:storage_blocks/silicon"
     },
     "c": {
-      "tag": "c:copper_wires"
+      "tag": "c:wires/copper"
     },
     "C": {
       "item": "energizedpower:coal_engine"
@@ -21,6 +21,6 @@
     "cSc"
   ],
   "result": {
-    "item": "energizedpower:heat_generator"
+    "id": "energizedpower:heat_generator"
   }
 }

@@ -2,7 +2,7 @@
   "type": "energizedpower:metal_press",
   "ingredient": [
     {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     }
   ],
   "pressMold": {

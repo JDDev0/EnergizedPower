@@ -4,18 +4,20 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.random.Random;
@@ -76,7 +78,7 @@ public class CrystalGrowthChamberRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack craft(SimpleInventory container, DynamicRegistryManager registryAccess) {
+    public ItemStack craft(SimpleInventory container, RegistryWrapper.WrapperLookup registries) {
         return ItemStack.EMPTY;
     }
 
@@ -86,7 +88,7 @@ public class CrystalGrowthChamberRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack getResult(DynamicRegistryManager registryAccess) {
+    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
         return ItemStack.EMPTY;
     }
 
@@ -123,7 +125,7 @@ public class CrystalGrowthChamberRecipe implements Recipe<SimpleInventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "crystal_growth_chamber");
 
-        private final Codec<CrystalGrowthChamberRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<CrystalGrowthChamberRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(OutputItemStackWithPercentages.CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
             }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
@@ -135,18 +137,25 @@ public class CrystalGrowthChamberRecipe implements Recipe<SimpleInventory> {
             })).apply(instance, CrystalGrowthChamberRecipe::new);
         });
 
+        private final PacketCodec<RegistryByteBuf, CrystalGrowthChamberRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<CrystalGrowthChamberRecipe> codec() {
+        public MapCodec<CrystalGrowthChamberRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public CrystalGrowthChamberRecipe read(PacketByteBuf buffer) {
-            Ingredient input = Ingredient.fromPacket(buffer);
+        public PacketCodec<RegistryByteBuf, CrystalGrowthChamberRecipe> packetCodec() {
+            return PACKET_CODEC;
+        }
+
+        private static CrystalGrowthChamberRecipe read(RegistryByteBuf buffer) {
+            Ingredient input = Ingredient.PACKET_CODEC.decode(buffer);
             int inputCount = buffer.readInt();
             int ticks = buffer.readInt();
 
-            ItemStack output = buffer.readItemStack();
+            ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
 
             int percentageCount = buffer.readInt();
             double[] percentages = new double[percentageCount];
@@ -158,13 +167,12 @@ public class CrystalGrowthChamberRecipe implements Recipe<SimpleInventory> {
             return new CrystalGrowthChamberRecipe(outputItemStackWithPercentages, input, inputCount, ticks);
         }
 
-        @Override
-        public void write(PacketByteBuf buffer, CrystalGrowthChamberRecipe recipe) {
-            recipe.input.write(buffer);
+        private static void write(RegistryByteBuf buffer, CrystalGrowthChamberRecipe recipe) {
+            Ingredient.PACKET_CODEC.encode(buffer, recipe.input);
             buffer.writeInt(recipe.inputCount);
             buffer.writeInt(recipe.ticks);
 
-            buffer.writeItemStack(recipe.output.output);
+            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output.output);
 
             buffer.writeInt(recipe.output.percentages.length);
             for(double percentage:recipe.output.percentages)

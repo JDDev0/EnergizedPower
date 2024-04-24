@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "c:silicon_blocks"
+      "tag": "c:storage_blocks/silicon"
     },
     "C": {
-      "tag": "c:copper_blocks"
+      "tag": "c:storage_blocks/copper"
     },
     "I": {
-      "tag": "c:iron_blocks"
+      "tag": "c:storage_blocks/iron"
     },
     "H": {
       "item": "energizedpower:hardened_machine_frame"
@@ -24,6 +24,6 @@
     "CTI"
   ],
   "result": {
-    "item": "energizedpower:transformer_3_to_3"
+    "id": "energizedpower:transformer_3_to_3"
   }
 }

@@ -4,15 +4,15 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.FluidUtils;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.text.Text;
@@ -30,13 +30,13 @@ public class FluidAnalyzerItem extends EnergizedPowerEnergyItem {
     public static final long ENERGY_CONSUMPTION_PER_USE = ModConfigs.COMMON_FLUID_ANALYZER_ENERGY_CONSUMPTION_PER_USE.getValue();
     public static final long ENERGY_CAPACITY = ModConfigs.COMMON_FLUID_ANALYZER_CAPACITY.getValue();
 
-    public FluidAnalyzerItem(FabricItemSettings props) {
+    public FluidAnalyzerItem(Item.Settings props) {
         super(props, ENERGY_CAPACITY, ModConfigs.COMMON_FLUID_ANALYZER_TRANSFER_RATE.getValue(), 0);
     }
 
     @Override
-    public void appendTooltip(ItemStack itemStack, @Nullable World level, List<Text> tooltip, TooltipContext context) {
-        super.appendTooltip(itemStack, level, tooltip, context);
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+        super.appendTooltip(stack, context, tooltip, type);
 
         if(Screen.hasShiftDown()) {
             tooltip.add(Text.translatable("tooltip.energizedpower.fluid_analyzer.txt.shift.1").formatted(Formatting.GRAY));

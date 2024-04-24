@@ -9,10 +9,10 @@
       "item": "energizedpower:fluid_tank_small"
     },
     "c": {
-      "tag": "c:copper_plates"
+      "tag": "c:plates/copper"
     },
     "C": {
-      "tag": "c:copper_blocks"
+      "tag": "c:storage_blocks/copper"
     },
     "H": {
       "item": "energizedpower:hardened_machine_frame"
@@ -27,6 +27,6 @@
     "CFC"
   ],
   "result": {
-    "item": "energizedpower:thermal_generator"
+    "id": "energizedpower:thermal_generator"
   }
 }

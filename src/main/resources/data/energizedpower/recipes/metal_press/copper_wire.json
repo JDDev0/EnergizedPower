@@ -2,7 +2,7 @@
   "type": "energizedpower:metal_press",
   "ingredient": [
     {
-      "tag": "c:copper_plates"
+      "tag": "c:plates/copper"
     }
   ],
   "pressMold": {

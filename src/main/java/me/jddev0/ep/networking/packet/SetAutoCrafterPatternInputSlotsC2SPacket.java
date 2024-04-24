@@ -1,15 +1,15 @@
 package me.jddev0.ep.networking.packet;
 
+import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.screen.AutoCrafterMenu;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
@@ -18,35 +18,73 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class SetAutoCrafterPatternInputSlotsC2SPacket {
-    private SetAutoCrafterPatternInputSlotsC2SPacket() {}
+public final class SetAutoCrafterPatternInputSlotsC2SPacket implements CustomPayload {
+    public static final CustomPayload.Id<SetAutoCrafterPatternInputSlotsC2SPacket> ID =
+            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "set_auto_crafter_pattern_input_slots"));
+    public static final PacketCodec<RegistryByteBuf, SetAutoCrafterPatternInputSlotsC2SPacket> PACKET_CODEC =
+            PacketCodec.of(SetAutoCrafterPatternInputSlotsC2SPacket::write, SetAutoCrafterPatternInputSlotsC2SPacket::new);
 
-    public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
-                               PacketByteBuf buf, PacketSender responseSender) {
-        BlockPos pos = buf.readBlockPos();
-        List<ItemStack> itemStacks = new ArrayList<>(9);
+    private final BlockPos pos;
+    private final List<ItemStack> itemStacks;
+    private final Identifier recipeId;
+
+    public SetAutoCrafterPatternInputSlotsC2SPacket(BlockPos pos, List<ItemStack> itemStacks, Identifier recipeId) {
+        this.pos = pos;
+
+        this.itemStacks = new ArrayList<>(itemStacks);
+
+        while(this.itemStacks.size() < 9)
+            this.itemStacks.add(ItemStack.EMPTY);
+
+        this.recipeId = recipeId;
+    }
+
+    public SetAutoCrafterPatternInputSlotsC2SPacket(RegistryByteBuf buffer) {
+        pos = buffer.readBlockPos();
+
+        itemStacks = new ArrayList<>(9);
         for(int i = 0;i < 9;i++)
-            itemStacks.add(buf.readItemStack());
-        Identifier recipeId = buf.readIdentifier();
+            itemStacks.add(ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer));
 
-        server.execute(() -> {
-            World level = player.getWorld();
-            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ())))
+        recipeId = buffer.readIdentifier();
+    }
+
+    public void write(RegistryByteBuf buffer) {
+        buffer.writeBlockPos(pos);
+
+        for(ItemStack itemStack:itemStacks)
+            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, itemStack);
+
+        buffer.writeIdentifier(recipeId);
+    }
+
+    @Override
+    public Id<? extends CustomPayload> getId() {
+        return ID;
+    }
+
+    public static void receive(SetAutoCrafterPatternInputSlotsC2SPacket data, ServerPlayNetworking.Context context) {
+        context.player().server.execute(() -> {
+            if(!context.player().canModifyBlocks())
                 return;
 
-            BlockEntity blockEntity = level.getBlockEntity(pos);
+            World level = context.player().getWorld();
+            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
+                return;
+
+            BlockEntity blockEntity = level.getBlockEntity(data.pos);
             if(!(blockEntity instanceof AutoCrafterBlockEntity autoCrafterBlockEntity))
                 return;
 
-            ScreenHandler menu = player.currentScreenHandler;
+            ScreenHandler menu = context.player().currentScreenHandler;
 
             if(!(menu instanceof AutoCrafterMenu autoCrafterMenu))
                 return;
 
-            for(int i = 0;i < itemStacks.size();i++)
-                autoCrafterMenu.getPatternSlots().setStack(i, itemStacks.get(i));
+            for(int i = 0;i < data.itemStacks.size();i++)
+                autoCrafterMenu.getPatternSlots().setStack(i, data.itemStacks.get(i));
 
-            autoCrafterBlockEntity.setRecipeIdForSetRecipe(recipeId);
+            autoCrafterBlockEntity.setRecipeIdForSetRecipe(data.recipeId);
 
             autoCrafterBlockEntity.resetProgressAndMarkAsChanged();
         });

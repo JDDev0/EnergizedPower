@@ -4,7 +4,7 @@
   "group": "tin_ingot",
   "key": {
     "T": {
-      "tag": "c:tin_nuggets"
+      "tag": "c:nuggets/tin"
     }
   },
   "pattern": [
@@ -13,6 +13,6 @@
     "TTT"
   ],
   "result": {
-    "item": "energizedpower:tin_ingot"
+    "id": "energizedpower:tin_ingot"
   }
 }

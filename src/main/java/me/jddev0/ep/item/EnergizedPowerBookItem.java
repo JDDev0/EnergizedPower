@@ -3,12 +3,12 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.screen.EnergizedPowerBookScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.WrittenBookItem;
 import net.minecraft.registry.Registries;
@@ -19,17 +19,16 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class EnergizedPowerBookItem extends WrittenBookItem {
-    public EnergizedPowerBookItem(FabricItemSettings props) {
+    public EnergizedPowerBookItem(Item.Settings props) {
         super(props);
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.translatable("book.byAuthor", "JDDev0").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("book.generation.0").formatted(Formatting.GRAY));
 
@@ -52,7 +51,7 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
     }
 
     @Override
-    public float getMiningSpeedMultiplier(ItemStack itemStack, BlockState blockState) {
+    public float getMiningSpeed(ItemStack itemStack, BlockState blockState) {
         return Float.POSITIVE_INFINITY;
     }
 

@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/cutter",
   "display": {
     "icon": {
-      "item": "energizedpower:tin_wire"
+      "id": "energizedpower:tin_wire"
     },
     "title": {
       "translate": "advancements.energizedpower.tin_wire.title"
@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:tin_wires"
+            "tag": "c:wires/tin"
           }
         ]
       }

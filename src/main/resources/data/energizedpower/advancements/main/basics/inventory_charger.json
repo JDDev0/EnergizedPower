@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/charger",
   "display": {
     "icon": {
-      "item": "energizedpower:inventory_charger"
+      "id": "energizedpower:inventory_charger"
     },
     "title": {
       "translate": "advancements.energizedpower.inventory_charger.title"

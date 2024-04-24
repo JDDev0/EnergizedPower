@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/press_mold_maker",
   "display": {
     "icon": {
-      "item": "energizedpower:raw_gear_press_mold"
+      "id": "energizedpower:raw_gear_press_mold"
     },
     "title": {
       "translate": "advancements.energizedpower.raw_press_molds.title"

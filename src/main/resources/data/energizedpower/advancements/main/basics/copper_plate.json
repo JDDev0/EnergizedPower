@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/hammer",
   "display": {
     "icon": {
-      "item": "energizedpower:copper_plate"
+      "id": "energizedpower:copper_plate"
     },
     "title": {
       "translate": "advancements.energizedpower.copper_plate.title"
@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:copper_plates"
+            "tag": "c:plates/copper"
           }
         ]
       }

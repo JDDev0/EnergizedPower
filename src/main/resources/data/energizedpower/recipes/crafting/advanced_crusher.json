@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "c": {
-      "tag": "c:energized_copper_plates"
+      "tag": "c:plates/energized_copper"
     },
     "F": {
       "item": "energizedpower:fluid_tank_small"
@@ -21,6 +21,6 @@
     "cCc"
   ],
   "result": {
-    "item": "energizedpower:advanced_crusher"
+    "id": "energizedpower:advanced_crusher"
   }
 }

@@ -3,15 +3,13 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
-import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -41,41 +39,27 @@ public class AutoCrafterScreen extends AbstractGenericEnergyStorageHandledScreen
             if(isPointWithinBounds(158, 16, 11, 11, mouseX, mouseY)) {
                 //Ignore NBT checkbox
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                buf.writeInt(0);
-                buf.writeBoolean(!handler.isIgnoreNBT());
-                ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
+                ClientPlayNetworking.send(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 0, !handler.isIgnoreNBT()));
                 clicked = true;
             }else if(isPointWithinBounds(158, 38, 11, 11, mouseX, mouseY)) {
                 //Extract mode checkbox
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                buf.writeInt(1);
-                buf.writeBoolean(!handler.isSecondaryExtractMode());
-                ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
+                ClientPlayNetworking.send(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 1, !handler.isSecondaryExtractMode()));
                 clicked = true;
             }else if(isPointWithinBounds(126, 16, 12, 12, mouseX, mouseY)) {
                 //Cycle through recipes
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                ClientPlayNetworking.send(ModMessages.CYCLE_AUTO_CRAFTER_RECIPE_OUTPUT_ID, buf);
+                ClientPlayNetworking.send(new CycleAutoCrafterRecipeOutputC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
             }else if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                ClientPlayNetworking.send(ModMessages.CHANGE_REDSTONE_MODE_ID, buf);
+                 ClientPlayNetworking.send(new ChangeRedstoneModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
             }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
                 //Comparator Mode
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                ClientPlayNetworking.send(ModMessages.CHANGE_COMPARATOR_MODE_ID, buf);
+                 ClientPlayNetworking.send(new ChangeComparatorModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
             }
 

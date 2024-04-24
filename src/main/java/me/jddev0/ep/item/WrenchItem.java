@@ -1,16 +1,15 @@
 package me.jddev0.ep.item;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import me.jddev0.ep.component.ModDataComponentTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -22,23 +21,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import me.jddev0.ep.block.*;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class WrenchItem extends Item {
-    public WrenchItem(FabricItemSettings props) {
+    public WrenchItem(Item.Settings props) {
         super(props);
     }
 
     public static Direction getCurrentFace(ItemStack itemStack) {
-        NbtCompound nbt = itemStack.getNbt();
-        Direction currentFace = (nbt != null && nbt.contains("currentFace"))?Direction.byName(nbt.getString("currentFace")):
-                Direction.DOWN;
-        if(currentFace == null)
-            currentFace = Direction.DOWN;
-
-        return currentFace;
+        return itemStack.getOrDefault(ModDataComponentTypes.CURRENT_FACE, Direction.DOWN);
     }
 
     public static void cycleCurrentFace(ItemStack itemStack, ServerPlayerEntity player) {
@@ -46,7 +38,8 @@ public class WrenchItem extends Item {
         Direction currentFace = getCurrentFace(itemStack);
         currentFace = Direction.values()[(currentFace.ordinal() + diff + Direction.values().length) %
                 Direction.values().length];
-        itemStack.getOrCreateNbt().putString("currentFace", currentFace.asString());
+
+        itemStack.set(ModDataComponentTypes.CURRENT_FACE, currentFace);
 
         player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
                 Text.translatable("tooltip.energizedpower.wrench.select_face",
@@ -96,7 +89,7 @@ public class WrenchItem extends Item {
     }
 
     @Override
-    public float getMiningSpeedMultiplier(ItemStack itemStack, BlockState blockState) {
+    public float getMiningSpeed(ItemStack itemStack, BlockState blockState) {
         //Allow current face swap in survival in a reasonable amount of time
         return 1000.f;
     }
@@ -108,18 +101,18 @@ public class WrenchItem extends Item {
 
         ItemStack itemStack = player.getMainHandStack();
 
-        NbtCompound nbt = itemStack.getNbt();
-        if(nbt != null && nbt.contains("attackingCycleCooldown"))
+        if(itemStack.contains(ModDataComponentTypes.ACTION_COOLDOWN))
             return false;
 
         cycleCurrentFace(itemStack, (ServerPlayerEntity)player);
-        itemStack.getOrCreateNbt().putInt("attackingCycleCooldown", 5);
+
+        itemStack.set(ModDataComponentTypes.ACTION_COOLDOWN, 5);
 
         return false;
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
         Direction currentFace = getCurrentFace(stack);
         tooltip.add(Text.translatable("tooltip.energizedpower.wrench.select_face",
                 Text.translatable("tooltip.energizedpower.direction." + currentFace.asString()).
@@ -144,13 +137,12 @@ public class WrenchItem extends Item {
         if(!(entity instanceof PlayerEntity))
             return;
 
-        NbtCompound nbt = itemStack.getNbt();
-        if(nbt != null && nbt.contains("attackingCycleCooldown")) {
-            int attackingCycleCooldown = nbt.getInt("attackingCycleCooldown") - 1;
+        if(itemStack.contains(ModDataComponentTypes.ACTION_COOLDOWN)) {
+            int attackingCycleCooldown = itemStack.getOrDefault(ModDataComponentTypes.ACTION_COOLDOWN, 0) - 1;
             if(attackingCycleCooldown <= 0)
-                nbt.remove("attackingCycleCooldown");
+                itemStack.remove(ModDataComponentTypes.ACTION_COOLDOWN);
             else
-                nbt.putInt("attackingCycleCooldown", attackingCycleCooldown);
+                itemStack.set(ModDataComponentTypes.ACTION_COOLDOWN, attackingCycleCooldown);
         }
     }
 }

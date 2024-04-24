@@ -2,18 +2,15 @@ package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -38,19 +35,13 @@ public class CreativeBatteryBoxScreen extends HandledScreen<CreativeBatteryBoxMe
             boolean clicked = false;
             if(isPointWithinBounds(10, 28, 11, 11, mouseX, mouseY)) {
                 //Energy Production checkbox
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                buf.writeInt(0);
-                buf.writeBoolean(!handler.isEnergyProduction());
-                ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
+
+                ClientPlayNetworking.send(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 0, !handler.isEnergyProduction()));
                 clicked = true;
             }else if(isPointWithinBounds(10, 46, 11, 11, mouseX, mouseY)) {
                 //Energy Consumption checkbox
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                buf.writeInt(1);
-                buf.writeBoolean(!handler.isEnergyConsumption());
-                ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
+
+                ClientPlayNetworking.send(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 1, !handler.isEnergyConsumption()));
                 clicked = true;
             }
 

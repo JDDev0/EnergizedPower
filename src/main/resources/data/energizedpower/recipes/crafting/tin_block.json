@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "T": {
-      "tag": "c:tin_ingots"
+      "tag": "c:ingots/tin"
     }
   },
   "pattern": [
@@ -12,6 +12,6 @@
     "TTT"
   ],
   "result": {
-    "item": "energizedpower:tin_block"
+    "id": "energizedpower:tin_block"
   }
 }

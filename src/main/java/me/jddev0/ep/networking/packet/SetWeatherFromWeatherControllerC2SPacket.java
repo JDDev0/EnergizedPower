@@ -1,36 +1,53 @@
 package me.jddev0.ep.networking.packet;
 
+import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.WeatherControllerBlock;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.packet.CustomPayload;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 import team.reborn.energy.api.EnergyStorage;
 
-public final class SetWeatherFromWeatherControllerC2SPacket {
-    private SetWeatherFromWeatherControllerC2SPacket() {}
+public record SetWeatherFromWeatherControllerC2SPacket(BlockPos pos, int weatherType) implements CustomPayload {
+    public static final CustomPayload.Id<SetWeatherFromWeatherControllerC2SPacket> ID =
+            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "set_weather_from_weather_controller"));
+    public static final PacketCodec<RegistryByteBuf, SetWeatherFromWeatherControllerC2SPacket> PACKET_CODEC =
+            PacketCodec.of(SetWeatherFromWeatherControllerC2SPacket::write, SetWeatherFromWeatherControllerC2SPacket::new);
 
-    public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
-                               PacketByteBuf buf, PacketSender responseSender) {
-        BlockPos pos = buf.readBlockPos();
-        int weatherType = buf.readInt();
+    public SetWeatherFromWeatherControllerC2SPacket(RegistryByteBuf buffer) {
+        this(buffer.readBlockPos(), buffer.readInt());
+    }
 
-        server.execute(() -> {
-            World level = player.getWorld();
-            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ())))
+    public void write(RegistryByteBuf buffer) {
+        buffer.writeBlockPos(pos);
+        buffer.writeInt(weatherType);
+    }
+
+    @Override
+    public CustomPayload.Id<? extends CustomPayload> getId() {
+        return ID;
+    }
+
+    public static void receive(SetWeatherFromWeatherControllerC2SPacket data, ServerPlayNetworking.Context context) {
+        context.player().server.execute(() -> {
+            if(!context.player().canModifyBlocks())
                 return;
 
-            BlockEntity blockEntity = level.getBlockEntity(pos);
+            World level = context.player().getWorld();
+            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
+                return;
+
+            BlockEntity blockEntity = level.getBlockEntity(data.pos);
             if(!(blockEntity instanceof WeatherControllerBlockEntity weatherControllerBlockEntity))
                 return;
 
-            EnergyStorage energyStorage = EnergyStorage.SIDED.find(player.getWorld(), pos, null);
+            EnergyStorage energyStorage = EnergyStorage.SIDED.find(context.player().getWorld(), data.pos, null);
             if(energyStorage == null)
                 return;
 
@@ -39,13 +56,13 @@ public final class SetWeatherFromWeatherControllerC2SPacket {
 
             weatherControllerBlockEntity.clearEnergy();
 
-            switch(weatherType) {
+            switch(data.weatherType) {
                 //Clear
-                case 0 -> player.getServerWorld().setWeather(WeatherControllerBlock.WEATHER_CHANGED_TICKS, 0, false, false);
+                case 0 -> context.player().getServerWorld().setWeather(WeatherControllerBlock.WEATHER_CHANGED_TICKS, 0, false, false);
                 //Rain
-                case 1 -> player.getServerWorld().setWeather(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, false);
+                case 1 -> context.player().getServerWorld().setWeather(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, false);
                 //Thunder
-                case 2 -> player.getServerWorld().setWeather(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, true);
+                case 2 -> context.player().getServerWorld().setWeather(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, true);
             }
         });
     }

@@ -2,15 +2,13 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
-import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.SetTimeFromTimeControllerC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -35,34 +33,22 @@ public class TimeControllerScreen extends AbstractGenericEnergyStorageHandledScr
             if(isPointWithinBounds(34, 34, 18, 18, mouseX, mouseY)) {
                 //Day button
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                buf.writeInt(1000);
-                ClientPlayNetworking.send(ModMessages.SET_TIME_FROM_TIME_CONTROLLER_ID, buf);
+                ClientPlayNetworking.send(new SetTimeFromTimeControllerC2SPacket(handler.getBlockEntity().getPos(), 1000));
                 clicked = true;
             }else if(isPointWithinBounds(70, 34, 18, 18, mouseX, mouseY)) {
                 //Noon button
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                buf.writeInt(6000);
-                ClientPlayNetworking.send(ModMessages.SET_TIME_FROM_TIME_CONTROLLER_ID, buf);
+                ClientPlayNetworking.send(new SetTimeFromTimeControllerC2SPacket(handler.getBlockEntity().getPos(), 6000));
                 clicked = true;
             }else if(isPointWithinBounds(106, 34, 18, 18, mouseX, mouseY)) {
                 //Night button
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                buf.writeInt(13000);
-                ClientPlayNetworking.send(ModMessages.SET_TIME_FROM_TIME_CONTROLLER_ID, buf);
+                ClientPlayNetworking.send(new SetTimeFromTimeControllerC2SPacket(handler.getBlockEntity().getPos(), 13000));
                 clicked = true;
             }else if(isPointWithinBounds(142, 34, 18, 18, mouseX, mouseY)) {
                 //Midnight button
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                buf.writeInt(18000);
-                ClientPlayNetworking.send(ModMessages.SET_TIME_FROM_TIME_CONTROLLER_ID, buf);
+                ClientPlayNetworking.send(new SetTimeFromTimeControllerC2SPacket(handler.getBlockEntity().getPos(), 18000));
                 clicked = true;
             }
 

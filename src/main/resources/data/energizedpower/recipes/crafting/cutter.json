@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "i": {
-      "tag": "c:iron_nuggets"
+      "tag": "c:nuggets/iron"
     },
     "I": {
-      "tag": "c:iron_plates"
+      "tag": "c:plates/iron"
     },
     "S": {
       "item": "minecraft:stick"
@@ -18,6 +18,6 @@
     "S S"
   ],
   "result": {
-    "item": "energizedpower:cutter"
+    "id": "energizedpower:cutter"
   }
 }

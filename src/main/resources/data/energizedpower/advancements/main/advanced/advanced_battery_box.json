@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/battery_8",
   "display": {
     "icon": {
-      "item": "energizedpower:advanced_battery_box"
+      "id": "energizedpower:advanced_battery_box"
     },
     "title": {
       "translate": "advancements.energizedpower.advanced_battery_box.title"

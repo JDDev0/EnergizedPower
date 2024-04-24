@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
@@ -46,7 +46,7 @@ public class TeleporterMatrixSettingsCopyRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public ItemStack craft(RecipeInputInventory container, DynamicRegistryManager registryAccess) {
+    public ItemStack craft(RecipeInputInventory container, RegistryWrapper.WrapperLookup registries) {
         ItemStack linkedTransportMatrix = ItemStack.EMPTY;
         int count = 0;
 
@@ -76,7 +76,7 @@ public class TeleporterMatrixSettingsCopyRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public ItemStack getResult(DynamicRegistryManager registryAccess) {
+    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
         return new ItemStack(ModItems.TELEPORTER_MATRIX, 2);
     }
 
