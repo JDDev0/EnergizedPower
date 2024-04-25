@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:wires/iron"
+            "items": "#c:wires/copper"
           }
         ]
       }

@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:energized_copper_plates"
+            "items": "#c:plates/energized_copper"
           }
         ]
       }

@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:raw_tin_blocks"
+            "items": "#c:storage_blocks/raw_tin"
           }
         ]
       }

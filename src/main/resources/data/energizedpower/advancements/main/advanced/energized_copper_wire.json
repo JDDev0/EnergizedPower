@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:energized_copper_wires"
+            "items": "#c:wires/energized_copper"
           }
         ]
       }

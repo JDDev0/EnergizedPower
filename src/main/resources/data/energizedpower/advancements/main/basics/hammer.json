@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:hammers"
+            "items": "#c:tools/hammers"
           }
         ]
       }

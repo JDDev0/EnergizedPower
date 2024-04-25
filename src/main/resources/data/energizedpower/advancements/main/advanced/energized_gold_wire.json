@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:energized_gold_wires"
+            "items": "#c:wires/energized_gold"
           }
         ]
       }

@@ -3,7 +3,7 @@
   "display": {
     "icon": {
       "id": "energizedpower:battery_8",
-      "nbt": "{\"energy\": 1048576L}"
+      "nbt": "{\"energy\": 1048576}"
     },
     "title": {
       "translate": "advancements.energizedpower.battery_8_fully_charged.title"
@@ -22,7 +22,9 @@
         "items": [
           {
             "items": [ "energizedpower:battery_8" ],
-            "nbt": "{\"energy\": 1048576L}"
+            "components": {
+              "team_reborn_energy:energy": 1048576
+            }
           }
         ]
       }

@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:nuggets/tin"
+            "items": "#c:nuggets/tin"
           }
         ]
       }

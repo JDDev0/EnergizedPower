@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:energized_gold_plates"
+            "items": "#c:plates/energized_gold"
           }
         ]
       }

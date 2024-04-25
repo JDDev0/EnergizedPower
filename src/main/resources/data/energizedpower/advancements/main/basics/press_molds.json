@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "energizedpower:metal_press/press_molds"
+            "items": "#energizedpower:metal_press/press_molds"
           }
         ]
       }

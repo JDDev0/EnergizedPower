@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:plates/gold"
+            "items": "#c:plates/gold"
           }
         ]
       }

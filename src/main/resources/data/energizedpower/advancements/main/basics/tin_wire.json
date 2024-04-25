@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:wires/tin"
+            "items": "#c:wires/tin"
           }
         ]
       }

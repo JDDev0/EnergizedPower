@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:silicon"
+            "items": "#c:silicon"
           }
         ]
       }

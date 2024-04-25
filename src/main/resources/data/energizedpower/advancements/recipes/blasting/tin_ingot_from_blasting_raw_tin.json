@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:raw_tin_ores"
+            "items": "#c:raw_materials/tin"
           }
         ]
       }
