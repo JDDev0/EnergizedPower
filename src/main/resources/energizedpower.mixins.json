@@ -3,6 +3,7 @@
 	"package": "me.jddev0.ep.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
+		"recipe.RepairItemRecipeMixin",
 		"world.village.StructurePoolElementGetterSetter"
 	],
 	"injectors": {

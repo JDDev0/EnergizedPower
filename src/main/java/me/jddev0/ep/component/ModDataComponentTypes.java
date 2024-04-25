@@ -3,10 +3,12 @@ package me.jddev0.ep.component;
 import com.mojang.serialization.Codec;
 import me.jddev0.ep.EnergizedPowerMod;
 import net.minecraft.component.DataComponentType;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Unit;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.Direction;
 
@@ -50,6 +52,9 @@ public final class ModDataComponentTypes {
     public static final DataComponentType<DimensionalPositionComponent> DIMENSIONAL_POSITION =
             registerDataComponentType("dimensional_position", builder ->
                     builder.codec(DimensionalPositionComponent.CODEC).packetCodec(DimensionalPositionComponent.PACKET_CODEC));
+
+    public static final DataComponentType<Unit> NO_REPAIR = registerDataComponentType("no_repair", builder ->
+            builder.codec(Codec.unit(Unit.INSTANCE)).packetCodec(PacketCodec.unit(Unit.INSTANCE)));
 
     public static void register() {
 

@@ -1,10 +1,12 @@
 package me.jddev0.ep.item;
 
+import me.jddev0.ep.component.ModDataComponentTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.item.ToolMaterials;
+import net.minecraft.util.Unit;
 import net.minecraft.util.math.random.Random;
 import me.jddev0.ep.block.CableBlock;
 
@@ -12,7 +14,7 @@ public class CutterItem extends ToolItem {
     private final Random random = Random.create();
 
     public CutterItem(ToolMaterials tier, Item.Settings props) {
-        super(tier, props);
+        super(tier, props.component(ModDataComponentTypes.NO_REPAIR, Unit.INSTANCE));
     }
 
     @Override
