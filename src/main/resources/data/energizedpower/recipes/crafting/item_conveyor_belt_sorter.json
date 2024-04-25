@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "C": {
-      "tag": "forge:cobblestone/normal"
+      "tag": "c:cobblestone/normal"
     },
     "I": {
-      "tag": "forge:storage_blocks/iron"
+      "tag": "c:storage_blocks/iron"
     },
     "R": {
-      "tag": "forge:storage_blocks/redstone"
+      "tag": "c:storage_blocks/redstone"
     },
     "L": {
       "item": "energizedpower:item_conveyor_belt_loader"
@@ -21,6 +21,6 @@
     "CRC"
   ],
   "result": {
-    "item": "energizedpower:item_conveyor_belt_sorter"
+    "id": "energizedpower:item_conveyor_belt_sorter"
   }
 }

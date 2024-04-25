@@ -3,16 +3,16 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     },
     "F": {
       "item": "energizedpower:fluid_tank_small"
     },
     "c": {
-      "tag": "forge:plates/copper"
+      "tag": "c:plates/copper"
     },
     "C": {
-      "tag": "forge:storage_blocks/copper"
+      "tag": "c:storage_blocks/copper"
     },
     "H": {
       "item": "energizedpower:hardened_machine_frame"
@@ -27,6 +27,6 @@
     "CFC"
   ],
   "result": {
-    "item": "energizedpower:thermal_generator"
+    "id": "energizedpower:thermal_generator"
   }
 }

@@ -3,25 +3,25 @@
   "inputs": [
     {
       "input": {
-        "tag": "forge:gems/amethyst"
+        "tag": "c:gems/amethyst"
       },
       "count": 6
     },
     {
       "input": {
-        "tag": "forge:gems/diamond"
+        "tag": "c:gems/diamond"
       },
       "count": 2
     },
     {
       "input": {
-        "tag": "forge:gems/emerald"
+        "tag": "c:gems/emerald"
       },
       "count": 2
     },
     {
       "input": {
-        "tag": "forge:dusts/redstone"
+        "tag": "c:dusts/redstone"
       }
     }
   ],

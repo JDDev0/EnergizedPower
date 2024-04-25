@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     },
     "C": {
-      "tag": "forge:plates/copper"
+      "tag": "c:plates/copper"
     },
     "b": {
       "item": "energizedpower:battery_5"
@@ -21,6 +21,6 @@
     "SbS"
   ],
   "result": {
-    "item": "energizedpower:battery_box"
+    "id": "energizedpower:battery_box"
   }
 }

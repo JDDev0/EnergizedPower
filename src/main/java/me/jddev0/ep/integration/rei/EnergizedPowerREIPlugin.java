@@ -85,7 +85,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
 
 
         registry.add(new InWorldCategory());
-        registry.addWorkstations(InWorldCategory.CATEGORY, EntryIngredients.ofItemTag(Tags.Items.SHEARS));
+        registry.addWorkstations(InWorldCategory.CATEGORY, EntryIngredients.ofItemTag(Tags.Items.TOOLS_SHEARS));
 
         registry.add(new DispenserCategory());
         registry.addWorkstations(DispenserCategory.CATEGORY, EntryIngredients.of(Items.DISPENSER));

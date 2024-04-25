@@ -193,7 +193,7 @@ public class AdvancedPulverizerScreen extends AbstractGenericEnergyStorageContai
                         FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(menu.getTankCapacity(i)));
 
                 if(!fluidEmpty) {
-                    tooltipComponent = Component.translatable(menu.getFluid(i).getTranslationKey()).append(" ").
+                    tooltipComponent = Component.translatable(menu.getFluid(i).getDescriptionId()).append(" ").
                             append(tooltipComponent);
                 }
 

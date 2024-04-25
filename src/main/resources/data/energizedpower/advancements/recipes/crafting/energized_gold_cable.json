@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:ingots/energized_gold"
+            "items": "#c:ingots/energized_gold"
           }
         ]
       }

@@ -2,7 +2,7 @@
   "type": "energizedpower:metal_press",
   "ingredient": [
     {
-      "tag": "forge:plates/tin"
+      "tag": "c:plates/tin"
     }
   ],
   "pressMold": {

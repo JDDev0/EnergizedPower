@@ -7,6 +7,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.config.ModConfigs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -26,15 +27,15 @@ public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
+    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         nbt.putInt("current_input_index", currentInputIndex);
 
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
         currentInputIndex = nbt.getInt("current_input_index");
     }

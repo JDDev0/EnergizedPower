@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "G": {
-      "tag": "forge:glass_panes/colorless"
+      "tag": "c:glass_panes/colorless"
     },
     "C": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     "R": {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     },
     "S": {
       "item": "energizedpower:solar_panel_1"
@@ -24,6 +24,6 @@
     "CRC"
   ],
   "result": {
-    "item": "energizedpower:solar_panel_2"
+    "id": "energizedpower:solar_panel_2"
   }
 }

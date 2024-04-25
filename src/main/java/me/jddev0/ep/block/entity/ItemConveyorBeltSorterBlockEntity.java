@@ -9,6 +9,7 @@ import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.screen.ItemConveyorBeltSorterMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -100,30 +101,30 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("pattern", savePatternContainer());
+    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        nbt.put("pattern", savePatternContainer(registries));
 
         for(int i = 0;i < 3;i++)
             nbt.putBoolean("recipe.whitelist." + i, whitelist[i]);
         for(int i = 0;i < 3;i++)
             nbt.putBoolean("recipe.ignore_nbt." + i, ignoreNBT[i]);
 
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
-    private Tag savePatternContainer() {
+    private Tag savePatternContainer(HolderLookup.Provider registries) {
         NonNullList<ItemStack> items = NonNullList.withSize(patternSlots.getContainerSize(), ItemStack.EMPTY);
         for(int i = 0;i < patternSlots.getContainerSize();i++)
             items.set(i, patternSlots.getItem(i));
 
-        return ContainerHelper.saveAllItems(new CompoundTag(), items);
+        return ContainerHelper.saveAllItems(new CompoundTag(), items, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
-        loadPatternContainer(nbt.getCompound("pattern"));
+        loadPatternContainer(nbt.getCompound("pattern"), registries);
 
         for(int i = 0;i < 3;i++)
             whitelist[i] = nbt.getBoolean("recipe.whitelist." + i);
@@ -131,11 +132,11 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
             ignoreNBT[i] = nbt.getBoolean("recipe.ignore_nbt." + i);
     }
 
-    private void loadPatternContainer(CompoundTag tag) {
+    private void loadPatternContainer(CompoundTag tag, HolderLookup.Provider registries) {
         patternSlots.removeListener(updatePatternListener);
 
         NonNullList<ItemStack> items = NonNullList.withSize(patternSlots.getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag, items);
+        ContainerHelper.loadAllItems(tag, items, registries);
         for(int i = 0;i < patternSlots.getContainerSize();i++)
             patternSlots.setItem(i, items.get(i));
 
@@ -245,7 +246,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
                 continue;
 
             if(blockEntity.ignoreNBT[index]?ItemStack.isSameItem(itemStackToSort, patternItemStack):
-                    ItemStack.isSameItemSameTags(itemStackToSort, patternItemStack))
+                    ItemStack.isSameItemSameComponents(itemStackToSort, patternItemStack))
                 return blockEntity.whitelist[index];
         }
 

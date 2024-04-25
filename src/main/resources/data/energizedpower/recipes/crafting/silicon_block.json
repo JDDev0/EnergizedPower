@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "S": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     }
   },
   "pattern": [
@@ -12,6 +12,6 @@
     "SSS"
   ],
   "result": {
-    "item": "energizedpower:silicon_block"
+    "id": "energizedpower:silicon_block"
   }
 }

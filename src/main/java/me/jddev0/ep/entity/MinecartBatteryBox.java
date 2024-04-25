@@ -76,10 +76,10 @@ public class MinecartBatteryBox extends AbstractMinecartBatteryBox {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
+    protected void defineSynchedData(SynchedEntityData.Builder builer) {
+        super.defineSynchedData(builer);
 
-        entityData.define(DATA_ID_ENERGY, 0);
+        builer.define(DATA_ID_ENERGY, 0);
     }
 
     @Override

@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:gems/diamond"
+            "items": "#c:gems/diamond"
           }
         ]
       }

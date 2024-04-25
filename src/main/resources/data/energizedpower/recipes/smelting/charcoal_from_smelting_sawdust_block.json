@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "energizedpower:sawdust_block"
   },
-  "result": "minecraft:charcoal"
+  "result": {
+    "id": "minecraft:charcoal"
+  }
 }

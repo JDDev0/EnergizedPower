@@ -20,9 +20,11 @@ import me.jddev0.ep.screen.AdvancedPulverizerMenu;
 import me.jddev0.ep.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
@@ -72,7 +74,7 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements MenuPr
         public void setStackInSlot(int slot, @NotNull ItemStack stack) {
             if(slot == 0) {
                 ItemStack itemStack = getStackInSlot(slot);
-                if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameTags(stack, itemStack))
+                if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
                     resetProgress(worldPosition, level.getBlockState(worldPosition));
             }
 
@@ -106,7 +108,7 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements MenuPr
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
                             new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
-                            getBlockPos(), level.dimension(), 32
+                            getBlockPos(), (ServerLevel)level, 32
                     );
             }
         };
@@ -122,7 +124,7 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements MenuPr
                     for(int i = 0;i < getTanks();i++)
                         ModMessages.sendToPlayersWithinXBlocks(
                                 new FluidSyncS2CPacket(i, getFluidInTank(i), getTankCapacity(i), getBlockPos()),
-                                getBlockPos(), level.dimension(), 32
+                                getBlockPos(), (ServerLevel)level, 32
                         );
             }
 
@@ -132,8 +134,8 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements MenuPr
                     return false;
 
                 return switch(tank) {
-                    case 0 -> stack.isFluidEqual(new FluidStack(Fluids.WATER, 1));
-                    case 1 -> stack.isFluidEqual(new FluidStack(ModFluids.DIRTY_WATER.get(), 1));
+                    case 0 -> FluidStack.isSameFluid(stack, new FluidStack(Fluids.WATER, 1));
+                    case 1 -> FluidStack.isSameFluid(stack, new FluidStack(ModFluids.DIRTY_WATER.get(), 1));
                     default -> false;
                 };
             }
@@ -214,11 +216,11 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements MenuPr
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("inventory", itemHandler.serializeNBT());
+    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        nbt.put("inventory", itemHandler.serializeNBT(registries));
         nbt.put("energy", energyStorage.saveNBT());
         for(int i = 0;i < fluidStorage.getTanks();i++)
-            nbt.put("fluid." + i, fluidStorage.getFluid(i).writeToNBT(new CompoundTag()));
+            nbt.put("fluid." + i, fluidStorage.getFluid(i).saveOptional(registries));
 
         nbt.put("recipe.progress", IntTag.valueOf(progress));
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
@@ -226,17 +228,17 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements MenuPr
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
         energyStorage.loadNBT(nbt.get("energy"));
         for(int i = 0;i < fluidStorage.getTanks();i++)
-            fluidStorage.setFluid(i, FluidStack.loadFluidStackFromNBT(nbt.getCompound("fluid." + i)));
+            fluidStorage.setFluid(i, FluidStack.parseOptional(registries, nbt.getCompound("fluid." + i)));
 
         progress = nbt.getInt("recipe.progress");
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
@@ -357,14 +359,14 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements MenuPr
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
         ItemStack inventoryItemStack = inventory.getItem(1);
 
-        return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameTags(inventoryItemStack, itemStack)) &&
+        return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameComponents(inventoryItemStack, itemStack)) &&
                 inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount();
     }
 
     private static boolean canInsertItemIntoSecondaryOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
         ItemStack inventoryItemStack = inventory.getItem(2);
 
-        return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameTags(inventoryItemStack, itemStack)) &&
+        return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameComponents(inventoryItemStack, itemStack)) &&
                 inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount();
     }
 

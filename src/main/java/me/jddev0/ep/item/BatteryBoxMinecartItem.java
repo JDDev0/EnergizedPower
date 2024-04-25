@@ -6,6 +6,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.network.chat.Component;
@@ -59,7 +60,7 @@ public class BatteryBoxMinecartItem extends Item {
 
             MinecartBatteryBox minecartBatteryBox = new MinecartBatteryBox(level, xOffset,
                     yOffset + additionalYOffset, zOffset);
-            if(itemStack.hasCustomHoverName())
+            if(itemStack.has(DataComponents.CUSTOM_NAME))
                 minecartBatteryBox.setCustomName(itemStack.getHoverName());
 
             level.addFreshEntity(minecartBatteryBox);
@@ -75,7 +76,7 @@ public class BatteryBoxMinecartItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
+    public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag flag) {
         if(Screen.hasShiftDown()) {
             components.add(Component.translatable("tooltip.energizedpower.capacity.txt",
                             EnergyUtils.getEnergyWithPrefix(MinecartBatteryBox.CAPACITY)).
@@ -105,7 +106,7 @@ public class BatteryBoxMinecartItem extends Item {
 
             MinecartBatteryBox minecartBatteryBox = new MinecartBatteryBox(level, blockPos.getX() + .5,
                     blockPos.getY() + .0625 + yOffset, blockPos.getZ() + .5);
-            if(itemStack.hasCustomHoverName())
+            if(itemStack.has(DataComponents.CUSTOM_NAME))
                 minecartBatteryBox.setCustomName(itemStack.getHoverName());
 
             level.addFreshEntity(minecartBatteryBox);

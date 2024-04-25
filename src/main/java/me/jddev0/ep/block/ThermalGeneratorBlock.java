@@ -65,7 +65,7 @@ public class ThermalGeneratorBlock extends BaseEntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos blockPos, Player player, InteractionHand handItem, BlockHitResult hit) {
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
         if(level.isClientSide())
             return InteractionResult.sidedSuccess(level.isClientSide());
 

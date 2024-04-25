@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:wires/tin"
+            "items": "#c:wires/tin"
           }
         ]
       }

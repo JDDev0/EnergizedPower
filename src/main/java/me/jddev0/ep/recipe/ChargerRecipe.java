@@ -1,13 +1,14 @@
 package me.jddev0.ep.recipe;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.SimpleContainer;
@@ -47,7 +48,7 @@ public class ChargerRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container, RegistryAccess registryAccess) {
+    public ItemStack assemble(SimpleContainer container, HolderLookup.Provider registries) {
         return output;
     }
 
@@ -57,7 +58,7 @@ public class ChargerRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
         return output.copy();
     }
 
@@ -101,7 +102,7 @@ public class ChargerRecipe implements Recipe<SimpleContainer> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "charger");
 
-        private final Codec<ChargerRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<ChargerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
             }), Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
@@ -111,25 +112,31 @@ public class ChargerRecipe implements Recipe<SimpleContainer> {
             })).apply(instance, ChargerRecipe::new);
         });
 
+        private final StreamCodec<RegistryFriendlyByteBuf, ChargerRecipe> STREAM_CODEC = StreamCodec.of(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<ChargerRecipe> codec() {
+        public MapCodec<ChargerRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public ChargerRecipe fromNetwork(FriendlyByteBuf buffer) {
-            Ingredient input = Ingredient.fromNetwork(buffer);
+        public StreamCodec<RegistryFriendlyByteBuf, ChargerRecipe> streamCodec() {
+            return STREAM_CODEC;
+        }
+
+        private static ChargerRecipe read(RegistryFriendlyByteBuf buffer) {
+            Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             int energyConsumption = buffer.readInt();
-            ItemStack output = buffer.readItem();
+            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new ChargerRecipe(output, input, energyConsumption);
         }
 
-        @Override
-        public void toNetwork(FriendlyByteBuf buffer, ChargerRecipe recipe) {
-            recipe.input.toNetwork(buffer);
+        private static void write(RegistryFriendlyByteBuf buffer, ChargerRecipe recipe) {
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
             buffer.writeInt(recipe.energyConsumption);
-            buffer.writeItem(recipe.output);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
 }

@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/tin_cable",
   "display": {
     "icon": {
-      "item": "energizedpower:copper_cable"
+      "id": "energizedpower:copper_cable"
     },
     "title": {
       "translate": "advancements.energizedpower.copper_cable.title"

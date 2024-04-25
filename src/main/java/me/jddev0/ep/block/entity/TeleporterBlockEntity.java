@@ -12,14 +12,12 @@ import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.TeleporterMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Vec3i;
+import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -111,7 +109,7 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
                             new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
-                            getBlockPos(), level.dimension(), 32
+                            getBlockPos(), (ServerLevel)level, 32
                     );
             }
         };
@@ -147,18 +145,18 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("inventory", itemHandler.serializeNBT());
+    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        nbt.put("inventory", itemHandler.serializeNBT(registries));
         nbt.put("energy", energyStorage.saveNBT());
 
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
         energyStorage.loadNBT(nbt.get("energy"));
     }
 
@@ -347,8 +345,10 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
             return;
         }
 
-        ResourceLocation fromDimensionTypeId = level.dimensionTypeId().location();
-        ResourceLocation toDimensionTypeId = toDimension.dimensionTypeId().location();
+        ResourceLocation fromDimensionTypeId = level.dimensionTypeRegistration().unwrapKey().
+                map(ResourceKey::location).orElse(new ResourceLocation("empty"));
+        ResourceLocation toDimensionTypeId = toDimension.dimensionTypeRegistration().unwrapKey().
+                map(ResourceKey::location).orElse(new ResourceLocation("empty"));
 
         //Dimension Type Blacklist
         if(TeleporterBlockEntity.DIMENSION_TYPE_BLACKLIST.contains(fromDimensionTypeId)) {

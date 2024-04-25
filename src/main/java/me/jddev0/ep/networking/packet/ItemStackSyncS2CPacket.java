@@ -3,40 +3,40 @@ package me.jddev0.ep.networking.packet;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.inventory.ItemStackPacketUpdate;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
 public record ItemStackSyncS2CPacket(int slot, ItemStack itemStack, BlockPos pos) implements CustomPacketPayload {
-    public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "item_stack_sync");
+    public static final Type<ItemStackSyncS2CPacket> ID =
+            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "item_stack_sync"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, ItemStackSyncS2CPacket> STREAM_CODEC =
+            StreamCodec.ofMember(ItemStackSyncS2CPacket::write, ItemStackSyncS2CPacket::new);
 
-    public ItemStackSyncS2CPacket(FriendlyByteBuf buffer) {
-        this(buffer.readInt(), buffer.readItem(), buffer.readBlockPos());
+    public ItemStackSyncS2CPacket(RegistryFriendlyByteBuf buffer) {
+        this(buffer.readInt(), ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer), buffer.readBlockPos());
     }
 
-    @Override
-    public void write(final FriendlyByteBuf buffer) {
+     public void write(RegistryFriendlyByteBuf buffer) {
         buffer.writeInt(slot);
-        buffer.writeItem(itemStack);
+        ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, itemStack);
         buffer.writeBlockPos(pos);
     }
 
     @Override
     @NotNull
-    public ResourceLocation id() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 
-    public static void handle(final ItemStackSyncS2CPacket data, final PlayPayloadContext context) {
-        context.workHandler().execute(() -> {
-            if(context.level().isEmpty())
-                return;
-
-            BlockEntity blockEntity = context.level().get().getBlockEntity(data.pos);
+    public static void handle(ItemStackSyncS2CPacket data, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            BlockEntity blockEntity = context.player().level().getBlockEntity(data.pos);
 
             //BlockEntity
             if(blockEntity instanceof ItemStackPacketUpdate) {

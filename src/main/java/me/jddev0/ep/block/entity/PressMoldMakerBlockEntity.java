@@ -9,9 +9,11 @@ import me.jddev0.ep.screen.PressMoldMakerMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
@@ -49,7 +51,7 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements MenuProvid
                     List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> recipeList = createRecipeList();
                     ModMessages.sendToPlayersWithinXBlocks(
                             new SyncPressMoldMakerRecipeListS2CPacket(getBlockPos(), recipeList),
-                            getBlockPos(), level.dimension(), 32
+                            getBlockPos(), (ServerLevel)level, 32
                     );
                 }
             }
@@ -96,17 +98,17 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements MenuProvid
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("inventory", itemHandler.serializeNBT());
+    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        nbt.put("inventory", itemHandler.serializeNBT(registries));
 
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -140,7 +142,7 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements MenuProvid
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
         ItemStack inventoryItemStack = inventory.getItem(1);
 
-        return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameTags(inventoryItemStack, itemStack)) &&
+        return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameComponents(inventoryItemStack, itemStack)) &&
                 inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount();
     }
 

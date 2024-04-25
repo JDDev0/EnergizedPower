@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/hardened_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:transformer_1_to_n"
+      "id": "energizedpower:transformer_1_to_n"
     },
     "title": {
       "translate": "advancements.energizedpower.mv_transformers.title"

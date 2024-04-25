@@ -7,7 +7,7 @@
       "item": "energizedpower:cable_insulator"
     },
     "E": {
-      "tag": "forge:ingots/energized_gold"
+      "tag": "c:ingots/energized_gold"
     }
   },
   "pattern": [
@@ -16,7 +16,7 @@
     "IEI"
   ],
   "result": {
-    "item": "energizedpower:energized_gold_cable",
+    "id": "energizedpower:energized_gold_cable",
     "count": 3
   }
 }

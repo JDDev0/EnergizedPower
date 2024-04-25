@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "L": {
-      "tag": "forge:leather"
+      "tag": "c:leather"
     },
     "I": {
-      "tag": "forge:plates/iron"
+      "tag": "c:plates/iron"
     },
     "R": {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     }
   },
   "pattern": [
@@ -18,7 +18,7 @@
     "IRI"
   ],
   "result": {
-    "item": "energizedpower:item_conveyor_belt",
+    "id": "energizedpower:item_conveyor_belt",
     "count": 6
   }
 }

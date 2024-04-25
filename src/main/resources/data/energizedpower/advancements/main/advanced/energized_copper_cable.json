@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/energizedpower_advanced",
   "display": {
     "icon": {
-      "item": "energizedpower:energized_copper_cable"
+      "id": "energizedpower:energized_copper_cable"
     },
     "title": {
       "translate": "advancements.energizedpower.energized_copper_cable.title"

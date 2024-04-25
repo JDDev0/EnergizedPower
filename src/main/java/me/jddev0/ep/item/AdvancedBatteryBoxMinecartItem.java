@@ -6,6 +6,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.network.chat.Component;
@@ -21,7 +22,6 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.level.gameevent.GameEvent;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
 
             MinecartAdvancedBatteryBox minecartAdvancedBatteryBox = new MinecartAdvancedBatteryBox(level, xOffset,
                     yOffset + additionalYOffset, zOffset);
-            if(itemStack.hasCustomHoverName())
+            if(itemStack.has(DataComponents.CUSTOM_NAME))
                 minecartAdvancedBatteryBox.setCustomName(itemStack.getHoverName());
 
             level.addFreshEntity(minecartAdvancedBatteryBox);
@@ -75,7 +75,7 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
+    public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag flag) {
         if(Screen.hasShiftDown()) {
             components.add(Component.translatable("tooltip.energizedpower.capacity.txt",
                             EnergyUtils.getEnergyWithPrefix(MinecartAdvancedBatteryBox.CAPACITY)).
@@ -105,7 +105,7 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
 
             MinecartAdvancedBatteryBox minecartAdvancedBatteryBox = new MinecartAdvancedBatteryBox(level,
                     blockPos.getX() + .5, blockPos.getY() + .0625 + yOffset, blockPos.getZ() + .5);
-            if(itemStack.hasCustomHoverName())
+            if(itemStack.has(DataComponents.CUSTOM_NAME))
                 minecartAdvancedBatteryBox.setCustomName(itemStack.getHoverName());
 
             level.addFreshEntity(minecartAdvancedBatteryBox);

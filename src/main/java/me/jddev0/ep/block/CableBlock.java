@@ -238,7 +238,7 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
         }
 
         @Override
-        public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
+        public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag flag) {
             if(Screen.hasShiftDown()) {
                 components.add(Component.translatable("tooltip.energizedpower.cable.txt.shift.1",
                         EnergyUtils.getEnergyWithPrefix(tier.getMaxTransfer())).withStyle(ChatFormatting.GRAY));

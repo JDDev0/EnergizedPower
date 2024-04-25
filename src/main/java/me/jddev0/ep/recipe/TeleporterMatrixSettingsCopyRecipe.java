@@ -2,15 +2,14 @@ package me.jddev0.ep.recipe;
 
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BannerBlockEntity;
 
 public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
     public TeleporterMatrixSettingsCopyRecipe(CraftingBookCategory category) {
@@ -47,7 +46,7 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer container, RegistryAccess registryAccess) {
+    public ItemStack assemble(CraftingContainer container, HolderLookup.Provider registries) {
         ItemStack linkedTransportMatrix = ItemStack.EMPTY;
         int count = 0;
 
@@ -77,7 +76,7 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
         return new ItemStack(ModItems.TELEPORTER_MATRIX.get(), 2);
     }
 

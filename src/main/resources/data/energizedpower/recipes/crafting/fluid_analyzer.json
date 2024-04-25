@@ -6,10 +6,10 @@
       "item": "energizedpower:basic_circuit"
     },
     "S": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     },
     "C": {
-      "tag": "forge:plates/copper"
+      "tag": "c:plates/copper"
     },
     "L": {
       "item": "minecraft:lapis_lazuli"
@@ -24,6 +24,6 @@
     "CBC"
   ],
   "result": {
-    "item": "energizedpower:fluid_analyzer"
+    "id": "energizedpower:fluid_analyzer"
   }
 }

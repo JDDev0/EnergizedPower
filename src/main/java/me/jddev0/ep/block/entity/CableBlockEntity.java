@@ -6,6 +6,7 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -280,16 +281,16 @@ public class CableBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
+    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         if(ENERGY_EXTRACTION_MODE.isPush())
             nbt.put("energy", energyStorage.saveNBT());
 
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
         if(ENERGY_EXTRACTION_MODE.isPush())
             energyStorage.loadNBT(nbt.get("energy"));

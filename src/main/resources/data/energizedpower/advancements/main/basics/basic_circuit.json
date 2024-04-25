@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/copper_wire",
   "display": {
     "icon": {
-      "item": "energizedpower:basic_circuit"
+      "id": "energizedpower:basic_circuit"
     },
     "title": {
       "translate": "advancements.energizedpower.basic_circuit.title"

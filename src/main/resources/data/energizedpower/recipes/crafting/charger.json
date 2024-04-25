@@ -3,19 +3,19 @@
   "category": "misc",
   "key": {
     "s": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     },
     "I": {
-      "tag": "forge:plates/iron"
+      "tag": "c:plates/iron"
     },
     "C": {
-      "tag": "forge:plates/copper"
+      "tag": "c:plates/copper"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
     },
     "S": {
-      "tag": "forge:storage_blocks/silicon"
+      "tag": "c:storage_blocks/silicon"
     }
   },
   "pattern": [
@@ -24,6 +24,6 @@
     "CSC"
   ],
   "result": {
-    "item": "energizedpower:charger"
+    "id": "energizedpower:charger"
   }
 }

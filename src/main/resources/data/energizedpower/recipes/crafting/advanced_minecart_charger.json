@@ -3,19 +3,19 @@
   "category": "misc",
   "key": {
     "G": {
-      "tag": "forge:storage_blocks/gold"
+      "tag": "c:storage_blocks/gold"
     },
     "g": {
-      "tag": "forge:plates/energized_gold"
+      "tag": "c:plates/energized_gold"
     },
     "C": {
-      "tag": "forge:storage_blocks/copper"
+      "tag": "c:storage_blocks/copper"
     },
     "c": {
-      "tag": "forge:plates/energized_copper"
+      "tag": "c:plates/energized_copper"
     },
     "S": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     },
     "H": {
       "item": "energizedpower:advanced_charger"
@@ -27,6 +27,6 @@
     "cCc"
   ],
   "result": {
-    "item": "energizedpower:advanced_minecart_charger"
+    "id": "energizedpower:advanced_minecart_charger"
   }
 }

@@ -1,112 +1,84 @@
 package me.jddev0.ep.networking;
 
-import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.networking.packet.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.*;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent;
-import net.neoforged.neoforge.network.registration.IPayloadRegistrar;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 public final class ModMessages {
     private ModMessages() {}
 
-    public static void register(final RegisterPayloadHandlerEvent event) {
-        final IPayloadRegistrar registrar = event.registrar(EnergizedPowerMod.MODID).
-                versioned("1.0");
+    public static void register(final RegisterPayloadHandlersEvent event) {
+        final PayloadRegistrar registrar = event.registrar("1.0");
 
         //Server -> Client
-        registrar.play(EnergySyncS2CPacket.ID, EnergySyncS2CPacket::new, handler -> handler.
-                client(EnergySyncS2CPacket::handle));
-
-        registrar.play(FluidSyncS2CPacket.ID, FluidSyncS2CPacket::new, handler -> handler.
-                client(FluidSyncS2CPacket::handle));
-
-        registrar.play(ItemStackSyncS2CPacket.ID, ItemStackSyncS2CPacket::new, handler -> handler.
-                client(ItemStackSyncS2CPacket::handle));
-
-        registrar.play(OpenEnergizedPowerBookS2CPacket.ID, OpenEnergizedPowerBookS2CPacket::new, handler -> handler.
-                client(OpenEnergizedPowerBookS2CPacket::handle));
-
-        registrar.play(SyncPressMoldMakerRecipeListS2CPacket.ID, SyncPressMoldMakerRecipeListS2CPacket::new, handler -> handler.
-                client(SyncPressMoldMakerRecipeListS2CPacket::handle));
-
-        registrar.play(SyncStoneSolidifierCurrentRecipeS2CPacket.ID, SyncStoneSolidifierCurrentRecipeS2CPacket::new, handler -> handler.
-                client(SyncStoneSolidifierCurrentRecipeS2CPacket::handle));
-
-        registrar.play(SyncFiltrationPlantCurrentRecipeS2CPacket.ID, SyncFiltrationPlantCurrentRecipeS2CPacket::new, handler -> handler.
-                client(SyncFiltrationPlantCurrentRecipeS2CPacket::handle));
+        registrar.playToClient(EnergySyncS2CPacket.ID, EnergySyncS2CPacket.STREAM_CODEC,
+                EnergySyncS2CPacket::handle);
+        registrar.playToClient(FluidSyncS2CPacket.ID, FluidSyncS2CPacket.STREAM_CODEC,
+                FluidSyncS2CPacket::handle);
+        registrar.playToClient(ItemStackSyncS2CPacket.ID, ItemStackSyncS2CPacket.STREAM_CODEC,
+                ItemStackSyncS2CPacket::handle);
+        registrar.playToClient(OpenEnergizedPowerBookS2CPacket.ID, OpenEnergizedPowerBookS2CPacket.STREAM_CODEC,
+                OpenEnergizedPowerBookS2CPacket::handle);
+        registrar.playToClient(SyncPressMoldMakerRecipeListS2CPacket.ID, SyncPressMoldMakerRecipeListS2CPacket.STREAM_CODEC,
+                SyncPressMoldMakerRecipeListS2CPacket::handle);
+        registrar.playToClient(SyncStoneSolidifierCurrentRecipeS2CPacket.ID, SyncStoneSolidifierCurrentRecipeS2CPacket.STREAM_CODEC,
+                SyncStoneSolidifierCurrentRecipeS2CPacket::handle);
+        registrar.playToClient(SyncFiltrationPlantCurrentRecipeS2CPacket.ID, SyncFiltrationPlantCurrentRecipeS2CPacket.STREAM_CODEC,
+                SyncFiltrationPlantCurrentRecipeS2CPacket::handle);
 
         //Client -> Server
-        registrar.play(PopEnergizedPowerBookFromLecternC2SPacket.ID, PopEnergizedPowerBookFromLecternC2SPacket::new, handler -> handler.
-                server(PopEnergizedPowerBookFromLecternC2SPacket::handle));
-
-        registrar.play(SetAutoCrafterPatternInputSlotsC2SPacket.ID, SetAutoCrafterPatternInputSlotsC2SPacket::new, handler -> handler.
-                server(SetAutoCrafterPatternInputSlotsC2SPacket::handle));
-
-        registrar.play(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket.ID, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::new, handler -> handler.
-                server(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::handle));
-
-        registrar.play(SetWeatherFromWeatherControllerC2SPacket.ID, SetWeatherFromWeatherControllerC2SPacket::new, handler -> handler.
-                server(SetWeatherFromWeatherControllerC2SPacket::handle));
-
-        registrar.play(SetTimeFromTimeControllerC2SPacket.ID, SetTimeFromTimeControllerC2SPacket::new, handler -> handler.
-                server(SetTimeFromTimeControllerC2SPacket::handle));
-
-        registrar.play(UseTeleporterC2SPacket.ID, UseTeleporterC2SPacket::new, handler -> handler.
-                server(UseTeleporterC2SPacket::handle));
-
-        registrar.play(SetCheckboxC2SPacket.ID, SetCheckboxC2SPacket::new, handler -> handler.
-                server(SetCheckboxC2SPacket::handle));
-
-        registrar.play(SetAdvancedAutoCrafterRecipeIndexC2SPacket.ID, SetAdvancedAutoCrafterRecipeIndexC2SPacket::new, handler -> handler.
-                server(SetAdvancedAutoCrafterRecipeIndexC2SPacket::handle));
-
-        registrar.play(CycleAutoCrafterRecipeOutputC2SPacket.ID, CycleAutoCrafterRecipeOutputC2SPacket::new, handler -> handler.
-                server(CycleAutoCrafterRecipeOutputC2SPacket::handle));
-
-        registrar.play(CycleAdvancedAutoCrafterRecipeOutputC2SPacket.ID, CycleAdvancedAutoCrafterRecipeOutputC2SPacket::new, handler -> handler.
-                server(CycleAdvancedAutoCrafterRecipeOutputC2SPacket::handle));
-
-        registrar.play(CraftPressMoldMakerRecipeC2SPacket.ID, CraftPressMoldMakerRecipeC2SPacket::new, handler -> handler.
-                server(CraftPressMoldMakerRecipeC2SPacket::handle));
-
-        registrar.play(ChangeStoneSolidifierRecipeIndexC2SPacket.ID, ChangeStoneSolidifierRecipeIndexC2SPacket::new, handler -> handler.
-                server(ChangeStoneSolidifierRecipeIndexC2SPacket::handle));
-
-        registrar.play(ChangeRedstoneModeC2SPacket.ID, ChangeRedstoneModeC2SPacket::new, handler -> handler.
-                server(ChangeRedstoneModeC2SPacket::handle));
-
-        registrar.play(SetFluidTankFilterC2SPacket.ID, SetFluidTankFilterC2SPacket::new, handler -> handler.
-                server(SetFluidTankFilterC2SPacket::handle));
-
-        registrar.play(ChangeFiltrationPlantRecipeIndexC2SPacket.ID, ChangeFiltrationPlantRecipeIndexC2SPacket::new, handler -> handler.
-                server(ChangeFiltrationPlantRecipeIndexC2SPacket::handle));
-
-        registrar.play(ChangeComparatorModeC2SPacket.ID, ChangeComparatorModeC2SPacket::new, handler -> handler.
-                server(ChangeComparatorModeC2SPacket::handle));
+        registrar.playToServer(PopEnergizedPowerBookFromLecternC2SPacket.ID, PopEnergizedPowerBookFromLecternC2SPacket.STREAM_CODEC,
+                PopEnergizedPowerBookFromLecternC2SPacket::handle);
+        registrar.playToServer(SetAutoCrafterPatternInputSlotsC2SPacket.ID, SetAutoCrafterPatternInputSlotsC2SPacket.STREAM_CODEC,
+                SetAutoCrafterPatternInputSlotsC2SPacket::handle);
+        registrar.playToServer(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket.ID, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket.STREAM_CODEC,
+                SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::handle);
+        registrar.playToServer(SetWeatherFromWeatherControllerC2SPacket.ID, SetWeatherFromWeatherControllerC2SPacket.STREAM_CODEC,
+                SetWeatherFromWeatherControllerC2SPacket::handle);
+        registrar.playToServer(SetTimeFromTimeControllerC2SPacket.ID, SetTimeFromTimeControllerC2SPacket.STREAM_CODEC,
+                SetTimeFromTimeControllerC2SPacket::handle);
+        registrar.playToServer(UseTeleporterC2SPacket.ID, UseTeleporterC2SPacket.STREAM_CODEC,
+                UseTeleporterC2SPacket::handle);
+        registrar.playToServer(SetCheckboxC2SPacket.ID, SetCheckboxC2SPacket.STREAM_CODEC,
+                SetCheckboxC2SPacket::handle);
+        registrar.playToServer(SetAdvancedAutoCrafterRecipeIndexC2SPacket.ID, SetAdvancedAutoCrafterRecipeIndexC2SPacket.STREAM_CODEC,
+                SetAdvancedAutoCrafterRecipeIndexC2SPacket::handle);
+        registrar.playToServer(CycleAutoCrafterRecipeOutputC2SPacket.ID, CycleAutoCrafterRecipeOutputC2SPacket.STREAM_CODEC,
+                CycleAutoCrafterRecipeOutputC2SPacket::handle);
+        registrar.playToServer(CycleAdvancedAutoCrafterRecipeOutputC2SPacket.ID, CycleAdvancedAutoCrafterRecipeOutputC2SPacket.STREAM_CODEC,
+                CycleAdvancedAutoCrafterRecipeOutputC2SPacket::handle);
+        registrar.playToServer(CraftPressMoldMakerRecipeC2SPacket.ID, CraftPressMoldMakerRecipeC2SPacket.STREAM_CODEC,
+                CraftPressMoldMakerRecipeC2SPacket::handle);
+        registrar.playToServer(ChangeStoneSolidifierRecipeIndexC2SPacket.ID, ChangeStoneSolidifierRecipeIndexC2SPacket.STREAM_CODEC,
+                ChangeStoneSolidifierRecipeIndexC2SPacket::handle);
+        registrar.playToServer(ChangeRedstoneModeC2SPacket.ID, ChangeRedstoneModeC2SPacket.STREAM_CODEC,
+                ChangeRedstoneModeC2SPacket::handle);
+        registrar.playToServer(SetFluidTankFilterC2SPacket.ID, SetFluidTankFilterC2SPacket.STREAM_CODEC,
+                SetFluidTankFilterC2SPacket::handle);
+        registrar.playToServer(ChangeFiltrationPlantRecipeIndexC2SPacket.ID, ChangeFiltrationPlantRecipeIndexC2SPacket.STREAM_CODEC,
+                ChangeFiltrationPlantRecipeIndexC2SPacket::handle);
+        registrar.playToServer(ChangeComparatorModeC2SPacket.ID, ChangeComparatorModeC2SPacket.STREAM_CODEC,
+                ChangeComparatorModeC2SPacket::handle);
     }
 
     public static void sendToServer(CustomPacketPayload message) {
-        PacketDistributor.SERVER.noArg().send(message);
+        PacketDistributor.sendToServer(message);
     }
 
     public static void sendToPlayer(CustomPacketPayload message, ServerPlayer player) {
-        PacketDistributor.PLAYER.with(player).send(message);
+        PacketDistributor.sendToPlayer(player, message);
     }
 
-    public static void sendToPlayerNear(CustomPacketPayload message, PacketDistributor.TargetPoint targetPoint) {
-        PacketDistributor.NEAR.with(targetPoint).send(message);
-    }
-
-    public static void sendToPlayersWithinXBlocks(CustomPacketPayload message, BlockPos pos, ResourceKey<Level> dimension, int distance) {
-        PacketDistributor.NEAR.with(new PacketDistributor.TargetPoint(pos.getX(), pos.getY(), pos.getZ(), distance, dimension)).send(message);
+    public static void sendToPlayersWithinXBlocks(CustomPacketPayload message, BlockPos pos, ServerLevel level, int distance) {
+        PacketDistributor.sendToPlayersNear(level, null, pos.getX(), pos.getY(), pos.getZ(), distance, message);
     }
 
     public static void sendToAllPlayers(CustomPacketPayload message) {
-        PacketDistributor.ALL.noArg().send(message);
+        PacketDistributor.sendToAllPlayers(message);
     }
 }

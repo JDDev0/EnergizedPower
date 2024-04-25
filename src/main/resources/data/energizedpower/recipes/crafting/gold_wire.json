@@ -3,14 +3,14 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "forge:tools/cutters"
+      "tag": "c:tools/cutters"
     },
     {
-      "tag": "forge:plates/gold"
+      "tag": "c:plates/gold"
     }
   ],
   "result": {
-    "item": "energizedpower:gold_wire",
+    "id": "energizedpower:gold_wire",
     "count": 2
   }
 }

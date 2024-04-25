@@ -209,7 +209,7 @@ public class FluidTankScreen extends AbstractContainerScreen<FluidTankMenu> {
                     FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(menu.getTankCapacity(0)));
 
             if(!fluidEmpty) {
-                tooltipComponent = Component.translatable(menu.getFluid(0).getTranslationKey()).append(" ").
+                tooltipComponent = Component.translatable(menu.getFluid(0).getDescriptionId()).append(" ").
                         append(tooltipComponent);
             }
 
@@ -238,7 +238,7 @@ public class FluidTankScreen extends AbstractContainerScreen<FluidTankMenu> {
                 components.add(Component.translatable("tooltip.energizedpower.fluid_tanks.fluid_filter.no_filter_set"));
             else
                 components.add(Component.translatable("tooltip.energizedpower.fluid_tanks.fluid_filter.filter_set",
-                        Component.translatable(fluidFilter.getTranslationKey())));
+                        Component.translatable(fluidFilter.getDescriptionId())));
 
             components.add(Component.empty());
 

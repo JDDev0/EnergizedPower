@@ -3,16 +3,16 @@
   "category": "misc",
   "key": {
     "C": {
-      "tag": "forge:wires/copper"
+      "tag": "c:wires/copper"
     },
     "I": {
-      "tag": "forge:plates/iron"
+      "tag": "c:plates/iron"
     },
     "R": {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     },
     "S": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     }
   },
   "pattern": [
@@ -21,6 +21,6 @@
     "SCS"
   ],
   "result": {
-    "item": "energizedpower:basic_circuit"
+    "id": "energizedpower:basic_circuit"
   }
 }

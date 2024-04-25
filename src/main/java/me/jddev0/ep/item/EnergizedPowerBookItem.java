@@ -26,7 +26,7 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
         components.add(Component.translatable("book.byAuthor", "JDDev0").withStyle(ChatFormatting.GRAY));
         components.add(Component.translatable("book.generation.0").withStyle(ChatFormatting.GRAY));
 

@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/basic_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:auto_crafter"
+      "id": "energizedpower:auto_crafter"
     },
     "title": {
       "translate": "advancements.energizedpower.auto_crafter.title"

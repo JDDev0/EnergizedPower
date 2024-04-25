@@ -1,5 +1,7 @@
 package me.jddev0.ep.item;
 
+import me.jddev0.ep.component.InventoryComponent;
+import me.jddev0.ep.component.ModDataComponentTypes;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.integration.curios.CuriosCompatUtils;
 import me.jddev0.ep.screen.InventoryChargerMenu;
@@ -86,7 +88,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
         SimpleContainer inventory = getInventory(itemStack);
 
         int energy = getEnergy(inventory);
@@ -255,11 +257,11 @@ public class InventoryChargerItem extends Item implements MenuProvider {
     }
 
     public static SimpleContainer getInventory(ItemStack itemStack) {
-        CompoundTag nbt = itemStack.getOrCreateTag();
+        InventoryComponent inventory = itemStack.get(ModDataComponentTypes.INVENTORY);
 
-        if(nbt.contains("inventory")) {
-            NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
-            ContainerHelper.loadAllItems(nbt.getCompound("inventory"), items);
+        if(inventory != null) {
+            NonNullList<ItemStack> items = NonNullList.of(ItemStack.EMPTY, inventory.stream().
+                    toArray(ItemStack[]::new));
             return new SimpleContainer(items.toArray(new ItemStack[0])) {
                 @Override
                 public void setChanged() {
@@ -269,7 +271,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
                     for(int i = 0;i < getContainerSize();i++)
                         items.set(i, getItem(i));
 
-                    itemStack.getOrCreateTag().put("inventory", ContainerHelper.saveAllItems(new CompoundTag(), items));
+                    itemStack.set(ModDataComponentTypes.INVENTORY, new InventoryComponent(items));
                 }
 
                 @Override
@@ -303,7 +305,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
                 for(int i = 0;i < getContainerSize();i++)
                     items.set(i, getItem(i));
 
-                itemStack.getOrCreateTag().put("inventory", ContainerHelper.saveAllItems(new CompoundTag(), items));
+                itemStack.set(ModDataComponentTypes.INVENTORY, new InventoryComponent(items));
             }
 
             @Override

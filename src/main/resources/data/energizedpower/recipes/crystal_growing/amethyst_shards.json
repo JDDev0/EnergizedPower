@@ -1,7 +1,7 @@
 {
   "type": "energizedpower:crystal_growth_chamber",
   "ingredient": {
-    "tag": "forge:gems/amethyst"
+    "tag": "c:gems/amethyst"
   },
   "ticks": 16000,
   "output": {

@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/energizedpower_basics",
   "display": {
     "icon": {
-      "item": "energizedpower:iron_hammer"
+      "id": "energizedpower:iron_hammer"
     },
     "title": {
       "translate": "advancements.energizedpower.hammer.title"
@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:tools/hammers"
+            "items": "#c:tools/hammers"
           }
         ]
       }

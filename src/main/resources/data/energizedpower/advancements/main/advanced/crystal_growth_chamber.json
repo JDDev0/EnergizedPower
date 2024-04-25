@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/advanced_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:crystal_growth_chamber"
+      "id": "energizedpower:crystal_growth_chamber"
     },
     "title": {
       "translate": "advancements.energizedpower.crystal_growth_chamber.title"

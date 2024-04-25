@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/energized_gold_plate",
   "display": {
     "icon": {
-      "item": "energizedpower:energized_gold_wire"
+      "id": "energizedpower:energized_gold_wire"
     },
     "title": {
       "translate": "advancements.energizedpower.energized_gold_wire.title"
@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:wires/energized_gold"
+            "items": "#c:wires/energized_gold"
           }
         ]
       }

@@ -3,13 +3,13 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "forge:tools/hammers"
+      "tag": "c:tools/hammers"
     },
     {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     }
   ],
   "result": {
-    "item": "energizedpower:iron_plate"
+    "id": "energizedpower:iron_plate"
   }
 }

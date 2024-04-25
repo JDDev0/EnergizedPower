@@ -9,13 +9,13 @@
       "item": "energizedpower:energized_crystal_matrix"
     },
     "r": {
-      "tag": "forge:storage_blocks/redstone"
+      "tag": "c:storage_blocks/redstone"
     },
     "E": {
-      "tag": "forge:plates/energized_gold"
+      "tag": "c:plates/energized_gold"
     },
     "S": {
-      "tag": "forge:storage_blocks/silicon"
+      "tag": "c:storage_blocks/silicon"
     },
     "R": {
       "item": "energizedpower:reinforced_advanced_machine_frame"
@@ -27,6 +27,6 @@
     "rSr"
   ],
   "result": {
-    "item": "energizedpower:teleporter"
+    "id": "energizedpower:teleporter"
   }
 }

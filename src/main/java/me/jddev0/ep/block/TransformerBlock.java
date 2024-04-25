@@ -121,7 +121,7 @@ public class TransformerBlock extends BaseEntityBlock {
         }
 
         @Override
-        public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
+        public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag flag) {
             if(Screen.hasShiftDown()) {
                 components.add(Component.translatable("tooltip.energizedpower.transfer_rate.txt",
                                 EnergyUtils.getEnergyWithPrefix(TransformerBlockEntity.getMaxEnergyTransferFromTier(tier))).

@@ -393,7 +393,7 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
         }
 
         @Override
-        public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
+        public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag flag) {
             if(Screen.hasShiftDown()) {
                 components.add(Component.translatable("tooltip.energizedpower.wrench_configurable").
                         withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));

@@ -3,16 +3,16 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     },
     "I": {
-      "tag": "forge:storage_blocks/iron"
+      "tag": "c:storage_blocks/iron"
     },
     "i": {
-      "tag": "forge:gears/iron"
+      "tag": "c:gears/iron"
     },
     "r": {
-      "tag": "forge:rods/iron"
+      "tag": "c:rods/iron"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
@@ -24,6 +24,6 @@
     "rIi"
   ],
   "result": {
-    "item": "energizedpower:hardened_machine_frame"
+    "id": "energizedpower:hardened_machine_frame"
   }
 }

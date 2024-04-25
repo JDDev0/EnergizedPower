@@ -13,11 +13,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
 
 @OnlyIn(Dist.CLIENT)
-@Mod.EventBusSubscriber(modid = EnergizedPowerMod.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = EnergizedPowerMod.MODID, value = Dist.CLIENT)
 public class ModClientEvents {
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key event) {

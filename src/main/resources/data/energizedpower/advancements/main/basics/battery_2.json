@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/battery_1",
   "display": {
     "icon": {
-      "item": "energizedpower:battery_2"
+      "id": "energizedpower:battery_2"
     },
     "title": {
       "translate": "advancements.energizedpower.battery_2.title"

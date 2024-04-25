@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/basic_solar_cell",
   "display": {
     "icon": {
-      "item": "energizedpower:solar_panel_1"
+      "id": "energizedpower:solar_panel_1"
     },
     "title": {
       "translate": "advancements.energizedpower.solar_panel_1.title"

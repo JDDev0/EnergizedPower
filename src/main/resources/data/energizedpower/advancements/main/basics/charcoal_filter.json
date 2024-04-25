@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/pulverizer",
   "display": {
     "icon": {
-      "item": "energizedpower:charcoal_filter"
+      "id": "energizedpower:charcoal_filter"
     },
     "title": {
       "translate": "advancements.energizedpower.charcoal_filter.title"

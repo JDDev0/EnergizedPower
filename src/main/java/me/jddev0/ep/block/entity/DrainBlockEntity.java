@@ -9,9 +9,11 @@ import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -51,7 +53,7 @@ public class DrainBlockEntity extends BlockEntity implements MenuProvider, Fluid
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
                             new FluidSyncS2CPacket(0, fluid, capacity, getBlockPos()),
-                            getBlockPos(), level.dimension(), 32
+                            getBlockPos(), (ServerLevel)level, 32
                     );
             }
         };
@@ -107,19 +109,19 @@ public class DrainBlockEntity extends BlockEntity implements MenuProvider, Fluid
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("fluid", fluidStorage.writeToNBT(new CompoundTag()));
+    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        nbt.put("fluid", fluidStorage.writeToNBT(registries, new CompoundTag()));
 
         nbt.put("drain.progress", IntTag.valueOf(progress));
 
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
-        fluidStorage.readFromNBT(nbt.getCompound("fluid"));
+        fluidStorage.readFromNBT(registries, nbt.getCompound("fluid"));
 
         progress = nbt.getInt("drain.progress");
     }

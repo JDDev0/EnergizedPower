@@ -32,8 +32,8 @@ public class FluidAnalyzerItem extends EnergizedPowerEnergyItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
-        super.appendHoverText(itemStack, level, components, tooltipFlag);
+    public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
+        super.appendHoverText(itemStack, context, components, tooltipFlag);
 
         if(Screen.hasShiftDown()) {
             components.add(Component.translatable("tooltip.energizedpower.fluid_analyzer.txt.shift.1").withStyle(ChatFormatting.GRAY));
@@ -71,7 +71,7 @@ public class FluidAnalyzerItem extends EnergizedPowerEnergyItem {
 
             components.add(Component.literal("• ").append(
                     Component.translatable("txt.energizedpower.fluid_analyzer.fluid_output.tank_fluid_content",
-                    i + 1, fluidEmpty?"":Component.translatable(fluidStorage.getFluidInTank(i).getTranslationKey()).append(" "),
+                    i + 1, fluidEmpty?"":Component.translatable(fluidStorage.getFluidInTank(i).getDescriptionId()).append(" "),
                     FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(fluidStorage.getTankCapacity(i)))
             ).withStyle(ChatFormatting.BLUE));
         }

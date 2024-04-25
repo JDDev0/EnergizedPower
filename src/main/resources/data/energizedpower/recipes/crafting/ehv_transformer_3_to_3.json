@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "forge:storage_blocks/silicon"
+      "tag": "c:storage_blocks/silicon"
     },
     "C": {
       "item": "energizedpower:energized_crystal_matrix"
@@ -21,6 +21,6 @@
     "CTC"
   ],
   "result": {
-    "item": "energizedpower:ehv_transformer_3_to_3"
+    "id": "energizedpower:ehv_transformer_3_to_3"
   }
 }

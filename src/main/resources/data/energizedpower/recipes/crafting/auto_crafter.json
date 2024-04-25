@@ -6,10 +6,10 @@
       "item": "energizedpower:basic_circuit"
     },
     "I": {
-      "tag": "forge:plates/iron"
+      "tag": "c:plates/iron"
     },
     "C": {
-      "tag": "forge:plates/copper"
+      "tag": "c:plates/copper"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
@@ -24,6 +24,6 @@
     "ITI"
   ],
   "result": {
-    "item": "energizedpower:auto_crafter"
+    "id": "energizedpower:auto_crafter"
   }
 }

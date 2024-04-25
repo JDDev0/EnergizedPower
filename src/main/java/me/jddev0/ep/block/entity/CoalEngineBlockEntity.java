@@ -17,9 +17,11 @@ import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
@@ -29,6 +31,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -58,7 +61,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             if(slot == 0)
-                return CommonHooks.getBurnTime(stack, null) > 0;
+                return stack.getBurnTime(RecipeType.SMELTING) > 0;
 
             return super.isItemValid(slot, stack);
         }
@@ -69,7 +72,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
 
         //Do not allow extraction of fuel items, allow for non fuel items (Bucket of Lava -> Empty Bucket)
         ItemStack item = itemHandler.getStackInSlot(i);
-        return CommonHooks.getBurnTime(item, null) <= 0;
+        return item.getBurnTime(RecipeType.SMELTING) <= 0;
     });
 
     private final ExtractOnlyEnergyStorage energyStorage;
@@ -94,7 +97,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
                             new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
-                            getBlockPos(), level.dimension(), 32
+                            getBlockPos(), (ServerLevel)level, 32
                     );
             }
         };
@@ -168,8 +171,8 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("inventory", itemHandler.serializeNBT());
+    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        nbt.put("inventory", itemHandler.serializeNBT(registries));
         nbt.put("energy", energyStorage.saveNBT());
 
         nbt.put("recipe.progress", IntTag.valueOf(progress));
@@ -179,14 +182,14 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
         energyStorage.loadNBT(nbt.get("energy"));
 
         progress = nbt.getInt("recipe.progress");
@@ -227,7 +230,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
 
             ItemStack item = inventory.getItem(0);
 
-            int energyProduction = CommonHooks.getBurnTime(item, null);
+            int energyProduction = item.getBurnTime(RecipeType.SMELTING);
             energyProduction = (int)(energyProduction * ENERGY_PRODUCTION_MULTIPLIER);
             if(blockEntity.progress == 0)
                 blockEntity.energyProductionLeft = energyProduction;
@@ -365,7 +368,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
 
         ItemStack item = inventory.getItem(0);
 
-        if(CommonHooks.getBurnTime(item, null) <= 0)
+        if(item.getBurnTime(RecipeType.SMELTING) <= 0)
             return false;
 
         return !item.hasCraftingRemainingItem() || item.getCount() == 1;

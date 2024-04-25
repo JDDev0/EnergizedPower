@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "C": {
-      "tag": "forge:cobblestone/normal"
+      "tag": "c:cobblestone/normal"
     },
     "I": {
-      "tag": "forge:plates/iron"
+      "tag": "c:plates/iron"
     },
     "R": {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     },
     "L": {
       "item": "energizedpower:item_conveyor_belt_loader"
@@ -21,6 +21,6 @@
     "CRC"
   ],
   "result": {
-    "item": "energizedpower:item_conveyor_belt_splitter"
+    "id": "energizedpower:item_conveyor_belt_splitter"
   }
 }

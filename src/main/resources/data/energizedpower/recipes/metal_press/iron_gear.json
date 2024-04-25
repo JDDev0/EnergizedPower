@@ -2,7 +2,7 @@
   "type": "energizedpower:metal_press",
   "ingredient": [
     {
-      "tag": "forge:plates/iron"
+      "tag": "c:plates/iron"
     }
   ],
   "inputCount": 2,

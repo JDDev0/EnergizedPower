@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/advanced_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:lightning_generator"
+      "id": "energizedpower:lightning_generator"
     },
     "title": {
       "translate": "advancements.energizedpower.lightning_generator.title"

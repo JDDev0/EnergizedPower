@@ -54,7 +54,7 @@ public class EnergizedPowerFluidStorage implements IFluidHandler {
             if(action.simulate()) {
                 if(fluid.isEmpty())
                     filled += Math.min(capacity, amountLeft);
-                else if(fluid.isFluidEqual(resource))
+                else if(FluidStack.isSameFluidSameComponents(fluid, resource))
                     filled += Math.min(capacity - fluid.getAmount(), amountLeft);
 
                 continue;
@@ -63,7 +63,7 @@ public class EnergizedPowerFluidStorage implements IFluidHandler {
             if(fluid.isEmpty()) {
                 int fluidAmountToAdd = Math.min(capacity, amountLeft);
 
-                fluid = new FluidStack(resource, fluidAmountToAdd);
+                fluid = new FluidStack(resource.getFluidHolder(), fluidAmountToAdd, resource.getComponentsPatch());
                 fluidStacks.set(i, fluid);
 
                 filled += fluidAmountToAdd;
@@ -71,7 +71,7 @@ public class EnergizedPowerFluidStorage implements IFluidHandler {
                 continue;
             }
 
-            if(fluid.isFluidEqual(resource)) {
+            if(FluidStack.isSameFluidSameComponents(fluid, resource)) {
                 int fluidAmountToAdd = Math.min(capacity - fluid.getAmount(), amountLeft);
 
                 fluid.grow(fluidAmountToAdd);
@@ -90,7 +90,7 @@ public class EnergizedPowerFluidStorage implements IFluidHandler {
         for(int i = 0;i < getTanks();i++) {
             FluidStack fluid = getFluidInTank(i);
             if(!fluid.isEmpty())
-                return drain(new FluidStack(fluid.getFluid(), maxDrain, fluid.getTag()), action);
+                return drain(new FluidStack(fluid.getFluidHolder(), maxDrain, fluid.getComponentsPatch()), action);
         }
 
         return FluidStack.EMPTY;
@@ -107,7 +107,7 @@ public class EnergizedPowerFluidStorage implements IFluidHandler {
         for(int i = 0;i < getTanks();i++) {
             FluidStack fluid = getFluidInTank(i);
 
-            if(!fluid.isFluidEqual(resource))
+            if(!FluidStack.isSameFluidSameComponents(fluid, resource))
                 continue;
 
             int fluidAmountToDrain = Math.min(fluid.getAmount(), drainingLeft);
@@ -125,7 +125,7 @@ public class EnergizedPowerFluidStorage implements IFluidHandler {
         if(!action.simulate() && drained > 0)
             onContentsChanged();
 
-        return new FluidStack(resource.getFluid(), drained, resource.getTag());
+        return new FluidStack(resource.getFluidHolder(), drained, resource.getComponentsPatch());
     }
 
     public FluidStack getFluid(int tank) {

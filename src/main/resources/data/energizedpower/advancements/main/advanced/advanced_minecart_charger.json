@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/advanced_charger",
   "display": {
     "icon": {
-      "item": "energizedpower:advanced_minecart_charger"
+      "id": "energizedpower:advanced_minecart_charger"
     },
     "title": {
       "translate": "advancements.energizedpower.advanced_minecart_charger.title"

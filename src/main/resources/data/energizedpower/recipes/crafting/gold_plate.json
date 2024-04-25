@@ -3,13 +3,13 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "forge:tools/hammers"
+      "tag": "c:tools/hammers"
     },
     {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     }
   ],
   "result": {
-    "item": "energizedpower:gold_plate"
+    "id": "energizedpower:gold_plate"
   }
 }

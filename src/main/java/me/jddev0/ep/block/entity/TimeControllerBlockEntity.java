@@ -8,8 +8,10 @@ import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.TimeControllerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -37,7 +39,7 @@ public class TimeControllerBlockEntity extends BlockEntity implements MenuProvid
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
                             new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
-                            getBlockPos(), level.dimension(), 32
+                            getBlockPos(), (ServerLevel)level, 32
                     );
             }
         };
@@ -66,15 +68,15 @@ public class TimeControllerBlockEntity extends BlockEntity implements MenuProvid
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
+    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         nbt.put("energy", energyStorage.saveNBT());
 
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
         energyStorage.loadNBT(nbt.get("energy"));
     }

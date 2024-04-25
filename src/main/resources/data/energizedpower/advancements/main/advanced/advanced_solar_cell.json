@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/energizedpower_advanced",
   "display": {
     "icon": {
-      "item": "energizedpower:advanced_solar_cell"
+      "id": "energizedpower:advanced_solar_cell"
     },
     "title": {
       "translate": "advancements.energizedpower.advanced_solar_cell.title"

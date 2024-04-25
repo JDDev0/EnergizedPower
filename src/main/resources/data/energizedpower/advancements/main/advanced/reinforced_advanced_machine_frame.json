@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/energized_crystal_matrix",
   "display": {
     "icon": {
-      "item": "energizedpower:reinforced_advanced_machine_frame"
+      "id": "energizedpower:reinforced_advanced_machine_frame"
     },
     "title": {
       "translate": "advancements.energizedpower.reinforced_advanced_machine_frame.title"

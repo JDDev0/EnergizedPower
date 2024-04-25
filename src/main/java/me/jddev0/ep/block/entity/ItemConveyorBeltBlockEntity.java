@@ -11,7 +11,9 @@ import me.jddev0.ep.networking.packet.ItemStackSyncS2CPacket;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
@@ -37,7 +39,7 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
                             new ItemStackSyncS2CPacket(i, getStackInSlot(i), getBlockPos()),
-                            getBlockPos(), level.dimension(), 64
+                            getBlockPos(), (ServerLevel)level, 64
                     );
         }
 
@@ -78,17 +80,17 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("inventory", itemHandler.serializeNBT());
+    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        nbt.put("inventory", itemHandler.serializeNBT(registries));
 
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -109,7 +111,7 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
                 if(!level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
                             new ItemStackSyncS2CPacket(i, blockEntity.itemHandler.getStackInSlot(i), blockPos),
-                            blockPos, level.dimension(), 64
+                            blockPos, (ServerLevel)level, 64
                     );
 
         if(level.getGameTime() % TICKS_PER_STEP == 0) {

@@ -20,9 +20,12 @@ import me.jddev0.ep.util.FluidUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
@@ -70,7 +73,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
             if(slot == 0) {
                 ItemStack itemStack = getStackInSlot(slot);
                 if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSameItem(stack, itemStack) ||
-                        (!ItemStack.isSameItemSameTags(stack, itemStack) &&
+                        (!ItemStack.isSameItemSameComponents(stack, itemStack) &&
                                 //Only check if NBT data is equal if one of stack or itemStack is no fluid item
                                 !(stack.getCapability(Capabilities.FluidHandler.ITEM) != null &&
                                         itemStack.getCapability(Capabilities.FluidHandler.ITEM) != null))))
@@ -99,7 +102,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
             FluidStack fluidStack = fluidStorage.getFluidInTank(j);
             if(!fluidStack.isEmpty() && ((FluidDrainerBlockEntity.this.fluidStorage.isEmpty() &&
                     FluidDrainerBlockEntity.this.fluidStorage.isFluidValid(fluidStack)) ||
-                    fluidStack.isFluidEqual(FluidDrainerBlockEntity.this.fluidStorage.getFluid())))
+                    FluidStack.isSameFluidSameComponents(fluidStack, FluidDrainerBlockEntity.this.fluidStorage.getFluid())))
                 return false;
         }
 
@@ -129,7 +132,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
                             new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
-                            getBlockPos(), level.dimension(), 32
+                            getBlockPos(), (ServerLevel)level, 32
                     );
             }
         };
@@ -141,7 +144,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
                             new FluidSyncS2CPacket(0, fluid, capacity, getBlockPos()),
-                            getBlockPos(), level.dimension(), 32
+                            getBlockPos(), (ServerLevel)level, 32
                     );
             }
         };
@@ -211,10 +214,10 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("inventory", itemHandler.serializeNBT());
+    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        nbt.put("inventory", itemHandler.serializeNBT(registries));
         nbt.put("energy", energyStorage.saveNBT());
-        nbt.put("fluid", fluidStorage.writeToNBT(new CompoundTag()));
+        nbt.put("fluid", fluidStorage.writeToNBT(registries, new CompoundTag()));
 
         nbt.put("recipe.fluid_draining_left", IntTag.valueOf(fluidDrainingLeft));
         nbt.put("recipe.fluid_draining_sum_pending", IntTag.valueOf(fluidDrainingSumPending));
@@ -222,16 +225,16 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
         energyStorage.loadNBT(nbt.get("energy"));
-        fluidStorage.readFromNBT(nbt.getCompound("fluid"));
+        fluidStorage.readFromNBT(registries, nbt.getCompound("fluid"));
 
         fluidDrainingLeft = nbt.getInt("recipe.fluid_draining_left");
         fluidDrainingSumPending = nbt.getInt("recipe.fluid_draining_sum_pending");
@@ -277,8 +280,8 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
                     firstNonEmptyFluidStack = fluidStack;
                 if(!fluidStack.isEmpty() && ((blockEntity.fluidStorage.isEmpty() &&
                         blockEntity.fluidStorage.isFluidValid(fluidStack) &&
-                        fluidStack.isFluidEqual(firstNonEmptyFluidStack)) ||
-                        fluidStack.isFluidEqual(blockEntity.fluidStorage.getFluid()))) {
+                        FluidStack.isSameFluidSameComponents(fluidStack, firstNonEmptyFluidStack)) ||
+                        FluidStack.isSameFluidSameComponents(fluidStack, blockEntity.fluidStorage.getFluid()))) {
                     fluidDrainingSum += Math.min(blockEntity.fluidStorage.getCapacity() -
                                     blockEntity.fluidStorage.getFluidAmount() - blockEntity.fluidDrainingSumPending -
                                     fluidDrainingSum,
@@ -301,8 +304,8 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
 
             FluidStack fluidStackToDrain = blockEntity.fluidStorage.isEmpty()?firstNonEmptyFluidStack:blockEntity.getFluid(0);
 
-            FluidStack fluidSumDrained = fluidStorage.drain(new FluidStack(fluidStackToDrain.getFluid(), fluidSumDrainable,
-                            fluidStackToDrain.getTag()), IFluidHandler.FluidAction.EXECUTE);
+            FluidStack fluidSumDrained = fluidStorage.drain(new FluidStack(fluidStackToDrain.getFluidHolder(), fluidSumDrainable,
+                            fluidStackToDrain.getComponentsPatch()), IFluidHandler.FluidAction.EXECUTE);
 
             if(fluidSumDrained.isEmpty()) {
                 setChanged(level, blockPos, state);
@@ -342,7 +345,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements MenuProvider
                 FluidStack fluidStack = fluidStorage.getFluidInTank(i);
                 if(!fluidStack.isEmpty() && ((FluidDrainerBlockEntity.this.fluidStorage.isEmpty() &&
                         FluidDrainerBlockEntity.this.fluidStorage.isFluidValid(fluidStack)) ||
-                        fluidStack.isFluidEqual(FluidDrainerBlockEntity.this.fluidStorage.getFluid())))
+                        FluidStack.isSameFluidSameComponents(fluidStack, FluidDrainerBlockEntity.this.fluidStorage.getFluid())))
                     return true;
             }
         }

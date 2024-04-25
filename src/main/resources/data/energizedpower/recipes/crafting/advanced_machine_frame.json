@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     },
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "E": {
-      "tag": "forge:ingots/energized_copper"
+      "tag": "c:ingots/energized_copper"
     },
     "H": {
       "item": "energizedpower:hardened_machine_frame"
@@ -21,6 +21,6 @@
     "ESE"
   ],
   "result": {
-    "item": "energizedpower:advanced_machine_frame"
+    "id": "energizedpower:advanced_machine_frame"
   }
 }

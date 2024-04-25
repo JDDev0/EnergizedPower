@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/energized_crystal_matrix",
   "display": {
     "icon": {
-      "item": "energizedpower:energized_crystal_matrix_cable"
+      "id": "energizedpower:energized_crystal_matrix_cable"
     },
     "title": {
       "translate": "advancements.energizedpower.energized_crystal_matrix_cable.title"

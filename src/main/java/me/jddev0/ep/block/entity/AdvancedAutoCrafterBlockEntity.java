@@ -20,9 +20,12 @@ import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
@@ -168,7 +171,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
                             new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
-                            getBlockPos(), level.dimension(), 32
+                            getBlockPos(), (ServerLevel)level, 32
                     );
             }
         };
@@ -272,10 +275,10 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("inventory", itemHandler.serializeNBT());
+    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        nbt.put("inventory", itemHandler.serializeNBT(registries));
         for(int i = 0;i < 3;i++)
-            nbt.put("pattern." + i, savePatternContainer(i));
+            nbt.put("pattern." + i, savePatternContainer(i, registries));
         nbt.put("energy", energyStorage.saveNBT());
 
         for(int i = 0;i < 3;i++) {
@@ -295,30 +298,25 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
-    private Tag savePatternContainer(int index) {
-        ListTag nbtTagList = new ListTag();
-        for(int i = 0;i < patternSlots[index].getContainerSize();i++)  {
-            if(!patternSlots[index].getItem(i).isEmpty()) {
-                CompoundTag itemTag = new CompoundTag();
-                itemTag.putInt("Slot", i);
-                patternSlots[index].getItem(i).save(itemTag);
-                nbtTagList.add(itemTag);
-            }
-        }
+    private Tag savePatternContainer(int index, HolderLookup.Provider registries) {
 
-        return nbtTagList;
+        NonNullList<ItemStack> items = NonNullList.withSize(patternSlots[index].getContainerSize(), ItemStack.EMPTY);
+        for(int i = 0;i < patternSlots[index].getContainerSize();i++)
+            items.set(i, patternSlots[index].getItem(i));
+
+        return ContainerHelper.saveAllItems(new CompoundTag(), items, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
         for(int i = 0;i < 3;i++)
-            loadPatternContainer(i, nbt.get("pattern." + i));
+            loadPatternContainer(i, nbt.getCompound("pattern." + i), registries);
         energyStorage.loadNBT(nbt.get("energy"));
 
         for(int i = 0;i < 3;i++) {
@@ -347,20 +345,14 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
-    private void loadPatternContainer(int index, Tag tag) {
-        if(!(tag instanceof ListTag))
-            throw new IllegalArgumentException("Tag must be of type ListTag!");
-
+    private void loadPatternContainer(int index, CompoundTag tag, HolderLookup.Provider registries) {
         patternSlots[index].removeListener(updatePatternListener[index]);
-        ListTag tagList = (ListTag)tag;
-        for(int i = 0;i < tagList.size();i++) {
-            CompoundTag itemTags = tagList.getCompound(i);
-            int slot = itemTags.getInt("Slot");
 
-            if(slot >= 0 && slot < patternSlots[index].getContainerSize()) {
-                patternSlots[index].setItem(slot, ItemStack.of(itemTags));
-            }
-        }
+        NonNullList<ItemStack> items = NonNullList.withSize(patternSlots[index].getContainerSize(), ItemStack.EMPTY);
+        ContainerHelper.loadAllItems(tag, items, registries);
+        for(int i = 0;i < patternSlots[index].getContainerSize();i++)
+            patternSlots[index].setItem(i, items.get(i));
+
         patternSlots[index].addListener(updatePatternListener[index]);
     }
 
@@ -535,7 +527,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
             patternResultSlots[index].setItem(0, resultItemStack);
 
             if(oldRecipe != null && oldResult != null && oldCopyOfRecipe[index] != null &&
-                    (craftingRecipe[index] != oldRecipe || !ItemStack.isSameItemSameTags(resultItemStack, oldResult)))
+                    (craftingRecipe[index] != oldRecipe || !ItemStack.isSameItemSameComponents(resultItemStack, oldResult)))
                 resetProgress(index);
 
             oldCopyOfRecipe[index] = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
@@ -567,7 +559,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
         for(ItemStack itemStack:itemStacksExtract) {
             for(int i = 0;i < itemHandler.getSlots();i++) {
                 ItemStack testItemStack = itemHandler.getStackInSlot(i);
-                if(ItemStack.isSameItemSameTags(itemStack, testItemStack)) {
+                if(ItemStack.isSameItemSameComponents(itemStack, testItemStack)) {
                     ItemStack ret = itemHandler.extractItem(i, itemStack.getCount(), false);
                     if(!ret.isEmpty()) {
                         int amount = ret.getCount();
@@ -616,7 +608,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
                     continue;
                 }
 
-                if(ItemStack.isSameItemSameTags(itemStack, testItemStack)) {
+                if(ItemStack.isSameItemSameComponents(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getMaxStackSize() - testItemStack.getCount());
                     if(amount > 0) {
                         itemHandler.setStackInSlot(i, itemHandler.getStackInSlot(i).copyWithCount(testItemStack.getCount() + amount));
@@ -671,7 +663,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
                     continue;
                 }
 
-                if(ItemStack.isSameItemSameTags(itemStack, testItemStack)) {
+                if(ItemStack.isSameItemSameComponents(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getCount());
                     checkedIndices.add(j);
 
@@ -731,7 +723,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
                     continue;
                 }
 
-                if(ItemStack.isSameItemSameTags(itemStack, testItemStack)) {
+                if(ItemStack.isSameItemSameComponents(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getMaxStackSize() - testItemStack.getCount());
 
                     if(amount + testItemStack.getCount() == testItemStack.getMaxStackSize())
@@ -776,11 +768,11 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
                     craftingRecipe[i].value().assemble(copyOfPatternSlots, level.registryAccess()):
                     craftingRecipe[i].value().getResultItem(level.registryAccess());
 
-            if(ItemStack.isSameItemSameTags(itemStack, resultItemStack))
+            if(ItemStack.isSameItemSameComponents(itemStack, resultItemStack))
                 return true;
 
             for(ItemStack remainingItem:craftingRecipe[i].value().getRemainingItems(copyOfPatternSlots))
-                if(ItemStack.isSameItemSameTags(itemStack, remainingItem))
+                if(ItemStack.isSameItemSameComponents(itemStack, remainingItem))
                     return true;
         }
 
@@ -795,7 +787,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
 
             for(int j = 0;j < patternSlots[i].getContainerSize();j++)
                 if(ignoreNBT[i]?ItemStack.isSameItem(itemStack, patternSlots[i].getItem(j)):
-                        ItemStack.isSameItemSameTags(itemStack, patternSlots[i].getItem(j)))
+                        ItemStack.isSameItemSameComponents(itemStack, patternSlots[i].getItem(j)))
                     return true;
         }
 
@@ -821,7 +813,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
                 if(testItemStack.getCount() <= 0)
                     continue;
 
-                if(ItemStack.isSameItemSameTags(itemStack, testItemStack)) {
+                if(ItemStack.isSameItemSameComponents(itemStack, testItemStack)) {
                     usedItemCounts.put(j, usedCount + 1);
                     continue outer;
                 }

@@ -2,13 +2,15 @@ package me.jddev0.ep.recipe;
 
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
@@ -39,7 +41,7 @@ public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container, RegistryAccess registryAccess) {
+    public ItemStack assemble(SimpleContainer container, HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
@@ -49,7 +51,7 @@ public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
@@ -86,7 +88,7 @@ public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "heat_generator");
 
-        private final Codec<HeatGeneratorRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<HeatGeneratorRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(Codec.either(new ArrayCodec<>(BuiltInRegistries.FLUID.byNameCodec(), Fluid[]::new),
                     BuiltInRegistries.FLUID.byNameCodec()).fieldOf("input").forGetter((recipe) -> {
                 return Either.left(recipe.input);
@@ -100,13 +102,20 @@ public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
             });
         });
 
+        private final StreamCodec<RegistryFriendlyByteBuf, HeatGeneratorRecipe> STREAM_CODEC = StreamCodec.of(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<HeatGeneratorRecipe> codec() {
+        public MapCodec<HeatGeneratorRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public HeatGeneratorRecipe fromNetwork(FriendlyByteBuf buffer) {
+        public StreamCodec<RegistryFriendlyByteBuf, HeatGeneratorRecipe> streamCodec() {
+            return STREAM_CODEC;
+        }
+
+        private static HeatGeneratorRecipe read(RegistryFriendlyByteBuf buffer) {
             int fluidCount = buffer.readInt();
             Fluid[] input = new Fluid[fluidCount];
             for(int i = 0;i < fluidCount;i++)
@@ -117,8 +126,7 @@ public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
             return new HeatGeneratorRecipe(input, energyProduction);
         }
 
-        @Override
-        public void toNetwork(FriendlyByteBuf buffer, HeatGeneratorRecipe recipe) {
+        private static void write(RegistryFriendlyByteBuf buffer, HeatGeneratorRecipe recipe) {
             buffer.writeInt(recipe.getInput().length);
             for(Fluid fluid:recipe.input) {
                 ResourceLocation fluidId = BuiltInRegistries.FLUID.getKey(fluid);

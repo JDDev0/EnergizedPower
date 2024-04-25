@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/hardened_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:stone_solidifier"
+      "id": "energizedpower:stone_solidifier"
     },
     "title": {
       "translate": "advancements.energizedpower.stone_solidifier.title"

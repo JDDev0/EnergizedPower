@@ -12,7 +12,7 @@
       "item": "minecraft:sweet_berries"
     },
     "r": {
-      "tag": "forge:dyes/red"
+      "tag": "c:dyes/red"
     },
     "T": {
       "item": "minecraft:red_tulip"
@@ -27,7 +27,7 @@
     "TGR"
   ],
   "result": {
-    "item": "energizedpower:advanced_fertilizer",
+    "id": "energizedpower:advanced_fertilizer",
     "count": 4
   }
 }

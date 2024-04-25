@@ -182,7 +182,7 @@ public class FluidFillerScreen extends AbstractGenericEnergyStorageContainerScre
                     FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(menu.getTankCapacity()));
 
             if(!fluidEmpty) {
-                tooltipComponent = Component.translatable(menu.getFluid().getTranslationKey()).append(" ").
+                tooltipComponent = Component.translatable(menu.getFluid().getDescriptionId()).append(" ").
                         append(tooltipComponent);
             }
 

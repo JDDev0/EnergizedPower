@@ -2,8 +2,10 @@
   "parent":  "energizedpower:main/advanced/battery_8",
   "display": {
     "icon": {
-      "item": "energizedpower:battery_8",
-      "nbt": "{\"energy\": 1048576}"
+      "id": "energizedpower:battery_8",
+      "components": {
+        "energizedpower:energy": 1048576
+      }
     },
     "title": {
       "translate": "advancements.energizedpower.battery_8_fully_charged.title"
@@ -22,7 +24,9 @@
         "items": [
           {
             "items": [ "energizedpower:battery_8" ],
-            "nbt": "{\"energy\": 1048576}"
+            "components": {
+              "energizedpower:energy": 1048576
+            }
           }
         ]
       }

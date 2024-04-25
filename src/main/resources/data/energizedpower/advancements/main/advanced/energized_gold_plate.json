@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/energized_gold_ingot",
   "display": {
     "icon": {
-      "item": "energizedpower:energized_gold_plate"
+      "id": "energizedpower:energized_gold_plate"
     },
     "title": {
       "translate": "advancements.energizedpower.energized_gold_plate.title"
@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:plates/energized_gold"
+            "items": "#c:plates/energized_gold"
           }
         ]
       }

@@ -14,7 +14,7 @@ public class InWorldDisplay implements Display {
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(
-                EntryIngredients.ofItemTag(Tags.Items.SHEARS),
+                EntryIngredients.ofItemTag(Tags.Items.TOOLS_SHEARS),
                 EntryIngredients.ofItemTag(ItemTags.WOOL)
         );
     }

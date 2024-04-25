@@ -5,7 +5,9 @@
   "experience": 4.1,
   "group": "silicon",
   "ingredient": {
-    "tag": "forge:gems/quartz"
+    "tag": "c:gems/quartz"
   },
-  "result": "energizedpower:silicon"
+  "result": {
+    "id": "energizedpower:silicon"
+  }
 }

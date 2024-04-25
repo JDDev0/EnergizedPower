@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/iron_fluid_pipe",
   "display": {
     "icon": {
-      "item": "energizedpower:golden_fluid_pipe"
+      "id": "energizedpower:golden_fluid_pipe"
     },
     "title": {
       "translate": "advancements.energizedpower.golden_fluid_pipe.title"

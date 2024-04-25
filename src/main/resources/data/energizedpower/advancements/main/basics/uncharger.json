@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/charger",
   "display": {
     "icon": {
-      "item": "energizedpower:uncharger"
+      "id": "energizedpower:uncharger"
     },
     "title": {
       "translate": "advancements.energizedpower.uncharger.title"

@@ -7,7 +7,7 @@
       "item": "energizedpower:cable_insulator"
     },
     "E": {
-      "tag": "forge:ingots/energized_copper"
+      "tag": "c:ingots/energized_copper"
     }
   },
   "pattern": [
@@ -16,7 +16,7 @@
     "IEI"
   ],
   "result": {
-    "item": "energizedpower:energized_copper_cable",
+    "id": "energizedpower:energized_copper_cable",
     "count": 3
   }
 }

@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/basic_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:pulverizer"
+      "id": "energizedpower:pulverizer"
     },
     "title": {
       "translate": "advancements.energizedpower.pulverizer.title"

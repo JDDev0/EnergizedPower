@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:dusts/tin"
+            "items": "#c:dusts/tin"
           }
         ]
       }

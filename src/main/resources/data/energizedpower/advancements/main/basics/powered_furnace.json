@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/basic_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:powered_furnace"
+      "id": "energizedpower:powered_furnace"
     },
     "title": {
       "translate": "advancements.energizedpower.powered_furnace.title"

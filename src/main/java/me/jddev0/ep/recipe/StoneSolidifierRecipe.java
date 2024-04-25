@@ -1,12 +1,13 @@
 package me.jddev0.ep.recipe;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.SimpleContainer;
@@ -45,7 +46,7 @@ public class StoneSolidifierRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container, RegistryAccess registryAccess) {
+    public ItemStack assemble(SimpleContainer container, HolderLookup.Provider registries) {
         return output;
     }
 
@@ -55,7 +56,7 @@ public class StoneSolidifierRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
         return output.copy();
     }
 
@@ -92,7 +93,7 @@ public class StoneSolidifierRecipe implements Recipe<SimpleContainer> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "stone_solidifier");
 
-        private final Codec<StoneSolidifierRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<StoneSolidifierRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
             }), ExtraCodecs.POSITIVE_INT.fieldOf("waterAmount").forGetter((recipe) -> {
@@ -102,25 +103,31 @@ public class StoneSolidifierRecipe implements Recipe<SimpleContainer> {
             })).apply(instance, StoneSolidifierRecipe::new);
         });
 
+        private final StreamCodec<RegistryFriendlyByteBuf, StoneSolidifierRecipe> STREAM_CODEC = StreamCodec.of(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<StoneSolidifierRecipe> codec() {
+        public MapCodec<StoneSolidifierRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public StoneSolidifierRecipe fromNetwork(FriendlyByteBuf buffer) {
+        public StreamCodec<RegistryFriendlyByteBuf, StoneSolidifierRecipe> streamCodec() {
+            return STREAM_CODEC;
+        }
+
+        private static StoneSolidifierRecipe read(RegistryFriendlyByteBuf buffer) {
             int waterAmount = buffer.readInt();
             int lavaAmount = buffer.readInt();
-            ItemStack output = buffer.readItem();
+            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new StoneSolidifierRecipe(output, waterAmount, lavaAmount);
         }
 
-        @Override
-        public void toNetwork(FriendlyByteBuf buffer, StoneSolidifierRecipe recipe) {
+        private static void write(RegistryFriendlyByteBuf buffer, StoneSolidifierRecipe recipe) {
             buffer.writeInt(recipe.waterAmount);
             buffer.writeInt(recipe.lavaAmount);
-            buffer.writeItem(recipe.output);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
 }

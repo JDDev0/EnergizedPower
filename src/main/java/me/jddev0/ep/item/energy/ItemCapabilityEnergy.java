@@ -1,29 +1,33 @@
 package me.jddev0.ep.item.energy;
 
+import me.jddev0.ep.component.ModDataComponentTypes;
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.energy.IEnergyStorage;
-import org.jetbrains.annotations.Nullable;
 
 public class ItemCapabilityEnergy implements IEnergyStorage {
     private final ItemStack itemStack;
     private final IEnergizedPowerEnergyStorage energyStorage;
 
-    public ItemCapabilityEnergy(ItemStack itemStack, @Nullable CompoundTag nbt, IEnergizedPowerEnergyStorage energyStorage) {
+    public ItemCapabilityEnergy(ItemStack itemStack, IEnergizedPowerEnergyStorage energyStorage) {
         this.itemStack = itemStack;
         this.energyStorage = energyStorage;
 
-        if(nbt != null && nbt.contains("energy"))
-            this.energyStorage.loadNBT(nbt.get("energy"));
+        if(itemStack.has(ModDataComponentTypes.ENERGY))
+            this.energyStorage.loadNBT(IntTag.valueOf(itemStack.getOrDefault(ModDataComponentTypes.ENERGY, 0)));
     }
 
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
         int ret = energyStorage.receiveEnergy(maxReceive, simulate);
 
-        if(!simulate)
-            itemStack.getOrCreateTag().put("energy", energyStorage.saveNBT());
+        if(!simulate) {
+            Tag nbt = energyStorage.saveNBT();
+            if(nbt instanceof IntTag nbtInt)
+                itemStack.set(ModDataComponentTypes.ENERGY, nbtInt.getAsInt());
+        }
 
         return ret;
     }
@@ -32,8 +36,11 @@ public class ItemCapabilityEnergy implements IEnergyStorage {
     public int extractEnergy(int maxExtract, boolean simulate) {
         int ret = energyStorage.extractEnergy(maxExtract, simulate);
 
-        if(!simulate)
-            itemStack.getOrCreateTag().put("energy", energyStorage.saveNBT());
+        if(!simulate) {
+            Tag nbt = energyStorage.saveNBT();
+            if(nbt instanceof IntTag nbtInt)
+                itemStack.set(ModDataComponentTypes.ENERGY, nbtInt.getAsInt());
+        }
 
         return ret;
     }
@@ -61,7 +68,9 @@ public class ItemCapabilityEnergy implements IEnergyStorage {
     public void setEnergy(int energy) {
         energyStorage.setEnergy(energy);
 
-        itemStack.getOrCreateTag().put("energy", energyStorage.saveNBT());
+        Tag nbt = energyStorage.saveNBT();
+        if(nbt instanceof IntTag nbtInt)
+            itemStack.set(ModDataComponentTypes.ENERGY, nbtInt.getAsInt());
     }
 
     public void setCapacity(int capacity) {

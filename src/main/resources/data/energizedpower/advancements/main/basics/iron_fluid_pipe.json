@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/iron_plate",
   "display": {
     "icon": {
-      "item": "energizedpower:fluid_pipe"
+      "id": "energizedpower:fluid_pipe"
     },
     "title": {
       "translate": "advancements.energizedpower.iron_fluid_pipe.title"

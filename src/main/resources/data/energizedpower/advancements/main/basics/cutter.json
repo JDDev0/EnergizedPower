@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/iron_plate",
   "display": {
     "icon": {
-      "item": "energizedpower:cutter"
+      "id": "energizedpower:cutter"
     },
     "title": {
       "translate": "advancements.energizedpower.cutter.title"
@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:tools/cutters"
+            "items": "#c:tools/cutters"
           }
         ]
       }

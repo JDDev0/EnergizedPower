@@ -1,6 +1,7 @@
 package me.jddev0.ep.item;
 
 import me.jddev0.ep.block.*;
+import me.jddev0.ep.component.ModDataComponentTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -21,7 +22,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -31,13 +31,7 @@ public class WrenchItem extends Item {
     }
 
     public static Direction getCurrentFace(ItemStack itemStack) {
-        CompoundTag nbt = itemStack.getTag();
-        Direction currentFace = (nbt != null && nbt.contains("currentFace"))?Direction.byName(nbt.getString("currentFace")):
-                Direction.DOWN;
-        if(currentFace == null)
-            currentFace = Direction.DOWN;
-
-        return currentFace;
+        return itemStack.getOrDefault(ModDataComponentTypes.CURRENT_FACE, Direction.DOWN);
     }
 
     public static void cycleCurrentFace(ItemStack itemStack, ServerPlayer player) {
@@ -45,7 +39,8 @@ public class WrenchItem extends Item {
         Direction currentFace = getCurrentFace(itemStack);
         currentFace = Direction.values()[(currentFace.ordinal() + diff + Direction.values().length) %
                 Direction.values().length];
-        itemStack.getOrCreateTag().putString("currentFace", currentFace.getSerializedName());
+
+        itemStack.set(ModDataComponentTypes.CURRENT_FACE, currentFace);
 
         player.connection.send(new ClientboundSetActionBarTextPacket(
                 Component.translatable("tooltip.energizedpower.wrench.select_face",
@@ -107,18 +102,18 @@ public class WrenchItem extends Item {
 
         ItemStack itemStack = player.getMainHandItem();
 
-        CompoundTag nbt = itemStack.getTag();
-        if(nbt != null && nbt.contains("attackingCycleCooldown"))
+        if(itemStack.has(ModDataComponentTypes.ACTION_COOLDOWN))
             return false;
 
         cycleCurrentFace(itemStack, (ServerPlayer)player);
-        itemStack.getOrCreateTag().putInt("attackingCycleCooldown", 5);
+
+        itemStack.set(ModDataComponentTypes.ACTION_COOLDOWN, 5);
 
         return false;
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
         Direction currentFace = getCurrentFace(itemStack);
         components.add(Component.translatable("tooltip.energizedpower.wrench.select_face",
                 Component.translatable("tooltip.energizedpower.direction." + currentFace.getSerializedName()).
@@ -143,13 +138,12 @@ public class WrenchItem extends Item {
         if(!(entity instanceof Player))
             return;
 
-        CompoundTag nbt = itemStack.getTag();
-        if(nbt != null && nbt.contains("attackingCycleCooldown")) {
-            int attackingCycleCooldown = nbt.getInt("attackingCycleCooldown") - 1;
+        if(itemStack.has(ModDataComponentTypes.ACTION_COOLDOWN)) {
+            int attackingCycleCooldown = itemStack.getOrDefault(ModDataComponentTypes.ACTION_COOLDOWN, 0) - 1;
             if(attackingCycleCooldown <= 0)
-                nbt.remove("attackingCycleCooldown");
+                itemStack.remove(ModDataComponentTypes.ACTION_COOLDOWN);
             else
-                nbt.putInt("attackingCycleCooldown", attackingCycleCooldown);
+                itemStack.set(ModDataComponentTypes.ACTION_COOLDOWN, attackingCycleCooldown);
         }
     }
 }

@@ -4,14 +4,16 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
 import me.jddev0.ep.codec.CodecFix;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
@@ -81,7 +83,7 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container, RegistryAccess registryAccess) {
+    public ItemStack assemble(SimpleContainer container, HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
@@ -91,7 +93,7 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
@@ -135,7 +137,7 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleContainer> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "plant_growth_chamber");
 
-        private final Codec<PlantGrowthChamberRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<PlantGrowthChamberRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(new ArrayCodec<>(OutputItemStackWithPercentages.CODEC, OutputItemStackWithPercentages[]::new).fieldOf("outputs").forGetter((recipe) -> {
                 return recipe.outputs;
             }), Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
@@ -145,20 +147,27 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleContainer> {
             })).apply(instance, PlantGrowthChamberRecipe::new);
         });
 
+        private final StreamCodec<RegistryFriendlyByteBuf, PlantGrowthChamberRecipe> STREAM_CODEC = StreamCodec.of(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<PlantGrowthChamberRecipe> codec() {
+        public MapCodec<PlantGrowthChamberRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public PlantGrowthChamberRecipe fromNetwork(FriendlyByteBuf buffer) {
-            Ingredient input = Ingredient.fromNetwork(buffer);
+        public StreamCodec<RegistryFriendlyByteBuf, PlantGrowthChamberRecipe> streamCodec() {
+            return STREAM_CODEC;
+        }
+
+        private static PlantGrowthChamberRecipe read(RegistryFriendlyByteBuf buffer) {
+            Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             int ticks = buffer.readInt();
 
             int outputCount = buffer.readInt();
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[outputCount];
             for(int i = 0;i < outputCount;i++) {
-                ItemStack output = buffer.readItem();
+                ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
                 int percentageCount = buffer.readInt();
                 double[] percentages = new double[percentageCount];
@@ -171,14 +180,13 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleContainer> {
             return new PlantGrowthChamberRecipe(outputs, input, ticks);
         }
 
-        @Override
-        public void toNetwork(FriendlyByteBuf buffer, PlantGrowthChamberRecipe recipe) {
-            recipe.input.toNetwork(buffer);
+        private static void write(RegistryFriendlyByteBuf buffer, PlantGrowthChamberRecipe recipe) {
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
             buffer.writeInt(recipe.ticks);
 
             buffer.writeInt(recipe.outputs.length);
             for(OutputItemStackWithPercentages output:recipe.outputs) {
-                buffer.writeItem(output.output);
+                ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, output.output);
 
                 buffer.writeInt(output.percentages.length);
                 for(double percentage:output.percentages)

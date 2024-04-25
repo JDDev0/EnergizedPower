@@ -3,16 +3,16 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "forge:storage_blocks/silicon"
+      "tag": "c:storage_blocks/silicon"
     },
     "G": {
-      "tag": "forge:plates/gold"
+      "tag": "c:plates/gold"
     },
     "R": {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     },
     "E": {
-      "tag": "forge:plates/energized_copper"
+      "tag": "c:plates/energized_copper"
     },
     "A": {
       "item": "energizedpower:advanced_machine_frame"
@@ -24,6 +24,6 @@
     "ESE"
   ],
   "result": {
-    "item": "energizedpower:energizer"
+    "id": "energizedpower:energizer"
   }
 }

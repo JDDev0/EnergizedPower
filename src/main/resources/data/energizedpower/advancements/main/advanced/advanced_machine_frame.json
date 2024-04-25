@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/energizedpower_advanced",
   "display": {
     "icon": {
-      "item": "energizedpower:advanced_machine_frame"
+      "id": "energizedpower:advanced_machine_frame"
     },
     "title": {
       "translate": "advancements.energizedpower.advanced_machine_frame.title"

@@ -22,13 +22,13 @@ public final class RecipeUtils {
     public static <C extends Container, T extends Recipe<C>> boolean isResultOfAny(Level level, RecipeType<T> recipeType, ItemStack itemStack) {
         List<RecipeHolder<T>> recipes = level.getRecipeManager().getAllRecipesFor(recipeType);
 
-        return recipes.stream().map(RecipeHolder::value).map(recipe -> recipe.getResultItem(level.registryAccess())).anyMatch(stack -> ItemStack.isSameItemSameTags(stack, itemStack));
+        return recipes.stream().map(RecipeHolder::value).map(recipe -> recipe.getResultItem(level.registryAccess())).anyMatch(stack -> ItemStack.isSameItemSameComponents(stack, itemStack));
     }
 
     public static <C extends Container, T extends Recipe<C>> boolean isRemainderOfAny(Level level, RecipeType<T> recipeType, C container, ItemStack itemStack) {
         List<RecipeHolder<T>> recipes = level.getRecipeManager().getAllRecipesFor(recipeType);
 
         return recipes.stream().map(RecipeHolder::value).map(recipe -> recipe.getRemainingItems(container)).
-                anyMatch(remainingItems -> remainingItems.stream().anyMatch(item -> ItemStack.isSameItemSameTags(item, itemStack)));
+                anyMatch(remainingItems -> remainingItems.stream().anyMatch(item -> ItemStack.isSameItemSameComponents(item, itemStack)));
     }
 }

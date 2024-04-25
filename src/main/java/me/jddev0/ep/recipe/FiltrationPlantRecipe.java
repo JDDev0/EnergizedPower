@@ -4,12 +4,16 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.SimpleContainer;
@@ -76,7 +80,7 @@ public class FiltrationPlantRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container, RegistryAccess registryAccess) {
+    public ItemStack assemble(SimpleContainer container, HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
@@ -86,7 +90,7 @@ public class FiltrationPlantRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
@@ -123,7 +127,7 @@ public class FiltrationPlantRecipe implements Recipe<SimpleContainer> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "filtration_plant");
 
-        private final Codec<FiltrationPlantRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<FiltrationPlantRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(OutputItemStackWithPercentages.CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
             }), OutputItemStackWithPercentages.CODEC.optionalFieldOf("secondaryOutput",
@@ -134,16 +138,23 @@ public class FiltrationPlantRecipe implements Recipe<SimpleContainer> {
             })).apply(instance, FiltrationPlantRecipe::new);
         });
 
+        private final StreamCodec<RegistryFriendlyByteBuf, FiltrationPlantRecipe> STREAM_CODEC = StreamCodec.of(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<FiltrationPlantRecipe> codec() {
+        public MapCodec<FiltrationPlantRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public FiltrationPlantRecipe fromNetwork(FriendlyByteBuf buffer) {
+        public StreamCodec<RegistryFriendlyByteBuf, FiltrationPlantRecipe> streamCodec() {
+            return STREAM_CODEC;
+        }
+
+        private static FiltrationPlantRecipe read(RegistryFriendlyByteBuf buffer) {
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[2];
             for(int i = 0;i < 2;i++) {
-                ItemStack output = buffer.readItem();
+                ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
                 int percentageCount = buffer.readInt();
                 double[] percentages = new double[percentageCount];
@@ -158,11 +169,10 @@ public class FiltrationPlantRecipe implements Recipe<SimpleContainer> {
             return new FiltrationPlantRecipe(outputs[0], outputs[1], icon);
         }
 
-        @Override
-        public void toNetwork(FriendlyByteBuf buffer, FiltrationPlantRecipe recipe) {
+        private static void write(RegistryFriendlyByteBuf buffer, FiltrationPlantRecipe recipe) {
             for(int i = 0;i < 2;i++) {
                 OutputItemStackWithPercentages output = i == 0?recipe.output:recipe.secondaryOutput;
-                buffer.writeItem(output.output);
+                ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, output.output);
 
                 buffer.writeInt(output.percentages.length);
                 for(double percentage:output.percentages)

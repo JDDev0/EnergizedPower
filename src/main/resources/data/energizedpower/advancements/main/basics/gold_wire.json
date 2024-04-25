@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/cutter",
   "display": {
     "icon": {
-      "item": "energizedpower:gold_wire"
+      "id": "energizedpower:gold_wire"
     },
     "title": {
       "translate": "advancements.energizedpower.gold_wire.title"
@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:wires/gold"
+            "items": "#c:wires/gold"
           }
         ]
       }

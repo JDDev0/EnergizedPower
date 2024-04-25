@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "G": {
-      "tag": "forge:nuggets/gold"
+      "tag": "c:nuggets/gold"
     },
     "E": {
-      "tag": "forge:plates/energized_gold"
+      "tag": "c:plates/energized_gold"
     },
     "S": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     },
     "B": {
       "item": "energizedpower:battery_6"
@@ -21,6 +21,6 @@
     "SBS"
   ],
   "result": {
-    "item": "energizedpower:battery_7"
+    "id": "energizedpower:battery_7"
   }
 }

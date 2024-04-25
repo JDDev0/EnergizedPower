@@ -5,10 +5,9 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TieredItem;
-import net.minecraft.world.item.Vanishable;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class CutterItem extends TieredItem implements Vanishable {
+public class CutterItem extends TieredItem {
     private final RandomSource random = RandomSource.create();
 
     public CutterItem(Tier tier, Properties props) {
@@ -18,8 +17,7 @@ public class CutterItem extends TieredItem implements Vanishable {
     @Override
     public ItemStack getCraftingRemainingItem(ItemStack itemStack) {
         ItemStack copy = itemStack.copy();
-        if(copy.hurt(1, random, null))
-            return ItemStack.EMPTY;
+        copy.hurtAndBreak(1, random, null, () -> copy.setCount(0));
 
         return copy;
     }

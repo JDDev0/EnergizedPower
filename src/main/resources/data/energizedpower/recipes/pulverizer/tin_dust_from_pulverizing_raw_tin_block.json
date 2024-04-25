@@ -1,7 +1,7 @@
 {
   "type": "energizedpower:pulverizer",
   "ingredient": {
-    "tag": "forge:storage_blocks/raw_tin"
+    "tag": "c:storage_blocks/raw_tin"
   },
   "output": {
     "output": {

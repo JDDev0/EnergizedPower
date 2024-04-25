@@ -81,7 +81,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
 
             PlantGrowthChamberRecipe.OutputItemStackWithPercentages[] outputs = recipe.value().getOutputs();
             for(int i = 0;i < outputs.length;i++) {
-                if(ItemStack.isSameItemSameTags(optionalItemStack.get(), outputs[i].output())) {
+                if(ItemStack.isSameItemSameComponents(optionalItemStack.get(), outputs[i].output())) {
                     double[] percentages = outputs[i].percentages();
                     for(int j = 0;j < percentages.length;j++)
                         tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", j + 1, 100 * percentages[j])));

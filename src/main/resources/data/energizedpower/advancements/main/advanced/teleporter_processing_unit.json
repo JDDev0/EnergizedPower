@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/teleporter_matrix",
   "display": {
     "icon": {
-      "item": "energizedpower:teleporter_processing_unit"
+      "id": "energizedpower:teleporter_processing_unit"
     },
     "title": {
       "translate": "advancements.energizedpower.teleporter_processing_unit.title"

@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/hammer",
   "display": {
     "icon": {
-      "item": "energizedpower:tin_plate"
+      "id": "energizedpower:tin_plate"
     },
     "title": {
       "translate": "advancements.energizedpower.tin_plate.title"
@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:plates/tin"
+            "items": "#c:plates/tin"
           }
         ]
       }

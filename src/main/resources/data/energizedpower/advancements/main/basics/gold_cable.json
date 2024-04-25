@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/copper_cable",
   "display": {
     "icon": {
-      "item": "energizedpower:gold_cable"
+      "id": "energizedpower:gold_cable"
     },
     "title": {
       "translate": "advancements.energizedpower.gold_cable.title"

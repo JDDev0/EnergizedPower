@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/basic_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:block_placer"
+      "id": "energizedpower:block_placer"
     },
     "title": {
       "translate": "advancements.energizedpower.block_placer.title"

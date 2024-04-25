@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "C": {
-      "tag": "forge:plates/energized_copper"
+      "tag": "c:plates/energized_copper"
     },
     "F": {
       "item": "energizedpower:fluid_tank_small"
@@ -21,6 +21,6 @@
     "CPC"
   ],
   "result": {
-    "item": "energizedpower:advanced_pulverizer"
+    "id": "energizedpower:advanced_pulverizer"
   }
 }

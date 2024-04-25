@@ -125,7 +125,7 @@ public final class ModItems {
             () -> new CableInsulatorItem(new Item.Properties()));
 
     public static final DeferredItem<Item> CHARCOAL_FILTER = ITEMS.register("charcoal_filter",
-            () -> new Item(new Item.Properties().durability(200).defaultDurability(200)));
+            () -> new Item(new Item.Properties().durability(200)));
 
     public static final DeferredItem<Item> SAW_BLADE = ITEMS.register("saw_blade",
             () -> new Item(new Item.Properties()));

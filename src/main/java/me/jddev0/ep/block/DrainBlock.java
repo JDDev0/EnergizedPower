@@ -64,7 +64,7 @@ public class DrainBlock extends BaseEntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos blockPos, Player player, InteractionHand handItem, BlockHitResult hit) {
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
         if(level.isClientSide())
             return InteractionResult.sidedSuccess(level.isClientSide());
 
@@ -89,7 +89,7 @@ public class DrainBlock extends BaseEntityBlock {
         }
 
         @Override
-        public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
+        public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag flag) {
             if(Screen.hasShiftDown()) {
                 components.add(Component.translatable("tooltip.energizedpower.drain.txt.shift").
                         withStyle(ChatFormatting.GRAY));

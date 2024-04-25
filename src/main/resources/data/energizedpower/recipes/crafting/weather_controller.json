@@ -9,13 +9,13 @@
       "item": "energizedpower:energized_crystal_matrix"
     },
     "r": {
-      "tag": "forge:storage_blocks/redstone"
+      "tag": "c:storage_blocks/redstone"
     },
     "E": {
-      "tag": "forge:plates/energized_gold"
+      "tag": "c:plates/energized_gold"
     },
     "A": {
-      "tag": "forge:gems/amethyst"
+      "tag": "c:gems/amethyst"
     },
     "R": {
       "item": "energizedpower:reinforced_advanced_machine_frame"
@@ -27,6 +27,6 @@
     "rEr"
   ],
   "result": {
-    "item": "energizedpower:weather_controller"
+    "id": "energizedpower:weather_controller"
   }
 }

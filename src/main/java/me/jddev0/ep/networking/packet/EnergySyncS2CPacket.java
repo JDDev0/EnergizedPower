@@ -3,22 +3,25 @@ package me.jddev0.ep.networking.packet;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
 public record EnergySyncS2CPacket(int energy, int capacity, BlockPos pos) implements CustomPacketPayload {
-    public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "energy_sync");
+    public static final Type<EnergySyncS2CPacket> ID =
+            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "energy_sync"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, EnergySyncS2CPacket> STREAM_CODEC =
+            StreamCodec.ofMember(EnergySyncS2CPacket::write, EnergySyncS2CPacket::new);
 
-    public EnergySyncS2CPacket(FriendlyByteBuf buffer) {
+    public EnergySyncS2CPacket(RegistryFriendlyByteBuf buffer) {
         this(buffer.readInt(), buffer.readInt(), buffer.readBlockPos());
     }
 
-    @Override
-    public void write(final FriendlyByteBuf buffer) {
+    public void write(RegistryFriendlyByteBuf buffer) {
         buffer.writeInt(energy);
         buffer.writeInt(capacity);
         buffer.writeBlockPos(pos);
@@ -26,16 +29,13 @@ public record EnergySyncS2CPacket(int energy, int capacity, BlockPos pos) implem
 
     @Override
     @NotNull
-    public ResourceLocation id() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 
-    public static void handle(final EnergySyncS2CPacket data, final PlayPayloadContext context) {
-        context.workHandler().execute(() -> {
-            if(context.level().isEmpty())
-                return;
-
-            BlockEntity blockEntity = context.level().get().getBlockEntity(data.pos);
+    public static void handle(EnergySyncS2CPacket data, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            BlockEntity blockEntity = context.player().level().getBlockEntity(data.pos);
 
             //BlockEntity
             if(blockEntity instanceof EnergyStoragePacketUpdate) {

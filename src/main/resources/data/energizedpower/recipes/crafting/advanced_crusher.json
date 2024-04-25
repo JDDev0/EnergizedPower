@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "c": {
-      "tag": "forge:plates/energized_copper"
+      "tag": "c:plates/energized_copper"
     },
     "F": {
       "item": "energizedpower:fluid_tank_small"
@@ -21,6 +21,6 @@
     "cCc"
   ],
   "result": {
-    "item": "energizedpower:advanced_crusher"
+    "id": "energizedpower:advanced_crusher"
   }
 }

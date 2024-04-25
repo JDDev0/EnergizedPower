@@ -5,6 +5,7 @@ import me.jddev0.ep.block.FluidPipeBlock;
 import me.jddev0.ep.block.ModBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -210,18 +211,19 @@ public class FluidPipeBlockEntity extends BlockEntity {
                     boolean wasExtractedFluidTypeEmpty = extractedFluidType.isEmpty();
                     if(wasExtractedFluidTypeEmpty) {
                         for(FluidStack alreadyCheckedFluidType:alreadyCheckedFluidTypes)
-                            if(alreadyCheckedFluidType.isFluidEqual(fluidStackInTank))
+                            if(FluidStack.isSameFluidSameComponents(alreadyCheckedFluidType, fluidStackInTank))
                                 continue tankLoop;
 
                         extractedFluidType = fluidStackInTank.copy();
                         extractedFluidType.setAmount(blockEntity.maxTransfer);
                     }
 
-                    if(!fluidStackInTank.isFluidEqual(extractedFluidType))
+                    if(!FluidStack.isSameFluidSameComponents(fluidStackInTank, extractedFluidType))
                         continue;
 
                     FluidStack extracted = fluidStorage.drain(extractedFluidType.copy(), IFluidHandler.FluidAction.SIMULATE);
-                    if(extracted.getAmount() <= 0 || extracted.isEmpty() || !extracted.isFluidEqual(extractedFluidType)) {
+                    if(extracted.getAmount() <= 0 || extracted.isEmpty() ||
+                            !FluidStack.isSameFluidSameComponents(extracted, extractedFluidType)) {
                         if(wasExtractedFluidTypeEmpty)
                             extractedFluidType = FluidStack.EMPTY;
 
@@ -413,15 +415,15 @@ public class FluidPipeBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
+    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         //TODO
 
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
         //TODO
     }

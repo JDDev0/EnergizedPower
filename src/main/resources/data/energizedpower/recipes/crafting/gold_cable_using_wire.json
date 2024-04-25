@@ -7,7 +7,7 @@
       "item": "energizedpower:cable_insulator"
     },
     "G": {
-      "tag": "forge:wires/gold"
+      "tag": "c:wires/gold"
     }
   },
   "pattern": [
@@ -16,7 +16,7 @@
     "IGI"
   ],
   "result": {
-    "item": "energizedpower:gold_cable",
+    "id": "energizedpower:gold_cable",
     "count": 6
   }
 }

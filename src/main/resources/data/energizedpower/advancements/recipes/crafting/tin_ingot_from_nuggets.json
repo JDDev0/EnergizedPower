@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:nuggets/tin"
+            "items": "#c:nuggets/tin"
           }
         ]
       }

@@ -21,10 +21,12 @@ import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
@@ -75,7 +77,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
         public void setStackInSlot(int slot, @NotNull ItemStack stack) {
             if(slot == 0) {
                 ItemStack itemStack = getStackInSlot(slot);
-                if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameTags(stack, itemStack))
+                if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
                     resetProgress(worldPosition, level.getBlockState(worldPosition));
             }
 
@@ -110,7 +112,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
                             new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
-                            getBlockPos(), level.dimension(), 32
+                            getBlockPos(), (ServerLevel)level, 32
                     );
             }
         };
@@ -187,8 +189,8 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("inventory", itemHandler.serializeNBT());
+    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        nbt.put("inventory", itemHandler.serializeNBT(registries));
         nbt.put("energy", energyStorage.saveNBT());
 
         nbt.put("recipe.progress", IntTag.valueOf(progress));
@@ -200,14 +202,14 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
         energyStorage.loadNBT(nbt.get("energy"));
 
         progress = nbt.getInt("recipe.progress");
@@ -336,7 +338,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
                     continue;
                 }
 
-                if(ItemStack.isSameItemSameTags(itemStack, testItemStack)) {
+                if(ItemStack.isSameItemSameComponents(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getMaxStackSize() - testItemStack.getCount());
                     if(amount > 0) {
                         blockEntity.itemHandler.setStackInSlot(i, blockEntity.itemHandler.getStackInSlot(i).copyWithCount(testItemStack.getCount() + amount));
@@ -387,7 +389,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
                     continue;
                 }
 
-                if(ItemStack.isSameItemSameTags(itemStack, testItemStack)) {
+                if(ItemStack.isSameItemSameComponents(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getMaxStackSize() - testItemStack.getCount());
 
                     if(amount + testItemStack.getCount() == testItemStack.getMaxStackSize())

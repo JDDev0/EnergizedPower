@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:raw_materials/tin"
+            "items": "#c:raw_materials/tin"
           }
         ]
       }

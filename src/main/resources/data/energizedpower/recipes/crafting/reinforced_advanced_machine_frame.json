@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "forge:storage_blocks/silicon"
+      "tag": "c:storage_blocks/silicon"
     },
     "C": {
       "item": "energizedpower:energized_crystal_matrix"
@@ -18,6 +18,6 @@
     "CSC"
   ],
   "result": {
-    "item": "energizedpower:reinforced_advanced_machine_frame"
+    "id": "energizedpower:reinforced_advanced_machine_frame"
   }
 }

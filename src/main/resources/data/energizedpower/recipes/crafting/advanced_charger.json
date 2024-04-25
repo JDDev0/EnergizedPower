@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     },
     "C": {
-      "tag": "forge:plates/energized_copper"
+      "tag": "c:plates/energized_copper"
     },
     "G": {
-      "tag": "forge:plates/energized_gold"
+      "tag": "c:plates/energized_gold"
     },
     "A": {
       "item": "energizedpower:advanced_machine_frame"
@@ -24,6 +24,6 @@
     "GcG"
   ],
   "result": {
-    "item": "energizedpower:advanced_charger"
+    "id": "energizedpower:advanced_charger"
   }
 }

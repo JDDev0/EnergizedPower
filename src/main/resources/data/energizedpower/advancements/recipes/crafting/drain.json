@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:storage_blocks/iron"
+            "items": "#c:storage_blocks/iron"
           }
         ]
       }

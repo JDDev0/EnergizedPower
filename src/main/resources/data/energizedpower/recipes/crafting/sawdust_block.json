@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "S": {
-      "tag": "forge:dusts/wood"
+      "tag": "c:dusts/wood"
     }
   },
   "pattern": [
@@ -12,6 +12,6 @@
     "SSS"
   ],
   "result": {
-    "item": "energizedpower:sawdust_block"
+    "id": "energizedpower:sawdust_block"
   }
 }

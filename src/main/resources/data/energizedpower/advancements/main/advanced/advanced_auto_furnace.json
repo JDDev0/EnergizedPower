@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/energized_gold_ingot",
   "display": {
     "icon": {
-      "item": "energizedpower:advanced_auto_crafter"
+      "id": "energizedpower:advanced_auto_crafter"
     },
     "title": {
       "translate": "advancements.energizedpower.advanced_auto_crafter.title"

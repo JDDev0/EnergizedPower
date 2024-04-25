@@ -6,6 +6,7 @@ import me.jddev0.ep.block.behavior.ModBlockBehaviors;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.block.entity.renderer.FluidTankBlockEntityRenderer;
 import me.jddev0.ep.block.entity.renderer.ItemConveyorBeltBlockEntityRenderer;
+import me.jddev0.ep.component.ModDataComponentTypes;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.ModEntityTypes;
 import me.jddev0.ep.fluid.ModFluidTypes;
@@ -28,12 +29,12 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.IntTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
@@ -56,6 +57,8 @@ public class EnergizedPowerMod {
 
     public EnergizedPowerMod(IEventBus modEventBus) {
         ModConfigs.registerConfigs(true);
+
+        ModDataComponentTypes.register(modEventBus);
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
@@ -88,7 +91,7 @@ public class EnergizedPowerMod {
 
     private ItemStack getChargedItemStack(Item item, int energy) {
         ItemStack itemStack = new ItemStack(item);
-        itemStack.getOrCreateTag().put("energy", IntTag.valueOf(energy));
+        itemStack.set(ModDataComponentTypes.ENERGY, energy);
 
         return itemStack;
     }
@@ -290,7 +293,7 @@ public class EnergizedPowerMod {
         for(Item item:BuiltInRegistries.ITEM) {
             if(item instanceof EnergizedPowerEnergyItem energizedPowerEnergyItem) {
                 event.registerItem(Capabilities.EnergyStorage.ITEM, (stack, ctx) -> {
-                    return new ItemCapabilityEnergy(stack, stack.getTag(), energizedPowerEnergyItem.getEnergyStorageProvider().get());
+                    return new ItemCapabilityEnergy(stack, energizedPowerEnergyItem.getEnergyStorageProvider().get());
                 }, item);
             }
         }
@@ -304,7 +307,7 @@ public class EnergizedPowerMod {
 
     }
 
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {

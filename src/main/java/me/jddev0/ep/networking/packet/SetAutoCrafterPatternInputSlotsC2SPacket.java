@@ -5,7 +5,8 @@ import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -13,14 +14,17 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SetAutoCrafterPatternInputSlotsC2SPacket implements CustomPacketPayload {
-    public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "set_auto_crafter_pattern_input_slots");
+public final class SetAutoCrafterPatternInputSlotsC2SPacket implements CustomPacketPayload {
+    public static final Type<SetAutoCrafterPatternInputSlotsC2SPacket> ID =
+            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "set_auto_crafter_pattern_input_slots"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetAutoCrafterPatternInputSlotsC2SPacket> STREAM_CODEC =
+            StreamCodec.ofMember(SetAutoCrafterPatternInputSlotsC2SPacket::write, SetAutoCrafterPatternInputSlotsC2SPacket::new);
 
     private final BlockPos pos;
     private final List<ItemStack> itemStacks;
@@ -37,36 +41,34 @@ public class SetAutoCrafterPatternInputSlotsC2SPacket implements CustomPacketPay
         this.recipeId = recipeId;
     }
 
-    public SetAutoCrafterPatternInputSlotsC2SPacket(FriendlyByteBuf buffer) {
+    public SetAutoCrafterPatternInputSlotsC2SPacket(RegistryFriendlyByteBuf buffer) {
         pos = buffer.readBlockPos();
 
         itemStacks = new ArrayList<>(9);
         for(int i = 0;i < 9;i++)
-            itemStacks.add(buffer.readItem());
+            itemStacks.add(ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer));
 
         recipeId = buffer.readResourceLocation();
     }
 
-    @Override
-    public void write(final FriendlyByteBuf buffer) {
+     public void write(RegistryFriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
 
         for(ItemStack itemStack:itemStacks)
-            buffer.writeItem(itemStack);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, itemStack);
 
         buffer.writeResourceLocation(recipeId);
     }
 
     @Override
     @NotNull
-    public ResourceLocation id() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 
-    public static void handle(final SetAutoCrafterPatternInputSlotsC2SPacket data, final PlayPayloadContext context) {
-        context.workHandler().execute(() -> {
-            if(context.level().isEmpty() || !(context.level().get() instanceof ServerLevel level) ||
-                    context.player().isEmpty() || !(context.player().get() instanceof ServerPlayer player))
+    public static void handle(SetAutoCrafterPatternInputSlotsC2SPacket data, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            if(!(context.player().level() instanceof ServerLevel level) || !(context.player() instanceof ServerPlayer player))
                 return;
 
             if(!level.hasChunk(SectionPos.blockToSectionCoord(data.pos.getX()), SectionPos.blockToSectionCoord(data.pos.getZ())))

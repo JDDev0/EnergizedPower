@@ -3,16 +3,16 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     },
     "I": {
-      "tag": "forge:plates/iron"
+      "tag": "c:plates/iron"
     },
     "R": {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     },
     "c": {
-      "tag": "forge:plates/copper"
+      "tag": "c:plates/copper"
     },
     "C": {
       "item": "energizedpower:coal_engine"
@@ -24,6 +24,6 @@
     "cIc"
   ],
   "result": {
-    "item": "energizedpower:inventory_coal_engine"
+    "id": "energizedpower:inventory_coal_engine"
   }
 }

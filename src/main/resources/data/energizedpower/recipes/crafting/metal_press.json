@@ -6,10 +6,10 @@
       "item": "minecraft:piston"
     },
     "I": {
-      "tag": "forge:storage_blocks/iron"
+      "tag": "c:storage_blocks/iron"
     },
     "i": {
-      "tag": "forge:plates/iron"
+      "tag": "c:plates/iron"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
@@ -21,6 +21,6 @@
     "iIi"
   ],
   "result": {
-    "item": "energizedpower:metal_press"
+    "id": "energizedpower:metal_press"
   }
 }

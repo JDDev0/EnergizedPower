@@ -3,19 +3,19 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     },
     "F": {
       "item": "energizedpower:fluid_tank_small"
     },
     "I": {
-      "tag": "forge:plates/iron"
+      "tag": "c:plates/iron"
     },
     "i": {
-      "tag": "forge:gears/iron"
+      "tag": "c:gears/iron"
     },
     "C": {
-      "tag": "forge:storage_blocks/copper"
+      "tag": "c:storage_blocks/copper"
     },
     "H": {
       "item": "energizedpower:hardened_machine_frame"
@@ -27,6 +27,6 @@
     "CIC"
   ],
   "result": {
-    "item": "energizedpower:stone_solidifier"
+    "id": "energizedpower:stone_solidifier"
   }
 }

@@ -31,8 +31,8 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
-        super.appendHoverText(itemStack, level, components, tooltipFlag);
+    public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
+        super.appendHoverText(itemStack, context, components, tooltipFlag);
 
         if(Screen.hasShiftDown()) {
             components.add(Component.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.1").withStyle(ChatFormatting.GRAY));

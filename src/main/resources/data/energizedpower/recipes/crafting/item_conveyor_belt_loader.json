@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "C": {
-      "tag": "forge:cobblestone/normal"
+      "tag": "c:cobblestone/normal"
     },
     "c": {
       "item": "energizedpower:item_conveyor_belt"
@@ -18,6 +18,6 @@
     "CcC"
   ],
   "result": {
-    "item": "energizedpower:item_conveyor_belt_loader"
+    "id": "energizedpower:item_conveyor_belt_loader"
   }
 }

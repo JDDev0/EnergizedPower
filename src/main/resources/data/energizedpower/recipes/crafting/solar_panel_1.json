@@ -3,16 +3,16 @@
   "category": "misc",
   "key": {
     "G": {
-      "tag": "forge:glass_panes/colorless"
+      "tag": "c:glass_panes/colorless"
     },
     "R": {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     },
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "C": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     "B": {
       "item": "energizedpower:basic_solar_cell"
@@ -24,6 +24,6 @@
     "ICI"
   ],
   "result": {
-    "item": "energizedpower:solar_panel_1"
+    "id": "energizedpower:solar_panel_1"
   }
 }

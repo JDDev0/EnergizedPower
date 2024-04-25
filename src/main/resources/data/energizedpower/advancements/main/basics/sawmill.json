@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/basic_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:sawmill"
+      "id": "energizedpower:sawmill"
     },
     "title": {
       "translate": "advancements.energizedpower.sawmill.title"

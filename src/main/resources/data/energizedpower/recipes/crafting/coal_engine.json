@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     },
     "I": {
-      "tag": "forge:plates/iron"
+      "tag": "c:plates/iron"
     },
     "C": {
-      "tag": "forge:plates/copper"
+      "tag": "c:plates/copper"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
@@ -24,6 +24,6 @@
     "IFI"
   ],
   "result": {
-    "item": "energizedpower:coal_engine"
+    "id": "energizedpower:coal_engine"
   }
 }

@@ -1,13 +1,14 @@
 package me.jddev0.ep.recipe;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
@@ -40,7 +41,7 @@ public class CrusherRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container, RegistryAccess registryAccess) {
+    public ItemStack assemble(SimpleContainer container, HolderLookup.Provider registries) {
         return output;
     }
 
@@ -50,7 +51,7 @@ public class CrusherRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
         return output.copy();
     }
 
@@ -94,7 +95,7 @@ public class CrusherRecipe implements Recipe<SimpleContainer> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "crusher");
 
-        private final Codec<CrusherRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<CrusherRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
             }), Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
@@ -102,23 +103,29 @@ public class CrusherRecipe implements Recipe<SimpleContainer> {
             })).apply(instance, CrusherRecipe::new);
         });
 
+        private final StreamCodec<RegistryFriendlyByteBuf, CrusherRecipe> STREAM_CODEC = StreamCodec.of(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<CrusherRecipe> codec() {
+        public MapCodec<CrusherRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public CrusherRecipe fromNetwork(FriendlyByteBuf buffer) {
-            Ingredient input = Ingredient.fromNetwork(buffer);
-            ItemStack output = buffer.readItem();
+        public StreamCodec<RegistryFriendlyByteBuf, CrusherRecipe> streamCodec() {
+            return STREAM_CODEC;
+        }
+
+        private static CrusherRecipe read(RegistryFriendlyByteBuf buffer) {
+            Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new CrusherRecipe(output, input);
         }
 
-        @Override
-        public void toNetwork(FriendlyByteBuf buffer, CrusherRecipe recipe) {
-            recipe.input.toNetwork(buffer);
-            buffer.writeItem(recipe.output);
+        private static void write(RegistryFriendlyByteBuf buffer, CrusherRecipe recipe) {
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
 }

@@ -83,12 +83,12 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipes(FiltrationPlantCategory.TYPE, recipeManager.getAllRecipesFor(FiltrationPlantRecipe.Type.INSTANCE));
 
         registration.addRecipes(InWorldCategory.TYPE, Arrays.asList(
-                new InWorldCategory.InWorldRecipe(Ingredient.of(Tags.Items.SHEARS), Ingredient.of(ItemTags.WOOL),
+                new InWorldCategory.InWorldRecipe(Ingredient.of(Tags.Items.TOOLS_SHEARS), Ingredient.of(ItemTags.WOOL),
                         new ItemStack(ModItems.CABLE_INSULATOR.get(), 18))
         ));
 
         registration.addRecipes(DispenserCategory.TYPE, Arrays.asList(
-                new DispenserCategory.DispenserRecipe(Ingredient.of(Tags.Items.SHEARS), Ingredient.of(ItemTags.WOOL),
+                new DispenserCategory.DispenserRecipe(Ingredient.of(Tags.Items.TOOLS_SHEARS), Ingredient.of(ItemTags.WOOL),
                         new ItemStack(ModItems.CABLE_INSULATOR.get(), 18))
         ));
     }

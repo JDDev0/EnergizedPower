@@ -9,19 +9,19 @@
     },
     {
       "input": {
-        "tag": "forge:ingots/energized_copper"
+        "tag": "c:ingots/energized_copper"
       },
       "count": 4
     },
     {
       "input": {
-        "tag": "forge:ingots/tin"
+        "tag": "c:ingots/tin"
       },
       "count": 2
     },
     {
       "input": {
-        "tag": "forge:dusts/redstone"
+        "tag": "c:dusts/redstone"
       },
       "count": 2
     }

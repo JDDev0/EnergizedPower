@@ -25,12 +25,14 @@ import me.jddev0.ep.util.FluidUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
@@ -108,7 +110,7 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements MenuProvi
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
                             new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
-                            getBlockPos(), level.dimension(), 32
+                            getBlockPos(), (ServerLevel)level, 32
                     );
             }
         };
@@ -124,7 +126,7 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements MenuProvi
                     for(int i = 0;i < getTanks();i++)
                         ModMessages.sendToPlayersWithinXBlocks(
                                 new FluidSyncS2CPacket(i, getFluidInTank(i), getTankCapacity(i), getBlockPos()),
-                                getBlockPos(), level.dimension(), 32
+                                getBlockPos(), (ServerLevel)level, 32
                         );
             }
 
@@ -134,8 +136,8 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements MenuProvi
                     return false;
 
                 return switch(tank) {
-                    case 0 -> stack.isFluidEqual(new FluidStack(ModFluids.DIRTY_WATER.get(), 1));
-                    case 1 -> stack.isFluidEqual(new FluidStack(Fluids.WATER, 1));
+                    case 0 -> FluidStack.isSameFluid(stack, new FluidStack(ModFluids.DIRTY_WATER.get(), 1));
+                    case 1 -> FluidStack.isSameFluid(stack, new FluidStack(Fluids.WATER, 1));
                     default -> false;
                 };
             }
@@ -218,11 +220,11 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements MenuProvi
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("inventory", itemHandler.serializeNBT());
+    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        nbt.put("inventory", itemHandler.serializeNBT(registries));
         nbt.put("energy", energyStorage.saveNBT());
         for(int i = 0;i < fluidStorage.getTanks();i++)
-            nbt.put("fluid." + i, fluidStorage.getFluid(i).writeToNBT(new CompoundTag()));
+            nbt.put("fluid." + i, fluidStorage.getFluid(i).saveOptional(registries));
 
         if(currentRecipe != null)
             nbt.put("recipe.id", StringTag.valueOf(currentRecipe.id().toString()));
@@ -233,17 +235,17 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements MenuProvi
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
 
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
         energyStorage.loadNBT(nbt.get("energy"));
         for(int i = 0;i < fluidStorage.getTanks();i++)
-            fluidStorage.setFluid(i, FluidStack.loadFluidStackFromNBT(nbt.getCompound("fluid." + i)));
+            fluidStorage.setFluid(i, FluidStack.parseOptional(registries, nbt.getCompound("fluid." + i)));
 
         if(nbt.contains("recipe.id")) {
             Tag tag = nbt.get("recipe.id");
@@ -347,10 +349,8 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements MenuProvi
             if(charcoalFilter.isEmpty() && !charcoalFilter.is(ModItems.CHARCOAL_FILTER.get()))
                 continue;
 
-            if(charcoalFilter.hurt(1, level.random, null))
-                itemHandler.setStackInSlot(i, ItemStack.EMPTY);
-            else
-                itemHandler.setStackInSlot(i, charcoalFilter);
+            charcoalFilter.hurtAndBreak(1, level.random, null, () -> charcoalFilter.setCount(0));
+            itemHandler.setStackInSlot(i, charcoalFilter);
         }
 
         ItemStack[] outputs = recipe.generateOutputs(level.random);
@@ -388,14 +388,14 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements MenuProvi
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
         ItemStack inventoryItemStack = inventory.getItem(2);
 
-        return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameTags(inventoryItemStack, itemStack)) &&
+        return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameComponents(inventoryItemStack, itemStack)) &&
                 inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount();
     }
 
     private static boolean canInsertItemIntoSecondaryOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
         ItemStack inventoryItemStack = inventory.getItem(3);
 
-        return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameTags(inventoryItemStack, itemStack)) &&
+        return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameComponents(inventoryItemStack, itemStack)) &&
                 inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount();
     }
 
@@ -432,7 +432,7 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements MenuProvi
 
         ModMessages.sendToPlayersWithinXBlocks(
                 new SyncFiltrationPlantCurrentRecipeS2CPacket(getBlockPos(), currentRecipe),
-                getBlockPos(), level.dimension(), 32
+                getBlockPos(), (ServerLevel)level, 32
         );
     }
 

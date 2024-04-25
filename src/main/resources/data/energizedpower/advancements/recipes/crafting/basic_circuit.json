@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:wires/copper"
+            "items": "#c:wires/copper"
           }
         ]
       }

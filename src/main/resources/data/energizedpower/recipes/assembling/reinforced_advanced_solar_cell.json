@@ -15,13 +15,13 @@
     },
     {
       "input": {
-        "tag": "forge:silicon"
+        "tag": "c:silicon"
       },
       "count": 2
     },
     {
       "input": {
-        "tag": "forge:dusts/redstone"
+        "tag": "c:dusts/redstone"
       },
       "count": 2
     }

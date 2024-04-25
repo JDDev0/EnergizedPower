@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/iron_plate",
   "display": {
     "icon": {
-      "item": "energizedpower:drain"
+      "id": "energizedpower:drain"
     },
     "title": {
       "translate": "advancements.energizedpower.drain.title"

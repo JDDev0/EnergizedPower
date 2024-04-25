@@ -1,12 +1,14 @@
 package me.jddev0.ep.recipe;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
@@ -45,7 +47,7 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<SimpleContaine
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container, RegistryAccess registryAccess) {
+    public ItemStack assemble(SimpleContainer container, HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
@@ -55,7 +57,7 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<SimpleContaine
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
@@ -99,7 +101,7 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<SimpleContaine
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "plant_growth_chamber_fertilizer");
 
-        private final Codec<PlantGrowthChamberFertilizerRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<PlantGrowthChamberFertilizerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
             }), Codec.DOUBLE.fieldOf("speedMultiplier").forGetter((recipe) -> {
@@ -109,23 +111,29 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<SimpleContaine
             })).apply(instance, PlantGrowthChamberFertilizerRecipe::new);
         });
 
+        private final StreamCodec<RegistryFriendlyByteBuf, PlantGrowthChamberFertilizerRecipe> STREAM_CODEC = StreamCodec.of(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<PlantGrowthChamberFertilizerRecipe> codec() {
+        public MapCodec<PlantGrowthChamberFertilizerRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public PlantGrowthChamberFertilizerRecipe fromNetwork(FriendlyByteBuf buffer) {
-            Ingredient input = Ingredient.fromNetwork(buffer);
+        public StreamCodec<RegistryFriendlyByteBuf, PlantGrowthChamberFertilizerRecipe> streamCodec() {
+            return STREAM_CODEC;
+        }
+
+        private static PlantGrowthChamberFertilizerRecipe read(RegistryFriendlyByteBuf buffer) {
+            Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             double speedMultiplier = buffer.readDouble();
             double energyConsumptionMultiplier = buffer.readDouble();
 
             return new PlantGrowthChamberFertilizerRecipe(input, speedMultiplier, energyConsumptionMultiplier);
         }
 
-        @Override
-        public void toNetwork(FriendlyByteBuf buffer, PlantGrowthChamberFertilizerRecipe recipe) {
-            recipe.input.toNetwork(buffer);
+        private static void write(RegistryFriendlyByteBuf buffer, PlantGrowthChamberFertilizerRecipe recipe) {
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
             buffer.writeDouble(recipe.speedMultiplier);
             buffer.writeDouble(recipe.energyConsumptionMultiplier);
         }

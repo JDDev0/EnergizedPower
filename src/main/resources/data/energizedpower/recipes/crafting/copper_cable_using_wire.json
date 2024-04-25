@@ -7,7 +7,7 @@
       "item": "energizedpower:cable_insulator"
     },
     "C": {
-      "tag": "forge:wires/copper"
+      "tag": "c:wires/copper"
     }
   },
   "pattern": [
@@ -16,7 +16,7 @@
     "ICI"
   ],
   "result": {
-    "item": "energizedpower:copper_cable",
+    "id": "energizedpower:copper_cable",
     "count": 6
   }
 }

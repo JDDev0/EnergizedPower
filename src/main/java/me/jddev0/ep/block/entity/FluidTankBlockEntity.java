@@ -9,8 +9,10 @@ import me.jddev0.ep.screen.FluidTankMenu;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -57,7 +59,7 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
                             new FluidSyncS2CPacket(0, fluid, capacity, getBlockPos()),
-                            getBlockPos(), level.dimension(), 64
+                            getBlockPos(), (ServerLevel)level, 64
                     );
             }
 
@@ -67,7 +69,7 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
                     return false;
 
                 return fluidFilter.isEmpty() || (ignoreNBT?fluidFilter.getFluid().isSame(stack.getFluid()):
-                        fluidFilter.isFluidEqual(stack));
+                        FluidStack.isSameFluidSameComponents(fluidFilter, stack));
             }
         };
         data = new ContainerData() {
@@ -119,7 +121,7 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
         if(level.getGameTime() % 100 == 0) //TODO improve
             ModMessages.sendToPlayersWithinXBlocks(
                     new FluidSyncS2CPacket(0, blockEntity.getFluid(0), blockEntity.getTankCapacity(0), blockPos),
-                    blockPos, level.dimension(), 64
+                    blockPos, (ServerLevel)level, 64
             );
     }
 
@@ -132,25 +134,25 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("fluid", fluidStorage.writeToNBT(new CompoundTag()));
+    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        nbt.put("fluid", fluidStorage.writeToNBT(registries, new CompoundTag()));
 
         nbt.putBoolean("ignore_nbt", ignoreNBT);
 
-        nbt.put("fluid_filter", fluidFilter.writeToNBT(new CompoundTag()));
+        nbt.put("fluid_filter", fluidFilter.saveOptional(registries));
 
-        super.saveAdditional(nbt);
+        super.saveAdditional(nbt, registries);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
-        fluidStorage.readFromNBT(nbt.getCompound("fluid"));
+        fluidStorage.readFromNBT(registries, nbt.getCompound("fluid"));
 
         ignoreNBT = nbt.getBoolean("ignore_nbt");
 
-        fluidFilter = FluidStack.loadFluidStackFromNBT(nbt.getCompound("fluid_filter"));
+        fluidFilter = FluidStack.parseOptional(registries, nbt.getCompound("fluid_filter"));
     }
 
     public void setIgnoreNBT(boolean ignoreNBT) {
@@ -172,7 +174,7 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
 
         ModMessages.sendToPlayersWithinXBlocks(
                 new FluidSyncS2CPacket(1, fluidFilter, 0, getBlockPos()),
-                getBlockPos(), level.dimension(), 64
+                getBlockPos(), (ServerLevel)level, 64
         );
     }
 

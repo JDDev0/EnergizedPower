@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "i": {
-      "tag": "forge:plates/iron"
+      "tag": "c:plates/iron"
     }
   },
   "pattern": [
@@ -15,7 +15,7 @@
     "IiI"
   ],
   "result": {
-    "item": "energizedpower:fluid_pipe",
+    "id": "energizedpower:fluid_pipe",
     "count": 12
   }
 }

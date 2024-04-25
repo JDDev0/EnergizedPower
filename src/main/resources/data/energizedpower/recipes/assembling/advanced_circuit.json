@@ -9,19 +9,19 @@
     },
     {
       "input": {
-        "tag": "forge:wires/energized_copper"
+        "tag": "c:wires/energized_copper"
       },
       "count": 4
     },
     {
       "input": {
-        "tag": "forge:silicon"
+        "tag": "c:silicon"
       },
       "count": 4
     },
     {
       "input": {
-        "tag": "forge:dusts/redstone"
+        "tag": "c:dusts/redstone"
       },
       "count": 2
     }

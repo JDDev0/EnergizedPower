@@ -5,7 +5,9 @@
   "experience": 0.7,
   "group": "tin_ingot",
   "ingredient": {
-    "tag": "forge:dusts/tin"
+    "tag": "c:dusts/tin"
   },
-  "result": "energizedpower:tin_ingot"
+  "result": {
+    "id": "energizedpower:tin_ingot"
+  }
 }

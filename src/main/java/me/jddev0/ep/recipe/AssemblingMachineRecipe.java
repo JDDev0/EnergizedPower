@@ -1,13 +1,15 @@
 package me.jddev0.ep.recipe;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.SimpleContainer;
@@ -78,7 +80,7 @@ public class AssemblingMachineRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container, RegistryAccess registryAccess) {
+    public ItemStack assemble(SimpleContainer container, HolderLookup.Provider registries) {
         return output;
     }
 
@@ -88,7 +90,7 @@ public class AssemblingMachineRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
         return output.copy();
     }
 
@@ -125,7 +127,7 @@ public class AssemblingMachineRecipe implements Recipe<SimpleContainer> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "assembling_machine");
 
-        private final Codec<AssemblingMachineRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+        private final MapCodec<AssemblingMachineRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
             }), new ArrayCodec<>(IngredientWithCount.CODEC, IngredientWithCount[]::new).fieldOf("inputs").forGetter((recipe) -> {
@@ -133,36 +135,42 @@ public class AssemblingMachineRecipe implements Recipe<SimpleContainer> {
             })).apply(instance, AssemblingMachineRecipe::new);
         });
 
+        private final StreamCodec<RegistryFriendlyByteBuf, AssemblingMachineRecipe> STREAM_CODEC = StreamCodec.of(
+                Serializer::write, Serializer::read);
+
         @Override
-        public Codec<AssemblingMachineRecipe> codec() {
+        public MapCodec<AssemblingMachineRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public AssemblingMachineRecipe fromNetwork(FriendlyByteBuf buffer) {
+        public StreamCodec<RegistryFriendlyByteBuf, AssemblingMachineRecipe> streamCodec() {
+            return STREAM_CODEC;
+        }
+
+        private static AssemblingMachineRecipe read(RegistryFriendlyByteBuf buffer) {
             int len = buffer.readInt();
             IngredientWithCount[] inputs = new IngredientWithCount[len];
             for(int i = 0;i < len;i++) {
-                Ingredient input = Ingredient.fromNetwork(buffer);
+                Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
                 int count = buffer.readInt();
 
                 inputs[i] = new IngredientWithCount(input, count);
             }
 
-            ItemStack output = buffer.readItem();
+            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new AssemblingMachineRecipe(output, inputs);
         }
 
-        @Override
-        public void toNetwork(FriendlyByteBuf buffer, AssemblingMachineRecipe recipe) {
+        private static void write(RegistryFriendlyByteBuf buffer, AssemblingMachineRecipe recipe) {
             buffer.writeInt(recipe.inputs.length);
             for(int i = 0; i < recipe.inputs.length; i++) {
-                recipe.inputs[i].input.toNetwork(buffer);
+                Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.inputs[i].input);
                 buffer.writeInt(recipe.inputs[i].count);
             }
 
-            buffer.writeItem(recipe.output);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
 

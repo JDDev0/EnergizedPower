@@ -4,17 +4,21 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.FiltrationPlantBlockEntity;
 import me.jddev0.ep.recipe.FiltrationPlantRecipe;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SyncFiltrationPlantCurrentRecipeS2CPacket implements CustomPacketPayload {
-    public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "sync_filtration_plant_current_recipe");
+public final class SyncFiltrationPlantCurrentRecipeS2CPacket implements CustomPacketPayload {
+    public static final Type<SyncFiltrationPlantCurrentRecipeS2CPacket> ID =
+            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "sync_filtration_plant_current_recipe"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, SyncFiltrationPlantCurrentRecipeS2CPacket> STREAM_CODEC =
+            StreamCodec.ofMember(SyncFiltrationPlantCurrentRecipeS2CPacket::write, SyncFiltrationPlantCurrentRecipeS2CPacket::new);
 
     private final BlockPos pos;
     private final RecipeHolder<FiltrationPlantRecipe> currentRecipe;
@@ -24,15 +28,14 @@ public class SyncFiltrationPlantCurrentRecipeS2CPacket implements CustomPacketPa
         this.currentRecipe = currentRecipe;
     }
 
-    public SyncFiltrationPlantCurrentRecipeS2CPacket(FriendlyByteBuf buffer) {
+    public SyncFiltrationPlantCurrentRecipeS2CPacket(RegistryFriendlyByteBuf buffer) {
         pos = buffer.readBlockPos();
 
         currentRecipe = buffer.readBoolean()?new RecipeHolder<>(buffer.readResourceLocation(),
-                FiltrationPlantRecipe.Serializer.INSTANCE.fromNetwork(buffer)):null;
+                FiltrationPlantRecipe.Serializer.INSTANCE.streamCodec().decode(buffer)):null;
     }
 
-    @Override
-    public void write(final FriendlyByteBuf buffer) {
+     public void write(RegistryFriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
 
         if(currentRecipe == null) {
@@ -41,22 +44,19 @@ public class SyncFiltrationPlantCurrentRecipeS2CPacket implements CustomPacketPa
             buffer.writeBoolean(true);
 
             buffer.writeResourceLocation(currentRecipe.id());
-            FiltrationPlantRecipe.Serializer.INSTANCE.toNetwork(buffer, currentRecipe.value());
+            FiltrationPlantRecipe.Serializer.INSTANCE.streamCodec().encode(buffer, currentRecipe.value());
         }
     }
 
     @Override
     @NotNull
-    public ResourceLocation id() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 
-    public static void handle(final SyncFiltrationPlantCurrentRecipeS2CPacket data, final PlayPayloadContext context) {
-        context.workHandler().execute(() -> {
-            if(context.level().isEmpty())
-                return;
-
-            BlockEntity blockEntity = context.level().get().getBlockEntity(data.pos);
+    public static void handle(SyncFiltrationPlantCurrentRecipeS2CPacket data, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            BlockEntity blockEntity = context.player().level().getBlockEntity(data.pos);
 
             //BlockEntity
             if(blockEntity instanceof FiltrationPlantBlockEntity filtrationPlantBlockEntity) {

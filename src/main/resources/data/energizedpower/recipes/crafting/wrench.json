@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "i": {
-      "tag": "forge:nuggets/iron"
+      "tag": "c:nuggets/iron"
     },
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     }
   },
   "pattern": [
@@ -15,6 +15,6 @@
     "i  "
   ],
   "result": {
-    "item": "energizedpower:wrench"
+    "id": "energizedpower:wrench"
   }
 }

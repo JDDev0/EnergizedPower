@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/basics/hardened_machine_frame",
   "display": {
     "icon": {
-      "item": "energizedpower:assembling_machine"
+      "id": "energizedpower:assembling_machine"
     },
     "title": {
       "translate": "advancements.energizedpower.assembling_machine.title"

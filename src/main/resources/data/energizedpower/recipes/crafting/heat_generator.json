@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "s": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     },
     "S": {
-      "tag": "forge:storage_blocks/silicon"
+      "tag": "c:storage_blocks/silicon"
     },
     "c": {
-      "tag": "forge:wires/copper"
+      "tag": "c:wires/copper"
     },
     "C": {
       "item": "energizedpower:coal_engine"
@@ -21,6 +21,6 @@
     "cSc"
   ],
   "result": {
-    "item": "energizedpower:heat_generator"
+    "id": "energizedpower:heat_generator"
   }
 }

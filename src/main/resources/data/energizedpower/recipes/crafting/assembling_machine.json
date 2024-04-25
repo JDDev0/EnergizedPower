@@ -3,16 +3,16 @@
   "category": "misc",
   "key": {
     "R": {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     },
     "I": {
-      "tag": "forge:plates/iron"
+      "tag": "c:plates/iron"
     },
     "i": {
-      "tag": "forge:gears/iron"
+      "tag": "c:gears/iron"
     },
     "S": {
-      "tag": "forge:storage_blocks/silicon"
+      "tag": "c:storage_blocks/silicon"
     },
     "B": {
       "item": "energizedpower:basic_circuit"
@@ -27,6 +27,6 @@
     "SIS"
   ],
   "result": {
-    "item": "energizedpower:assembling_machine"
+    "id": "energizedpower:assembling_machine"
   }
 }

@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "G": {
-      "tag": "forge:glass_panes/colorless"
+      "tag": "c:glass_panes/colorless"
     },
     "a": {
-      "tag": "forge:gems/amethyst"
+      "tag": "c:gems/amethyst"
     },
     "E": {
-      "tag": "forge:ingots/energized_gold"
+      "tag": "c:ingots/energized_gold"
     },
     "S": {
       "item": "energizedpower:solar_panel_4"
@@ -24,6 +24,6 @@
     "AEA"
   ],
   "result": {
-    "item": "energizedpower:solar_panel_5"
+    "id": "energizedpower:solar_panel_5"
   }
 }

@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "s": {
-      "tag": "forge:silicon"
+      "tag": "c:silicon"
     },
     "C": {
-      "tag": "forge:plates/copper"
+      "tag": "c:plates/copper"
     },
     "I": {
-      "tag": "forge:plates/iron"
+      "tag": "c:plates/iron"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
@@ -24,6 +24,6 @@
     "CIC"
   ],
   "result": {
-    "item": "energizedpower:crusher"
+    "id": "energizedpower:crusher"
   }
 }
