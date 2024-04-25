@@ -100,7 +100,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
             public void setStack(int slot, ItemStack stack) {
                 if(slot == 0) {
                     ItemStack itemStack = getStack(slot);
-                    if(world != null && !stack.isEmpty() && !itemStack.isEmpty() && ItemStack.areItemsAndComponentsEqual(stack, itemStack))
+                    if(world != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.areItemsAndComponentsEqual(stack, itemStack))
                         resetProgress(pos, world.getBlockState(pos));
                 }
 

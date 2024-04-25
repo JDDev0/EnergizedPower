@@ -106,7 +106,7 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
             public void setStack(int slot, ItemStack stack) {
                 if(slot >= 0 && slot < 4) {
                     ItemStack itemStack = getStack(slot);
-                    if(world != null && !stack.isEmpty() && !itemStack.isEmpty() && ItemStack.areItemsAndComponentsEqual(stack, itemStack))
+                    if(world != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.areItemsAndComponentsEqual(stack, itemStack))
                         resetProgress(pos, world.getBlockState(pos));
                 }
 
