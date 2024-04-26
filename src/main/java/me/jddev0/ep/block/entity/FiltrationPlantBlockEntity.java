@@ -393,11 +393,12 @@ public class FiltrationPlantBlockEntity extends BlockEntity implements ExtendedS
         }
 
         for(int i = 0;i < 2;i++) {
-            ItemStack charcoalFilter = internalInventory.getStack(i);
+            ItemStack charcoalFilter = internalInventory.getStack(i).copy();
             if(charcoalFilter.isEmpty() && !charcoalFilter.isOf(ModItems.CHARCOAL_FILTER))
                 continue;
 
             charcoalFilter.damage(1, world.random, null, () -> charcoalFilter.setCount(0));
+            internalInventory.setStack(i, charcoalFilter);
         }
 
         ItemStack[] outputs = recipe.generateOutputs(world.random);
