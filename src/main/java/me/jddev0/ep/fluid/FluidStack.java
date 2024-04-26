@@ -28,17 +28,17 @@ public class FluidStack {
     private long dropletsAmount;
 
     public static FluidStack fromNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registries) {
-        Fluid fluid = Registries.FLUID.get(new Identifier(nbtCompound.getString("FluidName")));
+        Fluid fluid = Registries.FLUID.get(new Identifier(nbtCompound.getString("id")));
 
         //Save milli buckets amount in "Amount" for compatibility with Forge
         //Save leftover droplets amount in "LeftoverDropletsAmount" for preventing rounding errors
-        long milliBucketsAmount = nbtCompound.getLong("Amount");
-        long dropletsLeftOverAmount = nbtCompound.contains("LeftoverDropletsAmount")?
-                nbtCompound.getLong("LeftoverDropletsAmount"):0;
+        long milliBucketsAmount = nbtCompound.getLong("amount");
+        long dropletsLeftOverAmount = nbtCompound.contains("leftoverDropletsAmount")?
+                nbtCompound.getLong("leftoverDropletsAmount"):0;
         long dropletsAmount = FluidUtils.convertMilliBucketsToDroplets(milliBucketsAmount) + dropletsLeftOverAmount;
 
         ComponentChanges fluidComponents = ComponentChanges.CODEC.parse(registries.getOps(NbtOps.INSTANCE),
-                nbtCompound.get("Components")).resultOrPartial((error) -> {
+                nbtCompound.get("components")).resultOrPartial((error) -> {
             LOGGER.error("Tried to load invalid components: '{}'", error);
         }).orElse(ComponentChanges.EMPTY);
 
@@ -91,18 +91,18 @@ public class FluidStack {
     }
 
     public NbtCompound toNBT(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registries) {
-        nbtCompound.putString("FluidName", Registries.FLUID.getId(fluidVariant.getFluid()).toString());
+        nbtCompound.putString("id", Registries.FLUID.getId(fluidVariant.getFluid()).toString());
 
         //Save milli buckets amount in "Amount" for compatibility with Forge
         //Save leftover droplets amount in "LeftoverDropletsAmount" for preventing rounding errors
         long milliBucketsAmount = FluidUtils.convertDropletsToMilliBuckets(dropletsAmount);
         long dropletsLeftOverAmount = dropletsAmount - FluidUtils.convertMilliBucketsToDroplets(milliBucketsAmount);
-        nbtCompound.putLong("Amount", milliBucketsAmount);
+        nbtCompound.putLong("amount", milliBucketsAmount);
         if(dropletsLeftOverAmount > 0)
-            nbtCompound.putLong("LeftoverDropletsAmount", dropletsLeftOverAmount);
+            nbtCompound.putLong("leftoverDropletsAmount", dropletsLeftOverAmount);
 
         if(fluidVariant.getComponents() != null) {
-            nbtCompound.put("Components", ComponentChanges.CODEC.encode(fluidVariant.getComponents(),
+            nbtCompound.put("components", ComponentChanges.CODEC.encode(fluidVariant.getComponents(),
                     NbtOps.INSTANCE, new NbtCompound()).getOrThrow());
         }
 
