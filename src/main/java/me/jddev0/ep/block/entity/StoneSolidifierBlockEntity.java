@@ -366,8 +366,8 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
         ItemStack inventoryItemStack = inventory.getItem(0);
 
-        return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameComponents(inventoryItemStack, itemStack)) &&
-                inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount();
+        return inventoryItemStack.isEmpty() || (ItemStack.isSameItemSameComponents(inventoryItemStack, itemStack) &&
+                inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount());
     }
 
     public void changeRecipeIndex(boolean downUp) {

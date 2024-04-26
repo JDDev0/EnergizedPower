@@ -363,8 +363,8 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Me
     private static boolean canInsertItemIntoOutputSlot(int index, SimpleContainer inventory, ItemStack itemStack) {
         ItemStack inventoryItemStack = inventory.getItem(3 + index);
 
-        return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameComponents(inventoryItemStack, itemStack)) &&
-                inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount();
+        return inventoryItemStack.isEmpty() || (ItemStack.isSameItemSameComponents(inventoryItemStack, itemStack) &&
+                inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount());
     }
 
     private Optional<RecipeHolder<SmeltingRecipe>> getRecipeFor(Container container, Level level) {
