@@ -323,16 +323,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
     }
 
     private NbtElement savePatternContainer(int index, RegistryWrapper.WrapperLookup registries) {
-        NbtList nbtTagList = new NbtList();
-        for(int i = 0;i < patternSlots[index].size();i++)  {
-            if(!patternSlots[index].getStack(i).isEmpty()) {
-                NbtCompound itemTag = new NbtCompound();
-                itemTag.putInt("Slot", i);
-                nbtTagList.add(patternSlots[index].getStack(i).encode(registries, itemTag));
-            }
-        }
-
-        return nbtTagList;
+        return Inventories.writeNbt(new NbtCompound(), patternSlots[index].heldStacks, registries);
     }
 
     @Override
@@ -341,7 +332,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
 
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
         for(int i = 0;i < 3;i++)
-            loadPatternContainer(i, nbt.get("pattern." + i), registries);
+            loadPatternContainer(i, nbt.getCompound("pattern." + i), registries);
         internalEnergyStorage.amount = nbt.getLong("energy");
 
         for(int i = 0;i < 3;i++) {
@@ -370,20 +361,11 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
-    private void loadPatternContainer(int index, NbtElement tag, RegistryWrapper.WrapperLookup registries) {
-        if(!(tag instanceof NbtList))
-            throw new IllegalArgumentException("Tag must be of type ListTag!");
-
+    private void loadPatternContainer(int index, NbtCompound tag, RegistryWrapper.WrapperLookup registries) {
         patternSlots[index].removeListener(updatePatternListener[index]);
-        NbtList tagList = (NbtList)tag;
-        for(int i = 0;i < tagList.size();i++) {
-            NbtCompound itemTags = tagList.getCompound(i);
-            int slot = itemTags.getInt("Slot");
 
-            if(slot >= 0 && slot < patternSlots[index].size()) {
-                patternSlots[index].setStack(slot, ItemStack.fromNbtOrEmpty(registries, itemTags));
-            }
-        }
+        Inventories.readNbt(tag, patternSlots[index].heldStacks, registries);
+
         patternSlots[index].addListener(updatePatternListener[index]);
     }
 

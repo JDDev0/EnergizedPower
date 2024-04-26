@@ -227,7 +227,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
-        nbt.put("pattern", savePatternContainer(registries));
+        nbt.put("pattern", Inventories.writeNbt(new NbtCompound(), patternSlots.heldStacks, registries));
         nbt.putLong("energy", internalEnergyStorage.amount);
 
         if(craftingRecipe != null)
@@ -245,25 +245,12 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         super.writeNbt(nbt, registries);
     }
 
-    private NbtElement savePatternContainer(RegistryWrapper.WrapperLookup registries) {
-        NbtList nbtTagList = new NbtList();
-        for(int i = 0;i < patternSlots.size();i++)  {
-            if(!patternSlots.getStack(i).isEmpty()) {
-                NbtCompound itemTag = new NbtCompound();
-                itemTag.putInt("Slot", i);
-                nbtTagList.add(patternSlots.getStack(i).encode(registries, itemTag));
-            }
-        }
-
-        return nbtTagList;
-    }
-
     @Override
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
-        loadPatternContainer(nbt.get("pattern"), registries);
+        Inventories.readNbt(nbt.getCompound("pattern"), patternSlots.heldStacks, registries);
         internalEnergyStorage.amount = nbt.getLong("energy");
 
         if(nbt.contains("recipe.id")) {
@@ -283,23 +270,6 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
-    }
-
-    private void loadPatternContainer(NbtElement tag, RegistryWrapper.WrapperLookup registries) {
-        if(!(tag instanceof NbtList))
-            throw new IllegalArgumentException("Tag must be of type ListTag!");
-
-        patternSlots.removeListener(updatePatternListener);
-        NbtList tagList = (NbtList)tag;
-        for(int i = 0;i < tagList.size();i++) {
-            NbtCompound itemTags = tagList.getCompound(i);
-            int slot = itemTags.getInt("Slot");
-
-            if(slot >= 0 && slot < patternSlots.size()) {
-                patternSlots.setStack(slot, ItemStack.fromNbtOrEmpty(registries, itemTags));
-            }
-        }
-        patternSlots.addListener(updatePatternListener);
     }
 
     public void drops(World level, BlockPos worldPosition) {
