@@ -37,10 +37,11 @@ public class FluidStack {
                 nbtCompound.getLong("leftoverDropletsAmount"):0;
         long dropletsAmount = FluidUtils.convertMilliBucketsToDroplets(milliBucketsAmount) + dropletsLeftOverAmount;
 
-        ComponentChanges fluidComponents = ComponentChanges.CODEC.parse(registries.getOps(NbtOps.INSTANCE),
-                nbtCompound.get("components")).resultOrPartial((error) -> {
-            LOGGER.error("Tried to load invalid components: '{}'", error);
-        }).orElse(ComponentChanges.EMPTY);
+        ComponentChanges fluidComponents = nbtCompound.contains("components")?
+                ComponentChanges.CODEC.parse(registries.getOps(NbtOps.INSTANCE),
+                        nbtCompound.get("components")).resultOrPartial((error) -> {
+                            LOGGER.error("Tried to load invalid components: '{}'", error);
+                        }).orElse(ComponentChanges.EMPTY):ComponentChanges.EMPTY;
 
         return new FluidStack(fluid, fluidComponents, dropletsAmount);
     }
