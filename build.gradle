@@ -53,6 +53,9 @@ runs {
         // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
         systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
 
+        // Change run folder location
+        workingDirectory project.file('run')
+
         // Fix mixin dependencies
         systemProperty 'mixin.env.remapRefMap', 'true'
         systemProperty 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
@@ -62,6 +65,9 @@ runs {
         systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
         programArgument '--nogui'
 
+        // Change run folder location
+        workingDirectory project.file('run')
+
         // Fix mixin dependencies
         systemProperty 'mixin.env.remapRefMap', 'true'
         systemProperty 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
@@ -70,6 +76,9 @@ runs {
     data {
         // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
         // workingDirectory project.file('run-data')
+
+        // Change run folder location
+        workingDirectory project.file('run')
 
         // Fix mixin dependencies
         systemProperty 'mixin.env.remapRefMap', 'true'
