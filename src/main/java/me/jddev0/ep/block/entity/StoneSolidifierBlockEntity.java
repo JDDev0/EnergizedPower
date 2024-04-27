@@ -268,7 +268,7 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements ExtendedS
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
         nbt.putLong("energy", internalEnergyStorage.amount);
         for(int i = 0;i < fluidStorage.parts.size();i++)
-            nbt.put("fluid." + i, fluidStorage.parts.get(i).toNBT(new NbtCompound(), registries));
+            nbt.put("fluid." + i, fluidStorage.parts.get(i).getFluid().toNBT(new NbtCompound(), registries));
 
         if(currentRecipe != null)
             nbt.put("recipe.id", NbtString.of(currentRecipe.id().toString()));
@@ -289,7 +289,7 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements ExtendedS
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
         internalEnergyStorage.amount = nbt.getLong("energy");
         for(int i = 0;i < fluidStorage.parts.size();i++)
-            fluidStorage.parts.get(i).fromNBT(nbt.getCompound("fluid." + i), registries);
+            fluidStorage.parts.get(i).setFluid(FluidStack.fromNbt(nbt.getCompound("fluid." + i), registries));
 
         if(nbt.contains("recipe.id")) {
             NbtElement tag = nbt.get("recipe.id");

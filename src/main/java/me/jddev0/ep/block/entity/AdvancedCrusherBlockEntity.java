@@ -278,7 +278,7 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements ExtendedS
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
         nbt.putLong("energy", internalEnergyStorage.amount);
         for(int i = 0;i < fluidStorage.parts.size();i++)
-            nbt.put("fluid." + i, fluidStorage.parts.get(i).toNBT(new NbtCompound(), registries));
+            nbt.put("fluid." + i, fluidStorage.parts.get(i).getFluid().toNBT(new NbtCompound(), registries));
 
         nbt.put("recipe.progress", NbtInt.of(progress));
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
@@ -296,7 +296,7 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements ExtendedS
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
         internalEnergyStorage.amount = nbt.getLong("energy");
         for(int i = 0;i < fluidStorage.parts.size();i++)
-            fluidStorage.parts.get(i).fromNBT(nbt.getCompound("fluid." + i), registries);
+            fluidStorage.parts.get(i).setFluid(FluidStack.fromNbt(nbt.getCompound("fluid." + i), registries));
 
         progress = nbt.getInt("recipe.progress");
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");

@@ -111,7 +111,7 @@ public class FluidStack {
 
         if(fluidVariant.getComponents() != null) {
             nbtCompound.put("components", ComponentChanges.CODEC.encode(fluidVariant.getComponents(),
-                    NbtOps.INSTANCE, new NbtCompound()).getOrThrow());
+                    registries.getOps(NbtOps.INSTANCE), new NbtCompound()).getOrThrow());
         }
 
         return nbtCompound;
