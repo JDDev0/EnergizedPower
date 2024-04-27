@@ -2,12 +2,15 @@ package me.jddev0.ep.item;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.energy.InfinityEnergyStorage;
+import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
+import me.jddev0.ep.item.energy.EnergizedPowerEnergyItemStorage;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import team.reborn.energy.api.EnergyStorage;
+import team.reborn.energy.api.base.SimpleEnergyItem;
 
 public final class ModItems {
     private ModItems() {}
@@ -164,15 +167,6 @@ public final class ModItems {
             new BatteryItem(BatteryItem.Tier.BATTERY_8));
     public static final Item CREATIVE_BATTERY = registerItem("creative_battery",
             new CreativeBatteryItem(new Item.Settings().maxCount(1)));
-    //Register energy storage for creative battery
-    static {
-        EnergyStorage.ITEM.registerFallback((stack, ctx) -> {
-            if(stack.getItem() instanceof CreativeBatteryItem)
-                return new InfinityEnergyStorage();
-
-            return null;
-        });
-    }
 
     public static final Item ENERGY_ANALYZER = registerItem("energy_analyzer",
             new EnergyAnalyzerItem(new Item.Settings().maxCount(1)));
@@ -203,6 +197,26 @@ public final class ModItems {
             new BatteryBoxMinecartItem(new Item.Settings().maxCount(1)));
     public static final Item ADVANCED_BATTERY_BOX_MINECART = registerItem("advanced_battery_box_minecart",
             new AdvancedBatteryBoxMinecartItem(new Item.Settings().maxCount(1)));
+
+    //Register energy storage for items
+    static {
+        //EnergizedPower Energy Items
+        EnergyStorage.ITEM.registerFallback((stack, ctx) -> {
+            if(stack.getItem() instanceof EnergizedPowerEnergyItem energyItem)
+                return new EnergizedPowerEnergyItemStorage(ctx, energyItem.getEnergyCapacity(stack),
+                        energyItem.getEnergyMaxInput(stack), energyItem.getEnergyMaxOutput(stack));
+
+            return null;
+        });
+
+        //Creative Battery
+        EnergyStorage.ITEM.registerFallback((stack, ctx) -> {
+            if(stack.getItem() instanceof CreativeBatteryItem)
+                return new InfinityEnergyStorage();
+
+            return null;
+        });
+    }
 
     public static void register() {
 

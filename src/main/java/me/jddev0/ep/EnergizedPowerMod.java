@@ -27,7 +27,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import team.reborn.energy.api.EnergyStorage;
 
 public class EnergizedPowerMod implements ModInitializer {
 	public static final String MODID = "energizedpower";
@@ -68,7 +67,7 @@ public class EnergizedPowerMod implements ModInitializer {
 
 	private ItemStack getChargedItemStack(Item item, long energy) {
 		ItemStack itemStack = new ItemStack(item);
-		itemStack.set(EnergyStorage.ENERGY_COMPONENT, energy);
+		itemStack.set(ModDataComponentTypes.ENERGY, energy);
 
 		return itemStack;
 	}

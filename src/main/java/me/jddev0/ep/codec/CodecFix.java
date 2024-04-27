@@ -1,6 +1,7 @@
 package me.jddev0.ep.codec;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.component.ComponentChanges;
 import net.minecraft.item.ItemStack;
@@ -16,5 +17,12 @@ public final class CodecFix {
                     ComponentChanges.CODEC.optionalFieldOf("components", ComponentChanges.EMPTY).forGetter(ItemStack::getComponentChanges)).
                     apply(instance, ItemStack::new);
         });
+    });
+
+    public static final Codec<Long> NON_NEGATIVE_LONG = Codec.LONG.validate(value -> {
+        if(value >= 0)
+            return DataResult.success(value);
+
+        return DataResult.error(() -> "Value must be non-negative: " + value);
     });
 }

@@ -2,6 +2,7 @@ package me.jddev0.ep.component;
 
 import com.mojang.serialization.Codec;
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.component.DataComponentType;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
@@ -22,11 +23,14 @@ public final class ModDataComponentTypes {
                 builderOperator.apply(DataComponentType.builder()).build());
     }
 
+    public static final DataComponentType<Long> ENERGY = registerDataComponentType("energy", builder ->
+            builder.codec(CodecFix.NON_NEGATIVE_LONG).packetCodec(PacketCodecs.VAR_LONG));
+
     public static final DataComponentType<Boolean> ACTIVE = registerDataComponentType("active", builder ->
-        builder.codec(Codec.BOOL).packetCodec(PacketCodecs.BOOL));
+            builder.codec(Codec.BOOL).packetCodec(PacketCodecs.BOOL));
 
     public static final DataComponentType<Boolean> WORKING = registerDataComponentType("working", builder ->
-        builder.codec(Codec.BOOL).packetCodec(PacketCodecs.BOOL));
+            builder.codec(Codec.BOOL).packetCodec(PacketCodecs.BOOL));
 
     public static final DataComponentType<Integer> PROGRESS = registerDataComponentType("progress", builder ->
             builder.codec(Codecs.NONNEGATIVE_INT).packetCodec(PacketCodecs.VAR_INT));
@@ -44,10 +48,10 @@ public final class ModDataComponentTypes {
             builder.codec(InventoryComponent.CODEC).packetCodec(InventoryComponent.PACKET_CODEC));
 
     public static final DataComponentType<Direction> CURRENT_FACE = registerDataComponentType("current_face", builder ->
-        builder.codec(Direction.CODEC).packetCodec(Direction.PACKET_CODEC));
+            builder.codec(Direction.CODEC).packetCodec(Direction.PACKET_CODEC));
 
     public static final DataComponentType<Integer> ACTION_COOLDOWN = registerDataComponentType("action_cooldown", builder ->
-        builder.codec(Codecs.NONNEGATIVE_INT).packetCodec(PacketCodecs.VAR_INT));
+            builder.codec(Codecs.NONNEGATIVE_INT).packetCodec(PacketCodecs.VAR_INT));
 
     public static final DataComponentType<DimensionalPositionComponent> DIMENSIONAL_POSITION =
             registerDataComponentType("dimensional_position", builder ->

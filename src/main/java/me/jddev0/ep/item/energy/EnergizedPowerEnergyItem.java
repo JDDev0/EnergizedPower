@@ -1,5 +1,6 @@
 package me.jddev0.ep.item.energy;
 
+import me.jddev0.ep.component.ModDataComponentTypes;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.client.item.TooltipType;
 import net.minecraft.item.Item;
@@ -7,15 +8,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.MathHelper;
-import team.reborn.energy.api.base.SimpleEnergyItem;
 
 import java.util.List;
 
-public class EnergizedPowerEnergyItem extends Item implements SimpleEnergyItem {
+public class EnergizedPowerEnergyItem extends Item {
     private final long capacity;
     private final long maxReceive;
     private final long maxExtract;
-
 
     public EnergizedPowerEnergyItem(Item.Settings props, long capacity, long maxReceive, long maxExtract) {
         super(props);
@@ -26,25 +25,31 @@ public class EnergizedPowerEnergyItem extends Item implements SimpleEnergyItem {
     }
 
     protected long getEnergy(ItemStack itemStack) {
-        return getStoredEnergy(itemStack);
-    }
-    protected void setEnergy(ItemStack itemStack, long energy) {
-        SimpleEnergyItem.setStoredEnergyUnchecked(itemStack, energy);
+        return getStoredEnergyUnchecked(itemStack);
     }
 
-    @Override
+    protected void setEnergy(ItemStack itemStack, long energy) {
+        setStoredEnergyUnchecked(itemStack, energy);
+    }
+
     public long getEnergyCapacity(ItemStack itemStack) {
         return capacity;
     }
 
-    @Override
-    public long getEnergyMaxInput(ItemStack stack) {
+    public long getEnergyMaxInput(ItemStack itemStack) {
         return maxReceive;
     }
 
-    @Override
-    public long getEnergyMaxOutput(ItemStack stack) {
+    public long getEnergyMaxOutput(ItemStack itemStack) {
         return maxExtract;
+    }
+
+    public static long getStoredEnergyUnchecked(ItemStack stack) {
+        return stack.getOrDefault(ModDataComponentTypes.ENERGY, 0L);
+    }
+
+    public static void setStoredEnergyUnchecked(ItemStack stack, long newAmount) {
+        stack.set(ModDataComponentTypes.ENERGY, newAmount);
     }
 
     @Override

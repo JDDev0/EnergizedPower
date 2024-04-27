@@ -4,7 +4,7 @@
     "icon": {
       "id": "energizedpower:battery_8",
       "components": {
-        "team_reborn_energy:energy": 1048576
+        "energizedpower:energy": 1048576
       }
     },
     "title": {
@@ -25,7 +25,7 @@
           {
             "items": [ "energizedpower:battery_8" ],
             "components": {
-              "team_reborn_energy:energy": 1048576
+              "energizedpower:energy": 1048576
             }
           }
         ]
