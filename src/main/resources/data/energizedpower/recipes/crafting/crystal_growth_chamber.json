@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "a": {
-      "tag": "c:storage_blocks/amethyst"
+      "item": "minecraft:amethyst_block"
     },
     "R": {
       "tag": "c:dusts/redstone"
