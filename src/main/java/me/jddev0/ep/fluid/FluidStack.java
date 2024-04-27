@@ -6,6 +6,7 @@ import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.component.ComponentChanges;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.RegistryByteBuf;
@@ -28,6 +29,9 @@ public class FluidStack {
     private long dropletsAmount;
 
     public static FluidStack fromNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registries) {
+        if(nbtCompound.isEmpty())
+            return new FluidStack(Fluids.EMPTY, ComponentChanges.EMPTY, 0);
+
         Fluid fluid = Registries.FLUID.get(new Identifier(nbtCompound.getString("id")));
 
         //Save milli buckets amount in "Amount" for compatibility with Forge
@@ -92,6 +96,9 @@ public class FluidStack {
     }
 
     public NbtCompound toNBT(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registries) {
+        if(fluidVariant.isBlank())
+                return nbtCompound;
+
         nbtCompound.putString("id", Registries.FLUID.getId(fluidVariant.getFluid()).toString());
 
         //Save milli buckets amount in "Amount" for compatibility with Forge
