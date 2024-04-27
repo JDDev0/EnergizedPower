@@ -31,11 +31,15 @@ public class SimpleFluidStorage extends SingleFluidStorage {
     }
 
     public NbtCompound toNBT(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        return getFluid().toNBT(nbt, registries);
+        if(isResourceBlank())
+            return nbt;
+
+        nbt.put("Fluid", getFluid().toNBT(new NbtCompound(), registries));
+        return nbt;
     }
 
     public void fromNBT(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        FluidStack fluidStack = FluidStack.fromNbt(nbt, registries);
+        FluidStack fluidStack = FluidStack.fromNbt(nbt.getCompound("Fluid"), registries);
 
         variant = fluidStack.getFluidVariant();
         amount = fluidStack.getDropletsAmount();
