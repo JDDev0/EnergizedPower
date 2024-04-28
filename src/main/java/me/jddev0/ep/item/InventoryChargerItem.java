@@ -272,8 +272,13 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
         InventoryComponent inventory = itemStack.get(ModDataComponentTypes.INVENTORY);
 
         if(inventory != null) {
-            DefaultedList<ItemStack> items = DefaultedList.copyOf(ItemStack.EMPTY, inventory.stream().
-                    toArray(ItemStack[]::new));
+            DefaultedList<ItemStack> items = DefaultedList.ofSize(SLOT_COUNT, ItemStack.EMPTY);
+            for(int i = 0;i < items.size();i++) {
+                if(inventory.size() <= i)
+                    break;
+
+                items.set(i, inventory.get(i));
+            }
             return new SimpleInventory(items.toArray(new ItemStack[0])) {
                 @Override
                 public void markDirty() {
