@@ -260,8 +260,13 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         InventoryComponent inventory = itemStack.get(ModDataComponentTypes.INVENTORY);
 
         if(inventory != null) {
-            NonNullList<ItemStack> items = NonNullList.of(ItemStack.EMPTY, inventory.stream().
-                    toArray(ItemStack[]::new));
+            NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
+            for(int i = 0;i < items.size();i++) {
+                if(inventory.size() <= i)
+                    break;
+
+                items.set(i, inventory.get(i));
+            }
             return new SimpleContainer(items.toArray(new ItemStack[0])) {
                 @Override
                 public void setChanged() {
