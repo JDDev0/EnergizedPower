@@ -115,7 +115,7 @@ dependencies {
     compileOnly "dev.emi:emi-neoforge:1.1.5+1.20.6:api"
 
     // Curios integration
-    compileOnly "top.theillusivec4.curios:curios-neoforge:7.3.4+1.20.4:api"
+    compileOnly "top.theillusivec4.curios:curios-neoforge:8.0.0-beta+1.20.6"
 
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
