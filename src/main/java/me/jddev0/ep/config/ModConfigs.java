@@ -161,7 +161,7 @@ public final class ModConfigs {
     );
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_4_ENERGY_CONSUMPTION_EFFECT = registerSpeedModuleEnergyConsumptionEffectValue(
             4, "IV",
-            3
+            5
     );
 
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_5_EFFECT = registerSpeedModuleEffectValue(
@@ -170,7 +170,7 @@ public final class ModConfigs {
     );
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_5_ENERGY_CONSUMPTION_EFFECT = registerSpeedModuleEnergyConsumptionEffectValue(
             5, "V",
-            5
+            10
     );
 
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_EFFICIENCY_1_EFFECT = registerEnergyEfficiencyModuleEffectValue(
