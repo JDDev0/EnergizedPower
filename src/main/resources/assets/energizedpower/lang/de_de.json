@@ -123,6 +123,10 @@
   "item.energizedpower.duration_upgrade_module_4": "Laufzeit-Upgrade-Modul (MK IV)",
   "item.energizedpower.duration_upgrade_module_5": "Laufzeit-Upgrade-Modul (MK V)",
 
+  "item.energizedpower.range_upgrade_module_1": "Reichweiten-Upgrade-Modul (MK I)",
+  "item.energizedpower.range_upgrade_module_2": "Reichweiten-Upgrade-Modul (MK II)",
+  "item.energizedpower.range_upgrade_module_3": "Reichweiten-Upgrade-Modul (MK III)",
+
   "item.energizedpower.moon_light_upgrade_module_1": "Mondlicht-Upgrade-Modul (MK I)",
   "item.energizedpower.moon_light_upgrade_module_2": "Mondlicht-Upgrade-Modul (MK II)",
 
@@ -663,6 +667,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.energy_capacity": "Energiekapazität",
   "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "Energie-Transferrate",
   "tooltip.energizedpower.upgrade_module_modifier.duration": "Laufzeit",
+  "tooltip.energizedpower.upgrade_module_modifier.range": "Reichweite",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Mondlicht",
 
   "tooltip.energizedpower.upgrade.values": "Upgrade-Modul-Modifikatoren:",

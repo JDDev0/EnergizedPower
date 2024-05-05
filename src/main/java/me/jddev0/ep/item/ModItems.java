@@ -169,6 +169,13 @@ public final class ModItems {
     public static final DeferredItem<Item> DURATION_UPGRADE_MODULE_5 = ITEMS.register("duration_upgrade_module_5",
             () -> new DurationUpgradeModuleItem(new Item.Properties(), 5));
 
+    public static final DeferredItem<Item> RANGE_UPGRADE_MODULE_1 = ITEMS.register("range_upgrade_module_1",
+            () -> new RangeUpgradeModuleItem(new Item.Properties(), 1));
+    public static final DeferredItem<Item> RANGE_UPGRADE_MODULE_2 = ITEMS.register("range_upgrade_module_2",
+            () -> new RangeUpgradeModuleItem(new Item.Properties(), 2));
+    public static final DeferredItem<Item> RANGE_UPGRADE_MODULE_3 = ITEMS.register("range_upgrade_module_3",
+            () -> new RangeUpgradeModuleItem(new Item.Properties(), 3));
+
     public static final DeferredItem<Item> MOON_LIGHT_UPGRADE_MODULE_1 = ITEMS.register("moon_light_upgrade_module_1",
             () -> new MoonLightUpgradeModuleItem(new Item.Properties(), 1));
     public static final DeferredItem<Item> MOON_LIGHT_UPGRADE_MODULE_2 = ITEMS.register("moon_light_upgrade_module_2",

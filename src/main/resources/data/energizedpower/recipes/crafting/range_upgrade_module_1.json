@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:plates/energized_gold"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "A": {
+      "item": "energizedpower:advanced_upgrade_module"
+    }
+  },
+  "pattern": [
+    "GRG",
+    "RAR",
+    "GRG"
+  ],
+  "result": {
+    "id": "energizedpower:range_upgrade_module_1"
+  }
+}
