@@ -68,7 +68,7 @@ public class ReceiveOnlyEnergyStorage implements IEnergizedPowerEnergyStorage {
         if(!canReceive())
             return 0;
 
-        int received = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
+        int received = Math.min(getMaxEnergyStored() - energy, Math.min(getMaxReceive(), maxReceive));
 
         if(!simulate) {
             energy += received;
@@ -84,13 +84,13 @@ public class ReceiveOnlyEnergyStorage implements IEnergizedPowerEnergyStorage {
     }
 
     @Override
-    public int getEnergyStored() {
-        return energy;
+    public final int getEnergyStored() {
+        return getEnergy();
     }
 
     @Override
-    public int getMaxEnergyStored() {
-        return capacity;
+    public final int getMaxEnergyStored() {
+        return getCapacity();
     }
 
     @Override
