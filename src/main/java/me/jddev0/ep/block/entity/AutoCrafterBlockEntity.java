@@ -134,12 +134,14 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                 ModConfigs.COMMON_AUTO_CRAFTER_TRANSFER_RATE.getValue()) {
             @Override
             public int getCapacity() {
-                return Math.max(1, (int)Math.ceil(capacity * getEnergyCapacityMultiplierForEnergyCapacityUpgrade()));
+                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
             }
 
             @Override
             public int getMaxReceive() {
-                return Math.max(1, (int)Math.ceil(maxReceive * getEnergyTransferRateMultiplierForEnergyCapacityUpgrade()));
+                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
             }
 
             @Override
@@ -339,10 +341,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
                 return;
 
             if(blockEntity.maxProgress == 0)
-                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(RECIPE_DURATION / blockEntity.getSpeedMultiplierForUpgrades()));
+                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(RECIPE_DURATION /
+                        blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
 
             int energyConsumptionPerTick = Math.max(1, (int)Math.ceil(itemCount * ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT *
-                    blockEntity.getEnergyConsumptionMultiplierForUpgrades()));
+                    blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
 
             if(blockEntity.progress == 0) {
                 if(!blockEntity.canExtractItemsFromInput())
@@ -789,40 +792,6 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         Optional<RecipeHolder<CraftingRecipe>> recipe = recipes.stream().filter(r -> r.id().equals(recipeId)).findFirst();
 
         return recipe.or(() -> recipes.stream().findFirst()).map(r -> Pair.of(r.id(), r));
-    }
-
-    public double getSpeedMultiplierForUpgrades() {
-        double prod = 1;
-
-        for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++) {
-            double value = upgradeModuleInventory.getUpgradeModuleModifierEffect(i, UpgradeModuleModifier.SPEED);
-            if(value != -1)
-                prod *= value;
-        }
-
-        return prod;
-    }
-
-    public double getEnergyConsumptionMultiplierForUpgrades() {
-        double prod = 1;
-
-        for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++) {
-            double value = upgradeModuleInventory.getUpgradeModuleModifierEffect(i, UpgradeModuleModifier.ENERGY_CONSUMPTION);
-            if(value != -1)
-                prod *= value;
-        }
-
-        return prod;
-    }
-
-    public double getEnergyCapacityMultiplierForEnergyCapacityUpgrade() {
-        double value = upgradeModuleInventory.getUpgradeModuleModifierEffect(2, UpgradeModuleModifier.ENERGY_CAPACITY);
-        return value == -1?1:value;
-    }
-
-    public double getEnergyTransferRateMultiplierForEnergyCapacityUpgrade() {
-        double value = upgradeModuleInventory.getUpgradeModuleModifierEffect(2, UpgradeModuleModifier.ENERGY_TRANSFER_RATE);
-        return value == -1?1:value;
     }
 
     private void updateUpgradeModules() {

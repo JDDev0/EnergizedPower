@@ -63,6 +63,30 @@ public class UpgradeModuleInventory extends SimpleContainer {
         return upgradeModuleItem.getUpgradeModuleModifierValue(modifier);
     }
 
+    public double getModifierEffectProduct(UpgradeModuleModifier modifier) {
+        double prod = 1;
+
+        for(int i = 0;i < getContainerSize();i++) {
+            double value = getUpgradeModuleModifierEffect(i, modifier);
+            if(value != -1)
+                prod *= value;
+        }
+
+        return prod;
+    }
+
+    public double getModifierEffectSum(UpgradeModuleModifier modifier) {
+        double sum = 0;
+
+        for(int i = 0;i < getContainerSize();i++) {
+            double value = getUpgradeModuleModifierEffect(i, modifier);
+            if(value != -1)
+                sum += value;
+        }
+
+        return sum;
+    }
+
     public Tag saveToNBT(HolderLookup.Provider registries) {
         NonNullList<ItemStack> items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         for(int i = 0;i < getContainerSize();i++)
