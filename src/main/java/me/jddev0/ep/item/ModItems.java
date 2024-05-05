@@ -176,6 +176,11 @@ public final class ModItems {
     public static final DeferredItem<Item> RANGE_UPGRADE_MODULE_3 = ITEMS.register("range_upgrade_module_3",
             () -> new RangeUpgradeModuleItem(new Item.Properties(), 3));
 
+    public static final DeferredItem<Item> BLAST_FURNACE_UPGRADE_MODULE = ITEMS.register("blast_furnace_upgrade_module",
+            () -> new FurnaceModeUpgradeModuleItem(new Item.Properties(), 1));
+    public static final DeferredItem<Item> SMOKER_UPGRADE_MODULE = ITEMS.register("smoker_upgrade_module",
+            () -> new FurnaceModeUpgradeModuleItem(new Item.Properties(), 2));
+
     public static final DeferredItem<Item> MOON_LIGHT_UPGRADE_MODULE_1 = ITEMS.register("moon_light_upgrade_module_1",
             () -> new MoonLightUpgradeModuleItem(new Item.Properties(), 1));
     public static final DeferredItem<Item> MOON_LIGHT_UPGRADE_MODULE_2 = ITEMS.register("moon_light_upgrade_module_2",

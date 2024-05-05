@@ -130,6 +130,11 @@
   "item.energizedpower.moon_light_upgrade_module_1": "Mondlicht-Upgrade-Modul (MK I)",
   "item.energizedpower.moon_light_upgrade_module_2": "Mondlicht-Upgrade-Modul (MK II)",
 
+  "item.energizedpower.blast_furnace_upgrade_module": "Schmelzofen-Upgrade-Modul",
+  "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Schmelzofen",
+  "item.energizedpower.smoker_upgrade_module": "Räucherofen-Upgrade-Modul",
+  "item.energizedpower.smoker_upgrade_module.effect_text": "Räucherofen",
+
   "item.energizedpower.inventory_coal_engine": "Inventar Kohlegenerator",
   "tooltip.energizedpower.inventory_coal_engine.status": "Status: ",
   "tooltip.energizedpower.inventory_coal_engine.status.activated": "Aktiviert",
@@ -668,6 +673,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "Energie-Transferrate",
   "tooltip.energizedpower.upgrade_module_modifier.duration": "Laufzeit",
   "tooltip.energizedpower.upgrade_module_modifier.range": "Reichweite",
+  "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "Ofenmodus",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Mondlicht",
 
   "tooltip.energizedpower.upgrade.values": "Upgrade-Modul-Modifikatoren:",
