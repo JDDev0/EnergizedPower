@@ -50,13 +50,13 @@ public class PoweredFurnaceMenu extends AbstractContainerMenu implements EnergyS
             addSlot(new SlotItemHandler(itemHandler, 0, 48, 35) {
                 @Override
                 public boolean isActive() {
-                    return !isInUpgradeModuleView();
+                    return super.isActive() && !isInUpgradeModuleView();
                 }
             });
             addSlot(new SlotItemHandler(itemHandler, 1, 124, 35) {
                 @Override
                 public boolean isActive() {
-                    return !isInUpgradeModuleView();
+                    return super.isActive() && !isInUpgradeModuleView();
                 }
             });
         });
