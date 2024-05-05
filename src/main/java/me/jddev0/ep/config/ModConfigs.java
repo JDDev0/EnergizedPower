@@ -132,13 +132,17 @@ public final class ModConfigs {
             "item.moon_light_upgrade_module_1",
             "Moon Light Upgrade Module (Tier I)",
             "Peak energy production during nighttime relative to the peak energy production during daytime",
-            .125
+            .125,
+            0.,
+            null
     );
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_MOON_LIGHT_2_EFFECT = registerUpgradeModuleEffectValue(
             "item.moon_light_upgrade_module_2",
             "Moon Light Upgrade Module (Tier II)",
             "Peak energy production during nighttime relative to the peak energy production during daytime",
-            .33
+            .33,
+            0.,
+            null
     );
 
     //Blocks
@@ -1031,12 +1035,13 @@ public final class ModConfigs {
         ));
     }
     private static ConfigValue<Double> registerUpgradeModuleEffectValue(String baseConfigKey, String itemName,
-                                                                        String effectDescription, double defaultValue) {
+                                                                        String effectDescription, double defaultValue,
+                                                                        Double minExclusive, Double maxExclusive) {
         return COMMON_CONFIG.register(new DoubleConfigValue(
                 baseConfigKey + ".upgrade_module.effect_value",
                 "The upgrade module effect (" + effectDescription + ") of the " + itemName + " in per cent",
                 defaultValue,
-                0., null
+                minExclusive, maxExclusive
         ));
     }
 
