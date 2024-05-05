@@ -18,6 +18,8 @@ public class MoonLightUpgradeModuleItem extends UpgradeModuleItem {
 
     private static final double MOON_LIGHT_2_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_MOON_LIGHT_2_EFFECT.getValue();
 
+    private static final double MOON_LIGHT_3_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_MOON_LIGHT_3_EFFECT.getValue();
+
     public MoonLightUpgradeModuleItem(Properties props, int tier) {
         super(props, UpgradeModuleModifier.MOON_LIGHT, tier);
     }
@@ -33,6 +35,7 @@ public class MoonLightUpgradeModuleItem extends UpgradeModuleItem {
             case MOON_LIGHT -> switch(tier) {
                 case 1 -> MOON_LIGHT_1_EFFECT;
                 case 2 -> MOON_LIGHT_2_EFFECT;
+                case 3 -> MOON_LIGHT_3_EFFECT;
 
                 default -> -1;
             };

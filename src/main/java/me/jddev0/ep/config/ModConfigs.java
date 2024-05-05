@@ -293,6 +293,11 @@ public final class ModConfigs {
             .33
     );
 
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_MOON_LIGHT_3_EFFECT = registerMoonLightUpgradeModuleEffectValue(
+            3, "III",
+            .66
+    );
+
     //Blocks
     public static final ConfigValue<Integer> COMMON_BATTERY_BOX_CAPACITY = registerEnergyCapacityConfigValue(
             "block.battery_box", "Battery Box", 65536

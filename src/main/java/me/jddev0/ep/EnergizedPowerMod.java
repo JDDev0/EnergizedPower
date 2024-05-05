@@ -274,6 +274,7 @@ public class EnergizedPowerMod {
 
             event.accept(ModItems.MOON_LIGHT_UPGRADE_MODULE_1);
             event.accept(ModItems.MOON_LIGHT_UPGRADE_MODULE_2);
+            event.accept(ModItems.MOON_LIGHT_UPGRADE_MODULE_3);
 
             event.accept(ModBlocks.SILICON_BLOCK_ITEM);
             event.accept(ModBlocks.TIN_BLOCK_ITEM);

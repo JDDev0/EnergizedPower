@@ -127,13 +127,14 @@
   "item.energizedpower.range_upgrade_module_2": "Reichweiten-Upgrade-Modul (MK II)",
   "item.energizedpower.range_upgrade_module_3": "Reichweiten-Upgrade-Modul (MK III)",
 
-  "item.energizedpower.moon_light_upgrade_module_1": "Mondlicht-Upgrade-Modul (MK I)",
-  "item.energizedpower.moon_light_upgrade_module_2": "Mondlicht-Upgrade-Modul (MK II)",
-
   "item.energizedpower.blast_furnace_upgrade_module": "Schmelzofen-Upgrade-Modul",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Schmelzofen",
   "item.energizedpower.smoker_upgrade_module": "Räucherofen-Upgrade-Modul",
   "item.energizedpower.smoker_upgrade_module.effect_text": "Räucherofen",
+
+  "item.energizedpower.moon_light_upgrade_module_1": "Mondlicht-Upgrade-Modul (MK I)",
+  "item.energizedpower.moon_light_upgrade_module_2": "Mondlicht-Upgrade-Modul (MK II)",
+  "item.energizedpower.moon_light_upgrade_module_3": "Mondlicht-Upgrade-Modul (MK III)",
 
   "item.energizedpower.inventory_coal_engine": "Inventar Kohlegenerator",
   "tooltip.energizedpower.inventory_coal_engine.status": "Status: ",

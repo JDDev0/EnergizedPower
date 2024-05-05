@@ -134,6 +134,7 @@
 
   "item.energizedpower.moon_light_upgrade_module_1": "Moon Light Upgrade Module (Tier I)",
   "item.energizedpower.moon_light_upgrade_module_2": "Moon Light Upgrade Module (Tier II)",
+  "item.energizedpower.moon_light_upgrade_module_3": "Moon Light Upgrade Module (Tier III)",
 
   "item.energizedpower.inventory_coal_engine": "Inventory Coal Engine",
   "tooltip.energizedpower.inventory_coal_engine.status": "状态: ",

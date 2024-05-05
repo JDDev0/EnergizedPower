@@ -185,6 +185,8 @@ public final class ModItems {
             () -> new MoonLightUpgradeModuleItem(new Item.Properties(), 1));
     public static final DeferredItem<Item> MOON_LIGHT_UPGRADE_MODULE_2 = ITEMS.register("moon_light_upgrade_module_2",
             () -> new MoonLightUpgradeModuleItem(new Item.Properties(), 2));
+    public static final DeferredItem<Item> MOON_LIGHT_UPGRADE_MODULE_3 = ITEMS.register("moon_light_upgrade_module_3",
+            () -> new MoonLightUpgradeModuleItem(new Item.Properties(), 3));
 
     public static final DeferredItem<Item> ENERGIZED_POWER_BOOK = ITEMS.register("energized_power_book",
             () -> new EnergizedPowerBookItem(new Item.Properties().stacksTo(1)));
