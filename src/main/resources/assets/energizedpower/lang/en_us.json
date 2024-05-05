@@ -111,6 +111,12 @@
   "item.energizedpower.energy_efficiency_upgrade_module_4": "Energy Efficiency Upgrade Module (Tier IV)",
   "item.energizedpower.energy_efficiency_upgrade_module_5": "Energy Efficiency Upgrade Module (Tier V)",
 
+  "item.energizedpower.energy_capacity_upgrade_module_1": "Energy Capacity Upgrade Module (Tier I)",
+  "item.energizedpower.energy_capacity_upgrade_module_2": "Energy Capacity Upgrade Module (Tier II)",
+  "item.energizedpower.energy_capacity_upgrade_module_3": "Energy Capacity Upgrade Module (Tier III)",
+  "item.energizedpower.energy_capacity_upgrade_module_4": "Energy Capacity Upgrade Module (Tier IV)",
+  "item.energizedpower.energy_capacity_upgrade_module_5": "Energy Capacity Upgrade Module (Tier V)",
+
   "item.energizedpower.moon_light_upgrade_module_1": "Moon Light Upgrade Module (Tier I)",
   "item.energizedpower.moon_light_upgrade_module_2": "Moon Light Upgrade Module (Tier II)",
 
@@ -646,8 +652,10 @@
   "tooltip.energizedpower.machine_configuration.comparator_mode.fluid": "Comparator Mode: Fluid",
   "tooltip.energizedpower.machine_configuration.comparator_mode.energy": "Comparator Mode: Energy",
 
-  "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Energy Consumption",
   "tooltip.energizedpower.upgrade_module_modifier.speed": "Production Speed",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Energy Consumption per tick",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_capacity": "Energy Capacity",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "Energy Transfer Rate",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Moon Light",
 
   "tooltip.energizedpower.upgrade.values": "Upgrade Module Modifiers:",

@@ -111,6 +111,12 @@
   "item.energizedpower.energy_efficiency_upgrade_module_4": "Energie-Effizienz-Upgrade-Modul (MK IV)",
   "item.energizedpower.energy_efficiency_upgrade_module_5": "Energie-Effizienz-Upgrade-Modul (MK V)",
 
+  "item.energizedpower.energy_capacity_upgrade_module_1": "Energiekapazität-Upgrade-Modul (MK I)",
+  "item.energizedpower.energy_capacity_upgrade_module_2": "Energiekapazität-Upgrade-Modul (MK II)",
+  "item.energizedpower.energy_capacity_upgrade_module_3": "Energiekapazität-Upgrade-Modul (MK III)",
+  "item.energizedpower.energy_capacity_upgrade_module_4": "Energiekapazität-Upgrade-Modul (MK IV)",
+  "item.energizedpower.energy_capacity_upgrade_module_5": "Energiekapazität-Upgrade-Modul (MK V)",
+
   "item.energizedpower.moon_light_upgrade_module_1": "Mondlicht-Upgrade-Modul (MK I)",
   "item.energizedpower.moon_light_upgrade_module_2": "Mondlicht-Upgrade-Modul (MK II)",
 
@@ -646,8 +652,10 @@
   "tooltip.energizedpower.machine_configuration.comparator_mode.fluid": "Komparator-Mode: Flüssigkeit",
   "tooltip.energizedpower.machine_configuration.comparator_mode.energy": "Komparator-Mode: Energie",
 
-  "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Energieverbrauch",
   "tooltip.energizedpower.upgrade_module_modifier.speed": "Produktions-Geschwindigkeit",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Energieverbrauch pro Tick",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_capacity": "Energiekapazität",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "Energie-Transferrate",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Mondlicht",
 
   "tooltip.energizedpower.upgrade.values": "Upgrade-Modul-Modifikatoren:",

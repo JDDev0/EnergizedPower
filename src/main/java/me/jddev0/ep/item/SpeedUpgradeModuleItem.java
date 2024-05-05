@@ -15,19 +15,19 @@ public class SpeedUpgradeModuleItem extends UpgradeModuleItem {
     };
 
     private static final double SPEED_1_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_1_EFFECT.getValue();
-    private static final double SPEED_1_ENERGY_CONSUMPTION_EFFECT = ModConfigs.COMMON_UPGRADE_SPEED_1_ENERGY_CONSUMPTION_EFFECT.getValue();
+    private static final double SPEED_1_ENERGY_CONSUMPTION_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_1_ENERGY_CONSUMPTION_EFFECT.getValue();
 
     private static final double SPEED_2_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_2_EFFECT.getValue();
-    private static final double SPEED_2_ENERGY_CONSUMPTION_EFFECT = ModConfigs.COMMON_UPGRADE_SPEED_2_ENERGY_CONSUMPTION_EFFECT.getValue();
+    private static final double SPEED_2_ENERGY_CONSUMPTION_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_2_ENERGY_CONSUMPTION_EFFECT.getValue();
 
     private static final double SPEED_3_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_3_EFFECT.getValue();
-    private static final double SPEED_3_ENERGY_CONSUMPTION_EFFECT = ModConfigs.COMMON_UPGRADE_SPEED_3_ENERGY_CONSUMPTION_EFFECT.getValue();
+    private static final double SPEED_3_ENERGY_CONSUMPTION_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_3_ENERGY_CONSUMPTION_EFFECT.getValue();
 
     private static final double SPEED_4_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_4_EFFECT.getValue();
-    private static final double SPEED_4_ENERGY_CONSUMPTION_EFFECT = ModConfigs.COMMON_UPGRADE_SPEED_4_ENERGY_CONSUMPTION_EFFECT.getValue();
+    private static final double SPEED_4_ENERGY_CONSUMPTION_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_4_ENERGY_CONSUMPTION_EFFECT.getValue();
 
     private static final double SPEED_5_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_5_EFFECT.getValue();
-    private static final double SPEED_5_ENERGY_CONSUMPTION_EFFECT = ModConfigs.COMMON_UPGRADE_SPEED_5_ENERGY_CONSUMPTION_EFFECT.getValue();
+    private static final double SPEED_5_ENERGY_CONSUMPTION_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_5_ENERGY_CONSUMPTION_EFFECT.getValue();
 
     public SpeedUpgradeModuleItem(Properties props, int tier) {
         super(props, UpgradeModuleModifier.SPEED, tier);
