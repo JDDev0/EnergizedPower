@@ -95,6 +95,13 @@
 
   "item.energizedpower.teleporter_processing_unit": "Teleporter Prozessoreinheit",
 
+  "item.energizedpower.basic_upgrade_module": "Basis Upgrade-Modul",
+  "item.energizedpower.advanced_upgrade_module": "Fortgeschrittenes Upgrade-Modul",
+  "item.energizedpower.reinforced_advanced_upgrade_module": "Verstärktes Fortgeschrittenes Upgrade-Modul",
+
+  "item.energizedpower.moon_light_upgrade_module_1": "Mondlicht-Upgrade-Modul (MK I)",
+  "item.energizedpower.moon_light_upgrade_module_2": "Mondlicht-Upgrade-Modul (MK II)",
+
   "item.energizedpower.inventory_coal_engine": "Inventar Kohlegenerator",
   "tooltip.energizedpower.inventory_coal_engine.status": "Status: ",
   "tooltip.energizedpower.inventory_coal_engine.status.activated": "Aktiviert",
@@ -626,6 +633,12 @@
   "tooltip.energizedpower.machine_configuration.comparator_mode.item": "Komparator-Mode: Item",
   "tooltip.energizedpower.machine_configuration.comparator_mode.fluid": "Komparator-Mode: Flüssigkeit",
   "tooltip.energizedpower.machine_configuration.comparator_mode.energy": "Komparator-Mode: Energie",
+
+  "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Energie-Verbrauch",
+  "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Mondlicht",
+
+  "tooltip.energizedpower.upgrade.values": "Upgrade-Modul-Modifikatoren:",
+  "tooltip.energizedpower.upgrade.value": "• %s: %s",
 
   "itemGroup.energizedpower.tab": "Energized Power",
 

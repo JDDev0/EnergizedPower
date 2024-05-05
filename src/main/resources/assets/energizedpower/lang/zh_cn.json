@@ -95,6 +95,13 @@
 
   "item.energizedpower.teleporter_processing_unit": "Teleporter Processing Unit",
 
+  "item.energizedpower.basic_upgrade_module": "Basic Upgrade Module",
+  "item.energizedpower.advanced_upgrade_module": "Advanced Upgrade Module",
+  "item.energizedpower.reinforced_advanced_upgrade_module": "Reinforced Advanced Upgrade Module",
+
+  "item.energizedpower.moon_light_upgrade_module_1": "Moon Light Upgrade Module (Tier I)",
+  "item.energizedpower.moon_light_upgrade_module_2": "Moon Light Upgrade Module (Tier II)",
+
   "item.energizedpower.inventory_coal_engine": "Inventory Coal Engine",
   "tooltip.energizedpower.inventory_coal_engine.status": "状态: ",
   "tooltip.energizedpower.inventory_coal_engine.status.activated": "已激活",
@@ -626,6 +633,12 @@
   "tooltip.energizedpower.machine_configuration.comparator_mode.item": "Comparator Mode: Item",
   "tooltip.energizedpower.machine_configuration.comparator_mode.fluid": "Comparator Mode: Fluid",
   "tooltip.energizedpower.machine_configuration.comparator_mode.energy": "Comparator Mode: Energy",
+
+  "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Energy Consumption",
+  "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Moon Light",
+
+  "tooltip.energizedpower.upgrade.values": "Upgrade Module Modifiers:",
+  "tooltip.energizedpower.upgrade.value": "• %s: %s",
 
   "itemGroup.energizedpower.tab": "Energized Power",
 

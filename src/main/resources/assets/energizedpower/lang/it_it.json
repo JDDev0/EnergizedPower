@@ -95,6 +95,13 @@
 
   "item.energizedpower.teleporter_processing_unit": "Unità di elaborazione del teletrasporto",
 
+  "item.energizedpower.basic_upgrade_module": "Basic Upgrade Module",
+  "item.energizedpower.advanced_upgrade_module": "Advanced Upgrade Module",
+  "item.energizedpower.reinforced_advanced_upgrade_module": "Reinforced Advanced Upgrade Module",
+
+  "item.energizedpower.moon_light_upgrade_module_1": "Moon Light Upgrade Module (Tier I)",
+  "item.energizedpower.moon_light_upgrade_module_2": "Moon Light Upgrade Module (Tier II)",
+
   "item.energizedpower.inventory_coal_engine": "Inventario motore a carbone",
   "tooltip.energizedpower.inventory_coal_engine.status": "Stato: ",
   "tooltip.energizedpower.inventory_coal_engine.status.activated": "Attivato",
@@ -123,7 +130,7 @@
   "item.energizedpower.energy_analyzer": "Analizzatore di energia",
   "tooltip.energizedpower.energy_analyzer.txt.shift.1": "Fare clic su un blocco di energia per recuperare informazioni.",
   "tooltip.energizedpower.energy_analyzer.txt.shift.2": "%s sarà consumato per uso",
-  "txt.energizedpower.energy_analyzer.output_side_information": "Informazioni per la superficie del blocco cliccato::",
+  "txt.energizedpower.energy_analyzer.output_side_information": "Informazioni per la superficie del blocco cliccato:",
   "txt.energizedpower.energy_analyzer.no_energy_left": "L'analizzatore di energia non dispone di alimentazione sufficiente (sono richiesti %s).",
   "txt.energizedpower.energy_analyzer.no_block_entity": "Questo blocco non è un blocco energetico.",
   "txt.energizedpower.energy_analyzer.no_energy_block": "Questo blocco non è un blocco energetico (FE).",
@@ -626,6 +633,12 @@
   "tooltip.energizedpower.machine_configuration.comparator_mode.item": "Comparator Mode: Item",
   "tooltip.energizedpower.machine_configuration.comparator_mode.fluid": "Comparator Mode: Fluid",
   "tooltip.energizedpower.machine_configuration.comparator_mode.energy": "Comparator Mode: Energy",
+
+  "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Energy Consumption",
+  "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Moon Light",
+
+  "tooltip.energizedpower.upgrade.values": "Upgrade Module Modifiers:",
+  "tooltip.energizedpower.upgrade.value": "• %s: %s",
 
   "itemGroup.energizedpower.tab": "Potenza energizzata",
 

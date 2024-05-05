@@ -128,6 +128,19 @@ public final class ModConfigs {
             1, null
     ));
 
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_MOON_LIGHT_1_EFFECT = registerUpgradeModuleEffectValue(
+            "item.moon_light_upgrade_module_1",
+            "Moon Light Upgrade Module (Tier I)",
+            "Peak energy production during nighttime relative to the peak energy production during daytime",
+            .125
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_MOON_LIGHT_2_EFFECT = registerUpgradeModuleEffectValue(
+            "item.moon_light_upgrade_module_2",
+            "Moon Light Upgrade Module (Tier II)",
+            "Peak energy production during nighttime relative to the peak energy production during daytime",
+            .33
+    );
+
     //Blocks
     public static final ConfigValue<Integer> COMMON_BATTERY_BOX_CAPACITY = registerEnergyCapacityConfigValue(
             "block.battery_box", "Battery Box", 65536
@@ -1015,6 +1028,15 @@ public final class ModConfigs {
                 "The multiplier by which the time a recipe of the " + itemName + " requires is multiplied by",
                 1.f,
                 0.f, null
+        ));
+    }
+    private static ConfigValue<Double> registerUpgradeModuleEffectValue(String baseConfigKey, String itemName,
+                                                                        String effectDescription, double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                baseConfigKey + ".upgrade_module.effect_value",
+                "The upgrade module effect (" + effectDescription + ") of the " + itemName + " in per cent",
+                defaultValue,
+                0., null
         ));
     }
 

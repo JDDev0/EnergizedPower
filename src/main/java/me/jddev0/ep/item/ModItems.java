@@ -118,6 +118,18 @@ public final class ModItems {
     public static final DeferredItem<Item> TELEPORTER_PROCESSING_UNIT = ITEMS.register("teleporter_processing_unit",
             () -> new Item(new Item.Properties()));
 
+    public static final DeferredItem<Item> BASIC_UPGRADE_MODULE = ITEMS.register("basic_upgrade_module",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> ADVANCED_UPGRADE_MODULE = ITEMS.register("advanced_upgrade_module",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> REINFORCED_ADVANCED_UPGRADE_MODULE = ITEMS.register("reinforced_advanced_upgrade_module",
+            () -> new Item(new Item.Properties()));
+
+    public static final DeferredItem<Item> MOON_LIGHT_UPGRADE_MODULE_1 = ITEMS.register("moon_light_upgrade_module_1",
+            () -> new MoonLightUpgradeModuleItem(new Item.Properties(), 1));
+    public static final DeferredItem<Item> MOON_LIGHT_UPGRADE_MODULE_2 = ITEMS.register("moon_light_upgrade_module_2",
+            () -> new MoonLightUpgradeModuleItem(new Item.Properties(), 2));
+
     public static final DeferredItem<Item> ENERGIZED_POWER_BOOK = ITEMS.register("energized_power_book",
             () -> new EnergizedPowerBookItem(new Item.Properties().stacksTo(1)));
 

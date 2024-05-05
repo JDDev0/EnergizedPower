@@ -237,6 +237,13 @@ public class EnergizedPowerMod {
             event.accept(ModItems.TELEPORTER_PROCESSING_UNIT);
             event.accept(ModItems.TELEPORTER_MATRIX);
 
+            event.accept(ModItems.BASIC_UPGRADE_MODULE);
+            event.accept(ModItems.ADVANCED_UPGRADE_MODULE);
+            event.accept(ModItems.REINFORCED_ADVANCED_UPGRADE_MODULE);
+
+            event.accept(ModItems.MOON_LIGHT_UPGRADE_MODULE_1);
+            event.accept(ModItems.MOON_LIGHT_UPGRADE_MODULE_2);
+
             event.accept(ModBlocks.SILICON_BLOCK_ITEM);
             event.accept(ModBlocks.TIN_BLOCK_ITEM);
             event.accept(ModBlocks.SAWDUST_BLOCK_ITEM);
