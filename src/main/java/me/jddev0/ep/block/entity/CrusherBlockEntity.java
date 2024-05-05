@@ -104,6 +104,7 @@ public class CrusherBlockEntity extends BlockEntity implements MenuProvider, Ene
         super(ModBlockEntities.CRUSHER_ENTITY.get(), blockPos, blockState);
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_CRUSHER_CAPACITY.getValue(),
                 ModConfigs.COMMON_CRUSHER_TRANSFER_RATE.getValue()) {
             @Override

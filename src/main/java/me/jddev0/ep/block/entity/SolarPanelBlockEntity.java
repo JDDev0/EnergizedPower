@@ -34,11 +34,11 @@ import org.jetbrains.annotations.Nullable;
 
 public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
     private final SolarPanelBlock.Tier tier;
-    private final int maxTransfer;
 
     private final ExtractOnlyEnergyStorage energyStorage;
 
     private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.ENERGY_CAPACITY,
             UpgradeModuleModifier.MOON_LIGHT
     );
     private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
@@ -61,16 +61,28 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
-        maxTransfer = tier.getMaxTransfer();
+        int maxTransfer = tier.getMaxTransfer();
         int capacity = tier.getCapacity();
         energyStorage = new ExtractOnlyEnergyStorage(0, capacity, maxTransfer) {
+            @Override
+            public int getCapacity() {
+                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            public int getMaxExtract() {
+                return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+
             @Override
             protected void onChange() {
                 setChanged();
 
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
+                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
                             getBlockPos(), (ServerLevel)level, 32
                     );
             }
@@ -118,7 +130,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
         int energyProduction = (int)(i/60.f * blockEntity.getTier().getPeakFePerTick());
 
         double moonLightUpgradeModuleEffect = blockEntity.upgradeModuleInventory.
-                getUpgradeModuleModifierEffect(0, UpgradeModuleModifier.MOON_LIGHT);
+                getUpgradeModuleModifierEffect(1, UpgradeModuleModifier.MOON_LIGHT);
         if(moonLightUpgradeModuleEffect > 0) {
             i = 15 - (level.getBrightness(LightLayer.SKY, blockPos) - level.getSkyDarken());
             if(i < 14) {
@@ -147,7 +159,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
         if(energyStorage == null || !energyStorage.canReceive())
             return;
 
-        int amount = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getEnergy(), blockEntity.maxTransfer), false);
+        int amount = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getEnergy(), blockEntity.energyStorage.getMaxExtract()), false);
         if(amount > 0)
             blockEntity.energyStorage.extractEnergy(amount, false);
     }
@@ -181,6 +193,11 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
 
     private void updateUpgradeModules() {
         setChanged();
+        if(level != null && !level.isClientSide())
+            ModMessages.sendToPlayersWithinXBlocks(
+                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
+                    getBlockPos(), (ServerLevel)level, 32
+            );
     }
 
     public int getEnergy() {

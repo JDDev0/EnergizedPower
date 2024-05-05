@@ -32,6 +32,7 @@ public class SolarPanelMenu extends AbstractContainerMenu implements EnergyStora
 
     public SolarPanelMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
+                UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.MOON_LIGHT
         ));
     }
@@ -39,14 +40,15 @@ public class SolarPanelMenu extends AbstractContainerMenu implements EnergyStora
     public SolarPanelMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory) {
         super(getMenuTypeFromTier(((SolarPanelBlockEntity)blockEntity).getTier()), id);
 
-        checkContainerSize(upgradeModuleInventory, 1);
+        checkContainerSize(upgradeModuleInventory, 2);
         this.blockEntity = (SolarPanelBlockEntity)blockEntity;
         this.level = inv.player.level();
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
+        for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 71 + i * 18, 35, this::isInUpgradeModuleView));
 
         upgradeModuleViewData = new UpgradeModuleViewData();
         addDataSlots(upgradeModuleViewData);
@@ -93,10 +95,10 @@ public class SolarPanelMenu extends AbstractContainerMenu implements EnergyStora
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
+            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 2, false)) {
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 1) {
+        }else if(index < 4 * 9 + 2) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
