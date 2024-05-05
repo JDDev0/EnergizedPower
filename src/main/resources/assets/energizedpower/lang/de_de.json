@@ -99,6 +99,12 @@
   "item.energizedpower.advanced_upgrade_module": "Fortgeschrittenes Upgrade-Modul",
   "item.energizedpower.reinforced_advanced_upgrade_module": "Verstärktes Fortgeschrittenes Upgrade-Modul",
 
+  "item.energizedpower.speed_upgrade_module_1": "Geschwindigkeits-Upgrade-Modul (MK I)",
+  "item.energizedpower.speed_upgrade_module_2": "Geschwindigkeits-Upgrade-Modul (MK II)",
+  "item.energizedpower.speed_upgrade_module_3": "Geschwindigkeits-Upgrade-Modul (MK III)",
+  "item.energizedpower.speed_upgrade_module_4": "Geschwindigkeits-Upgrade-Modul (MK IV)",
+  "item.energizedpower.speed_upgrade_module_5": "Geschwindigkeits-Upgrade-Modul (MK V)",
+
   "item.energizedpower.moon_light_upgrade_module_1": "Mondlicht-Upgrade-Modul (MK I)",
   "item.energizedpower.moon_light_upgrade_module_2": "Mondlicht-Upgrade-Modul (MK II)",
 
@@ -634,7 +640,8 @@
   "tooltip.energizedpower.machine_configuration.comparator_mode.fluid": "Komparator-Mode: Flüssigkeit",
   "tooltip.energizedpower.machine_configuration.comparator_mode.energy": "Komparator-Mode: Energie",
 
-  "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Energie-Verbrauch",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Energieverbrauch",
+  "tooltip.energizedpower.upgrade_module_modifier.speed": "Produktions-Geschwindigkeit",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Mondlicht",
 
   "tooltip.energizedpower.upgrade.values": "Upgrade-Modul-Modifikatoren:",

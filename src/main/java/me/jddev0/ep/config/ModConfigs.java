@@ -128,21 +128,59 @@ public final class ModConfigs {
             1, null
     ));
 
-    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_MOON_LIGHT_1_EFFECT = registerUpgradeModuleEffectValue(
-            "item.moon_light_upgrade_module_1",
-            "Moon Light Upgrade Module (Tier I)",
-            "Peak energy production during nighttime relative to the peak energy production during daytime",
-            .125,
-            0.,
-            null
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_1_EFFECT = registerSpeedModuleEffectValue(
+            1, "I",
+            1.2
     );
-    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_MOON_LIGHT_2_EFFECT = registerUpgradeModuleEffectValue(
-            "item.moon_light_upgrade_module_2",
-            "Moon Light Upgrade Module (Tier II)",
-            "Peak energy production during nighttime relative to the peak energy production during daytime",
-            .33,
-            0.,
-            null
+    public static final ConfigValue<Double> COMMON_UPGRADE_SPEED_1_ENERGY_CONSUMPTION_EFFECT = registerSpeedModuleEnergyConsumptionEffectValue(
+            1, "I",
+            1.4
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_2_EFFECT = registerSpeedModuleEffectValue(
+            2, "II",
+            1.5
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_SPEED_2_ENERGY_CONSUMPTION_EFFECT = registerSpeedModuleEnergyConsumptionEffectValue(
+            2, "II",
+            2.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_3_EFFECT = registerSpeedModuleEffectValue(
+            3, "III",
+            2.
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_SPEED_3_ENERGY_CONSUMPTION_EFFECT = registerSpeedModuleEnergyConsumptionEffectValue(
+            3, "III",
+            2.5
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_4_EFFECT = registerSpeedModuleEffectValue(
+            4, "IV",
+            3.5
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_SPEED_4_ENERGY_CONSUMPTION_EFFECT = registerSpeedModuleEnergyConsumptionEffectValue(
+            4, "IV",
+            3
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_5_EFFECT = registerSpeedModuleEffectValue(
+            5, "V",
+            6
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_SPEED_5_ENERGY_CONSUMPTION_EFFECT = registerSpeedModuleEnergyConsumptionEffectValue(
+            5, "V",
+            5
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_MOON_LIGHT_1_EFFECT = registerMoonLightUpgradeModuleEffectValue(
+            1, "I",
+            .125
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_MOON_LIGHT_2_EFFECT = registerMoonLightUpgradeModuleEffectValue(
+            2, "II",
+            .33
     );
 
     //Blocks
@@ -1034,16 +1072,6 @@ public final class ModConfigs {
                 0.f, null
         ));
     }
-    private static ConfigValue<Double> registerUpgradeModuleEffectValue(String baseConfigKey, String itemName,
-                                                                        String effectDescription, double defaultValue,
-                                                                        Double minExclusive, Double maxExclusive) {
-        return COMMON_CONFIG.register(new DoubleConfigValue(
-                baseConfigKey + ".upgrade_module.effect_value",
-                "The upgrade module effect (" + effectDescription + ") of the " + itemName + " in per cent",
-                defaultValue,
-                minExclusive, maxExclusive
-        ));
-    }
 
     private static ConfigValue<List<@NotNull ResourceLocation>> registerRecipeBlacklistValue(String baseConfigKey, String itemName,
                                                                                              @NotNull List<@NotNull ResourceLocation> defaultValue) {
@@ -1052,6 +1080,37 @@ public final class ModConfigs {
                 "The recipe blacklist for the " + itemName + ".\n" +
                         "The blacklist is a list of recipe ids which can not be crafted in the " + itemName,
                 defaultValue
+        ));
+    }
+
+    private static ConfigValue<Double> registerMoonLightUpgradeModuleEffectValue(int tier, String tierRomanNumerals, double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.moon_light_upgrade_module_" + tier + ".upgrade_module.effect_value",
+                "The upgrade module effect (Multiplier of peak energy production during nighttime relative to the " +
+                        "peak energy production during daytime) of the Moon Light Upgrade Module (Tier " +
+                        tierRomanNumerals + ")",
+                defaultValue,
+                0., null
+        ));
+    }
+
+    private static ConfigValue<Double> registerSpeedModuleEffectValue(int tier, String tierRomanNumerals, double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.speed_upgrade_module_" + tier + ".upgrade_module.effect_value",
+                "The upgrade module effect (Production speed multiplier) of the Speed Upgrade Module (Tier " +
+                        tierRomanNumerals + ")",
+                defaultValue,
+                1., null
+        ));
+    }
+    private static ConfigValue<Double> registerSpeedModuleEnergyConsumptionEffectValue(int tier, String tierRomanNumerals,
+                                                                                       double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.speed_upgrade_module_" + tier + ".upgrade_module.effect_value.energy_consumption",
+                "The upgrade module effect (Energy Consumption multiplier) of the Speed Upgrade Module (Tier " +
+                        tierRomanNumerals + ")",
+                defaultValue,
+                1., null
         ));
     }
 

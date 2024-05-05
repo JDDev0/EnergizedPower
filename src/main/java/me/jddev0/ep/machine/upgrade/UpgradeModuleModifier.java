@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Locale;
 
 public enum UpgradeModuleModifier implements StringRepresentable {
-    ENERGY_CONSUMPTION, MOON_LIGHT;
+    ENERGY_CONSUMPTION, SPEED, MOON_LIGHT;
 
     @Override
     @NotNull
