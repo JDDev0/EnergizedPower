@@ -117,6 +117,12 @@
   "item.energizedpower.energy_capacity_upgrade_module_4": "Energy Capacity Upgrade Module (Tier IV)",
   "item.energizedpower.energy_capacity_upgrade_module_5": "Energy Capacity Upgrade Module (Tier V)",
 
+  "item.energizedpower.duration_upgrade_module_1": "Duration Upgrade Module (Tier I)",
+  "item.energizedpower.duration_upgrade_module_2": "Duration Upgrade Module (Tier II)",
+  "item.energizedpower.duration_upgrade_module_3": "Duration Upgrade Module (Tier III)",
+  "item.energizedpower.duration_upgrade_module_4": "Duration Upgrade Module (Tier IV)",
+  "item.energizedpower.duration_upgrade_module_5": "Duration Upgrade Module (Tier V)",
+
   "item.energizedpower.moon_light_upgrade_module_1": "Moon Light Upgrade Module (Tier I)",
   "item.energizedpower.moon_light_upgrade_module_2": "Moon Light Upgrade Module (Tier II)",
 
@@ -656,6 +662,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Energy Consumption per tick",
   "tooltip.energizedpower.upgrade_module_modifier.energy_capacity": "Energy Capacity",
   "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "Energy Transfer Rate",
+  "tooltip.energizedpower.upgrade_module_modifier.duration": "Duration",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Moon Light",
 
   "tooltip.energizedpower.upgrade.values": "Upgrade Module Modifiers:",

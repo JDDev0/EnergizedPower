@@ -243,6 +243,31 @@ public final class ModConfigs {
             10
     );
 
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_DURATION_1_EFFECT = registerDurationUpgradeModuleEffectValue(
+            1, "I",
+            4.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_DURATION_2_EFFECT = registerDurationUpgradeModuleEffectValue(
+            2, "II",
+            20.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_DURATION_3_EFFECT = registerDurationUpgradeModuleEffectValue(
+            3, "III",
+            50.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_DURATION_4_EFFECT = registerDurationUpgradeModuleEffectValue(
+            4, "VI",
+            100.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_DURATION_5_EFFECT = registerDurationUpgradeModuleEffectValue(
+            5, "V",
+            250.
+    );
+
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_MOON_LIGHT_1_EFFECT = registerMoonLightUpgradeModuleEffectValue(
             1, "I",
             .125
@@ -1174,24 +1199,13 @@ public final class ModConfigs {
     }
 
     private static ConfigValue<Double> registerEnergyEfficiencyModuleEffectValue(int tier, String tierRomanNumerals,
-                                                                                       double defaultValue) {
+                                                                                 double defaultValue) {
         return COMMON_CONFIG.register(new DoubleConfigValue(
                 "item.energy_efficiency_upgrade_module_" + tier + ".effect_value",
                 "The upgrade module effect (Energy Consumption per tick multiplier) of the Energy Efficiency Upgrade Module (Tier " +
                         tierRomanNumerals + ")",
                 defaultValue,
                 0., 1.
-        ));
-    }
-
-    private static ConfigValue<Double> registerMoonLightUpgradeModuleEffectValue(int tier, String tierRomanNumerals, double defaultValue) {
-        return COMMON_CONFIG.register(new DoubleConfigValue(
-                "item.moon_light_upgrade_module_" + tier + ".effect_value",
-                "The upgrade module effect (Multiplier of peak energy production during nighttime relative to the " +
-                        "peak energy production during daytime) of the Moon Light Upgrade Module (Tier " +
-                        tierRomanNumerals + ")",
-                defaultValue,
-                0., null
         ));
     }
 
@@ -1212,6 +1226,27 @@ public final class ModConfigs {
                         tierRomanNumerals + ")",
                 defaultValue,
                 1., null
+        ));
+    }
+
+    private static ConfigValue<Double> registerDurationUpgradeModuleEffectValue(int tier, String tierRomanNumerals, double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.duration_upgrade_module_" + tier + ".effect_value",
+                "The upgrade module effect (Duration multiplier) of the Duration Upgrade Module (Tier " +
+                        tierRomanNumerals + ")",
+                defaultValue,
+                1., null
+        ));
+    }
+
+    private static ConfigValue<Double> registerMoonLightUpgradeModuleEffectValue(int tier, String tierRomanNumerals, double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.moon_light_upgrade_module_" + tier + ".effect_value",
+                "The upgrade module effect (Multiplier of peak energy production during nighttime relative to the " +
+                        "peak energy production during daytime) of the Moon Light Upgrade Module (Tier " +
+                        tierRomanNumerals + ")",
+                defaultValue,
+                0., null
         ));
     }
 
