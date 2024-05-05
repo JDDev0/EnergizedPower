@@ -136,6 +136,17 @@ public final class ModItems {
     public static final DeferredItem<Item> SPEED_UPGRADE_MODULE_5 = ITEMS.register("speed_upgrade_module_5",
             () -> new SpeedUpgradeModuleItem(new Item.Properties(), 5));
 
+    public static final DeferredItem<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_1 = ITEMS.register("energy_efficiency_upgrade_module_1",
+            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 1));
+    public static final DeferredItem<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_2 = ITEMS.register("energy_efficiency_upgrade_module_2",
+            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 2));
+    public static final DeferredItem<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_3 = ITEMS.register("energy_efficiency_upgrade_module_3",
+            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 3));
+    public static final DeferredItem<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_4 = ITEMS.register("energy_efficiency_upgrade_module_4",
+            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 4));
+    public static final DeferredItem<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_5 = ITEMS.register("energy_efficiency_upgrade_module_5",
+            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 5));
+
     public static final DeferredItem<Item> MOON_LIGHT_UPGRADE_MODULE_1 = ITEMS.register("moon_light_upgrade_module_1",
             () -> new MoonLightUpgradeModuleItem(new Item.Properties(), 1));
     public static final DeferredItem<Item> MOON_LIGHT_UPGRADE_MODULE_2 = ITEMS.register("moon_light_upgrade_module_2",

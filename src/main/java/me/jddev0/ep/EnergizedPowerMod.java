@@ -247,6 +247,12 @@ public class EnergizedPowerMod {
             event.accept(ModItems.SPEED_UPGRADE_MODULE_4);
             event.accept(ModItems.SPEED_UPGRADE_MODULE_5);
 
+            event.accept(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1);
+            event.accept(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2);
+            event.accept(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3);
+            event.accept(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4);
+            event.accept(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5);
+
             event.accept(ModItems.MOON_LIGHT_UPGRADE_MODULE_1);
             event.accept(ModItems.MOON_LIGHT_UPGRADE_MODULE_2);
 
