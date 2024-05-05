@@ -680,6 +680,9 @@
   "tooltip.energizedpower.upgrade.values": "Upgrade Module Modifiers:",
   "tooltip.energizedpower.upgrade.value": "• %s: %s",
 
+  "tooltip.energizedpower.upgrade_view.button.open": "Open Upgrade View",
+  "tooltip.energizedpower.upgrade_view.button.close": "Close Upgrade View",
+
   "itemGroup.energizedpower.tab": "Energized Power",
 
   "entity.minecraft.villager.energizedpower.electrician": "电工",

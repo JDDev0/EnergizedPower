@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.SolarPanelBlock;
+import me.jddev0.ep.machine.configuration.RedstoneMode;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -10,6 +11,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class SolarPanelScreen extends AbstractGenericEnergyStorageContainerScreen<SolarPanelMenu> {
@@ -66,6 +71,21 @@ public class SolarPanelScreen extends AbstractGenericEnergyStorageContainerScree
             guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20, 80, 20, 20);
         }else {
             guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 0, 80, 20, 20);
+        }
+    }
+
+    @Override
+    protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        super.renderTooltip(guiGraphics, mouseX, mouseY);
+
+        if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
+            //Upgrade view
+
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.upgrade_view.button." +
+                    (menu.isInUpgradeModuleView()?"close":"open")));
+
+            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }
