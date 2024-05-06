@@ -230,11 +230,12 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
 
     @Override
     protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
+
         nbt.put("inventory", itemHandler.serializeNBT(registries));
         nbt.put("pattern", savePatternContainer(registries));
         nbt.put("energy", energyStorage.saveNBT());
-
-        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
 
         if(craftingRecipe != null)
             nbt.put("recipe.id", StringTag.valueOf(craftingRecipe.id().toString()));
@@ -264,13 +265,14 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
-        loadPatternContainer(nbt.getCompound("pattern"), registries);
-        energyStorage.loadNBT(nbt.get("energy"));
-
+        //Load Upgrade Module Inventory first
         upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
         upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
+        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
+        loadPatternContainer(nbt.getCompound("pattern"), registries);
+        energyStorage.loadNBT(nbt.get("energy"));
 
         if(nbt.contains("recipe.id")) {
             Tag tag = nbt.get("recipe.id");

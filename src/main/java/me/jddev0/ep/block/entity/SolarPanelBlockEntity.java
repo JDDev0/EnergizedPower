@@ -173,9 +173,10 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
 
     @Override
     protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        nbt.put("energy", energyStorage.saveNBT());
-
+        //Save Upgrade Module Inventory first
         nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
+
+        nbt.put("energy", energyStorage.saveNBT());
 
         super.saveAdditional(nbt, registries);
     }
@@ -184,11 +185,12 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        energyStorage.loadNBT(nbt.get("energy"));
-
+        //Load Upgrade Module Inventory first
         upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
         upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
+        energyStorage.loadNBT(nbt.get("energy"));
     }
 
     private void updateUpgradeModules() {

@@ -204,10 +204,11 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
 
     @Override
     protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
+
         nbt.put("inventory", itemHandler.serializeNBT(registries));
         nbt.put("energy", energyStorage.saveNBT());
-
-        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
 
         nbt.put("recipe.progress", IntTag.valueOf(progress));
         nbt.put("recipe.max_progress", IntTag.valueOf(maxProgress));
@@ -223,12 +224,13 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
-        energyStorage.loadNBT(nbt.get("energy"));
-
+        //Load Upgrade Module Inventory first
         upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
         upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
+        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
+        energyStorage.loadNBT(nbt.get("energy"));
 
         progress = nbt.getInt("recipe.progress");
         maxProgress = nbt.getInt("recipe.max_progress");
