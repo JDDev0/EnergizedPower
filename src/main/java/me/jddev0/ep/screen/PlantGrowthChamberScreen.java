@@ -69,7 +69,6 @@ public class PlantGrowthChamberScreen extends AbstractGenericEnergyStorageContai
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-
         if(menu.isInUpgradeModuleView()) {
             guiGraphics.blit(UPGRADE_VIEW_TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
         }else {
