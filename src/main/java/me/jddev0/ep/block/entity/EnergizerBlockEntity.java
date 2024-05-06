@@ -99,7 +99,7 @@ public class EnergizerBlockEntity extends BlockEntity implements MenuProvider, E
 
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
+                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
                             getBlockPos(), (ServerLevel)level, 32
                     );
             }
