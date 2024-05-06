@@ -104,6 +104,7 @@ public class SawmillBlockEntity extends BlockEntity implements MenuProvider, Ene
         super(ModBlockEntities.SAWMILL_ENTITY.get(), blockPos, blockState);
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_SAWMILL_CAPACITY.getValue(),
                 ModConfigs.COMMON_SAWMILL_TRANSFER_RATE.getValue()) {
             @Override
