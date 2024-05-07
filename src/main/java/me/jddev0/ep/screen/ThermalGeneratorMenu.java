@@ -3,8 +3,12 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.ThermalGeneratorBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.UpgradeModuleViewData;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,14 +23,19 @@ public class ThermalGeneratorMenu extends AbstractContainerMenu implements Energ
     private final ThermalGeneratorBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
+    private final UpgradeModuleViewData upgradeModuleViewData;
 
     public ThermalGeneratorMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(4));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        ), new SimpleContainerData(4));
     }
 
-    public ThermalGeneratorMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
+    public ThermalGeneratorMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
+                                ContainerData data) {
         super(ModMenuTypes.THERMAL_GENERATOR_MENU.get(), id);
 
+        checkContainerSize(upgradeModuleInventory, 1);
         checkContainerDataCount(data, 4);
         this.blockEntity = (ThermalGeneratorBlockEntity)blockEntity;
         this.level = inv.player.level();
@@ -35,7 +44,28 @@ public class ThermalGeneratorMenu extends AbstractContainerMenu implements Energ
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
+        addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
+
         addDataSlots(this.data);
+
+        upgradeModuleViewData = new UpgradeModuleViewData();
+        addDataSlots(upgradeModuleViewData);
+    }
+
+    @Override
+    public boolean isInUpgradeModuleView() {
+        return upgradeModuleViewData.isInUpgradeModuleView();
+    }
+
+    @Override
+    public boolean clickMenuButton(Player player, int index) {
+        if(index == 0) {
+            upgradeModuleViewData.toggleInUpgradeModuleView();
+
+            broadcastChanges();
+        }
+
+        return false;
     }
 
     @Override
@@ -71,7 +101,35 @@ public class ThermalGeneratorMenu extends AbstractContainerMenu implements Energ
 
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
-        return ItemStack.EMPTY;
+        Slot sourceSlot = slots.get(index);
+        if(sourceSlot == null || !sourceSlot.hasItem())
+            return ItemStack.EMPTY;
+
+        ItemStack sourceItem = sourceSlot.getItem();
+        ItemStack sourceItemCopy = sourceItem.copy();
+
+        if(index < 4 * 9) {
+            //Player inventory slot -> Merge into upgrade module inventory
+            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
+                return ItemStack.EMPTY;
+            }
+        }else if(index < 4 * 9 + 1) {
+            //Tile inventory and upgrade module slot -> Merge into player inventory
+            if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
+                return ItemStack.EMPTY;
+            }
+        }else {
+            throw new IllegalArgumentException("Invalid slot index");
+        }
+
+        if(sourceItem.getCount() == 0)
+            sourceSlot.set(ItemStack.EMPTY);
+        else
+            sourceSlot.setChanged();
+
+        sourceSlot.onTake(player, sourceItem);
+
+        return sourceItemCopy;
     }
 
     @Override
