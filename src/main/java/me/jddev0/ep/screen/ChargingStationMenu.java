@@ -2,6 +2,10 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.ChargingStationBlockEntity;
+import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.UpgradeModuleViewData;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -13,19 +17,46 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public class ChargingStationMenu extends AbstractContainerMenu implements EnergyStorageMenu {
     private final ChargingStationBlockEntity blockEntity;
     private final Level level;
+    private final UpgradeModuleViewData upgradeModuleViewData;
 
     public ChargingStationMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.RANGE
+        ));
     }
 
-    public ChargingStationMenu(int id, Inventory inv, BlockEntity blockEntity) {
+    public ChargingStationMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory) {
         super(ModMenuTypes.CHARGING_STATION_MENU.get(), id);
 
+        checkContainerSize(upgradeModuleInventory, 2);
         this.blockEntity = (ChargingStationBlockEntity)blockEntity;
         this.level = inv.player.level();
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
+
+        for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 71 + i * 18, 35, this::isInUpgradeModuleView));
+
+        upgradeModuleViewData = new UpgradeModuleViewData();
+        addDataSlots(upgradeModuleViewData);
+    }
+
+    @Override
+    public boolean isInUpgradeModuleView() {
+        return upgradeModuleViewData.isInUpgradeModuleView();
+    }
+
+    @Override
+    public boolean clickMenuButton(Player player, int index) {
+        if(index == 0) {
+            upgradeModuleViewData.toggleInUpgradeModuleView();
+
+            broadcastChanges();
+        }
+
+        return false;
     }
 
     @Override
@@ -40,7 +71,35 @@ public class ChargingStationMenu extends AbstractContainerMenu implements Energy
 
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
-        return ItemStack.EMPTY;
+        Slot sourceSlot = slots.get(index);
+        if(sourceSlot == null || !sourceSlot.hasItem())
+            return ItemStack.EMPTY;
+
+        ItemStack sourceItem = sourceSlot.getItem();
+        ItemStack sourceItemCopy = sourceItem.copy();
+
+        if(index < 4 * 9) {
+            //Player inventory slot -> Merge into upgrade module inventory
+            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 2, false)) {
+                return ItemStack.EMPTY;
+            }
+        }else if(index < 4 * 9 + 2) {
+            //Tile inventory and upgrade module slot -> Merge into player inventory
+            if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
+                return ItemStack.EMPTY;
+            }
+        }else {
+            throw new IllegalArgumentException("Invalid slot index");
+        }
+
+        if(sourceItem.getCount() == 0)
+            sourceSlot.set(ItemStack.EMPTY);
+        else
+            sourceSlot.setChanged();
+
+        sourceSlot.onTake(player, sourceItem);
+
+        return sourceItemCopy;
     }
 
     @Override
