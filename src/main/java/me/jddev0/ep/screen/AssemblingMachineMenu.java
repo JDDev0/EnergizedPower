@@ -3,8 +3,12 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AssemblingMachineBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.UpgradeModuleViewData;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,14 +23,21 @@ public class AssemblingMachineMenu extends AbstractContainerMenu implements Ener
     private final AssemblingMachineBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
+    private final UpgradeModuleViewData upgradeModuleViewData;
 
     public AssemblingMachineMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
+                UpgradeModuleModifier.SPEED,
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        ), new SimpleContainerData(9));
     }
 
-    public AssemblingMachineMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
+    public AssemblingMachineMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
+                                 ContainerData data) {
         super(ModMenuTypes.ASSEMBLING_MACHINE_MENU.get(), id);
 
+        checkContainerSize(upgradeModuleInventory, 3);
         checkContainerDataCount(data, 9);
         this.blockEntity = (AssemblingMachineBlockEntity)blockEntity;
         this.level = inv.player.level();
@@ -36,14 +47,61 @@ public class AssemblingMachineMenu extends AbstractContainerMenu implements Ener
         addPlayerHotbar(inv);
 
         ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
-            addSlot(new SlotItemHandler(itemHandler, 0, 62, 19));
-            addSlot(new SlotItemHandler(itemHandler, 1, 44, 37));
-            addSlot(new SlotItemHandler(itemHandler, 2, 80, 37));
-            addSlot(new SlotItemHandler(itemHandler, 3, 62, 55));
-            addSlot(new SlotItemHandler(itemHandler, 4, 134, 37));
+            addSlot(new SlotItemHandler(itemHandler, 0, 62, 19) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new SlotItemHandler(itemHandler, 1, 44, 37) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new SlotItemHandler(itemHandler, 2, 80, 37) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new SlotItemHandler(itemHandler, 3, 62, 55) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new SlotItemHandler(itemHandler, 4, 134, 37) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
         });
 
+        for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 37, this::isInUpgradeModuleView));
+
         addDataSlots(this.data);
+
+        upgradeModuleViewData = new UpgradeModuleViewData();
+        addDataSlots(upgradeModuleViewData);
+    }
+
+    @Override
+    public boolean isInUpgradeModuleView() {
+        return upgradeModuleViewData.isInUpgradeModuleView();
+    }
+
+    @Override
+    public boolean clickMenuButton(Player player, int index) {
+        if(index == 0) {
+            upgradeModuleViewData.toggleInUpgradeModuleView();
+
+            broadcastChanges();
+        }
+
+        return false;
     }
 
     @Override
@@ -98,13 +156,14 @@ public class AssemblingMachineMenu extends AbstractContainerMenu implements Ener
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
-            //Player inventory slot -> Merge into tile inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 4, false)) {
+            //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
+            if(!moveItemStackTo(sourceItem, 4 * 9 + 5, 4 * 9 + 5 + 3, false) &&
+                    !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 4, false)) {
                 //"+4" instead of "+5": Do not allow adding to output slot
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 5) {
-            //Tile inventory slot -> Merge into player inventory
+        }else if(index < 4 * 9 + 5 + 3) {
+            //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }
