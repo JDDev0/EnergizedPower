@@ -3,8 +3,12 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.CrystalGrowthChamberBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.UpgradeModuleViewData;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,14 +23,24 @@ public class CrystalGrowthChamberMenu extends AbstractContainerMenu implements E
     private final CrystalGrowthChamberBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
+    private final UpgradeModuleViewData upgradeModuleViewData;
 
     public CrystalGrowthChamberMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
+                UpgradeModuleModifier.SPEED,
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.SPEED,
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        ), new SimpleContainerData(9));
     }
 
-    public CrystalGrowthChamberMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
+    public CrystalGrowthChamberMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
+                                    ContainerData data) {
         super(ModMenuTypes.CRYSTAL_GROWTH_CHAMBER_MENU.get(), id);
 
+        checkContainerSize(upgradeModuleInventory, 6);
         checkContainerDataCount(data, 9);
         this.blockEntity = (CrystalGrowthChamberBlockEntity)blockEntity;
         this.level = inv.player.level();
@@ -36,11 +50,44 @@ public class CrystalGrowthChamberMenu extends AbstractContainerMenu implements E
         addPlayerHotbar(inv);
 
         ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
-            addSlot(new SlotItemHandler(itemHandler, 0, 48, 35));
-            addSlot(new SlotItemHandler(itemHandler, 1, 124, 35));
+            addSlot(new SlotItemHandler(itemHandler, 0, 48, 35) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new SlotItemHandler(itemHandler, 1, 124, 35) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
         });
 
+        for(int j = 0;j < 2;j++)
+            for(int i = 0;i < 3;i++)
+                addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i + j * 3, 62 + i * 18, 26 + j * 18, this::isInUpgradeModuleView));
+
         addDataSlots(this.data);
+
+        upgradeModuleViewData = new UpgradeModuleViewData();
+        addDataSlots(upgradeModuleViewData);
+    }
+
+    @Override
+    public boolean isInUpgradeModuleView() {
+        return upgradeModuleViewData.isInUpgradeModuleView();
+    }
+
+    @Override
+    public boolean clickMenuButton(Player player, int index) {
+        if(index == 0) {
+            upgradeModuleViewData.toggleInUpgradeModuleView();
+
+            broadcastChanges();
+        }
+
+        return false;
     }
 
     @Override
@@ -95,13 +142,14 @@ public class CrystalGrowthChamberMenu extends AbstractContainerMenu implements E
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
-            //Player inventory slot -> Merge into tile inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
+            //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
+            if(!moveItemStackTo(sourceItem, 4 * 9 + 2, 4 * 9 + 2 + 6, false) &&
+                    !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 //"+1" instead of "+2": Do not allow adding to output slot
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 2) {
-            //Tile inventory slot -> Merge into player inventory
+        }else if(index < 4 * 9 + 2 + 6) {
+            //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }
