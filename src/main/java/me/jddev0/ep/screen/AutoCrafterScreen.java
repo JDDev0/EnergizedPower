@@ -26,8 +26,7 @@ public class AutoCrafterScreen extends AbstractGenericEnergyStorageContainerScre
     private final ResourceLocation CONFIGURATION_ICONS_TEXTURE =
             new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
     private final ResourceLocation UPGRADE_VIEW_TEXTURE =
-            new ResourceLocation(EnergizedPowerMod.MODID,
-                    "textures/gui/container/upgrade_view/auto_crafter.png");
+            new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/auto_crafter.png");
 
     public AutoCrafterScreen(AutoCrafterMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
