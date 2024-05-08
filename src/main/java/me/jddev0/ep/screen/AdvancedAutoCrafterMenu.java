@@ -2,11 +2,11 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
-import me.jddev0.ep.inventory.PatternResultSlot;
-import me.jddev0.ep.inventory.PatternSlot;
-import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.inventory.*;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -23,25 +23,32 @@ public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements En
     private final AdvancedAutoCrafterBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
+    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     private final Container[] patternSlots;
 
     private final Container[] patternResultSlots;
 
     public AdvancedAutoCrafterMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new Container[] {
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
+                UpgradeModuleModifier.SPEED,
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        ), new Container[] {
                 new SimpleContainer(9), new SimpleContainer(9), new SimpleContainer(9)
         }, new Container[] {
                 new SimpleContainer(1), new SimpleContainer(1), new SimpleContainer(1)
         }, new SimpleContainerData(28));
     }
 
-    public AdvancedAutoCrafterMenu(int id, Inventory inv, BlockEntity blockEntity, Container[] patternSlots, Container[] patternResultSlots, ContainerData data) {
+    public AdvancedAutoCrafterMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
+                                   Container[] patternSlots, Container[] patternResultSlots, ContainerData data) {
         super(ModMenuTypes.ADVANCED_AUTO_CRAFTER_MENU.get(), id);
 
         this.patternSlots = patternSlots;
         this.patternResultSlots = patternResultSlots;
 
+        checkContainerSize(upgradeModuleInventory, 3);
         checkContainerDataCount(data, 28);
         this.blockEntity = (AdvancedAutoCrafterBlockEntity)blockEntity;
         this.level = inv.player.level();
@@ -64,7 +71,7 @@ public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements En
                     addSlot(new PatternSlot(patternSlots[recipeIndex], j + i * 3, 30 + j * 18, 17 + i * 18, () -> true) {
                         @Override
                         public boolean isActive() {
-                            return getRecipeIndex() == recipeIndex;
+                            return super.isActive() && !isInUpgradeModuleView() && getRecipeIndex() == recipeIndex;
                         }
                     });
                 }
@@ -73,12 +80,34 @@ public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements En
             addSlot(new PatternResultSlot(patternResultSlots[recipeIndex], 0, 124, 35, () -> true) {
                 @Override
                 public boolean isActive() {
-                    return getRecipeIndex() == recipeIndex;
+                    return super.isActive() && !isInUpgradeModuleView() && getRecipeIndex() == recipeIndex;
                 }
             });
         }
 
+        for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
+
         addDataSlots(this.data);
+
+        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
+        addDataSlots(upgradeModuleViewContainerData);
+    }
+
+    @Override
+    public boolean isInUpgradeModuleView() {
+        return upgradeModuleViewContainerData.isInUpgradeModuleView();
+    }
+
+    @Override
+    public boolean clickMenuButton(Player player, int index) {
+        if(index == 0) {
+            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
+
+            broadcastChanges();
+        }
+
+        return false;
     }
 
     public Container[] getPatternSlots() {
@@ -170,9 +199,10 @@ public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements En
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
-            //Player inventory slot -> Merge into tile inventory
+            //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
             //"+ 27": Ignore 3 * (3x3 crafting grid and result slot)
-            if(!moveItemStackTo(sourceItem, 4 * 9 + 5, 4 * 9 + 27, false)) {
+            if(!moveItemStackTo(sourceItem, 4 * 9 + 27 + 3 * (3*3 + 1), 4 * 9 + 27 + 3 * (3*3 + 1) + 3, false) &&
+                    !moveItemStackTo(sourceItem, 4 * 9 + 5, 4 * 9 + 27, false)) {
                 //"+5" instead of nothing: Do not allow adding to first 5 output item only slot
                 return ItemStack.EMPTY;
             }
@@ -183,6 +213,11 @@ public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements En
             }
         }else if(index < 4 * 9 + 27 + 3 * (3*3 + 1)) {
             return ItemStack.EMPTY;
+        }else if(index < 4 * 9 + 27 + 3 * (3*3 + 1) + 3) {
+            //Tile inventory and upgrade module slot -> Merge into player inventory
+            if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
+                return ItemStack.EMPTY;
+            }
         }else{
             throw new IllegalArgumentException("Invalid slot index");
         }

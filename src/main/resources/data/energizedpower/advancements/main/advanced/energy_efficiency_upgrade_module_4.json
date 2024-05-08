@@ -1,0 +1,34 @@
+{
+  "parent":  "energizedpower:main/advanced/energy_efficiency_upgrade_module_3",
+  "display": {
+    "icon": {
+      "id": "energizedpower:energy_efficiency_upgrade_module_4"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.energy_efficiency_upgrade_module_4.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.energy_efficiency_upgrade_module_4.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_the_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:energy_efficiency_upgrade_module_4" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}

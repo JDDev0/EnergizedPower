@@ -40,6 +40,20 @@ public class HeatGeneratorBlock extends BaseEntityBlock {
     }
 
     @Override
+    public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
+        if(state.getBlock() == newState.getBlock())
+            return;
+
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof HeatGeneratorBlockEntity))
+            return;
+
+        ((HeatGeneratorBlockEntity)blockEntity).drops(level, blockPos);
+
+        super.onRemove(state, level, blockPos, newState, isMoving);
+    }
+
+    @Override
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
         if(level.isClientSide())
             return InteractionResult.sidedSuccess(level.isClientSide());

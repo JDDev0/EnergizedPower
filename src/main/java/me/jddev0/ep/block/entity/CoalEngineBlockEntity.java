@@ -5,10 +5,12 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.CoalEngineMenu;
@@ -23,6 +25,7 @@ import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.ContainerListener;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -48,8 +51,6 @@ import java.util.List;
 
 public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate,
         ComparatorModeUpdate {
-    public static final int MAX_EXTRACT = ModConfigs.COMMON_COAL_ENGINE_TRANSFER_RATE.getValue();
-
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
@@ -75,6 +76,11 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
         return item.getBurnTime(RecipeType.SMELTING) <= 0;
     });
 
+    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.ENERGY_CAPACITY
+    );
+    private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
+
     private final ExtractOnlyEnergyStorage energyStorage;
 
     protected final ContainerData data;
@@ -89,14 +95,29 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
     public CoalEngineBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.COAL_ENGINE_ENTITY.get(), blockPos, blockState);
 
-        energyStorage = new ExtractOnlyEnergyStorage(0, ModConfigs.COMMON_COAL_ENGINE_CAPACITY.getValue(), MAX_EXTRACT) {
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
+        energyStorage = new ExtractOnlyEnergyStorage(0, ModConfigs.COMMON_COAL_ENGINE_CAPACITY.getValue(),
+                ModConfigs.COMMON_COAL_ENGINE_TRANSFER_RATE.getValue()) {
+            @Override
+            public int getCapacity() {
+                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            public int getMaxExtract() {
+                return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+
             @Override
             protected void onChange() {
                 setChanged();
 
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
+                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
                             getBlockPos(), (ServerLevel)level, 32
                     );
             }
@@ -148,7 +169,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
         ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
                 getBlockPos()), (ServerPlayer)player);
 
-        return new CoalEngineMenu(id, inventory, this, this.data);
+        return new CoalEngineMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
     public int getRedstoneOutput() {
@@ -172,6 +193,9 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
 
     @Override
     protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
+
         nbt.put("inventory", itemHandler.serializeNBT(registries));
         nbt.put("energy", energyStorage.saveNBT());
 
@@ -188,6 +212,11 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
+
+        //Load Upgrade Module Inventory first
+        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
         energyStorage.loadNBT(nbt.get("energy"));
@@ -206,6 +235,8 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         Containers.dropContents(level, worldPosition, inventory);
+
+        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
@@ -308,7 +339,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
             if(energyStorage == null || !energyStorage.canReceive())
                 continue;
 
-            int received = energyStorage.receiveEnergy(Math.min(MAX_EXTRACT, blockEntity.energyStorage.getEnergy()), true);
+            int received = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getMaxExtract(), blockEntity.energyStorage.getEnergy()), true);
             if(received <= 0)
                 continue;
 
@@ -321,7 +352,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 
-        int consumptionLeft = Math.min(MAX_EXTRACT, Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
+        int consumptionLeft = Math.min(blockEntity.energyStorage.getMaxExtract(), Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
         blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
 
         int divisor = consumerItems.size();
@@ -372,6 +403,15 @@ public class CoalEngineBlockEntity extends BlockEntity implements MenuProvider, 
             return false;
 
         return !item.hasCraftingRemainingItem() || item.getCount() == 1;
+    }
+
+    private void updateUpgradeModules() {
+        setChanged();
+        if(level != null && !level.isClientSide())
+            ModMessages.sendToPlayersWithinXBlocks(
+                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
+                    getBlockPos(), (ServerLevel)level, 32
+            );
     }
 
     public int getEnergy() {

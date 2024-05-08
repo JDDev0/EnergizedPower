@@ -6,10 +6,12 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
@@ -28,6 +30,7 @@ import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.ContainerListener;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -87,6 +90,13 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
     private final IItemHandler itemHandlerSidesSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 1 && i < 6);
     private final IItemHandler itemHandlerTopBottomSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i > 1 && i < 6);
 
+    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.SPEED,
+            UpgradeModuleModifier.ENERGY_CONSUMPTION,
+            UpgradeModuleModifier.ENERGY_CAPACITY
+    );
+    private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
+
     private final ReceiveOnlyEnergyStorage energyStorage;
 
     protected final ContainerData data;
@@ -103,15 +113,29 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
     public PlantGrowthChamberBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.PLANT_GROWTH_CHAMBER_ENTITY.get(), blockPos, blockState);
 
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_CAPACITY.getValue(),
                 ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_TRANSFER_RATE.getValue()) {
+            @Override
+            public int getCapacity() {
+                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            public int getMaxReceive() {
+                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+
             @Override
             protected void onChange() {
                 setChanged();
 
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
+                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
                             getBlockPos(), (ServerLevel)level, 32
                     );
             }
@@ -163,7 +187,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
         ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
                 getBlockPos()), (ServerPlayer)player);
 
-        return new PlantGrowthChamberMenu(id, inventory, this, this.data);
+        return new PlantGrowthChamberMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
     public int getRedstoneOutput() {
@@ -190,6 +214,9 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
 
     @Override
     protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
+
         nbt.put("inventory", itemHandler.serializeNBT(registries));
         nbt.put("energy", energyStorage.saveNBT());
 
@@ -208,6 +235,11 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
+
+        //Load Upgrade Module Inventory first
+        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
         energyStorage.loadNBT(nbt.get("energy"));
@@ -228,6 +260,8 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         Containers.dropContents(level, worldPosition, inventory);
+
+        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, PlantGrowthChamberBlockEntity blockEntity) {
@@ -258,10 +292,12 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
                     blockEntity.itemHandler.extractItem(1, 1, false);
                 }
 
-                blockEntity.maxProgress = (int)(recipe.get().value().getTicks() * RECIPE_DURATION_MULTIPLIER / blockEntity.speedMultiplier);
+                blockEntity.maxProgress = Math.max(1, (int)(recipe.get().value().getTicks() * RECIPE_DURATION_MULTIPLIER / blockEntity.speedMultiplier /
+                        blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
             }
 
-            final int fertilizedEnergyUsagePerTick = (int)(ENERGY_USAGE_PER_TICK * blockEntity.energyConsumptionMultiplier);
+            final int fertilizedEnergyUsagePerTick = Math.max(1, (int)Math.ceil(ENERGY_USAGE_PER_TICK * blockEntity.energyConsumptionMultiplier *
+                    blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
 
             if(blockEntity.energyConsumptionLeft < 0)
                 blockEntity.energyConsumptionLeft = fertilizedEnergyUsagePerTick * blockEntity.maxProgress;
@@ -269,8 +305,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
             if(fertilizedEnergyUsagePerTick <= blockEntity.energyStorage.getEnergy()) {
                 blockEntity.hasEnoughEnergy = true;
 
-                if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0 ||
-                        fertilizedEnergyUsagePerTick < 0) {
+                if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
                     //Reset progress for invalid values
 
                     blockEntity.resetProgress(blockPos, state);
@@ -417,6 +452,16 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements MenuPr
         }
 
         return itemsStacks.isEmpty();
+    }
+
+    private void updateUpgradeModules() {
+        resetProgress(getBlockPos(), getBlockState());
+        setChanged();
+        if(level != null && !level.isClientSide())
+            ModMessages.sendToPlayersWithinXBlocks(
+                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
+                    getBlockPos(), (ServerLevel)level, 32
+            );
     }
 
     public int getEnergy() {

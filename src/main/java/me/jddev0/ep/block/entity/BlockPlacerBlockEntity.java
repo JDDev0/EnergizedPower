@@ -5,11 +5,13 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.BlockPlacerMenu;
@@ -26,10 +28,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -53,6 +52,8 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
     private static final List<@NotNull ResourceLocation> PLACEMENT_BLACKLIST = ModConfigs.COMMON_BLOCK_PLACER_PLACEMENT_BLACKLIST.getValue();
 
     private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_BLOCK_PLACER_ENERGY_CONSUMPTION_PER_TICK.getValue();
+
+    private static final int PLACEMENT_DURATION = ModConfigs.COMMON_BLOCK_PLACER_PLACEMENT_DURATION.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
         @Override
@@ -87,11 +88,18 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
     };
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
 
+    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.SPEED,
+            UpgradeModuleModifier.ENERGY_CONSUMPTION,
+            UpgradeModuleModifier.ENERGY_CAPACITY
+    );
+    private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
+
     private final ReceiveOnlyEnergyStorage energyStorage;
 
     protected final ContainerData data;
     private int progress;
-    private int maxProgress = ModConfigs.COMMON_BLOCK_PLACER_PLACEMENT_DURATION.getValue();
+    private int maxProgress;
     private int energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
     private boolean inverseRotation;
@@ -102,15 +110,29 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
     public BlockPlacerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.BLOCK_PLACER_ENTITY.get(), blockPos, blockState);
 
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_BLOCK_PLACER_CAPACITY.getValue(),
                 ModConfigs.COMMON_BLOCK_PLACER_TRANSFER_RATE.getValue()) {
+            @Override
+            public int getCapacity() {
+                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            public int getMaxReceive() {
+                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+
             @Override
             protected void onChange() {
                 setChanged();
 
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
+                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
                             getBlockPos(), (ServerLevel)level, 32
                     );
             }
@@ -164,7 +186,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
         ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
                 getBlockPos()), (ServerPlayer)player);
 
-        return new BlockPlacerMenu(id, inventory, this, this.data);
+        return new BlockPlacerMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
     public int getRedstoneOutput() {
@@ -188,10 +210,14 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
 
     @Override
     protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
+
         nbt.put("inventory", itemHandler.serializeNBT(registries));
         nbt.put("energy", energyStorage.saveNBT());
 
         nbt.put("recipe.progress", IntTag.valueOf(progress));
+        nbt.put("recipe.max_progress", IntTag.valueOf(maxProgress));
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
         nbt.putBoolean("inverse_rotation", inverseRotation);
@@ -206,10 +232,16 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
+        //Load Upgrade Module Inventory first
+        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
         energyStorage.loadNBT(nbt.get("energy"));
 
         progress = nbt.getInt("recipe.progress");
+        maxProgress = nbt.getInt("recipe.max_progress");
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
 
         inverseRotation = nbt.getBoolean("inverse_rotation");
@@ -224,6 +256,8 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         Containers.dropContents(level, worldPosition, inventory);
+
+        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, BlockPlacerBlockEntity blockEntity) {
@@ -234,10 +268,17 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
             return;
 
         if(hasRecipe(blockEntity)) {
-            if(blockEntity.energyConsumptionLeft < 0)
-                blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK * blockEntity.maxProgress;
+            if(blockEntity.maxProgress == 0)
+                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(PLACEMENT_DURATION /
+                        blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
 
-            if(ENERGY_USAGE_PER_TICK <= blockEntity.energyStorage.getEnergy()) {
+            int energyConsumptionPerTick = Math.max(1, (int)Math.ceil(ENERGY_USAGE_PER_TICK *
+                    blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
+
+            if(blockEntity.energyConsumptionLeft < 0)
+                blockEntity.energyConsumptionLeft = energyConsumptionPerTick * blockEntity.maxProgress;
+
+            if(energyConsumptionPerTick <= blockEntity.energyStorage.getEnergy()) {
                 blockEntity.hasEnoughEnergy = true;
 
                 if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
@@ -249,8 +290,8 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
                     return;
                 }
 
-                blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - ENERGY_USAGE_PER_TICK);
-                blockEntity.energyConsumptionLeft -= ENERGY_USAGE_PER_TICK;
+                blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
+                blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
 
                 if(blockEntity.progress < blockEntity.maxProgress)
                     blockEntity.progress++;
@@ -258,7 +299,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
                 if(blockEntity.progress >= blockEntity.maxProgress) {
                     ItemStack itemStack = blockEntity.itemHandler.getStackInSlot(0);
                     if(itemStack.isEmpty()) {
-                        blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK;
+                        blockEntity.energyConsumptionLeft = energyConsumptionPerTick;
                         setChanged(level, blockPos, state);
 
                         return;
@@ -313,7 +354,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
                     });
 
                     if(result == InteractionResult.FAIL) {
-                        blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK;
+                        blockEntity.energyConsumptionLeft = energyConsumptionPerTick;
                         setChanged(level, blockPos, state);
 
                         return;
@@ -336,6 +377,7 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
 
     private void resetProgress(BlockPos blockPos, BlockState state) {
         progress = 0;
+        maxProgress = 0;
         energyConsumptionLeft = -1;
         hasEnoughEnergy = true;
     }
@@ -349,6 +391,16 @@ public class BlockPlacerBlockEntity extends BlockEntity implements MenuProvider,
             return false;
 
         return !PLACEMENT_BLACKLIST.contains(BuiltInRegistries.BLOCK.getKey(blockItemStack.getBlock()));
+    }
+
+    private void updateUpgradeModules() {
+        resetProgress(getBlockPos(), getBlockState());
+        setChanged();
+        if(level != null && !level.isClientSide())
+            ModMessages.sendToPlayersWithinXBlocks(
+                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
+                    getBlockPos(), (ServerLevel)level, 32
+            );
     }
 
     public void setInverseRotation(boolean inverseRotation) {

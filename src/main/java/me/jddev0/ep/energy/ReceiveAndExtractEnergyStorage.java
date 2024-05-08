@@ -68,7 +68,7 @@ public class ReceiveAndExtractEnergyStorage implements IEnergizedPowerEnergyStor
         if(!canReceive())
             return 0;
 
-        int received = Math.min(capacity - energy, Math.min(this.maxTransfer, maxReceive));
+        int received = Math.min(getMaxEnergyStored() - energy, Math.min(getMaxTransfer(), maxReceive));
 
         if(!simulate) {
             energy += received;
@@ -83,7 +83,7 @@ public class ReceiveAndExtractEnergyStorage implements IEnergizedPowerEnergyStor
         if(!canExtract())
             return 0;
 
-        int extracted = Math.min(energy, Math.min(this.maxTransfer, maxExtract));
+        int extracted = Math.min(energy, Math.min(getMaxTransfer(), maxExtract));
 
         if(!simulate) {
             energy -= extracted;
@@ -94,13 +94,13 @@ public class ReceiveAndExtractEnergyStorage implements IEnergizedPowerEnergyStor
     }
 
     @Override
-    public int getEnergyStored() {
-        return energy;
+    public final int getEnergyStored() {
+        return getEnergy();
     }
 
     @Override
-    public int getMaxEnergyStored() {
-        return capacity;
+    public final int getMaxEnergyStored() {
+        return getCapacity();
     }
 
     @Override

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:plates/energized_gold"
+    },
+    "C": {
+      "item": "energizedpower:energized_crystal_matrix"
+    },
+    "r": {
+      "tag": "c:dusts/redstone"
+    },
+    "R": {
+      "item": "energizedpower:reinforced_advanced_upgrade_module"
+    }
+  },
+  "pattern": [
+    "GCG",
+    "rRr",
+    "GCG"
+  ],
+  "result": {
+    "id": "energizedpower:duration_upgrade_module_1"
+  }
+}

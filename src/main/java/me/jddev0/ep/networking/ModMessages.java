@@ -30,6 +30,8 @@ public final class ModMessages {
                 SyncStoneSolidifierCurrentRecipeS2CPacket::handle);
         registrar.playToClient(SyncFiltrationPlantCurrentRecipeS2CPacket.ID, SyncFiltrationPlantCurrentRecipeS2CPacket.STREAM_CODEC,
                 SyncFiltrationPlantCurrentRecipeS2CPacket::handle);
+        registrar.playToClient(SyncFurnaceRecipeTypeS2CPacket.ID, SyncFurnaceRecipeTypeS2CPacket.STREAM_CODEC,
+                SyncFurnaceRecipeTypeS2CPacket::handle);
 
         //Client -> Server
         registrar.playToServer(PopEnergizedPowerBookFromLecternC2SPacket.ID, PopEnergizedPowerBookFromLecternC2SPacket.STREAM_CODEC,

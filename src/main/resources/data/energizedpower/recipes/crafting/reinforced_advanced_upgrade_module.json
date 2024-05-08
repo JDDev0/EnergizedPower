@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "g": {
+      "tag": "c:wires/energized_gold"
+    },
+    "G": {
+      "tag": "c:plates/energized_gold"
+    },
+    "A": {
+      "item": "energizedpower:advanced_upgrade_module"
+    },
+    "P": {
+      "item": "energizedpower:processing_unit"
+    }
+  },
+  "pattern": [
+    "ggg",
+    "GAG",
+    "GPG"
+  ],
+  "result": {
+    "id": "energizedpower:reinforced_advanced_upgrade_module"
+  }
+}
