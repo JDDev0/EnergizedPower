@@ -1,0 +1,13 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.upgrade_configuration",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "image": [
+    "energizedpower:textures/gui/book_icons/upgrade_view.png"
+  ]
+}

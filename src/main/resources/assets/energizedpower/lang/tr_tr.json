@@ -1409,6 +1409,8 @@
   "book.energizedpower.page.chapter.machine_configuration.title": "Configuration",
   "book.energizedpower.page.chapter.machine_configuration": "Configuration of machines",
 
+  "book.energizedpower.page.upgrade_configuration": "Most machines support Upgrade Modules. Upgrades can not be inserted automatically.",
+
   "book.energizedpower.page.redstone_mode_configuration.1": "There are 3 redstone modes:",
   "book.energizedpower.page.redstone_mode_configuration.2": "Ignore: The machine is always active",
   "book.energizedpower.page.redstone_mode_configuration.3": "High: The machine is only active if a redstone signal of strength 1 or higher is present",
