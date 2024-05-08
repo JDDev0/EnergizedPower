@@ -268,8 +268,8 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
 
             int cookingTime = recipe.get().value().getCookingTime();
             if(blockEntity.maxProgress == 0)
-                //Default Cooking Time = 200 -> maxProgress = 34 (= 200 / 6)
-                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(cookingTime * RECIPE_DURATION_MULTIPLIER / 6.f /
+                //Default Cooking Time = 200 -> maxProgress = 100 (= 200 / 2)
+                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(cookingTime * RECIPE_DURATION_MULTIPLIER / 2.f /
                         blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
 
             int energyUsagePerTick = Math.max(1, (int)Math.ceil(ENERGY_USAGE_PER_TICK *

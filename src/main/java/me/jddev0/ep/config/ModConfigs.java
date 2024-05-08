@@ -795,18 +795,18 @@ public final class ModConfigs {
     );
 
     public static final ConfigValue<Integer> COMMON_POWERED_FURNACE_CAPACITY = registerEnergyCapacityConfigValue(
-            "block.powered_furnace", "Powered Furnace", 4096
+            "block.powered_furnace", "Powered Furnace", 2048
     );
     public static final ConfigValue<Integer> COMMON_POWERED_FURNACE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
-            "block.powered_furnace", "Powered Furnace", 256
+            "block.powered_furnace", "Powered Furnace", 128
     );
     public static final ConfigValue<Integer> COMMON_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
-            "block.powered_furnace", "Powered Furnace", 128
+            "block.powered_furnace", "Powered Furnace", 2
     );
     public static final ConfigValue<Float> COMMON_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
             "block.powered_furnace.recipe_duration_multiplier",
             "The multiplier by which the time a recipe of the Powered Furnace requires is multiplied by.\n" +
-                    "=> If set to 6 the Powered Furnace will be as fast as the normal Furnace.",
+                    "=> If set to 2 the Powered Furnace will be as fast as the normal Furnace.",
             1.f,
             0.f, null
     ));
@@ -815,21 +815,21 @@ public final class ModConfigs {
     );
 
     public static final ConfigValue<Integer> COMMON_ADVANCED_POWERED_FURNACE_CAPACITY = registerEnergyCapacityConfigValue(
-            "block.advanced_powered_furnace", "Advanced Powered Furnace", 32768
+            "block.advanced_powered_furnace", "Advanced Powered Furnace", 16384
     );
     public static final ConfigValue<Integer> COMMON_ADVANCED_POWERED_FURNACE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
-            "block.advanced_powered_furnace", "Advanced Powered Furnace", 4096
+            "block.advanced_powered_furnace", "Advanced Powered Furnace", 1024
     );
     public static final ConfigValue<Integer> COMMON_ADVANCED_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_INPUT_PER_TICK = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.advanced_powered_furnace.energy_consumption_per_input_per_tick",
             "The energy consumption per input of the Advanced Powered Furnace in FE per tick.",
-            1024,
+            256,
             1, null
     ));
     public static final ConfigValue<Float> COMMON_ADVANCED_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
             "block.advanced_powered_furnace.recipe_duration_multiplier",
             "The multiplier by which the time a recipe of the Advanced Powered Furnace requires is multiplied by.\n" +
-                    "=> If set to 12 the Advanced Powered Furnace will be as fast as the normal Furnace.",
+                    "=> If set to 6 the Advanced Powered Furnace will be as fast as the normal Furnace.",
             1.f,
             0.f, null
     ));
