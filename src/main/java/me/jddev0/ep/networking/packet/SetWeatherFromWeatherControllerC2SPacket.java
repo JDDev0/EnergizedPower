@@ -60,13 +60,15 @@ public record SetWeatherFromWeatherControllerC2SPacket(BlockPos pos, int weather
 
             weatherControllerBlockEntity.clearEnergy();
 
+            int duration = weatherControllerBlockEntity.getWeatherChangedDuration();
+
             switch(data.weatherType) {
                 //Clear
-                case 0 -> level.setWeatherParameters(WeatherControllerBlock.WEATHER_CHANGED_TICKS, 0, false, false);
+                case 0 -> level.setWeatherParameters(duration, 0, false, false);
                 //Rain
-                case 1 -> level.setWeatherParameters(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, false);
+                case 1 -> level.setWeatherParameters(0, duration, true, false);
                 //Thunder
-                case 2 -> level.setWeatherParameters(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, true);
+                case 2 -> level.setWeatherParameters(0, duration, true, true);
             }
         });
     }
