@@ -35,7 +35,11 @@ import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class AdvancedCrusherScreen extends AbstractGenericEnergyStorageContainerScreen<AdvancedCrusherMenu> {
-    private final ResourceLocation CONFIGURATION_ICONS_TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+    private final ResourceLocation CONFIGURATION_ICONS_TEXTURE =
+            new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+    private final ResourceLocation UPGRADE_VIEW_TEXTURE =
+            new ResourceLocation(EnergizedPowerMod.MODID,
+                    "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png");
 
     public AdvancedCrusherScreen(AdvancedCrusherMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
@@ -49,11 +53,16 @@ public class AdvancedCrusherScreen extends AbstractGenericEnergyStorageContainer
         if(mouseButton == 0) {
             boolean clicked = false;
             if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
+                //Upgrade view
+
+                minecraft.gameMode.handleInventoryButtonClick(menu.containerId, 0);
+                clicked = true;
+            }else if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
 
                 ModMessages.sendToServer(new ChangeRedstoneModeC2SPacket(menu.getBlockEntity().getBlockPos()));
                 clicked = true;
-            }else if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
+            }else if(isHovering(-22, 50, 20, 20, mouseX, mouseY)) {
                 //Comparator Mode
 
                 ModMessages.sendToServer(new ChangeComparatorModeC2SPacket(menu.getBlockEntity().getBlockPos()));
@@ -74,12 +83,16 @@ public class AdvancedCrusherScreen extends AbstractGenericEnergyStorageContainer
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        for(int i = 0;i < 2;i++) {
-            renderFluidMeterContent(i, guiGraphics, x, y);
-            renderFluidMeterOverlay(i, guiGraphics, x, y);
-        }
+        if(menu.isInUpgradeModuleView()) {
+            guiGraphics.blit(UPGRADE_VIEW_TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
+        }else {
+            for(int i = 0;i < 2;i++) {
+                renderFluidMeterContent(i, guiGraphics, x, y);
+                renderFluidMeterOverlay(i, guiGraphics, x, y);
+            }
 
-        renderProgressArrow(guiGraphics, x, y);
+            renderProgressArrow(guiGraphics, x, y);
+        }
 
         renderConfiguration(guiGraphics, x, y, mouseX, mouseY);
     }
@@ -156,22 +169,31 @@ public class AdvancedCrusherScreen extends AbstractGenericEnergyStorageContainer
     }
 
     private void renderConfiguration(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
+        //Upgrade view
+        if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
+            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 40, 80, 20, 20);
+        }else if(menu.isInUpgradeModuleView()) {
+            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20, 80, 20, 20);
+        }else {
+            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 0, 80, 20, 20);
+        }
+
         RedstoneMode redstoneMode = menu.getRedstoneMode();
         int ordinal = redstoneMode.ordinal();
 
-        if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
-            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 20, 20, 20);
+        if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
+            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 20, 20, 20);
         }else {
-            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
+            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 0, 20, 20);
         }
 
         ComparatorMode comparatorMode = menu.getComparatorMode();
         ordinal = comparatorMode.ordinal();
 
-        if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
-            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 60, 20, 20);
+        if(isHovering(-22, 50, 20, 20, mouseX, mouseY)) {
+            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 60, 20, 20);
         }else {
-            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 40, 20, 20);
+            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 40, 20, 20);
         }
     }
 
@@ -179,31 +201,41 @@ public class AdvancedCrusherScreen extends AbstractGenericEnergyStorageContainer
     protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         super.renderTooltip(guiGraphics, mouseX, mouseY);
 
-        for(int i = 0;i < 2;i++) {
-            //Fluid meter
+        if(!menu.isInUpgradeModuleView()) {
+            for(int i = 0;i < 2;i++) {
+                //Fluid meter
 
-            if(isHovering(i == 0?44:152, 17, 16, 52, mouseX, mouseY)) {
-                List<Component> components = new ArrayList<>(2);
+                if(isHovering(i == 0?44:152, 17, 16, 52, mouseX, mouseY)) {
+                    List<Component> components = new ArrayList<>(2);
 
-                boolean fluidEmpty =  menu.getFluid(i).isEmpty();
+                    boolean fluidEmpty =  menu.getFluid(i).isEmpty();
 
-                int fluidAmount = fluidEmpty?0:menu.getFluid(i).getAmount();
+                    int fluidAmount = fluidEmpty?0:menu.getFluid(i).getAmount();
 
-                Component tooltipComponent = Component.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
-                        FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(menu.getTankCapacity(i)));
+                    Component tooltipComponent = Component.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
+                            FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(menu.getTankCapacity(i)));
 
-                if(!fluidEmpty) {
-                    tooltipComponent = Component.translatable(menu.getFluid(i).getDescriptionId()).append(" ").
-                            append(tooltipComponent);
+                    if(!fluidEmpty) {
+                        tooltipComponent = Component.translatable(menu.getFluid(i).getDescriptionId()).append(" ").
+                                append(tooltipComponent);
+                    }
+
+                    components.add(tooltipComponent);
+
+                    guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
                 }
-
-                components.add(tooltipComponent);
-
-                guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
             }
         }
 
         if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
+            //Upgrade view
+
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.upgrade_view.button." +
+                    (menu.isInUpgradeModuleView()?"close":"open")));
+
+            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+        }else if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
             //Redstone Mode
 
             RedstoneMode redstoneMode = menu.getRedstoneMode();
@@ -212,7 +244,7 @@ public class AdvancedCrusherScreen extends AbstractGenericEnergyStorageContainer
             components.add(Component.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.getSerializedName()));
 
             guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
-        }else if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
+        }else if(isHovering(-22, 50, 20, 20, mouseX, mouseY)) {
             //Comparator Mode
 
             ComparatorMode comparatorMode = menu.getComparatorMode();
