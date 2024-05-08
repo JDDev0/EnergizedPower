@@ -3,7 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.block.entity.SolarPanelBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
-import me.jddev0.ep.inventory.UpgradeModuleViewData;
+import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.minecraft.network.FriendlyByteBuf;
@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public class SolarPanelMenu extends AbstractContainerMenu implements EnergyStorageMenu {
     private final SolarPanelBlockEntity blockEntity;
     private final Level level;
-    private final UpgradeModuleViewData upgradeModuleViewData;
+    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public static MenuType<SolarPanelMenu> getMenuTypeFromTier(SolarPanelBlock.Tier tier) {
         return switch(tier) {
@@ -50,8 +50,8 @@ public class SolarPanelMenu extends AbstractContainerMenu implements EnergyStora
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 71 + i * 18, 35, this::isInUpgradeModuleView));
 
-        upgradeModuleViewData = new UpgradeModuleViewData();
-        addDataSlots(upgradeModuleViewData);
+        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
+        addDataSlots(upgradeModuleViewContainerData);
     }
 
     public SolarPanelBlock.Tier getTier() {
@@ -60,13 +60,13 @@ public class SolarPanelMenu extends AbstractContainerMenu implements EnergyStora
 
     @Override
     public boolean isInUpgradeModuleView() {
-        return upgradeModuleViewData.isInUpgradeModuleView();
+        return upgradeModuleViewContainerData.isInUpgradeModuleView();
     }
 
     @Override
     public boolean clickMenuButton(Player player, int index) {
         if(index == 0) {
-            upgradeModuleViewData.toggleInUpgradeModuleView();
+            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
 
             broadcastChanges();
         }

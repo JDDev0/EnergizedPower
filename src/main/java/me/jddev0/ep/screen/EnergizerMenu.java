@@ -4,7 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.EnergizerBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
-import me.jddev0.ep.inventory.UpgradeModuleViewData;
+import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -23,7 +23,7 @@ public class EnergizerMenu extends AbstractContainerMenu implements EnergyStorag
     private final EnergizerBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
-    private final UpgradeModuleViewData upgradeModuleViewData;
+    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public EnergizerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
@@ -63,19 +63,19 @@ public class EnergizerMenu extends AbstractContainerMenu implements EnergyStorag
 
         addDataSlots(this.data);
 
-        upgradeModuleViewData = new UpgradeModuleViewData();
-        addDataSlots(upgradeModuleViewData);
+        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
+        addDataSlots(upgradeModuleViewContainerData);
     }
 
     @Override
     public boolean isInUpgradeModuleView() {
-        return upgradeModuleViewData.isInUpgradeModuleView();
+        return upgradeModuleViewContainerData.isInUpgradeModuleView();
     }
 
     @Override
     public boolean clickMenuButton(Player player, int index) {
         if(index == 0) {
-            upgradeModuleViewData.toggleInUpgradeModuleView();
+            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
 
             broadcastChanges();
         }

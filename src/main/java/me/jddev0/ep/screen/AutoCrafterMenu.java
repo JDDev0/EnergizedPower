@@ -23,7 +23,7 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
     private final AutoCrafterBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
-    private final UpgradeModuleViewData upgradeModuleViewData;
+    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     private final Container patternSlots;
 
@@ -80,8 +80,8 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
 
         addDataSlots(this.data);
 
-        upgradeModuleViewData = new UpgradeModuleViewData();
-        addDataSlots(upgradeModuleViewData);
+        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
+        addDataSlots(upgradeModuleViewContainerData);
     }
 
     public Container getPatternSlots() {
@@ -90,13 +90,13 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
 
     @Override
     public boolean isInUpgradeModuleView() {
-        return upgradeModuleViewData.isInUpgradeModuleView();
+        return upgradeModuleViewContainerData.isInUpgradeModuleView();
     }
 
     @Override
     public boolean clickMenuButton(Player player, int index) {
         if(index == 0) {
-            upgradeModuleViewData.toggleInUpgradeModuleView();
+            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
 
             broadcastChanges();
         }

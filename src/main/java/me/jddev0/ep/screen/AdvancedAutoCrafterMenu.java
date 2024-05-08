@@ -23,7 +23,7 @@ public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements En
     private final AdvancedAutoCrafterBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
-    private final UpgradeModuleViewData upgradeModuleViewData;
+    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     private final Container[] patternSlots;
 
@@ -90,19 +90,19 @@ public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements En
 
         addDataSlots(this.data);
 
-        upgradeModuleViewData = new UpgradeModuleViewData();
-        addDataSlots(upgradeModuleViewData);
+        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
+        addDataSlots(upgradeModuleViewContainerData);
     }
 
     @Override
     public boolean isInUpgradeModuleView() {
-        return upgradeModuleViewData.isInUpgradeModuleView();
+        return upgradeModuleViewContainerData.isInUpgradeModuleView();
     }
 
     @Override
     public boolean clickMenuButton(Player player, int index) {
         if(index == 0) {
-            upgradeModuleViewData.toggleInUpgradeModuleView();
+            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
 
             broadcastChanges();
         }

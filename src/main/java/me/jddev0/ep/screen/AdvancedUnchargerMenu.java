@@ -4,7 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AdvancedUnchargerBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
-import me.jddev0.ep.inventory.UpgradeModuleViewData;
+import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -23,7 +23,7 @@ public class AdvancedUnchargerMenu extends AbstractContainerMenu implements Ener
     private final AdvancedUnchargerBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
-    private final UpgradeModuleViewData upgradeModuleViewData;
+    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public AdvancedUnchargerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
@@ -69,19 +69,19 @@ public class AdvancedUnchargerMenu extends AbstractContainerMenu implements Ener
 
         addDataSlots(this.data);
 
-        upgradeModuleViewData = new UpgradeModuleViewData();
-        addDataSlots(upgradeModuleViewData);
+        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
+        addDataSlots(upgradeModuleViewContainerData);
     }
 
     @Override
     public boolean isInUpgradeModuleView() {
-        return upgradeModuleViewData.isInUpgradeModuleView();
+        return upgradeModuleViewContainerData.isInUpgradeModuleView();
     }
 
     @Override
     public boolean clickMenuButton(Player player, int index) {
         if(index == 0) {
-            upgradeModuleViewData.toggleInUpgradeModuleView();
+            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
 
             broadcastChanges();
         }
