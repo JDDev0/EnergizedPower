@@ -20,13 +20,13 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import team.reborn.energy.api.base.LimitingEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 public class WeatherControllerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, EnergyStoragePacketUpdate {
     public static final long CAPACITY = ModConfigs.COMMON_WEATHER_CONTROLLER_CAPACITY.getValue();
 
-    final LimitingEnergyStorage energyStorage;
+    final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     public WeatherControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -40,12 +40,12 @@ public class WeatherControllerBlockEntity extends BlockEntity implements Extende
                 if(world != null && !world.isClient()) {
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            new EnergySyncS2CPacket(amount, capacity, getPos())
+                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getPos())
                     );
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, ModConfigs.COMMON_WEATHER_CONTROLLER_TRANSFER_RATE.getValue(), 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, ModConfigs.COMMON_WEATHER_CONTROLLER_TRANSFER_RATE.getValue(), 0);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class WeatherControllerBlockEntity extends BlockEntity implements Extende
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new EnergySyncS2CPacket(internalEnergyStorage.amount, internalEnergyStorage.capacity, getPos()));
+                new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos()));
         
         return new WeatherControllerMenu(id, this, inventory);
     }
@@ -77,7 +77,7 @@ public class WeatherControllerBlockEntity extends BlockEntity implements Extende
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.putLong("energy", internalEnergyStorage.amount);
+        nbt.putLong("energy", internalEnergyStorage.getAmount());
 
         super.writeNbt(nbt, registries);
     }
@@ -86,24 +86,24 @@ public class WeatherControllerBlockEntity extends BlockEntity implements Extende
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        internalEnergyStorage.amount = nbt.getLong("energy");
+        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
     }
 
     public long getEnergy() {
-        return internalEnergyStorage.amount;
+        return internalEnergyStorage.getAmount();
     }
 
     public long getCapacity() {
-        return internalEnergyStorage.capacity;
+        return internalEnergyStorage.getCapacity();
     }
 
     @Override
     public void setEnergy(long energy) {
-        internalEnergyStorage.amount = energy;
+        internalEnergyStorage.setAmountWithoutUpdate(energy);
     }
 
     @Override
     public void setCapacity(long capacity) {
-        internalEnergyStorage.capacity = capacity;
+        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 }

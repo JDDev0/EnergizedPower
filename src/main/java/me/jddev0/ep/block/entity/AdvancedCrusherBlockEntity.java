@@ -52,7 +52,7 @@ import net.minecraft.world.World;
 import me.jddev0.ep.util.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import team.reborn.energy.api.base.LimitingEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.List;
 import java.util.Optional;
@@ -73,7 +73,7 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements ExtendedS
     final InputOutputItemHandler inventory;
     private final SimpleInventory internalInventory;
 
-    final LimitingEnergyStorage energyStorage;
+    final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     final CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage;
@@ -144,12 +144,12 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements ExtendedS
                 if(world != null && !world.isClient()) {
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            new EnergySyncS2CPacket(amount, capacity, getPos())
+                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getPos())
                     );
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
 
         fluidStorage = new CombinedStorage<>(List.of(
                 new SimpleFluidStorage(TANK_CAPACITY) {
@@ -260,7 +260,7 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements ExtendedS
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, new EnergySyncS2CPacket(internalEnergyStorage.amount, internalEnergyStorage.capacity, getPos()));
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos()));
         for(int i = 0;i < 2;i++)
             ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, new FluidSyncS2CPacket(i,
                     fluidStorage.parts.get(i).getFluid(), fluidStorage.parts.get(i).getCapacity(), getPos()));
@@ -276,7 +276,7 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements ExtendedS
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
-        nbt.putLong("energy", internalEnergyStorage.amount);
+        nbt.putLong("energy", internalEnergyStorage.getAmount());
         for(int i = 0;i < fluidStorage.parts.size();i++)
             nbt.put("fluid." + i, fluidStorage.parts.get(i).getFluid().toNBT(new NbtCompound(), registries));
 
@@ -294,7 +294,7 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements ExtendedS
         super.readNbt(nbt, registries);
 
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
-        internalEnergyStorage.amount = nbt.getLong("energy");
+        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
         for(int i = 0;i < fluidStorage.parts.size();i++)
             fluidStorage.parts.get(i).setFluid(FluidStack.fromNbt(nbt.getCompound("fluid." + i), registries));
 
@@ -324,7 +324,7 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements ExtendedS
             if(blockEntity.energyConsumptionLeft < 0)
                 blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK * blockEntity.maxProgress;
 
-            if(ENERGY_USAGE_PER_TICK <= blockEntity.internalEnergyStorage.amount) {
+            if(ENERGY_USAGE_PER_TICK <= blockEntity.internalEnergyStorage.getAmount()) {
                 blockEntity.hasEnoughEnergy = true;
 
                 if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
@@ -412,20 +412,20 @@ public class AdvancedCrusherBlockEntity extends BlockEntity implements ExtendedS
 
     @Override
     public void setEnergy(long energy) {
-        internalEnergyStorage.amount = energy;
+        internalEnergyStorage.setAmountWithoutUpdate(energy);
     }
 
     @Override
     public void setCapacity(long capacity) {
-        internalEnergyStorage.capacity = capacity;
+        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 
     public long getEnergy() {
-        return internalEnergyStorage.amount;
+        return internalEnergyStorage.getAmount();
     }
 
     public long getCapacity() {
-        return internalEnergyStorage.capacity;
+        return internalEnergyStorage.getCapacity();
     }
 
     @Override

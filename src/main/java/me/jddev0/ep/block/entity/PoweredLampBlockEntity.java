@@ -15,13 +15,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-import team.reborn.energy.api.base.LimitingEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 public class PoweredLampBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
     public static final long MAX_RECEIVE = ModConfigs.COMMON_POWERED_LAMP_TRANSFER_RATE.getValue();
 
-    final LimitingEnergyStorage energyStorage;
+    final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     public PoweredLampBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -35,17 +35,17 @@ public class PoweredLampBlockEntity extends BlockEntity implements EnergyStorage
                 if(world != null && !world.isClient()) {
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            new EnergySyncS2CPacket(amount, capacity, getPos())
+                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getPos())
                     );
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.putLong("energy", internalEnergyStorage.amount);
+        nbt.putLong("energy", internalEnergyStorage.getAmount());
 
         super.writeNbt(nbt, registries);
     }
@@ -54,40 +54,40 @@ public class PoweredLampBlockEntity extends BlockEntity implements EnergyStorage
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        internalEnergyStorage.amount = nbt.getLong("energy");
+        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, PoweredLampBlockEntity blockEntity) {
         if(level.isClient())
             return;
 
-        boolean isEmptyFlag = blockEntity.internalEnergyStorage.amount == 0;
-        int levelValue = Math.min(MathHelper.floor((float)blockEntity.internalEnergyStorage.amount / blockEntity.energyStorage.getCapacity() * 14.f) + (isEmptyFlag?0:1), 15);
+        boolean isEmptyFlag = blockEntity.internalEnergyStorage.getAmount() == 0;
+        int levelValue = Math.min(MathHelper.floor((float)blockEntity.internalEnergyStorage.getAmount() / blockEntity.energyStorage.getCapacity() * 14.f) + (isEmptyFlag?0:1), 15);
 
         if(state.get(PoweredLampBlock.LEVEL) != levelValue)
             level.setBlockState(blockPos, state.with(PoweredLampBlock.LEVEL, levelValue), 3);
 
         try(Transaction transaction = Transaction.openOuter()) {
-            blockEntity.internalEnergyStorage.extract(blockEntity.internalEnergyStorage.amount, transaction);
+            blockEntity.internalEnergyStorage.extract(blockEntity.internalEnergyStorage.getAmount(), transaction);
             transaction.commit();
         }
     }
 
     public long getEnergy() {
-        return internalEnergyStorage.amount;
+        return internalEnergyStorage.getAmount();
     }
 
     public long getCapacity() {
-        return internalEnergyStorage.capacity;
+        return internalEnergyStorage.getCapacity();
     }
 
     @Override
     public void setEnergy(long energy) {
-        internalEnergyStorage.amount = energy;
+        internalEnergyStorage.setAmountWithoutUpdate(energy);
     }
 
     @Override
     public void setCapacity(long capacity) {
-        internalEnergyStorage.capacity = capacity;
+        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 }

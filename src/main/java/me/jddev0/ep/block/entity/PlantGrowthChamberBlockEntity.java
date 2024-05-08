@@ -44,8 +44,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import team.reborn.energy.api.base.LimitingEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,7 +68,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     final InputOutputItemHandler sidedInventoryTopBottom;
     private final SimpleInventory internalInventory;
 
-    final LimitingEnergyStorage energyStorage;
+    final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     protected final PropertyDelegate data;
@@ -157,12 +157,12 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
                 if(world != null && !world.isClient()) {
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            new EnergySyncS2CPacket(amount, capacity, getPos())
+                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getPos())
                     );
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_TRANSFER_RATE.getValue(), 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_TRANSFER_RATE.getValue(), 0);
 
         data = new PropertyDelegate() {
             @Override
@@ -217,7 +217,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new EnergySyncS2CPacket(internalEnergyStorage.amount, internalEnergyStorage.capacity, getPos()));
+                new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos()));
         
         return new PlantGrowthChamberMenu(id, this, inventory, internalInventory, this.data);
     }
@@ -230,7 +230,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
-        nbt.putLong("energy", internalEnergyStorage.amount);
+        nbt.putLong("energy", internalEnergyStorage.getAmount());
 
         nbt.put("recipe.progress", NbtInt.of(progress));
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
@@ -248,7 +248,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
         super.readNbt(nbt, registries);
 
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
-        internalEnergyStorage.amount = nbt.getLong("energy");
+        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
 
         progress = nbt.getInt("recipe.progress");
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
@@ -294,7 +294,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
             if(blockEntity.energyConsumptionLeft < 0)
                 blockEntity.energyConsumptionLeft = fertilizedEnergyUsagePerTick * blockEntity.maxProgress;
 
-            if(fertilizedEnergyUsagePerTick <= blockEntity.internalEnergyStorage.amount) {
+            if(fertilizedEnergyUsagePerTick <= blockEntity.internalEnergyStorage.getAmount()) {
                 blockEntity.hasEnoughEnergy = true;
 
                 if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0 ||
@@ -445,21 +445,21 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     }
 
     public long getEnergy() {
-        return internalEnergyStorage.amount;
+        return internalEnergyStorage.getAmount();
     }
 
     public long getCapacity() {
-        return internalEnergyStorage.capacity;
+        return internalEnergyStorage.getCapacity();
     }
 
     @Override
     public void setEnergy(long energy) {
-        internalEnergyStorage.amount = energy;
+        internalEnergyStorage.setAmountWithoutUpdate(energy);
     }
 
     @Override
     public void setCapacity(long capacity) {
-        internalEnergyStorage.capacity = capacity;
+        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 
     @Override

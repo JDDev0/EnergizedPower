@@ -44,8 +44,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import team.reborn.energy.api.base.LimitingEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -62,7 +62,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     final InputOutputItemHandler inventory;
     private final SimpleInventory internalInventory;
 
-    final LimitingEnergyStorage energyStorage;
+    final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     private final SimpleInventory patternSlots = new SimpleInventory(3 * 3) {
@@ -150,12 +150,12 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 if(world != null && !world.isClient()) {
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            new EnergySyncS2CPacket(amount, capacity, getPos())
+                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getPos())
                     );
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
 
         data = new PropertyDelegate() {
             @Override
@@ -206,7 +206,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new EnergySyncS2CPacket(internalEnergyStorage.amount, internalEnergyStorage.capacity, getPos()));
+                new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos()));
 
         return new AutoCrafterMenu(id, this, inventory, internalInventory, patternSlots, patternResultSlots, data);
     }
@@ -228,7 +228,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
         nbt.put("pattern", Inventories.writeNbt(new NbtCompound(), patternSlots.heldStacks, registries));
-        nbt.putLong("energy", internalEnergyStorage.amount);
+        nbt.putLong("energy", internalEnergyStorage.getAmount());
 
         if(craftingRecipe != null)
             nbt.put("recipe.id", NbtString.of(craftingRecipe.id().toString()));
@@ -251,7 +251,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
 
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
         Inventories.readNbt(nbt.getCompound("pattern"), patternSlots.heldStacks, registries);
-        internalEnergyStorage.amount = nbt.getLong("energy");
+        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
 
         if(nbt.contains("recipe.id")) {
             NbtElement tag = nbt.get("recipe.id");
@@ -322,7 +322,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 return;
             }
 
-            if(energyConsumptionPerTick <= blockEntity.internalEnergyStorage.amount) {
+            if(energyConsumptionPerTick <= blockEntity.internalEnergyStorage.getAmount()) {
                 try(Transaction transaction = Transaction.openOuter()) {
                     blockEntity.internalEnergyStorage.extract(energyConsumptionPerTick, transaction);
                     transaction.commit();
@@ -780,21 +780,21 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     }
 
     public long getEnergy() {
-        return internalEnergyStorage.amount;
+        return internalEnergyStorage.getAmount();
     }
 
     public long getCapacity() {
-        return internalEnergyStorage.capacity;
+        return internalEnergyStorage.getCapacity();
     }
 
     @Override
     public void setEnergy(long energy) {
-        internalEnergyStorage.amount = energy;
+        internalEnergyStorage.setAmountWithoutUpdate(energy);
     }
 
     @Override
     public void setCapacity(long capacity) {
-        internalEnergyStorage.capacity = capacity;
+        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 
     @Override

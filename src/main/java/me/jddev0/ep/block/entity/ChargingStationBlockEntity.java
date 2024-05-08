@@ -32,8 +32,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
-import team.reborn.energy.api.base.LimitingEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class ChargingStationBlockEntity extends BlockEntity implements ExtendedS
     public static final long MAX_RECEIVE = ModConfigs.COMMON_CHARGING_STATION_TRANSFER_RATE.getValue();
     public static final int MAX_CHARGING_DISTANCE = ModConfigs.COMMON_CHARGING_STATION_MAX_CHARGING_DISTANCE.getValue();
 
-    final LimitingEnergyStorage energyStorage;
+    final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     public ChargingStationBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -56,12 +56,12 @@ public class ChargingStationBlockEntity extends BlockEntity implements ExtendedS
                 if(world != null && !world.isClient()) {
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            new EnergySyncS2CPacket(amount, capacity, getPos())
+                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getPos())
                     );
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class ChargingStationBlockEntity extends BlockEntity implements ExtendedS
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new EnergySyncS2CPacket(internalEnergyStorage.amount, internalEnergyStorage.capacity, getPos()));
+                new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos()));
         
         return new ChargingStationMenu(id, this, inventory);
     }
@@ -85,7 +85,7 @@ public class ChargingStationBlockEntity extends BlockEntity implements ExtendedS
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.putLong("energy", internalEnergyStorage.amount);
+        nbt.putLong("energy", internalEnergyStorage.getAmount());
 
         super.writeNbt(nbt, registries);
     }
@@ -94,7 +94,7 @@ public class ChargingStationBlockEntity extends BlockEntity implements ExtendedS
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        internalEnergyStorage.amount = nbt.getLong("energy");
+        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
     }
 
 
@@ -109,7 +109,7 @@ public class ChargingStationBlockEntity extends BlockEntity implements ExtendedS
                         blockPos.getZ() + MAX_CHARGING_DISTANCE))), EntityPredicates.EXCEPT_SPECTATOR.
                 and(entity -> entity.squaredDistanceTo(blockPos.toCenterPos()) <= MAX_CHARGING_DISTANCE*MAX_CHARGING_DISTANCE));
 
-        long energyPerTick = Math.min(MAX_RECEIVE, blockEntity.internalEnergyStorage.amount);
+        long energyPerTick = Math.min(MAX_RECEIVE, blockEntity.internalEnergyStorage.getAmount());
         long energyPerTickLeft = energyPerTick;
 
         outer:
@@ -156,20 +156,20 @@ public class ChargingStationBlockEntity extends BlockEntity implements ExtendedS
     }
 
     public long getEnergy() {
-        return internalEnergyStorage.amount;
+        return internalEnergyStorage.getAmount();
     }
 
     public long getCapacity() {
-        return internalEnergyStorage.capacity;
+        return internalEnergyStorage.getCapacity();
     }
 
     @Override
     public void setEnergy(long energy) {
-        internalEnergyStorage.amount = energy;
+        internalEnergyStorage.setAmountWithoutUpdate(energy);
     }
 
     @Override
     public void setCapacity(long capacity) {
-        internalEnergyStorage.capacity = capacity;
+        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 }

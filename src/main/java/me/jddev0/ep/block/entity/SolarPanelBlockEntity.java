@@ -26,14 +26,14 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
-import team.reborn.energy.api.base.LimitingEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, EnergyStoragePacketUpdate {
     private final SolarPanelBlock.Tier tier;
     private final long maxTransfer;
 
-    final LimitingEnergyStorage energyStorage;
+    final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     public static BlockEntityType<SolarPanelBlockEntity> getEntityTypeFromTier(SolarPanelBlock.Tier tier) {
@@ -62,12 +62,12 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
                 if(world != null && !world.isClient()) {
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            new EnergySyncS2CPacket(amount, capacity, getPos())
+                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getPos())
                     );
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, 0, maxTransfer);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, 0, maxTransfer);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new EnergySyncS2CPacket(internalEnergyStorage.amount, internalEnergyStorage.capacity, getPos()));
+                new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos()));
         
         return new SolarPanelMenu(id, this, inventory);
     }
@@ -136,7 +136,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
             return;
 
         try(Transaction transaction = Transaction.openOuter()) {
-            long amount = energyStorage.insert(Math.min(blockEntity.internalEnergyStorage.amount, blockEntity.maxTransfer), transaction);
+            long amount = energyStorage.insert(Math.min(blockEntity.internalEnergyStorage.getAmount(), blockEntity.maxTransfer), transaction);
             blockEntity.energyStorage.extract(amount, transaction);
             transaction.commit();
         }
@@ -144,7 +144,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.putLong("energy", internalEnergyStorage.amount);
+        nbt.putLong("energy", internalEnergyStorage.getAmount());
 
         super.writeNbt(nbt, registries);
     }
@@ -153,24 +153,24 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        internalEnergyStorage.amount = nbt.getLong("energy");
+        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
     }
 
     public long getEnergy() {
-        return internalEnergyStorage.amount;
+        return internalEnergyStorage.getAmount();
     }
 
     public long getCapacity() {
-        return internalEnergyStorage.capacity;
+        return internalEnergyStorage.getCapacity();
     }
 
     @Override
     public void setEnergy(long energy) {
-        internalEnergyStorage.amount = energy;
+        internalEnergyStorage.setAmountWithoutUpdate(energy);
     }
 
     @Override
     public void setCapacity(long capacity) {
-        internalEnergyStorage.capacity = capacity;
+        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 }
