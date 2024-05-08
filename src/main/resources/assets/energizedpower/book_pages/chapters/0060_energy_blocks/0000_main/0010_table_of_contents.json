@@ -17,7 +17,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0050_energy_blocks/0010_general/0000_general_chapter"
+            "value": "energizedpower:chapters/0060_energy_blocks/0010_general/0000_general_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -40,7 +40,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0050_energy_blocks/0020_energy_transportation/0000_energy_transportation_chapter"
+            "value": "energizedpower:chapters/0060_energy_blocks/0020_energy_transportation/0000_energy_transportation_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -63,7 +63,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0050_energy_blocks/0030_energy_storage/0000_energy_storage_chapter"
+            "value": "energizedpower:chapters/0060_energy_blocks/0030_energy_storage/0000_energy_storage_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -86,7 +86,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0050_energy_blocks/0040_energy_production/0000_energy_production_chapter"
+            "value": "energizedpower:chapters/0060_energy_blocks/0040_energy_production/0000_energy_production_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -109,7 +109,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0050_energy_blocks/0050_energy_consumption/0000_energy_consumption_chapter"
+            "value": "energizedpower:chapters/0060_energy_blocks/0050_energy_consumption/0000_energy_consumption_chapter"
           },
           "hoverEvent": {
             "action": "show_text",

@@ -1154,6 +1154,24 @@
   "book.energizedpower.page.energized_crystal_matrix": "The Energized Crystal Matrix is used as a stabilizer in some advanced machines.",
 
 
+  "book.energizedpower.page.chapter.upgrades.title": "Upgrades",
+  "book.energizedpower.page.chapter.upgrades": "Upgrade Modules can improve machines",
+
+  "book.energizedpower.page.speed_upgrades": "Speed upgrades make machines faster and increase the energy consumption.",
+
+  "book.energizedpower.page.energy_efficiency_upgrades": "Energy Efficiency Upgrades reduce the energy consumption.",
+
+  "book.energizedpower.page.energy_capacity_upgrades": "Energy Capacity Upgrades increase the energy storage capacity and the energy transfer rate.",
+
+  "book.energizedpower.page.duration_upgrades": "Duration Upgrades increase the duration of the weather set by the Weather Controller.",
+
+  "book.energizedpower.page.range_upgrades": "Range Upgrades increase the range a machine can operate in.",
+
+  "book.energizedpower.page.furnace_mode_upgrades": "Furnace Mode Upgrades change the recipes a Powered Furnace can produce.",
+
+  "book.energizedpower.page.moon_light_upgrades": "Moon Light Upgrades allow Solar Panels to produce energy during the night.",
+
+
   "book.energizedpower.page.chapter.tools.title": "工具",
   "book.energizedpower.page.chapter.tools": "也许会有帮助。",
 

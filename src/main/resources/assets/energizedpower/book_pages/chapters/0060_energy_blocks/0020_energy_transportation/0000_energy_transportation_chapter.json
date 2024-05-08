@@ -1,11 +1,11 @@
 {
   "title": {
-    "translate": "book.energizedpower.page.chapter.energy_blocks.general.title",
+    "translate": "book.energizedpower.page.chapter.energy_blocks.energy_transportation.title",
     "color": "gold"
   },
   "content": [
     {
-      "translate": "book.energizedpower.page.chapter.energy_blocks.general"
+      "translate": "book.energizedpower.page.chapter.energy_blocks.energy_transportation"
     },
     {
       "text": "\n\n",
@@ -19,7 +19,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0050_energy_blocks/0000_main/0010_table_of_contents"
+            "value": "energizedpower:chapters/0060_energy_blocks/0000_main/0010_table_of_contents"
           },
           "hoverEvent": {
             "action": "show_text",

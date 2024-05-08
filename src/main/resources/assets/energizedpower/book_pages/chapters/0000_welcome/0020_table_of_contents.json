@@ -35,12 +35,35 @@
       "font": "uniform",
       "extra": [
         {
+          "translate": "book.energizedpower.page.chapter.upgrades.title",
+          "color": "dark_green",
+          "underlined": true,
+          "clickEvent": {
+            "action": "change_page",
+            "value": "energizedpower:chapters/0020_upgrades/0000_upgrades_chapter"
+          },
+          "hoverEvent": {
+            "action": "show_text",
+            "contents": {
+              "translate": "book.energizedpower.tooltip.page"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "text": "\n\n• ",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
           "translate": "book.energizedpower.page.chapter.tools.title",
           "color": "dark_green",
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0020_tools/0000_tools_chapter"
+            "value": "energizedpower:chapters/0030_tools/0000_tools_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -63,7 +86,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0030_workbenches/0000_workbenches_chapter"
+            "value": "energizedpower:chapters/0040_workbenches/0000_workbenches_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -86,7 +109,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0040_energy_items/0000_energy_items_chapter"
+            "value": "energizedpower:chapters/0050_energy_items/0000_energy_items_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -109,7 +132,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0050_energy_blocks/0000_main/0000_energy_blocks_chapter"
+            "value": "energizedpower:chapters/0060_energy_blocks/0000_main/0000_energy_blocks_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -132,7 +155,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0060_fluid_blocks/0000_fluid_blocks_chapter"
+            "value": "energizedpower:chapters/0070_fluid_blocks/0000_fluid_blocks_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -155,7 +178,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0070_item_transportation/0000_item_transportation_chapter"
+            "value": "energizedpower:chapters/0080_item_transportation/0000_item_transportation_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -178,7 +201,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0080_fluids/0000_fluids_chapter"
+            "value": "energizedpower:chapters/0090_fluids/0000_fluids_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -201,7 +224,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0090_machine_configuration/0000_machine_configuration_chapter"
+            "value": "energizedpower:chapters/0100_machine_configuration/0000_machine_configuration_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -224,7 +247,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0100_entities/0000_entities_chapter"
+            "value": "energizedpower:chapters/0110_entities/0000_entities_chapter"
           },
           "hoverEvent": {
             "action": "show_text",
@@ -247,7 +270,7 @@
           "underlined": true,
           "clickEvent": {
             "action": "change_page",
-            "value": "energizedpower:chapters/0110_structures/0000_structures_chapter"
+            "value": "energizedpower:chapters/0120_structures/0000_structures_chapter"
           },
           "hoverEvent": {
             "action": "show_text",

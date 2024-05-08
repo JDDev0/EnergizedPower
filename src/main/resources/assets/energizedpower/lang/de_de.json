@@ -1154,6 +1154,24 @@
   "book.energizedpower.page.energized_crystal_matrix": "Die Energetisierte Kristall-Matrix wird in manchen fortgeschrittenste Maschinen als Stabilisator verwendet.",
 
 
+  "book.energizedpower.page.chapter.upgrades.title": "Upgrades",
+  "book.energizedpower.page.chapter.upgrades": "Upgrade-Module können Maschinen verbessern",
+
+  "book.energizedpower.page.speed_upgrades": "Geschwindigkeits-Upgrades machen Maschinen schneller und erhöhen den Energie-Verbrauch.",
+
+  "book.energizedpower.page.energy_efficiency_upgrades": "Energie-Effizienz-Upgrades reduzieren den Energie-Verbrauch.",
+
+  "book.energizedpower.page.energy_capacity_upgrades": "Energiekapazität-Upgrades erhöhen die Energie-Speicher-Kapazität und die Energie-Transfer-Rate.",
+
+  "book.energizedpower.page.duration_upgrades": "Laufzeit-Upgrades erhöhen die Laufzeit des vom Wetter-Controller gesetzten Wetter.",
+
+  "book.energizedpower.page.range_upgrades": "Reichweiten-Upgrades erhöhen die Reichweite, in der eine Maschine arbeiten kann.",
+
+  "book.energizedpower.page.furnace_mode_upgrades": "Ofenmodus-Upgrades ändern die Rezepte, die ein Elektroofen herstellen kann.",
+
+  "book.energizedpower.page.moon_light_upgrades": "Mondlicht-Upgrades erlaubt es einem Solarpanel während der Nacht Strom zu produzieren.",
+
+
   "book.energizedpower.page.chapter.tools.title": "Werkzeuge",
   "book.energizedpower.page.chapter.tools": "Können hilfreich sein",
 
@@ -1217,7 +1235,7 @@
   "book.energizedpower.page.transformers.3": "Die kleineren, helleren, Quadrat-förmigen Seiten sind Ausgänge.",
   "book.energizedpower.page.transformers.4": "Es gibt vier Trafostärken: LV, MV, HV und EHV.",
   "book.energizedpower.page.transformers.5": "Für jeden dieser drei Typen gibt es drei Typen: 1 zu n, 3 zu 3 und n zu 1.",
-  "book.energizedpower.page.transformers.6": "Trafos können Lags-Reduzieren, indem sie manchmal statt einem Kabel-Block plaziert werden.",
+  "book.energizedpower.page.transformers.6": "Trafos können Lags reduzieren, indem sie manchmal statt einem Kabel-Block plaziert werden.",
   "book.energizedpower.page.transformers.7": "Trafos können Kabel von dieser Mod mit Kabel von anderen verbinden.",
   "book.energizedpower.page.transformers.8": "Trafos können als Batterie-Block genutzt werden.",
   "book.energizedpower.page.transformers.9": "Trafos können Energie aus AE2-FE-P2P-Tunnel extrahieren.",
