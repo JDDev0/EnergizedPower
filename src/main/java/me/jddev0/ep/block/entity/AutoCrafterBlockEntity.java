@@ -22,6 +22,7 @@ import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -257,7 +258,10 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT());
 
         nbt.put("inventory", itemHandler.serializeNBT());
-        nbt.put("pattern", savePatternContainer());
+        NonNullList<ItemStack> items = NonNullList.withSize(patternSlots.getContainerSize(), ItemStack.EMPTY);
+        for(int i = 0;i < patternSlots.getContainerSize();i++)
+            items.set(i, patternSlots.getItem(i));
+        nbt.put("pattern", ContainerHelper.saveAllItems(new CompoundTag(), items));
         nbt.put("energy", energyStorage.saveNBT());
 
         if(craftingRecipe != null)
@@ -276,20 +280,6 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         super.saveAdditional(nbt);
     }
 
-    private Tag savePatternContainer() {
-        ListTag nbtTagList = new ListTag();
-        for(int i = 0;i < patternSlots.getContainerSize();i++)  {
-            if(!patternSlots.getItem(i).isEmpty()) {
-                CompoundTag itemTag = new CompoundTag();
-                itemTag.putInt("Slot", i);
-                patternSlots.getItem(i).save(itemTag);
-                nbtTagList.add(itemTag);
-            }
-        }
-
-        return nbtTagList;
-    }
-
     @Override
     public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
@@ -300,7 +290,12 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
-        loadPatternContainer(nbt.getCompound("pattern"));
+        patternSlots.removeListener(updatePatternListener);
+        NonNullList<ItemStack> items = NonNullList.withSize(patternSlots.getContainerSize(), ItemStack.EMPTY);
+        ContainerHelper.loadAllItems(nbt.getCompound("pattern"), items);
+        for(int i = 0;i < patternSlots.getContainerSize();i++)
+            patternSlots.setItem(i, items.get(i));
+        patternSlots.addListener(updatePatternListener);
         energyStorage.loadNBT(nbt.get("energy"));
 
         if(nbt.contains("recipe.id")) {
@@ -321,23 +316,6 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
-    }
-
-    private void loadPatternContainer(Tag tag) {
-        if(!(tag instanceof ListTag))
-            throw new IllegalArgumentException("Tag must be of type ListTag!");
-
-        patternSlots.removeListener(updatePatternListener);
-        ListTag tagList = (ListTag)tag;
-        for(int i = 0;i < tagList.size();i++) {
-            CompoundTag itemTags = tagList.getCompound(i);
-            int slot = itemTags.getInt("Slot");
-
-            if(slot >= 0 && slot < patternSlots.getContainerSize()) {
-                patternSlots.setItem(slot, ItemStack.of(itemTags));
-            }
-        }
-        patternSlots.addListener(updatePatternListener);
     }
 
     public void drops(Level level, BlockPos worldPosition) {

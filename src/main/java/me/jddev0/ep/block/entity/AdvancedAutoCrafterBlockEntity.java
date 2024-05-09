@@ -22,6 +22,7 @@ import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -326,8 +327,12 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
         nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT());
 
         nbt.put("inventory", itemHandler.serializeNBT());
-        for(int i = 0;i < 3;i++)
-            nbt.put("pattern." + i, savePatternContainer(i));
+        for(int i = 0;i < 3;i++) {
+            NonNullList<ItemStack> items = NonNullList.withSize(patternSlots[i].getContainerSize(), ItemStack.EMPTY);
+            for(int j = 0;j < patternSlots[i].getContainerSize();j++)
+                items.set(j, patternSlots[i].getItem(j));
+            nbt.put("pattern." + i, ContainerHelper.saveAllItems(new CompoundTag(), items));
+        }
         nbt.put("energy", energyStorage.saveNBT());
 
         for(int i = 0;i < 3;i++) {
@@ -351,20 +356,6 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
         super.saveAdditional(nbt);
     }
 
-    private Tag savePatternContainer(int index) {
-        ListTag nbtTagList = new ListTag();
-        for(int i = 0;i < patternSlots[index].getContainerSize();i++)  {
-            if(!patternSlots[index].getItem(i).isEmpty()) {
-                CompoundTag itemTag = new CompoundTag();
-                itemTag.putInt("Slot", i);
-                patternSlots[index].getItem(i).save(itemTag);
-                nbtTagList.add(itemTag);
-            }
-        }
-
-        return nbtTagList;
-    }
-
     @Override
     public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
@@ -375,8 +366,14 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
-        for(int i = 0;i < 3;i++)
-            loadPatternContainer(i, nbt.get("pattern." + i));
+        for(int i = 0;i < 3;i++) {
+            patternSlots[i].removeListener(updatePatternListener[i]);
+            NonNullList<ItemStack> items = NonNullList.withSize(patternSlots[i].getContainerSize(), ItemStack.EMPTY);
+            ContainerHelper.loadAllItems(nbt.getCompound("pattern." + i), items);
+            for(int j = 0;j < patternSlots[i].getContainerSize();j++)
+                patternSlots[i].setItem(j, items.get(j));
+            patternSlots[i].addListener(updatePatternListener[i]);
+        }
         energyStorage.loadNBT(nbt.get("energy"));
 
         for(int i = 0;i < 3;i++) {
@@ -404,23 +401,6 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements MenuP
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
-    }
-
-    private void loadPatternContainer(int index, Tag tag) {
-        if(!(tag instanceof ListTag))
-            throw new IllegalArgumentException("Tag must be of type ListTag!");
-
-        patternSlots[index].removeListener(updatePatternListener[index]);
-        ListTag tagList = (ListTag)tag;
-        for(int i = 0;i < tagList.size();i++) {
-            CompoundTag itemTags = tagList.getCompound(i);
-            int slot = itemTags.getInt("Slot");
-
-            if(slot >= 0 && slot < patternSlots[index].getContainerSize()) {
-                patternSlots[index].setItem(slot, ItemStack.of(itemTags));
-            }
-        }
-        patternSlots[index].addListener(updatePatternListener[index]);
     }
 
     public void drops(Level level, BlockPos worldPosition) {
