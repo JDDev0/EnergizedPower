@@ -6,10 +6,12 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
@@ -25,6 +27,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -67,6 +70,13 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     final InputOutputItemHandler sidedInventoryTopBottom;
     private final SimpleInventory internalInventory;
 
+    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.SPEED,
+            UpgradeModuleModifier.ENERGY_CONSUMPTION,
+            UpgradeModuleModifier.ENERGY_CAPACITY
+    );
+    private final InventoryChangedListener updateUpgradeModuleListener = container -> updateUpgradeModules();
+
     final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
@@ -83,6 +93,8 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
 
     public PlantGrowthChamberBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.PLANT_GROWTH_CHAMBER_ENTITY, blockPos, blockState);
+
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         internalInventory = new SimpleInventory(6) {
             @Override
@@ -151,6 +163,12 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
 
         internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
+            public long getCapacity() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
             protected void onFinalCommit() {
                 markDirty();
 
@@ -167,7 +185,13 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
                 }
             }
         };
-        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_TRANSFER_RATE.getValue(), 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_TRANSFER_RATE.getValue(), 0) {
+            @Override
+            public long getMaxInsert() {
+                return Math.max(1, (long)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+        };
 
         data = new PropertyDelegate() {
             @Override
@@ -210,14 +234,6 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
         return Text.translatable("container.energizedpower.plant_growth_chamber");
     }
 
-    public int getRedstoneOutput() {
-        return switch(comparatorMode) {
-            case ITEM -> ScreenHandler.calculateComparatorOutput(internalInventory);
-            case FLUID -> 0;
-            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
-        };
-    }
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
@@ -228,7 +244,7 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
         
-        return new PlantGrowthChamberMenu(id, this, inventory, internalInventory, this.data);
+        return new PlantGrowthChamberMenu(id, this, inventory, internalInventory, upgradeModuleInventory, this.data);
     }
 
     @Override
@@ -236,8 +252,19 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
         buf.writeBlockPos(pos);
     }
 
+    public int getRedstoneOutput() {
+        return switch(comparatorMode) {
+            case ITEM -> ScreenHandler.calculateComparatorOutput(internalInventory);
+            case FLUID -> 0;
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
+    }
+
     @Override
     protected void writeNbt(NbtCompound nbt) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT());
+
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
         nbt.putLong("energy", internalEnergyStorage.getAmount());
 
@@ -256,6 +283,11 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
 
+        //Load Upgrade Module Inventory first
+        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"));
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
         internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
 
@@ -269,7 +301,8 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
     }
 
     public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory.stacks);
+        ItemScatterer.spawn(level, worldPosition, internalInventory);
+        ItemScatterer.spawn(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, PlantGrowthChamberBlockEntity blockEntity) {
@@ -296,18 +329,20 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
                     blockEntity.internalInventory.removeStack(1, 1);
                 }
 
-                blockEntity.maxProgress = (int)(recipe.get().getTicks() * RECIPE_DURATION_MULTIPLIER / blockEntity.speedMultiplier);
+                blockEntity.maxProgress = Math.max(1, (int)(recipe.get().getTicks() * RECIPE_DURATION_MULTIPLIER / blockEntity.speedMultiplier /
+                        blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
             }
 
-            final long fertilizedEnergyUsagePerTick = (long)(ENERGY_USAGE_PER_TICK * blockEntity.energyConsumptionMultiplier);
+            final long fertilizedEnergyUsagePerTick = Math.max(1, (long)Math.ceil(ENERGY_USAGE_PER_TICK * blockEntity.energyConsumptionMultiplier *
+                    blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
+
             if(blockEntity.energyConsumptionLeft < 0)
                 blockEntity.energyConsumptionLeft = fertilizedEnergyUsagePerTick * blockEntity.maxProgress;
 
             if(fertilizedEnergyUsagePerTick <= blockEntity.internalEnergyStorage.getAmount()) {
                 blockEntity.hasEnoughEnergy = true;
 
-                if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0 ||
-                        fertilizedEnergyUsagePerTick < 0) {
+                if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
                     //Reset progress for invalid values
 
                     blockEntity.resetProgress(blockPos, state);
@@ -451,6 +486,22 @@ public class PlantGrowthChamberBlockEntity extends BlockEntity implements Extend
         }
 
         return itemsStacks.isEmpty();
+    }
+
+    private void updateUpgradeModules() {
+        resetProgress(getPos(), getCachedState());
+        markDirty();
+        if(world != null && !world.isClient()) {
+            PacketByteBuf buffer = PacketByteBufs.create();
+            buffer.writeLong(internalEnergyStorage.getAmount());
+            buffer.writeLong(internalEnergyStorage.getCapacity());
+            buffer.writeBlockPos(getPos());
+
+            ModMessages.sendServerPacketToPlayersWithinXBlocks(
+                    getPos(), (ServerWorld)world, 32,
+                    ModMessages.ENERGY_SYNC_ID, buffer
+            );
+        }
     }
 
     public long getEnergy() {

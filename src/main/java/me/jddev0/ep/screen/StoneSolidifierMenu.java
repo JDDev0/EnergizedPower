@@ -4,8 +4,12 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.StoneSolidifierBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
@@ -17,16 +21,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class StoneSolidifierMenu extends ScreenHandler implements EnergyStorageConsumerIndicatorBarMenu {
+public class StoneSolidifierMenu extends AbstractEnergizedPowerScreenHandler
+        implements EnergyStorageConsumerIndicatorBarMenu {
     private final StoneSolidifierBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
     private final PropertyDelegate data;
+    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public StoneSolidifierMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
         this(id, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), inv, new SimpleInventory(1) {
@@ -37,16 +42,22 @@ public class StoneSolidifierMenu extends ScreenHandler implements EnergyStorageC
 
                 return super.isValid(slot, stack);
             }
-        }, new ArrayPropertyDelegate(11));
+        }, new UpgradeModuleInventory(
+                UpgradeModuleModifier.SPEED,
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        ), new ArrayPropertyDelegate(11));
     }
 
-    public StoneSolidifierMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
+    public StoneSolidifierMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
+                               UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(ModMenuTypes.STONE_SOLIDIFIER_MENU, id);
 
         this.blockEntity = (StoneSolidifierBlockEntity)blockEntity;
 
         this.inv = inv;
         checkSize(this.inv, 1);
+        checkSize(upgradeModuleInventory, 3);
         checkDataCount(data, 11);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
@@ -55,9 +66,36 @@ public class StoneSolidifierMenu extends ScreenHandler implements EnergyStorageC
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
-        addSlot(new ConstraintInsertSlot(this.inv, 0, 98, 44));
+        addSlot(new ConstraintInsertSlot(this.inv, 0, 98, 44) {
+            @Override
+            public boolean isEnabled() {
+                return super.isEnabled() && !isInUpgradeModuleView();
+            }
+        });
+
+        for(int i = 0;i < upgradeModuleInventory.size();i++)
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
 
         addProperties(this.data);
+
+        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
+        addProperties(upgradeModuleViewContainerData);
+    }
+
+    @Override
+    public boolean isInUpgradeModuleView() {
+        return upgradeModuleViewContainerData.isInUpgradeModuleView();
+    }
+
+    @Override
+    public boolean onButtonClick(PlayerEntity player, int index) {
+        if(index == 0) {
+            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
+
+            sendContentUpdates();
+        }
+
+        return false;
     }
 
     @Override
@@ -120,10 +158,12 @@ public class StoneSolidifierMenu extends ScreenHandler implements EnergyStorageC
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
-            //There is no input slot
-            return ItemStack.EMPTY;
-        }else if(index < 4 * 9 + 1) {
-            //Tile inventory slot -> Merge into player inventory
+            //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
+            if(!insertMaxCount1Item(sourceItem, 4 * 9 + 1, 4 * 9 + 1 + 3, false)) {
+                return ItemStack.EMPTY;
+            }
+        }else if(index < 4 * 9 + 1 + 3) {
+            //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!insertItem(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }

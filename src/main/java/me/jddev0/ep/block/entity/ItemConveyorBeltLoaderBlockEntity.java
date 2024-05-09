@@ -120,7 +120,7 @@ public class ItemConveyorBeltLoaderBlockEntity extends BlockEntity implements Ex
     }
 
     public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory.stacks);
+        ItemScatterer.spawn(level, worldPosition, internalInventory);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltLoaderBlockEntity blockEntity) {

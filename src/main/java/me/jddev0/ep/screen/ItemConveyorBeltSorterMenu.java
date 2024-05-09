@@ -12,12 +12,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class ItemConveyorBeltSorterMenu extends ScreenHandler {
+public class ItemConveyorBeltSorterMenu extends AbstractEnergizedPowerScreenHandler {
     private final ItemConveyorBeltSorterBlockEntity blockEntity;
     private final World level;
     private final PropertyDelegate data;

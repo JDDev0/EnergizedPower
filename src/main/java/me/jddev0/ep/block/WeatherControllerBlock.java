@@ -1,7 +1,6 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
-import me.jddev0.ep.config.ModConfigs;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -16,8 +15,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class WeatherControllerBlock extends BlockWithEntity {
-    public static int WEATHER_CHANGED_TICKS = ModConfigs.COMMON_WEATHER_CONTROLLER_CONTROL_DURATION.getValue();
-
     public WeatherControllerBlock(FabricBlockSettings props) {
         super(props);
     }
@@ -31,6 +28,20 @@ public class WeatherControllerBlock extends BlockWithEntity {
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
+    }
+
+    @Override
+    public void onStateReplaced(BlockState state, World level, BlockPos blockPos, BlockState newState, boolean isMoving) {
+        if(state.getBlock() == newState.getBlock())
+            return;
+
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof WeatherControllerBlockEntity))
+            return;
+
+        ((WeatherControllerBlockEntity)blockEntity).drops(level, blockPos);
+
+        super.onStateReplaced(state, level, blockPos, newState, isMoving);
     }
 
     @Override

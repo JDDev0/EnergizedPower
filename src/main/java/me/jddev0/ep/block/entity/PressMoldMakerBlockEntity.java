@@ -150,7 +150,7 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements ExtendedSc
     }
 
     public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory.stacks);
+        ItemScatterer.spawn(level, worldPosition, internalInventory);
     }
 
     public void craftItem(Identifier recipeId) {

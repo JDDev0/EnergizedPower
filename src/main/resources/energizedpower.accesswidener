@@ -8,3 +8,6 @@ extendable    method    net/minecraft/entity/vehicle/HopperMinecartEntity    get
 extendable    method    net/minecraft/entity/vehicle/MinecartEntity    getItem    ()Lnet/minecraft/item/Item;
 extendable    method    net/minecraft/entity/vehicle/SpawnerMinecartEntity    getItem    ()Lnet/minecraft/item/Item;
 extendable    method    net/minecraft/entity/vehicle/TntMinecartEntity    getItem    ()Lnet/minecraft/item/Item;
+
+accessible    field    net/minecraft/client/gui/screen/ingame/HandledScreen    x    I
+accessible    field    net/minecraft/client/gui/screen/ingame/HandledScreen    y    I

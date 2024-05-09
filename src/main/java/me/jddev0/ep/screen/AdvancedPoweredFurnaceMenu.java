@@ -3,8 +3,12 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AdvancedPoweredFurnaceBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,41 +18,52 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class AdvancedPoweredFurnaceMenu extends ScreenHandler implements EnergyStorageConsumerIndicatorBarMenu {
+public class AdvancedPoweredFurnaceMenu extends AbstractEnergizedPowerScreenHandler
+        implements EnergyStorageConsumerIndicatorBarMenu {
     private final AdvancedPoweredFurnaceBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
     private final PropertyDelegate data;
+    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public AdvancedPoweredFurnaceMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
-        this(id, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), inv, new SimpleInventory(6) {
+        this(id, inv, (AdvancedPoweredFurnaceBlockEntity)inv.player.getWorld().getBlockEntity(buffer.readBlockPos()));
+    }
+
+    private AdvancedPoweredFurnaceMenu(int id, PlayerInventory inv, AdvancedPoweredFurnaceBlockEntity blockEntity) {
+        this(id, blockEntity, inv, new SimpleInventory(6) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0, 1, 2 -> RecipeUtils.isIngredientOfAny(inv.player.getWorld(), RecipeType.SMELTING, stack);
+                    case 0, 1, 2 -> RecipeUtils.isIngredientOfAny(inv.player.getWorld(),
+                            blockEntity.getRecipeForFurnaceModeUpgrade(), stack);
                     case 3, 4, 5 -> false;
                     default -> super.isValid(slot, stack);
                 };
             }
-        }, new ArrayPropertyDelegate(29));
+        }, new UpgradeModuleInventory(
+                UpgradeModuleModifier.SPEED,
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.FURNACE_MODE
+        ), new ArrayPropertyDelegate(29));
     }
 
     public AdvancedPoweredFurnaceMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
-                              PropertyDelegate data) {
+                                      UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(ModMenuTypes.ADVANCED_POWERED_FURNACE_MENU, id);
 
         this.blockEntity = (AdvancedPoweredFurnaceBlockEntity)blockEntity;
 
         this.inv = inv;
         checkSize(this.inv, 6);
+        checkSize(upgradeModuleInventory, 4);
         checkDataCount(data, 29);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
@@ -57,14 +72,66 @@ public class AdvancedPoweredFurnaceMenu extends ScreenHandler implements EnergyS
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
-        addSlot(new ConstraintInsertSlot(this.inv, 0, 44, 17));
-        addSlot(new ConstraintInsertSlot(this.inv, 1, 98, 17));
-        addSlot(new ConstraintInsertSlot(this.inv, 2, 152, 17));
-        addSlot(new ConstraintInsertSlot(this.inv, 3, 44, 53));
-        addSlot(new ConstraintInsertSlot(this.inv, 4, 98, 53));
-        addSlot(new ConstraintInsertSlot(this.inv, 5, 152, 53));
+        addSlot(new ConstraintInsertSlot(this.inv, 0, 44, 17) {
+            @Override
+            public boolean isEnabled() {
+                return super.isEnabled() && !isInUpgradeModuleView();
+            }
+        });
+        addSlot(new ConstraintInsertSlot(this.inv, 1, 98, 17) {
+            @Override
+            public boolean isEnabled() {
+                return super.isEnabled() && !isInUpgradeModuleView();
+            }
+        });
+        addSlot(new ConstraintInsertSlot(this.inv, 2, 152, 17) {
+            @Override
+            public boolean isEnabled() {
+                return super.isEnabled() && !isInUpgradeModuleView();
+            }
+        });
+        addSlot(new ConstraintInsertSlot(this.inv, 3, 44, 53) {
+            @Override
+            public boolean isEnabled() {
+                return super.isEnabled() && !isInUpgradeModuleView();
+            }
+        });
+        addSlot(new ConstraintInsertSlot(this.inv, 4, 98, 53) {
+            @Override
+            public boolean isEnabled() {
+                return super.isEnabled() && !isInUpgradeModuleView();
+            }
+        });
+        addSlot(new ConstraintInsertSlot(this.inv, 5, 152, 53) {
+            @Override
+            public boolean isEnabled() {
+                return super.isEnabled() && !isInUpgradeModuleView();
+            }
+        });
+
+        for(int i = 0;i < upgradeModuleInventory.size();i++)
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 53 + i * 18, 35, this::isInUpgradeModuleView));
 
         addProperties(this.data);
+
+        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
+        addProperties(upgradeModuleViewContainerData);
+    }
+
+    @Override
+    public boolean isInUpgradeModuleView() {
+        return upgradeModuleViewContainerData.isInUpgradeModuleView();
+    }
+
+    @Override
+    public boolean onButtonClick(PlayerEntity player, int index) {
+        if(index == 0) {
+            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
+
+            sendContentUpdates();
+        }
+
+        return false;
     }
 
     @Override
@@ -137,13 +204,14 @@ public class AdvancedPoweredFurnaceMenu extends ScreenHandler implements EnergyS
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
-            //Player inventory slot -> Merge into tile inventory
-            if(!insertItem(sourceItem, 4 * 9, 4 * 9 + 3, false)) {
+            //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
+            if(!insertMaxCount1Item(sourceItem, 4 * 9 + 6, 4 * 9 + 6 + 4, false) &&
+                    !insertItem(sourceItem, 4 * 9, 4 * 9 + 3, false)) {
                 //"+3" instead of "+6": Do not allow adding to output slots
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 6) {
-            //Tile inventory slot -> Merge into player inventory
+        }else if(index < 4 * 9 + 6 + 4) {
+            //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!insertItem(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }

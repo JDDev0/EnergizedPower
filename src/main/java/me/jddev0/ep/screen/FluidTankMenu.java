@@ -13,7 +13,7 @@ import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class FluidTankMenu extends ScreenHandler {
+public class FluidTankMenu extends AbstractEnergizedPowerScreenHandler {
     private final FluidTankBlockEntity blockEntity;
     private final World level;
     private final PropertyDelegate data;

@@ -11,6 +11,7 @@ import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.client.registry.transfer.TransferHandlerRegistry;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.plugin.common.BuiltinPlugin;
@@ -28,7 +29,11 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(ModBlocks.AUTO_CRAFTER_ITEM));
         registry.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(ModBlocks.ADVANCED_AUTO_CRAFTER_ITEM));
         registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(ModBlocks.POWERED_FURNACE_ITEM));
+        registry.addWorkstations(BuiltinPlugin.BLASTING, EntryStacks.of(ModBlocks.POWERED_FURNACE_ITEM));
+        registry.addWorkstations(BuiltinPlugin.SMOKING, EntryStacks.of(ModBlocks.POWERED_FURNACE_ITEM));
         registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM));
+        registry.addWorkstations(BuiltinPlugin.BLASTING, EntryStacks.of(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM));
+        registry.addWorkstations(BuiltinPlugin.SMOKING, EntryStacks.of(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM));
         registry.addWorkstations(BuiltinPlugin.FUEL, EntryStacks.of(ModBlocks.COAL_ENGINE_ITEM));
         registry.addWorkstations(BuiltinPlugin.FUEL, EntryStacks.of(ModItems.INVENTORY_COAL_ENGINE));
 
@@ -119,66 +124,74 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
 
     @Override
     public void registerScreens(ScreenRegistry registry) {
-        registry.registerContainerClickArea(new Rectangle(89, 34, 24, 17),
+        registerRecipeClickArea(registry, new Rectangle(89, 34, 24, 17),
                 AutoCrafterScreen.class, BuiltinPlugin.CRAFTING);
-        registry.registerContainerClickArea(new Rectangle(89, 34, 24, 17),
+        registerRecipeClickArea(registry, new Rectangle(89, 34, 24, 17),
                 AdvancedAutoCrafterScreen.class, BuiltinPlugin.CRAFTING);
-        registry.registerContainerClickArea(new Rectangle(80, 34, 24, 17),
-                PoweredFurnaceScreen.class, BuiltinPlugin.SMELTING);
-        registry.registerContainerClickArea(new Rectangle(43, 34, 18, 18),
-                AdvancedPoweredFurnaceScreen.class, BuiltinPlugin.SMELTING);
-        registry.registerContainerClickArea(new Rectangle(97, 34, 18, 18),
-                AdvancedPoweredFurnaceScreen.class, BuiltinPlugin.SMELTING);
-        registry.registerContainerClickArea(new Rectangle(151, 34, 18, 18),
-                AdvancedPoweredFurnaceScreen.class, BuiltinPlugin.SMELTING);
-        registry.registerContainerClickArea(new Rectangle(79, 25, 18, 17),
+        registerRecipeClickArea(registry, new Rectangle(80, 34, 24, 17),
+                PoweredFurnaceScreen.class, BuiltinPlugin.SMELTING, BuiltinPlugin.BLASTING, BuiltinPlugin.SMOKING);
+        registerRecipeClickArea(registry, new Rectangle(43, 34, 18, 18),
+                AdvancedPoweredFurnaceScreen.class, BuiltinPlugin.SMELTING, BuiltinPlugin.BLASTING, BuiltinPlugin.SMOKING);
+        registerRecipeClickArea(registry, new Rectangle(97, 34, 18, 18),
+                AdvancedPoweredFurnaceScreen.class, BuiltinPlugin.SMELTING, BuiltinPlugin.BLASTING, BuiltinPlugin.SMOKING);
+        registerRecipeClickArea(registry, new Rectangle(151, 34, 18, 18),
+                AdvancedPoweredFurnaceScreen.class, BuiltinPlugin.SMELTING, BuiltinPlugin.BLASTING, BuiltinPlugin.SMOKING);
+        registerRecipeClickArea(registry, new Rectangle(79, 25, 18, 17),
                 CoalEngineScreen.class, BuiltinPlugin.FUEL);
 
-        registry.registerContainerClickArea(new Rectangle(25, 16, 40, 54),
+        registerRecipeClickArea(registry, new Rectangle(25, 16, 40, 54),
                 ChargerScreen.class, ChargerCategory.CATEGORY);
-        registry.registerContainerClickArea(new Rectangle(111, 16, 58, 54),
+        registerRecipeClickArea(registry, new Rectangle(111, 16, 58, 54),
                 ChargerScreen.class, ChargerCategory.CATEGORY);
 
-        registry.registerContainerClickArea(new Rectangle(80, 34, 24, 17),
+        registerRecipeClickArea(registry, new Rectangle(80, 34, 24, 17),
                 CrusherScreen.class, CrusherCategory.CATEGORY);
-        registry.registerContainerClickArea(new Rectangle(90, 34, 24, 17),
+        registerRecipeClickArea(registry, new Rectangle(90, 34, 24, 17),
                 AdvancedCrusherScreen.class, CrusherCategory.CATEGORY);
-        registry.registerContainerClickArea(new Rectangle(68, 34, 24, 17),
+        registerRecipeClickArea(registry, new Rectangle(68, 34, 24, 17),
                 PulverizerScreen.class, PulverizerCategory.CATEGORY);
-        registry.registerContainerClickArea(new Rectangle(90, 34, 24, 17),
+        registerRecipeClickArea(registry, new Rectangle(90, 34, 24, 17),
                 AdvancedPulverizerScreen.class, AdvancedPulverizerCategory.CATEGORY);
-        registry.registerContainerClickArea(new Rectangle(68, 34, 24, 17),
+        registerRecipeClickArea(registry, new Rectangle(68, 34, 24, 17),
                 SawmillScreen.class, SawmillCategory.CATEGORY);
-        registry.registerContainerClickArea(new Rectangle(79, 30, 26, 25),
+        registerRecipeClickArea(registry, new Rectangle(79, 30, 26, 25),
                 CompressorScreen.class, CompressorCategory.CATEGORY);
-        registry.registerContainerClickArea(new Rectangle(80, 41, 24, 10),
+        registerRecipeClickArea(registry, new Rectangle(80, 41, 24, 10),
                 MetalPressScreen.class, MetalPressCategory.CATEGORY);
-        registry.registerContainerClickArea(new Rectangle(100, 36, 24, 17),
+        registerRecipeClickArea(registry, new Rectangle(100, 36, 24, 17),
                 AssemblingMachineScreen.class, AssemblingMachineCategory.CATEGORY);
-        registry.registerContainerClickArea(new Rectangle(94, 34, 24, 17),
+        registerRecipeClickArea(registry, new Rectangle(94, 34, 24, 17),
                 PlantGrowthChamberScreen.class, PlantGrowthChamberCategory.CATEGORY);
-        registry.registerContainerClickArea(new Rectangle(34, 16, 18, 17),
+        registerRecipeClickArea(registry, new Rectangle(34, 16, 18, 17),
                 PlantGrowthChamberScreen.class, PlantGrowthChamberFertilizerCategory.CATEGORY);
-        registry.registerContainerClickArea(new Rectangle(34, 53, 18, 17),
+        registerRecipeClickArea(registry, new Rectangle(34, 53, 18, 17),
                 PlantGrowthChamberScreen.class, PlantGrowthChamberFertilizerCategory.CATEGORY);
-        registry.registerContainerClickArea(new Rectangle(89, 34, 24, 17),
+        registerRecipeClickArea(registry, new Rectangle(89, 34, 24, 17),
                 EnergizerScreen.class, EnergizerCategory.CATEGORY);
-        registry.registerContainerClickArea(new Rectangle(80, 34, 24, 17),
+        registerRecipeClickArea(registry, new Rectangle(80, 34, 24, 17),
                 CrystalGrowthChamberScreen.class, CrystalGrowthChamberCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(7, 34, 18, 18),
                 PressMoldMakerScreen.class, PressMoldMakerCategory.CATEGORY);
-        registry.registerContainerClickArea(new Rectangle(69, 45, 20, 14),
+        registerRecipeClickArea(registry, new Rectangle(69, 45, 20, 14),
                 StoneSolidifierScreen.class, StoneSolidifierCategory.CATEGORY);
-        registry.registerContainerClickArea(new Rectangle(123, 45, 20, 14),
+        registerRecipeClickArea(registry, new Rectangle(123, 45, 20, 14),
                 StoneSolidifierScreen.class, StoneSolidifierCategory.CATEGORY);
-        registry.registerContainerClickArea(new Rectangle(67, 35, 78, 8),
+        registerRecipeClickArea(registry, new Rectangle(67, 35, 78, 8),
                 FiltrationPlantScreen.class, FiltrationPlantCategory.CATEGORY);
-        registry.registerContainerClickArea(new Rectangle(67, 62, 78, 8),
+        registerRecipeClickArea(registry, new Rectangle(67, 62, 78, 8),
                 FiltrationPlantScreen.class, FiltrationPlantCategory.CATEGORY);
 
         registry.registerContainerClickArea(new Rectangle(7, 16, 54, 54),
                 Generic3x3ContainerScreen.class, DispenserCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(115, 16, 54, 54),
                 Generic3x3ContainerScreen.class, DispenserCategory.CATEGORY);
+    }
+
+    private <T extends AbstractGenericEnergyStorageHandledScreen<? extends UpgradeModuleMenu>> void
+    registerRecipeClickArea(ScreenRegistry registry, final Rectangle area, final Class<? extends T> containerScreenClass,
+                            final CategoryIdentifier<?>... recipeTypes) {
+        registry.registerClickArea(containerScreenClass, UpgradeModuleScreenClickArea.createRecipeClickArea(
+                containerScreenClass, area, recipeTypes
+        ));
     }
 }

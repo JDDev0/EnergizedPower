@@ -6,10 +6,12 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.screen.AdvancedChargerMenu;
@@ -26,6 +28,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -63,6 +66,11 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
     final InputOutputItemHandler inventory;
     private final SimpleInventory internalInventory;
 
+    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.ENERGY_CAPACITY
+    );
+    private final InventoryChangedListener updateUpgradeModuleListener = container -> updateUpgradeModules();
+
     final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
@@ -76,6 +84,8 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
 
     public AdvancedChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ADVANCED_CHARGER_ENTITY, blockPos, blockState);
+
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         internalInventory = new SimpleInventory(3) {
             @Override
@@ -166,6 +176,12 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
 
         internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
+            public long getCapacity() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
             protected void onFinalCommit() {
                 markDirty();
 
@@ -182,7 +198,13 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
                 }
             }
         };
-        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0) {
+            @Override
+            public long getMaxInsert() {
+                return Math.max(1, (long)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+        };
 
         data = new PropertyDelegate() {
             @Override
@@ -218,14 +240,6 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
         return Text.translatable("container.energizedpower.advanced_charger");
     }
 
-    public int getRedstoneOutput() {
-        return switch(comparatorMode) {
-            case ITEM -> ScreenHandler.calculateComparatorOutput(internalInventory);
-            case FLUID -> 0;
-            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
-        };
-    }
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
@@ -236,7 +250,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
 
-        return new AdvancedChargerMenu(id, this, inventory, internalInventory, this.data);
+        return new AdvancedChargerMenu(id, this, inventory, internalInventory, upgradeModuleInventory, this.data);
     }
 
     @Override
@@ -244,8 +258,19 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
         buf.writeBlockPos(pos);
     }
 
+    public int getRedstoneOutput() {
+        return switch(comparatorMode) {
+            case ITEM -> ScreenHandler.calculateComparatorOutput(internalInventory);
+            case FLUID -> 0;
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
+    }
+
     @Override
     protected void writeNbt(NbtCompound nbt) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT());
+
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
         nbt.putLong("energy", internalEnergyStorage.getAmount());
 
@@ -262,6 +287,11 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
     public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
 
+        //Load Upgrade Module Inventory first
+        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"));
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
         internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
 
@@ -273,7 +303,8 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
     }
 
     public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory.stacks);
+        ItemScatterer.spawn(level, worldPosition, internalInventory);
+        ItemScatterer.spawn(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, AdvancedChargerBlockEntity blockEntity) {
@@ -283,7 +314,8 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
         if(!blockEntity.redstoneMode.isActive(state.get(AdvancedChargerBlock.POWERED)))
             return;
 
-        final long maxReceivePerSlot = (long)Math.min(MAX_RECEIVE_PER_SLOT, Math.ceil(blockEntity.internalEnergyStorage.getAmount() / 3.));
+        final long maxReceivePerSlot = (long)Math.min(blockEntity.energyStorage.getMaxInsert() / 3.,
+                Math.ceil(blockEntity.internalEnergyStorage.getAmount() / 3.));
 
         for(int i = 0;i < 3;i++) {
             if(blockEntity.hasRecipe(i)) {
@@ -381,6 +413,23 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
             return true;
 
         return EnergyStorageUtil.isEnergyStorage(stack);
+    }
+
+    private void updateUpgradeModules() {
+        for(int i = 0;i < 3;i++)
+            resetProgress(i);
+        markDirty();
+        if(world != null && !world.isClient()) {
+            PacketByteBuf buffer = PacketByteBufs.create();
+            buffer.writeLong(internalEnergyStorage.getAmount());
+            buffer.writeLong(internalEnergyStorage.getCapacity());
+            buffer.writeBlockPos(getPos());
+
+            ModMessages.sendServerPacketToPlayersWithinXBlocks(
+                    getPos(), (ServerWorld)world, 32,
+                    ModMessages.ENERGY_SYNC_ID, buffer
+            );
+        }
     }
 
     public long getEnergy() {
