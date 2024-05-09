@@ -5,12 +5,16 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
+import me.jddev0.ep.networking.packet.SyncFurnaceRecipeTypeS2CPacket;
+import me.jddev0.ep.recipe.FurnaceRecipeTypePacketUpdate;
 import me.jddev0.ep.screen.PoweredFurnaceMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.EnergyUtils;
@@ -23,18 +27,15 @@ import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Container;
-import net.minecraft.world.Containers;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -51,7 +52,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate,
-        ComparatorModeUpdate {
+        ComparatorModeUpdate, FurnaceRecipeTypePacketUpdate {
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_POWERED_FURNACE_RECIPE_BLACKLIST.getValue();
 
     private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_TICK.getValue();
@@ -67,7 +68,7 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             return switch(slot) {
-                case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, RecipeType.SMELTING, stack);
+                case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, getRecipeForFurnaceModeUpgrade(), stack);
                 case 1 -> false;
                 default -> super.isItemValid(slot, stack);
             };
@@ -88,8 +89,15 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1));
 
-    private final ReceiveOnlyEnergyStorage energyStorage;
+    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.SPEED,
+            UpgradeModuleModifier.ENERGY_CONSUMPTION,
+            UpgradeModuleModifier.ENERGY_CAPACITY,
+            UpgradeModuleModifier.FURNACE_MODE
+    );
+    private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
+    private final ReceiveOnlyEnergyStorage energyStorage;
     private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     protected final ContainerData data;
@@ -98,21 +106,37 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
     private int energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
 
+    private @NotNull RecipeType<? extends AbstractCookingRecipe> recipeType = RecipeType.SMELTING;
+
     private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
     private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public PoweredFurnaceBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.POWERED_FURNACE_ENTITY.get(), blockPos, blockState);
 
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_POWERED_FURNACE_CAPACITY.getValue(),
                 ModConfigs.COMMON_POWERED_FURNACE_TRANSFER_RATE.getValue()) {
+            @Override
+            public int getCapacity() {
+                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            public int getMaxReceive() {
+                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+
             @Override
             protected void onChange() {
                 setChanged();
 
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
+                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
                             getBlockPos(), level.dimension(), 32
                     );
             }
@@ -166,8 +190,10 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
                 getBlockPos()), (ServerPlayer)player);
+        ModMessages.sendToPlayer(new SyncFurnaceRecipeTypeS2CPacket(getRecipeForFurnaceModeUpgrade(), getBlockPos()),
+                (ServerPlayer)player);
 
-        return new PoweredFurnaceMenu(id, inventory, this, this.data);
+        return new PoweredFurnaceMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
     public int getRedstoneOutput() {
@@ -194,6 +220,9 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT());
+
         nbt.put("inventory", itemHandler.serializeNBT());
         nbt.put("energy", energyStorage.saveNBT());
 
@@ -210,6 +239,11 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
     @Override
     public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
+
+        //Load Upgrade Module Inventory first
+        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"));
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
         energyStorage.loadNBT(nbt.get("energy"));
@@ -228,6 +262,8 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         Containers.dropContents(level, worldPosition, inventory);
+
+        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, PoweredFurnaceBlockEntity blockEntity) {
@@ -242,18 +278,23 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
             for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
                 inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-            Optional<RecipeHolder<SmeltingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
+            Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
             if(recipe.isEmpty())
                 return;
 
             int cookingTime = recipe.get().value().getCookingTime();
             if(blockEntity.maxProgress == 0)
-                blockEntity.maxProgress = (int)Math.ceil(cookingTime * RECIPE_DURATION_MULTIPLIER / 6.f); //Default Cooking Time = 200 -> maxProgress = 34 (= 200 / 6)
+                //Default Cooking Time = 200 -> maxProgress = 100 (= 200 / 2)
+                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(cookingTime * RECIPE_DURATION_MULTIPLIER / 2.f /
+                        blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
+
+            int energyUsagePerTick = Math.max(1, (int)Math.ceil(ENERGY_USAGE_PER_TICK *
+                    blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
 
             if(blockEntity.energyConsumptionLeft < 0)
-                blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK * blockEntity.maxProgress;
+                blockEntity.energyConsumptionLeft = energyUsagePerTick * blockEntity.maxProgress;
 
-            if(ENERGY_USAGE_PER_TICK <= blockEntity.energyStorage.getEnergy()) {
+            if(energyUsagePerTick <= blockEntity.energyStorage.getEnergy()) {
                 if(!level.getBlockState(blockPos).hasProperty(PoweredFurnaceBlock.LIT) || !level.getBlockState(blockPos).getValue(PoweredFurnaceBlock.LIT)) {
                     blockEntity.hasEnoughEnergy = true;
                     level.setBlock(blockPos, state.setValue(PoweredFurnaceBlock.LIT, Boolean.TRUE), 3);
@@ -268,8 +309,8 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
                     return;
                 }
 
-                blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - ENERGY_USAGE_PER_TICK);
-                blockEntity.energyConsumptionLeft -= ENERGY_USAGE_PER_TICK;
+                blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyUsagePerTick);
+                blockEntity.energyConsumptionLeft -= energyUsagePerTick;
 
                 blockEntity.progress++;
                 if(blockEntity.progress >= blockEntity.maxProgress)
@@ -302,7 +343,7 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
         for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-        Optional<RecipeHolder<SmeltingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
+        Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
 
         if(!hasRecipe(blockEntity) || recipe.isEmpty())
             return;
@@ -321,7 +362,7 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
         for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-        Optional<RecipeHolder<SmeltingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
+        Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
 
         return recipe.isPresent() && canInsertItemIntoOutputSlot(inventory, recipe.get().value().getResultItem(level.registryAccess()));
     }
@@ -333,11 +374,44 @@ public class PoweredFurnaceBlockEntity extends BlockEntity implements MenuProvid
                 inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount();
     }
 
-    private Optional<RecipeHolder<SmeltingRecipe>> getRecipeFor(Container container, Level level) {
-        return level.getRecipeManager().getAllRecipesFor(RecipeType.SMELTING).
+    private Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> getRecipeFor(Container container, Level level) {
+        return level.getRecipeManager().getAllRecipesFor(getRecipeForFurnaceModeUpgrade()).
                 stream().filter(recipe -> !RECIPE_BLACKLIST.contains(recipe.id())).
                 filter(recipe -> recipe.value().matches(container, level)).
                 findFirst();
+    }
+
+    public RecipeType<? extends AbstractCookingRecipe> getRecipeForFurnaceModeUpgrade() {
+        if(level != null && level.isClientSide())
+            return recipeType;
+
+        double value = upgradeModuleInventory.getUpgradeModuleModifierEffect(3, UpgradeModuleModifier.FURNACE_MODE);
+        if(value == 1)
+            return RecipeType.BLASTING;
+        else if(value == 2)
+            return RecipeType.SMOKING;
+
+        return RecipeType.SMELTING;
+    }
+
+    @Override
+    public void setRecipeType(@NotNull RecipeType<? extends AbstractCookingRecipe> recipeType) {
+        this.recipeType = recipeType;
+    }
+
+    private void updateUpgradeModules() {
+        resetProgress(getBlockPos(), getBlockState());
+        setChanged();
+        if(level != null && !level.isClientSide()) {
+            ModMessages.sendToPlayersWithinXBlocks(
+                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
+                    getBlockPos(), level.dimension(), 32
+            );
+            ModMessages.sendToPlayersWithinXBlocks(
+                    new SyncFurnaceRecipeTypeS2CPacket(getRecipeForFurnaceModeUpgrade(), getBlockPos()),
+                    getBlockPos(), level.dimension(), 32
+            );
+        }
     }
 
     public int getEnergy() {

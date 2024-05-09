@@ -1,0 +1,34 @@
+{
+  "parent":  "energizedpower:main/basics/basic_upgrade_module",
+  "display": {
+    "icon": {
+      "item": "energizedpower:blast_furnace_upgrade_module"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.blast_furnace_upgrade_module.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.blast_furnace_upgrade_module.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_the_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:blast_furnace_upgrade_module" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}

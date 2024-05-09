@@ -3,6 +3,8 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.WeatherControllerMenu;
@@ -11,10 +13,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.ContainerListener;
+import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.capabilities.Capability;
@@ -26,6 +31,13 @@ import org.jetbrains.annotations.Nullable;
 
 public class WeatherControllerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
     public static final int CAPACITY = ModConfigs.COMMON_WEATHER_CONTROLLER_CAPACITY.getValue();
+
+    private static int WEATHER_CHANGED_TICKS = ModConfigs.COMMON_WEATHER_CONTROLLER_CONTROL_DURATION.getValue();
+
+    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.DURATION
+    );
+    private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
     private final ReceiveOnlyEnergyStorage energyStorage;
 
@@ -41,7 +53,7 @@ public class WeatherControllerBlockEntity extends BlockEntity implements MenuPro
 
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
+                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
                             getBlockPos(), level.dimension(), 32
                     );
             }
@@ -61,7 +73,7 @@ public class WeatherControllerBlockEntity extends BlockEntity implements MenuPro
         ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
                 getBlockPos()), (ServerPlayer)player);
 
-        return new WeatherControllerMenu(id, inventory, this);
+        return new WeatherControllerMenu(id, inventory, this, upgradeModuleInventory);
     }
 
     @Override
@@ -79,6 +91,9 @@ public class WeatherControllerBlockEntity extends BlockEntity implements MenuPro
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT());
+        
         nbt.put("energy", energyStorage.saveNBT());
 
         super.saveAdditional(nbt);
@@ -88,7 +103,30 @@ public class WeatherControllerBlockEntity extends BlockEntity implements MenuPro
     public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
 
+        //Load Upgrade Module Inventory first
+        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"));
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         energyStorage.loadNBT(nbt.get("energy"));
+    }
+
+    public void drops(Level level, BlockPos worldPosition) {
+        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
+    }
+
+    public int getWeatherChangedDuration() {
+        return (int)Math.max(1, WEATHER_CHANGED_TICKS *
+                upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.DURATION));
+    }
+
+    private void updateUpgradeModules() {
+        setChanged();
+        if(level != null && !level.isClientSide())
+            ModMessages.sendToPlayersWithinXBlocks(
+                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
+                    getBlockPos(), level.dimension(), 32
+            );
     }
 
     public int getEnergy() {

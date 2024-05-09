@@ -3,6 +3,8 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.SolarPanelMenu;
@@ -12,6 +14,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
+import net.minecraft.world.ContainerListener;
+import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -30,10 +34,15 @@ import org.jetbrains.annotations.Nullable;
 
 public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
     private final SolarPanelBlock.Tier tier;
-    private final int maxTransfer;
 
     private final ExtractOnlyEnergyStorage energyStorage;
     private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
+
+    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.ENERGY_CAPACITY,
+            UpgradeModuleModifier.MOON_LIGHT
+    );
+    private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
     public static BlockEntityType<SolarPanelBlockEntity> getEntityTypeFromTier(SolarPanelBlock.Tier tier) {
         return switch(tier) {
@@ -51,16 +60,30 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
 
         this.tier = tier;
 
-        maxTransfer = tier.getMaxTransfer();
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
+        int maxTransfer = tier.getMaxTransfer();
         int capacity = tier.getCapacity();
         energyStorage = new ExtractOnlyEnergyStorage(0, capacity, maxTransfer) {
+            @Override
+            public int getCapacity() {
+                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            public int getMaxExtract() {
+                return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+
             @Override
             protected void onChange() {
                 setChanged();
 
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
+                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
                             getBlockPos(), level.dimension(), 32
                     );
             }
@@ -80,11 +103,15 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
         ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
                 getBlockPos()), (ServerPlayer)player);
 
-        return new SolarPanelMenu(id, inventory, this);
+        return new SolarPanelMenu(id, inventory, this, upgradeModuleInventory);
     }
 
     public SolarPanelBlock.Tier getTier() {
         return tier;
+    }
+
+    public void drops(Level level, BlockPos worldPosition) {
+        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {
@@ -103,8 +130,21 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
 
         i = Mth.clamp(i, 0, 60);
 
+        int energyProduction = (int)(i/60.f * blockEntity.getTier().getPeakFePerTick());
+
+        double moonLightUpgradeModuleEffect = blockEntity.upgradeModuleInventory.
+                getUpgradeModuleModifierEffect(1, UpgradeModuleModifier.MOON_LIGHT);
+        if(moonLightUpgradeModuleEffect > 0) {
+            i = 15 - (level.getBrightness(LightLayer.SKY, blockPos) - level.getSkyDarken());
+            if(i < 14) {
+                i = Mth.clamp(i, 0, 15);
+
+                energyProduction += (int)(i/15. * blockEntity.getTier().getPeakFePerTick() * moonLightUpgradeModuleEffect);
+            }
+        }
+
         blockEntity.energyStorage.setEnergy(Math.min(blockEntity.energyStorage.getCapacity(),
-                blockEntity.energyStorage.getEnergy() + (int)(i/60.f * blockEntity.getTier().getPeakFePerTick())));
+                blockEntity.energyStorage.getEnergy() + energyProduction));
 
         transferEnergy(level, blockPos, state, blockEntity);
     }
@@ -127,7 +167,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
         if(!energyStorage.canReceive())
             return;
 
-        int amount = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getEnergy(), blockEntity.maxTransfer), false);
+        int amount = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getEnergy(), blockEntity.energyStorage.getMaxExtract()), false);
         if(amount > 0)
             blockEntity.energyStorage.extractEnergy(amount, false);
     }
@@ -144,6 +184,9 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT());
+
         nbt.put("energy", energyStorage.saveNBT());
 
         super.saveAdditional(nbt);
@@ -153,7 +196,21 @@ public class SolarPanelBlockEntity extends BlockEntity implements MenuProvider, 
     public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
 
+        //Load Upgrade Module Inventory first
+        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"));
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         energyStorage.loadNBT(nbt.get("energy"));
+    }
+
+    private void updateUpgradeModules() {
+        setChanged();
+        if(level != null && !level.isClientSide())
+            ModMessages.sendToPlayersWithinXBlocks(
+                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
+                    getBlockPos(), level.dimension(), 32
+            );
     }
 
     public int getEnergy() {
