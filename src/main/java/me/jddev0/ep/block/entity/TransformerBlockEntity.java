@@ -17,8 +17,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import team.reborn.energy.api.EnergyStorage;
-import team.reborn.energy.api.base.LimitingEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -29,8 +29,8 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
     private final TransformerBlock.Tier tier;
     private final TransformerBlock.Type type;
 
-    final LimitingEnergyStorage energyStorageInsert;
-    final LimitingEnergyStorage energyStorageExtract;
+    final EnergizedPowerLimitingEnergyStorage energyStorageInsert;
+    final EnergizedPowerLimitingEnergyStorage energyStorageExtract;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     public static BlockEntityType<TransformerBlockEntity> getEntityTypeFromTierAndType(TransformerBlock.Tier tier,
@@ -83,8 +83,8 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
 
                 if(world != null && !world.isClient()) {
                     PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(amount);
-                    buffer.writeLong(capacity);
+                    buffer.writeLong(getAmount());
+                    buffer.writeLong(getCapacity());
                     buffer.writeBlockPos(getPos());
 
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
@@ -94,8 +94,8 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
                 }
             }
         };
-        energyStorageInsert = new LimitingEnergyStorage(internalEnergyStorage, maxTransferRate, 0);
-        energyStorageExtract = new LimitingEnergyStorage(internalEnergyStorage, 0, maxTransferRate);
+        energyStorageInsert = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, maxTransferRate, 0);
+        energyStorageExtract = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, 0, maxTransferRate);
     }
 
     public TransformerBlock.Type getTransformerType() {
@@ -134,7 +134,7 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
-        nbt.putLong("energy", internalEnergyStorage.amount);
+        nbt.putLong("energy", internalEnergyStorage.getAmount());
 
         super.writeNbt(nbt);
     }
@@ -143,7 +143,7 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
     public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
 
-        internalEnergyStorage.amount = nbt.getLong("energy");
+        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, TransformerBlockEntity blockEntity) {
@@ -199,7 +199,7 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
                 continue;
 
             try(Transaction transaction = Transaction.openOuter()) {
-                long received = energyStorage.insert(Math.min(blockEntity.maxTransferRate, blockEntity.internalEnergyStorage.amount), transaction);
+                long received = energyStorage.insert(Math.min(blockEntity.maxTransferRate, blockEntity.internalEnergyStorage.getAmount()), transaction);
 
                 if(received <= 0)
                     continue;
@@ -214,7 +214,7 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0L);
 
-        long consumptionLeft = Math.min(blockEntity.maxTransferRate, Math.min(blockEntity.internalEnergyStorage.amount, consumptionSum));
+        long consumptionLeft = Math.min(blockEntity.maxTransferRate, Math.min(blockEntity.internalEnergyStorage.getAmount(), consumptionSum));
         try(Transaction transaction = Transaction.openOuter()) {
             blockEntity.internalEnergyStorage.extract(consumptionLeft, transaction);
             transaction.commit();
@@ -254,11 +254,11 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
 
     @Override
     public void setEnergy(long energy) {
-        internalEnergyStorage.amount = energy;
+        internalEnergyStorage.setAmountWithoutUpdate(energy);
     }
 
     @Override
     public void setCapacity(long capacity) {
-        internalEnergyStorage.capacity = capacity;
+        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 }

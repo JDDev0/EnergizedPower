@@ -6,10 +6,10 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
 import team.reborn.energy.api.EnergyStorage;
 
 public class EnergizedPowerEnergyStorage extends SnapshotParticipant<Long> implements EnergyStorage {
-    public long amount;
-    public long capacity;
-    public long maxInsert;
-    public long maxExtract;
+    protected long amount;
+    protected long capacity;
+    protected long maxInsert;
+    protected long maxExtract;
 
     public EnergizedPowerEnergyStorage(long capacity, long maxInsert, long maxExtract) {
         StoragePreconditions.notNegative(capacity);
@@ -40,7 +40,7 @@ public class EnergizedPowerEnergyStorage extends SnapshotParticipant<Long> imple
     public long insert(long maxAmount, TransactionContext transaction) {
         StoragePreconditions.notNegative(maxAmount);
 
-        long inserted = Math.min(maxInsert, Math.min(maxAmount, capacity - amount));
+        long inserted = Math.min(maxInsert, Math.min(maxAmount, getCapacity() - amount));
 
         if(inserted > 0) {
             updateSnapshots(transaction);
@@ -79,5 +79,13 @@ public class EnergizedPowerEnergyStorage extends SnapshotParticipant<Long> imple
     @Override
     public long getCapacity() {
         return capacity;
+    }
+
+    public void setAmountWithoutUpdate(long amount) {
+        this.amount = amount;
+    }
+
+    public void setCapacityWithoutUpdate(long capacity) {
+        this.capacity = capacity;
     }
 }

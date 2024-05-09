@@ -45,8 +45,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import team.reborn.energy.api.base.LimitingEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.List;
 import java.util.Optional;
@@ -66,7 +66,7 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
     final InputOutputItemHandler inventory;
     private final SimpleInventory internalInventory;
 
-    final LimitingEnergyStorage energyStorage;
+    final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     protected final PropertyDelegate data;
@@ -143,8 +143,8 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
 
                 if(world != null && !world.isClient()) {
                     PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(amount);
-                    buffer.writeLong(capacity);
+                    buffer.writeLong(getAmount());
+                    buffer.writeLong(getCapacity());
                     buffer.writeBlockPos(getPos());
 
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
@@ -154,7 +154,7 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
 
         data = new PropertyDelegate() {
             @Override
@@ -229,8 +229,8 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeLong(internalEnergyStorage.amount);
-        buffer.writeLong(internalEnergyStorage.capacity);
+        buffer.writeLong(internalEnergyStorage.getAmount());
+        buffer.writeLong(internalEnergyStorage.getCapacity());
         buffer.writeBlockPos(getPos());
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
@@ -246,7 +246,7 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
     @Override
     protected void writeNbt(NbtCompound nbt) {
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
-        nbt.putLong("energy", internalEnergyStorage.amount);
+        nbt.putLong("energy", internalEnergyStorage.getAmount());
 
         for(int i = 0;i < 3;i++)
             nbt.put("recipe.progress." + i, NbtInt.of(progress[i]));
@@ -266,7 +266,7 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
         super.readNbt(nbt);
 
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
-        internalEnergyStorage.amount = nbt.getLong("energy");
+        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
 
         for(int i = 0;i < 3;i++)
             progress[i] = nbt.getInt("recipe.progress." + i);
@@ -307,7 +307,7 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
                 if(blockEntity.energyConsumptionLeft[i] < 0)
                     blockEntity.energyConsumptionLeft[i] = ENERGY_USAGE_PER_INPUT_PER_TICK * blockEntity.maxProgress[i];
 
-                if(ENERGY_USAGE_PER_INPUT_PER_TICK <= blockEntity.internalEnergyStorage.amount) {
+                if(ENERGY_USAGE_PER_INPUT_PER_TICK <= blockEntity.internalEnergyStorage.getAmount()) {
                     if(!level.getBlockState(blockPos).contains(AdvancedPoweredFurnaceBlock.LIT) || !level.getBlockState(blockPos).get(AdvancedPoweredFurnaceBlock.LIT)) {
                         blockEntity.hasEnoughEnergy[i] = true;
                         level.setBlockState(blockPos, state.with(AdvancedPoweredFurnaceBlock.LIT, Boolean.TRUE), 3);
@@ -404,21 +404,21 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
     }
 
     public long getEnergy() {
-        return internalEnergyStorage.amount;
+        return internalEnergyStorage.getAmount();
     }
 
     public long getCapacity() {
-        return internalEnergyStorage.capacity;
+        return internalEnergyStorage.getCapacity();
     }
 
     @Override
     public void setEnergy(long energy) {
-        internalEnergyStorage.amount = energy;
+        internalEnergyStorage.setAmountWithoutUpdate(energy);
     }
 
     @Override
     public void setCapacity(long capacity) {
-        internalEnergyStorage.capacity = capacity;
+        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 
     @Override

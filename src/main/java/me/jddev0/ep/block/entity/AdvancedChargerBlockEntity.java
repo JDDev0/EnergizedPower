@@ -45,8 +45,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
-import team.reborn.energy.api.base.LimitingEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -64,7 +64,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
     final InputOutputItemHandler inventory;
     private final SimpleInventory internalInventory;
 
-    final LimitingEnergyStorage energyStorage;
+    final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     protected final PropertyDelegate data;
@@ -172,8 +172,8 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
 
                 if(world != null && !world.isClient()) {
                     PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(amount);
-                    buffer.writeLong(capacity);
+                    buffer.writeLong(getAmount());
+                    buffer.writeLong(getCapacity());
                     buffer.writeBlockPos(getPos());
 
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
@@ -183,7 +183,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
 
         data = new PropertyDelegate() {
             @Override
@@ -231,8 +231,8 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeLong(internalEnergyStorage.amount);
-        buffer.writeLong(internalEnergyStorage.capacity);
+        buffer.writeLong(internalEnergyStorage.getAmount());
+        buffer.writeLong(internalEnergyStorage.getCapacity());
         buffer.writeBlockPos(getPos());
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
@@ -248,7 +248,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
     @Override
     protected void writeNbt(NbtCompound nbt) {
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
-        nbt.putLong("energy", internalEnergyStorage.amount);
+        nbt.putLong("energy", internalEnergyStorage.getAmount());
 
         for(int i = 0;i < 3;i++)
             nbt.put("recipe.energy_consumption_left." + i, NbtLong.of(energyConsumptionLeft[i]));
@@ -264,7 +264,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
         super.readNbt(nbt);
 
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
-        internalEnergyStorage.amount = nbt.getLong("energy");
+        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
 
         for(int i = 0;i < 3;i++)
             energyConsumptionLeft[i] = nbt.getLong("recipe.energy_consumption_left." + i);
@@ -284,7 +284,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
         if(!blockEntity.redstoneMode.isActive(state.get(AdvancedChargerBlock.POWERED)))
             return;
 
-        final long maxReceivePerSlot = (long)Math.min(MAX_RECEIVE_PER_SLOT, Math.ceil(blockEntity.internalEnergyStorage.amount / 3.));
+        final long maxReceivePerSlot = (long)Math.min(MAX_RECEIVE_PER_SLOT, Math.ceil(blockEntity.internalEnergyStorage.getAmount() / 3.));
 
         for(int i = 0;i < 3;i++) {
             if(blockEntity.hasRecipe(i)) {
@@ -299,14 +299,14 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
                     if(blockEntity.energyConsumptionLeft[i] == -1)
                         blockEntity.energyConsumptionLeft[i] = (long)(recipe.get().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);;
 
-                    if(blockEntity.internalEnergyStorage.amount == 0) {
+                    if(blockEntity.internalEnergyStorage.getAmount() == 0) {
                         markDirty(level, blockPos, state);
 
                         continue;
                     }
 
                     energyConsumptionPerTick = Math.min(blockEntity.energyConsumptionLeft[i], Math.min(maxReceivePerSlot,
-                            blockEntity.internalEnergyStorage.amount));
+                            blockEntity.internalEnergyStorage.getAmount()));
                 }else {
                     if(!EnergyStorageUtil.isEnergyStorage(stack))
                         continue;
@@ -321,7 +321,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
 
                     blockEntity.energyConsumptionLeft[i] = energyStorage.getCapacity() - energyStorage.getAmount();
 
-                    if(blockEntity.internalEnergyStorage.amount == 0) {
+                    if(blockEntity.internalEnergyStorage.getAmount() == 0) {
                         markDirty(level, blockPos, state);
 
                         continue;
@@ -329,7 +329,7 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
 
                     try(Transaction transaction = Transaction.openOuter()) {
                         energyConsumptionPerTick = energyStorage.insert(Math.min(maxReceivePerSlot,
-                                blockEntity.internalEnergyStorage.amount), transaction);
+                                blockEntity.internalEnergyStorage.getAmount()), transaction);
                         transaction.commit();
                     }
                 }
@@ -385,21 +385,21 @@ public class AdvancedChargerBlockEntity extends BlockEntity implements ExtendedS
     }
 
     public long getEnergy() {
-        return internalEnergyStorage.amount;
+        return internalEnergyStorage.getAmount();
     }
 
     public long getCapacity() {
-        return internalEnergyStorage.capacity;
+        return internalEnergyStorage.getCapacity();
     }
 
     @Override
     public void setEnergy(long energy) {
-        internalEnergyStorage.amount = energy;
+        internalEnergyStorage.setAmountWithoutUpdate(energy);
     }
 
     @Override
     public void setCapacity(long capacity) {
-        internalEnergyStorage.capacity = capacity;
+        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 
     @Override
