@@ -47,8 +47,8 @@ import net.minecraft.world.World;
 import me.jddev0.ep.util.EnergyUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import team.reborn.energy.api.base.LimitingEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.stream.IntStream;
 
@@ -67,7 +67,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
     final InputOutputItemHandler inventory;
     private final SimpleInventory internalInventory;
 
-    final LimitingEnergyStorage energyStorage;
+    final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     final SimpleFluidStorage fluidStorage;
@@ -187,8 +187,8 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
 
                 if(world != null && !world.isClient()) {
                     PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(amount);
-                    buffer.writeLong(capacity);
+                    buffer.writeLong(getAmount());
+                    buffer.writeLong(getCapacity());
                     buffer.writeBlockPos(getPos());
 
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
@@ -198,7 +198,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
 
         fluidStorage = new SimpleFluidStorage(FluidUtils.convertMilliBucketsToDroplets(
                 ModConfigs.COMMON_FLUID_FILLER_FLUID_TANK_CAPACITY.getValue() * 1000)) {
@@ -258,8 +258,8 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeLong(internalEnergyStorage.amount);
-        buffer.writeLong(internalEnergyStorage.capacity);
+        buffer.writeLong(internalEnergyStorage.getAmount());
+        buffer.writeLong(internalEnergyStorage.getCapacity());
         buffer.writeBlockPos(getPos());
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
@@ -291,7 +291,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
     @Override
     protected void writeNbt(NbtCompound nbt) {
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
-        nbt.putLong("energy", internalEnergyStorage.amount);
+        nbt.putLong("energy", internalEnergyStorage.getAmount());
         nbt.put("fluid", fluidStorage.toNBT(new NbtCompound()));
 
         FluidUtils.writeFluidAmountInMilliBucketsWithLeftover(fluidFillingLeft,
@@ -310,7 +310,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
         super.readNbt(nbt);
 
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
-        internalEnergyStorage.amount = nbt.getLong("energy");
+        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
         fluidStorage.fromNBT(nbt.getCompound("fluid"));
 
         fluidFillingLeft = FluidUtils.readFluidAmountInMilliBucketsWithLeftover("recipe.fluid_filling_left",
@@ -341,7 +341,7 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
             if(blockEntity.fluidStorage.getAmount() - blockEntity.fluidFillingSumPending <= 0)
                 return;
 
-            if(blockEntity.internalEnergyStorage.amount < ENERGY_USAGE_PER_TICK)
+            if(blockEntity.internalEnergyStorage.getAmount() < ENERGY_USAGE_PER_TICK)
                 return;
 
             if(ContainerItemContext.withConstant(itemStack).find(FluidStorage.ITEM) == null)
@@ -467,20 +467,20 @@ public class FluidFillerBlockEntity extends BlockEntity implements ExtendedScree
 
     @Override
     public void setEnergy(long energy) {
-        internalEnergyStorage.amount = energy;
+        internalEnergyStorage.setAmountWithoutUpdate(energy);
     }
 
     @Override
     public void setCapacity(long capacity) {
-        internalEnergyStorage.capacity = capacity;
+        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 
     public long getEnergy() {
-        return internalEnergyStorage.amount;
+        return internalEnergyStorage.getAmount();
     }
 
     public long getCapacity() {
-        return internalEnergyStorage.capacity;
+        return internalEnergyStorage.getCapacity();
     }
 
     @Override

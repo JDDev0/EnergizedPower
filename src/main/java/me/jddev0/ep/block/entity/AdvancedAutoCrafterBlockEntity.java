@@ -45,7 +45,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import team.reborn.energy.api.base.LimitingEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -64,7 +64,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
 
     private boolean secondaryExtractMode = false;
 
-    final LimitingEnergyStorage energyStorage;
+    final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     private final SimpleInventory[] patternSlots = new SimpleInventory[] {
@@ -194,8 +194,8 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
 
                 if(world != null && !world.isClient()) {
                     PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(amount);
-                    buffer.writeLong(capacity);
+                    buffer.writeLong(getAmount());
+                    buffer.writeLong(getCapacity());
                     buffer.writeBlockPos(getPos());
 
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
@@ -205,7 +205,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
 
         data = new PropertyDelegate() {
             @Override
@@ -282,8 +282,8 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeLong(internalEnergyStorage.amount);
-        buffer.writeLong(internalEnergyStorage.capacity);
+        buffer.writeLong(internalEnergyStorage.getAmount());
+        buffer.writeLong(internalEnergyStorage.getCapacity());
         buffer.writeBlockPos(getPos());
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
@@ -309,7 +309,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
         for(int i = 0;i < 3;i++)
             nbt.put("pattern." + i, savePatternContainer(i));
-        nbt.putLong("energy", internalEnergyStorage.amount);
+        nbt.putLong("energy", internalEnergyStorage.getAmount());
 
         for(int i = 0;i < 3;i++) {
             if(craftingRecipe[i] != null)
@@ -352,7 +352,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
         for(int i = 0;i < 3;i++)
             loadPatternContainer(i, nbt.get("pattern." + i));
-        internalEnergyStorage.amount = nbt.getLong("energy");
+        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
 
         for(int i = 0;i < 3;i++) {
             if(nbt.contains("recipe.id." + i)) {
@@ -449,7 +449,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
                     continue;
                 }
 
-                if(energyConsumptionPerTick <= blockEntity.internalEnergyStorage.amount) {
+                if(energyConsumptionPerTick <= blockEntity.internalEnergyStorage.getAmount()) {
                     try(Transaction transaction = Transaction.openOuter()) {
                         blockEntity.internalEnergyStorage.extract(energyConsumptionPerTick, transaction);
                         transaction.commit();
@@ -931,21 +931,21 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
     }
 
     public long getEnergy() {
-        return internalEnergyStorage.amount;
+        return internalEnergyStorage.getAmount();
     }
 
     public long getCapacity() {
-        return internalEnergyStorage.capacity;
+        return internalEnergyStorage.getCapacity();
     }
 
     @Override
     public void setEnergy(long energy) {
-        internalEnergyStorage.amount = energy;
+        internalEnergyStorage.setAmountWithoutUpdate(energy);
     }
 
     @Override
     public void setCapacity(long capacity) {
-        internalEnergyStorage.capacity = capacity;
+        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 
     @Override
