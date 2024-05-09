@@ -23,7 +23,10 @@ import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageHandledScreen<AdvancedAutoCrafterMenu> {
-    private final Identifier CONFIGURATION_ICONS_TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+    private final Identifier CONFIGURATION_ICONS_TEXTURE =
+            new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+    private final Identifier UPGRADE_VIEW_TEXTURE =
+            new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/advanced_auto_crafter.png");
 
     public AdvancedAutoCrafterScreen(AdvancedAutoCrafterMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
@@ -39,47 +42,57 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageHandl
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
         if(mouseButton == 0) {
             boolean clicked = false;
-            if(isPointWithinBounds(158, 16, 11, 11, mouseX, mouseY)) {
-                //Ignore NBT checkbox
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                buf.writeInt(0);
-                buf.writeBoolean(!handler.isIgnoreNBT());
-                ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
-                clicked = true;
-            }else if(isPointWithinBounds(158, 38, 11, 11, mouseX, mouseY)) {
-                //Extract mode checkbox
+            if(!handler.isInUpgradeModuleView()) {
+                if(isPointWithinBounds(158, 16, 11, 11, mouseX, mouseY)) {
+                    //Ignore NBT checkbox
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                buf.writeInt(1);
-                buf.writeBoolean(!handler.isSecondaryExtractMode());
-                ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
-                clicked = true;
-            }else if(isPointWithinBounds(126, 16, 12, 12, mouseX, mouseY)) {
-                //Cycle through recipes
+                    PacketByteBuf buf = PacketByteBufs.create();
+                    buf.writeBlockPos(handler.getBlockEntity().getPos());
+                    buf.writeInt(0);
+                    buf.writeBoolean(!handler.isIgnoreNBT());
+                    ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
+                    clicked = true;
+                }else if(isPointWithinBounds(158, 38, 11, 11, mouseX, mouseY)) {
+                    //Extract mode checkbox
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                ClientPlayNetworking.send(ModMessages.CYCLE_ADVANCED_AUTO_CRAFTER_RECIPE_OUTPUT_ID, buf);
-                clicked = true;
-            }else if(isPointWithinBounds(96, 16, 12, 12, mouseX, mouseY)) {
-                //Set recipe index
+                    PacketByteBuf buf = PacketByteBufs.create();
+                    buf.writeBlockPos(handler.getBlockEntity().getPos());
+                    buf.writeInt(1);
+                    buf.writeBoolean(!handler.isSecondaryExtractMode());
+                    ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
+                    clicked = true;
+                }else if(isPointWithinBounds(126, 16, 12, 12, mouseX, mouseY)) {
+                    //Cycle through recipes
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                buf.writeInt(handler.getRecipeIndex() + 1);
-                ClientPlayNetworking.send(ModMessages.SET_ADVANCED_AUTO_CRAFTER_RECIPE_INDEX_ID, buf);
+                    PacketByteBuf buf = PacketByteBufs.create();
+                    buf.writeBlockPos(handler.getBlockEntity().getPos());
+                    ClientPlayNetworking.send(ModMessages.CYCLE_ADVANCED_AUTO_CRAFTER_RECIPE_OUTPUT_ID, buf);
+                    clicked = true;
+                }else if(isPointWithinBounds(96, 16, 12, 12, mouseX, mouseY)) {
+                    //Set recipe index
+
+                    PacketByteBuf buf = PacketByteBufs.create();
+                    buf.writeBlockPos(handler.getBlockEntity().getPos());
+                    buf.writeInt(handler.getRecipeIndex() + 1);
+                    ClientPlayNetworking.send(ModMessages.SET_ADVANCED_AUTO_CRAFTER_RECIPE_INDEX_ID, buf);
+                    clicked = true;
+                }
+            }
+
+            if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+                //Upgrade view
+
+                client.interactionManager.clickButton(handler.syncId, 0);
                 clicked = true;
-            }else if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
 
                 PacketByteBuf buf = PacketByteBufs.create();
                 buf.writeBlockPos(handler.getBlockEntity().getPos());
                 ClientPlayNetworking.send(ModMessages.CHANGE_REDSTONE_MODE_ID, buf);
                 clicked = true;
-            }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+            }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
                 //Comparator Mode
 
                 PacketByteBuf buf = PacketByteBufs.create();
@@ -102,8 +115,12 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageHandl
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        renderProgressArrow(drawContext, x, y);
-        renderCheckboxes(drawContext, x, y, mouseX, mouseY);
+        if(handler.isInUpgradeModuleView()) {
+            drawContext.drawTexture(UPGRADE_VIEW_TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        }else {
+            renderProgressArrow(drawContext, x, y);
+            renderCheckboxes(drawContext, x, y, mouseX, mouseY);
+        }
 
         renderConfiguration(drawContext, x, y, mouseX, mouseY);
     }
@@ -134,22 +151,31 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageHandl
     }
 
     private void renderConfiguration(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
+        //Upgrade view
+        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 40, 80, 20, 20);
+        }else if(handler.isInUpgradeModuleView()) {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20, 80, 20, 20);
+        }else {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 0, 80, 20, 20);
+        }
+
         RedstoneMode redstoneMode = handler.getRedstoneMode();
         int ordinal = redstoneMode.ordinal();
 
-        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 20, 20, 20);
+        if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 20, 20, 20);
         }else {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 0, 20, 20);
         }
 
         ComparatorMode comparatorMode = handler.getComparatorMode();
         ordinal = comparatorMode.ordinal();
 
-        if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 60, 20, 20);
+        if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 60, 20, 20);
         }else {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 40, 20, 20);
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 40, 20, 20);
         }
     }
 
@@ -157,35 +183,47 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageHandl
     protected void drawMouseoverTooltip(DrawContext drawContext, int mouseX, int mouseY) {
         super.drawMouseoverTooltip(drawContext, mouseX, mouseY);
 
-        if(isPointWithinBounds(158, 16, 11, 11, mouseX, mouseY)) {
-            //Ignore NBT checkbox
+        if(!handler.isInUpgradeModuleView()) {
+            if(isPointWithinBounds(158, 16, 11, 11, mouseX, mouseY)) {
+                //Ignore NBT checkbox
+
+                List<Text> components = new ArrayList<>(2);
+                components.add(Text.translatable("tooltip.energizedpower.auto_crafter.cbx.ignore_nbt"));
+
+                drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+            }else if(isPointWithinBounds(158, 38, 11, 11, mouseX, mouseY)) {
+                //Extract mode
+
+                List<Text> components = new ArrayList<>(2);
+                components.add(Text.translatable("tooltip.energizedpower.auto_crafter.cbx.extract_mode." + (handler.isSecondaryExtractMode()?"2":"1")));
+
+                drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+            }else if(isPointWithinBounds(126, 16, 12, 12, mouseX, mouseY)) {
+                //Cycle through recipes
+
+                List<Text> components = new ArrayList<>(2);
+                components.add(Text.translatable("tooltip.energizedpower.auto_crafter.cycle_through_recipes"));
+
+                drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+            }else if(isPointWithinBounds(96, 16, 12, 12, mouseX, mouseY)) {
+                //Set recipe index
+
+                List<Text> components = new ArrayList<>(2);
+                components.add(Text.translatable("tooltip.energizedpower.auto_crafter.recipe_index", handler.getRecipeIndex() + 1));
+
+                drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+            }
+        }
+
+        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            //Upgrade view
 
             List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.auto_crafter.cbx.ignore_nbt"));
+            components.add(Text.translatable("tooltip.energizedpower.upgrade_view.button." +
+                    (handler.isInUpgradeModuleView()?"close":"open")));
 
             drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(158, 38, 11, 11, mouseX, mouseY)) {
-            //Extract mode
-
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.auto_crafter.cbx.extract_mode." + (handler.isSecondaryExtractMode()?"2":"1")));
-
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(126, 16, 12, 12, mouseX, mouseY)) {
-            //Cycle through recipes
-
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.auto_crafter.cycle_through_recipes"));
-
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(96, 16, 12, 12, mouseX, mouseY)) {
-            //Set recipe index
-
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.auto_crafter.recipe_index", handler.getRecipeIndex() + 1));
-
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+        }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
             //Redstone Mode
 
             RedstoneMode redstoneMode = handler.getRedstoneMode();
@@ -194,7 +232,7 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageHandl
             components.add(Text.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.asString()));
 
             drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+        }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
             //Comparator Mode
 
             ComparatorMode comparatorMode = handler.getComparatorMode();

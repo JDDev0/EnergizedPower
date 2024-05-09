@@ -5,8 +5,12 @@ import me.jddev0.ep.block.entity.MetalPressBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.MetalPressRecipe;
 import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
+import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,16 +22,17 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class MetalPressMenu extends ScreenHandler implements EnergyStorageConsumerIndicatorBarMenu {
+public class MetalPressMenu extends AbstractEnergizedPowerScreenHandler
+        implements EnergyStorageConsumerIndicatorBarMenu {
     private final MetalPressBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
     private final PropertyDelegate data;
+    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public MetalPressMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
         this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(3) {
@@ -42,17 +47,22 @@ public class MetalPressMenu extends ScreenHandler implements EnergyStorageConsum
                     default -> super.isValid(slot, stack);
                 };
             }
-        }, new ArrayPropertyDelegate(11));
+        }, new UpgradeModuleInventory(
+                UpgradeModuleModifier.SPEED,
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        ), new ArrayPropertyDelegate(11));
     }
 
     public MetalPressMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
-                          PropertyDelegate data) {
+                          UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(ModMenuTypes.METAL_PRESS_MENU, id);
 
         this.blockEntity = (MetalPressBlockEntity)blockEntity;
 
         this.inv = inv;
         checkSize(this.inv, 3);
+        checkSize(upgradeModuleInventory, 3);
         checkDataCount(data, 11);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
@@ -61,16 +71,53 @@ public class MetalPressMenu extends ScreenHandler implements EnergyStorageConsum
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
-        addSlot(new ConstraintInsertSlot(this.inv, 0, 48, 35));
+        addSlot(new ConstraintInsertSlot(this.inv, 0, 48, 35) {
+            @Override
+            public boolean isEnabled() {
+                return super.isEnabled() && !isInUpgradeModuleView();
+            }
+        });
         addSlot(new ConstraintInsertSlot(this.inv, 1, 84, 23) {
+            @Override
+            public boolean isEnabled() {
+                return super.isEnabled() && !isInUpgradeModuleView();
+            }
+
             @Override
             public int getMaxItemCount() {
                 return 1;
             }
         });
-        addSlot(new ConstraintInsertSlot(this.inv, 2, 124, 35));
+        addSlot(new ConstraintInsertSlot(this.inv, 2, 124, 35) {
+            @Override
+            public boolean isEnabled() {
+                return super.isEnabled() && !isInUpgradeModuleView();
+            }
+        });
+
+        for(int i = 0;i < upgradeModuleInventory.size();i++)
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
 
         addProperties(this.data);
+
+        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
+        addProperties(upgradeModuleViewContainerData);
+    }
+
+    @Override
+    public boolean isInUpgradeModuleView() {
+        return upgradeModuleViewContainerData.isInUpgradeModuleView();
+    }
+
+    @Override
+    public boolean onButtonClick(PlayerEntity player, int index) {
+        if(index == 0) {
+            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
+
+            sendContentUpdates();
+        }
+
+        return false;
     }
 
     @Override
@@ -125,15 +172,14 @@ public class MetalPressMenu extends ScreenHandler implements EnergyStorageConsum
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
-            //Player inventory slot -> Merge into tile inventory
-            //Input slot
-            //Press mold slot [Max Count 1]
-            if(!insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false) &&
-                    (slots.get(4 * 9 + 1).hasStack() || !insertItem(sourceItem, 4 * 9 + 1, 4 * 9 + 2, false))) {
+            //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
+            if(!insertMaxCount1Item(sourceItem, 4 * 9 + 3, 4 * 9 + 3 + 3, false) &&
+                    !insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false) &&
+                    !insertMaxCount1Item(sourceItem, 4 * 9 + 1, 4 * 9 + 2, false)) {
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 3) {
-            //Tile inventory slot -> Merge into player inventory
+        }else if(index < 4 * 9 + 3 + 3) {
+            //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!insertItem(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }

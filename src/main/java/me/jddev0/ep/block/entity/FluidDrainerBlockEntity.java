@@ -9,10 +9,12 @@ import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.FluidDrainerMenu;
 import me.jddev0.ep.util.ByteUtils;
@@ -31,6 +33,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -68,6 +71,12 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
     final InputOutputItemHandler inventory;
     private final SimpleInventory internalInventory;
 
+    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.ENERGY_CONSUMPTION,
+            UpgradeModuleModifier.ENERGY_CAPACITY
+    );
+    private final InventoryChangedListener updateUpgradeModuleListener = container -> updateUpgradeModules();
+
     final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
@@ -85,6 +94,8 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
 
     public FluidDrainerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.FLUID_DRAINER_ENTITY, blockPos, blockState);
+
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         internalInventory = new SimpleInventory(1) {
             @Override
@@ -167,6 +178,12 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
 
         internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
+            public long getCapacity() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
             protected void onFinalCommit() {
                 markDirty();
 
@@ -183,7 +200,13 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
                 }
             }
         };
-        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0) {
+            @Override
+            public long getMaxInsert() {
+                return Math.max(1, (long)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+        };
 
         fluidStorage = new SimpleFluidStorage(FluidUtils.convertMilliBucketsToDroplets(
                 ModConfigs.COMMON_FLUID_DRAINER_FLUID_TANK_CAPACITY.getValue() * 1000)) {
@@ -257,7 +280,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.FLUID_SYNC_ID, buffer);
 
-        return new FluidDrainerMenu(id, this, inventory, internalInventory, this.data);
+        return new FluidDrainerMenu(id, this, inventory, internalInventory, upgradeModuleInventory, this.data);
     }
 
     @Override
@@ -275,6 +298,9 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT());
+
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
         nbt.putLong("energy", internalEnergyStorage.getAmount());
         nbt.put("fluid", fluidStorage.toNBT(new NbtCompound()));
@@ -294,6 +320,11 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
     public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
 
+        //Load Upgrade Module Inventory first
+        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"));
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
         internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
         fluidStorage.fromNBT(nbt.getCompound("fluid"));
@@ -308,7 +339,8 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory.stacks);
+        ItemScatterer.spawn(level, worldPosition, internalInventory);
+        ItemScatterer.spawn(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, FluidDrainerBlockEntity blockEntity) {
@@ -326,7 +358,10 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
             if(blockEntity.fluidStorage.getCapacity() - blockEntity.fluidStorage.getAmount() - blockEntity.fluidDrainingSumPending <= 0)
                 return;
 
-            if(blockEntity.internalEnergyStorage.getAmount() < ENERGY_USAGE_PER_TICK)
+            long energyConsumptionPerTick = Math.max(1, (long)Math.ceil(ENERGY_USAGE_PER_TICK *
+                    blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
+
+            if(blockEntity.internalEnergyStorage.getAmount() < energyConsumptionPerTick)
                 return;
 
             if(ContainerItemContext.withConstant(itemStack).find(FluidStorage.ITEM) == null)
@@ -362,7 +397,7 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
 
             blockEntity.forceAllowStackUpdateFlag = true;
             try(Transaction transaction = Transaction.openOuter()) {
-                blockEntity.internalEnergyStorage.extract(ENERGY_USAGE_PER_TICK, transaction);
+                blockEntity.internalEnergyStorage.extract(energyConsumptionPerTick, transaction);
 
                 long fluidSumDrainable = Math.min(blockEntity.fluidStorage.getCapacity() - blockEntity.fluidStorage.getAmount(),
                         blockEntity.fluidDrainingSumPending);
@@ -414,6 +449,22 @@ public class FluidDrainerBlockEntity extends BlockEntity implements ExtendedScre
         }
 
         return false;
+    }
+
+    private void updateUpgradeModules() {
+        resetProgress();
+        markDirty();
+        if(world != null && !world.isClient()) {
+            PacketByteBuf buffer = PacketByteBufs.create();
+            buffer.writeLong(internalEnergyStorage.getAmount());
+            buffer.writeLong(internalEnergyStorage.getCapacity());
+            buffer.writeBlockPos(getPos());
+
+            ModMessages.sendServerPacketToPlayersWithinXBlocks(
+                    getPos(), (ServerWorld)world, 32,
+                    ModMessages.ENERGY_SYNC_ID, buffer
+            );
+        }
     }
 
     public FluidStack getFluid(int tank) {

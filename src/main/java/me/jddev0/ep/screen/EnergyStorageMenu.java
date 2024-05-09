@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-public interface EnergyStorageMenu {
+public interface EnergyStorageMenu extends UpgradeModuleMenu {
     long getEnergy();
     long getCapacity();
 

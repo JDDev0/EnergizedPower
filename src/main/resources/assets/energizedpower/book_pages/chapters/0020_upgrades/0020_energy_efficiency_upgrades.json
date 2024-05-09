@@ -1,0 +1,17 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.energy_efficiency_upgrades",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "image": [
+    "energizedpower:textures/item/energy_efficiency_upgrade_module_1.png",
+    "energizedpower:textures/item/energy_efficiency_upgrade_module_2.png",
+    "energizedpower:textures/item/energy_efficiency_upgrade_module_3.png",
+    "energizedpower:textures/item/energy_efficiency_upgrade_module_4.png",
+    "energizedpower:textures/item/energy_efficiency_upgrade_module_5.png"
+  ]
+}

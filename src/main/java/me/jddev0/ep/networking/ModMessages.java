@@ -20,6 +20,7 @@ public final class ModMessages {
     public static Identifier SYNC_PRESS_MOLD_MAKER_RECIPE_LIST_ID = new Identifier(EnergizedPowerMod.MODID, "sync_press_mold_maker_recipe_list");
     public static Identifier SYNC_STONE_SOLIDIFIER_CURRENT_RECIPE_ID = new Identifier(EnergizedPowerMod.MODID, "sync_stone_solidifier_current_recipe");
     public static Identifier SYNC_FILTRATION_PLANT_CURRENT_RECIPE_ID = new Identifier(EnergizedPowerMod.MODID, "sync_filtration_plant_current_recipe");
+    public static Identifier SYNC_FURNACE_RECIPE_TYPE = new Identifier(EnergizedPowerMod.MODID, "sync_furnace_recipe_type");
     public static Identifier POP_ENERGIZED_POWER_BOOK_FROM_LECTERN_ID = new Identifier(EnergizedPowerMod.MODID, "pop_energized_power_book_from_lectern");
     public static Identifier SET_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID = new Identifier(EnergizedPowerMod.MODID, "set_auto_crafter_pattern_input_slots");
     public static Identifier SET_ADVANCED_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID = new Identifier(EnergizedPowerMod.MODID, "set_advanced_auto_crafter_pattern_input_slots");
@@ -53,6 +54,8 @@ public final class ModMessages {
         ClientPlayNetworking.registerGlobalReceiver(SYNC_STONE_SOLIDIFIER_CURRENT_RECIPE_ID, SyncStoneSolidifierCurrentRecipeS2CPacket::receive);
 
         ClientPlayNetworking.registerGlobalReceiver(SYNC_FILTRATION_PLANT_CURRENT_RECIPE_ID, SyncFiltrationPlantCurrentRecipeS2CPacket::receive);
+
+        ClientPlayNetworking.registerGlobalReceiver(SYNC_FURNACE_RECIPE_TYPE, SyncFurnaceRecipeTypeS2CPacket::receive);
     }
 
     public static void registerPacketsC2S() {
