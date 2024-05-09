@@ -332,7 +332,7 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
 
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
         for(int i = 0;i < 3;i++)
-            nbt.put("pattern." + i, savePatternContainer(i));
+            nbt.put("pattern." + i,  Inventories.writeNbt(new NbtCompound(), patternSlots[i].stacks));
         nbt.putLong("energy", internalEnergyStorage.getAmount());
 
         for(int i = 0;i < 3;i++) {
@@ -356,20 +356,6 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
         super.writeNbt(nbt);
     }
 
-    private NbtElement savePatternContainer(int index) {
-        NbtList nbtTagList = new NbtList();
-        for(int i = 0;i < patternSlots[index].size();i++)  {
-            if(!patternSlots[index].getStack(i).isEmpty()) {
-                NbtCompound itemTag = new NbtCompound();
-                itemTag.putInt("Slot", i);
-                patternSlots[index].getStack(i).writeNbt(itemTag);
-                nbtTagList.add(itemTag);
-            }
-        }
-
-        return nbtTagList;
-    }
-
     @Override
     public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
@@ -380,8 +366,11 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
-        for(int i = 0;i < 3;i++)
-            loadPatternContainer(i, nbt.get("pattern." + i));
+        for(int i = 0;i < 3;i++) {
+            patternSlots[i].removeListener(updatePatternListener[i]);
+            Inventories.readNbt(nbt.getCompound("pattern." + i), patternSlots[i].stacks);
+            patternSlots[i].addListener(updatePatternListener[i]);
+        }
         internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
 
         for(int i = 0;i < 3;i++) {
@@ -409,23 +398,6 @@ public class AdvancedAutoCrafterBlockEntity extends BlockEntity implements Exten
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
-    }
-
-    private void loadPatternContainer(int index, NbtElement tag) {
-        if(!(tag instanceof NbtList))
-            throw new IllegalArgumentException("Tag must be of type ListTag!");
-
-        patternSlots[index].removeListener(updatePatternListener[index]);
-        NbtList tagList = (NbtList)tag;
-        for(int i = 0;i < tagList.size();i++) {
-            NbtCompound itemTags = tagList.getCompound(i);
-            int slot = itemTags.getInt("Slot");
-
-            if(slot >= 0 && slot < patternSlots[index].size()) {
-                patternSlots[index].setStack(slot, ItemStack.fromNbt(itemTags));
-            }
-        }
-        patternSlots[index].addListener(updatePatternListener[index]);
     }
 
     public void drops(World level, BlockPos worldPosition) {
