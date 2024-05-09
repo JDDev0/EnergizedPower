@@ -4,13 +4,9 @@ import me.jddev0.ep.screen.AbstractGenericEnergyStorageContainerScreen;
 import me.jddev0.ep.screen.UpgradeModuleMenu;
 import mezz.jei.api.gui.handlers.IGuiClickableArea;
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
-import mezz.jei.api.recipe.IFocusFactory;
 import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.runtime.IRecipesGui;
-import net.minecraft.client.renderer.Rect2i;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,20 +22,9 @@ public record UpgradeModuleScreenClickArea<T extends AbstractGenericEnergyStorag
     @Override
     @NotNull
     public Collection<IGuiClickableArea> getGuiClickableAreas(@NotNull T containerScreen, double mouseX, double mouseY) {
-        final Rect2i area = new Rect2i(xPos, yPos, width, height);
-        final List<RecipeType<?>> recipeTypesList = Arrays.asList(recipeTypes);
-        return List.of(new IGuiClickableArea() {
-            public Rect2i getArea() {
-                return area;
-            }
+        if(containerScreen.getMenu().isInUpgradeModuleView())
+            return List.of();
 
-            public void onClick(IFocusFactory focusFactory, IRecipesGui recipesGui) {
-                if(containerScreen.getMenu().isInUpgradeModuleView())
-                    return;
-
-                recipesGui.showTypes(recipeTypesList);
-            }
-        });
-
+        return List.of(IGuiClickableArea.createBasic(xPos, yPos, width, height, recipeTypes));
     }
 }
