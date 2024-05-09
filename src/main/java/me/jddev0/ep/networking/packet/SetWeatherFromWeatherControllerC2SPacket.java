@@ -1,14 +1,9 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.block.WeatherControllerBlock;
-import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
-import me.jddev0.ep.screen.AutoCrafterMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -58,13 +53,15 @@ public class SetWeatherFromWeatherControllerC2SPacket {
 
             weatherControllerBlockEntity.clearEnergy();
 
+            int duration = weatherControllerBlockEntity.getWeatherChangedDuration();
+
             switch(weatherType) {
                 //Clear
-                case 0 -> context.getSender().getLevel().setWeatherParameters(WeatherControllerBlock.WEATHER_CHANGED_TICKS, 0, false, false);
+                case 0 -> context.getSender().getLevel().setWeatherParameters(duration, 0, false, false);
                 //Rain
-                case 1 -> context.getSender().getLevel().setWeatherParameters(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, false);
+                case 1 -> context.getSender().getLevel().setWeatherParameters(0, duration, true, false);
                 //Thunder
-                case 2 -> context.getSender().getLevel().setWeatherParameters(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, true);
+                case 2 -> context.getSender().getLevel().setWeatherParameters(0, duration, true, true);
             }
         });
 

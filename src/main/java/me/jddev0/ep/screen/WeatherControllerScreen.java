@@ -1,5 +1,6 @@
 package me.jddev0.ep.screen;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
@@ -20,6 +21,11 @@ import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class WeatherControllerScreen extends AbstractGenericEnergyStorageContainerScreen<WeatherControllerMenu> {
+    private final ResourceLocation CONFIGURATION_ICONS_TEXTURE =
+            new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+    private final ResourceLocation UPGRADE_VIEW_TEXTURE =
+            new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png");
+
     public WeatherControllerScreen(WeatherControllerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/weather_controller.png"),
@@ -30,20 +36,29 @@ public class WeatherControllerScreen extends AbstractGenericEnergyStorageContain
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
         if(mouseButton == 0) {
             boolean clicked = false;
-            if(isHovering(52, 34, 18, 18, mouseX, mouseY)) {
-                //Weather clear button
+            if(!menu.isInUpgradeModuleView()) {
+                if(isHovering(52, 34, 18, 18, mouseX, mouseY)) {
+                    //Weather clear button
 
-                ModMessages.sendToServer(new SetWeatherFromWeatherControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 0));
-                clicked = true;
-            }else if(isHovering(88, 34, 18, 18, mouseX, mouseY)) {
-                //Weather rain button
+                    ModMessages.sendToServer(new SetWeatherFromWeatherControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 0));
+                    clicked = true;
+                }else if(isHovering(88, 34, 18, 18, mouseX, mouseY)) {
+                    //Weather rain button
 
-                ModMessages.sendToServer(new SetWeatherFromWeatherControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 1));
-                clicked = true;
-            }else if(isHovering(124, 34, 18, 18, mouseX, mouseY)) {
-                //Weather thunder button
+                    ModMessages.sendToServer(new SetWeatherFromWeatherControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 1));
+                    clicked = true;
+                }else if(isHovering(124, 34, 18, 18, mouseX, mouseY)) {
+                    //Weather thunder button
 
-                ModMessages.sendToServer(new SetWeatherFromWeatherControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 2));
+                    ModMessages.sendToServer(new SetWeatherFromWeatherControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 2));
+                    clicked = true;
+                }
+            }
+
+            if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
+                //Upgrade view
+
+                minecraft.gameMode.handleInventoryButtonClick(menu.containerId, 0);
                 clicked = true;
             }
 
@@ -61,8 +76,16 @@ public class WeatherControllerScreen extends AbstractGenericEnergyStorageContain
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        renderButtons(poseStack, x, y, mouseX, mouseY);
-        renderInfoText(poseStack, x, y);
+        if(menu.isInUpgradeModuleView()) {
+            RenderSystem.setShaderTexture(0, UPGRADE_VIEW_TEXTURE);
+            blit(poseStack, x, y, 0, 0, imageWidth, imageHeight);
+            RenderSystem.setShaderTexture(0, TEXTURE);
+        }else {
+            renderButtons(poseStack, x, y, mouseX, mouseY);
+            renderInfoText(poseStack, x, y);
+        }
+
+        renderConfiguration(poseStack, x, y, mouseX, mouseY);
     }
 
     private void renderButtons(PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
@@ -91,29 +114,54 @@ public class WeatherControllerScreen extends AbstractGenericEnergyStorageContain
         font.draw(poseStack, component, x + 34 + (126 - componentWidth) * .5f, y + 58, 0);
     }
 
+    private void renderConfiguration(PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
+        RenderSystem.setShaderTexture(0, CONFIGURATION_ICONS_TEXTURE);
+
+        //Upgrade view
+        if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
+            blit(poseStack, x - 22, y + 2, 40, 80, 20, 20);
+        }else if(menu.isInUpgradeModuleView()) {
+            blit(poseStack, x - 22, y + 2, 20, 80, 20, 20);
+        }else {
+            blit(poseStack, x - 22, y + 2, 0, 80, 20, 20);
+        }
+    }
+
     @Override
     protected void renderTooltip(PoseStack poseStack, int mouseX, int mouseY) {
         super.renderTooltip(poseStack, mouseX, mouseY);
 
-        if(isHovering(52, 34, 18, 18, mouseX, mouseY)) {
-            //Weather clear button
+        if(!menu.isInUpgradeModuleView()) {
+            if(isHovering(52, 34, 18, 18, mouseX, mouseY)) {
+                //Weather clear button
+
+                List<Component> components = new ArrayList<>(2);
+                components.add(Component.translatable("tooltip.energizedpower.weather_controller.btn.clear"));
+
+                renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            }else if(isHovering(88, 34, 18, 18, mouseX, mouseY)) {
+                //Weather rain button
+
+                List<Component> components = new ArrayList<>(2);
+                components.add(Component.translatable("tooltip.energizedpower.weather_controller.btn.rain"));
+
+                renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            }else if(isHovering(124, 34, 18, 18, mouseX, mouseY)) {
+                //Weather thunder button
+
+                List<Component> components = new ArrayList<>(2);
+                components.add(Component.translatable("tooltip.energizedpower.weather_controller.btn.thunder"));
+
+                renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            }
+        }
+
+        if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
+            //Upgrade view
 
             List<Component> components = new ArrayList<>(2);
-            components.add(Component.translatable("tooltip.energizedpower.weather_controller.btn.clear"));
-
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }else if(isHovering(88, 34, 18, 18, mouseX, mouseY)) {
-            //Weather rain button
-
-            List<Component> components = new ArrayList<>(2);
-            components.add(Component.translatable("tooltip.energizedpower.weather_controller.btn.rain"));
-
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }else if(isHovering(124, 34, 18, 18, mouseX, mouseY)) {
-            //Weather thunder button
-
-            List<Component> components = new ArrayList<>(2);
-            components.add(Component.translatable("tooltip.energizedpower.weather_controller.btn.thunder"));
+            components.add(Component.translatable("tooltip.energizedpower.upgrade_view.button." +
+                    (menu.isInUpgradeModuleView()?"close":"open")));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
         }

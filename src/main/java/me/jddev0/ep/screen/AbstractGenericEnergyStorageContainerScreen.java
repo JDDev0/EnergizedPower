@@ -75,9 +75,11 @@ public abstract class AbstractGenericEnergyStorageContainerScreen<T extends Abst
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        blit(poseStack, x, y, 0, 0, imageWidth, imageHeight);
-        renderEnergyMeter(poseStack, x, y);
-        renderEnergyIndicatorBar(poseStack, x, y);
+        if(!menu.isInUpgradeModuleView()) {
+            blit(poseStack, x, y, 0, 0, imageWidth, imageHeight);
+            renderEnergyMeter(poseStack, x, y);
+            renderEnergyIndicatorBar(poseStack, x, y);
+        }
     }
 
     protected void renderEnergyMeter(PoseStack poseStack, int x, int y) {
@@ -106,16 +108,18 @@ public abstract class AbstractGenericEnergyStorageContainerScreen<T extends Abst
     protected void renderTooltip(PoseStack poseStack, int mouseX, int mouseY) {
         super.renderTooltip(poseStack, mouseX, mouseY);
 
-        if(isHovering(energyMeterX, energyMeterY, energyMeterWidth, energyMeterHeight, mouseX, mouseY)) {
-            List<Component> components = new ArrayList<>(2);
-            components.add(Component.translatable("tooltip.energizedpower.energy_meter.content.txt",
-                    EnergyUtils.getEnergyWithPrefix(menu.getEnergy()), EnergyUtils.getEnergyWithPrefix(menu.getCapacity())));
-            if(menu.getEnergyIndicatorBarValue() > 0 && energyIndicatorBarTooltipComponentID != null) {
-                components.add(Component.translatable(energyIndicatorBarTooltipComponentID,
-                        EnergyUtils.getEnergyWithPrefix(menu.getEnergyIndicatorBarValue())).withStyle(ChatFormatting.YELLOW));
-            }
+        if(!menu.isInUpgradeModuleView()) {
+            if(isHovering(energyMeterX, energyMeterY, energyMeterWidth, energyMeterHeight, mouseX, mouseY)) {
+                List<Component> components = new ArrayList<>(2);
+                components.add(Component.translatable("tooltip.energizedpower.energy_meter.content.txt",
+                        EnergyUtils.getEnergyWithPrefix(menu.getEnergy()), EnergyUtils.getEnergyWithPrefix(menu.getCapacity())));
+                if(menu.getEnergyIndicatorBarValue() > 0 && energyIndicatorBarTooltipComponentID != null) {
+                    components.add(Component.translatable(energyIndicatorBarTooltipComponentID,
+                            EnergyUtils.getEnergyWithPrefix(menu.getEnergyIndicatorBarValue())).withStyle(ChatFormatting.YELLOW));
+                }
 
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+                renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            }
         }
     }
 }

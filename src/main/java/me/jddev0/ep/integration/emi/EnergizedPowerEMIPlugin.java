@@ -33,7 +33,11 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(ModBlocks.AUTO_CRAFTER_ITEM.get()));
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(ModBlocks.ADVANCED_AUTO_CRAFTER_ITEM.get()));
         registry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(ModBlocks.POWERED_FURNACE_ITEM.get()));
+        registry.addWorkstation(VanillaEmiRecipeCategories.BLASTING, EmiStack.of(ModBlocks.POWERED_FURNACE_ITEM.get()));
+        registry.addWorkstation(VanillaEmiRecipeCategories.SMOKING, EmiStack.of(ModBlocks.POWERED_FURNACE_ITEM.get()));
         registry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()));
+        registry.addWorkstation(VanillaEmiRecipeCategories.BLASTING, EmiStack.of(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()));
+        registry.addWorkstation(VanillaEmiRecipeCategories.SMOKING, EmiStack.of(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()));
 
         registry.addCategory(ChargerEMIRecipe.CATEGORY);
         registry.addWorkstation(ChargerEMIRecipe.CATEGORY, ChargerEMIRecipe.ITEM);
