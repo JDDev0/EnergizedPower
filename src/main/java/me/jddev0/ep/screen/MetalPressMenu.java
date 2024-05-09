@@ -2,8 +2,12 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.MetalPressBlockEntity;
+import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,14 +23,21 @@ public class MetalPressMenu extends AbstractContainerMenu implements EnergyStora
     private final MetalPressBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
+    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public MetalPressMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(9));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
+                UpgradeModuleModifier.SPEED,
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        ), new SimpleContainerData(9));
     }
 
-    public MetalPressMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
+    public MetalPressMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
+                          ContainerData data) {
         super(ModMenuTypes.METAL_PRESS_MENU.get(), id);
 
+        checkContainerSize(upgradeModuleInventory, 3);
         checkContainerDataCount(data, 9);
         this.blockEntity = (MetalPressBlockEntity)blockEntity;
         this.level = inv.player.level();
@@ -36,12 +47,49 @@ public class MetalPressMenu extends AbstractContainerMenu implements EnergyStora
         addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
-            addSlot(new SlotItemHandler(itemHandler, 0, 48, 35));
-            addSlot(new SlotItemHandler(itemHandler, 1, 84, 23));
-            addSlot(new SlotItemHandler(itemHandler, 2, 124, 35));
+            addSlot(new SlotItemHandler(itemHandler, 0, 48, 35) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new SlotItemHandler(itemHandler, 1, 84, 23) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new SlotItemHandler(itemHandler, 2, 124, 35) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
         });
 
+        for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
+
         addDataSlots(this.data);
+
+        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
+        addDataSlots(upgradeModuleViewContainerData);
+    }
+
+    @Override
+    public boolean isInUpgradeModuleView() {
+        return upgradeModuleViewContainerData.isInUpgradeModuleView();
+    }
+
+    @Override
+    public boolean clickMenuButton(Player player, int index) {
+        if(index == 0) {
+            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
+
+            broadcastChanges();
+        }
+
+        return false;
     }
 
     @Override
@@ -96,13 +144,14 @@ public class MetalPressMenu extends AbstractContainerMenu implements EnergyStora
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
-            //Player inventory slot -> Merge into tile inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 2, false)) {
+            //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
+            if(!moveItemStackTo(sourceItem, 4 * 9 + 3, 4 * 9 + 3 + 3, false) &&
+                    !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 2, false)) {
                 //"+2" instead of "+3": Do not allow adding to output slot
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 3) {
-            //Tile inventory slot -> Merge into player inventory
+        }else if(index < 4 * 9 + 3 + 3) {
+            //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }

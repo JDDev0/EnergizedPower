@@ -73,7 +73,7 @@ public class ExtractOnlyEnergyStorage implements IEnergizedPowerEnergyStorage {
         if(!canExtract())
             return 0;
 
-        int extracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
+        int extracted = Math.min(energy, Math.min(getMaxExtract(), maxExtract));
 
         if(!simulate) {
             energy -= extracted;
@@ -84,13 +84,13 @@ public class ExtractOnlyEnergyStorage implements IEnergizedPowerEnergyStorage {
     }
 
     @Override
-    public int getEnergyStored() {
-        return energy;
+    public final int getEnergyStored() {
+        return getEnergy();
     }
 
     @Override
-    public int getMaxEnergyStored() {
-        return capacity;
+    public final int getMaxEnergyStored() {
+        return getCapacity();
     }
 
     @Override

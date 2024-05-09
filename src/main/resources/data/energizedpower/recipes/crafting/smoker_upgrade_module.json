@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "forge:plates/copper"
+    },
+    "s": {
+      "tag": "forge:silicon"
+    },
+    "R": {
+      "tag": "forge:dusts/redstone"
+    },
+    "B": {
+      "item": "energizedpower:basic_upgrade_module"
+    },
+    "S": {
+      "item": "minecraft:smoker"
+    }
+  },
+  "pattern": [
+    "CsC",
+    "RBR",
+    "CSC"
+  ],
+  "result": {
+    "item": "energizedpower:smoker_upgrade_module"
+  }
+}

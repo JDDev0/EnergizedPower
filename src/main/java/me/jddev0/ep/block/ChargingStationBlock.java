@@ -60,6 +60,20 @@ public class ChargingStationBlock extends BaseEntityBlock {
     }
 
     @Override
+    public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
+        if(state.getBlock() == newState.getBlock())
+            return;
+
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof ChargingStationBlockEntity))
+            return;
+
+        ((ChargingStationBlockEntity)blockEntity).drops(level, blockPos);
+
+        super.onRemove(state, level, blockPos, newState, isMoving);
+    }
+
+    @Override
     public InteractionResult use(BlockState state, Level level, BlockPos blockPos, Player player, InteractionHand handItem, BlockHitResult hit) {
         if(level.isClientSide())
             return InteractionResult.sidedSuccess(level.isClientSide());

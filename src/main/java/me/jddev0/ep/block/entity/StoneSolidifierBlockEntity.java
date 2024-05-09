@@ -7,10 +7,12 @@ import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
@@ -30,6 +32,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.ContainerListener;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -63,6 +66,8 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_STONE_SOLIDIFIER_CONSUMPTION_PER_TICK.getValue();
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_STONE_SOLIDIFIER_TANK_CAPACITY.getValue();
 
+    private static final int RECIPE_DURATION = ModConfigs.COMMON_CSTONE_SOLIDIFIER_RECIPE_DURATION.getValue();
+
     private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -81,6 +86,13 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> false, i -> i == 0));
 
+    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.SPEED,
+            UpgradeModuleModifier.ENERGY_CONSUMPTION,
+            UpgradeModuleModifier.ENERGY_CAPACITY
+    );
+    private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
+
     private final ReceiveOnlyEnergyStorage energyStorage;
 
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
@@ -93,7 +105,7 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
     private ResourceLocation currentRecipeIdForLoad = null;
     private StoneSolidifierRecipe currentRecipe = null;
     private int progress;
-    private int maxProgress = ModConfigs.COMMON_CSTONE_SOLIDIFIER_RECIPE_DURATION.getValue();
+    private int maxProgress;
     private int energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
 
@@ -103,15 +115,29 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
     public StoneSolidifierBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.STONE_SOLIDIFIER_ENTITY.get(), blockPos, blockState);
 
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_STONE_SOLIDIFIER_CAPACITY.getValue(),
                 ModConfigs.COMMON_STONE_SOLIDIFIER_TRANSFER_RATE.getValue()) {
+            @Override
+            public int getCapacity() {
+                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            public int getMaxReceive() {
+                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+
             @Override
             protected void onChange() {
                 setChanged();
 
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
+                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
                             getBlockPos(), level.dimension(), 32
                     );
             }
@@ -195,7 +221,7 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
 
         ModMessages.sendToPlayer(new SyncStoneSolidifierCurrentRecipeS2CPacket(getBlockPos(), currentRecipe), (ServerPlayer)player);
 
-        return new StoneSolidifierMenu(id, inventory, this, data);
+        return new StoneSolidifierMenu(id, inventory, this, upgradeModuleInventory, data);
     }
 
     public int getRedstoneOutput() {
@@ -242,6 +268,9 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT());
+
         nbt.put("inventory", itemHandler.serializeNBT());
         nbt.put("energy", energyStorage.saveNBT());
         for(int i = 0;i < fluidStorage.getTanks();i++)
@@ -251,6 +280,7 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
             nbt.put("recipe.id", StringTag.valueOf(currentRecipe.getId().toString()));
 
         nbt.put("recipe.progress", IntTag.valueOf(progress));
+        nbt.put("recipe.max_progress", IntTag.valueOf(maxProgress));
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
@@ -262,6 +292,11 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
     @Override
     public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
+
+        //Load Upgrade Module Inventory first
+        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"));
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
         energyStorage.loadNBT(nbt.get("energy"));
@@ -278,6 +313,7 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
         }
 
         progress = nbt.getInt("recipe.progress");
+        maxProgress = nbt.getInt("recipe.max_progress");
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
@@ -290,6 +326,8 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         Containers.dropContents(level, worldPosition, inventory);
+
+        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, StoneSolidifierBlockEntity blockEntity) {
@@ -313,10 +351,17 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
             if(blockEntity.currentRecipe == null)
                 return;
 
-            if(blockEntity.energyConsumptionLeft < 0)
-                blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK * blockEntity.maxProgress;
+            if(blockEntity.maxProgress == 0)
+                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(RECIPE_DURATION /
+                        blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
 
-            if(ENERGY_USAGE_PER_TICK <= blockEntity.energyStorage.getEnergy()) {
+            int energyConsumptionPerTick = Math.max(1, (int)Math.ceil(ENERGY_USAGE_PER_TICK *
+                    blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
+
+            if(blockEntity.energyConsumptionLeft < 0)
+                blockEntity.energyConsumptionLeft = energyConsumptionPerTick * blockEntity.maxProgress;
+
+            if(energyConsumptionPerTick <= blockEntity.energyStorage.getEnergy()) {
                 blockEntity.hasEnoughEnergy = true;
 
                 if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
@@ -328,8 +373,8 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
                     return;
                 }
 
-                blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - ENERGY_USAGE_PER_TICK);
-                blockEntity.energyConsumptionLeft -= ENERGY_USAGE_PER_TICK;
+                blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
+                blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
 
                 blockEntity.progress++;
                 if(blockEntity.progress >= blockEntity.maxProgress)
@@ -348,6 +393,7 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
 
     private void resetProgress(BlockPos blockPos, BlockState state) {
         progress = 0;
+        maxProgress = 0;
         energyConsumptionLeft = -1;
         hasEnoughEnergy = true;
     }
@@ -438,6 +484,16 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
 
     public @Nullable StoneSolidifierRecipe getCurrentRecipe() {
         return currentRecipe;
+    }
+
+    private void updateUpgradeModules() {
+        resetProgress(getBlockPos(), getBlockState());
+        setChanged();
+        if(level != null && !level.isClientSide())
+            ModMessages.sendToPlayersWithinXBlocks(
+                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
+                    getBlockPos(), level.dimension(), 32
+            );
     }
 
     public FluidStack getFluid(int tank) {
