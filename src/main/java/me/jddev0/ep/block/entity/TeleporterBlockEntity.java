@@ -187,7 +187,7 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
     public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory.stacks);
+        ItemScatterer.spawn(level, worldPosition, internalInventory);
     }
 
     public void setChangedAndUpdateReadyState() {

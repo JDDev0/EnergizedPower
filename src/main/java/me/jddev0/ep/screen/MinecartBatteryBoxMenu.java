@@ -8,11 +8,10 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class MinecartBatteryBoxMenu extends ScreenHandler implements EnergyStorageMenu {
+public class MinecartBatteryBoxMenu extends AbstractEnergizedPowerScreenHandler implements EnergyStorageMenu {
     private final Inventory inv;
     private final World level;
     private final PropertyDelegate data;

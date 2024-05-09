@@ -8,12 +8,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class MinecartUnchargerMenu extends ScreenHandler implements EnergyStorageMenu {
+public class MinecartUnchargerMenu extends AbstractEnergizedPowerScreenHandler implements EnergyStorageMenu {
     private final MinecartUnchargerBlockEntity blockEntity;
     private final World level;
 

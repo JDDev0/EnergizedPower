@@ -11,13 +11,18 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
@@ -26,11 +31,20 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 public class WeatherControllerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
     public static final long CAPACITY = ModConfigs.COMMON_WEATHER_CONTROLLER_CAPACITY.getValue();
 
+    private static int WEATHER_CHANGED_TICKS = ModConfigs.COMMON_WEATHER_CONTROLLER_CONTROL_DURATION.getValue();
+
+    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.DURATION
+    );
+    private final InventoryChangedListener updateUpgradeModuleListener = container -> updateUpgradeModules();
+
     final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     public WeatherControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.WEATHER_CONTROLLER_ENTITY, blockPos, blockState);
+
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
@@ -68,7 +82,7 @@ public class WeatherControllerBlockEntity extends BlockEntity implements Extende
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
         
-        return new WeatherControllerMenu(id, this, inventory);
+        return new WeatherControllerMenu(id, this, inventory, upgradeModuleInventory);
     }
 
     @Override
@@ -86,6 +100,9 @@ public class WeatherControllerBlockEntity extends BlockEntity implements Extende
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT());
+
         nbt.putLong("energy", internalEnergyStorage.getAmount());
 
         super.writeNbt(nbt);
@@ -95,7 +112,36 @@ public class WeatherControllerBlockEntity extends BlockEntity implements Extende
     public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
 
+        //Load Upgrade Module Inventory first
+        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"));
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
+    }
+
+    public void drops(World level, BlockPos worldPosition) {
+        ItemScatterer.spawn(level, worldPosition, upgradeModuleInventory);
+    }
+
+    public int getWeatherChangedDuration() {
+        return (int)Math.max(1, WEATHER_CHANGED_TICKS *
+                upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.DURATION));
+    }
+
+    private void updateUpgradeModules() {
+        markDirty();
+        if(world != null && !world.isClient()) {
+            PacketByteBuf buffer = PacketByteBufs.create();
+            buffer.writeLong(internalEnergyStorage.getAmount());
+            buffer.writeLong(internalEnergyStorage.getCapacity());
+            buffer.writeBlockPos(getPos());
+
+            ModMessages.sendServerPacketToPlayersWithinXBlocks(
+                    getPos(), (ServerWorld)world, 32,
+                    ModMessages.ENERGY_SYNC_ID, buffer
+            );
+        }
     }
 
     public long getEnergy() {

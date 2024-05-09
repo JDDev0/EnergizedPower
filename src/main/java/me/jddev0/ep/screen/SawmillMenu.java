@@ -4,8 +4,12 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.SawmillBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.SawmillRecipe;
+import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.entity.BlockEntity;
@@ -17,16 +21,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class SawmillMenu extends ScreenHandler implements EnergyStorageConsumerIndicatorBarMenu {
+public class SawmillMenu extends AbstractEnergizedPowerScreenHandler
+        implements EnergyStorageConsumerIndicatorBarMenu {
     private final SawmillBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
     private final PropertyDelegate data;
+    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public SawmillMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
         this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(3) {
@@ -38,16 +43,22 @@ public class SawmillMenu extends ScreenHandler implements EnergyStorageConsumerI
                     default -> super.isValid(slot, stack);
                 };
             }
-        }, new ArrayPropertyDelegate(11));
+        }, new UpgradeModuleInventory(
+                UpgradeModuleModifier.SPEED,
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        ), new ArrayPropertyDelegate(11));
     }
 
-    public SawmillMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
+    public SawmillMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
+                       UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(ModMenuTypes.SAWMILL_MENU, id);
 
         this.blockEntity = (SawmillBlockEntity)blockEntity;
 
         this.inv = inv;
         checkSize(this.inv, 3);
+        checkSize(upgradeModuleInventory, 3);
         checkDataCount(data, 11);
         this.level = playerInventory.player.world;
         this.inv.onOpen(playerInventory.player);
@@ -56,11 +67,48 @@ public class SawmillMenu extends ScreenHandler implements EnergyStorageConsumerI
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
-        addSlot(new ConstraintInsertSlot(this.inv, 0, 43, 35));
-        addSlot(new ConstraintInsertSlot(this.inv, 1, 107, 35));
-        addSlot(new ConstraintInsertSlot(this.inv, 2, 134, 35));
+        addSlot(new ConstraintInsertSlot(this.inv, 0, 43, 35) {
+            @Override
+            public boolean isEnabled() {
+                return super.isEnabled() && !isInUpgradeModuleView();
+            }
+        });
+        addSlot(new ConstraintInsertSlot(this.inv, 1, 107, 35) {
+            @Override
+            public boolean isEnabled() {
+                return super.isEnabled() && !isInUpgradeModuleView();
+            }
+        });
+        addSlot(new ConstraintInsertSlot(this.inv, 2, 134, 35) {
+            @Override
+            public boolean isEnabled() {
+                return super.isEnabled() && !isInUpgradeModuleView();
+            }
+        });
+
+        for(int i = 0;i < upgradeModuleInventory.size();i++)
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
 
         addProperties(this.data);
+
+        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
+        addProperties(upgradeModuleViewContainerData);
+    }
+
+    @Override
+    public boolean isInUpgradeModuleView() {
+        return upgradeModuleViewContainerData.isInUpgradeModuleView();
+    }
+
+    @Override
+    public boolean onButtonClick(PlayerEntity player, int index) {
+        if(index == 0) {
+            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
+
+            sendContentUpdates();
+        }
+
+        return false;
     }
 
     @Override
@@ -115,13 +163,14 @@ public class SawmillMenu extends ScreenHandler implements EnergyStorageConsumerI
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
-            //Player inventory slot -> Merge into tile inventory
-            if(!insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
+            //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
+            if(!insertMaxCount1Item(sourceItem, 4 * 9 + 3, 4 * 9 + 3 + 3, false) &&
+                    !insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 //"+1" instead of "+3": Do not allow adding to output slots
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 3) {
-            //Tile inventory slot -> Merge into player inventory
+        }else if(index < 4 * 9 + 3 + 3) {
+            //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!insertItem(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }

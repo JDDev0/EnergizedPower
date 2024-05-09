@@ -11,12 +11,11 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class TeleporterMenu extends ScreenHandler implements EnergyStorageMenu {
+public class TeleporterMenu extends AbstractEnergizedPowerScreenHandler implements EnergyStorageMenu {
     private final TeleporterBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -76,8 +75,7 @@ public class TeleporterMenu extends ScreenHandler implements EnergyStorageMenu {
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into tile inventory
-            //Allow only 1 item
-            if(slots.get(4 * 9).hasStack() || !insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
+            if(!insertMaxCount1Item(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 return ItemStack.EMPTY;
             }
         }else if(index < 4 * 9 + 1) {

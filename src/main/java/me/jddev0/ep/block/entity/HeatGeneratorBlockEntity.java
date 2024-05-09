@@ -2,6 +2,8 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.HeatGeneratorRecipe;
 import me.jddev0.ep.screen.HeatGeneratorMenu;
@@ -14,12 +16,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -38,13 +42,25 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
 
     public static final double ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_HEAT_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
+    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.ENERGY_CAPACITY
+    );
+    private final InventoryChangedListener updateUpgradeModuleListener = container -> updateUpgradeModules();
+
     final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.HEAT_GENERATOR_ENTITY, blockPos, blockState);
 
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
+            @Override
+            public long getCapacity() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
             @Override
             protected void onFinalCommit() {
                 markDirty();
@@ -62,7 +78,13 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
                 }
             }
         };
-        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, 0, MAX_EXTRACT);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, 0, MAX_EXTRACT) {
+            @Override
+            public long getMaxExtract() {
+                return Math.max(1, (long)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+        };
     }
 
     @Override
@@ -80,7 +102,7 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
         
-        return new HeatGeneratorMenu(id, this, inventory);
+        return new HeatGeneratorMenu(id, this, inventory, upgradeModuleInventory);
     }
 
     @Override
@@ -90,6 +112,9 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT());
+
         nbt.putLong("energy", internalEnergyStorage.getAmount());
 
         super.writeNbt(nbt);
@@ -99,7 +124,16 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
     public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
 
+        //Load Upgrade Module Inventory first
+        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"));
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
+    }
+
+    public void drops(World level, BlockPos worldPosition) {
+        ItemScatterer.spawn(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, HeatGeneratorBlockEntity blockEntity) {
@@ -143,7 +177,7 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
 
         List<EnergyStorage> consumerItems = new LinkedList<>();
         List<Long> consumerEnergyValues = new LinkedList<>();
-        int consumptionSum = 0;
+        long consumptionSum = 0;
         for(Direction direction:Direction.values()) {
             BlockPos testPos = blockPos.offset(direction);
 
@@ -159,7 +193,8 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
                 continue;
 
             try(Transaction transaction = Transaction.openOuter()) {
-                long received = energyStorage.insert(Math.min(MAX_EXTRACT, blockEntity.internalEnergyStorage.getAmount()), transaction);
+                long received = energyStorage.insert(Math.min(blockEntity.energyStorage.getMaxExtract(),
+                        blockEntity.internalEnergyStorage.getAmount()), transaction);
                 if(received <= 0)
                     continue;
 
@@ -173,7 +208,8 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0L);
 
-        long consumptionLeft = Math.min(MAX_EXTRACT, Math.min(blockEntity.internalEnergyStorage.getAmount(), consumptionSum));
+        long consumptionLeft = Math.min(blockEntity.energyStorage.getMaxExtract(),
+                Math.min(blockEntity.internalEnergyStorage.getAmount(), consumptionSum));
         try(Transaction transaction = Transaction.openOuter()) {
             blockEntity.internalEnergyStorage.extract(consumptionLeft, transaction);
             transaction.commit();
@@ -208,6 +244,21 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements ExtendedScr
                     transaction.commit();
                 }
             }
+        }
+    }
+
+    private void updateUpgradeModules() {
+        markDirty();
+        if(world != null && !world.isClient()) {
+            PacketByteBuf buffer = PacketByteBufs.create();
+            buffer.writeLong(internalEnergyStorage.getAmount());
+            buffer.writeLong(internalEnergyStorage.getCapacity());
+            buffer.writeBlockPos(getPos());
+
+            ModMessages.sendServerPacketToPlayersWithinXBlocks(
+                    getPos(), (ServerWorld)world, 32,
+                    ModMessages.ENERGY_SYNC_ID, buffer
+            );
         }
     }
 

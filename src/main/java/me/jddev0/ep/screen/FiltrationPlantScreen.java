@@ -39,7 +39,11 @@ import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class FiltrationPlantScreen extends AbstractGenericEnergyStorageHandledScreen<FiltrationPlantMenu> {
-    private final Identifier CONFIGURATION_ICONS_TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+    private final Identifier CONFIGURATION_ICONS_TEXTURE =
+            new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+    private final Identifier UPGRADE_VIEW_TEXTURE =
+            new Identifier(EnergizedPowerMod.MODID,
+                    "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png");
 
     public FiltrationPlantScreen(FiltrationPlantMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
@@ -52,35 +56,42 @@ public class FiltrationPlantScreen extends AbstractGenericEnergyStorageHandledSc
         if(mouseButton == 0) {
             boolean clicked = false;
 
-            int diff = 0;
+            if(!handler.isInUpgradeModuleView()) {
+                int diff = 0;
 
-            //Up button
-            if(isPointWithinBounds(85, 19, 11, 12, mouseX, mouseY)) {
-                diff = 1;
-                clicked = true;
-            }
+                //Up button
+                if(isPointWithinBounds(85, 19, 11, 12, mouseX, mouseY)) {
+                    diff = 1;
+                    clicked = true;
+                }
 
-            //Down button
-            if(isPointWithinBounds(116, 19, 11, 12, mouseX, mouseY)) {
-                diff = -1;
-                clicked = true;
-            }
+                //Down button
+                if(isPointWithinBounds(116, 19, 11, 12, mouseX, mouseY)) {
+                    diff = -1;
+                    clicked = true;
+                }
 
-            if(diff != 0) {
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                buf.writeBoolean(diff == 1);
-                ClientPlayNetworking.send(ModMessages.CHANGE_FILTRATION_PLANT_RECIPE_INDEX_ID, buf);
+                if(diff != 0) {
+                    PacketByteBuf buf = PacketByteBufs.create();
+                    buf.writeBlockPos(handler.getBlockEntity().getPos());
+                    buf.writeBoolean(diff == 1);
+                    ClientPlayNetworking.send(ModMessages.CHANGE_FILTRATION_PLANT_RECIPE_INDEX_ID, buf);
+                }
             }
 
             if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+                //Upgrade view
+
+                client.interactionManager.clickButton(handler.syncId, 0);
+                clicked = true;
+            }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
 
                 PacketByteBuf buf = PacketByteBufs.create();
                 buf.writeBlockPos(handler.getBlockEntity().getPos());
                 ClientPlayNetworking.send(ModMessages.CHANGE_REDSTONE_MODE_ID, buf);
                 clicked = true;
-            }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+            }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
                 //Comparator Mode
 
                 PacketByteBuf buf = PacketByteBufs.create();
@@ -103,16 +114,22 @@ public class FiltrationPlantScreen extends AbstractGenericEnergyStorageHandledSc
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        for(int i = 0;i < 2;i++) {
-            renderFluidMeterContent(i, poseStack, x, y);
-            renderFluidMeterOverlay(i, poseStack, x, y);
+        if(handler.isInUpgradeModuleView()) {
+            RenderSystem.setShaderTexture(0, UPGRADE_VIEW_TEXTURE);
+            drawTexture(poseStack, x, y, 0, 0, backgroundWidth, backgroundHeight);
+            RenderSystem.setShaderTexture(0, TEXTURE);
+        }else {
+            for(int i = 0;i < 2;i++) {
+                renderFluidMeterContent(i, poseStack, x, y);
+                renderFluidMeterOverlay(i, poseStack, x, y);
+            }
+
+            renderCurrentRecipeOutput(poseStack, x, y);
+
+            renderButtons(poseStack, x, y, mouseX, mouseY);
+
+            renderProgressArrows(poseStack, x, y);
         }
-
-        renderCurrentRecipeOutput(poseStack, x, y);
-
-        renderButtons(poseStack, x, y, mouseX, mouseY);
-
-        renderProgressArrows(poseStack, x, y);
 
         renderConfiguration(poseStack, x, y, mouseX, mouseY);
     }
@@ -224,23 +241,33 @@ public class FiltrationPlantScreen extends AbstractGenericEnergyStorageHandledSc
     }
 
     private void renderConfiguration(MatrixStack poseStack, int x, int y, int mouseX, int mouseY) {
+        RenderSystem.setShaderTexture(0, CONFIGURATION_ICONS_TEXTURE);
+
+        //Upgrade view
+        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            drawTexture(poseStack, x - 22, y + 2, 40, 80, 20, 20);
+        }else if(handler.isInUpgradeModuleView()) {
+            drawTexture(poseStack, x - 22, y + 2, 20, 80, 20, 20);
+        }else {
+            drawTexture(poseStack, x - 22, y + 2, 0, 80, 20, 20);
+        }
+
         RedstoneMode redstoneMode = handler.getRedstoneMode();
         int ordinal = redstoneMode.ordinal();
 
-        RenderSystem.setShaderTexture(0, CONFIGURATION_ICONS_TEXTURE);
-        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
-            drawTexture(poseStack, x - 22, y + 2, 20 * ordinal, 20, 20, 20);
+        if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+            drawTexture(poseStack, x - 22, y + 26, 20 * ordinal, 20, 20, 20);
         }else {
-            drawTexture(poseStack, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
+            drawTexture(poseStack, x - 22, y + 26, 20 * ordinal, 0, 20, 20);
         }
 
         ComparatorMode comparatorMode = handler.getComparatorMode();
         ordinal = comparatorMode.ordinal();
 
-        if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
-            drawTexture(poseStack, x - 22, y + 26, 20 * ordinal, 60, 20, 20);
+        if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
+            drawTexture(poseStack, x - 22, y + 50, 20 * ordinal, 60, 20, 20);
         }else {
-            drawTexture(poseStack, x - 22, y + 26, 20 * ordinal, 40, 20, 20);
+            drawTexture(poseStack, x - 22, y + 50, 20 * ordinal, 40, 20, 20);
         }
     }
 
@@ -248,92 +275,102 @@ public class FiltrationPlantScreen extends AbstractGenericEnergyStorageHandledSc
     protected void drawMouseoverTooltip(MatrixStack poseStack, int mouseX, int mouseY) {
         super.drawMouseoverTooltip(poseStack, mouseX, mouseY);
 
-        for(int i = 0;i < 2;i++) {
-            //Fluid meter
+        if(!handler.isInUpgradeModuleView()) {
+            for(int i = 0;i < 2;i++) {
+                //Fluid meter
 
-            if(isPointWithinBounds(i == 0?44:152, 17, 16, 52, mouseX, mouseY)) {
+                if(isPointWithinBounds(i == 0?44:152, 17, 16, 52, mouseX, mouseY)) {
+                    List<Text> components = new ArrayList<>(2);
+
+                    boolean fluidEmpty =  handler.getFluid(i).isEmpty();
+
+                    long fluidAmount = fluidEmpty?0:handler.getFluid(i).getMilliBucketsAmount();
+
+                    Text tooltipComponent = Text.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
+                            FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(FluidUtils.
+                                    convertDropletsToMilliBuckets(handler.getTankCapacity(i))));
+
+                    if(!fluidEmpty) {
+                        tooltipComponent = Text.translatable(handler.getFluid(i).getTranslationKey()).append(" ").
+                                append(tooltipComponent);
+                    }
+
+                    components.add(tooltipComponent);
+
+                    renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+                }
+            }
+
+            //Current recipe
+            FiltrationPlantRecipe currentRecipe = handler.getCurrentRecipe();
+            if(currentRecipe != null && isPointWithinBounds(98, 17, 16, 16, mouseX, mouseY)) {
                 List<Text> components = new ArrayList<>(2);
 
-                boolean fluidEmpty =  handler.getFluid(i).isEmpty();
+                ItemStack[] maxOutputs = currentRecipe.getMaxOutputCounts();
+                for(int i = 0;i < maxOutputs.length;i++) {
+                    ItemStack output = maxOutputs[i];
+                    if(output.isEmpty())
+                        continue;
 
-                long fluidAmount = fluidEmpty?0:handler.getFluid(i).getMilliBucketsAmount();
+                    components.add(Text.empty().
+                            append(output.getName()).
+                            append(Text.literal(": ")).
+                            append(Text.translatable("recipes.energizedpower.transfer.output_percentages"))
+                    );
 
-                Text tooltipComponent = Text.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
-                        FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(FluidUtils.
-                                convertDropletsToMilliBuckets(handler.getTankCapacity(i))));
+                    double[] percentages = (i == 0?currentRecipe.getOutputItem():currentRecipe.getSecondaryOutput()).
+                            percentages();
+                    for(int j = 0;j < percentages.length;j++)
+                        components.add(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", j + 1, 100 * percentages[j])));
 
-                if(!fluidEmpty) {
-                    tooltipComponent = Text.translatable(handler.getFluid(i).getTranslationKey()).append(" ").
-                            append(tooltipComponent);
+                    components.add(Text.empty());
                 }
 
-                components.add(tooltipComponent);
+                //Remove trailing empty line
+                if(!components.isEmpty())
+                    components.remove(components.size() - 1);
 
                 renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
             }
-        }
 
-        //Current recipe
-        FiltrationPlantRecipe currentRecipe = handler.getCurrentRecipe();
-        if(currentRecipe != null && isPointWithinBounds(98, 17, 16, 16, mouseX, mouseY)) {
-            List<Text> components = new ArrayList<>(2);
-
-            ItemStack[] maxOutputs = currentRecipe.getMaxOutputCounts();
-            for(int i = 0;i < maxOutputs.length;i++) {
-                ItemStack output = maxOutputs[i];
-                if(output.isEmpty())
-                    continue;
-
-                components.add(Text.empty().
-                        append(output.getName()).
-                        append(Text.literal(": ")).
-                        append(Text.translatable("recipes.energizedpower.transfer.output_percentages"))
-                );
-
-                double[] percentages = (i == 0?currentRecipe.getOutputItem():currentRecipe.getSecondaryOutput()).
-                        percentages();
-                for(int j = 0;j < percentages.length;j++)
-                    components.add(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", j + 1, 100 * percentages[j])));
-
-                components.add(Text.empty());
-            }
-
-            //Remove trailing empty line
-            if(!components.isEmpty())
-                components.remove(components.size() - 1);
-
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }
-
-        //Up button
-        if(isPointWithinBounds(85, 19, 11, 12, mouseX, mouseY)) {
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.filtration_plant.btn.up"));
-
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }
-
-        //Down button
-        if(isPointWithinBounds(116, 19, 11, 12, mouseX, mouseY)) {
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.filtration_plant.btn.down"));
-
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }
-
-        //Missing Charcoal Filter
-        for(int i = 0;i < 2;i++) {
-            if(isPointWithinBounds(62 + 72*i, 44, 16, 16, mouseX, mouseY) &&
-                    handler.getSlot(4 * 9 + i).getStack().isEmpty()) {
+            //Up button
+            if(isPointWithinBounds(85, 19, 11, 12, mouseX, mouseY)) {
                 List<Text> components = new ArrayList<>(2);
-                components.add(Text.translatable("tooltip.energizedpower.filtration_plant.charcoal_filter_missing").
-                        formatted(Formatting.RED));
+                components.add(Text.translatable("tooltip.energizedpower.filtration_plant.btn.up"));
 
                 renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            }
+
+            //Down button
+            if(isPointWithinBounds(116, 19, 11, 12, mouseX, mouseY)) {
+                List<Text> components = new ArrayList<>(2);
+                components.add(Text.translatable("tooltip.energizedpower.filtration_plant.btn.down"));
+
+                renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            }
+
+            //Missing Charcoal Filter
+            for(int i = 0;i < 2;i++) {
+                if(isPointWithinBounds(62 + 72*i, 44, 16, 16, mouseX, mouseY) &&
+                        handler.getSlot(4 * 9 + i).getStack().isEmpty()) {
+                    List<Text> components = new ArrayList<>(2);
+                    components.add(Text.translatable("tooltip.energizedpower.filtration_plant.charcoal_filter_missing").
+                            formatted(Formatting.RED));
+
+                    renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+                }
             }
         }
 
         if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            //Upgrade view
+
+            List<Text> components = new ArrayList<>(2);
+            components.add(Text.translatable("tooltip.energizedpower.upgrade_view.button." +
+                    (handler.isInUpgradeModuleView()?"close":"open")));
+
+            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+        }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
             //Redstone Mode
 
             RedstoneMode redstoneMode = handler.getRedstoneMode();
@@ -342,7 +379,7 @@ public class FiltrationPlantScreen extends AbstractGenericEnergyStorageHandledSc
             components.add(Text.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.asString()));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+        }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
             //Comparator Mode
 
             ComparatorMode comparatorMode = handler.getComparatorMode();

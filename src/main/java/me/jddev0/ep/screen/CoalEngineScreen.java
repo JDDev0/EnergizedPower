@@ -23,7 +23,11 @@ import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class CoalEngineScreen extends AbstractGenericEnergyStorageHandledScreen<CoalEngineMenu> {
-    private final Identifier CONFIGURATION_ICONS_TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+    private final Identifier CONFIGURATION_ICONS_TEXTURE =
+            new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+    private final Identifier UPGRADE_VIEW_TEXTURE =
+            new Identifier(EnergizedPowerMod.MODID,
+                    "textures/gui/container/upgrade_view/1_energy_capacity.png");
 
     public CoalEngineScreen(CoalEngineMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
@@ -37,13 +41,18 @@ public class CoalEngineScreen extends AbstractGenericEnergyStorageHandledScreen<
         if(mouseButton == 0) {
             boolean clicked = false;
             if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+                //Upgrade view
+
+                client.interactionManager.clickButton(handler.syncId, 0);
+                clicked = true;
+            }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
 
                 PacketByteBuf buf = PacketByteBufs.create();
                 buf.writeBlockPos(handler.getBlockEntity().getPos());
                 ClientPlayNetworking.send(ModMessages.CHANGE_REDSTONE_MODE_ID, buf);
                 clicked = true;
-            }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+            }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
                 //Comparator Mode
 
                 PacketByteBuf buf = PacketByteBufs.create();
@@ -66,7 +75,13 @@ public class CoalEngineScreen extends AbstractGenericEnergyStorageHandledScreen<
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        renderProgressFlame(poseStack, x, y);
+        if(handler.isInUpgradeModuleView()) {
+            RenderSystem.setShaderTexture(0, UPGRADE_VIEW_TEXTURE);
+            drawTexture(poseStack, x, y, 0, 0, backgroundWidth, backgroundHeight);
+            RenderSystem.setShaderTexture(0, TEXTURE);
+        }else {
+            renderProgressFlame(poseStack, x, y);
+        }
 
         renderConfiguration(poseStack, x, y, mouseX, mouseY);
     }
@@ -79,23 +94,33 @@ public class CoalEngineScreen extends AbstractGenericEnergyStorageHandledScreen<
     }
 
     private void renderConfiguration(MatrixStack poseStack, int x, int y, int mouseX, int mouseY) {
+        RenderSystem.setShaderTexture(0, CONFIGURATION_ICONS_TEXTURE);
+
+        //Upgrade view
+        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            drawTexture(poseStack, x - 22, y + 2, 40, 80, 20, 20);
+        }else if(handler.isInUpgradeModuleView()) {
+            drawTexture(poseStack, x - 22, y + 2, 20, 80, 20, 20);
+        }else {
+            drawTexture(poseStack, x - 22, y + 2, 0, 80, 20, 20);
+        }
+
         RedstoneMode redstoneMode = handler.getRedstoneMode();
         int ordinal = redstoneMode.ordinal();
 
-        RenderSystem.setShaderTexture(0, CONFIGURATION_ICONS_TEXTURE);
-        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
-            drawTexture(poseStack, x - 22, y + 2, 20 * ordinal, 20, 20, 20);
+        if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+            drawTexture(poseStack, x - 22, y + 26, 20 * ordinal, 20, 20, 20);
         }else {
-            drawTexture(poseStack, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
+            drawTexture(poseStack, x - 22, y + 26, 20 * ordinal, 0, 20, 20);
         }
 
         ComparatorMode comparatorMode = handler.getComparatorMode();
         ordinal = comparatorMode.ordinal();
 
-        if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
-            drawTexture(poseStack, x - 22, y + 26, 20 * ordinal, 60, 20, 20);
+        if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
+            drawTexture(poseStack, x - 22, y + 50, 20 * ordinal, 60, 20, 20);
         }else {
-            drawTexture(poseStack, x - 22, y + 26, 20 * ordinal, 40, 20, 20);
+            drawTexture(poseStack, x - 22, y + 50, 20 * ordinal, 40, 20, 20);
         }
     }
 
@@ -104,6 +129,14 @@ public class CoalEngineScreen extends AbstractGenericEnergyStorageHandledScreen<
         super.drawMouseoverTooltip(poseStack, mouseX, mouseY);
 
         if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            //Upgrade view
+
+            List<Text> components = new ArrayList<>(2);
+            components.add(Text.translatable("tooltip.energizedpower.upgrade_view.button." +
+                    (handler.isInUpgradeModuleView()?"close":"open")));
+
+            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+        }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
             //Redstone Mode
 
             RedstoneMode redstoneMode = handler.getRedstoneMode();
@@ -112,7 +145,7 @@ public class CoalEngineScreen extends AbstractGenericEnergyStorageHandledScreen<
             components.add(Text.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.asString()));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+        }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
             //Comparator Mode
 
             ComparatorMode comparatorMode = handler.getComparatorMode();

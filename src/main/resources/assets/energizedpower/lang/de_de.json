@@ -95,6 +95,47 @@
 
   "item.energizedpower.teleporter_processing_unit": "Teleporter Prozessoreinheit",
 
+  "item.energizedpower.basic_upgrade_module": "Basis Upgrade-Modul",
+  "item.energizedpower.advanced_upgrade_module": "Fortgeschrittenes Upgrade-Modul",
+  "item.energizedpower.reinforced_advanced_upgrade_module": "Verstärktes Fortgeschrittenes Upgrade-Modul",
+
+  "item.energizedpower.speed_upgrade_module_1": "Geschwindigkeits-Upgrade-Modul (MK I)",
+  "item.energizedpower.speed_upgrade_module_2": "Geschwindigkeits-Upgrade-Modul (MK II)",
+  "item.energizedpower.speed_upgrade_module_3": "Geschwindigkeits-Upgrade-Modul (MK III)",
+  "item.energizedpower.speed_upgrade_module_4": "Geschwindigkeits-Upgrade-Modul (MK IV)",
+  "item.energizedpower.speed_upgrade_module_5": "Geschwindigkeits-Upgrade-Modul (MK V)",
+
+  "item.energizedpower.energy_efficiency_upgrade_module_1": "Energie-Effizienz-Upgrade-Modul (MK I)",
+  "item.energizedpower.energy_efficiency_upgrade_module_2": "Energie-Effizienz-Upgrade-Modul (MK II)",
+  "item.energizedpower.energy_efficiency_upgrade_module_3": "Energie-Effizienz-Upgrade-Modul (MK III)",
+  "item.energizedpower.energy_efficiency_upgrade_module_4": "Energie-Effizienz-Upgrade-Modul (MK IV)",
+  "item.energizedpower.energy_efficiency_upgrade_module_5": "Energie-Effizienz-Upgrade-Modul (MK V)",
+
+  "item.energizedpower.energy_capacity_upgrade_module_1": "Energiekapazität-Upgrade-Modul (MK I)",
+  "item.energizedpower.energy_capacity_upgrade_module_2": "Energiekapazität-Upgrade-Modul (MK II)",
+  "item.energizedpower.energy_capacity_upgrade_module_3": "Energiekapazität-Upgrade-Modul (MK III)",
+  "item.energizedpower.energy_capacity_upgrade_module_4": "Energiekapazität-Upgrade-Modul (MK IV)",
+  "item.energizedpower.energy_capacity_upgrade_module_5": "Energiekapazität-Upgrade-Modul (MK V)",
+
+  "item.energizedpower.duration_upgrade_module_1": "Laufzeit-Upgrade-Modul (MK I)",
+  "item.energizedpower.duration_upgrade_module_2": "Laufzeit-Upgrade-Modul (MK II)",
+  "item.energizedpower.duration_upgrade_module_3": "Laufzeit-Upgrade-Modul (MK III)",
+  "item.energizedpower.duration_upgrade_module_4": "Laufzeit-Upgrade-Modul (MK IV)",
+  "item.energizedpower.duration_upgrade_module_5": "Laufzeit-Upgrade-Modul (MK V)",
+
+  "item.energizedpower.range_upgrade_module_1": "Reichweiten-Upgrade-Modul (MK I)",
+  "item.energizedpower.range_upgrade_module_2": "Reichweiten-Upgrade-Modul (MK II)",
+  "item.energizedpower.range_upgrade_module_3": "Reichweiten-Upgrade-Modul (MK III)",
+
+  "item.energizedpower.blast_furnace_upgrade_module": "Schmelzofen-Upgrade-Modul",
+  "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Schmelzofen",
+  "item.energizedpower.smoker_upgrade_module": "Räucherofen-Upgrade-Modul",
+  "item.energizedpower.smoker_upgrade_module.effect_text": "Räucherofen",
+
+  "item.energizedpower.moon_light_upgrade_module_1": "Mondlicht-Upgrade-Modul (MK I)",
+  "item.energizedpower.moon_light_upgrade_module_2": "Mondlicht-Upgrade-Modul (MK II)",
+  "item.energizedpower.moon_light_upgrade_module_3": "Mondlicht-Upgrade-Modul (MK III)",
+
   "item.energizedpower.inventory_coal_engine": "Inventar Kohlegenerator",
   "tooltip.energizedpower.inventory_coal_engine.status": "Status: ",
   "tooltip.energizedpower.inventory_coal_engine.status.activated": "Aktiviert",
@@ -627,6 +668,21 @@
   "tooltip.energizedpower.machine_configuration.comparator_mode.fluid": "Komparator-Mode: Flüssigkeit",
   "tooltip.energizedpower.machine_configuration.comparator_mode.energy": "Komparator-Mode: Energie",
 
+  "tooltip.energizedpower.upgrade_module_modifier.speed": "Produktions-Geschwindigkeit",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Energieverbrauch pro Tick",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_capacity": "Energiekapazität",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "Energie-Transferrate",
+  "tooltip.energizedpower.upgrade_module_modifier.duration": "Laufzeit",
+  "tooltip.energizedpower.upgrade_module_modifier.range": "Reichweite",
+  "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "Ofenmodus",
+  "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Mondlicht",
+
+  "tooltip.energizedpower.upgrade.values": "Upgrade-Modul-Modifikatoren:",
+  "tooltip.energizedpower.upgrade.value": "• %s: %s",
+
+  "tooltip.energizedpower.upgrade_view.button.open": "Upgrade-Ansicht anzeigen",
+  "tooltip.energizedpower.upgrade_view.button.close": "Upgrade-Ansicht schließen",
+
   "itemGroup.energizedpower.tab": "Energized Power",
 
   "entity.minecraft.villager.electrician": "Elektroniker",
@@ -694,6 +750,99 @@
 
   "advancements.energizedpower.processing_unit.title": "Prozessoreinheit",
   "advancements.energizedpower.processing_unit.description": "Erstelle eine Prozessoreinheit.",
+
+  "advancements.energizedpower.basic_upgrade_module.title": "Basis Upgrade-Modul",
+  "advancements.energizedpower.basic_upgrade_module.description": "Erstelle ein Basis Upgrade-Modul.",
+
+  "advancements.energizedpower.advanced_upgrade_module.title": "Fortgeschrittenes Upgrade-Modul",
+  "advancements.energizedpower.advanced_upgrade_module.description": "Erstelle ein fortgeschrittenes Upgrade-Modul.",
+
+  "advancements.energizedpower.reinforced_advanced_upgrade_module.title": "Verstärktes Fortgeschrittenes Upgrade-Modul",
+  "advancements.energizedpower.reinforced_advanced_upgrade_module.description": "Erstelle verstärktes fortgeschrittenes Upgrade-Modul.",
+
+  "advancements.energizedpower.speed_upgrade_module_1.title": "Geschwindigkeit I",
+  "advancements.energizedpower.speed_upgrade_module_1.description": "Erstelle ein Geschwindigkeits-Upgrade-Modul (MK I).",
+
+  "advancements.energizedpower.speed_upgrade_module_2.title": "Geschwindigkeit II",
+  "advancements.energizedpower.speed_upgrade_module_2.description": "Erstelle ein Geschwindigkeits-Upgrade-Modul (MK II).",
+
+  "advancements.energizedpower.speed_upgrade_module_3.title": "Geschwindigkeit III",
+  "advancements.energizedpower.speed_upgrade_module_3.description": "Erstelle ein Geschwindigkeits-Upgrade-Modul (MK III).",
+
+  "advancements.energizedpower.speed_upgrade_module_4.title": "Geschwindigkeit IV",
+  "advancements.energizedpower.speed_upgrade_module_4.description": "Erstelle ein Geschwindigkeits-Upgrade-Modul (MK IV).",
+
+  "advancements.energizedpower.speed_upgrade_module_5.title": "Geschwindigkeit V",
+  "advancements.energizedpower.speed_upgrade_module_5.description": "Erstelle ein Geschwindigkeits-Upgrade-Modul (MK V).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_1.title": "Energie-Effizienz I",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_1.description": "Erstelle ein Energie-Effizienz-Upgrade-Modul (MK I).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_2.title": "Energie-Effizienz II",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_2.description": "Erstelle ein Energie-Effizienz-Upgrade-Modul (MK II).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_3.title": "Energie-Effizienz III",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_3.description": "Erstelle ein Energie-Effizienz-Upgrade-Modul (MK III).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_4.title": "Energie-Effizienz IV",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_4.description": "Erstelle ein Energie-Effizienz-Upgrade-Modul (MK IV).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_5.title": "Energie-Effizienz V",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_5.description": "Erstelle ein Energie-Effizienz-Upgrade-Modul (MK V).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_1.title": "Energiekapazität I",
+  "advancements.energizedpower.energy_capacity_upgrade_module_1.description": "Erstelle ein Energiekapazität-Upgrade-Modul (MK I).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_2.title": "Energiekapazität II",
+  "advancements.energizedpower.energy_capacity_upgrade_module_2.description": "Erstelle ein Energiekapazität-Upgrade-Modul (MK II).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_3.title": "Energiekapazität III",
+  "advancements.energizedpower.energy_capacity_upgrade_module_3.description": "Erstelle ein Energiekapazität-Upgrade-Modul (MK III).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_4.title": "Energiekapazität IV",
+  "advancements.energizedpower.energy_capacity_upgrade_module_4.description": "Erstelle ein Energiekapazität-Upgrade-Modul (MK IV).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_5.title": "Energiekapazität V",
+  "advancements.energizedpower.energy_capacity_upgrade_module_5.description": "Erstelle ein Energiekapazität-Upgrade-Modul (MK V).",
+
+  "advancements.energizedpower.duration_upgrade_module_1.title": "Laufzeit I",
+  "advancements.energizedpower.duration_upgrade_module_1.description": "Erstelle ein Laufzeit-Upgrade-Modul (MK I).",
+
+  "advancements.energizedpower.duration_upgrade_module_2.title": "Laufzeit II",
+  "advancements.energizedpower.duration_upgrade_module_2.description": "Erstelle ein Laufzeit-Upgrade-Modul (MK II).",
+
+  "advancements.energizedpower.duration_upgrade_module_3.title": "Laufzeit III",
+  "advancements.energizedpower.duration_upgrade_module_3.description": "Erstelle ein Laufzeit-Upgrade-Modul (MK III).",
+
+  "advancements.energizedpower.duration_upgrade_module_4.title": "Laufzeit IV",
+  "advancements.energizedpower.duration_upgrade_module_4.description": "Erstelle ein Laufzeit-Upgrade-Modul (MK IV).",
+
+  "advancements.energizedpower.duration_upgrade_module_5.title": "Laufzeit V",
+  "advancements.energizedpower.duration_upgrade_module_5.description": "Erstelle ein Laufzeit-Upgrade-Modul (MK V).",
+
+  "advancements.energizedpower.range_upgrade_module_1.title": "Reichweite I",
+  "advancements.energizedpower.range_upgrade_module_1.description": "Erstelle ein Reichweiten-Upgrade-Modul (MK I).",
+
+  "advancements.energizedpower.range_upgrade_module_2.title": "Reichweite II",
+  "advancements.energizedpower.range_upgrade_module_2.description": "Erstelle ein Reichweiten-Upgrade-Modul (MK II).",
+
+  "advancements.energizedpower.range_upgrade_module_3.title": "Reichweite III",
+  "advancements.energizedpower.range_upgrade_module_3.description": "Erstelle ein Reichweiten-Upgrade-Modul (MK III).",
+
+  "advancements.energizedpower.blast_furnace_upgrade_module.title": "Ofenmodus: Schmelzofen",
+  "advancements.energizedpower.blast_furnace_upgrade_module.description": "Erstelle ein Schmelzofen-Upgrade-Modul.",
+
+  "advancements.energizedpower.smoker_upgrade_module.title": "Ofenmodus: Räucherofen",
+  "advancements.energizedpower.smoker_upgrade_module.description": "Erstelle ein Räucherofen-Upgrade-Modul.",
+
+  "advancements.energizedpower.moon_light_upgrade_module_1.title": "Mondlicht I",
+  "advancements.energizedpower.moon_light_upgrade_module_1.description": "Erstelle ein Mondlicht-Upgrade-Modul (MK I).",
+
+  "advancements.energizedpower.moon_light_upgrade_module_2.title": "Mondlicht II",
+  "advancements.energizedpower.moon_light_upgrade_module_2.description": "Erstelle ein Mondlicht-Upgrade-Modul (MK II).",
+
+  "advancements.energizedpower.moon_light_upgrade_module_3.title": "Mondlicht III",
+  "advancements.energizedpower.moon_light_upgrade_module_3.description": "Erstelle ein Mondlicht-Upgrade-Modul (MK III).",
 
   "advancements.energizedpower.press_mold_maker.title": "Pressform-Hersteller",
   "advancements.energizedpower.press_mold_maker.description": "Verwende diesen Block, um Pressformen für die Metallpresse herzustellen.",
@@ -1098,6 +1247,24 @@
   "book.energizedpower.page.energized_crystal_matrix": "Die Energetisierte Kristall-Matrix wird in manchen fortgeschrittenste Maschinen als Stabilisator verwendet.",
 
 
+  "book.energizedpower.page.chapter.upgrades.title": "Upgrades",
+  "book.energizedpower.page.chapter.upgrades": "Upgrade-Module können Maschinen verbessern",
+
+  "book.energizedpower.page.speed_upgrades": "Geschwindigkeits-Upgrades machen Maschinen schneller und erhöhen den Energie-Verbrauch.",
+
+  "book.energizedpower.page.energy_efficiency_upgrades": "Energie-Effizienz-Upgrades reduzieren den Energie-Verbrauch.",
+
+  "book.energizedpower.page.energy_capacity_upgrades": "Energiekapazität-Upgrades erhöhen die Energie-Speicher-Kapazität und die Energie-Transfer-Rate.",
+
+  "book.energizedpower.page.duration_upgrades": "Laufzeit-Upgrades erhöhen die Laufzeit des vom Wetter-Controller gesetzten Wetter.",
+
+  "book.energizedpower.page.range_upgrades": "Reichweiten-Upgrades erhöhen die Reichweite, in der eine Maschine arbeiten kann.",
+
+  "book.energizedpower.page.furnace_mode_upgrades": "Ofenmodus-Upgrades ändern die Rezepte, die ein Elektroofen herstellen kann.",
+
+  "book.energizedpower.page.moon_light_upgrades": "Mondlicht-Upgrades erlaubt es einem Solarpanel während der Nacht Strom zu produzieren.",
+
+
   "book.energizedpower.page.chapter.tools.title": "Werkzeuge",
   "book.energizedpower.page.chapter.tools": "Können hilfreich sein",
 
@@ -1161,7 +1328,7 @@
   "book.energizedpower.page.transformers.3": "Die kleineren, helleren, Quadrat-förmigen Seiten sind Ausgänge.",
   "book.energizedpower.page.transformers.4": "Es gibt vier Trafostärken: LV, MV, HV und EHV.",
   "book.energizedpower.page.transformers.5": "Für jeden dieser drei Typen gibt es drei Typen: 1 zu n, 3 zu 3 und n zu 1.",
-  "book.energizedpower.page.transformers.6": "Trafos können Lags-Reduzieren, indem sie manchmal statt einem Kabel-Block plaziert werden.",
+  "book.energizedpower.page.transformers.6": "Trafos können Lags reduzieren, indem sie manchmal statt einem Kabel-Block plaziert werden.",
   "book.energizedpower.page.transformers.7": "Trafos können Kabel von dieser Mod mit Kabel von anderen verbinden.",
   "book.energizedpower.page.transformers.8": "Trafos können als Batterie-Block genutzt werden.",
   "book.energizedpower.page.transformers.9": "Trafos können Energie aus AE2-FE-P2P-Tunnel extrahieren.",
@@ -1334,6 +1501,8 @@
 
   "book.energizedpower.page.chapter.machine_configuration.title": "Konfiguration",
   "book.energizedpower.page.chapter.machine_configuration": "Konfiguration von Maschinen",
+
+  "book.energizedpower.page.upgrade_configuration": "Die meisten Maschinen unterstützen Upgrade-Module. Upgrades können nicht automatisch eingelegt werden.",
 
   "book.energizedpower.page.redstone_mode_configuration.1": "Es gibt 3 Redstone-Modi:",
   "book.energizedpower.page.redstone_mode_configuration.2": "Ignorieren: Die Maschine ist immer aktiv",

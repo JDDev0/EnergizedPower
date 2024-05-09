@@ -34,7 +34,11 @@ import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class AdvancedCrusherScreen extends AbstractGenericEnergyStorageHandledScreen<AdvancedCrusherMenu> {
-    private final Identifier CONFIGURATION_ICONS_TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+    private final Identifier CONFIGURATION_ICONS_TEXTURE =
+            new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+    private final Identifier UPGRADE_VIEW_TEXTURE =
+            new Identifier(EnergizedPowerMod.MODID,
+                    "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png");
 
     public AdvancedCrusherScreen(AdvancedCrusherMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
@@ -48,13 +52,18 @@ public class AdvancedCrusherScreen extends AbstractGenericEnergyStorageHandledSc
         if(mouseButton == 0) {
             boolean clicked = false;
             if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+                //Upgrade view
+
+                client.interactionManager.clickButton(handler.syncId, 0);
+                clicked = true;
+            }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
 
                 PacketByteBuf buf = PacketByteBufs.create();
                 buf.writeBlockPos(handler.getBlockEntity().getPos());
                 ClientPlayNetworking.send(ModMessages.CHANGE_REDSTONE_MODE_ID, buf);
                 clicked = true;
-            }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+            }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
                 //Comparator Mode
 
                 PacketByteBuf buf = PacketByteBufs.create();
@@ -77,12 +86,19 @@ public class AdvancedCrusherScreen extends AbstractGenericEnergyStorageHandledSc
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        for(int i = 0;i < 2;i++) {
-            renderFluidMeterContent(i, poseStack, x, y);
-            renderFluidMeterOverlay(i, poseStack, x, y);
-        }
 
-        renderProgressArrow(poseStack, x, y);
+        if(handler.isInUpgradeModuleView()) {
+            RenderSystem.setShaderTexture(0, UPGRADE_VIEW_TEXTURE);
+            drawTexture(poseStack, x, y, 0, 0, backgroundWidth, backgroundHeight);
+            RenderSystem.setShaderTexture(0, TEXTURE);
+        }else {
+            for(int i = 0;i < 2;i++) {
+                renderFluidMeterContent(i, poseStack, x, y);
+                renderFluidMeterOverlay(i, poseStack, x, y);
+            }
+
+            renderProgressArrow(poseStack, x, y);
+        }
 
         renderConfiguration(poseStack, x, y, mouseX, mouseY);
     }
@@ -158,23 +174,33 @@ public class AdvancedCrusherScreen extends AbstractGenericEnergyStorageHandledSc
     }
 
     private void renderConfiguration(MatrixStack poseStack, int x, int y, int mouseX, int mouseY) {
+        RenderSystem.setShaderTexture(0, CONFIGURATION_ICONS_TEXTURE);
+
+        //Upgrade view
+        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            drawTexture(poseStack, x - 22, y + 2, 40, 80, 20, 20);
+        }else if(handler.isInUpgradeModuleView()) {
+            drawTexture(poseStack, x - 22, y + 2, 20, 80, 20, 20);
+        }else {
+            drawTexture(poseStack, x - 22, y + 2, 0, 80, 20, 20);
+        }
+
         RedstoneMode redstoneMode = handler.getRedstoneMode();
         int ordinal = redstoneMode.ordinal();
 
-        RenderSystem.setShaderTexture(0, CONFIGURATION_ICONS_TEXTURE);
-        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
-            drawTexture(poseStack, x - 22, y + 2, 20 * ordinal, 20, 20, 20);
+        if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+            drawTexture(poseStack, x - 22, y + 26, 20 * ordinal, 20, 20, 20);
         }else {
-            drawTexture(poseStack, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
+            drawTexture(poseStack, x - 22, y + 26, 20 * ordinal, 0, 20, 20);
         }
 
         ComparatorMode comparatorMode = handler.getComparatorMode();
         ordinal = comparatorMode.ordinal();
 
-        if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
-            drawTexture(poseStack, x - 22, y + 26, 20 * ordinal, 60, 20, 20);
+        if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
+            drawTexture(poseStack, x - 22, y + 50, 20 * ordinal, 60, 20, 20);
         }else {
-            drawTexture(poseStack, x - 22, y + 26, 20 * ordinal, 40, 20, 20);
+            drawTexture(poseStack, x - 22, y + 50, 20 * ordinal, 40, 20, 20);
         }
     }
 
@@ -182,32 +208,42 @@ public class AdvancedCrusherScreen extends AbstractGenericEnergyStorageHandledSc
     protected void drawMouseoverTooltip(MatrixStack poseStack, int mouseX, int mouseY) {
         super.drawMouseoverTooltip(poseStack, mouseX, mouseY);
 
-        for(int i = 0;i < 2;i++) {
-            //Fluid meter
+        if(!handler.isInUpgradeModuleView()) {
+            for(int i = 0;i < 2;i++) {
+                //Fluid meter
 
-            if(isPointWithinBounds(i == 0?44:152, 17, 16, 52, mouseX, mouseY)) {
-                List<Text> components = new ArrayList<>(2);
+                if(isPointWithinBounds(i == 0?44:152, 17, 16, 52, mouseX, mouseY)) {
+                    List<Text> components = new ArrayList<>(2);
 
-                boolean fluidEmpty =  handler.getFluid(i).isEmpty();
+                    boolean fluidEmpty =  handler.getFluid(i).isEmpty();
 
-                long fluidAmount = fluidEmpty?0:handler.getFluid(i).getMilliBucketsAmount();
+                    long fluidAmount = fluidEmpty?0:handler.getFluid(i).getMilliBucketsAmount();
 
-                Text tooltipComponent = Text.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
-                        FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(FluidUtils.
-                                convertDropletsToMilliBuckets(handler.getTankCapacity(i))));
+                    Text tooltipComponent = Text.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
+                            FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(FluidUtils.
+                                    convertDropletsToMilliBuckets(handler.getTankCapacity(i))));
 
-                if(!fluidEmpty) {
-                    tooltipComponent = Text.translatable(handler.getFluid(i).getTranslationKey()).append(" ").
-                            append(tooltipComponent);
+                    if(!fluidEmpty) {
+                        tooltipComponent = Text.translatable(handler.getFluid(i).getTranslationKey()).append(" ").
+                                append(tooltipComponent);
+                    }
+
+                    components.add(tooltipComponent);
+
+                    renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
                 }
-
-                components.add(tooltipComponent);
-
-                renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
             }
         }
 
         if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            //Upgrade view
+
+            List<Text> components = new ArrayList<>(2);
+            components.add(Text.translatable("tooltip.energizedpower.upgrade_view.button." +
+                    (handler.isInUpgradeModuleView()?"close":"open")));
+
+            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+        }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
             //Redstone Mode
 
             RedstoneMode redstoneMode = handler.getRedstoneMode();
@@ -216,7 +252,7 @@ public class AdvancedCrusherScreen extends AbstractGenericEnergyStorageHandledSc
             components.add(Text.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.asString()));
 
             renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+        }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
             //Comparator Mode
 
             ComparatorMode comparatorMode = handler.getComparatorMode();

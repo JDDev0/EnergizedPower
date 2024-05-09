@@ -7,7 +7,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 import me.jddev0.ep.item.InventoryChargerItem;
@@ -15,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 
-public class InventoryChargerMenu extends ScreenHandler {
+public class InventoryChargerMenu extends AbstractEnergizedPowerScreenHandler {
     private final Inventory inv;
     private final World level;
 
@@ -82,13 +81,7 @@ public class InventoryChargerMenu extends ScreenHandler {
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into tile inventory
-            //Allow only 1 item
-            int minFreeSlotIndex = 4 * 9;
-            for(;minFreeSlotIndex < 4 * 9 + inv.size();minFreeSlotIndex++)
-                if(!getSlot(minFreeSlotIndex).hasStack())
-                    break;
-
-            if(minFreeSlotIndex >= 4 * 9 + inv.size() || !insertItem(sourceItem, 4 * 9, 4 * 9 + inv.size(), false)) {
+            if(!insertMaxCount1Item(sourceItem, 4 * 9, 4 * 9 + inv.size(), false)) {
                 return ItemStack.EMPTY;
             }
         }else if(index < 4 * 9 + inv.size()) {

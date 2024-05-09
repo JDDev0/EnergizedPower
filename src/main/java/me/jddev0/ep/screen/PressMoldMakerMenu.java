@@ -13,14 +13,13 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
 import java.util.List;
 
-public class PressMoldMakerMenu extends ScreenHandler {
+public class PressMoldMakerMenu extends AbstractEnergizedPowerScreenHandler {
     private final PressMoldMakerBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
