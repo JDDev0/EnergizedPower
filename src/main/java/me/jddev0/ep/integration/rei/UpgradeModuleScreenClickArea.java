@@ -5,6 +5,7 @@ import me.jddev0.ep.screen.UpgradeModuleMenu;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.registry.screen.ClickArea;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 
 import java.util.Arrays;
 
@@ -19,7 +20,10 @@ public record UpgradeModuleScreenClickArea<T extends AbstractGenericEnergyStorag
 
     @Override
     public Result handle(ClickAreaContext<T> context) {
-        if(context.getScreen().getMenu().isInUpgradeModuleView() || !area.contains(context.getMousePosition()))
+        Rectangle areaCopy = area.clone();
+        AbstractContainerScreen<? extends UpgradeModuleMenu> screen = context.getScreen();
+        areaCopy.translate(screen.getGuiLeft(), screen.getGuiTop());
+        if(screen.getMenu().isInUpgradeModuleView() || !areaCopy.contains(context.getMousePosition()))
             return Result.fail();
 
         return Result.success().categories(Arrays.asList(recipeTypes));
