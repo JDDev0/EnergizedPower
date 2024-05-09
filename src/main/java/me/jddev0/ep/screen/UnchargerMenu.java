@@ -3,8 +3,12 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.UnchargerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.minecraft.block.entity.BlockEntity;
@@ -28,6 +32,7 @@ public class UnchargerMenu extends ScreenHandler implements EnergyStorageProduce
     private final Inventory inv;
     private final World level;
     private final PropertyDelegate data;
+    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public UnchargerMenu(int id, PlayerInventory inv, BlockPos pos) {
         this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(1) {
@@ -51,16 +56,20 @@ public class UnchargerMenu extends ScreenHandler implements EnergyStorageProduce
             public int getMaxCountPerStack() {
                 return 1;
             }
-        }, new ArrayPropertyDelegate(6));
+        }, new UpgradeModuleInventory(
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        ), new ArrayPropertyDelegate(6));
     }
 
-    public UnchargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
+    public UnchargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
+                         UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(ModMenuTypes.UNCHARGER_MENU, id);
 
         this.blockEntity = (UnchargerBlockEntity)blockEntity;
 
         this.inv = inv;
         checkSize(this.inv, 1);
+        checkSize(upgradeModuleInventory, 1);
         checkDataCount(data, 6);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
@@ -69,9 +78,35 @@ public class UnchargerMenu extends ScreenHandler implements EnergyStorageProduce
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
-        addSlot(new ConstraintInsertSlot(this.inv, 0, 80, 35));
+        addSlot(new ConstraintInsertSlot(this.inv, 0, 80, 35) {
+            @Override
+            public boolean isEnabled() {
+                return super.isEnabled() && !isInUpgradeModuleView();
+            }
+        });
+
+        addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
         addProperties(this.data);
+
+        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
+        addProperties(upgradeModuleViewContainerData);
+    }
+
+    @Override
+    public boolean isInUpgradeModuleView() {
+        return upgradeModuleViewContainerData.isInUpgradeModuleView();
+    }
+
+    @Override
+    public boolean onButtonClick(PlayerEntity player, int index) {
+        if(index == 0) {
+            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
+
+            sendContentUpdates();
+        }
+
+        return false;
     }
 
     @Override
@@ -107,13 +142,14 @@ public class UnchargerMenu extends ScreenHandler implements EnergyStorageProduce
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
-            //Player inventory slot -> Merge into tile inventory
+            //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
             //Allow only 1 item
-            if(slots.get(4 * 9).hasStack() || !insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
+            if(!insertItem(sourceItem, 4 * 9 + 1, 4 * 9 + 1 + 1, false) &&
+                    (slots.get(4 * 9).hasStack() || !insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false))) {
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 1) {
-            //Tile inventory slot -> Merge into player inventory
+        }else if(index < 4 * 9 + 1 + 1) {
+            //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!insertItem(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }

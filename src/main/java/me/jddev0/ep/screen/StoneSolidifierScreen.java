@@ -36,7 +36,11 @@ import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class StoneSolidifierScreen extends AbstractGenericEnergyStorageHandledScreen<StoneSolidifierMenu> {
-    private final Identifier CONFIGURATION_ICONS_TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+    private final Identifier CONFIGURATION_ICONS_TEXTURE =
+            new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+    private final Identifier UPGRADE_VIEW_TEXTURE =
+            new Identifier(EnergizedPowerMod.MODID,
+                    "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png");
 
     public StoneSolidifierScreen(StoneSolidifierMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
@@ -49,30 +53,38 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageHandledSc
         if(mouseButton == 0) {
             boolean clicked = false;
 
-            int diff = 0;
+            if(!handler.isInUpgradeModuleView()) {
+                int diff = 0;
 
-            //Up button
-            if(isPointWithinBounds(85, 19, 11, 12, mouseX, mouseY)) {
-                diff = 1;
-                clicked = true;
+                //Up button
+                if(isPointWithinBounds(85, 19, 11, 12, mouseX, mouseY)) {
+                    diff = 1;
+                    clicked = true;
+                }
+
+                //Down button
+                if(isPointWithinBounds(116, 19, 11, 12, mouseX, mouseY)) {
+                    diff = -1;
+                    clicked = true;
+                }
+
+                if(diff != 0) {
+                    ClientPlayNetworking.send(new ChangeStoneSolidifierRecipeIndexC2SPacket(handler.getBlockEntity().getPos(),
+                            diff == 1));
+                }
             }
-
-            //Down button
-            if(isPointWithinBounds(116, 19, 11, 12, mouseX, mouseY)) {
-                diff = -1;
-                clicked = true;
-            }
-
-            if(diff != 0)
-                ClientPlayNetworking.send(new ChangeStoneSolidifierRecipeIndexC2SPacket(handler.getBlockEntity().getPos(),
-                        diff == 1));
 
             if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+                //Upgrade view
+
+                client.interactionManager.clickButton(handler.syncId, 0);
+                clicked = true;
+            }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
 
                  ClientPlayNetworking.send(new ChangeRedstoneModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
-            }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+            }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
                 //Comparator Mode
                  ClientPlayNetworking.send(new ChangeComparatorModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
@@ -92,16 +104,20 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageHandledSc
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        for(int i = 0;i < 2;i++) {
-            renderFluidMeterContent(i, drawContext, x, y);
-            renderFluidMeterOverlay(i, drawContext, x, y);
+        if(handler.isInUpgradeModuleView()) {
+            drawContext.drawTexture(UPGRADE_VIEW_TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        }else {
+            for (int i = 0; i < 2; i++) {
+                renderFluidMeterContent(i, drawContext, x, y);
+                renderFluidMeterOverlay(i, drawContext, x, y);
+            }
+
+            renderCurrentRecipeOutput(drawContext, x, y);
+
+            renderButtons(drawContext, x, y, mouseX, mouseY);
+
+            renderProgressArrows(drawContext, x, y);
         }
-
-        renderCurrentRecipeOutput(drawContext, x, y);
-
-        renderButtons(drawContext, x, y, mouseX, mouseY);
-
-        renderProgressArrows(drawContext, x, y);
 
         renderConfiguration(drawContext, x, y, mouseX, mouseY);
     }
@@ -207,22 +223,31 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageHandledSc
     }
 
     private void renderConfiguration(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
+        //Upgrade view
+        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 40, 80, 20, 20);
+        }else if(handler.isInUpgradeModuleView()) {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20, 80, 20, 20);
+        }else {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 0, 80, 20, 20);
+        }
+
         RedstoneMode redstoneMode = handler.getRedstoneMode();
         int ordinal = redstoneMode.ordinal();
 
-        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 20, 20, 20);
+        if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 20, 20, 20);
         }else {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 0, 20, 20);
         }
 
         ComparatorMode comparatorMode = handler.getComparatorMode();
         ordinal = comparatorMode.ordinal();
 
-        if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 60, 20, 20);
+        if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 60, 20, 20);
         }else {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 40, 20, 20);
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 40, 20, 20);
         }
     }
 
@@ -230,63 +255,73 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageHandledSc
     protected void drawMouseoverTooltip(DrawContext drawContext, int mouseX, int mouseY) {
         super.drawMouseoverTooltip(drawContext, mouseX, mouseY);
 
-        for(int i = 0;i < 2;i++) {
-            //Fluid meter
+        if(!handler.isInUpgradeModuleView()) {
+            for(int i = 0;i < 2;i++) {
+                //Fluid meter
 
-            if(isPointWithinBounds(i == 0?44:152, 17, 16, 52, mouseX, mouseY)) {
-                List<Text> components = new ArrayList<>(2);
+                if(isPointWithinBounds(i == 0?44:152, 17, 16, 52, mouseX, mouseY)) {
+                    List<Text> components = new ArrayList<>(2);
 
-                boolean fluidEmpty =  handler.getFluid(i).isEmpty();
+                    boolean fluidEmpty =  handler.getFluid(i).isEmpty();
 
-                long fluidAmount = fluidEmpty?0:handler.getFluid(i).getMilliBucketsAmount();
+                    long fluidAmount = fluidEmpty?0:handler.getFluid(i).getMilliBucketsAmount();
 
-                Text tooltipComponent = Text.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
-                        FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(FluidUtils.
-                                convertDropletsToMilliBuckets(handler.getTankCapacity(i))));
+                    Text tooltipComponent = Text.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
+                            FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(FluidUtils.
+                                    convertDropletsToMilliBuckets(handler.getTankCapacity(i))));
 
-                if(!fluidEmpty) {
-                    tooltipComponent = Text.translatable(handler.getFluid(i).getTranslationKey()).append(" ").
-                            append(tooltipComponent);
+                    if(!fluidEmpty) {
+                        tooltipComponent = Text.translatable(handler.getFluid(i).getTranslationKey()).append(" ").
+                                append(tooltipComponent);
+                    }
+
+                    components.add(tooltipComponent);
+
+                    drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
                 }
+            }
 
-                components.add(tooltipComponent);
+            //Current recipe
+            RecipeEntry<StoneSolidifierRecipe> currentRecipe = handler.getCurrentRecipe();
+            if(currentRecipe != null) {
+                if(isPointWithinBounds(98, 17, 16, 16, mouseX, mouseY)) {
+                    ItemStack output = currentRecipe.value().getOutput();
+                    if(!output.isEmpty()) {
+                        List<Text> components = new ArrayList<>(2);
+                        components.add(Text.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
+                                output.getName()));
+
+                        drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+                    }
+                }
+            }
+
+            //Up button
+            if(isPointWithinBounds(85, 19, 11, 12, mouseX, mouseY)) {
+                List<Text> components = new ArrayList<>(2);
+                components.add(Text.translatable("tooltip.energizedpower.stone_solidifier.btn.up"));
+
+                drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+            }
+
+            //Down button
+            if(isPointWithinBounds(116, 19, 11, 12, mouseX, mouseY)) {
+                List<Text> components = new ArrayList<>(2);
+                components.add(Text.translatable("tooltip.energizedpower.stone_solidifier.btn.down"));
 
                 drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
             }
         }
 
-        //Current recipe
-        RecipeEntry<StoneSolidifierRecipe> currentRecipe = handler.getCurrentRecipe();
-        if(currentRecipe != null) {
-            if(isPointWithinBounds(98, 17, 16, 16, mouseX, mouseY)) {
-                ItemStack output = currentRecipe.value().getOutput();
-                if(!output.isEmpty()) {
-                    List<Text> components = new ArrayList<>(2);
-                    components.add(Text.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
-                            output.getName()));
-
-                    drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
-                }
-            }
-        }
-
-        //Up button
-        if(isPointWithinBounds(85, 19, 11, 12, mouseX, mouseY)) {
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.stone_solidifier.btn.up"));
-
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
-        }
-
-        //Down button
-        if(isPointWithinBounds(116, 19, 11, 12, mouseX, mouseY)) {
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.stone_solidifier.btn.down"));
-
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
-        }
-
         if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            //Upgrade view
+
+            List<Text> components = new ArrayList<>(2);
+            components.add(Text.translatable("tooltip.energizedpower.upgrade_view.button." +
+                    (handler.isInUpgradeModuleView()?"close":"open")));
+
+            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+        }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
             //Redstone Mode
 
             RedstoneMode redstoneMode = handler.getRedstoneMode();
@@ -295,7 +330,7 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageHandledSc
             components.add(Text.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.asString()));
 
             drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+        }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
             //Comparator Mode
 
             ComparatorMode comparatorMode = handler.getComparatorMode();

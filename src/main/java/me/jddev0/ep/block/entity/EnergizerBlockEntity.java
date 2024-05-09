@@ -6,10 +6,12 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.recipe.EnergizerRecipe;
@@ -24,6 +26,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -59,6 +62,11 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
     final InputOutputItemHandler inventory;
     private final SimpleInventory internalInventory;
 
+    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.ENERGY_CAPACITY
+    );
+    private final InventoryChangedListener updateUpgradeModuleListener = container -> updateUpgradeModules();
+
     final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
@@ -73,6 +81,8 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
 
     public EnergizerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ENERGIZER_ENTITY, blockPos, blockState);
+
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         internalInventory = new SimpleInventory(2) {
             @Override
@@ -122,6 +132,12 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
 
         internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
+            public long getCapacity() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
             protected void onFinalCommit() {
                 markDirty();
 
@@ -133,7 +149,13 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
                 }
             }
         };
-        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0) {
+            @Override
+            public long getMaxInsert() {
+                return Math.max(1, (long)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+        };
 
         data = new PropertyDelegate() {
             @Override
@@ -176,6 +198,20 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
         return Text.translatable("container.energizedpower.energizer");
     }
 
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
+                new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos()));
+        
+        return new EnergizerMenu(id, this, inventory, internalInventory, upgradeModuleInventory, this.data);
+    }
+
+    @Override
+    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
+        return pos;
+    }
+
     public int getRedstoneOutput() {
         return switch(comparatorMode) {
             case ITEM -> ScreenHandler.calculateComparatorOutput(internalInventory);
@@ -184,22 +220,11 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
         };
     }
 
-    @Nullable
-    @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos()));
-        
-        return new EnergizerMenu(id, this, inventory, internalInventory, this.data);
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
-    }
-
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
+
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
         nbt.putLong("energy", internalEnergyStorage.getAmount());
 
@@ -216,6 +241,11 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
+        //Load Upgrade Module Inventory first
+        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
         internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
 
@@ -227,7 +257,8 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
     }
 
     public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory.heldStacks);
+        ItemScatterer.spawn(level, worldPosition, internalInventory);
+        ItemScatterer.spawn(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {
@@ -326,6 +357,17 @@ public class EnergizerBlockEntity extends BlockEntity implements ExtendedScreenH
 
         return inventoryItemStack.isEmpty() || (ItemStack.areItemsAndComponentsEqual(inventoryItemStack, itemStack) &&
                 inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount());
+    }
+
+    private void updateUpgradeModules() {
+        resetProgress(getPos(), getCachedState());
+        markDirty();
+        if(world != null && !world.isClient()) {
+            ModMessages.sendServerPacketToPlayersWithinXBlocks(
+                    getPos(), (ServerWorld)world, 32,
+                    new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos())
+            );
+        }
     }
 
     public long getEnergy() {

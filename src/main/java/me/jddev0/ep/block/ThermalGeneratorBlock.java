@@ -65,6 +65,20 @@ public class ThermalGeneratorBlock extends BlockWithEntity {
     }
 
     @Override
+    public void onStateReplaced(BlockState state, World level, BlockPos blockPos, BlockState newState, boolean isMoving) {
+        if(state.getBlock() == newState.getBlock())
+            return;
+
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof ThermalGeneratorBlockEntity))
+            return;
+
+        ((ThermalGeneratorBlockEntity)blockEntity).drops(level, blockPos);
+
+        super.onStateReplaced(state, level, blockPos, newState, isMoving);
+    }
+
+    @Override
     public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, BlockHitResult hit) {
         if(level.isClient())
             return ActionResult.SUCCESS;

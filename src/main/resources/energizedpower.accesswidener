@@ -1,3 +1,6 @@
 accessWidener	v1 named
 
 extendable    method    net/minecraft/entity/vehicle/VehicleEntity    asItem    ()Lnet/minecraft/item/Item;
+
+accessible    field    net/minecraft/client/gui/screen/ingame/HandledScreen    x    I
+accessible    field    net/minecraft/client/gui/screen/ingame/HandledScreen    y    I

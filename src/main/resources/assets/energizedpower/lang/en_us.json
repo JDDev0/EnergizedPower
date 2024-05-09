@@ -95,6 +95,47 @@
 
   "item.energizedpower.teleporter_processing_unit": "Teleporter Processing Unit",
 
+  "item.energizedpower.basic_upgrade_module": "Basic Upgrade Module",
+  "item.energizedpower.advanced_upgrade_module": "Advanced Upgrade Module",
+  "item.energizedpower.reinforced_advanced_upgrade_module": "Reinforced Advanced Upgrade Module",
+
+  "item.energizedpower.speed_upgrade_module_1": "Speed Upgrade Module (Tier I)",
+  "item.energizedpower.speed_upgrade_module_2": "Speed Upgrade Module (Tier II)",
+  "item.energizedpower.speed_upgrade_module_3": "Speed Upgrade Module (Tier III)",
+  "item.energizedpower.speed_upgrade_module_4": "Speed Upgrade Module (Tier IV)",
+  "item.energizedpower.speed_upgrade_module_5": "Speed Upgrade Module (Tier V)",
+
+  "item.energizedpower.energy_efficiency_upgrade_module_1": "Energy Efficiency Upgrade Module (Tier I)",
+  "item.energizedpower.energy_efficiency_upgrade_module_2": "Energy Efficiency Upgrade Module (Tier II)",
+  "item.energizedpower.energy_efficiency_upgrade_module_3": "Energy Efficiency Upgrade Module (Tier III)",
+  "item.energizedpower.energy_efficiency_upgrade_module_4": "Energy Efficiency Upgrade Module (Tier IV)",
+  "item.energizedpower.energy_efficiency_upgrade_module_5": "Energy Efficiency Upgrade Module (Tier V)",
+
+  "item.energizedpower.energy_capacity_upgrade_module_1": "Energy Capacity Upgrade Module (Tier I)",
+  "item.energizedpower.energy_capacity_upgrade_module_2": "Energy Capacity Upgrade Module (Tier II)",
+  "item.energizedpower.energy_capacity_upgrade_module_3": "Energy Capacity Upgrade Module (Tier III)",
+  "item.energizedpower.energy_capacity_upgrade_module_4": "Energy Capacity Upgrade Module (Tier IV)",
+  "item.energizedpower.energy_capacity_upgrade_module_5": "Energy Capacity Upgrade Module (Tier V)",
+
+  "item.energizedpower.duration_upgrade_module_1": "Duration Upgrade Module (Tier I)",
+  "item.energizedpower.duration_upgrade_module_2": "Duration Upgrade Module (Tier II)",
+  "item.energizedpower.duration_upgrade_module_3": "Duration Upgrade Module (Tier III)",
+  "item.energizedpower.duration_upgrade_module_4": "Duration Upgrade Module (Tier IV)",
+  "item.energizedpower.duration_upgrade_module_5": "Duration Upgrade Module (Tier V)",
+
+  "item.energizedpower.range_upgrade_module_1": "Range Upgrade Module (Tier I)",
+  "item.energizedpower.range_upgrade_module_2": "Range Upgrade Module (Tier II)",
+  "item.energizedpower.range_upgrade_module_3": "Range Upgrade Module (Tier III)",
+
+  "item.energizedpower.blast_furnace_upgrade_module": "Blast Furnace Upgrade Module",
+  "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Blast Furnace",
+  "item.energizedpower.smoker_upgrade_module": "Smoker Upgrade Module",
+  "item.energizedpower.smoker_upgrade_module.effect_text": "Smoker",
+
+  "item.energizedpower.moon_light_upgrade_module_1": "Moon Light Upgrade Module (Tier I)",
+  "item.energizedpower.moon_light_upgrade_module_2": "Moon Light Upgrade Module (Tier II)",
+  "item.energizedpower.moon_light_upgrade_module_3": "Moon Light Upgrade Module (Tier III)",
+
   "item.energizedpower.inventory_coal_engine": "Inventory Coal Engine",
   "tooltip.energizedpower.inventory_coal_engine.status": "Status: ",
   "tooltip.energizedpower.inventory_coal_engine.status.activated": "Activated",
@@ -365,6 +406,7 @@
   "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "Energy Production",
   "tooltip.energizedpower.creative_battery_box.cbx.energy_consumption": "Energy Consumption",
 
+
   "block.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
   "item.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
   "container.energizedpower.solar_panel_1": "Solar Panel (Tier I)",
@@ -626,6 +668,21 @@
   "tooltip.energizedpower.machine_configuration.comparator_mode.fluid": "Comparator Mode: Fluid",
   "tooltip.energizedpower.machine_configuration.comparator_mode.energy": "Comparator Mode: Energy",
 
+  "tooltip.energizedpower.upgrade_module_modifier.speed": "Production Speed",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Energy Consumption per tick",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_capacity": "Energy Capacity",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "Energy Transfer Rate",
+  "tooltip.energizedpower.upgrade_module_modifier.duration": "Duration",
+  "tooltip.energizedpower.upgrade_module_modifier.range": "Range",
+  "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "Furnace mode",
+  "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Moon Light",
+
+  "tooltip.energizedpower.upgrade.values": "Upgrade Module Modifiers:",
+  "tooltip.energizedpower.upgrade.value": "• %s: %s",
+
+  "tooltip.energizedpower.upgrade_view.button.open": "Open Upgrade View",
+  "tooltip.energizedpower.upgrade_view.button.close": "Close Upgrade View",
+
   "itemGroup.energizedpower.tab": "Energized Power",
 
   "entity.minecraft.villager.electrician": "Electrician",
@@ -693,6 +750,99 @@
 
   "advancements.energizedpower.processing_unit.title": "Processing Unit",
   "advancements.energizedpower.processing_unit.description": "Craft a Processing Unit.",
+
+  "advancements.energizedpower.basic_upgrade_module.title": "Basic Upgrade Module",
+  "advancements.energizedpower.basic_upgrade_module.description": "Craft a Basic Upgrade Module.",
+
+  "advancements.energizedpower.advanced_upgrade_module.title": "Advanced Upgrade Module",
+  "advancements.energizedpower.advanced_upgrade_module.description": "Craft an Advanced Upgrade Module.",
+
+  "advancements.energizedpower.reinforced_advanced_upgrade_module.title": "Reinforced Advanced Upgrade Module",
+  "advancements.energizedpower.reinforced_advanced_upgrade_module.description": "Craft a Reinforced Advanced Upgrade Module.",
+
+  "advancements.energizedpower.speed_upgrade_module_1.title": "Speed I",
+  "advancements.energizedpower.speed_upgrade_module_1.description": "Craft a Speed Upgrade Module (Tier I).",
+
+  "advancements.energizedpower.speed_upgrade_module_2.title": "Speed II",
+  "advancements.energizedpower.speed_upgrade_module_2.description": "Craft a Speed Upgrade Module (Tier II).",
+
+  "advancements.energizedpower.speed_upgrade_module_3.title": "Speed III",
+  "advancements.energizedpower.speed_upgrade_module_3.description": "Craft a Speed Upgrade Module (Tier III).",
+
+  "advancements.energizedpower.speed_upgrade_module_4.title": "Speed IV",
+  "advancements.energizedpower.speed_upgrade_module_4.description": "Craft a Speed Upgrade Module (Tier IV).",
+
+  "advancements.energizedpower.speed_upgrade_module_5.title": "Speed V",
+  "advancements.energizedpower.speed_upgrade_module_5.description": "Craft a Speed Upgrade Module (Tier V).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_1.title": "Energy Efficiency I",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_1.description": "Craft a Energy Efficiency Upgrade Module (Tier I).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_2.title": "Energy Efficiency II",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_2.description": "Craft a Energy Efficiency Upgrade Module (Tier II).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_3.title": "Energy Efficiency III",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_3.description": "Craft a Energy Efficiency Upgrade Module (Tier III).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_4.title": "Energy Efficiency IV",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_4.description": "Craft a Energy Efficiency Upgrade Module (Tier IV).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_5.title": "Energy Efficiency V",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_5.description": "Craft a Energy Efficiency Upgrade Module (Tier V).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_1.title": "Energy Capacity I",
+  "advancements.energizedpower.energy_capacity_upgrade_module_1.description": "Craft a Energy Capacity Upgrade Module (Tier I).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_2.title": "Energy Capacity II",
+  "advancements.energizedpower.energy_capacity_upgrade_module_2.description": "Craft a Energy Capacity Upgrade Module (Tier II).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_3.title": "Energy Capacity III",
+  "advancements.energizedpower.energy_capacity_upgrade_module_3.description": "Craft a Energy Capacity Upgrade Module (Tier III).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_4.title": "Energy Capacity IV",
+  "advancements.energizedpower.energy_capacity_upgrade_module_4.description": "Craft a Energy Capacity Upgrade Module (Tier IV).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_5.title": "Energy Capacity V",
+  "advancements.energizedpower.energy_capacity_upgrade_module_5.description": "Craft a Energy Capacity Upgrade Module (Tier V).",
+
+  "advancements.energizedpower.duration_upgrade_module_1.title": "Duration I",
+  "advancements.energizedpower.duration_upgrade_module_1.description": "Craft a Duration Upgrade Module (Tier I).",
+
+  "advancements.energizedpower.duration_upgrade_module_2.title": "Duration II",
+  "advancements.energizedpower.duration_upgrade_module_2.description": "Craft a Duration Upgrade Module (Tier II).",
+
+  "advancements.energizedpower.duration_upgrade_module_3.title": "Duration III",
+  "advancements.energizedpower.duration_upgrade_module_3.description": "Craft a Duration Upgrade Module (Tier III).",
+
+  "advancements.energizedpower.duration_upgrade_module_4.title": "Duration IV",
+  "advancements.energizedpower.duration_upgrade_module_4.description": "Craft a Duration Upgrade Module (Tier IV).",
+
+  "advancements.energizedpower.duration_upgrade_module_5.title": "Duration V",
+  "advancements.energizedpower.duration_upgrade_module_5.description": "Craft a Duration Upgrade Module (Tier V).",
+
+  "advancements.energizedpower.range_upgrade_module_1.title": "Range I",
+  "advancements.energizedpower.range_upgrade_module_1.description": "Craft a Range Upgrade Module (Tier I).",
+
+  "advancements.energizedpower.range_upgrade_module_2.title": "Range II",
+  "advancements.energizedpower.range_upgrade_module_2.description": "Craft a Range Upgrade Module (Tier II).",
+
+  "advancements.energizedpower.range_upgrade_module_3.title": "Range III",
+  "advancements.energizedpower.range_upgrade_module_3.description": "Craft a Range Upgrade Module (Tier III).",
+
+  "advancements.energizedpower.blast_furnace_upgrade_module.title": "Furnace Mode: Blast Furnace",
+  "advancements.energizedpower.blast_furnace_upgrade_module.description": "Craft a Blast Upgrade Module.",
+
+  "advancements.energizedpower.smoker_upgrade_module.title": "Furnace Mode: Smoker",
+  "advancements.energizedpower.smoker_upgrade_module.description": "Craft a Smoker Upgrade Module.",
+
+  "advancements.energizedpower.moon_light_upgrade_module_1.title": "Moon Light I",
+  "advancements.energizedpower.moon_light_upgrade_module_1.description": "Craft a Moon Light Upgrade Module (Tier I).",
+
+  "advancements.energizedpower.moon_light_upgrade_module_2.title": "Moon Light II",
+  "advancements.energizedpower.moon_light_upgrade_module_2.description": "Craft a Moon Light Upgrade Module (Tier II).",
+
+  "advancements.energizedpower.moon_light_upgrade_module_3.title": "Moon Light III",
+  "advancements.energizedpower.moon_light_upgrade_module_3.description": "Craft a Moon Light Upgrade Module (Tier III).",
 
   "advancements.energizedpower.press_mold_maker.title": "Press Mold Maker",
   "advancements.energizedpower.press_mold_maker.description": "Use this block to make press molds for the Metal Press.",
@@ -1097,6 +1247,24 @@
   "book.energizedpower.page.energized_crystal_matrix": "The Energized Crystal Matrix is used as a stabilizer in some advanced machines.",
 
 
+  "book.energizedpower.page.chapter.upgrades.title": "Upgrades",
+  "book.energizedpower.page.chapter.upgrades": "Upgrade Modules can improve machines",
+
+  "book.energizedpower.page.speed_upgrades": "Speed upgrades make machines faster and increase the energy consumption.",
+
+  "book.energizedpower.page.energy_efficiency_upgrades": "Energy Efficiency Upgrades reduce the energy consumption.",
+
+  "book.energizedpower.page.energy_capacity_upgrades": "Energy Capacity Upgrades increase the energy storage capacity and the energy transfer rate.",
+
+  "book.energizedpower.page.duration_upgrades": "Duration Upgrades increase the duration of the weather set by the Weather Controller.",
+
+  "book.energizedpower.page.range_upgrades": "Range Upgrades increase the range a machine can operate in.",
+
+  "book.energizedpower.page.furnace_mode_upgrades": "Furnace Mode Upgrades change the recipes a Powered Furnace can produce.",
+
+  "book.energizedpower.page.moon_light_upgrades": "Moon Light Upgrades allow Solar Panels to produce energy during the night.",
+
+
   "book.energizedpower.page.chapter.tools.title": "Tools",
   "book.energizedpower.page.chapter.tools": "Can be helpful",
 
@@ -1334,6 +1502,8 @@
   "book.energizedpower.page.chapter.machine_configuration.title": "Configuration",
   "book.energizedpower.page.chapter.machine_configuration": "Configuration of machines",
 
+  "book.energizedpower.page.upgrade_configuration": "Most machines support Upgrade Modules. Upgrades can not be inserted automatically.",
+
   "book.energizedpower.page.redstone_mode_configuration.1": "There are 3 redstone modes:",
   "book.energizedpower.page.redstone_mode_configuration.2": "Ignore: The machine is always active",
   "book.energizedpower.page.redstone_mode_configuration.3": "High: The machine is only active if a redstone signal of strength 1 or higher is present",
@@ -1341,7 +1511,7 @@
 
   "book.energizedpower.page.comparator_mode_configuration.1": "There are 3 comparator modes:",
   "book.energizedpower.page.comparator_mode_configuration.2": "Item: The comparator output is calculated based on how full the inventory of the machine is",
-  "book.energizedpower.page.comparator_mode_configuration.3": "Fluid: The comparator output is calculated based on how full the tank(s) of the machines is/are",
+  "book.energizedpower.page.comparator_mode_configuration.3": "Fluid: The comparator output is calculated based on how full the tank(s) of the machine is/are",
   "book.energizedpower.page.comparator_mode_configuration.4": "Energy: The comparator output is calculated based on how much energy is stored in the machine",
 
 

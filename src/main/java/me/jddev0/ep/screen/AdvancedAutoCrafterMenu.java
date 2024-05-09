@@ -5,8 +5,11 @@ import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.PatternResultSlot;
 import me.jddev0.ep.inventory.PatternSlot;
+import me.jddev0.ep.inventory.*;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,6 +30,7 @@ public class AdvancedAutoCrafterMenu extends ScreenHandler implements EnergyStor
     private final Inventory inv;
     private final World level;
     private final PropertyDelegate data;
+    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     private final Inventory[] patternSlots;
 
@@ -38,7 +42,11 @@ public class AdvancedAutoCrafterMenu extends ScreenHandler implements EnergyStor
             public boolean isValid(int slot, ItemStack stack) {
                 return super.isValid(slot, stack) && slot >= 5;
             }
-        }, new Inventory[] {
+        }, new UpgradeModuleInventory(
+                UpgradeModuleModifier.SPEED,
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        ), new Inventory[] {
                 new SimpleInventory(9), new SimpleInventory(9), new SimpleInventory(9)
         }, new Inventory[] {
                 new SimpleInventory(1), new SimpleInventory(1), new SimpleInventory(1)
@@ -46,7 +54,8 @@ public class AdvancedAutoCrafterMenu extends ScreenHandler implements EnergyStor
     }
 
     public AdvancedAutoCrafterMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
-                                   Inventory[] patternSlots, Inventory[] patternResultSlots, PropertyDelegate data) {
+                                   UpgradeModuleInventory upgradeModuleInventory, Inventory[] patternSlots,
+                                   Inventory[] patternResultSlots, PropertyDelegate data) {
         super(ModMenuTypes.ADVANCED_AUTO_CRAFTER_MENU, id);
 
         this.blockEntity = (AdvancedAutoCrafterBlockEntity)blockEntity;
@@ -56,6 +65,7 @@ public class AdvancedAutoCrafterMenu extends ScreenHandler implements EnergyStor
 
         this.inv = inv;
         checkSize(this.inv, 27);
+        checkSize(upgradeModuleInventory, 3);
         checkDataCount(data, 34);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
@@ -76,7 +86,7 @@ public class AdvancedAutoCrafterMenu extends ScreenHandler implements EnergyStor
                     addSlot(new PatternSlot(patternSlots[recipeIndex], j + i * 3, 30 + j * 18, 17 + i * 18, () -> true) {
                         @Override
                         public boolean isEnabled() {
-                            return getRecipeIndex() == recipeIndex;
+                            return super.isEnabled() && !isInUpgradeModuleView() && getRecipeIndex() == recipeIndex;
                         }
                     });
                 }
@@ -85,12 +95,34 @@ public class AdvancedAutoCrafterMenu extends ScreenHandler implements EnergyStor
             addSlot(new PatternResultSlot(patternResultSlots[recipeIndex], 0, 124, 35, () -> true) {
                 @Override
                 public boolean isEnabled() {
-                    return getRecipeIndex() == recipeIndex;
+                    return super.isEnabled() && !isInUpgradeModuleView() && getRecipeIndex() == recipeIndex;
                 }
             });
         }
 
+        for(int i = 0;i < upgradeModuleInventory.size();i++)
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
+
         addProperties(this.data);
+
+        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
+        addProperties(upgradeModuleViewContainerData);
+    }
+
+    @Override
+    public boolean isInUpgradeModuleView() {
+        return upgradeModuleViewContainerData.isInUpgradeModuleView();
+    }
+
+    @Override
+    public boolean onButtonClick(PlayerEntity player, int index) {
+        if(index == 0) {
+            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
+
+            sendContentUpdates();
+        }
+
+        return false;
     }
 
     public Inventory[] getPatternSlots() {
@@ -183,9 +215,10 @@ public class AdvancedAutoCrafterMenu extends ScreenHandler implements EnergyStor
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
-            //Player inventory slot -> Merge into tile inventory
+            //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
             //"+ 27": Ignore 3 * (3x3 crafting grid and result slot)
-            if(!insertItem(sourceItem, 4 * 9 + 5, 4 * 9 + 27, false)) {
+            if(!insertItem(sourceItem, 4 * 9 + 27 + 3 * (3*3 + 1), 4 * 9 + 27 + 3 * (3*3 + 1) + 3, false) &&
+                    !insertItem(sourceItem, 4 * 9 + 5, 4 * 9 + 27, false)) {
                 //"+5" instead of nothing: Do not allow adding to first 5 output item only slot
                 return ItemStack.EMPTY;
             }
@@ -196,6 +229,11 @@ public class AdvancedAutoCrafterMenu extends ScreenHandler implements EnergyStor
             }
         }else if(index < 4 * 9 + 27 + 3 * (3*3 + 1)) {
             return ItemStack.EMPTY;
+        }else if(index < 4 * 9 + 27 + 3 * (3*3 + 1) + 3) {
+            //Tile inventory and upgrade module slot -> Merge into player inventory
+            if(!insertItem(sourceItem, 0, 4 * 9, false)) {
+                return ItemStack.EMPTY;
+            }
         }else{
             throw new IllegalArgumentException("Invalid slot index");
         }

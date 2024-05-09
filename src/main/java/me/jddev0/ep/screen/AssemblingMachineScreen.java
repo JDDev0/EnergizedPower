@@ -8,11 +8,9 @@ import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -23,7 +21,10 @@ import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class AssemblingMachineScreen extends AbstractGenericEnergyStorageHandledScreen<AssemblingMachineMenu> {
-    private final Identifier CONFIGURATION_ICONS_TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+    private final Identifier CONFIGURATION_ICONS_TEXTURE =
+            new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
+    private final Identifier UPGRADE_VIEW_TEXTURE =
+            new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/assembling_machine.png");
 
     public AssemblingMachineScreen(AssemblingMachineMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
@@ -40,11 +41,16 @@ public class AssemblingMachineScreen extends AbstractGenericEnergyStorageHandled
         if(mouseButton == 0) {
             boolean clicked = false;
             if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+                //Upgrade view
+
+                client.interactionManager.clickButton(handler.syncId, 0);
+                clicked = true;
+            }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
 
                  ClientPlayNetworking.send(new ChangeRedstoneModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
-            }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+            }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
                 //Comparator Mode
 
                  ClientPlayNetworking.send(new ChangeComparatorModeC2SPacket(handler.getBlockEntity().getPos()));
@@ -65,7 +71,11 @@ public class AssemblingMachineScreen extends AbstractGenericEnergyStorageHandled
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        renderProgressArrow(drawContext, x, y);
+        if(handler.isInUpgradeModuleView()) {
+            drawContext.drawTexture(UPGRADE_VIEW_TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        }else {
+            renderProgressArrow(drawContext, x, y);
+        }
 
         renderConfiguration(drawContext, x, y, mouseX, mouseY);
     }
@@ -76,22 +86,31 @@ public class AssemblingMachineScreen extends AbstractGenericEnergyStorageHandled
     }
 
     private void renderConfiguration(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
+        //Upgrade view
+        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 40, 80, 20, 20);
+        }else if(handler.isInUpgradeModuleView()) {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20, 80, 20, 20);
+        }else {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 0, 80, 20, 20);
+        }
+
         RedstoneMode redstoneMode = handler.getRedstoneMode();
         int ordinal = redstoneMode.ordinal();
 
-        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 20, 20, 20);
+        if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 20, 20, 20);
         }else {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 0, 20, 20);
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 0, 20, 20);
         }
 
         ComparatorMode comparatorMode = handler.getComparatorMode();
         ordinal = comparatorMode.ordinal();
 
-        if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 60, 20, 20);
+        if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 60, 20, 20);
         }else {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 40, 20, 20);
+            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 40, 20, 20);
         }
     }
 
@@ -100,6 +119,14 @@ public class AssemblingMachineScreen extends AbstractGenericEnergyStorageHandled
         super.drawMouseoverTooltip(drawContext, mouseX, mouseY);
 
         if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            //Upgrade view
+
+            List<Text> components = new ArrayList<>(2);
+            components.add(Text.translatable("tooltip.energizedpower.upgrade_view.button." +
+                    (handler.isInUpgradeModuleView()?"close":"open")));
+
+            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+        }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
             //Redstone Mode
 
             RedstoneMode redstoneMode = handler.getRedstoneMode();
@@ -108,7 +135,7 @@ public class AssemblingMachineScreen extends AbstractGenericEnergyStorageHandled
             components.add(Text.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.asString()));
 
             drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
+        }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
             //Comparator Mode
 
             ComparatorMode comparatorMode = handler.getComparatorMode();

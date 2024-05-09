@@ -153,7 +153,7 @@ public class AdvancedMinecartUnchargerBlockEntity extends BlockEntity implements
 
         List<EnergyStorage> consumerItems = new LinkedList<>();
         List<Long> consumerEnergyValues = new LinkedList<>();
-        int consumptionSum = 0;
+        long consumptionSum = 0;
         for(Direction direction:Direction.values()) {
             BlockPos testPos = blockPos.offset(direction);
 

@@ -141,7 +141,7 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
     }
 
     public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory.heldStacks);
+        ItemScatterer.spawn(level, worldPosition, internalInventory);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltBlockEntity blockEntity) {

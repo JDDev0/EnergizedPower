@@ -4,8 +4,12 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.FluidFillerBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
@@ -28,6 +32,7 @@ public class FluidFillerMenu extends ScreenHandler implements EnergyStorageMenu 
     private final Inventory inv;
     private final World level;
     private final PropertyDelegate data;
+    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public FluidFillerMenu(int id, PlayerInventory inv, BlockPos pos) {
         this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(1) {
@@ -43,16 +48,21 @@ public class FluidFillerMenu extends ScreenHandler implements EnergyStorageMenu 
             public int getMaxCountPerStack() {
                 return 1;
             }
-        }, new ArrayPropertyDelegate(10));
+        }, new UpgradeModuleInventory(
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        ), new ArrayPropertyDelegate(10));
     }
 
-    public FluidFillerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
+    public FluidFillerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
+                           UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(ModMenuTypes.FLUID_FILLER_MENU, id);
 
         this.blockEntity = (FluidFillerBlockEntity)blockEntity;
 
         this.inv = inv;
         checkSize(this.inv, 1);
+        checkSize(upgradeModuleInventory, 2);
         checkDataCount(data, 10);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
@@ -61,9 +71,36 @@ public class FluidFillerMenu extends ScreenHandler implements EnergyStorageMenu 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
-        addSlot(new ConstraintInsertSlot(this.inv, 0, 80, 35));
+        addSlot(new ConstraintInsertSlot(this.inv, 0, 80, 35) {
+            @Override
+            public boolean isEnabled() {
+                return super.isEnabled() && !isInUpgradeModuleView();
+            }
+        });
+
+        for(int i = 0;i < upgradeModuleInventory.size();i++)
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 71 + i * 18, 35, this::isInUpgradeModuleView));
 
         addProperties(this.data);
+
+        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
+        addProperties(upgradeModuleViewContainerData);
+    }
+
+    @Override
+    public boolean isInUpgradeModuleView() {
+        return upgradeModuleViewContainerData.isInUpgradeModuleView();
+    }
+
+    @Override
+    public boolean onButtonClick(PlayerEntity player, int index) {
+        if(index == 0) {
+            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
+
+            sendContentUpdates();
+        }
+
+        return false;
     }
 
     @Override
@@ -110,13 +147,14 @@ public class FluidFillerMenu extends ScreenHandler implements EnergyStorageMenu 
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
-            //Player inventory slot -> Merge into tile inventory
+            //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
             //Allow only 1 item
-            if(slots.get(4 * 9).hasStack() || !insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
+            if(!insertItem(sourceItem, 4 * 9 + 1, 4 * 9 + 1 + 2, false) &&
+                    (slots.get(4 * 9).hasStack() || !insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false))) {
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 1) {
-            //Tile inventory slot -> Merge into player inventory
+        }else if(index < 4 * 9 + 1 + 2) {
+            //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!insertItem(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }

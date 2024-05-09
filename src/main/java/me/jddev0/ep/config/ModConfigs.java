@@ -134,6 +134,176 @@ public final class ModConfigs {
             1L, null
     ));
 
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_1_EFFECT = registerSpeedModuleEffectValue(
+            1, "I",
+            1.2
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_1_ENERGY_CONSUMPTION_EFFECT = registerSpeedModuleEnergyConsumptionEffectValue(
+            1, "I",
+            1.4
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_2_EFFECT = registerSpeedModuleEffectValue(
+            2, "II",
+            1.5
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_2_ENERGY_CONSUMPTION_EFFECT = registerSpeedModuleEnergyConsumptionEffectValue(
+            2, "II",
+            2.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_3_EFFECT = registerSpeedModuleEffectValue(
+            3, "III",
+            2.
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_3_ENERGY_CONSUMPTION_EFFECT = registerSpeedModuleEnergyConsumptionEffectValue(
+            3, "III",
+            2.5
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_4_EFFECT = registerSpeedModuleEffectValue(
+            4, "IV",
+            3.5
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_4_ENERGY_CONSUMPTION_EFFECT = registerSpeedModuleEnergyConsumptionEffectValue(
+            4, "IV",
+            5
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_5_EFFECT = registerSpeedModuleEffectValue(
+            5, "V",
+            6
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_5_ENERGY_CONSUMPTION_EFFECT = registerSpeedModuleEnergyConsumptionEffectValue(
+            5, "V",
+            10
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_EFFICIENCY_1_EFFECT = registerEnergyEfficiencyModuleEffectValue(
+            1, "I",
+            .9
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_EFFICIENCY_2_EFFECT = registerEnergyEfficiencyModuleEffectValue(
+            2, "II",
+            .75
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_EFFICIENCY_3_EFFECT = registerEnergyEfficiencyModuleEffectValue(
+            3, "III",
+            .6
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_EFFICIENCY_4_EFFECT = registerEnergyEfficiencyModuleEffectValue(
+            4, "IV",
+            .4
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_EFFICIENCY_5_EFFECT = registerEnergyEfficiencyModuleEffectValue(
+            8, "V",
+            .2
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_1_EFFECT = registerEnergyCapacityModuleEffectValue(
+            1, "I",
+            1.5
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_1_ENERGY_TRANSFER_RATE_EFFECT = registerEnergyCapacityModuleEnergyTransferRateEffectValue(
+            1, "I",
+            1.5
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_2_EFFECT = registerEnergyCapacityModuleEffectValue(
+            2, "II",
+            2.5
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_2_ENERGY_TRANSFER_RATE_EFFECT = registerEnergyCapacityModuleEnergyTransferRateEffectValue(
+            2, "II",
+            2.5
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_3_EFFECT = registerEnergyCapacityModuleEffectValue(
+            3, "III",
+            4
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_3_ENERGY_TRANSFER_RATE_EFFECT = registerEnergyCapacityModuleEnergyTransferRateEffectValue(
+            3, "III",
+            4
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_4_EFFECT = registerEnergyCapacityModuleEffectValue(
+            4, "IV",
+            7.5
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_4_ENERGY_TRANSFER_RATE_EFFECT = registerEnergyCapacityModuleEnergyTransferRateEffectValue(
+            4, "IV",
+            7.5
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_5_EFFECT = registerEnergyCapacityModuleEffectValue(
+            5, "V",
+            10
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_5_ENERGY_TRANSFER_RATE_EFFECT = registerEnergyCapacityModuleEnergyTransferRateEffectValue(
+            5, "V",
+            10
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_DURATION_1_EFFECT = registerDurationUpgradeModuleEffectValue(
+            1, "I",
+            4.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_DURATION_2_EFFECT = registerDurationUpgradeModuleEffectValue(
+            2, "II",
+            20.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_DURATION_3_EFFECT = registerDurationUpgradeModuleEffectValue(
+            3, "III",
+            50.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_DURATION_4_EFFECT = registerDurationUpgradeModuleEffectValue(
+            4, "VI",
+            100.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_DURATION_5_EFFECT = registerDurationUpgradeModuleEffectValue(
+            5, "V",
+            250.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_RANGE_1_EFFECT = registerRangeUpgradeModuleEffectValue(
+            1, "I",
+            1.25
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_RANGE_2_EFFECT = registerRangeUpgradeModuleEffectValue(
+            2, "II",
+            1.5
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_RANGE_3_EFFECT = registerRangeUpgradeModuleEffectValue(
+            3, "III",
+            1.75
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_MOON_LIGHT_1_EFFECT = registerMoonLightUpgradeModuleEffectValue(
+            1, "I",
+            .125
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_MOON_LIGHT_2_EFFECT = registerMoonLightUpgradeModuleEffectValue(
+            2, "II",
+            .33
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_MOON_LIGHT_3_EFFECT = registerMoonLightUpgradeModuleEffectValue(
+            3, "III",
+            .66
+    );
+
     //Blocks
     public static final ConfigValue<Long> COMMON_BATTERY_BOX_CAPACITY = registerEnergyCapacityConfigValue(
             "block.battery_box", "Battery Box", 65536
@@ -631,18 +801,18 @@ public final class ModConfigs {
     );
 
     public static final ConfigValue<Long> COMMON_POWERED_FURNACE_CAPACITY = registerEnergyCapacityConfigValue(
-            "block.powered_furnace", "Powered Furnace", 4096
+            "block.powered_furnace", "Powered Furnace", 2048
     );
     public static final ConfigValue<Long> COMMON_POWERED_FURNACE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
-            "block.powered_furnace", "Powered Furnace", 256
+            "block.powered_furnace", "Powered Furnace", 128
     );
     public static final ConfigValue<Long> COMMON_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
-            "block.powered_furnace", "Powered Furnace", 128
+            "block.powered_furnace", "Powered Furnace", 2
     );
     public static final ConfigValue<Float> COMMON_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
             "block.powered_furnace.recipe_duration_multiplier",
             "The multiplier by which the time a recipe of the Powered Furnace requires is multiplied by.\n" +
-                    "=> If set to 6 the Powered Furnace will be as fast as the normal Furnace.",
+                    "=> If set to 2 the Powered Furnace will be as fast as the normal Furnace.",
             1.f,
             0.f, null
     ));
@@ -651,21 +821,21 @@ public final class ModConfigs {
     );
 
     public static final ConfigValue<Long> COMMON_ADVANCED_POWERED_FURNACE_CAPACITY = registerEnergyCapacityConfigValue(
-            "block.advanced_powered_furnace", "Advanced Powered Furnace", 32768
+            "block.advanced_powered_furnace", "Advanced Powered Furnace", 16384
     );
     public static final ConfigValue<Long> COMMON_ADVANCED_POWERED_FURNACE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
-            "block.advanced_powered_furnace", "Advanced Powered Furnace", 4096
+            "block.advanced_powered_furnace", "Advanced Powered Furnace", 1024
     );
     public static final ConfigValue<Long> COMMON_ADVANCED_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_INPUT_PER_TICK = COMMON_CONFIG.register(new LongConfigValue(
             "block.advanced_powered_furnace.energy_consumption_per_input_per_tick",
             "The energy consumption per input of the Advanced Powered Furnace in E per tick.",
-            1024L,
+            256L,
             1L, null
     ));
     public static final ConfigValue<Float> COMMON_ADVANCED_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
             "block.advanced_powered_furnace.recipe_duration_multiplier",
             "The multiplier by which the time a recipe of the Advanced Powered Furnace requires is multiplied by.\n" +
-                    "=> If set to 12 the Advanced Powered Furnace will be as fast as the normal Furnace.",
+                    "=> If set to 6 the Advanced Powered Furnace will be as fast as the normal Furnace.",
             1.f,
             0.f, null
     ));
@@ -1030,6 +1200,88 @@ public final class ModConfigs {
                 "The recipe blacklist for the " + itemName + ".\n" +
                         "The blacklist is a list of recipe ids which can not be crafted in the " + itemName,
                 defaultValue
+        ));
+    }
+
+    private static ConfigValue<Double> registerSpeedModuleEffectValue(int tier, String tierRomanNumerals, double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.speed_upgrade_module_" + tier + ".effect_value",
+                "The upgrade module effect (Production speed multiplier) of the Speed Upgrade Module (Tier " +
+                        tierRomanNumerals + ")",
+                defaultValue,
+                1., null
+        ));
+    }
+    private static ConfigValue<Double> registerSpeedModuleEnergyConsumptionEffectValue(int tier, String tierRomanNumerals,
+                                                                                       double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.speed_upgrade_module_" + tier + ".effect_value.energy_consumption",
+                "The upgrade module effect (Energy Consumption per tick multiplier) of the Speed Upgrade Module (Tier " +
+                        tierRomanNumerals + ")",
+                defaultValue,
+                1., null
+        ));
+    }
+
+    private static ConfigValue<Double> registerEnergyEfficiencyModuleEffectValue(int tier, String tierRomanNumerals,
+                                                                                 double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.energy_efficiency_upgrade_module_" + tier + ".effect_value",
+                "The upgrade module effect (Energy Consumption per tick multiplier) of the Energy Efficiency Upgrade Module (Tier " +
+                        tierRomanNumerals + ")",
+                defaultValue,
+                0., 1.
+        ));
+    }
+
+    private static ConfigValue<Double> registerEnergyCapacityModuleEffectValue(int tier, String tierRomanNumerals, double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.Energy_capacity_upgrade_module_" + tier + ".effect_value",
+                "The upgrade module effect (Energy capacity multiplier) of the Energy Capacity Upgrade Module (Tier " +
+                        tierRomanNumerals + ")",
+                defaultValue,
+                1., null
+        ));
+    }
+    private static ConfigValue<Double> registerEnergyCapacityModuleEnergyTransferRateEffectValue(int tier, String tierRomanNumerals,
+                                                                                       double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.Energy_capacity_upgrade_module_" + tier + ".energy_transfer_rate.effect_value",
+                "The upgrade module effect (Energy transfer rate multiplier) of the Energy Capacity Upgrade Module (Tier " +
+                        tierRomanNumerals + ")",
+                defaultValue,
+                1., null
+        ));
+    }
+
+    private static ConfigValue<Double> registerDurationUpgradeModuleEffectValue(int tier, String tierRomanNumerals, double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.duration_upgrade_module_" + tier + ".effect_value",
+                "The upgrade module effect (Duration multiplier) of the Duration Upgrade Module (Tier " +
+                        tierRomanNumerals + ")",
+                defaultValue,
+                1., null
+        ));
+    }
+
+    private static ConfigValue<Double> registerRangeUpgradeModuleEffectValue(int tier, String tierRomanNumerals, double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.range_upgrade_module_" + tier + ".effect_value",
+                "The upgrade module effect (Range multiplier) of the Range Upgrade Module (Tier " +
+                        tierRomanNumerals + ")",
+                defaultValue,
+                1., null
+        ));
+    }
+
+    private static ConfigValue<Double> registerMoonLightUpgradeModuleEffectValue(int tier, String tierRomanNumerals, double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.moon_light_upgrade_module_" + tier + ".effect_value",
+                "The upgrade module effect (Multiplier of peak energy production during nighttime relative to the " +
+                        "peak energy production during daytime) of the Moon Light Upgrade Module (Tier " +
+                        tierRomanNumerals + ")",
+                defaultValue,
+                0., null
         ));
     }
 

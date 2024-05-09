@@ -7,10 +7,12 @@ import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
@@ -26,6 +28,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -56,6 +59,8 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
 
     private static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_ASSEMBLING_MACHINE_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
+    private static final int RECIPE_DURATION = ModConfigs.COMMON_ASSEMBLING_MACHINE_RECIPE_DURATION.getValue();
+
     final CachedSidedInventoryStorage<AssemblingMachineBlockEntity> cachedSidedInventoryStorageTopBottom;
     final InputOutputItemHandler sidedInventoryTopBottom;
 
@@ -73,12 +78,20 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
 
     private final SimpleInventory internalInventory;
 
+    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.SPEED,
+            UpgradeModuleModifier.ENERGY_CONSUMPTION,
+            UpgradeModuleModifier.ENERGY_CAPACITY
+    );
+    private final InventoryChangedListener updateUpgradeModuleListener = container -> updateUpgradeModules();
+
+
     final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     protected final PropertyDelegate data;
     private int progress;
-    private int maxProgress = ModConfigs.COMMON_ASSEMBLING_MACHINE_RECIPE_DURATION.getValue();
+    private int maxProgress;
     private long energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
 
@@ -87,6 +100,8 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
 
     public AssemblingMachineBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ASSEMBLING_MACHINE_ENTITY, blockPos, blockState);
+
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         internalInventory = new SimpleInventory(5) {
             @Override
@@ -208,6 +223,12 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
 
         internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
+            public long getCapacity() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
             protected void onFinalCommit() {
                 markDirty();
 
@@ -219,7 +240,13 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
                 }
             }
         };
-        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, ModConfigs.COMMON_ASSEMBLING_MACHINE_TRANSFER_RATE.getValue(), 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, ModConfigs.COMMON_ASSEMBLING_MACHINE_TRANSFER_RATE.getValue(), 0) {
+            @Override
+            public long getMaxInsert() {
+                return Math.max(1, (long)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+        };
 
         data = new PropertyDelegate() {
             @Override
@@ -283,6 +310,20 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
         return Text.translatable("container.energizedpower.assembling_machine");
     }
 
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
+                new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos()));
+
+        return new AssemblingMachineMenu(id, this, inventory, internalInventory, upgradeModuleInventory, this.data);
+    }
+
+    @Override
+    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
+        return pos;
+    }
+
     public int getRedstoneOutput() {
         return switch(comparatorMode) {
             case ITEM -> ScreenHandler.calculateComparatorOutput(internalInventory);
@@ -291,26 +332,16 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
         };
     }
 
-    @Nullable
-    @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos()));
-
-        return new AssemblingMachineMenu(id, this, inventory, internalInventory, this.data);
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
-    }
-
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
+
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
         nbt.putLong("energy", internalEnergyStorage.getAmount());
 
         nbt.put("recipe.progress", NbtInt.of(progress));
+        nbt.put("recipe.max_progress", NbtInt.of(maxProgress));
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
@@ -323,10 +354,16 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
+        //Load Upgrade Module Inventory first
+        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
         internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
 
         progress = nbt.getInt("recipe.progress");
+        maxProgress = nbt.getInt("recipe.max_progress");
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
@@ -334,7 +371,8 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
     }
 
     public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory.heldStacks);
+        ItemScatterer.spawn(level, worldPosition, internalInventory);
+        ItemScatterer.spawn(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, AssemblingMachineBlockEntity blockEntity) {
@@ -350,10 +388,17 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
             if(recipe.isEmpty())
                 return;
 
-            if(blockEntity.energyConsumptionLeft < 0)
-                blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK * blockEntity.maxProgress;
+            if(blockEntity.maxProgress == 0)
+                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(RECIPE_DURATION /
+                        blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
 
-            if(ENERGY_USAGE_PER_TICK <= blockEntity.internalEnergyStorage.getAmount()) {
+            long energyConsumptionPerTick = Math.max(1, (long)Math.ceil(ENERGY_USAGE_PER_TICK *
+                    blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
+
+            if(blockEntity.energyConsumptionLeft < 0)
+                blockEntity.energyConsumptionLeft = energyConsumptionPerTick * blockEntity.maxProgress;
+
+            if(energyConsumptionPerTick <= blockEntity.internalEnergyStorage.getAmount()) {
                 blockEntity.hasEnoughEnergy = true;
 
                 if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
@@ -366,10 +411,10 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
                 }
 
                 try(Transaction transaction = Transaction.openOuter()) {
-                    blockEntity.internalEnergyStorage.extract(ENERGY_USAGE_PER_TICK, transaction);
+                    blockEntity.internalEnergyStorage.extract(energyConsumptionPerTick, transaction);
                     transaction.commit();
                 }
-                blockEntity.energyConsumptionLeft -= ENERGY_USAGE_PER_TICK;
+                blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
 
                 blockEntity.progress++;
                 if(blockEntity.progress >= blockEntity.maxProgress)
@@ -388,6 +433,7 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
 
     private void resetProgress(BlockPos blockPos, BlockState state) {
         progress = 0;
+        maxProgress = 0;
         energyConsumptionLeft = -1;
         hasEnoughEnergy = true;
     }
@@ -456,6 +502,17 @@ public class AssemblingMachineBlockEntity extends BlockEntity implements Extende
 
         return inventoryItemStack.isEmpty() || (ItemStack.areItemsAndComponentsEqual(inventoryItemStack, itemStack) &&
                 inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount());
+    }
+
+    private void updateUpgradeModules() {
+        resetProgress(getPos(), getCachedState());
+        markDirty();
+        if(world != null && !world.isClient()) {
+            ModMessages.sendServerPacketToPlayersWithinXBlocks(
+                    getPos(), (ServerWorld)world, 32,
+                    new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos())
+            );
+        }
     }
 
     public long getEnergy() {

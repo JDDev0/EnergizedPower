@@ -6,10 +6,12 @@ import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.CoalEngineMenu;
@@ -22,6 +24,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -59,6 +62,11 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
     final InputOutputItemHandler inventory;
     private final SimpleInventory internalInventory;
 
+    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.ENERGY_CAPACITY
+    );
+    private final InventoryChangedListener updateUpgradeModuleListener = container -> updateUpgradeModules();
+
     final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
@@ -73,6 +81,8 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
 
     public CoalEngineBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.COAL_ENGINE_ENTITY, blockPos, blockState);
+
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         internalInventory = new SimpleInventory(1) {
             @Override
@@ -120,6 +130,12 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
 
         internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
+            public long getCapacity() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
             protected void onFinalCommit() {
                 markDirty();
 
@@ -131,7 +147,14 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
                 }
             }
         };
-        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, 0, MAX_EXTRACT);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, 0, MAX_EXTRACT) {
+            @Override
+            public long getMaxExtract() {
+                return Math.max(1, (long)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+        };
+
         data = new PropertyDelegate() {
             @Override
             public int get(int index) {
@@ -173,6 +196,20 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
         return Text.translatable("container.energizedpower.coal_engine");
     }
 
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
+                new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos()));
+        
+        return new CoalEngineMenu(id, this, inventory, internalInventory, upgradeModuleInventory, this.data);
+    }
+
+    @Override
+    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
+        return pos;
+    }
+
     public int getRedstoneOutput() {
         return switch(comparatorMode) {
             case ITEM -> ScreenHandler.calculateComparatorOutput(internalInventory);
@@ -181,22 +218,11 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
         };
     }
 
-    @Nullable
-    @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos()));
-        
-        return new CoalEngineMenu(id, this, inventory, internalInventory, this.data);
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
-    }
-
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
+
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
         nbt.putLong("energy", internalEnergyStorage.getAmount());
 
@@ -214,6 +240,11 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
+        //Load Upgrade Module Inventory first
+        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
         internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
 
@@ -226,7 +257,8 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
     public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory.heldStacks);
+        ItemScatterer.spawn(level, worldPosition, internalInventory);
+        ItemScatterer.spawn(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
@@ -255,10 +287,10 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
 
             //Change max progress if item would output more than max extract
             if(blockEntity.maxProgress == 0) {
-                if(energyProduction / 100 <= MAX_EXTRACT)
+                if(energyProduction / 100 <= blockEntity.energyStorage.getMaxExtract())
                     blockEntity.maxProgress = 100;
                 else
-                    blockEntity.maxProgress = (int)Math.ceil((double)energyProduction / MAX_EXTRACT);
+                    blockEntity.maxProgress = (int)Math.ceil((double)energyProduction / blockEntity.energyStorage.getMaxExtract());
             }
 
             //TODO improve (alternate values +/- 1 per x recipes instead of changing last energy production tick)
@@ -319,7 +351,7 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
 
         List<EnergyStorage> consumerItems = new LinkedList<>();
         List<Long> consumerEnergyValues = new LinkedList<>();
-        int consumptionSum = 0;
+        long consumptionSum = 0;
         for(Direction direction:Direction.values()) {
             BlockPos testPos = blockPos.offset(direction);
 
@@ -335,7 +367,8 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
                 continue;
 
             try(Transaction transaction = Transaction.openOuter()) {
-                long received = energyStorage.insert(Math.min(MAX_EXTRACT, blockEntity.internalEnergyStorage.getAmount()), transaction);
+                long received = energyStorage.insert(Math.min(blockEntity.energyStorage.getMaxExtract(),
+                        blockEntity.internalEnergyStorage.getAmount()), transaction);
 
                 if(received <= 0)
                     continue;
@@ -350,7 +383,8 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0L);
 
-        long consumptionLeft = Math.min(MAX_EXTRACT, Math.min(blockEntity.internalEnergyStorage.getAmount(), consumptionSum));
+        long consumptionLeft = Math.min(blockEntity.energyStorage.getMaxExtract(),
+                Math.min(blockEntity.internalEnergyStorage.getAmount(), consumptionSum));
         try(Transaction transaction = Transaction.openOuter()) {
             blockEntity.internalEnergyStorage.extract(consumptionLeft, transaction);
             transaction.commit();
@@ -405,6 +439,16 @@ public class CoalEngineBlockEntity extends BlockEntity implements ExtendedScreen
             return false;
 
         return item.getRecipeRemainder().isEmpty() || item.getCount() == 1;
+    }
+
+    private void updateUpgradeModules() {
+        markDirty();
+        if(world != null && !world.isClient()) {
+            ModMessages.sendServerPacketToPlayersWithinXBlocks(
+                    getPos(), (ServerWorld)world, 32,
+                    new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos())
+            );
+        }
     }
 
     public long getEnergy() {

@@ -109,7 +109,7 @@ public class LightningGeneratorBlockEntity extends BlockEntity implements Extend
 
         List<EnergyStorage> consumerItems = new LinkedList<>();
         List<Long> consumerEnergyValues = new LinkedList<>();
-        int consumptionSum = 0;
+        long consumptionSum = 0;
         for(Direction direction:Direction.values()) {
             BlockPos testPos = blockPos.offset(direction);
 
@@ -125,7 +125,8 @@ public class LightningGeneratorBlockEntity extends BlockEntity implements Extend
                 continue;
 
             try(Transaction transaction = Transaction.openOuter()) {
-                long received = energyStorage.insert(Math.min(MAX_EXTRACT, blockEntity.internalEnergyStorage.getAmount()), transaction);
+                long received = energyStorage.insert(Math.min(blockEntity.energyStorage.getMaxExtract(),
+                        blockEntity.internalEnergyStorage.getAmount()), transaction);
 
                 if(received <= 0)
                     continue;
@@ -140,7 +141,8 @@ public class LightningGeneratorBlockEntity extends BlockEntity implements Extend
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0L);
 
-        long consumptionLeft = Math.min(MAX_EXTRACT, Math.min(blockEntity.internalEnergyStorage.getAmount(), consumptionSum));
+        long consumptionLeft = Math.min(blockEntity.energyStorage.getMaxExtract(),
+                Math.min(blockEntity.internalEnergyStorage.getAmount(), consumptionSum));
         try(Transaction transaction = Transaction.openOuter()) {
             blockEntity.internalEnergyStorage.extract(consumptionLeft, transaction);
             transaction.commit();

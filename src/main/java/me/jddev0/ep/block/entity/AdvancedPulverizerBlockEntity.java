@@ -11,10 +11,12 @@ import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.fluid.ModFluids;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
@@ -34,6 +36,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -63,6 +66,8 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
     public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_PULVERIZER_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_ADVANCED_PULVERIZER_TRANSFER_RATE.getValue();
 
+    private static final int RECIPE_DURATION = ModConfigs.COMMON_ADVANCED_PULVERIZER_RECIPE_DURATION.getValue();
+
     public static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_ADVANCED_PULVERIZER_ENERGY_CONSUMPTION_PER_TICK.getValue();
     public static final long TANK_CAPACITY = FluidUtils.convertMilliBucketsToDroplets(
             1000 * ModConfigs.COMMON_ADVANCED_PULVERIZER_TANK_CAPACITY.getValue());
@@ -73,6 +78,13 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
     final InputOutputItemHandler inventory;
     private final SimpleInventory internalInventory;
 
+    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.SPEED,
+            UpgradeModuleModifier.ENERGY_CONSUMPTION,
+            UpgradeModuleModifier.ENERGY_CAPACITY
+    );
+    private final InventoryChangedListener updateUpgradeModuleListener = container -> updateUpgradeModules();
+
     final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
@@ -80,7 +92,7 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
 
     protected final PropertyDelegate data;
     private int progress;
-    private int maxProgress = ModConfigs.COMMON_ADVANCED_PULVERIZER_RECIPE_DURATION.getValue();
+    private int maxProgress;
     private long energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
 
@@ -89,6 +101,8 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
 
     public AdvancedPulverizerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.ADVANCED_PULVERIZER_ENTITY, blockPos, blockState);
+
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         internalInventory = new SimpleInventory(3) {
             @Override
@@ -138,6 +152,12 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
 
         internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
             @Override
+            public long getCapacity() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
             protected void onFinalCommit() {
                 markDirty();
 
@@ -149,7 +169,13 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
                 }
             }
         };
-        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0) {
+            @Override
+            public long getMaxInsert() {
+                return Math.max(1, (long)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+        };
 
         fluidStorage = new CombinedStorage<>(List.of(
                 new SimpleFluidStorage(TANK_CAPACITY) {
@@ -257,7 +283,7 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
             ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, new FluidSyncS2CPacket(i,
                     fluidStorage.parts.get(i).getFluid(), fluidStorage.parts.get(i).getCapacity(), getPos()));
 
-        return new AdvancedPulverizerMenu(id, this, inventory, internalInventory, this.data);
+        return new AdvancedPulverizerMenu(id, this, inventory, internalInventory, upgradeModuleInventory, this.data);
     }
 
     @Override
@@ -275,12 +301,16 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
+
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
         nbt.putLong("energy", internalEnergyStorage.getAmount());
         for(int i = 0;i < fluidStorage.parts.size();i++)
             nbt.put("fluid." + i, fluidStorage.parts.get(i).getFluid().toNBT(new NbtCompound(), registries));
 
         nbt.put("recipe.progress", NbtInt.of(progress));
+        nbt.put("recipe.max_progress", NbtInt.of(maxProgress));
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
@@ -293,12 +323,18 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
+        //Load Upgrade Module Inventory first
+        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
         internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
         for(int i = 0;i < fluidStorage.parts.size();i++)
             fluidStorage.parts.get(i).setFluid(FluidStack.fromNbt(nbt.getCompound("fluid." + i), registries));
 
         progress = nbt.getInt("recipe.progress");
+        maxProgress = nbt.getInt("recipe.max_progress");
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
@@ -306,7 +342,8 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
     }
 
     public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory.heldStacks);
+        ItemScatterer.spawn(level, worldPosition, internalInventory);
+        ItemScatterer.spawn(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, AdvancedPulverizerBlockEntity blockEntity) {
@@ -321,10 +358,17 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
             if(recipe.isEmpty())
                 return;
 
-            if(blockEntity.energyConsumptionLeft < 0)
-                blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK * blockEntity.maxProgress;
+            if(blockEntity.maxProgress == 0)
+                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(RECIPE_DURATION /
+                        blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
 
-            if(ENERGY_USAGE_PER_TICK <= blockEntity.internalEnergyStorage.getAmount()) {
+            long energyConsumptionPerTick = Math.max(1, (long)Math.ceil(ENERGY_USAGE_PER_TICK *
+                    blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
+
+            if(blockEntity.energyConsumptionLeft < 0)
+                blockEntity.energyConsumptionLeft = energyConsumptionPerTick * blockEntity.maxProgress;
+
+            if(energyConsumptionPerTick <= blockEntity.internalEnergyStorage.getAmount()) {
                 blockEntity.hasEnoughEnergy = true;
 
                 if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
@@ -337,10 +381,10 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
                 }
 
                 try(Transaction transaction = Transaction.openOuter()) {
-                    blockEntity.internalEnergyStorage.extract(ENERGY_USAGE_PER_TICK, transaction);
+                    blockEntity.internalEnergyStorage.extract(energyConsumptionPerTick, transaction);
                     transaction.commit();
                 }
-                blockEntity.energyConsumptionLeft -= ENERGY_USAGE_PER_TICK;
+                blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
 
                 blockEntity.progress++;
                 if(blockEntity.progress >= blockEntity.maxProgress)
@@ -359,6 +403,7 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
 
     private void resetProgress(BlockPos blockPos, BlockState state) {
         progress = 0;
+        maxProgress = 0;
         energyConsumptionLeft = -1;
         hasEnoughEnergy = true;
     }
@@ -417,6 +462,17 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
 
         return inventoryItemStack.isEmpty() || (ItemStack.areItemsAndComponentsEqual(inventoryItemStack, itemStack) &&
                 inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount());
+    }
+
+    private void updateUpgradeModules() {
+        resetProgress(getPos(), getCachedState());
+        markDirty();
+        if(world != null && !world.isClient()) {
+            ModMessages.sendServerPacketToPlayersWithinXBlocks(
+                    getPos(), (ServerWorld)world, 32,
+                    new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos())
+            );
+        }
     }
 
     public FluidStack getFluid(int tank) {

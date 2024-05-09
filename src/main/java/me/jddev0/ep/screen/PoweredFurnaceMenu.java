@@ -3,8 +3,12 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.PoweredFurnaceBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.entity.BlockEntity;
@@ -13,7 +17,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -27,28 +30,39 @@ public class PoweredFurnaceMenu extends ScreenHandler implements EnergyStorageCo
     private final Inventory inv;
     private final World level;
     private final PropertyDelegate data;
+    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public PoweredFurnaceMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(2) {
+        this(id, inv, (PoweredFurnaceBlockEntity)inv.player.getWorld().getBlockEntity(pos));
+    }
+    private PoweredFurnaceMenu(int id, PlayerInventory inv, PoweredFurnaceBlockEntity blockEntity) {
+        this(id, blockEntity, inv, new SimpleInventory(2) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> RecipeUtils.isIngredientOfAny(inv.player.getWorld(), RecipeType.SMELTING, stack);
+                    case 0 -> RecipeUtils.isIngredientOfAny(inv.player.getWorld(),
+                            blockEntity.getRecipeForFurnaceModeUpgrade(), stack);
                     case 1 -> false;
                     default -> super.isValid(slot, stack);
                 };
             }
-        }, new ArrayPropertyDelegate(11));
+        }, new UpgradeModuleInventory(
+                UpgradeModuleModifier.SPEED,
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.FURNACE_MODE
+        ), new ArrayPropertyDelegate(11));
     }
 
     public PoweredFurnaceMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
-                       PropertyDelegate data) {
+                              UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(ModMenuTypes.POWERED_FURNACE_MENU, id);
 
         this.blockEntity = (PoweredFurnaceBlockEntity)blockEntity;
 
         this.inv = inv;
         checkSize(this.inv, 2);
+        checkSize(upgradeModuleInventory, 4);
         checkDataCount(data, 11);
         this.level = playerInventory.player.getWorld();
         this.inv.onOpen(playerInventory.player);
@@ -57,10 +71,42 @@ public class PoweredFurnaceMenu extends ScreenHandler implements EnergyStorageCo
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
-        addSlot(new ConstraintInsertSlot(this.inv, 0, 48, 35));
-        addSlot(new ConstraintInsertSlot(this.inv, 1, 124, 35));
+        addSlot(new ConstraintInsertSlot(this.inv, 0, 48, 35) {
+            @Override
+            public boolean isEnabled() {
+                return super.isEnabled() && !isInUpgradeModuleView();
+            }
+        });
+        addSlot(new ConstraintInsertSlot(this.inv, 1, 124, 35) {
+            @Override
+            public boolean isEnabled() {
+                return super.isEnabled() && !isInUpgradeModuleView();
+            }
+        });
+
+        for(int i = 0;i < upgradeModuleInventory.size();i++)
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 53 + i * 18, 35, this::isInUpgradeModuleView));
 
         addProperties(this.data);
+
+        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
+        addProperties(upgradeModuleViewContainerData);
+    }
+
+    @Override
+    public boolean isInUpgradeModuleView() {
+        return upgradeModuleViewContainerData.isInUpgradeModuleView();
+    }
+
+    @Override
+    public boolean onButtonClick(PlayerEntity player, int index) {
+        if(index == 0) {
+            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
+
+            sendContentUpdates();
+        }
+
+        return false;
     }
 
     @Override
@@ -115,13 +161,14 @@ public class PoweredFurnaceMenu extends ScreenHandler implements EnergyStorageCo
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
-            //Player inventory slot -> Merge into tile inventory
-            if(!insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
+            //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
+            if(!insertItem(sourceItem, 4 * 9 + 2, 4 * 9 + 2 + 4, false) &&
+                    !insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 //"+1" instead of "+2": Do not allow adding to output slot
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 2) {
-            //Tile inventory slot -> Merge into player inventory
+        }else if(index < 4 * 9 + 2 + 4) {
+            //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!insertItem(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }
