@@ -3,13 +3,13 @@ package me.jddev0.ep.networking.packet;
 import me.jddev0.ep.recipe.FurnaceRecipeTypePacketUpdate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.event.network.CustomPayloadEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public final class SyncFurnaceRecipeTypeS2CPacket {
     private final RecipeType<? extends AbstractCookingRecipe> recipeType;
@@ -23,8 +23,10 @@ public final class SyncFurnaceRecipeTypeS2CPacket {
     @SuppressWarnings("unchecked")
     public SyncFurnaceRecipeTypeS2CPacket(FriendlyByteBuf buffer) {
         if(buffer.readBoolean()) {
-            this.recipeType = (RecipeType<? extends AbstractCookingRecipe>)BuiltInRegistries.RECIPE_TYPE.
-                    getOptional(buffer.readResourceLocation()).orElse(RecipeType.SMELTING);
+            RecipeType<?> recipeType = ForgeRegistries.RECIPE_TYPES.getValue(buffer.readResourceLocation());
+
+            this.recipeType = recipeType == null?RecipeType.SMELTING:
+                    (RecipeType<? extends AbstractCookingRecipe>)recipeType;
         }else {
             this.recipeType = RecipeType.SMELTING;
         }
@@ -33,7 +35,7 @@ public final class SyncFurnaceRecipeTypeS2CPacket {
     }
 
     public void toBytes(FriendlyByteBuf buffer) {
-        ResourceLocation recipeTypeKey = BuiltInRegistries.RECIPE_TYPE.getKey(recipeType);
+        ResourceLocation recipeTypeKey = ForgeRegistries.RECIPE_TYPES.getKey(recipeType);
         if(recipeTypeKey == null) {
             buffer.writeBoolean(false);
         }else {
