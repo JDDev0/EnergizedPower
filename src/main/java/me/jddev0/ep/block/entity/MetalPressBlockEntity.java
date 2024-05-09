@@ -5,10 +5,12 @@ import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.recipe.MetalPressRecipe;
@@ -23,6 +25,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.ContainerListener;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -49,6 +52,8 @@ import java.util.Optional;
 public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate,
         ComparatorModeUpdate {
     private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_METAL_PRESS_ENERGY_CONSUMPTION_PER_TICK.getValue();
+
+    private static final int RECIPE_DURATION = ModConfigs.COMMON_METAL_PRESS_RECIPE_DURATION.getValue();
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(3) {
         @Override
@@ -92,13 +97,20 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
     private final LazyOptional<IItemHandler> lazyItemHandlerOthersSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 2));
 
+    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
+            UpgradeModuleModifier.SPEED,
+            UpgradeModuleModifier.ENERGY_CONSUMPTION,
+            UpgradeModuleModifier.ENERGY_CAPACITY
+    );
+    private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
+
     private final ReceiveOnlyEnergyStorage energyStorage;
 
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
     protected final ContainerData data;
     private int progress;
-    private int maxProgress = ModConfigs.COMMON_METAL_PRESS_RECIPE_DURATION.getValue();
+    private int maxProgress;
     private int energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
 
@@ -108,15 +120,29 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
     public MetalPressBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.METAL_PRESS_ENTITY.get(), blockPos, blockState);
 
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_METAL_PRESS_CAPACITY.getValue(),
                 ModConfigs.COMMON_METAL_PRESS_TRANSFER_RATE.getValue()) {
+            @Override
+            public int getCapacity() {
+                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            public int getMaxReceive() {
+                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+
             @Override
             protected void onChange() {
                 setChanged();
 
                 if(level != null && !level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(energy, capacity, getBlockPos()),
+                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
                             getBlockPos(), level.dimension(), 32
                     );
             }
@@ -168,7 +194,7 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
         ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
                 getBlockPos()), (ServerPlayer)player);
 
-        return new MetalPressMenu(id, inventory, this, this.data);
+        return new MetalPressMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
     public int getRedstoneOutput() {
@@ -214,10 +240,14 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
+        //Save Upgrade Module Inventory first
+        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT());
+
         nbt.put("inventory", itemHandler.serializeNBT());
         nbt.put("energy", energyStorage.saveNBT());
 
         nbt.put("recipe.progress", IntTag.valueOf(progress));
+        nbt.put("recipe.max_progress", IntTag.valueOf(maxProgress));
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
@@ -230,10 +260,16 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
     public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
 
+        //Load Upgrade Module Inventory first
+        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"));
+        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
         energyStorage.loadNBT(nbt.get("energy"));
 
         progress = nbt.getInt("recipe.progress");
+        maxProgress = nbt.getInt("recipe.max_progress");
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
@@ -246,6 +282,8 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         Containers.dropContents(level, worldPosition, inventory);
+
+        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, MetalPressBlockEntity blockEntity) {
@@ -264,10 +302,17 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
             if(recipe.isEmpty())
                 return;
 
-            if(blockEntity.energyConsumptionLeft < 0)
-                blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK * blockEntity.maxProgress;
+            if(blockEntity.maxProgress == 0)
+                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(RECIPE_DURATION /
+                        blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
 
-            if(ENERGY_USAGE_PER_TICK <= blockEntity.energyStorage.getEnergy()) {
+            int energyConsumptionPerTick = Math.max(1, (int)Math.ceil(ENERGY_USAGE_PER_TICK *
+                    blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
+
+            if(blockEntity.energyConsumptionLeft < 0)
+                blockEntity.energyConsumptionLeft = energyConsumptionPerTick * blockEntity.maxProgress;
+
+            if(energyConsumptionPerTick <= blockEntity.energyStorage.getEnergy()) {
                 blockEntity.hasEnoughEnergy = true;
 
                 if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
@@ -279,8 +324,8 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
                     return;
                 }
 
-                blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - ENERGY_USAGE_PER_TICK);
-                blockEntity.energyConsumptionLeft -= ENERGY_USAGE_PER_TICK;
+                blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
+                blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
 
                 blockEntity.progress++;
                 if(blockEntity.progress >= blockEntity.maxProgress)
@@ -299,6 +344,7 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
 
     private void resetProgress(BlockPos blockPos, BlockState state) {
         progress = 0;
+        maxProgress = 0;
         energyConsumptionLeft = -1;
         hasEnoughEnergy = true;
     }
@@ -339,6 +385,16 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
 
         return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameTags(inventoryItemStack, itemStack)) &&
                 inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount();
+    }
+
+    private void updateUpgradeModules() {
+        resetProgress(getBlockPos(), getBlockState());
+        setChanged();
+        if(level != null && !level.isClientSide())
+            ModMessages.sendToPlayersWithinXBlocks(
+                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
+                    getBlockPos(), level.dimension(), 32
+            );
     }
 
     public int getEnergy() {

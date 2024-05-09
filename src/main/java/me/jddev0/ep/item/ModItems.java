@@ -119,6 +119,76 @@ public final class ModItems {
     public static final RegistryObject<Item> TELEPORTER_PROCESSING_UNIT = ITEMS.register("teleporter_processing_unit",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> BASIC_UPGRADE_MODULE = ITEMS.register("basic_upgrade_module",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> ADVANCED_UPGRADE_MODULE = ITEMS.register("advanced_upgrade_module",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> REINFORCED_ADVANCED_UPGRADE_MODULE = ITEMS.register("reinforced_advanced_upgrade_module",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> SPEED_UPGRADE_MODULE_1 = ITEMS.register("speed_upgrade_module_1",
+            () -> new SpeedUpgradeModuleItem(new Item.Properties(), 1));
+    public static final RegistryObject<Item> SPEED_UPGRADE_MODULE_2 = ITEMS.register("speed_upgrade_module_2",
+            () -> new SpeedUpgradeModuleItem(new Item.Properties(), 2));
+    public static final RegistryObject<Item> SPEED_UPGRADE_MODULE_3 = ITEMS.register("speed_upgrade_module_3",
+            () -> new SpeedUpgradeModuleItem(new Item.Properties(), 3));
+    public static final RegistryObject<Item> SPEED_UPGRADE_MODULE_4 = ITEMS.register("speed_upgrade_module_4",
+            () -> new SpeedUpgradeModuleItem(new Item.Properties(), 4));
+    public static final RegistryObject<Item> SPEED_UPGRADE_MODULE_5 = ITEMS.register("speed_upgrade_module_5",
+            () -> new SpeedUpgradeModuleItem(new Item.Properties(), 5));
+
+    public static final RegistryObject<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_1 = ITEMS.register("energy_efficiency_upgrade_module_1",
+            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 1));
+    public static final RegistryObject<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_2 = ITEMS.register("energy_efficiency_upgrade_module_2",
+            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 2));
+    public static final RegistryObject<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_3 = ITEMS.register("energy_efficiency_upgrade_module_3",
+            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 3));
+    public static final RegistryObject<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_4 = ITEMS.register("energy_efficiency_upgrade_module_4",
+            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 4));
+    public static final RegistryObject<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_5 = ITEMS.register("energy_efficiency_upgrade_module_5",
+            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 5));
+
+    public static final RegistryObject<Item> ENERGY_CAPACITY_UPGRADE_MODULE_1 = ITEMS.register("energy_capacity_upgrade_module_1",
+            () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties(), 1));
+    public static final RegistryObject<Item> ENERGY_CAPACITY_UPGRADE_MODULE_2 = ITEMS.register("energy_capacity_upgrade_module_2",
+            () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties(), 2));
+    public static final RegistryObject<Item> ENERGY_CAPACITY_UPGRADE_MODULE_3 = ITEMS.register("energy_capacity_upgrade_module_3",
+            () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties(), 3));
+    public static final RegistryObject<Item> ENERGY_CAPACITY_UPGRADE_MODULE_4 = ITEMS.register("energy_capacity_upgrade_module_4",
+            () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties(), 4));
+    public static final RegistryObject<Item> ENERGY_CAPACITY_UPGRADE_MODULE_5 = ITEMS.register("energy_capacity_upgrade_module_5",
+            () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties(), 5));
+
+    public static final RegistryObject<Item> DURATION_UPGRADE_MODULE_1 = ITEMS.register("duration_upgrade_module_1",
+            () -> new DurationUpgradeModuleItem(new Item.Properties(), 1));
+    public static final RegistryObject<Item> DURATION_UPGRADE_MODULE_2 = ITEMS.register("duration_upgrade_module_2",
+            () -> new DurationUpgradeModuleItem(new Item.Properties(), 2));
+    public static final RegistryObject<Item> DURATION_UPGRADE_MODULE_3 = ITEMS.register("duration_upgrade_module_3",
+            () -> new DurationUpgradeModuleItem(new Item.Properties(), 3));
+    public static final RegistryObject<Item> DURATION_UPGRADE_MODULE_4 = ITEMS.register("duration_upgrade_module_4",
+            () -> new DurationUpgradeModuleItem(new Item.Properties(), 4));
+    public static final RegistryObject<Item> DURATION_UPGRADE_MODULE_5 = ITEMS.register("duration_upgrade_module_5",
+            () -> new DurationUpgradeModuleItem(new Item.Properties(), 5));
+
+    public static final RegistryObject<Item> RANGE_UPGRADE_MODULE_1 = ITEMS.register("range_upgrade_module_1",
+            () -> new RangeUpgradeModuleItem(new Item.Properties(), 1));
+    public static final RegistryObject<Item> RANGE_UPGRADE_MODULE_2 = ITEMS.register("range_upgrade_module_2",
+            () -> new RangeUpgradeModuleItem(new Item.Properties(), 2));
+    public static final RegistryObject<Item> RANGE_UPGRADE_MODULE_3 = ITEMS.register("range_upgrade_module_3",
+            () -> new RangeUpgradeModuleItem(new Item.Properties(), 3));
+
+    public static final RegistryObject<Item> BLAST_FURNACE_UPGRADE_MODULE = ITEMS.register("blast_furnace_upgrade_module",
+            () -> new FurnaceModeUpgradeModuleItem(new Item.Properties(), 1));
+    public static final RegistryObject<Item> SMOKER_UPGRADE_MODULE = ITEMS.register("smoker_upgrade_module",
+            () -> new FurnaceModeUpgradeModuleItem(new Item.Properties(), 2));
+
+    public static final RegistryObject<Item> MOON_LIGHT_UPGRADE_MODULE_1 = ITEMS.register("moon_light_upgrade_module_1",
+            () -> new MoonLightUpgradeModuleItem(new Item.Properties(), 1));
+    public static final RegistryObject<Item> MOON_LIGHT_UPGRADE_MODULE_2 = ITEMS.register("moon_light_upgrade_module_2",
+            () -> new MoonLightUpgradeModuleItem(new Item.Properties(), 2));
+    public static final RegistryObject<Item> MOON_LIGHT_UPGRADE_MODULE_3 = ITEMS.register("moon_light_upgrade_module_3",
+            () -> new MoonLightUpgradeModuleItem(new Item.Properties(), 3));
+
     public static final RegistryObject<Item> ENERGIZED_POWER_BOOK = ITEMS.register("energized_power_book",
             () -> new EnergizedPowerBookItem(new Item.Properties().stacksTo(1)));
 

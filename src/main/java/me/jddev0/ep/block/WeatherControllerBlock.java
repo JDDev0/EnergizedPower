@@ -1,7 +1,6 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
-import me.jddev0.ep.config.ModConfigs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -16,8 +15,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class WeatherControllerBlock extends BaseEntityBlock {
-    public static int WEATHER_CHANGED_TICKS = ModConfigs.COMMON_WEATHER_CONTROLLER_CONTROL_DURATION.getValue();
-
     public WeatherControllerBlock(Properties props) {
         super(props);
     }
@@ -31,6 +28,20 @@ public class WeatherControllerBlock extends BaseEntityBlock {
     @Override
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
+        if(state.getBlock() == newState.getBlock())
+            return;
+
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof WeatherControllerBlockEntity))
+            return;
+
+        ((WeatherControllerBlockEntity)blockEntity).drops(level, blockPos);
+
+        super.onRemove(state, level, blockPos, newState, isMoving);
     }
 
     @Override

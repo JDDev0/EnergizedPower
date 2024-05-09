@@ -70,6 +70,12 @@ public final class ModMessages {
                 consumerMainThread(SyncFiltrationPlantCurrentRecipeS2CPacket::handle).
                 add();
 
+        net.messageBuilder(SyncFurnaceRecipeTypeS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT).
+                decoder(SyncFurnaceRecipeTypeS2CPacket::new).
+                encoder(SyncFurnaceRecipeTypeS2CPacket::toBytes).
+                consumerMainThread(SyncFurnaceRecipeTypeS2CPacket::handle).
+                add();
+
         //Client -> Server
         net.messageBuilder(PopEnergizedPowerBookFromLecternC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
                 decoder(PopEnergizedPowerBookFromLecternC2SPacket::new).

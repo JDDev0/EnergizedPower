@@ -1,6 +1,5 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.block.WeatherControllerBlock;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -51,13 +50,15 @@ public class SetWeatherFromWeatherControllerC2SPacket {
 
             weatherControllerBlockEntity.clearEnergy();
 
+            int duration = weatherControllerBlockEntity.getWeatherChangedDuration();
+
             switch(weatherType) {
                 //Clear
-                case 0 -> context.getSender().serverLevel().setWeatherParameters(WeatherControllerBlock.WEATHER_CHANGED_TICKS, 0, false, false);
+                case 0 -> context.getSender().serverLevel().setWeatherParameters(duration, 0, false, false);
                 //Rain
-                case 1 -> context.getSender().serverLevel().setWeatherParameters(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, false);
+                case 1 -> context.getSender().serverLevel().setWeatherParameters(0, duration, true, false);
                 //Thunder
-                case 2 -> context.getSender().serverLevel().setWeatherParameters(0, WeatherControllerBlock.WEATHER_CHANGED_TICKS, true, true);
+                case 2 -> context.getSender().serverLevel().setWeatherParameters(0, duration, true, true);
             }
         });
 
