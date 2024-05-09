@@ -39,8 +39,8 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
-import team.reborn.energy.api.base.LimitingEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -53,7 +53,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
 
     public static final double ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
-    final LimitingEnergyStorage energyStorage;
+    final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     final SimpleFluidStorage fluidStorage;
@@ -73,8 +73,8 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
 
                 if(world != null && !world.isClient()) {
                     PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(amount);
-                    buffer.writeLong(capacity);
+                    buffer.writeLong(getAmount());
+                    buffer.writeLong(getCapacity());
                     buffer.writeBlockPos(getPos());
 
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
@@ -84,7 +84,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, 0, MAX_EXTRACT);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, 0, MAX_EXTRACT);
 
         fluidStorage = new SimpleFluidStorage(FluidUtils.convertMilliBucketsToDroplets(
                 ModConfigs.COMMON_THERMAL_GENERATOR_FLUID_TANK_CAPACITY.getValue() * 1000)) {
@@ -186,8 +186,8 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeLong(internalEnergyStorage.amount);
-        buffer.writeLong(internalEnergyStorage.capacity);
+        buffer.writeLong(internalEnergyStorage.getAmount());
+        buffer.writeLong(internalEnergyStorage.getCapacity());
         buffer.writeBlockPos(getPos());
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
@@ -218,7 +218,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
 
     @Override
     protected void writeNbt(NbtCompound nbt) {
-        nbt.putLong("energy", internalEnergyStorage.amount);
+        nbt.putLong("energy", internalEnergyStorage.getAmount());
         nbt.put("fluid", fluidStorage.toNBT(new NbtCompound()));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
@@ -231,7 +231,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
     public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
 
-        internalEnergyStorage.amount = nbt.getLong("energy");
+        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
         fluidStorage.fromNBT(nbt.getCompound("fluid"));
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
@@ -268,13 +268,13 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
             }
         }
 
-        if(rawProduction > 0 && blockEntity.internalEnergyStorage.amount < blockEntity.internalEnergyStorage.capacity) {
+        if(rawProduction > 0 && blockEntity.internalEnergyStorage.getAmount() < blockEntity.internalEnergyStorage.getCapacity()) {
             //Calculate real production (raw production is in x E per 1000 mB, 50 mB of fluid can be consumed per tick)
             long production = (long)(rawProduction * (Math.min(
                     blockEntity.fluidStorage.getFluid().getMilliBucketsAmount(), 50) / 1000.));
 
             //Cap production
-            production = Math.min(production, blockEntity.internalEnergyStorage.capacity - blockEntity.internalEnergyStorage.amount);
+            production = Math.min(production, blockEntity.internalEnergyStorage.getCapacity() - blockEntity.internalEnergyStorage.getAmount());
 
             long fluidAmount = (long)((double)production/rawProduction * 1000);
 
@@ -313,7 +313,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
                 continue;
 
             try(Transaction transaction = Transaction.openOuter()) {
-                long received = energyStorage.insert(Math.min(MAX_EXTRACT, blockEntity.internalEnergyStorage.amount), transaction);
+                long received = energyStorage.insert(Math.min(MAX_EXTRACT, blockEntity.internalEnergyStorage.getAmount()), transaction);
 
                 if(received <= 0)
                     continue;
@@ -328,7 +328,7 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0L);
 
-        long consumptionLeft = Math.min(MAX_EXTRACT, Math.min(blockEntity.internalEnergyStorage.amount, consumptionSum));
+        long consumptionLeft = Math.min(MAX_EXTRACT, Math.min(blockEntity.internalEnergyStorage.getAmount(), consumptionSum));
         try(Transaction transaction = Transaction.openOuter()) {
             blockEntity.internalEnergyStorage.extract(consumptionLeft, transaction);
             transaction.commit();
@@ -376,20 +376,20 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements Extended
 
     @Override
     public void setEnergy(long energy) {
-        internalEnergyStorage.amount = energy;
+        internalEnergyStorage.setAmountWithoutUpdate(energy);
     }
 
     @Override
     public void setCapacity(long capacity) {
-        internalEnergyStorage.capacity = capacity;
+        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 
     public long getEnergy() {
-        return internalEnergyStorage.amount;
+        return internalEnergyStorage.getAmount();
     }
 
     public long getCapacity() {
-        return internalEnergyStorage.capacity;
+        return internalEnergyStorage.getCapacity();
     }
 
     @Override

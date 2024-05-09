@@ -44,8 +44,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
-import team.reborn.energy.api.base.LimitingEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -61,7 +61,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
     final InputOutputItemHandler inventory;
     private final SimpleInventory internalInventory;
 
-    final LimitingEnergyStorage energyStorage;
+    final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     protected final PropertyDelegate data;
@@ -167,8 +167,8 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
 
                 if(world != null && !world.isClient()) {
                     PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(amount);
-                    buffer.writeLong(capacity);
+                    buffer.writeLong(getAmount());
+                    buffer.writeLong(getCapacity());
                     buffer.writeBlockPos(getPos());
 
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
@@ -178,7 +178,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
 
         data = new PropertyDelegate() {
             @Override
@@ -224,8 +224,8 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeLong(internalEnergyStorage.amount);
-        buffer.writeLong(internalEnergyStorage.capacity);
+        buffer.writeLong(internalEnergyStorage.getAmount());
+        buffer.writeLong(internalEnergyStorage.getCapacity());
         buffer.writeBlockPos(getPos());
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
@@ -241,7 +241,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
     @Override
     protected void writeNbt(NbtCompound nbt) {
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
-        nbt.putLong("energy", internalEnergyStorage.amount);
+        nbt.putLong("energy", internalEnergyStorage.getAmount());
 
         nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
 
@@ -256,7 +256,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
         super.readNbt(nbt);
 
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
-        internalEnergyStorage.amount = nbt.getLong("energy");
+        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
 
         energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
 
@@ -284,14 +284,14 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
                 if(blockEntity.energyConsumptionLeft == -1)
                     blockEntity.energyConsumptionLeft = (long)(recipe.get().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);
 
-                if(blockEntity.internalEnergyStorage.amount == 0) {
+                if(blockEntity.internalEnergyStorage.getAmount() == 0) {
                     markDirty(level, blockPos, state);
 
                     return;
                 }
 
                 energyConsumptionPerTick = Math.min(blockEntity.energyConsumptionLeft, Math.min(MAX_RECEIVE,
-                        blockEntity.internalEnergyStorage.amount));
+                        blockEntity.internalEnergyStorage.getAmount()));
             }else {
                 if(!EnergyStorageUtil.isEnergyStorage(stack))
                     return;
@@ -306,7 +306,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
 
                 blockEntity.energyConsumptionLeft = energyStorage.getCapacity() - energyStorage.getAmount();
 
-                if(blockEntity.internalEnergyStorage.amount == 0) {
+                if(blockEntity.internalEnergyStorage.getAmount() == 0) {
                     markDirty(level, blockPos, state);
 
                     return;
@@ -314,7 +314,7 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
 
                 try(Transaction transaction = Transaction.openOuter()) {
                     energyConsumptionPerTick = energyStorage.insert(Math.min(MAX_RECEIVE,
-                            blockEntity.internalEnergyStorage.amount), transaction);
+                            blockEntity.internalEnergyStorage.getAmount()), transaction);
                     transaction.commit();
                 }
             }
@@ -366,21 +366,21 @@ public class ChargerBlockEntity extends BlockEntity implements ExtendedScreenHan
     }
 
     public long getEnergy() {
-        return internalEnergyStorage.amount;
+        return internalEnergyStorage.getAmount();
     }
 
     public long getCapacity() {
-        return internalEnergyStorage.capacity;
+        return internalEnergyStorage.getCapacity();
     }
 
     @Override
     public void setEnergy(long energy) {
-        internalEnergyStorage.amount = energy;
+        internalEnergyStorage.setAmountWithoutUpdate(energy);
     }
 
     @Override
     public void setCapacity(long capacity) {
-        internalEnergyStorage.capacity = capacity;
+        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 
     @Override

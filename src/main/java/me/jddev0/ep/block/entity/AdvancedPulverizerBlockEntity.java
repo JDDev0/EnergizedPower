@@ -50,7 +50,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import team.reborn.energy.api.base.LimitingEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.List;
 import java.util.Optional;
@@ -71,7 +71,7 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
     final InputOutputItemHandler inventory;
     private final SimpleInventory internalInventory;
 
-    final LimitingEnergyStorage energyStorage;
+    final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     final CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage;
@@ -142,8 +142,8 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
 
                 if(world != null && !world.isClient()) {
                     PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(amount);
-                    buffer.writeLong(capacity);
+                    buffer.writeLong(getAmount());
+                    buffer.writeLong(getCapacity());
                     buffer.writeBlockPos(getPos());
 
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
@@ -153,7 +153,7 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
 
         fluidStorage = new CombinedStorage<>(List.of(
                 new SimpleFluidStorage(TANK_CAPACITY) {
@@ -269,8 +269,8 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeLong(internalEnergyStorage.amount);
-        buffer.writeLong(internalEnergyStorage.capacity);
+        buffer.writeLong(internalEnergyStorage.getAmount());
+        buffer.writeLong(internalEnergyStorage.getCapacity());
         buffer.writeBlockPos(getPos());
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
@@ -303,7 +303,7 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
     @Override
     protected void writeNbt(NbtCompound nbt) {
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
-        nbt.putLong("energy", internalEnergyStorage.amount);
+        nbt.putLong("energy", internalEnergyStorage.getAmount());
         for(int i = 0;i < fluidStorage.parts.size();i++)
             nbt.put("fluid." + i, fluidStorage.parts.get(i).toNBT(new NbtCompound()));
 
@@ -321,7 +321,7 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
         super.readNbt(nbt);
 
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
-        internalEnergyStorage.amount = nbt.getLong("energy");
+        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
         for(int i = 0;i < fluidStorage.parts.size();i++)
             fluidStorage.parts.get(i).fromNBT(nbt.getCompound("fluid." + i));
 
@@ -351,7 +351,7 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
             if(blockEntity.energyConsumptionLeft < 0)
                 blockEntity.energyConsumptionLeft = ENERGY_USAGE_PER_TICK * blockEntity.maxProgress;
 
-            if(ENERGY_USAGE_PER_TICK <= blockEntity.internalEnergyStorage.amount) {
+            if(ENERGY_USAGE_PER_TICK <= blockEntity.internalEnergyStorage.getAmount()) {
                 blockEntity.hasEnoughEnergy = true;
 
                 if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
@@ -456,20 +456,20 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements Extend
 
     @Override
     public void setEnergy(long energy) {
-        internalEnergyStorage.amount = energy;
+        internalEnergyStorage.setAmountWithoutUpdate(energy);
     }
 
     @Override
     public void setCapacity(long capacity) {
-        internalEnergyStorage.capacity = capacity;
+        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 
     public long getEnergy() {
-        return internalEnergyStorage.amount;
+        return internalEnergyStorage.getAmount();
     }
 
     public long getCapacity() {
-        return internalEnergyStorage.capacity;
+        return internalEnergyStorage.getCapacity();
     }
 
     @Override

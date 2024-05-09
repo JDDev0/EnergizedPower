@@ -42,7 +42,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
-import team.reborn.energy.api.base.LimitingEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.Comparator;
 import java.util.HashSet;
@@ -77,7 +77,7 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
     final InputOutputItemHandler inventory;
     private final SimpleInventory internalInventory;
 
-    final LimitingEnergyStorage energyStorage;
+    final EnergizedPowerLimitingEnergyStorage energyStorage;
     private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
 
@@ -131,8 +131,8 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
 
                 if(world != null && !world.isClient()) {
                     PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(amount);
-                    buffer.writeLong(capacity);
+                    buffer.writeLong(getAmount());
+                    buffer.writeLong(getCapacity());
                     buffer.writeBlockPos(getPos());
 
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
@@ -142,7 +142,7 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
                 }
             }
         };
-        energyStorage = new LimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
+        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
     }
 
     @Override
@@ -158,8 +158,8 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeLong(internalEnergyStorage.amount);
-        buffer.writeLong(internalEnergyStorage.capacity);
+        buffer.writeLong(internalEnergyStorage.getAmount());
+        buffer.writeLong(internalEnergyStorage.getCapacity());
         buffer.writeBlockPos(getPos());
 
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
@@ -175,7 +175,7 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
     @Override
     protected void writeNbt(NbtCompound nbt) {
         nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
-        nbt.putLong("energy", internalEnergyStorage.amount);
+        nbt.putLong("energy", internalEnergyStorage.getAmount());
 
         super.writeNbt(nbt);
     }
@@ -185,7 +185,7 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
         super.readNbt(nbt);
 
         Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
-        internalEnergyStorage.amount = nbt.getLong("energy");
+        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
     }
 
     public void drops(World level, BlockPos worldPosition) {
@@ -198,7 +198,7 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
 
         ItemStack teleporterMatrixItemStack = internalInventory.getStack(0);
 
-        boolean powered = internalEnergyStorage.amount == internalEnergyStorage.capacity &&
+        boolean powered = internalEnergyStorage.getAmount() == internalEnergyStorage.getCapacity() &&
                 teleporterMatrixItemStack.isOf(ModItems.TELEPORTER_MATRIX) &&
                 TeleporterMatrixItem.isLinked(teleporterMatrixItemStack);
 
@@ -466,20 +466,20 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
     public long getEnergy() {
-        return internalEnergyStorage.amount;
+        return internalEnergyStorage.getAmount();
     }
 
     public long getCapacity() {
-        return internalEnergyStorage.capacity;
+        return internalEnergyStorage.getCapacity();
     }
 
     @Override
     public void setEnergy(long energy) {
-        internalEnergyStorage.amount = energy;
+        internalEnergyStorage.setAmountWithoutUpdate(energy);
     }
 
     @Override
     public void setCapacity(long capacity) {
-        internalEnergyStorage.capacity = capacity;
+        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 }
