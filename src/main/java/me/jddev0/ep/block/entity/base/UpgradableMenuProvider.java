@@ -7,7 +7,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 @FunctionalInterface
-public interface SimpleMachineUpgradeMenuProvider {
+public interface UpgradableMenuProvider {
     AbstractContainerMenu createMenu(int id, Inventory inv, BlockEntity blockEntity,
                                      UpgradeModuleInventory upgradeModuleInventory, ContainerData data);
 }

@@ -134,14 +134,14 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.saveAdditional(nbt, registries);
+
         nbt.put("fluid", fluidStorage.writeToNBT(registries, new CompoundTag()));
 
         nbt.putBoolean("ignore_nbt", ignoreNBT);
 
         nbt.put("fluid_filter", fluidFilter.saveOptional(registries));
-
-        super.saveAdditional(nbt, registries);
     }
 
     @Override

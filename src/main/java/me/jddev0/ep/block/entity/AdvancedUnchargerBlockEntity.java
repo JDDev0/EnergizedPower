@@ -1,9 +1,9 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AdvancedUnchargerBlock;
+import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
@@ -47,8 +47,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate,
-        ComparatorModeUpdate {
+public class AdvancedUnchargerBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
+        implements MenuProvider, RedstoneModeUpdate, ComparatorModeUpdate {
     private final ItemStackHandler itemHandler = new ItemStackHandler(3) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -101,8 +101,6 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
     );
     private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
-    private final ExtractOnlyEnergyStorage energyStorage;
-
     protected final ContainerData data;
     private int[] energyProductionLeft = new int[] {
             -1, -1, -1
@@ -112,36 +110,15 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
     private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public AdvancedUnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.ADVANCED_UNCHARGER_ENTITY.get(), blockPos, blockState);
+        super(
+                ModBlockEntities.ADVANCED_UNCHARGER_ENTITY.get(), blockPos, blockState,
+
+                ModConfigs.COMMON_ADVANCED_UNCHARGER_CAPACITY_PER_SLOT.getValue() * 3,
+                ModConfigs.COMMON_ADVANCED_UNCHARGER_TRANSFER_RATE_PER_SLOT.getValue() * 3
+        );
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
-        energyStorage = new ExtractOnlyEnergyStorage(0,
-                ModConfigs.COMMON_ADVANCED_UNCHARGER_CAPACITY_PER_SLOT.getValue() * 3,
-                ModConfigs.COMMON_ADVANCED_UNCHARGER_TRANSFER_RATE_PER_SLOT.getValue() * 3) {
-            @Override
-            public int getCapacity() {
-                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_CAPACITY)));
-            }
-
-            @Override
-            public int getMaxExtract() {
-                return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
-                setChanged();
-
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
-                            getBlockPos(), (ServerLevel)level, 32
-                    );
-            }
-        };
         data = new ContainerData() {
             @Override
             public int get(int index) {
@@ -167,6 +144,34 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
             @Override
             public int getCount() {
                 return 8;
+            }
+        };
+    }
+
+    @Override
+    protected ExtractOnlyEnergyStorage initEnergyStorage() {
+        return new ExtractOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+            @Override
+            public int getCapacity() {
+                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            public int getMaxExtract() {
+                return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+
+            @Override
+            protected void onChange() {
+                setChanged();
+
+                if(level != null && !level.isClientSide())
+                    ModMessages.sendToPlayersWithinXBlocks(
+                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
+                            getBlockPos(), (ServerLevel)level, 32
+                    );
             }
         };
     }
@@ -205,33 +210,31 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         //Save Upgrade Module Inventory first
         nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
 
+        super.saveAdditional(nbt, registries);
+
         nbt.put("inventory", itemHandler.serializeNBT(registries));
-        nbt.put("energy", energyStorage.saveNBT());
 
         for(int i = 0;i < 3;i++)
             nbt.put("recipe.energy_production_left." + i, IntTag.valueOf(energyProductionLeft[i]));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
-
-        super.saveAdditional(nbt, registries);
     }
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
-
         //Load Upgrade Module Inventory first
         upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
         upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
+        super.loadAdditional(nbt, registries);
+
         itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
-        energyStorage.loadNBT(nbt.get("energy"));
 
         for(int i = 0;i < 3;i++)
             energyProductionLeft[i] = nbt.getInt("recipe.energy_production_left." + i);
@@ -382,24 +385,6 @@ public class AdvancedUnchargerBlockEntity extends BlockEntity implements MenuPro
                     new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
                     getBlockPos(), (ServerLevel)level, 32
             );
-    }
-
-    public int getEnergy() {
-        return energyStorage.getEnergy();
-    }
-
-    public int getCapacity() {
-        return energyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        energyStorage.setEnergyWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        energyStorage.setCapacityWithoutUpdate(capacity);
     }
 
     @Override

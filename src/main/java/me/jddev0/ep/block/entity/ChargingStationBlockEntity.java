@@ -1,8 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ChargingStationBlock;
+import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.integration.curios.CuriosCompatUtils;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -27,7 +27,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
@@ -39,7 +38,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ChargingStationBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+public class ChargingStationBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
+        implements MenuProvider {
     public static final int MAX_CHARGING_DISTANCE = ModConfigs.COMMON_CHARGING_STATION_MAX_CHARGING_DISTANCE.getValue();
 
     private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
@@ -48,15 +48,20 @@ public class ChargingStationBlockEntity extends BlockEntity implements MenuProvi
     );
     private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
-    private final ReceiveOnlyEnergyStorage energyStorage;
-
     public ChargingStationBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.CHARGING_STATION_ENTITY.get(), blockPos, blockState);
+        super(
+                ModBlockEntities.CHARGING_STATION_ENTITY.get(), blockPos, blockState,
+
+                ModConfigs.COMMON_CHARGING_STATION_CAPACITY.getValue(),
+                ModConfigs.COMMON_CHARGING_STATION_TRANSFER_RATE.getValue()
+        );
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+    }
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_CHARGING_STATION_CAPACITY.getValue(),
-                ModConfigs.COMMON_CHARGING_STATION_TRANSFER_RATE.getValue()) {
+    @Override
+    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
+        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
             @Override
             public int getCapacity() {
                 return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
@@ -101,25 +106,21 @@ public class ChargingStationBlockEntity extends BlockEntity implements MenuProvi
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         //Save Upgrade Module Inventory first
         nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
-
-        nbt.put("energy", energyStorage.saveNBT());
 
         super.saveAdditional(nbt, registries);
     }
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
-
         //Load Upgrade Module Inventory first
         upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
         upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
-        energyStorage.loadNBT(nbt.get("energy"));
+        super.loadAdditional(nbt, registries);
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -191,23 +192,5 @@ public class ChargingStationBlockEntity extends BlockEntity implements MenuProvi
                     new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
                     getBlockPos(), (ServerLevel)level, 32
             );
-    }
-
-    public int getEnergy() {
-        return energyStorage.getEnergy();
-    }
-
-    public int getCapacity() {
-        return energyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        energyStorage.setEnergyWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        energyStorage.setCapacityWithoutUpdate(capacity);
     }
 }

@@ -2,9 +2,9 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.AutoCrafterBlock;
+import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.CheckboxUpdate;
@@ -42,7 +42,6 @@ import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -52,8 +51,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate,
-        ComparatorModeUpdate, CheckboxUpdate {
+public class AutoCrafterBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
+        implements MenuProvider, RedstoneModeUpdate, ComparatorModeUpdate, CheckboxUpdate {
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
     public final static int ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT =
@@ -63,7 +62,6 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
 
     private boolean secondaryExtractMode;
 
-    private final ReceiveOnlyEnergyStorage energyStorage;
     private final ItemStackHandler itemHandler = new ItemStackHandler(18) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -125,36 +123,16 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public AutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.AUTO_CRAFTER_ENTITY.get(), blockPos, blockState);
+        super(
+                ModBlockEntities.AUTO_CRAFTER_ENTITY.get(), blockPos, blockState,
+
+                ModConfigs.COMMON_AUTO_CRAFTER_CAPACITY.getValue(),
+                ModConfigs.COMMON_AUTO_CRAFTER_TRANSFER_RATE.getValue()
+        );
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
         patternSlots.addListener(updatePatternListener);
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_AUTO_CRAFTER_CAPACITY.getValue(),
-                ModConfigs.COMMON_AUTO_CRAFTER_TRANSFER_RATE.getValue()) {
-            @Override
-            public int getCapacity() {
-                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_CAPACITY)));
-            }
-
-            @Override
-            public int getMaxReceive() {
-                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
-                setChanged();
-
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
-                            getBlockPos(), (ServerLevel)level, 32
-                    );
-            }
-        };
         data = new ContainerData() {
             @Override
             public int get(int index) {
@@ -196,6 +174,34 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     @Override
+    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
+        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+            @Override
+            public int getCapacity() {
+                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            public int getMaxReceive() {
+                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+
+            @Override
+            protected void onChange() {
+                setChanged();
+
+                if(level != null && !level.isClientSide())
+                    ModMessages.sendToPlayersWithinXBlocks(
+                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
+                            getBlockPos(), (ServerLevel)level, 32
+                    );
+            }
+        };
+    }
+
+    @Override
     public Component getDisplayName() {
         return Component.translatable("container.energizedpower.auto_crafter");
     }
@@ -229,13 +235,14 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         //Save Upgrade Module Inventory first
         nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
 
+        super.saveAdditional(nbt, registries);
+
         nbt.put("inventory", itemHandler.serializeNBT(registries));
         nbt.put("pattern", savePatternContainer(registries));
-        nbt.put("energy", energyStorage.saveNBT());
 
         if(craftingRecipe != null)
             nbt.put("recipe.id", StringTag.valueOf(craftingRecipe.id().toString()));
@@ -249,8 +256,6 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
-
-        super.saveAdditional(nbt, registries);
     }
 
     private Tag savePatternContainer(HolderLookup.Provider registries) {
@@ -263,16 +268,15 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
-
         //Load Upgrade Module Inventory first
         upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
         upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
+        super.loadAdditional(nbt, registries);
+
         itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
         loadPatternContainer(nbt.getCompound("pattern"), registries);
-        energyStorage.loadNBT(nbt.get("energy"));
 
         if(nbt.contains("recipe.id")) {
             Tag tag = nbt.get("recipe.id");
@@ -827,24 +831,6 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             //Secondary extract mode
             case 1 -> setSecondaryExtractMode(checked);
         }
-    }
-
-    public int getEnergy() {
-        return energyStorage.getEnergy();
-    }
-
-    public int getCapacity() {
-        return energyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        energyStorage.setEnergyWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        energyStorage.setCapacityWithoutUpdate(capacity);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -36,7 +36,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+public class HeatGeneratorBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
+        implements MenuProvider {
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_HEAT_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
@@ -44,15 +45,20 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
     );
     private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
-    private final ExtractOnlyEnergyStorage energyStorage;
-
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.HEAT_GENERATOR_ENTITY.get(), blockPos, blockState);
+        super(
+                ModBlockEntities.HEAT_GENERATOR_ENTITY.get(), blockPos, blockState,
+
+                ModConfigs.COMMON_HEAT_GENERATOR_CAPACITY.getValue(),
+                ModConfigs.COMMON_HEAT_GENERATOR_TRANSFER_RATE.getValue()
+        );
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+    }
 
-        energyStorage = new ExtractOnlyEnergyStorage(0, ModConfigs.COMMON_HEAT_GENERATOR_CAPACITY.getValue(),
-                ModConfigs.COMMON_HEAT_GENERATOR_TRANSFER_RATE.getValue()) {
+    @Override
+    protected ExtractOnlyEnergyStorage initEnergyStorage() {
+        return new ExtractOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
             @Override
             public int getCapacity() {
                 return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
@@ -97,25 +103,21 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         //Save Upgrade Module Inventory first
         nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
-        
-        nbt.put("energy", energyStorage.saveNBT());
 
         super.saveAdditional(nbt, registries);
     }
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
-
         //Load Upgrade Module Inventory first
         upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
         upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
-        energyStorage.loadNBT(nbt.get("energy"));
+        super.loadAdditional(nbt, registries);
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -224,23 +226,5 @@ public class HeatGeneratorBlockEntity extends BlockEntity implements MenuProvide
                     new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
                     getBlockPos(), (ServerLevel)level, 32
             );
-    }
-
-    public int getEnergy() {
-        return energyStorage.getEnergy();
-    }
-
-    public int getCapacity() {
-        return energyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        energyStorage.setEnergyWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        energyStorage.setCapacityWithoutUpdate(capacity);
     }
 }

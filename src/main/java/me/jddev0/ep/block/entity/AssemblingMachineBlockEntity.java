@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AssemblingMachineBlock;
-import me.jddev0.ep.block.entity.base.SimpleMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.SingleRecipeTypeMachineBlockEntity;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 
-public class AssemblingMachineBlockEntity extends SimpleMachineBlockEntity<AssemblingMachineRecipe> {
+public class AssemblingMachineBlockEntity extends SingleRecipeTypeMachineBlockEntity<AssemblingMachineRecipe> {
     private final IItemHandler itemHandlerSidedTopBottom = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 4, i -> i == 4);
     private final IItemHandler itemHandlerSidedFront = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 3, i -> i == 4);
     private final IItemHandler itemHandlerSidedBack = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 4);

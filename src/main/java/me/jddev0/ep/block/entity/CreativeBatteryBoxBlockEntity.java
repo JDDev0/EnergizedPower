@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
 import me.jddev0.ep.energy.InfinityEnergyStorage;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.screen.CreativeBatteryBoxMenu;
@@ -22,40 +22,20 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class CreativeBatteryBoxBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate,
-        CheckboxUpdate {
-    private final InfinityEnergyStorage energyStorage;
-
+public class CreativeBatteryBoxBlockEntity extends EnergyStorageBlockEntity<InfinityEnergyStorage>
+        implements MenuProvider, CheckboxUpdate {
     protected final ContainerData data;
 
     private boolean energyProduction = true;
     private boolean energyConsumption;
 
     public CreativeBatteryBoxBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.CREATIVE_BATTERY_BOX_ENTITY.get(), blockPos, blockState);
+        super(
+                ModBlockEntities.CREATIVE_BATTERY_BOX_ENTITY.get(), blockPos, blockState,
 
-        energyStorage = new InfinityEnergyStorage() {
-            @Override
-            public int extractEnergy(int maxExtract, boolean simulate) {
-                if(energyProduction)
-                    return super.extractEnergy(maxExtract, simulate);
+                Integer.MAX_VALUE, Integer.MAX_VALUE
+        );
 
-                return 0;
-            }
-
-            @Override
-            public int receiveEnergy(int maxReceive, boolean simulate) {
-                if(energyConsumption)
-                    return super.receiveEnergy(maxReceive, simulate);
-
-                return 0;
-            }
-
-            @Override
-            protected void onChange() {
-                setChanged();
-            }
-        };
         data = new ContainerData() {
             @Override
             public int get(int index) {
@@ -82,6 +62,26 @@ public class CreativeBatteryBoxBlockEntity extends BlockEntity implements MenuPr
     }
 
     @Override
+    protected InfinityEnergyStorage initEnergyStorage() {
+        return new InfinityEnergyStorage() {
+            @Override
+            public int extractEnergy(int maxExtract, boolean simulate) {
+                return energyProduction?super.extractEnergy(maxExtract, simulate):0;
+            }
+
+            @Override
+            public int receiveEnergy(int maxReceive, boolean simulate) {
+                return energyConsumption?super.receiveEnergy(maxReceive, simulate):0;
+            }
+
+            @Override
+            protected void onChange() {
+                setChanged();
+            }
+        };
+    }
+
+    @Override
     public Component getDisplayName() {
         return Component.translatable("container.energizedpower.creative_battery_box");
     }
@@ -97,20 +97,16 @@ public class CreativeBatteryBoxBlockEntity extends BlockEntity implements MenuPr
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        nbt.put("energy", energyStorage.saveNBT());
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.saveAdditional(nbt, registries);
 
         nbt.putBoolean("energy_production", energyProduction);
         nbt.putBoolean("energy_consumption", energyConsumption);
-
-        super.saveAdditional(nbt, registries);
     }
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
-
-        energyStorage.loadNBT(nbt.get("energy"));
 
         energyProduction = !nbt.contains("energy_production") || nbt.getBoolean("energy_production");
         energyConsumption = nbt.getBoolean("energy_consumption");
@@ -164,23 +160,5 @@ public class CreativeBatteryBoxBlockEntity extends BlockEntity implements MenuPr
             int received = energyStorage.receiveEnergy(energyStorage.getMaxEnergyStored(), true);
             energyStorage.receiveEnergy(received, false);
         }
-    }
-
-    public int getEnergy() {
-        return energyStorage.getEnergy();
-    }
-
-    public int getCapacity() {
-        return energyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        energyStorage.setEnergyWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        energyStorage.setCapacityWithoutUpdate(capacity);
     }
 }

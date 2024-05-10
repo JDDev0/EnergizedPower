@@ -109,12 +109,12 @@ public class DrainBlockEntity extends BlockEntity implements MenuProvider, Fluid
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.saveAdditional(nbt, registries);
+
         nbt.put("fluid", fluidStorage.writeToNBT(registries, new CompoundTag()));
 
         nbt.put("drain.progress", IntTag.valueOf(progress));
-
-        super.saveAdditional(nbt, registries);
     }
 
     @Override

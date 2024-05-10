@@ -1,8 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ThermalGeneratorBlock;
+import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -50,16 +50,14 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate,
-        FluidStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
+public class ThermalGeneratorBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
+        implements MenuProvider, FluidStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
             UpgradeModuleModifier.ENERGY_CAPACITY
     );
     private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
-
-    private final ExtractOnlyEnergyStorage energyStorage;
 
     private final FluidTank fluidStorage;
 
@@ -69,35 +67,15 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
     private @NotNull ComparatorMode comparatorMode = ComparatorMode.FLUID;
 
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.THERMAL_GENERATOR_ENTITY.get(), blockPos, blockState);
+        super(
+                ModBlockEntities.THERMAL_GENERATOR_ENTITY.get(), blockPos, blockState,
+
+                ModConfigs.COMMON_THERMAL_GENERATOR_CAPACITY.getValue(),
+                ModConfigs.COMMON_THERMAL_GENERATOR_TRANSFER_RATE.getValue()
+        );
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
-        energyStorage = new ExtractOnlyEnergyStorage(0, ModConfigs.COMMON_THERMAL_GENERATOR_CAPACITY.getValue(),
-                ModConfigs.COMMON_THERMAL_GENERATOR_TRANSFER_RATE.getValue()) {
-            @Override
-            public int getCapacity() {
-                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_CAPACITY)));
-            }
-
-            @Override
-            public int getMaxExtract() {
-                return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
-                setChanged();
-
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
-                            getBlockPos(), (ServerLevel)level, 32
-                    );
-            }
-        };
         fluidStorage = new FluidTank(ModConfigs.COMMON_THERMAL_GENERATOR_FLUID_TANK_CAPACITY.getValue() * 1000) {
             @Override
             protected void onContentsChanged() {
@@ -173,6 +151,34 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
     }
 
     @Override
+    protected ExtractOnlyEnergyStorage initEnergyStorage() {
+        return new ExtractOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+            @Override
+            public int getCapacity() {
+                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            public int getMaxExtract() {
+                return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+
+            @Override
+            protected void onChange() {
+                setChanged();
+
+                if(level != null && !level.isClientSide())
+                    ModMessages.sendToPlayersWithinXBlocks(
+                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
+                            getBlockPos(), (ServerLevel)level, 32
+                    );
+            }
+        };
+    }
+
+    @Override
     public Component getDisplayName() {
         return Component.translatable("container.energizedpower.thermal_generator");
     }
@@ -203,29 +209,27 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         //Save Upgrade Module Inventory first
         nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
 
-        nbt.put("energy", energyStorage.saveNBT());
+        super.saveAdditional(nbt, registries);
+
         nbt.put("fluid", fluidStorage.writeToNBT(registries, new CompoundTag()));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
-
-        super.saveAdditional(nbt, registries);
     }
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
-
         //Load Upgrade Module Inventory first
         upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
         upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
-        energyStorage.loadNBT(nbt.get("energy"));
+        super.loadAdditional(nbt, registries);
+
         fluidStorage.readFromNBT(registries, nbt.getCompound("fluid"));
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
@@ -302,7 +306,8 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
             if(energyStorage == null || !energyStorage.canReceive())
                 continue;
 
-            int received = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getMaxExtract(), blockEntity.energyStorage.getEnergy()), true);
+            int received = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getMaxExtract(),
+                    blockEntity.energyStorage.getEnergy()), true);
             if(received <= 0)
                 continue;
 
@@ -315,7 +320,8 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 
-        int consumptionLeft = Math.min(blockEntity.energyStorage.getMaxExtract(), Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
+        int consumptionLeft = Math.min(blockEntity.energyStorage.getMaxExtract(),
+                Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
         blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
 
         int divisor = consumerItems.size();
@@ -361,24 +367,6 @@ public class ThermalGeneratorBlockEntity extends BlockEntity implements MenuProv
 
     public int getTankCapacity(int tank) {
         return fluidStorage.getCapacity();
-    }
-
-    public int getEnergy() {
-        return energyStorage.getEnergy();
-    }
-
-    public int getCapacity() {
-        return energyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        energyStorage.setEnergyWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        energyStorage.setCapacityWithoutUpdate(capacity);
     }
 
     @Override

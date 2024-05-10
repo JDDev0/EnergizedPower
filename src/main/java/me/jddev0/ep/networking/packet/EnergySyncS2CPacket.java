@@ -40,8 +40,8 @@ public record EnergySyncS2CPacket(int energy, int capacity, BlockPos pos) implem
             //BlockEntity
             if(blockEntity instanceof EnergyStoragePacketUpdate) {
                 EnergyStoragePacketUpdate energyStorage = (EnergyStoragePacketUpdate)blockEntity;
-                energyStorage.setEnergy(data.energy);
                 energyStorage.setCapacity(data.capacity);
+                energyStorage.setEnergy(data.energy);
             }
         });
     }

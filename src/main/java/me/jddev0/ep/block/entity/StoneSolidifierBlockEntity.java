@@ -1,9 +1,9 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.StoneSolidifierBlock;
+import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
@@ -45,7 +45,6 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.energy.IEnergyStorage;
@@ -60,8 +59,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate,
-        FluidStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
+public class StoneSolidifierBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
+        implements MenuProvider, FluidStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_STONE_SOLIDIFIER_CONSUMPTION_PER_TICK.getValue();
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_STONE_SOLIDIFIER_TANK_CAPACITY.getValue();
 
@@ -90,8 +89,6 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
     );
     private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
-    private final ReceiveOnlyEnergyStorage energyStorage;
-
     private final EnergizedPowerFluidStorage fluidStorage;
 
     protected final ContainerData data;
@@ -107,35 +104,14 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
     private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public StoneSolidifierBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.STONE_SOLIDIFIER_ENTITY.get(), blockPos, blockState);
+        super(
+                ModBlockEntities.STONE_SOLIDIFIER_ENTITY.get(), blockPos, blockState,
+
+                ModConfigs.COMMON_STONE_SOLIDIFIER_CAPACITY.getValue(),
+                ModConfigs.COMMON_STONE_SOLIDIFIER_TRANSFER_RATE.getValue()
+        );
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
-
-        energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_STONE_SOLIDIFIER_CAPACITY.getValue(),
-                ModConfigs.COMMON_STONE_SOLIDIFIER_TRANSFER_RATE.getValue()) {
-            @Override
-            public int getCapacity() {
-                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_CAPACITY)));
-            }
-
-            @Override
-            public int getMaxReceive() {
-                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
-                setChanged();
-
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
-                            getBlockPos(), (ServerLevel)level, 32
-                    );
-            }
-        };
 
         fluidStorage = new EnergizedPowerFluidStorage(new int[] {
                 TANK_CAPACITY, TANK_CAPACITY
@@ -202,6 +178,34 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
     }
 
     @Override
+    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
+        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+            @Override
+            public int getCapacity() {
+                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            public int getMaxReceive() {
+                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+
+            @Override
+            protected void onChange() {
+                setChanged();
+
+                if(level != null && !level.isClientSide())
+                    ModMessages.sendToPlayersWithinXBlocks(
+                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
+                            getBlockPos(), (ServerLevel)level, 32
+                    );
+            }
+        };
+    }
+
+    @Override
     public Component getDisplayName() {
         return Component.translatable("container.energizedpower.stone_solidifier");
     }
@@ -242,12 +246,13 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         //Save Upgrade Module Inventory first
         nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
 
+        super.saveAdditional(nbt, registries);
+
         nbt.put("inventory", itemHandler.serializeNBT(registries));
-        nbt.put("energy", energyStorage.saveNBT());
         for(int i = 0;i < fluidStorage.getTanks();i++)
             nbt.put("fluid." + i, fluidStorage.getFluid(i).saveOptional(registries));
 
@@ -260,21 +265,18 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
-
-        super.saveAdditional(nbt, registries);
     }
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
-
         //Load Upgrade Module Inventory first
         upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
         upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
+        super.loadAdditional(nbt, registries);
+
         itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
-        energyStorage.loadNBT(nbt.get("energy"));
         for(int i = 0;i < fluidStorage.getTanks();i++)
             fluidStorage.setFluid(i, FluidStack.parseOptional(registries, nbt.getCompound("fluid." + i)));
 
@@ -470,24 +472,6 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
 
     public int getTankCapacity(int tank) {
         return fluidStorage.getCapacity(tank);
-    }
-
-    public int getEnergy() {
-        return energyStorage.getEnergy();
-    }
-
-    public int getCapacity() {
-        return energyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        energyStorage.setEnergyWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        energyStorage.setCapacityWithoutUpdate(capacity);
     }
 
     @Override

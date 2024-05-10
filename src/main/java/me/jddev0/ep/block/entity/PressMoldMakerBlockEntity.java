@@ -98,10 +98,10 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements MenuProvid
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        nbt.put("inventory", itemHandler.serializeNBT(registries));
-
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.saveAdditional(nbt, registries);
+
+        nbt.put("inventory", itemHandler.serializeNBT(registries));
     }
 
     @Override

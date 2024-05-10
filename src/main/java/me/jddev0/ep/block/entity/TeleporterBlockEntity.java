@@ -1,9 +1,9 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.TeleporterBlock;
+import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
 import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
@@ -50,7 +50,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
-public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+public class TeleporterBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
+        implements MenuProvider {
     public static final boolean INTRA_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_ENABLED.getValue();
     public static final boolean INTER_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_ENABLED.getValue();
     public static final List<@NotNull ResourceLocation> DIMENSION_BLACKLIST =
@@ -94,14 +95,18 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
     };
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> true);
 
-    private final ReceiveOnlyEnergyStorage energyStorage;
-
-
     public TeleporterBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.TELEPORTER_ENTITY.get(), blockPos, blockState);
+        super(
+                ModBlockEntities.TELEPORTER_ENTITY.get(), blockPos, blockState,
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, CAPACITY,
-                ModConfigs.COMMON_TELEPORTER_TRANSFER_RATE.getValue()) {
+                CAPACITY,
+                ModConfigs.COMMON_TELEPORTER_TRANSFER_RATE.getValue()
+        );
+    }
+
+    @Override
+    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
+        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
             @Override
             protected void onChange() {
                 setChangedAndUpdateReadyState();
@@ -145,11 +150,10 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        nbt.put("inventory", itemHandler.serializeNBT(registries));
-        nbt.put("energy", energyStorage.saveNBT());
-
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.saveAdditional(nbt, registries);
+
+        nbt.put("inventory", itemHandler.serializeNBT(registries));
     }
 
     @Override
@@ -157,7 +161,6 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
         super.loadAdditional(nbt, registries);
 
         itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
-        energyStorage.loadNBT(nbt.get("energy"));
     }
 
     public void drops(Level level, BlockPos worldPosition) {
@@ -437,23 +440,5 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
 
     public void clearEnergy() {
         energyStorage.setEnergy(0);
-    }
-
-    public int getEnergy() {
-        return energyStorage.getEnergy();
-    }
-
-    public int getCapacity() {
-        return energyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        energyStorage.setEnergyWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        energyStorage.setCapacityWithoutUpdate(capacity);
     }
 }
