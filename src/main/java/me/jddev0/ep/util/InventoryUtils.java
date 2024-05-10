@@ -1,11 +1,19 @@
 package me.jddev0.ep.util;
 
 import net.minecraft.util.Mth;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 public final class InventoryUtils {
     private InventoryUtils() {}
+
+    public static boolean canInsertItemIntoSlot(Container inventory, int slot, ItemStack itemStack) {
+        ItemStack inventoryItemStack = inventory.getItem(slot);
+
+        return inventoryItemStack.isEmpty() || (ItemStack.isSameItemSameComponents(inventoryItemStack, itemStack) &&
+                inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount());
+    }
 
     public static int getRedstoneSignalFromItemStackHandler(ItemStackHandler itemHandler) {
         float fullnessPercentSum = 0;

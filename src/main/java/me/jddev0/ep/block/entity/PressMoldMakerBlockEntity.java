@@ -131,19 +131,12 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements MenuProvid
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         if(!pressMoldMakerRecipe.matches(inventory, level) ||
-                !canInsertItemIntoOutputSlot(inventory, pressMoldMakerRecipe.getResultItem(level.registryAccess())))
+                !InventoryUtils.canInsertItemIntoSlot(inventory, 1, pressMoldMakerRecipe.getResultItem(level.registryAccess())))
             return;
 
         itemHandler.extractItem(0, pressMoldMakerRecipe.getClayCount(), false);
         itemHandler.setStackInSlot(1, pressMoldMakerRecipe.getResultItem(level.registryAccess()).copyWithCount(
                 itemHandler.getStackInSlot(1).getCount() + pressMoldMakerRecipe.getResultItem(level.registryAccess()).getCount()));
-    }
-
-    private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
-        ItemStack inventoryItemStack = inventory.getItem(1);
-
-        return inventoryItemStack.isEmpty() || (ItemStack.isSameItemSameComponents(inventoryItemStack, itemStack) &&
-                inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount());
     }
 
     private List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> createRecipeList() {

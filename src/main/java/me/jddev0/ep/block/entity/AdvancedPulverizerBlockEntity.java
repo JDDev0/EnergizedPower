@@ -398,22 +398,8 @@ public class AdvancedPulverizerBlockEntity extends BlockEntity implements MenuPr
 
         return blockEntity.fluidStorage.getFluid(0).getAmount() >= WATER_CONSUMPTION_PER_RECIPE &&
                 blockEntity.fluidStorage.getCapacity(1) - blockEntity.fluidStorage.getFluid(1).getAmount() >= WATER_CONSUMPTION_PER_RECIPE &&
-                canInsertItemIntoOutputSlot(inventory, maxOutputs[0]) &&
-                (maxOutputs[1].isEmpty() || canInsertItemIntoSecondaryOutputSlot(inventory, maxOutputs[1]));
-    }
-
-    private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
-        ItemStack inventoryItemStack = inventory.getItem(1);
-
-        return inventoryItemStack.isEmpty() || (ItemStack.isSameItemSameComponents(inventoryItemStack, itemStack) &&
-                inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount());
-    }
-
-    private static boolean canInsertItemIntoSecondaryOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
-        ItemStack inventoryItemStack = inventory.getItem(2);
-
-        return inventoryItemStack.isEmpty() || (ItemStack.isSameItemSameComponents(inventoryItemStack, itemStack) &&
-                inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount());
+                InventoryUtils.canInsertItemIntoSlot(inventory, 1, maxOutputs[0]) &&
+                (maxOutputs[1].isEmpty() || InventoryUtils.canInsertItemIntoSlot(inventory, 2, maxOutputs[1]));
     }
 
     private void updateUpgradeModules() {

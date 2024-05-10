@@ -38,7 +38,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -400,14 +399,8 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Me
         for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-        return recipe.isPresent() && canInsertItemIntoOutputSlot(index, inventory, recipe.get().value().getResultItem(level.registryAccess()));
-    }
-
-    private static boolean canInsertItemIntoOutputSlot(int index, SimpleContainer inventory, ItemStack itemStack) {
-        ItemStack inventoryItemStack = inventory.getItem(3 + index);
-
-        return inventoryItemStack.isEmpty() || (ItemStack.isSameItemSameComponents(inventoryItemStack, itemStack) &&
-                inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount());
+        return recipe.isPresent() &&
+                InventoryUtils.canInsertItemIntoSlot(inventory, 3 + index, recipe.get().value().getResultItem(level.registryAccess()));
     }
 
     private Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> getRecipeFor(Container container, Level level) {

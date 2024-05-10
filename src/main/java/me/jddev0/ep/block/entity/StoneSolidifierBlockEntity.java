@@ -406,14 +406,7 @@ public class StoneSolidifierBlockEntity extends BlockEntity implements MenuProvi
 
         return blockEntity.fluidStorage.getFluid(0).getAmount() >= recipe.getWaterAmount() &&
                 blockEntity.fluidStorage.getFluid(1).getAmount() >= recipe.getLavaAmount() &&
-                canInsertItemIntoOutputSlot(inventory, recipe.getResultItem(level.registryAccess()));
-    }
-
-    private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
-        ItemStack inventoryItemStack = inventory.getItem(0);
-
-        return inventoryItemStack.isEmpty() || (ItemStack.isSameItemSameComponents(inventoryItemStack, itemStack) &&
-                inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount());
+                InventoryUtils.canInsertItemIntoSlot(inventory, 0, recipe.getResultItem(level.registryAccess()));
     }
 
     public void changeRecipeIndex(boolean downUp) {

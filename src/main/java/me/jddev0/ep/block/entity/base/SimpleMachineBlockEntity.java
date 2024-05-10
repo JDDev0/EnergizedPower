@@ -1,8 +1,5 @@
-package me.jddev0.ep.block.entity;
+package me.jddev0.ep.block.entity.base;
 
-import me.jddev0.ep.block.CrystalGrowthChamberBlock;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
-import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -13,13 +10,11 @@ import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
-import me.jddev0.ep.recipe.CrystalGrowthChamberRecipe;
-import me.jddev0.ep.screen.CrystalGrowthChamberMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.InventoryUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
@@ -35,82 +30,87 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.ComparatorBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class CrystalGrowthChamberBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate,
-        ComparatorModeUpdate {
-    private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_CRYSTAL_GROWTH_CHAMBER_ENERGY_CONSUMPTION_PER_TICK.getValue();
+public abstract class SimpleMachineBlockEntity<R extends Recipe<SimpleContainer>> extends BlockEntity
+        implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
+    protected final String machineName;
+    protected final SimpleMachineUpgradeMenuProvider menuProvider;
 
-    public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_CRYSTAL_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER.getValue();
-    private final ItemStackHandler itemHandler = new ItemStackHandler(2) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-        }
+    protected final RecipeType<R> recipeType;
 
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return switch(slot) {
-                case 0 -> level == null || level.getRecipeManager().
-                        getAllRecipesFor(CrystalGrowthChamberRecipe.Type.INSTANCE).stream().
-                        map(RecipeHolder::value).map(CrystalGrowthChamberRecipe::getInput).
-                        anyMatch(ingredient -> ingredient.test(stack));
-                case 1 -> false;
-                default -> super.isItemValid(slot, stack);
-            };
-        }
+    protected final UpgradeModuleInventory upgradeModuleInventory;
+    protected final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
-        @Override
-        public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-            if(slot == 0) {
-                ItemStack itemStack = getStackInSlot(slot);
-                if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
-                    resetProgress(worldPosition, level.getBlockState(worldPosition));
-            }
+    protected final ItemStackHandler itemHandler;
+    protected final ReceiveOnlyEnergyStorage energyStorage;
 
-            super.setStackInSlot(slot, stack);
-        }
-    };
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
-
-    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
-            UpgradeModuleModifier.SPEED,
-            UpgradeModuleModifier.ENERGY_CONSUMPTION,
-            UpgradeModuleModifier.ENERGY_CAPACITY,
-            UpgradeModuleModifier.SPEED,
-            UpgradeModuleModifier.ENERGY_CONSUMPTION,
-            UpgradeModuleModifier.ENERGY_CAPACITY
-    );
-    private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
-
-    private final ReceiveOnlyEnergyStorage energyStorage;
+    protected final int baseEnergyCapacity;
+    protected final int baseEnergyTransferRate;
+    protected final int baseEnergyConsumptionPerTick;
+    protected final int baseRecipeDuration;
 
     protected final ContainerData data;
-    private int progress;
-    private int maxProgress;
-    private int energyConsumptionLeft = -1;
-    private boolean hasEnoughEnergy;
 
-    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
-    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
+    protected int progress;
+    protected int maxProgress;
+    protected int energyConsumptionLeft = -1;
+    protected boolean hasEnoughEnergy;
 
-    public CrystalGrowthChamberBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.CRYSTAL_GROWTH_CHAMBER_ENTITY.get(), blockPos, blockState);
+    protected @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
+    protected @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
+    public SimpleMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                    String machineName, SimpleMachineUpgradeMenuProvider menuProvider,
+                                    int slotCount, RecipeType<R> recipeType, int baseRecipeDuration,
+                                    int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
+                                    UpgradeModuleModifier... upgradeModifierSlots) {
+        super(type, blockPos, blockState);
+
+        this.machineName = machineName;
+        this.menuProvider = menuProvider;
+
+        this.recipeType = recipeType;
+
+        this.baseEnergyCapacity = baseEnergyCapacity;
+        this.baseEnergyTransferRate = baseEnergyTransferRate;
+        this.baseEnergyConsumptionPerTick = baseEnergyConsumptionPerTick;
+        this.baseRecipeDuration = baseRecipeDuration;
+
+        this.upgradeModuleInventory = new UpgradeModuleInventory(upgradeModifierSlots);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_CRYSTAL_GROWTH_CHAMBER_CAPACITY.getValue(),
-                ModConfigs.COMMON_CRYSTAL_GROWTH_CHAMBER_TRANSFER_RATE.getValue()) {
+        this.itemHandler = new ItemStackHandler(slotCount) {
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return SimpleMachineBlockEntity.this.isItemValid(slot, stack);
+            }
+
+            @Override
+            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+                SimpleMachineBlockEntity.this.onSetItemInSlot(slot, stack);
+
+                super.setStackInSlot(slot, stack);
+            }
+
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+        };
+        this.energyStorage = new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
             @Override
             public int getCapacity() {
                 return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
@@ -134,13 +134,14 @@ public class CrystalGrowthChamberBlockEntity extends BlockEntity implements Menu
                     );
             }
         };
+
         data = new ContainerData() {
             @Override
             public int get(int index) {
                 return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(CrystalGrowthChamberBlockEntity.this.progress, index);
-                    case 2, 3 -> ByteUtils.get2Bytes(CrystalGrowthChamberBlockEntity.this.maxProgress, index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(CrystalGrowthChamberBlockEntity.this.energyConsumptionLeft, index - 4);
+                    case 0, 1 -> ByteUtils.get2Bytes(progress, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(maxProgress, index - 2);
+                    case 4, 5 -> ByteUtils.get2Bytes(energyConsumptionLeft, index - 4);
                     case 6 -> hasEnoughEnergy?1:0;
                     case 7 -> redstoneMode.ordinal();
                     case 8 -> comparatorMode.ordinal();
@@ -151,15 +152,15 @@ public class CrystalGrowthChamberBlockEntity extends BlockEntity implements Menu
             @Override
             public void set(int index, int value) {
                 switch(index) {
-                    case 0, 1 -> CrystalGrowthChamberBlockEntity.this.progress = ByteUtils.with2Bytes(
-                            CrystalGrowthChamberBlockEntity.this.progress, (short)value, index
+                    case 0, 1 -> progress = ByteUtils.with2Bytes(
+                            progress, (short)value, index
                     );
-                    case 2, 3 -> CrystalGrowthChamberBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
-                            CrystalGrowthChamberBlockEntity.this.maxProgress, (short)value, index - 2
+                    case 2, 3 -> maxProgress = ByteUtils.with2Bytes(
+                            maxProgress, (short)value, index - 2
                     );
                     case 4, 5, 6 -> {}
-                    case 7 -> CrystalGrowthChamberBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 8 -> CrystalGrowthChamberBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                    case 7 -> redstoneMode = RedstoneMode.fromIndex(value);
+                    case 8 -> comparatorMode = ComparatorMode.fromIndex(value);
                 }
             }
 
@@ -168,39 +169,6 @@ public class CrystalGrowthChamberBlockEntity extends BlockEntity implements Menu
                 return 9;
             }
         };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.crystal_growth_chamber");
-    }
-
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
-                getBlockPos()), (ServerPlayer)player);
-
-        return new CrystalGrowthChamberMenu(id, inventory, this, upgradeModuleInventory, this.data);
-    }
-
-    public int getRedstoneOutput() {
-        return switch(comparatorMode) {
-            case ITEM -> InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
-            case FLUID -> 0;
-            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
-        };
-    }
-
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
-        if(side == null)
-            return itemHandler;
-
-        return itemHandlerSided;
-    }
-
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
     }
 
     @Override
@@ -241,6 +209,28 @@ public class CrystalGrowthChamberBlockEntity extends BlockEntity implements Menu
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable("container.energizedpower." + machineName);
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
+                getBlockPos()), (ServerPlayer)player);
+
+        return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
+    }
+
+    public int getRedstoneOutput() {
+        return switch(comparatorMode) {
+            case ITEM -> InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+            case FLUID -> 0;
+            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+        };
+    }
+
     public void drops(Level level, BlockPos worldPosition) {
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
         for(int i = 0;i < itemHandler.getSlots();i++)
@@ -251,27 +241,28 @@ public class CrystalGrowthChamberBlockEntity extends BlockEntity implements Menu
         Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
-    public static void tick(Level level, BlockPos blockPos, BlockState state, CrystalGrowthChamberBlockEntity blockEntity) {
+    public static <R extends Recipe<SimpleContainer>> void tick(Level level, BlockPos blockPos, BlockState state,
+                                                                SimpleMachineBlockEntity<R> blockEntity) {
         if(level.isClientSide)
             return;
 
-        if(!blockEntity.redstoneMode.isActive(state.getValue(CrystalGrowthChamberBlock.POWERED)))
+        if(!blockEntity.redstoneMode.isActive(state.getValue(ComparatorBlock.POWERED)))
             return;
 
-        if(hasRecipe(blockEntity)) {
+        if(blockEntity.hasRecipe()) {
             SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
             for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
                 inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-            Optional<RecipeHolder<CrystalGrowthChamberRecipe>> recipe = level.getRecipeManager().getRecipeFor(CrystalGrowthChamberRecipe.Type.INSTANCE, inventory, level);
+            Optional<RecipeHolder<R>> recipe = level.getRecipeManager().getRecipeFor(blockEntity.recipeType, inventory, level);
             if(recipe.isEmpty())
                 return;
 
             if(blockEntity.maxProgress == 0)
-                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(recipe.get().value().getTicks() * RECIPE_DURATION_MULTIPLIER /
+                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(blockEntity.baseRecipeDuration /
                         blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
 
-            int energyConsumptionPerTick = Math.max(1, (int)Math.ceil(ENERGY_USAGE_PER_TICK *
+            int energyConsumptionPerTick = Math.max(1, (int)Math.ceil(blockEntity.baseEnergyConsumptionPerTick *
                     blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
 
             if(blockEntity.energyConsumptionLeft < 0)
@@ -283,7 +274,7 @@ public class CrystalGrowthChamberBlockEntity extends BlockEntity implements Menu
                 if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
                     //Reset progress for invalid values
 
-                    blockEntity.resetProgress(blockPos, state);
+                    blockEntity.resetProgress();
                     setChanged(level, blockPos, state);
 
                     return;
@@ -294,7 +285,7 @@ public class CrystalGrowthChamberBlockEntity extends BlockEntity implements Menu
 
                 blockEntity.progress++;
                 if(blockEntity.progress >= blockEntity.maxProgress)
-                    craftItem(blockPos, state, blockEntity);
+                    blockEntity.craftItem(recipe.get());
 
                 setChanged(level, blockPos, state);
             }else {
@@ -302,55 +293,62 @@ public class CrystalGrowthChamberBlockEntity extends BlockEntity implements Menu
                 setChanged(level, blockPos, state);
             }
         }else {
-            blockEntity.resetProgress(blockPos, state);
+            blockEntity.resetProgress();
             setChanged(level, blockPos, state);
         }
     }
 
-    private void resetProgress(BlockPos blockPos, BlockState state) {
+    protected void resetProgress() {
         progress = 0;
         maxProgress = 0;
         energyConsumptionLeft = -1;
         hasEnoughEnergy = true;
     }
 
-    private static void craftItem(BlockPos blockPos, BlockState state, CrystalGrowthChamberBlockEntity blockEntity) {
-        Level level = blockEntity.level;
+    protected boolean hasRecipe() {
+        if(level == null)
+            return false;
 
-        SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
-        for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
-            inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+        for(int i = 0;i < itemHandler.getSlots();i++)
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
 
-        Optional<RecipeHolder<CrystalGrowthChamberRecipe>> recipe = level.getRecipeManager().getRecipeFor(CrystalGrowthChamberRecipe.Type.INSTANCE, inventory, level);
+        Optional<RecipeHolder<R>> recipe = level.getRecipeManager().getRecipeFor(recipeType, inventory, level);
 
-        if(!hasRecipe(blockEntity) || recipe.isEmpty())
+        return recipe.isPresent() && canInsertItemsIntoOutputSlots(inventory, recipe.get());
+    }
+
+    protected boolean isItemValid(int slot, ItemStack stack) {
+        return slot == 0 && (level == null || RecipeUtils.isIngredientOfAny(level, recipeType, stack));
+    }
+
+    protected void onSetItemInSlot(int slot, ItemStack stack) {
+        if(slot == 0) {
+            ItemStack itemStack = itemHandler.getStackInSlot(slot);
+            if(!stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                resetProgress();
+        }
+    }
+
+    protected void craftItem(RecipeHolder<R> recipe) {
+        if(level == null || !hasRecipe())
             return;
 
-        blockEntity.itemHandler.extractItem(0, recipe.get().value().getInputCount(), false);
+        itemHandler.extractItem(0, 1, false);
+        itemHandler.setStackInSlot(1, recipe.value().getResultItem(level.registryAccess()).
+                copyWithCount(itemHandler.getStackInSlot(1).getCount() +
+                        recipe.value().getResultItem(level.registryAccess()).getCount()));
 
-        ItemStack output = recipe.get().value().generateOutput(level.random);
-
-        blockEntity.itemHandler.setStackInSlot(1, output.copyWithCount(
-                blockEntity.itemHandler.getStackInSlot(1).getCount() + output.getCount()));
-
-        blockEntity.resetProgress(blockPos, state);
+        resetProgress();
     }
 
-    private static boolean hasRecipe(CrystalGrowthChamberBlockEntity blockEntity) {
-        Level level = blockEntity.level;
-
-        SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
-        for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
-            inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
-
-        Optional<RecipeHolder<CrystalGrowthChamberRecipe>> recipe = level.getRecipeManager().getRecipeFor(CrystalGrowthChamberRecipe.Type.INSTANCE, inventory, level);
-
-        return recipe.isPresent() &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.get().value().getMaxOutputCount());
+    protected boolean canInsertItemsIntoOutputSlots(SimpleContainer inventory, RecipeHolder<R> recipe) {
+        return level != null &&
+                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().getResultItem(level.registryAccess()));
     }
 
-    private void updateUpgradeModules() {
-        resetProgress(getBlockPos(), getBlockState());
+    protected void updateUpgradeModules() {
+        resetProgress();
         setChanged();
         if(level != null && !level.isClientSide())
             ModMessages.sendToPlayersWithinXBlocks(

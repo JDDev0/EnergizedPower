@@ -352,14 +352,8 @@ public class MetalPressBlockEntity extends BlockEntity implements MenuProvider, 
 
         Optional<RecipeHolder<MetalPressRecipe>> recipe = level.getRecipeManager().getRecipeFor(MetalPressRecipe.Type.INSTANCE, inventory, level);
 
-        return recipe.isPresent() && canInsertItemIntoOutputSlot(inventory, recipe.get().value().getResultItem(level.registryAccess()));
-    }
-
-    private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
-        ItemStack inventoryItemStack = inventory.getItem(2);
-
-        return inventoryItemStack.isEmpty() || (ItemStack.isSameItemSameComponents(inventoryItemStack, itemStack) &&
-                inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount());
+        return recipe.isPresent() &&
+                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.get().value().getResultItem(level.registryAccess()));
     }
 
     private void updateUpgradeModules() {
