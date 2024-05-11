@@ -1,8 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.EnergizerBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -47,36 +47,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class EnergizerBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
+public class EnergizerBlockEntity
+        extends InventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider, RedstoneModeUpdate, ComparatorModeUpdate {
     public static final float ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_ENERGIZER_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(2) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-        }
-
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return switch (slot) {
-                case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, EnergizerRecipe.Type.INSTANCE, stack);
-                case 1 -> false;
-                default -> super.isItemValid(slot, stack);
-            };
-        }
-
-        @Override
-        public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-            if(slot == 0) {
-                ItemStack itemStack = getStackInSlot(slot);
-                if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
-                    resetProgress(worldPosition, level.getBlockState(worldPosition));
-            }
-
-            super.setStackInSlot(slot, stack);
-        }
-    };
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
 
     private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
@@ -98,7 +73,9 @@ public class EnergizerBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEn
                 ModBlockEntities.ENERGIZER_ENTITY.get(), blockPos, blockState,
 
                 ModConfigs.COMMON_ENERGIZER_CAPACITY.getValue(),
-                ModConfigs.COMMON_ENERGIZER_TRANSFER_RATE.getValue()
+                ModConfigs.COMMON_ENERGIZER_TRANSFER_RATE.getValue(),
+
+                2
         );
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
@@ -168,6 +145,36 @@ public class EnergizerBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEn
     }
 
     @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return switch (slot) {
+                    case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, EnergizerRecipe.Type.INSTANCE, stack);
+                    case 1 -> false;
+                    default -> super.isItemValid(slot, stack);
+                };
+            }
+
+            @Override
+            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+                if(slot == 0) {
+                    ItemStack itemStack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                        resetProgress(worldPosition, level.getBlockState(worldPosition));
+                }
+
+                super.setStackInSlot(slot, stack);
+            }
+        };
+    }
+
+    @Override
     public Component getDisplayName() {
         return Component.translatable("container.energizedpower.energizer");
     }
@@ -207,8 +214,6 @@ public class EnergizerBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEn
 
         super.saveAdditional(nbt, registries);
 
-        nbt.put("inventory", itemHandler.serializeNBT(registries));
-
         nbt.put("recipe.progress", IntTag.valueOf(progress));
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
 
@@ -225,8 +230,6 @@ public class EnergizerBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEn
 
         super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
-
         progress = nbt.getInt("recipe.progress");
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
 
@@ -234,12 +237,9 @@ public class EnergizerBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEn
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
+    @Override
     public void drops(Level level, BlockPos worldPosition) {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-
-        Containers.dropContents(level, worldPosition, inventory);
+        super.drops(level, worldPosition);
 
         Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }

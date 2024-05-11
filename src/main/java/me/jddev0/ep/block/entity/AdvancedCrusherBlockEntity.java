@@ -1,8 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AdvancedCrusherBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
@@ -51,7 +51,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class AdvancedCrusherBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
+public class AdvancedCrusherBlockEntity
+        extends InventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider, FluidStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_ADVANCED_CRUSHER_ENERGY_CONSUMPTION_PER_TICK.getValue();
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_ADVANCED_CRUSHER_TANK_CAPACITY.getValue();
@@ -59,32 +60,6 @@ public class AdvancedCrusherBlockEntity extends EnergyStorageBlockEntity<Receive
 
     private static final int RECIPE_DURATION = ModConfigs.COMMON_ADVANCED_CRUSHER_RECIPE_DURATION.getValue();
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(2) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-        }
-
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return switch(slot) {
-                case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, CrusherRecipe.Type.INSTANCE, stack);
-                case 1 -> false;
-                default -> super.isItemValid(slot, stack);
-            };
-        }
-
-        @Override
-        public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-            if(slot == 0) {
-                ItemStack itemStack = getStackInSlot(slot);
-                if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
-                    resetProgress(worldPosition, level.getBlockState(worldPosition));
-            }
-
-            super.setStackInSlot(slot, stack);
-        }
-    };
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
 
     private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
@@ -110,7 +85,9 @@ public class AdvancedCrusherBlockEntity extends EnergyStorageBlockEntity<Receive
                 ModBlockEntities.ADVANCED_CRUSHER_ENTITY.get(), blockPos, blockState,
 
                 ModConfigs.COMMON_ADVANCED_CRUSHER_CAPACITY.getValue(),
-                ModConfigs.COMMON_ADVANCED_CRUSHER_TRANSFER_RATE.getValue()
+                ModConfigs.COMMON_ADVANCED_CRUSHER_TRANSFER_RATE.getValue(),
+
+                2
         );
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
@@ -208,6 +185,36 @@ public class AdvancedCrusherBlockEntity extends EnergyStorageBlockEntity<Receive
     }
 
     @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return switch(slot) {
+                    case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, CrusherRecipe.Type.INSTANCE, stack);
+                    case 1 -> false;
+                    default -> super.isItemValid(slot, stack);
+                };
+            }
+
+            @Override
+            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+                if(slot == 0) {
+                    ItemStack itemStack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                        resetProgress(worldPosition, level.getBlockState(worldPosition));
+                }
+
+                super.setStackInSlot(slot, stack);
+            }
+        };
+    }
+
+    @Override
     public Component getDisplayName() {
         return Component.translatable("container.energizedpower.advanced_crusher");
     }
@@ -252,7 +259,6 @@ public class AdvancedCrusherBlockEntity extends EnergyStorageBlockEntity<Receive
 
         super.saveAdditional(nbt, registries);
 
-        nbt.put("inventory", itemHandler.serializeNBT(registries));
         for(int i = 0;i < fluidStorage.getTanks();i++)
             nbt.put("fluid." + i, fluidStorage.getFluid(i).saveOptional(registries));
 
@@ -273,7 +279,6 @@ public class AdvancedCrusherBlockEntity extends EnergyStorageBlockEntity<Receive
 
         super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
         for(int i = 0;i < fluidStorage.getTanks();i++)
             fluidStorage.setFluid(i, FluidStack.parseOptional(registries, nbt.getCompound("fluid." + i)));
 
@@ -285,12 +290,9 @@ public class AdvancedCrusherBlockEntity extends EnergyStorageBlockEntity<Receive
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
+    @Override
     public void drops(Level level, BlockPos worldPosition) {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-
-        Containers.dropContents(level, worldPosition, inventory);
+        super.drops(level, worldPosition);
 
         Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }

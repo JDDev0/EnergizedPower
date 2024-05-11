@@ -43,7 +43,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<SimpleContainer>>
-        extends EnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
+        extends InventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider, RedstoneModeUpdate, ComparatorModeUpdate {
     protected final String machineName;
     protected final UpgradableMenuProvider menuProvider;
@@ -52,8 +52,6 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
 
     protected final UpgradeModuleInventory upgradeModuleInventory;
     protected final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
-
-    protected final ItemStackHandler itemHandler;
 
     protected final int baseEnergyConsumptionPerTick;
     protected final int baseRecipeDuration;
@@ -73,7 +71,7 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
                                               int slotCount, RecipeType<R> recipeType, int baseRecipeDuration,
                                               int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
                                               UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate);
+        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount);
 
         this.machineName = machineName;
         this.menuProvider = menuProvider;
@@ -85,25 +83,6 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
 
         this.upgradeModuleInventory = new UpgradeModuleInventory(upgradeModifierSlots);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
-
-        this.itemHandler = new ItemStackHandler(slotCount) {
-            @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-                return SingleRecipeTypeMachineBlockEntity.this.isItemValid(slot, stack);
-            }
-
-            @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-                SingleRecipeTypeMachineBlockEntity.this.onSetItemInSlot(slot, stack);
-
-                super.setStackInSlot(slot, stack);
-            }
-
-            @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
-        };
 
         data = new ContainerData() {
             @Override
@@ -170,13 +149,37 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
     }
 
     @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return slot == 0 && (level == null || RecipeUtils.isIngredientOfAny(level, recipeType, stack));
+            }
+
+            @Override
+            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+                if(slot == 0) {
+                    ItemStack itemStack = itemHandler.getStackInSlot(slot);
+                    if(!stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                        resetProgress();
+                }
+
+                super.setStackInSlot(slot, stack);
+            }
+
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+        };
+    }
+
+    @Override
     protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         //Save Upgrade Module Inventory first
         nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
 
         super.saveAdditional(nbt, registries);
-
-        nbt.put("inventory", itemHandler.serializeNBT(registries));
 
         nbt.put("recipe.progress", IntTag.valueOf(progress));
         nbt.put("recipe.max_progress", IntTag.valueOf(maxProgress));
@@ -194,8 +197,6 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         super.loadAdditional(nbt, registries);
-
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
 
         progress = nbt.getInt("recipe.progress");
         maxProgress = nbt.getInt("recipe.max_progress");
@@ -227,12 +228,9 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
         };
     }
 
+    @Override
     public void drops(Level level, BlockPos worldPosition) {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-
-        Containers.dropContents(level, worldPosition, inventory);
+        super.drops(level, worldPosition);
 
         Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
@@ -312,18 +310,6 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
         Optional<RecipeHolder<R>> recipe = level.getRecipeManager().getRecipeFor(recipeType, inventory, level);
 
         return recipe.isPresent() && canInsertItemsIntoOutputSlots(inventory, recipe.get());
-    }
-
-    protected boolean isItemValid(int slot, ItemStack stack) {
-        return slot == 0 && (level == null || RecipeUtils.isIngredientOfAny(level, recipeType, stack));
-    }
-
-    protected void onSetItemInSlot(int slot, ItemStack stack) {
-        if(slot == 0) {
-            ItemStack itemStack = itemHandler.getStackInSlot(slot);
-            if(!stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
-                resetProgress();
-        }
     }
 
     protected void craftItem(RecipeHolder<R> recipe) {

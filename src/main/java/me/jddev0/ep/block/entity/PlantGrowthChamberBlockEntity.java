@@ -1,8 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.PlantGrowthChamberBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -52,39 +52,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class PlantGrowthChamberBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
+public class PlantGrowthChamberBlockEntity
+        extends InventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider, RedstoneModeUpdate, ComparatorModeUpdate {
     private static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER.getValue();
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(6) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-        }
-
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return switch(slot) {
-                case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, PlantGrowthChamberRecipe.Type.INSTANCE, stack);
-                case 1 -> level == null || RecipeUtils.isIngredientOfAny(level, PlantGrowthChamberFertilizerRecipe.Type.INSTANCE, stack);
-                case 2, 3, 4, 5 -> false;
-                default -> super.isItemValid(slot, stack);
-            };
-        }
-
-        @Override
-        public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-            if(slot == 0) {
-                ItemStack itemStack = getStackInSlot(slot);
-                if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
-                    resetProgress(worldPosition, level.getBlockState(worldPosition));
-            }
-
-            super.setStackInSlot(slot, stack);
-        }
-    };
     private final IItemHandler itemHandlerSidesSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 1 && i < 6);
     private final IItemHandler itemHandlerTopBottomSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i > 1 && i < 6);
 
@@ -111,7 +85,9 @@ public class PlantGrowthChamberBlockEntity extends EnergyStorageBlockEntity<Rece
                 ModBlockEntities.PLANT_GROWTH_CHAMBER_ENTITY.get(), blockPos, blockState,
 
                 ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_CAPACITY.getValue(),
-                ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_TRANSFER_RATE.getValue()
+                ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_TRANSFER_RATE.getValue(),
+
+                6
         );
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
@@ -181,6 +157,37 @@ public class PlantGrowthChamberBlockEntity extends EnergyStorageBlockEntity<Rece
     }
 
     @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return switch(slot) {
+                    case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, PlantGrowthChamberRecipe.Type.INSTANCE, stack);
+                    case 1 -> level == null || RecipeUtils.isIngredientOfAny(level, PlantGrowthChamberFertilizerRecipe.Type.INSTANCE, stack);
+                    case 2, 3, 4, 5 -> false;
+                    default -> super.isItemValid(slot, stack);
+                };
+            }
+
+            @Override
+            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+                if(slot == 0) {
+                    ItemStack itemStack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                        resetProgress(worldPosition, level.getBlockState(worldPosition));
+                }
+
+                super.setStackInSlot(slot, stack);
+            }
+        };
+    }
+
+    @Override
     public Component getDisplayName() {
         return Component.translatable("container.energizedpower.plant_growth_chamber");
     }
@@ -223,8 +230,6 @@ public class PlantGrowthChamberBlockEntity extends EnergyStorageBlockEntity<Rece
 
         super.saveAdditional(nbt, registries);
 
-        nbt.put("inventory", itemHandler.serializeNBT(registries));
-
         nbt.put("recipe.progress", IntTag.valueOf(progress));
         nbt.put("recipe.max_progress", IntTag.valueOf(maxProgress));
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
@@ -244,8 +249,6 @@ public class PlantGrowthChamberBlockEntity extends EnergyStorageBlockEntity<Rece
 
         super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
-
         progress = nbt.getInt("recipe.progress");
         maxProgress = nbt.getInt("recipe.max_progress");
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
@@ -256,12 +259,9 @@ public class PlantGrowthChamberBlockEntity extends EnergyStorageBlockEntity<Rece
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
+    @Override
     public void drops(Level level, BlockPos worldPosition) {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-
-        Containers.dropContents(level, worldPosition, inventory);
+        super.drops(level, worldPosition);
 
         Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }

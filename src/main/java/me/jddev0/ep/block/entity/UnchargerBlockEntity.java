@@ -1,8 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.UnchargerBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -47,43 +47,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class UnchargerBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
+public class UnchargerBlockEntity
+        extends InventoryEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider, RedstoneModeUpdate, ComparatorModeUpdate {
-    private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-        }
-
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            if(slot == 0) {
-                IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
-                return energyStorage != null && energyStorage.canExtract();
-            }
-
-            return super.isItemValid(slot, stack);
-        }
-
-        @Override
-        public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-            if(slot == 0) {
-                ItemStack itemStack = getStackInSlot(slot);
-                if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSameItem(stack, itemStack) ||
-                        (!ItemStack.isSameItemSameComponents(stack, itemStack) &&
-                                //Only check if NBT data is equal if one of stack or itemStack is no energy item
-                                !(stack.getCapability(Capabilities.EnergyStorage.ITEM) != null && itemStack.getCapability(Capabilities.EnergyStorage.ITEM) != null))))
-                    resetProgress();
-            }
-
-            super.setStackInSlot(slot, stack);
-        }
-
-        @Override
-        public int getSlotLimit(int slot) {
-            return 1;
-        }
-    };
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
         if(i != 0)
             return false;
@@ -112,7 +78,9 @@ public class UnchargerBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyEn
                 ModBlockEntities.UNCHARGER_ENTITY.get(), blockPos, blockState,
 
                 ModConfigs.COMMON_UNCHARGER_CAPACITY.getValue(),
-                ModConfigs.COMMON_UNCHARGER_TRANSFER_RATE.getValue()
+                ModConfigs.COMMON_UNCHARGER_TRANSFER_RATE.getValue(),
+
+                1
         );
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
@@ -173,6 +141,45 @@ public class UnchargerBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyEn
     }
 
     @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                if(slot == 0) {
+                    IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+                    return energyStorage != null && energyStorage.canExtract();
+                }
+
+                return super.isItemValid(slot, stack);
+            }
+
+            @Override
+            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+                if(slot == 0) {
+                    ItemStack itemStack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSameItem(stack, itemStack) ||
+                            (!ItemStack.isSameItemSameComponents(stack, itemStack) &&
+                                    //Only check if NBT data is equal if one of stack or itemStack is no energy item
+                                    !(stack.getCapability(Capabilities.EnergyStorage.ITEM) != null && itemStack.getCapability(Capabilities.EnergyStorage.ITEM) != null))))
+                        resetProgress();
+                }
+
+                super.setStackInSlot(slot, stack);
+            }
+
+            @Override
+            public int getSlotLimit(int slot) {
+                return 1;
+            }
+        };
+    }
+
+    @Override
     public Component getDisplayName() {
         return Component.translatable("container.energizedpower.uncharger");
     }
@@ -212,8 +219,6 @@ public class UnchargerBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyEn
 
         super.saveAdditional(nbt, registries);
 
-        nbt.put("inventory", itemHandler.serializeNBT(registries));
-
         nbt.put("recipe.energy_production_left", IntTag.valueOf(energyProductionLeft));
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
@@ -229,20 +234,15 @@ public class UnchargerBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyEn
 
         super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
-
         energyProductionLeft = nbt.getInt("recipe.energy_production_left");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
+    @Override
     public void drops(Level level, BlockPos worldPosition) {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-
-        Containers.dropContents(level, worldPosition, inventory);
+        super.drops(level, worldPosition);
 
         Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }

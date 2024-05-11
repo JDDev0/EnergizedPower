@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.SingleRecipeTypeMachineBlockEntity;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ModRecipes;

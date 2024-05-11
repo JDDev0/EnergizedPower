@@ -2,8 +2,8 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.AdvancedAutoCrafterBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -51,7 +51,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class AdvancedAutoCrafterBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
+public class AdvancedAutoCrafterBlockEntity
+        extends InventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider, RedstoneModeUpdate, ComparatorModeUpdate, CheckboxUpdate {
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
@@ -59,21 +60,6 @@ public class AdvancedAutoCrafterBlockEntity extends EnergyStorageBlockEntity<Rec
 
     private boolean secondaryExtractMode = false;
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(27) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-        }
-
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            if(slot < 0 || slot >= 27)
-                return super.isItemValid(slot, stack);
-
-            //Slot 0, 1, 2, 3, and 4 are for output items only
-            return slot >= 5;
-        }
-    };
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 5,
                     i -> secondaryExtractMode?!isInput(itemHandler.getStackInSlot(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i)));
 
@@ -169,7 +155,9 @@ public class AdvancedAutoCrafterBlockEntity extends EnergyStorageBlockEntity<Rec
                 ModBlockEntities.ADVANCED_AUTO_CRAFTER_ENTITY.get(), blockPos, blockState,
 
                 ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_CAPACITY.getValue(),
-                ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_TRANSFER_RATE.getValue()
+                ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_TRANSFER_RATE.getValue(),
+
+                27
         );
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
@@ -271,6 +259,25 @@ public class AdvancedAutoCrafterBlockEntity extends EnergyStorageBlockEntity<Rec
     }
 
     @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                if(slot < 0 || slot >= 27)
+                    return super.isItemValid(slot, stack);
+
+                //Slot 0, 1, 2, 3, and 4 are for output items only
+                return slot >= 5;
+            }
+        };
+    }
+
+    @Override
     public Component getDisplayName() {
         return Component.translatable("container.energizedpower.advanced_auto_crafter");
     }
@@ -310,7 +317,6 @@ public class AdvancedAutoCrafterBlockEntity extends EnergyStorageBlockEntity<Rec
 
         super.saveAdditional(nbt, registries);
 
-        nbt.put("inventory", itemHandler.serializeNBT(registries));
         for(int i = 0;i < 3;i++)
             nbt.put("pattern." + i, savePatternContainer(i, registries));
 
@@ -350,7 +356,6 @@ public class AdvancedAutoCrafterBlockEntity extends EnergyStorageBlockEntity<Rec
 
         super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
         for(int i = 0;i < 3;i++)
             loadPatternContainer(i, nbt.getCompound("pattern." + i), registries);
 
@@ -392,12 +397,9 @@ public class AdvancedAutoCrafterBlockEntity extends EnergyStorageBlockEntity<Rec
         patternSlots[index].addListener(updatePatternListener[index]);
     }
 
+    @Override
     public void drops(Level level, BlockPos worldPosition) {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-
-        Containers.dropContents(level, worldPosition, inventory);
+        super.drops(level, worldPosition);
 
         Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }

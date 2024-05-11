@@ -1,8 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.CoalEngineBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -48,24 +48,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CoalEngineBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
+public class CoalEngineBlockEntity
+        extends InventoryEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider, RedstoneModeUpdate, ComparatorModeUpdate {
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-        }
-
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            if(slot == 0)
-                return stack.getBurnTime(RecipeType.SMELTING) > 0;
-
-            return super.isItemValid(slot, stack);
-        }
-    };
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
         if(i != 0)
             return false;
@@ -94,7 +81,9 @@ public class CoalEngineBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyE
                 ModBlockEntities.COAL_ENGINE_ENTITY.get(), blockPos, blockState,
 
                 ModConfigs.COMMON_COAL_ENGINE_CAPACITY.getValue(),
-                ModConfigs.COMMON_COAL_ENGINE_TRANSFER_RATE.getValue()
+                ModConfigs.COMMON_COAL_ENGINE_TRANSFER_RATE.getValue(),
+
+                1
         );
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
@@ -159,6 +148,24 @@ public class CoalEngineBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyE
                             new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
                             getBlockPos(), (ServerLevel)level, 32
                     );
+            }
+        };
+    }
+
+    @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                if(slot == 0)
+                    return stack.getBurnTime(RecipeType.SMELTING) > 0;
+
+                return super.isItemValid(slot, stack);
             }
         };
     }
@@ -232,12 +239,9 @@ public class CoalEngineBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyE
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
+    @Override
     public void drops(Level level, BlockPos worldPosition) {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-
-        Containers.dropContents(level, worldPosition, inventory);
+        super.drops(level, worldPosition);
 
         Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }

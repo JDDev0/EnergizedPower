@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncPressMoldMakerRecipeListS2CPacket;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;

@@ -2,8 +2,8 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.AutoCrafterBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -51,7 +51,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class AutoCrafterBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
+public class AutoCrafterBlockEntity
+        extends InventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider, RedstoneModeUpdate, ComparatorModeUpdate, CheckboxUpdate {
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
@@ -62,21 +63,6 @@ public class AutoCrafterBlockEntity extends EnergyStorageBlockEntity<ReceiveOnly
 
     private boolean secondaryExtractMode;
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(18) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-        }
-
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            if(slot < 0 || slot >= 18)
-                return super.isItemValid(slot, stack);
-
-            //Slot 0, 1, and 2 are for output items only
-            return slot >= 3;
-        }
-    };
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 3,
                     i -> secondaryExtractMode?!isInput(itemHandler.getStackInSlot(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i)));
 
@@ -127,7 +113,9 @@ public class AutoCrafterBlockEntity extends EnergyStorageBlockEntity<ReceiveOnly
                 ModBlockEntities.AUTO_CRAFTER_ENTITY.get(), blockPos, blockState,
 
                 ModConfigs.COMMON_AUTO_CRAFTER_CAPACITY.getValue(),
-                ModConfigs.COMMON_AUTO_CRAFTER_TRANSFER_RATE.getValue()
+                ModConfigs.COMMON_AUTO_CRAFTER_TRANSFER_RATE.getValue(),
+
+                18
         );
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
@@ -202,6 +190,25 @@ public class AutoCrafterBlockEntity extends EnergyStorageBlockEntity<ReceiveOnly
     }
 
     @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                if(slot < 0 || slot >= 18)
+                    return super.isItemValid(slot, stack);
+
+                //Slot 0, 1, and 2 are for output items only
+                return slot >= 3;
+            }
+        };
+    }
+
+    @Override
     public Component getDisplayName() {
         return Component.translatable("container.energizedpower.auto_crafter");
     }
@@ -241,7 +248,6 @@ public class AutoCrafterBlockEntity extends EnergyStorageBlockEntity<ReceiveOnly
 
         super.saveAdditional(nbt, registries);
 
-        nbt.put("inventory", itemHandler.serializeNBT(registries));
         nbt.put("pattern", savePatternContainer(registries));
 
         if(craftingRecipe != null)
@@ -275,7 +281,6 @@ public class AutoCrafterBlockEntity extends EnergyStorageBlockEntity<ReceiveOnly
 
         super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
         loadPatternContainer(nbt.getCompound("pattern"), registries);
 
         if(nbt.contains("recipe.id")) {
@@ -309,12 +314,9 @@ public class AutoCrafterBlockEntity extends EnergyStorageBlockEntity<ReceiveOnly
         patternSlots.addListener(updatePatternListener);
     }
 
+    @Override
     public void drops(Level level, BlockPos worldPosition) {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-
-        Containers.dropContents(level, worldPosition, inventory);
+        super.drops(level, worldPosition);
 
         Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }

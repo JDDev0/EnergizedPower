@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AssemblingMachineBlock;
 import me.jddev0.ep.block.entity.base.SingleRecipeTypeMachineBlockEntity;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
@@ -17,6 +17,8 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -46,6 +48,40 @@ public class AssemblingMachineBlockEntity extends SingleRecipeTypeMachineBlockEn
         );
     }
 
+    @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return switch(slot) {
+                    case 0, 1, 2, 3 -> level == null || level.getRecipeManager().
+                            getAllRecipesFor(AssemblingMachineRecipe.Type.INSTANCE).stream().
+                            map(RecipeHolder::value).map(AssemblingMachineRecipe::getInputs).anyMatch(inputs ->
+                                    Arrays.stream(inputs).map(AssemblingMachineRecipe.IngredientWithCount::input).
+                                            anyMatch(ingredient -> ingredient.test(stack)));
+                    case 4 -> false;
+                    default -> false;
+                };
+            }
+
+            @Override
+            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+                if(slot >= 0 && slot < 4) {
+                    ItemStack itemStack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                        resetProgress();
+                }
+
+                super.setStackInSlot(slot, stack);
+            }
+
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+        };
+    }
+
     public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
@@ -69,28 +105,6 @@ public class AssemblingMachineBlockEntity extends SingleRecipeTypeMachineBlockEn
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
         return energyStorage;
-    }
-
-    @Override
-    protected boolean isItemValid(int slot, ItemStack stack) {
-        return switch(slot) {
-            case 0, 1, 2, 3 -> level == null || level.getRecipeManager().
-                    getAllRecipesFor(AssemblingMachineRecipe.Type.INSTANCE).stream().
-                    map(RecipeHolder::value).map(AssemblingMachineRecipe::getInputs).anyMatch(inputs ->
-                            Arrays.stream(inputs).map(AssemblingMachineRecipe.IngredientWithCount::input).
-                                    anyMatch(ingredient -> ingredient.test(stack)));
-            case 4 -> false;
-            default -> false;
-        };
-    }
-
-    @Override
-    protected void onSetItemInSlot(int slot, ItemStack stack) {
-        if(slot >= 0 && slot < 4) {
-            ItemStack itemStack = itemHandler.getStackInSlot(slot);
-            if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
-                resetProgress();
-        }
     }
 
     @Override

@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltLoaderBlock;
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.ItemConveyorBeltLoaderMenu;
 import me.jddev0.ep.util.InventoryUtils;

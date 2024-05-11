@@ -1,8 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.TeleporterBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.item.ModItems;
@@ -13,7 +13,6 @@ import me.jddev0.ep.screen.TeleporterMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.*;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
@@ -23,9 +22,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -50,7 +47,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
-public class TeleporterBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
+public class TeleporterBlockEntity
+        extends InventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider {
     public static final boolean INTRA_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_ENABLED.getValue();
     public static final boolean INTER_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_ENABLED.getValue();
@@ -73,26 +71,6 @@ public class TeleporterBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyE
 
     public static final int CAPACITY = ModConfigs.COMMON_TELEPORTER_CAPACITY.getValue();
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChangedAndUpdateReadyState();
-        }
-
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            if(slot == 0) {
-                return stack.is(ModItems.TELEPORTER_MATRIX.get());
-            }
-
-            return super.isItemValid(slot, stack);
-        }
-
-        @Override
-        public int getSlotLimit(int slot) {
-            return 1;
-        }
-    };
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> true);
 
     public TeleporterBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -100,7 +78,9 @@ public class TeleporterBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyE
                 ModBlockEntities.TELEPORTER_ENTITY.get(), blockPos, blockState,
 
                 CAPACITY,
-                ModConfigs.COMMON_TELEPORTER_TRANSFER_RATE.getValue()
+                ModConfigs.COMMON_TELEPORTER_TRANSFER_RATE.getValue(),
+
+                1
         );
     }
 
@@ -116,6 +96,30 @@ public class TeleporterBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyE
                             new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
                             getBlockPos(), (ServerLevel)level, 32
                     );
+            }
+        };
+    }
+
+    @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChangedAndUpdateReadyState();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                if(slot == 0) {
+                    return stack.is(ModItems.TELEPORTER_MATRIX.get());
+                }
+
+                return super.isItemValid(slot, stack);
+            }
+
+            @Override
+            public int getSlotLimit(int slot) {
+                return 1;
             }
         };
     }
@@ -147,28 +151,6 @@ public class TeleporterBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyE
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
         return energyStorage;
-    }
-
-    @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
-
-        nbt.put("inventory", itemHandler.serializeNBT(registries));
-    }
-
-    @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
-
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
-    }
-
-    public void drops(Level level, BlockPos worldPosition) {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-
-        Containers.dropContents(level, worldPosition, inventory);
     }
 
     public void setChangedAndUpdateReadyState() {

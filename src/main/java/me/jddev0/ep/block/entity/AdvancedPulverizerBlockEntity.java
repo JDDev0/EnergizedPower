@@ -1,8 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AdvancedPulverizerBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
@@ -51,7 +51,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class AdvancedPulverizerBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
+public class AdvancedPulverizerBlockEntity
+        extends InventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider, FluidStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_ADVANCED_PULVERIZER_ENERGY_CONSUMPTION_PER_TICK.getValue();
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_ADVANCED_PULVERIZER_TANK_CAPACITY.getValue();
@@ -59,32 +60,6 @@ public class AdvancedPulverizerBlockEntity extends EnergyStorageBlockEntity<Rece
 
     private static final int RECIPE_DURATION = ModConfigs.COMMON_ADVANCED_PULVERIZER_RECIPE_DURATION.getValue();
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(3) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-        }
-
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return switch(slot) {
-                case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, PulverizerRecipe.Type.INSTANCE, stack);
-                case 1, 2 -> false;
-                default -> super.isItemValid(slot, stack);
-            };
-        }
-
-        @Override
-        public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-            if(slot == 0) {
-                ItemStack itemStack = getStackInSlot(slot);
-                if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
-                    resetProgress(worldPosition, level.getBlockState(worldPosition));
-            }
-
-            super.setStackInSlot(slot, stack);
-        }
-    };
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1 || i == 2);
 
     private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
@@ -110,7 +85,9 @@ public class AdvancedPulverizerBlockEntity extends EnergyStorageBlockEntity<Rece
                 ModBlockEntities.ADVANCED_PULVERIZER_ENTITY.get(), blockPos, blockState,
 
                 ModConfigs.COMMON_ADVANCED_PULVERIZER_CAPACITY.getValue(),
-                ModConfigs.COMMON_ADVANCED_PULVERIZER_TRANSFER_RATE.getValue()
+                ModConfigs.COMMON_ADVANCED_PULVERIZER_TRANSFER_RATE.getValue(),
+
+                3
         );
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
@@ -208,6 +185,36 @@ public class AdvancedPulverizerBlockEntity extends EnergyStorageBlockEntity<Rece
     }
 
     @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return switch(slot) {
+                    case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, PulverizerRecipe.Type.INSTANCE, stack);
+                    case 1, 2 -> false;
+                    default -> super.isItemValid(slot, stack);
+                };
+            }
+
+            @Override
+            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+                if(slot == 0) {
+                    ItemStack itemStack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                        resetProgress(worldPosition, level.getBlockState(worldPosition));
+                }
+
+                super.setStackInSlot(slot, stack);
+            }
+        };
+    }
+
+    @Override
     public Component getDisplayName() {
         return Component.translatable("container.energizedpower.advanced_pulverizer");
     }
@@ -252,7 +259,6 @@ public class AdvancedPulverizerBlockEntity extends EnergyStorageBlockEntity<Rece
 
         super.saveAdditional(nbt, registries);
 
-        nbt.put("inventory", itemHandler.serializeNBT(registries));
         for(int i = 0;i < fluidStorage.getTanks();i++)
             nbt.put("fluid." + i, fluidStorage.getFluid(i).saveOptional(registries));
 
@@ -273,7 +279,6 @@ public class AdvancedPulverizerBlockEntity extends EnergyStorageBlockEntity<Rece
 
         super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
         for(int i = 0;i < fluidStorage.getTanks();i++)
             fluidStorage.setFluid(i, FluidStack.parseOptional(registries, nbt.getCompound("fluid." + i)));
 
@@ -285,12 +290,9 @@ public class AdvancedPulverizerBlockEntity extends EnergyStorageBlockEntity<Rece
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
+    @Override
     public void drops(Level level, BlockPos worldPosition) {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-
-        Containers.dropContents(level, worldPosition, inventory);
+        super.drops(level, worldPosition);
 
         Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }

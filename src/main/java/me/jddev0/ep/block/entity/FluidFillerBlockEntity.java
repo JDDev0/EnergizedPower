@@ -1,8 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.FluidFillerBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
@@ -50,45 +50,12 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FluidFillerBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
+public class FluidFillerBlockEntity
+        extends InventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider, FluidStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
     public static final int MAX_FLUID_FILLING_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_FLUID_ITEM_TRANSFER_RATE.getValue();
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-        }
-
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            if(slot == 0)
-                return stack.getCapability(Capabilities.FluidHandler.ITEM) != null;
-
-            return super.isItemValid(slot, stack);
-        }
-
-        @Override
-        public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-            if(slot == 0) {
-                ItemStack itemStack = getStackInSlot(slot);
-                if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSameItem(stack, itemStack) ||
-                        (!ItemStack.isSameItemSameComponents(stack, itemStack) &&
-                                //Only check if NBT data is equal if one of stack or itemStack is no fluid item
-                                !(stack.getCapability(Capabilities.FluidHandler.ITEM) != null &&
-                                        itemStack.getCapability(Capabilities.FluidHandler.ITEM) != null))))
-                    resetProgress();
-            }
-
-            super.setStackInSlot(slot, stack);
-        }
-
-        @Override
-        public int getSlotLimit(int slot) {
-            return 1;
-        }
-    };
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
         if(i != 0)
             return false;
@@ -130,7 +97,9 @@ public class FluidFillerBlockEntity extends EnergyStorageBlockEntity<ReceiveOnly
                 ModBlockEntities.FLUID_FILLER_ENTITY.get(), blockPos, blockState,
 
                 ModConfigs.COMMON_FLUID_FILLER_CAPACITY.getValue(),
-                ModConfigs.COMMON_FLUID_FILLER_TRANSFER_RATE.getValue()
+                ModConfigs.COMMON_FLUID_FILLER_TRANSFER_RATE.getValue(),
+
+                1
         );
 
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
@@ -204,6 +173,44 @@ public class FluidFillerBlockEntity extends EnergyStorageBlockEntity<ReceiveOnly
     }
 
     @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                if(slot == 0)
+                    return stack.getCapability(Capabilities.FluidHandler.ITEM) != null;
+
+                return super.isItemValid(slot, stack);
+            }
+
+            @Override
+            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+                if(slot == 0) {
+                    ItemStack itemStack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSameItem(stack, itemStack) ||
+                            (!ItemStack.isSameItemSameComponents(stack, itemStack) &&
+                                    //Only check if NBT data is equal if one of stack or itemStack is no fluid item
+                                    !(stack.getCapability(Capabilities.FluidHandler.ITEM) != null &&
+                                            itemStack.getCapability(Capabilities.FluidHandler.ITEM) != null))))
+                        resetProgress();
+                }
+
+                super.setStackInSlot(slot, stack);
+            }
+
+            @Override
+            public int getSlotLimit(int slot) {
+                return 1;
+            }
+        };
+    }
+
+    @Override
     public Component getDisplayName() {
         return Component.translatable("container.energizedpower.fluid_filler");
     }
@@ -247,7 +254,6 @@ public class FluidFillerBlockEntity extends EnergyStorageBlockEntity<ReceiveOnly
 
         super.saveAdditional(nbt, registries);
 
-        nbt.put("inventory", itemHandler.serializeNBT(registries));
         nbt.put("fluid", fluidStorage.writeToNBT(registries, new CompoundTag()));
 
         nbt.put("recipe.fluid_filling_left", IntTag.valueOf(fluidFillingLeft));
@@ -266,7 +272,6 @@ public class FluidFillerBlockEntity extends EnergyStorageBlockEntity<ReceiveOnly
 
         super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
         fluidStorage.readFromNBT(registries, nbt.getCompound("fluid"));
 
         fluidFillingLeft = nbt.getInt("recipe.fluid_filling_left");
@@ -276,12 +281,9 @@ public class FluidFillerBlockEntity extends EnergyStorageBlockEntity<ReceiveOnly
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
+    @Override
     public void drops(Level level, BlockPos worldPosition) {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-
-        Containers.dropContents(level, worldPosition, inventory);
+        super.drops(level, worldPosition);
 
         Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
