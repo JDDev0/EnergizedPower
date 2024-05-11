@@ -2,14 +2,11 @@ package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
-import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
-import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.util.ByteUtils;
-import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
@@ -40,8 +37,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<SimpleContainer>>
-        extends UpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
-        implements MenuProvider, RedstoneModeUpdate, ComparatorModeUpdate {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
+        implements MenuProvider {
     protected final String machineName;
     protected final UpgradableMenuProvider menuProvider;
 
@@ -56,9 +53,6 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
     protected int maxProgress;
     protected int energyConsumptionLeft = -1;
     protected boolean hasEnoughEnergy;
-
-    protected @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
-    protected @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public SingleRecipeTypeMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                               String machineName, UpgradableMenuProvider menuProvider,
@@ -172,9 +166,6 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
         nbt.put("recipe.progress", IntTag.valueOf(progress));
         nbt.put("recipe.max_progress", IntTag.valueOf(maxProgress));
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
-
-        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
-        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
     }
 
     @Override
@@ -184,9 +175,6 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
         progress = nbt.getInt("recipe.progress");
         maxProgress = nbt.getInt("recipe.max_progress");
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
-
-        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
-        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     @Override
@@ -201,14 +189,6 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
                 getBlockPos()), (ServerPlayer)player);
 
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
-    }
-
-    public int getRedstoneOutput() {
-        return switch(comparatorMode) {
-            case ITEM -> InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
-            case FLUID -> 0;
-            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
-        };
     }
 
     public static <R extends Recipe<SimpleContainer>> void tick(Level level, BlockPos blockPos, BlockState state,
@@ -310,19 +290,5 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
         resetProgress();
 
         super.updateUpgradeModules();
-    }
-
-    @Override
-    public void setNextRedstoneMode() {
-        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
-        setChanged();
-    }
-
-    @Override
-    public void setNextComparatorMode() {
-        do {
-            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
-        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
-        setChanged();
     }
 }
