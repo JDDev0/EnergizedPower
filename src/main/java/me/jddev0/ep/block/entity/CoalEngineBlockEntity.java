@@ -210,8 +210,6 @@ public class CoalEngineBlockEntity
 
         super.saveAdditional(nbt, registries);
 
-        nbt.put("inventory", itemHandler.serializeNBT(registries));
-
         nbt.put("recipe.progress", IntTag.valueOf(progress));
         nbt.put("recipe.max_progress", IntTag.valueOf(maxProgress));
         nbt.put("recipe.energy_production_left", IntTag.valueOf(energyProductionLeft));
@@ -228,8 +226,6 @@ public class CoalEngineBlockEntity
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         super.loadAdditional(nbt, registries);
-
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
 
         progress = nbt.getInt("recipe.progress");
         maxProgress = nbt.getInt("recipe.max_progress");
