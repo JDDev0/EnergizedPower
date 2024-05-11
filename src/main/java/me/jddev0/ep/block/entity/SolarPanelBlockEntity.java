@@ -1,23 +1,18 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.SolarPanelBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
-import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.SolarPanelMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
-import net.minecraft.world.ContainerListener;
-import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -29,18 +24,11 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SolarPanelBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
+public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
         implements MenuProvider {
     private final SolarPanelBlock.Tier tier;
-
-    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
-            UpgradeModuleModifier.ENERGY_CAPACITY,
-            UpgradeModuleModifier.MOON_LIGHT
-    );
-    private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
     public static BlockEntityType<SolarPanelBlockEntity> getEntityTypeFromTier(SolarPanelBlock.Tier tier) {
         return switch(tier) {
@@ -57,12 +45,14 @@ public class SolarPanelBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyE
         super(
                 getEntityTypeFromTier(tier), blockPos, blockState,
 
-                tier.getCapacity(), tier.getMaxTransfer()
+                tier.getCapacity(),
+                tier.getMaxTransfer(),
+
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.MOON_LIGHT
         );
 
         this.tier = tier;
-
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
     }
 
     @Override
@@ -109,10 +99,6 @@ public class SolarPanelBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyE
 
     public SolarPanelBlock.Tier getTier() {
         return tier;
-    }
-
-    public void drops(Level level, BlockPos worldPosition) {
-        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {
@@ -173,32 +159,5 @@ public class SolarPanelBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyE
             return energyStorage;
 
         return null;
-    }
-
-    @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        //Save Upgrade Module Inventory first
-        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
-
-        super.saveAdditional(nbt, registries);
-    }
-
-    @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        //Load Upgrade Module Inventory first
-        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
-        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
-
-        super.loadAdditional(nbt, registries);
-    }
-
-    private void updateUpgradeModules() {
-        setChanged();
-        if(level != null && !level.isClientSide())
-            ModMessages.sendToPlayersWithinXBlocks(
-                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
-                    getBlockPos(), (ServerLevel)level, 32
-            );
     }
 }

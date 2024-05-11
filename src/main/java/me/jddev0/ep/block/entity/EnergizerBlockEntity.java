@@ -1,11 +1,10 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.EnergizerBlock;
-import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.UpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
-import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -27,8 +26,6 @@ import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.ContainerListener;
-import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -48,16 +45,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class EnergizerBlockEntity
-        extends InventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
+        extends UpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider, RedstoneModeUpdate, ComparatorModeUpdate {
     public static final float ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_ENERGIZER_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
-
-    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
-            UpgradeModuleModifier.ENERGY_CAPACITY
-    );
-    private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
     protected final ContainerData data;
     private int progress;
@@ -75,10 +67,10 @@ public class EnergizerBlockEntity
                 ModConfigs.COMMON_ENERGIZER_CAPACITY.getValue(),
                 ModConfigs.COMMON_ENERGIZER_TRANSFER_RATE.getValue(),
 
-                2
-        );
+                2,
 
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        );
 
         data = new ContainerData() {
             @Override
@@ -209,9 +201,6 @@ public class EnergizerBlockEntity
 
     @Override
     protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        //Save Upgrade Module Inventory first
-        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
-
         super.saveAdditional(nbt, registries);
 
         nbt.put("recipe.progress", IntTag.valueOf(progress));
@@ -223,11 +212,6 @@ public class EnergizerBlockEntity
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        //Load Upgrade Module Inventory first
-        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
-        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
-
         super.loadAdditional(nbt, registries);
 
         progress = nbt.getInt("recipe.progress");
@@ -235,13 +219,6 @@ public class EnergizerBlockEntity
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
-    }
-
-    @Override
-    public void drops(Level level, BlockPos worldPosition) {
-        super.drops(level, worldPosition);
-
-        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {
@@ -346,14 +323,11 @@ public class EnergizerBlockEntity
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.get().value().getResultItem(level.registryAccess()));
     }
 
-    private void updateUpgradeModules() {
+    @Override
+    protected void updateUpgradeModules() {
         resetProgress(getBlockPos(), getBlockState());
-        setChanged();
-        if(level != null && !level.isClientSide())
-            ModMessages.sendToPlayersWithinXBlocks(
-                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
-                    getBlockPos(), (ServerLevel)level, 32
-            );
+
+        super.updateUpgradeModules();
     }
 
     @Override

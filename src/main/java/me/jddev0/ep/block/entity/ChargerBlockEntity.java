@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ChargerBlock;
 import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.UpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
@@ -49,7 +50,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class ChargerBlockEntity
-        extends InventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
+        extends UpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider, RedstoneModeUpdate, ComparatorModeUpdate {
     public static final float CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
@@ -71,11 +72,6 @@ public class ChargerBlockEntity
         return energyStorage.receiveEnergy(ChargerBlockEntity.this.energyStorage.getMaxReceive(), true) == 0;
     });
 
-    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
-            UpgradeModuleModifier.ENERGY_CAPACITY
-    );
-    private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
-
     protected final ContainerData data;
     private int energyConsumptionLeft = -1;
 
@@ -89,10 +85,10 @@ public class ChargerBlockEntity
                 ModConfigs.COMMON_CHARGER_CAPACITY.getValue(),
                 ModConfigs.COMMON_CHARGER_TRANSFER_RATE.getValue(),
 
-                1
-        );
+                1,
 
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        );
 
         data = new ContainerData() {
             @Override
@@ -226,9 +222,6 @@ public class ChargerBlockEntity
 
     @Override
     protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        //Save Upgrade Module Inventory first
-        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
-
         super.saveAdditional(nbt, registries);
 
         nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
@@ -239,24 +232,12 @@ public class ChargerBlockEntity
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        //Load Upgrade Module Inventory first
-        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
-        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
-
         super.loadAdditional(nbt, registries);
 
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
-    }
-
-    @Override
-    public void drops(Level level, BlockPos worldPosition) {
-        super.drops(level, worldPosition);
-
-        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ChargerBlockEntity blockEntity) {
@@ -347,14 +328,11 @@ public class ChargerBlockEntity
         return recipe.isPresent();
     }
 
-    private void updateUpgradeModules() {
+    @Override
+    protected void updateUpgradeModules() {
         resetProgress();
-        setChanged();
-        if(level != null && !level.isClientSide())
-            ModMessages.sendToPlayersWithinXBlocks(
-                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
-                    getBlockPos(), (ServerLevel)level, 32
-            );
+
+        super.updateUpgradeModules();
     }
 
     @Override

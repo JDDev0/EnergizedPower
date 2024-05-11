@@ -1,11 +1,10 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AdvancedUnchargerBlock;
-import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.UpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
-import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -25,10 +24,7 @@ import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.ContainerListener;
-import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -48,7 +44,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class AdvancedUnchargerBlockEntity
-        extends InventoryEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, ItemStackHandler>
+        extends UpgradableInventoryEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider, RedstoneModeUpdate, ComparatorModeUpdate {
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
         if(i < 0 || i > 2)
@@ -61,11 +57,6 @@ public class AdvancedUnchargerBlockEntity
 
         return energyStorage.extractEnergy(AdvancedUnchargerBlockEntity.this.energyStorage.getMaxExtract() / 3, true) == 0;
     });
-
-    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
-            UpgradeModuleModifier.ENERGY_CAPACITY
-    );
-    private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
     protected final ContainerData data;
     private int[] energyProductionLeft = new int[] {
@@ -82,10 +73,10 @@ public class AdvancedUnchargerBlockEntity
                 ModConfigs.COMMON_ADVANCED_UNCHARGER_CAPACITY_PER_SLOT.getValue() * 3,
                 ModConfigs.COMMON_ADVANCED_UNCHARGER_TRANSFER_RATE_PER_SLOT.getValue() * 3,
 
-                3
-        );
+                3,
 
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        );
 
         data = new ContainerData() {
             @Override
@@ -218,9 +209,6 @@ public class AdvancedUnchargerBlockEntity
 
     @Override
     protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        //Save Upgrade Module Inventory first
-        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
-
         super.saveAdditional(nbt, registries);
 
         for(int i = 0;i < 3;i++)
@@ -232,11 +220,6 @@ public class AdvancedUnchargerBlockEntity
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        //Load Upgrade Module Inventory first
-        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
-        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
-
         super.loadAdditional(nbt, registries);
 
         for(int i = 0;i < 3;i++)
@@ -244,13 +227,6 @@ public class AdvancedUnchargerBlockEntity
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
-    }
-
-    @Override
-    public void drops(Level level, BlockPos worldPosition) {
-        super.drops(level, worldPosition);
-
-        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedUnchargerBlockEntity blockEntity) {
@@ -376,15 +352,12 @@ public class AdvancedUnchargerBlockEntity
         return stack.getCapability(Capabilities.EnergyStorage.ITEM) != null;
     }
 
-    private void updateUpgradeModules() {
+    @Override
+    protected void updateUpgradeModules() {
         for(int i = 0;i < 3;i++)
             resetProgress(i);
-        setChanged();
-        if(level != null && !level.isClientSide())
-            ModMessages.sendToPlayersWithinXBlocks(
-                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
-                    getBlockPos(), (ServerLevel)level, 32
-            );
+
+        super.updateUpgradeModules();
     }
 
     @Override

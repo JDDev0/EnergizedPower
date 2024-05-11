@@ -1,12 +1,11 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.FluidDrainerBlock;
-import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.UpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
-import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -28,10 +27,7 @@ import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.ContainerListener;
-import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -51,7 +47,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidDrainerBlockEntity
-        extends InventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
+        extends UpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider, FluidStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
     public static final int MAX_FLUID_DRAINING_PER_TICK = ModConfigs.COMMON_FLUID_DRAINER_FLUID_ITEM_TRANSFER_RATE.getValue();
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_FLUID_DRAINER_ENERGY_CONSUMPTION_PER_TICK.getValue();
@@ -77,12 +73,6 @@ public class FluidDrainerBlockEntity
         return true;
     });
 
-    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
-            UpgradeModuleModifier.ENERGY_CONSUMPTION,
-            UpgradeModuleModifier.ENERGY_CAPACITY
-    );
-    private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
-
     private final FluidTank fluidStorage;
 
     protected final ContainerData data;
@@ -99,10 +89,11 @@ public class FluidDrainerBlockEntity
                 ModConfigs.COMMON_FLUID_DRAINER_CAPACITY.getValue(),
                 ModConfigs.COMMON_FLUID_DRAINER_TRANSFER_RATE.getValue(),
 
-                1
-        );
+                1,
 
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        );
 
         fluidStorage = new FluidTank(ModConfigs.COMMON_FLUID_DRAINER_FLUID_TANK_CAPACITY.getValue() * 1000) {
             @Override
@@ -249,9 +240,6 @@ public class FluidDrainerBlockEntity
 
     @Override
     protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        //Save Upgrade Module Inventory first
-        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
-
         super.saveAdditional(nbt, registries);
 
         nbt.put("fluid", fluidStorage.writeToNBT(registries, new CompoundTag()));
@@ -265,11 +253,6 @@ public class FluidDrainerBlockEntity
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        //Load Upgrade Module Inventory first
-        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
-        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
-
         super.loadAdditional(nbt, registries);
 
         fluidStorage.readFromNBT(registries, nbt.getCompound("fluid"));
@@ -279,13 +262,6 @@ public class FluidDrainerBlockEntity
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
-    }
-
-    @Override
-    public void drops(Level level, BlockPos worldPosition) {
-        super.drops(level, worldPosition);
-
-        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, FluidDrainerBlockEntity blockEntity) {
@@ -393,14 +369,11 @@ public class FluidDrainerBlockEntity
         return false;
     }
 
-    private void updateUpgradeModules() {
+    @Override
+    protected void updateUpgradeModules() {
         resetProgress();
-        setChanged();
-        if(level != null && !level.isClientSide())
-            ModMessages.sendToPlayersWithinXBlocks(
-                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
-                    getBlockPos(), (ServerLevel)level, 32
-            );
+
+        super.updateUpgradeModules();
     }
 
     public FluidStack getFluid(int tank) {

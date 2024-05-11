@@ -1,7 +1,6 @@
 package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
-import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -20,8 +19,6 @@ import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.ContainerListener;
-import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -43,15 +40,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<SimpleContainer>>
-        extends InventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
+        extends UpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider, RedstoneModeUpdate, ComparatorModeUpdate {
     protected final String machineName;
     protected final UpgradableMenuProvider menuProvider;
 
     protected final RecipeType<R> recipeType;
-
-    protected final UpgradeModuleInventory upgradeModuleInventory;
-    protected final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
     protected final int baseEnergyConsumptionPerTick;
     protected final int baseRecipeDuration;
@@ -71,7 +65,7 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
                                               int slotCount, RecipeType<R> recipeType, int baseRecipeDuration,
                                               int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
                                               UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount);
+        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount, upgradeModifierSlots);
 
         this.machineName = machineName;
         this.menuProvider = menuProvider;
@@ -80,9 +74,6 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
 
         this.baseEnergyConsumptionPerTick = baseEnergyConsumptionPerTick;
         this.baseRecipeDuration = baseRecipeDuration;
-
-        this.upgradeModuleInventory = new UpgradeModuleInventory(upgradeModifierSlots);
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         data = new ContainerData() {
             @Override
@@ -176,9 +167,6 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
 
     @Override
     protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        //Save Upgrade Module Inventory first
-        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
-
         super.saveAdditional(nbt, registries);
 
         nbt.put("recipe.progress", IntTag.valueOf(progress));
@@ -191,11 +179,6 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        //Load Upgrade Module Inventory first
-        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
-        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
-
         super.loadAdditional(nbt, registries);
 
         progress = nbt.getInt("recipe.progress");
@@ -226,13 +209,6 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
             case FLUID -> 0;
             case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
         };
-    }
-
-    @Override
-    public void drops(Level level, BlockPos worldPosition) {
-        super.drops(level, worldPosition);
-
-        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
     public static <R extends Recipe<SimpleContainer>> void tick(Level level, BlockPos blockPos, BlockState state,
@@ -329,14 +305,11 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().getResultItem(level.registryAccess()));
     }
 
+    @Override
     protected void updateUpgradeModules() {
         resetProgress();
-        setChanged();
-        if(level != null && !level.isClientSide())
-            ModMessages.sendToPlayersWithinXBlocks(
-                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
-                    getBlockPos(), (ServerLevel)level, 32
-            );
+
+        super.updateUpgradeModules();
     }
 
     @Override

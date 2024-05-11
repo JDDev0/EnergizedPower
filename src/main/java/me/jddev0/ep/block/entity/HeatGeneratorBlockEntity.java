@@ -1,9 +1,8 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
-import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
@@ -11,13 +10,9 @@ import me.jddev0.ep.recipe.HeatGeneratorRecipe;
 import me.jddev0.ep.screen.HeatGeneratorMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.ContainerListener;
-import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -30,30 +25,24 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class HeatGeneratorBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
+public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
         implements MenuProvider {
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_HEAT_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
-
-    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
-            UpgradeModuleModifier.ENERGY_CAPACITY
-    );
-    private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.HEAT_GENERATOR_ENTITY.get(), blockPos, blockState,
 
                 ModConfigs.COMMON_HEAT_GENERATOR_CAPACITY.getValue(),
-                ModConfigs.COMMON_HEAT_GENERATOR_TRANSFER_RATE.getValue()
-        );
+                ModConfigs.COMMON_HEAT_GENERATOR_TRANSFER_RATE.getValue(),
 
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        );
     }
 
     @Override
@@ -100,28 +89,6 @@ public class HeatGeneratorBlockEntity extends EnergyStorageBlockEntity<ExtractOn
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
         return energyStorage;
-    }
-
-    @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        //Save Upgrade Module Inventory first
-        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
-
-        super.saveAdditional(nbt, registries);
-    }
-
-    @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        //Load Upgrade Module Inventory first
-        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
-        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
-
-        super.loadAdditional(nbt, registries);
-    }
-
-    public void drops(Level level, BlockPos worldPosition) {
-        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, HeatGeneratorBlockEntity blockEntity) {
@@ -217,14 +184,5 @@ public class HeatGeneratorBlockEntity extends EnergyStorageBlockEntity<ExtractOn
             if(energy > 0)
                 consumerItems.get(i).receiveEnergy(energy, false);
         }
-    }
-
-    private void updateUpgradeModules() {
-        setChanged();
-        if(level != null && !level.isClientSide())
-            ModMessages.sendToPlayersWithinXBlocks(
-                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
-                    getBlockPos(), (ServerLevel)level, 32
-            );
     }
 }

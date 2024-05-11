@@ -2,11 +2,10 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.AdvancedAutoCrafterBlock;
-import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.UpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
-import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
@@ -52,7 +51,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public class AdvancedAutoCrafterBlockEntity
-        extends InventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
+        extends UpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider, RedstoneModeUpdate, ComparatorModeUpdate, CheckboxUpdate {
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
@@ -62,13 +61,6 @@ public class AdvancedAutoCrafterBlockEntity
 
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 5,
                     i -> secondaryExtractMode?!isInput(itemHandler.getStackInSlot(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i)));
-
-    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
-            UpgradeModuleModifier.SPEED,
-            UpgradeModuleModifier.ENERGY_CONSUMPTION,
-            UpgradeModuleModifier.ENERGY_CAPACITY
-    );
-    private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
     private final SimpleContainer[] patternSlots = new SimpleContainer[] {
             new SimpleContainer(3 * 3) {
@@ -157,10 +149,13 @@ public class AdvancedAutoCrafterBlockEntity
                 ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_CAPACITY.getValue(),
                 ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_TRANSFER_RATE.getValue(),
 
-                27
+                27,
+
+                UpgradeModuleModifier.SPEED,
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY
         );
 
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
         for(int i = 0;i < 3;i++)
             patternSlots[i].addListener(updatePatternListener[i]);
 
@@ -312,9 +307,6 @@ public class AdvancedAutoCrafterBlockEntity
 
     @Override
     protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        //Save Upgrade Module Inventory first
-        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
-
         super.saveAdditional(nbt, registries);
 
         for(int i = 0;i < 3;i++)
@@ -349,11 +341,6 @@ public class AdvancedAutoCrafterBlockEntity
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        //Load Upgrade Module Inventory first
-        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
-        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
-
         super.loadAdditional(nbt, registries);
 
         for(int i = 0;i < 3;i++)
@@ -395,13 +382,6 @@ public class AdvancedAutoCrafterBlockEntity
             patternSlots[index].setItem(i, items.get(i));
 
         patternSlots[index].addListener(updatePatternListener[index]);
-    }
-
-    @Override
-    public void drops(Level level, BlockPos worldPosition) {
-        super.drops(level, worldPosition);
-
-        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedAutoCrafterBlockEntity blockEntity) {
@@ -903,15 +883,12 @@ public class AdvancedAutoCrafterBlockEntity
         return recipe.or(() -> recipes.stream().findFirst()).map(r -> Pair.of(r.id(), r));
     }
 
-    private void updateUpgradeModules() {
+    @Override
+    protected void updateUpgradeModules() {
         for(int i = 0;i < 3;i++)
             resetProgress(i);
-        setChanged();
-        if(level != null && !level.isClientSide())
-            ModMessages.sendToPlayersWithinXBlocks(
-                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
-                    getBlockPos(), (ServerLevel)level, 32
-            );
+
+        super.updateUpgradeModules();
     }
 
     public void setCurrentRecipeIndex(int currentRecipeIndex) {
