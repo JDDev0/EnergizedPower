@@ -209,7 +209,8 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
                 return;
 
             if(blockEntity.maxProgress == 0)
-                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(blockEntity.baseRecipeDuration /
+                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(blockEntity.baseRecipeDuration *
+                        blockEntity.getRecipeDependentRecipeDuration(recipe.get()) /
                         blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
 
             int energyConsumptionPerTick = Math.max(1, (int)Math.ceil(blockEntity.baseEnergyConsumptionPerTick *
@@ -246,6 +247,10 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
             blockEntity.resetProgress();
             setChanged(level, blockPos, state);
         }
+    }
+
+    protected float getRecipeDependentRecipeDuration(RecipeHolder<R> recipe) {
+        return 1;
     }
 
     protected void resetProgress() {
