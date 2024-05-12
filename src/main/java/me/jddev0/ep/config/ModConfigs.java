@@ -862,7 +862,7 @@ public final class ModConfigs {
     public static final ConfigValue<Integer> COMMON_STONE_SOLIDIFIER_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
             "block.stone_solidifier", "Stone Solidifier", 8
     );
-    public static final ConfigValue<Integer> COMMON_CSTONE_SOLIDIFIER_RECIPE_DURATION = registerRecipeDurationConfigValue(
+    public static final ConfigValue<Integer> COMMON_STONE_SOLIDIFIER_RECIPE_DURATION = registerRecipeDurationConfigValue(
             "block.stone_solidifier", "Stone Solidifier", 25
     );
 

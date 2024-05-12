@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.SingleRecipeTypeMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -29,7 +29,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class PlantGrowthChamberBlockEntity extends SingleRecipeTypeMachineBlockEntity<PlantGrowthChamberRecipe> {
+public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntity<PlantGrowthChamberRecipe> {
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER.getValue();
 
     private final IItemHandler itemHandlerSidesSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 1 && i < 6);

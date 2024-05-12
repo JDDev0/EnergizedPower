@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.FluidStorageMultiTankMethods;
-import me.jddev0.ep.block.entity.base.SingleRecipeTypeFluidMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AdvancedPulverizerBlockEntity
-        extends SingleRecipeTypeFluidMachineBlockEntity<EnergizedPowerFluidStorage, PulverizerRecipe> {
+        extends SimpleRecipeFluidMachineBlockEntity<EnergizedPowerFluidStorage, PulverizerRecipe> {
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_ADVANCED_PULVERIZER_TANK_CAPACITY.getValue();
     public static final int WATER_CONSUMPTION_PER_RECIPE = ModConfigs.COMMON_ADVANCED_PULVERIZER_WATER_USAGE_PER_RECIPE.getValue();
 

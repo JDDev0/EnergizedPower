@@ -33,7 +33,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Container>>
+public abstract class SimpleRecipeMachineBlockEntity<R extends Recipe<Container>>
         extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
         implements MenuProvider {
     protected final String machineName;
@@ -51,11 +51,11 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Contai
     protected int energyConsumptionLeft = -1;
     protected boolean hasEnoughEnergy;
 
-    public SingleRecipeTypeMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                              String machineName, UpgradableMenuProvider menuProvider,
-                                              int slotCount, RecipeType<R> recipeType, int baseRecipeDuration,
-                                              int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
-                                              UpgradeModuleModifier... upgradeModifierSlots) {
+    public SimpleRecipeMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                          String machineName, UpgradableMenuProvider menuProvider,
+                                          int slotCount, RecipeType<R> recipeType, int baseRecipeDuration,
+                                          int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
+                                          UpgradeModuleModifier... upgradeModifierSlots) {
         super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount, upgradeModifierSlots);
 
         this.machineName = machineName;
@@ -183,7 +183,7 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Contai
     }
 
     public static <R extends Recipe<Container>> void tick(Level level, BlockPos blockPos, BlockState state,
-                                                                SingleRecipeTypeMachineBlockEntity<R> blockEntity) {
+                                                                SimpleRecipeMachineBlockEntity<R> blockEntity) {
         if(level.isClientSide)
             return;
 

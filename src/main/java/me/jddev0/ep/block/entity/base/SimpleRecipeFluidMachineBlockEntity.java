@@ -31,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public abstract class SingleRecipeTypeFluidMachineBlockEntity
+public abstract class SimpleRecipeFluidMachineBlockEntity
         <F extends IFluidHandler, R extends Recipe<Container>>
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
         <ReceiveOnlyEnergyStorage, ItemStackHandler, F>
@@ -51,12 +51,12 @@ public abstract class SingleRecipeTypeFluidMachineBlockEntity
     protected int energyConsumptionLeft = -1;
     protected boolean hasEnoughEnergy;
 
-    public SingleRecipeTypeFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                   String machineName, UpgradableMenuProvider menuProvider,
-                                                   int slotCount, RecipeType<R> recipeType, int baseRecipeDuration,
-                                                   int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
-                                                   FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity,
-                                                   UpgradeModuleModifier... upgradeModifierSlots) {
+    public SimpleRecipeFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                               String machineName, UpgradableMenuProvider menuProvider,
+                                               int slotCount, RecipeType<R> recipeType, int baseRecipeDuration,
+                                               int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
+                                               FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity,
+                                               UpgradeModuleModifier... upgradeModifierSlots) {
         super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
                 baseTankCapacity, upgradeModifierSlots);
 
@@ -160,7 +160,7 @@ public abstract class SingleRecipeTypeFluidMachineBlockEntity
     }
 
     public static <F extends  IFluidHandler, R extends Recipe<Container>> void tick(
-            Level level, BlockPos blockPos, BlockState state, SingleRecipeTypeFluidMachineBlockEntity<F, R> blockEntity) {
+            Level level, BlockPos blockPos, BlockState state, SimpleRecipeFluidMachineBlockEntity<F, R> blockEntity) {
         if(level.isClientSide)
             return;
 

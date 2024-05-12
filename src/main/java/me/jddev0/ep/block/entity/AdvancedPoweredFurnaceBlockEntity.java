@@ -317,7 +317,7 @@ public class AdvancedPoweredFurnaceBlockEntity
 
         //Unlit if nothing is being smelted
         for(int i = 0;i < energyConsumptionLeft.length;i++)
-            if(energyConsumptionLeft[0] > -1)
+            if(energyConsumptionLeft[i] > -1)
                 return;
 
         level.setBlock(blockPos, state.setValue(AdvancedPoweredFurnaceBlock.LIT, false), 3);

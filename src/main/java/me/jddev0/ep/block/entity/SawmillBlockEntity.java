@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.SingleRecipeTypeMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -17,7 +17,7 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.Nullable;
 
-public class SawmillBlockEntity extends SingleRecipeTypeMachineBlockEntity<SawmillRecipe> {
+public class SawmillBlockEntity extends SimpleRecipeMachineBlockEntity<SawmillRecipe> {
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1 || i == 2);
 
     public SawmillBlockEntity(BlockPos blockPos, BlockState blockState) {
