@@ -91,7 +91,7 @@ public class CrystalGrowthChamberBlockEntity extends SingleRecipeTypeMachineBloc
     }
 
     @Override
-    protected float getRecipeDependentRecipeDuration(RecipeHolder<CrystalGrowthChamberRecipe> recipe) {
+    protected double getRecipeDependentRecipeDuration(RecipeHolder<CrystalGrowthChamberRecipe> recipe) {
         return recipe.value().getTicks() * RECIPE_DURATION_MULTIPLIER;
     }
 

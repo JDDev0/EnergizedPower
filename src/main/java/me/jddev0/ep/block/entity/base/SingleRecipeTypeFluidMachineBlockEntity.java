@@ -176,12 +176,16 @@ public abstract class SingleRecipeTypeFluidMachineBlockEntity
             if(recipe.isEmpty())
                 return;
 
-            if(blockEntity.maxProgress == 0)
+            if(blockEntity.maxProgress == 0) {
+                blockEntity.onStartCrafting(recipe.get());
+
                 blockEntity.maxProgress = Math.max(1, (int)Math.ceil(blockEntity.baseRecipeDuration *
                         blockEntity.getRecipeDependentRecipeDuration(recipe.get()) /
                         blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
+            }
 
             int energyConsumptionPerTick = Math.max(1, (int)Math.ceil(blockEntity.baseEnergyConsumptionPerTick *
+                    blockEntity.getRecipeDependentEnergyConsumption(recipe.get()) /
                     blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
 
             if(blockEntity.energyConsumptionLeft < 0)
@@ -217,7 +221,11 @@ public abstract class SingleRecipeTypeFluidMachineBlockEntity
         }
     }
 
-    protected float getRecipeDependentRecipeDuration(RecipeHolder<R> recipe) {
+    protected double getRecipeDependentRecipeDuration(RecipeHolder<R> recipe) {
+        return 1;
+    }
+
+    protected double getRecipeDependentEnergyConsumption(RecipeHolder<R> recipe) {
         return 1;
     }
 
@@ -240,6 +248,8 @@ public abstract class SingleRecipeTypeFluidMachineBlockEntity
 
         return recipe.isPresent() && canCraftRecipe(inventory, recipe.get());
     }
+
+    protected void onStartCrafting(RecipeHolder<R> recipe) {}
 
     protected abstract void craftItem(RecipeHolder<R> recipe);
 
