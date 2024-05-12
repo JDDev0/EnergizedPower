@@ -68,7 +68,7 @@ public class PulverizerBlockEntity extends SingleRecipeTypeMachineBlockEntity<Pu
     }
 
     @Override
-    protected boolean canInsertItemsIntoOutputSlots(SimpleContainer inventory, RecipeHolder<PulverizerRecipe> recipe) {
+    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<PulverizerRecipe> recipe) {
         ItemStack[] maxOutputs = recipe.value().getMaxOutputCounts(false);
 
         return level != null &&

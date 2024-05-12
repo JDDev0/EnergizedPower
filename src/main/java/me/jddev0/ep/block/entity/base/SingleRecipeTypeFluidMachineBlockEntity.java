@@ -5,8 +5,6 @@ import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.ByteUtils;
-import me.jddev0.ep.util.InventoryUtils;
-import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -18,7 +16,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -26,14 +23,17 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<SimpleContainer>>
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
+public abstract class SingleRecipeTypeFluidMachineBlockEntity
+        <F extends IFluidHandler, R extends Recipe<SimpleContainer>>
+        extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
+        <ReceiveOnlyEnergyStorage, ItemStackHandler, F>
         implements MenuProvider {
     protected final String machineName;
     protected final UpgradableMenuProvider menuProvider;
@@ -50,12 +50,14 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
     protected int energyConsumptionLeft = -1;
     protected boolean hasEnoughEnergy;
 
-    public SingleRecipeTypeMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                              String machineName, UpgradableMenuProvider menuProvider,
-                                              int slotCount, RecipeType<R> recipeType, int baseRecipeDuration,
-                                              int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
-                                              UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount, upgradeModifierSlots);
+    public SingleRecipeTypeFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                   String machineName, UpgradableMenuProvider menuProvider,
+                                                   int slotCount, RecipeType<R> recipeType, int baseRecipeDuration,
+                                                   int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
+                                                   FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity,
+                                                   UpgradeModuleModifier... upgradeModifierSlots) {
+        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
+                baseTankCapacity, upgradeModifierSlots);
 
         this.machineName = machineName;
         this.menuProvider = menuProvider;
@@ -125,32 +127,6 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
-            @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-                return slot == 0 && (level == null || RecipeUtils.isIngredientOfAny(level, recipeType, stack));
-            }
-
-            @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-                if(slot == 0) {
-                    ItemStack itemStack = itemHandler.getStackInSlot(slot);
-                    if(!stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
-                        resetProgress();
-                }
-
-                super.setStackInSlot(slot, stack);
-            }
-
-            @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
-        };
-    }
-
-    @Override
     protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.saveAdditional(nbt, registries);
 
@@ -177,12 +153,13 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
+        syncFluidToPlayer(player);
 
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }
 
-    public static <R extends Recipe<SimpleContainer>> void tick(Level level, BlockPos blockPos, BlockState state,
-                                                                SingleRecipeTypeMachineBlockEntity<R> blockEntity) {
+    public static <F extends  IFluidHandler, R extends Recipe<SimpleContainer>> void tick(
+            Level level, BlockPos blockPos, BlockState state, SingleRecipeTypeFluidMachineBlockEntity<F, R> blockEntity) {
         if(level.isClientSide)
             return;
 
@@ -263,22 +240,9 @@ public abstract class SingleRecipeTypeMachineBlockEntity<R extends Recipe<Simple
         return recipe.isPresent() && canCraftRecipe(inventory, recipe.get());
     }
 
-    protected void craftItem(RecipeHolder<R> recipe) {
-        if(level == null || !hasRecipe())
-            return;
+    protected abstract void craftItem(RecipeHolder<R> recipe);
 
-        itemHandler.extractItem(0, 1, false);
-        itemHandler.setStackInSlot(1, recipe.value().getResultItem(level.registryAccess()).
-                copyWithCount(itemHandler.getStackInSlot(1).getCount() +
-                        recipe.value().getResultItem(level.registryAccess()).getCount()));
-
-        resetProgress();
-    }
-
-    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<R> recipe) {
-        return level != null &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().getResultItem(level.registryAccess()));
-    }
+    protected abstract boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<R> recipe);
 
     @Override
     protected void updateUpgradeModules() {

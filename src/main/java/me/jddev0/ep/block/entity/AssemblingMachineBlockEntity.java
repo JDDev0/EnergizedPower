@@ -154,7 +154,7 @@ public class AssemblingMachineBlockEntity extends SingleRecipeTypeMachineBlockEn
     }
 
     @Override
-    protected boolean canInsertItemsIntoOutputSlots(SimpleContainer inventory, RecipeHolder<AssemblingMachineRecipe> recipe) {
+    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<AssemblingMachineRecipe> recipe) {
         return level != null &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 4, recipe.value().getResultItem(level.registryAccess()));
     }

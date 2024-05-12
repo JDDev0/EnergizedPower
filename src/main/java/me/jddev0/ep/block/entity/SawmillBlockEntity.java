@@ -68,7 +68,7 @@ public class SawmillBlockEntity extends SingleRecipeTypeMachineBlockEntity<Sawmi
     }
 
     @Override
-    protected boolean canInsertItemsIntoOutputSlots(SimpleContainer inventory, RecipeHolder<SawmillRecipe> recipe) {
+    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<SawmillRecipe> recipe) {
         return level != null &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().getResultItem(level.registryAccess())) &&
                 (recipe.value().getSecondaryOutput().isEmpty() ||

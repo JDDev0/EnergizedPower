@@ -112,7 +112,7 @@ public class CrystalGrowthChamberBlockEntity extends SingleRecipeTypeMachineBloc
     }
 
     @Override
-    protected boolean canInsertItemsIntoOutputSlots(SimpleContainer inventory, RecipeHolder<CrystalGrowthChamberRecipe> recipe) {
+    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<CrystalGrowthChamberRecipe> recipe) {
         return level != null &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().getMaxOutputCount());
     }

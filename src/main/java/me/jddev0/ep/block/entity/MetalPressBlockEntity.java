@@ -113,7 +113,7 @@ public class MetalPressBlockEntity extends SingleRecipeTypeMachineBlockEntity<Me
     }
 
     @Override
-    protected boolean canInsertItemsIntoOutputSlots(SimpleContainer inventory, RecipeHolder<MetalPressRecipe> recipe) {
+    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<MetalPressRecipe> recipe) {
         return level != null &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().getResultItem(level.registryAccess()));
     }
