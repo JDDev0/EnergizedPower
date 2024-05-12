@@ -11,9 +11,6 @@ import me.jddev0.ep.fluid.ModFluids;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
-import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.recipe.CrusherRecipe;
 import me.jddev0.ep.screen.AdvancedCrusherMenu;
 import me.jddev0.ep.util.*;
@@ -23,8 +20,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -135,12 +130,7 @@ public class AdvancedCrusherBlockEntity
             @Override
             protected void onChange() {
                 setChanged();
-
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
-                            getBlockPos(), (ServerLevel)level, 32
-                    );
+                syncEnergyToPlayers(32);
             }
         };
     }
@@ -183,13 +173,7 @@ public class AdvancedCrusherBlockEntity
             @Override
             protected void onContentsChanged() {
                 setChanged();
-
-                if(level != null && !level.isClientSide())
-                    for(int i = 0;i < getTanks();i++)
-                        ModMessages.sendToPlayersWithinXBlocks(
-                                new FluidSyncS2CPacket(i, getFluidInTank(i), getTankCapacity(i), getBlockPos()),
-                                getBlockPos(), (ServerLevel)level, 32
-                        );
+                syncFluidToPlayers(32);
             }
 
             @Override
@@ -214,9 +198,8 @@ public class AdvancedCrusherBlockEntity
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()), (ServerPlayer)player);
-        for(int i = 0;i < 2;i++)
-            ModMessages.sendToPlayer(new FluidSyncS2CPacket(i, fluidStorage.getFluidInTank(i), fluidStorage.getTankCapacity(i), worldPosition), (ServerPlayer)player);
+        syncEnergyToPlayer(player);
+        syncFluidToPlayer(player);
 
         return new AdvancedCrusherMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }

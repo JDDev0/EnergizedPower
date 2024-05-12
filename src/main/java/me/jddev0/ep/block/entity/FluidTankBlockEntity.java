@@ -86,12 +86,7 @@ public class FluidTankBlockEntity
             @Override
             protected void onContentsChanged() {
                 setChanged();
-
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new FluidSyncS2CPacket(0, fluid, capacity, getBlockPos()),
-                            getBlockPos(), (ServerLevel)level, 64
-                    );
+                syncFluidToPlayers(64);
             }
 
             @Override
@@ -113,7 +108,7 @@ public class FluidTankBlockEntity
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        ModMessages.sendToPlayer(new FluidSyncS2CPacket(0, fluidStorage.getFluid(), fluidStorage.getCapacity(), worldPosition), (ServerPlayer)player);
+        syncFluidToPlayer(player);
         ModMessages.sendToPlayer(new FluidSyncS2CPacket(1, fluidFilter, 0, worldPosition), (ServerPlayer)player);
 
         return new FluidTankMenu(id, inventory, this, data);
@@ -129,10 +124,7 @@ public class FluidTankBlockEntity
 
         //Sync item stacks to client every 5 seconds
         if(level.getGameTime() % 100 == 0) //TODO improve
-            ModMessages.sendToPlayersWithinXBlocks(
-                    new FluidSyncS2CPacket(0, blockEntity.getFluid(0), blockEntity.getTankCapacity(0), blockPos),
-                    blockPos, (ServerLevel)level, 64
-            );
+            blockEntity.syncFluidToPlayers(64);
     }
 
     public int getRedstoneOutput() {

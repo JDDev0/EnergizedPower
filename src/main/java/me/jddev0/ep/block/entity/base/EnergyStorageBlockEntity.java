@@ -2,9 +2,14 @@ package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
+import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -42,6 +47,19 @@ public abstract class EnergyStorageBlockEntity<E extends IEnergizedPowerEnergySt
         super.loadAdditional(nbt, registries);
 
         energyStorage.loadNBT(nbt.get("energy"));
+    }
+
+    protected final void syncEnergyToPlayer(Player player) {
+        ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
+                getBlockPos()), (ServerPlayer)player);
+    }
+
+    protected final void syncEnergyToPlayers(int distance) {
+        if(level != null && !level.isClientSide())
+            ModMessages.sendToPlayersWithinXBlocks(
+                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
+                    getBlockPos(), (ServerLevel)level, distance
+            );
     }
 
     public int getEnergy() {
