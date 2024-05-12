@@ -11,7 +11,7 @@ import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeComparatorModeC2SPacket;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
-import me.jddev0.ep.networking.packet.ChangeStoneSolidifierRecipeIndexC2SPacket;
+import me.jddev0.ep.networking.packet.ChangeCurrentRecipeIndexS2CPacket;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.client.Minecraft;
@@ -72,7 +72,7 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageContainer
                 }
 
                 if(diff != 0) {
-                    ModMessages.sendToServer(new ChangeStoneSolidifierRecipeIndexC2SPacket(menu.getBlockEntity().getBlockPos(),
+                    ModMessages.sendToServer(new ChangeCurrentRecipeIndexS2CPacket(menu.getBlockEntity().getBlockPos(),
                             diff == 1));
                 }
             }

@@ -13,8 +13,11 @@ import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.SyncFiltrationPlantCurrentRecipeS2CPacket;
+import me.jddev0.ep.networking.packet.SyncCurrentRecipeS2CPacket;
+import me.jddev0.ep.recipe.ChangeCurrentRecipeIndexPacketUpdate;
+import me.jddev0.ep.recipe.CurrentRecipePacketUpdate;
 import me.jddev0.ep.recipe.FiltrationPlantRecipe;
+import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.FiltrationPlantMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.InventoryUtils;
@@ -55,7 +58,7 @@ import java.util.stream.Collectors;
 public class FiltrationPlantBlockEntity
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
         <ReceiveOnlyEnergyStorage, ItemStackHandler, EnergizedPowerFluidStorage>
-        implements MenuProvider {
+        implements MenuProvider, ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<FiltrationPlantRecipe> {
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_FILTRATION_PLANT_CONSUMPTION_PER_TICK.getValue();
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_FILTRATION_PLANT_TANK_CAPACITY.getValue();
     public static final int DIRTY_WATER_CONSUMPTION_PER_RECIPE = ModConfigs.COMMON_FILTRATION_PLANT_DIRTY_WATER_USAGE_PER_RECIPE.getValue();
@@ -204,7 +207,8 @@ public class FiltrationPlantBlockEntity
         syncEnergyToPlayer(player);
         syncFluidToPlayer(player);
 
-        ModMessages.sendToPlayer(new SyncFiltrationPlantCurrentRecipeS2CPacket(getBlockPos(), currentRecipe), (ServerPlayer)player);
+        ModMessages.sendToPlayer(new SyncCurrentRecipeS2CPacket<>(getBlockPos(), ModRecipes.FILTRATION_PLANT_SERIALIZER.get(),
+                currentRecipe), (ServerPlayer)player);
 
         return new FiltrationPlantMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
@@ -376,6 +380,7 @@ public class FiltrationPlantBlockEntity
                 (maxOutputs[1].isEmpty() || InventoryUtils.canInsertItemIntoSlot(inventory, 3, maxOutputs[1]));
     }
 
+    @Override
     public void changeRecipeIndex(boolean downUp) {
         if(level.isClientSide())
             return;
@@ -408,17 +413,19 @@ public class FiltrationPlantBlockEntity
         setChanged(level, getBlockPos(), getBlockState());
 
         ModMessages.sendToPlayersWithinXBlocks(
-                new SyncFiltrationPlantCurrentRecipeS2CPacket(getBlockPos(), currentRecipe),
+                new SyncCurrentRecipeS2CPacket<>(getBlockPos(), ModRecipes.FILTRATION_PLANT_SERIALIZER.get(),
+                        currentRecipe),
                 getBlockPos(), (ServerLevel)level, 32
         );
     }
 
-    public void setCurrentRecipe(@Nullable RecipeHolder<FiltrationPlantRecipe> currentRecipe) {
-        this.currentRecipe = currentRecipe;
-    }
-
     public @Nullable RecipeHolder<FiltrationPlantRecipe> getCurrentRecipe() {
         return currentRecipe;
+    }
+
+    @Override
+    public void setCurrentRecipe(@Nullable RecipeHolder<FiltrationPlantRecipe> currentRecipe) {
+        this.currentRecipe = currentRecipe;
     }
 
     @Override

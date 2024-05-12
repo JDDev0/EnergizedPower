@@ -11,7 +11,10 @@ import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.SyncStoneSolidifierCurrentRecipeS2CPacket;
+import me.jddev0.ep.networking.packet.SyncCurrentRecipeS2CPacket;
+import me.jddev0.ep.recipe.ChangeCurrentRecipeIndexPacketUpdate;
+import me.jddev0.ep.recipe.CurrentRecipePacketUpdate;
+import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.screen.StoneSolidifierMenu;
 import me.jddev0.ep.util.ByteUtils;
@@ -53,7 +56,7 @@ import java.util.stream.Collectors;
 public class StoneSolidifierBlockEntity
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
         <ReceiveOnlyEnergyStorage, ItemStackHandler, EnergizedPowerFluidStorage>
-        implements MenuProvider {
+        implements MenuProvider, ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<StoneSolidifierRecipe> {
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_STONE_SOLIDIFIER_CONSUMPTION_PER_TICK.getValue();
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_STONE_SOLIDIFIER_TANK_CAPACITY.getValue();
 
@@ -200,7 +203,8 @@ public class StoneSolidifierBlockEntity
         syncEnergyToPlayer(player);
         syncFluidToPlayer(player);
 
-        ModMessages.sendToPlayer(new SyncStoneSolidifierCurrentRecipeS2CPacket(getBlockPos(), currentRecipe), (ServerPlayer)player);
+        ModMessages.sendToPlayer(new SyncCurrentRecipeS2CPacket<>(getBlockPos(),
+                ModRecipes.STONE_SOLIDIFIER_SERIALIZER.get(), currentRecipe), (ServerPlayer)player);
 
         return new StoneSolidifierMenu(id, inventory, this, upgradeModuleInventory, data);
     }
@@ -354,6 +358,7 @@ public class StoneSolidifierBlockEntity
                 InventoryUtils.canInsertItemIntoSlot(inventory, 0, recipe.getResultItem(level.registryAccess()));
     }
 
+    @Override
     public void changeRecipeIndex(boolean downUp) {
         if(level.isClientSide())
             return;
@@ -386,17 +391,19 @@ public class StoneSolidifierBlockEntity
         setChanged(level, getBlockPos(), getBlockState());
 
         ModMessages.sendToPlayersWithinXBlocks(
-                new SyncStoneSolidifierCurrentRecipeS2CPacket(getBlockPos(), currentRecipe),
+                new SyncCurrentRecipeS2CPacket<>(getBlockPos(), ModRecipes.STONE_SOLIDIFIER_SERIALIZER.get(),
+                        currentRecipe),
                 getBlockPos(), (ServerLevel)level, 32
         );
     }
 
-    public void setCurrentRecipe(@Nullable RecipeHolder<StoneSolidifierRecipe> currentRecipe) {
-        this.currentRecipe = currentRecipe;
-    }
-
     public @Nullable RecipeHolder<StoneSolidifierRecipe> getCurrentRecipe() {
         return currentRecipe;
+    }
+
+    @Override
+    public void setCurrentRecipe(@Nullable RecipeHolder<StoneSolidifierRecipe> currentRecipe) {
+        this.currentRecipe = currentRecipe;
     }
 
     @Override

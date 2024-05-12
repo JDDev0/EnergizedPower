@@ -1,7 +1,7 @@
 package me.jddev0.ep.networking.packet;
 
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.block.entity.FiltrationPlantBlockEntity;
+import me.jddev0.ep.recipe.ChangeCurrentRecipeIndexPacketUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -14,13 +14,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
-public record ChangeFiltrationPlantRecipeIndexC2SPacket(BlockPos pos, boolean downUp) implements CustomPacketPayload {
-    public static final Type<ChangeFiltrationPlantRecipeIndexC2SPacket> ID =
-            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "change_filtration_plant_recipe_index"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, ChangeFiltrationPlantRecipeIndexC2SPacket> STREAM_CODEC =
-            StreamCodec.ofMember(ChangeFiltrationPlantRecipeIndexC2SPacket::write, ChangeFiltrationPlantRecipeIndexC2SPacket::new);
+public record ChangeCurrentRecipeIndexS2CPacket(BlockPos pos, boolean downUp) implements CustomPacketPayload {
+    public static final Type<ChangeCurrentRecipeIndexS2CPacket> ID =
+            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "change_current_recipe_index"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, ChangeCurrentRecipeIndexS2CPacket> STREAM_CODEC =
+            StreamCodec.ofMember(ChangeCurrentRecipeIndexS2CPacket::write, ChangeCurrentRecipeIndexS2CPacket::new);
 
-    public ChangeFiltrationPlantRecipeIndexC2SPacket(RegistryFriendlyByteBuf buffer) {
+    public ChangeCurrentRecipeIndexS2CPacket(RegistryFriendlyByteBuf buffer) {
         this(buffer.readBlockPos(), buffer.readBoolean());
     }
 
@@ -35,7 +35,7 @@ public record ChangeFiltrationPlantRecipeIndexC2SPacket(BlockPos pos, boolean do
         return ID;
     }
 
-    public static void handle(ChangeFiltrationPlantRecipeIndexC2SPacket data, IPayloadContext context) {
+    public static void handle(ChangeCurrentRecipeIndexS2CPacket data, IPayloadContext context) {
         context.enqueueWork(() -> {
             if(!(context.player().level() instanceof ServerLevel level) || !(context.player() instanceof ServerPlayer player))
                 return;
@@ -44,10 +44,10 @@ public record ChangeFiltrationPlantRecipeIndexC2SPacket(BlockPos pos, boolean do
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(data.pos);
-            if(!(blockEntity instanceof FiltrationPlantBlockEntity filtrationPlantBlockEntity))
+            if(!(blockEntity instanceof ChangeCurrentRecipeIndexPacketUpdate changeCurrentRecipeIndexPacketUpdate))
                 return;
 
-            filtrationPlantBlockEntity.changeRecipeIndex(data.downUp);
+            changeCurrentRecipeIndexPacketUpdate.changeRecipeIndex(data.downUp);
         });
     }
 }

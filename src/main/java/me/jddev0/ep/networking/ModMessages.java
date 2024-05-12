@@ -26,10 +26,8 @@ public final class ModMessages {
                 OpenEnergizedPowerBookS2CPacket::handle);
         registrar.playToClient(SyncPressMoldMakerRecipeListS2CPacket.ID, SyncPressMoldMakerRecipeListS2CPacket.STREAM_CODEC,
                 SyncPressMoldMakerRecipeListS2CPacket::handle);
-        registrar.playToClient(SyncStoneSolidifierCurrentRecipeS2CPacket.ID, SyncStoneSolidifierCurrentRecipeS2CPacket.STREAM_CODEC,
-                SyncStoneSolidifierCurrentRecipeS2CPacket::handle);
-        registrar.playToClient(SyncFiltrationPlantCurrentRecipeS2CPacket.ID, SyncFiltrationPlantCurrentRecipeS2CPacket.STREAM_CODEC,
-                SyncFiltrationPlantCurrentRecipeS2CPacket::handle);
+        registrar.playToClient(SyncCurrentRecipeS2CPacket.ID, SyncCurrentRecipeS2CPacket.STREAM_CODEC,
+                SyncCurrentRecipeS2CPacket::handle);
         registrar.playToClient(SyncFurnaceRecipeTypeS2CPacket.ID, SyncFurnaceRecipeTypeS2CPacket.STREAM_CODEC,
                 SyncFurnaceRecipeTypeS2CPacket::handle);
 
@@ -56,14 +54,12 @@ public final class ModMessages {
                 CycleAdvancedAutoCrafterRecipeOutputC2SPacket::handle);
         registrar.playToServer(CraftPressMoldMakerRecipeC2SPacket.ID, CraftPressMoldMakerRecipeC2SPacket.STREAM_CODEC,
                 CraftPressMoldMakerRecipeC2SPacket::handle);
-        registrar.playToServer(ChangeStoneSolidifierRecipeIndexC2SPacket.ID, ChangeStoneSolidifierRecipeIndexC2SPacket.STREAM_CODEC,
-                ChangeStoneSolidifierRecipeIndexC2SPacket::handle);
+        registrar.playToServer(ChangeCurrentRecipeIndexS2CPacket.ID, ChangeCurrentRecipeIndexS2CPacket.STREAM_CODEC,
+                ChangeCurrentRecipeIndexS2CPacket::handle);
         registrar.playToServer(ChangeRedstoneModeC2SPacket.ID, ChangeRedstoneModeC2SPacket.STREAM_CODEC,
                 ChangeRedstoneModeC2SPacket::handle);
         registrar.playToServer(SetFluidTankFilterC2SPacket.ID, SetFluidTankFilterC2SPacket.STREAM_CODEC,
                 SetFluidTankFilterC2SPacket::handle);
-        registrar.playToServer(ChangeFiltrationPlantRecipeIndexC2SPacket.ID, ChangeFiltrationPlantRecipeIndexC2SPacket.STREAM_CODEC,
-                ChangeFiltrationPlantRecipeIndexC2SPacket::handle);
         registrar.playToServer(ChangeComparatorModeC2SPacket.ID, ChangeComparatorModeC2SPacket.STREAM_CODEC,
                 ChangeComparatorModeC2SPacket::handle);
     }
