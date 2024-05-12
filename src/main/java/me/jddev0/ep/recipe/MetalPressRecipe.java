@@ -10,7 +10,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-public class MetalPressRecipe implements Recipe<SimpleContainer> {
+public class MetalPressRecipe implements Recipe<Container> {
     private final ItemStack output;
     private final ItemStack pressMold;
     private final Ingredient input;
@@ -48,7 +48,7 @@ public class MetalPressRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(SimpleContainer container, Level level) {
+    public boolean matches(Container container, Level level) {
         if(level.isClientSide)
             return false;
 
@@ -57,7 +57,7 @@ public class MetalPressRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container, HolderLookup.Provider registries) {
+    public ItemStack assemble(Container container, HolderLookup.Provider registries) {
         return output;
     }
 

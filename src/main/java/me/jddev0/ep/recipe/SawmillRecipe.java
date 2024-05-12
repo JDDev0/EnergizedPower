@@ -12,14 +12,14 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 
-public class SawmillRecipe implements Recipe<SimpleContainer> {
+public class SawmillRecipe implements Recipe<Container> {
     private final ItemStack output;
     private final ItemStack secondaryOutput;
     private final Ingredient input;
@@ -47,7 +47,7 @@ public class SawmillRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(SimpleContainer container, Level level) {
+    public boolean matches(Container container, Level level) {
         if(level.isClientSide)
             return false;
 
@@ -55,7 +55,7 @@ public class SawmillRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container, HolderLookup.Provider registries) {
+    public ItemStack assemble(Container container, HolderLookup.Provider registries) {
         return output;
     }
 

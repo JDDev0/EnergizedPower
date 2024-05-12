@@ -12,13 +12,13 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 
-public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
+public class HeatGeneratorRecipe implements Recipe<Container> {
     private final Fluid[] input;
     private final int energyProduction;
 
@@ -36,12 +36,12 @@ public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(SimpleContainer container, Level level) {
+    public boolean matches(Container container, Level level) {
         return false;
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container, HolderLookup.Provider registries) {
+    public ItemStack assemble(Container container, HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 

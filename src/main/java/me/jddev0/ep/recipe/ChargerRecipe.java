@@ -11,12 +11,12 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
-public class ChargerRecipe implements Recipe<SimpleContainer> {
+public class ChargerRecipe implements Recipe<Container> {
     private final ItemStack output;
     private final Ingredient input;
     private final int energyConsumption;
@@ -40,7 +40,7 @@ public class ChargerRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(SimpleContainer container, Level level) {
+    public boolean matches(Container container, Level level) {
         if(level.isClientSide)
             return false;
 
@@ -48,7 +48,7 @@ public class ChargerRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container, HolderLookup.Provider registries) {
+    public ItemStack assemble(Container container, HolderLookup.Provider registries) {
         return output;
     }
 

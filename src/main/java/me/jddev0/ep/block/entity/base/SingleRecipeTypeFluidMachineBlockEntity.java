@@ -10,6 +10,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.Container;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -31,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public abstract class SingleRecipeTypeFluidMachineBlockEntity
-        <F extends IFluidHandler, R extends Recipe<SimpleContainer>>
+        <F extends IFluidHandler, R extends Recipe<Container>>
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
         <ReceiveOnlyEnergyStorage, ItemStackHandler, F>
         implements MenuProvider {
@@ -158,7 +159,7 @@ public abstract class SingleRecipeTypeFluidMachineBlockEntity
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }
 
-    public static <F extends  IFluidHandler, R extends Recipe<SimpleContainer>> void tick(
+    public static <F extends  IFluidHandler, R extends Recipe<Container>> void tick(
             Level level, BlockPos blockPos, BlockState state, SingleRecipeTypeFluidMachineBlockEntity<F, R> blockEntity) {
         if(level.isClientSide)
             return;
