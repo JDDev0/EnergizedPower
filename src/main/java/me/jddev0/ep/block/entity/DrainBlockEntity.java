@@ -1,7 +1,8 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.entity.base.FluidStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.screen.DrainMenu;
@@ -23,7 +24,6 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BucketPickup;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
@@ -35,28 +35,19 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DrainBlockEntity extends BlockEntity implements MenuProvider, FluidStoragePacketUpdate {
-    private final FluidTank fluidStorage;
-
+public class DrainBlockEntity extends FluidStorageBlockEntity<FluidTank> implements MenuProvider {
     protected final ContainerData data;
     private int progress;
     private int maxProgress = ModConfigs.COMMON_DRAIN_DRAIN_DURATION.getValue();
 
     public DrainBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.DRAIN_ENTITY.get(), blockPos, blockState);
+        super(
+                ModBlockEntities.DRAIN_ENTITY.get(), blockPos, blockState,
 
-        fluidStorage = new FluidTank(ModConfigs.COMMON_DRAIN_FLUID_TANK_CAPACITY.getValue() * 1000) {
-            @Override
-            protected void onContentsChanged() {
-                setChanged();
+                FluidStorageSingleTankMethods.INSTANCE,
+                ModConfigs.COMMON_DRAIN_FLUID_TANK_CAPACITY.getValue() * 1000
+        );
 
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new FluidSyncS2CPacket(0, fluid, capacity, getBlockPos()),
-                            getBlockPos(), (ServerLevel)level, 32
-                    );
-            }
-        };
         data = new ContainerData() {
             @Override
             public int get(int index) {
@@ -84,7 +75,22 @@ public class DrainBlockEntity extends BlockEntity implements MenuProvider, Fluid
                 return 4;
             }
         };
+    }
 
+    @Override
+    protected FluidTank initFluidStorage() {
+        return new FluidTank(baseTankCapacity) {
+            @Override
+            protected void onContentsChanged() {
+                setChanged();
+
+                if(level != null && !level.isClientSide())
+                    ModMessages.sendToPlayersWithinXBlocks(
+                            new FluidSyncS2CPacket(0, fluid, capacity, getBlockPos()),
+                            getBlockPos(), (ServerLevel)level, 32
+                    );
+            }
+        };
     }
 
     @Override
@@ -112,16 +118,12 @@ public class DrainBlockEntity extends BlockEntity implements MenuProvider, Fluid
     protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.saveAdditional(nbt, registries);
 
-        nbt.put("fluid", fluidStorage.writeToNBT(registries, new CompoundTag()));
-
         nbt.put("drain.progress", IntTag.valueOf(progress));
     }
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
-
-        fluidStorage.readFromNBT(registries, nbt.getCompound("fluid"));
 
         progress = nbt.getInt("drain.progress");
     }
@@ -192,23 +194,5 @@ public class DrainBlockEntity extends BlockEntity implements MenuProvider, Fluid
             return false;
 
         return blockEntity.fluidStorage.fill(new FluidStack(fluidState.getType(), 1000), IFluidHandler.FluidAction.SIMULATE) == 1000;
-    }
-
-    public FluidStack getFluid(int tank) {
-        return fluidStorage.getFluid();
-    }
-
-    public int getTankCapacity(int tank) {
-        return fluidStorage.getCapacity();
-    }
-
-    @Override
-    public void setFluid(int tank, FluidStack fluidStack) {
-        fluidStorage.setFluid(fluidStack);
-    }
-
-    @Override
-    public void setTankCapacity(int tank, int capacity) {
-        fluidStorage.setCapacity(capacity);
     }
 }

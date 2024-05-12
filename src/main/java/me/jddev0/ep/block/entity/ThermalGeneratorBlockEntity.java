@@ -1,14 +1,12 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ThermalGeneratorBlock;
-import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.ConfigurableUpgradableFluidEnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
-import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
-import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
-import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
@@ -16,12 +14,8 @@ import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.recipe.ThermalGeneratorRecipe;
 import me.jddev0.ep.screen.ThermalGeneratorMenu;
 import me.jddev0.ep.util.ByteUtils;
-import me.jddev0.ep.util.EnergyUtils;
-import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -40,23 +34,18 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ThermalGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
-        implements MenuProvider, FluidStoragePacketUpdate, RedstoneModeUpdate, ComparatorModeUpdate {
+public class ThermalGeneratorBlockEntity
+        extends ConfigurableUpgradableFluidEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, FluidTank>
+        implements MenuProvider {
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
-    private final FluidTank fluidStorage;
-
     protected final ContainerData data;
-
-    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
-    private @NotNull ComparatorMode comparatorMode = ComparatorMode.FLUID;
 
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -65,32 +54,12 @@ public class ThermalGeneratorBlockEntity extends UpgradableEnergyStorageBlockEnt
                 ModConfigs.COMMON_THERMAL_GENERATOR_CAPACITY.getValue(),
                 ModConfigs.COMMON_THERMAL_GENERATOR_TRANSFER_RATE.getValue(),
 
+                FluidStorageSingleTankMethods.INSTANCE,
+                ModConfigs.COMMON_THERMAL_GENERATOR_FLUID_TANK_CAPACITY.getValue() * 1000,
+
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
 
-        fluidStorage = new FluidTank(ModConfigs.COMMON_THERMAL_GENERATOR_FLUID_TANK_CAPACITY.getValue() * 1000) {
-            @Override
-            protected void onContentsChanged() {
-                setChanged();
-
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new FluidSyncS2CPacket(0, fluid, capacity, getBlockPos()),
-                            getBlockPos(), (ServerLevel)level, 32
-                    );
-            }
-
-            @Override
-            public boolean isFluidValid(FluidStack stack) {
-                if(!super.isFluidValid(stack) || level == null)
-                    return false;
-
-                List<RecipeHolder<ThermalGeneratorRecipe>> recipes = level.getRecipeManager().getAllRecipesFor(ThermalGeneratorRecipe.Type.INSTANCE);
-
-                return recipes.stream().map(RecipeHolder::value).map(ThermalGeneratorRecipe::getInput).
-                        anyMatch(inputs -> Arrays.stream(inputs).anyMatch(input -> stack.getFluid() == input));
-            }
-        };
         data = new ContainerData() {
             @Override
             public int get(int index) {
@@ -171,6 +140,34 @@ public class ThermalGeneratorBlockEntity extends UpgradableEnergyStorageBlockEnt
     }
 
     @Override
+    protected FluidTank initFluidStorage() {
+        return new FluidTank(baseTankCapacity) {
+            @Override
+            protected void onContentsChanged() {
+                setChanged();
+
+                if(level != null && !level.isClientSide())
+                    ModMessages.sendToPlayersWithinXBlocks(
+                            new FluidSyncS2CPacket(0, fluid, capacity, getBlockPos()),
+                            getBlockPos(), (ServerLevel)level, 32
+                    );
+            }
+
+            @Override
+            public boolean isFluidValid(FluidStack stack) {
+                if(!super.isFluidValid(stack) || level == null)
+                    return false;
+
+                List<RecipeHolder<ThermalGeneratorRecipe>> recipes = level.getRecipeManager().
+                        getAllRecipesFor(ThermalGeneratorRecipe.Type.INSTANCE);
+
+                return recipes.stream().map(RecipeHolder::value).map(ThermalGeneratorRecipe::getInput).
+                        anyMatch(inputs -> Arrays.stream(inputs).anyMatch(input -> stack.getFluid() == input));
+            }
+        };
+    }
+
+    @Override
     public Component getDisplayName() {
         return Component.translatable("container.energizedpower.thermal_generator");
     }
@@ -184,41 +181,12 @@ public class ThermalGeneratorBlockEntity extends UpgradableEnergyStorageBlockEnt
         return new ThermalGeneratorMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
-    public int getRedstoneOutput() {
-        return switch(comparatorMode) {
-            case ITEM -> 0;
-            case FLUID -> FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
-            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
-        };
-    }
-
     public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
         return fluidStorage;
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
         return energyStorage;
-    }
-
-    @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
-
-        nbt.put("fluid", fluidStorage.writeToNBT(registries, new CompoundTag()));
-
-        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
-        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
-    }
-
-    @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
-
-        fluidStorage.readFromNBT(registries, nbt.getCompound("fluid"));
-
-        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
-        comparatorMode = nbt.contains("configuration.comparator_mode")?
-                ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode")):ComparatorMode.FLUID;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
@@ -330,37 +298,5 @@ public class ThermalGeneratorBlockEntity extends UpgradableEnergyStorageBlockEnt
             if(energy > 0)
                 consumerItems.get(i).receiveEnergy(energy, false);
         }
-    }
-
-    public FluidStack getFluid(int tank) {
-        return fluidStorage.getFluid();
-    }
-
-    public int getTankCapacity(int tank) {
-        return fluidStorage.getCapacity();
-    }
-
-    @Override
-    public void setFluid(int tank, FluidStack fluidStack) {
-        fluidStorage.setFluid(fluidStack);
-    }
-
-    @Override
-    public void setTankCapacity(int tank, int capacity) {
-        fluidStorage.setCapacity(capacity);
-    }
-
-    @Override
-    public void setNextRedstoneMode() {
-        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
-        setChanged();
-    }
-
-    @Override
-    public void setNextComparatorMode() {
-        do {
-            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
-        }while(comparatorMode == ComparatorMode.ITEM); //Prevent the ITEM comparator mode from being selected
-        setChanged();
     }
 }
