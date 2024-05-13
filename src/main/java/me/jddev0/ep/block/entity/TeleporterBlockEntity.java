@@ -1,14 +1,12 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.TeleporterBlock;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.TeleporterMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.ChatFormatting;
@@ -16,7 +14,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Vec3i;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
@@ -25,9 +22,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -54,7 +49,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
-public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+public class TeleporterBlockEntity
+        extends InventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
+        implements MenuProvider {
     public static final boolean INTRA_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_ENABLED.getValue();
     public static final boolean INTER_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_ENABLED.getValue();
     public static final List<@NotNull ResourceLocation> DIMENSION_BLACKLIST =
@@ -76,54 +73,59 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
 
     public static final int CAPACITY = ModConfigs.COMMON_TELEPORTER_CAPACITY.getValue();
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(1) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChangedAndUpdateReadyState();
-        }
+    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            if(slot == 0) {
-                return stack.is(ModItems.TELEPORTER_MATRIX.get());
-            }
-
-            return super.isItemValid(slot, stack);
-        }
-
-        @Override
-        public int getSlotLimit(int slot) {
-            return 1;
-        }
-    };
     private final LazyOptional<IItemHandler> lazyItemHandler;
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> true));
 
-    private final ReceiveOnlyEnergyStorage energyStorage;
-
-    private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
-
-
     public TeleporterBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.TELEPORTER_ENTITY.get(), blockPos, blockState);
+        super(
+                ModBlockEntities.TELEPORTER_ENTITY.get(), blockPos, blockState,
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, CAPACITY,
-                ModConfigs.COMMON_TELEPORTER_TRANSFER_RATE.getValue()) {
-            @Override
-            protected void onChange() {
-                setChangedAndUpdateReadyState();
+                CAPACITY,
+                ModConfigs.COMMON_TELEPORTER_TRANSFER_RATE.getValue(),
 
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
-                            getBlockPos(), level.dimension(), 32
-                    );
-            }
-        };
+                1
+        );
 
         lazyItemHandler = LazyOptional.of(() -> itemHandler);
         lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
+    }
+
+    @Override
+    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
+        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+            @Override
+            protected void onChange() {
+                setChangedAndUpdateReadyState();
+                syncEnergyToPlayers(32);
+            }
+        };
+    }
+
+    @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChangedAndUpdateReadyState();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                if(slot == 0) {
+                    return stack.is(ModItems.TELEPORTER_MATRIX.get());
+                }
+
+                return super.isItemValid(slot, stack);
+            }
+
+            @Override
+            public int getSlotLimit(int slot) {
+                return 1;
+            }
+        };
     }
 
     @Override
@@ -134,8 +136,7 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
-                getBlockPos()), (ServerPlayer)player);
+        syncEnergyToPlayer(player);
 
         return new TeleporterMenu(id, inventory, this);
     }
@@ -156,30 +157,6 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("inventory", itemHandler.serializeNBT());
-        nbt.put("energy", energyStorage.saveNBT());
-
-        super.saveAdditional(nbt);
-    }
-
-    @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
-
-        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
-        energyStorage.loadNBT(nbt.get("energy"));
-    }
-
-    public void drops(Level level, BlockPos worldPosition) {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-
-        Containers.dropContents(level, worldPosition, inventory);
     }
 
     public void setChangedAndUpdateReadyState() {
@@ -449,23 +426,5 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
 
     public void clearEnergy() {
         energyStorage.setEnergy(0);
-    }
-
-    public int getEnergy() {
-        return energyStorage.getEnergy();
-    }
-
-    public int getCapacity() {
-        return energyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        energyStorage.setEnergyWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        energyStorage.setCapacityWithoutUpdate(capacity);
     }
 }

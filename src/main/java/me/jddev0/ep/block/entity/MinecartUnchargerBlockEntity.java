@@ -1,18 +1,14 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.MinecartUnchargerBlock;
+import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.MinecartUnchargerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.EntitySelector;
@@ -34,33 +30,34 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MinecartUnchargerBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
-    public static final int CAPACITY = ModConfigs.COMMON_MINECART_UNCHARGER_CAPACITY.getValue();
+public class MinecartUnchargerBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
+        implements MenuProvider {
     public static final int MAX_TRANSFER = ModConfigs.COMMON_MINECART_UNCHARGER_TRANSFER_RATE.getValue();
 
-    private final ExtractOnlyEnergyStorage energyStorage;
     private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
 
     private boolean hasMinecartOld = true; //Default true (Force first update)
     private boolean hasMinecart = false; //Default false (Force first update)
 
     public MinecartUnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.MINECART_UNCHARGER_ENTITY.get(), blockPos, blockState);
+        super(
+                ModBlockEntities.MINECART_UNCHARGER_ENTITY.get(), blockPos, blockState,
 
-        energyStorage = new ExtractOnlyEnergyStorage(0, CAPACITY, MAX_TRANSFER) {
+                ModConfigs.COMMON_MINECART_UNCHARGER_CAPACITY.getValue(), MAX_TRANSFER
+        );
+
+        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
+    }
+
+    @Override
+    protected ExtractOnlyEnergyStorage initEnergyStorage() {
+        return new ExtractOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
             @Override
             protected void onChange() {
                 setChanged();
-
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
-                            getBlockPos(), level.dimension(), 32
-                    );
+                syncEnergyToPlayers(32);
             }
         };
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -71,8 +68,7 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements MenuPro
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
-                getBlockPos()), (ServerPlayer)player);
+        syncEnergyToPlayer(player);
 
         return new MinecartUnchargerMenu(id, inventory, this);
     }
@@ -105,20 +101,6 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements MenuPro
         return super.getCapability(cap, side);
     }
 
-    @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("energy", energyStorage.saveNBT());
-
-        super.saveAdditional(nbt);
-    }
-
-    @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
-
-        energyStorage.loadNBT(nbt.get("energy"));
-    }
-
     public static void tick(Level level, BlockPos blockPos, BlockState state, MinecartUnchargerBlockEntity blockEntity) {
         if(level.isClientSide)
             return;
@@ -140,8 +122,8 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements MenuPro
             return;
 
         AbstractMinecartBatteryBox minecart = minecarts.get(0);
-        int transferred = Math.min(Math.min(CAPACITY - blockEntity.energyStorage.getEnergy(), MAX_TRANSFER),
-                Math.min(minecart.getTransferRate(), minecart.getEnergy()));
+        int transferred = Math.min(Math.min(blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getEnergy(),
+                        blockEntity.energyStorage.getMaxExtract()), Math.min(minecart.getTransferRate(), minecart.getEnergy()));
         minecart.setEnergy(minecart.getEnergy() - transferred);
 
         blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() + transferred);
@@ -171,7 +153,8 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements MenuPro
             if(!energyStorage.canReceive())
                 continue;
 
-            int received = energyStorage.receiveEnergy(Math.min(MAX_TRANSFER, blockEntity.energyStorage.getEnergy()), true);
+            int received = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getMaxExtract(),
+                    blockEntity.energyStorage.getEnergy()), true);
             if(received <= 0)
                 continue;
 
@@ -184,7 +167,8 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements MenuPro
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 
-        int consumptionLeft = Math.min(MAX_TRANSFER, Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
+        int consumptionLeft = Math.min(blockEntity.energyStorage.getMaxExtract(),
+                Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
         blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
 
         int divisor = consumerItems.size();
@@ -213,23 +197,5 @@ public class MinecartUnchargerBlockEntity extends BlockEntity implements MenuPro
             if(energy > 0)
                 consumerItems.get(i).receiveEnergy(energy, false);
         }
-    }
-
-    public int getEnergy() {
-        return energyStorage.getEnergy();
-    }
-
-    public int getCapacity() {
-        return energyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        energyStorage.setEnergyWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        energyStorage.setCapacityWithoutUpdate(capacity);
     }
 }

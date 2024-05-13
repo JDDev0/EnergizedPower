@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.block.entity.FiltrationPlantBlockEntity;
+import me.jddev0.ep.recipe.ChangeCurrentRecipeIndexPacketUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -8,16 +8,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.NetworkEvent;
 
-public class ChangeFiltrationPlantRecipeIndexC2SPacket {
+public class ChangeCurrentRecipeIndexC2SPacket {
     private final BlockPos pos;
     private final boolean downUp;
 
-    public ChangeFiltrationPlantRecipeIndexC2SPacket(BlockPos pos, boolean downUp) {
+    public ChangeCurrentRecipeIndexC2SPacket(BlockPos pos, boolean downUp) {
         this.pos = pos;
         this.downUp = downUp;
     }
 
-    public ChangeFiltrationPlantRecipeIndexC2SPacket(FriendlyByteBuf buffer) {
+    public ChangeCurrentRecipeIndexC2SPacket(FriendlyByteBuf buffer) {
         pos = buffer.readBlockPos();
         downUp = buffer.readBoolean();
     }
@@ -34,10 +34,10 @@ public class ChangeFiltrationPlantRecipeIndexC2SPacket {
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            if(!(blockEntity instanceof FiltrationPlantBlockEntity filtrationPlantBlockEntity))
+            if(!(blockEntity instanceof ChangeCurrentRecipeIndexPacketUpdate changeCurrentRecipeIndexPacketUpdate))
                 return;
 
-            filtrationPlantBlockEntity.changeRecipeIndex(downUp);
+            changeCurrentRecipeIndexPacketUpdate.changeRecipeIndex(downUp);
         });
 
         return true;

@@ -1,7 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.FluidTankBlock;
-import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
+import me.jddev0.ep.block.entity.base.FluidStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
@@ -18,7 +19,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.capabilities.Capabilities;
@@ -30,9 +30,11 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, FluidStoragePacketUpdate, CheckboxUpdate {
+public class FluidTankBlockEntity
+        extends FluidStorageBlockEntity<FluidTank>
+        implements MenuProvider, CheckboxUpdate {
     private final FluidTankBlock.Tier tier;
-    private final FluidTank fluidStorage;
+
     private final LazyOptional<IFluidHandler> lazyFluidStorage;
 
     protected final ContainerData data;
@@ -49,31 +51,15 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
     }
 
     public FluidTankBlockEntity(BlockPos blockPos, BlockState blockState, FluidTankBlock.Tier tier) {
-        super(getEntityTypeFromTier(tier), blockPos, blockState);
+        super(
+                getEntityTypeFromTier(tier), blockPos, blockState,
+
+                FluidStorageSingleTankMethods.INSTANCE,
+                tier.getTankCapacity()
+        );
 
         this.tier = tier;
 
-        fluidStorage = new FluidTank(tier.getTankCapacity()) {
-            @Override
-            protected void onContentsChanged() {
-                setChanged();
-
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new FluidSyncS2CPacket(0, fluid, capacity, getBlockPos()),
-                            getBlockPos(), level.dimension(), 64
-                    );
-            }
-
-            @Override
-            public boolean isFluidValid(FluidStack stack) {
-                if(!super.isFluidValid(stack))
-                    return false;
-
-                return fluidFilter.isEmpty() || (ignoreNBT?fluidFilter.getFluid().isSame(stack.getFluid()):
-                        fluidFilter.isFluidEqual(stack));
-            }
-        };
         data = new ContainerData() {
             @Override
             public int get(int index) {
@@ -100,6 +86,26 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
     }
 
     @Override
+    protected FluidTank initFluidStorage() {
+        return new FluidTank(baseTankCapacity) {
+            @Override
+            protected void onContentsChanged() {
+                setChanged();
+                syncFluidToPlayers(64);
+            }
+
+            @Override
+            public boolean isFluidValid(FluidStack stack) {
+                if(!super.isFluidValid(stack))
+                    return false;
+
+                return fluidFilter.isEmpty() || (ignoreNBT?fluidFilter.getFluid().isSame(stack.getFluid()):
+                        fluidFilter.isFluidEqual(stack));
+            }
+        };
+    }
+
+    @Override
     public Component getDisplayName() {
         return Component.translatable("container.energizedpower." + tier.getResourceId());
     }
@@ -107,7 +113,7 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        ModMessages.sendToPlayer(new FluidSyncS2CPacket(0, fluidStorage.getFluid(), fluidStorage.getCapacity(), worldPosition), (ServerPlayer)player);
+        syncFluidToPlayer(player);
         ModMessages.sendToPlayer(new FluidSyncS2CPacket(1, fluidFilter, 0, worldPosition), (ServerPlayer)player);
 
         return new FluidTankMenu(id, inventory, this, data);
@@ -123,10 +129,7 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
 
         //Sync item stacks to client every 5 seconds
         if(level.getGameTime() % 100 == 0) //TODO improve
-            ModMessages.sendToPlayersWithinXBlocks(
-                    new FluidSyncS2CPacket(0, blockEntity.getFluid(0), blockEntity.getTankCapacity(0), blockPos),
-                    blockPos, level.dimension(), 64
-            );
+            blockEntity.syncFluidToPlayers(64);
     }
 
     public int getRedstoneOutput() {
@@ -143,21 +146,17 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("fluid", fluidStorage.writeToNBT(new CompoundTag()));
+    protected void saveAdditional(@NotNull CompoundTag nbt) {
+        super.saveAdditional(nbt);
 
         nbt.putBoolean("ignore_nbt", ignoreNBT);
 
         nbt.put("fluid_filter", fluidFilter.writeToNBT(new CompoundTag()));
-
-        super.saveAdditional(nbt);
     }
 
     @Override
     public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
-
-        fluidStorage.readFromNBT(nbt.getCompound("fluid"));
 
         ignoreNBT = nbt.getBoolean("ignore_nbt");
 
@@ -189,32 +188,30 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider, F
 
     public FluidStack getFluid(int tank) {
         return switch(tank) {
-            case 0 -> fluidStorage.getFluid();
+            case 0 -> super.getFluid(tank);
             case 1 -> fluidFilter;
             default -> null;
         };
     }
 
     public int getTankCapacity(int tank) {
-        if(tank != 0)
-            return 0;
+        if(tank == 0)
+            return super.getTankCapacity(tank);
 
-        return fluidStorage.getCapacity();
+        return 0;
     }
 
     @Override
     public void setFluid(int tank, FluidStack fluidStack) {
         switch(tank) {
-            case 0 -> fluidStorage.setFluid(fluidStack);
+            case 0 -> super.setFluid(tank, fluidStack);
             case 1 -> fluidFilter = fluidStack.copy();
         }
     }
 
     @Override
     public void setTankCapacity(int tank, int capacity) {
-        if(tank != 0)
-            return;
-
-        fluidStorage.setCapacity(capacity);
+        if(tank == 0)
+            super.setTankCapacity(tank, capacity);
     }
 }

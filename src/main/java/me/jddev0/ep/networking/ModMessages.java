@@ -61,16 +61,10 @@ public final class ModMessages {
                 consumerMainThread(SyncPressMoldMakerRecipeListS2CPacket::handle).
                 add();
 
-        net.messageBuilder(SyncStoneSolidifierCurrentRecipeS2CPacket.class, id(), PlayNetworkDirection.PLAY_TO_CLIENT).
-                decoder(SyncStoneSolidifierCurrentRecipeS2CPacket::new).
-                encoder(SyncStoneSolidifierCurrentRecipeS2CPacket::toBytes).
-                consumerMainThread(SyncStoneSolidifierCurrentRecipeS2CPacket::handle).
-                add();
-
-        net.messageBuilder(SyncFiltrationPlantCurrentRecipeS2CPacket.class, id(), PlayNetworkDirection.PLAY_TO_CLIENT).
-                decoder(SyncFiltrationPlantCurrentRecipeS2CPacket::new).
-                encoder(SyncFiltrationPlantCurrentRecipeS2CPacket::toBytes).
-                consumerMainThread(SyncFiltrationPlantCurrentRecipeS2CPacket::handle).
+        net.messageBuilder(ChangeCurrentRecipeIndexC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_CLIENT).
+                decoder(ChangeCurrentRecipeIndexC2SPacket::new).
+                encoder(ChangeCurrentRecipeIndexC2SPacket::toBytes).
+                consumerMainThread(ChangeCurrentRecipeIndexC2SPacket::handle).
                 add();
 
         net.messageBuilder(SyncFurnaceRecipeTypeS2CPacket.class, id(), PlayNetworkDirection.PLAY_TO_CLIENT).
@@ -146,10 +140,10 @@ public final class ModMessages {
                 consumerMainThread(CraftPressMoldMakerRecipeC2SPacket::handle).
                 add();
 
-        net.messageBuilder(ChangeStoneSolidifierRecipeIndexC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
-                decoder(ChangeStoneSolidifierRecipeIndexC2SPacket::new).
-                encoder(ChangeStoneSolidifierRecipeIndexC2SPacket::toBytes).
-                consumerMainThread(ChangeStoneSolidifierRecipeIndexC2SPacket::handle).
+        net.messageBuilder(ChangeCurrentRecipeIndexC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
+                decoder(ChangeCurrentRecipeIndexC2SPacket::new).
+                encoder(ChangeCurrentRecipeIndexC2SPacket::toBytes).
+                consumerMainThread(ChangeCurrentRecipeIndexC2SPacket::handle).
                 add();
 
         net.messageBuilder(ChangeRedstoneModeC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
@@ -162,12 +156,6 @@ public final class ModMessages {
                 decoder(SetFluidTankFilterC2SPacket::new).
                 encoder(SetFluidTankFilterC2SPacket::toBytes).
                 consumerMainThread(SetFluidTankFilterC2SPacket::handle).
-                add();
-
-        net.messageBuilder(ChangeFiltrationPlantRecipeIndexC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).
-                decoder(ChangeFiltrationPlantRecipeIndexC2SPacket::new).
-                encoder(ChangeFiltrationPlantRecipeIndexC2SPacket::toBytes).
-                consumerMainThread(ChangeFiltrationPlantRecipeIndexC2SPacket::handle).
                 add();
 
         net.messageBuilder(ChangeComparatorModeC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_SERVER).

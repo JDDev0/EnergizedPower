@@ -15,7 +15,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
@@ -23,7 +23,7 @@ import net.minecraft.world.level.Level;
 import java.util.Arrays;
 import java.util.List;
 
-public class PlantGrowthChamberRecipe implements Recipe<SimpleContainer> {
+public class PlantGrowthChamberRecipe implements Recipe<Container> {
     private final OutputItemStackWithPercentages[] outputs;
     private final Ingredient input;
     private final int ticks;
@@ -73,7 +73,7 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(SimpleContainer container, Level level) {
+    public boolean matches(Container container, Level level) {
         if(level.isClientSide)
             return false;
 
@@ -81,7 +81,7 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container, RegistryAccess registryAccess) {
+    public ItemStack assemble(Container container, RegistryAccess registryAccess) {
         return ItemStack.EMPTY;
     }
 

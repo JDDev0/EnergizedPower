@@ -428,10 +428,10 @@ public class FluidPipeBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        //TODO
-
+    protected void saveAdditional(@NotNull CompoundTag nbt) {
         super.saveAdditional(nbt);
+
+        //TODO
     }
 
     @Override

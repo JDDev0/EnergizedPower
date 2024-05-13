@@ -1,9 +1,8 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.entity.base.FluidStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.screen.DrainMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.FluidUtils;
@@ -12,7 +11,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -21,7 +19,6 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BucketPickup;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
@@ -35,8 +32,7 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DrainBlockEntity extends BlockEntity implements MenuProvider, FluidStoragePacketUpdate {
-    private final FluidTank fluidStorage;
+public class DrainBlockEntity extends FluidStorageBlockEntity<FluidTank> implements MenuProvider {
     private final LazyOptional<IFluidHandler> lazyFluidStorage;
 
     protected final ContainerData data;
@@ -44,20 +40,13 @@ public class DrainBlockEntity extends BlockEntity implements MenuProvider, Fluid
     private int maxProgress = ModConfigs.COMMON_DRAIN_DRAIN_DURATION.getValue();
 
     public DrainBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.DRAIN_ENTITY.get(), blockPos, blockState);
+        super(
+                ModBlockEntities.DRAIN_ENTITY.get(), blockPos, blockState,
 
-        fluidStorage = new FluidTank(ModConfigs.COMMON_DRAIN_FLUID_TANK_CAPACITY.getValue() * 1000) {
-            @Override
-            protected void onContentsChanged() {
-                setChanged();
+                FluidStorageSingleTankMethods.INSTANCE,
+                ModConfigs.COMMON_DRAIN_FLUID_TANK_CAPACITY.getValue() * 1000
+        );
 
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new FluidSyncS2CPacket(0, fluid, capacity, getBlockPos()),
-                            getBlockPos(), level.dimension(), 32
-                    );
-            }
-        };
         data = new ContainerData() {
             @Override
             public int get(int index) {
@@ -90,6 +79,17 @@ public class DrainBlockEntity extends BlockEntity implements MenuProvider, Fluid
     }
 
     @Override
+    protected FluidTank initFluidStorage() {
+        return new FluidTank(baseTankCapacity) {
+            @Override
+            protected void onContentsChanged() {
+                setChanged();
+                syncFluidToPlayers(32);
+            }
+        };
+    }
+
+    @Override
     public Component getDisplayName() {
         return Component.translatable("container.energizedpower.drain");
     }
@@ -97,7 +97,7 @@ public class DrainBlockEntity extends BlockEntity implements MenuProvider, Fluid
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        ModMessages.sendToPlayer(new FluidSyncS2CPacket(0, fluidStorage.getFluid(), fluidStorage.getCapacity(), worldPosition), (ServerPlayer)player);
+        syncFluidToPlayer(player);
 
         return new DrainMenu(id, inventory, this, this.data);
     }
@@ -116,19 +116,15 @@ public class DrainBlockEntity extends BlockEntity implements MenuProvider, Fluid
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("fluid", fluidStorage.writeToNBT(new CompoundTag()));
+    protected void saveAdditional(@NotNull CompoundTag nbt) {
+        super.saveAdditional(nbt);
 
         nbt.put("drain.progress", IntTag.valueOf(progress));
-
-        super.saveAdditional(nbt);
     }
 
     @Override
     public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
-
-        fluidStorage.readFromNBT(nbt.getCompound("fluid"));
 
         progress = nbt.getInt("drain.progress");
     }
@@ -202,23 +198,5 @@ public class DrainBlockEntity extends BlockEntity implements MenuProvider, Fluid
             return false;
 
         return blockEntity.fluidStorage.fill(new FluidStack(fluidState.getType(), 1000), IFluidHandler.FluidAction.SIMULATE) == 1000;
-    }
-
-    public FluidStack getFluid(int tank) {
-        return fluidStorage.getFluid();
-    }
-
-    public int getTankCapacity(int tank) {
-        return fluidStorage.getCapacity();
-    }
-
-    @Override
-    public void setFluid(int tank, FluidStack fluidStack) {
-        fluidStorage.setFluid(fluidStack);
-    }
-
-    @Override
-    public void setTankCapacity(int tank, int capacity) {
-        fluidStorage.setCapacity(capacity);
     }
 }

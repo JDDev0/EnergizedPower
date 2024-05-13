@@ -3,7 +3,8 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ModBlockStateProperties;
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.block.entity.base.InventoryStorageBlockEntity;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.ItemStackPacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
@@ -11,9 +12,6 @@ import me.jddev0.ep.networking.packet.ItemStackSyncS2CPacket;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.Containers;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -26,36 +24,11 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStackPacketUpdate {
+public class ItemConveyorBeltBlockEntity
+        extends InventoryStorageBlockEntity<ItemStackHandler>
+        implements ItemStackPacketUpdate {
     private static final int TICKS_PER_STEP = ModConfigs.COMMON_ITEM_CONVEYOR_BELT_TICKS_PER_STEP.getValue();
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(4) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-
-            for(int i = 0;i < getSlots();i++)
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new ItemStackSyncS2CPacket(i, getStackInSlot(i), getBlockPos()),
-                            getBlockPos(), level.dimension(), 64
-                    );
-        }
-
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return switch(slot) {
-                case 0, 1 -> true;
-                case 2, 3 -> false;
-                default -> super.isItemValid(slot, stack);
-            };
-        }
-
-        @Override
-        public int getSlotLimit(int slot) {
-            return 1;
-        }
-    };
     private final LazyOptional<IItemHandler> lazyItemHandler;
     private final LazyOptional<IItemHandler> lazyItemHandlerFrontSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 3));
@@ -63,9 +36,44 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 3));
 
     public ItemConveyorBeltBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.ITEM_CONVEYOR_BELT_ENTITY.get(), blockPos, blockState);
+        super(
+                ModBlockEntities.ITEM_CONVEYOR_BELT_ENTITY.get(), blockPos, blockState,
+
+                4
+        );
 
         lazyItemHandler = LazyOptional.of(() -> itemHandler);
+    }
+
+    @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+
+                for(int i = 0;i < getSlots();i++)
+                    if(level != null && !level.isClientSide())
+                        ModMessages.sendToPlayersWithinXBlocks(
+                                new ItemStackSyncS2CPacket(i, getStackInSlot(i), getBlockPos()),
+                                getBlockPos(), level.dimension(), 64
+                        );
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return switch(slot) {
+                    case 0, 1 -> true;
+                    case 2, 3 -> false;
+                    default -> super.isItemValid(slot, stack);
+                };
+            }
+
+            @Override
+            public int getSlotLimit(int slot) {
+                return 1;
+            }
+        };
     }
 
     public int getRedstoneOutput() {
@@ -86,28 +94,6 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("inventory", itemHandler.serializeNBT());
-
-        super.saveAdditional(nbt);
-    }
-
-    @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
-
-        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
-    }
-
-    public void drops(Level level, BlockPos worldPosition) {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-
-        Containers.dropContents(level, worldPosition, inventory);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltBlockEntity blockEntity) {

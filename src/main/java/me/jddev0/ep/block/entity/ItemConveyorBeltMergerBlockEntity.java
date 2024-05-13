@@ -27,10 +27,10 @@ public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.putInt("current_input_index", currentInputIndex);
-
+    protected void saveAdditional(@NotNull CompoundTag nbt) {
         super.saveAdditional(nbt);
+
+        nbt.putInt("current_input_index", currentInputIndex);
     }
 
     @Override
