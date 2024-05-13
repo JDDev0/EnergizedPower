@@ -61,10 +61,10 @@ public final class ModMessages {
                 consumerMainThread(SyncPressMoldMakerRecipeListS2CPacket::handle).
                 add();
 
-        net.messageBuilder(ChangeCurrentRecipeIndexC2SPacket.class, id(), PlayNetworkDirection.PLAY_TO_CLIENT).
-                decoder(ChangeCurrentRecipeIndexC2SPacket::new).
-                encoder(ChangeCurrentRecipeIndexC2SPacket::toBytes).
-                consumerMainThread(ChangeCurrentRecipeIndexC2SPacket::handle).
+        net.messageBuilder(SyncCurrentRecipeS2CPacket.class, id(), PlayNetworkDirection.PLAY_TO_CLIENT).
+                decoder(SyncCurrentRecipeS2CPacket::new).
+                encoder(SyncCurrentRecipeS2CPacket::toBytes).
+                consumerMainThread(SyncCurrentRecipeS2CPacket::handle).
                 add();
 
         net.messageBuilder(SyncFurnaceRecipeTypeS2CPacket.class, id(), PlayNetworkDirection.PLAY_TO_CLIENT).
