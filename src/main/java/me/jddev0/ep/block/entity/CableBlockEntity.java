@@ -304,11 +304,11 @@ public class CableBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
+    protected void saveAdditional(@NotNull CompoundTag nbt) {
+        super.saveAdditional(nbt);
+
         if(ENERGY_EXTRACTION_MODE.isPush())
             nbt.put("energy", energyStorage.saveNBT());
-
-        super.saveAdditional(nbt);
     }
 
     @Override

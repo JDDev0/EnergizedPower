@@ -1,15 +1,12 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.TransformerBlock;
+import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveAndExtractEnergyStorage;
 import me.jddev0.ep.energy.ReceiveExtractEnergyHandler;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -24,13 +21,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TransformerBlockEntity extends BlockEntity implements EnergyStoragePacketUpdate {
-    private final int maxTransferRate;
-
+public class TransformerBlockEntity extends EnergyStorageBlockEntity<ReceiveAndExtractEnergyStorage> {
     private final TransformerBlock.Tier tier;
     private final TransformerBlock.Type type;
 
-    private final ReceiveAndExtractEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
     private final LazyOptional<IEnergyStorage> lazyEnergyStorageSidedReceive;
     private final LazyOptional<IEnergyStorage> lazyEnergyStorageSidedExtract;
@@ -71,25 +65,15 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
     }
 
     public TransformerBlockEntity(BlockPos blockPos, BlockState blockState, TransformerBlock.Tier tier, TransformerBlock.Type type) {
-        super(getEntityTypeFromTierAndType(tier, type), blockPos, blockState);
+        super(
+                getEntityTypeFromTierAndType(tier, type), blockPos, blockState,
+
+                getMaxEnergyTransferFromTier(tier),
+                getMaxEnergyTransferFromTier(tier)
+        );
 
         this.tier = tier;
         this.type = type;
-
-        maxTransferRate = getMaxEnergyTransferFromTier(this.tier);
-
-        energyStorage = new ReceiveAndExtractEnergyStorage(0, maxTransferRate, maxTransferRate) {
-            @Override
-            protected void onChange() {
-                setChanged();
-
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
-                            getBlockPos(), level.dimension(), 32
-                    );
-            }
-        };
 
         lazyEnergyStorageSidedReceive = LazyOptional.of(
                 () -> new ReceiveExtractEnergyHandler(energyStorage, (maxReceive, simulate) -> true, (maxExtract, simulate) -> false)
@@ -98,6 +82,17 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
         lazyEnergyStorageSidedExtract = LazyOptional.of(
                 () -> new ReceiveExtractEnergyHandler(energyStorage, (maxReceive, simulate) -> false, (maxExtract, simulate) -> true)
         );
+    }
+
+    @Override
+    protected ReceiveAndExtractEnergyStorage initEnergyStorage() {
+        return new ReceiveAndExtractEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+            @Override
+            protected void onChange() {
+                setChanged();
+                syncEnergyToPlayers(32);
+            }
+        };
     }
 
     public TransformerBlock.Type getTransformerType() {
@@ -156,20 +151,6 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
         lazyEnergyStorage.invalidate();
     }
 
-    @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("energy", energyStorage.saveNBT());
-
-        super.saveAdditional(nbt);
-    }
-
-    @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
-
-        energyStorage.loadNBT(nbt.get("energy"));
-    }
-
     public static void tick(Level level, BlockPos blockPos, BlockState state, TransformerBlockEntity blockEntity) {
         if(level.isClientSide)
             return;
@@ -223,7 +204,8 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
             if(!energyStorage.canReceive())
                 continue;
 
-            int received = energyStorage.receiveEnergy(Math.min(blockEntity.maxTransferRate, blockEntity.energyStorage.getEnergy()), true);
+            int received = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getMaxTransfer(),
+                    blockEntity.energyStorage.getEnergy()), true);
             if(received <= 0)
                 continue;
 
@@ -236,7 +218,8 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 
-        int consumptionLeft = Math.min(blockEntity.maxTransferRate, Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
+        int consumptionLeft = Math.min(blockEntity.energyStorage.getMaxTransfer(),
+                Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
         blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
 
         int divisor = consumerItems.size();
@@ -265,23 +248,5 @@ public class TransformerBlockEntity extends BlockEntity implements EnergyStorage
             if(energy > 0)
                 consumerItems.get(i).receiveEnergy(energy, false);
         }
-    }
-
-    public int getEnergy() {
-        return energyStorage.getEnergy();
-    }
-
-    public int getCapacity() {
-        return energyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        energyStorage.setEnergyWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        energyStorage.setCapacityWithoutUpdate(capacity);
     }
 }

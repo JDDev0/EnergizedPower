@@ -9,7 +9,7 @@ import me.jddev0.ep.codec.ArrayCodec;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -21,7 +21,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ThermalGeneratorRecipe implements Recipe<SimpleContainer> {
+public class ThermalGeneratorRecipe implements Recipe<Container> {
     private final Fluid[] input;
     private final int energyProduction;
 
@@ -39,12 +39,12 @@ public class ThermalGeneratorRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(SimpleContainer container, Level level) {
+    public boolean matches(Container container, Level level) {
         return false;
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container, RegistryAccess registryAccess) {
+    public ItemStack assemble(Container container, RegistryAccess registryAccess) {
         return ItemStack.EMPTY;
     }
 

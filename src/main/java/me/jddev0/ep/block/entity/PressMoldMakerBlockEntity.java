@@ -1,7 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.block.entity.base.InventoryStorageBlockEntity;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncPressMoldMakerRecipeListS2CPacket;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
@@ -9,11 +10,9 @@ import me.jddev0.ep.screen.PressMoldMakerMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -22,8 +21,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -39,40 +36,50 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class PressMoldMakerBlockEntity extends BlockEntity implements MenuProvider {
+public class PressMoldMakerBlockEntity
+        extends InventoryStorageBlockEntity<ItemStackHandler>
+        implements MenuProvider {
     private List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> recipeList = new ArrayList<>();
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(2) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-
-            if(slot == 0) {
-                if(level != null && !level.isClientSide()) {
-                    List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> recipeList = createRecipeList();
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new SyncPressMoldMakerRecipeListS2CPacket(getBlockPos(), recipeList),
-                            getBlockPos(), level.dimension(), 32
-                    );
-                }
-            }
-        }
-
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return switch(slot) {
-                case 0 -> level == null || stack.is(Items.CLAY_BALL);
-                case 1 -> false;
-                default -> super.isItemValid(slot, stack);
-            };
-        }
-    };
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1));
 
     public PressMoldMakerBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.PRESS_MOLD_MAKER_ENTITY.get(), blockPos, blockState);
+        super(
+                ModBlockEntities.PRESS_MOLD_MAKER_ENTITY.get(), blockPos, blockState,
+
+                2
+        );
+    }
+
+    @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+
+                if(slot == 0) {
+                    if(level != null && !level.isClientSide()) {
+                        List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> recipeList = createRecipeList();
+                        ModMessages.sendToPlayersWithinXBlocks(
+                                new SyncPressMoldMakerRecipeListS2CPacket(getBlockPos(), recipeList),
+                                getBlockPos(), level.dimension(), 32
+                        );
+                    }
+                }
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return switch(slot) {
+                    case 0 -> level == null || stack.is(Items.CLAY_BALL);
+                    case 1 -> false;
+                    default -> super.isItemValid(slot, stack);
+                };
+            }
+        };
     }
 
     @Override
@@ -119,28 +126,6 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements MenuProvid
         lazyItemHandler.invalidate();
     }
 
-    @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("inventory", itemHandler.serializeNBT());
-
-        super.saveAdditional(nbt);
-    }
-
-    @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
-
-        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
-    }
-
-    public void drops(Level level, BlockPos worldPosition) {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-
-        Containers.dropContents(level, worldPosition, inventory);
-    }
-
     public void craftItem(ResourceLocation recipeId) {
         Optional<RecipeHolder<?>> recipe = level.getRecipeManager().getRecipes().stream().
                 filter(recipeHolder -> recipeHolder.id().equals(recipeId)).findFirst();
@@ -153,19 +138,12 @@ public class PressMoldMakerBlockEntity extends BlockEntity implements MenuProvid
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         if(!pressMoldMakerRecipe.matches(inventory, level) ||
-                !canInsertItemIntoOutputSlot(inventory, pressMoldMakerRecipe.getResultItem(level.registryAccess())))
+                !InventoryUtils.canInsertItemIntoSlot(inventory, 1, pressMoldMakerRecipe.getResultItem(level.registryAccess())))
             return;
 
         itemHandler.extractItem(0, pressMoldMakerRecipe.getClayCount(), false);
         itemHandler.setStackInSlot(1, pressMoldMakerRecipe.getResultItem(level.registryAccess()).copyWithCount(
                 itemHandler.getStackInSlot(1).getCount() + pressMoldMakerRecipe.getResultItem(level.registryAccess()).getCount()));
-    }
-
-    private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
-        ItemStack inventoryItemStack = inventory.getItem(1);
-
-        return (inventoryItemStack.isEmpty() || ItemStack.isSameItemSameTags(inventoryItemStack, itemStack)) &&
-                inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount();
     }
 
     private List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> createRecipeList() {

@@ -101,15 +101,15 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
+    protected void saveAdditional(@NotNull CompoundTag nbt) {
+        super.saveAdditional(nbt);
+
         nbt.put("pattern", savePatternContainer());
 
         for(int i = 0;i < 3;i++)
             nbt.putBoolean("recipe.whitelist." + i, whitelist[i]);
         for(int i = 0;i < 3;i++)
             nbt.putBoolean("recipe.ignore_nbt." + i, ignoreNBT[i]);
-
-        super.saveAdditional(nbt);
     }
 
     private Tag savePatternContainer() {
