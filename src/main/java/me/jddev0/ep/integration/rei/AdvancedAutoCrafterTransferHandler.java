@@ -30,7 +30,7 @@ public class AdvancedAutoCrafterTransferHandler implements TransferHandler {
             return Result.createNotApplicable();
 
         if(!recipe.fits(3, 3))
-            return Result.createFailed(Text.translatable("recipes.energizedpower.transfer.too_large"));;
+            return Result.createFailed(Text.translatable("recipes.energizedpower.transfer.too_large"));
 
         if(!context.isActuallyCrafting())
             return Result.createSuccessful().blocksFurtherHandling();

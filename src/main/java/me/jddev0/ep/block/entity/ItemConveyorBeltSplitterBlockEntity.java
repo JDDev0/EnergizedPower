@@ -30,10 +30,10 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.putInt("current_output_index", currentOutputIndex);
-
+    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
         super.writeNbt(nbt, registries);
+
+        nbt.putInt("current_output_index", currentOutputIndex);
     }
 
     @Override

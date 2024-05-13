@@ -1,9 +1,7 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.BatteryBoxMenu;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -11,17 +9,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import me.jddev0.ep.util.EnergyUtils;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
@@ -30,30 +24,33 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BatteryBoxBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, EnergyStoragePacketUpdate {
+public class BatteryBoxBlockEntity extends EnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
+        implements ExtendedScreenHandlerFactory<BlockPos> {
     public static final long CAPACITY = ModConfigs.COMMON_BATTERY_BOX_CAPACITY.getValue();
     public static final long MAX_TRANSFER = ModConfigs.COMMON_BATTERY_BOX_TRANSFER_RATE.getValue();
 
-    final EnergizedPowerLimitingEnergyStorage energyStorage;
-    private final EnergizedPowerEnergyStorage internalEnergyStorage;
-
     public BatteryBoxBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.BATTERY_BOX_ENTITY, blockPos, blockState);
+        super(
+                ModBlockEntities.BATTERY_BOX_ENTITY, blockPos, blockState,
 
-        internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
+                CAPACITY, MAX_TRANSFER
+        );
+    }
+
+    @Override
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
-
-                if(world != null && !world.isClient()) {
-                    ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                            getPos(), (ServerWorld)world, 32,
-                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getPos())
-                    );
-                }
+                syncEnergyToPlayers(32);
             }
         };
-        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_TRANSFER, MAX_TRANSFER);
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, baseEnergyTransferRate);
     }
 
     @Override
@@ -64,8 +61,7 @@ public class BatteryBoxBlockEntity extends BlockEntity implements ExtendedScreen
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos()));
+        syncEnergyToPlayer(player);
 
         return new BatteryBoxMenu(id, this, inventory);
     }
@@ -76,21 +72,7 @@ public class BatteryBoxBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
     public int getRedstoneOutput() {
-        return EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
-    }
-
-    @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.putLong("energy", internalEnergyStorage.getAmount());
-
-        super.writeNbt(nbt, registries);
-    }
-
-    @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
-
-        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
+        return EnergyUtils.getRedstoneSignalFromEnergyStorage(limitingEnergyStorage);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, BatteryBoxBlockEntity blockEntity) {
@@ -114,21 +96,22 @@ public class BatteryBoxBlockEntity extends BlockEntity implements ExtendedScreen
             if(testBlockEntity == null)
                 continue;
 
-            EnergyStorage energyStorage = EnergyStorage.SIDED.find(level, testPos, direction.getOpposite());
-            if(energyStorage == null)
+            EnergyStorage limitingEnergyStorage = EnergyStorage.SIDED.find(level, testPos, direction.getOpposite());
+            if(limitingEnergyStorage == null)
                 continue;
 
-            if(!energyStorage.supportsInsertion())
+            if(!limitingEnergyStorage.supportsInsertion())
                 continue;
 
             try(Transaction transaction = Transaction.openOuter()) {
-                long received = energyStorage.insert(Math.min(MAX_TRANSFER, blockEntity.internalEnergyStorage.getAmount()), transaction);
+                long received = limitingEnergyStorage.insert(Math.min(blockEntity.limitingEnergyStorage.getMaxExtract(),
+                        blockEntity.energyStorage.getAmount()), transaction);
 
                 if(received <= 0)
                     continue;
 
                 consumptionSum += received;
-                consumerItems.add(energyStorage);
+                consumerItems.add(limitingEnergyStorage);
                 consumerEnergyValues.add(received);
             }
         }
@@ -137,9 +120,10 @@ public class BatteryBoxBlockEntity extends BlockEntity implements ExtendedScreen
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0L);
 
-        long consumptionLeft = Math.min(MAX_TRANSFER, Math.min(blockEntity.internalEnergyStorage.getAmount(), consumptionSum));
+        long consumptionLeft = Math.min(blockEntity.limitingEnergyStorage.getMaxExtract(),
+                Math.min(blockEntity.energyStorage.getAmount(), consumptionSum));
         try(Transaction transaction = Transaction.openOuter()) {
-            blockEntity.internalEnergyStorage.extract(consumptionLeft, transaction);
+            blockEntity.energyStorage.extract(consumptionLeft, transaction);
             transaction.commit();
         }
 
@@ -173,23 +157,5 @@ public class BatteryBoxBlockEntity extends BlockEntity implements ExtendedScreen
                 }
             }
         }
-    }
-
-    public long getEnergy() {
-        return internalEnergyStorage.getAmount();
-    }
-
-    public long getCapacity() {
-        return internalEnergyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(long energy) {
-        internalEnergyStorage.setAmountWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(long capacity) {
-        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 }

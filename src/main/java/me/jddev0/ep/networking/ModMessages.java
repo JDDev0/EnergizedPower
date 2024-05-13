@@ -21,8 +21,7 @@ public final class ModMessages {
         PayloadTypeRegistry.playS2C().register(ItemStackSyncS2CPacket.ID, ItemStackSyncS2CPacket.PACKET_CODEC);
         PayloadTypeRegistry.playS2C().register(OpenEnergizedPowerBookS2CPacket.ID, OpenEnergizedPowerBookS2CPacket.PACKET_CODEC);
         PayloadTypeRegistry.playS2C().register(SyncPressMoldMakerRecipeListS2CPacket.ID, SyncPressMoldMakerRecipeListS2CPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playS2C().register(SyncStoneSolidifierCurrentRecipeS2CPacket.ID, SyncStoneSolidifierCurrentRecipeS2CPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playS2C().register(SyncFiltrationPlantCurrentRecipeS2CPacket.ID, SyncFiltrationPlantCurrentRecipeS2CPacket.PACKET_CODEC);
+        PayloadTypeRegistry.playS2C().register(SyncCurrentRecipeS2CPacket.ID, SyncCurrentRecipeS2CPacket.PACKET_CODEC);
         PayloadTypeRegistry.playS2C().register(SyncFurnaceRecipeTypeS2CPacket.ID, SyncFurnaceRecipeTypeS2CPacket.PACKET_CODEC);
 
         //Client -> Server
@@ -37,10 +36,9 @@ public final class ModMessages {
         PayloadTypeRegistry.playC2S().register(CycleAutoCrafterRecipeOutputC2SPacket.ID, CycleAutoCrafterRecipeOutputC2SPacket.PACKET_CODEC);
         PayloadTypeRegistry.playC2S().register(CycleAdvancedAutoCrafterRecipeOutputC2SPacket.ID, CycleAdvancedAutoCrafterRecipeOutputC2SPacket.PACKET_CODEC);
         PayloadTypeRegistry.playC2S().register(CraftPressMoldMakerRecipeC2SPacket.ID, CraftPressMoldMakerRecipeC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(ChangeStoneSolidifierRecipeIndexC2SPacket.ID, ChangeStoneSolidifierRecipeIndexC2SPacket.PACKET_CODEC);
+        PayloadTypeRegistry.playC2S().register(ChangeCurrentRecipeIndexC2SPacket.ID, ChangeCurrentRecipeIndexC2SPacket.PACKET_CODEC);
         PayloadTypeRegistry.playC2S().register(ChangeRedstoneModeC2SPacket.ID, ChangeRedstoneModeC2SPacket.PACKET_CODEC);
         PayloadTypeRegistry.playC2S().register(SetFluidTankFilterC2SPacket.ID, SetFluidTankFilterC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(ChangeFiltrationPlantRecipeIndexC2SPacket.ID, ChangeFiltrationPlantRecipeIndexC2SPacket.PACKET_CODEC);
         PayloadTypeRegistry.playC2S().register(ChangeComparatorModeC2SPacket.ID, ChangeComparatorModeC2SPacket.PACKET_CODEC);
     }
 
@@ -50,8 +48,7 @@ public final class ModMessages {
         ClientPlayNetworking.registerGlobalReceiver(ItemStackSyncS2CPacket.ID, ItemStackSyncS2CPacket::receive);
         ClientPlayNetworking.registerGlobalReceiver(OpenEnergizedPowerBookS2CPacket.ID, OpenEnergizedPowerBookS2CPacket::receive);
         ClientPlayNetworking.registerGlobalReceiver(SyncPressMoldMakerRecipeListS2CPacket.ID, SyncPressMoldMakerRecipeListS2CPacket::receive);
-        ClientPlayNetworking.registerGlobalReceiver(SyncStoneSolidifierCurrentRecipeS2CPacket.ID, SyncStoneSolidifierCurrentRecipeS2CPacket::receive);
-        ClientPlayNetworking.registerGlobalReceiver(SyncFiltrationPlantCurrentRecipeS2CPacket.ID, SyncFiltrationPlantCurrentRecipeS2CPacket::receive);
+        ClientPlayNetworking.registerGlobalReceiver(SyncCurrentRecipeS2CPacket.ID, SyncCurrentRecipeS2CPacket::receive);
         ClientPlayNetworking.registerGlobalReceiver(SyncFurnaceRecipeTypeS2CPacket.ID, SyncFurnaceRecipeTypeS2CPacket::receive);
     }
 
@@ -67,10 +64,9 @@ public final class ModMessages {
         ServerPlayNetworking.registerGlobalReceiver(CycleAutoCrafterRecipeOutputC2SPacket.ID, CycleAutoCrafterRecipeOutputC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(CycleAdvancedAutoCrafterRecipeOutputC2SPacket.ID, CycleAdvancedAutoCrafterRecipeOutputC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(CraftPressMoldMakerRecipeC2SPacket.ID, CraftPressMoldMakerRecipeC2SPacket::receive);
-        ServerPlayNetworking.registerGlobalReceiver(ChangeStoneSolidifierRecipeIndexC2SPacket.ID, ChangeStoneSolidifierRecipeIndexC2SPacket::receive);
+        ServerPlayNetworking.registerGlobalReceiver(ChangeCurrentRecipeIndexC2SPacket.ID, ChangeCurrentRecipeIndexC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(ChangeRedstoneModeC2SPacket.ID, ChangeRedstoneModeC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(SetFluidTankFilterC2SPacket.ID, SetFluidTankFilterC2SPacket::receive);
-        ServerPlayNetworking.registerGlobalReceiver(ChangeFiltrationPlantRecipeIndexC2SPacket.ID, ChangeFiltrationPlantRecipeIndexC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(ChangeComparatorModeC2SPacket.ID, ChangeComparatorModeC2SPacket::receive);
     }
 

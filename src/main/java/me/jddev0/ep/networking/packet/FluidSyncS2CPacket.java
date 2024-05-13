@@ -41,8 +41,8 @@ public record FluidSyncS2CPacket(int tank, FluidStack fluidStack, long capacity,
             BlockEntity blockEntity = context.client().world.getBlockEntity(data.pos);
             if(blockEntity instanceof FluidStoragePacketUpdate) {
                 FluidStoragePacketUpdate fluidStorage = (FluidStoragePacketUpdate)blockEntity;
-                fluidStorage.setFluid(data.tank, data.fluidStack);
                 fluidStorage.setTankCapacity(data.tank, data.capacity);
+                fluidStorage.setFluid(data.tank, data.fluidStack);
             }
         });
     }

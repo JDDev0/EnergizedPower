@@ -1,12 +1,10 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.TeleporterBlock;
-import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
-import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
+import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
 import me.jddev0.ep.networking.ModMessages;
@@ -18,15 +16,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -36,7 +31,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
@@ -47,11 +41,12 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.stream.IntStream;
 import java.util.List;
 import java.util.Optional;
 
-public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, EnergyStoragePacketUpdate {
+public class TeleporterBlockEntity
+        extends InventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
+        implements ExtendedScreenHandlerFactory<BlockPos> {
     public static final boolean INTRA_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_ENABLED.getValue();
     public static final boolean INTER_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_ENABLED.getValue();
     public static final List<@NotNull Identifier> DIMENSION_BLACKLIST =
@@ -72,20 +67,45 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
             ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_TYPE_BLACKLIST.getValue();
 
     public static final long CAPACITY = ModConfigs.COMMON_TELEPORTER_CAPACITY.getValue();
-    public static final long MAX_RECEIVE = ModConfigs.COMMON_TELEPORTER_TRANSFER_RATE.getValue();
 
-    final CachedSidedInventoryStorage<BlockPlacerBlockEntity> cachedSidedInventoryStorage;
-    final InputOutputItemHandler inventory;
-    private final SimpleInventory internalInventory;
-
-    final EnergizedPowerLimitingEnergyStorage energyStorage;
-    private final EnergizedPowerEnergyStorage internalEnergyStorage;
-
+    final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> true);
 
     public TeleporterBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.TELEPORTER_ENTITY, blockPos, blockState);
+        super(
+                ModBlockEntities.TELEPORTER_ENTITY, blockPos, blockState,
 
-        internalInventory = new SimpleInventory(1) {
+                CAPACITY,
+                ModConfigs.COMMON_TELEPORTER_TRANSFER_RATE.getValue(),
+
+                1
+        );
+    }
+
+    @Override
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
+            @Override
+            protected void onFinalCommit() {
+                setChangedAndUpdateReadyState();
+
+                if(world != null && !world.isClient()) {
+                    ModMessages.sendServerPacketToPlayersWithinXBlocks(
+                            getPos(), (ServerWorld)world, 32,
+                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getPos())
+                    );
+                }
+            }
+        };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0);
+    }
+
+    @Override
+    protected SimpleInventory initInventoryStorage() {
+        return new SimpleInventory(slotCount) {
             @Override
             public int getMaxCountPerStack() {
                 return 1;
@@ -107,38 +127,6 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
                 setChangedAndUpdateReadyState();
             }
         };
-        inventory = new InputOutputItemHandler(new SidedInventoryWrapper(internalInventory) {
-            @Override
-            public int[] getAvailableSlots(Direction side) {
-                return IntStream.range(0, 1).toArray();
-            }
-
-            @Override
-            public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-                return isValid(slot, stack);
-            }
-
-            @Override
-            public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-                return true;
-            }
-        }, (i, stack) -> true, i -> true);
-        cachedSidedInventoryStorage = new CachedSidedInventoryStorage<>(inventory);
-
-        internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
-            @Override
-            protected void onFinalCommit() {
-                setChangedAndUpdateReadyState();
-
-                if(world != null && !world.isClient()) {
-                    ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                            getPos(), (ServerWorld)world, 32,
-                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getPos())
-                    );
-                }
-            }
-        };
-        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0);
     }
 
     @Override
@@ -147,16 +135,15 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
     public int getRedstoneOutput() {
-        return ScreenHandler.calculateComparatorOutput(internalInventory);
+        return ScreenHandler.calculateComparatorOutput(itemHandler);
     }
 
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos()));
+        syncEnergyToPlayer(player);
 
-        return new TeleporterMenu(id, this, inventory, internalInventory);
+        return new TeleporterMenu(id, this, inventory, itemHandler);
     }
 
     @Override
@@ -164,33 +151,13 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
         return pos;
     }
 
-    @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
-        nbt.putLong("energy", internalEnergyStorage.getAmount());
-
-        super.writeNbt(nbt, registries);
-    }
-
-    @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
-
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
-        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
-    }
-
-    public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory);
-    }
-
     public void setChangedAndUpdateReadyState() {
         boolean oldPowered = world.getBlockState(pos).contains(TeleporterBlock.POWERED) &&
                 world.getBlockState(pos).get(TeleporterBlock.POWERED);
 
-        ItemStack teleporterMatrixItemStack = internalInventory.getStack(0);
+        ItemStack teleporterMatrixItemStack = itemHandler.getStack(0);
 
-        boolean powered = internalEnergyStorage.getAmount() == internalEnergyStorage.getCapacity() &&
+        boolean powered = energyStorage.getAmount() == energyStorage.getCapacity() &&
                 teleporterMatrixItemStack.isOf(ModItems.TELEPORTER_MATRIX) &&
                 TeleporterMatrixItem.isLinked(teleporterMatrixItemStack);
 
@@ -220,11 +187,11 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
     public void teleportPlayer(ServerPlayerEntity player) {
-        EnergyStorage energyStorage = EnergyStorage.SIDED.find(player.getWorld(), pos, null);
-        if(energyStorage == null)
+        EnergyStorage limitingEnergyStorage = EnergyStorage.SIDED.find(player.getWorld(), pos, null);
+        if(limitingEnergyStorage == null)
             return;
 
-        if(energyStorage.getAmount() < TeleporterBlockEntity.CAPACITY) {
+        if(limitingEnergyStorage.getAmount() < TeleporterBlockEntity.CAPACITY) {
             player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
                     Text.translatable("tooltip.energizedpower.teleporter.use.not_enough_energy").
                             formatted(Formatting.RED)
@@ -444,36 +411,18 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
     public int getSlotCount() {
-        return internalInventory.size();
+        return itemHandler.size();
     }
 
     public ItemStack getStack(int slot) {
-        return internalInventory.getStack(slot);
+        return itemHandler.getStack(slot);
     }
 
     public void clearEnergy() {
         try(Transaction transaction = Transaction.openOuter()) {
-            internalEnergyStorage.extract(CAPACITY, transaction);
+            energyStorage.extract(CAPACITY, transaction);
 
             transaction.commit();
         }
-    }
-
-    public long getEnergy() {
-        return internalEnergyStorage.getAmount();
-    }
-
-    public long getCapacity() {
-        return internalEnergyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(long energy) {
-        internalEnergyStorage.setAmountWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(long capacity) {
-        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 }

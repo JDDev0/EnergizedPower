@@ -7,7 +7,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.item.ModItems;
-import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -18,7 +18,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import java.util.Optional;
 
-public class SawmillRecipe implements Recipe<SimpleInventory> {
+public class SawmillRecipe implements Recipe<Inventory> {
     private final ItemStack output;
     private final ItemStack secondaryOutput;
     private final Ingredient input;
@@ -46,7 +46,7 @@ public class SawmillRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public boolean matches(SimpleInventory container, World level) {
+    public boolean matches(Inventory container, World level) {
         if(level.isClient())
             return false;
 
@@ -54,7 +54,7 @@ public class SawmillRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack craft(SimpleInventory container, RegistryWrapper.WrapperLookup registriesr) {
+    public ItemStack craft(Inventory container, RegistryWrapper.WrapperLookup registriesr) {
         return output;
     }
 

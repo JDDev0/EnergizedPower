@@ -2,10 +2,9 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltLoaderBlock;
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
-import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
+import me.jddev0.ep.block.entity.base.InventoryStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.screen.ItemConveyorBeltLoaderMenu;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
@@ -17,34 +16,34 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.stream.IntStream;
-
-public class ItemConveyorBeltLoaderBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos> {
+public class ItemConveyorBeltLoaderBlockEntity
+        extends InventoryStorageBlockEntity<SimpleInventory>
+        implements ExtendedScreenHandlerFactory<BlockPos> {
     private static final int TICKS_PER_ITEM = ModConfigs.COMMON_ITEM_CONVEYOR_BELT_LOADER_TICKS_PER_ITEM.getValue();
 
-    final CachedSidedInventoryStorage<BlockPlacerBlockEntity> cachedSidedInventoryStorage;
-    final InputOutputItemHandler inventory;
-    private final SimpleInventory internalInventory;
+    final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 0);
 
     public ItemConveyorBeltLoaderBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.ITEM_CONVEYOR_BELT_LOADER_ENTITY, blockPos, blockState);
+        super(
+                ModBlockEntities.ITEM_CONVEYOR_BELT_LOADER_ENTITY, blockPos, blockState,
 
-        internalInventory = new SimpleInventory(1) {
+                1
+        );
+    }
+
+    @Override
+    protected SimpleInventory initInventoryStorage() {
+        return new SimpleInventory(slotCount) {
             @Override
             public int getMaxCountPerStack() {
                 return 1;
@@ -66,23 +65,6 @@ public class ItemConveyorBeltLoaderBlockEntity extends BlockEntity implements Ex
                 ItemConveyorBeltLoaderBlockEntity.this.markDirty();
             }
         };
-        inventory = new InputOutputItemHandler(new SidedInventoryWrapper(internalInventory) {
-            @Override
-            public int[] getAvailableSlots(Direction side) {
-                return IntStream.range(0, 1).toArray();
-            }
-
-            @Override
-            public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-                return isValid(slot, stack);
-            }
-
-            @Override
-            public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-                return true;
-            }
-        }, (i, stack) -> true, i -> true);
-        cachedSidedInventoryStorage = new CachedSidedInventoryStorage<>(inventory);
     }
 
     @Override
@@ -93,7 +75,7 @@ public class ItemConveyorBeltLoaderBlockEntity extends BlockEntity implements Ex
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        return new ItemConveyorBeltLoaderMenu(id, this, inventory, internalInventory);
+        return new ItemConveyorBeltLoaderMenu(id, this, inventory, itemHandler);
     }
 
     @Override
@@ -102,25 +84,7 @@ public class ItemConveyorBeltLoaderBlockEntity extends BlockEntity implements Ex
     }
 
     public int getRedstoneOutput() {
-        return ScreenHandler.calculateComparatorOutput(internalInventory);
-    }
-
-    @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
-
-        super.writeNbt(nbt, registries);
-    }
-
-    @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
-
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
-    }
-
-    public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory);
+        return ScreenHandler.calculateComparatorOutput(itemHandler);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltLoaderBlockEntity blockEntity) {
@@ -128,10 +92,10 @@ public class ItemConveyorBeltLoaderBlockEntity extends BlockEntity implements Ex
             return;
 
         if(level.getTime() % TICKS_PER_ITEM == 0 && state.get(ItemConveyorBeltLoaderBlock.ENABLED)) {
-            if(!blockEntity.internalInventory.getStack(0).isEmpty())
-                insertItemStackIntoItemConveyorBelt(level, blockPos, state, blockEntity, blockEntity.internalInventory.getStack(0).copy());
+            if(!blockEntity.itemHandler.getStack(0).isEmpty())
+                insertItemStackIntoItemConveyorBelt(level, blockPos, state, blockEntity, blockEntity.itemHandler.getStack(0).copy());
 
-            if(blockEntity.internalInventory.getStack(0).isEmpty())
+            if(blockEntity.itemHandler.getStack(0).isEmpty())
                 extractItemStackFromBlockEntity(level, blockPos, state, blockEntity);
         }
     }
@@ -156,7 +120,7 @@ public class ItemConveyorBeltLoaderBlockEntity extends BlockEntity implements Ex
         try(Transaction transaction = Transaction.openOuter()) {
             long amount = itemStackStorage.insert(ItemVariant.of(itemStackToInsert), 1, transaction);
             if(amount > 0)
-                blockEntity.internalInventory.setStack(0, ItemStack.EMPTY);
+                blockEntity.itemHandler.setStack(0, ItemStack.EMPTY);
 
             transaction.commit();
         }
@@ -182,7 +146,7 @@ public class ItemConveyorBeltLoaderBlockEntity extends BlockEntity implements Ex
                 ItemVariant itemVariant = itemView.getResource();
                 long amount = itemStackStorage.extract(itemVariant, 1, transaction);
                 if(amount > 0) {
-                    blockEntity.internalInventory.setStack(0, itemVariant.toStack(1));
+                    blockEntity.itemHandler.setStack(0, itemVariant.toStack(1));
 
                     break;
                 }

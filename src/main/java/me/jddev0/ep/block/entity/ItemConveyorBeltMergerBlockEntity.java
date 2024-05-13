@@ -30,14 +30,14 @@ public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.putInt("current_input_index", currentInputIndex);
-
+    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
         super.writeNbt(nbt, registries);
+
+        nbt.putInt("current_input_index", currentInputIndex);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+    protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
         currentInputIndex = nbt.getInt("current_input_index");

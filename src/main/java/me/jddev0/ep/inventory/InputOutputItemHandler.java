@@ -1,26 +1,65 @@
-package me.jddev0.ep.block.entity.handler;
+package me.jddev0.ep.inventory;
 
+import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.IntStream;
 
-public abstract class SidedInventoryWrapper implements SidedInventory {
-    private final Inventory handler;
+public class InputOutputItemHandler implements SidedInventory, Function<Direction, @Nullable Storage<ItemVariant>> {
+    private final InventoryStorage[] cachedInventoryStorages = new InventoryStorage[Direction.values().length];
 
-    public SidedInventoryWrapper(Inventory handler) {
-        this.handler = handler;
+    private final SidedInventory handler;
+    private final BiPredicate<Integer, ItemStack> canInput;
+    private final Predicate<Integer> canOutput;
+
+    public InputOutputItemHandler(Inventory handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
+        this(new SidedInventoryWrapper(handler), canInput, canOutput);
     }
 
-    public Inventory getHandler() {
-        return handler;
+    public InputOutputItemHandler(SidedInventory handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
+        this.handler = handler;
+        this.canInput = canInput;
+        this.canOutput = canOutput;
+    }
+
+    @Override
+    @Nullable
+    public Storage<ItemVariant> apply(Direction side) {
+        if(side == null)
+            return null;
+
+        int index = side.ordinal();
+
+        if(cachedInventoryStorages[index] == null)
+            cachedInventoryStorages[index] = InventoryStorage.of(this, side);
+
+        return cachedInventoryStorages[index];
+    }
+
+    @Override
+    public int[] getAvailableSlots(Direction side) {
+        return handler.getAvailableSlots(side);
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        return canInput.test(slot, stack) && handler.isValid(slot, stack) && handler.canInsert(slot, stack, dir);
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        return canOutput.test(slot) && handler.canExtract(slot, stack, dir);
     }
 
     @Override

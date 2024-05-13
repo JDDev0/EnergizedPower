@@ -1,29 +1,20 @@
 package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
-import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
 import me.jddev0.ep.block.AutoCrafterBlock;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
-import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
+import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
-import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
-import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
-import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import me.jddev0.ep.util.ByteUtils;
-import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.*;
@@ -37,12 +28,9 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -50,32 +38,21 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
-public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, EnergyStoragePacketUpdate, RedstoneModeUpdate,
-        ComparatorModeUpdate, CheckboxUpdate {
+public class AutoCrafterBlockEntity
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
+        implements ExtendedScreenHandlerFactory<BlockPos>, CheckboxUpdate {
     private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
-    public static final long CAPACITY = ModConfigs.COMMON_AUTO_CRAFTER_CAPACITY.getValue();
-    public static final long MAX_RECEIVE = ModConfigs.COMMON_AUTO_CRAFTER_TRANSFER_RATE.getValue();
     public final static long ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT =
             ModConfigs.COMMON_AUTO_CRAFTER_ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT.getValue();
 
     public static final int RECIPE_DURATION = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_DURATION.getValue();
 
-    final CachedSidedInventoryStorage<AutoCrafterBlockEntity> cachedSidedInventoryStorage;
-    final InputOutputItemHandler inventory;
-    private final SimpleInventory internalInventory;
+    private boolean secondaryExtractMode;
 
-    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
-            UpgradeModuleModifier.SPEED,
-            UpgradeModuleModifier.ENERGY_CONSUMPTION,
-            UpgradeModuleModifier.ENERGY_CAPACITY
-    );
-    private final InventoryChangedListener updateUpgradeModuleListener = container -> updateUpgradeModules();
-
-    final EnergizedPowerLimitingEnergyStorage energyStorage;
-    private final EnergizedPowerEnergyStorage internalEnergyStorage;
+    final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 3,
+            i -> secondaryExtractMode?!isInput(itemHandler.getStack(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getStack(i)));
 
     private final SimpleInventory patternSlots = new SimpleInventory(3 * 3) {
         @Override
@@ -108,79 +85,22 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     private long energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
     private boolean ignoreNBT;
-    private boolean secondaryExtractMode;
-
-    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
-    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public AutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.AUTO_CRAFTER_ENTITY, blockPos, blockState);
+        super(
+                ModBlockEntities.AUTO_CRAFTER_ENTITY, blockPos, blockState,
 
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+                ModConfigs.COMMON_AUTO_CRAFTER_CAPACITY.getValue(),
+                ModConfigs.COMMON_AUTO_CRAFTER_TRANSFER_RATE.getValue(),
+
+                18,
+
+                UpgradeModuleModifier.SPEED,
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        );
+
         patternSlots.addListener(updatePatternListener);
-
-        internalInventory = new SimpleInventory(18) {
-            @Override
-            public boolean isValid(int slot, ItemStack stack) {
-                if(slot < 0 || slot >= 18)
-                    return super.isValid(slot, stack);
-
-                //Slot 0, 1, and 2 are for output items only
-                return slot >= 3;
-            }
-
-            @Override
-            public void markDirty() {
-                super.markDirty();
-
-                AutoCrafterBlockEntity.this.markDirty();
-            }
-        };
-        inventory = new InputOutputItemHandler(new SidedInventoryWrapper(internalInventory) {
-            @Override
-            public int[] getAvailableSlots(Direction side) {
-                return IntStream.range(0, 18).toArray();
-            }
-
-            @Override
-            public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-                return isValid(slot, stack);
-            }
-
-            @Override
-            public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-                return true;
-            }
-        }, (i, stack) -> i >= 3, i -> secondaryExtractMode?!isInput(internalInventory.getStack(i)):
-                isOutputOrCraftingRemainderOfInput(internalInventory.getStack(i)));
-        cachedSidedInventoryStorage = new CachedSidedInventoryStorage<>(inventory);
-
-        internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
-            @Override
-            public long getCapacity() {
-                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_CAPACITY)));
-            }
-
-            @Override
-            protected void onFinalCommit() {
-                markDirty();
-
-                if(world != null && !world.isClient()) {
-                    ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                            getPos(), (ServerWorld)world, 32,
-                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getPos())
-                    );
-                }
-            }
-        };
-        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0) {
-            @Override
-            public long getMaxInsert() {
-                return Math.max(1, (long)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-        };
 
         data = new PropertyDelegate() {
             @Override
@@ -223,6 +143,55 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     }
 
     @Override
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
+            @Override
+            public long getCapacity() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            protected void onFinalCommit() {
+                markDirty();
+                syncEnergyToPlayers(32);
+            }
+        };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0) {
+            @Override
+            public long getMaxInsert() {
+                return Math.max(1, (long)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+        };
+    }
+
+    @Override
+    protected SimpleInventory initInventoryStorage() {
+        return new SimpleInventory(slotCount) {
+            @Override
+            public boolean isValid(int slot, ItemStack stack) {
+                if(slot < 0 || slot >= 18)
+                    return super.isValid(slot, stack);
+
+                //Slot 0, 1, and 2 are for output items only
+                return slot >= 3;
+            }
+
+            @Override
+            public void markDirty() {
+                super.markDirty();
+
+                AutoCrafterBlockEntity.this.markDirty();
+            }
+        };
+    }
+
+    @Override
     public Text getDisplayName() {
         return Text.translatable("container.energizedpower.auto_crafter");
     }
@@ -230,10 +199,9 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos()));
+        syncEnergyToPlayer(player);
 
-        return new AutoCrafterMenu(id, this, inventory, internalInventory, upgradeModuleInventory, patternSlots, patternResultSlots, data);
+        return new AutoCrafterMenu(id, this, inventory, itemHandler, upgradeModuleInventory, patternSlots, patternResultSlots, data);
     }
 
     @Override
@@ -241,22 +209,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         return pos;
     }
 
-    public int getRedstoneOutput() {
-        return switch(comparatorMode) {
-            case ITEM -> ScreenHandler.calculateComparatorOutput(internalInventory);
-            case FLUID -> 0;
-            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
-        };
-    }
-
     @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        //Save Upgrade Module Inventory first
-        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
+    protected void writeNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
+        super.writeNbt(nbt, registries);
 
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
         nbt.put("pattern", Inventories.writeNbt(new NbtCompound(), patternSlots.heldStacks, registries));
-        nbt.putLong("energy", internalEnergyStorage.getAmount());
 
         if(craftingRecipe != null)
             nbt.put("recipe.id", NbtString.of(craftingRecipe.id().toString()));
@@ -267,25 +224,13 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
 
         nbt.putBoolean("ignore_nbt", ignoreNBT);
         nbt.putBoolean("secondary_extract_mode", secondaryExtractMode);
-
-        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
-        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
-
-        super.writeNbt(nbt, registries);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        //Load Upgrade Module Inventory first
-        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
-        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
-
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
         Inventories.readNbt(nbt.getCompound("pattern"), patternSlots.heldStacks, registries);
-        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
 
         if(nbt.contains("recipe.id")) {
             NbtElement tag = nbt.get("recipe.id");
@@ -302,14 +247,6 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
 
         ignoreNBT = nbt.getBoolean("ignore_nbt");
         secondaryExtractMode = nbt.getBoolean("secondary_extract_mode");
-
-        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
-        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
-    }
-
-    public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory);
-        ItemScatterer.spawn(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, AutoCrafterBlockEntity blockEntity) {
@@ -362,9 +299,9 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 return;
             }
 
-            if(energyConsumptionPerTick <= blockEntity.internalEnergyStorage.getAmount()) {
+            if(energyConsumptionPerTick <= blockEntity.energyStorage.getAmount()) {
                 try(Transaction transaction = Transaction.openOuter()) {
-                    blockEntity.internalEnergyStorage.extract(energyConsumptionPerTick, transaction);
+                    blockEntity.energyStorage.extract(energyConsumptionPerTick, transaction);
                     transaction.commit();
                 }
 
@@ -506,10 +443,10 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         List<ItemStack> itemStacksExtract = ItemStackUtils.combineItemStacks(patternItemStacks);
 
         for(ItemStack itemStack:itemStacksExtract) {
-            for(int i = 0;i < internalInventory.size();i++) {
-                ItemStack testItemStack = internalInventory.getStack(i);
+            for(int i = 0;i < itemHandler.size();i++) {
+                ItemStack testItemStack = itemHandler.getStack(i);
                 if(ItemStack.areItemsAndComponentsEqual(itemStack, testItemStack)) {
-                    ItemStack ret = internalInventory.removeStack(i, itemStack.getCount());
+                    ItemStack ret = itemHandler.removeStack(i, itemStack.getCount());
                     if(!ret.isEmpty()) {
                         int amount = ret.getCount();
                         if(amount == itemStack.getCount())
@@ -545,8 +482,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         List<Integer> emptyIndices = new ArrayList<>(18);
         outer:
         for(ItemStack itemStack:itemStacksInsert) {
-            for(int i = 0;i < internalInventory.size();i++) {
-                ItemStack testItemStack = internalInventory.getStack(i);
+            for(int i = 0;i < itemHandler.size();i++) {
+                ItemStack testItemStack = itemHandler.getStack(i);
                 if(emptyIndices.contains(i))
                     continue;
 
@@ -559,7 +496,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
                 if(ItemStack.areItemsAndComponentsEqual(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getMaxCount() - testItemStack.getCount());
                     if(amount > 0) {
-                        internalInventory.setStack(i, internalInventory.getStack(i).copyWithCount(testItemStack.getCount() + amount));
+                        itemHandler.setStack(i, itemHandler.getStack(i).copyWithCount(testItemStack.getCount() + amount));
 
                         itemStack.setCount(itemStack.getCount() - amount);
 
@@ -573,7 +510,7 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
             if(emptyIndices.isEmpty())
                 continue; //Should not happen
 
-            internalInventory.setStack(emptyIndices.remove(0), itemStack);
+            itemHandler.setStack(emptyIndices.remove(0), itemStack);
         }
 
         if(ignoreNBT)
@@ -599,11 +536,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         for(int i = itemStacks.size() - 1;i >= 0;i--) {
             ItemStack itemStack = itemStacks.get(i);
 
-            for(int j = 0;j < internalInventory.size();j++) {
+            for(int j = 0;j < itemHandler.size();j++) {
                 if(checkedIndices.contains(j))
                     continue;
 
-                ItemStack testItemStack = internalInventory.getStack(j);
+                ItemStack testItemStack = itemHandler.getStack(j);
                 if(testItemStack.isEmpty()) {
                     checkedIndices.add(j);
 
@@ -658,11 +595,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         outer:
         for(int i = itemStacks.size() - 1;i >= 0;i--) {
             ItemStack itemStack = itemStacks.get(i);
-            for(int j = 0;j < internalInventory.size();j++) {
+            for(int j = 0;j < itemHandler.size();j++) {
                 if(checkedIndices.contains(j) || emptyIndices.contains(j))
                     continue;
 
-                ItemStack testItemStack = internalInventory.getStack(j);
+                ItemStack testItemStack = itemHandler.getStack(j);
                 if(testItemStack.isEmpty()) {
                     emptyIndices.add(j);
 
@@ -746,8 +683,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
             if(itemStack.isEmpty())
                 continue;
 
-            for(int j = 0;j < internalInventory.size();j++) {
-                ItemStack testItemStack = internalInventory.getStack(j).copy();
+            for(int j = 0;j < itemHandler.size();j++) {
+                ItemStack testItemStack = itemHandler.getStack(j).copy();
                 int usedCount = usedItemCounts.getOrDefault(j, 0);
                 testItemStack.setCount(testItemStack.getCount() - usedCount);
                 if(testItemStack.getCount() <= 0)
@@ -760,8 +697,8 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
             }
 
             //Same item with same tag was not found -> check for same item without same tag and change if found
-            for(int j = 0;j < internalInventory.size();j++) {
-                ItemStack testItemStack = internalInventory.getStack(j).copy();
+            for(int j = 0;j < itemHandler.size();j++) {
+                ItemStack testItemStack = itemHandler.getStack(j).copy();
                 int usedCount = usedItemCounts.getOrDefault(j, 0);
                 testItemStack.setCount(testItemStack.getCount() - usedCount);
                 if(testItemStack.getCount() <= 0)
@@ -798,15 +735,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
         return recipe.or(() -> recipes.stream().findFirst()).map(r -> Pair.of(r.id(), r));
     }
 
-    private void updateUpgradeModules() {
+    @Override
+    protected void updateUpgradeModules() {
         resetProgress();
-        markDirty();
-        if(world != null && !world.isClient()) {
-            ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                    getPos(), (ServerWorld)world, 32,
-                    new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos())
-            );
-        }
+
+        super.updateUpgradeModules();
     }
 
     public void setIgnoreNBT(boolean ignoreNBT) {
@@ -829,37 +762,5 @@ public class AutoCrafterBlockEntity extends BlockEntity implements ExtendedScree
             //Secondary extract mode
             case 1 -> setSecondaryExtractMode(checked);
         }
-    }
-
-    public long getEnergy() {
-        return internalEnergyStorage.getAmount();
-    }
-
-    public long getCapacity() {
-        return internalEnergyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(long energy) {
-        internalEnergyStorage.setAmountWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(long capacity) {
-        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
-    }
-
-    @Override
-    public void setNextRedstoneMode() {
-        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
-        markDirty();
-    }
-
-    @Override
-    public void setNextComparatorMode() {
-        do {
-            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
-        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
-        markDirty();
     }
 }

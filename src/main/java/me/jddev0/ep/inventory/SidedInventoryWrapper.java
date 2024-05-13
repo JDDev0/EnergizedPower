@@ -1,4 +1,4 @@
-package me.jddev0.ep.block.entity.handler;
+package me.jddev0.ep.inventory;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
@@ -9,33 +9,18 @@ import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
-import java.util.function.BiPredicate;
 import java.util.function.Predicate;
+import java.util.stream.IntStream;
 
-public class InputOutputItemHandler implements SidedInventory {
-    private final SidedInventory handler;
-    private final BiPredicate<Integer, ItemStack> canInput;
-    private final Predicate<Integer> canOutput;
+public class SidedInventoryWrapper implements SidedInventory {
+    private final Inventory handler;
 
-    public InputOutputItemHandler(SidedInventory handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
+    public SidedInventoryWrapper(Inventory handler) {
         this.handler = handler;
-        this.canInput = canInput;
-        this.canOutput = canOutput;
     }
 
-    @Override
-    public int[] getAvailableSlots(Direction side) {
-        return handler.getAvailableSlots(side);
-    }
-
-    @Override
-    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-        return canInput.test(slot, stack) && handler.isValid(slot, stack) && handler.canInsert(slot, stack, dir);
-    }
-
-    @Override
-    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-        return canOutput.test(slot) && handler.canExtract(slot, stack, dir);
+    public Inventory getHandler() {
+        return handler;
     }
 
     @Override
@@ -121,5 +106,20 @@ public class InputOutputItemHandler implements SidedInventory {
     @Override
     public boolean canTransferTo(Inventory hopperInventory, int slot, ItemStack stack) {
         return handler.canTransferTo(hopperInventory, slot, stack);
+    }
+
+    @Override
+    public int[] getAvailableSlots(Direction side) {
+        return IntStream.range(0, handler.size()).toArray();
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        return isValid(slot, stack);
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        return true;
     }
 }

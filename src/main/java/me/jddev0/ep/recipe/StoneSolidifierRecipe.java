@@ -6,7 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -17,7 +17,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
-public class StoneSolidifierRecipe implements Recipe<SimpleInventory> {
+public class StoneSolidifierRecipe implements Recipe<Inventory> {
     private final ItemStack output;
     private final long waterAmount;
     private final long lavaAmount;
@@ -41,12 +41,12 @@ public class StoneSolidifierRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public boolean matches(SimpleInventory container, World level) {
+    public boolean matches(Inventory container, World level) {
         return false;
     }
 
     @Override
-    public ItemStack craft(SimpleInventory container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack craft(Inventory container, RegistryWrapper.WrapperLookup registries) {
         return output;
     }
 

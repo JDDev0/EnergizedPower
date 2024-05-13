@@ -5,9 +5,9 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
-import me.jddev0.ep.networking.packet.*;
 import me.jddev0.ep.networking.packet.ChangeComparatorModeC2SPacket;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
+import me.jddev0.ep.networking.packet.ChangeCurrentRecipeIndexC2SPacket;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
@@ -69,7 +69,7 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageHandledSc
                 }
 
                 if(diff != 0) {
-                    ClientPlayNetworking.send(new ChangeStoneSolidifierRecipeIndexC2SPacket(handler.getBlockEntity().getPos(),
+                    ClientPlayNetworking.send(new ChangeCurrentRecipeIndexC2SPacket(handler.getBlockEntity().getPos(),
                             diff == 1));
                 }
             }

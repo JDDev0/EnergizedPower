@@ -1,34 +1,25 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AdvancedPoweredFurnaceBlock;
-import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
-import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
+import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
-import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
-import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
-import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.networking.packet.SyncFurnaceRecipeTypeS2CPacket;
 import me.jddev0.ep.recipe.FurnaceRecipeTypePacketUpdate;
 import me.jddev0.ep.screen.AdvancedPoweredFurnaceMenu;
 import me.jddev0.ep.util.ByteUtils;
-import me.jddev0.ep.util.EnergyUtils;
+import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -44,9 +35,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -55,32 +44,17 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.IntStream;
 
-public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, EnergyStoragePacketUpdate, RedstoneModeUpdate,
-        ComparatorModeUpdate, FurnaceRecipeTypePacketUpdate {
+public class AdvancedPoweredFurnaceBlockEntity
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
+        implements ExtendedScreenHandlerFactory<BlockPos>, FurnaceRecipeTypePacketUpdate {
     private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_RECIPE_BLACKLIST.getValue();
 
-    public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_CAPACITY.getValue();
-    public static final long MAX_RECEIVE = ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_TRANSFER_RATE.getValue();
     private static final long ENERGY_USAGE_PER_INPUT_PER_TICK = ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_INPUT_PER_TICK.getValue();
 
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER.getValue();
 
-    final CachedSidedInventoryStorage<AdvancedPoweredFurnaceBlockEntity> cachedSidedInventoryStorage;
-    final InputOutputItemHandler inventory;
-    private final SimpleInventory internalInventory;
-
-    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
-            UpgradeModuleModifier.SPEED,
-            UpgradeModuleModifier.ENERGY_CONSUMPTION,
-            UpgradeModuleModifier.ENERGY_CAPACITY,
-            UpgradeModuleModifier.FURNACE_MODE
-    );
-    private final InventoryChangedListener updateUpgradeModuleListener = container -> updateUpgradeModules();
-
-    final EnergizedPowerLimitingEnergyStorage energyStorage;
-    private final EnergizedPowerEnergyStorage internalEnergyStorage;
+    final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 3, i -> i >= 3 && i < 6);
 
     protected final PropertyDelegate data;
     private int[] progress = new int[] {
@@ -98,86 +72,20 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
 
     private @NotNull RecipeType<? extends AbstractCookingRecipe> recipeType = RecipeType.SMELTING;
 
-    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
-    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
-
     public AdvancedPoweredFurnaceBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.ADVANCED_POWERED_FURNACE_ENTITY, blockPos, blockState);
+        super(
+                ModBlockEntities.ADVANCED_POWERED_FURNACE_ENTITY, blockPos, blockState,
 
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+                ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_CAPACITY.getValue(),
+                ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_TRANSFER_RATE.getValue(),
 
-        internalInventory = new SimpleInventory(6) {
-            @Override
-            public boolean isValid(int slot, ItemStack stack) {
-                return switch(slot) {
-                    case 0, 1, 2 -> world == null || RecipeUtils.isIngredientOfAny(world, getRecipeForFurnaceModeUpgrade(), stack);
-                    case 3, 4, 5 -> false;
-                    default -> super.isValid(slot, stack);
-                };
-            }
+                6,
 
-            @Override
-            public void setStack(int slot, ItemStack stack) {
-                if(slot >= 0 && slot < 3) {
-                    ItemStack itemStack = getStack(slot);
-                    if(world != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.areItemsAndComponentsEqual(stack, itemStack))
-                        resetProgress(slot, pos, world.getBlockState(pos));
-                }
-
-                super.setStack(slot, stack);
-            }
-
-            @Override
-            public void markDirty() {
-                super.markDirty();
-
-                AdvancedPoweredFurnaceBlockEntity.this.markDirty();
-            }
-        };
-        inventory = new InputOutputItemHandler(new SidedInventoryWrapper(internalInventory) {
-            @Override
-            public int[] getAvailableSlots(Direction side) {
-                return IntStream.range(0, 6).toArray();
-            }
-
-            @Override
-            public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-                return isValid(slot, stack);
-            }
-
-            @Override
-            public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-                return true;
-            }
-        }, (i, stack) -> i >= 0 && i < 3, i -> i >= 3 && i < 6);
-        cachedSidedInventoryStorage = new CachedSidedInventoryStorage<>(inventory);
-
-        internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
-            @Override
-            public long getCapacity() {
-                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_CAPACITY)));
-            }
-
-            @Override
-            protected void onFinalCommit() {
-                markDirty();
-
-                if(world != null && !world.isClient()) {
-                    ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                            getPos(), (ServerWorld)world, 32,
-                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getPos())
-                    );
-                }
-            }
-        };
-        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, MAX_RECEIVE, 0) {
-            @Override
-            public long getMaxInsert() {
-                return Math.max(1, (long)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-        };
+                UpgradeModuleModifier.SPEED,
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.FURNACE_MODE
+        );
 
         data = new PropertyDelegate() {
             @Override
@@ -236,6 +144,66 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
     }
 
     @Override
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
+            @Override
+            public long getCapacity() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            protected void onFinalCommit() {
+                markDirty();
+                syncEnergyToPlayers(32);
+            }
+        };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0) {
+            @Override
+            public long getMaxInsert() {
+                return Math.max(1, (long)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+        };
+    }
+
+    @Override
+    protected SimpleInventory initInventoryStorage() {
+        return new SimpleInventory(slotCount) {
+            @Override
+            public boolean isValid(int slot, ItemStack stack) {
+                return switch(slot) {
+                    case 0, 1, 2 -> world == null || RecipeUtils.isIngredientOfAny(world, getRecipeForFurnaceModeUpgrade(), stack);
+                    case 3, 4, 5 -> false;
+                    default -> super.isValid(slot, stack);
+                };
+            }
+
+            @Override
+            public void setStack(int slot, ItemStack stack) {
+                if(slot >= 0 && slot < 3) {
+                    ItemStack itemStack = getStack(slot);
+                    if(world != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.areItemsAndComponentsEqual(stack, itemStack))
+                        resetProgress(slot, pos, world.getBlockState(pos));
+                }
+
+                super.setStack(slot, stack);
+            }
+
+            @Override
+            public void markDirty() {
+                super.markDirty();
+
+                AdvancedPoweredFurnaceBlockEntity.this.markDirty();
+            }
+        };
+    }
+
+    @Override
     public Text getDisplayName() {
         return Text.translatable("container.energizedpower.advanced_powered_furnace");
     }
@@ -243,12 +211,11 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos()));
+        syncEnergyToPlayer(player);
         ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
                 new SyncFurnaceRecipeTypeS2CPacket(getRecipeForFurnaceModeUpgrade(), getPos()));
 
-        return new AdvancedPoweredFurnaceMenu(id, this, inventory, internalInventory, upgradeModuleInventory, this.data);
+        return new AdvancedPoweredFurnaceMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
     }
 
     @Override
@@ -256,21 +223,9 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
         return pos;
     }
 
-    public int getRedstoneOutput() {
-        return switch(comparatorMode) {
-            case ITEM -> ScreenHandler.calculateComparatorOutput(internalInventory);
-            case FLUID -> 0;
-            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
-        };
-    }
-
     @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        //Save Upgrade Module Inventory first
-        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
-
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.heldStacks, registries));
-        nbt.putLong("energy", internalEnergyStorage.getAmount());
+    protected void writeNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
+        super.writeNbt(nbt, registries);
 
         for(int i = 0;i < 3;i++)
             nbt.put("recipe.progress." + i, NbtInt.of(progress[i]));
@@ -278,24 +233,11 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
             nbt.put("recipe.max_progress." + i, NbtInt.of(maxProgress[i]));
         for(int i = 0;i < 3;i++)
             nbt.put("recipe.energy_consumption_left." + i, NbtLong.of(energyConsumptionLeft[i]));
-
-        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
-        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
-
-        super.writeNbt(nbt, registries);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
         super.readNbt(nbt, registries);
-
-        //Load Upgrade Module Inventory first
-        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
-        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
-
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.heldStacks, registries);
-        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
 
         for(int i = 0;i < 3;i++)
             progress[i] = nbt.getInt("recipe.progress." + i);
@@ -303,14 +245,6 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
             maxProgress[i] = nbt.getInt("recipe.max_progress." + i);
         for(int i = 0;i < 3;i++)
             energyConsumptionLeft[i] = nbt.getLong("recipe.energy_consumption_left." + i);
-
-        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
-        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
-    }
-
-    public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory);
-        ItemScatterer.spawn(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, AdvancedPoweredFurnaceBlockEntity blockEntity) {
@@ -323,8 +257,8 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
         for(int i = 0;i < 3;i++) {
             if(hasRecipe(i, blockEntity)) {
                 SimpleInventory inventory = new SimpleInventory(2);
-                inventory.setStack(0, blockEntity.internalInventory.getStack(i));
-                inventory.setStack(1, blockEntity.internalInventory.getStack(3 + i));
+                inventory.setStack(0, blockEntity.itemHandler.getStack(i));
+                inventory.setStack(1, blockEntity.itemHandler.getStack(3 + i));
 
                 Optional<? extends RecipeEntry<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
                 if(recipe.isEmpty())
@@ -342,8 +276,9 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
                 if(blockEntity.energyConsumptionLeft[i] < 0)
                     blockEntity.energyConsumptionLeft[i] = energyUsagePerInputPerTick * blockEntity.maxProgress[i];
 
-                if(energyUsagePerInputPerTick <= blockEntity.internalEnergyStorage.getAmount()) {
-                    if(!level.getBlockState(blockPos).contains(AdvancedPoweredFurnaceBlock.LIT) || !level.getBlockState(blockPos).get(AdvancedPoweredFurnaceBlock.LIT)) {
+                if(energyUsagePerInputPerTick <= blockEntity.energyStorage.getAmount()) {
+                    if(!level.getBlockState(blockPos).contains(AdvancedPoweredFurnaceBlock.LIT) ||
+                            !level.getBlockState(blockPos).get(AdvancedPoweredFurnaceBlock.LIT)) {
                         blockEntity.hasEnoughEnergy[i] = true;
                         level.setBlockState(blockPos, state.with(AdvancedPoweredFurnaceBlock.LIT, Boolean.TRUE), 3);
                     }
@@ -358,7 +293,7 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
                     }
 
                     try(Transaction transaction = Transaction.openOuter()) {
-                        blockEntity.internalEnergyStorage.extract(energyUsagePerInputPerTick, transaction);
+                        blockEntity.energyStorage.extract(energyUsagePerInputPerTick, transaction);
                         transaction.commit();
                     }
                     blockEntity.energyConsumptionLeft[i] -= energyUsagePerInputPerTick;
@@ -387,7 +322,7 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
 
         //Unlit if nothing is being smelted
         for(int i = 0;i < energyConsumptionLeft.length;i++)
-            if(energyConsumptionLeft[0] > -1)
+            if(energyConsumptionLeft[i] > -1)
                 return;
 
         world.setBlockState(blockPos, state.with(AdvancedPoweredFurnaceBlock.LIT, false), 3);
@@ -397,17 +332,17 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
         World level = blockEntity.world;
 
         SimpleInventory inventory = new SimpleInventory(2);
-        inventory.setStack(0, blockEntity.internalInventory.getStack(index));
-        inventory.setStack(1, blockEntity.internalInventory.getStack(3 + index));
+        inventory.setStack(0, blockEntity.itemHandler.getStack(index));
+        inventory.setStack(1, blockEntity.itemHandler.getStack(3 + index));
 
         Optional<? extends RecipeEntry<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
 
         if(!hasRecipe(index, blockEntity) || recipe.isEmpty())
             return;
 
-        blockEntity.internalInventory.removeStack(index, 1);
-        blockEntity.internalInventory.setStack(3 + index, recipe.get().value().getResult(level.getRegistryManager()).copyWithCount(
-                blockEntity.internalInventory.getStack(3 + index).getCount() + recipe.get().value().getResult(level.getRegistryManager()).getCount()));
+        blockEntity.itemHandler.removeStack(index, 1);
+        blockEntity.itemHandler.setStack(3 + index, recipe.get().value().getResult(level.getRegistryManager()).copyWithCount(
+                blockEntity.itemHandler.getStack(3 + index).getCount() + recipe.get().value().getResult(level.getRegistryManager()).getCount()));
 
         blockEntity.resetProgress(index, blockPos, state);
     }
@@ -416,19 +351,13 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
         World level = blockEntity.world;
 
         SimpleInventory inventory = new SimpleInventory(2);
-        inventory.setStack(0, blockEntity.internalInventory.getStack(index));
-        inventory.setStack(1, blockEntity.internalInventory.getStack(3 + index));
+        inventory.setStack(0, blockEntity.itemHandler.getStack(index));
+        inventory.setStack(1, blockEntity.itemHandler.getStack(3 + index));
 
         Optional<? extends RecipeEntry<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
 
-        return recipe.isPresent() && canInsertItemIntoOutputSlot(index, blockEntity.internalInventory, recipe.get().value().getResult(level.getRegistryManager()));
-    }
-
-    private static boolean canInsertItemIntoOutputSlot(int index, SimpleInventory inventory, ItemStack itemStack) {
-        ItemStack inventoryItemStack = inventory.getStack(3 + index);
-
-        return inventoryItemStack.isEmpty() || (ItemStack.areItemsAndComponentsEqual(inventoryItemStack, itemStack) &&
-                inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount());
+        return recipe.isPresent() &&
+                InventoryUtils.canInsertItemIntoSlot(blockEntity.itemHandler, 3 + index, recipe.get().value().getResult(level.getRegistryManager()));
     }
 
     private Optional<? extends RecipeEntry<? extends AbstractCookingRecipe>> getRecipeFor(Inventory container, World level) {
@@ -456,51 +385,18 @@ public class AdvancedPoweredFurnaceBlockEntity extends BlockEntity implements Ex
         this.recipeType = recipeType;
     }
 
-    private void updateUpgradeModules() {
+    @Override
+    protected void updateUpgradeModules() {
         for(int i = 0;i < 3;i++)
             resetProgress(i, getPos(), getCachedState());
-        markDirty();
+
+        super.updateUpgradeModules();
+
         if(world != null && !world.isClient()) {
-            ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                    getPos(), (ServerWorld)world, 32,
-                    new EnergySyncS2CPacket(internalEnergyStorage.getAmount(), internalEnergyStorage.getCapacity(), getPos())
-            );
             ModMessages.sendServerPacketToPlayersWithinXBlocks(
                     getPos(), (ServerWorld)world, 32,
                     new SyncFurnaceRecipeTypeS2CPacket(getRecipeForFurnaceModeUpgrade(), getPos())
             );
         }
-    }
-
-    public long getEnergy() {
-        return internalEnergyStorage.getAmount();
-    }
-
-    public long getCapacity() {
-        return internalEnergyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(long energy) {
-        internalEnergyStorage.setAmountWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(long capacity) {
-        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
-    }
-
-    @Override
-    public void setNextRedstoneMode() {
-        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
-        markDirty();
-    }
-
-    @Override
-    public void setNextComparatorMode() {
-        do {
-            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
-        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
-        markDirty();
     }
 }

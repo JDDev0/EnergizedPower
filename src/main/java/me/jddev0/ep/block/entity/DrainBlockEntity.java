@@ -1,8 +1,8 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.entity.base.FluidStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.fluid.FluidStack;
-import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
@@ -21,7 +21,6 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FluidDrainable;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
@@ -34,7 +33,6 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
@@ -45,30 +43,18 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 
-public class DrainBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, FluidStoragePacketUpdate {
-    final SimpleFluidStorage fluidStorage;
-
+public class DrainBlockEntity extends FluidStorageBlockEntity<SimpleFluidStorage> implements ExtendedScreenHandlerFactory<BlockPos> {
     protected final PropertyDelegate data;
     private int progress;
     private int maxProgress = ModConfigs.COMMON_DRAIN_DRAIN_DURATION.getValue();
 
     public DrainBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.DRAIN_ENTITY, blockPos, blockState);
+        super(
+                ModBlockEntities.DRAIN_ENTITY, blockPos, blockState,
 
-        fluidStorage = new SimpleFluidStorage(FluidUtils.convertMilliBucketsToDroplets(
-                ModConfigs.COMMON_DRAIN_FLUID_TANK_CAPACITY.getValue() * 1000)) {
-            @Override
-            protected void onFinalCommit() {
-                markDirty();
-
-                if(world != null && !world.isClient()) {
-                    ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                            getPos(), (ServerWorld)world, 32,
-                            new FluidSyncS2CPacket(0, getFluid(), capacity, getPos())
-                    );
-                }
-            }
-        };
+                FluidStorageSingleTankMethods.INSTANCE,
+                FluidUtils.convertMilliBucketsToDroplets(ModConfigs.COMMON_DRAIN_FLUID_TANK_CAPACITY.getValue() * 1000)
+        );
 
         data = new PropertyDelegate() {
             @Override
@@ -100,6 +86,17 @@ public class DrainBlockEntity extends BlockEntity implements ExtendedScreenHandl
     }
 
     @Override
+    protected SimpleFluidStorage initFluidStorage() {
+        return new SimpleFluidStorage(baseTankCapacity) {
+            @Override
+            protected void onFinalCommit() {
+                markDirty();
+                syncFluidToPlayers(32);
+            }
+        };
+    }
+
+    @Override
     public Text getDisplayName() {
         return Text.translatable("container.energizedpower.drain");
     }
@@ -123,19 +120,15 @@ public class DrainBlockEntity extends BlockEntity implements ExtendedScreenHandl
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.put("fluid", fluidStorage.toNBT(new NbtCompound(), registries));
+    protected void writeNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
+        super.writeNbt(nbt, registries);
 
         nbt.put("drain.progress", NbtInt.of(progress));
-
-        super.writeNbt(nbt, registries);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
         super.readNbt(nbt, registries);
-
-        fluidStorage.fromNBT(nbt.getCompound("fluid"), registries);
 
         progress = nbt.getInt("drain.progress");
     }
@@ -268,23 +261,5 @@ public class DrainBlockEntity extends BlockEntity implements ExtendedScreenHandl
             cauldronAmount = cauldronAmountPerLevel;
 
         return cauldronAmount > 0 && cauldronAmount <= amountInsertable;
-    }
-
-    public FluidStack getFluid(int tank) {
-        return fluidStorage.getFluid();
-    }
-
-    public long getTankCapacity(int tank) {
-        return fluidStorage.getCapacity();
-    }
-
-    @Override
-    public void setFluid(int tank, FluidStack fluidStack) {
-        fluidStorage.setFluid(fluidStack);
-    }
-
-    @Override
-    public void setTankCapacity(int tank, long capacity) {
-        //Does nothing (capacity is final)
     }
 }

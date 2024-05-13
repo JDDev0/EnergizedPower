@@ -38,8 +38,8 @@ public record EnergySyncS2CPacket(long energy, long capacity, BlockPos pos) impl
 
             BlockEntity blockEntity = context.client().world.getBlockEntity(data.pos);
             if(blockEntity instanceof EnergyStoragePacketUpdate energyStorage) {
-                energyStorage.setEnergy(data.energy);
                 energyStorage.setCapacity(data.capacity);
+                energyStorage.setEnergy(data.energy);
             }
         });
     }

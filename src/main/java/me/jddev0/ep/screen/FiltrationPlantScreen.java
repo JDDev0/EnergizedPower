@@ -6,7 +6,7 @@ import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.networking.packet.ChangeComparatorModeC2SPacket;
-import me.jddev0.ep.networking.packet.ChangeFiltrationPlantRecipeIndexC2SPacket;
+import me.jddev0.ep.networking.packet.ChangeCurrentRecipeIndexC2SPacket;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import me.jddev0.ep.recipe.FiltrationPlantRecipe;
 import me.jddev0.ep.util.FluidUtils;
@@ -72,7 +72,7 @@ public class FiltrationPlantScreen extends AbstractGenericEnergyStorageHandledSc
                 }
 
                 if(diff != 0) {
-                    ClientPlayNetworking.send(new ChangeFiltrationPlantRecipeIndexC2SPacket(handler.getBlockEntity().getPos(),
+                    ClientPlayNetworking.send(new ChangeCurrentRecipeIndexC2SPacket(handler.getBlockEntity().getPos(),
                             diff == 1));
                 }
             }
