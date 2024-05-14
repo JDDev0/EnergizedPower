@@ -1,10 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.SolarPanelBlock;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
-import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
 import me.jddev0.ep.screen.SolarPanelMenu;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
@@ -12,38 +10,25 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.InventoryChangedListener;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
-import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
-public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+public class SolarPanelBlockEntity
+        extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
+        implements ExtendedScreenHandlerFactory {
     private final SolarPanelBlock.Tier tier;
-
-    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
-            UpgradeModuleModifier.ENERGY_CAPACITY,
-            UpgradeModuleModifier.MOON_LIGHT
-    );
-    private final InventoryChangedListener updateUpgradeModuleListener = container -> updateUpgradeModules();
-
-    final EnergizedPowerLimitingEnergyStorage energyStorage;
-    private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     public static BlockEntityType<SolarPanelBlockEntity> getEntityTypeFromTier(SolarPanelBlock.Tier tier) {
         return switch(tier) {
@@ -57,15 +42,22 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
     public SolarPanelBlockEntity(BlockPos blockPos, BlockState blockState, SolarPanelBlock.Tier tier) {
-        super(getEntityTypeFromTier(tier), blockPos, blockState);
+        super(
+                getEntityTypeFromTier(tier), blockPos, blockState,
 
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+                tier.getCapacity(),
+                tier.getMaxTransfer(),
+
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.MOON_LIGHT
+        );
 
         this.tier = tier;
+    }
 
-        long maxTransfer = tier.getMaxTransfer();
-        long capacity = tier.getCapacity();
-        internalEnergyStorage = new EnergizedPowerEnergyStorage(capacity, capacity, capacity) {
+    @Override
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
             public long getCapacity() {
                 return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
@@ -75,21 +67,14 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
             @Override
             protected void onFinalCommit() {
                 markDirty();
-
-                if(world != null && !world.isClient()) {
-                    PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(getAmount());
-                    buffer.writeLong(getCapacity());
-                    buffer.writeBlockPos(getPos());
-
-                    ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                            getPos(), (ServerWorld)world, 32,
-                            ModMessages.ENERGY_SYNC_ID, buffer
-                    );
-                }
+                syncEnergyToPlayers(32);
             }
         };
-        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, 0, maxTransfer) {
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, 0, baseEnergyTransferRate) {
             @Override
             public long getMaxExtract() {
                 return Math.max(1, (long)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
@@ -110,12 +95,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeLong(internalEnergyStorage.getAmount());
-        buffer.writeLong(internalEnergyStorage.getCapacity());
-        buffer.writeBlockPos(getPos());
-
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
+        syncEnergyToPlayer(player);
         
         return new SolarPanelMenu(id, this, inventory, upgradeModuleInventory);
     }
@@ -123,10 +103,6 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
     @Override
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
         buf.writeBlockPos(pos);
-    }
-
-    public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {
@@ -159,7 +135,7 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
         }
 
         try(Transaction transaction = Transaction.openOuter()) {
-            blockEntity.internalEnergyStorage.insert(energyProduction, transaction);
+            blockEntity.energyStorage.insert(energyProduction, transaction);
             transaction.commit();
         }
 
@@ -176,73 +152,18 @@ public class SolarPanelBlockEntity extends BlockEntity implements ExtendedScreen
         if(testBlockEntity == null)
             return;
 
-        EnergyStorage energyStorage = EnergyStorage.SIDED.find(level, testPos, Direction.DOWN.getOpposite());
-        if(energyStorage == null)
+        EnergyStorage limitingEnergyStorage = EnergyStorage.SIDED.find(level, testPos, Direction.DOWN.getOpposite());
+        if(limitingEnergyStorage == null)
             return;
 
-        if(!energyStorage.supportsInsertion())
+        if(!limitingEnergyStorage.supportsInsertion())
             return;
 
         try(Transaction transaction = Transaction.openOuter()) {
-            long amount = energyStorage.insert(Math.min(blockEntity.internalEnergyStorage.getAmount(),
-                    blockEntity.energyStorage.getMaxExtract()), transaction);
-            blockEntity.energyStorage.extract(amount, transaction);
+            long amount = limitingEnergyStorage.insert(Math.min(blockEntity.energyStorage.getAmount(),
+                    blockEntity.limitingEnergyStorage.getMaxExtract()), transaction);
+            blockEntity.limitingEnergyStorage.extract(amount, transaction);
             transaction.commit();
         }
-    }
-
-    @Override
-    protected void writeNbt(NbtCompound nbt) {
-        //Save Upgrade Module Inventory first
-        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT());
-
-        nbt.putLong("energy", internalEnergyStorage.getAmount());
-
-        super.writeNbt(nbt);
-    }
-
-    @Override
-    public void readNbt(@NotNull NbtCompound nbt) {
-        super.readNbt(nbt);
-
-        //Load Upgrade Module Inventory first
-        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
-        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"));
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
-
-        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
-    }
-
-    private void updateUpgradeModules() {
-        markDirty();
-        if(world != null && !world.isClient()) {
-            PacketByteBuf buffer = PacketByteBufs.create();
-            buffer.writeLong(internalEnergyStorage.getAmount());
-            buffer.writeLong(internalEnergyStorage.getCapacity());
-            buffer.writeBlockPos(getPos());
-
-            ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                    getPos(), (ServerWorld)world, 32,
-                    ModMessages.ENERGY_SYNC_ID, buffer
-            );
-        }
-    }
-
-    public long getEnergy() {
-        return internalEnergyStorage.getAmount();
-    }
-
-    public long getCapacity() {
-        return internalEnergyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(long energy) {
-        internalEnergyStorage.setAmountWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(long capacity) {
-        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 }

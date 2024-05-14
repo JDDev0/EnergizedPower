@@ -5,11 +5,11 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
+import me.jddev0.ep.networking.packet.SetFluidTankFilterC2SPacket;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
@@ -26,7 +26,6 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -58,11 +57,9 @@ public class FluidTankScreen extends HandledScreen<FluidTankMenu> {
             boolean clicked = false;
             if(isPointWithinBounds(158, 16, 11, 11, mouseX, mouseY)) {
                 //Ignore NBT checkbox
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                buf.writeInt(0);
-                buf.writeBoolean(!handler.isIgnoreNBT());
-                ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
+                ModMessages.sendClientPacketToServer(
+                        new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 0, !handler.isIgnoreNBT()));
+
                 clicked = true;
             }
 
@@ -84,11 +81,8 @@ public class FluidTankScreen extends HandledScreen<FluidTankMenu> {
                 }
 
                 FluidStack fluidFilter = new FluidStack(fluidFilterVariant, 1);
-
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                fluidFilter.toPacket(buf);
-                ClientPlayNetworking.send(ModMessages.SET_FLUID_TANK_FILTER_ID, buf);
+                ModMessages.sendClientPacketToServer(
+                        new SetFluidTankFilterC2SPacket(handler.getBlockEntity().getPos(), fluidFilter));
                 clicked = true;
             }
 

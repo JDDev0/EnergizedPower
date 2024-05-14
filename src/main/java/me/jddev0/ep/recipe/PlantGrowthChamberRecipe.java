@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
-import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
@@ -15,7 +15,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
-public class PlantGrowthChamberRecipe implements Recipe<SimpleInventory> {
+public class PlantGrowthChamberRecipe implements Recipe<Inventory> {
     private final Identifier id;
     private final OutputItemStackWithPercentages[] outputs;
     private final Ingredient input;
@@ -67,7 +67,7 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public boolean matches(SimpleInventory container, World level) {
+    public boolean matches(Inventory container, World level) {
         if(level.isClient())
             return false;
 
@@ -75,7 +75,7 @@ public class PlantGrowthChamberRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack craft(SimpleInventory container, DynamicRegistryManager registryAccess) {
+    public ItemStack craft(Inventory container, DynamicRegistryManager registryManager) {
         return ItemStack.EMPTY;
     }
 

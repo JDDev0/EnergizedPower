@@ -4,14 +4,14 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.ChangeComparatorModeC2SPacket;
+import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
+import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -43,11 +43,8 @@ public class BlockPlacerScreen extends AbstractGenericEnergyStorageHandledScreen
                 if(isPointWithinBounds(158, 16, 11, 11, mouseX, mouseY)) {
                     //Inverse rotation checkbox
 
-                    PacketByteBuf buf = PacketByteBufs.create();
-                    buf.writeBlockPos(handler.getBlockEntity().getPos());
-                    buf.writeInt(0);
-                    buf.writeBoolean(!handler.isInverseRotation());
-                    ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
+                    ModMessages.sendClientPacketToServer(
+                            new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 0, !handler.isInverseRotation()));
                     clicked = true;
                 }
             }
@@ -60,16 +57,12 @@ public class BlockPlacerScreen extends AbstractGenericEnergyStorageHandledScreen
             }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                ClientPlayNetworking.send(ModMessages.CHANGE_REDSTONE_MODE_ID, buf);
+                ModMessages.sendClientPacketToServer(new ChangeRedstoneModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
             }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
                 //Comparator Mode
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                ClientPlayNetworking.send(ModMessages.CHANGE_COMPARATOR_MODE_ID, buf);
+                ModMessages.sendClientPacketToServer(new ChangeComparatorModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
             }
 

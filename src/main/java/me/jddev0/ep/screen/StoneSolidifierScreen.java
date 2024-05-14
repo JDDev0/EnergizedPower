@@ -6,15 +6,13 @@ import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
-import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeComparatorModeC2SPacket;
+import me.jddev0.ep.networking.packet.ChangeCurrentRecipeIndexC2SPacket;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -25,7 +23,6 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -71,10 +68,8 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageHandledSc
                 }
 
                 if(diff != 0) {
-                    PacketByteBuf buf = PacketByteBufs.create();
-                    buf.writeBlockPos(handler.getBlockEntity().getPos());
-                    buf.writeBoolean(diff == 1);
-                    ClientPlayNetworking.send(ModMessages.CHANGE_STONE_SOLIDIFIER_RECIPE_INDEX_ID, buf);
+                    ModMessages.sendClientPacketToServer(
+                            new ChangeCurrentRecipeIndexC2SPacket(handler.getBlockEntity().getPos(), diff == 1));
                 }
             }
 
@@ -86,15 +81,12 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageHandledSc
             }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
 
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                ClientPlayNetworking.send(ModMessages.CHANGE_REDSTONE_MODE_ID, buf);
+                ModMessages.sendClientPacketToServer(new ChangeRedstoneModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
             }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
                 //Comparator Mode
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeBlockPos(handler.getBlockEntity().getPos());
-                ClientPlayNetworking.send(ModMessages.CHANGE_COMPARATOR_MODE_ID, buf);
+
+                ModMessages.sendClientPacketToServer(new ChangeComparatorModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
             }
 

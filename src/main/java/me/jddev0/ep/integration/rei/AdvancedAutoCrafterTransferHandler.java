@@ -1,6 +1,7 @@
 package me.jddev0.ep.integration.rei;
 
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.SetAdvancedAutoCrafterPatternInputSlotsC2SPacket;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.transfer.TransferHandler;
@@ -9,8 +10,6 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.CraftingRecipe;
@@ -31,7 +30,7 @@ public class AdvancedAutoCrafterTransferHandler implements TransferHandler {
             return Result.createNotApplicable();
 
         if(!recipe.fits(3, 3))
-            return Result.createFailed(Text.translatable("recipes.energizedpower.transfer.too_large"));;
+            return Result.createFailed(Text.translatable("recipes.energizedpower.transfer.too_large"));
 
         if(!context.isActuallyCrafting())
             return Result.createSuccessful().blocksFurtherHandling();
@@ -60,12 +59,9 @@ public class AdvancedAutoCrafterTransferHandler implements TransferHandler {
         while(itemStacks.size() < 9)
             itemStacks.add(ItemStack.EMPTY);
 
-        PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeBlockPos(container.getBlockEntity().getPos());
-        for(ItemStack itemStack:itemStacks)
-            buf.writeItemStack(itemStack);
-        buf.writeIdentifier(recipe.getId());
-        ClientPlayNetworking.send(ModMessages.SET_ADVANCED_AUTO_CRAFTER_PATTERN_INPUT_SLOTS_ID, buf);
+        ModMessages.sendClientPacketToServer(
+                new SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getPos(),
+                        itemStacks, recipe.getId()));
 
         return Result.createSuccessful().blocksFurtherHandling();
     }

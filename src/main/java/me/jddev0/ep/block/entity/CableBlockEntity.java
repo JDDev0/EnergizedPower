@@ -4,17 +4,17 @@ import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.networking.ModMessages;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import team.reborn.energy.api.EnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
@@ -26,8 +26,8 @@ public class CableBlockEntity extends BlockEntity {
 
     private final CableBlock.Tier tier;
 
-    final EnergizedPowerLimitingEnergyStorage energyStorage;
-    private final EnergizedPowerEnergyStorage internalEnergyStorage;
+    final EnergizedPowerLimitingEnergyStorage limitingEnergyStorage;
+    private final EnergizedPowerEnergyStorage energyStorage;
 
     private boolean loaded;
 
@@ -53,25 +53,20 @@ public class CableBlockEntity extends BlockEntity {
 
         long capacity = ENERGY_EXTRACTION_MODE.isPush()?tier.getMaxTransfer():0;
 
-        internalEnergyStorage = new EnergizedPowerEnergyStorage(capacity, capacity, capacity) {
+        energyStorage = new EnergizedPowerEnergyStorage(capacity, capacity, capacity) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
 
                 if(world != null && !world.isClient()) {
-                    PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(getAmount());
-                    buffer.writeLong(getCapacity());
-                    buffer.writeBlockPos(getPos());
-
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             getPos(), (ServerWorld)world, 32,
-                            ModMessages.ENERGY_SYNC_ID, buffer
+                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getPos())
                     );
                 }
             }
         };
-        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, capacity, 0);
+        limitingEnergyStorage = new EnergizedPowerLimitingEnergyStorage(energyStorage, capacity, 0);
     }
 
     public CableBlock.Tier getTier() {
@@ -114,15 +109,15 @@ public class CableBlockEntity extends BlockEntity {
                 continue;
             }
 
-            EnergyStorage energyStorage = EnergyStorage.SIDED.find(level, testPos, direction.getOpposite());
-            if(energyStorage == null)
+            EnergyStorage limitingEnergyStorage = EnergyStorage.SIDED.find(level, testPos, direction.getOpposite());
+            if(limitingEnergyStorage == null)
                 continue;
 
-            if(ENERGY_EXTRACTION_MODE.isPull() && energyStorage.supportsExtraction())
-                blockEntity.producers.put(Pair.of(testPos, direction.getOpposite()), energyStorage);
+            if(ENERGY_EXTRACTION_MODE.isPull() && limitingEnergyStorage.supportsExtraction())
+                blockEntity.producers.put(Pair.of(testPos, direction.getOpposite()), limitingEnergyStorage);
 
-            if(energyStorage.supportsInsertion())
-                blockEntity.consumers.put(Pair.of(testPos, direction.getOpposite()), energyStorage);
+            if(limitingEnergyStorage.supportsInsertion())
+                blockEntity.consumers.put(Pair.of(testPos, direction.getOpposite()), limitingEnergyStorage);
         }
     }
 
@@ -171,15 +166,15 @@ public class CableBlockEntity extends BlockEntity {
         List<Long> energyProductionValues = new LinkedList<>();
 
         //Prioritize stored energy for PUSH mode
-        long productionSum = blockEntity.internalEnergyStorage.getAmount(); //Will always be 0 if in PULL only mode
-        for(EnergyStorage energyStorage:blockEntity.producers.values()) {
+        long productionSum = blockEntity.energyStorage.getAmount(); //Will always be 0 if in PULL only mode
+        for(EnergyStorage limitingEnergyStorage:blockEntity.producers.values()) {
             try(Transaction transaction = Transaction.openOuter()) {
-                long extracted = energyStorage.extract(MAX_TRANSFER, transaction);
+                long extracted = limitingEnergyStorage.extract(MAX_TRANSFER, transaction);
 
                 if(extracted <= 0)
                     continue;
 
-                energyProduction.add(energyStorage);
+                energyProduction.add(limitingEnergyStorage);
                 energyProductionValues.add(extracted);
                 productionSum += extracted;
             }
@@ -194,14 +189,14 @@ public class CableBlockEntity extends BlockEntity {
         List<EnergyStorage> consumers = getConnectedConsumers(level, blockPos, new LinkedList<>());
 
         long consumptionSum = 0;
-        for(EnergyStorage energyStorage:consumers) {
+        for(EnergyStorage limitingEnergyStorage:consumers) {
             try(Transaction transaction = Transaction.openOuter()) {
-                long received = energyStorage.insert(MAX_TRANSFER, transaction);
+                long received = limitingEnergyStorage.insert(MAX_TRANSFER, transaction);
 
                 if(received <= 0)
                     continue;
 
-                energyConsumption.add(energyStorage);
+                energyConsumption.add(limitingEnergyStorage);
                 energyConsumptionValues.add(received);
                 consumptionSum += received;
             }
@@ -215,9 +210,9 @@ public class CableBlockEntity extends BlockEntity {
         long extractInternally = 0;
         if(ENERGY_EXTRACTION_MODE.isPush()) {
             //Prioritize stored energy for PUSH mode
-            extractInternally = Math.min(blockEntity.internalEnergyStorage.getAmount(), transferLeft);
+            extractInternally = Math.min(blockEntity.energyStorage.getAmount(), transferLeft);
             try(Transaction transaction = Transaction.openOuter()) {
-                blockEntity.internalEnergyStorage.extract(extractInternally, transaction);
+                blockEntity.energyStorage.extract(extractInternally, transaction);
 
                 transaction.commit();
             }
@@ -297,19 +292,18 @@ public class CableBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        if(ENERGY_EXTRACTION_MODE.isPush())
-            nbt.putLong("energy", internalEnergyStorage.getAmount());
-
-
+    protected void writeNbt(@NotNull NbtCompound nbt) {
         super.writeNbt(nbt);
+
+        if(ENERGY_EXTRACTION_MODE.isPush())
+            nbt.putLong("energy", energyStorage.getAmount());
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
+    public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
 
         if(ENERGY_EXTRACTION_MODE.isPush())
-            internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
+            energyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
     }
 }

@@ -3,7 +3,7 @@ package me.jddev0.ep.recipe;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
-import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
@@ -16,7 +16,7 @@ import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
-public class PlantGrowthChamberFertilizerRecipe implements Recipe<SimpleInventory> {
+public class PlantGrowthChamberFertilizerRecipe implements Recipe<Inventory> {
     private final Identifier id;
     private final Ingredient input;
     private final double speedMultiplier;
@@ -42,7 +42,7 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<SimpleInventor
     }
 
     @Override
-    public boolean matches(SimpleInventory container, World level) {
+    public boolean matches(Inventory container, World level) {
         if(level.isClient())
             return false;
 
@@ -50,7 +50,7 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<SimpleInventor
     }
 
     @Override
-    public ItemStack craft(SimpleInventory container, DynamicRegistryManager registryAccess) {
+    public ItemStack craft(Inventory container, DynamicRegistryManager registryManager) {
         return ItemStack.EMPTY;
     }
 

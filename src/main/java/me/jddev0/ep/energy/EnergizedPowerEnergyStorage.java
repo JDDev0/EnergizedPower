@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
 import team.reborn.energy.api.EnergyStorage;
 
-public class EnergizedPowerEnergyStorage extends SnapshotParticipant<Long> implements EnergyStorage {
+public class EnergizedPowerEnergyStorage extends SnapshotParticipant<Long> implements IEnergizedPowerEnergyStorage {
     protected long amount;
     protected long capacity;
     protected long maxInsert;
@@ -81,10 +81,12 @@ public class EnergizedPowerEnergyStorage extends SnapshotParticipant<Long> imple
         return capacity;
     }
 
+    @Override
     public void setAmountWithoutUpdate(long amount) {
         this.amount = amount;
     }
 
+    @Override
     public void setCapacityWithoutUpdate(long capacity) {
         this.capacity = capacity;
     }
