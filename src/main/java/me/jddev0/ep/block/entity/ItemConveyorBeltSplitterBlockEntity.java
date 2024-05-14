@@ -27,10 +27,10 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.putInt("current_output_index", currentOutputIndex);
-
+    protected void saveAdditional(@NotNull CompoundTag nbt) {
         super.saveAdditional(nbt);
+
+        nbt.putInt("current_output_index", currentOutputIndex);
     }
 
     @Override

@@ -2,23 +2,16 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.AutoCrafterBlock;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
+import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
-import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
-import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
-import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import me.jddev0.ep.util.ByteUtils;
-import me.jddev0.ep.util.EnergyUtils;
-import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,7 +19,6 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -38,7 +30,6 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -51,8 +42,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate, RedstoneModeUpdate,
-        ComparatorModeUpdate, CheckboxUpdate {
+public class AutoCrafterBlockEntity
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
+        implements MenuProvider, CheckboxUpdate {
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
     public final static int ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT =
@@ -62,35 +54,12 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
 
     private boolean secondaryExtractMode;
 
-    private final ReceiveOnlyEnergyStorage energyStorage;
-
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
-    private final ItemStackHandler itemHandler = new ItemStackHandler(18) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-        }
 
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            if(slot < 0 || slot >= 18)
-                return super.isItemValid(slot, stack);
-
-            //Slot 0, 1, and 2 are for output items only
-            return slot >= 3;
-        }
-    };
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 3,
                     i -> secondaryExtractMode?!isInput(itemHandler.getStackInSlot(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i))));
-
-    private final UpgradeModuleInventory upgradeModuleInventory = new UpgradeModuleInventory(
-            UpgradeModuleModifier.SPEED,
-            UpgradeModuleModifier.ENERGY_CONSUMPTION,
-            UpgradeModuleModifier.ENERGY_CAPACITY
-    );
-    private final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
     private final SimpleContainer patternSlots = new SimpleContainer(3 * 3) {
         @Override
@@ -124,40 +93,22 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     private boolean hasEnoughEnergy;
     private boolean ignoreNBT;
 
-    private @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
-    private @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
-
     public AutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.AUTO_CRAFTER_ENTITY.get(), blockPos, blockState);
+        super(
+                ModBlockEntities.AUTO_CRAFTER_ENTITY.get(), blockPos, blockState,
 
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
+                ModConfigs.COMMON_AUTO_CRAFTER_CAPACITY.getValue(),
+                ModConfigs.COMMON_AUTO_CRAFTER_TRANSFER_RATE.getValue(),
+
+                18,
+
+                UpgradeModuleModifier.SPEED,
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        );
+
         patternSlots.addListener(updatePatternListener);
 
-        energyStorage = new ReceiveOnlyEnergyStorage(0, ModConfigs.COMMON_AUTO_CRAFTER_CAPACITY.getValue(),
-                ModConfigs.COMMON_AUTO_CRAFTER_TRANSFER_RATE.getValue()) {
-            @Override
-            public int getCapacity() {
-                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_CAPACITY)));
-            }
-
-            @Override
-            public int getMaxReceive() {
-                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
-                setChanged();
-
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
-                            getBlockPos(), level.dimension(), 32
-                    );
-            }
-        };
         data = new ContainerData() {
             @Override
             public int get(int index) {
@@ -199,6 +150,48 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     @Override
+    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
+        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+            @Override
+            public int getCapacity() {
+                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            public int getMaxReceive() {
+                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+
+            @Override
+            protected void onChange() {
+                setChanged();
+                syncEnergyToPlayers(32);
+            }
+        };
+    }
+
+    @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                if(slot < 0 || slot >= 18)
+                    return super.isItemValid(slot, stack);
+
+                //Slot 0, 1, and 2 are for output items only
+                return slot >= 3;
+            }
+        };
+    }
+
+    @Override
     public Component getDisplayName() {
         return Component.translatable("container.energizedpower.auto_crafter");
     }
@@ -206,18 +199,9 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
-                getBlockPos()), (ServerPlayer)player);
+        syncEnergyToPlayer(player);
 
         return new AutoCrafterMenu(id, inventory, this, upgradeModuleInventory, patternSlots, patternResultSlots, data);
-    }
-
-    public int getRedstoneOutput() {
-        return switch(comparatorMode) {
-            case ITEM -> InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
-            case FLUID -> 0;
-            case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
-        };
     }
 
     @Override
@@ -250,17 +234,13 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         lazyEnergyStorage.invalidate();
     }
 
-    @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        //Save Upgrade Module Inventory first
-        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT());
+    protected void saveAdditional(@NotNull CompoundTag nbt) {
+        super.saveAdditional(nbt);
 
-        nbt.put("inventory", itemHandler.serializeNBT());
         NonNullList<ItemStack> items = NonNullList.withSize(patternSlots.getContainerSize(), ItemStack.EMPTY);
         for(int i = 0;i < patternSlots.getContainerSize();i++)
             items.set(i, patternSlots.getItem(i));
         nbt.put("pattern", ContainerHelper.saveAllItems(new CompoundTag(), items));
-        nbt.put("energy", energyStorage.saveNBT());
 
         if(craftingRecipe != null)
             nbt.put("recipe.id", StringTag.valueOf(craftingRecipe.getId().toString()));
@@ -271,30 +251,18 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
 
         nbt.putBoolean("ignore_nbt", ignoreNBT);
         nbt.putBoolean("secondary_extract_mode", secondaryExtractMode);
-
-        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
-        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
-
-        super.saveAdditional(nbt);
     }
 
     @Override
     public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
 
-        //Load Upgrade Module Inventory first
-        upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
-        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"));
-        upgradeModuleInventory.addListener(updateUpgradeModuleListener);
-
-        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
         patternSlots.removeListener(updatePatternListener);
         NonNullList<ItemStack> items = NonNullList.withSize(patternSlots.getContainerSize(), ItemStack.EMPTY);
         ContainerHelper.loadAllItems(nbt.getCompound("pattern"), items);
         for(int i = 0;i < patternSlots.getContainerSize();i++)
             patternSlots.setItem(i, items.get(i));
         patternSlots.addListener(updatePatternListener);
-        energyStorage.loadNBT(nbt.get("energy"));
 
         if(nbt.contains("recipe.id")) {
             Tag tag = nbt.get("recipe.id");
@@ -311,19 +279,6 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
 
         ignoreNBT = nbt.getBoolean("ignore_nbt");
         secondaryExtractMode = nbt.getBoolean("secondary_extract_mode");
-
-        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
-        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
-    }
-
-    public void drops(Level level, BlockPos worldPosition) {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-
-        Containers.dropContents(level, worldPosition, inventory);
-
-        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AutoCrafterBlockEntity blockEntity) {
@@ -806,14 +761,11 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
         return recipe.or(() -> recipes.stream().findFirst()).map(r -> Pair.of(r.getId(), r));
     }
 
-    private void updateUpgradeModules() {
+    @Override
+    protected void updateUpgradeModules() {
         resetProgress();
-        setChanged();
-        if(level != null && !level.isClientSide())
-            ModMessages.sendToPlayersWithinXBlocks(
-                    new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(), getBlockPos()),
-                    getBlockPos(), level.dimension(), 32
-            );
+
+        super.updateUpgradeModules();
     }
 
     public void setIgnoreNBT(boolean ignoreNBT) {
@@ -837,37 +789,5 @@ public class AutoCrafterBlockEntity extends BlockEntity implements MenuProvider,
             //Secondary extract mode
             case 1 -> setSecondaryExtractMode(checked);
         }
-    }
-
-    public int getEnergy() {
-        return energyStorage.getEnergy();
-    }
-
-    public int getCapacity() {
-        return energyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        energyStorage.setEnergyWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        energyStorage.setCapacityWithoutUpdate(capacity);
-    }
-
-    @Override
-    public void setNextRedstoneMode() {
-        redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
-        setChanged();
-    }
-
-    @Override
-    public void setNextComparatorMode() {
-        do {
-            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
-        }while(comparatorMode == ComparatorMode.FLUID); //Prevent the FLUID comparator mode from being selected
-        setChanged();
     }
 }

@@ -12,16 +12,12 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-public class PulverizerRecipe implements Recipe<SimpleContainer> {
+public class PulverizerRecipe implements Recipe<Container> {
     private final ResourceLocation id;
     private final OutputItemStackWithPercentages output;
     private final OutputItemStackWithPercentages secondaryOutput;
@@ -76,7 +72,7 @@ public class PulverizerRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(SimpleContainer container, Level level) {
+    public boolean matches(Container container, Level level) {
         if(level.isClientSide)
             return false;
 
@@ -84,7 +80,7 @@ public class PulverizerRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container) {
+    public ItemStack assemble(Container container) {
         return ItemStack.EMPTY;
     }
 

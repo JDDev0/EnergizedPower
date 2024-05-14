@@ -7,7 +7,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
@@ -17,7 +17,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.LinkedList;
 import java.util.List;
 
-public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
+public class HeatGeneratorRecipe implements Recipe<Container> {
     private final ResourceLocation id;
     private final Fluid[] input;
     private final int energyProduction;
@@ -37,12 +37,12 @@ public class HeatGeneratorRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(SimpleContainer container, Level level) {
+    public boolean matches(Container container, Level level) {
         return false;
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container) {
+    public ItemStack assemble(Container container) {
         return ItemStack.EMPTY;
     }
 

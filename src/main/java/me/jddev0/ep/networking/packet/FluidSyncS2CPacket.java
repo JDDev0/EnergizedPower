@@ -45,8 +45,8 @@ public class FluidSyncS2CPacket {
             //BlockEntity
             if(blockEntity instanceof FluidStoragePacketUpdate) {
                 FluidStoragePacketUpdate fluidStorage = (FluidStoragePacketUpdate)blockEntity;
-                fluidStorage.setFluid(tank, fluidStack);
                 fluidStorage.setTankCapacity(tank, capacity);
+                fluidStorage.setFluid(tank, fluidStack);
             }
         });
 

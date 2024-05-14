@@ -40,8 +40,8 @@ public class EnergySyncS2CPacket {
             //BlockEntity
             if(blockEntity instanceof EnergyStoragePacketUpdate) {
                 EnergyStoragePacketUpdate energyStorage = (EnergyStoragePacketUpdate)blockEntity;
-                energyStorage.setEnergy(energy);
                 energyStorage.setCapacity(capacity);
+                energyStorage.setEnergy(energy);
             }
         });
 

@@ -8,12 +8,12 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
-public class SawmillRecipe implements Recipe<SimpleContainer> {
+public class SawmillRecipe implements Recipe<Container> {
     private final ResourceLocation id;
     private final ItemStack output;
     private final ItemStack secondaryOutput;
@@ -43,7 +43,7 @@ public class SawmillRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(SimpleContainer container, Level level) {
+    public boolean matches(Container container, Level level) {
         if(level.isClientSide)
             return false;
 
@@ -51,7 +51,7 @@ public class SawmillRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer container) {
+    public ItemStack assemble(Container container) {
         return output;
     }
 
