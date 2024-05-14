@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
+import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.energy.InfinityEnergyStorage;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -24,35 +25,21 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
-public class CreativeBatteryBoxBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate,
-        CheckboxUpdate {
-    final InfinityEnergyStorage energyStorage;
-
+public class CreativeBatteryBoxBlockEntity
+        extends EnergyStorageBlockEntity<InfinityEnergyStorage>
+        implements ExtendedScreenHandlerFactory, CheckboxUpdate {
     protected final PropertyDelegate data;
 
     private boolean energyProduction = true;
     private boolean energyConsumption;
 
     public CreativeBatteryBoxBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.CREATIVE_BATTERY_BOX_ENTITY, blockPos, blockState);
+        super(
+                ModBlockEntities.CREATIVE_BATTERY_BOX_ENTITY, blockPos, blockState,
 
-        energyStorage = new InfinityEnergyStorage() {
-            @Override
-            public long extract(long maxAmount, TransactionContext transaction) {
-                if(energyProduction)
-                    return super.extract(maxAmount, transaction);
+                Long.MAX_VALUE, Long.MAX_VALUE
+        );
 
-                return 0;
-            }
-
-            @Override
-            public long insert(long maxAmount, TransactionContext transaction) {
-                if(energyConsumption)
-                    return super.insert(maxAmount, transaction);
-
-                return 0;
-            }
-        };
         data = new PropertyDelegate() {
             @Override
             public int get(int index) {
@@ -79,6 +66,26 @@ public class CreativeBatteryBoxBlockEntity extends BlockEntity implements Extend
     }
 
     @Override
+    protected InfinityEnergyStorage initEnergyStorage() {
+        return new InfinityEnergyStorage() {
+            @Override
+            public long extract(long maxAmount, TransactionContext transaction) {
+                return energyProduction?super.extract(maxAmount, transaction):0;
+            }
+
+            @Override
+            public long insert(long maxAmount, TransactionContext transaction) {
+                return energyConsumption?super.insert(maxAmount, transaction):0;
+            }
+        };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, Long.MAX_VALUE, Long.MAX_VALUE);
+    }
+
+    @Override
     public Text getDisplayName() {
         return Text.translatable("container.energizedpower.creative_battery_box");
     }
@@ -95,21 +102,16 @@ public class CreativeBatteryBoxBlockEntity extends BlockEntity implements Extend
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        nbt.put("energy", new NbtCompound());
+    protected void writeNbt(@NotNull NbtCompound nbt) {
+        super.writeNbt(nbt);
 
         nbt.putBoolean("energy_production", energyProduction);
         nbt.putBoolean("energy_consumption", energyConsumption);
-
-        super.writeNbt(nbt);
     }
 
     @Override
     public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
-
-        if(!(nbt.get("energy") instanceof NbtCompound))
-            throw new IllegalArgumentException("Tag must be of type IntTag!");
 
         energyProduction = !nbt.contains("energy_production") || nbt.getBoolean("energy_production");
         energyConsumption = nbt.getBoolean("energy_consumption");
@@ -157,40 +159,22 @@ public class CreativeBatteryBoxBlockEntity extends BlockEntity implements Extend
             if(testBlockEntity == null)
                 continue;
 
-            EnergyStorage energyStorage = EnergyStorage.SIDED.find(level, testPos, direction.getOpposite());
-            if(energyStorage == null)
+            EnergyStorage limitingEnergyStorage = EnergyStorage.SIDED.find(level, testPos, direction.getOpposite());
+            if(limitingEnergyStorage == null)
                 continue;
 
-            if(!energyStorage.supportsInsertion())
+            if(!limitingEnergyStorage.supportsInsertion())
                 continue;
 
             long received;
             try(Transaction transaction = Transaction.openOuter()) {
-                received = energyStorage.insert(energyStorage.getCapacity(), transaction);
+                received = limitingEnergyStorage.insert(limitingEnergyStorage.getCapacity(), transaction);
             }
 
             try(Transaction transaction = Transaction.openOuter()) {
-                energyStorage.insert(received, transaction);
+                limitingEnergyStorage.insert(received, transaction);
                 transaction.commit();
             }
         }
-    }
-
-    public long getEnergy() {
-        return Long.MAX_VALUE;
-    }
-
-    public long getCapacity() {
-        return Long.MAX_VALUE;
-    }
-
-    @Override
-    public void setEnergy(long energy) {
-        //Does nothing (energy is final)
-    }
-
-    @Override
-    public void setCapacity(long capacity) {
-        //Does nothing (capacity is final)
     }
 }

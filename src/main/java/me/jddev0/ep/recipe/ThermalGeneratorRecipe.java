@@ -7,7 +7,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Recipe;
@@ -18,7 +18,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
-public class ThermalGeneratorRecipe implements Recipe<SimpleInventory> {
+public class ThermalGeneratorRecipe implements Recipe<Inventory> {
     private final Fluid[] input;
     private final long energyProduction;
 
@@ -36,12 +36,12 @@ public class ThermalGeneratorRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public boolean matches(SimpleInventory container, World level) {
+    public boolean matches(Inventory container, World level) {
         return false;
     }
 
     @Override
-    public ItemStack craft(SimpleInventory container, DynamicRegistryManager registryAccess) {
+    public ItemStack craft(Inventory container, DynamicRegistryManager registryManager) {
         return ItemStack.EMPTY;
     }
 

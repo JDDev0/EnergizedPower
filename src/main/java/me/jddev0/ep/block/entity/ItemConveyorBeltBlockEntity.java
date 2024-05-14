@@ -3,60 +3,46 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ModBlockStateProperties;
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.block.entity.handler.CachedSidedInventoryStorage;
-import me.jddev0.ep.block.entity.handler.InputOutputItemHandler;
-import me.jddev0.ep.block.entity.handler.SidedInventoryWrapper;
+import me.jddev0.ep.block.entity.base.InventoryStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.ItemStackPacketUpdate;
 import me.jddev0.ep.networking.ModMessages;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import me.jddev0.ep.networking.packet.ItemStackSyncS2CPacket;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.stream.IntStream;
-
-public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStackPacketUpdate {
+public class ItemConveyorBeltBlockEntity
+        extends InventoryStorageBlockEntity<SimpleInventory>
+        implements ItemStackPacketUpdate {
     private static final int TICKS_PER_STEP = ModConfigs.COMMON_ITEM_CONVEYOR_BELT_TICKS_PER_STEP.getValue();
 
-    final CachedSidedInventoryStorage<ItemConveyorBeltBlockEntity> cachedSidedInventoryStorageFront;
-    final InputOutputItemHandler sidedInventoryFront;
-
-    final CachedSidedInventoryStorage<ItemConveyorBeltBlockEntity> cachedSidedInventoryStorageOthers;
-    final InputOutputItemHandler sidedInventoryOthers;
-    private final SimpleInventory internalInventory;
-
-    static Storage<ItemVariant> getInventoryStorageForDirection(ItemConveyorBeltBlockEntity entity, Direction side) {
-        if(side == null)
-            return null;
-
-        Direction facing = entity.getCachedState().get(ItemConveyorBeltBlock.FACING).getDirection();
-        if(side.getOpposite() == facing)
-            return entity.cachedSidedInventoryStorageFront.apply(side);
-
-        return entity.cachedSidedInventoryStorageOthers.apply(side);
-    }
+    final InputOutputItemHandler itemHandlerFrontSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 3);
+    final InputOutputItemHandler itemHandlerOthersSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 3);
 
     public ItemConveyorBeltBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.ITEM_CONVEYOR_BELT_ENTITY, blockPos, blockState);
+        super(
+                ModBlockEntities.ITEM_CONVEYOR_BELT_ENTITY, blockPos, blockState,
 
-        internalInventory = new SimpleInventory(4) {
+                4
+        );
+    }
+
+    @Override
+    protected SimpleInventory initInventoryStorage() {
+        return new SimpleInventory(slotCount) {
             @Override
             public int getMaxCountPerStack() {
                 return 1;
@@ -79,74 +65,28 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
 
                 for(int i = 0;i < size();i++)
                     if(world != null && !world.isClient()) {
-                        PacketByteBuf buffer = PacketByteBufs.create();
-                        buffer.writeInt(i);
-                        buffer.writeItemStack(getStack(i));
-                        buffer.writeBlockPos(getPos());
-
                         ModMessages.sendServerPacketToPlayersWithinXBlocks(
                                 getPos(), (ServerWorld)world, 64,
-                                ModMessages.ITEM_STACK_SYNC_ID, buffer
+                                new ItemStackSyncS2CPacket(i, getStack(i), getPos())
                         );
                     }
             }
         };
-        sidedInventoryFront = new InputOutputItemHandler(new SidedInventoryWrapper(internalInventory) {
-            @Override
-            public int[] getAvailableSlots(Direction side) {
-                return IntStream.range(0, 4).toArray();
-            }
-
-            @Override
-            public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-                return isValid(slot, stack);
-            }
-
-            @Override
-            public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-                return true;
-            }
-        }, (i, stack) -> i == 0, i -> i == 3);
-        cachedSidedInventoryStorageFront = new CachedSidedInventoryStorage<>(sidedInventoryFront);
-        sidedInventoryOthers = new InputOutputItemHandler(new SidedInventoryWrapper(internalInventory) {
-            @Override
-            public int[] getAvailableSlots(Direction side) {
-                return IntStream.range(0, 4).toArray();
-            }
-
-            @Override
-            public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-                return isValid(slot, stack);
-            }
-
-            @Override
-            public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-                return true;
-            }
-        }, (i, stack) -> i == 1, i -> i == 3);
-        cachedSidedInventoryStorageOthers = new CachedSidedInventoryStorage<>(sidedInventoryOthers);
     }
 
     public int getRedstoneOutput() {
-        return ScreenHandler.calculateComparatorOutput(internalInventory);
+        return ScreenHandler.calculateComparatorOutput(itemHandler);
     }
 
-    @Override
-    protected void writeNbt(NbtCompound nbt) {
-        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), internalInventory.stacks));
+    static Storage<ItemVariant> getInventoryStorageForDirection(ItemConveyorBeltBlockEntity entity, Direction side) {
+        if(side == null)
+            return null;
 
-        super.writeNbt(nbt);
-    }
+        Direction facing = entity.getCachedState().get(ItemConveyorBeltBlock.FACING).getDirection();
+        if(side.getOpposite() == facing)
+            return entity.itemHandlerFrontSided.apply(side);
 
-    @Override
-    public void readNbt(@NotNull NbtCompound nbt) {
-        super.readNbt(nbt);
-
-        Inventories.readNbt(nbt.getCompound("inventory"), internalInventory.stacks);
-    }
-
-    public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, internalInventory);
+        return entity.itemHandlerOthersSided.apply(side);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltBlockEntity blockEntity) {
@@ -155,36 +95,30 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
 
         //Sync item stacks to client every 5 seconds
         if(level.getTime() % 100 == 0) //TODO improve
-            for(int i = 0;i < blockEntity.internalInventory.size();i++)
-                if(!level.isClient()) {
-                    PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeInt(i);
-                    buffer.writeItemStack(blockEntity.getStack(i));
-                    buffer.writeBlockPos(blockPos);
-
+            for(int i = 0;i < blockEntity.itemHandler.size();i++)
+                if(!level.isClient())
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
                             blockPos, (ServerWorld)level, 64,
-                            ModMessages.ITEM_STACK_SYNC_ID, buffer
+                            new ItemStackSyncS2CPacket(i, blockEntity.getStack(i), blockPos)
                     );
-                }
 
         if(level.getTime() % blockEntity.TICKS_PER_STEP == 0) {
-            int slotCount = blockEntity.internalInventory.size();
+            int slotCount = blockEntity.itemHandler.size();
 
-            if(!blockEntity.internalInventory.getStack(slotCount - 1).isEmpty())
-                insertItemStackIntoBlockEntity(level, blockPos, state, blockEntity, blockEntity.internalInventory.getStack(slotCount - 1).copy());
+            if(!blockEntity.itemHandler.getStack(slotCount - 1).isEmpty())
+                insertItemStackIntoBlockEntity(level, blockPos, state, blockEntity, blockEntity.itemHandler.getStack(slotCount - 1).copy());
 
             for(int i = slotCount - 2;i >= 0;i--) {
-                ItemStack fromItemStack = blockEntity.internalInventory.getStack(i);
+                ItemStack fromItemStack = blockEntity.itemHandler.getStack(i);
                 if(fromItemStack.isEmpty())
                     continue;
 
-                ItemStack toItemStack = blockEntity.internalInventory.getStack(i + 1);
+                ItemStack toItemStack = blockEntity.itemHandler.getStack(i + 1);
                 if(!toItemStack.isEmpty())
                     continue;
 
-                blockEntity.internalInventory.setStack(i, ItemStack.EMPTY);
-                blockEntity.internalInventory.setStack(i + 1, fromItemStack);
+                blockEntity.itemHandler.setStack(i, ItemStack.EMPTY);
+                blockEntity.itemHandler.setStack(i + 1, fromItemStack);
             }
         }
     }
@@ -229,22 +163,22 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
         try(Transaction transaction = Transaction.openOuter()) {
             long amount = itemStackStorage.insert(ItemVariant.of(itemStackToInsert), 1, transaction);
             if(amount > 0)
-                blockEntity.internalInventory.setStack(blockEntity.internalInventory.size() - 1, ItemStack.EMPTY);
+                blockEntity.itemHandler.setStack(blockEntity.itemHandler.size() - 1, ItemStack.EMPTY);
 
             transaction.commit();
         }
     }
 
     public int getSlotCount() {
-        return internalInventory.size();
+        return itemHandler.size();
     }
 
     public ItemStack getStack(int slot) {
-        return internalInventory.getStack(slot);
+        return itemHandler.getStack(slot);
     }
 
     @Override
     public void setItemStack(int slot, ItemStack itemStack) {
-        internalInventory.setStack(slot, itemStack);
+        itemHandler.setStack(slot, itemStack);
     }
 }

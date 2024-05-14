@@ -1,24 +1,20 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AdvancedMinecartUnchargerBlock;
+import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
-import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.AdvancedMinecartUnchargerMenu;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
@@ -26,7 +22,6 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
@@ -35,38 +30,38 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AdvancedMinecartUnchargerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, EnergyStoragePacketUpdate {
+public class AdvancedMinecartUnchargerBlockEntity
+        extends EnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
+        implements ExtendedScreenHandlerFactory {
     public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_MINECART_UNCHARGER_CAPACITY.getValue();
     public static final long MAX_TRANSFER = ModConfigs.COMMON_ADVANCED_MINECART_UNCHARGER_TRANSFER_RATE.getValue();
-
-    final EnergizedPowerLimitingEnergyStorage energyStorage;
-    private final EnergizedPowerEnergyStorage internalEnergyStorage;
 
     private boolean hasMinecartOld = true; //Default true (Force first update)
     private boolean hasMinecart = false; //Default false (Force first update)
 
     public AdvancedMinecartUnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.ADVANCED_MINECART_UNCHARGER_ENTITY, blockPos, blockState);
+        super(
+                ModBlockEntities.ADVANCED_MINECART_UNCHARGER_ENTITY, blockPos, blockState,
 
-        internalEnergyStorage = new EnergizedPowerEnergyStorage(CAPACITY, CAPACITY, CAPACITY) {
+                ModConfigs.COMMON_ADVANCED_MINECART_UNCHARGER_CAPACITY.getValue(),
+                MAX_TRANSFER
+        );
+    }
+
+    @Override
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
-
-                if(world != null && !world.isClient()) {
-                    PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeLong(getAmount());
-                    buffer.writeLong(getCapacity());
-                    buffer.writeBlockPos(getPos());
-
-                    ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                            getPos(), (ServerWorld)world, 32,
-                            ModMessages.ENERGY_SYNC_ID, buffer
-                    );
-                }
+                syncEnergyToPlayers(32);
             }
         };
-        energyStorage = new EnergizedPowerLimitingEnergyStorage(internalEnergyStorage, 0, MAX_TRANSFER);
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, 0, baseEnergyTransferRate);
     }
 
     @Override
@@ -77,12 +72,7 @@ public class AdvancedMinecartUnchargerBlockEntity extends BlockEntity implements
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeLong(internalEnergyStorage.getAmount());
-        buffer.writeLong(internalEnergyStorage.getCapacity());
-        buffer.writeBlockPos(getPos());
-
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.ENERGY_SYNC_ID, buffer);
+        syncEnergyToPlayer(player);
 
         return new AdvancedMinecartUnchargerMenu(id, this, inventory);
     }
@@ -110,20 +100,6 @@ public class AdvancedMinecartUnchargerBlockEntity extends BlockEntity implements
         return Math.min(MathHelper.floor((float)minecartEnergy / minecart.getCapacity() * 14.f) + (isEmptyFlag?0:1), 15);
     }
 
-    @Override
-    protected void writeNbt(NbtCompound nbt) {
-        nbt.putLong("energy", internalEnergyStorage.getAmount());
-
-        super.writeNbt(nbt);
-    }
-
-    @Override
-    public void readNbt(@NotNull NbtCompound nbt) {
-        super.readNbt(nbt);
-
-        internalEnergyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
-    }
-
     public static void tick(World level, BlockPos blockPos, BlockState state, AdvancedMinecartUnchargerBlockEntity blockEntity) {
         if(level.isClient())
             return;
@@ -144,12 +120,13 @@ public class AdvancedMinecartUnchargerBlockEntity extends BlockEntity implements
             return;
 
         AbstractMinecartBatteryBox minecart = minecarts.get(0);
-        long transferred = Math.min(Math.min(CAPACITY - blockEntity.energyStorage.getAmount(), MAX_TRANSFER),
+        long transferred = Math.min(Math.min(blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getAmount(),
+                        blockEntity.limitingEnergyStorage.getMaxExtract()),
                 Math.min(minecart.getTransferRate(), minecart.getEnergy()));
         minecart.setEnergy(minecart.getEnergy() - transferred);
 
         try(Transaction transaction = Transaction.openOuter()) {
-            blockEntity.internalEnergyStorage.insert(transferred, transaction);
+            blockEntity.energyStorage.insert(transferred, transaction);
             transaction.commit();
         }
 
@@ -170,21 +147,22 @@ public class AdvancedMinecartUnchargerBlockEntity extends BlockEntity implements
             if(testBlockEntity == null)
                 continue;
 
-            EnergyStorage energyStorage = EnergyStorage.SIDED.find(level, testPos, direction.getOpposite());
-            if(energyStorage == null)
+            EnergyStorage limitingEnergyStorage = EnergyStorage.SIDED.find(level, testPos, direction.getOpposite());
+            if(limitingEnergyStorage == null)
                 continue;
 
-            if(!energyStorage.supportsInsertion())
+            if(!limitingEnergyStorage.supportsInsertion())
                 continue;
 
             try(Transaction transaction = Transaction.openOuter()) {
-                long received = energyStorage.insert(Math.min(MAX_TRANSFER, blockEntity.internalEnergyStorage.getAmount()), transaction);
+                long received = limitingEnergyStorage.insert(Math.min(blockEntity.limitingEnergyStorage.getMaxExtract(),
+                        blockEntity.energyStorage.getAmount()), transaction);
 
                 if(received <= 0)
                     continue;
 
                 consumptionSum += received;
-                consumerItems.add(energyStorage);
+                consumerItems.add(limitingEnergyStorage);
                 consumerEnergyValues.add(received);
             }
         }
@@ -193,9 +171,10 @@ public class AdvancedMinecartUnchargerBlockEntity extends BlockEntity implements
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0L);
 
-        long consumptionLeft = Math.min(MAX_TRANSFER, Math.min(blockEntity.internalEnergyStorage.getAmount(), consumptionSum));
+        long consumptionLeft = Math.min(blockEntity.limitingEnergyStorage.getMaxExtract(),
+                Math.min(blockEntity.energyStorage.getAmount(), consumptionSum));
         try(Transaction transaction = Transaction.openOuter()) {
-            blockEntity.internalEnergyStorage.extract(consumptionLeft, transaction);
+            blockEntity.energyStorage.extract(consumptionLeft, transaction);
             transaction.commit();
         }
 
@@ -229,23 +208,5 @@ public class AdvancedMinecartUnchargerBlockEntity extends BlockEntity implements
                 }
             }
         }
-    }
-
-    public long getEnergy() {
-        return internalEnergyStorage.getAmount();
-    }
-
-    public long getCapacity() {
-        return internalEnergyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(long energy) {
-        internalEnergyStorage.setAmountWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(long capacity) {
-        internalEnergyStorage.setCapacityWithoutUpdate(capacity);
     }
 }

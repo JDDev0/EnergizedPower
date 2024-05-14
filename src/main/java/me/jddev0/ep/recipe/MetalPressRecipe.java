@@ -61,7 +61,7 @@ public class MetalPressRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public ItemStack craft(Inventory container, DynamicRegistryManager registryManage) {
+    public ItemStack craft(Inventory container, DynamicRegistryManager registryManager) {
         return output;
     }
 

@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
@@ -15,7 +15,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 
-public class ChargerRecipe implements Recipe<SimpleInventory> {
+public class ChargerRecipe implements Recipe<Inventory> {
     private final ItemStack output;
     private final Ingredient input;
     private final int energyConsumption;
@@ -39,7 +39,7 @@ public class ChargerRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public boolean matches(SimpleInventory container, World level) {
+    public boolean matches(Inventory container, World level) {
         if(level.isClient())
             return false;
 
@@ -47,7 +47,7 @@ public class ChargerRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public ItemStack craft(SimpleInventory container, DynamicRegistryManager registryManage) {
+    public ItemStack craft(Inventory container, DynamicRegistryManager registryManager) {
         return output;
     }
 

@@ -1,5 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
+import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.recipe.FurnaceRecipeTypePacketUpdate;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
@@ -9,28 +10,59 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.AbstractCookingRecipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.NotNull;
 
-public class SyncFurnaceRecipeTypeS2CPacket {
-    private SyncFurnaceRecipeTypeS2CPacket() {}
+public final class SyncFurnaceRecipeTypeS2CPacket implements IEnergizedPowerPacket {
+    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "sync_furnace_recipe_type");
+
+    private final RecipeType<? extends AbstractCookingRecipe> recipeType;
+    private final BlockPos pos;
+
+    public SyncFurnaceRecipeTypeS2CPacket(RecipeType<? extends AbstractCookingRecipe> recipeType, BlockPos pos) {
+        this.recipeType = recipeType;
+        this.pos = pos;
+    }
 
     @SuppressWarnings("unchecked")
-    public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
-        RecipeType<? extends AbstractCookingRecipe> recipeType;
-        if(buf.readBoolean())
-            recipeType = (RecipeType<? extends AbstractCookingRecipe>)Registries.RECIPE_TYPE.
-                    getOrEmpty(buf.readIdentifier()).orElse(RecipeType.SMELTING);
-        else
-            recipeType = RecipeType.SMELTING;
-        BlockPos pos = buf.readBlockPos();
+    public SyncFurnaceRecipeTypeS2CPacket(PacketByteBuf buffer) {
+        if(buffer.readBoolean()) {
+            this.recipeType = (RecipeType<? extends AbstractCookingRecipe>)Registries.RECIPE_TYPE.
+                    getOrEmpty(buffer.readIdentifier()).orElse(RecipeType.SMELTING);
+        }else {
+            this.recipeType = RecipeType.SMELTING;
+        }
 
+        this.pos = buffer.readBlockPos();
+    }
+
+    public void write(PacketByteBuf buffer) {
+        Identifier recipeTypeKey = Registries.RECIPE_TYPE.getId(recipeType);
+        if(recipeTypeKey == null) {
+            buffer.writeBoolean(false);
+        }else {
+            buffer.writeBoolean(true);
+            buffer.writeIdentifier(recipeTypeKey);
+        }
+        buffer.writeBlockPos(pos);
+    }
+
+    @Override
+    @NotNull
+    public Identifier getId() {
+        return ID;
+    }
+
+    public static void receive(SyncFurnaceRecipeTypeS2CPacket data, MinecraftClient client, ClientPlayNetworkHandler handler,
+                               PacketSender responseSender) {
         client.execute(() -> {
             if(client.world == null)
                 return;
 
-            BlockEntity blockEntity = client.world.getBlockEntity(pos);
+            BlockEntity blockEntity = client.world.getBlockEntity(data.pos);
             if(blockEntity instanceof FurnaceRecipeTypePacketUpdate recipeTypePacketUpdate)
-                recipeTypePacketUpdate.setRecipeType(recipeType);
+                recipeTypePacketUpdate.setRecipeType(data.recipeType);
         });
     }
 }

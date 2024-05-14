@@ -5,10 +5,9 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.PopEnergizedPowerBookFromLecternC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.LecternBlockEntity;
 import net.minecraft.client.gui.DrawContext;
@@ -169,7 +168,7 @@ public class EnergizedPowerBookScreen extends Screen {
 
         if(showTakeButton)
             addDrawableChild(ButtonWidget.builder(Text.translatable("lectern.take_book"), button -> {
-                ClientPlayNetworking.send(ModMessages.POP_ENERGIZED_POWER_BOOK_FROM_LECTERN_ID, PacketByteBufs.create().writeBlockPos(lecternBlockEntity.getPos()));
+                ModMessages.sendClientPacketToServer(new PopEnergizedPowerBookFromLecternC2SPacket(lecternBlockEntity.getPos()));
                 close();
             }).dimensions(width / 2 + 2, 232, 116, 20).build());
     }

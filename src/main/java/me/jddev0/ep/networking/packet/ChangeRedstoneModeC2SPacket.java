@@ -1,5 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
+import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
@@ -7,23 +8,38 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 
-public class ChangeRedstoneModeC2SPacket {
-    private ChangeRedstoneModeC2SPacket() {}
+public record ChangeRedstoneModeC2SPacket(BlockPos pos) implements IEnergizedPowerPacket {
+    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "change_redstone_mode");
 
-    public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
-                               PacketByteBuf buf, PacketSender responseSender) {
-        BlockPos pos = buf.readBlockPos();
+    public ChangeRedstoneModeC2SPacket(PacketByteBuf buffer) {
+        this(buffer.readBlockPos());
+    }
 
-        server.execute(() -> {
-            World level = player.getWorld();
-            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ())))
+    public void write(PacketByteBuf buffer) {
+        buffer.writeBlockPos(pos);
+    }
+
+    @Override
+    public Identifier getId() {
+        return ID;
+    }
+
+    public static void receive(ChangeRedstoneModeC2SPacket data, MinecraftServer server, ServerPlayerEntity player,
+                               ServerPlayNetworkHandler handler, PacketSender responseSender) {
+        player.server.execute(() -> {
+            if(!player.canModifyBlocks())
                 return;
 
-            BlockEntity blockEntity = level.getBlockEntity(pos);
+            World level = player.getWorld();
+            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
+                return;
+
+            BlockEntity blockEntity = level.getBlockEntity(data.pos);
             if(!(blockEntity instanceof RedstoneModeUpdate redstoneModeUpdate))
                 return;
 

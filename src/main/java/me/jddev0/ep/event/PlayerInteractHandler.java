@@ -3,10 +3,9 @@ package me.jddev0.ep.event;
 import me.jddev0.ep.item.EnergizedPowerBookItem;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.OpenEnergizedPowerBookS2CPacket;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LecternBlock;
 import net.minecraft.block.entity.BlockEntity;
@@ -55,7 +54,7 @@ public class PlayerInteractHandler implements UseBlockCallback {
             return ActionResult.PASS;
 
         if(!level.isClient())
-            ServerPlayNetworking.send((ServerPlayerEntity)player, ModMessages.OPEN_ENERGIZED_POWER_BOOK_ID, PacketByteBufs.create().writeBlockPos(blockPos));
+            ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, new OpenEnergizedPowerBookS2CPacket(blockPos));
 
         return ActionResult.SUCCESS;
     }

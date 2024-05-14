@@ -1,5 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
+import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.FluidTankBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
@@ -8,29 +9,43 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 
-public class SetFluidTankFilterC2SPacket {
-    private SetFluidTankFilterC2SPacket() {}
+public record SetFluidTankFilterC2SPacket(BlockPos pos, FluidStack fluidFilter) implements IEnergizedPowerPacket {
+    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "set_fluid_tank_filter");
 
+    public SetFluidTankFilterC2SPacket(PacketByteBuf buffer) {
+        this(buffer.readBlockPos(), FluidStack.fromPacket(buffer));
+    }
 
-    public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
-                               PacketByteBuf buf, PacketSender responseSender) {
-        BlockPos pos = buf.readBlockPos();
-        FluidStack fluidFilter = FluidStack.fromPacket(buf);
+    public void write(PacketByteBuf buffer) {
+        buffer.writeBlockPos(pos);
+        fluidFilter.toPacket(buffer);
+    }
 
-        server.execute(() -> {
-            World level = player.getWorld();
-            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ())))
+    @Override
+    public Identifier getId() {
+        return ID;
+    }
+
+    public static void receive(SetFluidTankFilterC2SPacket data, MinecraftServer server, ServerPlayerEntity player,
+                               ServerPlayNetworkHandler handler, PacketSender responseSender) {
+        player.server.execute(() -> {
+            if(!player.canModifyBlocks())
                 return;
 
-            BlockEntity blockEntity = level.getBlockEntity(pos);
+            World level = player.getWorld();
+            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
+                return;
+
+            BlockEntity blockEntity = level.getBlockEntity(data.pos);
             if(!(blockEntity instanceof FluidTankBlockEntity fluidTankBlockEntity))
                 return;
 
-            fluidTankBlockEntity.setFluidFilter(fluidFilter);
+            fluidTankBlockEntity.setFluidFilter(data.fluidFilter);
         });
     }
 }
