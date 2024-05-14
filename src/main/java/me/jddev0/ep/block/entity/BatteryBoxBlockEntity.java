@@ -1,17 +1,13 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.ReceiveAndExtractEnergyStorage;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.BatteryBoxMenu;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -29,26 +25,28 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BatteryBoxBlockEntity extends BlockEntity implements MenuProvider, EnergyStoragePacketUpdate {
+public class BatteryBoxBlockEntity extends EnergyStorageBlockEntity<ReceiveAndExtractEnergyStorage>
+        implements MenuProvider {
     public static final int CAPACITY = ModConfigs.COMMON_BATTERY_BOX_CAPACITY.getValue();
     public static final int MAX_TRANSFER = ModConfigs.COMMON_BATTERY_BOX_TRANSFER_RATE.getValue();
 
-    private final ReceiveAndExtractEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
     public BatteryBoxBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.BATTERY_BOX_ENTITY.get(), blockPos, blockState);
+        super(
+                ModBlockEntities.BATTERY_BOX_ENTITY.get(), blockPos, blockState,
 
-        energyStorage = new ReceiveAndExtractEnergyStorage(0, CAPACITY, MAX_TRANSFER) {
+                CAPACITY, MAX_TRANSFER
+        );
+    }
+
+    @Override
+    protected ReceiveAndExtractEnergyStorage initEnergyStorage() {
+        return new ReceiveAndExtractEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
             @Override
             protected void onChange() {
                 setChanged();
-
-                if(level != null && !level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
-                            getBlockPos(), level.dimension(), 32
-                    );
+                syncEnergyToPlayers(32);
             }
         };
     }
@@ -61,8 +59,7 @@ public class BatteryBoxBlockEntity extends BlockEntity implements MenuProvider, 
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getEnergy(), energyStorage.getCapacity(),
-                getBlockPos()), (ServerPlayer)player);
+        syncEnergyToPlayer(player);
 
         return new BatteryBoxMenu(id, inventory, this);
     }
@@ -94,20 +91,6 @@ public class BatteryBoxBlockEntity extends BlockEntity implements MenuProvider, 
         lazyEnergyStorage.invalidate();
     }
 
-    @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("energy", energyStorage.saveNBT());
-
-        super.saveAdditional(nbt);
-    }
-
-    @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
-
-        energyStorage.loadNBT(nbt.get("energy"));
-    }
-
     public static void tick(Level level, BlockPos blockPos, BlockState state, BatteryBoxBlockEntity blockEntity) {
         if(level.isClientSide)
             return;
@@ -137,7 +120,8 @@ public class BatteryBoxBlockEntity extends BlockEntity implements MenuProvider, 
             if(!energyStorage.canReceive())
                 continue;
 
-            int received = energyStorage.receiveEnergy(Math.min(MAX_TRANSFER, blockEntity.energyStorage.getEnergy()), true);
+            int received = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getMaxTransfer(),
+                    blockEntity.energyStorage.getEnergy()), true);
             if(received <= 0)
                 continue;
 
@@ -150,7 +134,8 @@ public class BatteryBoxBlockEntity extends BlockEntity implements MenuProvider, 
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 
-        int consumptionLeft = Math.min(MAX_TRANSFER, Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
+        int consumptionLeft = Math.min(blockEntity.energyStorage.getMaxTransfer(),
+                Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
         blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
 
         int divisor = consumerItems.size();
@@ -179,23 +164,5 @@ public class BatteryBoxBlockEntity extends BlockEntity implements MenuProvider, 
             if(energy > 0)
                 consumerItems.get(i).receiveEnergy(energy, false);
         }
-    }
-
-    public int getEnergy() {
-        return energyStorage.getEnergy();
-    }
-
-    public int getCapacity() {
-        return energyStorage.getCapacity();
-    }
-
-    @Override
-    public void setEnergy(int energy) {
-        energyStorage.setEnergyWithoutUpdate(energy);
-    }
-
-    @Override
-    public void setCapacity(int capacity) {
-        energyStorage.setCapacityWithoutUpdate(capacity);
     }
 }

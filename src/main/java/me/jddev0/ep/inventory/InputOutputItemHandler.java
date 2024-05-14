@@ -1,4 +1,4 @@
-package me.jddev0.ep.block.entity.handler;
+package me.jddev0.ep.inventory;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
