@@ -3,16 +3,14 @@ package me.jddev0.ep.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -39,20 +37,14 @@ public class ItemConveyorBeltSorterScreen extends HandledScreen<ItemConveyorBelt
                 if(isPointWithinBounds(136, 19 + i * 18, 13, 13, mouseX, mouseY)) {
                     //Whitelist checkbox [3x]
 
-                    PacketByteBuf buf = PacketByteBufs.create();
-                    buf.writeBlockPos(handler.getBlockEntity().getPos());
-                    buf.writeInt(i);
-                    buf.writeBoolean(!handler.isWhitelist(i));
-                    ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
+                    ModMessages.sendClientPacketToServer(
+                            new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), i, !handler.isWhitelist(i)));
                     clicked = true;
                 }else if(isPointWithinBounds(153, 19 + i * 18, 13, 13, mouseX, mouseY)) {
                     //Ignore NBT checkbox [3x]
 
-                    PacketByteBuf buf = PacketByteBufs.create();
-                    buf.writeBlockPos(handler.getBlockEntity().getPos());
-                    buf.writeInt(i + 3);
-                    buf.writeBoolean(!handler.isIgnoreNBT(i));
-                    ClientPlayNetworking.send(ModMessages.SET_CHECKBOX_ID, buf);
+                    ModMessages.sendClientPacketToServer(
+                            new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), i + 3, !handler.isIgnoreNBT(i)));
                     clicked = true;
                 }
             }

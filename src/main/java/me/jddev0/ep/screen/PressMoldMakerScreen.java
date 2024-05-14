@@ -3,11 +3,10 @@ package me.jddev0.ep.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.CraftPressMoldMakerRecipeC2SPacket;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
@@ -15,7 +14,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -48,10 +46,9 @@ public class PressMoldMakerScreen extends HandledScreen<PressMoldMakerMenu> {
                         int index = scrollIndexOffset + i + 4 * j;
 
                         if(index < handler.getRecipeList().size() && handler.getRecipeList().get(index).getSecond()) {
-                            PacketByteBuf buf = PacketByteBufs.create();
-                            buf.writeBlockPos(handler.getBlockEntity().getPos());
-                            buf.writeIdentifier(handler.getRecipeList().get(index).getFirst().getId());
-                            ClientPlayNetworking.send(ModMessages.CRAFT_PRESS_MOLD_MAKER_RECIPE_ID, buf);
+                            ModMessages.sendClientPacketToServer(
+                                    new CraftPressMoldMakerRecipeC2SPacket(handler.getBlockEntity().getPos(),
+                                            handler.getRecipeList().get(index).getFirst().getId()));
                             clicked = true;
                         }
                     }

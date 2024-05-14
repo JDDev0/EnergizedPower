@@ -29,10 +29,10 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        nbt.putInt("current_output_index", currentOutputIndex);
-
+    protected void writeNbt(@NotNull NbtCompound nbt) {
         super.writeNbt(nbt);
+
+        nbt.putInt("current_output_index", currentOutputIndex);
     }
 
     @Override

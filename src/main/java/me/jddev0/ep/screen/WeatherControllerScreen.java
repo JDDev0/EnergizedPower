@@ -4,14 +4,12 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.SetWeatherFromWeatherControllerC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -42,26 +40,20 @@ public class WeatherControllerScreen extends AbstractGenericEnergyStorageHandled
                 if(isPointWithinBounds(52, 34, 18, 18, mouseX, mouseY)) {
                     //Weather clear button
 
-                    PacketByteBuf buf = PacketByteBufs.create();
-                    buf.writeBlockPos(handler.getBlockEntity().getPos());
-                    buf.writeInt(0);
-                    ClientPlayNetworking.send(ModMessages.SET_WEATHER_FROM_WEATHER_CONTROLLER_ID, buf);
+                    ModMessages.sendClientPacketToServer(
+                            new SetWeatherFromWeatherControllerC2SPacket(handler.getBlockEntity().getPos(), 0));
                     clicked = true;
                 }else if(isPointWithinBounds(88, 34, 18, 18, mouseX, mouseY)) {
                     //Weather rain button
 
-                    PacketByteBuf buf = PacketByteBufs.create();
-                    buf.writeBlockPos(handler.getBlockEntity().getPos());
-                    buf.writeInt(1);
-                    ClientPlayNetworking.send(ModMessages.SET_WEATHER_FROM_WEATHER_CONTROLLER_ID, buf);
+                    ModMessages.sendClientPacketToServer(
+                            new SetWeatherFromWeatherControllerC2SPacket(handler.getBlockEntity().getPos(), 1));
                     clicked = true;
                 }else if(isPointWithinBounds(124, 34, 18, 18, mouseX, mouseY)) {
                     //Weather thunder button
 
-                    PacketByteBuf buf = PacketByteBufs.create();
-                    buf.writeBlockPos(handler.getBlockEntity().getPos());
-                    buf.writeInt(2);
-                    ClientPlayNetworking.send(ModMessages.SET_WEATHER_FROM_WEATHER_CONTROLLER_ID, buf);
+                    ModMessages.sendClientPacketToServer(
+                            new SetWeatherFromWeatherControllerC2SPacket(handler.getBlockEntity().getPos(), 2));
                     clicked = true;
                 }
             }

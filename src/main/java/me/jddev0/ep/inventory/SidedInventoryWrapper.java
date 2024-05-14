@@ -1,4 +1,4 @@
-package me.jddev0.ep.block.entity.handler;
+package me.jddev0.ep.inventory;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
@@ -9,11 +9,10 @@ import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
-import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
-public abstract class SidedInventoryWrapper implements SidedInventory {
+public class SidedInventoryWrapper implements SidedInventory {
     private final Inventory handler;
 
     public SidedInventoryWrapper(Inventory handler) {
@@ -102,5 +101,20 @@ public abstract class SidedInventoryWrapper implements SidedInventory {
     @Override
     public boolean containsAny(Predicate<ItemStack> predicate) {
         return handler.containsAny(predicate);
+    }
+
+    @Override
+    public int[] getAvailableSlots(Direction side) {
+        return IntStream.range(0, handler.size()).toArray();
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        return isValid(slot, stack);
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        return true;
     }
 }

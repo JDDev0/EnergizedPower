@@ -3,7 +3,7 @@ package me.jddev0.ep.recipe;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
-import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Recipe;
@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.world.World;
 
-public class StoneSolidifierRecipe implements Recipe<SimpleInventory> {
+public class StoneSolidifierRecipe implements Recipe<Inventory> {
     private final Identifier id;
     private final ItemStack output;
     private final long waterAmount;
@@ -40,12 +40,12 @@ public class StoneSolidifierRecipe implements Recipe<SimpleInventory> {
     }
 
     @Override
-    public boolean matches(SimpleInventory container, World level) {
+    public boolean matches(Inventory container, World level) {
         return false;
     }
 
     @Override
-    public ItemStack craft(SimpleInventory container) {
+    public ItemStack craft(Inventory container) {
         return output;
     }
 

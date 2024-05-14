@@ -1,17 +1,17 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.FluidTankBlock;
+import me.jddev0.ep.block.entity.base.FluidStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.fluid.FluidStack;
-import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.screen.FluidTankMenu;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -23,16 +23,15 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import me.jddev0.ep.util.FluidUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, FluidStoragePacketUpdate,
-        CheckboxUpdate {
+public class FluidTankBlockEntity
+        extends FluidStorageBlockEntity<SimpleFluidStorage>
+        implements ExtendedScreenHandlerFactory, CheckboxUpdate {
     private final FluidTankBlock.Tier tier;
-    final SimpleFluidStorage fluidStorage;
 
     protected final PropertyDelegate data;
 
@@ -48,46 +47,14 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
     }
 
     public FluidTankBlockEntity(BlockPos blockPos, BlockState blockState, FluidTankBlock.Tier tier) {
-        super(getEntityTypeFromTier(tier), blockPos, blockState);
+        super(
+                getEntityTypeFromTier(tier), blockPos, blockState,
+
+                FluidStorageSingleTankMethods.INSTANCE,
+                tier.getTankCapacity()
+        );
 
         this.tier = tier;
-
-        fluidStorage = new SimpleFluidStorage(tier.getTankCapacity()) {
-            @Override
-            protected void onFinalCommit() {
-                markDirty();
-
-                if(world != null && !world.isClient()) {
-                    PacketByteBuf buffer = PacketByteBufs.create();
-                    buffer.writeInt(0);
-                    getFluid().toPacket(buffer);
-                    buffer.writeLong(capacity);
-                    buffer.writeBlockPos(getPos());
-
-                    ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                            getPos(), (ServerWorld)world, 32,
-                            ModMessages.FLUID_SYNC_ID, buffer
-                    );
-                }
-            }
-
-            private boolean isFluidValid(FluidVariant variant) {
-                return fluidFilter.isEmpty() || (ignoreNBT?(
-                        fluidFilter.getFluidVariant().isOf(variant.getFluid()) &&
-                                fluidFilter.getFluidVariant().nbtMatches(variant.getNbt())):
-                        fluidFilter.getFluidVariant().isOf(variant.getFluid()));
-            }
-
-            @Override
-            protected boolean canInsert(FluidVariant variant) {
-                return isFluidValid(variant);
-            }
-
-            @Override
-            protected boolean canExtract(FluidVariant variant) {
-                return isFluidValid(variant);
-            }
-        };
 
         data = new PropertyDelegate() {
             @Override
@@ -113,6 +80,34 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
     }
 
     @Override
+    protected SimpleFluidStorage initFluidStorage() {
+        return new SimpleFluidStorage(baseTankCapacity) {
+            @Override
+            protected void onFinalCommit() {
+                markDirty();
+                syncFluidToPlayers(64);
+            }
+
+            private boolean isFluidValid(FluidVariant variant) {
+                return fluidFilter.isEmpty() || (ignoreNBT?(
+                        fluidFilter.getFluidVariant().isOf(variant.getFluid()) &&
+                                fluidFilter.getFluidVariant().nbtMatches(variant.getNbt())):
+                        fluidFilter.getFluidVariant().isOf(variant.getFluid()));
+            }
+
+            @Override
+            protected boolean canInsert(FluidVariant variant) {
+                return isFluidValid(variant);
+            }
+
+            @Override
+            protected boolean canExtract(FluidVariant variant) {
+                return isFluidValid(variant);
+            }
+        };
+    }
+
+    @Override
     public Text getDisplayName() {
         return Text.translatable("container.energizedpower." + tier.getResourceId());
     }
@@ -120,21 +115,9 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeInt(0);
-        fluidStorage.getFluid().toPacket(buffer);
-        buffer.writeLong(fluidStorage.getCapacity());
-        buffer.writeBlockPos(getPos());
-
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.FLUID_SYNC_ID, buffer);
-
-        buffer = PacketByteBufs.create();
-        buffer.writeInt(1);
-        fluidFilter.toPacket(buffer);
-        buffer.writeLong(0);
-        buffer.writeBlockPos(getPos());
-
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, ModMessages.FLUID_SYNC_ID, buffer);
+        syncFluidToPlayer(player);
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
+                new FluidSyncS2CPacket(1, fluidFilter, 0, getPos()));
 
         return new FluidTankMenu(id, inventory, this, this.data);
     }
@@ -154,16 +137,7 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
 
         //Sync item stacks to client every 5 seconds
         if(level.getTime() % 100 == 0) { //TODO improve
-            PacketByteBuf buffer = PacketByteBufs.create();
-            buffer.writeInt(0);
-            blockEntity.fluidStorage.getFluid().toPacket(buffer);
-            buffer.writeLong(blockEntity.fluidStorage.getCapacity());
-            buffer.writeBlockPos(blockPos);
-
-            ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                    blockPos, (ServerWorld)level, 32,
-                    ModMessages.FLUID_SYNC_ID, buffer
-            );
+            blockEntity.syncFluidToPlayers(64);
         }
     }
 
@@ -172,21 +146,17 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        nbt.put("fluid", fluidStorage.toNBT(new NbtCompound()));
+    protected void writeNbt(@NotNull NbtCompound nbt) {
+        super.writeNbt(nbt);
 
         nbt.putBoolean("ignore_nbt", ignoreNBT);
 
         nbt.put("fluid_filter", fluidFilter.toNBT(new NbtCompound()));
-
-        super.writeNbt(nbt);
     }
 
     @Override
     public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
-
-        fluidStorage.fromNBT(nbt.getCompound("fluid"));
 
         ignoreNBT = nbt.getBoolean("ignore_nbt");
 
@@ -211,37 +181,31 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
                 fluidFilter.getDropletsAmount());
         markDirty(world, getPos(), getCachedState());
 
-        PacketByteBuf buffer = PacketByteBufs.create();
-        buffer.writeInt(1);
-        fluidFilter.toPacket(buffer);
-        buffer.writeLong(0);
-        buffer.writeBlockPos(getPos());
-
         ModMessages.sendServerPacketToPlayersWithinXBlocks(
                 getPos(), (ServerWorld)world, 32,
-                ModMessages.FLUID_SYNC_ID, buffer
+                new FluidSyncS2CPacket(1, fluidFilter, 0, getPos())
         );
     }
 
     public FluidStack getFluid(int tank) {
         return switch(tank) {
-            case 0 -> fluidStorage.getFluid();
+            case 0 -> super.getFluid(tank);
             case 1 -> fluidFilter;
             default -> null;
         };
     }
 
     public long getTankCapacity(int tank) {
-        if(tank != 0)
-            return 0;
+        if(tank == 0)
+            return super.getTankCapacity(tank);
 
-        return fluidStorage.getCapacity();
+        return 0;
     }
 
     @Override
     public void setFluid(int tank, FluidStack fluidStack) {
         switch(tank) {
-            case 0 -> fluidStorage.setFluid(fluidStack);
+            case 0 -> super.setFluid(tank, fluidStack);
             case 1 -> fluidFilter = new FluidStack(fluidStack.getFluid(), fluidStack.getFluidVariant().copyNbt(),
                     fluidStack.getDropletsAmount());
         }
@@ -249,6 +213,7 @@ public class FluidTankBlockEntity extends BlockEntity implements ExtendedScreenH
 
     @Override
     public void setTankCapacity(int tank, long capacity) {
-        //Does nothing (capacity is final)
+        if(tank == 0)
+            super.setTankCapacity(tank, capacity);
     }
 }

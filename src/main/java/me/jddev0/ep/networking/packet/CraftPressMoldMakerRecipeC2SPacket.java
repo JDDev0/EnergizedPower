@@ -1,5 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
+import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.PressMoldMakerBlockEntity;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
@@ -12,24 +13,38 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 
-public class CraftPressMoldMakerRecipeC2SPacket {
-    private CraftPressMoldMakerRecipeC2SPacket() {}
+public record CraftPressMoldMakerRecipeC2SPacket(BlockPos pos, Identifier recipeId) implements IEnergizedPowerPacket {
+    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "craft_press_mold_maker_recipe");
 
-    public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
-                               PacketByteBuf buf, PacketSender responseSender) {
-        BlockPos pos = buf.readBlockPos();
-        Identifier recipeId = buf.readIdentifier();
+    public CraftPressMoldMakerRecipeC2SPacket(PacketByteBuf buffer) {
+        this(buffer.readBlockPos(), buffer.readIdentifier());
+    }
 
-        server.execute(() -> {
-            World level = player.getWorld();
-            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ())))
+    public void write(PacketByteBuf buffer) {
+        buffer.writeBlockPos(pos);
+        buffer.writeIdentifier(recipeId);
+    }
+
+    @Override
+    public Identifier getId() {
+        return ID;
+    }
+
+    public static void receive(CraftPressMoldMakerRecipeC2SPacket data, MinecraftServer server, ServerPlayerEntity player,
+                               ServerPlayNetworkHandler handler, PacketSender responseSender) {
+        player.server.execute(() -> {
+            if(!player.canModifyBlocks())
                 return;
 
-            BlockEntity blockEntity = level.getBlockEntity(pos);
+            World level = player.getWorld();
+            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
+                return;
+
+            BlockEntity blockEntity = level.getBlockEntity(data.pos);
             if(!(blockEntity instanceof PressMoldMakerBlockEntity pressMoldMakerBlockEntity))
                 return;
 
-            pressMoldMakerBlockEntity.craftItem(recipeId);
+            pressMoldMakerBlockEntity.craftItem(data.recipeId);
         });
     }
 }

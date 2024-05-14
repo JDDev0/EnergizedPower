@@ -1,5 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
+import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
@@ -18,23 +19,59 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket {
-    private SetAdvancedAutoCrafterPatternInputSlotsC2SPacket() {}
+public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements IEnergizedPowerPacket {
+    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "set_advanced_auto_crafter_pattern_input_slots");
 
-    public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
-                               PacketByteBuf buf, PacketSender responseSender) {
-        BlockPos pos = buf.readBlockPos();
-        List<ItemStack> itemStacks = new ArrayList<>(9);
+    private final BlockPos pos;
+    private final List<ItemStack> itemStacks;
+    private final Identifier recipeId;
+
+    public SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(BlockPos pos, List<ItemStack> itemStacks, Identifier recipeId) {
+        this.pos = pos;
+
+        this.itemStacks = new ArrayList<>(itemStacks);
+
+        while(this.itemStacks.size() < 9)
+            this.itemStacks.add(ItemStack.EMPTY);
+
+        this.recipeId = recipeId;
+    }
+
+    public SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(PacketByteBuf buffer) {
+        pos = buffer.readBlockPos();
+
+        itemStacks = new ArrayList<>(9);
         for(int i = 0;i < 9;i++)
-            itemStacks.add(buf.readItemStack());
-        Identifier recipeId = buf.readIdentifier();
+            itemStacks.add(buffer.readItemStack());
 
-        server.execute(() -> {
-            World level = player.getWorld();
-            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ())))
+        recipeId = buffer.readIdentifier();
+    }
+
+    public void write(final PacketByteBuf buffer) {
+        buffer.writeBlockPos(pos);
+
+        for(ItemStack itemStack:itemStacks)
+            buffer.writeItemStack(itemStack);
+
+        buffer.writeIdentifier(recipeId);
+    }
+
+    @Override
+    public Identifier getId() {
+        return ID;
+    }
+
+    public static void receive(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket data, MinecraftServer server, ServerPlayerEntity player,
+                               ServerPlayNetworkHandler handler, PacketSender responseSender) {
+        player.server.execute(() -> {
+            if(!player.canModifyBlocks())
                 return;
 
-            BlockEntity blockEntity = level.getBlockEntity(pos);
+            World level = player.getWorld();
+            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
+                return;
+
+            BlockEntity blockEntity = level.getBlockEntity(data.pos);
             if(!(blockEntity instanceof AdvancedAutoCrafterBlockEntity advancedAutoCrafterBlockEntity))
                 return;
 
@@ -43,10 +80,10 @@ public class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket {
             if(!(menu instanceof AdvancedAutoCrafterMenu advancedAutoCrafterMenu))
                 return;
 
-            for(int i = 0;i < itemStacks.size();i++)
-                advancedAutoCrafterMenu.getPatternSlots()[advancedAutoCrafterMenu.getRecipeIndex()].setStack(i, itemStacks.get(i));
+            for(int i = 0;i < data.itemStacks.size();i++)
+                advancedAutoCrafterMenu.getPatternSlots()[advancedAutoCrafterMenu.getRecipeIndex()].setStack(i, data.itemStacks.get(i));
 
-            advancedAutoCrafterBlockEntity.setRecipeIdForSetRecipe(recipeId);
+            advancedAutoCrafterBlockEntity.setRecipeIdForSetRecipe(data.recipeId);
 
             advancedAutoCrafterBlockEntity.resetProgressAndMarkAsChanged(advancedAutoCrafterMenu.getRecipeIndex());
         });

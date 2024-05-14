@@ -1,0 +1,46 @@
+package me.jddev0.ep.block.entity.base;
+
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
+
+public abstract class InventoryStorageBlockEntity<I extends SimpleInventory>
+        extends BlockEntity {
+    protected final int slotCount;
+    protected final I itemHandler;
+
+    public InventoryStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                       int slotCount) {
+        super(type, blockPos, blockState);
+
+        this.slotCount = slotCount;
+        itemHandler = initInventoryStorage();
+    }
+
+    protected abstract I initInventoryStorage();
+
+    @Override
+    protected void writeNbt(@NotNull NbtCompound nbt) {
+        super.writeNbt(nbt);
+
+        nbt.put("inventory", Inventories.writeNbt(new NbtCompound(), itemHandler.stacks));
+    }
+
+    @Override
+    public void readNbt(@NotNull NbtCompound nbt) {
+        super.readNbt(nbt);
+
+        Inventories.readNbt(nbt.getCompound("inventory"), itemHandler.stacks);
+    }
+
+    public void drops(World level, BlockPos worldPosition) {
+        ItemScatterer.spawn(level, worldPosition, itemHandler);
+    }
+}

@@ -1,5 +1,8 @@
-package me.jddev0.ep.block.entity.handler;
+package me.jddev0.ep.inventory;
 
+import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
@@ -10,17 +13,38 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class InputOutputItemHandler implements SidedInventory {
+public class InputOutputItemHandler implements SidedInventory, Function<Direction, @Nullable Storage<ItemVariant>> {
+    private final InventoryStorage[] cachedInventoryStorages = new InventoryStorage[Direction.values().length];
+
     private final SidedInventory handler;
     private final BiPredicate<Integer, ItemStack> canInput;
     private final Predicate<Integer> canOutput;
+
+    public InputOutputItemHandler(Inventory handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
+        this(new SidedInventoryWrapper(handler), canInput, canOutput);
+    }
 
     public InputOutputItemHandler(SidedInventory handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
         this.handler = handler;
         this.canInput = canInput;
         this.canOutput = canOutput;
+    }
+
+    @Override
+    @Nullable
+    public Storage<ItemVariant> apply(Direction side) {
+        if(side == null)
+            return null;
+
+        int index = side.ordinal();
+
+        if(cachedInventoryStorages[index] == null)
+            cachedInventoryStorages[index] = InventoryStorage.of(this, side);
+
+        return cachedInventoryStorages[index];
     }
 
     @Override
