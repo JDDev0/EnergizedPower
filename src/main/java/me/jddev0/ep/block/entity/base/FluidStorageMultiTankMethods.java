@@ -34,7 +34,7 @@ public final class FluidStorageMultiTankMethods implements FluidStorageMethods<E
 
     @Override
     public void syncFluidToPlayer(EnergizedPowerFluidStorage fluidStorage, Player player, BlockPos pos) {
-        for(int i = 0;i < 2;i++)
+        for(int i = 0;i < fluidStorage.getTanks();i++)
             ModMessages.sendToPlayer(new FluidSyncS2CPacket(i, fluidStorage.getFluidInTank(i),
                     fluidStorage.getTankCapacity(i), pos), (ServerPlayer)player);
     }
