@@ -10,13 +10,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public abstract class WorkerMachineBlockEntity<W>
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler> {
+public abstract class WorkerFluidMachineBlockEntity<F extends IFluidHandler, W>
+        extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
+        <ReceiveOnlyEnergyStorage, ItemStackHandler, F> {
     protected final int baseEnergyConsumptionPerTick;
     protected final int baseWorkDuration;
 
@@ -25,11 +27,13 @@ public abstract class WorkerMachineBlockEntity<W>
     protected int energyConsumptionLeft = -1;
     protected boolean hasEnoughEnergy;
 
-    public WorkerMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                    int slotCount, int baseWorkDuration,
-                                    int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
-                                    UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount, upgradeModifierSlots);
+    public WorkerFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                         int slotCount, int baseWorkDuration,
+                                         int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
+                                         FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity,
+                                         UpgradeModuleModifier... upgradeModifierSlots) {
+        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
+                baseTankCapacity, upgradeModifierSlots);
 
         this.baseEnergyConsumptionPerTick = baseEnergyConsumptionPerTick;
         this.baseWorkDuration = baseWorkDuration;
@@ -76,7 +80,8 @@ public abstract class WorkerMachineBlockEntity<W>
         energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
     }
 
-    public static <W> void tick(Level level, BlockPos blockPos, BlockState state, WorkerMachineBlockEntity<W> blockEntity) {
+    public static <F extends IFluidHandler, W> void tick(
+            Level level, BlockPos blockPos, BlockState state, WorkerFluidMachineBlockEntity<F, W> blockEntity) {
         if(level.isClientSide)
             return;
 

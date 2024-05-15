@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.BlockPlacerBlock;
+import me.jddev0.ep.block.entity.base.NoWorkData;
 import me.jddev0.ep.block.entity.base.WorkerMachineBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
@@ -34,8 +35,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
-
-import static me.jddev0.ep.block.entity.base.WorkerMachineBlockEntity.NoWorkData;
 
 public class BlockPlacerBlockEntity
         extends WorkerMachineBlockEntity<NoWorkData>
