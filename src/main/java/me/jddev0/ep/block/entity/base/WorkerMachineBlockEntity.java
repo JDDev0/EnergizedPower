@@ -179,7 +179,8 @@ public abstract class WorkerMachineBlockEntity<W>
         progress = 0;
         maxProgress = 0;
         energyConsumptionLeft = -1;
-        hasEnoughEnergy = true;
+        hasEnoughEnergy = false;
+        onHasNotEnoughEnergy();
     }
 
     @Override
