@@ -183,7 +183,8 @@ public abstract class WorkerFluidMachineBlockEntity<F extends IFluidHandler, W>
         progress = 0;
         maxProgress = 0;
         energyConsumptionLeft = -1;
-        hasEnoughEnergy = true;
+        hasEnoughEnergy = false;
+        onHasNotEnoughEnergy();
     }
 
     @Override
