@@ -14,13 +14,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
-public record ChangeCurrentRecipeIndexS2CPacket(BlockPos pos, boolean downUp) implements CustomPacketPayload {
-    public static final Type<ChangeCurrentRecipeIndexS2CPacket> ID =
+public record ChangeCurrentRecipeIndexC2SPacket(BlockPos pos, boolean downUp) implements CustomPacketPayload {
+    public static final Type<ChangeCurrentRecipeIndexC2SPacket> ID =
             new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "change_current_recipe_index"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, ChangeCurrentRecipeIndexS2CPacket> STREAM_CODEC =
-            StreamCodec.ofMember(ChangeCurrentRecipeIndexS2CPacket::write, ChangeCurrentRecipeIndexS2CPacket::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, ChangeCurrentRecipeIndexC2SPacket> STREAM_CODEC =
+            StreamCodec.ofMember(ChangeCurrentRecipeIndexC2SPacket::write, ChangeCurrentRecipeIndexC2SPacket::new);
 
-    public ChangeCurrentRecipeIndexS2CPacket(RegistryFriendlyByteBuf buffer) {
+    public ChangeCurrentRecipeIndexC2SPacket(RegistryFriendlyByteBuf buffer) {
         this(buffer.readBlockPos(), buffer.readBoolean());
     }
 
@@ -35,7 +35,7 @@ public record ChangeCurrentRecipeIndexS2CPacket(BlockPos pos, boolean downUp) im
         return ID;
     }
 
-    public static void handle(ChangeCurrentRecipeIndexS2CPacket data, IPayloadContext context) {
+    public static void handle(ChangeCurrentRecipeIndexC2SPacket data, IPayloadContext context) {
         context.enqueueWork(() -> {
             if(!(context.player().level() instanceof ServerLevel level) || !(context.player() instanceof ServerPlayer player))
                 return;

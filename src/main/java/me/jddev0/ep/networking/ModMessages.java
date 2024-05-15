@@ -54,8 +54,8 @@ public final class ModMessages {
                 CycleAdvancedAutoCrafterRecipeOutputC2SPacket::handle);
         registrar.playToServer(CraftPressMoldMakerRecipeC2SPacket.ID, CraftPressMoldMakerRecipeC2SPacket.STREAM_CODEC,
                 CraftPressMoldMakerRecipeC2SPacket::handle);
-        registrar.playToServer(ChangeCurrentRecipeIndexS2CPacket.ID, ChangeCurrentRecipeIndexS2CPacket.STREAM_CODEC,
-                ChangeCurrentRecipeIndexS2CPacket::handle);
+        registrar.playToServer(ChangeCurrentRecipeIndexC2SPacket.ID, ChangeCurrentRecipeIndexC2SPacket.STREAM_CODEC,
+                ChangeCurrentRecipeIndexC2SPacket::handle);
         registrar.playToServer(ChangeRedstoneModeC2SPacket.ID, ChangeRedstoneModeC2SPacket.STREAM_CODEC,
                 ChangeRedstoneModeC2SPacket::handle);
         registrar.playToServer(SetFluidTankFilterC2SPacket.ID, SetFluidTankFilterC2SPacket.STREAM_CODEC,
