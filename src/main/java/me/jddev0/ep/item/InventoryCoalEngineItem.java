@@ -17,7 +17,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
@@ -197,7 +196,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
                 continue;
 
             ItemStack testItemStack = inventory.getItem(i);
-            int energyProduction = testItemStack.getBurnTime(RecipeType.SMELTING);
+            int energyProduction = testItemStack.getBurnTime(null);
             if(energyProduction <= 0)
                 continue;
 

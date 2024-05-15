@@ -23,7 +23,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -48,7 +47,7 @@ public class CoalEngineBlockEntity
 
         //Do not allow extraction of fuel items, allow for non fuel items (Bucket of Lava -> Empty Bucket)
         ItemStack item = itemHandler.getStackInSlot(i);
-        return item.getBurnTime(RecipeType.SMELTING) <= 0;
+        return item.getBurnTime(null) <= 0;
     });
 
     protected final ContainerData data;
@@ -139,7 +138,7 @@ public class CoalEngineBlockEntity
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 if(slot == 0)
-                    return stack.getBurnTime(RecipeType.SMELTING) > 0;
+                    return stack.getBurnTime(null) > 0;
 
                 return super.isItemValid(slot, stack);
             }
@@ -210,7 +209,7 @@ public class CoalEngineBlockEntity
 
             ItemStack item = inventory.getItem(0);
 
-            int energyProduction = item.getBurnTime(RecipeType.SMELTING);
+            int energyProduction = item.getBurnTime(null);
             energyProduction = (int)(energyProduction * ENERGY_PRODUCTION_MULTIPLIER);
             if(blockEntity.progress == 0)
                 blockEntity.energyProductionLeft = energyProduction;
@@ -348,7 +347,7 @@ public class CoalEngineBlockEntity
 
         ItemStack item = inventory.getItem(0);
 
-        if(item.getBurnTime(RecipeType.SMELTING) <= 0)
+        if(item.getBurnTime(null) <= 0)
             return false;
 
         return !item.hasCraftingRemainingItem() || item.getCount() == 1;
