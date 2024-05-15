@@ -207,7 +207,7 @@ public abstract class SimpleRecipeMachineBlockEntity<R extends Recipe<Container>
             }
 
             int energyConsumptionPerTick = Math.max(1, (int)Math.ceil(blockEntity.baseEnergyConsumptionPerTick *
-                    blockEntity.getRecipeDependentEnergyConsumption(recipe.get()) /
+                    blockEntity.getRecipeDependentEnergyConsumption(recipe.get()) *
                     blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
 
             if(blockEntity.energyConsumptionLeft < 0)

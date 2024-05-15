@@ -210,7 +210,7 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
             }
 
             int energyConsumptionPerTick = Math.max(1, (int)Math.ceil(blockEntity.baseEnergyConsumptionPerTick *
-                    blockEntity.getRecipeDependentEnergyConsumption(blockEntity.currentRecipe) /
+                    blockEntity.getRecipeDependentEnergyConsumption(blockEntity.currentRecipe) *
                     blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
 
             if(blockEntity.energyConsumptionLeft < 0)
