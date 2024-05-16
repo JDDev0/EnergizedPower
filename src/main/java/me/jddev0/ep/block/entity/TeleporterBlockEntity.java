@@ -7,8 +7,6 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.screen.TeleporterMenu;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -85,13 +83,7 @@ public class TeleporterBlockEntity
             @Override
             protected void onFinalCommit() {
                 setChangedAndUpdateReadyState();
-
-                if(world != null && !world.isClient()) {
-                    ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                            getPos(), (ServerWorld)world, 32,
-                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getPos())
-                    );
-                }
+                syncEnergyToPlayers(32);
             }
         };
     }
