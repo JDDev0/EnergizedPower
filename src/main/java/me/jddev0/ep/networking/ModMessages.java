@@ -70,6 +70,10 @@ public final class ModMessages {
         ServerPlayNetworking.registerGlobalReceiver(ChangeComparatorModeC2SPacket.ID, ChangeComparatorModeC2SPacket::receive);
     }
 
+    public static void sendClientPacketToServer(CustomPayload payload) {
+        ClientPlayNetworking.send(payload);
+    }
+
     public static void broadcastServerPacket(MinecraftServer server, CustomPayload payload) {
         for(ServerPlayerEntity player:PlayerLookup.all(server)) {
             ServerPlayNetworking.send(player, payload);

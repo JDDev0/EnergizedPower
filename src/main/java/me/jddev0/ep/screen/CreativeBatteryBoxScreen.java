@@ -2,10 +2,10 @@ package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
@@ -36,12 +36,12 @@ public class CreativeBatteryBoxScreen extends HandledScreen<CreativeBatteryBoxMe
             if(isPointWithinBounds(10, 28, 11, 11, mouseX, mouseY)) {
                 //Energy Production checkbox
 
-                ClientPlayNetworking.send(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 0, !handler.isEnergyProduction()));
+                ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 0, !handler.isEnergyProduction()));
                 clicked = true;
             }else if(isPointWithinBounds(10, 46, 11, 11, mouseX, mouseY)) {
                 //Energy Consumption checkbox
 
-                ClientPlayNetworking.send(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 1, !handler.isEnergyConsumption()));
+                ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 1, !handler.isEnergyConsumption()));
                 clicked = true;
             }
 

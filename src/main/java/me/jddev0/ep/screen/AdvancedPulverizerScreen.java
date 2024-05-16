@@ -5,12 +5,12 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeComparatorModeC2SPacket;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -57,12 +57,12 @@ public class AdvancedPulverizerScreen extends AbstractGenericEnergyStorageHandle
             }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
 
-                 ClientPlayNetworking.send(new ChangeRedstoneModeC2SPacket(handler.getBlockEntity().getPos()));
+                 ModMessages.sendClientPacketToServer(new ChangeRedstoneModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
             }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
                 //Comparator Mode
 
-                 ClientPlayNetworking.send(new ChangeComparatorModeC2SPacket(handler.getBlockEntity().getPos()));
+                 ModMessages.sendClientPacketToServer(new ChangeComparatorModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
             }
 

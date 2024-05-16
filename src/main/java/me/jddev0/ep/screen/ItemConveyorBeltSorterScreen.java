@@ -2,10 +2,10 @@ package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
@@ -37,12 +37,12 @@ public class ItemConveyorBeltSorterScreen extends HandledScreen<ItemConveyorBelt
                 if(isPointWithinBounds(136, 19 + i * 18, 13, 13, mouseX, mouseY)) {
                     //Whitelist checkbox [3x]
 
-                    ClientPlayNetworking.send(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), i, !handler.isWhitelist(i)));
+                    ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), i, !handler.isWhitelist(i)));
                     clicked = true;
                 }else if(isPointWithinBounds(153, 19 + i * 18, 13, 13, mouseX, mouseY)) {
                     //Ignore NBT checkbox [3x]
 
-                    ClientPlayNetworking.send(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), i + 3, !handler.isIgnoreNBT(i)));
+                    ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), i + 3, !handler.isIgnoreNBT(i)));
                     clicked = true;
                 }
             }

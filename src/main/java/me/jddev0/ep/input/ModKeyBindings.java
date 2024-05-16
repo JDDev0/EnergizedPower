@@ -1,12 +1,12 @@
 package me.jddev0.ep.input;
 
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.UseTeleporterC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
@@ -46,7 +46,7 @@ public final class ModKeyBindings {
             if(!state.isOf(ModBlocks.TELEPORTER))
                 return;
 
-            ClientPlayNetworking.send(new UseTeleporterC2SPacket(blockPos));
+            ModMessages.sendClientPacketToServer(new UseTeleporterC2SPacket(blockPos));
         }
     }
 }

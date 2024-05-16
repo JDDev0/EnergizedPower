@@ -4,12 +4,12 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.fluid.FluidStack;
+import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.networking.packet.SetFluidTankFilterC2SPacket;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
@@ -58,7 +58,7 @@ public class FluidTankScreen extends HandledScreen<FluidTankMenu> {
             if(isPointWithinBounds(158, 16, 11, 11, mouseX, mouseY)) {
                 //Ignore NBT checkbox
 
-                ClientPlayNetworking.send(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 0, !handler.isIgnoreNBT()));
+                ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 0, !handler.isIgnoreNBT()));
                 clicked = true;
             }
 
@@ -81,7 +81,7 @@ public class FluidTankScreen extends HandledScreen<FluidTankMenu> {
 
                 FluidStack fluidFilter = new FluidStack(fluidFilterVariant, 1);
 
-                ClientPlayNetworking.send(new SetFluidTankFilterC2SPacket(handler.getBlockEntity().getPos(), fluidFilter));
+                ModMessages.sendClientPacketToServer(new SetFluidTankFilterC2SPacket(handler.getBlockEntity().getPos(), fluidFilter));
                 clicked = true;
             }
 

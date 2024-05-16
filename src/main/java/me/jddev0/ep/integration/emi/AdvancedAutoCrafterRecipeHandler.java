@@ -7,9 +7,9 @@ import dev.emi.emi.api.recipe.handler.EmiCraftContext;
 import dev.emi.emi.api.recipe.handler.EmiRecipeHandler;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetAdvancedAutoCrafterPatternInputSlotsC2SPacket;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.item.ItemStack;
@@ -53,7 +53,7 @@ public class AdvancedAutoCrafterRecipeHandler implements EmiRecipeHandler<Advanc
 
         MinecraftClient.getInstance().setScreen(context.getScreen());
 
-        ClientPlayNetworking.send(new SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(context.getScreenHandler().getBlockEntity().getPos(),
+        ModMessages.sendClientPacketToServer(new SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(context.getScreenHandler().getBlockEntity().getPos(),
                 itemStacks, recipe.getId()));
 
         return true;

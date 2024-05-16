@@ -1,5 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
+import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetAdvancedAutoCrafterPatternInputSlotsC2SPacket;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
@@ -9,7 +10,6 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.RecipeEntry;
@@ -59,7 +59,7 @@ public class AdvancedAutoCrafterTransferHandler implements TransferHandler {
         while(itemStacks.size() < 9)
             itemStacks.add(ItemStack.EMPTY);
 
-        ClientPlayNetworking.send(new SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getPos(),
+        ModMessages.sendClientPacketToServer(new SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getPos(),
                 itemStacks, recipeEntry.id()));
 
         return Result.createSuccessful().blocksFurtherHandling();

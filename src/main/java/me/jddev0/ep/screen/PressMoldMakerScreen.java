@@ -2,11 +2,11 @@ package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.CraftPressMoldMakerRecipeC2SPacket;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
@@ -46,7 +46,7 @@ public class PressMoldMakerScreen extends HandledScreen<PressMoldMakerMenu> {
                         int index = scrollIndexOffset + i + 4 * j;
 
                         if(index < handler.getRecipeList().size() && handler.getRecipeList().get(index).getSecond()) {
-                            ClientPlayNetworking.send(new CraftPressMoldMakerRecipeC2SPacket(handler.getBlockEntity().getPos(),
+                            ModMessages.sendClientPacketToServer(new CraftPressMoldMakerRecipeC2SPacket(handler.getBlockEntity().getPos(),
                                     handler.getRecipeList().get(index).getFirst().id()));
                             clicked = true;
                         }

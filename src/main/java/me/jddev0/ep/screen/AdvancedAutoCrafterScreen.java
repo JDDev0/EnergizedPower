@@ -3,11 +3,11 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeComparatorModeC2SPacket;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
@@ -45,22 +45,22 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageHandl
                 if(isPointWithinBounds(158, 16, 11, 11, mouseX, mouseY)) {
                     //Ignore NBT checkbox
 
-                    ClientPlayNetworking.send(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 0, !handler.isIgnoreNBT()));
+                    ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 0, !handler.isIgnoreNBT()));
                     clicked = true;
                 }else if(isPointWithinBounds(158, 38, 11, 11, mouseX, mouseY)) {
                     //Extract mode checkbox
 
-                    ClientPlayNetworking.send(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 1, !handler.isSecondaryExtractMode()));
+                    ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 1, !handler.isSecondaryExtractMode()));
                     clicked = true;
                 }else if(isPointWithinBounds(126, 16, 12, 12, mouseX, mouseY)) {
                     //Cycle through recipes
 
-                    ClientPlayNetworking.send(new CycleAdvancedAutoCrafterRecipeOutputC2SPacket(handler.getBlockEntity().getPos()));
+                    ModMessages.sendClientPacketToServer(new CycleAdvancedAutoCrafterRecipeOutputC2SPacket(handler.getBlockEntity().getPos()));
                     clicked = true;
                 }else if(isPointWithinBounds(96, 16, 12, 12, mouseX, mouseY)) {
                     //Set recipe index
 
-                    ClientPlayNetworking.send(new SetAdvancedAutoCrafterRecipeIndexC2SPacket(handler.getBlockEntity().getPos(), handler.getRecipeIndex() + 1));
+                    ModMessages.sendClientPacketToServer(new SetAdvancedAutoCrafterRecipeIndexC2SPacket(handler.getBlockEntity().getPos(), handler.getRecipeIndex() + 1));
                     clicked = true;
                 }
             }
@@ -73,12 +73,12 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageHandl
             }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
 
-                 ClientPlayNetworking.send(new ChangeRedstoneModeC2SPacket(handler.getBlockEntity().getPos()));
+                 ModMessages.sendClientPacketToServer(new ChangeRedstoneModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
             }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
                 //Comparator Mode
 
-                 ClientPlayNetworking.send(new ChangeComparatorModeC2SPacket(handler.getBlockEntity().getPos()));
+                 ModMessages.sendClientPacketToServer(new ChangeComparatorModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
             }
 

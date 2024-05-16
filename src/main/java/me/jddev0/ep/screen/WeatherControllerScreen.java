@@ -2,10 +2,10 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
+import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetWeatherFromWeatherControllerC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
@@ -39,17 +39,17 @@ public class WeatherControllerScreen extends AbstractGenericEnergyStorageHandled
                 if(isPointWithinBounds(52, 34, 18, 18, mouseX, mouseY)) {
                     //Weather clear button
 
-                    ClientPlayNetworking.send(new SetWeatherFromWeatherControllerC2SPacket(handler.getBlockEntity().getPos(), 0));
+                    ModMessages.sendClientPacketToServer(new SetWeatherFromWeatherControllerC2SPacket(handler.getBlockEntity().getPos(), 0));
                     clicked = true;
                 }else if(isPointWithinBounds(88, 34, 18, 18, mouseX, mouseY)) {
                     //Weather rain button
 
-                    ClientPlayNetworking.send(new SetWeatherFromWeatherControllerC2SPacket(handler.getBlockEntity().getPos(), 1));
+                    ModMessages.sendClientPacketToServer(new SetWeatherFromWeatherControllerC2SPacket(handler.getBlockEntity().getPos(), 1));
                     clicked = true;
                 }else if(isPointWithinBounds(124, 34, 18, 18, mouseX, mouseY)) {
                     //Weather thunder button
 
-                    ClientPlayNetworking.send(new SetWeatherFromWeatherControllerC2SPacket(handler.getBlockEntity().getPos(), 2));
+                    ModMessages.sendClientPacketToServer(new SetWeatherFromWeatherControllerC2SPacket(handler.getBlockEntity().getPos(), 2));
                     clicked = true;
                 }
             }

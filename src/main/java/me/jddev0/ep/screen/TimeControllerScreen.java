@@ -2,10 +2,10 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
+import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetTimeFromTimeControllerC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
@@ -33,22 +33,22 @@ public class TimeControllerScreen extends AbstractGenericEnergyStorageHandledScr
             if(isPointWithinBounds(34, 34, 18, 18, mouseX, mouseY)) {
                 //Day button
 
-                ClientPlayNetworking.send(new SetTimeFromTimeControllerC2SPacket(handler.getBlockEntity().getPos(), 1000));
+                ModMessages.sendClientPacketToServer(new SetTimeFromTimeControllerC2SPacket(handler.getBlockEntity().getPos(), 1000));
                 clicked = true;
             }else if(isPointWithinBounds(70, 34, 18, 18, mouseX, mouseY)) {
                 //Noon button
 
-                ClientPlayNetworking.send(new SetTimeFromTimeControllerC2SPacket(handler.getBlockEntity().getPos(), 6000));
+                ModMessages.sendClientPacketToServer(new SetTimeFromTimeControllerC2SPacket(handler.getBlockEntity().getPos(), 6000));
                 clicked = true;
             }else if(isPointWithinBounds(106, 34, 18, 18, mouseX, mouseY)) {
                 //Night button
 
-                ClientPlayNetworking.send(new SetTimeFromTimeControllerC2SPacket(handler.getBlockEntity().getPos(), 13000));
+                ModMessages.sendClientPacketToServer(new SetTimeFromTimeControllerC2SPacket(handler.getBlockEntity().getPos(), 13000));
                 clicked = true;
             }else if(isPointWithinBounds(142, 34, 18, 18, mouseX, mouseY)) {
                 //Midnight button
 
-                ClientPlayNetworking.send(new SetTimeFromTimeControllerC2SPacket(handler.getBlockEntity().getPos(), 18000));
+                ModMessages.sendClientPacketToServer(new SetTimeFromTimeControllerC2SPacket(handler.getBlockEntity().getPos(), 18000));
                 clicked = true;
             }
 
