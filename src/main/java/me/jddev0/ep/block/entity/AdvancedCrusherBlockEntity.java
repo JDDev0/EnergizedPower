@@ -12,7 +12,6 @@ import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.AdvancedCrusherMenu;
 import me.jddev0.ep.util.FluidUtils;
 import me.jddev0.ep.util.RecipeUtils;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -27,8 +26,7 @@ import me.jddev0.ep.util.*;
 import java.util.List;
 
 public class AdvancedCrusherBlockEntity
-        extends SimpleRecipeFluidMachineBlockEntity<CombinedStorage<FluidVariant, SimpleFluidStorage>, CrusherRecipe>
-        implements ExtendedScreenHandlerFactory {
+        extends SimpleRecipeFluidMachineBlockEntity<CombinedStorage<FluidVariant, SimpleFluidStorage>, CrusherRecipe> {
     public static final long TANK_CAPACITY = FluidUtils.convertMilliBucketsToDroplets(
             1000 * ModConfigs.COMMON_ADVANCED_CRUSHER_TANK_CAPACITY.getValue());
     public static final long WATER_CONSUMPTION_PER_RECIPE = FluidUtils.convertMilliBucketsToDroplets(
