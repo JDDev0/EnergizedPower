@@ -303,8 +303,9 @@ public class CrystalGrowthChamberBlockEntity extends BlockEntity implements Exte
 
         ItemStack output = recipe.get().generateOutput(level.random);
 
-        blockEntity.internalInventory.setStack(1, output.copyWithCount(
-                blockEntity.internalInventory.getStack(1).getCount() + output.getCount()));
+        if(!output.isEmpty())
+            blockEntity.internalInventory.setStack(1, output.copyWithCount(
+                    blockEntity.internalInventory.getStack(1).getCount() + output.getCount()));
 
         blockEntity.resetProgress(blockPos, state);
     }
