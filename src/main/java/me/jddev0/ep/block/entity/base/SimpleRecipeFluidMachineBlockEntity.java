@@ -157,7 +157,7 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }
 
-    public static <F extends  IFluidHandler, R extends Recipe<Container>> void tick(
+    public static <F extends IFluidHandler, R extends Recipe<Container>> void tick(
             Level level, BlockPos blockPos, BlockState state, SimpleRecipeFluidMachineBlockEntity<F, R> blockEntity) {
         if(level.isClientSide)
             return;
