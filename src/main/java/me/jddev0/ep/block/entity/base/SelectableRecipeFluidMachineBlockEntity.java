@@ -1,6 +1,5 @@
 package me.jddev0.ep.block.entity.base;
 
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -11,7 +10,6 @@ import me.jddev0.ep.recipe.CurrentRecipePacketUpdate;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -27,22 +25,19 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public abstract class SelectableRecipeFluidMachineBlockEntity
         <F extends IFluidHandler, R extends Recipe<Container>>
-        extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
-        <ReceiveOnlyEnergyStorage, ItemStackHandler, F>
+        extends WorkerFluidMachineBlockEntity<F, RecipeHolder<R>>
         implements MenuProvider, ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R> {
     protected final String machineName;
     protected final UpgradableMenuProvider menuProvider;
@@ -50,15 +45,7 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
     protected final RecipeType<R> recipeType;
     protected final RecipeSerializer<R> recipeSerializer;
 
-    protected final int baseEnergyConsumptionPerTick;
-    protected final int baseRecipeDuration;
-
     protected final ContainerData data;
-
-    protected int progress;
-    protected int maxProgress;
-    protected int energyConsumptionLeft = -1;
-    protected boolean hasEnoughEnergy;
 
     protected ResourceLocation currentRecipeIdForLoad;
     protected RecipeHolder<R> currentRecipe;
@@ -70,17 +57,14 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
                                                    int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
                                                    FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity,
                                                    UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
-                baseTankCapacity, upgradeModifierSlots);
+        super(type, blockPos, blockState, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
+                baseEnergyConsumptionPerTick, fluidStorageMethods, baseTankCapacity, upgradeModifierSlots);
 
         this.machineName = machineName;
         this.menuProvider = menuProvider;
 
         this.recipeType = recipeType;
         this.recipeSerializer = recipeSerializer;
-
-        this.baseEnergyConsumptionPerTick = baseEnergyConsumptionPerTick;
-        this.baseRecipeDuration = baseRecipeDuration;
 
         data = new ContainerData() {
             @Override
@@ -119,38 +103,11 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
     }
 
     @Override
-    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
-        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
-            @Override
-            public int getCapacity() {
-                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_CAPACITY)));
-            }
-
-            @Override
-            public int getMaxReceive() {
-                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
-                setChanged();
-                syncEnergyToPlayers(32);
-            }
-        };
-    }
-
-    @Override
     protected void saveAdditional(@NotNull CompoundTag nbt) {
         super.saveAdditional(nbt);
 
         if(currentRecipe != null)
             nbt.put("recipe.id", StringTag.valueOf(currentRecipe.id().toString()));
-
-        nbt.put("recipe.progress", IntTag.valueOf(progress));
-        nbt.put("recipe.max_progress", IntTag.valueOf(maxProgress));
-        nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
     }
 
     @Override
@@ -159,10 +116,6 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
 
         if(nbt.contains("recipe.id"))
             currentRecipeIdForLoad = ResourceLocation.tryParse(nbt.getString("recipe.id"));
-
-        progress = nbt.getInt("recipe.progress");
-        maxProgress = nbt.getInt("recipe.max_progress");
-        energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
     }
 
     @Override
@@ -180,86 +133,45 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }
 
-    public static <F extends IFluidHandler, R extends Recipe<Container>> void tick(
-            Level level, BlockPos blockPos, BlockState state, SelectableRecipeFluidMachineBlockEntity<F, R> blockEntity) {
-        if(level.isClientSide)
-            return;
-
+    @Override
+    protected final void onTickStart() {
         //Load recipe
-        if(blockEntity.currentRecipeIdForLoad != null) {
-            List<RecipeHolder<R>> recipes = level.getRecipeManager().getAllRecipesFor(blockEntity.recipeType);
-            blockEntity.currentRecipe = recipes.stream().
-                    filter(recipe -> recipe.id().equals(blockEntity.currentRecipeIdForLoad)).
+        if(currentRecipeIdForLoad != null) {
+            List<RecipeHolder<R>> recipes = level.getRecipeManager().getAllRecipesFor(recipeType);
+            currentRecipe = recipes.stream().
+                    filter(recipe -> recipe.id().equals(currentRecipeIdForLoad)).
                     findFirst().orElse(null);
 
-            blockEntity.currentRecipeIdForLoad = null;
+            currentRecipeIdForLoad = null;
         }
+    }
 
-        if(!blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
-            return;
+    @Override
+    protected Optional<RecipeHolder<R>> getCurrentWorkData() {
+        return Optional.ofNullable(currentRecipe);
+    }
 
-        if(blockEntity.hasRecipe()) {
-            if(blockEntity.currentRecipe == null)
-                return;
-
-            if(blockEntity.maxProgress == 0) {
-                blockEntity.onStartCrafting(blockEntity.currentRecipe);
-
-                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(blockEntity.baseRecipeDuration *
-                        blockEntity.getRecipeDependentRecipeDuration(blockEntity.currentRecipe) /
-                        blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
-            }
-
-            int energyConsumptionPerTick = Math.max(1, (int)Math.ceil(blockEntity.baseEnergyConsumptionPerTick *
-                    blockEntity.getRecipeDependentEnergyConsumption(blockEntity.currentRecipe) *
-                    blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
-
-            if(blockEntity.energyConsumptionLeft < 0)
-                blockEntity.energyConsumptionLeft = energyConsumptionPerTick * blockEntity.maxProgress;
-
-            if(energyConsumptionPerTick <= blockEntity.energyStorage.getEnergy()) {
-                blockEntity.hasEnoughEnergy = true;
-
-                if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
-                    //Reset progress for invalid values
-
-                    blockEntity.resetProgress();
-                    setChanged(level, blockPos, state);
-
-                    return;
-                }
-
-                blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
-                blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
-
-                blockEntity.progress++;
-                if(blockEntity.progress >= blockEntity.maxProgress)
-                    blockEntity.craftItem(blockEntity.currentRecipe);
-
-                setChanged(level, blockPos, state);
-            }else {
-                blockEntity.hasEnoughEnergy = false;
-                setChanged(level, blockPos, state);
-            }
-        }else {
-            blockEntity.resetProgress();
-            setChanged(level, blockPos, state);
-        }
+    @Override
+    protected final double getWorkDataDependentWorkDuration(RecipeHolder<R> workData) {
+        return getRecipeDependentRecipeDuration(workData);
     }
 
     protected double getRecipeDependentRecipeDuration(RecipeHolder<R> recipe) {
         return 1;
     }
 
+    @Override
+    protected final double getWorkDataDependentEnergyConsumption(RecipeHolder<R> workData) {
+        return getRecipeDependentEnergyConsumption(workData);
+    }
+
     protected double getRecipeDependentEnergyConsumption(RecipeHolder<R> recipe) {
         return 1;
     }
 
-    protected void resetProgress() {
-        progress = 0;
-        maxProgress = 0;
-        energyConsumptionLeft = -1;
-        hasEnoughEnergy = true;
+    @Override
+    protected final boolean hasWork() {
+        return hasRecipe();
     }
 
     protected boolean hasRecipe() {
@@ -273,7 +185,17 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
         return canCraftRecipe(inventory, currentRecipe);
     }
 
+    @Override
+    protected final void onWorkStarted(RecipeHolder<R> workData) {
+        onStartCrafting(workData);
+    }
+
     protected void onStartCrafting(RecipeHolder<R> recipe) {}
+
+    @Override
+    protected final void onWorkCompleted(RecipeHolder<R> workData) {
+        craftItem(workData);
+    }
 
     protected abstract void craftItem(RecipeHolder<R> recipe);
 
@@ -334,12 +256,5 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
     @Override
     public void setCurrentRecipe(@Nullable RecipeHolder<R> currentRecipe) {
         this.currentRecipe = currentRecipe;
-    }
-
-    @Override
-    protected void updateUpgradeModules() {
-        resetProgress();
-
-        super.updateUpgradeModules();
     }
 }
