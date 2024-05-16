@@ -8,7 +8,6 @@ import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import me.jddev0.ep.networking.packet.SyncFurnaceRecipeTypeS2CPacket;
 import me.jddev0.ep.recipe.FurnaceRecipeTypePacketUpdate;
 import me.jddev0.ep.screen.PoweredFurnaceMenu;
@@ -339,10 +338,6 @@ public class PoweredFurnaceBlockEntity
         super.updateUpgradeModules();
 
         if(world != null && !world.isClient()) {
-            ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                    getPos(), (ServerWorld)world, 32,
-                    new EnergySyncS2CPacket(energyStorage.getAmount(), energyStorage.getCapacity(), getPos())
-            );
             ModMessages.sendServerPacketToPlayersWithinXBlocks(
                     getPos(), (ServerWorld)world, 32,
                     new SyncFurnaceRecipeTypeS2CPacket(getRecipeForFurnaceModeUpgrade(), getPos())
