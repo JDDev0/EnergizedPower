@@ -19,13 +19,13 @@ public final class FluidStorageMultiTankMethods implements FluidStorageMethods<E
     @Override
     public void saveFluidStorage(@NotNull EnergizedPowerFluidStorage fluidStorage, @NotNull CompoundTag nbt) {
         for(int i = 0;i < fluidStorage.getTanks();i++)
-            fluidStorage.setFluid(i, FluidStack.loadFluidStackFromNBT(nbt.getCompound("fluid." + i)));
+            nbt.put("fluid." + i, fluidStorage.getFluid(i).writeToNBT(new CompoundTag()));
     }
 
     @Override
     public void loadFluidStorage(@NotNull EnergizedPowerFluidStorage fluidStorage, @NotNull CompoundTag nbt) {
         for(int i = 0;i < fluidStorage.getTanks();i++)
-            nbt.put("fluid." + i, fluidStorage.getFluid(i).writeToNBT(new CompoundTag()));
+            fluidStorage.setFluid(i, FluidStack.loadFluidStackFromNBT(nbt.getCompound("fluid." + i)));
     }
 
     @Override
