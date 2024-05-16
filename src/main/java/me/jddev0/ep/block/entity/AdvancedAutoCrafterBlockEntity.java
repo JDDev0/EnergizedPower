@@ -358,6 +358,8 @@ public class AdvancedAutoCrafterBlockEntity
 
                 if(blockEntity.craftingRecipe[i] == null)
                     blockEntity.resetProgress(i);
+
+                markDirty(level, blockPos, state);
             }
 
             int itemCount = 0;

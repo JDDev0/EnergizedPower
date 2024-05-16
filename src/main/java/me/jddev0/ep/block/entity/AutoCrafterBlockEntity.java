@@ -258,6 +258,8 @@ public class AutoCrafterBlockEntity
 
             if(blockEntity.craftingRecipe == null)
                 blockEntity.resetProgress();
+
+            markDirty(level, blockPos, state);
         }
 
         if(!blockEntity.redstoneMode.isActive(state.get(AutoCrafterBlock.POWERED)))
