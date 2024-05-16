@@ -502,7 +502,10 @@ public final class ModBlockEntities {
     );
 
     public static final BlockEntityType<TeleporterBlockEntity> TELEPORTER_ENTITY = registerEnergyStorage(
-            createBlockEntity("teleporter", ModBlocks.TELEPORTER, TeleporterBlockEntity::new),
+            registerInventoryStorage(
+                createBlockEntity("teleporter", ModBlocks.TELEPORTER, TeleporterBlockEntity::new),
+                (blockEntity, side) -> blockEntity.cachedSidedInventoryStorage.apply(side)
+            ),
             (blockEntity, direction) -> blockEntity.energyStorage
     );
 
