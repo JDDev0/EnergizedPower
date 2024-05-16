@@ -46,7 +46,7 @@ public class AdvancedAutoCrafterScreen extends AbstractGenericEnergyStorageHandl
             }else if(isPointWithinBounds(158, 38, 11, 11, mouseX, mouseY)) {
                 //Extract mode checkbox
 
-                ClientPlayNetworking.send(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 0, !handler.isSecondaryExtractMode()));
+                ClientPlayNetworking.send(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 1, !handler.isSecondaryExtractMode()));
                 clicked = true;
             }else if(isPointWithinBounds(126, 16, 12, 12, mouseX, mouseY)) {
                 //Cycle through recipes
