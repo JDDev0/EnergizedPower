@@ -3,7 +3,6 @@ package me.jddev0.ep.networking.packet;
 import me.jddev0.ep.recipe.CurrentRecipePacketUpdate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
@@ -11,6 +10,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.event.network.CustomPayloadEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 public final class SyncCurrentRecipeS2CPacket<R extends Recipe<?>> {
@@ -30,7 +30,7 @@ public final class SyncCurrentRecipeS2CPacket<R extends Recipe<?>> {
         pos = buffer.readBlockPos();
 
         ResourceLocation recipeSerializerId = buffer.readResourceLocation();
-        recipeSerializer = (RecipeSerializer<R>)BuiltInRegistries.RECIPE_SERIALIZER.get(recipeSerializerId);
+        recipeSerializer = (RecipeSerializer<R>)ForgeRegistries.RECIPE_SERIALIZERS.getValue(recipeSerializerId);
         if(recipeSerializer == null)
             throw new IllegalArgumentException("Recipe Serializer \"" + recipeSerializerId + "\" does not exist!");
 
@@ -41,7 +41,7 @@ public final class SyncCurrentRecipeS2CPacket<R extends Recipe<?>> {
      public void toBytes(FriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
 
-        ResourceLocation recipeSerializerId = BuiltInRegistries.RECIPE_SERIALIZER.getKey(recipeSerializer);
+        ResourceLocation recipeSerializerId = ForgeRegistries.RECIPE_SERIALIZERS.getKey(recipeSerializer);
         if(recipeSerializerId == null)
             throw new IllegalArgumentException("The recipe serializer \"" + recipeSerializer.getClass().getCanonicalName() +
                     "\" is not registered!");
