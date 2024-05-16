@@ -4,8 +4,6 @@ import me.jddev0.ep.block.entity.base.FluidStorageBlockEntity;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.screen.DrainMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.FluidUtils;
@@ -104,8 +102,7 @@ public class DrainBlockEntity extends FluidStorageBlockEntity<SimpleFluidStorage
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, new FluidSyncS2CPacket(0, fluidStorage.getFluid(),
-                fluidStorage.getCapacity(), getPos()));
+        syncFluidToPlayer(player);
 
         return new DrainMenu(id, this, inventory, this.data);
     }
