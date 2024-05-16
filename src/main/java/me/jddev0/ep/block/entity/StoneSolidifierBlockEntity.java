@@ -152,6 +152,7 @@ public class StoneSolidifierBlockEntity
     protected boolean canCraftRecipe(SimpleInventory inventory, StoneSolidifierRecipe recipe) {
         return world != null &&
                 fluidStorage.parts.get(0).getAmount() >= FluidUtils.convertMilliBucketsToDroplets(recipe.getWaterAmount()) &&
+                fluidStorage.parts.get(1).getAmount() >= FluidUtils.convertMilliBucketsToDroplets(recipe.getLavaAmount()) &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 0, recipe.getOutput(world.getRegistryManager()));
     }
 }
