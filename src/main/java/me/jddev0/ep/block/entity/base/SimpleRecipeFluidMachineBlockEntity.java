@@ -194,7 +194,7 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
             }
 
             long energyConsumptionPerTick = Math.max(1, (long)Math.ceil(blockEntity.baseEnergyConsumptionPerTick *
-                    blockEntity.getRecipeDependentEnergyConsumption(recipe.get()) /
+                    blockEntity.getRecipeDependentEnergyConsumption(recipe.get()) *
                     blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
 
             if(blockEntity.energyConsumptionLeft < 0)
