@@ -313,8 +313,9 @@ public class CrystalGrowthChamberBlockEntity extends BlockEntity implements Menu
 
         ItemStack output = recipe.get().value().generateOutput(level.random);
 
-        blockEntity.itemHandler.setStackInSlot(1, output.copyWithCount(
-                blockEntity.itemHandler.getStackInSlot(1).getCount() + output.getCount()));
+        if(!output.isEmpty())
+            blockEntity.itemHandler.setStackInSlot(1, output.copyWithCount(
+                    blockEntity.itemHandler.getStackInSlot(1).getCount() + output.getCount()));
 
         blockEntity.resetProgress(blockPos, state);
     }
