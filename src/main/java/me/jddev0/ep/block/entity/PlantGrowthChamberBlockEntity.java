@@ -94,7 +94,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+    protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
         fertilizerSpeedMultiplier = nbt.getDouble("recipe.speed_multiplier");

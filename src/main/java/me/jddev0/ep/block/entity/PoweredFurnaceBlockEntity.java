@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.PoweredFurnaceBlock;
-import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.WorkerMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
@@ -15,20 +15,15 @@ import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtInt;
-import net.minecraft.nbt.NbtLong;
 import net.minecraft.recipe.AbstractCookingRecipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -39,28 +34,20 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
-import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.List;
 import java.util.Optional;
 
 public class PoweredFurnaceBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
+        extends WorkerMachineBlockEntity<RecipeEntry<? extends AbstractCookingRecipe>>
         implements ExtendedScreenHandlerFactory<BlockPos>, FurnaceRecipeTypePacketUpdate {
     private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_POWERED_FURNACE_RECIPE_BLACKLIST.getValue();
-
-    private static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER.getValue();
 
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
 
     protected final PropertyDelegate data;
-    private int progress;
-    private int maxProgress;
-    private long energyConsumptionLeft = -1;
-    private boolean hasEnoughEnergy;
 
     private @NotNull RecipeType<? extends AbstractCookingRecipe> recipeType = RecipeType.SMELTING;
 
@@ -68,10 +55,11 @@ public class PoweredFurnaceBlockEntity
         super(
                 ModBlockEntities.POWERED_FURNACE_ENTITY, blockPos, blockState,
 
+                2, 1,
+
                 ModConfigs.COMMON_POWERED_FURNACE_CAPACITY.getValue(),
                 ModConfigs.COMMON_POWERED_FURNACE_TRANSFER_RATE.getValue(),
-
-                2,
+                ModConfigs.COMMON_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_TICK.getValue(),
 
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
@@ -116,34 +104,6 @@ public class PoweredFurnaceBlockEntity
     }
 
     @Override
-    protected EnergizedPowerEnergyStorage initEnergyStorage() {
-        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
-            @Override
-            public long getCapacity() {
-                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_CAPACITY)));
-            }
-
-            @Override
-            protected void onFinalCommit() {
-                markDirty();
-                syncEnergyToPlayers(32);
-            }
-        };
-    }
-
-    @Override
-    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
-        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0) {
-            @Override
-            public long getMaxInsert() {
-                return Math.max(1, (long)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-        };
-    }
-
-    @Override
     protected SimpleInventory initInventoryStorage() {
         return new SimpleInventory(slotCount) {
             @Override
@@ -160,7 +120,7 @@ public class PoweredFurnaceBlockEntity
                 if(slot == 0) {
                     ItemStack itemStack = getStack(slot);
                     if(world != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.areItemsAndComponentsEqual(stack, itemStack))
-                        resetProgress(pos, world.getBlockState(pos));
+                        resetProgress();
                 }
 
                 super.setStack(slot, stack);
@@ -196,90 +156,44 @@ public class PoweredFurnaceBlockEntity
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
-
-        nbt.put("recipe.progress", NbtInt.of(progress));
-        nbt.put("recipe.max_progress", NbtInt.of(maxProgress));
-        nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
-    }
-
-    @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
-
-        progress = nbt.getInt("recipe.progress");
-        maxProgress = nbt.getInt("recipe.max_progress");
-        energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
-    }
-
-    public static void tick(World level, BlockPos blockPos, BlockState state, PoweredFurnaceBlockEntity blockEntity) {
-        if(level.isClient())
-            return;
-
-        if(!blockEntity.redstoneMode.isActive(state.get(PoweredFurnaceBlock.POWERED)))
-            return;
-
-        if(hasRecipe(blockEntity)) {
-            Optional<? extends RecipeEntry<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(blockEntity.itemHandler, level);
-            if(recipe.isEmpty())
-                return;
-
-            int cookingTime = recipe.get().value().getCookingTime();
-            if(blockEntity.maxProgress == 0)
-                //Default Cooking Time = 200 -> maxProgress = 100 (= 200 / 2)
-                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(cookingTime * RECIPE_DURATION_MULTIPLIER / 2.f /
-                        blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
-
-            long energyUsagePerTick = Math.max(1, (long)Math.ceil(ENERGY_USAGE_PER_TICK *
-                    blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
-
-            if(blockEntity.energyConsumptionLeft < 0)
-                blockEntity.energyConsumptionLeft = energyUsagePerTick * blockEntity.maxProgress;
-
-            if(energyUsagePerTick <= blockEntity.energyStorage.getAmount()) {
-                if(!level.getBlockState(blockPos).contains(PoweredFurnaceBlock.LIT) || !level.getBlockState(blockPos).get(PoweredFurnaceBlock.LIT)) {
-                    blockEntity.hasEnoughEnergy = true;
-                    level.setBlockState(blockPos, state.with(PoweredFurnaceBlock.LIT, Boolean.TRUE), 3);
-                }
-
-                if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
-                    //Reset progress for invalid values
-
-                    blockEntity.resetProgress(blockPos, state);
-                    markDirty(level, blockPos, state);
-
-                    return;
-                }
-
-                try(Transaction transaction = Transaction.openOuter()) {
-                    blockEntity.energyStorage.extract(energyUsagePerTick, transaction);
-                    transaction.commit();
-                }
-                blockEntity.energyConsumptionLeft -= energyUsagePerTick;
-
-                blockEntity.progress++;
-                if(blockEntity.progress >= blockEntity.maxProgress)
-                    craftItem(blockPos, state, blockEntity);
-
-                markDirty(level, blockPos, state);
-            }else {
-                blockEntity.hasEnoughEnergy = false;
-                markDirty(level, blockPos, state);
-            }
-        }else {
-            blockEntity.resetProgress(blockPos, state);
-            markDirty(level, blockPos, state);
+    protected void onHasEnoughEnergy() {
+        if(world.getBlockState(getPos()).contains(PoweredFurnaceBlock.LIT) &&
+                !world.getBlockState(getPos()).get(PoweredFurnaceBlock.LIT)) {
+            world.setBlockState(getPos(), getCachedState().with(PoweredFurnaceBlock.LIT, true), 3);
         }
     }
 
-    private void resetProgress(BlockPos blockPos, BlockState state) {
-        progress = 0;
-        maxProgress = 0;
-        energyConsumptionLeft = -1;
-        hasEnoughEnergy = true;
+    @Override
+    protected void onHasNotEnoughEnergy() {
+        if(world.getBlockState(getPos()).contains(PoweredFurnaceBlock.LIT) &&
+                world.getBlockState(getPos()).get(PoweredFurnaceBlock.LIT)) {
+            world.setBlockState(getPos(), getCachedState().with(PoweredFurnaceBlock.LIT, false), 3);
+        }
+    }
 
-        world.setBlockState(blockPos, state.with(PoweredFurnaceBlock.LIT, false), 3);
+    @Override
+    @SuppressWarnings("unchecked")
+    protected Optional<RecipeEntry<? extends AbstractCookingRecipe>> getCurrentWorkData() {
+        return (Optional<RecipeEntry<? extends AbstractCookingRecipe>>)getRecipeFor(itemHandler, world);
+    }
+
+    @Override
+    protected boolean hasWork() {
+        return hasRecipe(this);
+    }
+
+    @Override
+    protected void onWorkStarted(RecipeEntry<? extends AbstractCookingRecipe> recipe) {}
+
+    @Override
+    protected void onWorkCompleted(RecipeEntry<? extends AbstractCookingRecipe> workData) {
+        craftItem(getPos(), getCachedState(), this);
+    }
+
+    @Override
+    protected double getWorkDataDependentWorkDuration(RecipeEntry<? extends AbstractCookingRecipe> recipe) {
+        //Default Cooking Time = 200 -> maxProgress = 100 (= 200 / 2)
+        return recipe.value().getCookingTime() * RECIPE_DURATION_MULTIPLIER / 2.f;
     }
 
     private static void craftItem(BlockPos blockPos, BlockState state, PoweredFurnaceBlockEntity blockEntity) {
@@ -294,7 +208,7 @@ public class PoweredFurnaceBlockEntity
         blockEntity.itemHandler.setStack(1, recipe.get().value().getResult(level.getRegistryManager()).copyWithCount(
                 blockEntity.itemHandler.getStack(1).getCount() + recipe.get().value().getResult(level.getRegistryManager()).getCount()));
 
-        blockEntity.resetProgress(blockPos, state);
+        blockEntity.resetProgress();
     }
 
     private static boolean hasRecipe(PoweredFurnaceBlockEntity blockEntity) {
@@ -333,8 +247,6 @@ public class PoweredFurnaceBlockEntity
 
     @Override
     protected void updateUpgradeModules() {
-        resetProgress(getPos(), getCachedState());
-
         super.updateUpgradeModules();
 
         if(world != null && !world.isClient()) {
