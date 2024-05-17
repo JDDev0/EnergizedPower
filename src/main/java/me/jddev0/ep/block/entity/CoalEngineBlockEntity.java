@@ -1,6 +1,5 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.CoalEngineBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
@@ -24,6 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -187,7 +187,7 @@ public class CoalEngineBlockEntity
         if(level.isClientSide)
             return;
 
-        if(blockEntity.redstoneMode.isActive(state.getValue(CoalEngineBlock.POWERED)))
+        if(blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
             tickRecipe(level, blockPos, state, blockEntity);
 
         transferEnergy(level, blockPos, state, blockEntity);
@@ -233,9 +233,10 @@ public class CoalEngineBlockEntity
                         blockEntity.itemHandler.extractItem(0, 1, false);
                 }
 
-                if(!level.getBlockState(blockPos).hasProperty(CoalEngineBlock.LIT) || !level.getBlockState(blockPos).getValue(CoalEngineBlock.LIT)) {
-                    blockEntity.hasEnoughCapacityForProduction = true;
-                    level.setBlock(blockPos, state.setValue(CoalEngineBlock.LIT, Boolean.TRUE), 3);
+                blockEntity.hasEnoughCapacityForProduction = true;
+                if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
+                        !level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
+                    level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, true), 3);
                 }
 
                 if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyProductionLeft < 0 ||
@@ -258,10 +259,18 @@ public class CoalEngineBlockEntity
                 setChanged(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughCapacityForProduction = false;
+                if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
+                        level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
+                    level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, false), 3);
+                }
                 setChanged(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);
+            if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
+                    level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
+                level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, false), 3);
+            }
             setChanged(level, blockPos, state);
         }
     }
@@ -331,9 +340,7 @@ public class CoalEngineBlockEntity
         progress = 0;
         maxProgress = 0;
         energyProductionLeft = -1;
-        hasEnoughCapacityForProduction = true;
-
-        level.setBlock(blockPos, state.setValue(CoalEngineBlock.LIT, false), 3);
+        hasEnoughCapacityForProduction = false;
     }
 
     private static boolean hasRecipe(CoalEngineBlockEntity blockEntity) {

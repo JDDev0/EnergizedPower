@@ -1,6 +1,5 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.PoweredFurnaceBlock;
 import me.jddev0.ep.block.entity.base.WorkerMachineBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
@@ -30,6 +29,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -160,17 +160,17 @@ public class PoweredFurnaceBlockEntity
 
     @Override
     protected void onHasEnoughEnergy() {
-        if(level.getBlockState(getBlockPos()).hasProperty(PoweredFurnaceBlock.LIT) &&
-                !level.getBlockState(getBlockPos()).getValue(PoweredFurnaceBlock.LIT)) {
-            level.setBlock(getBlockPos(), getBlockState().setValue(PoweredFurnaceBlock.LIT, true), 3);
+        if(level.getBlockState(getBlockPos()).hasProperty(BlockStateProperties.LIT) &&
+                !level.getBlockState(getBlockPos()).getValue(BlockStateProperties.LIT)) {
+            level.setBlock(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, true), 3);
         }
     }
 
     @Override
     protected void onHasNotEnoughEnergy() {
-        if(level.getBlockState(getBlockPos()).hasProperty(PoweredFurnaceBlock.LIT) &&
-                level.getBlockState(getBlockPos()).getValue(PoweredFurnaceBlock.LIT)) {
-            level.setBlock(getBlockPos(), getBlockState().setValue(PoweredFurnaceBlock.LIT, false), 3);
+        if(level.getBlockState(getBlockPos()).hasProperty(BlockStateProperties.LIT) &&
+                level.getBlockState(getBlockPos()).getValue(BlockStateProperties.LIT)) {
+            level.setBlock(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, false), 3);
         }
     }
 

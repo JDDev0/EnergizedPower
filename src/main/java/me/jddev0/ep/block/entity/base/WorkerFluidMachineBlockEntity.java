@@ -140,6 +140,7 @@ public abstract class WorkerFluidMachineBlockEntity<F extends IFluidHandler, W>
             }
         }else {
             blockEntity.resetProgress();
+            blockEntity.onHasNotEnoughEnergy();
             setChanged(level, blockPos, state);
         }
 
@@ -186,7 +187,6 @@ public abstract class WorkerFluidMachineBlockEntity<F extends IFluidHandler, W>
         maxProgress = 0;
         energyConsumptionLeft = -1;
         hasEnoughEnergy = false;
-        onHasNotEnoughEnergy();
     }
 
     @Override
