@@ -14,14 +14,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class UpgradableEnergyStorageBlockEntity<E extends IEnergizedPowerEnergyStorage>
-        extends EnergyStorageBlockEntity<E> {
+        extends MenuEnergyStorageBlockEntity<E> {
     protected final UpgradeModuleInventory upgradeModuleInventory;
     protected final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
     public UpgradableEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                              String machineName,
                                               int baseEnergyCapacity, int baseEnergyTransferRate,
                                               UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate);
+        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate);
 
         this.upgradeModuleInventory = new UpgradeModuleInventory(upgradeModifierSlots);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);

@@ -1,14 +1,12 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.LightningGeneratorBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.screen.LightningGeneratorMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -22,11 +20,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class LightningGeneratorBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
-        implements MenuProvider {
+public class LightningGeneratorBlockEntity extends MenuEnergyStorageBlockEntity<ExtractOnlyEnergyStorage> {
     public LightningGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.LIGHTING_GENERATOR_ENTITY.get(), blockPos, blockState,
+
+                "lightning_generator",
 
                 LightningGeneratorBlock.ENERGY_PER_LIGHTNING_STRIKE,
                 ModConfigs.COMMON_LIGHTNING_GENERATOR_TRANSFER_RATE.getValue()
@@ -42,11 +41,6 @@ public class LightningGeneratorBlockEntity extends EnergyStorageBlockEntity<Extr
                 syncEnergyToPlayers(32);
             }
         };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.lightning_generator");
     }
 
     @Nullable

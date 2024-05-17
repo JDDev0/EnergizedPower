@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.TeleporterBlock;
-import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
@@ -20,7 +20,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -46,8 +45,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class TeleporterBlockEntity
-        extends InventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
-        implements MenuProvider {
+        extends MenuInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler> {
     public static final boolean INTRA_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_ENABLED.getValue();
     public static final boolean INTER_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_ENABLED.getValue();
     public static final List<@NotNull ResourceLocation> DIMENSION_BLACKLIST =
@@ -74,6 +72,8 @@ public class TeleporterBlockEntity
     public TeleporterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.TELEPORTER_ENTITY.get(), blockPos, blockState,
+
+                "teleporter",
 
                 CAPACITY,
                 ModConfigs.COMMON_TELEPORTER_TRANSFER_RATE.getValue(),
@@ -115,11 +115,6 @@ public class TeleporterBlockEntity
                 return 1;
             }
         };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.teleporter");
     }
 
     @Nullable

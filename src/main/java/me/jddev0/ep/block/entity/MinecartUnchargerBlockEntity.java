@@ -1,16 +1,14 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.MinecartUnchargerBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
 import me.jddev0.ep.screen.MinecartUnchargerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -27,8 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MinecartUnchargerBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
-        implements MenuProvider {
+public class MinecartUnchargerBlockEntity extends MenuEnergyStorageBlockEntity<ExtractOnlyEnergyStorage> {
     public static final int MAX_TRANSFER = ModConfigs.COMMON_MINECART_UNCHARGER_TRANSFER_RATE.getValue();
 
     private boolean hasMinecartOld = true; //Default true (Force first update)
@@ -37,6 +34,8 @@ public class MinecartUnchargerBlockEntity extends EnergyStorageBlockEntity<Extra
     public MinecartUnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.MINECART_UNCHARGER_ENTITY.get(), blockPos, blockState,
+
+                "minecart_uncharger",
 
                 ModConfigs.COMMON_MINECART_UNCHARGER_CAPACITY.getValue(), MAX_TRANSFER
         );
@@ -51,11 +50,6 @@ public class MinecartUnchargerBlockEntity extends EnergyStorageBlockEntity<Extra
                 syncEnergyToPlayers(32);
             }
         };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.minecart_uncharger");
     }
 
     @Nullable

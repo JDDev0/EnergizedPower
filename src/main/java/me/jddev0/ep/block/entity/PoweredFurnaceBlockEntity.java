@@ -16,7 +16,6 @@ import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -42,20 +41,20 @@ import java.util.Optional;
 
 public class PoweredFurnaceBlockEntity
         extends WorkerMachineBlockEntity<RecipeHolder<? extends AbstractCookingRecipe>>
-        implements MenuProvider, FurnaceRecipeTypePacketUpdate {
+        implements FurnaceRecipeTypePacketUpdate {
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_POWERED_FURNACE_RECIPE_BLACKLIST.getValue();
 
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER.getValue();
 
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
 
-    protected final ContainerData data;
-
     private @NotNull RecipeType<? extends AbstractCookingRecipe> recipeType = RecipeType.SMELTING;
 
     public PoweredFurnaceBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.POWERED_FURNACE_ENTITY.get(), blockPos, blockState,
+
+                "powered_furnace",
 
                 2, 1,
 
@@ -68,8 +67,41 @@ public class PoweredFurnaceBlockEntity
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.FURNACE_MODE
         );
+    }
 
-        data = new ContainerData() {
+    @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return switch(slot) {
+                    case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, getRecipeForFurnaceModeUpgrade(), stack);
+                    case 1 -> false;
+                    default -> super.isItemValid(slot, stack);
+                };
+            }
+
+            @Override
+            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+                if(slot == 0) {
+                    ItemStack itemStack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                        resetProgress();
+                }
+
+                super.setStackInSlot(slot, stack);
+            }
+        };
+    }
+
+    @Override
+    protected ContainerData initContainerData() {
+        return new ContainerData() {
             @Override
             public int get(int index) {
                 return switch(index) {
@@ -103,41 +135,6 @@ public class PoweredFurnaceBlockEntity
                 return 9;
             }
         };
-    }
-
-    @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return  new ItemStackHandler(slotCount) {
-            @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
-
-            @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-                return switch(slot) {
-                    case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, getRecipeForFurnaceModeUpgrade(), stack);
-                    case 1 -> false;
-                    default -> super.isItemValid(slot, stack);
-                };
-            }
-
-            @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-                if(slot == 0) {
-                    ItemStack itemStack = getStackInSlot(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
-                        resetProgress();
-                }
-
-                super.setStackInSlot(slot, stack);
-            }
-        };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.powered_furnace");
     }
 
     @Nullable

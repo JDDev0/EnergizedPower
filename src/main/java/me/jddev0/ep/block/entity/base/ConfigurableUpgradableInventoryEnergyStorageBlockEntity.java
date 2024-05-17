@@ -24,10 +24,11 @@ public abstract class ConfigurableUpgradableInventoryEnergyStorageBlockEntity
     protected @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public ConfigurableUpgradableInventoryEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                                   String machineName,
                                                                    int baseEnergyCapacity, int baseEnergyTransferRate,
                                                                    int slotCount,
                                                                    UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount, upgradeModifierSlots);
+        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount, upgradeModifierSlots);
     }
 
     @Override

@@ -1,8 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.FluidTankBlock;
-import me.jddev0.ep.block.entity.base.FluidStorageBlockEntity;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
+import me.jddev0.ep.block.entity.base.MenuFluidStorageBlockEntity;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
@@ -12,10 +12,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -30,11 +28,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidTankBlockEntity
-        extends FluidStorageBlockEntity<FluidTank>
-        implements MenuProvider, CheckboxUpdate {
+        extends MenuFluidStorageBlockEntity<FluidTank>
+        implements CheckboxUpdate {
     private final FluidTankBlock.Tier tier;
-
-    protected final ContainerData data;
 
     private boolean ignoreNBT;
     private FluidStack fluidFilter = FluidStack.EMPTY;
@@ -51,33 +47,13 @@ public class FluidTankBlockEntity
         super(
                 getEntityTypeFromTier(tier), blockPos, blockState,
 
+                tier.getResourceId(),
+
                 FluidStorageSingleTankMethods.INSTANCE,
                 tier.getTankCapacity()
         );
 
         this.tier = tier;
-
-        data = new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0 -> ignoreNBT?1:0;
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0 -> FluidTankBlockEntity.this.ignoreNBT = value != 0;
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 1;
-            }
-        };
     }
 
     @Override
@@ -101,8 +77,28 @@ public class FluidTankBlockEntity
     }
 
     @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower." + tier.getResourceId());
+    protected ContainerData initContainerData() {
+        return new ContainerData() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0 -> ignoreNBT?1:0;
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0 -> FluidTankBlockEntity.this.ignoreNBT = value != 0;
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 1;
+            }
+        };
     }
 
     @Nullable

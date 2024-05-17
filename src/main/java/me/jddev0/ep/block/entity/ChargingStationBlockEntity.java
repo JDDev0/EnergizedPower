@@ -10,8 +10,6 @@ import me.jddev0.ep.screen.ChargingStationMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -28,13 +26,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
-        implements MenuProvider {
+public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage> {
     public static final int MAX_CHARGING_DISTANCE = ModConfigs.COMMON_CHARGING_STATION_MAX_CHARGING_DISTANCE.getValue();
 
     public ChargingStationBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.CHARGING_STATION_ENTITY.get(), blockPos, blockState,
+
+                "charging_station",
 
                 ModConfigs.COMMON_CHARGING_STATION_CAPACITY.getValue(),
                 ModConfigs.COMMON_CHARGING_STATION_TRANSFER_RATE.getValue(),
@@ -65,11 +64,6 @@ public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEnti
                 syncEnergyToPlayers(32);
             }
         };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.charging_station");
     }
 
     @Nullable

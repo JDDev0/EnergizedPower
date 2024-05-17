@@ -1,16 +1,14 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.MinecartChargerBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
 import me.jddev0.ep.screen.MinecartChargerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -24,8 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class MinecartChargerBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
-        implements MenuProvider {
+public class MinecartChargerBlockEntity extends MenuEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage> {
     public static final int MAX_TRANSFER = ModConfigs.COMMON_MINECART_CHARGER_TRANSFER_RATE.getValue();
 
     private boolean hasMinecartOld = true; //Default true (Force first update)
@@ -34,6 +31,8 @@ public class MinecartChargerBlockEntity extends EnergyStorageBlockEntity<Receive
     public MinecartChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.MINECART_CHARGER_ENTITY.get(), blockPos, blockState,
+
+                "minecart_charger",
 
                 ModConfigs.COMMON_MINECART_CHARGER_CAPACITY.getValue(),
                 MAX_TRANSFER
@@ -49,11 +48,6 @@ public class MinecartChargerBlockEntity extends EnergyStorageBlockEntity<Receive
                 syncEnergyToPlayers(32);
             }
         };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.minecart_charger");
     }
 
     @Nullable

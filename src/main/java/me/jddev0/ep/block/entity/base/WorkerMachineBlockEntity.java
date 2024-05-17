@@ -26,10 +26,11 @@ public abstract class WorkerMachineBlockEntity<W>
     protected boolean hasEnoughEnergy;
 
     public WorkerMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                    String machineName,
                                     int slotCount, int baseWorkDuration,
                                     int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
                                     UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount, upgradeModifierSlots);
+        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount, upgradeModifierSlots);
 
         this.baseEnergyConsumptionPerTick = baseEnergyConsumptionPerTick;
         this.baseWorkDuration = baseWorkDuration;

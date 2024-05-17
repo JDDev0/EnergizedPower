@@ -1,14 +1,12 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveAndExtractEnergyStorage;
 import me.jddev0.ep.screen.AdvancedBatteryBoxMenu;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -22,14 +20,15 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AdvancedBatteryBoxBlockEntity extends EnergyStorageBlockEntity<ReceiveAndExtractEnergyStorage>
-        implements MenuProvider {
+public class AdvancedBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<ReceiveAndExtractEnergyStorage> {
     public static final int CAPACITY = ModConfigs.COMMON_ADVANCED_BATTERY_BOX_CAPACITY.getValue();
     public static final int MAX_TRANSFER = ModConfigs.COMMON_ADVANCED_BATTERY_BOX_TRANSFER_RATE.getValue();
 
     public AdvancedBatteryBoxBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.ADVANCED_BATTERY_BOX_ENTITY.get(), blockPos, blockState,
+
+                "advanced_battery_box",
 
                 CAPACITY, MAX_TRANSFER
         );
@@ -44,11 +43,6 @@ public class AdvancedBatteryBoxBlockEntity extends EnergyStorageBlockEntity<Rece
                 syncEnergyToPlayers(32);
             }
         };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.advanced_battery_box");
     }
 
     @Nullable

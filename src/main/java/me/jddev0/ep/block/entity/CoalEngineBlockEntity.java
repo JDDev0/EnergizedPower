@@ -15,8 +15,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -37,8 +35,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CoalEngineBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, ItemStackHandler>
-        implements MenuProvider {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, ItemStackHandler> {
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
@@ -50,7 +47,6 @@ public class CoalEngineBlockEntity
         return item.getBurnTime(null) <= 0;
     });
 
-    protected final ContainerData data;
     private int progress;
     private int maxProgress;
     private int energyProductionLeft = -1;
@@ -60,6 +56,8 @@ public class CoalEngineBlockEntity
         super(
                 ModBlockEntities.COAL_ENGINE_ENTITY.get(), blockPos, blockState,
 
+                "coal_engine",
+
                 ModConfigs.COMMON_COAL_ENGINE_CAPACITY.getValue(),
                 ModConfigs.COMMON_COAL_ENGINE_TRANSFER_RATE.getValue(),
 
@@ -67,41 +65,6 @@ public class CoalEngineBlockEntity
 
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
-
-        data = new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.progress, index);
-                    case 2, 3 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.maxProgress, index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.energyProductionLeft, index - 4);
-                    case 6 -> hasEnoughCapacityForProduction?1:0;
-                    case 7 -> redstoneMode.ordinal();
-                    case 8 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1 -> CoalEngineBlockEntity.this.progress = ByteUtils.with2Bytes(
-                            CoalEngineBlockEntity.this.progress, (short)value, index
-                    );
-                    case 2, 3 -> CoalEngineBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
-                            CoalEngineBlockEntity.this.maxProgress, (short)value, index - 2
-                    );
-                    case 4, 5, 6 -> {}
-                    case 7 -> CoalEngineBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 8 -> CoalEngineBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 9;
-            }
-        };
     }
 
     @Override
@@ -146,8 +109,41 @@ public class CoalEngineBlockEntity
     }
 
     @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.coal_engine");
+    protected ContainerData initContainerData() {
+        return new ContainerData() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.progress, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.maxProgress, index - 2);
+                    case 4, 5 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.energyProductionLeft, index - 4);
+                    case 6 -> hasEnoughCapacityForProduction?1:0;
+                    case 7 -> redstoneMode.ordinal();
+                    case 8 -> comparatorMode.ordinal();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1 -> CoalEngineBlockEntity.this.progress = ByteUtils.with2Bytes(
+                            CoalEngineBlockEntity.this.progress, (short)value, index
+                    );
+                    case 2, 3 -> CoalEngineBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
+                            CoalEngineBlockEntity.this.maxProgress, (short)value, index - 2
+                    );
+                    case 4, 5, 6 -> {}
+                    case 7 -> CoalEngineBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 8 -> CoalEngineBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 9;
+            }
+        };
     }
 
     @Nullable

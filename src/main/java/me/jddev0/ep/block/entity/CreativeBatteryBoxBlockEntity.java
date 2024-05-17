@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.energy.InfinityEnergyStorage;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.screen.CreativeBatteryBoxMenu;
@@ -8,8 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -22,10 +20,8 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class CreativeBatteryBoxBlockEntity extends EnergyStorageBlockEntity<InfinityEnergyStorage>
-        implements MenuProvider, CheckboxUpdate {
-    protected final ContainerData data;
-
+public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<InfinityEnergyStorage>
+        implements CheckboxUpdate {
     private boolean energyProduction = true;
     private boolean energyConsumption;
 
@@ -33,32 +29,10 @@ public class CreativeBatteryBoxBlockEntity extends EnergyStorageBlockEntity<Infi
         super(
                 ModBlockEntities.CREATIVE_BATTERY_BOX_ENTITY.get(), blockPos, blockState,
 
+                "creative_battery_box",
+
                 Integer.MAX_VALUE, Integer.MAX_VALUE
         );
-
-        data = new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0 -> energyProduction?1:0;
-                    case 1 -> energyConsumption?1:0;
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0 -> CreativeBatteryBoxBlockEntity.this.energyProduction = value != 0;
-                    case 1 -> CreativeBatteryBoxBlockEntity.this.energyConsumption = value != 0;
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 2;
-            }
-        };
     }
 
     @Override
@@ -82,8 +56,30 @@ public class CreativeBatteryBoxBlockEntity extends EnergyStorageBlockEntity<Infi
     }
 
     @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.creative_battery_box");
+    protected ContainerData initContainerData() {
+        return new ContainerData() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0 -> energyProduction?1:0;
+                    case 1 -> energyConsumption?1:0;
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0 -> CreativeBatteryBoxBlockEntity.this.energyProduction = value != 0;
+                    case 1 -> CreativeBatteryBoxBlockEntity.this.energyConsumption = value != 0;
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 2;
+            }
+        };
     }
 
     @Nullable

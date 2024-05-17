@@ -18,7 +18,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.*;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
@@ -44,7 +43,7 @@ import java.util.*;
 
 public class AdvancedAutoCrafterBlockEntity
         extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
-        implements MenuProvider, CheckboxUpdate {
+        implements CheckboxUpdate {
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
     private final static int RECIPE_DURATION = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_DURATION.getValue();
@@ -113,7 +112,6 @@ public class AdvancedAutoCrafterBlockEntity
     public final static int ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT =
             ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT.getValue();
 
-    protected final ContainerData data;
     private final int[] progress = new int[] {
             0, 0, 0
     };
@@ -135,6 +133,8 @@ public class AdvancedAutoCrafterBlockEntity
         super(
                 ModBlockEntities.ADVANCED_AUTO_CRAFTER_ENTITY.get(), blockPos, blockState,
 
+                "advanced_auto_crafter",
+
                 ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_CAPACITY.getValue(),
                 ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_TRANSFER_RATE.getValue(),
 
@@ -147,8 +147,53 @@ public class AdvancedAutoCrafterBlockEntity
 
         for(int i = 0;i < 3;i++)
             patternSlots[i].addListener(updatePatternListener[i]);
+    }
 
-        data = new ContainerData() {
+    @Override
+    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
+        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+            @Override
+            public int getCapacity() {
+                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            public int getMaxReceive() {
+                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+
+            @Override
+            protected void onChange() {
+                setChanged();
+                syncEnergyToPlayers(32);
+            }
+        };
+    }
+
+    @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                if(slot < 0 || slot >= 27)
+                    return super.isItemValid(slot, stack);
+
+                //Slot 0, 1, 2, 3, and 4 are for output items only
+                return slot >= 5;
+            }
+        };
+    }
+
+    @Override
+    protected ContainerData initContainerData() {
+        return new ContainerData() {
             @Override
             public int get(int index) {
                 return switch(index) {
@@ -212,53 +257,6 @@ public class AdvancedAutoCrafterBlockEntity
                 return 28;
             }
         };
-    }
-
-    @Override
-    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
-        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
-            @Override
-            public int getCapacity() {
-                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_CAPACITY)));
-            }
-
-            @Override
-            public int getMaxReceive() {
-                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
-                setChanged();
-                syncEnergyToPlayers(32);
-            }
-        };
-    }
-
-    @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
-            @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
-
-            @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-                if(slot < 0 || slot >= 27)
-                    return super.isItemValid(slot, stack);
-
-                //Slot 0, 1, 2, 3, and 4 are for output items only
-                return slot >= 5;
-            }
-        };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.advanced_auto_crafter");
     }
 
     @Nullable
