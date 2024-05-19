@@ -1,7 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.block.WeatherControllerBlock;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -12,8 +11,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
@@ -50,15 +47,20 @@ public record SetWeatherFromWeatherControllerC2SPacket(BlockPos pos, int weather
             if(!(blockEntity instanceof WeatherControllerBlockEntity weatherControllerBlockEntity))
                 return;
 
-            IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, data.pos,
-                    level.getBlockState(data.pos), weatherControllerBlockEntity, null);
-            if(energyStorage == null)
+            if(!weatherControllerBlockEntity.hasEnoughEnergy())
                 return;
 
-            if(energyStorage.getEnergyStored() < WeatherControllerBlockEntity.CAPACITY)
-                return;
+            if(weatherControllerBlockEntity.hasInfiniteWeatherChangedDuration()) {
+                if(weatherControllerBlockEntity.getSelectedWeatherType() == data.weatherType) {
+                    weatherControllerBlockEntity.setSelectedWeatherType(-1);
 
-            weatherControllerBlockEntity.clearEnergy();
+                    return;
+                }
+
+                weatherControllerBlockEntity.setSelectedWeatherType(data.weatherType);
+            }else {
+                weatherControllerBlockEntity.clearEnergy();
+            }
 
             int duration = weatherControllerBlockEntity.getWeatherChangedDuration();
 
