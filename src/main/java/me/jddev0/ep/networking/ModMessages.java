@@ -62,6 +62,8 @@ public final class ModMessages {
                 SetFluidTankFilterC2SPacket::handle);
         registrar.playToServer(ChangeComparatorModeC2SPacket.ID, ChangeComparatorModeC2SPacket.STREAM_CODEC,
                 ChangeComparatorModeC2SPacket::handle);
+        registrar.playToServer(SetCurrentRecipeIdC2SPacket.ID, SetCurrentRecipeIdC2SPacket.STREAM_CODEC,
+                SetCurrentRecipeIdC2SPacket::handle);
     }
 
     public static void sendToServer(CustomPacketPayload message) {

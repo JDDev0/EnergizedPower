@@ -7,6 +7,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncCurrentRecipeS2CPacket;
 import me.jddev0.ep.recipe.ChangeCurrentRecipeIndexPacketUpdate;
 import me.jddev0.ep.recipe.CurrentRecipePacketUpdate;
+import me.jddev0.ep.recipe.SetCurrentRecipeIdPacketUpdate;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -38,7 +39,7 @@ import java.util.Optional;
 public abstract class SelectableRecipeFluidMachineBlockEntity
         <F extends IFluidHandler, R extends Recipe<Container>>
         extends WorkerFluidMachineBlockEntity<F, RecipeHolder<R>>
-        implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R> {
+        implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R>, SetCurrentRecipeIdPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;
 
     protected final RecipeType<R> recipeType;
@@ -223,6 +224,26 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
             currentIndex = -1;
 
         currentRecipe = currentIndex == -1?null:recipes.get(currentIndex);
+
+        resetProgress();
+        setChanged();
+
+        syncCurrentRecipeToPlayers(32);
+    }
+
+    @Override
+    public void setRecipeId(ResourceLocation recipeId) {
+        if(level == null || level.isClientSide())
+            return;
+
+        if(recipeId == null) {
+            currentRecipe = null;
+        }else {
+            List<RecipeHolder<R>> recipes = level.getRecipeManager().getAllRecipesFor(recipeType);
+            Optional<RecipeHolder<R>> recipe = recipes.stream().filter(r -> r.id().equals(recipeId)).findFirst();
+
+            currentRecipe = recipe.orElse(null);
+        }
 
         resetProgress();
         setChanged();
