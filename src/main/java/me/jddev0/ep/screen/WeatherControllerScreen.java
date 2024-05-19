@@ -23,7 +23,6 @@ public class WeatherControllerScreen
     public WeatherControllerScreen(WeatherControllerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/weather_controller.png"),
-                8, 17,
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 

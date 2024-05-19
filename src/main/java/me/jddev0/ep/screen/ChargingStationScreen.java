@@ -14,5 +14,7 @@ public class ChargingStationScreen
     public ChargingStationScreen(ChargingStationMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity_1_range.png"));
+
+        energyMeterX = 80;
     }
 }

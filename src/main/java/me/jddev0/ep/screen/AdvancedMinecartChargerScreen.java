@@ -10,5 +10,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 public class AdvancedMinecartChargerScreen extends EnergyStorageContainerScreen<AdvancedMinecartChargerMenu> {
     public AdvancedMinecartChargerScreen(AdvancedMinecartChargerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
+
+        energyMeterX = 80;
     }
 }

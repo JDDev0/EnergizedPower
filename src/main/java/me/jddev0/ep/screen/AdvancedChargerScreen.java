@@ -16,7 +16,6 @@ public class AdvancedChargerScreen
         super(menu, inventory, component,
                 "tooltip.energizedpower.advanced_charger.items_energy_left.txt",
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/advanced_charger.png"),
-                8, 17,
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 }
