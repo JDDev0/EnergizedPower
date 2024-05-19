@@ -177,6 +177,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.SAWMILL_ITEM);
             event.accept(ModBlocks.COMPRESSOR_ITEM);
             event.accept(ModBlocks.METAL_PRESS_ITEM);
+            event.accept(ModBlocks.AUTO_PRESS_MOLD_MAKER_ITEM);
             event.accept(ModBlocks.ASSEMBLING_MACHINE_ITEM);
             event.accept(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM);
             event.accept(ModBlocks.STONE_SOLIDIFIER_ITEM);
@@ -429,6 +430,7 @@ public class EnergizedPowerMod {
             event.register(ModMenuTypes.SOLAR_PANEL_MENU_6.get(), SolarPanelScreen::new);
             event.register(ModMenuTypes.PRESS_MOLD_MAKER_MENU.get(), PressMoldMakerScreen::new);
             event.register(ModMenuTypes.METAL_PRESS_MENU.get(), MetalPressScreen::new);
+            event.register(ModMenuTypes.AUTO_PRESS_MOLD_MAKER_MENU.get(), AutoPressMoldMakerScreen::new);
             event.register(ModMenuTypes.ASSEMBLING_MACHINE_MENU.get(), AssemblingMachineScreen::new);
             event.register(ModMenuTypes.FLUID_TANK_SMALL.get(), FluidTankScreen::new);
             event.register(ModMenuTypes.FLUID_TANK_MEDIUM.get(), FluidTankScreen::new);

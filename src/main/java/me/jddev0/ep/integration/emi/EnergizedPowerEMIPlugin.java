@@ -80,6 +80,7 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
         registry.addCategory(PressMoldMakerEMIRecipe.CATEGORY);
         registry.addWorkstation(PressMoldMakerEMIRecipe.CATEGORY, PressMoldMakerEMIRecipe.ITEM);
+        registry.addWorkstation(PressMoldMakerEMIRecipe.CATEGORY, EmiStack.of(ModBlocks.AUTO_PRESS_MOLD_MAKER_ITEM.get()));
 
         registry.addCategory(StoneSolidifierEMIRecipe.CATEGORY);
         registry.addWorkstation(StoneSolidifierEMIRecipe.CATEGORY, StoneSolidifierEMIRecipe.ITEM);

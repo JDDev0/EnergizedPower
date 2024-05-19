@@ -492,6 +492,12 @@
 
   "tooltip.energizedpower.metal_press.txt.shift.1": "Pres Kalıpları,Pres Kalıbı üreticisinde üretilebilir.",
 
+  "block.energizedpower.auto_press_mold_maker": "Auto Press Mold Maker",
+  "item.energizedpower.auto_press_mold_maker": "Auto Press Mold Maker",
+  "container.energizedpower.auto_press_mold_maker": "Auto Press Mold Maker",
+
+  "tooltip.energizedpower.auto_press_mold_maker.shovel_missing": "Shovel is missing!",
+
   "block.energizedpower.assembling_machine": "Assembling Machine",
   "item.energizedpower.assembling_machine": "Assembling Machine",
   "container.energizedpower.assembling_machine": "Assembling Machine",
@@ -504,16 +510,11 @@
   "item.energizedpower.stone_solidifier": "Stone Solidifier",
   "container.energizedpower.stone_solidifier": "Stone Solidifier",
 
-  "tooltip.energizedpower.stone_solidifier.btn.up": "Next recipe",
-  "tooltip.energizedpower.stone_solidifier.btn.down": "Previous recipe",
-
   "block.energizedpower.filtration_plant": "Filtration Plant",
   "item.energizedpower.filtration_plant": "Filtration Plant",
   "container.energizedpower.filtration_plant": "Filtration Plant",
 
   "tooltip.energizedpower.filtration_plant.txt.shift.1": "This block requires Charcoal Filters.",
-  "tooltip.energizedpower.filtration_plant.btn.up": "Next recipe",
-  "tooltip.energizedpower.filtration_plant.btn.down": "Previous recipe",
   "tooltip.energizedpower.filtration_plant.charcoal_filter_missing": "Charcoal Filter is missing!",
 
   "block.energizedpower.block_placer": "Block Yerleştirici",
@@ -637,6 +638,8 @@
   "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
   "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "Bu tarif %s bitmek için istiyor.",
+  "tooltip.energizedpower.recipe.selector.next_recipe": "Next recipe",
+  "tooltip.energizedpower.recipe.selector.prev_recipe": "Previous recipe",
   "tooltip.energizedpower.shift_details.txt": "[SHIFT]'e daha fazla detay için basın",
   "tooltip.energizedpower.capacity.txt": "Kapasite: %s",
   "tooltip.energizedpower.transfer_rate.txt": "Transfer değeri: %s/t",

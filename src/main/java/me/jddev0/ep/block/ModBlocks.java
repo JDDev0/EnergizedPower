@@ -313,6 +313,11 @@ public final class ModBlocks {
     public static final DeferredItem<Item> METAL_PRESS_ITEM = ModItems.ITEMS.register("metal_press",
             () -> new MetalPressBlock.Item(METAL_PRESS.get(), new Item.Properties()));
 
+    public static final DeferredBlock<Block> AUTO_PRESS_MOLD_MAKER = BLOCKS.register("auto_press_mold_maker",
+            () -> new AutoPressMoldMakerBlock(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final DeferredItem<Item> AUTO_PRESS_MOLD_MAKER_ITEM = createBlockItem("auto_press_mold_maker", AUTO_PRESS_MOLD_MAKER);
+
     public static final DeferredBlock<Block> PLANT_GROWTH_CHAMBER = BLOCKS.register("plant_growth_chamber",
             () -> new PlantGrowthChamberBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));

@@ -122,6 +122,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.ENERGIZER_ITEM.get()), EnergizerCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM.get()), CrystalGrowthChamberCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.PRESS_MOLD_MAKER_ITEM.get()), PressMoldMakerCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.AUTO_PRESS_MOLD_MAKER_ITEM.get()), PressMoldMakerCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.STONE_SOLIDIFIER_ITEM.get()), StoneSolidifierCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.FILTRATION_PLANT_ITEM.get()), FiltrationPlantCategory.TYPE);
 
@@ -160,6 +161,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registerRecipeClickArea(registration, EnergizerScreen.class, 89, 34, 24, 17, EnergizerCategory.TYPE);
         registerRecipeClickArea(registration, CrystalGrowthChamberScreen.class, 80, 34, 24, 17, CrystalGrowthChamberCategory.TYPE);
         registration.addRecipeClickArea(PressMoldMakerScreen.class, 7, 34, 18, 18, PressMoldMakerCategory.TYPE);
+        registerRecipeClickArea(registration, AutoPressMoldMakerScreen.class, 84, 43, 24, 17, PressMoldMakerCategory.TYPE);
         registerRecipeClickArea(registration, StoneSolidifierScreen.class, 69, 45, 20, 14, StoneSolidifierCategory.TYPE);
         registerRecipeClickArea(registration, StoneSolidifierScreen.class, 123, 45, 20, 14, StoneSolidifierCategory.TYPE);
         registerRecipeClickArea(registration, FiltrationPlantScreen.class, 67, 35, 78, 8, FiltrationPlantCategory.TYPE);
