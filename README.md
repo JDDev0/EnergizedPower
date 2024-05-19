@@ -20,6 +20,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Sawmill
 - Compressor
 - Metal Press
+- Auto Press Mold Maker (**In next release (v2.11.0)**)
 - Assembling Machine
 - Plant Growth Chamber
 - Stone Solidifier
