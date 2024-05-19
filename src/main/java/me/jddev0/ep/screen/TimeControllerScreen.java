@@ -23,8 +23,7 @@ import java.util.Optional;
 public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeControllerMenu> {
     public TimeControllerScreen(TimeControllerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/time_controller.png"),
-                8, 17);
+                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/time_controller.png"));
     }
 
     @Override

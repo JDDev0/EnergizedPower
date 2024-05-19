@@ -10,5 +10,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class LightningGeneratorScreen extends EnergyStorageContainerScreen<LightningGeneratorMenu> {
     public LightningGeneratorScreen(LightningGeneratorMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
+
+        energyMeterX = 80;
     }
 }
