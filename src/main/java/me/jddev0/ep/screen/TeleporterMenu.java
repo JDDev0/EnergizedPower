@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.TeleporterBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.screen.base.EnergyStorageMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

@@ -9,6 +9,8 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,7 +21,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
-public class PoweredFurnaceMenu extends AbstractContainerMenu implements EnergyStorageConsumerIndicatorBarMenu {
+public class PoweredFurnaceMenu extends AbstractContainerMenu
+        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
     private final PoweredFurnaceBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
@@ -120,10 +123,12 @@ public class PoweredFurnaceMenu extends AbstractContainerMenu implements EnergyS
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
     }
 
+    @Override
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(7));
     }
 
+    @Override
     public ComparatorMode getComparatorMode() {
         return ComparatorMode.fromIndex(data.get(8));
     }
@@ -182,6 +187,7 @@ public class PoweredFurnaceMenu extends AbstractContainerMenu implements EnergyS
         }
     }
 
+    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
     }

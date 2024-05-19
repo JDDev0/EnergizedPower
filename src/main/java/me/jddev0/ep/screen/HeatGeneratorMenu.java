@@ -6,6 +6,7 @@ import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.base.EnergyStorageMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
