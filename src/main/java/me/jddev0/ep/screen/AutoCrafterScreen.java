@@ -23,7 +23,6 @@ public class AutoCrafterScreen
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/auto_crafter.png"),
-                8, 17,
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/auto_crafter.png"));
 
         imageHeight = 206;

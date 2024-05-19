@@ -10,5 +10,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 public class AdvancedBatteryBoxScreen extends EnergyStorageContainerScreen<AdvancedBatteryBoxMenu> {
     public AdvancedBatteryBoxScreen(AdvancedBatteryBoxMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
+
+        energyMeterX = 80;
     }
 }

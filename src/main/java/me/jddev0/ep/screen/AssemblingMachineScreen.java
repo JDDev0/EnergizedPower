@@ -16,11 +16,12 @@ public class AssemblingMachineScreen
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/assembling_machine.png"),
-                8, 19,
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/assembling_machine.png"));
 
         imageHeight = 170;
         inventoryLabelY = imageHeight - 94;
+
+        energyMeterY = 19;
     }
 
     @Override
