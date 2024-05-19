@@ -21,6 +21,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Compressor
 - Metal Press
 - Auto Press Mold Maker (**In next release (v2.11.0)**)
+- Auto Stonecutter (**In next release (v2.11.0)**)
 - Assembling Machine
 - Plant Growth Chamber
 - Stone Solidifier
