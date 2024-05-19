@@ -318,6 +318,11 @@ public final class ModBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final DeferredItem<Item> AUTO_PRESS_MOLD_MAKER_ITEM = createBlockItem("auto_press_mold_maker", AUTO_PRESS_MOLD_MAKER);
 
+    public static final DeferredBlock<Block> AUTO_STONECUTTER = BLOCKS.register("auto_stonecutter",
+            () -> new AutoStonecutterBlock(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final DeferredItem<Item> AUTO_STONECUTTER_ITEM = createBlockItem("auto_stonecutter", AUTO_STONECUTTER);
+
     public static final DeferredBlock<Block> PLANT_GROWTH_CHAMBER = BLOCKS.register("plant_growth_chamber",
             () -> new PlantGrowthChamberBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));

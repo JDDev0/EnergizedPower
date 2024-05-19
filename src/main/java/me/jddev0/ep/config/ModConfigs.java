@@ -708,6 +708,19 @@ public final class ModConfigs {
             "block.auto_press_mold_maker", "Auto Press Mold Maker", 100
     );
 
+    public static final ConfigValue<Integer> COMMON_AUTO_STONECUTTER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.AUTO_STONECUTTER", "Auto Stonecutter", 2048
+    );
+    public static final ConfigValue<Integer> COMMON_AUTO_STONECUTTER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.AUTO_STONECUTTER", "Auto Stonecutter", 128
+    );
+    public static final ConfigValue<Integer> COMMON_AUTO_STONECUTTER_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.AUTO_STONECUTTER", "Auto Stonecutter", 8
+    );
+    public static final ConfigValue<Integer> COMMON_AUTO_STONECUTTER_RECIPE_DURATION = registerRecipeDurationConfigValue(
+            "block.AUTO_STONECUTTER", "Auto Stonecutter", 100
+    );
+
     public static final ConfigValue<Integer> COMMON_ENERGIZER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.energizer", "Energizer", 65536
     );
