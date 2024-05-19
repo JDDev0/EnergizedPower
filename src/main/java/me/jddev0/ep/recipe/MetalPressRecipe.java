@@ -53,7 +53,7 @@ public class MetalPressRecipe implements Recipe<Container> {
             return false;
 
         return input.test(container.getItem(0)) && container.getItem(0).getCount() >= inputCount &&
-                ItemStack.isSameItemSameComponents(pressMold, container.getItem(1));
+                ItemStack.isSameItem(container.getItem(1), pressMold);
     }
 
     @Override
