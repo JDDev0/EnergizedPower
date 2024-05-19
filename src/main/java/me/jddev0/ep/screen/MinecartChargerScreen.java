@@ -10,5 +10,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class MinecartChargerScreen extends EnergyStorageContainerScreen<MinecartChargerMenu> {
     public MinecartChargerScreen(MinecartChargerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
+
+        energyMeterX = 80;
     }
 }

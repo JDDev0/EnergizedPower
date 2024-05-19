@@ -15,7 +15,6 @@ public class AdvancedUnchargerScreen
         super(menu, inventory, component,
                 "tooltip.energizedpower.advanced_uncharger.items_energy_left.txt",
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/advanced_uncharger.png"),
-                8, 17,
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 }

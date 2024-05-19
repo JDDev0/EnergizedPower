@@ -33,26 +33,17 @@ public abstract class ConfigurableUpgradableEnergyStorageContainerScreen
     }
 
     public ConfigurableUpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
-                                                              ResourceLocation texture, int energyMeterX, int energyMeterY,
+                                                              ResourceLocation texture,
                                                               ResourceLocation upgradeViewTexture) {
-        super(menu, inventory, titleComponent, texture, energyMeterX, energyMeterY, upgradeViewTexture);
+        super(menu, inventory, titleComponent, texture, upgradeViewTexture);
     }
 
     public ConfigurableUpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                                               String energyIndicatorBarTooltipComponentID,
-                                                              ResourceLocation texture, int energyMeterX, int energyMeterY,
+                                                              ResourceLocation texture,
                                                               ResourceLocation upgradeViewTexture) {
-        super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, texture, energyMeterX, energyMeterY,
+        super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, texture,
                 upgradeViewTexture);
-    }
-
-    public ConfigurableUpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
-                                                              String energyIndicatorBarTooltipComponentID,
-                                                              ResourceLocation texture, int energyMeterX, int energyMeterY,
-                                                              int energyMeterWidth, int energyMeterHeight,
-                                                              ResourceLocation upgradeViewTexture) {
-        super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, texture, energyMeterX, energyMeterY,
-                energyMeterWidth, energyMeterHeight, upgradeViewTexture);
     }
 
     @Override

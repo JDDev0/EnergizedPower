@@ -12,7 +12,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class TeleporterScreen extends EnergyStorageContainerScreen<TeleporterMenu> {
     public TeleporterScreen(TeleporterMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/teleporter.png"),
-                8, 17);
+                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/teleporter.png"));
     }
 }
