@@ -7,8 +7,9 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.screen.base.ConfigurableMenu;
-import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.IConfigurableMenu;
+import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -17,16 +18,12 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
-public class AutoCrafterMenu extends AbstractContainerMenu
-        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
-    private final AutoCrafterBlockEntity blockEntity;
-    private final Level level;
+public class AutoCrafterMenu extends UpgradableEnergyStorageMenu<AutoCrafterBlockEntity>
+        implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
     private final ContainerData data;
-    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     private final Container patternSlots;
 
@@ -42,19 +39,21 @@ public class AutoCrafterMenu extends AbstractContainerMenu
 
     public AutoCrafterMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                            Container patternSlots, Container patternResultSlots, ContainerData data) {
-        super(ModMenuTypes.AUTO_CRAFTER_MENU.get(), id);
+        super(
+                ModMenuTypes.AUTO_CRAFTER_MENU.get(), id,
+
+                inv, blockEntity,
+                ModBlocks.AUTO_CRAFTER.get(),
+                8, 124,
+
+                upgradeModuleInventory, 3
+        );
 
         this.patternSlots = patternSlots;
         this.patternResultSlots = patternResultSlots;
 
-        checkContainerSize(upgradeModuleInventory, 3);
         checkContainerDataCount(data, 11);
-        this.blockEntity = (AutoCrafterBlockEntity)blockEntity;
-        this.level = inv.player.level();
         this.data = data;
-
-        addPlayerInventory(inv);
-        addPlayerHotbar(inv);
 
         ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
             for(int i = 0;i < 2;i++)
@@ -82,39 +81,10 @@ public class AutoCrafterMenu extends AbstractContainerMenu
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
 
         addDataSlots(this.data);
-
-        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
-        addDataSlots(upgradeModuleViewContainerData);
     }
 
     public Container getPatternSlots() {
         return patternSlots;
-    }
-
-    @Override
-    public boolean isInUpgradeModuleView() {
-        return upgradeModuleViewContainerData.isInUpgradeModuleView();
-    }
-
-    @Override
-    public boolean clickMenuButton(Player player, int index) {
-        if(index == 0) {
-            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
-
-            broadcastChanges();
-        }
-
-        return false;
-    }
-
-    @Override
-    public int getEnergy() {
-        return blockEntity.getEnergy();
-    }
-
-    @Override
-    public int getCapacity() {
-        return blockEntity.getCapacity();
     }
 
     @Override
@@ -200,29 +170,5 @@ public class AutoCrafterMenu extends AbstractContainerMenu
         sourceSlot.onTake(player, sourceItem);
 
         return sourceItemCopy;
-    }
-
-    @Override
-    public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, ModBlocks.AUTO_CRAFTER.get());
-    }
-
-    private void addPlayerInventory(Inventory playerInventory) {
-        for(int i = 0;i < 3;i++) {
-            for(int j = 0;j < 9;j++) {
-                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 124 + i * 18));
-            }
-        }
-    }
-
-    private void addPlayerHotbar(Inventory playerInventory) {
-        for(int i = 0;i < 9;i++) {
-            addSlot(new Slot(playerInventory, i, 8 + i * 18, 182));
-        }
-    }
-
-    @Override
-    public BlockEntity getBlockEntity() {
-        return blockEntity;
     }
 }

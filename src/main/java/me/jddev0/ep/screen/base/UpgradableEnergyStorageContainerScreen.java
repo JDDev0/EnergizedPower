@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
-public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractContainerMenu & EnergyStorageMenu>
+public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractContainerMenu & IEnergyStorageMenu>
         extends EnergyStorageContainerScreen<T> {
     protected final ResourceLocation CONFIGURATION_ICONS_TEXTURE =
             new ResourceLocation(EnergizedPowerMod.MODID,
