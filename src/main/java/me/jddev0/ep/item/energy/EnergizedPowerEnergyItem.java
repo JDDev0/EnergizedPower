@@ -12,10 +12,11 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class EnergizedPowerEnergyItem extends Item {
-    private final Supplier<IEnergizedPowerEnergyStorage> energyStorageProvider;
+    private final Function<ItemStack, IEnergizedPowerEnergyStorage> energyStorageProvider;
 
     protected static int getEnergy(ItemStack itemStack) {
         IEnergyStorage energyStorage = itemStack.getCapability(Capabilities.EnergyStorage.ITEM);
@@ -26,18 +27,22 @@ public class EnergizedPowerEnergyItem extends Item {
         if(energyStorage instanceof ItemCapabilityEnergy energizedPowerEnergyStorage)
             energizedPowerEnergyStorage.setEnergy(energy);
     }
-    public static int getCapacity(ItemStack itemStack) {
+    protected static int getCapacity(ItemStack itemStack) {
         IEnergyStorage energyStorage = itemStack.getCapability(Capabilities.EnergyStorage.ITEM);
         return energyStorage instanceof ItemCapabilityEnergy?energyStorage.getMaxEnergyStored():0;
     }
 
     public EnergizedPowerEnergyItem(Properties props, Supplier<IEnergizedPowerEnergyStorage> energyStorageProvider) {
+        this(props, stack -> energyStorageProvider.get());
+    }
+
+    public EnergizedPowerEnergyItem(Properties props, Function<ItemStack, IEnergizedPowerEnergyStorage> energyStorageProvider) {
         super(props);
 
         this.energyStorageProvider = energyStorageProvider;
     }
 
-    public Supplier<IEnergizedPowerEnergyStorage> getEnergyStorageProvider() {
+    public Function<ItemStack, IEnergizedPowerEnergyStorage> getEnergyStorageProvider() {
         return energyStorageProvider;
     }
 

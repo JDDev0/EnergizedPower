@@ -210,6 +210,8 @@ public class EnergizedPowerMod {
             addEmptyAndFullyChargedItem(event, ModItems.INVENTORY_COAL_ENGINE, InventoryCoalEngineItem.CAPACITY);
             event.accept(ModItems.INVENTORY_CHARGER);
 
+            addEmptyAndFullyChargedItem(event, ModItems.INVENTORY_TELEPORTER, InventoryTeleporterItem.CAPACITY);
+
             addEmptyAndFullyChargedItem(event, ModItems.BATTERY_1, BatteryItem.Tier.BATTERY_1.getCapacity());
             addEmptyAndFullyChargedItem(event, ModItems.BATTERY_2, BatteryItem.Tier.BATTERY_2.getCapacity());
             addEmptyAndFullyChargedItem(event, ModItems.BATTERY_3, BatteryItem.Tier.BATTERY_3.getCapacity());
@@ -335,7 +337,7 @@ public class EnergizedPowerMod {
         for(Item item:BuiltInRegistries.ITEM) {
             if(item instanceof EnergizedPowerEnergyItem energizedPowerEnergyItem) {
                 event.registerItem(Capabilities.EnergyStorage.ITEM, (stack, ctx) -> {
-                    return new ItemCapabilityEnergy(stack, energizedPowerEnergyItem.getEnergyStorageProvider().get());
+                    return new ItemCapabilityEnergy(stack, energizedPowerEnergyItem.getEnergyStorageProvider().apply(stack));
                 }, item);
             }
         }
@@ -440,6 +442,7 @@ public class EnergizedPowerMod {
             event.register(ModMenuTypes.FLUID_TANK_LARGE.get(), FluidTankScreen::new);
 
             event.register(ModMenuTypes.INVENTORY_CHARGER_MENU.get(), InventoryChargerScreen::new);
+            event.register(ModMenuTypes.INVENTORY_TELEPORTER_MENU.get(), InventoryTeleporterScreen::new);
 
             event.register(ModMenuTypes.MINECART_BATTERY_BOX_MENU.get(), MinecartBatteryBoxScreen::new);
             event.register(ModMenuTypes.MINECART_ADVANCED_BATTERY_BOX_MENU.get(), MinecartAdvancedBatteryBoxScreen::new);
