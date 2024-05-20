@@ -69,6 +69,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - Batteries (8 Tiers)
 - Inventory Coal Engine
 - Inventory Charger
+- Inventory Teleporter (**In next release (v2.11.0)**)
 
 ### Fluid transportation
 
