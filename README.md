@@ -26,6 +26,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Plant Growth Chamber
 - Stone Solidifier
 - Filtration Plant
+- Fluid Transposer (**In next release (v2.11.0)**)
 - Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
 - Fluid Filler
 - Fluid Drainer
