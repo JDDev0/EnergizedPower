@@ -934,6 +934,22 @@ public final class ModConfigs {
             1, null
     ));
 
+    public static final ConfigValue<Integer> COMMON_FLUID_TRANSPOSER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.fluid_transposer", "Fluid Transposer", 4096
+    );
+    public static final ConfigValue<Integer> COMMON_FLUID_TRANSPOSER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.fluid_transposer", "Fluid Transposer", 256
+    );
+    public static final ConfigValue<Integer> COMMON_FLUID_TRANSPOSER_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.fluid_transposer", "Fluid Transposer", 128
+    );
+    public static final ConfigValue<Integer> COMMON_FLUID_TRANSPOSER_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
+            "block.fluid_transposer", "Fluid Transposer", 8
+    );
+    public static final ConfigValue<Integer> COMMON_FLUID_TRANSPOSER_RECIPE_DURATION = registerRecipeDurationConfigValue(
+            "block.fluid_transposer", "Fluid Transposer", 200
+    );
+
     public static final ConfigValue<Integer> COMMON_FLUID_FILLER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.fluid_filler", "Fluid Filler", 2048
     );

@@ -51,6 +51,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
                 new PressMoldMakerCategory(registration.getJeiHelpers().getGuiHelper()),
                 new StoneSolidifierCategory(registration.getJeiHelpers().getGuiHelper()),
                 new FiltrationPlantCategory(registration.getJeiHelpers().getGuiHelper()),
+                new FluidTransposerCategory(registration.getJeiHelpers().getGuiHelper()),
 
                 new InWorldCategory(registration.getJeiHelpers().getGuiHelper()),
                 new DispenserCategory(registration.getJeiHelpers().getGuiHelper())
@@ -105,6 +106,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipes(PressMoldMakerCategory.TYPE, recipeManager.getAllRecipesFor(PressMoldMakerRecipe.Type.INSTANCE));
         registration.addRecipes(StoneSolidifierCategory.TYPE, recipeManager.getAllRecipesFor(StoneSolidifierRecipe.Type.INSTANCE));
         registration.addRecipes(FiltrationPlantCategory.TYPE, recipeManager.getAllRecipesFor(FiltrationPlantRecipe.Type.INSTANCE));
+        registration.addRecipes(FluidTransposerCategory.TYPE, recipeManager.getAllRecipesFor(FluidTransposerRecipe.Type.INSTANCE));
 
         registration.addRecipes(InWorldCategory.TYPE, Arrays.asList(
                 new InWorldCategory.InWorldRecipe(Ingredient.of(Tags.Items.TOOLS_SHEARS), Ingredient.of(ItemTags.WOOL),
@@ -155,6 +157,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.AUTO_PRESS_MOLD_MAKER_ITEM.get()), PressMoldMakerCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.STONE_SOLIDIFIER_ITEM.get()), StoneSolidifierCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.FILTRATION_PLANT_ITEM.get()), FiltrationPlantCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.FLUID_TRANSPOSER_ITEM.get()), FluidTransposerCategory.TYPE);
 
         registration.addRecipeCatalyst(new ItemStack(Items.SHEARS), InWorldCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(Items.DISPENSER), DispenserCategory.TYPE);
@@ -202,6 +205,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registerRecipeClickArea(registration, StoneSolidifierScreen.class, 123, 45, 20, 14, StoneSolidifierCategory.TYPE);
         registerRecipeClickArea(registration, FiltrationPlantScreen.class, 67, 35, 78, 8, FiltrationPlantCategory.TYPE);
         registerRecipeClickArea(registration, FiltrationPlantScreen.class, 67, 62, 78, 8, FiltrationPlantCategory.TYPE);
+        registerRecipeClickArea(registration, FluidTransposerScreen.class, 114, 19, 20, 14, FluidTransposerCategory.TYPE);
 
         registration.addRecipeClickArea(DispenserScreen.class, 7, 16, 54, 54, DispenserCategory.TYPE);
         registration.addRecipeClickArea(DispenserScreen.class, 115, 16, 54, 54, DispenserCategory.TYPE);

@@ -149,6 +149,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("filtration_plant", () -> BlockEntityType.Builder.of(FiltrationPlantBlockEntity::new,
                     ModBlocks.FILTRATION_PLANT.get()).build(null));
 
+    public static final Supplier<BlockEntityType<FluidTransposerBlockEntity>> FLUID_TRANSPOSER_ENTITY =
+            BLOCK_ENTITIES.register("fluid_transposer", () -> BlockEntityType.Builder.of(FluidTransposerBlockEntity::new,
+                    ModBlocks.FLUID_TRANSPOSER.get()).build(null));
+
     public static final Supplier<BlockEntityType<FluidFillerBlockEntity>> FLUID_FILLER_ENTITY =
             BLOCK_ENTITIES.register("fluid_filler", () -> BlockEntityType.Builder.of(FluidFillerBlockEntity::new,
                     ModBlocks.FLUID_FILLER.get()).build(null));
@@ -463,6 +467,13 @@ public final class ModBlockEntities {
                 FILTRATION_PLANT_ENTITY.get(), FiltrationPlantBlockEntity::getFluidHandlerCapability);
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
                 FILTRATION_PLANT_ENTITY.get(), FiltrationPlantBlockEntity::getEnergyStorageCapability);
+
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
+                FLUID_TRANSPOSER_ENTITY.get(), FluidTransposerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
+                FLUID_TRANSPOSER_ENTITY.get(), FluidTransposerBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
+                FLUID_TRANSPOSER_ENTITY.get(), FluidTransposerBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
                 FLUID_FILLER_ENTITY.get(), FluidFillerBlockEntity::getItemHandlerCapability);
