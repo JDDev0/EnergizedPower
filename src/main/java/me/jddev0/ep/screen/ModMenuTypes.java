@@ -72,6 +72,9 @@ public final class ModMenuTypes {
     public static final Supplier<MenuType<FluidDrainerMenu>> FLUID_DRAINER_MENU = registerMenuType("fluid_drainer",
             FluidDrainerMenu::new);
 
+    public static final Supplier<MenuType<FluidPumpMenu>> FLUID_PUMP_MENU = registerMenuType("fluid_pump",
+            FluidPumpMenu::new);
+
     public static final Supplier<MenuType<DrainMenu>> DRAIN_MENU = registerMenuType("drain",
             DrainMenu::new);
 

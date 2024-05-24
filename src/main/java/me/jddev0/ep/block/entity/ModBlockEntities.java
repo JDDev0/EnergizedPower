@@ -161,6 +161,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("fluid_drainer", () -> BlockEntityType.Builder.of(FluidDrainerBlockEntity::new,
                     ModBlocks.FLUID_DRAINER.get()).build(null));
 
+    public static final Supplier<BlockEntityType<FluidPumpBlockEntity>> FLUID_PUMP_ENTITY =
+            BLOCK_ENTITIES.register("fluid_pump", () -> BlockEntityType.Builder.of(FluidPumpBlockEntity::new,
+                    ModBlocks.FLUID_PUMP.get()).build(null));
+
     public static final Supplier<BlockEntityType<DrainBlockEntity>> DRAIN_ENTITY =
             BLOCK_ENTITIES.register("drain", () -> BlockEntityType.Builder.of(DrainBlockEntity::new,
                     ModBlocks.DRAIN.get()).build(null));
@@ -488,6 +492,13 @@ public final class ModBlockEntities {
                 FLUID_DRAINER_ENTITY.get(), FluidDrainerBlockEntity::getFluidHandlerCapability);
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
                 FLUID_DRAINER_ENTITY.get(), FluidDrainerBlockEntity::getEnergyStorageCapability);
+
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
+                FLUID_PUMP_ENTITY.get(), FluidPumpBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
+                FLUID_PUMP_ENTITY.get(), FluidPumpBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
+                FLUID_PUMP_ENTITY.get(), FluidPumpBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
                 DRAIN_ENTITY.get(), DrainBlockEntity::getFluidHandlerCapability);

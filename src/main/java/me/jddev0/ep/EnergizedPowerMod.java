@@ -190,6 +190,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.FLUID_TANK_LARGE_ITEM);
             event.accept(ModBlocks.FLUID_FILLER_ITEM);
             event.accept(ModBlocks.FLUID_DRAINER_ITEM);
+            event.accept(ModBlocks.FLUID_PUMP_ITEM);
             event.accept(ModBlocks.DRAIN_ITEM);
             event.accept(ModBlocks.CHARGER_ITEM);
             event.accept(ModBlocks.ADVANCED_CHARGER_ITEM);
@@ -404,6 +405,7 @@ public class EnergizedPowerMod {
             event.register(ModMenuTypes.BLOCK_PLACER_MENU.get(), BlockPlacerScreen::new);
             event.register(ModMenuTypes.FLUID_FILLER_MENU.get(), FluidFillerScreen::new);
             event.register(ModMenuTypes.FLUID_DRAINER_MENU.get(), FluidDrainerScreen::new);
+            event.register(ModMenuTypes.FLUID_PUMP_MENU.get(), FluidPumpScreen::new);
             event.register(ModMenuTypes.DRAIN_MENU.get(), DrainScreen::new);
             event.register(ModMenuTypes.CHARGER_MENU.get(), ChargerScreen::new);
             event.register(ModMenuTypes.ADVANCED_CHARGER_MENU.get(), AdvancedChargerScreen::new);
