@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "r": {
+      "tag": "c:dusts/redstone"
+    },
+    "R": {
+      "item": "energizedpower:reinforced_advanced_upgrade_module"
+    },
+    "F": {
+      "item": "energizedpower:fluid_pipe"
+    },
+    "E": {
+      "item": "energizedpower:extraction_depth_upgrade_module_4"
+    }
+  },
+  "pattern": [
+    "IFI",
+    "rRr",
+    "IEI"
+  ],
+  "result": {
+    "id": "energizedpower:extraction_depth_upgrade_module_5"
+  }
+}

@@ -70,7 +70,8 @@ public class FluidPumpBlockEntity
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
-                UpgradeModuleModifier.RANGE
+                UpgradeModuleModifier.RANGE,
+                UpgradeModuleModifier.EXTRACTION_DEPTH
         );
     }
 
@@ -296,6 +297,8 @@ public class FluidPumpBlockEntity
     public void goToNextOffset() {
         int range = (int)Math.ceil(RANGE *
                 upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.RANGE));
+        int depth = (int)Math.ceil(DEPTH *
+                upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.EXTRACTION_DEPTH));
 
         if(yOffset == 0) {
             yOffset = -1;
@@ -306,7 +309,7 @@ public class FluidPumpBlockEntity
                 //Last position in depth = y was reached -> Go to depth = y - 1 or to depth = -1
 
                 yOffset--;
-                if(-yOffset >= DEPTH || (getBlockPos().getY() + yOffset) < level.getMinBuildHeight())
+                if(-yOffset >= depth || (getBlockPos().getY() + yOffset) < level.getMinBuildHeight())
                     yOffset = -1;
 
                 xOffset = range;
