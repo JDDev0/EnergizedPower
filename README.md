@@ -30,6 +30,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
 - Fluid Filler
 - Fluid Drainer
+- Fluid Pump (**In next release (v2.11.0)**)
 - Charger
 - Advanced Charger (3 slots)
 - Uncharger
