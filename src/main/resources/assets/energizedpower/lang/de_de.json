@@ -923,6 +923,9 @@
   "advancements.energizedpower.metal_press.title": "Metallpresse",
   "advancements.energizedpower.metal_press.description": "Forme Metalle.",
 
+  "advancements.energizedpower.auto_press_mold_maker.title": "Automatischer Pressform-Hersteller",
+  "advancements.energizedpower.auto_press_mold_maker.description": "Stelle einen Automatischer Pressform-Hersteller her.",
+
   "advancements.energizedpower.assembling_machine.title": "Montagemaschine",
   "advancements.energizedpower.assembling_machine.description": "Stelle elektrische Komponenten in der Montagemaschine her.",
 
