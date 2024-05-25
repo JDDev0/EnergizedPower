@@ -1476,6 +1476,10 @@
   "book.energizedpower.page.metal_press.3": "Pres Kalıplar üstten takılabilir ve çıkarılabilir.",
   "book.energizedpower.page.metal_press.4": "Girişler diğer tüm taraflara eklenebilir ve çıkışlar diğer tüm taraflardan çıkarılabilir.",
 
+  "book.energizedpower.page.auto_press_mold_maker": "The Auto Press Mold Maker is an automated version of the Press Mold Maker but requires a Shovel to craft recipes.",
+
+  "book.energizedpower.page.auto_stonecutter": "The Auto Stonecutter is an automated version of the Stonecutter but requires a Pickaxe to craft recipes.",
+
   "book.energizedpower.page.assembling_machine.1": "The Assembling Machine creates electronic components (e.g. circuits).",
   "book.energizedpower.page.assembling_machine.2": "Outputs can be extracted from all sides.",
   "book.energizedpower.page.assembling_machine.3": "Inputs can be inserted from all sides (Top/Bottom: All inputs slots, Front: Bottom slot, Back: Top slot, Left: Left slot, Right: Right slot).",
