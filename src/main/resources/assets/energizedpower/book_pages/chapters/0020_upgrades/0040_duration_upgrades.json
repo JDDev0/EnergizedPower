@@ -1,9 +1,19 @@
 {
   "content": [
     {
-      "translate": "book.energizedpower.page.duration_upgrades",
+      "translate": "book.energizedpower.page.duration_upgrades.1",
       "color": "black",
       "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.duration_upgrades.2",
+      "color": "black",
+      "bold": false,
+      "italic": true,
       "font": "uniform"
     }
   ],
