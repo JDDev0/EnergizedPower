@@ -1476,6 +1476,10 @@
   "book.energizedpower.page.metal_press.3": "Gli stampi per pressa possono essere inseriti ed estratti dall'alto.",
   "book.energizedpower.page.metal_press.4": "Il carico e lo scarico possono essere inseriti ed estratti da tutti gli altri lati.",
 
+  "book.energizedpower.page.auto_press_mold_maker": "The Auto Press Mold Maker is an automated version of the Press Mold Maker but requires a Shovel to craft recipes.",
+
+  "book.energizedpower.page.auto_stonecutter": "The Auto Stonecutter is an automated version of the Stonecutter but requires a Pickaxe to craft recipes.",
+
   "book.energizedpower.page.assembling_machine.1": "La macchina assemblatrice crea componenti elettronici (es. circuiti).",
   "book.energizedpower.page.assembling_machine.2": "Le uscite possono essere estratte da tutti i lati.",
   "book.energizedpower.page.assembling_machine.3": "Gli ingressi possono essere inseriti da tutti i lati (in alto/in basso: tutti gli slot degli ingressi, anteriore: slot inferiore, posteriore: slot superiore, sinistra: slot sinistro, destra: slot destro).",
