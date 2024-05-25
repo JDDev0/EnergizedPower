@@ -1476,6 +1476,10 @@
   "book.energizedpower.page.metal_press.3": "Pressformen können von oben hinzugefügt und extrahiert werden.",
   "book.energizedpower.page.metal_press.4": "Eingaben können von allen anderen Seiten hinzugefügt werden und Ausgaben können auf diesen Seiten extrahiert werden.",
 
+  "book.energizedpower.page.auto_press_mold_maker": "Der Automatischer Pressform-Hersteller ist eine automatisierte Version des Pressform-Herstellers, benötigt aber eine Schaufel zur Herstellung von Rezepten",
+
+  "book.energizedpower.page.auto_stonecutter": "Die Automatische Steinsäge ist eine automatisierte Version der Steinsäge, benötigt aber eine Spitzhacke zur Herstellung von Rezepten",
+
   "book.energizedpower.page.assembling_machine.1": "Die Montagemaschine stellt elektronische Komponenten (z.B. Schaltkreise) her.",
   "book.energizedpower.page.assembling_machine.2": "Ausgabe-Items können von allen Seiten extrahiert werden.",
   "book.energizedpower.page.assembling_machine.3": "Eingabe-Items können von allen Seiten eingelegt werden (Oben/Unten: Alle Eingabe-Slots, Vorne: Unterer Slot, Hinten: Oberer Slot, Links: Linker Slot, Rechts: Rechter Slot).",
