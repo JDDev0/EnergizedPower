@@ -163,6 +163,7 @@ public class FluidPumpBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
+        syncFluidToPlayer(player);
 
         return new FluidPumpMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
