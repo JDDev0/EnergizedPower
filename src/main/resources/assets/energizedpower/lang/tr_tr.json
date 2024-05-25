@@ -875,6 +875,21 @@
   "advancements.energizedpower.range_upgrade_module_3.title": "Range III",
   "advancements.energizedpower.range_upgrade_module_3.description": "Craft a Range Upgrade Module (Tier III).",
 
+  "advancements.energizedpower.extraction_depth_upgrade_module_1.title": "Extraction Depth I",
+  "advancements.energizedpower.extraction_depth_upgrade_module_1.description": "Craft an Extraction Depth Upgrade Module (Tier I).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_2.title": "Extraction Depth II",
+  "advancements.energizedpower.extraction_depth_upgrade_module_2.description": "Craft an Extraction Depth Upgrade Module (Tier II).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_3.title": "Extraction Depth III",
+  "advancements.energizedpower.extraction_depth_upgrade_module_3.description": "Craft an Extraction Depth Upgrade Module (Tier III).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_4.title": "Extraction Depth IV",
+  "advancements.energizedpower.extraction_depth_upgrade_module_4.description": "Craft an Extraction Depth Upgrade Module (Tier IV).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_5.title": "Extraction Depth V",
+  "advancements.energizedpower.extraction_depth_upgrade_module_5.description": "Craft an Extraction Depth Upgrade Module (Tier V).",
+
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "Furnace Mode: Blast Furnace",
   "advancements.energizedpower.blast_furnace_upgrade_module.description": "Craft a Blast Upgrade Module.",
 
@@ -946,6 +961,9 @@
 
   "advancements.energizedpower.fluid_drainer.title": "Sıvı Eşyasını Boşalt",
   "advancements.energizedpower.fluid_drainer.description": "Eşyaları sıvıdan arındır.",
+
+  "advancements.energizedpower.fluid_pump.title": "Fluid Pump",
+  "advancements.energizedpower.fluid_pump.description": "Craft a Fluid Pump.",
 
   "advancements.energizedpower.drain.title": "The Drain",
   "advancements.energizedpower.drain.description": "Drain fluids source blocks.",
@@ -1036,6 +1054,9 @@
 
   "advancements.energizedpower.filtration_plant.title": "Fluid filtration",
   "advancements.energizedpower.filtration_plant.description": "Craft a Filtration Plant.",
+
+  "advancements.energizedpower.fluid_transposer.title": "Fluid Transposer",
+  "advancements.energizedpower.fluid_transposer.description": "Craft a Fluid Transposer.",
 
   "advancements.energizedpower.powered_lamp.title": "Elektrik Ampulleri",
   "advancements.energizedpower.powered_lamp.description": "Edison olmuşsun bakıyorum!.",
