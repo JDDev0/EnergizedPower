@@ -1332,9 +1332,12 @@
 
   "book.energizedpower.page.energy_capacity_upgrades": "Energy Capacity Upgrades increase the energy storage capacity and the energy transfer rate.",
 
-  "book.energizedpower.page.duration_upgrades": "Duration Upgrades increase the duration of the weather set by the Weather Controller.",
+  "book.energizedpower.page.duration_upgrades.1": "Duration Upgrades increase the duration of the weather set by the Weather Controller.",
+  "book.energizedpower.page.duration_upgrades.2": "The Duration Upgrade (Tier VI) will allow the Weather Controller to maintain the current Weather but requires constant supply of energy.",
 
   "book.energizedpower.page.range_upgrades": "Range Upgrades increase the range a machine can operate in.",
+
+  "book.energizedpower.page.extraction_depth_upgrades": "Extraction Depth Upgrades increase the depth a machine can operate in.",
 
   "book.energizedpower.page.furnace_mode_upgrades": "Furnace Mode Upgrades change the recipes a Powered Furnace can produce.",
 
