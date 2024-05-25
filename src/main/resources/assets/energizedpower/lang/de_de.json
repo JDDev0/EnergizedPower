@@ -1332,9 +1332,12 @@
 
   "book.energizedpower.page.energy_capacity_upgrades": "Energiekapazität-Upgrades erhöhen die Energie-Speicher-Kapazität und die Energie-Transfer-Rate.",
 
-  "book.energizedpower.page.duration_upgrades": "Laufzeit-Upgrades erhöhen die Laufzeit des vom Wetter-Controller gesetzten Wetter.",
+  "book.energizedpower.page.duration_upgrades.1": "Laufzeit-Upgrades erhöhen die Laufzeit des vom Wetter-Controller gesetzten Wetter.",
+  "book.energizedpower.page.duration_upgrades.2": "Das Laufzeit-Upgrade (MK VI) erlaubt es dem Wetter-Controller das aktuelle Wetter beizubehalten, erfordert aber eine konstante Energiezufuhr.",
 
   "book.energizedpower.page.range_upgrades": "Reichweiten-Upgrades erhöhen die Reichweite, in der eine Maschine arbeiten kann.",
+
+  "book.energizedpower.page.extraction_depth_upgrades": "Extraktionstiefen-Upgrades erhöht die Tiefe, in der eine Machine arbeiten kann.",
 
   "book.energizedpower.page.furnace_mode_upgrades": "Ofenmodus-Upgrades ändern die Rezepte, die ein Elektroofen herstellen kann.",
 
