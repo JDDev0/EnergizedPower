@@ -1372,6 +1372,8 @@
   "book.energizedpower.page.inventory_charger.1": "This item distributes energy in your inventory.",
   "book.energizedpower.page.inventory_charger.2": "Charged batteries must be inserted.",
 
+  "book.energizedpower.page.inventory_teleporter": "The Inventory Teleporter can teleport players. It requires energy and a linked Teleporter Matrix to do so.",
+
   "book.energizedpower.page.energy_analyzer.1": "能量分析仪可以获取静力分析能量。主要是为没用 GUI 的机器。",
   "book.energizedpower.page.energy_analyzer.2": "用这个点击方块来使用。",
 

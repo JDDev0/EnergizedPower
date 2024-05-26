@@ -1372,6 +1372,8 @@
   "book.energizedpower.page.inventory_charger.1": "Questo oggetto distribuisce energia nel tuo inventario.",
   "book.energizedpower.page.inventory_charger.2": "Devono essere inserite batterie cariche.",
 
+  "book.energizedpower.page.inventory_teleporter": "The Inventory Teleporter can teleport players. It requires energy and a linked Teleporter Matrix to do so.",
+
   "book.energizedpower.page.energy_analyzer.1": "L'Analizzatore di energia può essere utilizzato per ottenere la statica dell'energia. Utilizzato principalmente per blocchi di energia senza GUI.",
   "book.energizedpower.page.energy_analyzer.2": "Può essere utilizzato facendo clic sui blocchi di energia.",
 
