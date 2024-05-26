@@ -1372,6 +1372,8 @@
   "book.energizedpower.page.inventory_charger.1": "Bu eşya envanterine enerji dağıtır.",
   "book.energizedpower.page.inventory_charger.2": "Şarjlı bataryalar entegre edilmelidir.",
 
+  "book.energizedpower.page.inventory_teleporter": "The Inventory Teleporter can teleport players. It requires energy and a linked Teleporter Matrix to do so.",
+
   "book.energizedpower.page.energy_analyzer.1": "Enerji Analizörü GUIsiz bloklar için kullanılır.",
   "book.energizedpower.page.energy_analyzer.2": "Enerji Bloklarına tıklayarak.",
 
