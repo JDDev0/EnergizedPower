@@ -1498,10 +1498,14 @@
   "book.energizedpower.page.filtration_plant.1": "The Filtration Plant can filter raw ores from Dirty Water.",
   "book.energizedpower.page.filtration_plant.2": "Charcoal Filters can be inserted from every block face. Outputs can be extracted from block face.",
 
+  "book.energizedpower.page.fluid_transposer": "The Fluid Transposer can extract fluids from items (Mode: Emptying) and can inject fluids into items (Mode: Filling).",
+
   "book.energizedpower.page.block_placer.1": "Il piazzatore di blocchi può posizionare tutti i blocchi (anche porte e semi).",
   "book.energizedpower.page.block_placer.2": "I blocchi verranno posizionati solo se possibile.",
 
   "book.energizedpower.page.fluid_filler_fluid_drainer": "Il Riempitivo fluido può riempire fluidi negli articoli e il Drenaggio fluido può drenare fluidi dagli articoli.",
+
+  "book.energizedpower.page.fluid_pump": "The Fluid Pump can pump fluids from the world and requires Cobblestone to do so.",
 
   "book.energizedpower.page.charger_uncharger.1": "Il caricatore può caricare oggetti e lo scaricatore può scaricare oggetti.",
   "book.energizedpower.page.charger_uncharger.2": "La versione avanzata del caricatore e dello scaricatore ha 3 slot.",
