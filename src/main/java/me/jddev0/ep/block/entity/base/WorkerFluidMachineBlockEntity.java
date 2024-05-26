@@ -152,6 +152,7 @@ public abstract class WorkerFluidMachineBlockEntity<F extends Storage<FluidVaria
             }
         }else {
             blockEntity.resetProgress();
+            blockEntity.onHasNotEnoughEnergy();
             markDirty(level, blockPos, state);
         }
 
@@ -198,7 +199,6 @@ public abstract class WorkerFluidMachineBlockEntity<F extends Storage<FluidVaria
         maxProgress = 0;
         energyConsumptionLeft = -1;
         hasEnoughEnergy = false;
-        onHasNotEnoughEnergy();
     }
 
     @Override
