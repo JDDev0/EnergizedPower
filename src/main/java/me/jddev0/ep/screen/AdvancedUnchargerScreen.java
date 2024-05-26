@@ -14,7 +14,6 @@ public class AdvancedUnchargerScreen extends ConfigurableUpgradableEnergyStorage
         super(menu, inventory, component,
                 "tooltip.energizedpower.advanced_uncharger.items_energy_left.txt",
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/advanced_uncharger.png"),
-                8, 17,
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 }

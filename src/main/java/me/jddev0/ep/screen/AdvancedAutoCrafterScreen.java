@@ -21,7 +21,6 @@ public class AdvancedAutoCrafterScreen extends ConfigurableUpgradableEnergyStora
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/advanced_auto_crafter.png"),
-                8, 17,
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/advanced_auto_crafter.png"));
 
         backgroundHeight = 224;

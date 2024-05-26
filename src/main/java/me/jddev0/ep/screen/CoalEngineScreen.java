@@ -15,7 +15,6 @@ public class CoalEngineScreen extends ConfigurableUpgradableEnergyStorageContain
         super(menu, inventory, component,
                 "tooltip.energizedpower.coal_engine.txt",
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/coal_engine.png"),
-                8, 17,
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 

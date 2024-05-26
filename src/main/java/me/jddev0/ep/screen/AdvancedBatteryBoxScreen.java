@@ -10,5 +10,7 @@ import net.minecraft.text.Text;
 public class AdvancedBatteryBoxScreen extends EnergyStorageContainerScreen<AdvancedBatteryBoxMenu> {
     public AdvancedBatteryBoxScreen(AdvancedBatteryBoxMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component);
+
+        energyMeterX = 80;
     }
 }

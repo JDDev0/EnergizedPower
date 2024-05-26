@@ -14,7 +14,6 @@ public class ChargerScreen extends ConfigurableUpgradableEnergyStorageContainerS
         super(menu, inventory, component,
                 "tooltip.energizedpower.charger.item_energy_left.txt",
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/charger.png"),
-                8, 17,
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 }
