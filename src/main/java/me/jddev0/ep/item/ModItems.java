@@ -124,74 +124,76 @@ public final class ModItems {
     public static final Item TELEPORTER_PROCESSING_UNIT = registerItem("teleporter_processing_unit",
             new Item(new Item.Settings()));
 
-    public static Item BASIC_UPGRADE_MODULE = registerItem("basic_upgrade_module",
+    public static final Item BASIC_UPGRADE_MODULE = registerItem("basic_upgrade_module",
             new Item(new Item.Settings()));
-    public static Item ADVANCED_UPGRADE_MODULE = registerItem("advanced_upgrade_module",
+    public static final Item ADVANCED_UPGRADE_MODULE = registerItem("advanced_upgrade_module",
             new Item(new Item.Settings()));
-    public static Item REINFORCED_ADVANCED_UPGRADE_MODULE = registerItem("reinforced_advanced_upgrade_module",
+    public static final Item REINFORCED_ADVANCED_UPGRADE_MODULE = registerItem("reinforced_advanced_upgrade_module",
             new Item(new Item.Settings()));
 
-    public static Item SPEED_UPGRADE_MODULE_1 = registerItem("speed_upgrade_module_1",
+    public static final Item SPEED_UPGRADE_MODULE_1 = registerItem("speed_upgrade_module_1",
             new SpeedUpgradeModuleItem(new Item.Settings(), 1));
-    public static Item SPEED_UPGRADE_MODULE_2 = registerItem("speed_upgrade_module_2",
+    public static final Item SPEED_UPGRADE_MODULE_2 = registerItem("speed_upgrade_module_2",
             new SpeedUpgradeModuleItem(new Item.Settings(), 2));
-    public static Item SPEED_UPGRADE_MODULE_3 = registerItem("speed_upgrade_module_3",
+    public static final Item SPEED_UPGRADE_MODULE_3 = registerItem("speed_upgrade_module_3",
             new SpeedUpgradeModuleItem(new Item.Settings(), 3));
-    public static Item SPEED_UPGRADE_MODULE_4 = registerItem("speed_upgrade_module_4",
+    public static final Item SPEED_UPGRADE_MODULE_4 = registerItem("speed_upgrade_module_4",
             new SpeedUpgradeModuleItem(new Item.Settings(), 4));
-    public static Item SPEED_UPGRADE_MODULE_5 = registerItem("speed_upgrade_module_5",
+    public static final Item SPEED_UPGRADE_MODULE_5 = registerItem("speed_upgrade_module_5",
             new SpeedUpgradeModuleItem(new Item.Settings(), 5));
 
-    public static Item ENERGY_EFFICIENCY_UPGRADE_MODULE_1 = registerItem("energy_efficiency_upgrade_module_1",
+    public static final Item ENERGY_EFFICIENCY_UPGRADE_MODULE_1 = registerItem("energy_efficiency_upgrade_module_1",
             new EnergyEfficiencyUpgradeModuleItem(new Item.Settings(), 1));
-    public static Item ENERGY_EFFICIENCY_UPGRADE_MODULE_2 = registerItem("energy_efficiency_upgrade_module_2",
+    public static final Item ENERGY_EFFICIENCY_UPGRADE_MODULE_2 = registerItem("energy_efficiency_upgrade_module_2",
             new EnergyEfficiencyUpgradeModuleItem(new Item.Settings(), 2));
-    public static Item ENERGY_EFFICIENCY_UPGRADE_MODULE_3 = registerItem("energy_efficiency_upgrade_module_3",
+    public static final Item ENERGY_EFFICIENCY_UPGRADE_MODULE_3 = registerItem("energy_efficiency_upgrade_module_3",
             new EnergyEfficiencyUpgradeModuleItem(new Item.Settings(), 3));
-    public static Item ENERGY_EFFICIENCY_UPGRADE_MODULE_4 = registerItem("energy_efficiency_upgrade_module_4",
+    public static final Item ENERGY_EFFICIENCY_UPGRADE_MODULE_4 = registerItem("energy_efficiency_upgrade_module_4",
             new EnergyEfficiencyUpgradeModuleItem(new Item.Settings(), 4));
-    public static Item ENERGY_EFFICIENCY_UPGRADE_MODULE_5 = registerItem("energy_efficiency_upgrade_module_5",
+    public static final Item ENERGY_EFFICIENCY_UPGRADE_MODULE_5 = registerItem("energy_efficiency_upgrade_module_5",
             new EnergyEfficiencyUpgradeModuleItem(new Item.Settings(), 5));
 
-    public static Item ENERGY_CAPACITY_UPGRADE_MODULE_1 = registerItem("energy_capacity_upgrade_module_1",
+    public static final Item ENERGY_CAPACITY_UPGRADE_MODULE_1 = registerItem("energy_capacity_upgrade_module_1",
             new EnergyCapacityUpgradeModuleItem(new Item.Settings(), 1));
-    public static Item ENERGY_CAPACITY_UPGRADE_MODULE_2 = registerItem("energy_capacity_upgrade_module_2",
+    public static final Item ENERGY_CAPACITY_UPGRADE_MODULE_2 = registerItem("energy_capacity_upgrade_module_2",
             new EnergyCapacityUpgradeModuleItem(new Item.Settings(), 2));
-    public static Item ENERGY_CAPACITY_UPGRADE_MODULE_3 = registerItem("energy_capacity_upgrade_module_3",
+    public static final Item ENERGY_CAPACITY_UPGRADE_MODULE_3 = registerItem("energy_capacity_upgrade_module_3",
             new EnergyCapacityUpgradeModuleItem(new Item.Settings(), 3));
-    public static Item ENERGY_CAPACITY_UPGRADE_MODULE_4 = registerItem("energy_capacity_upgrade_module_4",
+    public static final Item ENERGY_CAPACITY_UPGRADE_MODULE_4 = registerItem("energy_capacity_upgrade_module_4",
             new EnergyCapacityUpgradeModuleItem(new Item.Settings(), 4));
-    public static Item ENERGY_CAPACITY_UPGRADE_MODULE_5 = registerItem("energy_capacity_upgrade_module_5",
+    public static final Item ENERGY_CAPACITY_UPGRADE_MODULE_5 = registerItem("energy_capacity_upgrade_module_5",
             new EnergyCapacityUpgradeModuleItem(new Item.Settings(), 5));
 
-    public static Item DURATION_UPGRADE_MODULE_1 = registerItem("duration_upgrade_module_1",
+    public static final Item DURATION_UPGRADE_MODULE_1 = registerItem("duration_upgrade_module_1",
             new DurationUpgradeModuleItem(new Item.Settings(), 1));
-    public static Item DURATION_UPGRADE_MODULE_2 = registerItem("duration_upgrade_module_2",
+    public static final Item DURATION_UPGRADE_MODULE_2 = registerItem("duration_upgrade_module_2",
             new DurationUpgradeModuleItem(new Item.Settings(), 2));
-    public static Item DURATION_UPGRADE_MODULE_3 = registerItem("duration_upgrade_module_3",
+    public static final Item DURATION_UPGRADE_MODULE_3 = registerItem("duration_upgrade_module_3",
             new DurationUpgradeModuleItem(new Item.Settings(), 3));
-    public static Item DURATION_UPGRADE_MODULE_4 = registerItem("duration_upgrade_module_4",
+    public static final Item DURATION_UPGRADE_MODULE_4 = registerItem("duration_upgrade_module_4",
             new DurationUpgradeModuleItem(new Item.Settings(), 4));
-    public static Item DURATION_UPGRADE_MODULE_5 = registerItem("duration_upgrade_module_5",
+    public static final Item DURATION_UPGRADE_MODULE_5 = registerItem("duration_upgrade_module_5",
             new DurationUpgradeModuleItem(new Item.Settings(), 5));
+    public static final Item DURATION_UPGRADE_MODULE_6 = registerItem("duration_upgrade_module_6",
+            new DurationUpgradeModuleItem(new Item.Settings(), 6));
 
-    public static Item RANGE_UPGRADE_MODULE_1 = registerItem("range_upgrade_module_1",
+    public static final Item RANGE_UPGRADE_MODULE_1 = registerItem("range_upgrade_module_1",
             new RangeUpgradeModuleItem(new Item.Settings(), 1));
-    public static Item RANGE_UPGRADE_MODULE_2 = registerItem("range_upgrade_module_2",
+    public static final Item RANGE_UPGRADE_MODULE_2 = registerItem("range_upgrade_module_2",
             new RangeUpgradeModuleItem(new Item.Settings(), 2));
-    public static Item RANGE_UPGRADE_MODULE_3 = registerItem("range_upgrade_module_3",
+    public static final Item RANGE_UPGRADE_MODULE_3 = registerItem("range_upgrade_module_3",
             new RangeUpgradeModuleItem(new Item.Settings(), 3));
 
-    public static Item BLAST_FURNACE_UPGRADE_MODULE = registerItem("blast_furnace_upgrade_module",
+    public static final Item BLAST_FURNACE_UPGRADE_MODULE = registerItem("blast_furnace_upgrade_module",
             new FurnaceModeUpgradeModuleItem(new Item.Settings(), 1));
-    public static Item SMOKER_UPGRADE_MODULE = registerItem("smoker_upgrade_module",
+    public static final Item SMOKER_UPGRADE_MODULE = registerItem("smoker_upgrade_module",
             new FurnaceModeUpgradeModuleItem(new Item.Settings(), 2));
 
-    public static Item MOON_LIGHT_UPGRADE_MODULE_1 = registerItem("moon_light_upgrade_module_1",
+    public static final Item MOON_LIGHT_UPGRADE_MODULE_1 = registerItem("moon_light_upgrade_module_1",
             new MoonLightUpgradeModuleItem(new Item.Settings(), 1));
-    public static Item MOON_LIGHT_UPGRADE_MODULE_2 = registerItem("moon_light_upgrade_module_2",
+    public static final Item MOON_LIGHT_UPGRADE_MODULE_2 = registerItem("moon_light_upgrade_module_2",
             new MoonLightUpgradeModuleItem(new Item.Settings(), 2));
-    public static Item MOON_LIGHT_UPGRADE_MODULE_3 = registerItem("moon_light_upgrade_module_3",
+    public static final Item MOON_LIGHT_UPGRADE_MODULE_3 = registerItem("moon_light_upgrade_module_3",
             new MoonLightUpgradeModuleItem(new Item.Settings(), 3));
 
     public static final Item ENERGIZED_POWER_BOOK = registerItem("energized_power_book",
