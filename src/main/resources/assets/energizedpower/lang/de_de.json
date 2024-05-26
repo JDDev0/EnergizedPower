@@ -1498,10 +1498,14 @@
   "book.energizedpower.page.filtration_plant.1": "Die Filteranlage kann rohe Erze aus schmutzigem Wasser filtern.",
   "book.energizedpower.page.filtration_plant.2": "Holzkohle-Filter können von jeder Block-Seite eingelegt werden. Ausgaben können von jeder Block-Seite extrahiert werden.",
 
+  "book.energizedpower.page.fluid_transposer": "Der Flüssigkeits-Umsetzer kann Flüssigkeiten von Items extrahieren (Modeus: Entleeren) und kann Flüssigkeiten in Items injizieren (Modus: Befüllen).",
+
   "book.energizedpower.page.block_placer.1": "Der Blockplatzierer kann Blöcke platzieren (Sogar Türen und Samen).",
   "book.energizedpower.page.block_placer.2": "Blöcke werden nur platziert, wenn es möglich ist.",
 
   "book.energizedpower.page.fluid_filler_fluid_drainer": "Der Flüssigkeits-Befüller kann Items mit Flüssigkeiten befüllen und der Flüssigkeits-Entleerer kann Items mit Flüssigkeiten entleeren.",
+
+  "book.energizedpower.page.fluid_pump": "Die Flüssigkeits-Pumpe kann Flüssigkeiten von der Welt pumpen und benötigt dafür Bruchstein.",
 
   "book.energizedpower.page.charger_uncharger.1": "Der Lader kann Items laden und der Entlader kann Items entladen.",
   "book.energizedpower.page.charger_uncharger.2": "Die fortgeschrittene Version vom Lader und Endlader haben 3 Slots.",
