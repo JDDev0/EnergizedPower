@@ -10,6 +10,8 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.EnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
@@ -27,7 +29,8 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class FluidFillerMenu extends ScreenHandler implements EnergyStorageMenu {
+public class FluidFillerMenu extends ScreenHandler
+        implements EnergyStorageMenu, ConfigurableMenu {
     private final FluidFillerBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -129,10 +132,12 @@ public class FluidFillerMenu extends ScreenHandler implements EnergyStorageMenu 
         return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5), (short)data.get(6), (short)data.get(7));
     }
 
+    @Override
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(8));
     }
 
+    @Override
     public ComparatorMode getComparatorMode() {
         return ComparatorMode.fromIndex(data.get(9));
     }
@@ -191,6 +196,7 @@ public class FluidFillerMenu extends ScreenHandler implements EnergyStorageMenu 
         }
     }
 
+    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
     }

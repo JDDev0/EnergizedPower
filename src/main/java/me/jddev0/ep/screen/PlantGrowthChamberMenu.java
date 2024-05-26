@@ -11,6 +11,8 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.entity.BlockEntity;
@@ -27,7 +29,8 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class PlantGrowthChamberMenu extends ScreenHandler implements EnergyStorageConsumerIndicatorBarMenu {
+public class PlantGrowthChamberMenu extends ScreenHandler
+        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
     private final PlantGrowthChamberBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -165,10 +168,12 @@ public class PlantGrowthChamberMenu extends ScreenHandler implements EnergyStora
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
     }
 
+    @Override
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(9));
     }
 
+    @Override
     public ComparatorMode getComparatorMode() {
         return ComparatorMode.fromIndex(data.get(10));
     }
@@ -227,6 +232,7 @@ public class PlantGrowthChamberMenu extends ScreenHandler implements EnergyStora
         }
     }
 
+    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
     }

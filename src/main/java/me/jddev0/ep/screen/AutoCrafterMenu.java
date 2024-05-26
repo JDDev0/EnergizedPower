@@ -10,6 +10,8 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,7 +27,8 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageConsumerIndicatorBarMenu {
+public class AutoCrafterMenu extends ScreenHandler
+        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
     private final AutoCrafterBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -161,10 +164,12 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageConsu
         return data.get(10) != 0;
     }
 
+    @Override
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(11));
     }
 
+    @Override
     public ComparatorMode getComparatorMode() {
         return ComparatorMode.fromIndex(data.get(12));
     }
@@ -231,6 +236,7 @@ public class AutoCrafterMenu extends ScreenHandler implements EnergyStorageConsu
         }
     }
 
+    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
     }

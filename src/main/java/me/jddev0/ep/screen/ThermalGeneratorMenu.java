@@ -9,6 +9,8 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.EnergyStorageProducerIndicatorBarMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,7 +25,8 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ThermalGeneratorMenu extends ScreenHandler implements EnergyStorageProducerIndicatorBarMenu {
+public class ThermalGeneratorMenu extends ScreenHandler
+        implements EnergyStorageProducerIndicatorBarMenu, ConfigurableMenu {
     private final ThermalGeneratorBlockEntity blockEntity;
     private final World level;
     private final PropertyDelegate data;
@@ -96,10 +99,12 @@ public class ThermalGeneratorMenu extends ScreenHandler implements EnergyStorage
         return blockEntity.getTankCapacity(0);
     }
 
+    @Override
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(4));
     }
 
+    @Override
     public ComparatorMode getComparatorMode() {
         return ComparatorMode.fromIndex(data.get(5));
     }
@@ -156,6 +161,7 @@ public class ThermalGeneratorMenu extends ScreenHandler implements EnergyStorage
         }
     }
 
+    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
     }
