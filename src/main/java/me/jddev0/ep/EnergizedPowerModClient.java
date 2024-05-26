@@ -83,6 +83,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(ModMenuTypes.PRESS_MOLD_MAKER_MENU, PressMoldMakerScreen::new);
         HandledScreens.register(ModMenuTypes.METAL_PRESS_MENU, MetalPressScreen::new);
         HandledScreens.register(ModMenuTypes.AUTO_PRESS_MOLD_MAKER_MENU, AutoPressMoldMakerScreen::new);
+        HandledScreens.register(ModMenuTypes.AUTO_STONECUTTER_MENU, AutoStonecutterScreen::new);
         HandledScreens.register(ModMenuTypes.ASSEMBLING_MACHINE_MENU, AssemblingMachineScreen::new);
         HandledScreens.register(ModMenuTypes.FLUID_TANK_SMALL, FluidTankScreen::new);
         HandledScreens.register(ModMenuTypes.FLUID_TANK_MEDIUM, FluidTankScreen::new);

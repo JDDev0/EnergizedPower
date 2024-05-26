@@ -499,6 +499,12 @@
 
   "tooltip.energizedpower.auto_press_mold_maker.shovel_missing": "Schaufel fehlt!",
 
+  "block.energizedpower.auto_stonecutter": "Automatische Steinsäge",
+  "item.energizedpower.auto_stonecutter": "Automatische Steinsäge",
+  "container.energizedpower.auto_stonecutter": "Automatische Steinsäge",
+
+  "tooltip.energizedpower.auto_stonecutter.pickaxe_missing": "Spitzhacke fehlt!",
+
   "block.energizedpower.assembling_machine": "Montagemaschine",
   "item.energizedpower.assembling_machine": "Montagemaschine",
   "container.energizedpower.assembling_machine": "Montagemaschine",
