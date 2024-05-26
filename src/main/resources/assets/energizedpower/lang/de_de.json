@@ -1372,6 +1372,8 @@
   "book.energizedpower.page.inventory_charger.1": "Dieses Item verteilt Strom in deinem Inventar.",
   "book.energizedpower.page.inventory_charger.2": "Geladene Batterien müssen in dieses Item gegeben werden.",
 
+  "book.energizedpower.page.inventory_teleporter": "Der Inventar Teleporter kann Spieler teleportieren. Um das zu tun, benötigt er Energie und eine gebundene Teleporter-Matrix.",
+
   "book.energizedpower.page.energy_analyzer.1": "Der Energie-Analyzierer kann genutzt werden, um Energie-Statistiken von Blöcken - auch diese, ohne GUI - zu erhalten.",
   "book.energizedpower.page.energy_analyzer.2": "Es wird durch das Klicken auf Blöcken verwendet.",
 
