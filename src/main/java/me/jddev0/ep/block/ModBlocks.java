@@ -295,6 +295,11 @@ public final class ModBlocks {
     public static final Item METAL_PRESS_ITEM = createBlockItem("metal_press",
             new MetalPressBlock.Item(METAL_PRESS, new Item.Settings()));
 
+    public static final Block AUTO_PRESS_MOLD_MAKER = registerBlock("auto_press_mold_maker",
+            new AutoPressMoldMakerBlock(AbstractBlock.Settings.create().
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item AUTO_PRESS_MOLD_MAKER_ITEM = createBlockItem("auto_press_mold_maker", AUTO_PRESS_MOLD_MAKER);
+
     public static final Block PLANT_GROWTH_CHAMBER = registerBlock("plant_growth_chamber",
             new PlantGrowthChamberBlock(AbstractBlock.Settings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

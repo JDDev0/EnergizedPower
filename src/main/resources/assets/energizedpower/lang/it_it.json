@@ -492,6 +492,12 @@
 
   "tooltip.energizedpower.metal_press.txt.shift.1": "Gli stampi per pressa possono essere creati nella Pressa creatore di stampi",
 
+  "block.energizedpower.auto_press_mold_maker": "Auto Press Mold Maker",
+  "item.energizedpower.auto_press_mold_maker": "Auto Press Mold Maker",
+  "container.energizedpower.auto_press_mold_maker": "Auto Press Mold Maker",
+
+  "tooltip.energizedpower.auto_press_mold_maker.shovel_missing": "Shovel is missing!",
+
   "block.energizedpower.assembling_machine": "Macchina per l'assemblaggio",
   "item.energizedpower.assembling_machine": "Macchina per l'assemblaggio",
   "container.energizedpower.assembling_machine": "Macchina per l'assemblaggio",
@@ -504,16 +510,11 @@
   "item.energizedpower.stone_solidifier": "Solidificatore per pietre",
   "container.energizedpower.stone_solidifier": "Solidificatore per pietre",
 
-  "tooltip.energizedpower.stone_solidifier.btn.up": "Prossima ricetta",
-  "tooltip.energizedpower.stone_solidifier.btn.down": "Ricetta precedente",
-
   "block.energizedpower.filtration_plant": "Filtration Plant",
   "item.energizedpower.filtration_plant": "Filtration Plant",
   "container.energizedpower.filtration_plant": "Filtration Plant",
 
   "tooltip.energizedpower.filtration_plant.txt.shift.1": "This block requires Charcoal Filters.",
-  "tooltip.energizedpower.filtration_plant.btn.up": "Next recipe",
-  "tooltip.energizedpower.filtration_plant.btn.down": "Previous recipe",
   "tooltip.energizedpower.filtration_plant.charcoal_filter_missing": "Charcoal Filter is missing!",
 
   "block.energizedpower.block_placer": "Posizionatore di blocchi",
@@ -637,6 +638,8 @@
   "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
   "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "Questa ricetta richiede %s per essere completata.",
+  "tooltip.energizedpower.recipe.selector.next_recipe": "Next recipe",
+  "tooltip.energizedpower.recipe.selector.prev_recipe": "Previous recipe",
   "tooltip.energizedpower.shift_details.txt": "Premere [MAIUSC] per i dettagli",
   "tooltip.energizedpower.capacity.txt": "Capacità: %s",
   "tooltip.energizedpower.transfer_rate.txt": "Velocità di trasferimento: %s/t",
