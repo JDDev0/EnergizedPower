@@ -3,7 +3,6 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
 import me.jddev0.ep.screen.SolarPanelMenu;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -11,8 +10,6 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -25,8 +22,7 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 public class SolarPanelBlockEntity
-        extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
-        implements ExtendedScreenHandlerFactory<BlockPos> {
+        extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
     private final SolarPanelBlock.Tier tier;
 
     public static BlockEntityType<SolarPanelBlockEntity> getEntityTypeFromTier(SolarPanelBlock.Tier tier) {
@@ -43,6 +39,8 @@ public class SolarPanelBlockEntity
     public SolarPanelBlockEntity(BlockPos blockPos, BlockState blockState, SolarPanelBlock.Tier tier) {
         super(
                 getEntityTypeFromTier(tier), blockPos, blockState,
+
+                tier.getResourceId(),
 
                 tier.getCapacity(),
                 tier.getMaxTransfer(),
@@ -86,22 +84,12 @@ public class SolarPanelBlockEntity
         return tier;
     }
 
-    @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower." + tier.getResourceId());
-    }
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         syncEnergyToPlayer(player);
         
         return new SolarPanelMenu(id, this, inventory, upgradeModuleInventory);
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {

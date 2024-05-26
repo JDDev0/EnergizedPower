@@ -20,7 +20,6 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import me.jddev0.ep.util.*;
 
@@ -135,11 +134,6 @@ public class AdvancedCrusherBlockEntity
                     }
                 }
         ));
-    }
-
-    @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.advanced_crusher");
     }
 
     @Override

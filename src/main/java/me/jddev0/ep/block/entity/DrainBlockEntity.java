@@ -1,13 +1,12 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageBlockEntity;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
+import me.jddev0.ep.block.entity.base.MenuFluidStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.screen.DrainMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.FluidUtils;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.CauldronFluidContent;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
@@ -30,9 +29,7 @@ import net.minecraft.nbt.NbtInt;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.property.IntProperty;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
@@ -41,8 +38,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 
-public class DrainBlockEntity extends FluidStorageBlockEntity<SimpleFluidStorage> implements ExtendedScreenHandlerFactory<BlockPos> {
-    protected final PropertyDelegate data;
+public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidStorage> {
     private int progress;
     private int maxProgress = ModConfigs.COMMON_DRAIN_DRAIN_DURATION.getValue();
 
@@ -50,11 +46,27 @@ public class DrainBlockEntity extends FluidStorageBlockEntity<SimpleFluidStorage
         super(
                 ModBlockEntities.DRAIN_ENTITY, blockPos, blockState,
 
+                "drain",
+
                 FluidStorageSingleTankMethods.INSTANCE,
                 FluidUtils.convertMilliBucketsToDroplets(ModConfigs.COMMON_DRAIN_FLUID_TANK_CAPACITY.getValue() * 1000)
         );
+    }
 
-        data = new PropertyDelegate() {
+    @Override
+    protected SimpleFluidStorage initFluidStorage() {
+        return new SimpleFluidStorage(baseTankCapacity) {
+            @Override
+            protected void onFinalCommit() {
+                markDirty();
+                syncFluidToPlayers(32);
+            }
+        };
+    }
+
+    @Override
+    protected PropertyDelegate initContainerData() {
+        return new PropertyDelegate() {
             @Override
             public int get(int index) {
                 return switch(index) {
@@ -83,33 +95,12 @@ public class DrainBlockEntity extends FluidStorageBlockEntity<SimpleFluidStorage
         };
     }
 
-    @Override
-    protected SimpleFluidStorage initFluidStorage() {
-        return new SimpleFluidStorage(baseTankCapacity) {
-            @Override
-            protected void onFinalCommit() {
-                markDirty();
-                syncFluidToPlayers(32);
-            }
-        };
-    }
-
-    @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.drain");
-    }
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         syncFluidToPlayer(player);
 
         return new DrainMenu(id, this, inventory, this.data);
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
     }
 
     public int getRedstoneOutput() {

@@ -1,15 +1,14 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.FluidTankBlock;
-import me.jddev0.ep.block.entity.base.FluidStorageBlockEntity;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.block.entity.base.MenuFluidStorageBlockEntity;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.screen.FluidTankMenu;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
@@ -22,7 +21,6 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import me.jddev0.ep.util.FluidUtils;
@@ -30,11 +28,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidTankBlockEntity
-        extends FluidStorageBlockEntity<SimpleFluidStorage>
-        implements ExtendedScreenHandlerFactory<BlockPos>, CheckboxUpdate {
+        extends MenuFluidStorageBlockEntity<SimpleFluidStorage>
+        implements CheckboxUpdate {
     private final FluidTankBlock.Tier tier;
-
-    protected final PropertyDelegate data;
 
     private boolean ignoreNBT;
     private FluidStack fluidFilter = new FluidStack(FluidVariant.blank(), 1);
@@ -51,33 +47,13 @@ public class FluidTankBlockEntity
         super(
                 getEntityTypeFromTier(tier), blockPos, blockState,
 
+                tier.getResourceId(),
+
                 FluidStorageSingleTankMethods.INSTANCE,
                 tier.getTankCapacity()
         );
 
         this.tier = tier;
-
-        data = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0 -> ignoreNBT?1:0;
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0 -> FluidTankBlockEntity.this.ignoreNBT = value != 0;
-                }
-            }
-
-            @Override
-            public int size() {
-                return 1;
-            }
-        };
     }
 
     @Override
@@ -109,8 +85,28 @@ public class FluidTankBlockEntity
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower." + tier.getResourceId());
+    protected PropertyDelegate initContainerData() {
+        return new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0 -> ignoreNBT?1:0;
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0 -> FluidTankBlockEntity.this.ignoreNBT = value != 0;
+                }
+            }
+
+            @Override
+            public int size() {
+                return 1;
+            }
+        };
     }
 
     @Nullable
@@ -121,11 +117,6 @@ public class FluidTankBlockEntity
                 new FluidSyncS2CPacket(1, fluidFilter, 0, getPos()));
 
         return new FluidTankMenu(id, inventory, this, this.data);
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
     }
 
     public FluidTankBlock.Tier getTier() {

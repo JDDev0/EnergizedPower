@@ -1,11 +1,10 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AdvancedMinecartUnchargerBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
 import me.jddev0.ep.screen.AdvancedMinecartUnchargerMenu;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -13,8 +12,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -29,10 +26,7 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AdvancedMinecartUnchargerBlockEntity
-        extends EnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
-        implements ExtendedScreenHandlerFactory<BlockPos> {
-    public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_MINECART_UNCHARGER_CAPACITY.getValue();
+public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
     public static final long MAX_TRANSFER = ModConfigs.COMMON_ADVANCED_MINECART_UNCHARGER_TRANSFER_RATE.getValue();
 
     private boolean hasMinecartOld = true; //Default true (Force first update)
@@ -41,6 +35,8 @@ public class AdvancedMinecartUnchargerBlockEntity
     public AdvancedMinecartUnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.ADVANCED_MINECART_UNCHARGER_ENTITY, blockPos, blockState,
+
+                "advanced_minecart_uncharger",
 
                 ModConfigs.COMMON_ADVANCED_MINECART_UNCHARGER_CAPACITY.getValue(),
                 MAX_TRANSFER
@@ -63,22 +59,12 @@ public class AdvancedMinecartUnchargerBlockEntity
         return new EnergizedPowerLimitingEnergyStorage(energyStorage, 0, baseEnergyTransferRate);
     }
 
-    @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.advanced_minecart_uncharger");
-    }
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         syncEnergyToPlayer(player);
 
         return new AdvancedMinecartUnchargerMenu(id, this, inventory);
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
     }
 
     public int getRedstoneOutput() {

@@ -8,7 +8,6 @@ import me.jddev0.ep.networking.packet.SyncCurrentRecipeS2CPacket;
 import me.jddev0.ep.recipe.ChangeCurrentRecipeIndexPacketUpdate;
 import me.jddev0.ep.recipe.CurrentRecipePacketUpdate;
 import me.jddev0.ep.util.ByteUtils;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.block.BlockState;
@@ -28,7 +27,6 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
@@ -41,14 +39,11 @@ import java.util.Optional;
 public abstract class SelectableRecipeFluidMachineBlockEntity
         <F extends Storage<FluidVariant>, R extends Recipe<Inventory>>
         extends WorkerFluidMachineBlockEntity<F, RecipeEntry<R>>
-        implements ExtendedScreenHandlerFactory<BlockPos>, ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R> {
-    protected final String machineName;
+        implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R> {
     protected final UpgradableMenuProvider menuProvider;
 
     protected final RecipeType<R> recipeType;
     protected final RecipeSerializer<R> recipeSerializer;
-
-    protected final PropertyDelegate data;
 
     protected Identifier currentRecipeIdForLoad;
     protected RecipeEntry<R> currentRecipe;
@@ -60,16 +55,18 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
                                                    long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
                                                    FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
                                                    UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
+        super(type, blockPos, blockState, machineName, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
                 baseEnergyConsumptionPerTick, fluidStorageMethods, baseTankCapacity, upgradeModifierSlots);
 
-        this.machineName = machineName;
         this.menuProvider = menuProvider;
 
         this.recipeType = recipeType;
         this.recipeSerializer = recipeSerializer;
+    }
 
-        data = new PropertyDelegate() {
+    @Override
+    protected PropertyDelegate initContainerData() {
+        return new PropertyDelegate() {
             @Override
             public int get(int index) {
                 return switch(index) {
@@ -121,11 +118,6 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
             currentRecipeIdForLoad = Identifier.tryParse(nbt.getString("recipe.id"));
     }
 
-    @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower." + machineName);
-    }
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
@@ -134,11 +126,6 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
         syncCurrentRecipeToPlayer(player);
 
         return menuProvider.createMenu(id, this, inventory, itemHandler, upgradeModuleInventory, data);
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
     }
 
     @Override

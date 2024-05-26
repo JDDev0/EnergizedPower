@@ -14,7 +14,6 @@ import me.jddev0.ep.screen.AdvancedPoweredFurnaceMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,7 +32,6 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -47,7 +45,7 @@ import java.util.Optional;
 
 public class AdvancedPoweredFurnaceBlockEntity
         extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
-        implements ExtendedScreenHandlerFactory<BlockPos>, FurnaceRecipeTypePacketUpdate {
+        implements FurnaceRecipeTypePacketUpdate {
     private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_RECIPE_BLACKLIST.getValue();
 
     private static final long ENERGY_USAGE_PER_INPUT_PER_TICK = ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_INPUT_PER_TICK.getValue();
@@ -56,7 +54,6 @@ public class AdvancedPoweredFurnaceBlockEntity
 
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 3, i -> i >= 3 && i < 6);
 
-    protected final PropertyDelegate data;
     private int[] progress = new int[] {
             0, 0, 0
     };
@@ -76,6 +73,8 @@ public class AdvancedPoweredFurnaceBlockEntity
         super(
                 ModBlockEntities.ADVANCED_POWERED_FURNACE_ENTITY, blockPos, blockState,
 
+                "advanced_powered_furnace",
+
                 ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_CAPACITY.getValue(),
                 ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_TRANSFER_RATE.getValue(),
 
@@ -86,61 +85,6 @@ public class AdvancedPoweredFurnaceBlockEntity
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.FURNACE_MODE
         );
-
-        data = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.energyConsumptionLeft[0], index);
-                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.energyConsumptionLeft[1], index - 4);
-                    case 8, 9, 10, 11 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.energyConsumptionLeft[2], index - 8);
-                    case 12, 13 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.progress[0], index - 12);
-                    case 14, 15 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.maxProgress[0], index - 14);
-                    case 16, 17 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.progress[1], index - 16);
-                    case 18, 19 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.maxProgress[1], index - 18);
-                    case 20, 21 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.progress[2], index - 20);
-                    case 22, 23 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.maxProgress[2], index - 22);
-                    case 24 -> AdvancedPoweredFurnaceBlockEntity.this.hasEnoughEnergy[0]?0:1;
-                    case 25 -> AdvancedPoweredFurnaceBlockEntity.this.hasEnoughEnergy[1]?0:1;
-                    case 26 -> AdvancedPoweredFurnaceBlockEntity.this.hasEnoughEnergy[2]?0:1;
-                    case 27 -> redstoneMode.ordinal();
-                    case 28 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 12, 13 -> AdvancedPoweredFurnaceBlockEntity.this.progress[0] = ByteUtils.with2Bytes(
-                            AdvancedPoweredFurnaceBlockEntity.this.progress[0], (short)value, index - 12
-                    );
-                    case 14, 15 -> AdvancedPoweredFurnaceBlockEntity.this.maxProgress[0] = ByteUtils.with2Bytes(
-                            AdvancedPoweredFurnaceBlockEntity.this.maxProgress[0], (short)value, index - 14
-                    );
-                    case 16, 17 -> AdvancedPoweredFurnaceBlockEntity.this.progress[1] = ByteUtils.with2Bytes(
-                            AdvancedPoweredFurnaceBlockEntity.this.progress[1], (short)value, index - 16
-                    );
-                    case 18, 19 -> AdvancedPoweredFurnaceBlockEntity.this.maxProgress[1] = ByteUtils.with2Bytes(
-                            AdvancedPoweredFurnaceBlockEntity.this.maxProgress[1], (short)value, index - 18
-                    );
-                    case 20, 21 -> AdvancedPoweredFurnaceBlockEntity.this.progress[2] = ByteUtils.with2Bytes(
-                            AdvancedPoweredFurnaceBlockEntity.this.progress[2], (short)value, index - 20
-                    );
-                    case 22, 23 -> AdvancedPoweredFurnaceBlockEntity.this.maxProgress[2] = ByteUtils.with2Bytes(
-                            AdvancedPoweredFurnaceBlockEntity.this.maxProgress[2], (short)value, index - 22
-                    );
-                    case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 24, 25, 26 -> {}
-                    case 27 -> AdvancedPoweredFurnaceBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 28 -> AdvancedPoweredFurnaceBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int size() {
-                return 29;
-            }
-        };
     }
 
     @Override
@@ -204,8 +148,61 @@ public class AdvancedPoweredFurnaceBlockEntity
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.advanced_powered_furnace");
+    protected PropertyDelegate initContainerData() {
+        return new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.energyConsumptionLeft[0], index);
+                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.energyConsumptionLeft[1], index - 4);
+                    case 8, 9, 10, 11 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.energyConsumptionLeft[2], index - 8);
+                    case 12, 13 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.progress[0], index - 12);
+                    case 14, 15 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.maxProgress[0], index - 14);
+                    case 16, 17 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.progress[1], index - 16);
+                    case 18, 19 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.maxProgress[1], index - 18);
+                    case 20, 21 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.progress[2], index - 20);
+                    case 22, 23 -> ByteUtils.get2Bytes(AdvancedPoweredFurnaceBlockEntity.this.maxProgress[2], index - 22);
+                    case 24 -> AdvancedPoweredFurnaceBlockEntity.this.hasEnoughEnergy[0]?0:1;
+                    case 25 -> AdvancedPoweredFurnaceBlockEntity.this.hasEnoughEnergy[1]?0:1;
+                    case 26 -> AdvancedPoweredFurnaceBlockEntity.this.hasEnoughEnergy[2]?0:1;
+                    case 27 -> redstoneMode.ordinal();
+                    case 28 -> comparatorMode.ordinal();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 12, 13 -> AdvancedPoweredFurnaceBlockEntity.this.progress[0] = ByteUtils.with2Bytes(
+                            AdvancedPoweredFurnaceBlockEntity.this.progress[0], (short)value, index - 12
+                    );
+                    case 14, 15 -> AdvancedPoweredFurnaceBlockEntity.this.maxProgress[0] = ByteUtils.with2Bytes(
+                            AdvancedPoweredFurnaceBlockEntity.this.maxProgress[0], (short)value, index - 14
+                    );
+                    case 16, 17 -> AdvancedPoweredFurnaceBlockEntity.this.progress[1] = ByteUtils.with2Bytes(
+                            AdvancedPoweredFurnaceBlockEntity.this.progress[1], (short)value, index - 16
+                    );
+                    case 18, 19 -> AdvancedPoweredFurnaceBlockEntity.this.maxProgress[1] = ByteUtils.with2Bytes(
+                            AdvancedPoweredFurnaceBlockEntity.this.maxProgress[1], (short)value, index - 18
+                    );
+                    case 20, 21 -> AdvancedPoweredFurnaceBlockEntity.this.progress[2] = ByteUtils.with2Bytes(
+                            AdvancedPoweredFurnaceBlockEntity.this.progress[2], (short)value, index - 20
+                    );
+                    case 22, 23 -> AdvancedPoweredFurnaceBlockEntity.this.maxProgress[2] = ByteUtils.with2Bytes(
+                            AdvancedPoweredFurnaceBlockEntity.this.maxProgress[2], (short)value, index - 22
+                    );
+                    case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 24, 25, 26 -> {}
+                    case 27 -> AdvancedPoweredFurnaceBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 28 -> AdvancedPoweredFurnaceBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                }
+            }
+
+            @Override
+            public int size() {
+                return 29;
+            }
+        };
     }
 
     @Nullable
@@ -216,11 +213,6 @@ public class AdvancedPoweredFurnaceBlockEntity
                 new SyncFurnaceRecipeTypeS2CPacket(getRecipeForFurnaceModeUpgrade(), getPos()));
 
         return new AdvancedPoweredFurnaceMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
     }
 
     @Override

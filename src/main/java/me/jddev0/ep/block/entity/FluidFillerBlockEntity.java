@@ -12,7 +12,6 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.FluidFillerMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.FluidUtils;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
@@ -29,8 +28,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -40,8 +37,7 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 public class FluidFillerBlockEntity
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
-        <EnergizedPowerEnergyStorage, SimpleInventory, SimpleFluidStorage>
-        implements ExtendedScreenHandlerFactory<BlockPos> {
+        <EnergizedPowerEnergyStorage, SimpleInventory, SimpleFluidStorage> {
     /**
      * MAX_FLUID_DRAINING_PER_TICK is in Milli Buckets
      */
@@ -92,7 +88,6 @@ public class FluidFillerBlockEntity
         return true;
     });
 
-    protected final PropertyDelegate data;
     private long fluidFillingLeft = -1;
     private long fluidFillingSumPending = 0;
 
@@ -101,6 +96,8 @@ public class FluidFillerBlockEntity
     public FluidFillerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.FLUID_FILLER_ENTITY, blockPos, blockState,
+
+                "fluid_filler",
 
                 ModConfigs.COMMON_FLUID_FILLER_CAPACITY.getValue(),
                 ModConfigs.COMMON_FLUID_FILLER_TRANSFER_RATE.getValue(),
@@ -113,33 +110,6 @@ public class FluidFillerBlockEntity
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
-
-        data = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(FluidFillerBlockEntity.this.fluidFillingLeft, index);
-                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(FluidFillerBlockEntity.this.fluidFillingSumPending, index - 4);
-                    case 8 -> redstoneMode.ordinal();
-                    case 9 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2, 3, 4, 5, 6, 7 -> {}
-                    case 8 -> FluidFillerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 9 -> FluidFillerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int size() {
-                return 10;
-            }
-        };
     }
 
     @Override
@@ -222,8 +192,33 @@ public class FluidFillerBlockEntity
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.fluid_filler");
+    protected PropertyDelegate initContainerData() {
+        return new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(FluidFillerBlockEntity.this.fluidFillingLeft, index);
+                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(FluidFillerBlockEntity.this.fluidFillingSumPending, index - 4);
+                    case 8 -> redstoneMode.ordinal();
+                    case 9 -> comparatorMode.ordinal();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1, 2, 3, 4, 5, 6, 7 -> {}
+                    case 8 -> FluidFillerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 9 -> FluidFillerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                }
+            }
+
+            @Override
+            public int size() {
+                return 10;
+            }
+        };
     }
 
     @Nullable
@@ -233,11 +228,6 @@ public class FluidFillerBlockEntity
         syncFluidToPlayer(player);
 
         return new FluidFillerMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
     }
 
     @Override

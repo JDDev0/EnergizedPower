@@ -11,7 +11,6 @@ import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.BlockPlacerMenu;
 import me.jddev0.ep.util.ByteUtils;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -24,8 +23,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -38,17 +35,18 @@ import java.util.Optional;
 
 public class BlockPlacerBlockEntity
         extends WorkerMachineBlockEntity<NoWorkData>
-        implements ExtendedScreenHandlerFactory<BlockPos>, CheckboxUpdate {
+        implements CheckboxUpdate {
     private static final List<@NotNull Identifier> PLACEMENT_BLACKLIST = ModConfigs.COMMON_BLOCK_PLACER_PLACEMENT_BLACKLIST.getValue();
 
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
 
-    protected final PropertyDelegate data;
     private boolean inverseRotation;
 
     public BlockPlacerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.BLOCK_PLACER_ENTITY, blockPos, blockState,
+
+                "block_placer",
 
                 1, ModConfigs.COMMON_BLOCK_PLACER_PLACEMENT_DURATION.getValue(),
 
@@ -60,43 +58,6 @@ public class BlockPlacerBlockEntity
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
-
-        data = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.progress, index);
-                    case 2, 3 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.maxProgress, index - 2);
-                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.energyConsumptionLeft, index - 4);
-                    case 8 -> hasEnoughEnergy?1:0;
-                    case 9 -> inverseRotation?1:0;
-                    case 10 -> redstoneMode.ordinal();
-                    case 11 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1 -> BlockPlacerBlockEntity.this.progress = ByteUtils.with2Bytes(
-                            BlockPlacerBlockEntity.this.progress, (short)value, index
-                    );
-                    case 2, 3 -> BlockPlacerBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
-                            BlockPlacerBlockEntity.this.maxProgress, (short)value, index - 2
-                    );
-                    case 4, 5, 6, 7, 8 -> {}
-                    case 9 -> BlockPlacerBlockEntity.this.inverseRotation = value != 0;
-                    case 10 -> BlockPlacerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 11 -> BlockPlacerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int size() {
-                return 12;
-            }
-        };
     }
 
     @Override
@@ -137,8 +98,43 @@ public class BlockPlacerBlockEntity
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.block_placer");
+    protected PropertyDelegate initContainerData() {
+        return new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.progress, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.maxProgress, index - 2);
+                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(BlockPlacerBlockEntity.this.energyConsumptionLeft, index - 4);
+                    case 8 -> hasEnoughEnergy?1:0;
+                    case 9 -> inverseRotation?1:0;
+                    case 10 -> redstoneMode.ordinal();
+                    case 11 -> comparatorMode.ordinal();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1 -> BlockPlacerBlockEntity.this.progress = ByteUtils.with2Bytes(
+                            BlockPlacerBlockEntity.this.progress, (short)value, index
+                    );
+                    case 2, 3 -> BlockPlacerBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
+                            BlockPlacerBlockEntity.this.maxProgress, (short)value, index - 2
+                    );
+                    case 4, 5, 6, 7, 8 -> {}
+                    case 9 -> BlockPlacerBlockEntity.this.inverseRotation = value != 0;
+                    case 10 -> BlockPlacerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 11 -> BlockPlacerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                }
+            }
+
+            @Override
+            public int size() {
+                return 12;
+            }
+        };
     }
 
     @Nullable
@@ -147,11 +143,6 @@ public class BlockPlacerBlockEntity
         syncEnergyToPlayer(player);
 
         return new BlockPlacerMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
     }
 
     @Override

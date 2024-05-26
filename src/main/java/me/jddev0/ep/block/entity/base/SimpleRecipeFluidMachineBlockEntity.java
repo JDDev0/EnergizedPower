@@ -4,7 +4,6 @@ import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.ByteUtils;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.block.BlockState;
@@ -18,8 +17,6 @@ import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,14 +24,10 @@ import java.util.Optional;
 
 public abstract class SimpleRecipeFluidMachineBlockEntity
         <F extends Storage<FluidVariant>, R extends Recipe<Inventory>>
-        extends WorkerFluidMachineBlockEntity<F, RecipeEntry<R>>
-        implements ExtendedScreenHandlerFactory<BlockPos> {
-    protected final String machineName;
+        extends WorkerFluidMachineBlockEntity<F, RecipeEntry<R>> {
     protected final UpgradableMenuProvider menuProvider;
 
     protected final RecipeType<R> recipeType;
-
-    protected final PropertyDelegate data;
 
     public SimpleRecipeFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                                String machineName, UpgradableMenuProvider menuProvider,
@@ -42,15 +35,17 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
                                                long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
                                                FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
                                                UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
+        super(type, blockPos, blockState, machineName, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
                 baseEnergyConsumptionPerTick, fluidStorageMethods, baseTankCapacity, upgradeModifierSlots);
 
-        this.machineName = machineName;
         this.menuProvider = menuProvider;
 
         this.recipeType = recipeType;
+    }
 
-        data = new PropertyDelegate() {
+    @Override
+    protected PropertyDelegate initContainerData() {
+        return new PropertyDelegate() {
             @Override
             public int get(int index) {
                 return switch(index) {
@@ -86,11 +81,6 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
         };
     }
 
-    @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower." + machineName);
-    }
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
@@ -98,11 +88,6 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
         syncFluidToPlayer(player);
 
         return menuProvider.createMenu(id, this, inventory, itemHandler, upgradeModuleInventory, data);
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
     }
 
     @Override

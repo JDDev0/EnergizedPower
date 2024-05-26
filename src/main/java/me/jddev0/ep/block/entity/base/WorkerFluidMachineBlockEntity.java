@@ -32,11 +32,12 @@ public abstract class WorkerFluidMachineBlockEntity<F extends Storage<FluidVaria
     protected boolean hasEnoughEnergy;
 
     public WorkerFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                         String machineName,
                                          int slotCount, int baseWorkDuration,
                                          long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
                                          FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
                                          UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
+        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
                 baseTankCapacity, upgradeModifierSlots);
 
         this.baseEnergyConsumptionPerTick = baseEnergyConsumptionPerTick;

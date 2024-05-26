@@ -1,18 +1,15 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.LightningGeneratorBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.LightningGeneratorMenu;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -25,11 +22,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class LightningGeneratorBlockEntity
-        extends EnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
-        implements ExtendedScreenHandlerFactory<BlockPos> {
+        extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
     public LightningGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.LIGHTING_GENERATOR_ENTITY, blockPos, blockState,
+
+                "lightning_generator",
 
                 LightningGeneratorBlock.ENERGY_PER_LIGHTNING_STRIKE,
                 ModConfigs.COMMON_LIGHTNING_GENERATOR_TRANSFER_RATE.getValue()
@@ -52,22 +50,12 @@ public class LightningGeneratorBlockEntity
         return new EnergizedPowerLimitingEnergyStorage(energyStorage, 0, baseEnergyTransferRate);
     }
 
-    @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.lightning_generator");
-    }
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         syncEnergyToPlayer(player);
         
         return new LightningGeneratorMenu(id, this, inventory);
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
     }
 
     public void onLightningStrike() {

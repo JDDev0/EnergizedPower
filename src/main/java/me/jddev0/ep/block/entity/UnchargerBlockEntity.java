@@ -9,7 +9,6 @@ import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.UnchargerMenu;
 import me.jddev0.ep.util.ByteUtils;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -24,8 +23,6 @@ import net.minecraft.nbt.NbtLong;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -40,8 +37,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class UnchargerBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
-        implements ExtendedScreenHandlerFactory<BlockPos> {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory> {
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
         if(i != 0)
             return false;
@@ -62,12 +58,13 @@ public class UnchargerBlockEntity
         return limitingEnergyStorage.getAmount() == 0;
     });
 
-    protected final PropertyDelegate data;
     private long energyProductionLeft = -1;
 
     public UnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.UNCHARGER_ENTITY, blockPos, blockState,
+
+                "uncharger",
 
                 ModConfigs.COMMON_UNCHARGER_CAPACITY.getValue(),
                 ModConfigs.COMMON_UNCHARGER_TRANSFER_RATE.getValue(),
@@ -76,32 +73,6 @@ public class UnchargerBlockEntity
 
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
-
-        data = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.energyProductionLeft, index);
-                    case 4 -> redstoneMode.ordinal();
-                    case 5 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2, 3 -> {}
-                    case 4 -> UnchargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 5 -> UnchargerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int size() {
-                return 6;
-            }
-        };
     }
 
     @Override
@@ -180,8 +151,32 @@ public class UnchargerBlockEntity
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.uncharger");
+    protected PropertyDelegate initContainerData() {
+        return new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(UnchargerBlockEntity.this.energyProductionLeft, index);
+                    case 4 -> redstoneMode.ordinal();
+                    case 5 -> comparatorMode.ordinal();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1, 2, 3 -> {}
+                    case 4 -> UnchargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 5 -> UnchargerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                }
+            }
+
+            @Override
+            public int size() {
+                return 6;
+            }
+        };
     }
 
     @Nullable
@@ -190,11 +185,6 @@ public class UnchargerBlockEntity
         syncEnergyToPlayer(player);
         
         return new UnchargerMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
     }
 
     @Override

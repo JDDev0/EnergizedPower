@@ -11,7 +11,6 @@ import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.screen.ChargerMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -26,8 +25,6 @@ import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -40,8 +37,7 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import java.util.Optional;
 
 public class ChargerBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
-        implements ExtendedScreenHandlerFactory<BlockPos> {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory> {
     public static final double CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
@@ -69,12 +65,13 @@ public class ChargerBlockEntity
         return limitingEnergyStorage.getAmount() == limitingEnergyStorage.getCapacity();
     });
 
-    protected final PropertyDelegate data;
     private long energyConsumptionLeft = -1;
 
     public ChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.CHARGER_ENTITY, blockPos, blockState,
+
+                "charger",
 
                 ModConfigs.COMMON_CHARGER_CAPACITY.getValue(),
                 ModConfigs.COMMON_CHARGER_TRANSFER_RATE.getValue(),
@@ -83,32 +80,6 @@ public class ChargerBlockEntity
 
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
-
-        data = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(ChargerBlockEntity.this.energyConsumptionLeft, index);
-                    case 4 -> redstoneMode.ordinal();
-                    case 5 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2, 3 -> {}
-                    case 4 -> ChargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 5 -> ChargerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int size() {
-                return 6;
-            }
-        };
     }
 
     @Override
@@ -190,8 +161,32 @@ public class ChargerBlockEntity
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.charger");
+    protected PropertyDelegate initContainerData() {
+        return new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(ChargerBlockEntity.this.energyConsumptionLeft, index);
+                    case 4 -> redstoneMode.ordinal();
+                    case 5 -> comparatorMode.ordinal();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1, 2, 3 -> {}
+                    case 4 -> ChargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 5 -> ChargerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                }
+            }
+
+            @Override
+            public int size() {
+                return 6;
+            }
+        };
     }
 
     @Nullable
@@ -200,11 +195,6 @@ public class ChargerBlockEntity
         syncEnergyToPlayer(player);
 
         return new ChargerMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
     }
 
     @Override

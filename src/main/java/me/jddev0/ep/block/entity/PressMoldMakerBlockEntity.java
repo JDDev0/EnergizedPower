@@ -1,14 +1,13 @@
 package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
-import me.jddev0.ep.block.entity.base.InventoryStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncPressMoldMakerRecipeListS2CPacket;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.PressMoldMakerMenu;
 import me.jddev0.ep.util.InventoryUtils;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -19,7 +18,6 @@ import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
@@ -31,8 +29,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class PressMoldMakerBlockEntity
-        extends InventoryStorageBlockEntity<SimpleInventory>
-        implements ExtendedScreenHandlerFactory<BlockPos> {
+        extends MenuInventoryStorageBlockEntity<SimpleInventory> {
     private List<Pair<RecipeEntry<PressMoldMakerRecipe>, Boolean>> recipeList = new ArrayList<>();
 
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
@@ -40,6 +37,8 @@ public class PressMoldMakerBlockEntity
     public PressMoldMakerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.PRESS_MOLD_MAKER_ENTITY, blockPos, blockState,
+
+                "press_mold_maker",
 
                 2
         );
@@ -75,11 +74,6 @@ public class PressMoldMakerBlockEntity
         };
     }
 
-    @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.press_mold_maker");
-    }
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
@@ -89,11 +83,6 @@ public class PressMoldMakerBlockEntity
                 getPos(), recipeList));
 
         return new PressMoldMakerMenu(id, this, inventory, itemHandler);
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
     }
 
     public int getRedstoneOutput() {

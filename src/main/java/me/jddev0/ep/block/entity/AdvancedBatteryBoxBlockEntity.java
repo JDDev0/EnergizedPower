@@ -1,17 +1,14 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.AdvancedBatteryBoxMenu;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -24,15 +21,15 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AdvancedBatteryBoxBlockEntity
-        extends EnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
-        implements ExtendedScreenHandlerFactory<BlockPos> {
+public class AdvancedBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
     public static final long CAPACITY = ModConfigs.COMMON_ADVANCED_BATTERY_BOX_CAPACITY.getValue();
     public static final long MAX_TRANSFER = ModConfigs.COMMON_ADVANCED_BATTERY_BOX_TRANSFER_RATE.getValue();
 
     public AdvancedBatteryBoxBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.ADVANCED_BATTERY_BOX_ENTITY, blockPos, blockState,
+
+                "advanced_battery_box",
 
                 CAPACITY, MAX_TRANSFER
         );
@@ -54,22 +51,12 @@ public class AdvancedBatteryBoxBlockEntity
         return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, baseEnergyTransferRate);
     }
 
-    @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.advanced_battery_box");
-    }
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         syncEnergyToPlayer(player);
 
         return new AdvancedBatteryBoxMenu(id, this, inventory);
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
     }
 
     public int getRedstoneOutput() {
