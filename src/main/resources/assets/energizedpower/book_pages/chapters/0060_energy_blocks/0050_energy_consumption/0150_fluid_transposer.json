@@ -1,0 +1,11 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.fluid_transposer",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "block": "energizedpower:fluid_transposer"
+}
