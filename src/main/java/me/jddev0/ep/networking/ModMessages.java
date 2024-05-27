@@ -40,6 +40,7 @@ public final class ModMessages {
         PayloadTypeRegistry.playC2S().register(ChangeRedstoneModeC2SPacket.ID, ChangeRedstoneModeC2SPacket.PACKET_CODEC);
         PayloadTypeRegistry.playC2S().register(SetFluidTankFilterC2SPacket.ID, SetFluidTankFilterC2SPacket.PACKET_CODEC);
         PayloadTypeRegistry.playC2S().register(ChangeComparatorModeC2SPacket.ID, ChangeComparatorModeC2SPacket.PACKET_CODEC);
+        PayloadTypeRegistry.playC2S().register(SetCurrentRecipeIdC2SPacket.ID, SetCurrentRecipeIdC2SPacket.PACKET_CODEC);
     }
 
     public static void registerPacketsS2C() {
@@ -68,6 +69,7 @@ public final class ModMessages {
         ServerPlayNetworking.registerGlobalReceiver(ChangeRedstoneModeC2SPacket.ID, ChangeRedstoneModeC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(SetFluidTankFilterC2SPacket.ID, SetFluidTankFilterC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(ChangeComparatorModeC2SPacket.ID, ChangeComparatorModeC2SPacket::receive);
+        ServerPlayNetworking.registerGlobalReceiver(SetCurrentRecipeIdC2SPacket.ID, SetCurrentRecipeIdC2SPacket::receive);
     }
 
     public static void sendClientPacketToServer(CustomPayload payload) {

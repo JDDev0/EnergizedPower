@@ -7,6 +7,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncCurrentRecipeS2CPacket;
 import me.jddev0.ep.recipe.ChangeCurrentRecipeIndexPacketUpdate;
 import me.jddev0.ep.recipe.CurrentRecipePacketUpdate;
+import me.jddev0.ep.recipe.SetCurrentRecipeIdPacketUpdate;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
@@ -36,7 +37,7 @@ import java.util.Optional;
 
 public abstract class SelectableRecipeMachineBlockEntity<R extends Recipe<Inventory>>
         extends WorkerMachineBlockEntity<RecipeEntry<R>>
-        implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R> {
+        implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R>, SetCurrentRecipeIdPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;
 
     protected final RecipeType<R> recipeType;
@@ -215,6 +216,26 @@ public abstract class SelectableRecipeMachineBlockEntity<R extends Recipe<Invent
             currentIndex = -1;
 
         currentRecipe = currentIndex == -1?null:recipes.get(currentIndex);
+
+        resetProgress();
+        markDirty();
+
+        syncCurrentRecipeToPlayers(32);
+    }
+
+    @Override
+    public void setRecipeId(Identifier recipeId) {
+        if(world == null || world.isClient())
+            return;
+
+        if(recipeId == null) {
+            currentRecipe = null;
+        }else {
+            List<RecipeEntry<R>> recipes = world.getRecipeManager().listAllOfType(recipeType);
+            Optional<RecipeEntry<R>> recipe = recipes.stream().filter(r -> r.id().equals(recipeId)).findFirst();
+
+            currentRecipe = recipe.orElse(null);
+        }
 
         resetProgress();
         markDirty();
