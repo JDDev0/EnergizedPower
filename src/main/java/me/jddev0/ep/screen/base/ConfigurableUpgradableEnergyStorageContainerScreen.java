@@ -22,17 +22,6 @@ public abstract class ConfigurableUpgradableEnergyStorageContainerScreen
         <T extends ScreenHandler & EnergyStorageMenu & ConfigurableMenu>
         extends UpgradableEnergyStorageContainerScreen<T> {
     public ConfigurableUpgradableEnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
-                                                              Identifier upgradeViewTexture) {
-        super(menu, inventory, titleComponent, upgradeViewTexture);
-    }
-
-    public ConfigurableUpgradableEnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
-                                                              String energyIndicatorBarTooltipComponentID,
-                                                              Identifier upgradeViewTexture) {
-        super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, upgradeViewTexture);
-    }
-
-    public ConfigurableUpgradableEnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
                                                               Identifier texture,
                                                               Identifier upgradeViewTexture) {
         super(menu, inventory, titleComponent, texture, upgradeViewTexture);
