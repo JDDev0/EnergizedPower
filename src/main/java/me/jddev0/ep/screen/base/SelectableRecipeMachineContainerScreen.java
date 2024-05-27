@@ -28,17 +28,6 @@ public abstract class SelectableRecipeMachineContainerScreen
     protected int recipeSelectorTexturePosY = 70;
 
     public SelectableRecipeMachineContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
-                                                  Identifier upgradeViewTexture) {
-        super(menu, inventory, titleComponent, upgradeViewTexture);
-    }
-
-    public SelectableRecipeMachineContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
-                                                  String energyIndicatorBarTooltipComponentID,
-                                                  Identifier upgradeViewTexture) {
-        super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, upgradeViewTexture);
-    }
-
-    public SelectableRecipeMachineContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
                                                   Identifier texture,
                                                   Identifier upgradeViewTexture) {
         super(menu, inventory, titleComponent, texture, upgradeViewTexture);
@@ -64,14 +53,14 @@ public abstract class SelectableRecipeMachineContainerScreen
         if(mouseButton == 0) {
             int diff = 0;
 
-            //Up button
+            //Down button
             if(isPointWithinBounds(recipeSelectorPosX - 13, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
-                diff = 1;
+                diff = -1;
             }
 
-            //Down button
+            //Up button
             if(isPointWithinBounds(recipeSelectorPosX + 18, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
-                diff = -1;
+                diff = 1;
             }
 
             if(diff != 0) {
@@ -115,13 +104,13 @@ public abstract class SelectableRecipeMachineContainerScreen
     }
 
     private void renderButtons(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
-        //Up button
+        //Down button
         if(isPointWithinBounds(recipeSelectorPosX - 13, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
             drawContext.drawTexture(TEXTURE, x + recipeSelectorPosX - 13, y + recipeSelectorPosY + 2,
                     recipeSelectorTexturePosX, recipeSelectorTexturePosY, 11, 12);
         }
 
-        //Down button
+        //Up button
         if(isPointWithinBounds(recipeSelectorPosX + 18, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
             drawContext.drawTexture(TEXTURE, x + recipeSelectorPosX + 18, y + recipeSelectorPosY + 2,
                     recipeSelectorTexturePosX + 11, recipeSelectorTexturePosY, 11, 12);
@@ -137,18 +126,18 @@ public abstract class SelectableRecipeMachineContainerScreen
         if(currentRecipe != null && isPointWithinBounds(recipeSelectorPosX, recipeSelectorPosY, 16, 16, mouseX, mouseY))
             renderCurrentRecipeTooltip(drawContext, mouseX, mouseY, currentRecipe);
 
-        //Up button
+        //Down button
         if(isPointWithinBounds(recipeSelectorPosX - 13, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
             List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.recipe.selector.next_recipe"));
+            components.add(Text.translatable("tooltip.energizedpower.recipe.selector.prev_recipe"));
 
             drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
         }
 
-        //Down button
+        //Up button
         if(isPointWithinBounds(recipeSelectorPosX + 18, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
             List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.recipe.selector.prev_recipe"));
+            components.add(Text.translatable("tooltip.energizedpower.recipe.selector.next_recipe"));
 
             drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
         }
