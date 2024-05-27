@@ -12,6 +12,7 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.base.ConfigurableMenu;
 import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.SelectableRecipeMachineMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,7 +32,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class AutoPressMoldMakerMenu extends ScreenHandler
-        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
+        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu,
+        SelectableRecipeMachineMenu<PressMoldMakerRecipe> {
     private final AutoPressMoldMakerBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -219,6 +221,7 @@ public class AutoPressMoldMakerMenu extends ScreenHandler
         return blockEntity;
     }
 
+    @Override
     public RecipeEntry<PressMoldMakerRecipe> getCurrentRecipe() {
         return blockEntity.getCurrentRecipe();
     }
