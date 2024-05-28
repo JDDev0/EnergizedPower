@@ -183,6 +183,8 @@ public class EnergizedPowerMod implements ModInitializer {
 		addEmptyAndFullyChargedItem(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.INVENTORY_COAL_ENGINE, InventoryCoalEngineItem.CAPACITY);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.INVENTORY_CHARGER);
 
+        addEmptyAndFullyChargedItem(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.INVENTORY_TELEPORTER, InventoryTeleporterItem.CAPACITY);
+
 		addEmptyAndFullyChargedItem(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.BATTERY_1, BatteryItem.Tier.BATTERY_1.getCapacity());
 		addEmptyAndFullyChargedItem(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.BATTERY_2, BatteryItem.Tier.BATTERY_2.getCapacity());
 		addEmptyAndFullyChargedItem(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.BATTERY_3, BatteryItem.Tier.BATTERY_3.getCapacity());

@@ -4,3 +4,5 @@ extendable    method    net/minecraft/entity/vehicle/VehicleEntity    asItem    
 
 accessible    field    net/minecraft/client/gui/screen/ingame/HandledScreen    x    I
 accessible    field    net/minecraft/client/gui/screen/ingame/HandledScreen    y    I
+
+accessible    method    net/minecraft/util/thread/ThreadExecutor    submitAsync    (Ljava/lang/Runnable;)Ljava/util/concurrent/CompletableFuture;

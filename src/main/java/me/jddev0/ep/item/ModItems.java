@@ -220,6 +220,9 @@ public final class ModItems {
     public static final Item INVENTORY_CHARGER = registerItem("inventory_charger",
             new InventoryChargerItem(new Item.Settings().maxCount(1)));
 
+    public static final Item INVENTORY_TELEPORTER = registerItem("inventory_teleporter",
+            new InventoryTeleporterItem(new Item.Settings().maxCount(1)));
+
     public static final Item BATTERY_1 = registerItem("battery_1",
             new BatteryItem(BatteryItem.Tier.BATTERY_1));
     public static final Item BATTERY_2 = registerItem("battery_2",

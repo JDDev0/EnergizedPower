@@ -67,7 +67,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        return new InventoryChargerMenu(id, inventory, getInventory(inventory.getStack(inventory.selectedSlot)));
+        return new InventoryChargerMenu(id, inventory, getInventory(inventory.getMainHandStack()));
     }
 
     @Override
@@ -305,7 +305,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
 
                 @Override
                 public boolean canPlayerUse(PlayerEntity player) {
-                    return super.canPlayerUse(player) && player.getInventory().getStack(player.getInventory().selectedSlot) == itemStack;
+                    return super.canPlayerUse(player) && player.getInventory().getMainHandStack() == itemStack;
                 }
 
                 @Override
@@ -341,7 +341,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
 
             @Override
             public boolean canPlayerUse(PlayerEntity player) {
-                return super.canPlayerUse(player) && player.getInventory().getStack(player.getInventory().selectedSlot) == itemStack;
+                return super.canPlayerUse(player) && player.getInventory().getMainHandStack() == itemStack;
             }
 
             @Override

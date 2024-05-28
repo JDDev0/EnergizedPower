@@ -62,8 +62,6 @@ public class TeleporterBlockEntity
     public static final List<@NotNull Identifier> INTER_DIMENSIONAL_TO_TYPE_BLACKLIST =
             ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_TYPE_BLACKLIST.getValue();
 
-    public static final long CAPACITY = ModConfigs.COMMON_TELEPORTER_CAPACITY.getValue();
-
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> true);
 
     public TeleporterBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -72,7 +70,7 @@ public class TeleporterBlockEntity
 
                 "teleporter",
 
-                CAPACITY,
+                ModConfigs.COMMON_TELEPORTER_CAPACITY.getValue(),
                 ModConfigs.COMMON_TELEPORTER_TRANSFER_RATE.getValue(),
 
                 1
@@ -162,18 +160,29 @@ public class TeleporterBlockEntity
         if(player.isEmpty())
             return;
 
-        if(!(player.get() instanceof ServerPlayerEntity serverPlayer))
+        if(!(player.get() instanceof ServerPlayerEntity serverPlayer) || !(world instanceof ServerWorld serverLevel))
             return;
 
-        teleportPlayer(serverPlayer);
+        serverLevel.getServer().submitAsync(() -> teleportPlayer(serverPlayer));
     }
 
     public void teleportPlayer(ServerPlayerEntity player) {
-        EnergyStorage limitingEnergyStorage = EnergyStorage.SIDED.find(player.getWorld(), pos, null);
-        if(limitingEnergyStorage == null)
+        EnergyStorage energyStorage = EnergyStorage.SIDED.find(player.getWorld(), pos, null);
+        if(energyStorage == null)
             return;
 
-        if(limitingEnergyStorage.getAmount() < TeleporterBlockEntity.CAPACITY) {
+        teleportPlayer(player, energyStorage, () -> {
+            try(Transaction transaction = Transaction.openOuter()) {
+                this.energyStorage.extract(this.energyStorage.getCapacity(), transaction);
+
+                transaction.commit();
+            }
+        }, itemHandler.getStack(0), world, pos);
+    }
+
+    public static void teleportPlayer(ServerPlayerEntity player, EnergyStorage energyStorage, Runnable clearEnergyCallback,
+                                      ItemStack teleporterMatrixItemStack, World level, @Nullable BlockPos pos) {
+        if(energyStorage.getAmount() < energyStorage.getCapacity()) {
             player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
                     Text.translatable("tooltip.energizedpower.teleporter.use.not_enough_energy").
                             formatted(Formatting.RED)
@@ -182,7 +191,6 @@ public class TeleporterBlockEntity
             return;
         }
 
-        ItemStack teleporterMatrixItemStack = getStack(0);
         if(!teleporterMatrixItemStack.isOf(ModItems.TELEPORTER_MATRIX)) {
             player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
                     Text.translatable("tooltip.energizedpower.teleporter.use.no_teleporter_matrix").
@@ -201,7 +209,7 @@ public class TeleporterBlockEntity
             return;
         }
 
-        BlockPos toPos = TeleporterMatrixItem.getBlockPos(world, teleporterMatrixItemStack);
+        BlockPos toPos = TeleporterMatrixItem.getBlockPos(level, teleporterMatrixItemStack);
         if(toPos == null) {
             player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
                     Text.translatable("tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_position").
@@ -211,7 +219,7 @@ public class TeleporterBlockEntity
             return;
         }
 
-        World toDimension = TeleporterMatrixItem.getDimension(world, teleporterMatrixItemStack);
+        World toDimension = TeleporterMatrixItem.getDimension(level, teleporterMatrixItemStack);
         if(!(toDimension instanceof ServerWorld)) {
             player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
                     Text.translatable("tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_dimension").
@@ -221,7 +229,7 @@ public class TeleporterBlockEntity
             return;
         }
 
-        if(pos.equals(toPos) && world.getRegistryKey().equals(toDimension.getRegistryKey())) {
+        if(pos != null && pos.equals(toPos) && level.getRegistryKey().equals(toDimension.getRegistryKey())) {
             player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
                     Text.translatable("tooltip.energizedpower.teleporter.use.teleporter_self_position").
                             formatted(Formatting.RED)
@@ -230,7 +238,7 @@ public class TeleporterBlockEntity
             return;
         }
 
-        Identifier fromDimensionId = world.getRegistryKey().getValue();
+        Identifier fromDimensionId = level.getRegistryKey().getValue();
         Identifier toDimensionId = toDimension.getRegistryKey().getValue();
 
         boolean intraDimensional = fromDimensionId.equals(toDimensionId);
@@ -310,7 +318,7 @@ public class TeleporterBlockEntity
             return;
         }
 
-        Identifier fromDimensionTypeId = world.getDimensionEntry().getKey().map(RegistryKey::getValue).
+        Identifier fromDimensionTypeId = level.getDimensionEntry().getKey().map(RegistryKey::getValue).
                 orElse(new Identifier("empty"));
         Identifier toDimensionTypeId = toDimension.getDimensionEntry().getKey().map(RegistryKey::getValue).
                 orElse(new Identifier("empty"));
@@ -379,7 +387,7 @@ public class TeleporterBlockEntity
             return;
         }
 
-        clearEnergy();
+        clearEnergyCallback.run();
 
         Vec3d toPosCenter = toPos.toCenterPos();
 
@@ -398,13 +406,5 @@ public class TeleporterBlockEntity
 
     public ItemStack getStack(int slot) {
         return itemHandler.getStack(slot);
-    }
-
-    public void clearEnergy() {
-        try(Transaction transaction = Transaction.openOuter()) {
-            energyStorage.extract(CAPACITY, transaction);
-
-            transaction.commit();
-        }
     }
 }
