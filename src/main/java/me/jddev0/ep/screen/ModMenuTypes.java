@@ -81,6 +81,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<FiltrationPlantMenu> FILTRATION_PLANT_MENU = createScreenHandlerType("filtration_plant",
             new ExtendedScreenHandlerType<>(FiltrationPlantMenu::new, BlockPos.PACKET_CODEC.cast()));
 
+    public static final ScreenHandlerType<FluidTransposerMenu> FLUID_TRANSPOSER_MENU = createScreenHandlerType("fluid_transposer",
+            new ExtendedScreenHandlerType<>(FluidTransposerMenu::new, BlockPos.PACKET_CODEC.cast()));
+
     public static final ScreenHandlerType<CoalEngineMenu> COAL_ENGINE_MENU = createScreenHandlerType("coal_engine",
             new ExtendedScreenHandlerType<>(CoalEngineMenu::new, BlockPos.PACKET_CODEC.cast()));
 
