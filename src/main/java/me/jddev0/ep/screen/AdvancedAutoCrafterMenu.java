@@ -10,8 +10,9 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.screen.base.ConfigurableMenu;
-import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.IConfigurableMenu;
+import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,18 +22,12 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
-public class AdvancedAutoCrafterMenu extends ScreenHandler implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
-    private final AdvancedAutoCrafterBlockEntity blockEntity;
-    private final Inventory inv;
-    private final World level;
+public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<AdvancedAutoCrafterBlockEntity>
+        implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
     private final PropertyDelegate data;
-    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     private final Inventory[] patternSlots;
 
@@ -58,27 +53,26 @@ public class AdvancedAutoCrafterMenu extends ScreenHandler implements EnergyStor
     public AdvancedAutoCrafterMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
                                    UpgradeModuleInventory upgradeModuleInventory, Inventory[] patternSlots,
                                    Inventory[] patternResultSlots, PropertyDelegate data) {
-        super(ModMenuTypes.ADVANCED_AUTO_CRAFTER_MENU, id);
+        super(
+                ModMenuTypes.ADVANCED_AUTO_CRAFTER_MENU, id,
 
-        this.blockEntity = (AdvancedAutoCrafterBlockEntity)blockEntity;
+                playerInventory, blockEntity,
+                ModBlocks.ADVANCED_AUTO_CRAFTER,
+                8, 142,
+
+                upgradeModuleInventory, 3
+        );
 
         this.patternSlots = patternSlots;
         this.patternResultSlots = patternResultSlots;
 
-        this.inv = inv;
-        checkSize(this.inv, 27);
-        checkSize(upgradeModuleInventory, 3);
+        checkSize(inv, 27);
         checkDataCount(data, 34);
-        this.level = playerInventory.player.getWorld();
-        this.inv.onOpen(playerInventory.player);
         this.data = data;
-
-        addPlayerInventory(playerInventory);
-        addPlayerHotbar(playerInventory);
 
         for(int i = 0;i < 3;i++)
             for(int j = 0;j < 9;j++)
-                addSlot(new ConstraintInsertSlot(this.inv, 9 * i + j, 8 + 18 * j, 75 + 18 * i));
+                addSlot(new ConstraintInsertSlot(inv, 9 * i + j, 8 + 18 * j, 75 + 18 * i));
 
         for(int ri = 0;ri < 3;ri++) {
             final int recipeIndex = ri;
@@ -106,39 +100,10 @@ public class AdvancedAutoCrafterMenu extends ScreenHandler implements EnergyStor
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
 
         addProperties(this.data);
-
-        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
-        addProperties(upgradeModuleViewContainerData);
-    }
-
-    @Override
-    public boolean isInUpgradeModuleView() {
-        return upgradeModuleViewContainerData.isInUpgradeModuleView();
-    }
-
-    @Override
-    public boolean onButtonClick(PlayerEntity player, int index) {
-        if(index == 0) {
-            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
-
-            sendContentUpdates();
-        }
-
-        return false;
     }
 
     public Inventory[] getPatternSlots() {
         return patternSlots;
-    }
-
-    @Override
-    public long getEnergy() {
-        return blockEntity.getEnergy();
-    }
-
-    @Override
-    public long getCapacity() {
-        return blockEntity.getCapacity();
     }
 
     @Override
@@ -250,29 +215,5 @@ public class AdvancedAutoCrafterMenu extends ScreenHandler implements EnergyStor
         sourceSlot.onTakeItem(player, sourceItem);
 
         return sourceItemCopy;
-    }
-
-    @Override
-    public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.ADVANCED_AUTO_CRAFTER);
-    }
-
-    private void addPlayerInventory(Inventory playerInventory) {
-        for(int i = 0;i < 3;i++) {
-            for(int j = 0;j < 9;j++) {
-                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 142 + i * 18));
-            }
-        }
-    }
-
-    private void addPlayerHotbar(Inventory playerInventory) {
-        for(int i = 0;i < 9;i++) {
-            addSlot(new Slot(playerInventory, i, 8 + i * 18, 200));
-        }
-    }
-
-    @Override
-    public BlockEntity getBlockEntity() {
-        return blockEntity;
     }
 }

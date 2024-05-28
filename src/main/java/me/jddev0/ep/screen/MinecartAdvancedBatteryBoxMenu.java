@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.screen.base.EnergyStorageMenu;
+import me.jddev0.ep.screen.base.IEnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -13,7 +13,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class MinecartAdvancedBatteryBoxMenu extends ScreenHandler implements EnergyStorageMenu {
+public class MinecartAdvancedBatteryBoxMenu extends ScreenHandler implements IEnergyStorageMenu {
     private final Inventory inv;
     private final World level;
     private final PropertyDelegate data;
@@ -26,10 +26,9 @@ public class MinecartAdvancedBatteryBoxMenu extends ScreenHandler implements Ene
         super(ModMenuTypes.MINECART_ADVANCED_BATTERY_BOX_MENU, id);
 
         this.inv = inv;
-        checkSize(this.inv, 0);
+        checkSize(inv, 0);
         checkDataCount(data, 8);
         this.level = playerInventory.player.getWorld();
-        this.inv.onOpen(playerInventory.player);
         this.data = data;
 
         addPlayerInventory(playerInventory);
@@ -58,7 +57,7 @@ public class MinecartAdvancedBatteryBoxMenu extends ScreenHandler implements Ene
         return inv.canPlayerUse(player);
     }
 
-    private void addPlayerInventory(Inventory playerInventory) {
+    private void addPlayerInventory(PlayerInventory playerInventory) {
         for(int i = 0;i < 3;i++) {
             for(int j = 0;j < 9;j++) {
                 addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
@@ -66,7 +65,7 @@ public class MinecartAdvancedBatteryBoxMenu extends ScreenHandler implements Ene
         }
     }
 
-    private void addPlayerHotbar(Inventory playerInventory) {
+    private void addPlayerHotbar(PlayerInventory playerInventory) {
         for(int i = 0;i < 9;i++) {
             addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }

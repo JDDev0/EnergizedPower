@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public abstract class ConfigurableUpgradableEnergyStorageContainerScreen
-        <T extends ScreenHandler & EnergyStorageMenu & ConfigurableMenu>
+        <T extends ScreenHandler & IEnergyStorageMenu & IConfigurableMenu>
         extends UpgradableEnergyStorageContainerScreen<T> {
     public ConfigurableUpgradableEnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
                                                               Identifier texture,

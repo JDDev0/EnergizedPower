@@ -4,14 +4,14 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AutoStonecutterBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
-import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.screen.base.ConfigurableMenu;
-import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
-import me.jddev0.ep.screen.base.SelectableRecipeMachineMenu;
+import me.jddev0.ep.screen.base.IConfigurableMenu;
+import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.ISelectableRecipeMachineMenu;
+import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.entity.BlockEntity;
@@ -26,20 +26,13 @@ import net.minecraft.recipe.StonecuttingRecipe;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
-public class AutoStonecutterMenu extends ScreenHandler
-        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu,
-        SelectableRecipeMachineMenu<StonecuttingRecipe> {
-    private final AutoStonecutterBlockEntity blockEntity;
-    private final Inventory inv;
-    private final World level;
+public class AutoStonecutterMenu extends UpgradableEnergyStorageMenu<AutoStonecutterBlockEntity>
+        implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu,
+        ISelectableRecipeMachineMenu<StonecuttingRecipe> {
     private final PropertyDelegate data;
-    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public AutoStonecutterMenu(int id, PlayerInventory inv, BlockPos pos) {
         this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(3) {
@@ -61,33 +54,32 @@ public class AutoStonecutterMenu extends ScreenHandler
 
     public AutoStonecutterMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
                                UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
-        super(ModMenuTypes.AUTO_STONECUTTER_MENU, id);
+        super(
+                ModMenuTypes.AUTO_STONECUTTER_MENU, id,
 
-        this.inv = inv;
-        checkSize(this.inv, 3);
-        checkSize(upgradeModuleInventory, 3);
+                playerInventory, blockEntity,
+                ModBlocks.AUTO_STONECUTTER,
+
+                upgradeModuleInventory, 3
+        );
+
+        checkSize(inv, 3);
         checkDataCount(data, 11);
-        this.blockEntity = (AutoStonecutterBlockEntity)blockEntity;
-        this.level = playerInventory.player.getWorld();
-        this.inv.onOpen(playerInventory.player);
         this.data = data;
 
-        addPlayerInventory(playerInventory);
-        addPlayerHotbar(playerInventory);
-
-        addSlot(new ConstraintInsertSlot(this.inv, 0, 39, 44) {
+        addSlot(new ConstraintInsertSlot(inv, 0, 39, 44) {
             @Override
             public boolean isEnabled() {
                 return super.isEnabled() && !isInUpgradeModuleView();
             }
         });
-        addSlot(new ConstraintInsertSlot(this.inv, 1, 57, 44) {
+        addSlot(new ConstraintInsertSlot(inv, 1, 57, 44) {
             @Override
             public boolean isEnabled() {
                 return super.isEnabled() && !isInUpgradeModuleView();
             }
         });
-        addSlot(new ConstraintInsertSlot(this.inv, 2, 124, 44) {
+        addSlot(new ConstraintInsertSlot(inv, 2, 124, 44) {
             @Override
             public boolean isEnabled() {
                 return super.isEnabled() && !isInUpgradeModuleView();
@@ -98,35 +90,6 @@ public class AutoStonecutterMenu extends ScreenHandler
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
 
         addProperties(this.data);
-
-        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
-        addProperties(upgradeModuleViewContainerData);
-    }
-
-    @Override
-    public boolean isInUpgradeModuleView() {
-        return upgradeModuleViewContainerData.isInUpgradeModuleView();
-    }
-
-    @Override
-    public boolean onButtonClick(PlayerEntity player, int index) {
-        if(index == 0) {
-            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
-
-            sendContentUpdates();
-        }
-
-        return false;
-    }
-
-    @Override
-    public long getEnergy() {
-        return blockEntity.getEnergy();
-    }
-
-    @Override
-    public long getCapacity() {
-        return blockEntity.getCapacity();
     }
 
     @Override
@@ -196,30 +159,6 @@ public class AutoStonecutterMenu extends ScreenHandler
         sourceSlot.onTakeItem(player, sourceItem);
 
         return sourceItemCopy;
-    }
-
-    @Override
-    public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.AUTO_STONECUTTER);
-    }
-
-    private void addPlayerInventory(Inventory playerInventory) {
-        for(int i = 0;i < 3;i++) {
-            for(int j = 0;j < 9;j++) {
-                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
-    }
-
-    private void addPlayerHotbar(Inventory playerInventory) {
-        for(int i = 0;i < 9;i++) {
-            addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
-        }
-    }
-
-    @Override
-    public BlockEntity getBlockEntity() {
-        return blockEntity;
     }
 
     @Override

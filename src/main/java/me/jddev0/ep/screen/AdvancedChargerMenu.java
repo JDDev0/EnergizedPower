@@ -1,17 +1,17 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.block.entity.AdvancedChargerBlockEntity;
+import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
-import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.screen.base.ConfigurableMenu;
-import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.IConfigurableMenu;
+import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
@@ -23,20 +23,14 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 
-public class AdvancedChargerMenu extends ScreenHandler implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
-    private final AdvancedChargerBlockEntity blockEntity;
-    private final Inventory inv;
-    private final World level;
+public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedAutoCrafterBlockEntity>
+        implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
     private final PropertyDelegate data;
-    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public AdvancedChargerMenu(int id, PlayerInventory inv, BlockPos pos) {
         this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(3) {
@@ -70,34 +64,32 @@ public class AdvancedChargerMenu extends ScreenHandler implements EnergyStorageC
 
     public AdvancedChargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
                                UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
-        super(ModMenuTypes.ADVANCED_CHARGER_MENU, id);
+        super(
+                ModMenuTypes.ADVANCED_CHARGER_MENU, id,
 
-        this.blockEntity = (AdvancedChargerBlockEntity)blockEntity;
+                playerInventory, blockEntity,
+                ModBlocks.ADVANCED_CHARGER,
 
-        this.inv = inv;
-        checkSize(this.inv, 3);
-        checkSize(upgradeModuleInventory, 1);
+                upgradeModuleInventory, 1
+        );
+
+        checkSize(inv, 3);
         checkDataCount(data, 14);
-        this.level = playerInventory.player.getWorld();
-        this.inv.onOpen(playerInventory.player);
         this.data = data;
 
-        addPlayerInventory(playerInventory);
-        addPlayerHotbar(playerInventory);
-
-        addSlot(new ConstraintInsertSlot(this.inv, 0, 41, 35) {
+        addSlot(new ConstraintInsertSlot(inv, 0, 41, 35) {
             @Override
             public boolean isEnabled() {
                 return super.isEnabled() && !isInUpgradeModuleView();
             }
         });
-        addSlot(new ConstraintInsertSlot(this.inv, 1, 89, 35) {
+        addSlot(new ConstraintInsertSlot(inv, 1, 89, 35) {
             @Override
             public boolean isEnabled() {
                 return super.isEnabled() && !isInUpgradeModuleView();
             }
         });
-        addSlot(new ConstraintInsertSlot(this.inv, 2, 137, 35) {
+        addSlot(new ConstraintInsertSlot(inv, 2, 137, 35) {
             @Override
             public boolean isEnabled() {
                 return super.isEnabled() && !isInUpgradeModuleView();
@@ -107,35 +99,6 @@ public class AdvancedChargerMenu extends ScreenHandler implements EnergyStorageC
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
         addProperties(this.data);
-
-        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
-        addProperties(upgradeModuleViewContainerData);
-    }
-
-    @Override
-    public boolean isInUpgradeModuleView() {
-        return upgradeModuleViewContainerData.isInUpgradeModuleView();
-    }
-
-    @Override
-    public boolean onButtonClick(PlayerEntity player, int index) {
-        if(index == 0) {
-            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
-
-            sendContentUpdates();
-        }
-
-        return false;
-    }
-
-    @Override
-    public long getEnergy() {
-        return blockEntity.getEnergy();
-    }
-
-    @Override
-    public long getCapacity() {
-        return blockEntity.getCapacity();
     }
 
     @Override
@@ -209,29 +172,5 @@ public class AdvancedChargerMenu extends ScreenHandler implements EnergyStorageC
         sourceSlot.onTakeItem(player, sourceItem);
 
         return sourceItemCopy;
-    }
-
-    @Override
-    public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.ADVANCED_CHARGER);
-    }
-
-    private void addPlayerInventory(Inventory playerInventory) {
-        for(int i = 0;i < 3;i++) {
-            for(int j = 0;j < 9;j++) {
-                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
-    }
-
-    private void addPlayerHotbar(Inventory playerInventory) {
-        for(int i = 0;i < 9;i++) {
-            addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
-        }
-    }
-
-    @Override
-    public BlockEntity getBlockEntity() {
-        return blockEntity;
     }
 }

@@ -2,27 +2,18 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.HeatGeneratorBlockEntity;
-import me.jddev0.ep.screen.base.EnergyStorageMenu;
+import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
-import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 
-public class HeatGeneratorMenu extends ScreenHandler implements EnergyStorageMenu {
-    private final HeatGeneratorBlockEntity blockEntity;
-    private final World level;
-    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
-
+public class HeatGeneratorMenu extends UpgradableEnergyStorageMenu<HeatGeneratorBlockEntity> {
     public HeatGeneratorMenu(int id, PlayerInventory inv, BlockPos pos) {
         this(id, inv.player.getWorld().getBlockEntity(pos), inv, new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY
@@ -31,46 +22,16 @@ public class HeatGeneratorMenu extends ScreenHandler implements EnergyStorageMen
 
     public HeatGeneratorMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory,
                              UpgradeModuleInventory upgradeModuleInventory) {
-        super(ModMenuTypes.HEAT_GENERATOR_MENU, id);
+        super(
+                ModMenuTypes.HEAT_GENERATOR_MENU, id,
 
-        this.blockEntity = (HeatGeneratorBlockEntity)blockEntity;
+                playerInventory, blockEntity,
+                ModBlocks.HEAT_GENERATOR,
 
-        checkSize(upgradeModuleInventory, 1);
-        this.level = playerInventory.player.getWorld();
-
-        addPlayerInventory(playerInventory);
-        addPlayerHotbar(playerInventory);
+                upgradeModuleInventory, 1
+        );
 
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
-
-        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
-        addProperties(upgradeModuleViewContainerData);
-    }
-
-    @Override
-    public boolean isInUpgradeModuleView() {
-        return upgradeModuleViewContainerData.isInUpgradeModuleView();
-    }
-
-    @Override
-    public boolean onButtonClick(PlayerEntity player, int index) {
-        if(index == 0) {
-            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
-
-            sendContentUpdates();
-        }
-
-        return false;
-    }
-
-    @Override
-    public long getEnergy() {
-        return blockEntity.getEnergy();
-    }
-
-    @Override
-    public long getCapacity() {
-        return blockEntity.getCapacity();
     }
 
     @Override
@@ -104,28 +65,5 @@ public class HeatGeneratorMenu extends ScreenHandler implements EnergyStorageMen
         sourceSlot.onTakeItem(player, sourceItem);
 
         return sourceItemCopy;
-    }
-
-    @Override
-    public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.HEAT_GENERATOR);
-    }
-
-    private void addPlayerInventory(Inventory playerInventory) {
-        for(int i = 0;i < 3;i++) {
-            for(int j = 0;j < 9;j++) {
-                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
-    }
-
-    private void addPlayerHotbar(Inventory playerInventory) {
-        for(int i = 0;i < 9;i++) {
-            addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
-        }
-    }
-
-    public BlockEntity getBlockEntity() {
-        return blockEntity;
     }
 }

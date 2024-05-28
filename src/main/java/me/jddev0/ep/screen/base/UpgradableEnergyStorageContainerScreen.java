@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
-public abstract class UpgradableEnergyStorageContainerScreen<T extends ScreenHandler & EnergyStorageMenu>
+public abstract class UpgradableEnergyStorageContainerScreen<T extends ScreenHandler & IEnergyStorageMenu>
         extends EnergyStorageContainerScreen<T> {
     protected final Identifier CONFIGURATION_ICONS_TEXTURE =
             new Identifier(EnergizedPowerMod.MODID,

@@ -5,13 +5,13 @@ import me.jddev0.ep.block.entity.AssemblingMachineBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
-import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.screen.base.ConfigurableMenu;
-import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.IConfigurableMenu;
+import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,21 +22,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
 import java.util.Arrays;
 
-public class AssemblingMachineMenu extends ScreenHandler
-        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
-    private final AssemblingMachineBlockEntity blockEntity;
-    private final Inventory inv;
-    private final World level;
+public class AssemblingMachineMenu extends UpgradableEnergyStorageMenu<AssemblingMachineBlockEntity>
+        implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
     private final PropertyDelegate data;
-    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public AssemblingMachineMenu(int id, PlayerInventory inv, BlockPos pos) {
         this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(5) {
@@ -61,46 +54,45 @@ public class AssemblingMachineMenu extends ScreenHandler
 
     public AssemblingMachineMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
                                  UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
-        super(ModMenuTypes.ASSEMBLING_MACHINE_MENU, id);
+        super(
+                ModMenuTypes.ASSEMBLING_MACHINE_MENU, id,
 
-        this.blockEntity = (AssemblingMachineBlockEntity)blockEntity;
+                playerInventory, blockEntity,
+                ModBlocks.ASSEMBLING_MACHINE,
+                8, 88,
 
-        this.inv = inv;
-        checkSize(this.inv, 5);
-        checkSize(upgradeModuleInventory, 3);
+                upgradeModuleInventory, 3
+        );
+
+        checkSize(inv, 5);
         checkDataCount(data, 11);
-        this.level = playerInventory.player.getWorld();
-        this.inv.onOpen(playerInventory.player);
         this.data = data;
 
-        addPlayerInventory(playerInventory);
-        addPlayerHotbar(playerInventory);
-
-        addSlot(new ConstraintInsertSlot(this.inv, 0, 62, 19) {
+        addSlot(new ConstraintInsertSlot(inv, 0, 62, 19) {
             @Override
             public boolean isEnabled() {
                 return super.isEnabled() && !isInUpgradeModuleView();
             }
         });
-        addSlot(new ConstraintInsertSlot(this.inv, 1, 44, 37) {
+        addSlot(new ConstraintInsertSlot(inv, 1, 44, 37) {
             @Override
             public boolean isEnabled() {
                 return super.isEnabled() && !isInUpgradeModuleView();
             }
         });
-        addSlot(new ConstraintInsertSlot(this.inv, 2, 80, 37) {
+        addSlot(new ConstraintInsertSlot(inv, 2, 80, 37) {
             @Override
             public boolean isEnabled() {
                 return super.isEnabled() && !isInUpgradeModuleView();
             }
         });
-        addSlot(new ConstraintInsertSlot(this.inv, 3, 62, 55) {
+        addSlot(new ConstraintInsertSlot(inv, 3, 62, 55) {
             @Override
             public boolean isEnabled() {
                 return super.isEnabled() && !isInUpgradeModuleView();
             }
         });
-        addSlot(new ConstraintInsertSlot(this.inv, 4, 134, 37) {
+        addSlot(new ConstraintInsertSlot(inv, 4, 134, 37) {
             @Override
             public boolean isEnabled() {
                 return super.isEnabled() && !isInUpgradeModuleView();
@@ -111,35 +103,6 @@ public class AssemblingMachineMenu extends ScreenHandler
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 37, this::isInUpgradeModuleView));
 
         addProperties(this.data);
-
-        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
-        addProperties(upgradeModuleViewContainerData);
-    }
-
-    @Override
-    public boolean isInUpgradeModuleView() {
-        return upgradeModuleViewContainerData.isInUpgradeModuleView();
-    }
-
-    @Override
-    public boolean onButtonClick(PlayerEntity player, int index) {
-        if(index == 0) {
-            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
-
-            sendContentUpdates();
-        }
-
-        return false;
-    }
-
-    @Override
-    public long getEnergy() {
-        return blockEntity.getEnergy();
-    }
-
-    @Override
-    public long getCapacity() {
-        return blockEntity.getCapacity();
     }
 
     @Override
@@ -209,29 +172,5 @@ public class AssemblingMachineMenu extends ScreenHandler
         sourceSlot.onTakeItem(player, sourceItem);
 
         return sourceItemCopy;
-    }
-
-    @Override
-    public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.ASSEMBLING_MACHINE);
-    }
-
-    private void addPlayerInventory(Inventory playerInventory) {
-        for(int i = 0;i < 3;i++) {
-            for(int j = 0;j < 9;j++) {
-                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 88 + i * 18));
-            }
-        }
-    }
-
-    private void addPlayerHotbar(Inventory playerInventory) {
-        for(int i = 0;i < 9;i++) {
-            addSlot(new Slot(playerInventory, i, 8 + i * 18, 146));
-        }
-    }
-
-    @Override
-    public BlockEntity getBlockEntity() {
-        return blockEntity;
     }
 }

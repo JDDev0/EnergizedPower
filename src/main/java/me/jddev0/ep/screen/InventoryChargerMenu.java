@@ -115,7 +115,7 @@ public class InventoryChargerMenu extends ScreenHandler {
         return inv.canPlayerUse(player);
     }
 
-    private void addPlayerInventory(Inventory playerInventory) {
+    private void addPlayerInventory(PlayerInventory playerInventory) {
         for(int i = 0;i < 3;i++) {
             for(int j = 0;j < 9;j++) {
                 addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
@@ -123,7 +123,7 @@ public class InventoryChargerMenu extends ScreenHandler {
         }
     }
 
-    private void addPlayerHotbar(Inventory playerInventory) {
+    private void addPlayerHotbar(PlayerInventory playerInventory) {
         for(int i = 0;i < 9;i++) {
             addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }
