@@ -128,6 +128,12 @@
   "item.energizedpower.range_upgrade_module_2": "Reichweiten-Upgrade-Modul (MK II)",
   "item.energizedpower.range_upgrade_module_3": "Reichweiten-Upgrade-Modul (MK III)",
 
+  "item.energizedpower.extraction_depth_upgrade_module_1": "Extraktionstiefen-Upgrade-Modul (MK I)",
+  "item.energizedpower.extraction_depth_upgrade_module_2": "Extraktionstiefen-Upgrade-Modul (MK II)",
+  "item.energizedpower.extraction_depth_upgrade_module_3": "Extraktionstiefen-Upgrade-Modul (MK III)",
+  "item.energizedpower.extraction_depth_upgrade_module_4": "Extraktionstiefen-Upgrade-Modul (MK IV)",
+  "item.energizedpower.extraction_depth_upgrade_module_5": "Extraktionstiefen-Upgrade-Modul (MK V)",
+
   "item.energizedpower.blast_furnace_upgrade_module": "Schmelzofen-Upgrade-Modul",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Schmelzofen",
   "item.energizedpower.smoker_upgrade_module": "Räucherofen-Upgrade-Modul",
@@ -707,8 +713,11 @@
   "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "Energie-Transferrate",
   "tooltip.energizedpower.upgrade_module_modifier.duration": "Laufzeit",
   "tooltip.energizedpower.upgrade_module_modifier.range": "Reichweite",
+  "tooltip.energizedpower.upgrade_module_modifier.extraction_depth": "Extraktionstiefe",
   "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "Ofenmodus",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Mondlicht",
+
+  "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "Blöcke",
 
   "tooltip.energizedpower.upgrade.values": "Upgrade-Modul-Modifikatoren:",
   "tooltip.energizedpower.upgrade.value": "• %s: %s",

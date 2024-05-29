@@ -249,6 +249,12 @@ public class EnergizedPowerMod implements ModInitializer {
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.RANGE_UPGRADE_MODULE_2);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.RANGE_UPGRADE_MODULE_3);
 
+        addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1);
+        addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2);
+        addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3);
+        addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4);
+        addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5);
+
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.BLAST_FURNACE_UPGRADE_MODULE);
 		addToCreativeTab(ModCreativeModeTab.ENERGIZED_POWER_TAB_REG_KEY, ModItems.SMOKER_UPGRADE_MODULE);
 

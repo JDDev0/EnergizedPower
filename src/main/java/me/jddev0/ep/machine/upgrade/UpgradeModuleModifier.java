@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Locale;
 
 public enum UpgradeModuleModifier implements StringIdentifiable {
-    SPEED, ENERGY_CONSUMPTION, ENERGY_CAPACITY, ENERGY_TRANSFER_RATE, DURATION, RANGE, FURNACE_MODE, MOON_LIGHT;
+    SPEED, ENERGY_CONSUMPTION, ENERGY_CAPACITY, ENERGY_TRANSFER_RATE, DURATION, RANGE, EXTRACTION_DEPTH, FURNACE_MODE, MOON_LIGHT;
 
     @Override
     @NotNull

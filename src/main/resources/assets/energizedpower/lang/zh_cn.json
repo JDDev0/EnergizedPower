@@ -128,6 +128,12 @@
   "item.energizedpower.range_upgrade_module_2": "Range Upgrade Module (Tier II)",
   "item.energizedpower.range_upgrade_module_3": "Range Upgrade Module (Tier III)",
 
+  "item.energizedpower.extraction_depth_upgrade_module_1": "Extraction Depth Upgrade Module (Tier I)",
+  "item.energizedpower.extraction_depth_upgrade_module_2": "Extraction Depth Upgrade Module (Tier II)",
+  "item.energizedpower.extraction_depth_upgrade_module_3": "Extraction Depth Upgrade Module (Tier III)",
+  "item.energizedpower.extraction_depth_upgrade_module_4": "Extraction Depth Upgrade Module (Tier IV)",
+  "item.energizedpower.extraction_depth_upgrade_module_5": "Extraction Depth Upgrade Module (Tier V)",
+
   "item.energizedpower.blast_furnace_upgrade_module": "Blast Furnace Upgrade Module",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Blast Furnace",
   "item.energizedpower.smoker_upgrade_module": "Smoker Upgrade Module",
@@ -707,8 +713,11 @@
   "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "Energy Transfer Rate",
   "tooltip.energizedpower.upgrade_module_modifier.duration": "Duration",
   "tooltip.energizedpower.upgrade_module_modifier.range": "Range",
+  "tooltip.energizedpower.upgrade_module_modifier.extraction_depth": "Extraction Depth",
   "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "Furnace mode",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Moon Light",
+
+  "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "Blocks",
 
   "tooltip.energizedpower.upgrade.values": "Upgrade Module Modifiers:",
   "tooltip.energizedpower.upgrade.value": "• %s: %s",
