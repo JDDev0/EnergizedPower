@@ -167,6 +167,7 @@ public class FluidPumpBlockEntity
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         syncEnergyToPlayer(player);
+        syncFluidToPlayer(player);
 
         return new FluidPumpMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
     }

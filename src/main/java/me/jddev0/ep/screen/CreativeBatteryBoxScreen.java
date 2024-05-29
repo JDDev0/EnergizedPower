@@ -4,10 +4,10 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
+import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
-public class CreativeBatteryBoxScreen extends HandledScreen<CreativeBatteryBoxMenu> {
+public class CreativeBatteryBoxScreen extends EnergizedPowerBaseContainerScreen<CreativeBatteryBoxMenu> {
     private final Identifier TEXTURE;
 
     public CreativeBatteryBoxScreen(CreativeBatteryBoxMenu menu, PlayerInventory inventory, Text component) {

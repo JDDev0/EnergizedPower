@@ -6,38 +6,31 @@ import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.networking.packet.SetFluidTankFilterC2SPacket;
+import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.*;
 import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.texture.MissingSprite;
-import net.minecraft.client.texture.Sprite;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import org.joml.Matrix4f;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
-public class FluidTankScreen extends HandledScreen<FluidTankMenu> {
+public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTankMenu> {
     private final Identifier TEXTURE;
 
     public FluidTankScreen(FluidTankMenu menu, PlayerInventory inventory, Text component) {
@@ -97,78 +90,15 @@ public class FluidTankScreen extends HandledScreen<FluidTankMenu> {
         drawContext.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
 
         for(int i = 0;i < 2;i++) {
-            renderFluidMeterContent(drawContext, x, y, i);
+            if(i == 0)
+                renderFluidMeterContent(drawContext, handler.getFluid(0), handler.getTankCapacity(0), x + 80, y + 17, 16, 52);
+            else
+                renderFluidMeterContent(drawContext, handler.getFluid(1), -1, x + 152, y + 35, 16, 16);
+
             renderFluidMeterOverlay(drawContext, x, y, i);
         }
 
         renderCheckboxes(drawContext, x, y, mouseX, mouseY);
-    }
-
-    private void renderFluidMeterContent(DrawContext drawContext, int x, int y, int tank) {
-        RenderSystem.enableBlend();
-        drawContext.getMatrices().push();
-
-        if(tank == 0)
-            drawContext.getMatrices().translate(x + 80, y + 17, 0);
-        else if(tank == 1)
-            drawContext.getMatrices().translate(x + 152, y + 19, 0);
-
-        renderFluidStack(drawContext, tank);
-
-        drawContext.getMatrices().pop();
-        RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
-        RenderSystem.disableBlend();
-    }
-
-    private void renderFluidStack(DrawContext drawContext, int tank) {
-        FluidStack fluidStack = handler.getFluid(tank);
-        if(fluidStack.isEmpty())
-            return;
-
-        long capacity = handler.getTankCapacity(tank);
-
-        Fluid fluid = fluidStack.getFluid();
-        Sprite stillFluidSprite = FluidVariantRendering.getSprite(fluidStack.getFluidVariant());
-        if(stillFluidSprite == null)
-            stillFluidSprite = MinecraftClient.getInstance().getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).
-                    apply(MissingSprite.getMissingSpriteId());
-
-        int fluidColorTint = FluidVariantRendering.getColor(fluidStack.getFluidVariant());
-
-        int fluidMeterPos = switch(tank) {
-            case 0 ->  52 - (int)((fluidStack.getDropletsAmount() <= 0 || capacity == 0)?0:
-                    (Math.min(fluidStack.getDropletsAmount(), capacity - 1) * 52 / capacity + 1));
-            case 1 -> 16;
-            default -> 0;
-        };
-
-        RenderSystem.setShaderTexture(0, PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
-
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-        RenderSystem.setShaderColor((fluidColorTint >> 16 & 0xFF) / 255.f,
-                (fluidColorTint >> 8 & 0xFF) / 255.f, (fluidColorTint & 0xFF) / 255.f,
-                (fluidColorTint >> 24 & 0xFF) / 255.f);
-
-        Matrix4f mat = drawContext.getMatrices().peek().getPositionMatrix();
-
-        for(int yOffset = tank == 0?52:32;yOffset > fluidMeterPos;yOffset -= 16) {
-            int height = Math.min(yOffset - fluidMeterPos, 16);
-
-            float u0 = stillFluidSprite.getMinU();
-            float u1 = stillFluidSprite.getMaxU();
-            float v0 = stillFluidSprite.getMinV();
-            float v1 = stillFluidSprite.getMaxV();
-            v0 = v0 - ((16 - height) / 16.f * (v0 - v1));
-
-            Tessellator tesselator = Tessellator.getInstance();
-            BufferBuilder bufferBuilder = tesselator.getBuffer();
-            bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-            bufferBuilder.vertex(mat, 0, yOffset, 0).texture(u0, v1).next();
-            bufferBuilder.vertex(mat, 16, yOffset, 0).texture(u1, v1).next();
-            bufferBuilder.vertex(mat, 16, yOffset - height, 0).texture(u1, v0).next();
-            bufferBuilder.vertex(mat, 0, yOffset - height, 0).texture(u0, v0).next();
-            tesselator.draw();
-        }
     }
 
     private void renderFluidMeterOverlay(DrawContext drawContext, int x, int y, int tank) {
