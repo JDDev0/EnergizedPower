@@ -1,16 +1,14 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AdvancedMinecartUnchargerBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
 import me.jddev0.ep.screen.AdvancedMinecartUnchargerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -30,8 +28,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AdvancedMinecartUnchargerBlockEntity extends EnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
-        implements MenuProvider {
+public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlockEntity<ExtractOnlyEnergyStorage> {
     public static final int MAX_TRANSFER = ModConfigs.COMMON_ADVANCED_MINECART_UNCHARGER_TRANSFER_RATE.getValue();
 
     private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
@@ -42,6 +39,8 @@ public class AdvancedMinecartUnchargerBlockEntity extends EnergyStorageBlockEnti
     public AdvancedMinecartUnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.ADVANCED_MINECART_UNCHARGER_ENTITY.get(), blockPos, blockState,
+
+                "advanced_minecart_uncharger",
 
                 ModConfigs.COMMON_ADVANCED_MINECART_UNCHARGER_CAPACITY.getValue(),
                 MAX_TRANSFER
@@ -59,11 +58,6 @@ public class AdvancedMinecartUnchargerBlockEntity extends EnergyStorageBlockEnti
                 syncEnergyToPlayers(32);
             }
         };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.advanced_minecart_uncharger");
     }
 
     @Nullable

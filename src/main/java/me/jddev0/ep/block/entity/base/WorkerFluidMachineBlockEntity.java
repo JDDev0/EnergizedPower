@@ -27,11 +27,12 @@ public abstract class WorkerFluidMachineBlockEntity<F extends IFluidHandler, W>
     protected boolean hasEnoughEnergy;
 
     public WorkerFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                         String machineName,
                                          int slotCount, int baseWorkDuration,
                                          int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
                                          FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity,
                                          UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
+        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
                 baseTankCapacity, upgradeModifierSlots);
 
         this.baseEnergyConsumptionPerTick = baseEnergyConsumptionPerTick;

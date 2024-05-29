@@ -2,15 +2,13 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltLoaderBlock;
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.block.entity.base.InventoryStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.ItemConveyorBeltLoaderMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -27,8 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltLoaderBlockEntity
-        extends InventoryStorageBlockEntity<ItemStackHandler>
-        implements MenuProvider {
+        extends MenuInventoryStorageBlockEntity<ItemStackHandler> {
     private static final int TICKS_PER_ITEM = ModConfigs.COMMON_ITEM_CONVEYOR_BELT_LOADER_TICKS_PER_ITEM.getValue();
 
     private final LazyOptional<IItemHandler> lazyItemHandler;
@@ -38,6 +35,8 @@ public class ItemConveyorBeltLoaderBlockEntity
     public ItemConveyorBeltLoaderBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.ITEM_CONVEYOR_BELT_LOADER_ENTITY.get(), blockPos, blockState,
+
+                "item_conveyor_belt_loader",
 
                 1
         );
@@ -58,11 +57,6 @@ public class ItemConveyorBeltLoaderBlockEntity
                 return 1;
             }
         };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.item_conveyor_belt_loader");
     }
 
     @Nullable

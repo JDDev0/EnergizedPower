@@ -1,16 +1,14 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AdvancedMinecartChargerBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
 import me.jddev0.ep.screen.AdvancedMinecartChargerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -28,8 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class AdvancedMinecartChargerBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
-        implements MenuProvider {
+public class AdvancedMinecartChargerBlockEntity extends MenuEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage> {
     public static final int MAX_TRANSFER = ModConfigs.COMMON_ADVANCED_MINECART_CHARGER_TRANSFER_RATE.getValue();
 
     private final LazyOptional<IEnergyStorage> lazyEnergyStorage;
@@ -40,6 +37,8 @@ public class AdvancedMinecartChargerBlockEntity extends EnergyStorageBlockEntity
     public AdvancedMinecartChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.ADVANCED_MINECART_CHARGER_ENTITY.get(), blockPos, blockState,
+
+                "advanced_minecart_charger",
 
                 ModConfigs.COMMON_ADVANCED_MINECART_CHARGER_CAPACITY.getValue(),
                 MAX_TRANSFER
@@ -57,11 +56,6 @@ public class AdvancedMinecartChargerBlockEntity extends EnergyStorageBlockEntity
                 syncEnergyToPlayers(32);
             }
         };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.advanced_minecart_charger");
     }
 
     @Nullable

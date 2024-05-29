@@ -17,7 +17,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.*;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
@@ -46,7 +45,7 @@ import java.util.*;
 
 public class AutoCrafterBlockEntity
         extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
-        implements MenuProvider, CheckboxUpdate {
+        implements CheckboxUpdate {
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
     public final static int ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT =
@@ -88,7 +87,6 @@ public class AutoCrafterBlockEntity
         public void slotsChanged(Container container) {}
     };
 
-    protected final ContainerData data;
     private int progress;
     private int maxProgress;
     private int energyConsumptionLeft = -1;
@@ -98,6 +96,8 @@ public class AutoCrafterBlockEntity
     public AutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.AUTO_CRAFTER_ENTITY.get(), blockPos, blockState,
+
+                "auto_crafter",
 
                 ModConfigs.COMMON_AUTO_CRAFTER_CAPACITY.getValue(),
                 ModConfigs.COMMON_AUTO_CRAFTER_TRANSFER_RATE.getValue(),
@@ -110,45 +110,6 @@ public class AutoCrafterBlockEntity
         );
 
         patternSlots.addListener(updatePatternListener);
-
-        data = new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.progress, index);
-                    case 2, 3 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.maxProgress, index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.energyConsumptionLeft, index - 4);
-                    case 6 -> hasEnoughEnergy?1:0;
-                    case 7 -> ignoreNBT?1:0;
-                    case 8 -> secondaryExtractMode?1:0;
-                    case 9 -> redstoneMode.ordinal();
-                    case 10 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1 -> AutoCrafterBlockEntity.this.progress = ByteUtils.with2Bytes(
-                            AutoCrafterBlockEntity.this.progress, (short)value, index
-                    );
-                    case 2, 3 -> AutoCrafterBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
-                            AutoCrafterBlockEntity.this.maxProgress, (short)value, index - 2
-                    );
-                    case 4, 5, 6 -> {}
-                    case 7 -> AutoCrafterBlockEntity.this.ignoreNBT = value != 0;
-                    case 8 -> AutoCrafterBlockEntity.this.secondaryExtractMode = value != 0;
-                    case 9 -> AutoCrafterBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 10 -> AutoCrafterBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 11;
-            }
-        };
 
         lazyItemHandler = LazyOptional.of(() -> itemHandler);
         lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
@@ -187,7 +148,7 @@ public class AutoCrafterBlockEntity
 
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-                if(slot < 0 || slot >= 18)
+                if (slot < 0 || slot >= 18)
                     return super.isItemValid(slot, stack);
 
                 //Slot 0, 1, and 2 are for output items only
@@ -197,8 +158,45 @@ public class AutoCrafterBlockEntity
     }
 
     @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.auto_crafter");
+    protected ContainerData initContainerData() {
+        return new ContainerData() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.progress, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.maxProgress, index - 2);
+                    case 4, 5 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.energyConsumptionLeft, index - 4);
+                    case 6 -> hasEnoughEnergy?1:0;
+                    case 7 -> ignoreNBT?1:0;
+                    case 8 -> secondaryExtractMode?1:0;
+                    case 9 -> redstoneMode.ordinal();
+                    case 10 -> comparatorMode.ordinal();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1 -> AutoCrafterBlockEntity.this.progress = ByteUtils.with2Bytes(
+                            AutoCrafterBlockEntity.this.progress, (short)value, index
+                    );
+                    case 2, 3 -> AutoCrafterBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
+                            AutoCrafterBlockEntity.this.maxProgress, (short)value, index - 2
+                    );
+                    case 4, 5, 6 -> {}
+                    case 7 -> AutoCrafterBlockEntity.this.ignoreNBT = value != 0;
+                    case 8 -> AutoCrafterBlockEntity.this.secondaryExtractMode = value != 0;
+                    case 9 -> AutoCrafterBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 10 -> AutoCrafterBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 11;
+            }
+        };
     }
 
     @Nullable

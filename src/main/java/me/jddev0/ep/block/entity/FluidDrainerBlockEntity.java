@@ -15,8 +15,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -39,8 +37,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class FluidDrainerBlockEntity
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
-        <ReceiveOnlyEnergyStorage, ItemStackHandler, FluidTank>
-        implements MenuProvider {
+        <ReceiveOnlyEnergyStorage, ItemStackHandler, FluidTank> {
     public static final int MAX_FLUID_DRAINING_PER_TICK = ModConfigs.COMMON_FLUID_DRAINER_FLUID_ITEM_TRANSFER_RATE.getValue();
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_FLUID_DRAINER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
@@ -72,13 +69,14 @@ public class FluidDrainerBlockEntity
 
     private final LazyOptional<IFluidHandler> lazyFluidStorage;
 
-    protected final ContainerData data;
     private int fluidDrainingLeft = -1;
     private int fluidDrainingSumPending = 0;
 
     public FluidDrainerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.FLUID_DRAINER_ENTITY.get(), blockPos, blockState,
+
+                "fluid_drainer",
 
                 ModConfigs.COMMON_FLUID_DRAINER_CAPACITY.getValue(),
                 ModConfigs.COMMON_FLUID_DRAINER_TRANSFER_RATE.getValue(),
@@ -91,33 +89,6 @@ public class FluidDrainerBlockEntity
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
-
-        data = new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(FluidDrainerBlockEntity.this.fluidDrainingLeft, index);
-                    case 2, 3 -> ByteUtils.get2Bytes(FluidDrainerBlockEntity.this.fluidDrainingSumPending, index - 2);
-                    case 4 -> redstoneMode.ordinal();
-                    case 5 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2, 3 -> {}
-                    case 4 -> FluidDrainerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 5 -> FluidDrainerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 6;
-            }
-        };
 
         lazyItemHandler = LazyOptional.of(() -> itemHandler);
         lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
@@ -197,8 +168,33 @@ public class FluidDrainerBlockEntity
     }
 
     @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.fluid_drainer");
+    protected ContainerData initContainerData() {
+        return new ContainerData() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1 -> ByteUtils.get2Bytes(FluidDrainerBlockEntity.this.fluidDrainingLeft, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(FluidDrainerBlockEntity.this.fluidDrainingSumPending, index - 2);
+                    case 4 -> redstoneMode.ordinal();
+                    case 5 -> comparatorMode.ordinal();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1, 2, 3 -> {}
+                    case 4 -> FluidDrainerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 5 -> FluidDrainerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 6;
+            }
+        };
     }
 
     @Nullable

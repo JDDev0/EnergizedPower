@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageBlockEntity;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
+import me.jddev0.ep.block.entity.base.MenuFluidStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.DrainMenu;
 import me.jddev0.ep.util.ByteUtils;
@@ -10,8 +10,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -32,10 +30,9 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DrainBlockEntity extends FluidStorageBlockEntity<FluidTank> implements MenuProvider {
+public class DrainBlockEntity extends MenuFluidStorageBlockEntity<FluidTank> {
     private final LazyOptional<IFluidHandler> lazyFluidStorage;
 
-    protected final ContainerData data;
     private int progress;
     private int maxProgress = ModConfigs.COMMON_DRAIN_DRAIN_DURATION.getValue();
 
@@ -43,11 +40,29 @@ public class DrainBlockEntity extends FluidStorageBlockEntity<FluidTank> impleme
         super(
                 ModBlockEntities.DRAIN_ENTITY.get(), blockPos, blockState,
 
+                "drain",
+
                 FluidStorageSingleTankMethods.INSTANCE,
                 ModConfigs.COMMON_DRAIN_FLUID_TANK_CAPACITY.getValue() * 1000
         );
 
-        data = new ContainerData() {
+        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
+    }
+
+    @Override
+    protected FluidTank initFluidStorage() {
+        return new FluidTank(baseTankCapacity) {
+            @Override
+            protected void onContentsChanged() {
+                setChanged();
+                syncFluidToPlayers(32);
+            }
+        };
+    }
+
+    @Override
+    protected ContainerData initContainerData() {
+        return new ContainerData() {
             @Override
             public int get(int index) {
                 return switch(index) {
@@ -74,24 +89,6 @@ public class DrainBlockEntity extends FluidStorageBlockEntity<FluidTank> impleme
                 return 4;
             }
         };
-
-        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
-    }
-
-    @Override
-    protected FluidTank initFluidStorage() {
-        return new FluidTank(baseTankCapacity) {
-            @Override
-            protected void onContentsChanged() {
-                setChanged();
-                syncFluidToPlayers(32);
-            }
-        };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.drain");
     }
 
     @Nullable
