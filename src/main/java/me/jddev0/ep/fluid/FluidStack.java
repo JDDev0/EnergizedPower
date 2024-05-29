@@ -73,7 +73,7 @@ public class FluidStack {
     }
 
     public FluidStack(Fluid fluid, long dropletsAmount) {
-        this(fluid, null, dropletsAmount);
+        this(fluid, ComponentChanges.EMPTY, dropletsAmount);
     }
 
     public FluidStack(Fluid fluid, ComponentChanges fluidComponents, long dropletsAmount) {

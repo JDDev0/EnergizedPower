@@ -78,6 +78,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<StoneSolidifierMenu> STONE_SOLIDIFIER_MENU = createScreenHandlerType("stone_solidifier",
             new ExtendedScreenHandlerType<>(StoneSolidifierMenu::new, BlockPos.PACKET_CODEC.cast()));
 
+    public static final ScreenHandlerType<FluidPumpMenu> FLUID_PUMP_MENU = createScreenHandlerType("fluid_pump",
+            new ExtendedScreenHandlerType<>(FluidPumpMenu::new, BlockPos.PACKET_CODEC.cast()));
+
     public static final ScreenHandlerType<FiltrationPlantMenu> FILTRATION_PLANT_MENU = createScreenHandlerType("filtration_plant",
             new ExtendedScreenHandlerType<>(FiltrationPlantMenu::new, BlockPos.PACKET_CODEC.cast()));
 

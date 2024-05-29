@@ -994,6 +994,43 @@ public final class ModConfigs {
             1L, null
     ));
 
+    public static final ConfigValue<Long> COMMON_FLUID_PUMP_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.fluid_pump", "Fluid Pump", 2048
+    );
+    public static final ConfigValue<Long> COMMON_FLUID_PUMP_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.fluid_pump", "Fluid Pump", 128
+    );
+    public static final ConfigValue<Long> COMMON_FLUID_PUMP_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.fluid_pump", "Fluid Pump", 32
+    );
+    public static final ConfigValue<Long> COMMON_FLUID_PUMP_FLUID_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
+            "block.fluid_pump", "Fluid Pump", 16
+    );
+    public static final ConfigValue<Integer> COMMON_FLUID_PUMP_NEXT_BLOCK_COOLDOWN = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.fluid_pump.next_block_cooldown",
+            "The time the Fluid Pump requires to check the next block in ticks",
+            20,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_FLUID_PUMP_EXTRACTION_DURATION = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.fluid_pump.extraction_duration",
+            "The time the Fluid Pump requires to extract fluids from a block in ticks",
+            100,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_FLUID_PUMP_EXTRACTION_RANGE = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.fluid_pump.extraction_range",
+            "The horizontal extraction range of the Fluid Pump in blocks",
+            5,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_FLUID_PUMP_EXTRACTION_DEPTH = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.fluid_pump.extraction_depth",
+            "The vertical extraction depth of the Fluid Pump in blocks",
+            64,
+            1, null
+    ));
+
     public static final ConfigValue<Long> COMMON_DRAIN_FLUID_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
             "block.drain", "Drain", 2
     );
@@ -1168,6 +1205,12 @@ public final class ModConfigs {
                     5 /* 250 ms */, 1200 /* 1 minute */
             )
     );
+
+    public static final ConfigValue<Boolean> CLIENT_FLUID_PUMP_RELATIVE_TARGET_COORDINATES = CLIENT_CONFIG.register(new BooleanConfigValue(
+            "block.fluid_pump.relative_target_coordinates",
+            "If set to true relative target coordinates will be shown instead of absolute coordinates in the Fluid Pump",
+            true
+    ));
 
     private static File getRelativeConfigFile(String fileName) {
         return FabricLoader.getInstance().getConfigDir().resolve("energizedpower/" + fileName).toFile();
