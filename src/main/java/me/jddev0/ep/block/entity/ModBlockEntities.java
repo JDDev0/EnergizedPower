@@ -119,6 +119,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("metal_press", () -> BlockEntityType.Builder.of(MetalPressBlockEntity::new,
                     ModBlocks.METAL_PRESS.get()).build(null));
 
+    public static final Supplier<BlockEntityType<AutoPressMoldMakerBlockEntity>> AUTO_PRESS_MOLD_MAKER_ENTITY =
+            BLOCK_ENTITIES.register("auto_press_mold_maker", () -> BlockEntityType.Builder.of(AutoPressMoldMakerBlockEntity::new,
+                    ModBlocks.AUTO_PRESS_MOLD_MAKER.get()).build(null));
+
     public static final Supplier<BlockEntityType<PlantGrowthChamberBlockEntity>> PLANT_GROWTH_CHAMBER_ENTITY =
             BLOCK_ENTITIES.register("plant_growth_chamber", () -> BlockEntityType.Builder.of(PlantGrowthChamberBlockEntity::new,
                     ModBlocks.PLANT_GROWTH_CHAMBER.get()).build(null));
