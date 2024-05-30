@@ -160,6 +160,12 @@ public final class ModMessages {
                 encoder(ChangeComparatorModeC2SPacket::toBytes).
                 consumerMainThread(ChangeComparatorModeC2SPacket::handle).
                 add();
+
+        net.messageBuilder(SetCurrentRecipeIdC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+                decoder(SetCurrentRecipeIdC2SPacket::new).
+                encoder(SetCurrentRecipeIdC2SPacket::toBytes).
+                consumerMainThread(SetCurrentRecipeIdC2SPacket::handle).
+                add();
     }
 
     public static <MSG> void sendToServer(MSG message) {

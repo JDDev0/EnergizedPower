@@ -165,6 +165,19 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
     private void registerRecipeHandlers(EmiRegistry registry) {
         registry.addRecipeHandler(ModMenuTypes.AUTO_CRAFTER_MENU.get(), new AutoCrafterRecipeHandler());
+
         registry.addRecipeHandler(ModMenuTypes.ADVANCED_AUTO_CRAFTER_MENU.get(), new AdvancedAutoCrafterRecipeHandler());
+
+        registry.addRecipeHandler(ModMenuTypes.AUTO_PRESS_MOLD_MAKER_MENU.get(),
+                new SelectableRecipeMachineRecipeHandler<>(PressMoldMakerEMIRecipe.CATEGORY));
+
+        registry.addRecipeHandler(ModMenuTypes.AUTO_STONECUTTER_MENU.get(),
+                new SelectableRecipeMachineRecipeHandler<>(VanillaEmiRecipeCategories.STONECUTTING));
+
+        registry.addRecipeHandler(ModMenuTypes.STONE_SOLIDIFIER_MENU.get(),
+                new SelectableRecipeMachineRecipeHandler<>(StoneSolidifierEMIRecipe.CATEGORY));
+
+        registry.addRecipeHandler(ModMenuTypes.FILTRATION_PLANT_MENU.get(),
+                new SelectableRecipeMachineRecipeHandler<>(FiltrationPlantEMIRecipe.CATEGORY));
     }
 }
