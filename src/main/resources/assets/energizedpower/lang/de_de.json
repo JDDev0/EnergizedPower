@@ -875,6 +875,21 @@
   "advancements.energizedpower.range_upgrade_module_3.title": "Reichweite III",
   "advancements.energizedpower.range_upgrade_module_3.description": "Erstelle ein Reichweiten-Upgrade-Modul (MK III).",
 
+  "advancements.energizedpower.extraction_depth_upgrade_module_1.title": "Extraktionstiefe I",
+  "advancements.energizedpower.extraction_depth_upgrade_module_1.description": "Erstelle ein Extraktionstiefen-Upgrade-Modul (MK I).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_2.title": "Extraktionstiefe II",
+  "advancements.energizedpower.extraction_depth_upgrade_module_2.description": "Erstelle ein Extraktionstiefen-Upgrade-Modul (MK II).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_3.title": "Extraktionstiefe III",
+  "advancements.energizedpower.extraction_depth_upgrade_module_3.description": "Erstelle ein Extraktionstiefen-Upgrade-Modul (MK III).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_4.title": "Extraktionstiefe IV",
+  "advancements.energizedpower.extraction_depth_upgrade_module_4.description": "Erstelle ein Extraktionstiefen-Upgrade-Modul (MK IV).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_5.title": "Extraktionstiefe V",
+  "advancements.energizedpower.extraction_depth_upgrade_module_5.description": "Erstelle ein Extraktionstiefen-Upgrade-Modul (MK V).",
+
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "Ofenmodus: Schmelzofen",
   "advancements.energizedpower.blast_furnace_upgrade_module.description": "Erstelle ein Schmelzofen-Upgrade-Modul.",
 
@@ -946,6 +961,9 @@
 
   "advancements.energizedpower.fluid_drainer.title": "Entleere Flüssigkeits-Items",
   "advancements.energizedpower.fluid_drainer.description": "Entleere Flüssigkeiten von Items.",
+
+  "advancements.energizedpower.fluid_pump.title": "Flüssigkeits-Pumpe",
+  "advancements.energizedpower.fluid_pump.description": "Stelle eine Flüssigkeits-Pumpe her.",
 
   "advancements.energizedpower.drain.title": "Der Ablauf",
   "advancements.energizedpower.drain.description": "Leite Flüssigkeits-Blöcke ab.",
@@ -1036,6 +1054,9 @@
 
   "advancements.energizedpower.filtration_plant.title": "Flüssigkeits-Filtrierung",
   "advancements.energizedpower.filtration_plant.description": "Stelle eine Filteranlage her.",
+
+  "advancements.energizedpower.fluid_transposer.title": "Flüssigkeits-Umsetzer",
+  "advancements.energizedpower.fluid_transposer.description": "Stelle einen Flüssigkeits-Umsetzer her.",
 
   "advancements.energizedpower.powered_lamp.title": "Elektrisches Licht",
   "advancements.energizedpower.powered_lamp.description": "Konvertiere Strom zu Licht.",
