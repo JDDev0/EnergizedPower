@@ -20,7 +20,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,8 +27,6 @@ import java.util.List;
 
 public class AdvancedMinecartChargerBlockEntity extends MenuEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage> {
     public static final int MAX_TRANSFER = ModConfigs.COMMON_ADVANCED_MINECART_CHARGER_TRANSFER_RATE.getValue();
-
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
     private boolean hasMinecartOld = true; //Default true (Force first update)
     private boolean hasMinecart = false; //Default false (Force first update)
@@ -90,20 +87,6 @@ public class AdvancedMinecartChargerBlockEntity extends MenuEnergyStorageBlockEn
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedMinecartChargerBlockEntity blockEntity) {

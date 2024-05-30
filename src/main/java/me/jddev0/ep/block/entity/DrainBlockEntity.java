@@ -31,8 +31,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DrainBlockEntity extends MenuFluidStorageBlockEntity<FluidTank> {
-    private LazyOptional<IFluidHandler> lazyFluidStorage = LazyOptional.empty();
-
     private int progress;
     private int maxProgress = ModConfigs.COMMON_DRAIN_DRAIN_DURATION.getValue();
 
@@ -108,20 +106,6 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<FluidTank> {
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyFluidStorage.invalidate();
     }
 
     @Override

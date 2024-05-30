@@ -26,8 +26,6 @@ import org.jetbrains.annotations.Nullable;
 public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<ExtractOnlyEnergyStorage> {
     private final SolarPanelBlock.Tier tier;
 
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
-
     public static BlockEntityType<SolarPanelBlockEntity> getEntityTypeFromTier(SolarPanelBlock.Tier tier) {
         return switch(tier) {
             case TIER_1 -> ModBlockEntities.SOLAR_PANEL_ENTITY_1.get();
@@ -53,8 +51,6 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<Ex
         );
 
         this.tier = tier;
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
     }
 
     @Override
@@ -158,19 +154,5 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<Ex
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
     }
 }

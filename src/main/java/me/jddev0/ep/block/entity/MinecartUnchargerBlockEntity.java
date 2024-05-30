@@ -31,8 +31,6 @@ import java.util.List;
 public class MinecartUnchargerBlockEntity extends MenuEnergyStorageBlockEntity<ExtractOnlyEnergyStorage> {
     public static final int MAX_TRANSFER = ModConfigs.COMMON_MINECART_UNCHARGER_TRANSFER_RATE.getValue();
 
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
-
     private boolean hasMinecartOld = true; //Default true (Force first update)
     private boolean hasMinecart = false; //Default false (Force first update)
 
@@ -91,20 +89,6 @@ public class MinecartUnchargerBlockEntity extends MenuEnergyStorageBlockEntity<E
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, MinecartUnchargerBlockEntity blockEntity) {

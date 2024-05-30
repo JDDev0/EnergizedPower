@@ -24,8 +24,6 @@ import java.util.List;
 public class TransformerBlockEntity extends EnergyStorageBlockEntity<ReceiveAndExtractEnergyStorage> {
     private final TransformerBlock.Tier tier;
     private final TransformerBlock.Type type;
-
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
     private final LazyOptional<IEnergyStorage> lazyEnergyStorageSidedReceive;
     private final LazyOptional<IEnergyStorage> lazyEnergyStorageSidedExtract;
 
@@ -135,20 +133,6 @@ public class TransformerBlockEntity extends EnergyStorageBlockEntity<ReceiveAndE
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, TransformerBlockEntity blockEntity) {

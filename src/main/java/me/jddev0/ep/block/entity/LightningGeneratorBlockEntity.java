@@ -24,8 +24,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class LightningGeneratorBlockEntity extends MenuEnergyStorageBlockEntity<ExtractOnlyEnergyStorage> {
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
-
     public LightningGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.LIGHTING_GENERATOR_ENTITY.get(), blockPos, blockState,
@@ -67,20 +65,6 @@ public class LightningGeneratorBlockEntity extends MenuEnergyStorageBlockEntity<
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, LightningGeneratorBlockEntity blockEntity) {
