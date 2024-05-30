@@ -1,0 +1,34 @@
+{
+  "parent":  "energizedpower:main/basics/extraction_depth_upgrade_module_1",
+  "display": {
+    "icon": {
+      "item": "energizedpower:extraction_depth_upgrade_module_2"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.extraction_depth_upgrade_module_2.title"
+    },
+    "description": {
+      "translate": "advancements.energizedpower.extraction_depth_upgrade_module_2.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "has_the_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [ "energizedpower:extraction_depth_upgrade_module_2" ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}
