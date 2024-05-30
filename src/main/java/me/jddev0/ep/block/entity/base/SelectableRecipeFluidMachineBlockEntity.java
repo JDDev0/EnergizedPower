@@ -11,11 +11,9 @@ import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -38,14 +36,11 @@ import java.util.Optional;
 public abstract class SelectableRecipeFluidMachineBlockEntity
         <F extends IFluidHandler, R extends Recipe<Container>>
         extends WorkerFluidMachineBlockEntity<F, RecipeHolder<R>>
-        implements MenuProvider, ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R> {
-    protected final String machineName;
+        implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R> {
     protected final UpgradableMenuProvider menuProvider;
 
     protected final RecipeType<R> recipeType;
     protected final RecipeSerializer<R> recipeSerializer;
-
-    protected final ContainerData data;
 
     protected ResourceLocation currentRecipeIdForLoad;
     protected RecipeHolder<R> currentRecipe;
@@ -57,16 +52,18 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
                                                    int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
                                                    FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity,
                                                    UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
+        super(type, blockPos, blockState, machineName, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
                 baseEnergyConsumptionPerTick, fluidStorageMethods, baseTankCapacity, upgradeModifierSlots);
 
-        this.machineName = machineName;
         this.menuProvider = menuProvider;
 
         this.recipeType = recipeType;
         this.recipeSerializer = recipeSerializer;
+    }
 
-        data = new ContainerData() {
+    @Override
+    protected ContainerData initContainerData() {
+        return new ContainerData() {
             @Override
             public int get(int index) {
                 return switch(index) {
@@ -116,11 +113,6 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
 
         if(nbt.contains("recipe.id"))
             currentRecipeIdForLoad = ResourceLocation.tryParse(nbt.getString("recipe.id"));
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower." + machineName);
     }
 
     @Nullable

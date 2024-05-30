@@ -16,8 +16,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -39,8 +37,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class ChargerBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
-        implements MenuProvider {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler> {
     public static final float CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
@@ -69,12 +66,13 @@ public class ChargerBlockEntity
                 return energyStorage.receiveEnergy(ChargerBlockEntity.this.energyStorage.getMaxReceive(), true) == 0;
             }));
 
-    protected final ContainerData data;
     private int energyConsumptionLeft = -1;
 
     public ChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.CHARGER_ENTITY.get(), blockPos, blockState,
+
+                "charger",
 
                 ModConfigs.COMMON_CHARGER_CAPACITY.getValue(),
                 ModConfigs.COMMON_CHARGER_TRANSFER_RATE.getValue(),
@@ -83,32 +81,6 @@ public class ChargerBlockEntity
 
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
-
-        data = new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(ChargerBlockEntity.this.energyConsumptionLeft, index);
-                    case 2 -> redstoneMode.ordinal();
-                    case 3 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1 -> {}
-                    case 2 -> ChargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 3 -> ChargerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 4;
-            }
-        };
     }
 
     @Override
@@ -181,8 +153,32 @@ public class ChargerBlockEntity
     }
 
     @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.charger");
+    protected ContainerData initContainerData() {
+        return new ContainerData() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1 -> ByteUtils.get2Bytes(ChargerBlockEntity.this.energyConsumptionLeft, index);
+                    case 2 -> redstoneMode.ordinal();
+                    case 3 -> comparatorMode.ordinal();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1 -> {}
+                    case 2 -> ChargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 3 -> ChargerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 4;
+            }
+        };
     }
 
     @Nullable

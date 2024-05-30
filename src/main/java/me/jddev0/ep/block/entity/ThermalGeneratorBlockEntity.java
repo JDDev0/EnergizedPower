@@ -13,8 +13,6 @@ import me.jddev0.ep.screen.ThermalGeneratorMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -39,19 +37,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ThermalGeneratorBlockEntity
-        extends ConfigurableUpgradableFluidEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, FluidTank>
-        implements MenuProvider {
+        extends ConfigurableUpgradableFluidEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, FluidTank> {
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
     private LazyOptional<IFluidHandler> lazyFluidStorage = LazyOptional.empty();
 
-    protected final ContainerData data;
-
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.THERMAL_GENERATOR_ENTITY.get(), blockPos, blockState,
+
+                "thermal_generator",
 
                 ModConfigs.COMMON_THERMAL_GENERATOR_CAPACITY.getValue(),
                 ModConfigs.COMMON_THERMAL_GENERATOR_TRANSFER_RATE.getValue(),
@@ -61,8 +58,55 @@ public class ThermalGeneratorBlockEntity
 
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
+    }
 
-        data = new ContainerData() {
+    @Override
+    protected ExtractOnlyEnergyStorage initEnergyStorage() {
+        return new ExtractOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+            @Override
+            public int getCapacity() {
+                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            public int getMaxExtract() {
+                return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+
+            @Override
+            protected void onChange() {
+                setChanged();
+                syncEnergyToPlayers(32);
+            }
+        };
+    }
+    @Override
+    protected FluidTank initFluidStorage() {
+        return new FluidTank(baseTankCapacity) {
+            @Override
+            protected void onContentsChanged() {
+                setChanged();
+                syncFluidToPlayers(32);
+            }
+
+            @Override
+            public boolean isFluidValid(FluidStack stack) {
+                if(!super.isFluidValid(stack) || level == null)
+                    return false;
+
+                List<RecipeHolder<ThermalGeneratorRecipe>> recipes = level.getRecipeManager().
+                        getAllRecipesFor(ThermalGeneratorRecipe.Type.INSTANCE);
+                return recipes.stream().map(RecipeHolder::value).map(ThermalGeneratorRecipe::getInput).
+                        anyMatch(inputs -> Arrays.stream(inputs).anyMatch(input -> stack.getFluid() == input));
+            }
+        };
+    }
+
+    @Override
+    protected ContainerData initContainerData() {
+        return new ContainerData() {
             @Override
             public int get(int index) {
                 if(index == 2)
@@ -113,48 +157,13 @@ public class ThermalGeneratorBlockEntity
         };
     }
 
+    @Nullable
     @Override
-    protected ExtractOnlyEnergyStorage initEnergyStorage() {
-        return new ExtractOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
-            @Override
-            public int getCapacity() {
-                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_CAPACITY)));
-            }
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        syncEnergyToPlayer(player);
+        syncFluidToPlayer(player);
 
-            @Override
-            public int getMaxExtract() {
-                return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
-                setChanged();
-                syncEnergyToPlayers(32);
-            }
-        };
-    }
-    @Override
-    protected FluidTank initFluidStorage() {
-        return new FluidTank(baseTankCapacity) {
-            @Override
-            protected void onContentsChanged() {
-                setChanged();
-                syncFluidToPlayers(32);
-            }
-
-            @Override
-            public boolean isFluidValid(FluidStack stack) {
-                if(!super.isFluidValid(stack) || level == null)
-                    return false;
-
-                List<RecipeHolder<ThermalGeneratorRecipe>> recipes = level.getRecipeManager().
-                        getAllRecipesFor(ThermalGeneratorRecipe.Type.INSTANCE);
-                return recipes.stream().map(RecipeHolder::value).map(ThermalGeneratorRecipe::getInput).
-                        anyMatch(inputs -> Arrays.stream(inputs).anyMatch(input -> stack.getFluid() == input));
-            }
-        };
+        return new ThermalGeneratorMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
     @Override
@@ -182,19 +191,6 @@ public class ThermalGeneratorBlockEntity
 
         lazyEnergyStorage.invalidate();
         lazyFluidStorage.invalidate();
-    }
-
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.thermal_generator");
-    }
-
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncEnergyToPlayer(player);
-        syncFluidToPlayer(player);
-
-        return new ThermalGeneratorMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {

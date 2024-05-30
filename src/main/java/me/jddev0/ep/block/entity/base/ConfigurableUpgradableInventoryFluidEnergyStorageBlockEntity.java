@@ -25,11 +25,12 @@ public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEnti
     protected @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
     public ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                                        String machineName,
                                                                         int baseEnergyCapacity, int baseEnergyTransferRate,
                                                                         int slotCount,
                                                                         FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity,
                                                                         UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
+        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
                 baseTankCapacity, upgradeModifierSlots);
     }
 

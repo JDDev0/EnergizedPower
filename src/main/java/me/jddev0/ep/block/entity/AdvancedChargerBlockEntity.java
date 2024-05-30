@@ -16,8 +16,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -39,8 +37,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class AdvancedChargerBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
-        implements MenuProvider {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler> {
     public static final float CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_ADVANCED_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
@@ -69,7 +66,6 @@ public class AdvancedChargerBlockEntity
                 return energyStorage.receiveEnergy(AdvancedChargerBlockEntity.this.energyStorage.getMaxReceive() / 3, true) == 0;
             }));
 
-    protected final ContainerData data;
     private int[] energyConsumptionLeft = new int[] {
             -1, -1, -1
     };
@@ -78,6 +74,8 @@ public class AdvancedChargerBlockEntity
         super(
                 ModBlockEntities.ADVANCED_CHARGER_ENTITY.get(), blockPos, blockState,
 
+                "advanced_charger",
+
                 ModConfigs.COMMON_ADVANCED_CHARGER_CAPACITY_PER_SLOT.getValue() * 3,
                 ModConfigs.COMMON_ADVANCED_CHARGER_TRANSFER_RATE_PER_SLOT.getValue() * 3,
 
@@ -85,34 +83,6 @@ public class AdvancedChargerBlockEntity
 
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
-
-        data = new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(AdvancedChargerBlockEntity.this.energyConsumptionLeft[0], index);
-                    case 2, 3 -> ByteUtils.get2Bytes(AdvancedChargerBlockEntity.this.energyConsumptionLeft[1], index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(AdvancedChargerBlockEntity.this.energyConsumptionLeft[2], index - 4);
-                    case 6 -> redstoneMode.ordinal();
-                    case 7 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2, 3, 4, 5 -> {}
-                    case 6 -> AdvancedChargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 7 -> AdvancedChargerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 8;
-            }
-        };
     }
 
     @Override
@@ -140,7 +110,7 @@ public class AdvancedChargerBlockEntity
 
     @Override
     protected ItemStackHandler initInventoryStorage() {
-        return  new ItemStackHandler(slotCount) {
+        return new ItemStackHandler(slotCount) {
             @Override
             protected void onContentsChanged(int slot) {
                 setChanged();
@@ -185,8 +155,34 @@ public class AdvancedChargerBlockEntity
     }
 
     @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.advanced_charger");
+    protected ContainerData initContainerData() {
+        return new ContainerData() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1 -> ByteUtils.get2Bytes(AdvancedChargerBlockEntity.this.energyConsumptionLeft[0], index);
+                    case 2, 3 -> ByteUtils.get2Bytes(AdvancedChargerBlockEntity.this.energyConsumptionLeft[1], index - 2);
+                    case 4, 5 -> ByteUtils.get2Bytes(AdvancedChargerBlockEntity.this.energyConsumptionLeft[2], index - 4);
+                    case 6 -> redstoneMode.ordinal();
+                    case 7 -> comparatorMode.ordinal();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1, 2, 3, 4, 5 -> {}
+                    case 6 -> AdvancedChargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 7 -> AdvancedChargerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 8;
+            }
+        };
     }
 
     @Nullable

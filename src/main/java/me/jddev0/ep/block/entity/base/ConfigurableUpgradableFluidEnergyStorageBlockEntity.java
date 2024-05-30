@@ -23,10 +23,11 @@ public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
     protected @NotNull ComparatorMode comparatorMode = ComparatorMode.FLUID;
 
     public ConfigurableUpgradableFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                               String machineName,
                                                                int baseEnergyCapacity, int baseEnergyTransferRate,
                                                                FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity,
                                                                UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate,
+        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate,
                 fluidStorageMethods, baseTankCapacity, upgradeModifierSlots);
     }
 

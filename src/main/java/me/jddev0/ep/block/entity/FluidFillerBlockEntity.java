@@ -15,8 +15,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -39,8 +37,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class FluidFillerBlockEntity
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
-        <ReceiveOnlyEnergyStorage, ItemStackHandler, FluidTank>
-        implements MenuProvider {
+        <ReceiveOnlyEnergyStorage, ItemStackHandler, FluidTank> {
     public static final int MAX_FLUID_FILLING_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_FLUID_ITEM_TRANSFER_RATE.getValue();
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
@@ -72,13 +69,14 @@ public class FluidFillerBlockEntity
 
     private LazyOptional<IFluidHandler> lazyFluidStorage = LazyOptional.empty();
 
-    protected final ContainerData data;
     private int fluidFillingLeft = -1;
     private int fluidFillingSumPending = 0;
 
     public FluidFillerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.FLUID_FILLER_ENTITY.get(), blockPos, blockState,
+
+                "fluid_filler",
 
                 ModConfigs.COMMON_FLUID_FILLER_CAPACITY.getValue(),
                 ModConfigs.COMMON_FLUID_FILLER_TRANSFER_RATE.getValue(),
@@ -91,33 +89,6 @@ public class FluidFillerBlockEntity
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
-
-        data = new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(FluidFillerBlockEntity.this.fluidFillingLeft, index);
-                    case 2, 3 -> ByteUtils.get2Bytes(FluidFillerBlockEntity.this.fluidFillingSumPending, index - 2);
-                    case 4 -> redstoneMode.ordinal();
-                    case 5 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2, 3 -> {}
-                    case 4 -> FluidFillerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 5 -> FluidFillerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 6;
-            }
-        };
     }
 
     @Override
@@ -193,8 +164,33 @@ public class FluidFillerBlockEntity
     }
 
     @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.fluid_filler");
+    protected ContainerData initContainerData() {
+        return new ContainerData() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1 -> ByteUtils.get2Bytes(FluidFillerBlockEntity.this.fluidFillingLeft, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(FluidFillerBlockEntity.this.fluidFillingSumPending, index - 2);
+                    case 4 -> redstoneMode.ordinal();
+                    case 5 -> comparatorMode.ordinal();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1, 2, 3 -> {}
+                    case 4 -> FluidFillerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 5 -> FluidFillerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 6;
+            }
+        };
     }
 
     @Nullable

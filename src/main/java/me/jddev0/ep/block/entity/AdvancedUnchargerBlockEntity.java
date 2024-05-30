@@ -14,8 +14,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -37,8 +35,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class AdvancedUnchargerBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, ItemStackHandler>
-        implements MenuProvider {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, ItemStackHandler> {
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
@@ -59,7 +56,6 @@ public class AdvancedUnchargerBlockEntity
             return energyStorage.extractEnergy(AdvancedUnchargerBlockEntity.this.energyStorage.getMaxExtract() / 3, true) == 0;
         }));
 
-    protected final ContainerData data;
     private int[] energyProductionLeft = new int[] {
             -1, -1, -1
     };
@@ -68,6 +64,8 @@ public class AdvancedUnchargerBlockEntity
         super(
                 ModBlockEntities.ADVANCED_UNCHARGER_ENTITY.get(), blockPos, blockState,
 
+                "advanced_uncharger",
+
                 ModConfigs.COMMON_ADVANCED_UNCHARGER_CAPACITY_PER_SLOT.getValue() * 3,
                 ModConfigs.COMMON_ADVANCED_UNCHARGER_TRANSFER_RATE_PER_SLOT.getValue() * 3,
 
@@ -75,34 +73,6 @@ public class AdvancedUnchargerBlockEntity
 
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
-
-        data = new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(AdvancedUnchargerBlockEntity.this.energyProductionLeft[0], index);
-                    case 2, 3 -> ByteUtils.get2Bytes(AdvancedUnchargerBlockEntity.this.energyProductionLeft[1], index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(AdvancedUnchargerBlockEntity.this.energyProductionLeft[2], index - 4);
-                    case 6 -> redstoneMode.ordinal();
-                    case 7 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2, 3, 4, 5 -> {}
-                    case 6 -> AdvancedUnchargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 7 -> AdvancedUnchargerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 8;
-            }
-        };
     }
 
     @Override
@@ -172,8 +142,34 @@ public class AdvancedUnchargerBlockEntity
     }
 
     @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.advanced_uncharger");
+    protected ContainerData initContainerData() {
+        return new ContainerData() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1 -> ByteUtils.get2Bytes(AdvancedUnchargerBlockEntity.this.energyProductionLeft[0], index);
+                    case 2, 3 -> ByteUtils.get2Bytes(AdvancedUnchargerBlockEntity.this.energyProductionLeft[1], index - 2);
+                    case 4, 5 -> ByteUtils.get2Bytes(AdvancedUnchargerBlockEntity.this.energyProductionLeft[2], index - 4);
+                    case 6 -> redstoneMode.ordinal();
+                    case 7 -> comparatorMode.ordinal();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1, 2, 3, 4, 5 -> {}
+                    case 6 -> AdvancedUnchargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 7 -> AdvancedUnchargerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 8;
+            }
+        };
     }
 
     @Nullable
