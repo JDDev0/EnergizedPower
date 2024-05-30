@@ -40,15 +40,20 @@ public class SetWeatherFromWeatherControllerC2SPacket {
             if(!(blockEntity instanceof WeatherControllerBlockEntity weatherControllerBlockEntity))
                 return;
 
-            LazyOptional<IEnergyStorage> energyStorageLazyOptional = weatherControllerBlockEntity.getCapability(ForgeCapabilities.ENERGY, null);
-            if(!energyStorageLazyOptional.isPresent())
+            if(!weatherControllerBlockEntity.hasEnoughEnergy())
                 return;
 
-            IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
-            if(energyStorage.getEnergyStored() < WeatherControllerBlockEntity.CAPACITY)
-                return;
+            if(weatherControllerBlockEntity.hasInfiniteWeatherChangedDuration()) {
+                if(weatherControllerBlockEntity.getSelectedWeatherType() == weatherType) {
+                    weatherControllerBlockEntity.setSelectedWeatherType(-1);
 
-            weatherControllerBlockEntity.clearEnergy();
+                    return;
+                }
+
+                weatherControllerBlockEntity.setSelectedWeatherType(weatherType);
+            }else {
+                weatherControllerBlockEntity.clearEnergy();
+            }
 
             int duration = weatherControllerBlockEntity.getWeatherChangedDuration();
 
