@@ -77,6 +77,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
 
         registry.add(new PressMoldMakerCategory());
         registry.addWorkstations(PressMoldMakerCategory.CATEGORY, EntryStacks.of(ModBlocks.PRESS_MOLD_MAKER_ITEM));
+        registry.addWorkstations(PressMoldMakerCategory.CATEGORY, EntryStacks.of(ModBlocks.AUTO_PRESS_MOLD_MAKER_ITEM));
 
         registry.add(new StoneSolidifierCategory());
         registry.addWorkstations(StoneSolidifierCategory.CATEGORY, EntryStacks.of(ModBlocks.STONE_SOLIDIFIER_ITEM));
@@ -172,6 +173,8 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
                 CrystalGrowthChamberScreen.class, CrystalGrowthChamberCategory.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(7, 34, 18, 18),
                 PressMoldMakerScreen.class, PressMoldMakerCategory.CATEGORY);
+        registerRecipeClickArea(registry, new Rectangle(84, 43, 20, 17),
+                AutoPressMoldMakerScreen.class, PressMoldMakerCategory.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(69, 45, 20, 14),
                 StoneSolidifierScreen.class, StoneSolidifierCategory.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(123, 45, 20, 14),
