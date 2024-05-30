@@ -356,6 +356,12 @@ public final class ModBlocks {
     public static final DeferredItem<Item> FILTRATION_PLANT_ITEM = ModItems.ITEMS.register("filtration_plant",
             () -> new FiltrationPlantBlock.Item(FILTRATION_PLANT.get(), new Item.Properties()));
 
+    public static final DeferredBlock<Block> FLUID_TRANSPOSER = BLOCKS.register("fluid_transposer",
+            () -> new FluidTransposerBlock(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final DeferredItem<Item> FLUID_TRANSPOSER_ITEM = createBlockItem("fluid_transposer",
+            FLUID_TRANSPOSER);
+
     public static final DeferredBlock<Block> FLUID_DRAINER = BLOCKS.register("fluid_drainer",
             () -> new FluidDrainerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
