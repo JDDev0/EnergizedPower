@@ -2,7 +2,7 @@ package me.jddev0.ep.integration.jei;
 
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCurrentRecipeIdC2SPacket;
-import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.IConfigurableMenu;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class SelectableRecipeMachineTransferHandler
-        <M extends AbstractContainerMenu & ConfigurableMenu, R extends Recipe<?>>
+        <M extends AbstractContainerMenu & IConfigurableMenu, R extends Recipe<?>>
         implements IRecipeTransferHandler<M, RecipeHolder<R>> {
     private final IRecipeTransferHandlerHelper helper;
 

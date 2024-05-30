@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen.base;
 
-public interface EnergyStorageConsumerIndicatorBarMenu extends EnergyStorageMenu {
+public interface IEnergyStorageConsumerIndicatorBarMenu extends IEnergyStorageMenu {
     @Override
     int getEnergyIndicatorBarValue();
 

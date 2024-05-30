@@ -6,7 +6,7 @@ import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.*;
 import me.jddev0.ep.screen.base.EnergyStorageContainerScreen;
-import me.jddev0.ep.screen.base.UpgradeModuleMenu;
+import me.jddev0.ep.screen.base.IUpgradeModuleMenu;
 import me.shedaniel.rei.plugincompatibilities.api.REIPluginCompatIgnore;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -207,7 +207,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipeClickArea(DispenserScreen.class, 115, 16, 54, 54, DispenserCategory.TYPE);
     }
 
-    private <T extends EnergyStorageContainerScreen<? extends UpgradeModuleMenu>> void
+    private <T extends EnergyStorageContainerScreen<? extends IUpgradeModuleMenu>> void
     registerRecipeClickArea(IGuiHandlerRegistration registration, final Class<? extends T> containerScreenClass,
                             final int xPos, final int yPos, final int width, final int height,
                             final RecipeType<?>... recipeTypes) {
