@@ -33,7 +33,8 @@ public class FluidPumpMenu extends UpgradableEnergyStorageMenu<FluidPumpBlockEnt
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
-                UpgradeModuleModifier.RANGE
+                UpgradeModuleModifier.RANGE,
+                UpgradeModuleModifier.EXTRACTION_DEPTH
         ), new SimpleContainerData(16));
     }
 
@@ -62,7 +63,7 @@ public class FluidPumpMenu extends UpgradableEnergyStorageMenu<FluidPumpBlockEnt
         });
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
-            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 80 + i * 18, 35, this::isInUpgradeModuleView));
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 71 + i * 18, 35, this::isInUpgradeModuleView));
 
         addDataSlots(this.data);
     }
@@ -124,11 +125,11 @@ public class FluidPumpMenu extends UpgradableEnergyStorageMenu<FluidPumpBlockEnt
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9 + 1, 4 * 9 + 1 + 4, false) &&
+            if(!moveItemStackTo(sourceItem, 4 * 9 + 1, 4 * 9 + 1 + 5, false) &&
                     !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 1 + 4) {
+        }else if(index < 4 * 9 + 1 + 5) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
