@@ -122,6 +122,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("auto_press_mold_maker", () -> BlockEntityType.Builder.of(AutoPressMoldMakerBlockEntity::new,
                     ModBlocks.AUTO_PRESS_MOLD_MAKER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<AutoStonecutterBlockEntity>> AUTO_STONECUTTER_ENTITY =
+            BLOCK_ENTITIES.register("auto_stonecutter", () -> BlockEntityType.Builder.of(AutoStonecutterBlockEntity::new,
+                    ModBlocks.AUTO_STONECUTTER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<PlantGrowthChamberBlockEntity>> PLANT_GROWTH_CHAMBER_ENTITY =
             BLOCK_ENTITIES.register("plant_growth_chamber", () -> BlockEntityType.Builder.of(PlantGrowthChamberBlockEntity::new,
                     ModBlocks.PLANT_GROWTH_CHAMBER.get()).build(null));
