@@ -163,6 +163,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<MetalPressMenu>> METAL_PRESS_MENU = registerMenuType("metal_press",
             MetalPressMenu::new);
 
+    public static final RegistryObject<MenuType<AutoPressMoldMakerMenu>> AUTO_PRESS_MOLD_MAKER_MENU = registerMenuType("auto_press_mold_maker",
+            AutoPressMoldMakerMenu::new);
+
     public static final RegistryObject<MenuType<AssemblingMachineMenu>> ASSEMBLING_MACHINE_MENU = registerMenuType("assembling_machine",
             AssemblingMachineMenu::new);
 
