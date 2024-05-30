@@ -2,7 +2,7 @@
   "parent":  "energizedpower:main/advanced/duration_upgrade_module_5",
   "display": {
     "icon": {
-      "id": "energizedpower:duration_upgrade_module_6"
+      "item": "energizedpower:duration_upgrade_module_6"
     },
     "title": {
       "translate": "advancements.energizedpower.duration_upgrade_module_6.title"

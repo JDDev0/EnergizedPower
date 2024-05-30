@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "s": {
+      "tag": "forge:silicon"
+    },
+    "I": {
+      "tag": "forge:plates/iron"
+    },
+    "C": {
+      "tag": "forge:plates/copper"
+    },
+    "B": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "S": {
+      "item": "minecraft:stonecutter"
+    }
+  },
+  "pattern": [
+    "CSC",
+    "sBs",
+    "ISI"
+  ],
+  "result": {
+    "item": "energizedpower:auto_stonecutter"
+  }
+}

@@ -168,6 +168,9 @@ public final class ModMenuTypes {
     public static final Supplier<MenuType<AutoPressMoldMakerMenu>> AUTO_PRESS_MOLD_MAKER_MENU = registerMenuType("auto_press_mold_maker",
             AutoPressMoldMakerMenu::new);
 
+    public static final Supplier<MenuType<AutoStonecutterMenu>> AUTO_STONECUTTER_MENU = registerMenuType("auto_stonecutter",
+            AutoStonecutterMenu::new);
+
     public static final Supplier<MenuType<AssemblingMachineMenu>> ASSEMBLING_MACHINE_MENU = registerMenuType("assembling_machine",
             AssemblingMachineMenu::new);
 
