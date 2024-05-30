@@ -1,6 +1,5 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.EnergizerBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
@@ -24,6 +23,7 @@ import net.minecraft.nbt.NbtLong;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -185,7 +185,7 @@ public class EnergizerBlockEntity
         if(level.isClient())
             return;
 
-        if(!blockEntity.redstoneMode.isActive(state.get(EnergizerBlock.POWERED)))
+        if(!blockEntity.redstoneMode.isActive(state.get(Properties.POWERED)))
             return;
 
         if(hasRecipe(blockEntity)) {
@@ -204,11 +204,10 @@ public class EnergizerBlockEntity
                 energyConsumptionPerTick = blockEntity.energyConsumptionLeft;
 
             if(energyConsumptionPerTick <= blockEntity.energyStorage.getAmount()) {
-
-                if(!level.getBlockState(blockPos).contains(EnergizerBlock.LIT) || !level.getBlockState(blockPos).get(EnergizerBlock.LIT)) {
-                    blockEntity.hasEnoughEnergy = true;
-                    level.setBlockState(blockPos, state.with(EnergizerBlock.LIT, Boolean.TRUE), 3);
-                }
+                blockEntity.hasEnoughEnergy = true;
+                if(level.getBlockState(blockPos).contains(Properties.LIT) &&
+                        !level.getBlockState(blockPos).get(Properties.LIT)) {
+                    level.setBlockState(blockPos, state.with(Properties.LIT, true), 3);                }
 
                 if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
                     //Reset progress for invalid values
@@ -232,11 +231,18 @@ public class EnergizerBlockEntity
                 markDirty(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughEnergy = false;
-                level.setBlockState(blockPos, state.with(EnergizerBlock.LIT, false), 3);
+                if(level.getBlockState(blockPos).contains(Properties.LIT) &&
+                        level.getBlockState(blockPos).get(Properties.LIT)) {
+                    level.setBlockState(blockPos, state.with(Properties.LIT, false), 3);
+                }
                 markDirty(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);
+            if(level.getBlockState(blockPos).contains(Properties.LIT) &&
+                    level.getBlockState(blockPos).get(Properties.LIT)) {
+                level.setBlockState(blockPos, state.with(Properties.LIT, false), 3);
+            }
             markDirty(level, blockPos, state);
         }
     }
@@ -244,9 +250,7 @@ public class EnergizerBlockEntity
     private void resetProgress(BlockPos blockPos, BlockState state) {
         progress = 0;
         energyConsumptionLeft = -1;
-        hasEnoughEnergy = true;
-
-        world.setBlockState(blockPos, state.with(EnergizerBlock.LIT, false), 3);
+        hasEnoughEnergy = false;
     }
 
     private static void craftItem(BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {
