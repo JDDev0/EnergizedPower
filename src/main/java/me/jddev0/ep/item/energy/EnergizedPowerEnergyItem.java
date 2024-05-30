@@ -15,10 +15,12 @@ import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class EnergizedPowerEnergyItem extends Item {
-    private final Supplier<IEnergizedPowerEnergyStorage> energyStorageProvider;
+    private final Function<ItemStack, IEnergizedPowerEnergyStorage> energyStorageProvider;
+
     protected static int getEnergy(ItemStack itemStack) {
         return itemStack.getCapability(Capabilities.ENERGY).orElse(null).getEnergyStored();
     }
@@ -30,6 +32,10 @@ public class EnergizedPowerEnergyItem extends Item {
     }
 
     public EnergizedPowerEnergyItem(Properties props, Supplier<IEnergizedPowerEnergyStorage> energyStorageProvider) {
+        this(props, stack -> energyStorageProvider.get());
+    }
+
+    public EnergizedPowerEnergyItem(Properties props, Function<ItemStack, IEnergizedPowerEnergyStorage> energyStorageProvider) {
         super(props);
 
         this.energyStorageProvider = energyStorageProvider;
@@ -60,6 +66,6 @@ public class EnergizedPowerEnergyItem extends Item {
 
     @Override
     public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        return new ItemCapabilityEnergy(stack, stack.getTag(), energyStorageProvider.get());
+        return new ItemCapabilityEnergy(stack, stack.getTag(), energyStorageProvider.apply(stack));
     }
 }
