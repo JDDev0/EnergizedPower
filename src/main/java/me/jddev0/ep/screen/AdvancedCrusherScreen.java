@@ -1,27 +1,14 @@
 package me.jddev0.ep.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.minecraftforge.fluids.FluidStack;
-import org.joml.Matrix4f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,76 +33,14 @@ public class AdvancedCrusherScreen
         int y = (height - imageHeight) / 2;
 
         for(int i = 0;i < 2;i++) {
-            renderFluidMeterContent(i, guiGraphics, x, y);
-            renderFluidMeterOverlay(i, guiGraphics, x, y);
+            renderFluidMeterContent(guiGraphics, menu.getFluid(i), menu.getTankCapacity(i), x + (i == 0?44:152), y + 17, 16, 52);
+            renderFluidMeterOverlay(guiGraphics, x, y, i);
         }
 
         renderProgressArrow(guiGraphics, x, y);
     }
 
-    private void renderFluidMeterContent(int tank, GuiGraphics guiGraphics, int x, int y) {
-        RenderSystem.enableBlend();
-        guiGraphics.pose().pushPose();
-
-        guiGraphics.pose().translate(x + (tank == 0?44:152), y + 17, 0);
-
-        renderFluidStack(tank, guiGraphics);
-
-        guiGraphics.pose().popPose();
-        RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
-        RenderSystem.disableBlend();
-    }
-
-    private void renderFluidStack(int tank, GuiGraphics guiGraphics) {
-        FluidStack fluidStack = menu.getFluid(tank);
-        if(fluidStack.isEmpty())
-            return;
-
-        int capacity = menu.getTankCapacity(tank);
-
-        Fluid fluid = fluidStack.getFluid();
-        IClientFluidTypeExtensions fluidTypeExtensions = IClientFluidTypeExtensions.of(fluid);
-        ResourceLocation stillFluidImageId = fluidTypeExtensions.getStillTexture(fluidStack);
-        if(stillFluidImageId == null)
-            stillFluidImageId = new ResourceLocation("air");
-        TextureAtlasSprite stillFluidSprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).
-                apply(stillFluidImageId);
-
-        int fluidColorTint = fluidTypeExtensions.getTintColor(fluidStack);
-
-        int fluidMeterPos = 52 - ((fluidStack.getAmount() <= 0 || capacity == 0)?0:
-                (Math.min(fluidStack.getAmount(), capacity - 1) * 52 / capacity + 1));
-
-        RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
-
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor((fluidColorTint >> 16 & 0xFF) / 255.f,
-                (fluidColorTint >> 8 & 0xFF) / 255.f, (fluidColorTint & 0xFF) / 255.f,
-                (fluidColorTint >> 24 & 0xFF) / 255.f);
-
-        Matrix4f mat = guiGraphics.pose().last().pose();
-
-        for(int yOffset = 52;yOffset > fluidMeterPos;yOffset -= 16) {
-            int height = Math.min(yOffset - fluidMeterPos, 16);
-
-            float u0 = stillFluidSprite.getU0();
-            float u1 = stillFluidSprite.getU1();
-            float v0 = stillFluidSprite.getV0();
-            float v1 = stillFluidSprite.getV1();
-            v0 = v0 - ((16 - height) / 16.f * (v0 - v1));
-
-            Tesselator tesselator = Tesselator.getInstance();
-            BufferBuilder bufferBuilder = tesselator.getBuilder();
-            bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-            bufferBuilder.vertex(mat, 0, yOffset, 0).uv(u0, v1).endVertex();
-            bufferBuilder.vertex(mat, 16, yOffset, 0).uv(u1, v1).endVertex();
-            bufferBuilder.vertex(mat, 16, yOffset - height, 0).uv(u1, v0).endVertex();
-            bufferBuilder.vertex(mat, 0, yOffset - height, 0).uv(u0, v0).endVertex();
-            tesselator.end();
-        }
-    }
-
-    private void renderFluidMeterOverlay(int tank, GuiGraphics guiGraphics, int x, int y) {
+    private void renderFluidMeterOverlay(GuiGraphics guiGraphics, int x, int y, int tank) {
         guiGraphics.blit(TEXTURE, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52);
     }
 
