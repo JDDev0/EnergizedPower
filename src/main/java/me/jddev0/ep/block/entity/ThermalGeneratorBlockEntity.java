@@ -12,7 +12,6 @@ import me.jddev0.ep.recipe.ThermalGeneratorRecipe;
 import me.jddev0.ep.screen.ThermalGeneratorMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.FluidUtils;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
@@ -20,12 +19,9 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -39,15 +35,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ThermalGeneratorBlockEntity
-        extends ConfigurableUpgradableFluidEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleFluidStorage>
-        implements ExtendedScreenHandlerFactory {
+        extends ConfigurableUpgradableFluidEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleFluidStorage> {
     public static final double ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
-
-    protected final PropertyDelegate data;
 
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.THERMAL_GENERATOR_ENTITY, blockPos, blockState,
+
+                "thermal_generator",
 
                 ModConfigs.COMMON_THERMAL_GENERATOR_CAPACITY.getValue(),
                 ModConfigs.COMMON_THERMAL_GENERATOR_TRANSFER_RATE.getValue(),
@@ -57,55 +52,6 @@ public class ThermalGeneratorBlockEntity
 
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
-
-        data = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                if(index == 4)
-                    return redstoneMode.ordinal();
-                else if(index == 5)
-                    return comparatorMode.ordinal();
-
-                if(world == null || index > 3)
-                    return 0;
-
-                List<RecipeEntry<ThermalGeneratorRecipe>> recipes = world.getRecipeManager().listAllOfType(ThermalGeneratorRecipe.Type.INSTANCE);
-
-                long rawProduction = 0;
-                outer:
-                for(RecipeEntry<ThermalGeneratorRecipe> recipe:recipes) {
-                    for(Fluid fluid:recipe.value().getInput()) {
-                        if(fluidStorage.getFluid().getFluid() == fluid) {
-                            rawProduction = recipe.value().getEnergyProduction();
-                            rawProduction = (long)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER);
-
-                            break outer;
-                        }
-                    }
-                }
-                //Calculate real production (raw production is in x E per 1000 mB, use fluid amount without cap)
-                long productionLeft = (long)(rawProduction * fluidStorage.getFluid().getMilliBucketsAmount() / 1000.);
-
-                return switch(index) {
-                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(productionLeft, index);
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2, 3 -> {}
-                    case 4 -> ThermalGeneratorBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 5 -> ThermalGeneratorBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int size() {
-                return 6;
-            }
-        };
     }
 
     @Override
@@ -168,8 +114,55 @@ public class ThermalGeneratorBlockEntity
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.thermal_generator");
+    protected PropertyDelegate initContainerData() {
+        return new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                if(index == 4)
+                    return redstoneMode.ordinal();
+                else if(index == 5)
+                    return comparatorMode.ordinal();
+
+                if(world == null || index > 3)
+                    return 0;
+
+                List<RecipeEntry<ThermalGeneratorRecipe>> recipes = world.getRecipeManager().listAllOfType(ThermalGeneratorRecipe.Type.INSTANCE);
+
+                long rawProduction = 0;
+                outer:
+                for(RecipeEntry<ThermalGeneratorRecipe> recipe:recipes) {
+                    for(Fluid fluid:recipe.value().getInput()) {
+                        if(fluidStorage.getFluid().getFluid() == fluid) {
+                            rawProduction = recipe.value().getEnergyProduction();
+                            rawProduction = (long)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER);
+
+                            break outer;
+                        }
+                    }
+                }
+                //Calculate real production (raw production is in x E per 1000 mB, use fluid amount without cap)
+                long productionLeft = (long)(rawProduction * fluidStorage.getFluid().getMilliBucketsAmount() / 1000.);
+
+                return switch(index) {
+                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(productionLeft, index);
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1, 2, 3 -> {}
+                    case 4 -> ThermalGeneratorBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 5 -> ThermalGeneratorBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                }
+            }
+
+            @Override
+            public int size() {
+                return 6;
+            }
+        };
     }
 
     @Nullable
@@ -179,11 +172,6 @@ public class ThermalGeneratorBlockEntity
         syncFluidToPlayer(player);
 
         return new ThermalGeneratorMenu(id, this, inventory, upgradeModuleInventory, this.data);
-    }
-
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {

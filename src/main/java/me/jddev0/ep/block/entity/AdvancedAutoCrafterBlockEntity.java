@@ -13,7 +13,6 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.ItemStackUtils;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,15 +20,12 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -41,7 +37,7 @@ import java.util.*;
 
 public class AdvancedAutoCrafterBlockEntity
         extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
-        implements ExtendedScreenHandlerFactory, CheckboxUpdate {
+        implements CheckboxUpdate {
     private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
     public final static long ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT.getValue();
@@ -109,8 +105,6 @@ public class AdvancedAutoCrafterBlockEntity
         public void onContentChanged(Inventory container) {}
     };
 
-    protected final PropertyDelegate data;
-
     private final int[] progress = new int[] {
             0, 0, 0
     };
@@ -132,6 +126,8 @@ public class AdvancedAutoCrafterBlockEntity
         super(
                 ModBlockEntities.ADVANCED_AUTO_CRAFTER_ENTITY, blockPos, blockState,
 
+                "advanced_auto_crafter",
+
                 ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_CAPACITY.getValue(),
                 ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_TRANSFER_RATE.getValue(),
 
@@ -144,8 +140,60 @@ public class AdvancedAutoCrafterBlockEntity
 
         for(int i = 0;i < 3;i++)
             patternSlots[i].addListener(updatePatternListener[i]);
+    }
 
-        data = new PropertyDelegate() {
+    @Override
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
+            @Override
+            public long getCapacity() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_CAPACITY)));
+            }
+
+            @Override
+            protected void onFinalCommit() {
+                markDirty();
+                syncEnergyToPlayers(32);
+            }
+        };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0) {
+            @Override
+            public long getMaxInsert() {
+                return Math.max(1, (long)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+        };
+    }
+
+    @Override
+    protected SimpleInventory initInventoryStorage() {
+        return new SimpleInventory(slotCount) {
+            @Override
+            public boolean isValid(int slot, ItemStack stack) {
+                if(slot < 0 || slot >= 27)
+                    return super.isValid(slot, stack);
+
+                //Slot 0, 1, 2, 3, and 4 are for output items only
+                return slot >= 5;
+            }
+
+            @Override
+            public void markDirty() {
+                super.markDirty();
+
+                AdvancedAutoCrafterBlockEntity.this.markDirty();
+            }
+        };
+    }
+
+    @Override
+    protected PropertyDelegate initContainerData() {
+        return new PropertyDelegate() {
             @Override
             public int get(int index) {
                 return switch(index) {
@@ -211,71 +259,12 @@ public class AdvancedAutoCrafterBlockEntity
         };
     }
 
-    @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.advanced_auto_crafter");
-    }
-
-    @Override
-    protected EnergizedPowerEnergyStorage initEnergyStorage() {
-        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
-            @Override
-            public long getCapacity() {
-                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_CAPACITY)));
-            }
-
-            @Override
-            protected void onFinalCommit() {
-                markDirty();
-                syncEnergyToPlayers(32);
-            }
-        };
-    }
-
-    @Override
-    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
-        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0) {
-            @Override
-            public long getMaxInsert() {
-                return Math.max(1, (long)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-        };
-    }
-
-    @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
-            @Override
-            public boolean isValid(int slot, ItemStack stack) {
-                if(slot < 0 || slot >= 27)
-                    return super.isValid(slot, stack);
-
-                //Slot 0, 1, 2, 3, and 4 are for output items only
-                return slot >= 5;
-            }
-
-            @Override
-            public void markDirty() {
-                super.markDirty();
-
-                AdvancedAutoCrafterBlockEntity.this.markDirty();
-            }
-        };
-    }
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         syncEnergyToPlayer(player);
 
         return new AdvancedAutoCrafterMenu(id, this, inventory, itemHandler, upgradeModuleInventory, patternSlots, patternResultSlots, data);
-    }
-
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
     }
 
     @Override

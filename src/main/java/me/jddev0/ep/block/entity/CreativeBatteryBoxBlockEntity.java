@@ -1,9 +1,8 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.energy.InfinityEnergyStorage;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
@@ -11,11 +10,8 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -25,11 +21,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
-public class CreativeBatteryBoxBlockEntity
-        extends EnergyStorageBlockEntity<InfinityEnergyStorage>
-        implements ExtendedScreenHandlerFactory, CheckboxUpdate {
-    protected final PropertyDelegate data;
-
+public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<InfinityEnergyStorage>
+        implements CheckboxUpdate {
     private boolean energyProduction = true;
     private boolean energyConsumption;
 
@@ -37,10 +30,35 @@ public class CreativeBatteryBoxBlockEntity
         super(
                 ModBlockEntities.CREATIVE_BATTERY_BOX_ENTITY, blockPos, blockState,
 
+                "creative_battery_box",
+
                 Long.MAX_VALUE, Long.MAX_VALUE
         );
+    }
 
-        data = new PropertyDelegate() {
+    @Override
+    protected InfinityEnergyStorage initEnergyStorage() {
+        return new InfinityEnergyStorage() {
+            @Override
+            public long extract(long maxAmount, TransactionContext transaction) {
+                return energyProduction?super.extract(maxAmount, transaction):0;
+            }
+
+            @Override
+            public long insert(long maxAmount, TransactionContext transaction) {
+                return energyConsumption?super.insert(maxAmount, transaction):0;
+            }
+        };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, Long.MAX_VALUE, Long.MAX_VALUE);
+    }
+
+    @Override
+    protected PropertyDelegate initContainerData() {
+        return new PropertyDelegate() {
             @Override
             public int get(int index) {
                 return switch(index) {
@@ -65,40 +83,10 @@ public class CreativeBatteryBoxBlockEntity
         };
     }
 
-    @Override
-    protected InfinityEnergyStorage initEnergyStorage() {
-        return new InfinityEnergyStorage() {
-            @Override
-            public long extract(long maxAmount, TransactionContext transaction) {
-                return energyProduction?super.extract(maxAmount, transaction):0;
-            }
-
-            @Override
-            public long insert(long maxAmount, TransactionContext transaction) {
-                return energyConsumption?super.insert(maxAmount, transaction):0;
-            }
-        };
-    }
-
-    @Override
-    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
-        return new EnergizedPowerLimitingEnergyStorage(energyStorage, Long.MAX_VALUE, Long.MAX_VALUE);
-    }
-
-    @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.creative_battery_box");
-    }
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         return new CreativeBatteryBoxMenu(id, this, inventory, data);
-    }
-
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
     }
 
     @Override

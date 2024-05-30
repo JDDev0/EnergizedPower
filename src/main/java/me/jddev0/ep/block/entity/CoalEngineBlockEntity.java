@@ -10,7 +10,6 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.CoalEngineMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -21,11 +20,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtInt;
 import net.minecraft.nbt.NbtLong;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -39,8 +35,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CoalEngineBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
-        implements ExtendedScreenHandlerFactory {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory> {
     public static final double ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
@@ -53,7 +48,6 @@ public class CoalEngineBlockEntity
         return burnTime == null || burnTime <= 0;
     });
 
-    protected final PropertyDelegate data;
     private int progress;
     private int maxProgress;
     private long energyProductionLeft = -1;
@@ -63,6 +57,8 @@ public class CoalEngineBlockEntity
         super(
                 ModBlockEntities.COAL_ENGINE_ENTITY, blockPos, blockState,
 
+                "coal_engine",
+
                 ModConfigs.COMMON_COAL_ENGINE_CAPACITY.getValue(),
                 ModConfigs.COMMON_COAL_ENGINE_TRANSFER_RATE.getValue(),
 
@@ -70,41 +66,6 @@ public class CoalEngineBlockEntity
 
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
-
-        data = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.progress, index);
-                    case 2, 3 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.maxProgress, index - 2);
-                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.energyProductionLeft, index - 4);
-                    case 8 -> hasEnoughCapacityForProduction?1:0;
-                    case 9 -> redstoneMode.ordinal();
-                    case 10 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1 -> CoalEngineBlockEntity.this.progress = ByteUtils.with2Bytes(
-                            CoalEngineBlockEntity.this.progress, (short)value, index
-                    );
-                    case 2, 3 -> CoalEngineBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
-                            CoalEngineBlockEntity.this.maxProgress, (short)value, index - 2
-                    );
-                    case 4, 5, 6, 7, 8 -> {}
-                    case 9 -> CoalEngineBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 10 -> CoalEngineBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int size() {
-                return 11;
-            }
-        };
     }
 
     @Override
@@ -158,8 +119,41 @@ public class CoalEngineBlockEntity
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.coal_engine");
+    protected PropertyDelegate initContainerData() {
+        return new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.progress, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.maxProgress, index - 2);
+                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(CoalEngineBlockEntity.this.energyProductionLeft, index - 4);
+                    case 8 -> hasEnoughCapacityForProduction?1:0;
+                    case 9 -> redstoneMode.ordinal();
+                    case 10 -> comparatorMode.ordinal();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1 -> CoalEngineBlockEntity.this.progress = ByteUtils.with2Bytes(
+                            CoalEngineBlockEntity.this.progress, (short)value, index
+                    );
+                    case 2, 3 -> CoalEngineBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
+                            CoalEngineBlockEntity.this.maxProgress, (short)value, index - 2
+                    );
+                    case 4, 5, 6, 7, 8 -> {}
+                    case 9 -> CoalEngineBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 10 -> CoalEngineBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                }
+            }
+
+            @Override
+            public int size() {
+                return 11;
+            }
+        };
     }
 
     @Nullable
@@ -168,11 +162,6 @@ public class CoalEngineBlockEntity
         syncEnergyToPlayer(player);
         
         return new CoalEngineMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
-    }
-
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
     }
 
     @Override

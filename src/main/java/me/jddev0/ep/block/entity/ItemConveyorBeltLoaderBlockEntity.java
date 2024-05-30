@@ -2,11 +2,10 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltLoaderBlock;
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.block.entity.base.InventoryStorageBlockEntity;
-import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.ItemConveyorBeltLoaderMenu;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -18,18 +17,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltLoaderBlockEntity
-        extends InventoryStorageBlockEntity<SimpleInventory>
-        implements ExtendedScreenHandlerFactory {
+        extends MenuInventoryStorageBlockEntity<SimpleInventory> {
     private static final int TICKS_PER_ITEM = ModConfigs.COMMON_ITEM_CONVEYOR_BELT_LOADER_TICKS_PER_ITEM.getValue();
 
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 0);
@@ -37,6 +32,8 @@ public class ItemConveyorBeltLoaderBlockEntity
     public ItemConveyorBeltLoaderBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.ITEM_CONVEYOR_BELT_LOADER_ENTITY, blockPos, blockState,
+
+                "item_conveyor_belt_loader",
 
                 1
         );
@@ -68,20 +65,10 @@ public class ItemConveyorBeltLoaderBlockEntity
         };
     }
 
-    @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.item_conveyor_belt_loader");
-    }
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         return new ItemConveyorBeltLoaderMenu(id, this, inventory, itemHandler);
-    }
-
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
     }
 
     public int getRedstoneOutput() {
