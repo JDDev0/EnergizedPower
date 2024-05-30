@@ -989,6 +989,9 @@
   "advancements.energizedpower.inventory_charger.title": "Lokales Laden",
   "advancements.energizedpower.inventory_charger.description": "Lade Energie-Items in deinem Inventar mit Batterien.",
 
+  "advancements.energizedpower.inventory_teleporter.title": "Tragbarer Teleporter",
+  "advancements.energizedpower.inventory_teleporter.description": "Stelle einen Inventar Teleporter her.",
+
   "advancements.energizedpower.advanced_charger.title": "Paralleles Laden",
   "advancements.energizedpower.advanced_charger.description": "Lade Energie-Items in parallel.",
 
