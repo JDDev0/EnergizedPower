@@ -18,25 +18,31 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public class WeatherControllerMenu extends AbstractContainerMenu implements EnergyStorageMenu {
     private final WeatherControllerBlockEntity blockEntity;
     private final Level level;
+    private final ContainerData data;
     private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public WeatherControllerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
                 UpgradeModuleModifier.DURATION
-        ));
+        ), new SimpleContainerData(2));
     }
 
-    public WeatherControllerMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory) {
+    public WeatherControllerMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
+                                 ContainerData data) {
         super(ModMenuTypes.WEATHER_CONTROLLER_MENU.get(), id);
 
         checkContainerSize(upgradeModuleInventory, 1);
+        checkContainerDataCount(data, 2);
         this.blockEntity = (WeatherControllerBlockEntity)blockEntity;
         this.level = inv.player.level();
+        this.data = data;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
+
+        addDataSlots(this.data);
 
         upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
         addDataSlots(upgradeModuleViewContainerData);
@@ -66,6 +72,14 @@ public class WeatherControllerMenu extends AbstractContainerMenu implements Ener
     @Override
     public int getCapacity() {
         return blockEntity.getCapacity();
+    }
+
+    public int getSelectedWeatherType() {
+        return data.get(0);
+    }
+
+    public boolean hasEnoughEnergy() {
+        return data.get(1) != 0;
     }
 
     @Override

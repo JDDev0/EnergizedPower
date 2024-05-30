@@ -122,6 +122,7 @@
   "item.energizedpower.duration_upgrade_module_3": "Duration Upgrade Module (Tier III)",
   "item.energizedpower.duration_upgrade_module_4": "Duration Upgrade Module (Tier IV)",
   "item.energizedpower.duration_upgrade_module_5": "Duration Upgrade Module (Tier V)",
+  "item.energizedpower.duration_upgrade_module_6": "Duration Upgrade Module (Tier VI)",
 
   "item.energizedpower.range_upgrade_module_1": "Range Upgrade Module (Tier I)",
   "item.energizedpower.range_upgrade_module_2": "Range Upgrade Module (Tier II)",
@@ -822,6 +823,9 @@
 
   "advancements.energizedpower.duration_upgrade_module_5.title": "Duration V",
   "advancements.energizedpower.duration_upgrade_module_5.description": "Craft a Duration Upgrade Module (Tier V).",
+
+  "advancements.energizedpower.duration_upgrade_module_6.title": "Duration VI",
+  "advancements.energizedpower.duration_upgrade_module_6.description": "Craft a Duration Upgrade Module (Tier VI).",
 
   "advancements.energizedpower.range_upgrade_module_1.title": "Range I",
   "advancements.energizedpower.range_upgrade_module_1.description": "Craft a Range Upgrade Module (Tier I).",
