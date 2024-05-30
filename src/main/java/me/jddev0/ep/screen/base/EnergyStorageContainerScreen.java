@@ -22,10 +22,10 @@ import java.util.Optional;
 public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMenu & EnergyStorageMenu> extends AbstractContainerScreen<T> {
     protected final ResourceLocation TEXTURE;
 
-    protected int energyMeterX;
-    protected int energyMeterY;
-    protected int energyMeterWidth;
-    protected int energyMeterHeight;
+    protected int energyMeterX = 8;
+    protected int energyMeterY = 17;
+    protected int energyMeterWidth = 16;
+    protected int energyMeterHeight = 52;
 
     protected final String energyIndicatorBarTooltipComponentID;
 
@@ -50,11 +50,6 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
         super(menu, inventory, titleComponent);
 
         this.TEXTURE = texture;
-
-        this.energyMeterX = 8;
-        this.energyMeterY = 17;
-        this.energyMeterWidth = 16;
-        this.energyMeterHeight = 52;
 
         this.energyIndicatorBarTooltipComponentID = energyIndicatorBarTooltipComponentID;
     }
