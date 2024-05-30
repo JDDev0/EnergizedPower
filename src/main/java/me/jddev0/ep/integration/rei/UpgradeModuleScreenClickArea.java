@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.screen.AbstractGenericEnergyStorageHandledScreen;
 import me.jddev0.ep.screen.UpgradeModuleMenu;
+import me.jddev0.ep.screen.base.EnergyStorageContainerScreen;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.registry.screen.ClickArea;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
@@ -9,11 +9,10 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 
 import java.util.Arrays;
 
-public record UpgradeModuleScreenClickArea<T extends AbstractGenericEnergyStorageHandledScreen<? extends UpgradeModuleMenu>>
+public record UpgradeModuleScreenClickArea<T extends EnergyStorageContainerScreen<? extends UpgradeModuleMenu>>
         (Class<? extends T> containerScreenClass, Rectangle area, CategoryIdentifier<?>... recipeTypes)
         implements ClickArea<T> {
-
-    public static <T extends AbstractGenericEnergyStorageHandledScreen<? extends UpgradeModuleMenu>> UpgradeModuleScreenClickArea<T>
+    public static <T extends EnergyStorageContainerScreen<? extends UpgradeModuleMenu>> UpgradeModuleScreenClickArea<T>
     createRecipeClickArea(final Class<? extends T> containerScreenClass, Rectangle area, CategoryIdentifier<?>... recipeTypes) {
         return new UpgradeModuleScreenClickArea<>(containerScreenClass, area, recipeTypes);
     }

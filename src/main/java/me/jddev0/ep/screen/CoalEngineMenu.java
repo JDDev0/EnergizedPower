@@ -9,6 +9,9 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
+import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.EnergyStorageProducerIndicatorBarMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.entity.BlockEntity;
@@ -25,7 +28,7 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
 public class CoalEngineMenu extends AbstractEnergizedPowerScreenHandler
-        implements EnergyStorageProducerIndicatorBarMenu {
+        implements EnergyStorageProducerIndicatorBarMenu, ConfigurableMenu {
     private final CoalEngineBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -130,10 +133,12 @@ public class CoalEngineMenu extends AbstractEnergizedPowerScreenHandler
         return (maxProgress == 0 || progress == 0)?0:(progress * progressFlameSize / maxProgress);
     }
 
+    @Override
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(9));
     }
 
+    @Override
     public ComparatorMode getComparatorMode() {
         return ComparatorMode.fromIndex(data.get(10));
     }
@@ -191,6 +196,7 @@ public class CoalEngineMenu extends AbstractEnergizedPowerScreenHandler
         }
     }
 
+    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
     }

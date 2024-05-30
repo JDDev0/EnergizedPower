@@ -9,6 +9,9 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
+import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.entity.BlockEntity;
@@ -25,7 +28,7 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
 public class AdvancedPoweredFurnaceMenu extends AbstractEnergizedPowerScreenHandler
-        implements EnergyStorageConsumerIndicatorBarMenu {
+        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
     private final AdvancedPoweredFurnaceBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -186,10 +189,12 @@ public class AdvancedPoweredFurnaceMenu extends AbstractEnergizedPowerScreenHand
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
     }
 
+    @Override
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(27));
     }
 
+    @Override
     public ComparatorMode getComparatorMode() {
         return ComparatorMode.fromIndex(data.get(28));
     }
@@ -248,6 +253,7 @@ public class AdvancedPoweredFurnaceMenu extends AbstractEnergizedPowerScreenHand
         }
     }
 
+    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
     }

@@ -10,6 +10,9 @@ import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
+import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
+import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,7 +30,8 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class AutoPressMoldMakerMenu extends AbstractEnergizedPowerScreenHandler implements EnergyStorageConsumerIndicatorBarMenu {
+public class AutoPressMoldMakerMenu extends AbstractEnergizedPowerScreenHandler
+        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
     private final AutoPressMoldMakerBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -146,10 +150,12 @@ public class AutoPressMoldMakerMenu extends AbstractEnergizedPowerScreenHandler 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
     }
 
+    @Override
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(9));
     }
 
+    @Override
     public ComparatorMode getComparatorMode() {
         return ComparatorMode.fromIndex(data.get(10));
     }
@@ -208,6 +214,7 @@ public class AutoPressMoldMakerMenu extends AbstractEnergizedPowerScreenHandler 
         }
     }
 
+    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
     }

@@ -1,4 +1,4 @@
-package me.jddev0.ep.screen;
+package me.jddev0.ep.screen.base;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
-public abstract class AbstractGenericEnergyStorageHandledScreen<T extends ScreenHandler & EnergyStorageMenu> extends HandledScreen<T> {
+public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & EnergyStorageMenu> extends HandledScreen<T> {
     protected final Identifier TEXTURE;
     protected final int energyMeterX;
     protected final int energyMeterY;
@@ -28,33 +28,33 @@ public abstract class AbstractGenericEnergyStorageHandledScreen<T extends Screen
 
     protected final String energyIndicatorBarTooltipComponentID;
 
-    public AbstractGenericEnergyStorageHandledScreen(T menu, PlayerInventory inventory, Text component) {
-        this(menu, inventory, component, null);
+    public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent) {
+        this(menu, inventory, titleComponent, null);
     }
 
-    public AbstractGenericEnergyStorageHandledScreen(T menu, PlayerInventory inventory, Text titleComponent,
-                                                     String energyIndicatorBarTooltipComponentID) {
+    public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
+                                        String energyIndicatorBarTooltipComponentID) {
         this(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID,
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/generic_energy.png"),
                 80, 17);
     }
 
-    public AbstractGenericEnergyStorageHandledScreen(T menu, PlayerInventory inventory, Text titleComponent,
-                                                     Identifier texture, int energyMeterX, int energyMeterY) {
+    public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
+                                        Identifier texture, int energyMeterX, int energyMeterY) {
         this(menu, inventory, titleComponent, null, texture, energyMeterX, energyMeterY);
     }
 
-    public AbstractGenericEnergyStorageHandledScreen(T menu, PlayerInventory inventory, Text titleComponent,
-                                                     String energyIndicatorBarTooltipComponentID,
-                                                     Identifier texture, int energyMeterX, int energyMeterY) {
+    public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
+                                        String energyIndicatorBarTooltipComponentID,
+                                        Identifier texture, int energyMeterX, int energyMeterY) {
         this(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, texture,
                 energyMeterX, energyMeterY, 16, 52);
     }
 
-    public AbstractGenericEnergyStorageHandledScreen(T menu, PlayerInventory inventory, Text titleComponent,
-                                                     String energyIndicatorBarTooltipComponentID,
-                                                     Identifier texture, int energyMeterX, int energyMeterY,
-                                                     int energyMeterWidth, int energyMeterHeight) {
+    public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
+                                        String energyIndicatorBarTooltipComponentID,
+                                        Identifier texture, int energyMeterX, int energyMeterY,
+                                        int energyMeterWidth, int energyMeterHeight) {
         super(menu, inventory, titleComponent);
 
         this.TEXTURE = texture;
@@ -106,11 +106,11 @@ public abstract class AbstractGenericEnergyStorageHandledScreen<T extends Screen
         super.drawMouseoverTooltip(drawContext, mouseX, mouseY);
 
         if(!handler.isInUpgradeModuleView()) {
-            if (isPointWithinBounds(energyMeterX, energyMeterY, energyMeterWidth, energyMeterHeight, mouseX, mouseY)) {
+            if(isPointWithinBounds(energyMeterX, energyMeterY, energyMeterWidth, energyMeterHeight, mouseX, mouseY)) {
                 List<Text> components = new ArrayList<>(2);
                 components.add(Text.translatable("tooltip.energizedpower.energy_meter.content.txt",
                         EnergyUtils.getEnergyWithPrefix(handler.getEnergy()), EnergyUtils.getEnergyWithPrefix(handler.getCapacity())));
-                if (handler.getEnergyIndicatorBarValue() > 0 && energyIndicatorBarTooltipComponentID != null) {
+                if(handler.getEnergyIndicatorBarValue() > 0 && energyIndicatorBarTooltipComponentID != null) {
                     components.add(Text.translatable(energyIndicatorBarTooltipComponentID,
                             EnergyUtils.getEnergyWithPrefix(handler.getEnergyIndicatorBarValue())).formatted(Formatting.YELLOW));
                 }

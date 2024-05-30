@@ -1,6 +1,7 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
