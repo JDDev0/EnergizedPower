@@ -3,23 +3,17 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.HeatGeneratorBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
-import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.screen.base.EnergyStorageMenu;
+import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class HeatGeneratorMenu extends AbstractContainerMenu implements EnergyStorageMenu {
-    private final HeatGeneratorBlockEntity blockEntity;
-    private final Level level;
-    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
-
+public class HeatGeneratorMenu extends UpgradableEnergyStorageMenu<HeatGeneratorBlockEntity> {
     public HeatGeneratorMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY
@@ -27,45 +21,16 @@ public class HeatGeneratorMenu extends AbstractContainerMenu implements EnergySt
     }
 
     public HeatGeneratorMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory) {
-        super(ModMenuTypes.HEAT_GENERATOR_MENU.get(), id);
+        super(
+                ModMenuTypes.HEAT_GENERATOR_MENU.get(), id,
 
-        checkContainerSize(upgradeModuleInventory, 1);
-        this.blockEntity = (HeatGeneratorBlockEntity)blockEntity;
-        this.level = inv.player.level();
+                inv, blockEntity,
+                ModBlocks.HEAT_GENERATOR.get(),
 
-        addPlayerInventory(inv);
-        addPlayerHotbar(inv);
+                upgradeModuleInventory, 1
+        );
 
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
-
-        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
-        addDataSlots(upgradeModuleViewContainerData);
-    }
-
-    @Override
-    public boolean isInUpgradeModuleView() {
-        return upgradeModuleViewContainerData.isInUpgradeModuleView();
-    }
-
-    @Override
-    public boolean clickMenuButton(Player player, int index) {
-        if(index == 0) {
-            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
-
-            broadcastChanges();
-        }
-
-        return false;
-    }
-
-    @Override
-    public int getEnergy() {
-        return blockEntity.getEnergy();
-    }
-
-    @Override
-    public int getCapacity() {
-        return blockEntity.getCapacity();
     }
 
     @Override
@@ -99,28 +64,5 @@ public class HeatGeneratorMenu extends AbstractContainerMenu implements EnergySt
         sourceSlot.onTake(player, sourceItem);
 
         return sourceItemCopy;
-    }
-
-    @Override
-    public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, ModBlocks.HEAT_GENERATOR.get());
-    }
-
-    private void addPlayerInventory(Inventory playerInventory) {
-        for(int i = 0;i < 3;i++) {
-            for(int j = 0;j < 9;j++) {
-                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
-    }
-
-    private void addPlayerHotbar(Inventory playerInventory) {
-        for(int i = 0;i < 9;i++) {
-            addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
-        }
-    }
-
-    public BlockEntity getBlockEntity() {
-        return blockEntity;
     }
 }

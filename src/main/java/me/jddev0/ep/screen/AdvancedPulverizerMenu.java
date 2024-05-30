@@ -3,31 +3,27 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AdvancedPulverizerBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
-import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.screen.base.ConfigurableMenu;
-import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.IConfigurableMenu;
+import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class AdvancedPulverizerMenu extends AbstractContainerMenu
-        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
-    private final AdvancedPulverizerBlockEntity blockEntity;
-    private final Level level;
+public class AdvancedPulverizerMenu extends UpgradableEnergyStorageMenu<AdvancedPulverizerBlockEntity>
+        implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
     private final ContainerData data;
-    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public AdvancedPulverizerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
@@ -39,16 +35,17 @@ public class AdvancedPulverizerMenu extends AbstractContainerMenu
 
     public AdvancedPulverizerMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                                   ContainerData data) {
-        super(ModMenuTypes.ADVANCED_PULVERIZER_MENU.get(), id);
+        super(
+                ModMenuTypes.ADVANCED_PULVERIZER_MENU.get(), id,
 
-        checkContainerSize(upgradeModuleInventory, 3);
+                inv, blockEntity,
+                ModBlocks.ADVANCED_PULVERIZER.get(),
+
+                upgradeModuleInventory, 3
+        );
+
         checkContainerDataCount(data, 9);
-        this.blockEntity = (AdvancedPulverizerBlockEntity)blockEntity;
-        this.level = inv.player.level();
         this.data = data;
-
-        addPlayerInventory(inv);
-        addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
             addSlot(new SlotItemHandler(itemHandler, 0, 66, 35) {
@@ -75,35 +72,6 @@ public class AdvancedPulverizerMenu extends AbstractContainerMenu
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
 
         addDataSlots(this.data);
-
-        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
-        addDataSlots(upgradeModuleViewContainerData);
-    }
-
-    @Override
-    public boolean isInUpgradeModuleView() {
-        return upgradeModuleViewContainerData.isInUpgradeModuleView();
-    }
-
-    @Override
-    public boolean clickMenuButton(Player player, int index) {
-        if(index == 0) {
-            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
-
-            broadcastChanges();
-        }
-
-        return false;
-    }
-
-    @Override
-    public int getEnergy() {
-        return blockEntity.getEnergy();
-    }
-
-    @Override
-    public int getCapacity() {
-        return blockEntity.getCapacity();
     }
 
     @Override
@@ -181,29 +149,5 @@ public class AdvancedPulverizerMenu extends AbstractContainerMenu
         sourceSlot.onTake(player, sourceItem);
 
         return sourceItemCopy;
-    }
-
-    @Override
-    public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, ModBlocks.ADVANCED_PULVERIZER.get());
-    }
-
-    private void addPlayerInventory(Inventory playerInventory) {
-        for(int i = 0;i < 3;i++) {
-            for(int j = 0;j < 9;j++) {
-                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
-    }
-
-    private void addPlayerHotbar(Inventory playerInventory) {
-        for(int i = 0;i < 9;i++) {
-            addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
-        }
-    }
-
-    @Override
-    public BlockEntity getBlockEntity() {
-        return blockEntity;
     }
 }

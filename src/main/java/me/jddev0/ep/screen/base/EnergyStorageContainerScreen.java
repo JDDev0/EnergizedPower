@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
-public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMenu & EnergyStorageMenu> extends AbstractContainerScreen<T> {
+public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMenu & IEnergyStorageMenu> extends AbstractContainerScreen<T> {
     protected final ResourceLocation TEXTURE;
 
     protected int energyMeterX = 8;

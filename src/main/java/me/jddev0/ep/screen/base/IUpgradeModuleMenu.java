@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen.base;
 
-public interface UpgradeModuleMenu {
+public interface IUpgradeModuleMenu {
     default boolean isInUpgradeModuleView() {
         return false;
     }

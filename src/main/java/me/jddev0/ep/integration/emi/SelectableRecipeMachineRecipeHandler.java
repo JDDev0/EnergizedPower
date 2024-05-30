@@ -7,14 +7,14 @@ import dev.emi.emi.api.recipe.handler.EmiCraftContext;
 import dev.emi.emi.api.recipe.handler.EmiRecipeHandler;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCurrentRecipeIdC2SPacket;
-import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.IConfigurableMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 
 import java.util.ArrayList;
 
-public class SelectableRecipeMachineRecipeHandler<M extends AbstractContainerMenu & ConfigurableMenu>
+public class SelectableRecipeMachineRecipeHandler<M extends AbstractContainerMenu & IConfigurableMenu>
         implements EmiRecipeHandler<M> {
     private final EmiRecipeCategory recipeCategory;
 
