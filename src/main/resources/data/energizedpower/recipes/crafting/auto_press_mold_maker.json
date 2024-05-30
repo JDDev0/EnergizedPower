@@ -2,14 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "S": {
-      "tag": "forge:silicon"
-    },
     "I": {
-      "tag": "forge:plates/iron"
+      "tag": "forge:gears/iron"
     },
-    "C": {
-      "tag": "forge:plates/copper"
+    "i": {
+      "tag": "forge:rods/iron"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
@@ -19,8 +16,8 @@
     }
   },
   "pattern": [
-    "CPC",
-    "SBS",
+    "IPI",
+    "iBi",
     "IPI"
   ],
   "result": {
