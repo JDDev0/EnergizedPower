@@ -139,6 +139,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<InventoryChargerMenu>> INVENTORY_CHARGER_MENU = registerMenuType("inventory_charger",
             InventoryChargerMenu::new);
 
+    public static final RegistryObject<MenuType<InventoryTeleporterMenu>> INVENTORY_TELEPORTER_MENU = registerMenuType("inventory_teleporter",
+            InventoryTeleporterMenu::new);
+
     public static final RegistryObject<MenuType<MinecartBatteryBoxMenu>> MINECART_BATTERY_BOX_MENU = registerMenuType("minecart_battery_box",
             MinecartBatteryBoxMenu::new);
     public static final RegistryObject<MenuType<MinecartAdvancedBatteryBoxMenu>> MINECART_ADVANCED_BATTERY_BOX_MENU = registerMenuType("minecart_advanced_battery_box",

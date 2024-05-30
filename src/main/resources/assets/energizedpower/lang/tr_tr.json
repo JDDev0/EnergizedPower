@@ -90,8 +90,8 @@
   "tooltip.energizedpower.teleporter_matrix.status.unlinked": "Bağlanmamış",
   "tooltip.energizedpower.teleporter_matrix.location": "Konum: ",
   "tooltip.energizedpower.teleporter_matrix.dimension": "Boyut: ",
-  "tooltip.energizedpower.teleporter_matrix.txt.shift.1": "Bir Işınlayıcıya shift + sol tıklayarak bağlanıldı.",
-  "tooltip.energizedpower.teleporter_matrix.txt.shift.2": "Hava sağ tık ile silin.",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.1": "Link by shift + right-clicking a Teleporter.",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.2": "Unlink by right-clicking in the air.",
 
   "item.energizedpower.teleporter_processing_unit": "Işınlayıcı İşlemci Birimi",
 
@@ -149,6 +149,12 @@
   "item.energizedpower.inventory_charger": "Envanter Şarjı",
   "container.energizedpower.inventory_charger": "Envantör Şarjı",
   "tooltip.energizedpower.inventory_charger.txt.shift.1": "Bu öğeyi havada kullanarak bu öğenin envanterini açın",
+
+  "item.energizedpower.inventory_teleporter": "Inventory Teleporter",
+  "container.energizedpower.inventory_teleporter": "Inventory Teleporter",
+
+  "tooltip.energizedpower.inventory_teleporter.txt.shift.1": "Open the inventory by shift + right-clicking in the air.",
+  "tooltip.energizedpower.inventory_teleporter.txt.shift.2": "Teleport by right-clicking in the air.",
 
   "item.energizedpower.battery_1": "Batarya (Seviye I)",
   "item.energizedpower.battery_2": "Batarya (Seviye II)",

@@ -90,8 +90,8 @@
   "tooltip.energizedpower.teleporter_matrix.status.unlinked": "Unlinked",
   "tooltip.energizedpower.teleporter_matrix.location": "Location: ",
   "tooltip.energizedpower.teleporter_matrix.dimension": "Dimension: ",
-  "tooltip.energizedpower.teleporter_matrix.txt.shift.1": "Link by shift + left-clicking a Teleporter.",
-  "tooltip.energizedpower.teleporter_matrix.txt.shift.2": "Unlink by left-clicking in the air.",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.1": "Link by shift + right-clicking a Teleporter.",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.2": "Unlink by right-clicking in the air.",
 
   "item.energizedpower.teleporter_processing_unit": "Teleporter Processing Unit",
 
@@ -149,6 +149,12 @@
   "item.energizedpower.inventory_charger": "Inventory Charger",
   "container.energizedpower.inventory_charger": "Inventory Charger",
   "tooltip.energizedpower.inventory_charger.txt.shift.1": "Open the inventory of this item by using this item on air",
+
+  "item.energizedpower.inventory_teleporter": "Inventory Teleporter",
+  "container.energizedpower.inventory_teleporter": "Inventory Teleporter",
+
+  "tooltip.energizedpower.inventory_teleporter.txt.shift.1": "Open the inventory by shift + right-clicking in the air.",
+  "tooltip.energizedpower.inventory_teleporter.txt.shift.2": "Teleport by right-clicking in the air.",
 
   "item.energizedpower.battery_1": "Battery (Tier I)",
   "item.energizedpower.battery_2": "Battery (Tier II)",
