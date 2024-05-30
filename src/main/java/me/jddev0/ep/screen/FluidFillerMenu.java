@@ -8,6 +8,8 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.EnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -20,7 +22,8 @@ import net.neoforged.neoforge.common.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
-public class FluidFillerMenu extends AbstractContainerMenu implements EnergyStorageMenu {
+public class FluidFillerMenu extends AbstractContainerMenu
+        implements EnergyStorageMenu, ConfigurableMenu {
     private final FluidFillerBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
@@ -106,10 +109,12 @@ public class FluidFillerMenu extends AbstractContainerMenu implements EnergyStor
         return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
     }
 
+    @Override
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(4));
     }
 
+    @Override
     public ComparatorMode getComparatorMode() {
         return ComparatorMode.fromIndex(data.get(5));
     }
@@ -167,6 +172,7 @@ public class FluidFillerMenu extends AbstractContainerMenu implements EnergyStor
         }
     }
 
+    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
     }

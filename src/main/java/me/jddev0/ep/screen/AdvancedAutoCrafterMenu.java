@@ -7,6 +7,8 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -20,7 +22,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.capabilities.Capabilities;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
-public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements EnergyStorageConsumerIndicatorBarMenu {
+public class AdvancedAutoCrafterMenu extends AbstractContainerMenu
+        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
     private final AdvancedAutoCrafterBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
@@ -182,10 +185,12 @@ public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements En
         return data.get(25);
     }
 
+    @Override
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(26));
     }
 
+    @Override
     public ComparatorMode getComparatorMode() {
         return ComparatorMode.fromIndex(data.get(27));
     }
@@ -252,6 +257,7 @@ public class AdvancedAutoCrafterMenu extends AbstractContainerMenu implements En
         }
     }
 
+    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
     }
