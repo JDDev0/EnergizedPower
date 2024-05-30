@@ -989,6 +989,9 @@
   "advancements.energizedpower.inventory_charger.title": "Ricarica locale",
   "advancements.energizedpower.inventory_charger.description": "Carica gli oggetti energetici nel tuo inventario con le batterie.",
 
+  "advancements.energizedpower.inventory_teleporter.title": "Portable Teleporter",
+  "advancements.energizedpower.inventory_teleporter.description": "Craft an Inventory Teleporter.",
+
   "advancements.energizedpower.advanced_charger.title": "Ricarica parallela",
   "advancements.energizedpower.advanced_charger.description": "Carica gli elementi energetici in parallelo.",
 
