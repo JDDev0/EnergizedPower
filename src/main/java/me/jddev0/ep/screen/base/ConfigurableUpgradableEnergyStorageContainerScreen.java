@@ -82,6 +82,8 @@ public abstract class ConfigurableUpgradableEnergyStorageContainerScreen
 
     @Override
     protected void renderTooltipConfiguration(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        super.renderTooltipConfiguration(guiGraphics, mouseX, mouseY);
+
         if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
             //Redstone Mode
 
