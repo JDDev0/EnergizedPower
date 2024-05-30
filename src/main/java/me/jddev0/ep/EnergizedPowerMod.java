@@ -257,6 +257,7 @@ public class EnergizedPowerMod {
             event.accept(ModItems.DURATION_UPGRADE_MODULE_3);
             event.accept(ModItems.DURATION_UPGRADE_MODULE_4);
             event.accept(ModItems.DURATION_UPGRADE_MODULE_5);
+            event.accept(ModItems.DURATION_UPGRADE_MODULE_6);
 
             event.accept(ModItems.RANGE_UPGRADE_MODULE_1);
             event.accept(ModItems.RANGE_UPGRADE_MODULE_2);
