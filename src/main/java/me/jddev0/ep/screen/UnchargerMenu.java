@@ -8,6 +8,8 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.EnergyStorageProducerIndicatorBarMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,7 +21,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class UnchargerMenu extends AbstractContainerMenu implements EnergyStorageProducerIndicatorBarMenu {
+public class UnchargerMenu extends AbstractContainerMenu
+        implements EnergyStorageProducerIndicatorBarMenu, ConfigurableMenu {
     private final UnchargerBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
@@ -92,10 +95,12 @@ public class UnchargerMenu extends AbstractContainerMenu implements EnergyStorag
         return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
     }
 
+    @Override
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(2));
     }
 
+    @Override
     public ComparatorMode getComparatorMode() {
         return ComparatorMode.fromIndex(data.get(3));
     }
@@ -153,6 +158,7 @@ public class UnchargerMenu extends AbstractContainerMenu implements EnergyStorag
         }
     }
 
+    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
     }

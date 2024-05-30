@@ -1,4 +1,4 @@
-package me.jddev0.ep.screen;
+package me.jddev0.ep.screen.base;
 
 public interface EnergyStorageProducerIndicatorBarMenu extends EnergyStorageMenu {
     @Override
