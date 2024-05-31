@@ -1,6 +1,5 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.AdvancedPoweredFurnaceBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
@@ -20,7 +19,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
@@ -39,6 +37,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -271,11 +270,14 @@ public class AdvancedPoweredFurnaceBlockEntity
         if(level.isClientSide)
             return;
 
-        if(!blockEntity.redstoneMode.isActive(state.getValue(AdvancedPoweredFurnaceBlock.POWERED)))
+        if(!blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
             return;
 
+        boolean hasNoRecipe = true;
+        int hasNotEnoughEnergyCount = 0;
         for(int i = 0;i < 3;i++) {
             if(hasRecipe(i, blockEntity)) {
+                hasNoRecipe = false;
                 SimpleContainer inventory = new SimpleContainer(2);
                 inventory.setItem(0, blockEntity.itemHandler.getStackInSlot(i));
                 inventory.setItem(1, blockEntity.itemHandler.getStackInSlot(3 + i));
@@ -297,10 +299,10 @@ public class AdvancedPoweredFurnaceBlockEntity
                     blockEntity.energyConsumptionLeft[i] = energyUsagePerInputPerTick * blockEntity.maxProgress[i];
 
                 if(energyUsagePerInputPerTick <= blockEntity.energyStorage.getEnergy()) {
-                    if(!level.getBlockState(blockPos).hasProperty(AdvancedPoweredFurnaceBlock.LIT) ||
-                            !level.getBlockState(blockPos).getValue(AdvancedPoweredFurnaceBlock.LIT)) {
-                        blockEntity.hasEnoughEnergy[i] = true;
-                        level.setBlock(blockPos, state.setValue(AdvancedPoweredFurnaceBlock.LIT, Boolean.TRUE), 3);
+                    blockEntity.hasEnoughEnergy[i] = true;
+                    if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
+                            !level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
+                        level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, true), 3);
                     }
 
                     if(blockEntity.progress[i] < 0 || blockEntity.maxProgress[i] < 0 || blockEntity.energyConsumptionLeft[i] < 0) {
@@ -322,11 +324,21 @@ public class AdvancedPoweredFurnaceBlockEntity
                     setChanged(level, blockPos, state);
                 }else {
                     blockEntity.hasEnoughEnergy[i] = false;
+                    hasNotEnoughEnergyCount++;
                     setChanged(level, blockPos, state);
                 }
             }else {
                 blockEntity.resetProgress(i, blockPos, state);
+                hasNotEnoughEnergyCount++;
                 setChanged(level, blockPos, state);
+            }
+        }
+
+        //Unlit if nothing is being smelted
+        if(hasNoRecipe || hasNotEnoughEnergyCount == 3) {
+            if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
+                    level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
+                level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, false), 3);
             }
         }
     }
@@ -335,14 +347,7 @@ public class AdvancedPoweredFurnaceBlockEntity
         progress[index] = 0;
         maxProgress[index] = 0;
         energyConsumptionLeft[index] = -1;
-        hasEnoughEnergy[index] = true;
-
-        //Unlit if nothing is being smelted
-        for(int i = 0;i < energyConsumptionLeft.length;i++)
-            if(energyConsumptionLeft[i] > -1)
-                return;
-
-        level.setBlock(blockPos, state.setValue(AdvancedPoweredFurnaceBlock.LIT, false), 3);
+        hasEnoughEnergy[index] = false;
     }
 
     private static void craftItem(int index, BlockPos blockPos, BlockState state, AdvancedPoweredFurnaceBlockEntity blockEntity) {
