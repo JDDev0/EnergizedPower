@@ -253,6 +253,12 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(ModItems.RANGE_UPGRADE_MODULE_2);
             event.accept(ModItems.RANGE_UPGRADE_MODULE_3);
 
+            event.accept(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1);
+            event.accept(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2);
+            event.accept(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3);
+            event.accept(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4);
+            event.accept(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5);
+
             event.accept(ModItems.BLAST_FURNACE_UPGRADE_MODULE);
             event.accept(ModItems.SMOKER_UPGRADE_MODULE);
 

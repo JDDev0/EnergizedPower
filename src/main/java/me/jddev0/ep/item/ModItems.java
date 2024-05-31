@@ -183,6 +183,17 @@ public final class ModItems {
     public static Item RANGE_UPGRADE_MODULE_3 = registerItem("range_upgrade_module_3",
             new RangeUpgradeModuleItem(new FabricItemSettings(), 3));
 
+    public static final Item EXTRACTION_DEPTH_UPGRADE_MODULE_1 = registerItem("extraction_depth_upgrade_module_1",
+            new ExtractionDepthUpgradeModuleItem(new FabricItemSettings(), 1));
+    public static final Item EXTRACTION_DEPTH_UPGRADE_MODULE_2 = registerItem("extraction_depth_upgrade_module_2",
+            new ExtractionDepthUpgradeModuleItem(new FabricItemSettings(), 2));
+    public static final Item EXTRACTION_DEPTH_UPGRADE_MODULE_3 = registerItem("extraction_depth_upgrade_module_3",
+            new ExtractionDepthUpgradeModuleItem(new FabricItemSettings(), 3));
+    public static final Item EXTRACTION_DEPTH_UPGRADE_MODULE_4 = registerItem("extraction_depth_upgrade_module_4",
+            new ExtractionDepthUpgradeModuleItem(new FabricItemSettings(), 4));
+    public static final Item EXTRACTION_DEPTH_UPGRADE_MODULE_5 = registerItem("extraction_depth_upgrade_module_5",
+            new ExtractionDepthUpgradeModuleItem(new FabricItemSettings(), 5));
+
     public static Item BLAST_FURNACE_UPGRADE_MODULE = registerItem("blast_furnace_upgrade_module",
             new FurnaceModeUpgradeModuleItem(new FabricItemSettings(), 1));
     public static Item SMOKER_UPGRADE_MODULE = registerItem("smoker_upgrade_module",
