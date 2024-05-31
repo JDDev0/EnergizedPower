@@ -9,6 +9,8 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
+import java.util.function.Supplier;
+
 public final class ModRecipes {
     private ModRecipes() {}
 
@@ -91,6 +93,11 @@ public final class ModRecipes {
             createSerializer("crystal_growth_chamber", CrystalGrowthChamberRecipe.Serializer.INSTANCE);
     public static final RecipeType<CrystalGrowthChamberRecipe> CRYSTAL_GROWTH_CHAMBER_TYPE =
             createRecipeType("crystal_growth_chamber", CrystalGrowthChamberRecipe.Type.INSTANCE);
+
+    public static final RecipeSerializer<FluidTransposerRecipe> FLUID_TRANSPOSER_SERIALIZER =
+            createSerializer("fluid_transposer", FluidTransposerRecipe.Serializer.INSTANCE);
+    public static final RecipeType<FluidTransposerRecipe> FLUID_TRANSPOSER_TYPE =
+            createRecipeType("fluid_transposer", FluidTransposerRecipe.Type.INSTANCE);
 
     public static final RecipeSerializer<TeleporterMatrixSettingsCopyRecipe>
             TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER = createSerializer("teleporter_matrix_settings_copy",

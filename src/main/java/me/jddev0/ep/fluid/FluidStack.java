@@ -1,5 +1,9 @@
 package me.jddev0.ep.fluid;
 
+import com.mojang.logging.LogUtils;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.fluid.Fluid;
@@ -8,7 +12,28 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
+import java.util.Optional;
+
 public class FluidStack {
+    public static final Codec<FluidStack> CODEC_MILLIBUCKETS = RecordCodecBuilder.create(instance -> {
+        return instance.group(Identifier.CODEC.fieldOf("FluidName").forGetter(fluidStack -> {
+            return Registries.FLUID.getId(fluidStack.fluidVariant.getFluid());
+        }), CodecFix.NON_NEGATIVE_LONG.fieldOf("Amount").forGetter(fluidStack -> {
+            return FluidUtils.convertDropletsToMilliBuckets(fluidStack.dropletsAmount);
+        }), CodecFix.NON_NEGATIVE_LONG.optionalFieldOf("LeftoverDropletsAmount", 0L).forGetter(fluidStack -> {
+            long milliBucketsAmount = FluidUtils.convertDropletsToMilliBuckets(fluidStack.dropletsAmount);
+            return fluidStack.dropletsAmount - FluidUtils.convertMilliBucketsToDroplets(milliBucketsAmount);
+        }), NbtCompound.CODEC.optionalFieldOf("Tag").forGetter(fluidStack -> {
+            return Optional.ofNullable(fluidStack.fluidVariant.getNbt());
+        })).apply(instance, (id, milliBucketsAmount, leftoverDropletsAmount, fluidComponents) -> {
+            Fluid fluid = Registries.FLUID.get(id);
+
+            long dropletsAmount = FluidUtils.convertMilliBucketsToDroplets(milliBucketsAmount) + leftoverDropletsAmount;
+
+            return new FluidStack(fluid, fluidComponents.orElse(null), dropletsAmount);
+        });
+    });
+
     private FluidVariant fluidVariant;
     private long dropletsAmount;
 

@@ -1,11 +1,13 @@
 package me.jddev0.ep.codec;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
+import net.minecraft.util.dynamic.Codecs;
 
 import java.util.Optional;
 
@@ -25,4 +27,11 @@ public final class CodecFix {
         nbt.ifPresent(itemStack::setNbt);
         return itemStack;
     }
+
+    public static final Codec<Long> NON_NEGATIVE_LONG = Codecs.validate(Codec.LONG, value -> {
+        if(value >= 0)
+            return DataResult.success(value);
+
+        return DataResult.error(() -> "Value must be non-negative: " + value);
+    });
 }
