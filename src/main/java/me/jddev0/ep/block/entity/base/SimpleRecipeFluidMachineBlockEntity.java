@@ -88,6 +88,9 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }
 
+    protected Optional<R> getRecipeFor(Container inventory) {
+        return level.getRecipeManager().getRecipeFor(recipeType, inventory, level);
+    }
 
     @Override
     protected final Optional<R> getCurrentWorkData() {
@@ -95,7 +98,7 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
         for(int i = 0;i < itemHandler.getSlots();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
-        return level.getRecipeManager().getRecipeFor(recipeType, inventory, level);
+        return getRecipeFor(inventory);
     }
 
     @Override
@@ -129,7 +132,7 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
         for(int i = 0;i < itemHandler.getSlots();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
-        Optional<R> recipe = level.getRecipeManager().getRecipeFor(recipeType, inventory, level);
+        Optional<R> recipe = getRecipeFor(inventory);
 
         return recipe.isPresent() && canCraftRecipe(inventory, recipe.get());
     }
