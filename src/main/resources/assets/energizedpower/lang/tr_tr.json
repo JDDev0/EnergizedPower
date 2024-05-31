@@ -570,6 +570,16 @@
   "item.energizedpower.fluid_drainer": "Sıvı Çekici",
   "container.energizedpower.fluid_drainer": "Sıvı Çekici",
 
+  "block.energizedpower.fluid_pump": "Fluid Pump",
+  "item.energizedpower.fluid_pump": "Fluid Pump",
+  "container.energizedpower.fluid_pump": "Fluid Pump",
+
+  "tooltip.energizedpower.fluid_pump.process_energy_left.txt": "This process still needs %s to be finished.",
+  "tooltip.energizedpower.fluid_pump.target": "Target: %d, %d, %d",
+  "tooltip.energizedpower.fluid_pump.target_relative": "Target (Relative): %s, %s, %s",
+  "tooltip.energizedpower.fluid_pump.cobblestone_missing": "Cobblestone is missing!",
+  "tooltip.energizedpower.fluid_pump.extracting": "Extracting: %s",
+
   "block.energizedpower.drain": "Drain",
   "item.energizedpower.drain": "Drain",
   "container.energizedpower.drain": "Drain",

@@ -110,7 +110,7 @@ public class FluidTransposerMenu extends UpgradableEnergyStorageMenu<FluidTransp
     }
 
     public boolean isCrafting() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(6) == 1;
+        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(8) == 1;
     }
 
     public FluidTransposerBlockEntity.Mode getMode() {

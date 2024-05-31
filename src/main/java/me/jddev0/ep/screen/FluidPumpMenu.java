@@ -1,10 +1,9 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.block.entity.MetalPressBlockEntity;
+import me.jddev0.ep.block.entity.FluidPumpBlockEntity;
+import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
-import me.jddev0.ep.recipe.MetalPressRecipe;
-import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
@@ -20,69 +19,52 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.math.BlockPos;
 
-public class MetalPressMenu extends UpgradableEnergyStorageMenu<MetalPressBlockEntity>
+public class FluidPumpMenu extends UpgradableEnergyStorageMenu<FluidPumpBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
     private final PropertyDelegate data;
 
-    public MetalPressMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
-        this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(3) {
+    public FluidPumpMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
+        this(id, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), inv, new SimpleInventory(1) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                return switch(slot) {
-                    case 0 -> inv.player.getWorld().getRecipeManager().listAllOfType(MetalPressRecipe.Type.INSTANCE).stream().
-                            map(RecipeEntry::value).map(MetalPressRecipe::getInput).anyMatch(ingredient -> ingredient.test(stack));
-                    case 1 -> stack.isIn(EnergizedPowerItemTags.METAL_PRESS_MOLDS) &&
-                            (getStack(1).isEmpty() || stack.getCount() == 1);
-                    case 2 -> false;
-                    default -> super.isValid(slot, stack);
-                };
+                if(slot == 0) {
+                    return stack.isOf(Items.COBBLESTONE);
+                }
+
+                return super.isValid(slot, stack);
             }
         }, new UpgradeModuleInventory(
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
-                UpgradeModuleModifier.ENERGY_CAPACITY
-        ), new ArrayPropertyDelegate(11));
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.RANGE
+        ), new ArrayPropertyDelegate(18));
     }
 
-    public MetalPressMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
-                          UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
+    public FluidPumpMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
+                         UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(
-                ModMenuTypes.METAL_PRESS_MENU, id,
+                ModMenuTypes.FLUID_PUMP_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.METAL_PRESS,
+                ModBlocks.FLUID_PUMP,
+                35, 84,
 
-                upgradeModuleInventory, 3
+                upgradeModuleInventory, 4
         );
 
-        checkSize(inv, 3);
-        checkDataCount(data, 11);
+        checkSize(inv, 1);
+        checkDataCount(data, 18);
         this.data = data;
 
-        addSlot(new ConstraintInsertSlot(inv, 0, 48, 35) {
-            @Override
-            public boolean isEnabled() {
-                return super.isEnabled() && !isInUpgradeModuleView();
-            }
-        });
-        addSlot(new ConstraintInsertSlot(inv, 1, 84, 23) {
-            @Override
-            public boolean isEnabled() {
-                return super.isEnabled() && !isInUpgradeModuleView();
-            }
-
-            @Override
-            public int getMaxItemCount() {
-                return 1;
-            }
-        });
-        addSlot(new ConstraintInsertSlot(inv, 2, 124, 35) {
+        addSlot(new ConstraintInsertSlot(inv, 0, 107, 35) {
             @Override
             public boolean isEnabled() {
                 return super.isEnabled() && !isInUpgradeModuleView();
@@ -90,9 +72,17 @@ public class MetalPressMenu extends UpgradableEnergyStorageMenu<MetalPressBlockE
         });
 
         for(int i = 0;i < upgradeModuleInventory.size();i++)
-            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 80 + i * 18, 35, this::isInUpgradeModuleView));
 
         addProperties(this.data);
+    }
+
+    public FluidStack getFluid() {
+        return blockEntity.getFluid(0);
+    }
+
+    public long getTankCapacity() {
+        return blockEntity.getTankCapacity(0);
     }
 
     @Override
@@ -111,14 +101,6 @@ public class MetalPressMenu extends UpgradableEnergyStorageMenu<MetalPressBlockE
         return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(8) == 1;
     }
 
-    public int getScaledProgressArrowSize() {
-        int progress = ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
-        int maxProgress = ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
-        int progressArrowSize = 24;
-
-        return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
-    }
-
     @Override
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(9));
@@ -127,6 +109,18 @@ public class MetalPressMenu extends UpgradableEnergyStorageMenu<MetalPressBlockE
     @Override
     public ComparatorMode getComparatorMode() {
         return ComparatorMode.fromIndex(data.get(10));
+    }
+
+    public BlockPos getTargetOffset() {
+        int xOffset = ByteUtils.from2ByteChunks((short)data.get(11), (short)data.get(12));
+        int yOffset = ByteUtils.from2ByteChunks((short)data.get(13), (short)data.get(14));
+        int zOffset = ByteUtils.from2ByteChunks((short)data.get(15), (short)data.get(16));
+
+        return new BlockPos(xOffset, yOffset, zOffset);
+    }
+
+    public boolean isExtractingFluid() {
+        return data.get(17) != 0;
     }
 
     @Override
@@ -140,12 +134,11 @@ public class MetalPressMenu extends UpgradableEnergyStorageMenu<MetalPressBlockE
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!insertMaxCount1Item(sourceItem, 4 * 9 + 3, 4 * 9 + 3 + 3, false) &&
-                    !insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false) &&
-                    !insertMaxCount1Item(sourceItem, 4 * 9 + 1, 4 * 9 + 2, false)) {
+            if(!insertMaxCount1Item(sourceItem, 4 * 9 + 1, 4 * 9 + 1 + 4, false) &&
+                    !insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 3 + 3) {
+        }else if(index < 4 * 9 + 1 + 4) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!insertItem(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
