@@ -18,6 +18,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.plugin.common.BuiltinPlugin;
 import net.minecraft.client.gui.screen.ingame.Generic3x3ContainerScreen;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.StonecuttingRecipe;
 
 public class EnergizedPowerREIPlugin implements REIClientPlugin {
     @Override
@@ -102,6 +103,25 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
     }
 
     @Override
+    public void registerTransferHandlers(TransferHandlerRegistry registry) {
+        registry.register(new AutoCrafterTransferHandler());
+
+        registry.register(new AdvancedAutoCrafterTransferHandler());
+
+        registry.register(new SelectableRecipeMachineTransferHandler<>(AutoPressMoldMakerMenu.class,
+                PressMoldMakerRecipe.class));
+
+        registry.register(new SelectableRecipeMachineTransferHandler<>(AutoStonecutterMenu.class,
+                StonecuttingRecipe.class));
+
+        registry.register(new SelectableRecipeMachineTransferHandler<>(StoneSolidifierMenu.class,
+                StoneSolidifierRecipe.class));
+
+        registry.register(new SelectableRecipeMachineTransferHandler<>(FiltrationPlantMenu.class,
+                FiltrationPlantRecipe.class));
+    }
+
+    @Override
     public void registerDisplays(DisplayRegistry registry) {
         registry.registerRecipeFiller(ChargerRecipe.class, ChargerRecipe.Type.INSTANCE, ChargerDisplay::new);
         registry.registerRecipeFiller(CrusherRecipe.class, CrusherRecipe.Type.INSTANCE, CrusherDisplay::new);
@@ -123,12 +143,6 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
 
         registry.add(new InWorldDisplay());
         registry.add(new DispenserDisplay());
-    }
-
-    @Override
-    public void registerTransferHandlers(TransferHandlerRegistry registry) {
-        registry.register(new AutoCrafterTransferHandler());
-        registry.register(new AdvancedAutoCrafterTransferHandler());
     }
 
     @Override

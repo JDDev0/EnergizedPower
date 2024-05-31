@@ -85,6 +85,9 @@ public final class ModMessages {
 
         registerServerPacketReceiver(ChangeComparatorModeC2SPacket.ID,
                 ChangeComparatorModeC2SPacket::new, ChangeComparatorModeC2SPacket::receive);
+
+        registerServerPacketReceiver(SetCurrentRecipeIdC2SPacket.ID,
+                SetCurrentRecipeIdC2SPacket::new, SetCurrentRecipeIdC2SPacket::receive);
     }
 
     public static <P extends IEnergizedPowerPacket> void registerClientPacketReceiver(
