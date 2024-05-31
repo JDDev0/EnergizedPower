@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
-import me.jddev0.ep.block.entity.base.InventoryStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncPressMoldMakerRecipeListS2CPacket;
@@ -10,10 +10,8 @@ import me.jddev0.ep.screen.PressMoldMakerMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -36,8 +34,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class PressMoldMakerBlockEntity
-        extends InventoryStorageBlockEntity<ItemStackHandler>
-        implements MenuProvider {
+        extends MenuInventoryStorageBlockEntity<ItemStackHandler> {
     private List<Pair<PressMoldMakerRecipe, Boolean>> recipeList = new ArrayList<>();
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
@@ -47,6 +44,8 @@ public class PressMoldMakerBlockEntity
     public PressMoldMakerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.PRESS_MOLD_MAKER_ENTITY.get(), blockPos, blockState,
+
+                "press_mold_maker",
 
                 2
         );
@@ -79,11 +78,6 @@ public class PressMoldMakerBlockEntity
                 };
             }
         };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.press_mold_maker");
     }
 
     @Nullable
