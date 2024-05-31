@@ -4,6 +4,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetTimeFromTimeControllerC2SPacket;
+import me.jddev0.ep.screen.base.EnergyStorageContainerScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
-public class TimeControllerScreen extends AbstractGenericEnergyStorageContainerScreen<TimeControllerMenu> {
+public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeControllerMenu> {
     public TimeControllerScreen(TimeControllerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/time_controller.png"),
