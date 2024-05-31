@@ -90,8 +90,8 @@
   "tooltip.energizedpower.teleporter_matrix.status.unlinked": "Scollegato",
   "tooltip.energizedpower.teleporter_matrix.location": "Posizione: ",
   "tooltip.energizedpower.teleporter_matrix.dimension": "Dimensione: ",
-  "tooltip.energizedpower.teleporter_matrix.txt.shift.1": "Collegamento tramite Maiusc + clic con il pulsante sinistro del mouse su un Teletrasporto.",
-  "tooltip.energizedpower.teleporter_matrix.txt.shift.2": "Scollegalo facendo clic con il pulsante sinistro del mouse in aria.",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.1": "Link by shift + right-clicking a Teleporter.",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.2": "Unlink by right-clicking in the air.",
 
   "item.energizedpower.teleporter_processing_unit": "Unità di elaborazione del teletrasporto",
 
@@ -149,6 +149,12 @@
   "item.energizedpower.inventory_charger": "Caricatore inventario",
   "container.energizedpower.inventory_charger": "Caricatore inventario",
   "tooltip.energizedpower.inventory_charger.txt.shift.1": "Apri l'inventario di questo articolo utilizzando questo articolo in onda",
+
+  "item.energizedpower.inventory_teleporter": "Inventory Teleporter",
+  "container.energizedpower.inventory_teleporter": "Inventory Teleporter",
+
+  "tooltip.energizedpower.inventory_teleporter.txt.shift.1": "Open the inventory by shift + right-clicking in the air.",
+  "tooltip.energizedpower.inventory_teleporter.txt.shift.2": "Teleport by right-clicking in the air.",
 
   "item.energizedpower.battery_1": "Batteria (Livello I)",
   "item.energizedpower.battery_2": "Batteria (Livello II)",
