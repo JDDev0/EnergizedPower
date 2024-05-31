@@ -8,7 +8,6 @@ import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
@@ -18,13 +17,14 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
-public class PressMoldMakerScreen extends HandledScreen<PressMoldMakerMenu> {
+public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<PressMoldMakerMenu> {
     private final Identifier TEXTURE;
 
     private int scrollIndexOffset = 0;
