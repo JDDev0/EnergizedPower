@@ -187,6 +187,8 @@ public class EnergizedPowerMod implements ModInitializer {
             addEmptyAndFullyChargedItem(event, ModItems.INVENTORY_COAL_ENGINE, InventoryCoalEngineItem.CAPACITY);
             event.accept(ModItems.INVENTORY_CHARGER);
 
+            addEmptyAndFullyChargedItem(event, ModItems.INVENTORY_TELEPORTER, InventoryTeleporterItem.CAPACITY);
+
             addEmptyAndFullyChargedItem(event, ModItems.BATTERY_1, BatteryItem.Tier.BATTERY_1.getCapacity());
             addEmptyAndFullyChargedItem(event, ModItems.BATTERY_2, BatteryItem.Tier.BATTERY_2.getCapacity());
             addEmptyAndFullyChargedItem(event, ModItems.BATTERY_3, BatteryItem.Tier.BATTERY_3.getCapacity());
