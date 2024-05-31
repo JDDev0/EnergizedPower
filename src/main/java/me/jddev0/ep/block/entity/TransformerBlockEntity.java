@@ -18,8 +18,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TransformerBlockEntity extends EnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
-    private final long maxTransferRate;
-
     private final TransformerBlock.Tier tier;
     private final TransformerBlock.Type type;
 
@@ -72,16 +70,14 @@ public class TransformerBlockEntity extends EnergyStorageBlockEntity<EnergizedPo
         this.tier = tier;
         this.type = type;
 
-        maxTransferRate = getMaxEnergyTransferFromTier(this.tier);
+        limitingEnergyStorageInsert = new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0);
 
-        limitingEnergyStorageInsert = new EnergizedPowerLimitingEnergyStorage(energyStorage, maxTransferRate, 0);
-
-        limitingEnergyStorageExtract = new EnergizedPowerLimitingEnergyStorage(energyStorage, 0, maxTransferRate);
+        limitingEnergyStorageExtract = new EnergizedPowerLimitingEnergyStorage(energyStorage, 0, baseEnergyTransferRate);
     }
 
     @Override
     protected EnergizedPowerEnergyStorage initEnergyStorage() {
-        return new EnergizedPowerEnergyStorage(maxTransferRate, maxTransferRate, maxTransferRate) {
+        return new EnergizedPowerEnergyStorage(baseEnergyTransferRate, baseEnergyTransferRate, baseEnergyTransferRate) {
             @Override
             protected void onFinalCommit() {
                 markDirty();
@@ -93,7 +89,7 @@ public class TransformerBlockEntity extends EnergyStorageBlockEntity<EnergizedPo
     @Override
     protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
         //limitingEnergyStorage is unused
-        return new EnergizedPowerLimitingEnergyStorage(energyStorage, maxTransferRate, maxTransferRate);
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, baseEnergyTransferRate);
     }
 
     public TransformerBlock.Type getTransformerType() {
@@ -183,7 +179,7 @@ public class TransformerBlockEntity extends EnergyStorageBlockEntity<EnergizedPo
                 continue;
 
             try(Transaction transaction = Transaction.openOuter()) {
-                long received = limitingEnergyStorage.insert(Math.min(blockEntity.maxTransferRate, blockEntity.energyStorage.getAmount()), transaction);
+                long received = limitingEnergyStorage.insert(Math.min(blockEntity.baseEnergyTransferRate, blockEntity.energyStorage.getAmount()), transaction);
 
                 if(received <= 0)
                     continue;
@@ -198,7 +194,7 @@ public class TransformerBlockEntity extends EnergyStorageBlockEntity<EnergizedPo
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0L);
 
-        long consumptionLeft = Math.min(blockEntity.maxTransferRate, Math.min(blockEntity.energyStorage.getAmount(), consumptionSum));
+        long consumptionLeft = Math.min(blockEntity.baseEnergyTransferRate, Math.min(blockEntity.energyStorage.getAmount(), consumptionSum));
         try(Transaction transaction = Transaction.openOuter()) {
             blockEntity.energyStorage.extract(consumptionLeft, transaction);
             transaction.commit();
