@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.jei;
 
 import me.jddev0.ep.screen.base.EnergyStorageContainerScreen;
-import me.jddev0.ep.screen.UpgradeModuleMenu;
+import me.jddev0.ep.screen.base.UpgradeModuleMenu;
 import mezz.jei.api.gui.handlers.IGuiClickableArea;
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.recipe.RecipeType;
