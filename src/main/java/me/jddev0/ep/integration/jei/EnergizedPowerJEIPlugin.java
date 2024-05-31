@@ -98,14 +98,21 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.AUTO_CRAFTER_ITEM.get()), RecipeTypes.CRAFTING);
+
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.ADVANCED_AUTO_CRAFTER_ITEM.get()), RecipeTypes.CRAFTING);
+
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.POWERED_FURNACE_ITEM.get()), RecipeTypes.SMELTING);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.POWERED_FURNACE_ITEM.get()), RecipeTypes.BLASTING);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.POWERED_FURNACE_ITEM.get()), RecipeTypes.SMOKING);
+
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()), RecipeTypes.SMELTING);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()), RecipeTypes.BLASTING);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()), RecipeTypes.SMOKING);
+
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.AUTO_STONECUTTER_ITEM.get()), RecipeTypes.STONECUTTING);
+
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.COAL_ENGINE_ITEM.get()), RecipeTypes.FUELING);
+
         registration.addRecipeCatalyst(new ItemStack(ModItems.INVENTORY_COAL_ENGINE.get()), RecipeTypes.FUELING);
 
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.CHARGER_ITEM.get()), ChargerCategory.TYPE);
@@ -134,15 +141,21 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
         registerRecipeClickArea(registration, AutoCrafterScreen.class, 89, 34, 24, 17, RecipeTypes.CRAFTING);
+
         registerRecipeClickArea(registration, AdvancedAutoCrafterScreen.class, 89, 34, 24, 17, RecipeTypes.CRAFTING);
+
         registerRecipeClickArea(registration, PoweredFurnaceScreen.class, 80, 34, 24, 17, RecipeTypes.SMELTING,
                 RecipeTypes.BLASTING, RecipeTypes.SMOKING);
+
         registerRecipeClickArea(registration, AdvancedPoweredFurnaceScreen.class, 43, 34, 18, 18, RecipeTypes.SMELTING,
                 RecipeTypes.BLASTING, RecipeTypes.SMOKING);
         registerRecipeClickArea(registration, AdvancedPoweredFurnaceScreen.class, 97, 34, 18, 18, RecipeTypes.SMELTING,
                 RecipeTypes.BLASTING, RecipeTypes.SMOKING);
         registerRecipeClickArea(registration, AdvancedPoweredFurnaceScreen.class, 151, 34, 18, 18, RecipeTypes.SMELTING,
                 RecipeTypes.BLASTING, RecipeTypes.SMOKING);
+
+        registerRecipeClickArea(registration, AutoStonecutterScreen.class, 84, 43, 24, 17, RecipeTypes.SMOKING);
+
         registerRecipeClickArea(registration, CoalEngineScreen.class, 79, 25, 18, 17, RecipeTypes.FUELING);
 
         registerRecipeClickArea(registration, ChargerScreen.class, 25, 16, 40, 54, ChargerCategory.TYPE);
