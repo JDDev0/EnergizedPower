@@ -324,7 +324,7 @@ public class FiltrationPlantScreen extends AbstractGenericEnergyStorageContainer
             //Up button
             if(isHovering(85, 19, 11, 12, mouseX, mouseY)) {
                 List<Component> components = new ArrayList<>(2);
-                components.add(Component.translatable("tooltip.energizedpower.filtration_plant.btn.up"));
+                components.add(Component.translatable("tooltip.energizedpower.recipe.selector.next_recipe"));
 
                 guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
             }
@@ -332,7 +332,7 @@ public class FiltrationPlantScreen extends AbstractGenericEnergyStorageContainer
             //Down button
             if(isHovering(116, 19, 11, 12, mouseX, mouseY)) {
                 List<Component> components = new ArrayList<>(2);
-                components.add(Component.translatable("tooltip.energizedpower.filtration_plant.btn.down"));
+                components.add(Component.translatable("tooltip.energizedpower.recipe.selector.prev_recipe"));
 
                 guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
             }

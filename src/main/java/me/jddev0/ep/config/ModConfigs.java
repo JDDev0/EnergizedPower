@@ -682,6 +682,19 @@ public final class ModConfigs {
             "block.metal_press", "Metal Press", 250
     );
 
+    public static final ConfigValue<Integer> COMMON_AUTO_PRESS_MOLD_MAKER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.auto_press_mold_maker", "Auto Press Mold Maker", 2048
+    );
+    public static final ConfigValue<Integer> COMMON_AUTO_PRESS_MOLD_MAKER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.auto_press_mold_maker", "Auto Press Mold Maker", 128
+    );
+    public static final ConfigValue<Integer> COMMON_AUTO_PRESS_MOLD_MAKER_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.auto_press_mold_maker", "Auto Press Mold Maker", 8
+    );
+    public static final ConfigValue<Integer> COMMON_AUTO_PRESS_MOLD_MAKER_RECIPE_DURATION = registerRecipeDurationConfigValue(
+            "block.auto_press_mold_maker", "Auto Press Mold Maker", 100
+    );
+
     public static final ConfigValue<Integer> COMMON_ENERGIZER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.energizer", "Energizer", 65536
     );
