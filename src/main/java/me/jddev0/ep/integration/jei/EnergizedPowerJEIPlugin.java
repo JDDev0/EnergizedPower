@@ -60,8 +60,29 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
         registration.addRecipeTransferHandler(new AutoCrafterTransferHandler(registration.getTransferHelper()),
                 RecipeTypes.CRAFTING);
+
         registration.addRecipeTransferHandler(new AdvancedAutoCrafterTransferHandler(registration.getTransferHelper()),
                 RecipeTypes.CRAFTING);
+
+        registration.addRecipeTransferHandler(new SelectableRecipeMachineTransferHandler<>(
+                registration.getTransferHelper(), AutoPressMoldMakerMenu.class,
+                        ModMenuTypes.AUTO_PRESS_MOLD_MAKER_MENU.get()),
+                PressMoldMakerCategory.TYPE);
+
+        registration.addRecipeTransferHandler(new SelectableRecipeMachineTransferHandler<>(
+                registration.getTransferHelper(), AutoStonecutterMenu.class,
+                        ModMenuTypes.AUTO_STONECUTTER_MENU.get()),
+                RecipeTypes.STONECUTTING);
+
+        registration.addRecipeTransferHandler(new SelectableRecipeMachineTransferHandler<>(
+                registration.getTransferHelper(), StoneSolidifierMenu.class,
+                        ModMenuTypes.STONE_SOLIDIFIER_MENU.get()),
+                StoneSolidifierCategory.TYPE);
+
+        registration.addRecipeTransferHandler(new SelectableRecipeMachineTransferHandler<>(
+                registration.getTransferHelper(), FiltrationPlantMenu.class,
+                        ModMenuTypes.FILTRATION_PLANT_MENU.get()),
+                FiltrationPlantCategory.TYPE);
     }
 
     @Override
@@ -154,7 +175,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registerRecipeClickArea(registration, AdvancedPoweredFurnaceScreen.class, 151, 34, 18, 18, RecipeTypes.SMELTING,
                 RecipeTypes.BLASTING, RecipeTypes.SMOKING);
 
-        registerRecipeClickArea(registration, AutoStonecutterScreen.class, 84, 43, 24, 17, RecipeTypes.SMOKING);
+        registerRecipeClickArea(registration, AutoStonecutterScreen.class, 84, 43, 24, 17, RecipeTypes.STONECUTTING);
 
         registerRecipeClickArea(registration, CoalEngineScreen.class, 79, 25, 18, 17, RecipeTypes.FUELING);
 

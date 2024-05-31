@@ -20,6 +20,7 @@ import me.shedaniel.rei.plugincompatibilities.api.REIPluginCompatIgnore;
 import net.minecraft.client.gui.screens.inventory.DispenserScreen;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
+import net.minecraft.world.item.crafting.StonecutterRecipe;
 
 @REIPluginClient
 @REIPluginCompatIgnore
@@ -108,7 +109,20 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
     @Override
     public void registerTransferHandlers(TransferHandlerRegistry registry) {
         registry.register(new AutoCrafterTransferHandler());
+
         registry.register(new AdvancedAutoCrafterTransferHandler());
+
+        registry.register(new SelectableRecipeMachineTransferHandler<>(AutoPressMoldMakerMenu.class,
+                PressMoldMakerRecipe.class));
+
+        registry.register(new SelectableRecipeMachineTransferHandler<>(AutoStonecutterMenu.class,
+                StonecutterRecipe.class));
+
+        registry.register(new SelectableRecipeMachineTransferHandler<>(StoneSolidifierMenu.class,
+                StoneSolidifierRecipe.class));
+
+        registry.register(new SelectableRecipeMachineTransferHandler<>(FiltrationPlantMenu.class,
+                FiltrationPlantRecipe.class));
     }
 
     @Override
