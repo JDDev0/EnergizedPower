@@ -14,6 +14,7 @@ import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
 import me.jddev0.ep.screen.base.ConfigurableMenu;
 import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.SelectableRecipeMachineMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -30,7 +31,8 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
 public class StoneSolidifierMenu extends AbstractEnergizedPowerScreenHandler
-        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
+        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu,
+        SelectableRecipeMachineMenu<StoneSolidifierRecipe> {
     private final StoneSolidifierBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -211,6 +213,7 @@ public class StoneSolidifierMenu extends AbstractEnergizedPowerScreenHandler
         return blockEntity;
     }
 
+    @Override
     public RecipeEntry<StoneSolidifierRecipe> getCurrentRecipe() {
         return blockEntity.getCurrentRecipe();
     }
