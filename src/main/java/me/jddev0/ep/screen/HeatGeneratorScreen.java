@@ -14,5 +14,7 @@ public class HeatGeneratorScreen
     public HeatGeneratorScreen(HeatGeneratorMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
+
+        energyMeterX = 80;
     }
 }

@@ -10,5 +10,7 @@ import net.minecraft.text.Text;
 public class MinecartChargerScreen extends EnergyStorageContainerScreen<MinecartChargerMenu> {
     public MinecartChargerScreen(MinecartChargerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component);
+
+        energyMeterX = 80;
     }
 }
