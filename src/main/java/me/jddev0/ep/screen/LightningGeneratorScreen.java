@@ -10,5 +10,7 @@ import net.minecraft.text.Text;
 public class LightningGeneratorScreen extends EnergyStorageContainerScreen<LightningGeneratorMenu> {
     public LightningGeneratorScreen(LightningGeneratorMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component);
+
+        energyMeterX = 80;
     }
 }
