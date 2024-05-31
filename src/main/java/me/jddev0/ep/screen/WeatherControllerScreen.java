@@ -1,7 +1,6 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetWeatherFromWeatherControllerC2SPacket;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageContainerScreen;
@@ -22,7 +21,7 @@ public class WeatherControllerScreen extends UpgradableEnergyStorageContainerScr
     public WeatherControllerScreen(WeatherControllerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/weather_controller.png"),
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
+                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_duration.png"));
     }
 
     @Override
@@ -64,25 +63,34 @@ public class WeatherControllerScreen extends UpgradableEnergyStorageContainerScr
     }
 
     private void renderButtons(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
+        int selectedWeatherType = handler.getSelectedWeatherType();
+
+        //Weather clear button
         if(isPointWithinBounds(52, 34, 18, 18, mouseX, mouseY)) {
-            //Weather clear button
-
             drawContext.drawTexture(TEXTURE, x + 52, y + 34, 176, 52, 18, 18);
-        }else if(isPointWithinBounds(88, 34, 18, 18, mouseX, mouseY)) {
-            //Weather rain button
+        }else if(selectedWeatherType == 0) {
+            drawContext.drawTexture(TEXTURE, x + 52, y + 34, 194, 52, 18, 18);
+        }
 
+        //Weather rain button
+        if(isPointWithinBounds(88, 34, 18, 18, mouseX, mouseY)) {
             drawContext.drawTexture(TEXTURE, x + 88, y + 34, 176, 70, 18, 18);
-        }else if(isPointWithinBounds(124, 34, 18, 18, mouseX, mouseY)) {
-            //Weather thunder button
+        }else if(selectedWeatherType == 1) {
+            drawContext.drawTexture(TEXTURE, x + 88, y + 34, 194, 70, 18, 18);
+        }
 
+        //Weather thunder button
+        if(isPointWithinBounds(124, 34, 18, 18, mouseX, mouseY)) {
             drawContext.drawTexture(TEXTURE, x + 124, y + 34, 176, 88, 18, 18);
+        }else if(selectedWeatherType == 2) {
+            drawContext.drawTexture(TEXTURE, x + 124, y + 34, 194, 88, 18, 18);
         }
     }
 
     private void renderInfoText(DrawContext drawContext, int x, int y) {
-        Text component = handler.getEnergy() < TimeControllerBlockEntity.CAPACITY?
-                Text.translatable("tooltip.energizedpower.not_enough_energy.txt").formatted(Formatting.RED):
-                Text.translatable("tooltip.energizedpower.ready.txt").formatted(Formatting.DARK_GREEN);
+        Text component = handler.hasEnoughEnergy()?
+                Text.translatable("tooltip.energizedpower.ready.txt").formatted(Formatting.DARK_GREEN):
+                Text.translatable("tooltip.energizedpower.not_enough_energy.txt").formatted(Formatting.RED);
 
         int componentWidth = textRenderer.getWidth(component);
 
