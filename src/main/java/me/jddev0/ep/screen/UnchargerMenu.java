@@ -3,30 +3,26 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.UnchargerBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
-import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.screen.base.ConfigurableMenu;
-import me.jddev0.ep.screen.base.EnergyStorageProducerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.IConfigurableMenu;
+import me.jddev0.ep.screen.base.IEnergyStorageProducerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class UnchargerMenu extends AbstractContainerMenu
-        implements EnergyStorageProducerIndicatorBarMenu, ConfigurableMenu {
-    private final UnchargerBlockEntity blockEntity;
-    private final Level level;
+public class UnchargerMenu extends UpgradableEnergyStorageMenu<UnchargerBlockEntity>
+        implements IEnergyStorageProducerIndicatorBarMenu, IConfigurableMenu {
     private final ContainerData data;
-    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public UnchargerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
@@ -36,16 +32,17 @@ public class UnchargerMenu extends AbstractContainerMenu
 
     public UnchargerMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                          ContainerData data) {
-        super(ModMenuTypes.UNCHARGER_MENU.get(), id);
+        super(
+                ModMenuTypes.UNCHARGER_MENU.get(), id,
 
-        checkContainerSize(upgradeModuleInventory, 1);
+                inv, blockEntity,
+                ModBlocks.UNCHARGER.get(),
+
+                upgradeModuleInventory, 1
+        );
+
         checkContainerDataCount(data, 4);
-        this.blockEntity = (UnchargerBlockEntity)blockEntity;
-        this.level = inv.player.level();
         this.data = data;
-
-        addPlayerInventory(inv);
-        addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
             addSlot(new SlotItemHandler(itemHandler, 0, 80, 35) {
@@ -59,35 +56,6 @@ public class UnchargerMenu extends AbstractContainerMenu
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
         addDataSlots(this.data);
-
-        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
-        addDataSlots(upgradeModuleViewContainerData);
-    }
-
-    @Override
-    public boolean isInUpgradeModuleView() {
-        return upgradeModuleViewContainerData.isInUpgradeModuleView();
-    }
-
-    @Override
-    public boolean clickMenuButton(Player player, int index) {
-        if(index == 0) {
-            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
-
-            broadcastChanges();
-        }
-
-        return false;
-    }
-
-    @Override
-    public int getEnergy() {
-        return blockEntity.getEnergy();
-    }
-
-    @Override
-    public int getCapacity() {
-        return blockEntity.getCapacity();
     }
 
     @Override
@@ -137,29 +105,5 @@ public class UnchargerMenu extends AbstractContainerMenu
         sourceSlot.onTake(player, sourceItem);
 
         return sourceItemCopy;
-    }
-
-    @Override
-    public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, ModBlocks.UNCHARGER.get());
-    }
-
-    private void addPlayerInventory(Inventory playerInventory) {
-        for(int i = 0;i < 3;i++) {
-            for(int j = 0;j < 9;j++) {
-                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
-    }
-
-    private void addPlayerHotbar(Inventory playerInventory) {
-        for(int i = 0;i < 9;i++) {
-            addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
-        }
-    }
-
-    @Override
-    public BlockEntity getBlockEntity() {
-        return blockEntity;
     }
 }

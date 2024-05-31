@@ -8,41 +8,26 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class TeleporterMenu extends AbstractContainerMenu implements EnergyStorageMenu {
-    private final TeleporterBlockEntity blockEntity;
-    private final Level level;
-
+public class TeleporterMenu extends EnergyStorageMenu<TeleporterBlockEntity> {
     public TeleporterMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()));
     }
 
     public TeleporterMenu(int id, Inventory inv, BlockEntity blockEntity) {
-        super(ModMenuTypes.TELEPORTER_MENU.get(), id);
+        super(
+                ModMenuTypes.TELEPORTER_MENU.get(), id,
 
-        this.blockEntity = (TeleporterBlockEntity)blockEntity;
-        this.level = inv.player.level();
-
-        addPlayerInventory(inv);
-        addPlayerHotbar(inv);
+                inv, blockEntity,
+                ModBlocks.TELEPORTER.get()
+        );
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
             addSlot(new SlotItemHandler(itemHandler, 0, 80, 35));
         });
-    }
-
-    @Override
-    public int getEnergy() {
-        return blockEntity.getEnergy();
-    }
-
-    @Override
-    public int getCapacity() {
-        return blockEntity.getCapacity();
     }
 
     @Override
@@ -76,28 +61,5 @@ public class TeleporterMenu extends AbstractContainerMenu implements EnergyStora
         sourceSlot.onTake(player, sourceItem);
 
         return sourceItemCopy;
-    }
-
-    @Override
-    public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, ModBlocks.TELEPORTER.get());
-    }
-
-    private void addPlayerInventory(Inventory playerInventory) {
-        for(int i = 0;i < 3;i++) {
-            for(int j = 0;j < 9;j++) {
-                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
-    }
-
-    private void addPlayerHotbar(Inventory playerInventory) {
-        for(int i = 0;i < 9;i++) {
-            addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
-        }
-    }
-
-    public BlockEntity getBlockEntity() {
-        return blockEntity;
     }
 }
