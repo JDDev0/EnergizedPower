@@ -1,6 +1,5 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.PoweredFurnaceBlock;
 import me.jddev0.ep.block.entity.base.WorkerMachineBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
@@ -34,6 +33,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -183,17 +183,17 @@ public class PoweredFurnaceBlockEntity
     }
 
     protected void onHasEnoughEnergy() {
-        if(level.getBlockState(getBlockPos()).hasProperty(PoweredFurnaceBlock.LIT) &&
-                !level.getBlockState(getBlockPos()).getValue(PoweredFurnaceBlock.LIT)) {
-            level.setBlock(getBlockPos(), getBlockState().setValue(PoweredFurnaceBlock.LIT, true), 3);
+        if(level.getBlockState(getBlockPos()).hasProperty(BlockStateProperties.LIT) &&
+                !level.getBlockState(getBlockPos()).getValue(BlockStateProperties.LIT)) {
+            level.setBlock(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, true), 3);
         }
     }
 
     @Override
     protected void onHasNotEnoughEnergy() {
-        if(level.getBlockState(getBlockPos()).hasProperty(PoweredFurnaceBlock.LIT) &&
-                level.getBlockState(getBlockPos()).getValue(PoweredFurnaceBlock.LIT)) {
-            level.setBlock(getBlockPos(), getBlockState().setValue(PoweredFurnaceBlock.LIT, false), 3);
+        if(level.getBlockState(getBlockPos()).hasProperty(BlockStateProperties.LIT) &&
+                level.getBlockState(getBlockPos()).getValue(BlockStateProperties.LIT)) {
+            level.setBlock(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, false), 3);
         }
     }
 

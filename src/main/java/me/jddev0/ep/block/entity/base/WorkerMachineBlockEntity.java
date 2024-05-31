@@ -134,6 +134,7 @@ public abstract class WorkerMachineBlockEntity<W>
             }
         }else {
             blockEntity.resetProgress();
+            blockEntity.onHasNotEnoughEnergy();
             setChanged(level, blockPos, state);
         }
 
@@ -180,7 +181,6 @@ public abstract class WorkerMachineBlockEntity<W>
         maxProgress = 0;
         energyConsumptionLeft = -1;
         hasEnoughEnergy = false;
-        onHasNotEnoughEnergy();
     }
 
     @Override
