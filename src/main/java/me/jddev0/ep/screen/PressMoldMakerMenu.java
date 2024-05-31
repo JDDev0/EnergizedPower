@@ -45,15 +45,14 @@ public class PressMoldMakerMenu extends AbstractEnergizedPowerScreenHandler {
         this.blockEntity = (PressMoldMakerBlockEntity)blockEntity;
 
         this.inv = inv;
-        checkSize(this.inv, 2);
+        checkSize(inv, 2);
         this.level = playerInventory.player.getWorld();
-        this.inv.onOpen(playerInventory.player);
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
-        addSlot(new ConstraintInsertSlot(this.inv, 0, 8, 17));
-        addSlot(new ConstraintInsertSlot(this.inv, 1, 8, 53));
+        addSlot(new ConstraintInsertSlot(inv, 0, 8, 17));
+        addSlot(new ConstraintInsertSlot(inv, 1, 8, 53));
     }
 
     @Override
@@ -95,7 +94,7 @@ public class PressMoldMakerMenu extends AbstractEnergizedPowerScreenHandler {
         return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.PRESS_MOLD_MAKER);
     }
 
-    private void addPlayerInventory(Inventory playerInventory) {
+    private void addPlayerInventory(PlayerInventory playerInventory) {
         for(int i = 0;i < 3;i++) {
             for(int j = 0;j < 9;j++) {
                 addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
@@ -103,7 +102,7 @@ public class PressMoldMakerMenu extends AbstractEnergizedPowerScreenHandler {
         }
     }
 
-    private void addPlayerHotbar(Inventory playerInventory) {
+    private void addPlayerHotbar(PlayerInventory playerInventory) {
         for(int i = 0;i < 9;i++) {
             addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }
