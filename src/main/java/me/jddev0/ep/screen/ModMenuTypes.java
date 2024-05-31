@@ -58,6 +58,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<FiltrationPlantMenu>> FILTRATION_PLANT_MENU = registerMenuType("filtration_plant",
             FiltrationPlantMenu::new);
 
+    public static final RegistryObject<MenuType<FluidTransposerMenu>> FLUID_TRANSPOSER_MENU = registerMenuType("fluid_transposer",
+            FluidTransposerMenu::new);
+
     public static final RegistryObject<MenuType<BlockPlacerMenu>> BLOCK_PLACER_MENU = registerMenuType("block_placer",
             BlockPlacerMenu::new);
 

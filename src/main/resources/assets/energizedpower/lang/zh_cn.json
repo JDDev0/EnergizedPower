@@ -530,6 +530,13 @@
   "tooltip.energizedpower.filtration_plant.txt.shift.1": "This block requires Charcoal Filters.",
   "tooltip.energizedpower.filtration_plant.charcoal_filter_missing": "Charcoal Filter is missing!",
 
+  "block.energizedpower.fluid_transposer": "Fluid Transposer",
+  "item.energizedpower.fluid_transposer": "Fluid Transposer",
+  "container.energizedpower.fluid_transposer": "Fluid Transposer",
+
+  "tooltip.energizedpower.fluid_transposer.mode.emptying": "Mode: Emptying",
+  "tooltip.energizedpower.fluid_transposer.mode.filling": "Mode: Filling",
+
   "block.energizedpower.block_placer": "方块放置器",
   "item.energizedpower.block_placer": "方块放置器",
   "container.energizedpower.block_placer": "方块放置器",
@@ -729,6 +736,7 @@
   "emi.category.energizedpower.press_mold_maker": "Press Mold Maker",
   "emi.category.energizedpower.stone_solidifier": "Stone Solidifier",
   "emi.category.energizedpower.filtration_plant": "Filtration Plant",
+  "emi.category.energizedpower.fluid_transposer": "Fluid Transposer",
   "emi.category.energizedpower.dispenser": "自动取物器",
   "emi.category.energizedpower.in_world_crafting": "世界工艺品",
 
