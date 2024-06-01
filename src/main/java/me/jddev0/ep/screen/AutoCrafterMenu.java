@@ -7,6 +7,8 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -20,7 +22,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStorageConsumerIndicatorBarMenu {
+public class AutoCrafterMenu extends AbstractContainerMenu
+        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
     private final AutoCrafterBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
@@ -148,10 +151,12 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
         return data.get(8) != 0;
     }
 
+    @Override
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(9));
     }
 
+    @Override
     public ComparatorMode getComparatorMode() {
         return ComparatorMode.fromIndex(data.get(10));
     }
@@ -218,6 +223,7 @@ public class AutoCrafterMenu extends AbstractContainerMenu implements EnergyStor
         }
     }
 
+    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
     }

@@ -1,5 +1,6 @@
 package me.jddev0.ep.screen;
 
+import me.jddev0.ep.screen.base.EnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;

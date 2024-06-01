@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.networking.packet.SetFluidTankFilterC2SPacket;
@@ -42,10 +41,6 @@ public class FluidTankScreen extends AbstractContainerScreen<FluidTankMenu> {
         super(menu, inventory, component);
 
         TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/fluid_tank.png");
-    }
-
-    public FluidTankBlock.Tier getTier() {
-        return menu.getTier();
     }
 
     @Override

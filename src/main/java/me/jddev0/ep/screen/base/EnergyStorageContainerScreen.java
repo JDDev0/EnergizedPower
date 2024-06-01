@@ -1,4 +1,4 @@
-package me.jddev0.ep.screen;
+package me.jddev0.ep.screen.base;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
-public abstract class AbstractGenericEnergyStorageContainerScreen<T extends AbstractContainerMenu & EnergyStorageMenu> extends AbstractContainerScreen<T> {
+public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMenu & EnergyStorageMenu> extends AbstractContainerScreen<T> {
     protected final ResourceLocation TEXTURE;
     protected final int energyMeterX;
     protected final int energyMeterY;
@@ -28,33 +28,33 @@ public abstract class AbstractGenericEnergyStorageContainerScreen<T extends Abst
 
     protected final String energyIndicatorBarTooltipComponentID;
 
-    public AbstractGenericEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent) {
+    public EnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent) {
         this(menu, inventory, titleComponent, null);
     }
 
-    public AbstractGenericEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
-                                                       String energyIndicatorBarTooltipComponentID) {
+    public EnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
+                                        String energyIndicatorBarTooltipComponentID) {
         this(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID,
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/generic_energy.png"),
                 80, 17);
     }
 
-    public AbstractGenericEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
-                                                       ResourceLocation texture, int energyMeterX, int energyMeterY) {
+    public EnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
+                                        ResourceLocation texture, int energyMeterX, int energyMeterY) {
         this(menu, inventory, titleComponent, null, texture, energyMeterX, energyMeterY);
     }
 
-    public AbstractGenericEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
-                                                       String energyIndicatorBarTooltipComponentID,
-                                                       ResourceLocation texture, int energyMeterX, int energyMeterY) {
+    public EnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
+                                        String energyIndicatorBarTooltipComponentID,
+                                        ResourceLocation texture, int energyMeterX, int energyMeterY) {
         this(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, texture,
                 energyMeterX, energyMeterY, 16, 52);
     }
 
-    public AbstractGenericEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
-                                                       String energyIndicatorBarTooltipComponentID,
-                                                       ResourceLocation texture, int energyMeterX, int energyMeterY,
-                                                       int energyMeterWidth, int energyMeterHeight) {
+    public EnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
+                                        String energyIndicatorBarTooltipComponentID,
+                                        ResourceLocation texture, int energyMeterX, int energyMeterY,
+                                        int energyMeterWidth, int energyMeterHeight) {
         super(menu, inventory, titleComponent);
 
         this.TEXTURE = texture;
