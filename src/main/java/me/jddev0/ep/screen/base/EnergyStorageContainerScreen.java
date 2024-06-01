@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
-public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & EnergyStorageMenu> extends HandledScreen<T> {
+public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEnergyStorageMenu> extends HandledScreen<T> {
     protected final Identifier TEXTURE;
 
     protected int energyMeterX = 8;

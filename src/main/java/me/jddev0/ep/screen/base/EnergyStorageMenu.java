@@ -1,21 +1,69 @@
 package me.jddev0.ep.screen.base;
 
-public interface EnergyStorageMenu extends UpgradeModuleMenu {
-    long getEnergy();
-    long getCapacity();
+import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import net.minecraft.block.Block;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.screen.slot.Slot;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-    default int getScaledEnergyMeterPos(int energyMeterHeight) {
-        long energy = getEnergy();
-        long capacity = getCapacity();
+public abstract class EnergyStorageMenu<T extends EnergyStorageBlockEntity<?>>
+        extends AbstractEnergizedPowerScreenHandler
+        implements IEnergyStorageMenu {
+    protected final T blockEntity;
+    protected final World level;
+    protected final Block blockType;
 
-        return (int)((energy == 0 || capacity == 0)?0:Math.max(1, energy * energyMeterHeight / capacity));
+    protected EnergyStorageMenu(@Nullable ScreenHandlerType<?> menuType, int id, PlayerInventory playerInventory,
+                                BlockEntity blockEntity, Block blockType) {
+        this(menuType, id, playerInventory, blockEntity, blockType, 8, 84);
     }
 
-    default long getEnergyIndicatorBarValue() {
-        return 0;
+    @SuppressWarnings("unchecked")
+    protected EnergyStorageMenu(@Nullable ScreenHandlerType<?> menuType, int id, PlayerInventory playerInventory,
+                                BlockEntity blockEntity, Block blockType,
+                                int playerInventoryX, int playerInventoryY) {
+        super(menuType, id);
+
+        this.blockEntity = (T)blockEntity;
+        this.level = playerInventory.player.getWorld();
+        this.blockType = blockType;
+
+        addPlayerInventorySlots(playerInventory, playerInventoryX, playerInventoryY);
     }
 
-    default int getScaledEnergyIndicatorBarPos(int energyMeterHeight) {
-        return 0;
+    @Override
+    public long getEnergy() {
+        return blockEntity.getEnergy();
+    }
+
+    @Override
+    public long getCapacity() {
+        return blockEntity.getCapacity();
+    }
+
+    @Override
+    public boolean canUse(@NotNull PlayerEntity player) {
+        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, blockType);
+    }
+
+    private void addPlayerInventorySlots(PlayerInventory playerInventory, int x, int y) {
+        //Player Inventory
+        for(int i = 0;i < 3;i++)
+            for(int j = 0;j < 9;j++)
+                addSlot(new Slot(playerInventory, j + i * 9 + 9, x + j * 18, y + i * 18));
+
+        //Player Hotbar
+        for(int i = 0;i < 9;i++)
+            addSlot(new Slot(playerInventory, i, x + i * 18, y + 58));
+    }
+
+    public T getBlockEntity() {
+        return blockEntity;
     }
 }
