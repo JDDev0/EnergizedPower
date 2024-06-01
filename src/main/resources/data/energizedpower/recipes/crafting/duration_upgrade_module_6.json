@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "G": {
-      "tag": "c:plates/energized_gold"
+      "tag": "forge:plates/energized_gold"
     },
     "C": {
       "item": "energizedpower:energized_crystal_matrix"
@@ -21,6 +21,6 @@
     "GDG"
   ],
   "result": {
-    "id": "energizedpower:duration_upgrade_module_6"
+    "item": "energizedpower:duration_upgrade_module_6"
   }
 }

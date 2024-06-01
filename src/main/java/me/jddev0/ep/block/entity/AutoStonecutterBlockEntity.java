@@ -1,0 +1,137 @@
+package me.jddev0.ep.block.entity;
+
+import me.jddev0.ep.block.entity.base.SelectableRecipeMachineBlockEntity;
+import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.AutoStonecutterMenu;
+import me.jddev0.ep.util.InventoryUtils;
+import me.jddev0.ep.util.ItemStackUtils;
+import me.jddev0.ep.util.RecipeUtils;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.StonecutterRecipe;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+public class AutoStonecutterBlockEntity
+        extends SelectableRecipeMachineBlockEntity<StonecutterRecipe> {
+    private LazyOptional<IEnergyStorage> lazyEnergyStorage;
+
+    private LazyOptional<IItemHandler> lazyItemHandler;
+    private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
+            () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0 || i == 1, i -> i == 2));
+
+    public AutoStonecutterBlockEntity(BlockPos blockPos, BlockState blockState) {
+        super(
+                ModBlockEntities.AUTO_STONECUTTER_ENTITY.get(), blockPos, blockState,
+
+                "auto_stonecutter", AutoStonecutterMenu::new,
+
+                3,
+                RecipeType.STONECUTTING,
+                RecipeSerializer.STONECUTTER,
+                ModConfigs.COMMON_AUTO_STONECUTTER_RECIPE_DURATION.getValue(),
+
+                ModConfigs.COMMON_AUTO_STONECUTTER_CAPACITY.getValue(),
+                ModConfigs.COMMON_AUTO_STONECUTTER_TRANSFER_RATE.getValue(),
+                ModConfigs.COMMON_AUTO_STONECUTTER_ENERGY_CONSUMPTION_PER_TICK.getValue(),
+
+                UpgradeModuleModifier.SPEED,
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY
+        );
+    }
+
+    @Override
+    protected ItemStackHandler initInventoryStorage() {
+        return new ItemStackHandler(slotCount) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return switch(slot) {
+                    case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, recipeType, stack);
+                    case 1 -> stack.is(Tags.Items.TOOLS_PICKAXES);
+                    case 2 -> false;
+                    default -> super.isItemValid(slot, stack);
+                };
+            }
+        };
+    }
+
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if(cap == ForgeCapabilities.ITEM_HANDLER) {
+            if(side == null)
+                return lazyItemHandler.cast();
+
+            return lazyItemHandlerSided.cast();
+        }else if(cap == ForgeCapabilities.ENERGY) {
+            return lazyEnergyStorage.cast();
+        }
+
+        return super.getCapability(cap, side);
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+
+        lazyItemHandler = LazyOptional.of(() -> itemHandler);
+        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+
+        lazyItemHandler.invalidate();
+        lazyEnergyStorage.invalidate();
+    }
+
+    @Override
+    protected void craftItem(StonecutterRecipe recipe) {
+        if(level == null || !hasRecipe())
+            return;
+
+        ItemStack pickaxe = itemHandler.getStackInSlot(1).copy();
+        if(pickaxe.isEmpty() && !pickaxe.is(Tags.Items.TOOLS_PICKAXES))
+            return;
+
+        if(pickaxe.hurt(1, level.random, null))
+            itemHandler.setStackInSlot(1, ItemStack.EMPTY);
+        else
+            itemHandler.setStackInSlot(1, pickaxe);
+
+        itemHandler.extractItem(0, 1, false);
+        itemHandler.setStackInSlot(2, ItemStackUtils.copyWithCount(recipe.getResultItem(),
+                itemHandler.getStackInSlot(2).getCount() +
+                        recipe.getResultItem().getCount()));
+
+        resetProgress();
+    }
+
+    @Override
+    protected boolean canCraftRecipe(SimpleContainer inventory, StonecutterRecipe recipe) {
+        return level != null &&
+                recipe.matches(inventory, level) &&
+                itemHandler.getStackInSlot(1).is(Tags.Items.TOOLS_PICKAXES) &&
+                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.getResultItem());
+    }
+}
