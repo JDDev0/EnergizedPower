@@ -4,7 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.item.InventoryChargerItem;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class InventoryChargerScreen extends AbstractContainerScreen<InventoryChargerMenu> {
+public class InventoryChargerScreen extends EnergizedPowerBaseContainerScreen<InventoryChargerMenu> {
     private final ResourceLocation TEXTURE;
 
     public InventoryChargerScreen(InventoryChargerMenu menu, Inventory inventory, Component component) {

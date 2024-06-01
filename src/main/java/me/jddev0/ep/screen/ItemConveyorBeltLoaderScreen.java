@@ -3,7 +3,7 @@ package me.jddev0.ep.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class ItemConveyorBeltLoaderScreen extends AbstractContainerScreen<ItemConveyorBeltLoaderMenu> {
+public class ItemConveyorBeltLoaderScreen extends EnergizedPowerBaseContainerScreen<ItemConveyorBeltLoaderMenu> {
     private final ResourceLocation TEXTURE;
 
     public ItemConveyorBeltLoaderScreen(ItemConveyorBeltLoaderMenu menu, Inventory inventory, Component component) {

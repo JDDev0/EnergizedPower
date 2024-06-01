@@ -1,27 +1,19 @@
 package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Matrix4f;
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.recipe.FiltrationPlantRecipe;
 import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
@@ -90,111 +82,16 @@ public class FiltrationPlantScreen
         int y = (height - imageHeight) / 2;
 
         for (int i = 0; i < 2; i++) {
-            renderFluidMeterContent(i, poseStack, x, y);
+            renderFluidMeterContent(poseStack, menu.getFluid(i), menu.getTankCapacity(i), x + (i == 0?44:152), y + 17, 16, 52);
             renderFluidMeterOverlay(i, poseStack, x, y);
         }
 
         renderProgressArrows(poseStack, x, y);
     }
 
-    private void renderFluidMeterContent(int tank, PoseStack poseStack, int x, int y) {
-        RenderSystem.enableBlend();
-        poseStack.pushPose();
-
-        poseStack.translate(x + (tank == 0?44:152), y + 17, 0);
-
-        renderFluidStack(tank, poseStack);
-
-        poseStack.popPose();
-        RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
-        RenderSystem.disableBlend();
-    }
-
-    private void renderFluidStack(int tank, PoseStack poseStack) {
-        FluidStack fluidStack = menu.getFluid(tank);
-        if(fluidStack.isEmpty())
-            return;
-
-        int capacity = menu.getTankCapacity(tank);
-
-        Fluid fluid = fluidStack.getFluid();
-        IClientFluidTypeExtensions fluidTypeExtensions = IClientFluidTypeExtensions.of(fluid);
-        ResourceLocation stillFluidImageId = fluidTypeExtensions.getStillTexture(fluidStack);
-        if(stillFluidImageId == null)
-            stillFluidImageId = new ResourceLocation("air");
-        TextureAtlasSprite stillFluidSprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).
-                apply(stillFluidImageId);
-
-        int fluidColorTint = fluidTypeExtensions.getTintColor(fluidStack);
-
-        int fluidMeterPos = 52 - ((fluidStack.getAmount() <= 0 || capacity == 0)?0:
-                (Math.min(fluidStack.getAmount(), capacity - 1) * 52 / capacity + 1));
-
-        RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
-
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor((fluidColorTint >> 16 & 0xFF) / 255.f,
-                (fluidColorTint >> 8 & 0xFF) / 255.f, (fluidColorTint & 0xFF) / 255.f,
-                (fluidColorTint >> 24 & 0xFF) / 255.f);
-
-        Matrix4f mat = poseStack.last().pose();
-
-        for(int yOffset = 52;yOffset > fluidMeterPos;yOffset -= 16) {
-            int height = Math.min(yOffset - fluidMeterPos, 16);
-
-            float u0 = stillFluidSprite.getU0();
-            float u1 = stillFluidSprite.getU1();
-            float v0 = stillFluidSprite.getV0();
-            float v1 = stillFluidSprite.getV1();
-            v0 = v0 - ((16 - height) / 16.f * (v0 - v1));
-
-            Tesselator tesselator = Tesselator.getInstance();
-            BufferBuilder bufferBuilder = tesselator.getBuilder();
-            bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-            bufferBuilder.vertex(mat, 0, yOffset, 0).uv(u0, v1).endVertex();
-            bufferBuilder.vertex(mat, 16, yOffset, 0).uv(u1, v1).endVertex();
-            bufferBuilder.vertex(mat, 16, yOffset - height, 0).uv(u1, v0).endVertex();
-            bufferBuilder.vertex(mat, 0, yOffset - height, 0).uv(u0, v0).endVertex();
-            tesselator.end();
-        }
-    }
-
     private void renderFluidMeterOverlay(int tank, PoseStack poseStack, int x, int y) {
         RenderSystem.setShaderTexture(0, TEXTURE);
         blit(poseStack, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52);
-    }
-
-    private void renderCurrentRecipeOutput(PoseStack poseStack, int x, int y) {
-        FiltrationPlantRecipe currentRecipe = menu.getCurrentRecipe();
-        if(currentRecipe == null)
-            return;
-
-        ResourceLocation icon = currentRecipe.getIcon();
-        ItemStack itemStackIcon = new ItemStack(ForgeRegistries.ITEMS.getValue(icon));
-        if(!itemStackIcon.isEmpty()) {
-            poseStack.pushPose();
-            poseStack.translate(0.f, 0.f, 100.f);
-
-            itemRenderer.renderAndDecorateItem(itemStackIcon, x + 98, y + 17, 98 + 17 * this.imageWidth);
-
-            poseStack.popPose();
-
-            RenderSystem.setShaderTexture(0, TEXTURE);
-        }
-    }
-
-    private void renderButtons(PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
-        RenderSystem.setShaderTexture(0, TEXTURE);
-
-        //Up button
-        if(isHovering(85, 19, 11, 12, mouseX, mouseY)) {
-            blit(poseStack, x + 85, y + 19, 176, 135, 11, 12);
-        }
-
-        //Down button
-        if(isHovering(116, 19, 11, 12, mouseX, mouseY)) {
-            blit(poseStack, x + 116, y + 19, 187, 135, 11, 12);
-        }
     }
 
     private void renderProgressArrows(PoseStack poseStack, int x, int y) {

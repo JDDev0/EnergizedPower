@@ -6,8 +6,8 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.CraftPressMoldMakerRecipeC2SPacket;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
+import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
-public class PressMoldMakerScreen extends AbstractContainerScreen<PressMoldMakerMenu> {
+public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<PressMoldMakerMenu> {
     private final ResourceLocation TEXTURE;
 
     private int scrollIndexOffset = 0;
