@@ -28,7 +28,6 @@ public class ItemConveyorBeltLoaderBlockEntity
         extends MenuInventoryStorageBlockEntity<ItemStackHandler> {
     private static final int TICKS_PER_ITEM = ModConfigs.COMMON_ITEM_CONVEYOR_BELT_LOADER_TICKS_PER_ITEM.getValue();
 
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 0));
 
@@ -77,20 +76,6 @@ public class ItemConveyorBeltLoaderBlockEntity
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyItemHandler.invalidate();
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltLoaderBlockEntity blockEntity) {

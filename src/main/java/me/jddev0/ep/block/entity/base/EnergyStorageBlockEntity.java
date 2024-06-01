@@ -11,12 +11,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class EnergyStorageBlockEntity<E extends IEnergizedPowerEnergyStorage>
         extends BlockEntity
         implements EnergyStoragePacketUpdate {
     protected final E energyStorage;
+    protected LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
     protected final int baseEnergyCapacity;
     protected final int baseEnergyTransferRate;
@@ -32,6 +35,20 @@ public abstract class EnergyStorageBlockEntity<E extends IEnergizedPowerEnergySt
     }
 
     protected abstract E initEnergyStorage();
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+
+        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+
+        lazyEnergyStorage.invalidate();
+    }
 
     @Override
     protected void saveAdditional(@NotNull CompoundTag nbt) {

@@ -67,9 +67,6 @@ public class TeleporterBlockEntity
     public static final List<@NotNull ResourceLocation> INTER_DIMENSIONAL_TO_TYPE_BLACKLIST =
             ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_TYPE_BLACKLIST.getValue();
 
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
-
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> true));
 
@@ -145,22 +142,6 @@ public class TeleporterBlockEntity
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyItemHandler.invalidate();
-        lazyEnergyStorage.invalidate();
     }
 
     public void setChangedAndUpdateReadyState() {

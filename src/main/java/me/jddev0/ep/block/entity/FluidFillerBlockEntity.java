@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
@@ -41,9 +40,6 @@ public class FluidFillerBlockEntity
     public static final int MAX_FLUID_FILLING_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_FLUID_ITEM_TRANSFER_RATE.getValue();
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
-
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
                 if(i != 0)
@@ -66,8 +62,6 @@ public class FluidFillerBlockEntity
 
                 return true;
             }));
-
-    private LazyOptional<IFluidHandler> lazyFluidStorage = LazyOptional.empty();
 
     private int fluidFillingLeft = -1;
     private int fluidFillingSumPending = 0;
@@ -216,24 +210,6 @@ public class FluidFillerBlockEntity
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyItemHandler.invalidate();
-        lazyEnergyStorage.invalidate();
-        lazyFluidStorage.invalidate();
     }
 
     @Override

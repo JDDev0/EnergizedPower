@@ -18,16 +18,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<MetalPressRecipe> {
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
-
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final LazyOptional<IItemHandler> lazyItemHandlerTopSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 1));
     private final LazyOptional<IItemHandler> lazyItemHandlerOthersSided = LazyOptional.of(
@@ -106,22 +102,6 @@ public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<MetalP
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyItemHandler.invalidate();
-        lazyEnergyStorage.invalidate();
     }
 
     @Override

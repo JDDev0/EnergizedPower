@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
@@ -44,13 +43,8 @@ public class FluidTransposerBlockEntity
         implements CheckboxUpdate {
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_FLUID_TRANSPOSER_TANK_CAPACITY.getValue();
 
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
-
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1));
-
-    private LazyOptional<IFluidHandler> lazyFluidStorage = LazyOptional.empty();
 
     private Mode mode = Mode.EMPTYING;
 
@@ -181,24 +175,6 @@ public class FluidTransposerBlockEntity
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyItemHandler.invalidate();
-        lazyEnergyStorage.invalidate();
-        lazyFluidStorage.invalidate();
     }
 
     @Override

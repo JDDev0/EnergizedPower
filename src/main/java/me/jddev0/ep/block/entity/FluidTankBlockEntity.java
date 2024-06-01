@@ -33,8 +33,6 @@ public class FluidTankBlockEntity
         implements CheckboxUpdate {
     private final FluidTankBlock.Tier tier;
 
-    private LazyOptional<IFluidHandler> lazyFluidStorage = LazyOptional.empty();
-
     private boolean ignoreNBT;
     private FluidStack fluidFilter = FluidStack.EMPTY;
 
@@ -137,20 +135,6 @@ public class FluidTankBlockEntity
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyFluidStorage.invalidate();
     }
 
     @Override
