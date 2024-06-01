@@ -179,6 +179,17 @@ public final class ModItems {
     public static final RegistryObject<Item> RANGE_UPGRADE_MODULE_3 = ITEMS.register("range_upgrade_module_3",
             () -> new RangeUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 3));
 
+    public static final RegistryObject<Item> EXTRACTION_DEPTH_UPGRADE_MODULE_1 = ITEMS.register("extraction_depth_upgrade_module_1",
+            () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 1));
+    public static final RegistryObject<Item> EXTRACTION_DEPTH_UPGRADE_MODULE_2 = ITEMS.register("extraction_depth_upgrade_module_2",
+            () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 2));
+    public static final RegistryObject<Item> EXTRACTION_DEPTH_UPGRADE_MODULE_3 = ITEMS.register("extraction_depth_upgrade_module_3",
+            () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 3));
+    public static final RegistryObject<Item> EXTRACTION_DEPTH_UPGRADE_MODULE_4 = ITEMS.register("extraction_depth_upgrade_module_4",
+            () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 4));
+    public static final RegistryObject<Item> EXTRACTION_DEPTH_UPGRADE_MODULE_5 = ITEMS.register("extraction_depth_upgrade_module_5",
+            () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 5));
+
     public static final RegistryObject<Item> BLAST_FURNACE_UPGRADE_MODULE = ITEMS.register("blast_furnace_upgrade_module",
             () -> new FurnaceModeUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 1));
     public static final RegistryObject<Item> SMOKER_UPGRADE_MODULE = ITEMS.register("smoker_upgrade_module",
