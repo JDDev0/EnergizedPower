@@ -122,6 +122,7 @@
   "item.energizedpower.duration_upgrade_module_3": "Laufzeit-Upgrade-Modul (MK III)",
   "item.energizedpower.duration_upgrade_module_4": "Laufzeit-Upgrade-Modul (MK IV)",
   "item.energizedpower.duration_upgrade_module_5": "Laufzeit-Upgrade-Modul (MK V)",
+  "item.energizedpower.duration_upgrade_module_6": "Laufzeit-Upgrade-Modul (MK VI)",
 
   "item.energizedpower.range_upgrade_module_1": "Reichweiten-Upgrade-Modul (MK I)",
   "item.energizedpower.range_upgrade_module_2": "Reichweiten-Upgrade-Modul (MK II)",
@@ -822,6 +823,9 @@
 
   "advancements.energizedpower.duration_upgrade_module_5.title": "Laufzeit V",
   "advancements.energizedpower.duration_upgrade_module_5.description": "Erstelle ein Laufzeit-Upgrade-Modul (MK V).",
+
+  "advancements.energizedpower.duration_upgrade_module_6.title": "Laufzeit VI",
+  "advancements.energizedpower.duration_upgrade_module_6.description": "Erstelle ein Laufzeit-Upgrade-Modul (MK VI).",
 
   "advancements.energizedpower.range_upgrade_module_1.title": "Reichweite I",
   "advancements.energizedpower.range_upgrade_module_1.description": "Erstelle ein Reichweiten-Upgrade-Modul (MK I).",

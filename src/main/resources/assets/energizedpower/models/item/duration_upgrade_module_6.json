@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "energizedpower:item/duration_upgrade_module_6"
+  }
+}

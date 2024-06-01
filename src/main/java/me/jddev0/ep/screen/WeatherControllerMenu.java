@@ -10,6 +10,8 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ArrayPropertyDelegate;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
@@ -21,27 +23,31 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 public class WeatherControllerMenu extends AbstractEnergizedPowerScreenHandler implements EnergyStorageMenu {
     private final WeatherControllerBlockEntity blockEntity;
     private final World level;
+    private final PropertyDelegate data;
     private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public WeatherControllerMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
         this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new UpgradeModuleInventory(
                 UpgradeModuleModifier.DURATION
-        ));
+        ), new ArrayPropertyDelegate(2));
     }
 
     public WeatherControllerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory,
-                                 UpgradeModuleInventory upgradeModuleInventory) {
+                                 UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(ModMenuTypes.WEATHER_CONTROLLER_MENU, id);
 
         this.blockEntity = (WeatherControllerBlockEntity)blockEntity;
-
         checkSize(upgradeModuleInventory, 1);
+        checkDataCount(data, 2);
         this.level = playerInventory.player.getWorld();
+        this.data = data;
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
+
+        addProperties(this.data);
 
         upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
         addProperties(upgradeModuleViewContainerData);
@@ -71,6 +77,14 @@ public class WeatherControllerMenu extends AbstractEnergizedPowerScreenHandler i
     @Override
     public long getCapacity() {
         return blockEntity.getCapacity();
+    }
+
+    public int getSelectedWeatherType() {
+        return data.get(0);
+    }
+
+    public boolean hasEnoughEnergy() {
+        return data.get(1) != 0;
     }
 
     @Override
