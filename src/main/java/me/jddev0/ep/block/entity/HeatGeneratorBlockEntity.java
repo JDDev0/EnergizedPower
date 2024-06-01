@@ -8,8 +8,6 @@ import me.jddev0.ep.recipe.HeatGeneratorRecipe;
 import me.jddev0.ep.screen.HeatGeneratorMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -28,8 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
-        implements MenuProvider {
+public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity<ExtractOnlyEnergyStorage> {
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_HEAT_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
@@ -37,6 +34,8 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.HEAT_GENERATOR_ENTITY.get(), blockPos, blockState,
+
+                "heat_generator",
 
                 ModConfigs.COMMON_HEAT_GENERATOR_CAPACITY.getValue(),
                 ModConfigs.COMMON_HEAT_GENERATOR_TRANSFER_RATE.getValue(),
@@ -66,11 +65,6 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
                 syncEnergyToPlayers(32);
             }
         };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.heat_generator");
     }
 
     @Nullable

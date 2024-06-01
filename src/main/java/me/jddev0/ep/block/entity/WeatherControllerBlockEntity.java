@@ -7,8 +7,6 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.WeatherControllerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -20,8 +18,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class WeatherControllerBlockEntity extends UpgradableEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
-        implements MenuProvider {
+public class WeatherControllerBlockEntity extends UpgradableEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage> {
     public static final int CAPACITY = ModConfigs.COMMON_WEATHER_CONTROLLER_CAPACITY.getValue();
 
     private static final int WEATHER_CHANGED_TICKS = ModConfigs.COMMON_WEATHER_CONTROLLER_CONTROL_DURATION.getValue();
@@ -31,6 +28,8 @@ public class WeatherControllerBlockEntity extends UpgradableEnergyStorageBlockEn
     public WeatherControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.WEATHER_CONTROLLER_ENTITY.get(), blockPos, blockState,
+
+                "weather_controller",
 
                 CAPACITY,
                 ModConfigs.COMMON_WEATHER_CONTROLLER_TRANSFER_RATE.getValue(),
@@ -48,11 +47,6 @@ public class WeatherControllerBlockEntity extends UpgradableEnergyStorageBlockEn
                 syncEnergyToPlayers(32);
             }
         };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.weather_controller");
     }
 
     @Nullable

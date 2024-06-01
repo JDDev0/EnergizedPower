@@ -7,9 +7,7 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.SolarPanelMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -25,8 +23,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
-        implements MenuProvider {
+public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<ExtractOnlyEnergyStorage> {
     private final SolarPanelBlock.Tier tier;
 
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
@@ -45,6 +42,8 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<Ex
     public SolarPanelBlockEntity(BlockPos blockPos, BlockState blockState, SolarPanelBlock.Tier tier) {
         super(
                 getEntityTypeFromTier(tier), blockPos, blockState,
+
+                tier.getResourceId(),
 
                 tier.getCapacity(),
                 tier.getMaxTransfer(),
@@ -79,11 +78,6 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<Ex
                 syncEnergyToPlayers(32);
             }
         };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower." + tier.getResourceId());
     }
 
     @Nullable

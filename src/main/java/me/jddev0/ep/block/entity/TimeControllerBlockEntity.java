@@ -1,13 +1,11 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.screen.TimeControllerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -19,8 +17,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class TimeControllerBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEnergyStorage>
-        implements MenuProvider {
+public class TimeControllerBlockEntity extends MenuEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage> {
     public static final int CAPACITY = ModConfigs.COMMON_TIME_CONTROLLER_CAPACITY.getValue();
 
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
@@ -28,6 +25,8 @@ public class TimeControllerBlockEntity extends EnergyStorageBlockEntity<ReceiveO
     public TimeControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.TIME_CONTROLLER_ENTITY.get(), blockPos, blockState,
+
+                "time_controller",
 
                 CAPACITY,
                 ModConfigs.COMMON_TIME_CONTROLLER_TRANSFER_RATE.getValue()
@@ -43,11 +42,6 @@ public class TimeControllerBlockEntity extends EnergyStorageBlockEntity<ReceiveO
                 syncEnergyToPlayers(32);
             }
         };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.time_controller");
     }
 
     @Nullable
