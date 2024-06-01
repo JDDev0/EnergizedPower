@@ -5,7 +5,6 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -19,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
-public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMenu & IEnergyStorageMenu> extends AbstractContainerScreen<T> {
+public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMenu & IEnergyStorageMenu> extends EnergizedPowerBaseContainerScreen<T> {
     protected final ResourceLocation TEXTURE;
 
     protected int energyMeterX = 8;
@@ -27,8 +26,8 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
     protected int energyMeterWidth = 16;
     protected int energyMeterHeight = 52;
 
-    protected int energyMeterTextureX = 176;
-    protected int energyMeterTextureY = 0;
+    protected int energyMeterU = 176;
+    protected int energyMeterV = 0;
 
     protected final String energyIndicatorBarTooltipComponentID;
 
@@ -73,15 +72,15 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
 
     protected void renderEnergyMeter(GuiGraphics guiGraphics, int x, int y) {
         int pos = menu.getScaledEnergyMeterPos(energyMeterHeight);
-        guiGraphics.blit(TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterTextureX,
-                energyMeterTextureY + energyMeterHeight - pos, energyMeterWidth, pos);
+        guiGraphics.blit(TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
+                energyMeterV + energyMeterHeight - pos, energyMeterWidth, pos);
     }
 
     protected void renderEnergyIndicatorBar(GuiGraphics guiGraphics, int x, int y) {
         int pos = menu.getScaledEnergyIndicatorBarPos(energyMeterHeight);
         if(pos > 0)
-            guiGraphics.blit(TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterTextureX,
-                    energyMeterTextureY + energyMeterHeight, energyMeterWidth, 1);
+            guiGraphics.blit(TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
+                    energyMeterV + energyMeterHeight, energyMeterWidth, 1);
     }
 
     @Override
