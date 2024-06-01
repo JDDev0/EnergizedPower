@@ -12,7 +12,6 @@ import me.jddev0.ep.screen.EnergizerMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,11 +21,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtInt;
 import net.minecraft.nbt.NbtLong;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -37,13 +33,11 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import java.util.Optional;
 
 public class EnergizerBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
-        implements ExtendedScreenHandlerFactory {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory> {
     public static final double ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_ENERGIZER_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
 
-    protected final PropertyDelegate data;
     private int progress;
     private int maxProgress = ModConfigs.COMMON_ENERGIZER_RECIPE_DURATION.getValue();
     private long energyConsumptionLeft = -1;
@@ -53,6 +47,8 @@ public class EnergizerBlockEntity
         super(
                 ModBlockEntities.ENERGIZER_ENTITY, blockPos, blockState,
 
+                "energizer",
+
                 ModConfigs.COMMON_ENERGIZER_CAPACITY.getValue(),
                 ModConfigs.COMMON_ENERGIZER_TRANSFER_RATE.getValue(),
 
@@ -60,41 +56,6 @@ public class EnergizerBlockEntity
 
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
-
-        data = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.progress, index);
-                    case 2, 3 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.maxProgress, index - 2);
-                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.energyConsumptionLeft, index - 4);
-                    case 8 -> hasEnoughEnergy?1:0;
-                    case 9 -> redstoneMode.ordinal();
-                    case 10 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1 -> EnergizerBlockEntity.this.progress = ByteUtils.with2Bytes(
-                            EnergizerBlockEntity.this.progress, (short)value, index
-                    );
-                    case 2, 3 -> EnergizerBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
-                            EnergizerBlockEntity.this.maxProgress, (short)value, index - 2
-                    );
-                    case 4, 5, 6, 7, 8 -> {}
-                    case 9 -> EnergizerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 10 -> EnergizerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int size() {
-                return 11;
-            }
-        };
     }
 
     @Override
@@ -158,8 +119,41 @@ public class EnergizerBlockEntity
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.energizer");
+    protected PropertyDelegate initContainerData() {
+        return new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.progress, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.maxProgress, index - 2);
+                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(EnergizerBlockEntity.this.energyConsumptionLeft, index - 4);
+                    case 8 -> hasEnoughEnergy?1:0;
+                    case 9 -> redstoneMode.ordinal();
+                    case 10 -> comparatorMode.ordinal();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1 -> EnergizerBlockEntity.this.progress = ByteUtils.with2Bytes(
+                            EnergizerBlockEntity.this.progress, (short)value, index
+                    );
+                    case 2, 3 -> EnergizerBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
+                            EnergizerBlockEntity.this.maxProgress, (short)value, index - 2
+                    );
+                    case 4, 5, 6, 7, 8 -> {}
+                    case 9 -> EnergizerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 10 -> EnergizerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                }
+            }
+
+            @Override
+            public int size() {
+                return 11;
+            }
+        };
     }
 
     @Nullable
@@ -168,11 +162,6 @@ public class EnergizerBlockEntity
         syncEnergyToPlayer(player);
         
         return new EnergizerMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
-    }
-
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
     }
 
     @Override

@@ -6,7 +6,6 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,42 +13,65 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 public abstract class SimpleRecipeMachineBlockEntity<R extends Recipe<Inventory>>
-        extends WorkerMachineBlockEntity<R>
-        implements ExtendedScreenHandlerFactory {
-    protected final String machineName;
+        extends WorkerMachineBlockEntity<R> {
     protected final UpgradableMenuProvider menuProvider;
 
     protected final RecipeType<R> recipeType;
-
-    protected final PropertyDelegate data;
 
     public SimpleRecipeMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                           String machineName, UpgradableMenuProvider menuProvider,
                                           int slotCount, RecipeType<R> recipeType, int baseRecipeDuration,
                                           long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
                                           UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
+        super(type, blockPos, blockState, machineName, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
                 baseEnergyConsumptionPerTick, upgradeModifierSlots);
 
-        this.machineName = machineName;
         this.menuProvider = menuProvider;
 
         this.recipeType = recipeType;
+    }
 
-        data = new PropertyDelegate() {
+    @Override
+    protected SimpleInventory initInventoryStorage() {
+        return new SimpleInventory(slotCount) {
+            @Override
+            public boolean isValid(int slot, ItemStack stack) {
+                return slot == 0 && (world == null || RecipeUtils.isIngredientOfAny(world, recipeType, stack));
+            }
+
+            @Override
+            public void setStack(int slot, ItemStack stack) {
+                if(slot == 0) {
+                    ItemStack itemStack = getStack(slot);
+                    if(!stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.canCombine(stack, itemStack))
+                        resetProgress();
+                }
+
+                super.setStack(slot, stack);
+            }
+
+            @Override
+            public void markDirty() {
+                super.markDirty();
+
+                SimpleRecipeMachineBlockEntity.this.markDirty();
+            }
+        };
+    }
+
+    @Override
+    protected PropertyDelegate initContainerData() {
+        return new PropertyDelegate() {
             @Override
             public int get(int index) {
                 return switch(index) {
@@ -85,39 +107,6 @@ public abstract class SimpleRecipeMachineBlockEntity<R extends Recipe<Inventory>
         };
     }
 
-    @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
-            @Override
-            public boolean isValid(int slot, ItemStack stack) {
-                return slot == 0 && (world == null || RecipeUtils.isIngredientOfAny(world, recipeType, stack));
-            }
-
-            @Override
-            public void setStack(int slot, ItemStack stack) {
-                if(slot == 0) {
-                    ItemStack itemStack = getStack(slot);
-                    if(!stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.canCombine(stack, itemStack))
-                        resetProgress();
-                }
-
-                super.setStack(slot, stack);
-            }
-
-            @Override
-            public void markDirty() {
-                super.markDirty();
-
-                SimpleRecipeMachineBlockEntity.this.markDirty();
-            }
-        };
-    }
-
-    @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower." + machineName);
-    }
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
@@ -125,12 +114,6 @@ public abstract class SimpleRecipeMachineBlockEntity<R extends Recipe<Inventory>
 
         return menuProvider.createMenu(id, this, inventory, itemHandler, upgradeModuleInventory, data);
     }
-
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
-    }
-
 
     @Override
     protected final Optional<R> getCurrentWorkData() {

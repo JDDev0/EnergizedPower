@@ -18,7 +18,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
@@ -120,11 +119,6 @@ public class StoneSolidifierBlockEntity
                     }
                 }
         ));
-    }
-
-    @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.stone_solidifier");
     }
 
     @Override

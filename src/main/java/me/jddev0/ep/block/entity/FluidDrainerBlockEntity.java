@@ -12,7 +12,6 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.FluidDrainerMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.FluidUtils;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
@@ -26,11 +25,8 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -40,8 +36,7 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 public class FluidDrainerBlockEntity
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
-        <EnergizedPowerEnergyStorage, SimpleInventory, SimpleFluidStorage>
-        implements ExtendedScreenHandlerFactory {
+        <EnergizedPowerEnergyStorage, SimpleInventory, SimpleFluidStorage> {
     /**
      * MAX_FLUID_DRAINING_PER_TICK is in Milli Buckets
      */
@@ -75,8 +70,6 @@ public class FluidDrainerBlockEntity
         return true;
     });
 
-    protected final PropertyDelegate data;
-
     private long fluidDrainingLeft = -1;
     private long fluidDrainingSumPending = 0;
 
@@ -85,6 +78,8 @@ public class FluidDrainerBlockEntity
     public FluidDrainerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.FLUID_DRAINER_ENTITY, blockPos, blockState,
+
+                "fluid_drainer",
 
                 ModConfigs.COMMON_FLUID_DRAINER_CAPACITY.getValue(),
                 ModConfigs.COMMON_FLUID_DRAINER_TRANSFER_RATE.getValue(),
@@ -97,33 +92,6 @@ public class FluidDrainerBlockEntity
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
-
-        data = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(FluidDrainerBlockEntity.this.fluidDrainingLeft, index);
-                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(FluidDrainerBlockEntity.this.fluidDrainingSumPending, index - 4);
-                    case 8 -> redstoneMode.ordinal();
-                    case 9 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2, 3, 4, 5, 6, 7 -> {}
-                    case 8 -> FluidDrainerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 9 -> FluidDrainerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int size() {
-                return 10;
-            }
-        };
     }
 
     @Override
@@ -206,8 +174,33 @@ public class FluidDrainerBlockEntity
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.fluid_drainer");
+    protected PropertyDelegate initContainerData() {
+        return new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(FluidDrainerBlockEntity.this.fluidDrainingLeft, index);
+                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(FluidDrainerBlockEntity.this.fluidDrainingSumPending, index - 4);
+                    case 8 -> redstoneMode.ordinal();
+                    case 9 -> comparatorMode.ordinal();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1, 2, 3, 4, 5, 6, 7 -> {}
+                    case 8 -> FluidDrainerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 9 -> FluidDrainerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                }
+            }
+
+            @Override
+            public int size() {
+                return 10;
+            }
+        };
     }
 
     @Nullable
@@ -217,11 +210,6 @@ public class FluidDrainerBlockEntity
         syncFluidToPlayer(player);
 
         return new FluidDrainerMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
-    }
-
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
     }
 
     @Override
