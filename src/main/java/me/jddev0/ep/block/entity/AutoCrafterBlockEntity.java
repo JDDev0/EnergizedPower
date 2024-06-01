@@ -12,7 +12,6 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.ItemStackUtils;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,14 +19,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -38,9 +34,8 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.*;
 
-public class AutoCrafterBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
-        implements ExtendedScreenHandlerFactory, CheckboxUpdate {
+public class AutoCrafterBlockEntity extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
+        implements CheckboxUpdate {
     private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
     public final static long ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT =
@@ -78,7 +73,6 @@ public class AutoCrafterBlockEntity
         public void onContentChanged(Inventory container) {}
     };
 
-    protected final PropertyDelegate data;
     private int progress;
     private int maxProgress;
     private long energyConsumptionLeft = -1;
@@ -88,6 +82,8 @@ public class AutoCrafterBlockEntity
     public AutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.AUTO_CRAFTER_ENTITY, blockPos, blockState,
+
+                "auto_crafter",
 
                 ModConfigs.COMMON_AUTO_CRAFTER_CAPACITY.getValue(),
                 ModConfigs.COMMON_AUTO_CRAFTER_TRANSFER_RATE.getValue(),
@@ -100,45 +96,6 @@ public class AutoCrafterBlockEntity
         );
 
         patternSlots.addListener(updatePatternListener);
-
-        data = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.progress, index);
-                    case 2, 3 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.maxProgress, index - 2);
-                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.energyConsumptionLeft, index - 4);
-                    case 8 -> hasEnoughEnergy?1:0;
-                    case 9 -> ignoreNBT?1:0;
-                    case 10 -> secondaryExtractMode?1:0;
-                    case 11 -> redstoneMode.ordinal();
-                    case 12 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1 -> AutoCrafterBlockEntity.this.progress = ByteUtils.with2Bytes(
-                            AutoCrafterBlockEntity.this.progress, (short)value, index
-                    );
-                    case 2, 3 -> AutoCrafterBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
-                            AutoCrafterBlockEntity.this.maxProgress, (short)value, index - 2
-                    );
-                    case 4, 5, 6, 7, 8 -> {}
-                    case 9 -> AutoCrafterBlockEntity.this.ignoreNBT = value != 0;
-                    case 10 -> AutoCrafterBlockEntity.this.secondaryExtractMode = value != 0;
-                    case 11 -> AutoCrafterBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 12 -> AutoCrafterBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int size() {
-                return 13;
-            }
-        };
     }
 
     @Override
@@ -191,8 +148,45 @@ public class AutoCrafterBlockEntity
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.auto_crafter");
+    protected PropertyDelegate initContainerData() {
+        return new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return switch(index) {
+                    case 0, 1 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.progress, index);
+                    case 2, 3 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.maxProgress, index - 2);
+                    case 4, 5, 6, 7 -> ByteUtils.get2Bytes(AutoCrafterBlockEntity.this.energyConsumptionLeft, index - 4);
+                    case 8 -> hasEnoughEnergy?1:0;
+                    case 9 -> ignoreNBT?1:0;
+                    case 10 -> secondaryExtractMode?1:0;
+                    case 11 -> redstoneMode.ordinal();
+                    case 12 -> comparatorMode.ordinal();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index) {
+                    case 0, 1 -> AutoCrafterBlockEntity.this.progress = ByteUtils.with2Bytes(
+                            AutoCrafterBlockEntity.this.progress, (short)value, index
+                    );
+                    case 2, 3 -> AutoCrafterBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
+                            AutoCrafterBlockEntity.this.maxProgress, (short)value, index - 2
+                    );
+                    case 4, 5, 6, 7, 8 -> {}
+                    case 9 -> AutoCrafterBlockEntity.this.ignoreNBT = value != 0;
+                    case 10 -> AutoCrafterBlockEntity.this.secondaryExtractMode = value != 0;
+                    case 11 -> AutoCrafterBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
+                    case 12 -> AutoCrafterBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
+                }
+            }
+
+            @Override
+            public int size() {
+                return 13;
+            }
+        };
     }
 
     @Nullable
@@ -201,11 +195,6 @@ public class AutoCrafterBlockEntity
         syncEnergyToPlayer(player);
 
         return new AutoCrafterMenu(id, this, inventory, itemHandler, upgradeModuleInventory, patternSlots, patternResultSlots, data);
-    }
-
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
     }
 
     @Override

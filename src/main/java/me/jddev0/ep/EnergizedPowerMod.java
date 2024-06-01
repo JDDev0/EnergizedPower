@@ -28,43 +28,43 @@ import org.slf4j.LoggerFactory;
 import team.reborn.energy.api.base.SimpleEnergyItem;
 
 public class EnergizedPowerMod implements ModInitializer {
-	public static final String MODID = "energizedpower";
-	public static final Logger LOGGER = LoggerFactory.getLogger("energizedpower");
+    public static final String MODID = "energizedpower";
+    public static final Logger LOGGER = LoggerFactory.getLogger("energizedpower");
 
-	@Override
-	public void onInitialize() {
+    @Override
+    public void onInitialize() {
         ModConfigs.registerConfigs(true);
 
-		ModItems.register();
-		ModBlocks.register();
-		ModBlockEntities.register();
-		ModRecipes.register();
-		ModMenuTypes.register();
-		ModVillager.register();
-		ModEntityTypes.register();
-		ModTrackedDataHandlers.register();
-		ModPaintings.register();
+        ModItems.register();
+        ModBlocks.register();
+        ModBlockEntities.register();
+        ModRecipes.register();
+        ModMenuTypes.register();
+        ModVillager.register();
+        ModEntityTypes.register();
+        ModTrackedDataHandlers.register();
+        ModPaintings.register();
 
         ModFluids.register();
 
-		ModBlockBehaviors.register();
+        ModBlockBehaviors.register();
 
-		ModCreativeModeTab.register();
+        ModCreativeModeTab.register();
 
-		ModOreGeneration.register();
+        ModOreGeneration.register();
 
-		ModMessages.registerPacketsC2S();
+        ModMessages.registerPacketsC2S();
 
-		PlayerInteractHandler.EVENT.register(new PlayerInteractHandler());
-		ServerLifecycleEvents.SERVER_STARTING.register(new ServerStartingHandler());
+        PlayerInteractHandler.EVENT.register(new PlayerInteractHandler());
+        ServerLifecycleEvents.SERVER_STARTING.register(new ServerStartingHandler());
 
-		FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.SAWDUST_BLOCK, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.SAWDUST_BLOCK, 5, 20);
 	}
 
-	private ItemStack getChargedItemStack(Item item, long energy) {
-		ItemStack itemStack = new ItemStack(item);
-		itemStack.getOrCreateNbt().put(SimpleEnergyItem.ENERGY_KEY, NbtLong.of(energy));
+    private ItemStack getChargedItemStack(Item item, long energy) {
+        ItemStack itemStack = new ItemStack(item);
+        itemStack.getOrCreateNbt().put(SimpleEnergyItem.ENERGY_KEY, NbtLong.of(energy));
 
-		return itemStack;
-	}
+        return itemStack;
+    }
 }

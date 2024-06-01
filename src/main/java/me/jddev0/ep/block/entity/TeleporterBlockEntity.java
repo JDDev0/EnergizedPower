@@ -1,14 +1,13 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.TeleporterBlock;
-import me.jddev0.ep.block.entity.base.InventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuInventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
 import me.jddev0.ep.screen.TeleporterMenu;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -16,7 +15,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
 import net.minecraft.predicate.entity.EntityPredicates;
@@ -41,8 +39,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class TeleporterBlockEntity
-        extends InventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
-        implements ExtendedScreenHandlerFactory {
+        extends MenuInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory> {
     public static final boolean INTRA_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_ENABLED.getValue();
     public static final boolean INTER_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_ENABLED.getValue();
     public static final List<@NotNull Identifier> DIMENSION_BLACKLIST =
@@ -69,6 +66,8 @@ public class TeleporterBlockEntity
     public TeleporterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.TELEPORTER_ENTITY, blockPos, blockState,
+
+                "teleporter",
 
                 CAPACITY,
                 ModConfigs.COMMON_TELEPORTER_TRANSFER_RATE.getValue(),
@@ -119,15 +118,6 @@ public class TeleporterBlockEntity
         };
     }
 
-    @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.teleporter");
-    }
-
-    public int getRedstoneOutput() {
-        return ScreenHandler.calculateComparatorOutput(itemHandler);
-    }
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
@@ -136,9 +126,8 @@ public class TeleporterBlockEntity
         return new TeleporterMenu(id, this, inventory, itemHandler);
     }
 
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
+    public int getRedstoneOutput() {
+        return ScreenHandler.calculateComparatorOutput(itemHandler);
     }
 
     public void setChangedAndUpdateReadyState() {

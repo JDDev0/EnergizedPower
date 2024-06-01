@@ -15,15 +15,16 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class UpgradableInventoryEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, I extends SimpleInventory>
-        extends InventoryEnergyStorageBlockEntity<E, I> {
+        extends MenuInventoryEnergyStorageBlockEntity<E, I> {
     protected final UpgradeModuleInventory upgradeModuleInventory;
     protected final InventoryChangedListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
     public UpgradableInventoryEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                       String machineName,
                                                        long baseEnergyCapacity, long baseEnergyTransferRate,
                                                        int slotCount,
                                                        UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount);
+        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount);
 
         this.upgradeModuleInventory = new UpgradeModuleInventory(upgradeModifierSlots);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
