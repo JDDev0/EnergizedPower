@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -129,7 +130,7 @@ public class CrystalGrowthChamberRecipe implements Recipe<Inventory> {
 
             JsonObject outputJson = json.get("output").getAsJsonObject();
 
-            ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(outputJson, "output"));
+            ItemStack output = ItemStackUtils.fromJson(JsonHelper.getObject(outputJson, "output"));
 
             JsonArray percentagesJson = JsonHelper.getArray(outputJson, "percentages");
             double[] percentages = new double[percentagesJson.size()];

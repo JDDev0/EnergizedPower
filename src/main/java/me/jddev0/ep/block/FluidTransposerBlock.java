@@ -1,6 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import net.minecraft.block.*;

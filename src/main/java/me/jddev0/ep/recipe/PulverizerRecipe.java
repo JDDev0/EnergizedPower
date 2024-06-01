@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -144,7 +145,7 @@ public class PulverizerRecipe implements Recipe<Inventory> {
             for(int i = 0;i < 2;i++) {
                 JsonObject outputJson = json.getAsJsonObject(i == 0?"output":"secondaryOutput");
 
-                ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(outputJson, "output"));
+                ItemStack output = ItemStackUtils.fromJson(JsonHelper.getObject(outputJson, "output"));
 
                 JsonArray percentagesJson = JsonHelper.getArray(outputJson, "percentages");
                 double[] percentages = new double[percentagesJson.size()];
