@@ -2,7 +2,6 @@ package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetWeatherFromWeatherControllerC2SPacket;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageContainerScreen;
@@ -23,7 +22,7 @@ public class WeatherControllerScreen
     public WeatherControllerScreen(WeatherControllerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/weather_controller.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
+                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_duration.png"));
     }
 
     @Override
@@ -65,25 +64,34 @@ public class WeatherControllerScreen
     }
 
     private void renderButtons(PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
+        int selectedWeatherType = menu.getSelectedWeatherType();
+
+        //Weather clear button
         if(isHovering(52, 34, 18, 18, mouseX, mouseY)) {
-            //Weather clear button
-
             blit(poseStack, x + 52, y + 34, 176, 52, 18, 18);
-        }else if(isHovering(88, 34, 18, 18, mouseX, mouseY)) {
-            //Weather rain button
+        }else if(selectedWeatherType == 0) {
+            blit(poseStack, x + 52, y + 34, 194, 52, 18, 18);
+        }
 
+        //Weather rain button
+        if(isHovering(88, 34, 18, 18, mouseX, mouseY)) {
             blit(poseStack, x + 88, y + 34, 176, 70, 18, 18);
-        }else if(isHovering(124, 34, 18, 18, mouseX, mouseY)) {
-            //Weather thunder button
+        }else if(selectedWeatherType == 1) {
+            blit(poseStack, x + 88, y + 34, 194, 70, 18, 18);
+        }
 
+        //Weather thunder button
+        if(isHovering(124, 34, 18, 18, mouseX, mouseY)) {
             blit(poseStack, x + 124, y + 34, 176, 88, 18, 18);
+        }else if(selectedWeatherType == 2) {
+            blit(poseStack, x + 124, y + 34, 194, 88, 18, 18);
         }
     }
 
     private void renderInfoText(PoseStack poseStack, int x, int y) {
-        Component component = menu.getEnergy() < TimeControllerBlockEntity.CAPACITY?
-                Component.translatable("tooltip.energizedpower.not_enough_energy.txt").withStyle(ChatFormatting.RED):
-                Component.translatable("tooltip.energizedpower.ready.txt").withStyle(ChatFormatting.DARK_GREEN);
+        Component component = menu.hasEnoughEnergy()?
+                Component.translatable("tooltip.energizedpower.ready.txt").withStyle(ChatFormatting.DARK_GREEN):
+                Component.translatable("tooltip.energizedpower.not_enough_energy.txt").withStyle(ChatFormatting.RED);
 
         int componentWidth = font.width(component);
 

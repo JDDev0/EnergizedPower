@@ -169,6 +169,8 @@ public final class ModItems {
             () -> new DurationUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 4));
     public static final RegistryObject<Item> DURATION_UPGRADE_MODULE_5 = ITEMS.register("duration_upgrade_module_5",
             () -> new DurationUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 5));
+    public static final RegistryObject<Item> DURATION_UPGRADE_MODULE_6 = ITEMS.register("duration_upgrade_module_6",
+            () -> new DurationUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 6));
 
     public static final RegistryObject<Item> RANGE_UPGRADE_MODULE_1 = ITEMS.register("range_upgrade_module_1",
             () -> new RangeUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 1));
