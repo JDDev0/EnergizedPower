@@ -1,11 +1,8 @@
 package me.jddev0.ep.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.ChangeCurrentRecipeIndexC2SPacket;
-import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -21,7 +18,7 @@ import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class AutoStonecutterScreen
-        extends ConfigurableUpgradableEnergyStorageContainerScreen<AutoStonecutterMenu> {
+        extends SelectableRecipeMachineContainerScreen<StonecutterRecipe, AutoStonecutterMenu> {
     public AutoStonecutterScreen(AutoStonecutterMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
@@ -31,32 +28,22 @@ public class AutoStonecutterScreen
     }
 
     @Override
-    protected boolean mouseClickedNormalView(double mouseX, double mouseY, int mouseButton) {
-        if(super.mouseClickedNormalView(mouseX, mouseY, mouseButton))
-            return true;
+    protected ItemStack getRecipeIcon(StonecutterRecipe currentRecipe) {
+        return currentRecipe.getResultItem();
+    }
 
-        if(mouseButton == 0) {
-            int diff = 0;
+    @Override
+    protected void renderCurrentRecipeTooltip(PoseStack poseStack, int mouseX, int mouseY, StonecutterRecipe currentRecipe) {
+        ItemStack output = currentRecipe.getResultItem();
+        if(!output.isEmpty()) {
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
+                    output.getHoverName()));
 
-            //Up button
-            if(isHovering(67, 19, 11, 12, mouseX, mouseY)) {
-                diff = 1;
-            }
+            //TODO display cost
 
-            //Down button
-            if(isHovering(98, 19, 11, 12, mouseX, mouseY)) {
-                diff = -1;
-            }
-
-            if(diff != 0) {
-                ModMessages.sendToServer(new ChangeCurrentRecipeIndexC2SPacket(menu.getBlockEntity().getBlockPos(),
-                        diff == 1));
-
-                return true;
-            }
+            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
         }
-
-        return false;
     }
 
     @Override
@@ -66,41 +53,7 @@ public class AutoStonecutterScreen
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        renderCurrentRecipeOutput(poseStack, x, y);
-
-        renderButtons(poseStack, x, y, mouseX, mouseY);
-
         renderProgressArrow(poseStack, x, y);
-    }
-
-    private void renderCurrentRecipeOutput(PoseStack poseStack, int x, int y) {
-        StonecutterRecipe currentRecipe = menu.getCurrentRecipe();
-        if(currentRecipe == null)
-            return;
-
-        ItemStack itemStackIcon = currentRecipe.getResultItem();
-        if(!itemStackIcon.isEmpty()) {
-            poseStack.pushPose();
-            poseStack.translate(0.f, 0.f, 100.f);
-
-            itemRenderer.renderAndDecorateItem(itemStackIcon, x + 80, y + 17, 80 + 17 * this.imageWidth);
-
-            poseStack.popPose();
-
-            RenderSystem.setShaderTexture(0, TEXTURE);
-        }
-    }
-
-    private void renderButtons(PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
-        //Up button
-        if(isHovering(67, 19, 11, 12, mouseX, mouseY)) {
-            blit(poseStack, x + 67, y + 19, 176, 70, 11, 12);
-        }
-
-        //Down button
-        if(isHovering(98, 19, 11, 12, mouseX, mouseY)) {
-            blit(poseStack, x + 98, y + 19, 187, 70, 11, 12);
-        }
     }
 
     private void renderProgressArrow(PoseStack poseStack, int x, int y) {
@@ -111,37 +64,6 @@ public class AutoStonecutterScreen
     @Override
     protected void renderTooltipNormalView(PoseStack poseStack, int mouseX, int mouseY) {
         super.renderTooltipNormalView(poseStack, mouseX, mouseY);
-
-        //Current recipe
-        StonecutterRecipe currentRecipe = menu.getCurrentRecipe();
-        if(currentRecipe != null && isHovering(80, 17, 16, 16, mouseX, mouseY)) {
-            ItemStack output = currentRecipe.getResultItem();
-            if(!output.isEmpty()) {
-                List<Component> components = new ArrayList<>(2);
-                components.add(Component.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
-                        output.getHoverName()));
-
-                //TODO display cost
-
-                renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-            }
-        }
-
-        //Up button
-        if(isHovering(67, 19, 11, 12, mouseX, mouseY)) {
-            List<Component> components = new ArrayList<>(2);
-            components.add(Component.translatable("tooltip.energizedpower.recipe.selector.next_recipe"));
-
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }
-
-        //Down button
-        if(isHovering(98, 19, 11, 12, mouseX, mouseY)) {
-            List<Component> components = new ArrayList<>(2);
-            components.add(Component.translatable("tooltip.energizedpower.recipe.selector.prev_recipe"));
-
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }
 
         //Missing Pickaxe
         if(isHovering(57, 44, 16, 16, mouseX, mouseY) &&

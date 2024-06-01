@@ -4,10 +4,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.ChangeCurrentRecipeIndexC2SPacket;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
-import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
@@ -29,42 +27,34 @@ import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class StoneSolidifierScreen
-        extends ConfigurableUpgradableEnergyStorageContainerScreen<StoneSolidifierMenu> {
+        extends SelectableRecipeMachineContainerScreen<StoneSolidifierRecipe, StoneSolidifierMenu> {
     public StoneSolidifierScreen(StoneSolidifierMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/stone_solidifier.png"),
                 new ResourceLocation(EnergizedPowerMod.MODID,
                         "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
+
+        recipeSelectorPosX = 98;
+
+        recipeSelectorTexturePosY = 135;
     }
 
     @Override
-    protected boolean mouseClickedNormalView(double mouseX, double mouseY, int mouseButton) {
-        if(super.mouseClickedNormalView(mouseX, mouseY, mouseButton))
-            return true;
+    protected ItemStack getRecipeIcon(StoneSolidifierRecipe currentRecipe) {
+        return currentRecipe.getOutput();
+    }
 
-        if(mouseButton == 0) {
-            int diff = 0;
+    @Override
+    protected void renderCurrentRecipeTooltip(PoseStack poseStack, int mouseX, int mouseY, StoneSolidifierRecipe currentRecipe) {
+        ItemStack output = currentRecipe.getOutput();
+        if(!output.isEmpty()) {
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
+                    output.getHoverName()));
 
-            //Up button
-            if(isHovering(85, 19, 11, 12, mouseX, mouseY)) {
-                diff = 1;
-            }
-
-            //Down button
-            if(isHovering(116, 19, 11, 12, mouseX, mouseY)) {
-                diff = -1;
-            }
-
-            if(diff != 0) {
-                ModMessages.sendToServer(new ChangeCurrentRecipeIndexC2SPacket(menu.getBlockEntity().getBlockPos(),
-                        diff == 1));
-
-                return true;
-            }
+            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
         }
-
-        return false;
     }
 
     @Override
@@ -78,10 +68,6 @@ public class StoneSolidifierScreen
             renderFluidMeterContent(i, poseStack, x, y);
             renderFluidMeterOverlay(i, poseStack, x, y);
         }
-
-        renderCurrentRecipeOutput(poseStack, x, y);
-
-        renderButtons(poseStack, x, y, mouseX, mouseY);
 
         renderProgressArrows(poseStack, x, y);
     }
@@ -153,41 +139,7 @@ public class StoneSolidifierScreen
         blit(poseStack, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52);
     }
 
-    private void renderCurrentRecipeOutput(PoseStack poseStack, int x, int y) {
-        StoneSolidifierRecipe currentRecipe = menu.getCurrentRecipe();
-        if(currentRecipe == null)
-            return;
-
-        ItemStack output = currentRecipe.getOutput();
-        if(!output.isEmpty()) {
-            poseStack.pushPose();
-            poseStack.translate(0.f, 0.f, 100.f);
-
-            itemRenderer.renderAndDecorateItem(output, x + 98, y + 17, 98 + 17 * this.imageWidth);
-
-            poseStack.popPose();
-
-            RenderSystem.setShaderTexture(0, TEXTURE);
-        }
-    }
-
-    private void renderButtons(PoseStack poseStack, int x, int y, int mouseX, int mouseY) {
-        RenderSystem.setShaderTexture(0, TEXTURE);
-
-        //Up button
-        if(isHovering(85, 19, 11, 12, mouseX, mouseY)) {
-            blit(poseStack, x + 85, y + 19, 176, 135, 11, 12);
-        }
-
-        //Down button
-        if(isHovering(116, 19, 11, 12, mouseX, mouseY)) {
-            blit(poseStack, x + 116, y + 19, 187, 135, 11, 12);
-        }
-    }
-
     private void renderProgressArrows(PoseStack poseStack, int x, int y) {
-        RenderSystem.setShaderTexture(0, TEXTURE);
-
         if(menu.isCraftingActive()) {
             blit(poseStack, x + 69, y + 45, 176, 106, menu.getScaledProgressArrowSize(), 14);
             blit(poseStack, x + 143 - menu.getScaledProgressArrowSize(), y + 45,
@@ -221,37 +173,6 @@ public class StoneSolidifierScreen
 
                 renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
             }
-        }
-
-        //Current recipe
-        StoneSolidifierRecipe currentRecipe = menu.getCurrentRecipe();
-        if(currentRecipe != null) {
-            if(isHovering(98, 17, 16, 16, mouseX, mouseY)) {
-                ItemStack output = currentRecipe.getOutput();
-                if(!output.isEmpty()) {
-                    List<Component> components = new ArrayList<>(2);
-                    components.add(Component.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
-                            output.getHoverName()));
-
-                    renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-                }
-            }
-        }
-
-        //Up button
-        if(isHovering(85, 19, 11, 12, mouseX, mouseY)) {
-            List<Component> components = new ArrayList<>(2);
-            components.add(Component.translatable("tooltip.energizedpower.recipe.selector.next_recipe"));
-
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }
-
-        //Down button
-        if(isHovering(116, 19, 11, 12, mouseX, mouseY)) {
-            List<Component> components = new ArrayList<>(2);
-            components.add(Component.translatable("tooltip.energizedpower.recipe.selector.prev_recipe"));
-
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

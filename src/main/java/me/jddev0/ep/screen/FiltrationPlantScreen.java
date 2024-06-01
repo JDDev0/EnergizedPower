@@ -4,10 +4,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.ChangeCurrentRecipeIndexC2SPacket;
 import me.jddev0.ep.recipe.FiltrationPlantRecipe;
-import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -17,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.api.distmarker.Dist;
@@ -32,42 +31,55 @@ import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class FiltrationPlantScreen
-        extends ConfigurableUpgradableEnergyStorageContainerScreen<FiltrationPlantMenu> {
+        extends SelectableRecipeMachineContainerScreen<FiltrationPlantRecipe, FiltrationPlantMenu> {
     public FiltrationPlantScreen(FiltrationPlantMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/filtration_plant.png"),
                 new ResourceLocation(EnergizedPowerMod.MODID,
                         "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
+
+        recipeSelectorPosX = 98;
+
+        recipeSelectorTexturePosY = 115;
     }
 
     @Override
-    protected boolean mouseClickedNormalView(double mouseX, double mouseY, int mouseButton) {
-        if(super.mouseClickedNormalView(mouseX, mouseY, mouseButton))
-            return true;
+    protected ItemStack getRecipeIcon(FiltrationPlantRecipe currentRecipe) {
+        ResourceLocation icon = currentRecipe.getIcon();
+        Item iconItem = ForgeRegistries.ITEMS.getValue(icon);
+        return iconItem == null?ItemStack.EMPTY:new ItemStack(iconItem);
+    }
 
-        if(mouseButton == 0) {
-            int diff = 0;
+    @Override
+    protected void renderCurrentRecipeTooltip(PoseStack poseStack, int mouseX, int mouseY, FiltrationPlantRecipe currentRecipe) {
+        List<Component> components = new ArrayList<>(2);
 
-            //Up button
-            if(isHovering(85, 19, 11, 12, mouseX, mouseY)) {
-                diff = 1;
-            }
+        ItemStack[] maxOutputs = currentRecipe.getMaxOutputCounts();
+        for(int i = 0;i < maxOutputs.length;i++) {
+            ItemStack output = maxOutputs[i];
+            if(output.isEmpty())
+                continue;
 
-            //Down button
-            if(isHovering(116, 19, 11, 12, mouseX, mouseY)) {
-                diff = -1;
-            }
+            components.add(Component.empty().
+                    append(output.getHoverName()).
+                    append(Component.literal(": ")).
+                    append(Component.translatable("recipes.energizedpower.transfer.output_percentages"))
+            );
 
-            if(diff != 0) {
-                ModMessages.sendToServer(new ChangeCurrentRecipeIndexC2SPacket(menu.getBlockEntity().getBlockPos(),
-                        diff == 1));
+            double[] percentages = (i == 0?currentRecipe.getOutput():currentRecipe.getSecondaryOutput()).
+                    percentages();
+            for(int j = 0;j < percentages.length;j++)
+                components.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", j + 1, 100 * percentages[j])));
 
-                return true;
-            }
+            components.add(Component.empty());
         }
 
-        return false;
+        //Remove trailing empty line
+        if(!components.isEmpty())
+            components.remove(components.size() - 1);
+
+        renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
     }
 
     @Override
@@ -81,10 +93,6 @@ public class FiltrationPlantScreen
             renderFluidMeterContent(i, poseStack, x, y);
             renderFluidMeterOverlay(i, poseStack, x, y);
         }
-
-        renderCurrentRecipeOutput(poseStack, x, y);
-
-        renderButtons(poseStack, x, y, mouseX, mouseY);
 
         renderProgressArrows(poseStack, x, y);
     }
@@ -223,54 +231,6 @@ public class FiltrationPlantScreen
 
                 renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
             }
-        }
-
-        //Current recipe
-        FiltrationPlantRecipe currentRecipe = menu.getCurrentRecipe();
-        if(currentRecipe != null && isHovering(98, 17, 16, 16, mouseX, mouseY)) {
-            List<Component> components = new ArrayList<>(2);
-
-            ItemStack[] maxOutputs = currentRecipe.getMaxOutputCounts();
-            for(int i = 0;i < maxOutputs.length;i++) {
-                ItemStack output = maxOutputs[i];
-                if(output.isEmpty())
-                    continue;
-
-                components.add(Component.empty().
-                        append(output.getHoverName()).
-                        append(Component.literal(": ")).
-                        append(Component.translatable("recipes.energizedpower.transfer.output_percentages"))
-                );
-
-                double[] percentages = (i == 0?currentRecipe.getOutput():currentRecipe.getSecondaryOutput()).
-                        percentages();
-                for(int j = 0;j < percentages.length;j++)
-                    components.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", j + 1, 100 * percentages[j])));
-
-                components.add(Component.empty());
-            }
-
-            //Remove trailing empty line
-            if(!components.isEmpty())
-                components.remove(components.size() - 1);
-
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }
-
-        //Up button
-        if(isHovering(85, 19, 11, 12, mouseX, mouseY)) {
-            List<Component> components = new ArrayList<>(2);
-            components.add(Component.translatable("tooltip.energizedpower.recipe.selector.next_recipe"));
-
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }
-
-        //Down button
-        if(isHovering(116, 19, 11, 12, mouseX, mouseY)) {
-            List<Component> components = new ArrayList<>(2);
-            components.add(Component.translatable("tooltip.energizedpower.recipe.selector.prev_recipe"));
-
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
         }
 
         //Missing Charcoal Filter

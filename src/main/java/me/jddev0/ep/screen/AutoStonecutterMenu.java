@@ -10,6 +10,7 @@ import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.ConfigurableMenu;
 import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.SelectableRecipeMachineMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,7 +24,8 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class AutoStonecutterMenu extends AbstractContainerMenu
-        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
+        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu,
+        SelectableRecipeMachineMenu<StonecutterRecipe> {
     private final AutoStonecutterBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
@@ -199,6 +201,7 @@ public class AutoStonecutterMenu extends AbstractContainerMenu
         return blockEntity;
     }
 
+    @Override
     public StonecutterRecipe getCurrentRecipe() {
         return blockEntity.getCurrentRecipe();
     }
