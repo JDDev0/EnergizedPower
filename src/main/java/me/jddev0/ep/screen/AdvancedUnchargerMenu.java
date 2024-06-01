@@ -9,6 +9,9 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
+import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.EnergyStorageProducerIndicatorBarMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.minecraft.block.entity.BlockEntity;
@@ -27,7 +30,7 @@ import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 
 public class AdvancedUnchargerMenu extends AbstractEnergizedPowerScreenHandler
-        implements EnergyStorageProducerIndicatorBarMenu {
+        implements EnergyStorageProducerIndicatorBarMenu, ConfigurableMenu {
     private final AdvancedUnchargerBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -154,10 +157,12 @@ public class AdvancedUnchargerMenu extends AbstractEnergizedPowerScreenHandler
         return energyIndicatorBarValueSum;
     }
 
+    @Override
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(12));
     }
 
+    @Override
     public ComparatorMode getComparatorMode() {
         return ComparatorMode.fromIndex(data.get(13));
     }
@@ -215,6 +220,7 @@ public class AdvancedUnchargerMenu extends AbstractEnergizedPowerScreenHandler
         }
     }
 
+    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
     }

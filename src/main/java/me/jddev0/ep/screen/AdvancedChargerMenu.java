@@ -10,6 +10,9 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
+import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
@@ -29,7 +32,7 @@ import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 
 public class AdvancedChargerMenu extends AbstractEnergizedPowerScreenHandler
-        implements EnergyStorageConsumerIndicatorBarMenu {
+        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
     private final AdvancedChargerBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -159,10 +162,12 @@ public class AdvancedChargerMenu extends AbstractEnergizedPowerScreenHandler
         return energyIndicatorBarValueSum;
     }
 
+    @Override
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(12));
     }
 
+    @Override
     public ComparatorMode getComparatorMode() {
         return ComparatorMode.fromIndex(data.get(13));
     }
@@ -220,6 +225,7 @@ public class AdvancedChargerMenu extends AbstractEnergizedPowerScreenHandler
         }
     }
 
+    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
     }

@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.DrainBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
+import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;

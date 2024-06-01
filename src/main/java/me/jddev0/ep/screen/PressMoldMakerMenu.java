@@ -5,6 +5,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.PressMoldMakerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
+import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

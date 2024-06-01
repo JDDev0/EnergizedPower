@@ -5,6 +5,7 @@ import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.screen.*;
+import me.jddev0.ep.screen.base.EnergyStorageContainerScreen;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
@@ -190,7 +191,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
                 Generic3x3ContainerScreen.class, DispenserCategory.CATEGORY);
     }
 
-    private <T extends AbstractGenericEnergyStorageHandledScreen<? extends UpgradeModuleMenu>> void
+    private <T extends EnergyStorageContainerScreen<? extends UpgradeModuleMenu>> void
     registerRecipeClickArea(ScreenRegistry registry, final Rectangle area, final Class<? extends T> containerScreenClass,
                             final CategoryIdentifier<?>... recipeTypes) {
         registry.registerClickArea(containerScreenClass, UpgradeModuleScreenClickArea.createRecipeClickArea(

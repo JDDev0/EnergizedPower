@@ -10,6 +10,9 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
+import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,7 +28,7 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
 public class CrystalGrowthChamberMenu extends AbstractEnergizedPowerScreenHandler
-        implements EnergyStorageConsumerIndicatorBarMenu {
+        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
     private final CrystalGrowthChamberBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -146,10 +149,12 @@ public class CrystalGrowthChamberMenu extends AbstractEnergizedPowerScreenHandle
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
     }
 
+    @Override
     public RedstoneMode getRedstoneMode() {
         return RedstoneMode.fromIndex(data.get(9));
     }
 
+    @Override
     public ComparatorMode getComparatorMode() {
         return ComparatorMode.fromIndex(data.get(10));
     }
@@ -208,6 +213,7 @@ public class CrystalGrowthChamberMenu extends AbstractEnergizedPowerScreenHandle
         }
     }
 
+    @Override
     public BlockEntity getBlockEntity() {
         return blockEntity;
     }
