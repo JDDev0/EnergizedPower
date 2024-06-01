@@ -129,6 +129,15 @@ public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<MetalP
         if(level == null || !hasRecipe())
             return;
 
+         ItemStack pressMold = itemHandler.getStackInSlot(1).copy();
+        if(pressMold.isEmpty() && !pressMold.is(EnergizedPowerItemTags.METAL_PRESS_MOLDS))
+            return;
+
+        if(pressMold.hurt(1, level.random, null))
+            itemHandler.setStackInSlot(1, ItemStack.EMPTY);
+        else
+            itemHandler.setStackInSlot(1, pressMold);
+
         itemHandler.extractItem(0, recipe.getInputCount(), false);
         itemHandler.setStackInSlot(2, ItemStackUtils.copyWithCount(recipe.getResultItem(),
                 itemHandler.getStackInSlot(2).getCount() +

@@ -94,11 +94,11 @@ public final class ModItems {
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> GEAR_PRESS_MOLD = ITEMS.register("gear_press_mold",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).durability(2000)));
     public static final RegistryObject<Item> ROD_PRESS_MOLD = ITEMS.register("rod_press_mold",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).durability(2000)));
     public static final RegistryObject<Item> WIRE_PRESS_MOLD = ITEMS.register("wire_press_mold",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).durability(2000)));
 
     public static final RegistryObject<Item> BASIC_SOLAR_CELL = ITEMS.register("basic_solar_cell",
             () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
