@@ -95,6 +95,11 @@ public final class ModRecipes {
     public static final RegistryObject<RecipeType<CrystalGrowthChamberRecipe>> CRYSTAL_GROWTH_CHAMBER_TYPE = TYPES.
             register("crystal_growth_chamber", () -> CrystalGrowthChamberRecipe.Type.INSTANCE);
 
+    public static final RegistryObject<RecipeSerializer<FluidTransposerRecipe>> FLUID_TRANSPOSER_SERIALIZER = SERIALIZERS.
+            register("fluid_transposer", () -> FluidTransposerRecipe.Serializer.INSTANCE);
+    public static final RegistryObject<RecipeType<FluidTransposerRecipe>> FLUID_TRANSPOSER_TYPE = TYPES.
+            register("fluid_transposer", () -> FluidTransposerRecipe.Type.INSTANCE);
+
     public static final RegistryObject<RecipeSerializer<TeleporterMatrixSettingsCopyRecipe>>
             TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER = SERIALIZERS.register("teleporter_matrix_settings_copy",
             () -> new SimpleRecipeSerializer<>(TeleporterMatrixSettingsCopyRecipe::new));

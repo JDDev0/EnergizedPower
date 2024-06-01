@@ -99,6 +99,9 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.add(new FiltrationPlantCategory());
         registry.addWorkstations(FiltrationPlantCategory.CATEGORY, EntryStacks.of(ModBlocks.FILTRATION_PLANT_ITEM.get()));
 
+        registry.add(new FluidTransposerCategory());
+        registry.addWorkstations(FluidTransposerCategory.CATEGORY, EntryStacks.of(ModBlocks.FLUID_TRANSPOSER_ITEM.get()));
+
 
         registry.add(new InWorldCategory());
         registry.addWorkstations(InWorldCategory.CATEGORY, EntryIngredients.ofItemTag(Tags.Items.SHEARS));
@@ -145,6 +148,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.registerRecipeFiller(PressMoldMakerRecipe.class, PressMoldMakerRecipe.Type.INSTANCE, PressMoldMakerDisplay::new);
         registry.registerRecipeFiller(StoneSolidifierRecipe.class, StoneSolidifierRecipe.Type.INSTANCE, StoneSolidifierDisplay::new);
         registry.registerRecipeFiller(FiltrationPlantRecipe.class, FiltrationPlantRecipe.Type.INSTANCE, FiltrationPlantDisplay::new);
+        registry.registerRecipeFiller(FluidTransposerRecipe.class, FluidTransposerRecipe.Type.INSTANCE, FluidTransposerDisplay::new);
 
         registry.add(new InWorldDisplay());
         registry.add(new DispenserDisplay());
@@ -217,6 +221,8 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
                 FiltrationPlantScreen.class, FiltrationPlantCategory.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(67, 62, 78, 8),
                 FiltrationPlantScreen.class, FiltrationPlantCategory.CATEGORY);
+        registerRecipeClickArea(registry, new Rectangle(114, 19, 20, 14),
+                FluidTransposerScreen.class, FluidTransposerCategory.CATEGORY);
 
 
         registry.registerContainerClickArea(new Rectangle(7, 16, 54, 54),
