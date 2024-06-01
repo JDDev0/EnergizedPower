@@ -39,10 +39,6 @@ public class ThermalGeneratorBlockEntity
         extends ConfigurableUpgradableFluidEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, FluidTank> {
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
-
-    private LazyOptional<IFluidHandler> lazyFluidStorage = LazyOptional.empty();
-
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 ModBlockEntities.THERMAL_GENERATOR_ENTITY.get(), blockPos, blockState,
@@ -174,22 +170,6 @@ public class ThermalGeneratorBlockEntity
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
-        lazyFluidStorage.invalidate();
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {

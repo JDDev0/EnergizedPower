@@ -13,14 +13,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TimeControllerBlockEntity extends MenuEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage> {
     public static final int CAPACITY = ModConfigs.COMMON_TIME_CONTROLLER_CAPACITY.getValue();
-
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
     public TimeControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -63,19 +60,5 @@ public class TimeControllerBlockEntity extends MenuEnergyStorageBlockEntity<Rece
 
     public void clearEnergy() {
         energyStorage.setEnergy(0);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
     }
 }

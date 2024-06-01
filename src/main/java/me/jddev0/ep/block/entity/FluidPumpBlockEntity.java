@@ -26,7 +26,6 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
@@ -51,13 +50,8 @@ public class FluidPumpBlockEntity
     private int zOffset = -1;
     private boolean extractingFluid = false;
 
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
-
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false));
-
-    private LazyOptional<IFluidHandler> lazyFluidStorage = LazyOptional.empty();
 
     public FluidPumpBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -80,10 +74,6 @@ public class FluidPumpBlockEntity
                 UpgradeModuleModifier.RANGE,
                 UpgradeModuleModifier.EXTRACTION_DEPTH
         );
-
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
     }
 
     @Override
@@ -193,24 +183,6 @@ public class FluidPumpBlockEntity
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyItemHandler.invalidate();
-        lazyEnergyStorage.invalidate();
-        lazyFluidStorage.invalidate();
     }
 
     @Override

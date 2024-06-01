@@ -12,14 +12,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class PoweredLampBlockEntity extends EnergyStorageBlockEntity<ReceiveOnlyEnergyStorage> {
     public static final int MAX_RECEIVE = ModConfigs.COMMON_POWERED_LAMP_TRANSFER_RATE.getValue();
-
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
     public PoweredLampBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -48,20 +45,6 @@ public class PoweredLampBlockEntity extends EnergyStorageBlockEntity<ReceiveOnly
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, PoweredLampBlockEntity blockEntity) {

@@ -7,6 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
@@ -17,6 +18,7 @@ public abstract class FluidStorageBlockEntity<F extends IFluidHandler>
     protected final FluidStorageMethods<F> fluidStorageMethods;
 
     protected final F fluidStorage;
+    protected LazyOptional<IFluidHandler> lazyFluidStorage = LazyOptional.empty();
 
     protected final int baseTankCapacity;
 
@@ -31,6 +33,20 @@ public abstract class FluidStorageBlockEntity<F extends IFluidHandler>
     }
 
     protected abstract F initFluidStorage();
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+
+        lazyFluidStorage = LazyOptional.of(() -> fluidStorage);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+
+        lazyFluidStorage.invalidate();
+    }
 
     @Override
     protected void saveAdditional(@NotNull CompoundTag nbt) {

@@ -8,6 +8,8 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,6 +18,7 @@ public abstract class InventoryEnergyStorageBlockEntity
         extends EnergyStorageBlockEntity<E> {
     protected final int slotCount;
     protected final I itemHandler;
+    protected LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
     public InventoryEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                              int baseEnergyCapacity, int baseEnergyTransferRate,
@@ -27,6 +30,20 @@ public abstract class InventoryEnergyStorageBlockEntity
     }
 
     protected abstract I initInventoryStorage();
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+
+        lazyItemHandler = LazyOptional.of(() -> itemHandler);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+
+        lazyItemHandler.invalidate();
+    }
 
     @Override
     protected void saveAdditional(@NotNull CompoundTag nbt) {

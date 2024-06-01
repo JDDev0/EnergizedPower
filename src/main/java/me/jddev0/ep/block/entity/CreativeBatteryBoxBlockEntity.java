@@ -23,8 +23,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<InfinityEnergyStorage>
         implements CheckboxUpdate {
-    private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
-
     private boolean energyProduction = true;
     private boolean energyConsumption;
 
@@ -98,20 +96,6 @@ public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
         }
 
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        lazyEnergyStorage = LazyOptional.of(() -> energyStorage);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        lazyEnergyStorage.invalidate();
     }
 
     @Override
