@@ -87,6 +87,7 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(ModItems.STONE_HAMMER);
             event.accept(ModItems.IRON_HAMMER);
             event.accept(ModItems.GOLDEN_HAMMER);
+            event.accept(ModItems.GOLDEN_HAMMER);
             event.accept(ModItems.DIAMOND_HAMMER);
             event.accept(ModItems.NETHERITE_HAMMER);
 
@@ -154,6 +155,7 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(ModBlocks.COMPRESSOR_ITEM);
             event.accept(ModBlocks.METAL_PRESS_ITEM);
             event.accept(ModBlocks.AUTO_PRESS_MOLD_MAKER_ITEM);
+            event.accept(ModBlocks.AUTO_STONECUTTER_ITEM);
             event.accept(ModBlocks.ASSEMBLING_MACHINE_ITEM);
             event.accept(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM);
             event.accept(ModBlocks.STONE_SOLIDIFIER_ITEM);
