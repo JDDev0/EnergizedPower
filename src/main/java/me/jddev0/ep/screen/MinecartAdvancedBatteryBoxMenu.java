@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.screen.base.EnergyStorageMenu;
+import me.jddev0.ep.screen.base.IEnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -14,7 +14,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class MinecartAdvancedBatteryBoxMenu extends AbstractContainerMenu implements EnergyStorageMenu {
+public class MinecartAdvancedBatteryBoxMenu extends AbstractContainerMenu implements IEnergyStorageMenu {
     private final Container container;
     private final Level level;
     private final ContainerData data;

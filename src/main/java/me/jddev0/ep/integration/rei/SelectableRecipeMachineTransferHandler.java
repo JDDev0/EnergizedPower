@@ -2,7 +2,7 @@ package me.jddev0.ep.integration.rei;
 
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCurrentRecipeIdC2SPacket;
-import me.jddev0.ep.screen.base.ConfigurableMenu;
+import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.transfer.TransferHandler;
 import me.shedaniel.rei.api.common.display.Display;
@@ -10,7 +10,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.crafting.Recipe;
 
 public class SelectableRecipeMachineTransferHandler
-        <M extends AbstractContainerMenu & ConfigurableMenu, R extends Recipe<?>>
+        <M extends AbstractContainerMenu & IConfigurableMenu, R extends Recipe<?>>
         implements TransferHandler {
     private final Class<? extends M> menuClass;
     private final Class<? extends R> recipeClass;

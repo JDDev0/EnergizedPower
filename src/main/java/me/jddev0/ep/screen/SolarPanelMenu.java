@@ -3,23 +3,17 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.block.entity.SolarPanelBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
-import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.screen.base.EnergyStorageMenu;
+import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class SolarPanelMenu extends AbstractContainerMenu implements EnergyStorageMenu {
-    private final SolarPanelBlockEntity blockEntity;
-    private final Level level;
-    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
-
+public class SolarPanelMenu extends UpgradableEnergyStorageMenu<SolarPanelBlockEntity> {
     public static MenuType<SolarPanelMenu> getMenuTypeFromTier(SolarPanelBlock.Tier tier) {
         return switch(tier) {
             case TIER_1 -> ModMenuTypes.SOLAR_PANEL_MENU_1.get();
@@ -39,50 +33,17 @@ public class SolarPanelMenu extends AbstractContainerMenu implements EnergyStora
     }
 
     public SolarPanelMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory) {
-        super(getMenuTypeFromTier(((SolarPanelBlockEntity)blockEntity).getTier()), id);
+        super(
+                getMenuTypeFromTier(((SolarPanelBlockEntity)blockEntity).getTier()), id,
 
-        checkContainerSize(upgradeModuleInventory, 2);
-        this.blockEntity = (SolarPanelBlockEntity)blockEntity;
-        this.level = inv.player.level;
+                inv, blockEntity,
+                SolarPanelBlock.getBlockFromTier(((SolarPanelBlockEntity)blockEntity).getTier()),
 
-        addPlayerInventory(inv);
-        addPlayerHotbar(inv);
+                upgradeModuleInventory, 2
+        );
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 71 + i * 18, 35, this::isInUpgradeModuleView));
-
-        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
-        addDataSlots(upgradeModuleViewContainerData);
-    }
-
-    public SolarPanelBlock.Tier getTier() {
-        return blockEntity.getTier();
-    }
-
-    @Override
-    public boolean isInUpgradeModuleView() {
-        return upgradeModuleViewContainerData.isInUpgradeModuleView();
-    }
-
-    @Override
-    public boolean clickMenuButton(Player player, int index) {
-        if(index == 0) {
-            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
-
-            broadcastChanges();
-        }
-
-        return false;
-    }
-
-    @Override
-    public int getEnergy() {
-        return blockEntity.getEnergy();
-    }
-
-    @Override
-    public int getCapacity() {
-        return blockEntity.getCapacity();
     }
 
     @Override
@@ -116,28 +77,5 @@ public class SolarPanelMenu extends AbstractContainerMenu implements EnergyStora
         sourceSlot.onTake(player, sourceItem);
 
         return sourceItemCopy;
-    }
-
-    @Override
-    public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, SolarPanelBlock.getBlockFromTier(getTier()));
-    }
-
-    private void addPlayerInventory(Inventory playerInventory) {
-        for(int i = 0;i < 3;i++) {
-            for(int j = 0;j < 9;j++) {
-                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
-    }
-
-    private void addPlayerHotbar(Inventory playerInventory) {
-        for(int i = 0;i < 9;i++) {
-            addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
-        }
-    }
-
-    public BlockEntity getBlockEntity() {
-        return blockEntity;
     }
 }

@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class ConfigurableUpgradableEnergyStorageContainerScreen
-        <T extends AbstractContainerMenu & EnergyStorageMenu & ConfigurableMenu>
+        <T extends AbstractContainerMenu & IEnergyStorageMenu & IConfigurableMenu>
         extends UpgradableEnergyStorageContainerScreen<T> {
     public ConfigurableUpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                                               ResourceLocation texture,
