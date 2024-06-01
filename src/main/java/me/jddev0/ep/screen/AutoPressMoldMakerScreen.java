@@ -2,49 +2,42 @@ package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.fluid.FluidStack;
-import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeComparatorModeC2SPacket;
 import me.jddev0.ep.networking.packet.ChangeCurrentRecipeIndexC2SPacket;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
-import me.jddev0.ep.recipe.StoneSolidifierRecipe;
-import me.jddev0.ep.util.FluidUtils;
+import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.*;
 import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.texture.MissingSprite;
-import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PlayerScreenHandler;
+import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Matrix4f;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
-public class StoneSolidifierScreen extends AbstractGenericEnergyStorageHandledScreen<StoneSolidifierMenu> {
+public class AutoPressMoldMakerScreen extends AbstractGenericEnergyStorageHandledScreen<AutoPressMoldMakerMenu> {
     private final Identifier CONFIGURATION_ICONS_TEXTURE =
             new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
     private final Identifier UPGRADE_VIEW_TEXTURE =
             new Identifier(EnergizedPowerMod.MODID,
                     "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png");
 
-    public StoneSolidifierScreen(StoneSolidifierMenu menu, PlayerInventory inventory, Text component) {
+    public AutoPressMoldMakerScreen(AutoPressMoldMakerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/stone_solidifier.png"), 8, 17);
+                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/auto_press_mold_maker.png"),
+                8, 17);
     }
 
     @Override
@@ -56,20 +49,20 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageHandledSc
                 int diff = 0;
 
                 //Up button
-                if(isPointWithinBounds(85, 19, 11, 12, mouseX, mouseY)) {
+                if(isPointWithinBounds(67, 19, 11, 12, mouseX, mouseY)) {
                     diff = 1;
                     clicked = true;
                 }
 
                 //Down button
-                if(isPointWithinBounds(116, 19, 11, 12, mouseX, mouseY)) {
+                if(isPointWithinBounds(98, 19, 11, 12, mouseX, mouseY)) {
                     diff = -1;
                     clicked = true;
                 }
 
                 if(diff != 0) {
-                    ModMessages.sendClientPacketToServer(
-                            new ChangeCurrentRecipeIndexC2SPacket(handler.getBlockEntity().getPos(), diff == 1));
+                    ModMessages.sendClientPacketToServer(new ChangeCurrentRecipeIndexC2SPacket(handler.getBlockEntity().getPos(),
+                            diff == 1));
                 }
             }
 
@@ -85,7 +78,6 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageHandledSc
                 clicked = true;
             }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
                 //Comparator Mode
-
                 ModMessages.sendClientPacketToServer(new ChangeComparatorModeC2SPacket(handler.getBlockEntity().getPos()));
                 clicked = true;
             }
@@ -109,97 +101,27 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageHandledSc
             drawTexture(poseStack, x, y, 0, 0, backgroundWidth, backgroundHeight);
             RenderSystem.setShaderTexture(0, TEXTURE);
         }else {
-            for(int i = 0;i < 2;i++) {
-                renderFluidMeterContent(i, poseStack, x, y);
-                renderFluidMeterOverlay(i, poseStack, x, y);
-            }
-
             renderCurrentRecipeOutput(poseStack, x, y);
 
             renderButtons(poseStack, x, y, mouseX, mouseY);
 
-            renderProgressArrows(poseStack, x, y);
+            renderProgressArrow(poseStack, x, y);
         }
 
         renderConfiguration(poseStack, x, y, mouseX, mouseY);
     }
 
-    private void renderFluidMeterContent(int tank, MatrixStack poseStack, int x, int y) {
-        RenderSystem.enableBlend();
-        poseStack.push();
-
-        poseStack.translate(x + (tank == 0?44:152), y + 17, 0);
-
-        renderFluidStack(tank, poseStack);
-
-        poseStack.pop();
-        RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
-        RenderSystem.disableBlend();
-    }
-
-    private void renderFluidStack(int tank, MatrixStack poseStack) {
-        FluidStack fluidStack = handler.getFluid(tank);
-        if(fluidStack.isEmpty())
-            return;
-
-        long capacity = handler.getTankCapacity(tank);
-
-        Fluid fluid = fluidStack.getFluid();
-        Sprite stillFluidSprite = FluidVariantRendering.getSprite(fluidStack.getFluidVariant());
-        if(stillFluidSprite == null)
-            stillFluidSprite = MinecraftClient.getInstance().getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).
-                    apply(MissingSprite.getMissingSpriteId());
-
-        int fluidColorTint = FluidVariantRendering.getColor(fluidStack.getFluidVariant());
-
-        int fluidMeterPos = 52 - (int)((fluidStack.getDropletsAmount() <= 0 || capacity == 0)?0:
-                (Math.min(fluidStack.getDropletsAmount(), capacity - 1) * 52 / capacity + 1));
-
-        RenderSystem.setShaderTexture(0, PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
-
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor((fluidColorTint >> 16 & 0xFF) / 255.f,
-                (fluidColorTint >> 8 & 0xFF) / 255.f, (fluidColorTint & 0xFF) / 255.f,
-                (fluidColorTint >> 24 & 0xFF) / 255.f);
-
-        Matrix4f mat = poseStack.peek().getPositionMatrix();
-
-        for(int yOffset = 52;yOffset > fluidMeterPos;yOffset -= 16) {
-            int height = Math.min(yOffset - fluidMeterPos, 16);
-
-            float u0 = stillFluidSprite.getMinU();
-            float u1 = stillFluidSprite.getMaxU();
-            float v0 = stillFluidSprite.getMinV();
-            float v1 = stillFluidSprite.getMaxV();
-            v0 = v0 - ((16 - height) / 16.f * (v0 - v1));
-
-            Tessellator tesselator = Tessellator.getInstance();
-            BufferBuilder bufferBuilder = tesselator.getBuffer();
-            bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-            bufferBuilder.vertex(mat, 0, yOffset, 0).texture(u0, v1).next();
-            bufferBuilder.vertex(mat, 16, yOffset, 0).texture(u1, v1).next();
-            bufferBuilder.vertex(mat, 16, yOffset - height, 0).texture(u1, v0).next();
-            bufferBuilder.vertex(mat, 0, yOffset - height, 0).texture(u0, v0).next();
-            tesselator.draw();
-        }
-    }
-
-    private void renderFluidMeterOverlay(int tank, MatrixStack poseStack, int x, int y) {
-        RenderSystem.setShaderTexture(0, TEXTURE);
-        drawTexture(poseStack, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52);
-    }
-
     private void renderCurrentRecipeOutput(MatrixStack poseStack, int x, int y) {
-        StoneSolidifierRecipe currentRecipe = handler.getCurrentRecipe();
+        PressMoldMakerRecipe currentRecipe = handler.getCurrentRecipe();
         if(currentRecipe == null)
             return;
 
-        ItemStack output = currentRecipe.getOutput();
+        ItemStack output = currentRecipe.getOutputItem();
         if(!output.isEmpty()) {
             poseStack.push();
             poseStack.translate(0.f, 0.f, 100.f);
 
-            itemRenderer.renderInGuiWithOverrides(output, x + 98, y + 17, 98 + 17 * this.backgroundWidth);
+            itemRenderer.renderInGuiWithOverrides(output, x + 80, y + 17, 80 + 17 * this.backgroundWidth);
 
             poseStack.pop();
 
@@ -208,27 +130,20 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageHandledSc
     }
 
     private void renderButtons(MatrixStack poseStack, int x, int y, int mouseX, int mouseY) {
-        RenderSystem.setShaderTexture(0, TEXTURE);
-
         //Up button
-        if(isPointWithinBounds(85, 19, 11, 12, mouseX, mouseY)) {
-            drawTexture(poseStack, x + 85, y + 19, 176, 135, 11, 12);
+        if(isPointWithinBounds(67, 19, 11, 12, mouseX, mouseY)) {
+            drawTexture(poseStack, x + 67, y + 19, 176, 70, 11, 12);
         }
 
         //Down button
-        if(isPointWithinBounds(116, 19, 11, 12, mouseX, mouseY)) {
-            drawTexture(poseStack, x + 116, y + 19, 187, 135, 11, 12);
+        if(isPointWithinBounds(98, 19, 11, 12, mouseX, mouseY)) {
+            drawTexture(poseStack, x + 98, y + 19, 187, 70, 11, 12);
         }
     }
 
-    private void renderProgressArrows(MatrixStack poseStack, int x, int y) {
-        RenderSystem.setShaderTexture(0, TEXTURE);
-
-        if(handler.isCraftingActive()) {
-            drawTexture(poseStack, x + 69, y + 45, 176, 106, handler.getScaledProgressArrowSize(), 14);
-            drawTexture(poseStack, x + 143 - handler.getScaledProgressArrowSize(), y + 45,
-                    196 - handler.getScaledProgressArrowSize(), 120, handler.getScaledProgressArrowSize(), 14);
-        }
+    private void renderProgressArrow(MatrixStack poseStack, int x, int y) {
+        if(handler.isCraftingActive())
+            drawTexture(poseStack, x + 84, y + 43, 176, 53, handler.getScaledProgressArrowSize(), 17);
     }
 
     private void renderConfiguration(MatrixStack poseStack, int x, int y, int mouseX, int mouseY) {
@@ -267,48 +182,23 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageHandledSc
         super.drawMouseoverTooltip(poseStack, mouseX, mouseY);
 
         if(!handler.isInUpgradeModuleView()) {
-            for(int i = 0;i < 2;i++) {
-                //Fluid meter
-
-                if(isPointWithinBounds(i == 0?44:152, 17, 16, 52, mouseX, mouseY)) {
+            //Current recipe
+            PressMoldMakerRecipe currentRecipe = handler.getCurrentRecipe();
+            if(currentRecipe != null && isPointWithinBounds(80, 17, 16, 16, mouseX, mouseY)) {
+                ItemStack output = currentRecipe.getOutputItem();
+                if(!output.isEmpty()) {
                     List<Text> components = new ArrayList<>(2);
-
-                    boolean fluidEmpty =  handler.getFluid(i).isEmpty();
-
-                    long fluidAmount = fluidEmpty?0:handler.getFluid(i).getMilliBucketsAmount();
-
-                    Text tooltipComponent = Text.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
-                            FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(FluidUtils.
-                                    convertDropletsToMilliBuckets(handler.getTankCapacity(i))));
-
-                    if(!fluidEmpty) {
-                        tooltipComponent = Text.translatable(handler.getFluid(i).getTranslationKey()).append(" ").
-                                append(tooltipComponent);
-                    }
-
-                    components.add(tooltipComponent);
+                    components.add(Text.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
+                            output.getName()));
+                    components.add(Text.translatable("tooltip.energizedpower.press_mold_maker.btn.recipes", currentRecipe.getClayCount(),
+                            Text.translatable(Items.CLAY_BALL.getTranslationKey())).formatted(Formatting.ITALIC));
 
                     renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
                 }
             }
 
-            //Current recipe
-            StoneSolidifierRecipe currentRecipe = handler.getCurrentRecipe();
-            if(currentRecipe != null) {
-                if(isPointWithinBounds(98, 17, 16, 16, mouseX, mouseY)) {
-                    ItemStack output = currentRecipe.getOutput();
-                    if(!output.isEmpty()) {
-                        List<Text> components = new ArrayList<>(2);
-                        components.add(Text.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
-                                output.getName()));
-
-                        renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-                    }
-                }
-            }
-
             //Up button
-            if(isPointWithinBounds(85, 19, 11, 12, mouseX, mouseY)) {
+            if(isPointWithinBounds(67, 19, 11, 12, mouseX, mouseY)) {
                 List<Text> components = new ArrayList<>(2);
                 components.add(Text.translatable("tooltip.energizedpower.recipe.selector.next_recipe"));
 
@@ -316,9 +206,19 @@ public class StoneSolidifierScreen extends AbstractGenericEnergyStorageHandledSc
             }
 
             //Down button
-            if(isPointWithinBounds(116, 19, 11, 12, mouseX, mouseY)) {
+            if(isPointWithinBounds(98, 19, 11, 12, mouseX, mouseY)) {
                 List<Text> components = new ArrayList<>(2);
                 components.add(Text.translatable("tooltip.energizedpower.recipe.selector.prev_recipe"));
+
+                renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
+            }
+
+            //Missing Shovel
+            if(isPointWithinBounds(57, 44, 16, 16, mouseX, mouseY) &&
+                    handler.getSlot(4 * 9 + 1).getStack().isEmpty()) {
+                List<Text> components = new ArrayList<>(2);
+                components.add(Text.translatable("tooltip.energizedpower.auto_press_mold_maker.shovel_missing").
+                        formatted(Formatting.RED));
 
                 renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
             }

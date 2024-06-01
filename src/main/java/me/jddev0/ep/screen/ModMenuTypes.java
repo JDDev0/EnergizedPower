@@ -148,6 +148,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<MetalPressMenu> METAL_PRESS_MENU = createScreenHandlerType("metal_press",
             new ExtendedScreenHandlerType<>(MetalPressMenu::new));
 
+    public static final ScreenHandlerType<AutoPressMoldMakerMenu> AUTO_PRESS_MOLD_MAKER_MENU = createScreenHandlerType("auto_press_mold_maker",
+            new ExtendedScreenHandlerType<>(AutoPressMoldMakerMenu::new));
+
     public static final ScreenHandlerType<AssemblingMachineMenu> ASSEMBLING_MACHINE_MENU = createScreenHandlerType("assembling_machine",
             new ExtendedScreenHandlerType<>(AssemblingMachineMenu::new));
 

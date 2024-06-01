@@ -9,4 +9,8 @@ public final class CommonItemTags {
     private CommonItemTags() {}
 
     public static final TagKey<Item> SHEARS = TagKey.of(Registry.ITEM_KEY, new Identifier("c", "shears"));
+
+    public static final TagKey<Item> SHOVELS = TagKey.of(Registry.ITEM_KEY, new Identifier("c", "shovels"));
+
+    public static final TagKey<Item> PICKAXES = TagKey.of(Registry.ITEM_KEY, new Identifier("c", "pickaxes"));
 }

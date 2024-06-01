@@ -188,6 +188,14 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
+    public static final BlockEntityType<AutoPressMoldMakerBlockEntity> AUTO_PRESS_MOLD_MAKER_ENTITY = registerEnergyStorage(
+            registerInventoryStorage(
+                    createBlockEntity("auto_press_mold_maker", ModBlocks.AUTO_PRESS_MOLD_MAKER, AutoPressMoldMakerBlockEntity::new),
+                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
+            ),
+            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
+    );
+
     public static final BlockEntityType<PlantGrowthChamberBlockEntity> PLANT_GROWTH_CHAMBER_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
                 createBlockEntity("plant_growth_chamber", ModBlocks.PLANT_GROWTH_CHAMBER, PlantGrowthChamberBlockEntity::new),
