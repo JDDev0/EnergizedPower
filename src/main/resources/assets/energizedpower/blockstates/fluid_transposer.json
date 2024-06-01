@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "energizedpower:block/fluid_transposer",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "energizedpower:block/fluid_transposer"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/fluid_transposer",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/fluid_transposer",
+      "y": 270
+    }
+  }
+}

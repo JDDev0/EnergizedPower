@@ -252,6 +252,17 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
+    public static final BlockEntityType<FluidTransposerBlockEntity> FLUID_TRANSPOSER_ENTITY = registerEnergyStorage(
+            registerFluidStorage(
+                    registerInventoryStorage(
+                            createBlockEntity("fluid_transposer", ModBlocks.FLUID_TRANSPOSER, FluidTransposerBlockEntity::new),
+                            (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
+                    ),
+                    (blockEntity, direction) -> blockEntity.fluidStorage
+            ),
+            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
+    );
+
     public static final BlockEntityType<FluidFillerBlockEntity> FLUID_FILLER_ENTITY = registerEnergyStorage(
             registerFluidStorage(
                     registerInventoryStorage(
