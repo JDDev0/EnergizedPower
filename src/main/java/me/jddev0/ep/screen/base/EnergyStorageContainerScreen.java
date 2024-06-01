@@ -21,48 +21,40 @@ import java.util.Optional;
 @Environment(EnvType.CLIENT)
 public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & EnergyStorageMenu> extends HandledScreen<T> {
     protected final Identifier TEXTURE;
-    protected final int energyMeterX;
-    protected final int energyMeterY;
-    protected final int energyMeterWidth;
-    protected final int energyMeterHeight;
+
+    protected int energyMeterX;
+    protected int energyMeterY;
+    protected int energyMeterWidth;
+    protected int energyMeterHeight;
 
     protected final String energyIndicatorBarTooltipComponentID;
 
     public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent) {
-        this(menu, inventory, titleComponent, null);
+        this(menu, inventory, titleComponent, (String)null);
     }
 
     public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
                                         String energyIndicatorBarTooltipComponentID) {
         this(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID,
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/generic_energy.png"),
-                80, 17);
+                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/generic_energy.png"));
     }
 
     public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
-                                        Identifier texture, int energyMeterX, int energyMeterY) {
-        this(menu, inventory, titleComponent, null, texture, energyMeterX, energyMeterY);
-    }
-
-    public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
-                                        String energyIndicatorBarTooltipComponentID,
-                                        Identifier texture, int energyMeterX, int energyMeterY) {
-        this(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, texture,
-                energyMeterX, energyMeterY, 16, 52);
+                                        Identifier texture) {
+        this(menu, inventory, titleComponent, null, texture);
     }
 
     public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
                                         String energyIndicatorBarTooltipComponentID,
-                                        Identifier texture, int energyMeterX, int energyMeterY,
-                                        int energyMeterWidth, int energyMeterHeight) {
+                                        Identifier texture) {
         super(menu, inventory, titleComponent);
 
         this.TEXTURE = texture;
 
-        this.energyMeterX = energyMeterX;
-        this.energyMeterY = energyMeterY;
-        this.energyMeterWidth = energyMeterWidth;
-        this.energyMeterHeight = energyMeterHeight;
+        this.energyMeterX = 8;
+        this.energyMeterY = 17;
+        this.energyMeterWidth = 16;
+        this.energyMeterHeight = 52;
 
         this.energyIndicatorBarTooltipComponentID = energyIndicatorBarTooltipComponentID;
     }

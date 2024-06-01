@@ -29,7 +29,6 @@ public class FluidFillerScreen extends ConfigurableUpgradableEnergyStorageContai
     public FluidFillerScreen(FluidFillerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/fluid_filler.png"),
-                8, 17,
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_efficiency_1_energy_capacity.png"));
     }
 

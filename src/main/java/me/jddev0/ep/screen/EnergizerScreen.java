@@ -15,7 +15,6 @@ public class EnergizerScreen extends ConfigurableUpgradableEnergyStorageContaine
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/energizer.png"),
-                8, 17,
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 

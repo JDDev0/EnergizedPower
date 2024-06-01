@@ -15,7 +15,6 @@ public class MetalPressScreen extends ConfigurableUpgradableEnergyStorageContain
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/metal_press.png"),
-                8, 17,
                 new Identifier(EnergizedPowerMod.MODID,
                         "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
     }

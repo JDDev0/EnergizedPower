@@ -15,11 +15,12 @@ public class AssemblingMachineScreen extends ConfigurableUpgradableEnergyStorage
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/assembling_machine.png"),
-                8, 19,
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/assembling_machine.png"));
 
         backgroundHeight = 170;
         playerInventoryTitleY = backgroundHeight - 94;
+
+        energyMeterY = 19;
     }
 
     @Override

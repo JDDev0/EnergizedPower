@@ -15,7 +15,6 @@ public class AdvancedPoweredFurnaceScreen extends ConfigurableUpgradableEnergySt
         super(menu, inventory, component,
                 "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt",
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/advanced_powered_furnace.png"),
-                8, 17,
                 new Identifier(EnergizedPowerMod.MODID,
                         "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity_1_furnace_mode.png"));
     }

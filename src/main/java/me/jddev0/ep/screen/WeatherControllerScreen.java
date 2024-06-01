@@ -22,7 +22,6 @@ public class WeatherControllerScreen extends UpgradableEnergyStorageContainerScr
     public WeatherControllerScreen(WeatherControllerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/weather_controller.png"),
-                8, 17,
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 

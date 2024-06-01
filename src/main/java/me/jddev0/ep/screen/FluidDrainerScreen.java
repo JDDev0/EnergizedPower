@@ -29,7 +29,6 @@ public class FluidDrainerScreen extends ConfigurableUpgradableEnergyStorageConta
     public FluidDrainerScreen(FluidDrainerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/fluid_drainer.png"),
-                8, 17,
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_efficiency_1_energy_capacity.png"));
     }
 
