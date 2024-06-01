@@ -89,9 +89,13 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
         return menuProvider.createMenu(id, this, inventory, itemHandler, upgradeModuleInventory, data);
     }
 
+    protected Optional<R> getRecipeFor(SimpleInventory inventory) {
+        return world.getRecipeManager().getFirstMatch(recipeType, inventory, world);
+    }
+
     @Override
     protected final Optional<R> getCurrentWorkData() {
-        return world.getRecipeManager().getFirstMatch(recipeType, itemHandler, world);
+        return getRecipeFor(itemHandler);
     }
 
     @Override
@@ -121,7 +125,7 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
         if(world == null)
             return false;
 
-        Optional<R> recipe = world.getRecipeManager().getFirstMatch(recipeType, itemHandler, world);
+        Optional<R> recipe = getRecipeFor(itemHandler);
 
         return recipe.isPresent() && canCraftRecipe(itemHandler, recipe.get());
     }
