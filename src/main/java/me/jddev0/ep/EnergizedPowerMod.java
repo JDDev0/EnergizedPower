@@ -141,6 +141,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.FLUID_TANK_LARGE.get(), FluidTankScreen::new);
 
             MenuScreens.register(ModMenuTypes.INVENTORY_CHARGER_MENU.get(), InventoryChargerScreen::new);
+            MenuScreens.register(ModMenuTypes.INVENTORY_TELEPORTER_MENU.get(), InventoryTeleporterScreen::new);
 
             MenuScreens.register(ModMenuTypes.MINECART_BATTERY_BOX_MENU.get(), MinecartBatteryBoxScreen::new);
             MenuScreens.register(ModMenuTypes.MINECART_ADVANCED_BATTERY_BOX_MENU.get(), MinecartAdvancedBatteryBoxScreen::new);

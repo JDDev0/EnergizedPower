@@ -215,6 +215,9 @@ public final class ModItems {
     public static final RegistryObject<Item> INVENTORY_CHARGER = ITEMS.register("inventory_charger",
             () -> new InventoryChargerItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
 
+    public static final RegistryObject<Item> INVENTORY_TELEPORTER = ITEMS.register("inventory_teleporter",
+            () -> new InventoryTeleporterItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
+
     public static final RegistryObject<Item> BATTERY_1 = ITEMS.register("battery_1",
             () -> new BatteryItem(BatteryItem.Tier.BATTERY_1));
     public static final RegistryObject<Item> BATTERY_2 = ITEMS.register("battery_2",

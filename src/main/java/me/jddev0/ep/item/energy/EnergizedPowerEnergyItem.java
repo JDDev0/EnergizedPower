@@ -18,10 +18,12 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class EnergizedPowerEnergyItem extends Item {
-    private final Supplier<IEnergizedPowerEnergyStorage> energyStorageProvider;
+    private final Function<ItemStack, IEnergizedPowerEnergyStorage> energyStorageProvider;
+
     protected static int getEnergy(ItemStack itemStack) {
         return itemStack.getCapability(ForgeCapabilities.ENERGY).orElse(null).getEnergyStored();
     }
@@ -33,6 +35,10 @@ public class EnergizedPowerEnergyItem extends Item {
     }
 
     public EnergizedPowerEnergyItem(Properties props, Supplier<IEnergizedPowerEnergyStorage> energyStorageProvider) {
+        this(props, stack -> energyStorageProvider.get());
+    }
+
+    public EnergizedPowerEnergyItem(Properties props, Function<ItemStack, IEnergizedPowerEnergyStorage> energyStorageProvider) {
         super(props);
 
         this.energyStorageProvider = energyStorageProvider;
@@ -44,7 +50,8 @@ public class EnergizedPowerEnergyItem extends Item {
             items.add(new ItemStack(this));
 
             ItemStack itemStackFullyCharged = new ItemStack(this);
-            itemStackFullyCharged.getOrCreateTag().put("energy", IntTag.valueOf(energyStorageProvider.get().getCapacity()));
+            itemStackFullyCharged.getOrCreateTag().put("energy", IntTag.valueOf(energyStorageProvider.
+                    apply(itemStackFullyCharged).getCapacity()));
 
             items.add(itemStackFullyCharged);
         }
@@ -75,6 +82,6 @@ public class EnergizedPowerEnergyItem extends Item {
 
     @Override
     public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        return new ItemCapabilityEnergy(stack, stack.getTag(), energyStorageProvider.get());
+        return new ItemCapabilityEnergy(stack, stack.getTag(), energyStorageProvider.apply(stack));
     }
 }
