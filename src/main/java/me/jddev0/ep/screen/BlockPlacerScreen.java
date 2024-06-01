@@ -22,7 +22,6 @@ public class BlockPlacerScreen
         super(menu, inventory, component,
                 "tooltip.energizedpower.block_placer.block_energy_left.txt",
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/block_placer.png"),
-                8, 17,
                 new ResourceLocation(EnergizedPowerMod.MODID,
                         "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
     }

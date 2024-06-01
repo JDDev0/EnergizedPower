@@ -16,7 +16,6 @@ public class CoalEngineScreen
         super(menu, inventory, component,
                 "tooltip.energizedpower.coal_engine.txt",
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/coal_engine.png"),
-                8, 17,
                 new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 

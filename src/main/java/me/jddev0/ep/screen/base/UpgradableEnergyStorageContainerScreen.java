@@ -40,29 +40,17 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
     }
 
     public UpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
-                                                  ResourceLocation texture, int energyMeterX, int energyMeterY,
+                                                  ResourceLocation texture,
                                                   ResourceLocation upgradeViewTexture) {
-        super(menu, inventory, titleComponent, texture, energyMeterX, energyMeterY);
+        super(menu, inventory, titleComponent, texture);
 
         this.UPGRADE_VIEW_TEXTURE = upgradeViewTexture;
     }
 
     public UpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                                   String energyIndicatorBarTooltipComponentID, ResourceLocation texture,
-                                                  int energyMeterX, int energyMeterY,
                                                   ResourceLocation upgradeViewTexture) {
-        super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, texture, energyMeterX, energyMeterY);
-
-        this.UPGRADE_VIEW_TEXTURE = upgradeViewTexture;
-    }
-
-    public UpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
-                                                  String energyIndicatorBarTooltipComponentID, ResourceLocation texture,
-                                                  int energyMeterX, int energyMeterY, int energyMeterWidth,
-                                                  int energyMeterHeight,
-                                                  ResourceLocation upgradeViewTexture) {
-        super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, texture, energyMeterX, energyMeterY,
-                energyMeterWidth, energyMeterHeight);
+        super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, texture);
 
         this.UPGRADE_VIEW_TEXTURE = upgradeViewTexture;
     }
