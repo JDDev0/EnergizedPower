@@ -82,6 +82,8 @@ public abstract class ConfigurableUpgradableEnergyStorageContainerScreen
 
     @Override
     protected void renderTooltipConfiguration(DrawContext drawContext, int mouseX, int mouseY) {
+        super.renderTooltipConfiguration(drawContext, mouseX, mouseY);
+
         if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
             //Redstone Mode
 

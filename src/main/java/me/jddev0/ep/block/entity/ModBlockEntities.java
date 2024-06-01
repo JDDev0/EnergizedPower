@@ -285,6 +285,17 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
+    public static final BlockEntityType<FluidPumpBlockEntity> FLUID_PUMP_ENTITY = registerEnergyStorage(
+            registerFluidStorage(
+                    registerInventoryStorage(
+                            createBlockEntity("fluid_pump", ModBlocks.FLUID_PUMP, FluidPumpBlockEntity::new),
+                            (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
+                    ),
+                    (blockEntity, direction) -> blockEntity.fluidStorage
+            ),
+            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
+    );
+
     public static final BlockEntityType<DrainBlockEntity> DRAIN_ENTITY = registerFluidStorage(
             createBlockEntity("drain", ModBlocks.DRAIN, DrainBlockEntity::new),
             (blockEntity, direction) -> blockEntity.fluidStorage

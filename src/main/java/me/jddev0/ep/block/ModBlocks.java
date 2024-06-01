@@ -350,6 +350,11 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item FLUID_DRAINER_ITEM = createBlockItem("fluid_drainer", FLUID_DRAINER);
 
+    public static final Block FLUID_PUMP = registerBlock("fluid_pump",
+            new FluidPumpBlock(FabricBlockSettings.create().
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item FLUID_PUMP_ITEM = createBlockItem("fluid_pump", FLUID_PUMP);
+
     public static final Block DRAIN = registerBlock("drain",
             new DrainBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
