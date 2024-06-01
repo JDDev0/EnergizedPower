@@ -89,6 +89,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(ModMenuTypes.FLUID_TANK_LARGE, FluidTankScreen::new);
 
         HandledScreens.register(ModMenuTypes.INVENTORY_CHARGER_MENU, InventoryChargerScreen::new);
+        HandledScreens.register(ModMenuTypes.INVENTORY_TELEPORTER_MENU, InventoryTeleporterScreen::new);
 
         HandledScreens.register(ModMenuTypes.MINECART_BATTERY_BOX_MENU, MinecartBatteryBoxScreen::new);
         HandledScreens.register(ModMenuTypes.MINECART_ADVANCED_BATTERY_BOX_MENU, MinecartAdvancedBatteryBoxScreen::new);

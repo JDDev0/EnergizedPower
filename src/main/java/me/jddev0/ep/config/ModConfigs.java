@@ -134,6 +134,13 @@ public final class ModConfigs {
             1L, null
     ));
 
+    public static final ConfigValue<Long> COMMON_INVENTORY_TELEPORTER_CAPACITY = registerEnergyCapacityConfigValue(
+            "item.inventory_teleporter", "Inventory Teleporter", 8388608
+    );
+    public static final ConfigValue<Long> COMMON_INVENTORY_TELEPORTER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "item.inventory_teleporter", "Inventory Teleporter", 65536
+    );
+
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_1_EFFECT = registerSpeedModuleEffectValue(
             1, "I",
             1.2

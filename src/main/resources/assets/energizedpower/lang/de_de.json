@@ -90,8 +90,8 @@
   "tooltip.energizedpower.teleporter_matrix.status.unlinked": "Ungebunden",
   "tooltip.energizedpower.teleporter_matrix.location": "Ort: ",
   "tooltip.energizedpower.teleporter_matrix.dimension": "Dimension: ",
-  "tooltip.energizedpower.teleporter_matrix.txt.shift.1": "Wird durch SHIFT + Links-Klick auf einen Teleporter gebunden.",
-  "tooltip.energizedpower.teleporter_matrix.txt.shift.2": "Wird durch Links-Klick in der Luft ungebunden.",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.1": "Wird durch SHIFT + Rechts-Klick auf einen Teleporter gebunden.",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.2": "Wird durch Rechts-Klick in der Luft ungebunden.",
 
   "item.energizedpower.teleporter_processing_unit": "Teleporter Prozessoreinheit",
 
@@ -149,6 +149,12 @@
   "item.energizedpower.inventory_charger": "Inventar Lader",
   "container.energizedpower.inventory_charger": "Inventar Lader",
   "tooltip.energizedpower.inventory_charger.txt.shift.1": "Das Inventar dieses Items kann durch das Verwenden des Items in der Luft geöffnet werden",
+
+  "item.energizedpower.inventory_teleporter": "Inventar Teleporter",
+  "container.energizedpower.inventory_teleporter": "Inventar Teleporter",
+
+  "tooltip.energizedpower.inventory_teleporter.txt.shift.1": "Das Inventar kann durch SHIFT + Rechts-Klick in der Luft geöffnet werden.",
+  "tooltip.energizedpower.inventory_teleporter.txt.shift.2": "Drücke mit einem Rechts-Klick in der Luft um dich zu teleportieren.",
 
   "item.energizedpower.battery_1": "Batterie (MK I)",
   "item.energizedpower.battery_2": "Batterie (MK II)",
