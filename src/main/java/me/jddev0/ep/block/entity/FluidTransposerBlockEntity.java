@@ -46,7 +46,7 @@ public class FluidTransposerBlockEntity
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
-    private LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
+    private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1));
 
     private LazyOptional<IFluidHandler> lazyFluidStorage = LazyOptional.empty();

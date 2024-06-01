@@ -159,6 +159,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("fluid_drainer", () -> BlockEntityType.Builder.of(FluidDrainerBlockEntity::new,
                     ModBlocks.FLUID_DRAINER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<FluidPumpBlockEntity>> FLUID_PUMP_ENTITY =
+            BLOCK_ENTITIES.register("fluid_pump", () -> BlockEntityType.Builder.of(FluidPumpBlockEntity::new,
+                    ModBlocks.FLUID_PUMP.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<DrainBlockEntity>> DRAIN_ENTITY =
             BLOCK_ENTITIES.register("drain", () -> BlockEntityType.Builder.of(DrainBlockEntity::new,
                     ModBlocks.DRAIN.get()).build(null));
