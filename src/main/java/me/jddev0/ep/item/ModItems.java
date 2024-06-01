@@ -97,11 +97,11 @@ public final class ModItems {
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Item GEAR_PRESS_MOLD = registerItem("gear_press_mold",
-            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxDamage(2000)));
     public static final Item ROD_PRESS_MOLD = registerItem("rod_press_mold",
-            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxDamage(2000)));
     public static final Item WIRE_PRESS_MOLD = registerItem("wire_press_mold",
-            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB).maxDamage(2000)));
 
     public static final Item BASIC_SOLAR_CELL = registerItem("basic_solar_cell",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));

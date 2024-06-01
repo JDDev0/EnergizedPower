@@ -21,13 +21,13 @@ public final class RecipeUtils {
     public static <C extends Inventory, T extends Recipe<C>> boolean isResultOfAny(World level, RecipeType<T> recipeType, ItemStack itemStack) {
         List<T> recipes = level.getRecipeManager().listAllOfType(recipeType);
 
-        return recipes.stream().map(Recipe::getOutput).anyMatch(stack -> ItemStack.areEqual(stack, itemStack));
+        return recipes.stream().map(Recipe::getOutput).anyMatch(stack -> ItemStack.canCombine(stack, itemStack));
     }
 
     public static <C extends Inventory, T extends Recipe<C>> boolean isRemainderOfAny(World level, RecipeType<T> recipeType, C container, ItemStack itemStack) {
         List<T> recipes = level.getRecipeManager().listAllOfType(recipeType);
 
         return recipes.stream().map(recipe -> recipe.getRemainder(container)).
-                anyMatch(remainingItems -> remainingItems.stream().anyMatch(item -> ItemStack.areEqual(item, itemStack)));
+                anyMatch(remainingItems -> remainingItems.stream().anyMatch(item -> ItemStack.canCombine(item, itemStack)));
     }
 }
