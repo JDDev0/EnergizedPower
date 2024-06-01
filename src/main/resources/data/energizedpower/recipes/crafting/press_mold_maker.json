@@ -9,7 +9,7 @@
       "item": "minecraft:bricks"
     },
     "s": {
-      "item": "minecraft:stone_shovel"
+      "tag": "minecraft:shovels"
     }
   },
   "pattern": [

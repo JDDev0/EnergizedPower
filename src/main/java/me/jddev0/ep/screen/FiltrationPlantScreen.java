@@ -320,7 +320,7 @@ public class FiltrationPlantScreen extends AbstractGenericEnergyStorageHandledSc
             //Up button
             if(isPointWithinBounds(85, 19, 11, 12, mouseX, mouseY)) {
                 List<Text> components = new ArrayList<>(2);
-                components.add(Text.translatable("tooltip.energizedpower.filtration_plant.btn.up"));
+                components.add(Text.translatable("tooltip.energizedpower.recipe.selector.next_recipe"));
 
                 drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
             }
@@ -328,7 +328,7 @@ public class FiltrationPlantScreen extends AbstractGenericEnergyStorageHandledSc
             //Down button
             if(isPointWithinBounds(116, 19, 11, 12, mouseX, mouseY)) {
                 List<Text> components = new ArrayList<>(2);
-                components.add(Text.translatable("tooltip.energizedpower.filtration_plant.btn.down"));
+                components.add(Text.translatable("tooltip.energizedpower.recipe.selector.prev_recipe"));
 
                 drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
             }

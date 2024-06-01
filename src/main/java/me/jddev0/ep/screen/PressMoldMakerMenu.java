@@ -25,7 +25,7 @@ public class PressMoldMakerMenu extends AbstractEnergizedPowerScreenHandler {
     private final World level;
 
     public PressMoldMakerMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
-        this(id, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), inv, new SimpleInventory(6) {
+        this(id, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), inv, new SimpleInventory(2) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {

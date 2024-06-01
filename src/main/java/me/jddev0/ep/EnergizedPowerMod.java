@@ -153,6 +153,7 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(ModBlocks.SAWMILL_ITEM);
             event.accept(ModBlocks.COMPRESSOR_ITEM);
             event.accept(ModBlocks.METAL_PRESS_ITEM);
+            event.accept(ModBlocks.AUTO_PRESS_MOLD_MAKER_ITEM);
             event.accept(ModBlocks.ASSEMBLING_MACHINE_ITEM);
             event.accept(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM);
             event.accept(ModBlocks.STONE_SOLIDIFIER_ITEM);
