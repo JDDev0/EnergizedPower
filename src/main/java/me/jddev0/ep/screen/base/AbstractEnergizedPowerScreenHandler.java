@@ -1,4 +1,4 @@
-package me.jddev0.ep.screen;
+package me.jddev0.ep.screen.base;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;

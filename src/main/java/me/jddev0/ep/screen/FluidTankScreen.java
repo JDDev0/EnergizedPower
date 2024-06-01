@@ -2,7 +2,6 @@ package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
@@ -45,10 +44,6 @@ public class FluidTankScreen extends HandledScreen<FluidTankMenu> {
         super(menu, inventory, component);
 
         TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/fluid_tank.png");
-    }
-
-    public FluidTankBlock.Tier getTier() {
-        return handler.getTier();
     }
 
     @Override

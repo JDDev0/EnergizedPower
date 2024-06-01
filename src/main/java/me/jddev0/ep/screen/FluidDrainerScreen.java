@@ -3,8 +3,7 @@ package me.jddev0.ep.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.fluid.FluidStack;
-import me.jddev0.ep.networking.packet.ChangeComparatorModeC2SPacket;
-import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
+import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -12,18 +11,13 @@ import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.*;
-import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.texture.MissingSprite;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.screen.PlayerScreenHandler;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import me.jddev0.ep.machine.configuration.RedstoneMode;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.machine.configuration.ComparatorMode;
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;
@@ -31,62 +25,23 @@ import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
-public class FluidDrainerScreen extends AbstractGenericEnergyStorageHandledScreen<FluidDrainerMenu> {
-    private final Identifier CONFIGURATION_ICONS_TEXTURE =
-            new Identifier(EnergizedPowerMod.MODID, "textures/gui/machine_configuration/configuration_buttons.png");
-    private final Identifier UPGRADE_VIEW_TEXTURE =
-            new Identifier(EnergizedPowerMod.MODID,
-                    "textures/gui/container/upgrade_view/1_energy_efficiency_1_energy_capacity.png");
-
+public class FluidDrainerScreen extends ConfigurableUpgradableEnergyStorageContainerScreen<FluidDrainerMenu> {
     public FluidDrainerScreen(FluidDrainerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/fluid_drainer.png"),
-                8, 17);
+                8, 17,
+                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_efficiency_1_energy_capacity.png"));
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-        if(mouseButton == 0) {
-            boolean clicked = false;
-            if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
-                //Upgrade view
-
-                client.interactionManager.clickButton(handler.syncId, 0);
-                clicked = true;
-            }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
-                //Redstone Mode
-
-                ModMessages.sendClientPacketToServer(new ChangeRedstoneModeC2SPacket(handler.getBlockEntity().getPos()));
-                clicked = true;
-            }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
-                //Comparator Mode
-
-                ModMessages.sendClientPacketToServer(new ChangeComparatorModeC2SPacket(handler.getBlockEntity().getPos()));
-                clicked = true;
-            }
-
-            if(clicked)
-                client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.f));
-        }
-
-        return super.mouseClicked(mouseX, mouseY, mouseButton);
-    }
-
-    @Override
-    protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        super.drawBackground(drawContext, partialTick, mouseX, mouseY);
+    protected void renderBgNormalView(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
+        super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
 
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        if(handler.isInUpgradeModuleView()) {
-            drawContext.drawTexture(UPGRADE_VIEW_TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
-        }else {
-            renderFluidMeterContent(drawContext, x, y);
-            renderFluidMeterOverlay(drawContext, x, y);
-        }
-
-        renderConfiguration(drawContext, x, y, mouseX, mouseY);
+        renderFluidMeterContent(drawContext, x, y);
+        renderFluidMeterOverlay(drawContext, x, y);
     }
 
     private void renderFluidMeterContent(DrawContext drawContext, int x, int y) {
@@ -153,88 +108,29 @@ public class FluidDrainerScreen extends AbstractGenericEnergyStorageHandledScree
         drawContext.drawTexture(TEXTURE, x + 152, y + 17, 176, 53, 16, 52);
     }
 
-    private void renderConfiguration(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
-        //Upgrade view
-        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 40, 80, 20, 20);
-        }else if(handler.isInUpgradeModuleView()) {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20, 80, 20, 20);
-        }else {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 0, 80, 20, 20);
-        }
-
-        RedstoneMode redstoneMode = handler.getRedstoneMode();
-        int ordinal = redstoneMode.ordinal();
-
-        if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 20, 20, 20);
-        }else {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 0, 20, 20);
-        }
-
-        ComparatorMode comparatorMode = handler.getComparatorMode();
-        ordinal = comparatorMode.ordinal();
-
-        if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 60, 20, 20);
-        }else {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 40, 20, 20);
-        }
-    }
-
     @Override
-    protected void drawMouseoverTooltip(DrawContext drawContext, int mouseX, int mouseY) {
-        super.drawMouseoverTooltip(drawContext, mouseX, mouseY);
+    protected void renderTooltipNormalView(DrawContext drawContext, int mouseX, int mouseY) {
+        super.renderTooltipNormalView(drawContext, mouseX, mouseY);
 
-        if(!handler.isInUpgradeModuleView()) {
-            if(isPointWithinBounds(152, 17, 16, 52, mouseX, mouseY)) {
-                //Fluid meter
+        if(isPointWithinBounds(152, 17, 16, 52, mouseX, mouseY)) {
+            //Fluid meter
 
-                List<Text> components = new ArrayList<>(2);
+            List<Text> components = new ArrayList<>(2);
 
-                boolean fluidEmpty =  handler.getFluid().isEmpty();
+            boolean fluidEmpty =  handler.getFluid().isEmpty();
 
-                long fluidAmount = fluidEmpty?0:handler.getFluid().getMilliBucketsAmount();
+            long fluidAmount = fluidEmpty?0:handler.getFluid().getMilliBucketsAmount();
 
-                Text tooltipComponent = Text.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
-                        FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(FluidUtils.
-                                convertDropletsToMilliBuckets(handler.getTankCapacity())));
+            Text tooltipComponent = Text.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
+                    FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(FluidUtils.
+                            convertDropletsToMilliBuckets(handler.getTankCapacity())));
 
-                if(!fluidEmpty) {
-                    tooltipComponent = Text.translatable(handler.getFluid().getTranslationKey()).append(" ").
-                            append(tooltipComponent);
-                }
-
-                components.add(tooltipComponent);
-
-                drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+            if(!fluidEmpty) {
+                tooltipComponent = Text.translatable(handler.getFluid().getTranslationKey()).append(" ").
+                        append(tooltipComponent);
             }
-        }
 
-        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
-            //Upgrade view
-
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.upgrade_view.button." +
-                    (handler.isInUpgradeModuleView()?"close":"open")));
-
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
-            //Redstone Mode
-
-            RedstoneMode redstoneMode = handler.getRedstoneMode();
-
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.asString()));
-
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
-            //Comparator Mode
-
-            ComparatorMode comparatorMode = handler.getComparatorMode();
-
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.machine_configuration.comparator_mode." + comparatorMode.asString()));
+            components.add(tooltipComponent);
 
             drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
         }
