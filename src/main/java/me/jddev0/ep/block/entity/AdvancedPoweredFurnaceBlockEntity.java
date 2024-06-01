@@ -1,6 +1,5 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.AdvancedPoweredFurnaceBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
@@ -30,6 +29,7 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -241,11 +241,14 @@ public class AdvancedPoweredFurnaceBlockEntity
         if(level.isClient())
             return;
 
-        if(!blockEntity.redstoneMode.isActive(state.get(AdvancedPoweredFurnaceBlock.POWERED)))
+        if(!blockEntity.redstoneMode.isActive(state.get(Properties.POWERED)))
             return;
 
+        boolean hasNoRecipe = true;
+        int hasNotEnoughEnergyCount = 0;
         for(int i = 0;i < 3;i++) {
             if(hasRecipe(i, blockEntity)) {
+                hasNoRecipe = false;
                 SimpleInventory inventory = new SimpleInventory(2);
                 inventory.setStack(0, blockEntity.itemHandler.getStack(i));
                 inventory.setStack(1, blockEntity.itemHandler.getStack(3 + i));
@@ -267,10 +270,10 @@ public class AdvancedPoweredFurnaceBlockEntity
                     blockEntity.energyConsumptionLeft[i] = energyUsagePerInputPerTick * blockEntity.maxProgress[i];
 
                 if(energyUsagePerInputPerTick <= blockEntity.energyStorage.getAmount()) {
-                    if(!level.getBlockState(blockPos).contains(AdvancedPoweredFurnaceBlock.LIT) ||
-                            !level.getBlockState(blockPos).get(AdvancedPoweredFurnaceBlock.LIT)) {
-                        blockEntity.hasEnoughEnergy[i] = true;
-                        level.setBlockState(blockPos, state.with(AdvancedPoweredFurnaceBlock.LIT, Boolean.TRUE), 3);
+                    blockEntity.hasEnoughEnergy[i] = true;
+                    if(!level.getBlockState(blockPos).contains(Properties.LIT) &&
+                            !level.getBlockState(blockPos).get(Properties.LIT)) {
+                        level.setBlockState(blockPos, state.with(Properties.LIT, true), 3);
                     }
 
                     if(blockEntity.progress[i] < 0 || blockEntity.maxProgress[i] < 0 || blockEntity.energyConsumptionLeft[i] < 0) {
@@ -295,11 +298,21 @@ public class AdvancedPoweredFurnaceBlockEntity
                     markDirty(level, blockPos, state);
                 }else {
                     blockEntity.hasEnoughEnergy[i] = false;
+                    hasNotEnoughEnergyCount++;
                     markDirty(level, blockPos, state);
                 }
             }else {
                 blockEntity.resetProgress(i, blockPos, state);
+                hasNotEnoughEnergyCount++;
                 markDirty(level, blockPos, state);
+            }
+        }
+
+        //Unlit if nothing is being smelted
+        if(hasNoRecipe || hasNotEnoughEnergyCount == 3) {
+            if(level.getBlockState(blockPos).contains(Properties.LIT) &&
+                    level.getBlockState(blockPos).get(Properties.LIT)) {
+                level.setBlockState(blockPos, state.with(Properties.LIT, false), 3);
             }
         }
     }
@@ -308,14 +321,7 @@ public class AdvancedPoweredFurnaceBlockEntity
         progress[index] = 0;
         maxProgress[index] = 0;
         energyConsumptionLeft[index] = -1;
-        hasEnoughEnergy[index] = true;
-
-        //Unlit if nothing is being smelted
-        for(int i = 0;i < energyConsumptionLeft.length;i++)
-            if(energyConsumptionLeft[i] > -1)
-                return;
-
-        world.setBlockState(blockPos, state.with(AdvancedPoweredFurnaceBlock.LIT, false), 3);
+        hasEnoughEnergy[index] = false;
     }
 
     private static void craftItem(int index, BlockPos blockPos, BlockState state, AdvancedPoweredFurnaceBlockEntity blockEntity) {

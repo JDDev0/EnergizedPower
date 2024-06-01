@@ -1,6 +1,5 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.PoweredFurnaceBlock;
 import me.jddev0.ep.block.entity.base.WorkerMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
@@ -26,6 +25,7 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -147,17 +147,17 @@ public class PoweredFurnaceBlockEntity
 
     @Override
     protected void onHasEnoughEnergy() {
-        if(world.getBlockState(getPos()).contains(PoweredFurnaceBlock.LIT) &&
-                !world.getBlockState(getPos()).get(PoweredFurnaceBlock.LIT)) {
-            world.setBlockState(getPos(), getCachedState().with(PoweredFurnaceBlock.LIT, true), 3);
+        if(world.getBlockState(getPos()).contains(Properties.LIT) &&
+                !world.getBlockState(getPos()).get(Properties.LIT)) {
+            world.setBlockState(getPos(), getCachedState().with(Properties.LIT, true), 3);
         }
     }
 
     @Override
     protected void onHasNotEnoughEnergy() {
-        if(world.getBlockState(getPos()).contains(PoweredFurnaceBlock.LIT) &&
-                world.getBlockState(getPos()).get(PoweredFurnaceBlock.LIT)) {
-            world.setBlockState(getPos(), getCachedState().with(PoweredFurnaceBlock.LIT, false), 3);
+        if(world.getBlockState(getPos()).contains(Properties.LIT) &&
+                world.getBlockState(getPos()).get(Properties.LIT)) {
+            world.setBlockState(getPos(), getCachedState().with(Properties.LIT, false), 3);
         }
     }
 
