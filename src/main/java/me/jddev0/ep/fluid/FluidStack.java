@@ -1,9 +1,13 @@
 package me.jddev0.ep.fluid;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonSyntaxException;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -11,6 +15,14 @@ import net.minecraft.util.registry.Registry;
 public class FluidStack {
     private FluidVariant fluidVariant;
     private long dropletsAmount;
+    
+    public static FluidStack fromJson(JsonElement json) {
+        try {
+            return FluidStack.fromNbt(StringNbtReader.parse(json.toString()));
+        } catch(CommandSyntaxException e) {
+            throw new JsonSyntaxException("Invalid FluidStack json representation", e);
+        }
+    }
 
     public static FluidStack fromNbt(NbtCompound nbtCompound) {
         Fluid fluid = Registry.FLUID.get(new Identifier(nbtCompound.getString("FluidName")));

@@ -338,6 +338,12 @@ public final class ModBlocks {
     public static final Item FILTRATION_PLANT_ITEM = createBlockItem("filtration_plant",
             new FiltrationPlantBlock.Item(FILTRATION_PLANT, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final Block FLUID_TRANSPOSER = registerBlock("fluid_transposer",
+            new FluidTransposerBlock(FabricBlockSettings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item FLUID_TRANSPOSER_ITEM = createBlockItem("fluid_transposer",
+            FLUID_TRANSPOSER);
+
     public static final Block FLUID_DRAINER = registerBlock("fluid_drainer",
             new FluidDrainerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

@@ -1,0 +1,14 @@
+{
+  "type": "energizedpower:fluid_transposer",
+  "mode": "FILLING",
+  "ingredient": {
+    "item": "minecraft:yellow_concrete_powder"
+  },
+  "output": {
+    "item": "minecraft:yellow_concrete"
+  },
+  "fluid": {
+    "FluidName": "minecraft:water",
+    "Amount": 1000
+  }
+}

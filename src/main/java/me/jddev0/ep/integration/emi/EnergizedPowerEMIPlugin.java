@@ -94,6 +94,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
         registry.addCategory(FiltrationPlantEMIRecipe.CATEGORY);
         registry.addWorkstation(FiltrationPlantEMIRecipe.CATEGORY, FiltrationPlantEMIRecipe.ITEM);
 
+        registry.addCategory(FluidTransposerEMIRecipe.CATEGORY);
+        registry.addWorkstation(FluidTransposerEMIRecipe.CATEGORY, FluidTransposerEMIRecipe.ITEM);
+
         registry.addCategory(DispenserEMIRecipe.CATEGORY);
         registry.addWorkstation(DispenserEMIRecipe.CATEGORY, DispenserEMIRecipe.ITEM);
 
@@ -148,6 +151,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
         for(FiltrationPlantRecipe recipe:recipeManager.listAllOfType(FiltrationPlantRecipe.Type.INSTANCE))
             registry.addRecipe(new FiltrationPlantEMIRecipe(recipe));
+
+        for(FluidTransposerRecipe recipe:recipeManager.listAllOfType(FluidTransposerRecipe.Type.INSTANCE))
+            registry.addRecipe(new FluidTransposerEMIRecipe(recipe));
 
         registry.addRecipe(new DispenserEMIRecipe(new DispenserEMIRecipe.DispenserRecipe(
                 new Identifier(EnergizedPowerMod.MODID, "dispenser/energizedpower/cable_insulator"),
