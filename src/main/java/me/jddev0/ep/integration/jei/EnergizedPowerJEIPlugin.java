@@ -179,7 +179,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registerRecipeClickArea(registration, AdvancedPoweredFurnaceScreen.class, 151, 34, 18, 18, RecipeTypes.SMELTING,
                 RecipeTypes.BLASTING, RecipeTypes.SMOKING);
 
-        registerRecipeClickArea(registration, AutoStonecutterScreen.class, 84, 43, 24, 17, RecipeTypes.SMOKING);
+        registerRecipeClickArea(registration, AutoStonecutterScreen.class, 84, 43, 24, 17, RecipeTypes.STONECUTTING);
 
         registerRecipeClickArea(registration, CoalEngineScreen.class, 79, 25, 18, 17, RecipeTypes.FUELING);
 
