@@ -20,17 +20,17 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Sawmill
 - Compressor
 - Metal Press
-- Auto Press Mold Maker (**In next release (v2.11.0)**)
-- Auto Stonecutter (**In next release (v2.11.0)**)
+- Auto Press Mold Maker
+- Auto Stonecutter
 - Assembling Machine
 - Plant Growth Chamber
 - Stone Solidifier
 - Filtration Plant
-- Fluid Transposer (**In next release (v2.11.0)**)
+- Fluid Transposer
 - Block Placer (Supports placing blocks below and above it; The rotation of the placed block depends on the rotation of the block placer)
 - Fluid Filler
 - Fluid Drainer
-- Fluid Pump (**In next release (v2.11.0)**)
+- Fluid Pump
 - Charger
 - Advanced Charger (3 slots)
 - Uncharger
@@ -71,7 +71,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - Batteries (8 Tiers)
 - Inventory Coal Engine
 - Inventory Charger
-- Inventory Teleporter (**In next release (v2.11.0)**)
+- Inventory Teleporter
 
 ### Fluid transportation
 
@@ -150,6 +150,7 @@ A tutorial world showcasing all the features of this mod can be downloaded on Cu
 
 ## Supported versions:
 Mod version: MC version
+- 2.11.x: 1.20.6, 1.20.2, 1.20.1, 1.19.2
 - 2.10.x: 1.20.6, 1.20.2, 1.20.1, 1.19.2
 - 2.9.x: 1.20.6, 1.20.5, 1.20.4, 1.20.2, 1.20.1, 1.19.2
 - 2.8.x: 1.20.4, 1.20.2, 1.20.1, 1.19.2
