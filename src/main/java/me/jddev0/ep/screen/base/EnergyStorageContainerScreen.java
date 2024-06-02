@@ -5,7 +5,6 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
@@ -19,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
-public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEnergyStorageMenu> extends HandledScreen<T> {
+public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEnergyStorageMenu> extends EnergizedPowerBaseContainerScreen<T> {
     protected final Identifier TEXTURE;
 
     protected int energyMeterX = 8;
@@ -27,8 +26,8 @@ public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEn
     protected int energyMeterWidth = 16;
     protected int energyMeterHeight = 52;
 
-    protected int energyMeterTextureX = 176;
-    protected int energyMeterTextureY = 0;
+    protected int energyMeterU = 176;
+    protected int energyMeterV = 0;
 
     protected final String energyIndicatorBarTooltipComponentID;
 
@@ -74,15 +73,15 @@ public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEn
 
     protected void renderEnergyMeter(MatrixStack poseStack, int x, int y) {
         int pos = handler.getScaledEnergyMeterPos(energyMeterHeight);
-        drawTexture(poseStack, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterTextureX,
-                energyMeterTextureY + energyMeterHeight - pos, energyMeterWidth, pos);
+        drawTexture(poseStack, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
+                energyMeterV + energyMeterHeight - pos, energyMeterWidth, pos);
     }
 
     protected void renderEnergyIndicatorBar(MatrixStack poseStack, int x, int y) {
         int pos = handler.getScaledEnergyIndicatorBarPos(energyMeterHeight);
         if(pos > 0)
-            drawTexture(poseStack, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterTextureX,
-                    energyMeterTextureY + energyMeterHeight, energyMeterWidth, 1);
+            drawTexture(poseStack, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
+                    energyMeterV + energyMeterHeight, energyMeterWidth, 1);
     }
 
     @Override
