@@ -741,16 +741,16 @@ public final class ModConfigs {
     );
 
     public static final ConfigValue<Integer> COMMON_AUTO_STONECUTTER_CAPACITY = registerEnergyCapacityConfigValue(
-            "block.AUTO_STONECUTTER", "Auto Stonecutter", 2048
+            "block.auto_stonecutter", "Auto Stonecutter", 2048
     );
     public static final ConfigValue<Integer> COMMON_AUTO_STONECUTTER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
-            "block.AUTO_STONECUTTER", "Auto Stonecutter", 128
+            "block.auto_stonecutter", "Auto Stonecutter", 128
     );
     public static final ConfigValue<Integer> COMMON_AUTO_STONECUTTER_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
-            "block.AUTO_STONECUTTER", "Auto Stonecutter", 8
+            "block.auto_stonecutter", "Auto Stonecutter", 8
     );
     public static final ConfigValue<Integer> COMMON_AUTO_STONECUTTER_RECIPE_DURATION = registerRecipeDurationConfigValue(
-            "block.AUTO_STONECUTTER", "Auto Stonecutter", 100
+            "block.auto_stonecutter", "Auto Stonecutter", 100
     );
 
     public static final ConfigValue<Integer> COMMON_ENERGIZER_CAPACITY = registerEnergyCapacityConfigValue(
