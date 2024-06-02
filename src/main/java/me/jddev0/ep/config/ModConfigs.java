@@ -1375,7 +1375,7 @@ public final class ModConfigs {
         ));
     }
     private static ConfigValue<Double> registerEnergyCapacityModuleEnergyTransferRateEffectValue(int tier, String tierRomanNumerals,
-                                                                                       double defaultValue) {
+                                                                                                 double defaultValue) {
         return COMMON_CONFIG.register(new DoubleConfigValue(
                 "item.energy_capacity_upgrade_module_" + tier + ".energy_transfer_rate.effect_value",
                 "The upgrade module effect (Energy transfer rate multiplier) of the Energy Capacity Upgrade Module (Tier " +
