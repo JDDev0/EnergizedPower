@@ -45,14 +45,13 @@ public class ItemConveyorBeltLoaderMenu extends AbstractEnergizedPowerScreenHand
         this.blockEntity = (ItemConveyorBeltLoaderBlockEntity)blockEntity;
 
         this.inv = inv;
-        checkSize(this.inv, 1);
+        checkSize(inv, 1);
         this.level = playerInventory.player.getWorld();
-        this.inv.onOpen(playerInventory.player);
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
-        addSlot(new ConstraintInsertSlot(this.inv, 0, 80, 35));
+        addSlot(new ConstraintInsertSlot(inv, 0, 80, 35));
     }
 
     @Override
@@ -93,7 +92,7 @@ public class ItemConveyorBeltLoaderMenu extends AbstractEnergizedPowerScreenHand
         return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.ITEM_CONVEYOR_BELT_LOADER);
     }
 
-    private void addPlayerInventory(Inventory playerInventory) {
+    private void addPlayerInventory(PlayerInventory playerInventory) {
         for(int i = 0;i < 3;i++) {
             for(int j = 0;j < 9;j++) {
                 addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
@@ -101,7 +100,7 @@ public class ItemConveyorBeltLoaderMenu extends AbstractEnergizedPowerScreenHand
         }
     }
 
-    private void addPlayerHotbar(Inventory playerInventory) {
+    private void addPlayerHotbar(PlayerInventory playerInventory) {
         for(int i = 0;i < 9;i++) {
             addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }

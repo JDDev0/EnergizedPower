@@ -4,33 +4,26 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.ThermalGeneratorBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
-import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
-import me.jddev0.ep.screen.base.ConfigurableMenu;
-import me.jddev0.ep.screen.base.EnergyStorageProducerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.IConfigurableMenu;
+import me.jddev0.ep.screen.base.IEnergyStorageProducerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.world.World;
 
-public class ThermalGeneratorMenu extends AbstractEnergizedPowerScreenHandler
-        implements EnergyStorageProducerIndicatorBarMenu, ConfigurableMenu {
-    private final ThermalGeneratorBlockEntity blockEntity;
-    private final World level;
+public class ThermalGeneratorMenu extends UpgradableEnergyStorageMenu<ThermalGeneratorBlockEntity>
+        implements IEnergyStorageProducerIndicatorBarMenu, IConfigurableMenu {
     private final PropertyDelegate data;
-    private final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
 
     public ThermalGeneratorMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
         this(id, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), inv, new UpgradeModuleInventory(
@@ -40,50 +33,21 @@ public class ThermalGeneratorMenu extends AbstractEnergizedPowerScreenHandler
 
     public ThermalGeneratorMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory,
                                 UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
-        super(ModMenuTypes.THERMAL_GENERATOR_MENU, id);
+        super(
+                ModMenuTypes.THERMAL_GENERATOR_MENU, id,
 
-        this.blockEntity = (ThermalGeneratorBlockEntity)blockEntity;
+                playerInventory, blockEntity,
+                ModBlocks.THERMAL_GENERATOR,
 
-        checkSize(upgradeModuleInventory, 1);
+                upgradeModuleInventory, 1
+        );
+
         checkDataCount(data, 6);
-        this.level = playerInventory.player.getWorld();
         this.data = data;
-
-        addPlayerInventory(playerInventory);
-        addPlayerHotbar(playerInventory);
 
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
         addProperties(this.data);
-
-        upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
-        addProperties(upgradeModuleViewContainerData);
-    }
-
-    @Override
-    public boolean isInUpgradeModuleView() {
-        return upgradeModuleViewContainerData.isInUpgradeModuleView();
-    }
-
-    @Override
-    public boolean onButtonClick(PlayerEntity player, int index) {
-        if(index == 0) {
-            upgradeModuleViewContainerData.toggleInUpgradeModuleView();
-
-            sendContentUpdates();
-        }
-
-        return false;
-    }
-
-    @Override
-    public long getEnergy() {
-        return blockEntity.getEnergy();
-    }
-
-    @Override
-    public long getCapacity() {
-        return blockEntity.getCapacity();
     }
 
     @Override
@@ -140,29 +104,5 @@ public class ThermalGeneratorMenu extends AbstractEnergizedPowerScreenHandler
         sourceSlot.onTakeItem(player, sourceItem);
 
         return sourceItemCopy;
-    }
-
-    @Override
-    public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.THERMAL_GENERATOR);
-    }
-
-    private void addPlayerInventory(Inventory playerInventory) {
-        for(int i = 0;i < 3;i++) {
-            for(int j = 0;j < 9;j++) {
-                addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
-    }
-
-    private void addPlayerHotbar(Inventory playerInventory) {
-        for(int i = 0;i < 9;i++) {
-            addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
-        }
-    }
-
-    @Override
-    public BlockEntity getBlockEntity() {
-        return blockEntity;
     }
 }

@@ -74,7 +74,7 @@ public class ItemConveyorBeltSorterMenu extends AbstractEnergizedPowerScreenHand
         return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.ITEM_CONVEYOR_BELT_SORTER);
     }
 
-    private void addPlayerInventory(Inventory playerInventory) {
+    private void addPlayerInventory(PlayerInventory playerInventory) {
         for(int i = 0;i < 3;i++) {
             for(int j = 0;j < 9;j++) {
                 addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
@@ -82,7 +82,7 @@ public class ItemConveyorBeltSorterMenu extends AbstractEnergizedPowerScreenHand
         }
     }
 
-    private void addPlayerHotbar(Inventory playerInventory) {
+    private void addPlayerHotbar(PlayerInventory playerInventory) {
         for(int i = 0;i < 9;i++) {
             addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }
