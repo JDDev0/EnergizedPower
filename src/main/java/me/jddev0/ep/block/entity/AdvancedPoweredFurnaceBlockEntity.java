@@ -272,7 +272,7 @@ public class AdvancedPoweredFurnaceBlockEntity
 
                 if(energyUsagePerInputPerTick <= blockEntity.energyStorage.getAmount()) {
                     blockEntity.hasEnoughEnergy[i] = true;
-                    if(!level.getBlockState(blockPos).contains(Properties.LIT) &&
+                    if(level.getBlockState(blockPos).contains(Properties.LIT) &&
                             !level.getBlockState(blockPos).get(Properties.LIT)) {
                         level.setBlockState(blockPos, state.with(Properties.LIT, true), 3);
                     }
