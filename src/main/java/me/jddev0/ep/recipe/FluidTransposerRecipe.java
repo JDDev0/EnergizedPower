@@ -141,7 +141,7 @@ public class FluidTransposerRecipe implements Recipe<Container> {
             FluidTransposerBlockEntity.Mode mode = buffer.readEnum(FluidTransposerBlockEntity.Mode.class);
             Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
-            FluidStack fluid = FluidStack.STREAM_CODEC.decode(buffer);
+            FluidStack fluid = FluidStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new FluidTransposerRecipe(mode, output, input, fluid);
         }
@@ -150,7 +150,7 @@ public class FluidTransposerRecipe implements Recipe<Container> {
             buffer.writeEnum(recipe.mode);
             Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
             ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
-            FluidStack.STREAM_CODEC.encode(buffer, recipe.fluid);
+            FluidStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.fluid);
         }
     }
 }
