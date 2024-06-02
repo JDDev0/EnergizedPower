@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.screen.UpgradeModuleMenu;
+import me.jddev0.ep.screen.base.UpgradeModuleMenu;
 import me.jddev0.ep.screen.base.EnergyStorageContainerScreen;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.registry.screen.ClickArea;
