@@ -71,7 +71,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
         ItemStack teleporterMatrixItemStack = inventory.getItem(0);
 
         boolean linked = TeleporterMatrixItem.isLinked(teleporterMatrixItemStack);
-        CompoundTag nbt = itemStack.getTag();
+        CompoundTag nbt = teleporterMatrixItemStack.getTag();
 
         components.add(Component.translatable("tooltip.energizedpower.teleporter_matrix.status").withStyle(ChatFormatting.GRAY).
                 append(Component.translatable("tooltip.energizedpower.teleporter_matrix.status." +
