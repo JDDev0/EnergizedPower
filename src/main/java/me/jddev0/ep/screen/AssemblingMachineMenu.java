@@ -39,6 +39,7 @@ public class AssemblingMachineMenu extends UpgradableEnergyStorageMenu<Assemblin
 
                 inv, blockEntity,
                 ModBlocks.ASSEMBLING_MACHINE.get(),
+                8, 88,
 
                 upgradeModuleInventory, 3
         );
