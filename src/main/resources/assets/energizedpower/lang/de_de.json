@@ -570,6 +570,16 @@
   "item.energizedpower.fluid_drainer": "Flüssigkeits-Entleerer",
   "container.energizedpower.fluid_drainer": "Flüssigkeits-Entleerer",
 
+  "block.energizedpower.fluid_pump": "Flüssigkeits-Pumpe",
+  "item.energizedpower.fluid_pump": "Flüssigkeits-Pumpe",
+  "container.energizedpower.fluid_pump": "Flüssigkeits-Pumpe",
+
+  "tooltip.energizedpower.fluid_pump.process_energy_left.txt": "Dieser Prozess muss noch %s konsumieren, um abgeschlossen werden zu können.",
+  "tooltip.energizedpower.fluid_pump.target": "Ziel: %d, %d, %d",
+  "tooltip.energizedpower.fluid_pump.target_relative": "Ziel (Relativ): %s, %s, %s",
+  "tooltip.energizedpower.fluid_pump.cobblestone_missing": "Burchstein fehlt!",
+  "tooltip.energizedpower.fluid_pump.extracting": "Extrahiert: %s",
+
   "block.energizedpower.drain": "Ablauf",
   "item.energizedpower.drain": "Ablauf",
   "container.energizedpower.drain": "Ablauf",

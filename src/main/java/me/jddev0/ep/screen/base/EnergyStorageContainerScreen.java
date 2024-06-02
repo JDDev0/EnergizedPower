@@ -27,6 +27,9 @@ public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEn
     protected int energyMeterWidth = 16;
     protected int energyMeterHeight = 52;
 
+    protected int energyMeterTextureX = 176;
+    protected int energyMeterTextureY = 0;
+
     protected final String energyIndicatorBarTooltipComponentID;
 
     public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent) {
@@ -71,15 +74,15 @@ public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEn
 
     protected void renderEnergyMeter(MatrixStack poseStack, int x, int y) {
         int pos = handler.getScaledEnergyMeterPos(energyMeterHeight);
-        drawTexture(poseStack, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, 176,
-                energyMeterHeight - pos, energyMeterWidth, pos);
+        drawTexture(poseStack, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterTextureX,
+                energyMeterTextureY + energyMeterHeight - pos, energyMeterWidth, pos);
     }
 
     protected void renderEnergyIndicatorBar(MatrixStack poseStack, int x, int y) {
         int pos = handler.getScaledEnergyIndicatorBarPos(energyMeterHeight);
         if(pos > 0)
-            drawTexture(poseStack, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, 176,
-                    energyMeterHeight, energyMeterWidth, 1);
+            drawTexture(poseStack, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterTextureX,
+                    energyMeterTextureY + energyMeterHeight, energyMeterWidth, 1);
     }
 
     @Override
