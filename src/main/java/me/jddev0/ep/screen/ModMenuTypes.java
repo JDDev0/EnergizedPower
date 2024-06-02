@@ -7,6 +7,8 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+import java.util.function.Supplier;
+
 public final class ModMenuTypes {
     private ModMenuTypes() {}
 
@@ -150,6 +152,9 @@ public final class ModMenuTypes {
 
     public static final ScreenHandlerType<AutoPressMoldMakerMenu> AUTO_PRESS_MOLD_MAKER_MENU = createScreenHandlerType("auto_press_mold_maker",
             new ExtendedScreenHandlerType<>(AutoPressMoldMakerMenu::new));
+
+    public static final ScreenHandlerType<AutoStonecutterMenu> AUTO_STONECUTTER_MENU = createScreenHandlerType("auto_stonecutter",
+            new ExtendedScreenHandlerType<>(AutoStonecutterMenu::new));
 
     public static final ScreenHandlerType<AssemblingMachineMenu> ASSEMBLING_MACHINE_MENU = createScreenHandlerType("assembling_machine",
             new ExtendedScreenHandlerType<>(AssemblingMachineMenu::new));

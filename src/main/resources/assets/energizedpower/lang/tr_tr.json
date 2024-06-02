@@ -499,6 +499,12 @@
 
   "tooltip.energizedpower.auto_press_mold_maker.shovel_missing": "Shovel is missing!",
 
+  "block.energizedpower.auto_stonecutter": "Auto Stonecutter",
+  "item.energizedpower.auto_stonecutter": "Auto Stonecutter",
+  "container.energizedpower.auto_stonecutter": "Auto Stonecutter",
+
+  "tooltip.energizedpower.auto_stonecutter.pickaxe_missing": "Pickaxe is missing!",
+
   "block.energizedpower.assembling_machine": "Assembling Machine",
   "item.energizedpower.assembling_machine": "Assembling Machine",
   "container.energizedpower.assembling_machine": "Assembling Machine",
