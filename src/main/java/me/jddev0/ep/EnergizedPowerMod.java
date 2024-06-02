@@ -87,7 +87,6 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(ModItems.STONE_HAMMER);
             event.accept(ModItems.IRON_HAMMER);
             event.accept(ModItems.GOLDEN_HAMMER);
-            event.accept(ModItems.GOLDEN_HAMMER);
             event.accept(ModItems.DIAMOND_HAMMER);
             event.accept(ModItems.NETHERITE_HAMMER);
 
