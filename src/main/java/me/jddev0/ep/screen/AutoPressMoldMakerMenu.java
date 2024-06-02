@@ -14,6 +14,7 @@ import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
 import me.jddev0.ep.screen.base.ConfigurableMenu;
 import me.jddev0.ep.screen.base.EnergyStorageConsumerIndicatorBarMenu;
+import me.jddev0.ep.screen.base.SelectableRecipeMachineMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -30,7 +31,8 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
 public class AutoPressMoldMakerMenu extends AbstractEnergizedPowerScreenHandler
-        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu {
+        implements EnergyStorageConsumerIndicatorBarMenu, ConfigurableMenu,
+        SelectableRecipeMachineMenu<PressMoldMakerRecipe> {
     private final AutoPressMoldMakerBlockEntity blockEntity;
     private final Inventory inv;
     private final World level;
@@ -218,6 +220,7 @@ public class AutoPressMoldMakerMenu extends AbstractEnergizedPowerScreenHandler
         return blockEntity;
     }
 
+    @Override
     public PressMoldMakerRecipe getCurrentRecipe() {
         return blockEntity.getCurrentRecipe();
     }

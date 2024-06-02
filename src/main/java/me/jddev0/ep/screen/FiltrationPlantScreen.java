@@ -3,10 +3,8 @@ package me.jddev0.ep.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.fluid.FluidStack;
-import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.ChangeCurrentRecipeIndexC2SPacket;
 import me.jddev0.ep.recipe.FiltrationPlantRecipe;
-import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -32,42 +30,54 @@ import java.util.Locale;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
-public class FiltrationPlantScreen extends ConfigurableUpgradableEnergyStorageContainerScreen<FiltrationPlantMenu> {
+public class FiltrationPlantScreen extends SelectableRecipeMachineContainerScreen<FiltrationPlantRecipe, FiltrationPlantMenu> {
     public FiltrationPlantScreen(FiltrationPlantMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                 new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/filtration_plant.png"),
                 new Identifier(EnergizedPowerMod.MODID,
                         "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
+
+        recipeSelectorPosX = 98;
+
+        recipeSelectorTexturePosY = 115;
     }
 
     @Override
-    protected boolean mouseClickedNormalView(double mouseX, double mouseY, int mouseButton) {
-        if(super.mouseClickedNormalView(mouseX, mouseY, mouseButton))
-            return true;
+    protected ItemStack getRecipeIcon(FiltrationPlantRecipe currentRecipe) {
+        Identifier icon = currentRecipe.getIcon();
+        return new ItemStack(Registry.ITEM.get(icon));
+    }
 
-        if(mouseButton == 0) {
-            int diff = 0;
+    @Override
+    protected void renderCurrentRecipeTooltip(MatrixStack poseStack, int mouseX, int mouseY, FiltrationPlantRecipe currentRecipe) {
+        List<Text> components = new ArrayList<>(2);
 
-            //Up button
-            if(isPointWithinBounds(85, 19, 11, 12, mouseX, mouseY)) {
-                diff = 1;
-            }
+        ItemStack[] maxOutputs = currentRecipe.getMaxOutputCounts();
+        for(int i = 0;i < maxOutputs.length;i++) {
+            ItemStack output = maxOutputs[i];
+            if(output.isEmpty())
+                continue;
 
-            //Down button
-            if(isPointWithinBounds(116, 19, 11, 12, mouseX, mouseY)) {
-                diff = -1;
-            }
+            components.add(Text.empty().
+                    append(output.getName()).
+                    append(Text.literal(": ")).
+                    append(Text.translatable("recipes.energizedpower.transfer.output_percentages"))
+            );
 
-            if(diff != 0) {
-                ModMessages.sendClientPacketToServer(new ChangeCurrentRecipeIndexC2SPacket(handler.getBlockEntity().getPos(),
-                        diff == 1));
+            double[] percentages = (i == 0?currentRecipe.getOutputItem():currentRecipe.getSecondaryOutput()).
+                    percentages();
+            for(int j = 0;j < percentages.length;j++)
+                components.add(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", j + 1, 100 * percentages[j])));
 
-                return true;
-            }
+            components.add(Text.empty());
         }
 
-        return false;
+        //Remove trailing empty line
+        if(!components.isEmpty())
+            components.remove(components.size() - 1);
+
+        renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
     }
 
     @Override
@@ -81,10 +91,6 @@ public class FiltrationPlantScreen extends ConfigurableUpgradableEnergyStorageCo
             renderFluidMeterContent(i, poseStack, x, y);
             renderFluidMeterOverlay(i, poseStack, x, y);
         }
-
-        renderCurrentRecipeOutput(poseStack, x, y);
-
-        renderButtons(poseStack, x, y, mouseX, mouseY);
 
         renderProgressArrows(poseStack, x, y);
     }
@@ -154,39 +160,6 @@ public class FiltrationPlantScreen extends ConfigurableUpgradableEnergyStorageCo
         drawTexture(poseStack, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52);
     }
 
-    private void renderCurrentRecipeOutput(MatrixStack poseStack, int x, int y) {
-        FiltrationPlantRecipe currentRecipe = handler.getCurrentRecipe();
-        if(currentRecipe == null)
-            return;
-
-        Identifier icon = currentRecipe.getIcon();
-        ItemStack itemStackIcon = new ItemStack(Registry.ITEM.get(icon));
-        if(!itemStackIcon.isEmpty()) {
-            poseStack.push();
-            poseStack.translate(0.f, 0.f, 100.f);
-
-            itemRenderer.renderInGuiWithOverrides(itemStackIcon, x + 98, y + 17, 98 + 17 * this.backgroundWidth);
-
-            poseStack.pop();
-
-            RenderSystem.setShaderTexture(0, TEXTURE);
-        }
-    }
-
-    private void renderButtons(MatrixStack poseStack, int x, int y, int mouseX, int mouseY) {
-        RenderSystem.setShaderTexture(0, TEXTURE);
-
-        //Up button
-        if(isPointWithinBounds(85, 19, 11, 12, mouseX, mouseY)) {
-            drawTexture(poseStack, x + 85, y + 19, 176, 135, 11, 12);
-        }
-
-        //Down button
-        if(isPointWithinBounds(116, 19, 11, 12, mouseX, mouseY)) {
-            drawTexture(poseStack, x + 116, y + 19, 187, 135, 11, 12);
-        }
-    }
-
     private void renderProgressArrows(MatrixStack poseStack, int x, int y) {
         if(handler.isCraftingActive()) {
             for(int i = 0;i < 2;i++) {
@@ -222,54 +195,6 @@ public class FiltrationPlantScreen extends ConfigurableUpgradableEnergyStorageCo
 
                 renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
             }
-        }
-
-        //Current recipe
-        FiltrationPlantRecipe currentRecipe = handler.getCurrentRecipe();
-        if(currentRecipe != null && isPointWithinBounds(98, 17, 16, 16, mouseX, mouseY)) {
-            List<Text> components = new ArrayList<>(2);
-
-            ItemStack[] maxOutputs = currentRecipe.getMaxOutputCounts();
-            for(int i = 0;i < maxOutputs.length;i++) {
-                ItemStack output = maxOutputs[i];
-                if(output.isEmpty())
-                    continue;
-
-                components.add(Text.empty().
-                        append(output.getName()).
-                        append(Text.literal(": ")).
-                        append(Text.translatable("recipes.energizedpower.transfer.output_percentages"))
-                );
-
-                double[] percentages = (i == 0?currentRecipe.getOutputItem():currentRecipe.getSecondaryOutput()).
-                        percentages();
-                for(int j = 0;j < percentages.length;j++)
-                    components.add(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", j + 1, 100 * percentages[j])));
-
-                components.add(Text.empty());
-            }
-
-            //Remove trailing empty line
-            if(!components.isEmpty())
-                components.remove(components.size() - 1);
-
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }
-
-        //Up button
-        if(isPointWithinBounds(85, 19, 11, 12, mouseX, mouseY)) {
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.recipe.selector.next_recipe"));
-
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
-        }
-
-        //Down button
-        if(isPointWithinBounds(116, 19, 11, 12, mouseX, mouseY)) {
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.recipe.selector.prev_recipe"));
-
-            renderTooltip(poseStack, components, Optional.empty(), mouseX, mouseY);
         }
 
         //Missing Charcoal Filter
