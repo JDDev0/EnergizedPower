@@ -309,6 +309,31 @@ public final class ModConfigs {
             1.75
     );
 
+    public static final ConfigValue<Integer> COMMON_UPGRADE_MODULE_EXTRACTION_DEPTH_1_EFFECT = registerExtractionDepthUpgradeModuleEffectValue(
+            1, "I",
+            16
+    );
+
+    public static final ConfigValue<Integer> COMMON_UPGRADE_MODULE_EXTRACTION_DEPTH_2_EFFECT = registerExtractionDepthUpgradeModuleEffectValue(
+            2, "II",
+            32
+    );
+
+    public static final ConfigValue<Integer> COMMON_UPGRADE_MODULE_EXTRACTION_DEPTH_3_EFFECT = registerExtractionDepthUpgradeModuleEffectValue(
+            3, "III",
+            64
+    );
+
+    public static final ConfigValue<Integer> COMMON_UPGRADE_MODULE_EXTRACTION_DEPTH_4_EFFECT = registerExtractionDepthUpgradeModuleEffectValue(
+            4, "IV",
+            128
+    );
+
+    public static final ConfigValue<Integer> COMMON_UPGRADE_MODULE_EXTRACTION_DEPTH_5_EFFECT = registerExtractionDepthUpgradeModuleEffectValue(
+            5, "V",
+            192
+    );
+
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_MOON_LIGHT_1_EFFECT = registerMoonLightUpgradeModuleEffectValue(
             1, "I",
             .125
@@ -1377,6 +1402,16 @@ public final class ModConfigs {
                         tierRomanNumerals + ")",
                 defaultValue,
                 1., null
+        ));
+    }
+
+    private static ConfigValue<Integer> registerExtractionDepthUpgradeModuleEffectValue(int tier, String tierRomanNumerals, int defaultValue) {
+        return COMMON_CONFIG.register(new IntegerConfigValue(
+                "item.extraction_depth_upgrade_module_" + tier + ".effect_value",
+                "The upgrade module effect (Addition Extraction Depth in Blocks) of the Extraction Depth Upgrade Module (Tier " +
+                        tierRomanNumerals + ")",
+                defaultValue,
+                1, null
         ));
     }
 
