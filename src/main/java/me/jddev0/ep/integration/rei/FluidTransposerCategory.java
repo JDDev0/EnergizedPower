@@ -61,7 +61,7 @@ public class FluidTransposerCategory implements DisplayCategory<FluidTransposerD
                     entries(display.getOutputEntries().get(1)));
 
             widgets.add(Widgets.createTexturedWidget(new ResourceLocation("minecraft", "textures/item/bucket.png"),
-                    121, 6, 16, 16, 0, 0, 16, 16, 16, 16));
+                    x + 120, y + 5, 16, 16, 16, 16, 16, 16, 16, 16));
         }else {
             ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
             widgets.add(Widgets.createTexturedWidget(texture, x, y, 1, 161, 143, 26));
@@ -75,10 +75,10 @@ public class FluidTransposerCategory implements DisplayCategory<FluidTransposerD
                     entries(display.getOutputEntries().get(0)));
 
             widgets.add(Widgets.createTexturedWidget(new ResourceLocation("minecraft", "textures/item/water_bucket.png"),
-                    121, 6, 16, 16, 0, 0, 16, 16, 16, 16));
+                    x + 120, y + 5, 16, 16, 16, 16, 16, 16, 16, 16));
         }
 
-        widgets.add(Widgets.createTooltip(new Rectangle(119, 4, 20, 20),
+        widgets.add(Widgets.createTooltip(new Rectangle(x + 119, y + 4, 20, 20),
                 List.of(Component.translatable("tooltip.energizedpower.fluid_transposer.mode." +
                         display.recipe().value().getMode().getSerializedName()))));
 
