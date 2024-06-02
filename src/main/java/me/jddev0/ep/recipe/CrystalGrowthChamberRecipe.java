@@ -129,7 +129,7 @@ public class CrystalGrowthChamberRecipe implements Recipe<Inventory> {
 
             JsonObject outputJson = json.get("output").getAsJsonObject();
 
-            ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(outputJson, "output"));
+            ItemStack output = ItemStackUtils.fromJson(JsonHelper.getObject(outputJson, "output"));
 
             JsonArray percentagesJson = JsonHelper.getArray(outputJson, "percentages");
             double[] percentages = new double[percentagesJson.size()];
