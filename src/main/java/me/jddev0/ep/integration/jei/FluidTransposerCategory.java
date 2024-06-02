@@ -13,8 +13,6 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -25,7 +23,6 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<FluidTransposerRecipe>> {
     public static final RecipeType<RecipeHolder<FluidTransposerRecipe>> TYPE = RecipeType.createFromVanilla(FluidTransposerRecipe.Type.INSTANCE);
@@ -83,8 +80,6 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
 
     @Override
     public void draw(RecipeHolder<FluidTransposerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-        Font font = Minecraft.getInstance().font;
-
         if(recipe.value().getMode() == FluidTransposerBlockEntity.Mode.FILLING) {
             backgroundFilling.draw(guiGraphics, 0, 0);
         }
@@ -96,16 +91,20 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
         guiGraphics.renderItem(output, 120, 5, 120 + 5 * 143);
 
         guiGraphics.pose().popPose();
+    }
+
+    @Override
+    public List<Component> getTooltipStrings(RecipeHolder<FluidTransposerRecipe> recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+        List<Component> components = new ArrayList<>();
 
         int tooltipX = 119;
         int tooltipY = 4;
         if(mouseX >= (double)(tooltipX - 1) && mouseX < (double)(tooltipX + 20 + 1) &&
                 mouseY >= (double)(tooltipY - 1) && mouseY < (double)(tooltipY + 20 + 1)) {
-            List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.fluid_transposer.mode." +
                     recipe.value().getMode().getSerializedName()));
-
-            guiGraphics.renderTooltip(font, components, Optional.empty(), (int)mouseX, (int)mouseY);
         }
+
+        return components;
     }
 }
