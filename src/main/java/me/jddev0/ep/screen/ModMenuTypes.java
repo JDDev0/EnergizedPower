@@ -162,6 +162,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<InventoryChargerMenu> INVENTORY_CHARGER_MENU = createScreenHandlerType("inventory_charger",
             new ScreenHandlerType<>(InventoryChargerMenu::new));
 
+    public static final ScreenHandlerType<InventoryTeleporterMenu> INVENTORY_TELEPORTER_MENU = createScreenHandlerType("inventory_teleporter",
+            new ScreenHandlerType<>(InventoryTeleporterMenu::new));
+
     public static final ScreenHandlerType<MinecartBatteryBoxMenu> MINECART_BATTERY_BOX_MENU = createScreenHandlerType("minecart_battery_box",
             new ScreenHandlerType<>(MinecartBatteryBoxMenu::new));
     public static final ScreenHandlerType<MinecartAdvancedBatteryBoxMenu> MINECART_ADVANCED_BATTERY_BOX_MENU = createScreenHandlerType("minecart_advanced_battery_box",
