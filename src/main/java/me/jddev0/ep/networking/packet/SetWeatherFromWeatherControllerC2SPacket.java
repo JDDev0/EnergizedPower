@@ -12,7 +12,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
-import team.reborn.energy.api.EnergyStorage;
 
 public record SetWeatherFromWeatherControllerC2SPacket(BlockPos pos, int weatherType) implements IEnergizedPowerPacket {
     public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "set_weather_from_weather_controller");
@@ -45,14 +44,20 @@ public record SetWeatherFromWeatherControllerC2SPacket(BlockPos pos, int weather
             if(!(blockEntity instanceof WeatherControllerBlockEntity weatherControllerBlockEntity))
                 return;
 
-            EnergyStorage energyStorage = EnergyStorage.SIDED.find(player.getWorld(), data.pos, null);
-            if(energyStorage == null)
+            if(!weatherControllerBlockEntity.hasEnoughEnergy())
                 return;
 
-            if(energyStorage.getAmount() < WeatherControllerBlockEntity.CAPACITY)
-                return;
+            if(weatherControllerBlockEntity.hasInfiniteWeatherChangedDuration()) {
+                if(weatherControllerBlockEntity.getSelectedWeatherType() == data.weatherType) {
+                    weatherControllerBlockEntity.setSelectedWeatherType(-1);
 
-            weatherControllerBlockEntity.clearEnergy();
+                    return;
+                }
+
+                weatherControllerBlockEntity.setSelectedWeatherType(data.weatherType);
+            }else {
+                weatherControllerBlockEntity.clearEnergy();
+            }
 
             int duration = weatherControllerBlockEntity.getWeatherChangedDuration();
 

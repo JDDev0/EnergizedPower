@@ -1,11 +1,14 @@
 package me.jddev0.ep.block;
 
+import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -56,5 +59,11 @@ public class WeatherControllerBlock extends BlockWithEntity {
         player.openHandledScreen((WeatherControllerBlockEntity)blockEntity);
 
         return ActionResult.SUCCESS;
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, ModBlockEntities.WEATHER_CONTROLLER_ENTITY, WeatherControllerBlockEntity::tick);
     }
 }

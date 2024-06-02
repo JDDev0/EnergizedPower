@@ -172,6 +172,8 @@ public final class ModItems {
             new DurationUpgradeModuleItem(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), 4));
     public static Item DURATION_UPGRADE_MODULE_5 = registerItem("duration_upgrade_module_5",
             new DurationUpgradeModuleItem(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), 5));
+    public static Item DURATION_UPGRADE_MODULE_6 = registerItem("duration_upgrade_module_6",
+            new DurationUpgradeModuleItem(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), 6));
 
     public static Item RANGE_UPGRADE_MODULE_1 = registerItem("range_upgrade_module_1",
             new RangeUpgradeModuleItem(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), 1));
