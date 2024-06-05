@@ -213,10 +213,10 @@ public class TeleporterBlockEntity extends BlockEntity implements ExtendedScreen
         if(player.isEmpty())
             return;
 
-        if(!(player.get() instanceof ServerPlayerEntity serverPlayer))
+        if(!(player.get() instanceof ServerPlayerEntity serverPlayer) || !(world instanceof ServerWorld serverLevel))
             return;
 
-        teleportPlayer(serverPlayer);
+        serverLevel.getServer().submitAsync(() -> teleportPlayer(serverPlayer));
     }
 
     public void teleportPlayer(ServerPlayerEntity player) {
