@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -140,8 +141,7 @@ public class AssemblingMachineRecipe implements Recipe<SimpleInventory> {
                 inputs[i] = new IngredientWithCount(input, count);
             }
 
-            ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "output"));
-
+            ItemStack output = ItemStackUtils.fromJson(JsonHelper.getObject(json, "output"));
 
             return new AssemblingMachineRecipe(recipeID, output, inputs);
         }

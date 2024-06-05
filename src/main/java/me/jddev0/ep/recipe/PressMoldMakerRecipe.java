@@ -3,6 +3,7 @@ package me.jddev0.ep.recipe;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -97,7 +98,7 @@ public class PressMoldMakerRecipe implements Recipe<Inventory> {
         @Override
         public PressMoldMakerRecipe read(Identifier recipeID, JsonObject json) {
             int clayCount = JsonHelper.getInt(json, "clayCount");
-            ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "output"));
+            ItemStack output = ItemStackUtils.fromJson(JsonHelper.getObject(json, "output"));
 
             return new PressMoldMakerRecipe(recipeID, output, clayCount);
         }

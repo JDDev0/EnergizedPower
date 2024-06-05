@@ -3,6 +3,7 @@ package me.jddev0.ep.recipe;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -112,9 +113,8 @@ public class MetalPressRecipe implements Recipe<Inventory> {
         @Override
         public MetalPressRecipe read(Identifier recipeID, JsonObject json) {
             Ingredient input = Ingredient.fromJson(json.get("ingredient"));
-            ItemStack pressMold = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "pressMold"));
-            ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "output"));
-
+            ItemStack pressMold = ItemStackUtils.fromJson(JsonHelper.getObject(json, "pressMold"));
+            ItemStack output = ItemStackUtils.fromJson(JsonHelper.getObject(json, "output"));
 
             if(json.has("inputCount")) {
                 int inputCount = JsonHelper.getInt(json, "inputCount");;

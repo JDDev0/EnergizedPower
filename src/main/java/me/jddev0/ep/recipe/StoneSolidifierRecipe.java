@@ -3,13 +3,13 @@ package me.jddev0.ep.recipe;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
@@ -102,7 +102,7 @@ public class StoneSolidifierRecipe implements Recipe<SimpleInventory> {
         public StoneSolidifierRecipe read(Identifier recipeID, JsonObject json) {
             long waterAmount = json.get("waterAmount").getAsLong();
             long lavaAmount = json.get("lavaAmount").getAsLong();
-            ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "output"));
+            ItemStack output = ItemStackUtils.fromJson(JsonHelper.getObject(json, "output"));
 
             return new StoneSolidifierRecipe(recipeID, output, waterAmount, lavaAmount);
         }
