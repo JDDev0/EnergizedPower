@@ -223,10 +223,10 @@ public class TeleporterBlockEntity extends BlockEntity implements MenuProvider, 
         if(player.isEmpty())
             return;
 
-        if(!(player.get() instanceof ServerPlayer serverPlayer))
+        if(!(player.get() instanceof ServerPlayer serverPlayer) || !(level instanceof ServerLevel serverLevel))
             return;
 
-        teleportPlayer(serverPlayer);
+        serverLevel.getServer().submitAsync(() -> teleportPlayer(serverPlayer));
     }
 
     public void teleportPlayer(ServerPlayer player) {
