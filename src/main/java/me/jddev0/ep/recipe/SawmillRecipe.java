@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -108,10 +109,10 @@ public class SawmillRecipe implements Recipe<SimpleInventory> {
         @Override
         public SawmillRecipe read(Identifier recipeID, JsonObject json) {
             Ingredient input = Ingredient.fromJson(json.get("ingredient"));
-            ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "output"));
+            ItemStack output = ItemStackUtils.fromJson(JsonHelper.getObject(json, "output"));
 
             if(json.has("secondaryOutput")) {
-                ItemStack secondaryOutput = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "secondaryOutput"));
+                ItemStack secondaryOutput = ItemStackUtils.fromJson(JsonHelper.getObject(json, "secondaryOutput"));
                 return new SawmillRecipe(recipeID, output, secondaryOutput, input);
             }
 
