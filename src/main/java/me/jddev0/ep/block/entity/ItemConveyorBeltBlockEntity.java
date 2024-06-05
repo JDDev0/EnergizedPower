@@ -21,7 +21,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -169,8 +168,6 @@ public class ItemConveyorBeltBlockEntity extends BlockEntity implements ItemStac
             if(itemStackStorage == null)
                 return;
         }
-        if(itemStackToInsert.is(Tags.Items.SEEDS_WHEAT))
-            System.out.println("test");
 
         for(int i = 0;i < itemStackStorage.getSlots();i++) {
             if(itemStackStorage.insertItem(i, itemStackToInsert, false).isEmpty()) {
