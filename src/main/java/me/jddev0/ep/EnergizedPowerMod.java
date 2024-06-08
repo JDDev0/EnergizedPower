@@ -12,6 +12,8 @@ import me.jddev0.ep.entity.ModEntityTypes;
 import me.jddev0.ep.fluid.ModFluidTypes;
 import me.jddev0.ep.fluid.ModFluids;
 import me.jddev0.ep.input.ModKeyBindings;
+import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedIntegration;
+import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedUtils;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.item.energy.ItemCapabilityEnergy;
@@ -35,6 +37,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
@@ -42,7 +45,6 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
@@ -76,17 +78,16 @@ public class EnergizedPowerMod {
 
         ModCreativeModeTab.register(modEventBus);
 
-        modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::onLoadComplete);
         modEventBus.addListener(this::addCreativeTab);
         modEventBus.addListener(this::registerCapabilities);
 
         modEventBus.addListener(ModMessages::register);
-
-        NeoForge.EVENT_BUS.register(this);
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
-
+    public void onLoadComplete(final FMLLoadCompleteEvent event) {
+        if(EnergizedPowerCCTweakedUtils.isCCTweakedAvailable())
+            EnergizedPowerCCTweakedIntegration.register();
     }
 
     private ItemStack getChargedItemStack(Item item, int energy) {
@@ -352,11 +353,6 @@ public class EnergizedPowerMod {
 
         //Block Entities
         ModBlockEntities.registerCapabilities(event);
-    }
-
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-
     }
 
     @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)

@@ -15,6 +15,13 @@ repositories {
     maven { url "https://maven.theillusivec4.top/" }
     maven { url "https://maven.terraformersmc.com/" }
 
+    maven {
+        url "https://squiddev.cc/maven/"
+        content {
+            includeGroup("cc.tweaked")
+        }
+    }
+
     flatDir {
         dir 'libs'
     }
@@ -128,6 +135,10 @@ dependencies {
 
     // Curios integration
     compileOnly "top.theillusivec4.curios:curios-neoforge:8.0.0-beta+1.20.6"
+
+    // CCTweaked integration
+    compileOnly "cc.tweaked:cc-tweaked-1.20.6-core-api:1.111.0"
+    compileOnly "cc.tweaked:cc-tweaked-1.20.6-forge-api:1.111.0"
 
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
