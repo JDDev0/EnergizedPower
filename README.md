@@ -95,6 +95,11 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 - JEI (*Forge/NeoForge editions only*), EMI, and REI support
 - Curios API (*Forge/NeoForge edition only*)
+- CCTweaked:
+  - Redstone Mode
+  - Comparator Mode
+  - Weather Controller
+  - Time Controller
 
 ### World generation
 
