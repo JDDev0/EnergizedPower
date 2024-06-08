@@ -7,7 +7,7 @@ public final class EnergizedPowerCCTweakedIntegration {
 
     public static void register() {
         ComputerCraftAPI.registerGenericSource(new RedstoneModeGenericPeripheral());
-        ComputerCraftAPI.registerGenericSource(new RedstoneModeGenericPeripheral());
+        ComputerCraftAPI.registerGenericSource(new ComparatorModeGenericPeripheral());
         ComputerCraftAPI.registerGenericSource(new WeatherControllerGenericPeripheral());
         ComputerCraftAPI.registerGenericSource(new TimeControllerGenericPeripheral());
     }
