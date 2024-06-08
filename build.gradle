@@ -4,12 +4,12 @@ plugins {
 	
 }
 
-sourceCompatibility = JavaVersion.VERSION_21
-targetCompatibility = JavaVersion.VERSION_21
-
-archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
 
 repositories {
 	// Add repositories to retrieve artifacts from in here.
@@ -24,6 +24,13 @@ repositories {
 
 	maven {
 		url "https://maven.terraformersmc.com/"
+	}
+
+	maven {
+		url "https://squiddev.cc/maven/"
+		content {
+			includeGroup("cc.tweaked")
+		}
 	}
 
 	flatDir {
@@ -62,6 +69,10 @@ dependencies {
 
 	// EMI integration
 	modCompileOnly "dev.emi:emi-fabric:1.1.5+1.20.6:api"
+
+	// CCTweaked integration
+	modCompileOnlyApi "cc.tweaked:cc-tweaked-1.20.6-core-api:1.111.0"
+	modCompileOnlyApi "cc.tweaked:cc-tweaked-1.20.6-fabric-api:1.111.0"
 }
 
 processResources {
@@ -73,7 +84,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.release = 21
 }
 
 java {
@@ -81,11 +92,14 @@ java {
 	// if it is present.
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
+
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
 	from("LICENSE") {
-		rename { "${it}_${project.archivesBaseName}"}
+		rename { "${it}_${project.base.archivesName.get()}"}
 	}
 }
 
@@ -93,6 +107,7 @@ jar {
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
+			artifactId = project.archives_base_name
 			from components.java
 		}
 	}

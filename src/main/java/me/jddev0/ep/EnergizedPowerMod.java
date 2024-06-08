@@ -9,6 +9,8 @@ import me.jddev0.ep.entity.ModEntityTypes;
 import me.jddev0.ep.event.PlayerInteractHandler;
 import me.jddev0.ep.event.ServerStartingHandler;
 import me.jddev0.ep.fluid.ModFluids;
+import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedIntegration;
+import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedUtils;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.painting.ModPaintings;
@@ -65,9 +67,12 @@ public class EnergizedPowerMod implements ModInitializer {
         ServerLifecycleEvents.SERVER_STARTING.register(new ServerStartingHandler());
 
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.SAWDUST_BLOCK, 5, 20);
-	}
 
-	private ItemStack getChargedItemStack(Item item, long energy) {
+        if(EnergizedPowerCCTweakedUtils.isCCTweakedAvailable())
+            EnergizedPowerCCTweakedIntegration.register();
+    }
+
+    private ItemStack getChargedItemStack(Item item, long energy) {
         ItemStack itemStack = new ItemStack(item);
         itemStack.set(ModDataComponentTypes.ENERGY, energy);
 
