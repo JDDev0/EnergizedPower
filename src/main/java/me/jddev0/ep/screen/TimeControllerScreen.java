@@ -91,7 +91,7 @@ public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeContr
     }
 
     private void renderInfoText(GuiGraphics guiGraphics, int x, int y) {
-        Component component = menu.getBlockEntity().getEnergy() < TimeControllerBlockEntity.CAPACITY?
+        Component component = menu.getEnergy() < TimeControllerBlockEntity.CAPACITY?
                 Component.translatable("tooltip.energizedpower.not_enough_energy.txt").withStyle(ChatFormatting.RED):
                 Component.translatable("tooltip.energizedpower.ready.txt").withStyle(ChatFormatting.DARK_GREEN);
 
