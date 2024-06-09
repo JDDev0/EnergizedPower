@@ -11,6 +11,8 @@ import me.jddev0.ep.entity.ModEntityTypes;
 import me.jddev0.ep.fluid.ModFluidTypes;
 import me.jddev0.ep.fluid.ModFluids;
 import me.jddev0.ep.input.ModKeyBindings;
+import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedIntegration;
+import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedUtils;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
 import me.jddev0.ep.networking.ModMessages;
@@ -41,6 +43,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
@@ -72,6 +75,7 @@ public class EnergizedPowerMod {
         ModCreativeModeTab.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::onLoadComplete);
         modEventBus.addListener(this::addCreativeTab);
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -79,6 +83,11 @@ public class EnergizedPowerMod {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         ModMessages.register();
+    }
+
+    private void onLoadComplete(final FMLLoadCompleteEvent event) {
+        if(EnergizedPowerCCTweakedUtils.isCCTweakedAvailable())
+            EnergizedPowerCCTweakedIntegration.register();
     }
 
     private ItemStack getChargedItemStack(Item item, int energy) {
