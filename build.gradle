@@ -142,6 +142,13 @@ repositories {
     maven { url "https://maven.theillusivec4.top/" }
     maven { url "https://maven.terraformersmc.com/" }
 
+    maven {
+        url "https://squiddev.cc/maven/"
+        content {
+            includeGroup("org.squiddev")
+        }
+    }
+
     // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
     flatDir {
         dir 'libs'
@@ -171,6 +178,9 @@ dependencies {
 
     // Curios integration
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.19.2-5.1.4.1:api")
+
+    // CCTweaked integration
+    compileOnly fg.deobf("org.squiddev:cc-tweaked-1.19.2:1.101.3:api")
 
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
