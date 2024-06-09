@@ -1,10 +1,7 @@
 package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
-import me.jddev0.ep.machine.configuration.ComparatorMode;
-import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
-import me.jddev0.ep.machine.configuration.RedstoneMode;
-import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
+import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.FluidUtils;
@@ -21,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, I extends SimpleInventory, F extends Storage<FluidVariant>>
         extends UpgradableInventoryFluidEnergyStorageBlockEntity<E, I, F>
-        implements RedstoneModeUpdate, ComparatorModeUpdate {
+        implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler {
     protected @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
     protected @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
@@ -66,8 +63,52 @@ public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEnti
     }
 
     @Override
+    @NotNull
+    public RedstoneMode @NotNull [] getAvailableRedstoneModes() {
+        return RedstoneMode.values();
+    }
+
+    @Override
+    @NotNull
+    public RedstoneMode getRedstoneMode() {
+        return redstoneMode;
+    }
+
+    @Override
+    public boolean setRedstoneMode(@NotNull RedstoneMode redstoneMode) {
+        this.redstoneMode = redstoneMode;
+        markDirty();
+
+        return true;
+    }
+
+    @Override
     public void setNextComparatorMode() {
         comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
         markDirty();
+    }
+
+    @Override
+    @NotNull
+    public ComparatorMode @NotNull [] getAvailableComparatorModes() {
+        return new ComparatorMode[] {
+                ComparatorMode.ENERGY,
+                ComparatorMode.ITEM,
+                ComparatorMode.FLUID
+        };
+    }
+
+    @Override
+    @NotNull
+    public ComparatorMode getComparatorMode() {
+        return comparatorMode;
+    }
+
+    @Override
+    public boolean setComparatorMode(@NotNull ComparatorMode comparatorMode) {
+        this.comparatorMode = comparatorMode;
+        markDirty();
+
+        return true;
     }
 }
