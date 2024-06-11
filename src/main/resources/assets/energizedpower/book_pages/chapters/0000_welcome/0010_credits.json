@@ -205,6 +205,21 @@
           }
         }
       ]
+    },
+    {
+      "text": "\n• ",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        {
+          "translate": "book.energizedpower.page.credits.8"
+        },
+        ": ",
+        {
+          "text": "Imperial Officer"
+        }
+      ]
     }
   ]
 }
