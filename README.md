@@ -149,6 +149,7 @@ Subreddit Link: [https://www.reddit.com/r/EnergizedPower/](https://www.reddit.co
 - Chinese (Simplified) translation ([HanJiang-cn](https://github.com/HanJiang-cn))
 - Italian translation ([Roby1164](https://github.com/Roby1164))
 - Turkish translation ([Eyyüp Berk ÖZASLAN](https://github.com/EyyupBerkOZASLAN))
+- Russian translation Imperial Officer
 
 ## Tutorial
 A tutorial world showcasing all the features of this mod can be downloaded on CurseForge: [Energized Power [Tutorial World]](https://www.curseforge.com/minecraft/worlds/energized-power-tutorial-world)
