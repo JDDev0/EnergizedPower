@@ -1,0 +1,1627 @@
+{
+  "item.energizedpower.energized_copper_ingot": "Активированный медный слиток",
+  "item.energizedpower.energized_gold_ingot": "Активированный золотой слиток",
+
+  "item.energizedpower.energized_copper_plate": "Активированная медная пластина",
+  "item.energizedpower.energized_gold_plate": "Активированная золотая пластина",
+
+  "item.energizedpower.energized_copper_wire": "Активированный медный провод",
+  "item.energizedpower.energized_gold_wire": "Активированный золотой провод",
+
+  "item.energizedpower.silicon": "Кремний",
+
+  "item.energizedpower.raw_tin": "Необработанное олово",
+
+  "item.energizedpower.tin_dust": "Оловянный порошок",
+  "item.energizedpower.copper_dust": "Медный порошок",
+  "item.energizedpower.iron_dust": "Железный порошок",
+  "item.energizedpower.gold_dust": "Золотой порошок",
+
+  "item.energizedpower.tin_nugget": "Кусочек олова",
+
+  "item.energizedpower.tin_ingot": "Оловянный слиток",
+
+  "item.energizedpower.tin_plate": "Оловянная пластина",
+  "item.energizedpower.copper_plate": "Медная пластина",
+  "item.energizedpower.iron_plate": "Железная пластина",
+  "item.energizedpower.gold_plate": "Золотая пластина",
+
+  "item.energizedpower.iron_gear": "Железная шестерня",
+
+  "item.energizedpower.iron_rod": "Железный стержень",
+
+  "item.energizedpower.tin_wire": "Оловянный провод",
+  "item.energizedpower.copper_wire": "Медный провод",
+  "item.energizedpower.gold_wire": "Золотой провод",
+
+  "item.energizedpower.sawdust": "Опилки",
+
+  "item.energizedpower.charcoal_dust": "Угольный порошок",
+
+  "item.energizedpower.basic_fertilizer": "Обычное удобрение",
+  "item.energizedpower.good_fertilizer": "Хорошее удобрение",
+  "item.energizedpower.advanced_fertilizer": "Продвинутое удобрение",
+
+  "item.energizedpower.raw_gear_press_mold": "Пресс-форма для сырой шестерни",
+
+  "item.energizedpower.raw_rod_press_mold": "Пресс-форма для сырого стержня",
+
+  "item.energizedpower.raw_wire_press_mold": "Пресс-форма для сырого провода",
+
+  "item.energizedpower.gear_press_mold": "Пресс-форма для шестерни",
+
+  "item.energizedpower.rod_press_mold": "Пресс-форма для стержня",
+
+  "item.energizedpower.wire_press_mold": "Пресс-форма для провода",
+
+  "item.energizedpower.basic_solar_cell": "Базовая солнечная ячейка",
+  "item.energizedpower.advanced_solar_cell": "Продвинутая солнечная ячейка",
+  "item.energizedpower.reinforced_advanced_solar_cell": "Укрепленная продвинутая солнечная ячейка",
+
+  "item.energizedpower.basic_circuit": "Базовая электросхема",
+  "item.energizedpower.advanced_circuit": "Продвинутая электросхема",
+  "item.energizedpower.processing_unit": "Модуль обработки",
+
+  "item.energizedpower.energized_power_book": "Руководство Energized Power",
+  "tooltip.energizedpower.energized_power_book.txt.shift.1": "Щелкните ЛКМ по блоку, чтобы открыть страницу книги этого блока..",
+  "book.energizedpower.front.cover.text": "Это ваше руководство по данному моду!",
+
+  "item.energizedpower.cable_insulator": "Кабельный изолятор",
+  "tooltip.energizedpower.cable_insulator.txt.shift.1": "Этот предмет можно создать, нажав на блок шерсти ножницами.",
+
+  "item.energizedpower.charcoal_filter": "Угольный фильтр",
+
+  "item.energizedpower.saw_blade": "Лезвие пилы",
+
+  "item.energizedpower.crystal_matrix": "Кристальная матрица",
+
+  "item.energizedpower.energized_crystal_matrix": "Заряженная кристальная матрица",
+
+  "item.energizedpower.dirty_water_bucket": "Ведро грязной воды",
+
+  "item.energizedpower.teleporter_matrix": "Матрица телепорта",
+  "item.energizedpower.teleporter_matrix.linked": "Матрица телепорта [Связана]",
+  "item.energizedpower.teleporter_matrix.unlinked": "Матрица телепорта [Не связана]",
+  "tooltip.energizedpower.teleporter_matrix.cleared": "Настройки матрицы телепорта были успешно очищены..",
+  "tooltip.energizedpower.teleporter_matrix.set": "Настройки матрицы телепорта были успешно установлены..",
+  "tooltip.energizedpower.teleporter_matrix.set.warning": "Настройки матрицы телепорта установлены, но не указывают на позицию телепорта.",
+  "tooltip.energizedpower.teleporter_matrix.status": "Статус:",
+  "tooltip.energizedpower.teleporter_matrix.status.linked": "Связано",
+  "tooltip.energizedpower.teleporter_matrix.status.unlinked": "Не связано",
+  "tooltip.energizedpower.teleporter_matrix.location": "Локация: ",
+  "tooltip.energizedpower.teleporter_matrix.dimension": "Измерение: ",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.1": "Для привязки - Shift+ЛКМ по телепорту.",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.2": "Для отвязки - ЛКМ в воздухе.",
+
+  "item.energizedpower.teleporter_processing_unit": "Вычислительный модуль телепорта",
+
+  "item.energizedpower.basic_upgrade_module": "Базовый улучшающий модуль",
+  "item.energizedpower.advanced_upgrade_module": "Продвинутый улучшающий модуль",
+  "item.energizedpower.reinforced_advanced_upgrade_module": "Укрепленный улучшающий модуль",
+
+  "item.energizedpower.speed_upgrade_module_1": "Модуль улучшения скорости (Уровень I)",
+  "item.energizedpower.speed_upgrade_module_2": "Модуль улучшения скорости (Уровень II)",
+  "item.energizedpower.speed_upgrade_module_3": "Модуль улучшения скорости (Уровень III)",
+  "item.energizedpower.speed_upgrade_module_4": "Модуль улучшения скорости (Уровень IV)",
+  "item.energizedpower.speed_upgrade_module_5": "Модуль улучшения скорости (Уровень V)",
+
+  "item.energizedpower.energy_efficiency_upgrade_module_1": "Модуль улучшения энергоэффективности (Уровень I)",
+  "item.energizedpower.energy_efficiency_upgrade_module_2": "Модуль улучшения энергоэффективности (Уровень II)",
+  "item.energizedpower.energy_efficiency_upgrade_module_3": "Модуль улучшения энергоэффективности (Уровень III)",
+  "item.energizedpower.energy_efficiency_upgrade_module_4": "Модуль улучшения энергоэффективности (Уровень IV)",
+  "item.energizedpower.energy_efficiency_upgrade_module_5": "Модуль улучшения энергоэффективности (Уровень V)",
+
+  "item.energizedpower.energy_capacity_upgrade_module_1": "Модуль повышения энергоемкости (Уровень I)",
+  "item.energizedpower.energy_capacity_upgrade_module_2": "Модуль повышения энергоемкости (Уровень II)",
+  "item.energizedpower.energy_capacity_upgrade_module_3": "Модуль повышения энергоемкости (Уровень III)",
+  "item.energizedpower.energy_capacity_upgrade_module_4": "Модуль повышения энергоемкости (Уровень IV)",
+  "item.energizedpower.energy_capacity_upgrade_module_5": "Модуль повышения энергоемкости (Уровень V)",
+
+  "item.energizedpower.duration_upgrade_module_1": "Модуль улучшения продолжительности (Уровень I)",
+  "item.energizedpower.duration_upgrade_module_2": "Модуль улучшения продолжительности (Уровень II)",
+  "item.energizedpower.duration_upgrade_module_3": "Модуль улучшения продолжительности (Уровень III)",
+  "item.energizedpower.duration_upgrade_module_4": "Модуль улучшения продолжительности (Уровень IV)",
+  "item.energizedpower.duration_upgrade_module_5": "Модуль улучшения продолжительности (Уровень V)",
+  "item.energizedpower.duration_upgrade_module_6": "Модуль улучшения продолжительности (Уровень VI)",
+
+  "item.energizedpower.range_upgrade_module_1": "Модуль обновления дальности (Уровень I)",
+  "item.energizedpower.range_upgrade_module_2": "Модуль обновления дальности (Уровень II)",
+  "item.energizedpower.range_upgrade_module_3": "Модуль обновления дальности (Уровень III)",
+
+  "item.energizedpower.extraction_depth_upgrade_module_1": "Модуль улучшения глубины (Уровень I)",
+  "item.energizedpower.extraction_depth_upgrade_module_2": "Модуль улучшения глубины (Уровень II)",
+  "item.energizedpower.extraction_depth_upgrade_module_3": "Модуль улучшения глубины (Уровень III)",
+  "item.energizedpower.extraction_depth_upgrade_module_4": "Модуль улучшения глубины (Уровень IV)",
+  "item.energizedpower.extraction_depth_upgrade_module_5": "Модуль улучшения глубины (Уровень V)",
+
+  "item.energizedpower.blast_furnace_upgrade_module": "Модуль улучшения доменной печи",
+  "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Доменная печь",
+  "item.energizedpower.smoker_upgrade_module": "Модуль модернизации коптильни",
+  "item.energizedpower.smoker_upgrade_module.effect_text": "Коптильня",
+
+  "item.energizedpower.moon_light_upgrade_module_1": "Модуль улучшения «Лунный свет» (Уровень I)",
+  "item.energizedpower.moon_light_upgrade_module_2": "Модуль улучшения «Лунный свет» (Уровень II)",
+  "item.energizedpower.moon_light_upgrade_module_3": "Модуль улучшения «Лунный свет» (Уровень III)",
+
+  "item.energizedpower.inventory_coal_engine": "Инвентарный угольный двигатель",
+  "tooltip.energizedpower.inventory_coal_engine.status": "Статус: ",
+  "tooltip.energizedpower.inventory_coal_engine.status.activated": "Активирован",
+  "tooltip.energizedpower.inventory_coal_engine.status.deactivated": "Деактивирован",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.1": "Статус активации можно изменить, используя этот элемент в воздухе.",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.2": "Если активные предметы будут взяты из инвентаря, но не из хотбара.",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning": "В настоящее время горит: ",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.energy_production_left": "Осталось произвести энергии: %s",
+
+  "item.energizedpower.inventory_charger": "Инвентарный зарядник",
+  "container.energizedpower.inventory_charger": "Инвентарный зарядник",
+  "tooltip.energizedpower.inventory_charger.txt.shift.1": "Откройте инвентарь этого предмета, использовав этот предмет в воздухе",
+
+  "item.energizedpower.inventory_teleporter": "Инвентарный телепорт",
+  "container.energizedpower.inventory_teleporter": "Инвентарный телепорт",
+
+  "tooltip.energizedpower.inventory_teleporter.txt.shift.1": "Открыть в инвентаре SHIFT+ЛКМ в воздухе",
+  "tooltip.energizedpower.inventory_teleporter.txt.shift.2": "Телепортация - ПКМ по воздуху",
+
+  "item.energizedpower.battery_1": "Аккумулятор (Уровень I)",
+  "item.energizedpower.battery_2": "Аккумулятор (Уровень II)",
+  "item.energizedpower.battery_3": "Аккумулятор (Уровень III)",
+  "item.energizedpower.battery_4": "Аккумулятор (Уровень IV)",
+  "item.energizedpower.battery_5": "Аккумулятор (Уровень V)",
+  "item.energizedpower.battery_6": "Аккумулятор (Уровень VI)",
+  "item.energizedpower.battery_7": "Аккумулятор (Уровень VII)",
+  "item.energizedpower.battery_8": "Аккумулятор (Уровень VIII)",
+  "tooltip.energizedpower.battery.txt.shift.1": "Эта батарея может передавать %s/т.",
+
+  "item.energizedpower.creative_battery": "Творческий аккумулятор",
+
+  "item.energizedpower.energy_analyzer": "Анализатор энергии",
+  "tooltip.energizedpower.energy_analyzer.txt.shift.1": "Нажмите на энергетический блок, чтобы получить информацию..",
+  "tooltip.energizedpower.energy_analyzer.txt.shift.2": "%s будет потреблено за одно использование",
+  "txt.energizedpower.energy_analyzer.output_side_information": "Информация для выбранной грани блока:",
+  "txt.energizedpower.energy_analyzer.no_energy_left": "Анализатору энергии не хватает мощности (требуется %s).",
+  "txt.energizedpower.energy_analyzer.no_block_entity": "Этот блок не является энергетическим блоком.",
+  "txt.energizedpower.energy_analyzer.no_energy_block": "Этот блок не является (E) энергетическим блоком.",
+  "txt.energizedpower.energy_analyzer.no_energy_block_side": "Эта грань блока не является (E) энергетической гранью блока.",
+  "txt.energizedpower.energy_analyzer.energy_output": "Энергия: %s / %s.",
+  "txt.energizedpower.energy_analyzer.energy_can_receive": "Этот блок потребляет энергию.",
+  "txt.energizedpower.energy_analyzer.energy_can_extract": "Этот блок производит энергию.",
+  "txt.energizedpower.energy_analyzer.energy_can_receive_side": "Эта грань блока потребляет энергию.",
+  "txt.energizedpower.energy_analyzer.energy_can_extract_side": "Эта грань блока производит энергию.",
+
+  "item.energizedpower.fluid_analyzer": "Анализатор жидкости",
+  "tooltip.energizedpower.fluid_analyzer.txt.shift.1": "Нажмите на блок, содержащий жидкости, чтобы получить информацию..",
+  "tooltip.energizedpower.fluid_analyzer.txt.shift.2": "%s будет потреблено за одно использование",
+  "txt.energizedpower.fluid_analyzer.output_side_information": "Информация для выбранной грани блока:",
+  "txt.energizedpower.fluid_analyzer.no_energy_left": "Анализатору жидкости не хватает мощности (требуется %s).",
+  "txt.energizedpower.fluid_analyzer.no_fluid_block": "Этот блок не содержит жидкостей.",
+  "txt.energizedpower.fluid_analyzer.no_fluid_block_side": "Эта грань блока не содержит жидкостей.",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_count": "В резервуаре осталось: %d",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_count_side": "В резервуаре на выбранной грани: %d",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_fluid_content": "Резервуар %d: %s%s / %s.",
+
+  "item.energizedpower.wooden_hammer": "Деревянный молот",
+  "item.energizedpower.stone_hammer": "Каменный молот",
+  "item.energizedpower.iron_hammer": "Железный молот",
+  "item.energizedpower.golden_hammer": "Золотой молот",
+  "item.energizedpower.diamond_hammer": "Алмазный молот",
+  "item.energizedpower.netherite_hammer": "Незеритовый молот",
+
+  "item.energizedpower.cutter": "Резак",
+
+  "item.energizedpower.wrench": "Ключ",
+  "tooltip.energizedpower.wrench.txt.shift": "Гаечный ключ можно использовать для настройки блоков.",
+  "tooltip.energizedpower.wrench.select_face": "Выбранная грань: %s",
+  "tooltip.energizedpower.wrench.not_configurable": "Этот блок не может быть настроен.",
+
+  "tooltip.energizedpower.wrench_configurable": "Этот блок можно настроить с помощью ключа..",
+
+  "item.energizedpower.battery_box_minecart": "Вагонетка с аккумулятором",
+  "item.energizedpower.advanced_battery_box_minecart": "Вагонетка с продвинутым аккумулятором",
+
+  "block.energizedpower.silicon_block": "Блок кремния",
+  "item.energizedpower.silicon_block": "Блок кремния",
+
+  "block.energizedpower.tin_block": "Блок олова",
+  "item.energizedpower.tin_block": "Блок олова",
+
+  "block.energizedpower.sawdust_block": "Блок опилок",
+  "item.energizedpower.sawdust_block": "Блок опилок",
+
+  "block.energizedpower.tin_ore": "Оловянная руда",
+  "item.energizedpower.tin_ore": "Оловянная руда",
+
+  "block.energizedpower.deepslate_tin_ore": "Оловоносный глубинный сланец",
+  "item.energizedpower.deepslate_tin_ore": "Оловоносный глубинный сланец",
+
+  "block.energizedpower.raw_tin_block": "Блок необработанного олова",
+  "item.energizedpower.raw_tin_block": "Блок необработанного олова",
+
+  "block.energizedpower.item_conveyor_belt": "Предметный ленточный конвеер",
+  "item.energizedpower.item_conveyor_belt": "Предметный ленточный конвеер",
+
+  "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "Наклон был установлен на %s.",
+
+  "block.energizedpower.item_conveyor_belt_loader": "Загрузчик предметов ленточного конвеера",
+  "item.energizedpower.item_conveyor_belt_loader": "Загрузчик предметов ленточного конвеера",
+  "container.energizedpower.item_conveyor_belt_loader": "Загрузчик ленточного конвеера",
+
+  "block.energizedpower.item_conveyor_belt_sorter": "Сортировщик предметов ленточного конвеера",
+  "item.energizedpower.item_conveyor_belt_sorter": "Сортировщик предметов ленточного конвеера",
+  "container.energizedpower.item_conveyor_belt_sorter": "Сортировщик ленточного конвеера",
+
+  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Вывод %d: Ленточный конвеер не присоединён",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "Вывод %d: Ленточный конвеер присоединён",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.ignore_nbt": "Игнорировать NBT теги",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "Белый список",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "Чёрный список",
+
+  "block.energizedpower.item_conveyor_belt_switch": "Переключатель предметного ленточного конвеера",
+  "item.energizedpower.item_conveyor_belt_switch": "Переключатель предметного ленточного конвеера",
+
+  "block.energizedpower.item_conveyor_belt_splitter": "Разветвитель предметного ленточного конвеера",
+  "item.energizedpower.item_conveyor_belt_splitter": "Разветвитель предметного ленточного конвеера",
+
+  "block.energizedpower.item_conveyor_belt_merger": "Объединитель предметного ленточного конвеера",
+  "item.energizedpower.item_conveyor_belt_merger": "Объединитель предметного ленточного конвеера",
+
+  "block.energizedpower.fluid_pipe": "Железная жидкостная труба",
+  "item.energizedpower.fluid_pipe": "Железная жидкостная труба",
+
+  "block.energizedpower.golden_fluid_pipe": "Золотая жидкостная труба",
+  "item.energizedpower.golden_fluid_pipe": "Золотая жидкостная труба",
+
+  "tooltip.energizedpower.fluid_pipe.max_extraction": "Макс. извлечение на одну сторону экстрактора: %s/t",
+  "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Тип соединения грани (%s) установлен на %s.",
+  "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Тип соединения грани (%s) изменить невозможно.",
+
+  "block.energizedpower.press_mold_maker": "Изготовитель пресс-форм",
+  "item.energizedpower.press_mold_maker": "Изготовитель пресс-форм",
+  "container.energizedpower.press_mold_maker": "Изготовитель пресс-форм",
+
+  "tooltip.energizedpower.press_mold_maker.btn.up": "Прокрутить вверх",
+  "tooltip.energizedpower.press_mold_maker.btn.down": "Прокрутить вниз",
+
+  "tooltip.energizedpower.press_mold_maker.btn.recipes": "Требуется %dx %s",
+
+  "block.energizedpower.auto_crafter": "Авто-крафтер",
+  "item.energizedpower.auto_crafter": "Авто-крафтер",
+  "container.energizedpower.auto_crafter": "Авто-крафтер",
+
+  "tooltip.energizedpower.auto_crafter.txt.shift.1": "Этот блок использует %s/т на ингредиент.",
+  "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "Игнорировать NBT теги",
+  "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "Режим извлечения 1: только вывод и оставшиеся предметы",
+  "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "Режим извлечения 2: все, кроме входящих предметов",
+  "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Циклическое переключение рецептов",
+  "tooltip.energizedpower.auto_crafter.recipe_index": "Рецепт %d",
+
+  "block.energizedpower.advanced_auto_crafter": "Продвинутый авто-крафтер",
+  "item.energizedpower.advanced_auto_crafter": "Продвинутый авто-крафтер",
+  "container.energizedpower.advanced_auto_crafter": "Продвинутый авто-крафтер",
+
+  "block.energizedpower.charger": "Зарядник",
+  "item.energizedpower.charger": "Зарядник",
+  "container.energizedpower.charger": "Зарядник",
+
+  "tooltip.energizedpower.chargers.txt.shift.1": "Зарядные устройства можно использовать для создания заряженных медных слитков.",
+  "tooltip.energizedpower.chargers.txt.shift.2.1": "Но вместо этого вам следует использовать Активатор,",
+  "tooltip.energizedpower.chargers.txt.shift.2.2": "потому что зарядные устройства заряжают очень неэффективно.",
+
+  "tooltip.energizedpower.charger.item_energy_left.txt": "Для полной зарядки этого предмета требуется %s.",
+
+  "block.energizedpower.advanced_charger": "Продвинутый зарядник",
+  "item.energizedpower.advanced_charger": "Продвинутый зарядник",
+  "container.energizedpower.advanced_charger": "Продвинутый зарядник",
+
+  "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "Этим предметам требуется %s для полной зарядки.",
+
+  "block.energizedpower.uncharger": "Разрядник",
+  "item.energizedpower.uncharger": "Разрядник",
+  "container.energizedpower.uncharger": "Разрядник",
+
+  "tooltip.energizedpower.uncharger.item_energy_left.txt": "У этого предмета осталось %s.",
+
+  "block.energizedpower.advanced_uncharger": "Продвинутый разрядник",
+  "item.energizedpower.advanced_uncharger": "Продвинутый разрядник",
+  "container.energizedpower.advanced_uncharger": "Продвинутый разрядник",
+
+  "tooltip.energizedpower.advanced_uncharger.items_energy_left.txt": "У этих предметов осталось %s.",
+
+  "block.energizedpower.minecart_charger": "Зарядник вагонеток",
+  "item.energizedpower.minecart_charger": "Зарядник вагонеток",
+  "container.energizedpower.minecart_charger": "Зарядник вагонеток",
+
+  "block.energizedpower.advanced_minecart_charger": "Продвинутый зарядник вагонеток",
+  "item.energizedpower.advanced_minecart_charger": "Продвинутый зарядник вагонеток",
+  "container.energizedpower.advanced_minecart_charger": "Продвинутый зарядник вагонеток",
+
+  "block.energizedpower.minecart_uncharger": "Разрядник вагонеток",
+  "item.energizedpower.minecart_uncharger": "Разрядник вагонеток",
+  "container.energizedpower.minecart_uncharger": "Разрядник вагонеток",
+
+  "block.energizedpower.advanced_minecart_uncharger": "Продвинутый разрядник вагонеток",
+  "item.energizedpower.advanced_minecart_uncharger": "Продвинутый разрядник вагонеток",
+  "container.energizedpower.advanced_minecart_uncharger": "Продвинутый разрядник вагонеток",
+
+  "block.energizedpower.tin_cable": "Оловянный кабель",
+  "item.energizedpower.tin_cable": "Оловянный кабель",
+
+  "block.energizedpower.copper_cable": "Медный кабель",
+  "item.energizedpower.copper_cable": "Медный кабель",
+
+  "block.energizedpower.gold_cable": "Золотой кабель",
+  "item.energizedpower.gold_cable": "Золотой кабель",
+
+  "block.energizedpower.energized_copper_cable": "Кабель из активированной меди",
+  "item.energizedpower.energized_copper_cable": "Кабель из активированной меди",
+
+  "block.energizedpower.energized_gold_cable": "Кабель из активированного золота",
+  "item.energizedpower.energized_gold_cable": "Кабель из активированного золота",
+
+  "block.energizedpower.energized_crystal_matrix_cable": "Кристально-матричный активированный кабель",
+  "item.energizedpower.energized_crystal_matrix_cable": "Кристально-матричный активированный кабель",
+
+  "tooltip.energizedpower.cable.txt.shift.1": "Этот кабель может передавать %s/т.",
+  "tooltip.energizedpower.cable.txt.shift.2": "Ножницы можно использовать для более быстрого разрыва кабелей.",
+
+
+  "block.energizedpower.lv_transformer_1_to_n": "Трансформатор низкого напряжения (1 к n)",
+  "item.energizedpower.lv_transformer_1_to_n": "Трансформатор низкого напряжения (1 к n)",
+
+  "block.energizedpower.lv_transformer_3_to_3": "Трансформатор низкого напряжения (3 к 3)",
+  "item.energizedpower.lv_transformer_3_to_3": "Трансформатор низкого напряжения (3 к 3)",
+
+  "block.energizedpower.lv_transformer_n_to_1": "Трансформатор низкого напряжения (n к 1)",
+  "item.energizedpower.lv_transformer_n_to_1": "Трансформатор низкого напряжения (n к 1)",
+
+  "block.energizedpower.transformer_1_to_n": "Трансформатор среднего напряжения (1 к n)",
+  "item.energizedpower.transformer_1_to_n": "Трансформатор среднего напряжения (1 к n)",
+
+  "block.energizedpower.transformer_3_to_3": "Трансформатор среднего напряжения (3 к 3)",
+  "item.energizedpower.transformer_3_to_3": "Трансформатор среднего напряжения (3 к 3)",
+
+  "block.energizedpower.transformer_n_to_1": "Трансформатор среднего напряжения (n к 1)",
+  "item.energizedpower.transformer_n_to_1": "Трансформатор среднего напряжения (n к 1)",
+
+  "block.energizedpower.hv_transformer_1_to_n": "Трансформатор высокого напряжения (1 к n)",
+  "item.energizedpower.hv_transformer_1_to_n": "Трансформатор высокого напряжения (1 к n)",
+
+  "block.energizedpower.hv_transformer_3_to_3": "Трансформатор высокого напряжения (3 к 3)",
+  "item.energizedpower.hv_transformer_3_to_3": "Трансформатор высокого напряжения (3 к 3)",
+
+  "block.energizedpower.hv_transformer_n_to_1": "Трансформатор высокого напряжения (n к 1)",
+  "item.energizedpower.hv_transformer_n_to_1": "Трансформатор высокого напряжения (n к 1)",
+
+  "block.energizedpower.ehv_transformer_1_to_n": "Трансформатор сверхвысокого напряжения (1 к n)",
+  "item.energizedpower.ehv_transformer_1_to_n": "Трансформатор сверхвысокого напряжения (1 к n)",
+
+  "block.energizedpower.ehv_transformer_3_to_3": "Трансформатор сверхвысокого напряжения (3 к 3)",
+  "item.energizedpower.ehv_transformer_3_to_3": "Трансформатор сверхвысокого напряжения (3 к 3)",
+
+  "block.energizedpower.ehv_transformer_n_to_1": "Трансформатор сверхвысокого напряжения (n к 1)",
+  "item.energizedpower.ehv_transformer_n_to_1": "Трансформатор сверхвысокого напряжения (n к 1)",
+
+  "tooltip.energizedpower.transformer.txt.shift.1": "Этот блок можно использовать для соединения разноуровневых кабелей.",
+  "tooltip.energizedpower.transformer.txt.shift.2": "Более крупные, темные, ромбовидные стороны являются вводами.",
+  "tooltip.energizedpower.transformer.txt.shift.3": "Меньшие, более яркие, квадратные стороны являются выводами.",
+
+  "block.energizedpower.battery_box": "БатБокс",
+  "item.energizedpower.battery_box": "БатБокс",
+  "container.energizedpower.battery_box": "БатБокс",
+
+  "block.energizedpower.advanced_battery_box": "Продвинутый БатБокс",
+  "item.energizedpower.advanced_battery_box": "Продвинутый БатБокс",
+  "container.energizedpower.advanced_battery_box": "Продвинутый БатБокс",
+
+  "block.energizedpower.creative_battery_box": "Творческий БатБокс",
+  "item.energizedpower.creative_battery_box": "Творческий БатБокс",
+  "container.energizedpower.creative_battery_box": "Творческий БатБокс",
+
+  "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "Производство энергии",
+  "tooltip.energizedpower.creative_battery_box.cbx.energy_consumption": "Потребление энергии",
+
+
+  "block.energizedpower.solar_panel_1": "Солнечная панель (Уровень I)",
+  "item.energizedpower.solar_panel_1": "Солнечная панель (Уровень I)",
+  "container.energizedpower.solar_panel_1": "Солнечная панель (Уровень I)",
+  "block.energizedpower.solar_panel_2": "Солнечная панель (Уровень II)",
+  "item.energizedpower.solar_panel_2": "Солнечная панель (Уровень II)",
+  "container.energizedpower.solar_panel_2": "Солнечная панель (Уровень II)",
+  "block.energizedpower.solar_panel_3": "Солнечная панель (Уровень III)",
+  "item.energizedpower.solar_panel_3": "Солнечная панель (Уровень III)",
+  "container.energizedpower.solar_panel_3": "Солнечная панель (Уровень III)",
+  "block.energizedpower.solar_panel_4": "Солнечная панель (Уровень IV)",
+  "item.energizedpower.solar_panel_4": "Солнечная панель (Уровень IV)",
+  "container.energizedpower.solar_panel_4": "Солнечная панель (Уровень IV)",
+  "block.energizedpower.solar_panel_5": "Солнечная панель (Уровень V)",
+  "item.energizedpower.solar_panel_5": "Солнечная панель (Уровень V)",
+  "container.energizedpower.solar_panel_5": "Солнечная панель (Уровень V)",
+  "block.energizedpower.solar_panel_6": "Солнечная панель (Уровень VI)",
+  "item.energizedpower.solar_panel_6": "Солнечная панель (Уровень VI)",
+  "container.energizedpower.solar_panel_6": "Солнечная панель (Уровень VI)",
+
+  "tooltip.energizedpower.solar_panel.txt.shift.1": "Этот блок производит до %s/т.",
+  "tooltip.energizedpower.solar_panel.txt.shift.2": "Эффективность зависит от текущего времени",
+
+  "block.energizedpower.coal_engine": "Угольный двигатель",
+  "item.energizedpower.coal_engine": "Угольный двигатель",
+  "container.energizedpower.coal_engine": "Угольный двигатель",
+
+  "tooltip.energizedpower.coal_engine.txt": "Эти предметы будут производить %s, пока не сгорят",
+
+  "block.energizedpower.heat_generator": "Тепловой генератор",
+  "item.energizedpower.heat_generator": "Тепловой генератор",
+  "container.energizedpower.heat_generator": "Тепловой генератор",
+
+  "block.energizedpower.thermal_generator": "Термальный генератор",
+  "item.energizedpower.thermal_generator": "Термальный генератор",
+  "container.energizedpower.thermal_generator": "Термальный генератор",
+
+  "tooltip.energizedpower.thermal_generator.txt": "Эта жидкость будет производить %s до тех пор, пока не будет полностью израсходована.",
+
+  "block.energizedpower.powered_lamp": "Электрическая лампа",
+  "item.energizedpower.powered_lamp": "Электрическая лампа",
+
+  "block.energizedpower.powered_furnace": "Электрическая печь",
+  "item.energizedpower.powered_furnace": "Электрическая печь",
+  "container.energizedpower.powered_furnace": "Электрическая печь",
+
+  "block.energizedpower.advanced_powered_furnace": "Продвинутая электрическая печь",
+  "item.energizedpower.advanced_powered_furnace": "Продвинутая электрическая печь",
+  "container.energizedpower.advanced_powered_furnace": "Продвинутая электрическая печь",
+
+  "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt": "Для завершения этих рецептов требуется %s.",
+
+  "block.energizedpower.crusher": "Дробилка",
+  "item.energizedpower.crusher": "Дробилка",
+  "container.energizedpower.crusher": "Дробилка",
+
+  "block.energizedpower.advanced_crusher": "Продвинутая дробилка",
+  "item.energizedpower.advanced_crusher": "Продвинутая дробилка",
+  "container.energizedpower.advanced_crusher": "Продвинутая дробилка",
+
+  "tooltip.energizedpower.advanced_crusher.txt.shift.1": "Эта машина потребляет воду и производит грязную воду.",
+
+  "block.energizedpower.pulverizer": "Измельчитель",
+  "item.energizedpower.pulverizer": "Измельчитель",
+  "container.energizedpower.pulverizer": "Измельчитель",
+
+  "block.energizedpower.advanced_pulverizer": "Продвинутый измельчитель",
+  "item.energizedpower.advanced_pulverizer": "Продвинутый измельчитель",
+  "container.energizedpower.advanced_pulverizer": "Продвинутый измельчитель",
+
+  "tooltip.energizedpower.advanced_pulverizer.txt.shift.1": "Эта машина потребляет воду и производит грязную воду.",
+
+  "block.energizedpower.sawmill": "Лесопилка",
+  "item.energizedpower.sawmill": "Лесопилка",
+  "container.energizedpower.sawmill": "Лесопилка",
+
+  "block.energizedpower.compressor": "Компрессор",
+  "item.energizedpower.compressor": "Компрессор",
+  "container.energizedpower.compressor": "Компрессор",
+
+  "block.energizedpower.metal_press": "Металлический пресс",
+  "item.energizedpower.metal_press": "Металлический пресс",
+  "container.energizedpower.metal_press": "Металлический пресс",
+
+  "tooltip.energizedpower.metal_press.txt.shift.1": "Пресс-формы можно создавать в Изготовителе пресс-форм.",
+
+  "block.energizedpower.auto_press_mold_maker": "Автоматический изготовитель пресс-форм",
+  "item.energizedpower.auto_press_mold_maker": "Автоматический изготовитель пресс-форм",
+  "container.energizedpower.auto_press_mold_maker": "Автоматический изготовитель пресс-форм",
+
+  "tooltip.energizedpower.auto_press_mold_maker.shovel_missing": "Лопата отсутствует!",
+  
+  "block.energizedpower.auto_stonecutter": "Автоматический камнерез",
+  "item.energizedpower.auto_stonecutter": "Автоматический камнерез",
+  "container.energizedpower.auto_stonecutter": "Автоматический камнерез",
+
+  "tooltip.energizedpower.auto_stonecutter.pickaxe_missing": "Кирка отсутсвует!",
+  
+  "block.energizedpower.assembling_machine": "Сборочная машина",
+  "item.energizedpower.assembling_machine": "Сборочная машина",
+  "container.energizedpower.assembling_machine": "Сборочная машина",
+
+  "block.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
+  "item.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
+  "container.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
+
+  "block.energizedpower.stone_solidifier": "Отвердитель камня",
+  "item.energizedpower.stone_solidifier": "Отвердитель камня",
+  "container.energizedpower.stone_solidifier": "Отвердитель камня",
+
+  "block.energizedpower.filtration_plant": "Фильтрационная установка",
+  "item.energizedpower.filtration_plant": "Фильтрационная установка",
+  "container.energizedpower.filtration_plant": "Фильтрационная установка",
+
+  "tooltip.energizedpower.filtration_plant.txt.shift.1": "Для этого блока требуются угольные фильтры.",
+  "tooltip.energizedpower.filtration_plant.charcoal_filter_missing": "Угольный фильтр отсутствует!",
+
+  "block.energizedpower.fluid_transposer": "Жидкостный транспозер",
+  "item.energizedpower.fluid_transposer": "Жидкостный транспозер",
+  "container.energizedpower.fluid_transposer": "Жидкостный транспозер",
+
+  "tooltip.energizedpower.fluid_transposer.mode.emptying": "Режим: Опорожнение",
+  "tooltip.energizedpower.fluid_transposer.mode.filling": "Режим: Заполнение",
+  
+  "block.energizedpower.block_placer": "Укладчик блоков",
+  "item.energizedpower.block_placer": "Укладчик блоков",
+  "container.energizedpower.block_placer": "Укладчик блоков",
+
+  "tooltip.energizedpower.block_placer.block_energy_left.txt": "Для размещения этого блока все еще требуется %s.",
+  "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Обратное вращение",
+
+  "block.energizedpower.fluid_tank_small": "Жидкостный резервуар (маленький)",
+  "item.energizedpower.fluid_tank_small": "Жидкостный резервуар (маленький)",
+  "container.energizedpower.fluid_tank_small": "Жидкостный резервуар (маленький)",
+
+  "block.energizedpower.fluid_tank_medium": "Жидкостный резервуар (средний)",
+  "item.energizedpower.fluid_tank_medium": "Жидкостный резервуар (средний)",
+  "container.energizedpower.fluid_tank_medium": "Жидкостный резервуар (средний)",
+
+  "block.energizedpower.fluid_tank_large": "Жидкостный резервуар (большой)",
+  "item.energizedpower.fluid_tank_large": "Жидкостный резервуар (большой)",
+  "container.energizedpower.fluid_tank_large": "Жидкостный резервуар (большой)",
+
+  "tooltip.energizedpower.fluid_tanks.cbx.ignore_nbt": "Игнорировать NBT теги",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.no_filter_set": "Фильтр не установлен",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.filter_set": "Фильтр: %s",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.1": "Установите фильтр, щелкнув левой кнопкой мыши по элементу, содержащему жидкости.",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.2": "Снимите фильтр, щелкнув левой кнопкой мыши без предмета.",
+
+  "block.energizedpower.fluid_filler": "Наполнитель жидкости",
+  "item.energizedpower.fluid_filler": "Наполнитель жидкости",
+  "container.energizedpower.fluid_filler": "Наполнитель жидкости",
+
+  "block.energizedpower.fluid_drainer": "Сливатель жидкости",
+  "item.energizedpower.fluid_drainer": "Сливатель жидкости",
+  "container.energizedpower.fluid_drainer": "Сливатель жидкости",
+
+  "block.energizedpower.fluid_pump": "Жидкостный насос",
+  "item.energizedpower.fluid_pump": "Жидкостный насос",
+  "container.energizedpower.fluid_pump": "Жидкостный насос",
+
+  "tooltip.energizedpower.fluid_pump.process_energy_left.txt": "Для завершения этого процесса все еще требуется %s.",
+  "tooltip.energizedpower.fluid_pump.target": "Цель: %d, %d, %d",
+  "tooltip.energizedpower.fluid_pump.target_relative": "Цель (Относительная): %s, %s, %s",
+  "tooltip.energizedpower.fluid_pump.cobblestone_missing": "Булыжник отсутствует!",
+  "tooltip.energizedpower.fluid_pump.extracting": "Извлечение: %s",
+
+  "block.energizedpower.drain": "Слив",
+  "item.energizedpower.drain": "Слив",
+  "container.energizedpower.drain": "Слив",
+
+  "tooltip.energizedpower.drain.txt.shift": "Слив сливает воду из блоков источников жидкости, расположенных над блоком.",
+
+  "block.energizedpower.lightning_generator": "Молниевый генератор",
+  "item.energizedpower.lightning_generator": "Молниевый генератор",
+  "container.energizedpower.lightning_generator": "Молниевый генератор",
+
+  "tooltip.energizedpower.lightning_generator.txt.shift.1": "Этот блок производит %s за удар молнии.",
+  "tooltip.energizedpower.lightning_generator.txt.shift.2": "Для того, чтобы этот блок функционировал, над ним необходимо разместить громоотвод.",
+
+  "block.energizedpower.energizer": "Активатор",
+  "item.energizedpower.energizer": "Активатор",
+  "container.energizedpower.energizer": "Активатор",
+
+  "block.energizedpower.charging_station": "Зарядная станция",
+  "item.energizedpower.charging_station": "Зарядная станция",
+  "container.energizedpower.charging_station": "Зарядная станция",
+
+  "tooltip.energizedpower.charging_station.txt.shift.1": "Зарядную станцию ​​можно использовать для зарядки предметов в инвентаре игрока.",
+
+  "block.energizedpower.crystal_growth_chamber": "Камера для выращивания кристаллов",
+  "item.energizedpower.crystal_growth_chamber": "Камера для выращивания кристаллов",
+  "container.energizedpower.crystal_growth_chamber": "Камера для выращивания кристаллов",
+
+  "block.energizedpower.weather_controller": "Контроллер погоды",
+  "item.energizedpower.weather_controller": "Контроллер погоды",
+  "container.energizedpower.weather_controller": "Контроллер погоды",
+
+  "tooltip.energizedpower.weather_controller.btn.clear": "Установить ясную погоду",
+  "tooltip.energizedpower.weather_controller.btn.rain": "Установить дождливую погоду",
+  "tooltip.energizedpower.weather_controller.btn.thunder": "Установить грозовую погоду",
+
+  "block.energizedpower.time_controller": "Контроллер времени",
+  "item.energizedpower.time_controller": "Контроллер времени",
+  "container.energizedpower.time_controller": "Контроллер времени",
+
+  "tooltip.energizedpower.time_controller.btn.day": "Установить время на день",
+  "tooltip.energizedpower.time_controller.btn.noon": "Установите время на полдень.",
+  "tooltip.energizedpower.time_controller.btn.night": "Установите время на ночь",
+  "tooltip.energizedpower.time_controller.btn.midnight": "Установите время на полночь.",
+
+  "block.energizedpower.teleporter": "Телепорт",
+  "item.energizedpower.teleporter": "Телепорт",
+  "container.energizedpower.teleporter": "Телепорт",
+
+  "tooltip.energizedpower.teleporter.txt.shift.1": "Нажмите [%s], находясь над телепортом, чтобы телепортироваться.",
+  "tooltip.energizedpower.teleporter.txt.shift.2": "Телепортацию игроков также можно вызвать с помощью красного камня.",
+
+  "tooltip.energizedpower.teleporter.use.not_enough_energy": "Недостаточно энергии!",
+  "tooltip.energizedpower.teleporter.use.no_teleporter_matrix": "Нет матрицы телепорта!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_not_bound": "Матрица телепорта не привязана!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_position": "Матрица телепорта содержит недопустимую позицию!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_dimension": "Матрица телепорта содержит недопустимое измерение!",
+  "tooltip.energizedpower.teleporter.use.teleporter_self_position": "Телепортация к самому телепортеру невозможна!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_no_teleporter": "По координатам Матрицы телепортов телепорт не найден!",
+  "tooltip.energizedpower.teleporter.use.intra_dimensional_disabled": "Внутрипространственная телепортация отключена.",
+  "tooltip.energizedpower.teleporter.use.inter_dimensional_disabled": "Межпространственная телепортация отключена.",
+  "tooltip.energizedpower.teleporter.use.blacklist.dimension": "Телепортация для измерения \"%s\" отключена!",
+  "tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional": "Телепортация в измерении \"%s\" отключена!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from": "Телепортация из измерения \"%s\" отключена!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to": "Телепортация в измерение \"%s\" отключена!",
+  "tooltip.energizedpower.teleporter.use.blacklist.dimension_type": "Телепортация для измерения типа \"%s\" отключена!",
+  "tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional_type": "Телепортация внутри измерения типа \"%s\" отключена!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from_type": "Телепортация из измерения типа \"%s\" отключена!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to_type": "Телепортация в измерение типа \"%s\" отключена!",
+
+  "block.energizedpower.basic_machine_frame": "Базовый машинный корпус",
+  "item.energizedpower.basic_machine_frame": "Базовый машинный корпус",
+
+  "block.energizedpower.hardened_machine_frame": "Тяжелый машинный корпус",
+  "item.energizedpower.hardened_machine_frame": "Тяжелый машинный корпус",
+
+  "block.energizedpower.advanced_machine_frame": "Продвинутый машинный корпус",
+  "item.energizedpower.advanced_machine_frame": "Продвинутый машинный корпус",
+
+  "block.energizedpower.reinforced_advanced_machine_frame": "Укрепленный продвинутый машинный корпус",
+  "item.energizedpower.reinforced_advanced_machine_frame": "Укрепленный продвинутый машинный корпус",
+
+  "fluid_type.energizedpower.dirty_water": "Грязная вода",
+
+  "tooltip.energizedpower.count_with_item.txt": "%dx %s",
+
+  "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
+  "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
+  "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "Для завершения этого рецепта требуется %s.",
+  "tooltip.energizedpower.recipe.selector.next_recipe": "Следующий рецепт",
+  "tooltip.energizedpower.recipe.selector.prev_recipe": "Предыдущий рецепт",
+  "tooltip.energizedpower.shift_details.txt": "Нажмите [SHIFT] для получения подробной информации.",
+  "tooltip.energizedpower.capacity.txt": "Емкость: %s",
+  "tooltip.energizedpower.transfer_rate.txt": "Скорость передачи: %s/t",
+  "tooltip.energizedpower.tank_capacity.txt": "Емкость резервуара: %s",
+  "tooltip.energizedpower.not_enough_energy.txt": "Недостаточно энергии",
+  "tooltip.energizedpower.ready.txt": "Готов",
+  "tooltip.energizedpower.infinite.txt": "Бесконечный",
+
+  "tooltip.energizedpower.direction.down": "Вниз",
+  "tooltip.energizedpower.direction.up": "Вверх",
+  "tooltip.energizedpower.direction.north": "Север",
+  "tooltip.energizedpower.direction.south": "Юг",
+  "tooltip.energizedpower.direction.west": "Запад",
+  "tooltip.energizedpower.direction.east": "Восток",
+
+  "block_state.energizedpower.pipe_connection.not_connected": "Не подключено",
+  "block_state.energizedpower.pipe_connection.connected": "Подключено/Вставлено",
+  "block_state.energizedpower.pipe_connection.extract": "Извлечение",
+
+  "tooltip.energizedpower.conveyor_belt_direction.slope.flat": "Плоский",
+  "tooltip.energizedpower.conveyor_belt_direction.slope.ascending": "По возрастанию",
+  "tooltip.energizedpower.conveyor_belt_direction.slope.descending": "По убыванию",
+
+  "tooltip.energizedpower.machine_configuration.redstone_mode.ignore": "Режим красного камня: Игнорировать",
+  "tooltip.energizedpower.machine_configuration.redstone_mode.high": "Режим красного камня: Высокий",
+  "tooltip.energizedpower.machine_configuration.redstone_mode.low": "Режим красного камня: Низкий",
+
+  "tooltip.energizedpower.machine_configuration.comparator_mode.item": "Режим сравнения: Предмет",
+  "tooltip.energizedpower.machine_configuration.comparator_mode.fluid": "Режим сравнения: Жидкость",
+  "tooltip.energizedpower.machine_configuration.comparator_mode.energy": "Режим сравнения: Энергия",
+
+  "tooltip.energizedpower.upgrade_module_modifier.speed": "Скорость производства",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Потребление энергии за тик",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_capacity": "Энергоемкость",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "Скорость передачи энергии",
+  "tooltip.energizedpower.upgrade_module_modifier.duration": "Продолжительность",
+  "tooltip.energizedpower.upgrade_module_modifier.range": "Дальность",
+  "tooltip.energizedpower.upgrade_module_modifier.extraction_depth": "Глубина извлечения",
+  "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "Режим печи",
+  "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Лунный свет",
+
+  "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "Блоков",
+ 
+  "tooltip.energizedpower.upgrade.values": "Модификаторы модулей улучшения:",
+  "tooltip.energizedpower.upgrade.value": "• %s: %s",
+
+  "tooltip.energizedpower.upgrade_view.button.open": "Открыть просмотр апгрейда",
+  "tooltip.energizedpower.upgrade_view.button.close": "Закрыть просмотр апгрейда",
+
+  "itemGroup.energizedpower.tab": "Energized Power",
+
+  "entity.minecraft.villager.energizedpower.electrician": "Электрик",
+
+  "entity.energizedpower.battery_box_minecart": "Вагонетка с БатБоксом",
+  "entity.energizedpower.advanced_battery_box_minecart": "Продвинутая вагонетка с БатБоксом",
+
+  "recipes.energizedpower.in_world_crafting": "Внутримировое создание",
+  "recipes.energizedpower.info.ticks": "Тики: %d",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer": "Камера роста (Удобрение)",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx скорость",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx потребление энергии",
+  "recipes.energizedpower.transfer.too_large": "Этот рецепт слишком велик для этого контейнера!",
+  "recipes.energizedpower.transfer.output_percentages": "Процент на единицу предмета:",
+
+  "emi.category.energizedpower.charger": "Зарядник",
+  "emi.category.energizedpower.crusher": "Дробилка",
+  "emi.category.energizedpower.pulverizer": "Измельчитель",
+  "emi.category.energizedpower.advanced_pulverizer": "Продвинутый измельчитель",
+  "emi.category.energizedpower.sawmill": "Лесопилка",
+  "emi.category.energizedpower.compressor": "Компрессор",
+  "emi.category.energizedpower.metal_press": "Металлический пресс",
+  "emi.category.energizedpower.assembling_machine": "Сборочная машина",
+  "emi.category.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
+  "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Камера роста (Удобрение)",
+  "emi.category.energizedpower.energizer": "Активатор",
+  "emi.category.energizedpower.crystal_growth_chamber": "Камера выращивания кристалов",
+  "emi.category.energizedpower.press_mold_maker": "Изготовитель пресс-форм",
+  "emi.category.energizedpower.stone_solidifier": "Отвердитель камня",
+  "emi.category.energizedpower.filtration_plant": "Фильтрационная установка",
+  "emi.category.energizedpower.fluid_transposer": "Жидкостный транспозер",
+  "emi.category.energizedpower.dispenser": "Раздатчик",
+  "emi.category.energizedpower.in_world_crafting": "Внутримировое создание",
+
+
+  "painting.energizedpower.gear.title": "Шестерня",
+  "painting.energizedpower.gear.author": "JDDev0",
+
+  "painting.energizedpower.factory.title": "Фабрика",
+  "painting.energizedpower.factory.author": "JDDev0",
+
+  "key.category.energizedpower": "Energized Power",
+  "key.energizedpower.teleporter.use": "Используй телепорт",
+
+
+  "advancements.energizedpower.hardened_machine_frame.title": "Тяжелые машины",
+  "advancements.energizedpower.hardened_machine_frame.description": "Требуется для лучших машин.",
+
+  "advancements.energizedpower.advanced_machine_frame.title": "Продвинутые машины",
+  "advancements.energizedpower.advanced_machine_frame.description": "Для более продвинутых машин необходим этот базовый предмет для крафта.",
+
+  "advancements.energizedpower.reinforced_advanced_machine_frame.title": "Еще более продвинутые машины",
+  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "Для самых продвинутых машин необходим этот базовый предмет для крафта.",
+
+  "advancements.energizedpower.advanced_solar_cell.title": "Продвинутая солнечная ячейка",
+  "advancements.energizedpower.advanced_solar_cell.description": "Требуется для продвинутых солнечных панелей...",
+
+  "advancements.energizedpower.reinforced_advanced_solar_cell.title": "Еще лучшая солнечная энергия",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Требуется для лучших солнечных панелей...",
+
+  "advancements.energizedpower.basic_circuit.title": "Базовая схема",
+  "advancements.energizedpower.basic_circuit.description": "Создайте базовую схему.",
+
+  "advancements.energizedpower.advanced_circuit.title": "Продвинутая электросхема",
+  "advancements.energizedpower.advanced_circuit.description": "Создайте продвинутую электросхему.",
+
+  "advancements.energizedpower.processing_unit.title": "Вычислительный модуль",
+  "advancements.energizedpower.processing_unit.description": "Создайте вычислительный модуль.",
+
+  "advancements.energizedpower.basic_upgrade_module.title": "Базовый модуль апгрейда",
+  "advancements.energizedpower.basic_upgrade_module.description": "Создайте базовый модуль апгрейда.",
+
+  "advancements.energizedpower.advanced_upgrade_module.title": "Продвинутый модуль апгрейда",
+  "advancements.energizedpower.advanced_upgrade_module.description": "Создайте продвинутый модуль апгрейда.",
+
+  "advancements.energizedpower.reinforced_advanced_upgrade_module.title": "Усиленный продвинутый модуль апгрейда",
+  "advancements.energizedpower.reinforced_advanced_upgrade_module.description": "Создайте усиленный продвинутый модуль апгрейда.",
+
+  "advancements.energizedpower.speed_upgrade_module_1.title": "Скорость I",
+  "advancements.energizedpower.speed_upgrade_module_1.description": "Создайте модуль улучшения скорости (Уровень I).",
+
+  "advancements.energizedpower.speed_upgrade_module_2.title": "Скорость II",
+  "advancements.energizedpower.speed_upgrade_module_2.description": "Создайте модуль улучшения скорости (Уровень II).",
+
+  "advancements.energizedpower.speed_upgrade_module_3.title": "Скорость III",
+  "advancements.energizedpower.speed_upgrade_module_3.description": "Создайте модуль улучшения скорости (Уровень III).",
+
+  "advancements.energizedpower.speed_upgrade_module_4.title": "Скорость IV",
+  "advancements.energizedpower.speed_upgrade_module_4.description": "Создайте модуль улучшения скорости (Уровень IV).",
+
+  "advancements.energizedpower.speed_upgrade_module_5.title": "Скорость V",
+  "advancements.energizedpower.speed_upgrade_module_5.description": "Создайте модуль улучшения скорости (Уровень V).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_1.title": "Энергоэффективность I",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_1.description": "Создайте модуль улучшения энергоэффективности (Уровень I).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_2.title": "Энергоэффективность II",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_2.description": "Создайте модуль улучшения энергоэффективности (Уровень II).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_3.title": "Энергоэффективность III",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_3.description": "Создайте модуль улучшения энергоэффективности (Уровень III).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_4.title": "Энергоэффективность IV",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_4.description": "Создайте модуль улучшения энергоэффективности (Уровень IV).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_5.title": "Энергоэффективность V",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_5.description": "Создайте модуль улучшения энергоэффективности (Уровень V).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_1.title": "Энергоёмкость I",
+  "advancements.energizedpower.energy_capacity_upgrade_module_1.description": "Создайте модуль повышения энергетической емкости (Уровень I).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_2.title": "Энергоёмкость II",
+  "advancements.energizedpower.energy_capacity_upgrade_module_2.description": "Создайте модуль повышения энергетической емкости (Уровень II).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_3.title": "Энергоёмкость III",
+  "advancements.energizedpower.energy_capacity_upgrade_module_3.description": "Создайте модуль повышения энергетической емкости (Уровень III).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_4.title": "Энергоёмкость IV",
+  "advancements.energizedpower.energy_capacity_upgrade_module_4.description": "Создайте модуль повышения энергетической емкости (Уровень IV).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_5.title": "Энергоёмкость V",
+  "advancements.energizedpower.energy_capacity_upgrade_module_5.description": "Создайте модуль повышения энергетической емкости (Уровень V).",
+
+  "advancements.energizedpower.duration_upgrade_module_1.title": "Продолжительность I",
+  "advancements.energizedpower.duration_upgrade_module_1.description": "Создайте модуль улучшения продолжительности (Уровень I).",
+
+  "advancements.energizedpower.duration_upgrade_module_2.title": "Перодолжительность II",
+  "advancements.energizedpower.duration_upgrade_module_2.description": "Создайте модуль улучшения продолжительности (Уровень II).",
+
+  "advancements.energizedpower.duration_upgrade_module_3.title": "Продолжительность III",
+  "advancements.energizedpower.duration_upgrade_module_3.description": "Создайте модуль улучшения продолжительности (Уровень III).",
+
+  "advancements.energizedpower.duration_upgrade_module_4.title": "Продолжительность IV",
+  "advancements.energizedpower.duration_upgrade_module_4.description": "Создайте модуль улучшения продолжительности (Уровень IV).",
+
+  "advancements.energizedpower.duration_upgrade_module_5.title": "Продолжительность V",
+  "advancements.energizedpower.duration_upgrade_module_5.description": "Создайте модуль улучшения продолжительности (Уровень V).",
+
+  "advancements.energizedpower.duration_upgrade_module_6.title": "Продолжительность VI",
+  "advancements.energizedpower.duration_upgrade_module_6.description": "Создайте модуль улучшения продолжительности (Уровень VI).",
+
+  "advancements.energizedpower.range_upgrade_module_1.title": "Дальность I",
+  "advancements.energizedpower.range_upgrade_module_1.description": "Создайте модуль улучшения дальности (Уровень I).",
+
+  "advancements.energizedpower.range_upgrade_module_2.title": "Дальность II",
+  "advancements.energizedpower.range_upgrade_module_2.description": "Создайте модуль улучшения дальности (Уровень II).",
+
+  "advancements.energizedpower.range_upgrade_module_3.title": "Дальность III",
+  "advancements.energizedpower.range_upgrade_module_3.description": "Создайте модуль улучшения дальности (Уровень III).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_1.title": "Глубина извлечения I",
+  "advancements.energizedpower.extraction_depth_upgrade_module_1.description": "Создайте модуль улучшения глубины извлечения (Уровень I).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_2.title": "Глубина извлечения II",
+  "advancements.energizedpower.extraction_depth_upgrade_module_2.description": "Создайте модуль улучшения глубины извлечения (Уровень II).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_3.title": "Глубина извлечения III",
+  "advancements.energizedpower.extraction_depth_upgrade_module_3.description": "Создайте модуль улучшения глубины извлечения (Уровень III).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_4.title": "Глубина извлечения IV",
+  "advancements.energizedpower.extraction_depth_upgrade_module_4.description": "Создайте модуль улучшения глубины извлечения (Уровень IV).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_5.title": "Глубина извлечения V",
+  "advancements.energizedpower.extraction_depth_upgrade_module_5.description": "Создайте модуль улучшения глубины извлечения (Уровень V).",
+
+  "advancements.energizedpower.blast_furnace_upgrade_module.title": "Режим печи: доменная печь",
+  "advancements.energizedpower.blast_furnace_upgrade_module.description": "Создайте модуль улучшения доменной печи.",
+
+  "advancements.energizedpower.smoker_upgrade_module.title": "Режим печи: коптильня",
+  "advancements.energizedpower.smoker_upgrade_module.description": "Создайте модуль улучшения коптильни.",
+
+  "advancements.energizedpower.moon_light_upgrade_module_1.title": "Лунный свет I",
+  "advancements.energizedpower.moon_light_upgrade_module_1.description": "Создайте модуль улучшения «Лунный свет» (Уровень I).",
+
+  "advancements.energizedpower.moon_light_upgrade_module_2.title": "Лунный свет II",
+  "advancements.energizedpower.moon_light_upgrade_module_2.description": "Создайте модуль улучшения «Лунный свет» (Уровень II).",
+
+  "advancements.energizedpower.moon_light_upgrade_module_3.title": "Лунный свет III",
+  "advancements.energizedpower.moon_light_upgrade_module_3.description": "Создайте модуль улучшения «Лунный свет» (Уровень III).",
+
+  "advancements.energizedpower.press_mold_maker.title": "Изготовитель пресс-форм",
+  "advancements.energizedpower.press_mold_maker.description": "Используйте этот блок для изготовления пресс-форм для металлического пресса.",
+
+  "advancements.energizedpower.raw_press_molds.title": "Сырая пресс-форма",
+  "advancements.energizedpower.raw_press_molds.description": "Используйте глиняные шарики, чтобы сделать сырую пресс-форму. (Не забудьте ее приготовить...)",
+
+  "advancements.energizedpower.press_molds.title": "Пресс-форма",
+  "advancements.energizedpower.press_molds.description": "Приготовленный пресс-формы можно использовать в металлическом прессе.",
+
+  "advancements.energizedpower.auto_crafter.title": "Автоматизация — это будущее",
+  "advancements.energizedpower.auto_crafter.description": "Кому нужны ручные верстаки, если этот блок может делать это автоматически?",
+
+  "advancements.energizedpower.advanced_auto_crafter.title": "Силовое ремесло",
+  "advancements.energizedpower.advanced_auto_crafter.description": "Создавайте несколько рецептов с использованием одного и того же блока.",
+
+  "advancements.energizedpower.crusher.title": "Круши это",
+  "advancements.energizedpower.crusher.description": "Дробленый камень, песчаник, булыжник, гравий или другие блоки.",
+
+  "advancements.energizedpower.pulverizer.title": "Распыление",
+  "advancements.energizedpower.pulverizer.description": "Измельчите руду, чтобы увеличить производство.",
+
+  "advancements.energizedpower.charcoal_filter.title": "Угольный фильтр",
+  "advancements.energizedpower.charcoal_filter.description": "Создайте угольный фильтр.",
+
+  "advancements.energizedpower.sawmill.title": "Пиление",
+  "advancements.energizedpower.sawmill.description": "Распилите дерево.",
+
+  "advancements.energizedpower.compressor.title": "Сжатие",
+  "advancements.energizedpower.compressor.description": "Создайте пластины.",
+
+  "advancements.energizedpower.metal_press.title": "Металлический пресс",
+  "advancements.energizedpower.metal_press.description": "Формуйте металлы.",
+
+  "advancements.energizedpower.auto_press_mold_maker.title": "Автоматический изготовитель пресс-форм",
+  "advancements.energizedpower.auto_press_mold_maker.description": "Создайте автоматический изготовитель пресс-форм.",
+
+  "advancements.energizedpower.auto_stonecutter.title": "Автоматический камнерез",
+  "advancements.energizedpower.auto_stonecutter.description": "Создайте автоматический камнерез.",
+
+  "advancements.energizedpower.assembling_machine.title": "Сборочная машина",
+  "advancements.energizedpower.assembling_machine.description": "Создайте электронные компоненты на сборочном станке.",
+
+  "advancements.energizedpower.plant_growth_chamber.title": "Ускоренный рост растений",
+  "advancements.energizedpower.plant_growth_chamber.description": "Повысьте скорость и урожайность с помощью камеры для выращивания растений.",
+
+  "advancements.energizedpower.stone_solidifier.title": "Отвердитель камня",
+  "advancements.energizedpower.stone_solidifier.description": "Создайте камень с помощью воды и лавы",
+
+  "advancements.energizedpower.block_placer.title": "Поставьте блок",
+  "advancements.energizedpower.block_placer.description": "Блоки автоматически размещаются в мире.",
+
+  "advancements.energizedpower.fluid_filler.title": "Заполните жидкостный предмет",
+  "advancements.energizedpower.fluid_filler.description": "Наполните предметы жидкостями.",
+
+  "advancements.energizedpower.fluid_drainer.title": "Слейте жидкостный предмет",
+  "advancements.energizedpower.fluid_drainer.description": "Слейте жидкость из предметов.",
+  
+  "advancements.energizedpower.fluid_pump.title": "Жидкостный насос",
+  "advancements.energizedpower.fluid_pump.description": "Создайте жидкостный насос.",
+
+  "advancements.energizedpower.drain.title": "Слив",
+  "advancements.energizedpower.drain.description": "Слейте жидкостные источники.",
+
+  "advancements.energizedpower.basic_machine_frame.title": "Основа машин",
+  "advancements.energizedpower.basic_machine_frame.description": "Это базовый предмет для крафта любой базовой машины.",
+
+  "advancements.energizedpower.basic_solar_cell.title": "Основы солнечной энергетики",
+  "advancements.energizedpower.basic_solar_cell.description": "Ваш первый солнечный элемент из двух, необходимых для вашей первой солнечной панели.",
+
+  "advancements.energizedpower.battery_1.title": "Аккумулятор",
+  "advancements.energizedpower.battery_1.description": "Хранит энергию в форме предмета.",
+
+  "advancements.energizedpower.battery_2.title": "4-х кратная энергия",
+  "advancements.energizedpower.battery_2.description": "Этот аккумулятор может хранить столько же энергии, сколько 4 аккумулятора уровня I.",
+
+  "advancements.energizedpower.battery_3.title": "Больше энергии",
+  "advancements.energizedpower.battery_3.description": "Уровень III: В два раза больше мощности уровня II.",
+
+  "advancements.energizedpower.battery_4.title": "Вы просите еще больше энергии",
+  "advancements.energizedpower.battery_4.description": "Ну что ж, это уровень IV — осталось всего четыре.",
+
+  "advancements.energizedpower.battery_5.title": "Лучшее, что может сделать обычная медь",
+  "advancements.energizedpower.battery_5.description": "Уровень V: Вам нужно будет зарядить аккумулятор следующего уровня...",
+
+  "advancements.energizedpower.battery_6.title": "Заряженные аккумуляторы",
+  "advancements.energizedpower.battery_6.description": "Уровень VI: Вы зарядили аккумулятор для еще большей емкости хранения..",
+
+  "advancements.energizedpower.battery_7.title": "Вы сказали, что вам нужно больше мощности?",
+  "advancements.energizedpower.battery_7.description": "Уровень VII: четверть миллиона E емкости хранилища! Можем ли мы сделать лучше?",
+
+  "advancements.energizedpower.battery_8.title": "Мне нужно больше ЭНЕРГИИ",
+  "advancements.energizedpower.battery_8.description": "Это лучший аккумулятор этого мода (он может хранить более 1 миллиона Е).",
+
+  "advancements.energizedpower.battery_8_fully_charged.title": "Мастер хранения энергии",
+  "advancements.energizedpower.battery_8_fully_charged.description": "Вы полностью зарядили свой аккумулятор емкостью 1 миллион Е!",
+
+  "advancements.energizedpower.cable_insulator.title": "Оболочка для вашего кабеля",
+  "advancements.energizedpower.cable_insulator.description": "Покройте кабели этим ингредиентом. (Можно изготовить, нажав на шерсть ножницами [Можно также использовать раздатчик]).",
+
+  "advancements.energizedpower.charger.title": "Заряди это",
+  "advancements.energizedpower.charger.description": "Зарядите свои энергетические предметы с помощью этого блока.",
+
+  "advancements.energizedpower.inventory_charger.title": "Локальная зарядка.",
+  "advancements.energizedpower.inventory_charger.description": "Зарядите энергетические предметы в своем инвентаре с помощью аккумуляторов.",
+
+  "advancements.energizedpower.inventory_teleporter.title": "Портативный телепорт",
+  "advancements.energizedpower.inventory_teleporter.description": "Создайте инвентарный телепорт.",
+
+  "advancements.energizedpower.advanced_charger.title": "Параллельная зарядка",
+  "advancements.energizedpower.advanced_charger.description": "Зарядите энергетические предметы параллельно.",
+
+  "advancements.energizedpower.advanced_uncharger.title": "Параллельная разрядка",
+  "advancements.energizedpower.advanced_uncharger.description": "Разрядите энергетические предметы параллельно.",
+
+  "advancements.energizedpower.charging_station.title": "Беспроводная зарядка",
+  "advancements.energizedpower.charging_station.description": "Зарядите энергетические устройства без проводов.",
+
+  "advancements.energizedpower.crystal_growth_chamber.title": "Рост кристаллов",
+  "advancements.energizedpower.crystal_growth_chamber.description": "Вырастите кристаллы в камере роста кристаллов.",
+
+  "advancements.energizedpower.energized_crystal_matrix.title": "Заряженная кристаллическая матрица",
+  "advancements.energizedpower.energized_crystal_matrix.description": "Используется в качестве стабилизатора в некоторых современных машинах.",
+
+  "advancements.energizedpower.teleporter_matrix.title": "Матрица телепорта",
+  "advancements.energizedpower.teleporter_matrix.description": "Первый шаг к достижению телепортации.",
+
+  "advancements.energizedpower.teleporter_processing_unit.title": "Вычислительный модуль телепорта",
+  "advancements.energizedpower.teleporter_processing_unit.description": "Мозги телепортеров.",
+
+  "advancements.energizedpower.teleporter.title": "Быстрее чем свет",
+  "advancements.energizedpower.teleporter.description": "Создайте телепорт.",
+
+  "advancements.energizedpower.weather_controller.title": "Контроль над погодой",
+  "advancements.energizedpower.weather_controller.description": "Измените погоду с помощью контроллера погоды.",
+
+  "advancements.energizedpower.time_controller.title": "Контроль над временем",
+  "advancements.energizedpower.time_controller.description": "Измените время с помощью контроллера времени.",
+
+  "advancements.energizedpower.coal_engine.title": "Работает на угле",
+  "advancements.energizedpower.coal_engine.description": "Производство энергии путем сжигания материалов, возможно, не самый эффективный способ, но на данный момент вполне приемлемый.",
+
+  "advancements.energizedpower.heat_generator.title": "Работает на тепле",
+  "advancements.energizedpower.heat_generator.description": "Конвертируйте тепло в энергию.",
+
+  "advancements.energizedpower.thermal_generator.title": "Работает на горячих жидкостях",
+  "advancements.energizedpower.thermal_generator.description": "Употребляйте горячие жидкости для получения энергии.",
+
+  "advancements.energizedpower.filtration_plant.title": "Фильтрация жидкости",
+  "advancements.energizedpower.filtration_plant.description": "Изготовить фильтрационную установку.",
+
+  "advancements.energizedpower.fluid_transposer.title": "Жидкостный транспозер",
+  "advancements.energizedpower.fluid_transposer.description": "Создайте жидкостный транспозер",
+
+  "advancements.energizedpower.powered_lamp.title": "Электрическое освещение",
+  "advancements.energizedpower.powered_lamp.description": "Конвертируйте энергию в свет.",
+
+  "advancements.energizedpower.powered_furnace.title": "Электрическая печь",
+  "advancements.energizedpower.powered_furnace.description": "Печь с энергией.",
+
+  "advancements.energizedpower.advanced_powered_furnace.title": "Быстрая плавка",
+  "advancements.energizedpower.advanced_powered_furnace.description": "Выплавляйте несколько предметов одновременно с помощью энергии.",
+
+  "advancements.energizedpower.item_conveyor_belt.title": "Транспортировка предметов",
+  "advancements.energizedpower.item_conveyor_belt.description": "Транспортируйте предметы с помощью ленточных конвейеров.",
+
+  "advancements.energizedpower.item_conveyor_belt_loader.title": "Загрузчик предметов",
+  "advancements.energizedpower.item_conveyor_belt_loader.description": "Загрузите предметы на ленточный конвейер.",
+
+  "advancements.energizedpower.item_conveyor_belt_sorter.title": "Автоматическая сортировка",
+  "advancements.energizedpower.item_conveyor_belt_sorter.description": "Сортируйте предметы с помощью сортировщика предметной конвейерной ленты.",
+
+  "advancements.energizedpower.item_conveyor_belt_switch.title": "Переключатель конвейерной ленты",
+  "advancements.energizedpower.item_conveyor_belt_switch.description": "Выберите направление.",
+
+  "advancements.energizedpower.item_conveyor_belt_splitter.title": "Разветвитель конвеерных лент",
+  "advancements.energizedpower.item_conveyor_belt_splitter.description": "Равномерно распределите предметы по нескольким выходам.",
+
+  "advancements.energizedpower.item_conveyor_belt_merger.title": "Объединитель конвеерных лент",
+  "advancements.energizedpower.item_conveyor_belt_merger.description": "Равномерно объединяйте предметы из нескольких источников.",
+
+  "advancements.energizedpower.iron_fluid_pipe.title": "Транспортировка жидкости",
+  "advancements.energizedpower.iron_fluid_pipe.description": "Транспортируйте жидкости с помощью железных жидкостных труб.",
+
+  "advancements.energizedpower.golden_fluid_pipe.title": "Быстрая транспортировка жидкости",
+  "advancements.energizedpower.golden_fluid_pipe.description": "Транспортируйте жидкости быстрее с помощью золотых жидкостных труб.",
+
+  "advancements.energizedpower.fluid_tank_small.title": "Простое хранение жидкости",
+  "advancements.energizedpower.fluid_tank_small.description": "Храните жидкости в маленьком жидкостном резервуаре.",
+
+  "advancements.energizedpower.fluid_tank_medium.title": "Лучшее хранение жидкости",
+  "advancements.energizedpower.fluid_tank_medium.description": "Храните жидкости в среднем жидкостном резервуаре.",
+
+  "advancements.energizedpower.fluid_tank_large.title": "Большое хранение жидкости",
+  "advancements.energizedpower.fluid_tank_large.description": "Храните жидкости в большом жидкостном резервуаре.",
+
+  "advancements.energizedpower.tin_cable.title": "Базовая транспортировка энергии",
+  "advancements.energizedpower.tin_cable.description": "Передавайте небольшие объемы энергии с помощью оловянного кабеля.",
+
+  "advancements.energizedpower.copper_cable.title": "Транспортировка энергии",
+  "advancements.energizedpower.copper_cable.description": "Транспортируйте энергию по кабелям.",
+
+  "advancements.energizedpower.gold_cable.title": "Чем больше мощности, тем лучше",
+  "advancements.energizedpower.gold_cable.description": "Больше мощности с лучшим кабелем.",
+
+  "advancements.energizedpower.energized_copper_cable.title": "Слишком много мощности для обработки",
+  "advancements.energizedpower.energized_copper_cable.description": "Кабель с очень высокой пропускной способностью!",
+
+  "advancements.energizedpower.energized_gold_cable.title": "Мощность, мощность, мощность",
+  "advancements.energizedpower.energized_gold_cable.description": "Этот кабель лучший из лучших.",
+
+  "advancements.energizedpower.energized_crystal_matrix_cable.title": "Слишком много мощности",
+  "advancements.energizedpower.energized_crystal_matrix_cable.description": "Когда мне вообще понадобится транспортировать столько энергии?",
+
+  "advancements.energizedpower.lv_transformers.title": "Низковольтные трансформаторы",
+  "advancements.energizedpower.lv_transformers.description": "Можно подключать разные уровни кабелей.",
+
+  "advancements.energizedpower.mv_transformers.title": "Средневольтные трансформаторы",
+  "advancements.energizedpower.mv_transformers.description": "Можно передавать больше энергии.",
+
+  "advancements.energizedpower.hv_transformers.title": "Высоковольтные трансформаторы",
+  "advancements.energizedpower.hv_transformers.description": "Можно передавать еще больше энергии.",
+
+  "advancements.energizedpower.ehv_transformers.title": "Сверхвысоковольтные трансформаторы",
+  "advancements.energizedpower.ehv_transformers.description": "Можно передавать более 2 миллионов E за тик.",
+
+  "advancements.energizedpower.battery_box.title": "БатБокс",
+  "advancements.energizedpower.battery_box.description": "Храните энергию с помощью блока аккумуляторов.",
+
+  "advancements.energizedpower.advanced_battery_box.title": "Улучшенный БатБокс",
+  "advancements.energizedpower.advanced_battery_box.description": "Хранит даже больше энергии, чем самый лучший аккумулятор.",
+
+  "advancements.energizedpower.energizedpower_advanced.title": "Энергетическая мощность (Продвинутый)",
+  "advancements.energizedpower.energizedpower_advanced.description": "Активированная медь — это лучшая медь.",
+
+  "advancements.energizedpower.energized_gold_ingot.title": "Блестящий слиток",
+  "advancements.energizedpower.energized_gold_ingot.description": "Этот активированный золотой слиток очень блестит.",
+
+  "advancements.energizedpower.energized_power_book.title": "Бесконечные знания",
+  "advancements.energizedpower.energized_power_book.description": "Руководство для этого мода.",
+
+  "advancements.energizedpower.hammer.title": "Хороший инструмент",
+  "advancements.energizedpower.hammer.description": "Молоты можно использовать для создания пластин.",
+
+  "advancements.energizedpower.cutter.title": "Режь, режь, режь",
+  "advancements.energizedpower.cutter.description": "Ножницы можно использовать для изготовления проводов.",
+
+  "advancements.energizedpower.wrench.title": "Конфигурация ключа",
+  "advancements.energizedpower.wrench.description": "Настройте блоки с помощью ключа.",
+
+  "advancements.energizedpower.battery_box_minecart.title": "Энергия на рельсах",
+  "advancements.energizedpower.battery_box_minecart.description": "Транспортируйте энергию на рельсах.",
+
+  "advancements.energizedpower.advanced_battery_box_minecart.title": "Ещё больше энергии на рельсах",
+  "advancements.energizedpower.advanced_battery_box_minecart.description": "Перевозите еще больше энергии по рельсам.",
+
+  "advancements.energizedpower.tin_plate.title": "Оловянная пластина",
+  "advancements.energizedpower.tin_plate.description": "Создайте оловянную пластину.",
+
+  "advancements.energizedpower.copper_plate.title": "Медная пластина",
+  "advancements.energizedpower.copper_plate.description": "Создайте медную пластину.",
+
+  "advancements.energizedpower.iron_plate.title": "Ударь это",
+  "advancements.energizedpower.iron_plate.description": "Создайте железную пластину.",
+
+  "advancements.energizedpower.gold_plate.title": "Золотая пластина",
+  "advancements.energizedpower.gold_plate.description": "Создать золотую пластину.",
+
+  "advancements.energizedpower.tin_wire.title": "Оловянный провод",
+  "advancements.energizedpower.tin_wire.description": "Моздайте оловянный провод.",
+
+  "advancements.energizedpower.copper_wire.title": "Медный провод",
+  "advancements.energizedpower.copper_wire.description": "Создайте медный провод.",
+
+  "advancements.energizedpower.gold_wire.title": "Золотой провод",
+  "advancements.energizedpower.gold_wire.description": "Создайте золотой провод.",
+
+  "advancements.energizedpower.energized_copper_plate.title": "Активированная медная пластина",
+  "advancements.energizedpower.energized_copper_plate.description": "Создайте активированную медную пластину.",
+
+  "advancements.energizedpower.energized_gold_plate.title": "Активированная золотая пластина",
+  "advancements.energizedpower.energized_gold_plate.description": "Создайте активированную золотую пластину.",
+
+  "advancements.energizedpower.energized_copper_wire.title": "Активированный медный провод",
+  "advancements.energizedpower.energized_copper_wire.description": "Создайте провод из активированной меди",
+
+  "advancements.energizedpower.energized_gold_wire.title": "Активированный золотой провод",
+  "advancements.energizedpower.energized_gold_wire.description": "Создайте провод из активированного золота.",
+
+  "advancements.energizedpower.energizedpower_basics.title": "Заряженная мощность (Основы)",
+  "advancements.energizedpower.energizedpower_basics.description": "Это начало вашего энергичного путешествия.",
+
+  "advancements.energizedpower.energizer.title": "Более эффективная энергетика",
+  "advancements.energizedpower.energizer.description": "Эта машина может заряжать ваши медные слитки гораздо быстрее и эффективнее, чем зарядное устройство.",
+
+  "advancements.energizedpower.advanced_crusher.title": "Более быстрая дробилка",
+  "advancements.energizedpower.advanced_crusher.description": "Создайте продвинутую дробилку.",
+
+  "advancements.energizedpower.advanced_pulverizer.title": "Более быстрый измельчитель",
+  "advancements.energizedpower.advanced_pulverizer.description": "Создайте продвинутый измельчитель.",
+
+  "advancements.energizedpower.lightning_generator.title": "Облачная энергия",
+  "advancements.energizedpower.lightning_generator.description": "Позволяет извлекать энергию из молний.",
+
+  "advancements.energizedpower.energy_analyzer.title": "Мастер анализа",
+  "advancements.energizedpower.energy_analyzer.description": "Анализируйте каждый энергетический блок — даже если у него нет графического интерфейса!",
+
+  "advancements.energizedpower.fluid_analyzer.title": "Анализ жидкости",
+  "advancements.energizedpower.fluid_analyzer.description": "Анализируйте блоки, содержащие жидкости!",
+
+  "advancements.energizedpower.inventory_coal_engine.title": "Мощность инвентаря",
+  "advancements.energizedpower.inventory_coal_engine.description": "Производите и распределяйте энергию в своем инвентаре.",
+
+  "advancements.energizedpower.silicon.title": "Кремний",
+  "advancements.energizedpower.silicon.description": "Теперь вы можете снабдить свой завод энергией!",
+
+  "advancements.energizedpower.solar_panel_1.title": "Студент по солнечной энергетике",
+  "advancements.energizedpower.solar_panel_1.description": "Солнечная панель уровня I...",
+
+  "advancements.energizedpower.solar_panel_2.title": "Стажер по солнечной энергетике",
+  "advancements.energizedpower.solar_panel_2.description": "Уровень II лучше, чем уровень I.",
+
+  "advancements.energizedpower.solar_panel_3.title": "Сотрудник по солнечной энергетики",
+  "advancements.energizedpower.solar_panel_3.description": "Уровень III — лучший из базовых солнечных панелей.",
+
+  "advancements.energizedpower.solar_panel_4.title": "Менеджер по солнечной энергетики",
+  "advancements.energizedpower.solar_panel_4.description": "Уровень IV: More than basic!",
+
+  "advancements.energizedpower.solar_panel_5.title": "Директор по солнечной энергетики",
+  "advancements.energizedpower.solar_panel_5.description": "Уровень V — Остался только один уровень!",
+
+  "advancements.energizedpower.solar_panel_6.title": "Работодатель в сфере солнечной энергетики",
+  "advancements.energizedpower.solar_panel_6.description": "Уровень VI — у вас лучшая солнечная панель!",
+
+  "advancements.energizedpower.uncharger.title": "Отдай это обратно!",
+  "advancements.energizedpower.uncharger.description": "Разрядите ваши энергетические предметы.",
+
+  "advancements.energizedpower.minecart_charger.title": "Заряди вагонетку!",
+  "advancements.energizedpower.minecart_charger.description": "Зарядите вагонетку.",
+
+  "advancements.energizedpower.advanced_minecart_charger.title": "Усовершенствованная зарядка вагонеток",
+  "advancements.energizedpower.advanced_minecart_charger.description": "Заряжает вагонетки быстрее.",
+
+  "advancements.energizedpower.minecart_uncharger.title": "Разряди вагонетку!",
+  "advancements.energizedpower.minecart_uncharger.description": "Разрядите вагонетку.",
+
+  "advancements.energizedpower.advanced_minecart_uncharger.title": "Продвинутая разгрузка вагонетки",
+  "advancements.energizedpower.advanced_minecart_uncharger.description": "Разряжает вагонетки быстрее.",
+
+
+  "book.energizedpower.tooltip.link": "Открыть ссылку",
+  "book.energizedpower.tooltip.page": "Перейти на страницу",
+
+
+  "book.energizedpower.page.welcome.title": "Добро пожаловать Energized Power!",
+  "book.energizedpower.page.welcome.1": "Этот мод добавляет множество предметов и машин, связанных с энергией.",
+  "book.energizedpower.page.welcome.2": "Официальная Energized Power wiki",
+  "book.energizedpower.page.welcome.3": "Вы нашли ошибку или хотите предложить функцию? Сделайте это здесь (Английский язык)",
+  "book.energizedpower.page.welcome.3.link": "Проблемы",
+  "book.energizedpower.page.welcome.4": "Дискорд сервер (Английский язык)",
+  "book.energizedpower.page.welcome.4.link": "Дискорд",
+  "book.energizedpower.page.welcome.5": "Сабреддит (Английский язык)",
+  "book.energizedpower.page.welcome.5.link": "Реддит",
+
+  "book.energizedpower.page.credits.title": "Авторы",
+  "book.energizedpower.page.credits.subtitle": "Благодарим вас за вклад в Energized Power!",
+
+  "book.energizedpower.page.credits.1": "Текстуры активированных медного/золотого слитков",
+  "book.energizedpower.page.credits.2": "Текстура аккумулятора",
+  "book.energizedpower.page.credits.3": "Текстура кремния",
+  "book.energizedpower.page.credits.4": "Текстура анализатора энергии",
+  "book.energizedpower.page.credits.5": "Китайский (Упрощенный) перевод",
+  "book.energizedpower.page.credits.6": "Итальянский перевод",
+  "book.energizedpower.page.credits.7": "Турецкий перевод",
+  "book.enerfizedpower.page.credits.8": "Русский перевод",
+
+  "book.energizedpower.page.table_of_contents.title": "Оглавление",
+
+
+  "book.energizedpower.page.chapter.resources.title": "Ресурсы",
+  "book.energizedpower.page.chapter.resources.1": "Для создания предметов требуются ресурсы.",
+
+  "book.energizedpower.page.cable_insulator.1": "Кабельный изолятор необходим для изготовления кабеля.",
+  "book.energizedpower.page.cable_insulator.2": "Его можно изготовить, нажав на блок шерсти ножницами.",
+  "book.energizedpower.page.cable_insulator.3": "Его также можно изготовить с помощью раздатчика.",
+
+  "book.energizedpower.page.saw_blade": "Лезвие пилы — это компонент, который используется для изготовления лесопилки..",
+
+  "book.energizedpower.page.silicon.1": "Кремний — ингредиент, используемый во многих рецептах крафта этого мода.",
+  "book.energizedpower.page.silicon.2": "Его можно изготовить путем плавки или взрыва кварца Нижнего мира.",
+
+  "book.energizedpower.page.sawdust.1": "Опилки — это побочный продукт лесопилки, из которого можно изготавливать блоки опилок.",
+  "book.energizedpower.page.sawdust.2": "Опилочные брикеты можно сжечь до состояния древесного угля.",
+
+  "book.energizedpower.page.fertilizers": "Для ускорения работы камеры роста растений можно использовать удобрения.",
+
+  "book.energizedpower.page.ore_dusts": "Рудную пыль можно переплавить в слитки.",
+
+  "book.energizedpower.page.charcoal_dust": "Угольную пыль можно использовать для изготовления угольных фильтров.",
+
+  "book.energizedpower.page.charcoal_filter": "Угольные фильтры используются для фильтрации грязной воды на фильтровальной установке.",
+
+  "book.energizedpower.page.plates.1": "Пластины используются в качестве ингредиента крафта в большинстве машин. Пластины можно изготовить с помощью молотков или с помощью компрессора.",
+  "book.energizedpower.page.plates.2": "Активированные пластины могут быть созданы только в компрессоре.",
+
+  "book.energizedpower.page.metal_products.1": "Металлические изделия (шестерни, стержни, провода) используются во многих рецептах.",
+  "book.energizedpower.page.metal_products.2": "Изделия из металла можно изготавливать в металлическом прессе.",
+
+  "book.energizedpower.page.circuits": "В некоторых рецептах используются схемы.",
+
+  "book.energizedpower.page.energized_copper_ingot.1": "Для таких современных машин, как генератор, требуются слитки активированной меди.",
+  "book.energizedpower.page.energized_copper_ingot.2": "Активироватор изготовлен из этого слитка, не так ли?",
+  "book.energizedpower.page.energized_copper_ingot.3": "Зарядное устройство можно использовать для изготовления этого слитка.",
+  "book.energizedpower.page.energized_copper_ingot.4": " [Но это дорого]",
+
+  "book.energizedpower.page.energized_gold_ingot": "Активированные золотые слитки используются для некоторых современных машин (например, зарядной станции).",
+
+  "book.energizedpower.page.energized_crystal_matrix": "Энергетическая кристаллическая матрица используется в качестве стабилизатора в некоторых современных машинах.",
+
+
+  "book.energizedpower.page.chapter.upgrades.title": "Улучшения",
+  "book.energizedpower.page.chapter.upgrades": "Улучшения могут улучшать машины",
+
+  "book.energizedpower.page.speed_upgrades": "Улучшение скорости делает машины более быстрыми и увеличивает потребление энергии.",
+
+  "book.energizedpower.page.energy_efficiency_upgrades": "Улучшение энергоэффективности сокращает потребление энергии.",
+
+  "book.energizedpower.page.energy_capacity_upgrades": "Улучшение энергоемкости увеличивает емкость хранения энергии и скорость передачи энергии.",
+
+  "book.energizedpower.page.duration_upgrades.1": "Улучшение продолжительности увеличивает продолжительность погоды, установленной контроллером погоды.",
+  "book.energizedpower.page.duration_upgrades.2": "Улучшение продолжительности (уровень VI) позволит контроллеру погоды поддерживать текущую погоду, но для этого потребуется постоянный запас энергии.",
+
+  "book.energizedpower.page.range_upgrades": "Улучшение дальности действия увеличивает дальность действия машины.",
+
+  "book.energizedpower.page.extraction_depth_upgrades": "Улучшение глубины добычи увеличивают глубину, на которой может работать машина.",
+
+  "book.energizedpower.page.furnace_mode_upgrades": "Улучшения режима печи изменяют рецепты, которые может производить электрическая печь.",
+
+  "book.energizedpower.page.moon_light_upgrades": "Модернизация «Лунный свет» позволяет солнечным панелям вырабатывать энергию ночью.",
+
+
+  "book.energizedpower.page.chapter.tools.title": "Инструменты",
+  "book.energizedpower.page.chapter.tools": "Может быть полезно",
+
+  "book.energizedpower.page.hammers": "Молоты можно использовать для создания пластин.",
+
+  "book.energizedpower.page.cutters.1": "Ножницы можно использовать для изготовления проводов.",
+  "book.energizedpower.page.cutters.2": "Для более быстрого разрыва кабелей можно использовать ножницы.",
+
+  "book.energizedpower.page.wrench": "Ключ можно использовать для настройки блоков.",
+
+
+  "book.energizedpower.page.chapter.workbenches.title": "Верстаки",
+  "book.energizedpower.page.chapter.workbenches": "Машины, которыми необходимо управлять вручную.",
+
+  "book.energizedpower.page.press_mold_maker": "Изготовитель пресс-форм можно использовать для создания пресс-форм для металлического пресса.",
+
+
+  "book.energizedpower.page.chapter.energy_items.title": "Энергопредметы",
+  "book.energizedpower.page.chapter.energy_items": "Предметы, которые могут производить, потреблять или хранить энергию.",
+
+  "book.energizedpower.page.inventory_coal_engine.1": "Этот предмет может производить и распределять энергию в вашем инвентаре.",
+  "book.energizedpower.page.inventory_coal_engine.2": "Его можно активировать, щелкнув в воздухе.",
+  "book.energizedpower.page.inventory_coal_engine.3": "Топливо затем будет автоматически взято из инвентаря.",
+  "book.energizedpower.page.inventory_coal_engine.4": " [Исключая хотбар]",
+
+  "book.energizedpower.page.inventory_charger.1": "Этот предмет распределяет энергию в вашем инвентаре.",
+  "book.energizedpower.page.inventory_charger.2": "Необходимо вставить заряженные аккумуляторы.",
+
+  "book.energizedpower.page.inventory_teleporter": "Инвентарный телепорт может телепортировать игроков. Для этого требуется энергия и связанная с ней матрица телепорта.",
+  
+  "book.energizedpower.page.energy_analyzer.1": "Анализатор энергии может быть использован для получения статистики по энергии. В основном используется для энергетических блоков без графического интерфейса.",
+  "book.energizedpower.page.energy_analyzer.2": "Его можно использовать, нажимая на энергетические блоки.",
+
+  "book.energizedpower.page.fluid_analyzer.1": "Анализатор жидкости можно использовать для получения статистики по жидкости.",
+  "book.energizedpower.page.fluid_analyzer.2": "Его можно использовать, нажимая на блоки, содержащие жидкости.",
+
+  "book.energizedpower.page.batteries.1": "Аккумуляторы могут хранить энергию.",
+  "book.energizedpower.page.batteries.2": "Их можно заряжать с помощью зарядника или генераторов, а разряжать — с помощью разрядника.",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.title": "Энергетические блоки",
+  "book.energizedpower.page.chapter.energy_blocks": "Блоки, производящие, питающие или транспортирующие энергию.",
+
+  "book.energizedpower.page.energy_blocks.table_of_contents.title": "Содержание\n(Энергетические блоки)",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.general.title": "Основное",
+  "book.energizedpower.page.chapter.energy_blocks.general": "Общая информация по энергоблокам",
+
+  "book.energizedpower.page.machine_frames.1": "Корпуса машин — это базовый блок для крафта каждой машины.",
+  "book.energizedpower.page.machine_frames.2": "Существует четыре типа корпуса машин: базовый, тяжелый, усовершенствованный и усиленный усовершенствованный.",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_transportation.title": "Транспортировка энергии",
+  "book.energizedpower.page.chapter.energy_blocks.energy_transportation": "Блоки для транспортировки энергии",
+
+  "book.energizedpower.page.cables.1": "Кабели используются для транспортировки энергии от блоков-производителей к блокам-потребителям.",
+  "book.energizedpower.page.cables.2": "Имеется шесть уровней кабелей.",
+  "book.energizedpower.page.cables.3": "Для соединения кабелей разных уровней необходим трансформатор.",
+
+  "book.energizedpower.page.transformers.1": "Трансформаторы можно использовать для соединения кабелей различных уровней.",
+  "book.energizedpower.page.transformers.2": "Более крупные, темные, ромбовидные стороны — это входы.",
+  "book.energizedpower.page.transformers.3": "Меньшие, более яркие, квадратные стороны — это выходы.",
+  "book.energizedpower.page.transformers.4": "Существует четыре уровня трансформаторов: низкого, среднего, высокого и сверхвысокого напряжения.",
+  "book.energizedpower.page.transformers.5": "Для каждого яруса имеется три типа трансформаторов: 1 к n, 3 к 3 и n к 1.",
+  "book.energizedpower.page.transformers.6": "Трансформаторы можно использовать для уменьшения задержки в кабельных сетях, периодически используя их вместо кабеля.",
+  "book.energizedpower.page.transformers.7": "Трансформаторы также можно использовать для подключения кабелей питания под напряжением к кабелям других модов.",
+  "book.energizedpower.page.transformers.8": "Трансформаторы могут использоваться в качестве аккумуляторных блоков.",
+  "book.energizedpower.page.transformers.9": "Трансформаторы могут использоваться для извлечения энергии из энергетических туннелей AE2.",
+
+  "book.energizedpower.page.minecart_charger_uncharger.1": "Зарядник вагонеток может заряжать вагонетки с БатБоксами, а разрядник может разряжать их.",
+  "book.energizedpower.page.minecart_charger_uncharger.2": "Компаратор красного камня можно использовать для получения текущего уровня мощности вагонетки, которая заряжается или разряжается.",
+  "book.energizedpower.page.minecart_charger_uncharger.3": "Продвинутые версии имеют более высокую скорость передачи.",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_storage.title": "Хранение энергии",
+  "book.energizedpower.page.chapter.energy_blocks.energy_storage": "Блоки для хранения энергии",
+
+  "book.energizedpower.page.battery_box": "БатБоксы могут хранить энергию. Все поверхности блоков поддерживают вставку и извлечение энергии.",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_production.title": "Производство энергии",
+  "book.energizedpower.page.chapter.energy_blocks.energy_production": "Блоки для производства энергии",
+
+  "book.energizedpower.page.solar_cells.1": "Солнечные ячейки являются базовым предметом для изготовления любой солнечной панели.",
+  "book.energizedpower.page.solar_cells.2": "Существует три типа солнечных ячеек: базовая, усовершенствованная и усиленная усовершенствованная.",
+
+  "book.energizedpower.page.solar_panels.1": "Солнечные панели вырабатывают энергию в течение дня. Эффективность зависит от времени и погоды.",
+  "book.energizedpower.page.solar_panels.2": "Имеется 6 уровней солнечных панелей.",
+
+  "book.energizedpower.page.coal_engine.1": "Угольный двигатель вырабатывает энергию путем сжигания предметов.",
+  "book.energizedpower.page.coal_engine.2": "Оставшиеся предметы могут быть извлечены автоматически.",
+
+  "book.energizedpower.page.heat_generator.1": "Теплогенератор вырабатывает энергию, если текущая или неподвижная лава касается блока.",
+  "book.energizedpower.page.heat_generator.2": "Если теплогенератор коснется неподвижной лавы, он произведет больше энергии, чем если бы он коснулся текущей лавы.",
+  "book.energizedpower.page.heat_generator.3": "Чем больше блоков лавы соприкасаются, тем больше энергии за тик будет вырабатываться.",
+  "book.energizedpower.page.heat_generator.4": "Если вы играете в модпак, другие горячие жидкости также могут поддерживаться.",
+
+  "book.energizedpower.page.thermal_generator.1": "Термальный генератор вырабатывает энергию путем потребления горячих жидкостей.",
+  "book.energizedpower.page.thermal_generator.2": "Если вы играете в модпак, другие горячие жидкости также могут поддерживаться.",
+
+  "book.energizedpower.page.lightning_generator.1": "Генератор молний вырабатывает большое количество энергии за один удар молнии.",
+  "book.energizedpower.page.lightning_generator.2": "Для того чтобы этот блок функционировал, над ним необходимо разместить громоотвод.",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_consumption.title": "Потребление энергии",
+  "book.energizedpower.page.chapter.energy_blocks.energy_consumption": "Блоки потребления энергии",
+
+  "book.energizedpower.page.powered_lamp": "Электрическая лампа похожа на лампу красного камня, но требует энергии вместо активного сигнала красного камня.",
+
+  "book.energizedpower.page.powered_furnaces.1": "Электропечи работают так же, как печь. Вместо угля они используют энергию и работают быстрее обычной печи.",
+  "book.energizedpower.page.powered_furnaces.2": "Продвинутая версия электропечи имеет 3 пары входных/выходных слотов.",
+
+  "book.energizedpower.page.auto_crafters.1": "Авто-крафтер создает предметы автоматически.",
+  "book.energizedpower.page.auto_crafters.2": "Рецепт можно задать с помощью слотов шаблонов.",
+  "book.energizedpower.page.auto_crafters.3": "Авто-крафтер может обрабатывать конфликты рецептов, то есть рецепты с одинаковыми входными данными. Для этого используйте кнопку «Циклическое переключение рецептов» или установите шаблон с помощью мода просмотра рецептов (например, REI).",
+  "book.energizedpower.page.auto_crafters.4": "Продвинутая версия авто-крафтера поддерживает несколько рецептов одновременно.",
+
+  "book.energizedpower.page.crushers.1": "Дробилка может дробить такие блоки, как камень, песчаник, булыжник и гравий.",
+  "book.energizedpower.page.crushers.2": "Продвинутая версия дробилки потребляет воду и производит грязную воду.",
+
+  "book.energizedpower.page.pulverizers.1": "Измельчитель производит рудную пыль, которую можно переплавить в слитки.",
+  "book.energizedpower.page.pulverizers.2": "Продвинутая версия измельчителя потребляет воду и производит грязную воду.",
+
+  "book.energizedpower.page.sawmill.1": "Лесопилка может распиливать деревянные блоки и предметы.",
+  "book.energizedpower.page.sawmill.2": "Будут производиться опилки, из которых можно изготовить опилочные блоки, которые можно использовать в качестве топлива.",
+
+  "book.energizedpower.page.compressor": "Компрессор сжимает слитки в пластины.",
+
+  "book.energizedpower.page.metal_press.1": "Металлический пресс изготавливает металлические изделия (например, провода) из металлов.",
+  "book.energizedpower.page.metal_press.2": "Пресс-формы можно создавать в изготовителе пресс-форм.",
+  "book.energizedpower.page.metal_press.3": "Пресс-формы можно вставлять и извлекать сверху.",
+  "book.energizedpower.page.metal_press.4": "Вводы могут быть вставлены, а выводы могут быть извлечены со всех других сторон.",
+
+  "book.energizedpower.page.auto_press_mold_maker": "Автоматический изготовитель пресс-форм — это автоматизированная версия изготовителя пресс-форм, но для создания рецептов требуется лопата.",
+  
+  "book.energizedpower.page.auto_stonecutter": "Автоматический камнерез — это автоматизированная версия камнерез, но для создания рецептов ему требуется кирка.",
+
+  "book.energizedpower.page.assembling_machine.1": "Сборочная машина создает электронные компоненты (например, схемы).",
+  "book.energizedpower.page.assembling_machine.2": "Выводы могут быть извлечены со всех сторон.",
+  "book.energizedpower.page.assembling_machine.3": "Вводы можно вставлять со всех сторон (сверху/снизу: все слоты вводов, спереди: нижний слот, сзади: верхний слот, слева: левый слот, справа: правый слот).",
+
+  "book.energizedpower.page.plant_growth_chamber.1": "Камера роста растений может ускорить рост растений и повысить урожайность.",
+  "book.energizedpower.page.plant_growth_chamber.2": "Правый входной слот — это слот для семян.",
+  "book.energizedpower.page.plant_growth_chamber.3": "Левый, опционально используемый входной слот — это слот для удобрений.",
+  "book.energizedpower.page.plant_growth_chamber.4": "При использовании слота для внесения удобрений применяются множители энергии и скорости.",
+  "book.energizedpower.page.plant_growth_chamber.5": "Семена можно вставлять с севера, востока, юга и запада. Удобрения можно вставлять сверху и снизу. Выводы можно извлекать со всех сторон блока.",
+  "book.energizedpower.page.plant_growth_chamber.6": "Если вы хотите использовать удобрение, его необходимо внести первым.",
+  "book.energizedpower.page.plant_growth_chamber.7": "Если вы хотите автоматизировать эти блоки, вам нужно помнить, что доходность рандомизирована.",
+
+  "book.energizedpower.page.stone_solidifier.1": "Отвердитель камня производит каменные блоки из воды и лавы.",
+  "book.energizedpower.page.stone_solidifier.2": "Жидкости необходимо вводить с помощью труб.",
+
+  "book.energizedpower.page.filtration_plant.1": "Фильтрационная установка может фильтровать сырую руду из грязной воды.",
+  "book.energizedpower.page.filtration_plant.2": "Угольные фильтры могут быть вставлены с любой стороны блока. Выводы могут быть извлечены с любой стороны блока.",
+
+  "book.energizedpower.page.fluid_transposer": "Жидкостный транспозер может извлекать жидкости из предметов (режим: опорожнение) и может впрыскивать жидкости в предметы (режим: заполнение).",
+
+  "book.energizedpower.page.block_placer.1": "Установщик блоков может размещать все блоки (даже двери и семена).",
+  "book.energizedpower.page.block_placer.2": "Блоки будут размещаться только в том случае, если это возможно.",
+
+  "book.energizedpower.page.fluid_filler_fluid_drainer": "Наполнитель жидкости позволяет заливать жидкость в предметы, а устройство слив для жидкости позволяет сливать жидкость из предметов.",
+
+ "book.energizedpower.page.fluid_pump": "Жидкостный насос может перекачивать жидкости из окружающего мира и для этого требуется булыжник.",																															  
+
+  "book.energizedpower.page.charger_uncharger.1": "Зарядник может заряжать предметы, а разрядник устройство может разряжать предметы.",
+  "book.energizedpower.page.charger_uncharger.2": "Продвинутая версия зарядника и разрядника имеет 3 слота.",
+
+  "book.energizedpower.page.charging_station": "Зарядная станция может заряжать устройства беспроводным способом.",
+
+  "book.energizedpower.page.crystal_growth_chamber": "Камеру роста кристаллов можно использовать для выращивания таких кристаллов, как аметисты.",
+
+  "book.energizedpower.page.energizer": "Активатор может очень эффективно заряжать предметы энергией.",
+
+  "book.energizedpower.page.weather_controller": "Контроллер погоды может временно изменить погоду. Для этого требуется энергия.",
+
+  "book.energizedpower.page.time_controller.1": "Контроллер времени может менять время суток. Для этого требуется энергия.",
+  "book.energizedpower.page.time_controller.2": "Вернуться назад во времени невозможно, значение времени всегда будет увеличиваться.",
+
+  "book.energizedpower.page.teleporter_matrix.1": "Матрицы телепортов используются для соединения телепортов.",
+  "book.energizedpower.page.teleporter_matrix.2": "Настройки матрицы телепорта можно скопировать, поместив связанную и одну или несколько несвязанных матриц телепорта в верстак.",
+
+  "book.energizedpower.page.teleporter.1": "Телепорт может телепортировать игроков. Для этого требуется энергия и связанная с ней Матрица Телепорта.",
+  "book.energizedpower.page.teleporter.2": "Она выдает сигнал красного камня, если телепорт готов к телепортации.",
+  "book.energizedpower.page.teleporter.3.1": "Телепорт можно активировать вручную, нажатием",
+  "book.energizedpower.page.teleporter.3.2": "находясь над телепортом.",
+
+
+  "book.energizedpower.page.chapter.fluid_blocks.title": "Жидкостные блоки",
+  "book.energizedpower.page.chapter.fluid_blocks": "Блоки, способные хранить и передавать жидкости.",
+
+  "book.energizedpower.page.fluid_pipes.1": "Жидкостные трубы могут транспортировать жидкости.",
+  "book.energizedpower.page.fluid_pipes.2": "Режим каждой стороны трубы можно настроить с помощью ключа.",
+  "book.energizedpower.page.fluid_pipes.3": "Одна жидкостная труба может извлекать только один тип жидкости одновременно, даже если несколько сторон настроены на извлечение.",
+  "book.energizedpower.page.fluid_pipes.4": "Существует два уровня жидкостных труб: железные и золотые.",
+
+  "book.energizedpower.page.fluid_tanks.1": "Жидкостные резервуары могут хранить жидкости.",
+  "book.energizedpower.page.fluid_tanks.2": "Существует три уровня резервуаров для жидкости: малый, средний и большой.",
+
+  "book.energizedpower.page.drain.1": "Слив отводит жидкость из блоков источника, расположенных выше блока.",
+  "book.energizedpower.page.drain.2": "В версии Fabric Слив может извлекать жидкости из котлов.",
+
+
+  "book.energizedpower.page.chapter.item_transportation.title": "Транспортировка предметов",
+  "book.energizedpower.page.chapter.item_transportation": "Блоки, которые могут транспортировать предметы.",
+
+  "book.energizedpower.page.item_conveyor_belt.1": "Предметные енточные конвейеры могут транспортировать предметы.",
+  "book.energizedpower.page.item_conveyor_belt.2": "Наклон конвейерных лент можно настроить с помощью ключа.",
+  "book.energizedpower.page.item_conveyor_belt.3": "Конвейерные ленты могут быть загружены бункерами и любыми блоками, в которые можно вставлять предметы.",
+  "book.energizedpower.page.item_conveyor_belt.4": "Конвейерные ленты могут вставлять предметы в блоки перед конвейерной лентой.",
+  "book.energizedpower.page.item_conveyor_belt.5": "В качестве альтернативы их можно выгружать с помощью воронок и других блоков, которые могут извлекать предметы из блоков.",
+  "book.energizedpower.page.item_conveyor_belt.6": "Конвейерные ленты совместимы с туннелем для предметов AE2.",
+
+  "book.energizedpower.page.item_conveyor_belt_loader.1": "Загрузчик предметного ленточного конвейера может извлекать предметы из любых складских блоков (даже с других конвейерных лент) и загружать их на ленту конвейера.",
+  "book.energizedpower.page.item_conveyor_belt_loader.2": "Больший квадрат должен быть обращен к блоку, из которого извлекаются предметы, а меньший квадрат должен быть обращен к конвейерной ленте.",
+  "book.energizedpower.page.item_conveyor_belt_loader.3": "В качестве альтернативы предметы можно извлекать из загрузчика с помощью бункеров и других блоков, которые могут извлекать предметы из блоков.",
+  "book.energizedpower.page.item_conveyor_belt_loader.4": "Можно складывать вертикально и горизонтально.",
+  "book.energizedpower.page.item_conveyor_belt_loader.5": "Его можно отключить с помощью сигнала красного камня.",
+
+  "book.energizedpower.page.item_conveyor_belt_sorter.1": "Сортировщик предметного ленточного конвейера берет предметы с входного конвейера и направляет их на определенный выходной конвейер.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.2": "Входная конвейерная лента должна быть обращена к большому квадрату и не должна подниматься.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.3": "Для выходных конвейерных лент ограничений нет.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.4": "Выводы имеют цветовую кодировку (красный: первый выход и всегда с левой стороны относительно входа, желтый: второй выход и с противоположной стороны относительно входа, зеленый: третий выход и с правой стороны относительно входа).",
+  "book.energizedpower.page.item_conveyor_belt_sorter.5": "Предмет будет направлен на первый выход, соответствующий фильтру (приоритет: ВЫХОД 1, ВЫХОД 2, ВЫХОД 3).",
+  "book.energizedpower.page.item_conveyor_belt_sorter.6": "Фильтр считается совпавшим, если хотя бы один элемент шаблона строки выходного фильтра совпадает с входным предметом.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.7": "Шаблоны предмета можно разместить, взяв предмет из инвентаря и щелкнув левой кнопкой мыши по слоту шаблона. Фильтр можно сбросить, щелкнув левой кнопкой мыши без элемента.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.8": "Чтобы разрешить любые предметы, выберите черный список без каких-либо предметов шаблона. Если выход не подключен, фильтр должен быть установлен на белый список без каких-либо предметов шаблона.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.9": "Сигнал красного камня силой 15 будет излучаться, если ни один фильтр не соответствует (если выход не подключен или он заполнен, сигнал красного камня излучаться не будет).",
+
+  "book.energizedpower.page.item_conveyor_belt_switch.1": "Переключатель предметного ленточного конвейера берет предметы с входного конвейера (должен быть обращен к большому квадрату и не должен подниматься) и помещает их на выходной конвейер со стороны с зеленым индикатором.",
+  "book.energizedpower.page.item_conveyor_belt_switch.2": "Пока подается сигнал красного камня, будет выбран другой выход.",
+
+  "book.energizedpower.page.item_conveyor_belt_splitter": "Разделитель предметного ленточного конвейера берет предметы с входного конвейера (должен быть обращен к большому квадрату и не должен подниматься) и равномерно размещает их на подключенных выходных конвейерных лентах.",
+
+  "book.energizedpower.page.item_conveyor_belt_merger": "Устройство объединения предметных ленточных конвейеров равномерно забирает предметы с подключенных входных конвейерных лент (они должны быть обращены в форме большого квадрата и не должны подниматься) и помещает их на выходную конвейерную ленту.",
+
+
+  "book.energizedpower.page.chapter.fluids.title": "Жидкости",
+  "book.energizedpower.page.chapter.fluids": "Жидкости добавленные в Energized Power",
+
+  "book.energizedpower.page.dirty_water.1": "Грязная вода образуется как побочный продукт в некоторых машинах, потребляющих воду.",
+  "book.energizedpower.page.dirty_water.2": "Грязную воду можно очистить на фильтровальной установке.",
+
+
+  "book.energizedpower.page.chapter.machine_configuration.title": "Конфигурация",
+  "book.energizedpower.page.chapter.machine_configuration": "Конфигурация машин",
+
+  "book.energizedpower.page.upgrade_configuration": "Большинство машин поддерживают модули улучшения. Улучшения не могут быть вставлены автоматически.",
+
+  "book.energizedpower.page.redstone_mode_configuration.1": "Есть 3 режима красного камня:",
+  "book.energizedpower.page.redstone_mode_configuration.2": "Игнорировать: Машина активна всегда",
+  "book.energizedpower.page.redstone_mode_configuration.3": "Высокий: Машина активна только при наличии сигнала красного камня силой 1 или выше.",
+  "book.energizedpower.page.redstone_mode_configuration.4": "Низкий: Машина активна только при отсутствии сигнала красного камня.",
+
+  "book.energizedpower.page.comparator_mode_configuration.1": "Есть 3 режима сравнения:",
+  "book.energizedpower.page.comparator_mode_configuration.2": "Предмет: Выход компаратора рассчитывается на основе того, насколько заполнен инвентарь машины.",
+  "book.energizedpower.page.comparator_mode_configuration.3": "Жидкость: Выходной сигнал компаратора рассчитывается на основе того, насколько заполнен(ы) резервуар(ы) машины.",
+  "book.energizedpower.page.comparator_mode_configuration.4": "Энергия: Выходной сигнал компаратора рассчитывается на основе количества энергии, запасенной в машине.",
+
+
+  "book.energizedpower.page.chapter.entities.title": "Сущности",
+  "book.energizedpower.page.chapter.entities": "Вещи, которые могут двигаться.",
+
+  "book.energizedpower.page.battery_box_minecarts": "Вагонетки с БатБоксами могут транспортировать энергию по рельсам. Их можно заряжать с помощью зарядников для вагонеток и разряжать с помощью разрядников для вагонеток.",
+
+
+  "book.energizedpower.page.chapter.structures.title": "Структуры",
+  "book.energizedpower.page.chapter.structures": "Структуры, которые генерируются в вашем мире.",
+
+  "book.energizedpower.page.electrician.title": "Электрик, крестьянин",
+  "book.energizedpower.page.electrician.1": "Электрика можно найти в доме электрика.",
+  "book.energizedpower.page.electrician.2": "Дом электрика можно найти в каждой деревне в оригинальной игре.",
+  "book.energizedpower.page.electrician.3": "Базовый корпус машины можно использовать для получения электрика.",
+
+  "book.energizedpower.page.factory.title": "Здание фабрики",
+  "book.energizedpower.page.factory.1": "Здание фабрики содержит несколько машин и что-то интересное в центре здания. Его можно найти в биомах леса и цветочного леса.",
+
+  "book.energizedpower.page.small_solar_farm.title": "Малая солнечная ферма",
+  "book.energizedpower.page.small_solar_farm.1": "Небольшая солнечная ферма — это структура с несколькими солнечными панелями, производящими энергию. Ее можно найти в биомах пустыни, бесплодных земель и саванны."
+}
