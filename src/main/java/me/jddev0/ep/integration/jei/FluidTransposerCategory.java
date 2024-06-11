@@ -68,11 +68,11 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
 
             iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).addItemStack(recipe.value().getOutput());
             iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 90, 5).addFluidStack(fluid.getFluid(),
-                    fluid.getAmount()); //TODO provide components if JEI updates
+                    fluid.getAmount(), fluid.getComponentsPatch());
         }else {
             iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).addIngredients(recipe.value().getInput());
             iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 19, 5).addFluidStack(fluid.getFluid(),
-                    fluid.getAmount()); //TODO provide components if JEI updates
+                    fluid.getAmount(), fluid.getComponentsPatch());
 
             iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 90, 5).addItemStack(recipe.value().getOutput());
         }
