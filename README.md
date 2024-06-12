@@ -120,13 +120,14 @@ Every machine supports auto-insert and auto-extract of items from all block face
   - `common.conf`: Contains config values which are used for both the client and the server
     - **IMPORTANT**: Not all values from the `common.conf` are synced from the server to the client!
 
-### Translations
+### Localization
 
 - English
 - German
 - Chinese (Simplified)
 - Italian
 - Turkish
+- Russian
 
 ## Information
 
