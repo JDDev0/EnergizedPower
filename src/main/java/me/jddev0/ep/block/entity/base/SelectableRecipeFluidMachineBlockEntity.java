@@ -23,6 +23,7 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -38,7 +39,7 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class SelectableRecipeFluidMachineBlockEntity
-        <F extends Storage<FluidVariant>, R extends Recipe<Inventory>>
+        <F extends Storage<FluidVariant>, C extends RecipeInput, R extends Recipe<C>>
         extends WorkerFluidMachineBlockEntity<F, RecipeEntry<R>>
         implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R>, SetCurrentRecipeIdPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;

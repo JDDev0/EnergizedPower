@@ -18,9 +18,9 @@ import net.minecraft.util.Identifier;
 import java.util.List;
 
 public class PlantGrowthChamberFertilizerEMIRecipe implements EmiRecipe {
-    public static final Identifier SIMPLIFIED_TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/block/plant_growth_chamber_side.png");
+    public static final Identifier SIMPLIFIED_TEXTURE = Identifier.of(EnergizedPowerMod.MODID, "textures/block/plant_growth_chamber_side.png");
     public static final EmiStack ITEM = EmiStack.of(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM);
-    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new Identifier(EnergizedPowerMod.MODID, "plant_growth_chamber_fertilizer"),
+    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(Identifier.of(EnergizedPowerMod.MODID, "plant_growth_chamber_fertilizer"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final Identifier id;
@@ -67,7 +67,7 @@ public class PlantGrowthChamberFertilizerEMIRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
+        Identifier texture = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
         widgets.addTexture(texture, 0, 0, 18, 18, 34, 34);
 
         widgets.addSlot(input.get(0), 0, 0).drawBack(false);

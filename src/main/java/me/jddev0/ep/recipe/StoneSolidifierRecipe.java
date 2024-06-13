@@ -6,18 +6,18 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
-public class StoneSolidifierRecipe implements Recipe<Inventory> {
+public class StoneSolidifierRecipe implements Recipe<RecipeInput> {
     private final ItemStack output;
     private final long waterAmount;
     private final long lavaAmount;
@@ -41,12 +41,12 @@ public class StoneSolidifierRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public boolean matches(Inventory container, World level) {
+    public boolean matches(RecipeInput container, World level) {
         return false;
     }
 
     @Override
-    public ItemStack craft(Inventory container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
         return output;
     }
 
@@ -91,7 +91,7 @@ public class StoneSolidifierRecipe implements Recipe<Inventory> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "stone_solidifier");
+        public static final Identifier ID = Identifier.of(EnergizedPowerMod.MODID, "stone_solidifier");
 
         private final MapCodec<StoneSolidifierRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {

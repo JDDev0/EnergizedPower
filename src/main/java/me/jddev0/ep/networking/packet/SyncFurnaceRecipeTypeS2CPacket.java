@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class SyncFurnaceRecipeTypeS2CPacket implements CustomPayload {
     public static final Id<SyncFurnaceRecipeTypeS2CPacket> ID =
-            new Id<>(new Identifier(EnergizedPowerMod.MODID, "sync_furnace_recipe_type"));
+            new Id<>(Identifier.of(EnergizedPowerMod.MODID, "sync_furnace_recipe_type"));
     public static final PacketCodec<RegistryByteBuf, SyncFurnaceRecipeTypeS2CPacket> PACKET_CODEC =
             PacketCodec.of(SyncFurnaceRecipeTypeS2CPacket::write, SyncFurnaceRecipeTypeS2CPacket::new);
 

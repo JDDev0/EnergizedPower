@@ -21,6 +21,7 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -35,7 +36,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class SelectableRecipeMachineBlockEntity<R extends Recipe<Inventory>>
+public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, R extends Recipe<C>>
         extends WorkerMachineBlockEntity<RecipeEntry<R>>
         implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R>, SetCurrentRecipeIdPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;

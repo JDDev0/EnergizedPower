@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 public class ChargingStationScreen extends UpgradableEnergyStorageContainerScreen<ChargingStationMenu> {
     public ChargingStationScreen(ChargingStationMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity_1_range.png"));
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity_1_range.png"));
 
         energyMeterX = 80;
     }

@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 public record CycleAdvancedAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implements CustomPayload {
     public static final CustomPayload.Id<CycleAdvancedAutoCrafterRecipeOutputC2SPacket> ID =
-            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "cycle_advanced_auto_crafter_recipe_output"));
+            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "cycle_advanced_auto_crafter_recipe_output"));
     public static final PacketCodec<RegistryByteBuf, CycleAdvancedAutoCrafterRecipeOutputC2SPacket> PACKET_CODEC =
             PacketCodec.of(CycleAdvancedAutoCrafterRecipeOutputC2SPacket::write, CycleAdvancedAutoCrafterRecipeOutputC2SPacket::new);
 

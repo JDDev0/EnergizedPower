@@ -19,8 +19,8 @@ public class ThermalGeneratorScreen extends ConfigurableUpgradableEnergyStorageC
     public ThermalGeneratorScreen(ThermalGeneratorMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.thermal_generator.txt",
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/thermal_generator.png"),
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/thermal_generator.png"),
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 
     @Override

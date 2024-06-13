@@ -45,7 +45,7 @@ public class AssemblingMachineCategory implements DisplayCategory<AssemblingMach
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/assembling_machine.png");
+        Identifier texture = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/assembling_machine.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 43, 18, 115, 54));
 
         int len = Math.min(display.getInputEntries().size(), 4);

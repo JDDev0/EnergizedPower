@@ -4,6 +4,7 @@ import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
@@ -15,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtDouble;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntity<PlantGrowthChamberRecipe> {
+public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, PlantGrowthChamberRecipe> {
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER.getValue();
 
     final InputOutputItemHandler itemHandlerSidesSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 1 && i < 6);
@@ -125,7 +127,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
             return;
 
         Optional<RecipeEntry<PlantGrowthChamberFertilizerRecipe>> fertilizerRecipe = world.getRecipeManager().
-                getFirstMatch(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE, itemHandler, world);
+                getFirstMatch(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(itemHandler), world);
 
         if(fertilizerRecipe.isPresent()) {
             fertilizerSpeedMultiplier = fertilizerRecipe.get().value().getSpeedMultiplier();
@@ -133,6 +135,11 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
 
             itemHandler.removeStack(1, 1);
         }
+    }
+
+    @Override
+    protected RecipeInput getRecipeInput(SimpleInventory inventory) {
+        return new ContainerRecipeInputWrapper(inventory);
     }
 
     @Override

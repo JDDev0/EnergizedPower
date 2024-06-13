@@ -15,7 +15,7 @@ public final class ModItems {
     private ModItems() {}
 
     public static Item registerItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(EnergizedPowerMod.MODID, name), item);
     }
 
     public static final Item ENERGIZED_COPPER_INGOT = registerItem("energized_copper_ingot",

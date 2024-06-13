@@ -13,11 +13,13 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 
 public class AutoPressMoldMakerBlockEntity
-        extends SelectableRecipeMachineBlockEntity<PressMoldMakerRecipe> {
+        extends SelectableRecipeMachineBlockEntity<RecipeInput, PressMoldMakerRecipe> {
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0 || i == 1, i -> i == 2);
 
     public AutoPressMoldMakerBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -63,14 +65,14 @@ public class AutoPressMoldMakerBlockEntity
 
     @Override
     protected void craftItem(RecipeEntry<PressMoldMakerRecipe> recipe) {
-        if(world == null || !hasRecipe())
+        if(world == null || !hasRecipe() || !(world instanceof ServerWorld serverWorld))
             return;
 
         ItemStack shovel = itemHandler.getStack(1).copy();
         if(shovel.isEmpty() && !shovel.isIn(ItemTags.SHOVELS))
             return;
 
-        shovel.damage(1, world.random, null, () -> shovel.setCount(0));
+        shovel.damage(1, serverWorld, null, item -> shovel.setCount(0));
         itemHandler.setStack(1, shovel);
 
         itemHandler.removeStack(0, recipe.value().getClayCount());

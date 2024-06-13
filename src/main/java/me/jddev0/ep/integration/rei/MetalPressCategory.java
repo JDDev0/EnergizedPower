@@ -45,7 +45,7 @@ public class MetalPressCategory implements DisplayCategory<MetalPressDisplay> {
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/metal_press.png");
+        Identifier texture = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/metal_press.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 47, 22, 98, 34));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 13)).disableBackground().markInput().

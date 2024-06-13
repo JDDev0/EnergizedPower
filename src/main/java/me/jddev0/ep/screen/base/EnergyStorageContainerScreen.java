@@ -38,7 +38,7 @@ public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEn
     public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
                                         String energyIndicatorBarTooltipComponentID) {
         this(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID,
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/generic_energy.png"));
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/generic_energy.png"));
     }
 
     public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,

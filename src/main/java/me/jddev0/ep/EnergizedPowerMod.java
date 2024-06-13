@@ -13,7 +13,6 @@ import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedIntegration;
 import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedUtils;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.painting.ModPaintings;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.ModMenuTypes;
 import me.jddev0.ep.villager.ModVillager;
@@ -49,7 +48,6 @@ public class EnergizedPowerMod implements ModInitializer {
         ModMenuTypes.register();
         ModVillager.register();
         ModEntityTypes.register();
-        ModPaintings.register();
 
         ModFluids.register();
 

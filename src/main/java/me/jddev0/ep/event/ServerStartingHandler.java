@@ -32,7 +32,7 @@ public class ServerStartingHandler implements ServerLifecycleEvents.ServerStarti
     }
 
     private static void addVillageHouse(Registry<StructurePool> templatePoolRegistry, String villageType, String buildingName, int weight) {
-        StructurePool pool = templatePoolRegistry.get(new Identifier("minecraft", String.format("village/%s/houses", villageType)));
+        StructurePool pool = templatePoolRegistry.get(Identifier.of("minecraft", String.format("village/%s/houses", villageType)));
         if(pool == null)
             return;
 

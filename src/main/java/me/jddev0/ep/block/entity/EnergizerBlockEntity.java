@@ -6,6 +6,7 @@ import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.EnergizerRecipe;
 import me.jddev0.ep.screen.EnergizerMenu;
 import me.jddev0.ep.util.ByteUtils;
@@ -190,7 +191,8 @@ public class EnergizerBlockEntity
             return;
 
         if(hasRecipe(blockEntity)) {
-            Optional<RecipeEntry<EnergizerRecipe>> recipe = level.getRecipeManager().getFirstMatch(EnergizerRecipe.Type.INSTANCE, blockEntity.itemHandler, level);
+            Optional<RecipeEntry<EnergizerRecipe>> recipe = level.getRecipeManager().
+                    getFirstMatch(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(blockEntity.itemHandler), level);
             if(recipe.isEmpty())
                 return;
 
@@ -208,7 +210,8 @@ public class EnergizerBlockEntity
                 blockEntity.hasEnoughEnergy = true;
                 if(level.getBlockState(blockPos).contains(Properties.LIT) &&
                         !level.getBlockState(blockPos).get(Properties.LIT)) {
-                    level.setBlockState(blockPos, state.with(Properties.LIT, true), 3);                }
+                    level.setBlockState(blockPos, state.with(Properties.LIT, true), 3);
+                }
 
                 if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
                     //Reset progress for invalid values
@@ -257,7 +260,8 @@ public class EnergizerBlockEntity
     private static void craftItem(BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {
         World level = blockEntity.world;
 
-        Optional<RecipeEntry<EnergizerRecipe>> recipe = level.getRecipeManager().getFirstMatch(EnergizerRecipe.Type.INSTANCE, blockEntity.itemHandler, level);
+        Optional<RecipeEntry<EnergizerRecipe>> recipe = level.getRecipeManager().
+                getFirstMatch(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(blockEntity.itemHandler), level);
 
         if(!hasRecipe(blockEntity) || recipe.isEmpty())
             return;
@@ -272,7 +276,8 @@ public class EnergizerBlockEntity
     private static boolean hasRecipe(EnergizerBlockEntity blockEntity) {
         World level = blockEntity.world;
 
-        Optional<RecipeEntry<EnergizerRecipe>> recipe = level.getRecipeManager().getFirstMatch(EnergizerRecipe.Type.INSTANCE, blockEntity.itemHandler, level);
+        Optional<RecipeEntry<EnergizerRecipe>> recipe = level.getRecipeManager().
+                getFirstMatch(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(blockEntity.itemHandler), level);
 
         return recipe.isPresent() &&
                 InventoryUtils.canInsertItemIntoSlot(blockEntity.itemHandler, 1, recipe.get().value().getResult(level.getRegistryManager()));

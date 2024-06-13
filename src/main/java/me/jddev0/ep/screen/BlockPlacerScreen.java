@@ -20,8 +20,8 @@ public class BlockPlacerScreen extends ConfigurableUpgradableEnergyStorageContai
     public BlockPlacerScreen(BlockPlacerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.block_placer.block_energy_left.txt",
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/block_placer.png"),
-                new Identifier(EnergizedPowerMod.MODID,
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/block_placer.png"),
+                Identifier.of(EnergizedPowerMod.MODID,
                         "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
     }
 

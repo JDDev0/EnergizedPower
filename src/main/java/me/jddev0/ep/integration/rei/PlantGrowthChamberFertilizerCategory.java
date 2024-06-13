@@ -45,7 +45,7 @@ public class PlantGrowthChamberFertilizerCategory implements DisplayCategory<Pla
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
+        Identifier texture = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 34, 34, 18, 18));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 1)).disableBackground().markInput().

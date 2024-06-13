@@ -18,7 +18,7 @@ public class ItemConveyorBeltLoaderScreen extends EnergizedPowerBaseContainerScr
     public ItemConveyorBeltLoaderScreen(ItemConveyorBeltLoaderMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component);
 
-        TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/generic_1x1.png");
+        TEXTURE = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/generic_1x1.png");
     }
 
     @Override

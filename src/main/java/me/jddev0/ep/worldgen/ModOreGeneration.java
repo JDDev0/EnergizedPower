@@ -13,7 +13,7 @@ public class ModOreGeneration {
     private ModOreGeneration() {}
 
     public static final RegistryKey<PlacedFeature> TIN_ORE_KEY = RegistryKey.of(
-            RegistryKeys.PLACED_FEATURE, new Identifier(EnergizedPowerMod.MODID, "tin_ore")
+            RegistryKeys.PLACED_FEATURE, Identifier.of(EnergizedPowerMod.MODID, "tin_ore")
     );
 
     public static void register() {

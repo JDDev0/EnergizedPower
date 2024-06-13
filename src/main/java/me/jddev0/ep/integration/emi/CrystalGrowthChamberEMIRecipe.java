@@ -21,9 +21,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class CrystalGrowthChamberEMIRecipe implements EmiRecipe {
-    public static final Identifier SIMPLIFIED_TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/block/crystal_growth_chamber_side.png");
+    public static final Identifier SIMPLIFIED_TEXTURE = Identifier.of(EnergizedPowerMod.MODID, "textures/block/crystal_growth_chamber_side.png");
     public static final EmiStack ITEM = EmiStack.of(ModBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM);
-    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new Identifier(EnergizedPowerMod.MODID, "crystal_growth_chamber"),
+    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(Identifier.of(EnergizedPowerMod.MODID, "crystal_growth_chamber"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final Identifier id;
@@ -72,7 +72,7 @@ public class CrystalGrowthChamberEMIRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/crystal_growth_chamber.png");
+        Identifier texture = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/crystal_growth_chamber.png");
         widgets.addTexture(texture, 0, 0, 98, 38, 47, 30);
 
         widgets.addSlot(input.get(0), 0, 4).drawBack(false);

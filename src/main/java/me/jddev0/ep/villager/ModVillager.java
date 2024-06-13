@@ -33,12 +33,12 @@ public final class ModVillager {
                     poiType -> poiType.value() == BASIC_MACHINE_FRAME_POI, ImmutableSet.of(), ImmutableSet.of(), SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH));
 
     private static PointOfInterestType registerPOI(String name, Block block) {
-        return PointOfInterestHelper.register(new Identifier(EnergizedPowerMod.MODID, name), 1, 1,
+        return PointOfInterestHelper.register(Identifier.of(EnergizedPowerMod.MODID, name), 1, 1,
             ImmutableSet.copyOf(block.getStateManager().getStates()));
     }
 
     private static VillagerProfession registerProfession(String name, VillagerProfession profession) {
-        return Registry.register(Registries.VILLAGER_PROFESSION, new Identifier(EnergizedPowerMod.MODID, name), profession);
+        return Registry.register(Registries.VILLAGER_PROFESSION, Identifier.of(EnergizedPowerMod.MODID, name), profession);
     }
 
     public static void register() {

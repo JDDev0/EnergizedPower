@@ -45,7 +45,7 @@ public class CompressorCategory implements DisplayCategory<CompressorDisplay> {
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/compressor.png");
+        Identifier texture = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/compressor.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 47, 30, 98, 26));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().

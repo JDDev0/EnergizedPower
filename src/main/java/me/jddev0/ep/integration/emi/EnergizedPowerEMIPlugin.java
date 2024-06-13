@@ -157,12 +157,12 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
             registry.addRecipe(new FluidTransposerEMIRecipe(recipe));
 
         registry.addRecipe(new DispenserEMIRecipe(new DispenserEMIRecipe.DispenserRecipe(
-                new Identifier(EnergizedPowerMod.MODID, "dispenser/energizedpower/cable_insulator"),
+                Identifier.of(EnergizedPowerMod.MODID, "dispenser/energizedpower/cable_insulator"),
                 Ingredient.fromTag(CommonItemTags.SHEARS), Ingredient.fromTag(ItemTags.WOOL),
                 new ItemStack(ModItems.CABLE_INSULATOR, 18))));
 
         registry.addRecipe(new InWorldEMIRecipe(new InWorldEMIRecipe.InWorldRecipe(
-                new Identifier(EnergizedPowerMod.MODID, "in_world_crafting/energizedpower/cable_insulator"),
+                Identifier.of(EnergizedPowerMod.MODID, "in_world_crafting/energizedpower/cable_insulator"),
                 Ingredient.fromTag(CommonItemTags.SHEARS), Ingredient.fromTag(ItemTags.WOOL),
                 new ItemStack(ModItems.CABLE_INSULATOR, 18))));
     }

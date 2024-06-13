@@ -7,7 +7,6 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.fluid.FluidStack;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -15,12 +14,13 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
-public class FluidTransposerRecipe implements Recipe<Inventory> {
+public class FluidTransposerRecipe implements Recipe<RecipeInput> {
     private final FluidTransposerBlockEntity.Mode mode;
     private final ItemStack output;
     private final Ingredient input;
@@ -50,15 +50,15 @@ public class FluidTransposerRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public boolean matches(Inventory container, World level) {
+    public boolean matches(RecipeInput container, World level) {
         if(level.isClient())
             return false;
 
-        return input.test(container.getStack(0));
+        return input.test(container.getStackInSlot(0));
     }
 
     @Override
-    public ItemStack craft(Inventory container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
         return output;
     }
 
@@ -110,7 +110,7 @@ public class FluidTransposerRecipe implements Recipe<Inventory> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "fluid_transposer");
+        public static final Identifier ID = Identifier.of(EnergizedPowerMod.MODID, "fluid_transposer");
 
         private final MapCodec<FluidTransposerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(FluidTransposerBlockEntity.Mode.CODEC.fieldOf("mode").forGetter((recipe) -> {

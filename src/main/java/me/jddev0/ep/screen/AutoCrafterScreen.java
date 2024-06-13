@@ -20,8 +20,8 @@ public class AutoCrafterScreen extends ConfigurableUpgradableEnergyStorageContai
     public AutoCrafterScreen(AutoCrafterMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/auto_crafter.png"),
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/auto_crafter.png"));
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/auto_crafter.png"),
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/auto_crafter.png"));
 
         backgroundHeight = 206;
         playerInventoryTitleY = backgroundHeight - 94;

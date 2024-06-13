@@ -18,9 +18,9 @@ import net.minecraft.util.Identifier;
 import java.util.List;
 
 public class FluidTransposerEMIRecipe implements EmiRecipe {
-    public static final Identifier SIMPLIFIED_TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/block/fluid_transposer_front.png");
+    public static final Identifier SIMPLIFIED_TEXTURE = Identifier.of(EnergizedPowerMod.MODID, "textures/block/fluid_transposer_front.png");
     public static final EmiStack ITEM = EmiStack.of(ModBlocks.FLUID_TRANSPOSER_ITEM);
-    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new Identifier(EnergizedPowerMod.MODID, "fluid_transposer"),
+    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(Identifier.of(EnergizedPowerMod.MODID, "fluid_transposer"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final Identifier id;
@@ -87,7 +87,7 @@ public class FluidTransposerEMIRecipe implements EmiRecipe {
     @Override
     public void addWidgets(WidgetHolder widgets) {
         if(mode == FluidTransposerBlockEntity.Mode.EMPTYING) {
-            widgets.addTexture(new Identifier(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png"),
+            widgets.addTexture(Identifier.of(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png"),
                     0, 0, 143, 26, 1, 133);
 
             widgets.addSlot(input.get(0), 0, 4).drawBack(false);
@@ -95,10 +95,10 @@ public class FluidTransposerEMIRecipe implements EmiRecipe {
             widgets.addSlot(output.get(0), 63, 4).drawBack(false).recipeContext(this);
             widgets.addSlot(output.get(1), 89, 4).drawBack(false).recipeContext(this);
 
-            widgets.addTexture(new Identifier("minecraft", "textures/item/bucket.png"),
+            widgets.addTexture(Identifier.of("minecraft", "textures/item/bucket.png"),
                     120, 5, 16, 16, 0, 0, 16, 16, 16, 16);
         }else {
-            widgets.addTexture(new Identifier(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png"),
+            widgets.addTexture(Identifier.of(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png"),
                     0, 0, 143, 26, 1, 161);
 
             widgets.addSlot(input.get(0), 0, 4).drawBack(false);
@@ -106,7 +106,7 @@ public class FluidTransposerEMIRecipe implements EmiRecipe {
 
             widgets.addSlot(output.get(0), 89, 4).drawBack(false).recipeContext(this);
 
-            widgets.addTexture(new Identifier("minecraft", "textures/item/water_bucket.png"),
+            widgets.addTexture(Identifier.of("minecraft", "textures/item/water_bucket.png"),
                     120, 5, 16, 16, 0, 0, 16, 16, 16, 16);
         }
 

@@ -8,19 +8,19 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
-public class ThermalGeneratorRecipe implements Recipe<Inventory> {
+public class ThermalGeneratorRecipe implements Recipe<RecipeInput> {
     private final Fluid[] input;
     private final long energyProduction;
 
@@ -38,12 +38,12 @@ public class ThermalGeneratorRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public boolean matches(Inventory container, World level) {
+    public boolean matches(RecipeInput container, World level) {
         return false;
     }
 
     @Override
-    public ItemStack craft(Inventory container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
         return ItemStack.EMPTY;
     }
 
@@ -88,7 +88,7 @@ public class ThermalGeneratorRecipe implements Recipe<Inventory> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "thermal_generator");
+        public static final Identifier ID = Identifier.of(EnergizedPowerMod.MODID, "thermal_generator");
 
         private final MapCodec<ThermalGeneratorRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(Codec.either(new ArrayCodec<>(Registries.FLUID.getCodec(), Fluid[]::new),
@@ -132,7 +132,7 @@ public class ThermalGeneratorRecipe implements Recipe<Inventory> {
             buffer.writeInt(recipe.getInput().length);
             for(Fluid fluid:recipe.input) {
                 Identifier fluidId = Registries.FLUID.getId(fluid);
-                if(fluidId == null || fluidId.equals(new Identifier("empty")))
+                if(fluidId == null || fluidId.equals(Identifier.of("empty")))
                     throw new IllegalArgumentException("Unregistered fluid '" + fluid + "'");
 
                 buffer.writeIdentifier(fluidId);

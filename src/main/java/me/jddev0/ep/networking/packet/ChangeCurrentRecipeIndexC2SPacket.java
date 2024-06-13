@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public record ChangeCurrentRecipeIndexC2SPacket(BlockPos pos, boolean downUp) implements CustomPayload {
     public static final CustomPayload.Id<ChangeCurrentRecipeIndexC2SPacket> ID =
-            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "change_current_recipe_index"));
+            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "change_current_recipe_index"));
     public static final PacketCodec<RegistryByteBuf, ChangeCurrentRecipeIndexC2SPacket> PACKET_CODEC =
             PacketCodec.of(ChangeCurrentRecipeIndexC2SPacket::write, ChangeCurrentRecipeIndexC2SPacket::new);
 

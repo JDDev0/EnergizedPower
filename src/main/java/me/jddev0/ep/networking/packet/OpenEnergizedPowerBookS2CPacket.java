@@ -16,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 
 public record OpenEnergizedPowerBookS2CPacket(BlockPos pos) implements CustomPayload {
     public static final CustomPayload.Id<OpenEnergizedPowerBookS2CPacket> ID =
-            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "open_energized_power_book"));
+            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "open_energized_power_book"));
     public static final PacketCodec<RegistryByteBuf, OpenEnergizedPowerBookS2CPacket> PACKET_CODEC =
             PacketCodec.of(OpenEnergizedPowerBookS2CPacket::write, OpenEnergizedPowerBookS2CPacket::new);
 

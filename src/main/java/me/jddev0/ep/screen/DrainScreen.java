@@ -23,7 +23,7 @@ public class DrainScreen extends EnergizedPowerBaseContainerScreen<DrainMenu> {
     public DrainScreen(DrainMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component);
 
-        TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/generic_fluid.png");
+        TEXTURE = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/generic_fluid.png");
     }
 
     @Override

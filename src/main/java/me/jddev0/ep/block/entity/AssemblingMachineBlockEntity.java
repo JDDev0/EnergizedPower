@@ -6,6 +6,7 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
+import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.AssemblingMachineMenu;
 import me.jddev0.ep.util.InventoryUtils;
@@ -15,12 +16,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 
 import java.util.Arrays;
 
-public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity<AssemblingMachineRecipe> {
+public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, AssemblingMachineRecipe> {
     final InputOutputItemHandler itemHandlerSidedTopBottom = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 4, i -> i == 4);
     final InputOutputItemHandler itemHandlerSidedFront = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 3, i -> i == 4);
     final InputOutputItemHandler itemHandlerSidedBack = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 4);
@@ -101,6 +103,11 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
             return itemHandlerSidedRight.apply(side);
 
         return itemHandlerSidedTopBottom.apply(side);
+    }
+
+    @Override
+    protected RecipeInput getRecipeInput(SimpleInventory inventory) {
+        return new ContainerRecipeInputWrapper(inventory);
     }
 
     @Override

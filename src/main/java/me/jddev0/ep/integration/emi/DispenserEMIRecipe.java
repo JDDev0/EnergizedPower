@@ -15,9 +15,9 @@ import net.minecraft.util.Identifier;
 import java.util.List;
 
 public class DispenserEMIRecipe implements EmiRecipe {
-    public static final Identifier SIMPLIFIED_TEXTURE = new Identifier("textures/block/dispenser_front.png");
+    public static final Identifier SIMPLIFIED_TEXTURE = Identifier.of("textures/block/dispenser_front.png");
     public static final EmiStack ITEM = EmiStack.of(Items.DISPENSER);
-    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new Identifier(EnergizedPowerMod.MODID, "dispenser"),
+    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(Identifier.of(EnergizedPowerMod.MODID, "dispenser"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final Identifier id;

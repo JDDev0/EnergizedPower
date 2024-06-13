@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 public record PopEnergizedPowerBookFromLecternC2SPacket(BlockPos pos) implements CustomPayload {
     public static final CustomPayload.Id<PopEnergizedPowerBookFromLecternC2SPacket> ID =
-            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "pop_energized_power_book_from_lectern"));
+            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "pop_energized_power_book_from_lectern"));
     public static final PacketCodec<RegistryByteBuf, PopEnergizedPowerBookFromLecternC2SPacket> PACKET_CODEC =
             PacketCodec.of(PopEnergizedPowerBookFromLecternC2SPacket::write, PopEnergizedPowerBookFromLecternC2SPacket::new);
 

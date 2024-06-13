@@ -7,18 +7,18 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.item.ModItems;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.*;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import java.util.Optional;
 
-public class SawmillRecipe implements Recipe<Inventory> {
+public class SawmillRecipe implements Recipe<RecipeInput> {
     private final ItemStack output;
     private final ItemStack secondaryOutput;
     private final Ingredient input;
@@ -46,15 +46,15 @@ public class SawmillRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public boolean matches(Inventory container, World level) {
+    public boolean matches(RecipeInput container, World level) {
         if(level.isClient())
             return false;
 
-        return input.test(container.getStack(0));
+        return input.test(container.getStackInSlot(0));
     }
 
     @Override
-    public ItemStack craft(Inventory container, RegistryWrapper.WrapperLookup registriesr) {
+    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
         return output;
     }
 
@@ -106,7 +106,7 @@ public class SawmillRecipe implements Recipe<Inventory> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "sawmill");
+        public static final Identifier ID = Identifier.of(EnergizedPowerMod.MODID, "sawmill");
 
         private final MapCodec<SawmillRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {

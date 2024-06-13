@@ -23,7 +23,7 @@ import java.util.Optional;
 public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeControllerMenu> {
     public TimeControllerScreen(TimeControllerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/time_controller.png"));
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/time_controller.png"));
     }
 
     @Override

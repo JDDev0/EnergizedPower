@@ -18,8 +18,8 @@ import java.util.Optional;
 public class FluidFillerScreen extends ConfigurableUpgradableEnergyStorageContainerScreen<FluidFillerMenu> {
     public FluidFillerScreen(FluidFillerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/fluid_filler.png"),
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_efficiency_1_energy_capacity.png"));
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/fluid_filler.png"),
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_efficiency_1_energy_capacity.png"));
     }
 
     @Override

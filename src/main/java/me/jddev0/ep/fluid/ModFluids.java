@@ -25,15 +25,15 @@ public final class ModFluids {
             new BucketItem(DIRTY_WATER, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1)));
 
     private static <T extends Fluid> T registerFluid(String name, T fluid) {
-        return Registry.register(Registries.FLUID, new Identifier(EnergizedPowerMod.MODID, name), fluid);
+        return Registry.register(Registries.FLUID, Identifier.of(EnergizedPowerMod.MODID, name), fluid);
     }
 
     private static <T extends Block> T createBlock(String name, T block) {
-        return Registry.register(Registries.BLOCK, new Identifier(EnergizedPowerMod.MODID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(EnergizedPowerMod.MODID, name), block);
     }
 
     public static <T extends Item> T createItem(String name, T item) {
-        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(EnergizedPowerMod.MODID, name), item);
     }
 
     public static void register() {

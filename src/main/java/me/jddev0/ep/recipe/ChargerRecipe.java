@@ -5,18 +5,18 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.*;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 
-public class ChargerRecipe implements Recipe<Inventory> {
+public class ChargerRecipe implements Recipe<RecipeInput> {
     private final ItemStack output;
     private final Ingredient input;
     private final int energyConsumption;
@@ -40,15 +40,15 @@ public class ChargerRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public boolean matches(Inventory container, World level) {
+    public boolean matches(RecipeInput container, World level) {
         if(level.isClient())
             return false;
 
-        return input.test(container.getStack(0));
+        return input.test(container.getStackInSlot(0));
     }
 
     @Override
-    public ItemStack craft(Inventory container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
         return output;
     }
 
@@ -100,7 +100,7 @@ public class ChargerRecipe implements Recipe<Inventory> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "charger");
+        public static final Identifier ID = Identifier.of(EnergizedPowerMod.MODID, "charger");
 
         private final MapCodec<ChargerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {

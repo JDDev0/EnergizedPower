@@ -8,5 +8,5 @@ import net.minecraft.util.Identifier;
 public final class CommonItemTags {
     private CommonItemTags() {}
 
-    public static final TagKey<Item> SHEARS = TagKey.of(RegistryKeys.ITEM, new Identifier("c", "tools/shears"));
+    public static final TagKey<Item> SHEARS = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "tools/shears"));
 }

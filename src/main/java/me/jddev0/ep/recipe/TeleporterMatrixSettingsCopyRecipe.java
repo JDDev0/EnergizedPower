@@ -2,11 +2,11 @@ package me.jddev0.ep.recipe;
 
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
-import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
@@ -17,12 +17,12 @@ public class TeleporterMatrixSettingsCopyRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public boolean matches(RecipeInputInventory container, World level) {
+    public boolean matches(CraftingRecipeInput container, World level) {
         ItemStack linkedTransportMatrix = ItemStack.EMPTY;
         int count = 0;
 
-        for(int i = 0;i < container.size();i++) {
-            ItemStack itemStack = container.getStack(i);
+        for(int i = 0;i < container.getSize();i++) {
+            ItemStack itemStack = container.getStackInSlot(i);
             if(!itemStack.isEmpty()) {
                 if(!itemStack.isOf(ModItems.TELEPORTER_MATRIX))
                     return false;
@@ -46,12 +46,12 @@ public class TeleporterMatrixSettingsCopyRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public ItemStack craft(RecipeInputInventory container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack craft(CraftingRecipeInput container, RegistryWrapper.WrapperLookup registries) {
         ItemStack linkedTransportMatrix = ItemStack.EMPTY;
         int count = 0;
 
-        for(int i = 0;i < container.size();i++) {
-            ItemStack itemStack = container.getStack(i);
+        for(int i = 0;i < container.getSize();i++) {
+            ItemStack itemStack = container.getStackInSlot(i);
             if(!itemStack.isEmpty()) {
                 if(!itemStack.isOf(ModItems.TELEPORTER_MATRIX))
                     return ItemStack.EMPTY;
@@ -81,11 +81,11 @@ public class TeleporterMatrixSettingsCopyRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public DefaultedList<ItemStack> getRemainder(RecipeInputInventory container) {
-        DefaultedList<ItemStack> remainders = DefaultedList.ofSize(container.size(), ItemStack.EMPTY);
+    public DefaultedList<ItemStack> getRemainder(CraftingRecipeInput container) {
+        DefaultedList<ItemStack> remainders = DefaultedList.ofSize(container.getSize(), ItemStack.EMPTY);
 
         for(int i = 0; i < remainders.size(); ++i) {
-            ItemStack itemstack = container.getStack(i);
+            ItemStack itemstack = container.getStackInSlot(i);
             if(!itemstack.isEmpty()) {
                 if(!itemstack.getRecipeRemainder().isEmpty()) {
                     remainders.set(i, itemstack.getRecipeRemainder());

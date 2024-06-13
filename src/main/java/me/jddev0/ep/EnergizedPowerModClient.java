@@ -97,11 +97,11 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(ModMenuTypes.MINECART_BATTERY_BOX_MENU, MinecartBatteryBoxScreen::new);
         HandledScreens.register(ModMenuTypes.MINECART_ADVANCED_BATTERY_BOX_MENU, MinecartAdvancedBatteryBoxScreen::new);
 
-        ModelPredicateProviderRegistry.register(new Identifier(EnergizedPowerMod.MODID, "active"), (itemStack, level, entity, seed) -> {
+        ModelPredicateProviderRegistry.register(Identifier.of(EnergizedPowerMod.MODID, "active"), (itemStack, level, entity, seed) -> {
             Item item = itemStack.getItem();
             return (item instanceof ActivatableItem && ((ActivatableItem)item).isActive(itemStack))?1.f:0.f;
         });
-        ModelPredicateProviderRegistry.register(new Identifier(EnergizedPowerMod.MODID, "working"), (itemStack, level, entity, seed) -> {
+        ModelPredicateProviderRegistry.register(Identifier.of(EnergizedPowerMod.MODID, "working"), (itemStack, level, entity, seed) -> {
             Item item = itemStack.getItem();
             return (item instanceof WorkingItem && ((WorkingItem)item).isWorking(itemStack))?1.f:0.f;
         });
@@ -114,15 +114,15 @@ public class EnergizedPowerModClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(ModEntityTypes.BATTERY_BOX_MINECART,
                 entity -> new MinecartEntityRenderer<>(entity, new EntityModelLayer(
-                        new Identifier("minecraft", "chest_minecart"), "main")));
+                        Identifier.of("minecraft", "chest_minecart"), "main")));
         EntityRendererRegistry.register(ModEntityTypes.ADVANCED_BATTERY_BOX_MINECART,
                 entity -> new MinecartEntityRenderer<>(entity, new EntityModelLayer(
-                        new Identifier("minecraft", "chest_minecart"), "main")));
+                        Identifier.of("minecraft", "chest_minecart"), "main")));
 
         FluidRenderHandlerRegistry.INSTANCE.register(ModFluids.DIRTY_WATER, ModFluids.FLOWING_DIRTY_WATER,
                 new SimpleFluidRenderHandler(
-                        new Identifier("block/water_still"),
-                        new Identifier("block/water_flow"),
+                        Identifier.of("block/water_still"),
+                        Identifier.of("block/water_flow"),
                         0xC86F3900
                 ));
 

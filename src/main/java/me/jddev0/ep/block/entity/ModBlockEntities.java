@@ -549,7 +549,7 @@ public final class ModBlockEntities {
     @SuppressWarnings("unchecked")
     private static <T extends BlockEntity> BlockEntityType<T> createBlockEntity(String name, Block block,
             BlockEntityType.BlockEntityFactory<? extends T> factory) {
-        return (BlockEntityType<T>)Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(EnergizedPowerMod.MODID, name),
+        return (BlockEntityType<T>)Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(EnergizedPowerMod.MODID, name),
                 BlockEntityType.Builder.create(factory, block).build(null));
     }
 

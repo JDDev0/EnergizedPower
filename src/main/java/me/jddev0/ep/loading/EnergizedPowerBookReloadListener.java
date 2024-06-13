@@ -29,7 +29,7 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
 
     @Override
     public Identifier getFabricId() {
-        return new Identifier(EnergizedPowerMod.MODID, "energizedpowerbook");
+        return Identifier.of(EnergizedPowerMod.MODID, "energizedpowerbook");
     }
 
     public EnergizedPowerBookReloadListener() {

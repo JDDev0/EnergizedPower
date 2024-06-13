@@ -75,13 +75,12 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends ScreenHandler>
                 v0 = v0 - ((16 - height) / 16.f * (v0 - v1));
 
                 Tessellator tesselator = Tessellator.getInstance();
-                BufferBuilder bufferBuilder = tesselator.getBuffer();
-                bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-                bufferBuilder.vertex(mat, xOffset, yOffset, 0).texture(u0, v1).next();
-                bufferBuilder.vertex(mat, xOffset + width, yOffset, 0).texture(u1, v1).next();
-                bufferBuilder.vertex(mat, xOffset + width, yOffset - height, 0).texture(u1, v0).next();
-                bufferBuilder.vertex(mat, xOffset, yOffset - height, 0).texture(u0, v0).next();
-                tesselator.draw();
+                BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
+                bufferBuilder.vertex(mat, xOffset, yOffset, 0).texture(u0, v1);
+                bufferBuilder.vertex(mat, xOffset + width, yOffset, 0).texture(u1, v1);
+                bufferBuilder.vertex(mat, xOffset + width, yOffset - height, 0).texture(u1, v0);
+                bufferBuilder.vertex(mat, xOffset, yOffset - height, 0).texture(u0, v0);
+                BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
             }
         }
     }

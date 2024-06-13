@@ -20,8 +20,8 @@ import java.util.Optional;
 public class WeatherControllerScreen extends UpgradableEnergyStorageContainerScreen<WeatherControllerMenu> {
     public WeatherControllerScreen(WeatherControllerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/weather_controller.png"),
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_duration.png"));
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/weather_controller.png"),
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_duration.png"));
     }
 
     @Override

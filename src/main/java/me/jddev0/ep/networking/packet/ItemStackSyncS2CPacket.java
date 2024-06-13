@@ -13,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 
 public record ItemStackSyncS2CPacket(int slot, ItemStack itemStack, BlockPos pos) implements CustomPayload {
     public static final CustomPayload.Id<ItemStackSyncS2CPacket> ID =
-            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "item_stack_sync"));
+            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "item_stack_sync"));
     public static final PacketCodec<RegistryByteBuf, ItemStackSyncS2CPacket> PACKET_CODEC =
             PacketCodec.of(ItemStackSyncS2CPacket::write, ItemStackSyncS2CPacket::new);
 

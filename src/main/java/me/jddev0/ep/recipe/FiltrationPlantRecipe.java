@@ -9,13 +9,13 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 import java.util.Arrays;
 import java.util.List;
 
-public class FiltrationPlantRecipe implements Recipe<Inventory> {
+public class FiltrationPlantRecipe implements Recipe<RecipeInput> {
     private final OutputItemStackWithPercentages output;
     private final OutputItemStackWithPercentages secondaryOutput;
     private final Identifier icon;
@@ -73,12 +73,12 @@ public class FiltrationPlantRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public boolean matches(Inventory container, World level) {
+    public boolean matches(RecipeInput container, World level) {
         return false;
     }
 
     @Override
-    public ItemStack craft(Inventory container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
         return ItemStack.EMPTY;
     }
 
@@ -123,7 +123,7 @@ public class FiltrationPlantRecipe implements Recipe<Inventory> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "filtration_plant");
+        public static final Identifier ID = Identifier.of(EnergizedPowerMod.MODID, "filtration_plant");
 
         private final MapCodec<FiltrationPlantRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(OutputItemStackWithPercentages.CODEC.fieldOf("output").forGetter((recipe) -> {

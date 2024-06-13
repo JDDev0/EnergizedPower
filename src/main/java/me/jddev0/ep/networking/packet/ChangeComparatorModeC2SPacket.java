@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public record ChangeComparatorModeC2SPacket(BlockPos pos) implements CustomPayload {
     public static final CustomPayload.Id<ChangeComparatorModeC2SPacket> ID =
-            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "change_comparator_mode"));
+            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "change_comparator_mode"));
     public static final PacketCodec<RegistryByteBuf, ChangeComparatorModeC2SPacket> PACKET_CODEC =
             PacketCodec.of(ChangeComparatorModeC2SPacket::write, ChangeComparatorModeC2SPacket::new);
 

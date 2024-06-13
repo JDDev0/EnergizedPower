@@ -14,11 +14,13 @@ import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.StonecuttingRecipe;
+import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 
 public class AutoStonecutterBlockEntity
-        extends SelectableRecipeMachineBlockEntity<StonecuttingRecipe> {
+        extends SelectableRecipeMachineBlockEntity<SingleStackRecipeInput, StonecuttingRecipe> {
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0 || i == 1, i -> i == 2);
 
     public AutoStonecutterBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -64,14 +66,14 @@ public class AutoStonecutterBlockEntity
 
     @Override
     protected void craftItem(RecipeEntry<StonecuttingRecipe> recipe) {
-        if(world == null || !hasRecipe())
+        if(world == null || !hasRecipe() || !(world instanceof ServerWorld serverWorld))
             return;
 
         ItemStack pickaxe = itemHandler.getStack(1).copy();
         if(pickaxe.isEmpty() && !pickaxe.isIn(ItemTags.PICKAXES))
             return;
 
-        pickaxe.damage(1, world.random, null, () -> pickaxe.setCount(0));
+        pickaxe.damage(1, serverWorld, null, item -> pickaxe.setCount(0));
         itemHandler.setStack(1, pickaxe);
 
         itemHandler.removeStack(0, 1);
@@ -85,7 +87,7 @@ public class AutoStonecutterBlockEntity
     @Override
     protected boolean canCraftRecipe(SimpleInventory inventory, RecipeEntry<StonecuttingRecipe> recipe) {
         return world != null &&
-                recipe.value().matches(inventory, world) &&
+                recipe.value().matches(new SingleStackRecipeInput(inventory.getStack(0)), world) &&
                 itemHandler.getStack(1).isIn(ItemTags.PICKAXES) &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().getResult(world.getRegistryManager()));
     }

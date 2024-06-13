@@ -7,7 +7,6 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -15,12 +14,13 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 
-public class AssemblingMachineRecipe implements Recipe<Inventory> {
+public class AssemblingMachineRecipe implements Recipe<RecipeInput> {
     private final ItemStack output;
     private final IngredientWithCount[] inputs;
 
@@ -38,13 +38,13 @@ public class AssemblingMachineRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public boolean matches(Inventory container, World level) {
+    public boolean matches(RecipeInput container, World level) {
         if(level.isClient())
             return false;
 
         boolean[] usedIndices = new boolean[4];
         for(int i = 0;i < 4;i++)
-            usedIndices[i] = container.getStack(i).isEmpty();
+            usedIndices[i] = container.getStackInSlot(i).isEmpty();
 
         int len = Math.min(inputs.length, 4);
         for(int i = 0;i < len;i++) {
@@ -57,7 +57,7 @@ public class AssemblingMachineRecipe implements Recipe<Inventory> {
                 if(usedIndices[j])
                     continue;
 
-                ItemStack item = container.getStack(j);
+                ItemStack item = container.getStackInSlot(j);
 
                 if((indexMinCount == -1 || item.getCount() < minCount) && input.input.test(item) &&
                         item.getCount() >= input.count) {
@@ -81,7 +81,7 @@ public class AssemblingMachineRecipe implements Recipe<Inventory> {
 
 
     @Override
-    public ItemStack craft(Inventory container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
         return output;
     }
 
@@ -126,7 +126,7 @@ public class AssemblingMachineRecipe implements Recipe<Inventory> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "assembling_machine");
+        public static final Identifier ID = Identifier.of(EnergizedPowerMod.MODID, "assembling_machine");
 
         private final MapCodec<AssemblingMachineRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {

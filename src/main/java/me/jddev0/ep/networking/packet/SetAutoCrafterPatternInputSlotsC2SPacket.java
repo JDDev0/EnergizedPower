@@ -20,7 +20,7 @@ import java.util.List;
 
 public final class SetAutoCrafterPatternInputSlotsC2SPacket implements CustomPayload {
     public static final CustomPayload.Id<SetAutoCrafterPatternInputSlotsC2SPacket> ID =
-            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "set_auto_crafter_pattern_input_slots"));
+            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "set_auto_crafter_pattern_input_slots"));
     public static final PacketCodec<RegistryByteBuf, SetAutoCrafterPatternInputSlotsC2SPacket> PACKET_CODEC =
             PacketCodec.of(SetAutoCrafterPatternInputSlotsC2SPacket::write, SetAutoCrafterPatternInputSlotsC2SPacket::new);
 

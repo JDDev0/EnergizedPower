@@ -104,10 +104,10 @@ public final class ModRecipes {
             new SpecialRecipeSerializer<>(TeleporterMatrixSettingsCopyRecipe::new));
 
     private static <T extends Recipe<?>> RecipeSerializer<T> createSerializer(String name, RecipeSerializer<T> instance) {
-        return Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(EnergizedPowerMod.MODID, name), instance);
+        return Registry.register(Registries.RECIPE_SERIALIZER, Identifier.of(EnergizedPowerMod.MODID, name), instance);
     }
     private static <T extends Recipe<?>> RecipeType<T> createRecipeType(String name, RecipeType<T> instance) {
-        return Registry.register(Registries.RECIPE_TYPE, new Identifier(EnergizedPowerMod.MODID, name), instance);
+        return Registry.register(Registries.RECIPE_TYPE, Identifier.of(EnergizedPowerMod.MODID, name), instance);
     }
 
     public static void register() {

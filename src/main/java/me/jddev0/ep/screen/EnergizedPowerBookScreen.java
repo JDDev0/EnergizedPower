@@ -43,11 +43,11 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class EnergizedPowerBookScreen extends Screen {
-    public static final Identifier TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/book/energized_power_book.png");
-    public static final Identifier FRONT_COVER = new Identifier(EnergizedPowerMod.MODID, "textures/gui/book/front_cover.png");
-    public static final Identifier BACK_COVER = new Identifier(EnergizedPowerMod.MODID, "textures/gui/book/back_cover.png");
+    public static final Identifier TEXTURE = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/book/energized_power_book.png");
+    public static final Identifier FRONT_COVER = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/book/front_cover.png");
+    public static final Identifier BACK_COVER = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/book/back_cover.png");
 
-    public static final Identifier ENERGIZED_COPPER_INGOT = new Identifier(EnergizedPowerMod.MODID, "textures/item/energized_copper_ingot.png");
+    public static final Identifier ENERGIZED_COPPER_INGOT = Identifier.of(EnergizedPowerMod.MODID, "textures/item/energized_copper_ingot.png");
 
     public static final int IMAGE_CYCLE_DELAY = ModConfigs.CLIENT_ENERGIZED_POWER_BOOK_IMAGE_CYCLE_DELAY.getValue();
 
@@ -99,7 +99,7 @@ public class EnergizedPowerBookScreen extends Screen {
         this.createPageControlButtons();
 
         List<FormattedPageContent> formattedPages = new LinkedList<>();
-        formattedPages.add(new FormattedPageContent(new Identifier(EnergizedPowerMod.MODID, "front_cover"),
+        formattedPages.add(new FormattedPageContent(Identifier.of(EnergizedPowerMod.MODID, "front_cover"),
                 null,
                 textRenderer.wrapLines(Text.translatable("book.energizedpower.front.cover.text").
                         formatted(Formatting.GRAY), MAX_CHARS_PER_LINE), null, null));
@@ -127,14 +127,14 @@ public class EnergizedPowerBookScreen extends Screen {
                     imageResourceLocations, blockResourceLocations));
 
             for(int i = maxLineCountFirstPage, splitPageCount = 2;i < formattedPageComponents.size();i += MAX_LINES, splitPageCount++) {
-                Identifier tmpPageId = new Identifier(pageId.getNamespace(), pageId.getPath() + "/tmp_page_" + splitPageCount);
+                Identifier tmpPageId = Identifier.of(pageId.getNamespace(), pageId.getPath() + "/tmp_page_" + splitPageCount);
 
                 formattedPages.add(new FormattedPageContent(tmpPageId, null,
                         formattedPageComponents.subList(i, Math.min(i + MAX_LINES, formattedPageComponents.size())),
                         null, null));
             }
         }
-        formattedPages.add(new FormattedPageContent(new Identifier(EnergizedPowerMod.MODID, "back_cover"),
+        formattedPages.add(new FormattedPageContent(Identifier.of(EnergizedPowerMod.MODID, "back_cover"),
                 null, new ArrayList<>(0), null, null));
 
         this.formattedPages = new ArrayList<>(formattedPages);

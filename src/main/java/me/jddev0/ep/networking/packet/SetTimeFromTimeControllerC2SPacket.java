@@ -15,7 +15,7 @@ import team.reborn.energy.api.EnergyStorage;
 
 public record SetTimeFromTimeControllerC2SPacket(BlockPos pos, int time) implements CustomPayload {
     public static final CustomPayload.Id<SetTimeFromTimeControllerC2SPacket> ID =
-            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "set_time_from_time_controller"));
+            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "set_time_from_time_controller"));
     public static final PacketCodec<RegistryByteBuf, SetTimeFromTimeControllerC2SPacket> PACKET_CODEC =
             PacketCodec.of(SetTimeFromTimeControllerC2SPacket::write, SetTimeFromTimeControllerC2SPacket::new);
 

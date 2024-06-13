@@ -13,7 +13,7 @@ public class ChargerScreen extends ConfigurableUpgradableEnergyStorageContainerS
     public ChargerScreen(ChargerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.charger.item_energy_left.txt",
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/charger.png"),
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/charger.png"),
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 }

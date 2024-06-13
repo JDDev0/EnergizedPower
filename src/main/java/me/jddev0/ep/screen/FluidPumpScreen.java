@@ -28,8 +28,8 @@ public class FluidPumpScreen
     public FluidPumpScreen(FluidPumpMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.fluid_pump.process_energy_left.txt",
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/fluid_pump.png"),
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/fluid_pump.png"));
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/fluid_pump.png"),
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/fluid_pump.png"));
 
         backgroundWidth = 230;
         energyMeterU = 230;

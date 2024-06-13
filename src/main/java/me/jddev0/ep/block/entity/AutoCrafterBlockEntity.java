@@ -380,7 +380,8 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableInventoryEnerg
         if(hasRecipeLoaded && craftingRecipe != null && oldCopyOfRecipe != null) {
             oldRecipe = craftingRecipe;
 
-            oldResult = craftingRecipe.value() instanceof SpecialCraftingRecipe?craftingRecipe.value().craft(oldCopyOfRecipe, world.getRegistryManager()):
+            oldResult = craftingRecipe.value() instanceof SpecialCraftingRecipe?craftingRecipe.value().
+                    craft(oldCopyOfRecipe.createRecipeInput(), world.getRegistryManager()):
                     craftingRecipe.value().getResult(world.getRegistryManager());
         }
 
@@ -401,7 +402,8 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableInventoryEnerg
                 resetProgress();
             }
 
-            ItemStack resultItemStack = craftingRecipe.value() instanceof SpecialCraftingRecipe?craftingRecipe.value().craft(copyOfPatternSlots, world.getRegistryManager()):
+            ItemStack resultItemStack = craftingRecipe.value() instanceof SpecialCraftingRecipe?craftingRecipe.value().
+                    craft(copyOfPatternSlots.createRecipeInput(), world.getRegistryManager()):
                     craftingRecipe.value().getResult(world.getRegistryManager());
 
             patternResultSlots.setStack(0, resultItemStack);
@@ -460,12 +462,13 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableInventoryEnerg
 
         List<ItemStack> outputItemStacks = new ArrayList<>(10);
 
-        ItemStack resultItemStack = craftingRecipe.value() instanceof SpecialCraftingRecipe?craftingRecipe.value().craft(copyOfPatternSlots, world.getRegistryManager()):
+        ItemStack resultItemStack = craftingRecipe.value() instanceof SpecialCraftingRecipe?craftingRecipe.value().
+                craft(copyOfPatternSlots.createRecipeInput(), world.getRegistryManager()):
                 craftingRecipe.value().getResult(world.getRegistryManager());
 
         outputItemStacks.add(resultItemStack);
 
-        for(ItemStack remainingItem:craftingRecipe.value().getRemainder(copyOfPatternSlots))
+        for(ItemStack remainingItem:craftingRecipe.value().getRemainder(copyOfPatternSlots.createRecipeInput()))
             if(!remainingItem.isEmpty())
                 outputItemStacks.add(remainingItem);
 
@@ -570,13 +573,14 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableInventoryEnerg
 
 
         List<ItemStack> outputItemStacks = new ArrayList<>(10);
-        ItemStack resultItemStack = craftingRecipe.value() instanceof SpecialCraftingRecipe?craftingRecipe.value().craft(copyOfPatternSlots, world.getRegistryManager()):
+        ItemStack resultItemStack = craftingRecipe.value() instanceof SpecialCraftingRecipe?craftingRecipe.value().
+                craft(copyOfPatternSlots.createRecipeInput(), world.getRegistryManager()):
                 craftingRecipe.value().getResult(world.getRegistryManager());
 
         if(!resultItemStack.isEmpty())
             outputItemStacks.add(resultItemStack);
 
-        for(ItemStack remainingItem:craftingRecipe.value().getRemainder(copyOfPatternSlots))
+        for(ItemStack remainingItem:craftingRecipe.value().getRemainder(copyOfPatternSlots.createRecipeInput()))
             if(!remainingItem.isEmpty())
                 outputItemStacks.add(remainingItem);
 
@@ -637,13 +641,14 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableInventoryEnerg
         for(int i = 0;i < patternSlotsForRecipe.size();i++)
             copyOfPatternSlots.setStack(i, patternSlotsForRecipe.getStack(i));
 
-        ItemStack resultItemStack = craftingRecipe.value() instanceof SpecialCraftingRecipe?craftingRecipe.value().craft(copyOfPatternSlots, world.getRegistryManager()):
+        ItemStack resultItemStack = craftingRecipe.value() instanceof SpecialCraftingRecipe?craftingRecipe.value().
+                craft(copyOfPatternSlots.createRecipeInput(), world.getRegistryManager()):
                 craftingRecipe.value().getResult(world.getRegistryManager());
 
         if(ItemStack.areItemsEqual(itemStack, resultItemStack) && ItemStack.areItemsAndComponentsEqual(itemStack, resultItemStack))
             return true;
 
-        for(ItemStack remainingItem:craftingRecipe.value().getRemainder(copyOfPatternSlots))
+        for(ItemStack remainingItem:craftingRecipe.value().getRemainder(copyOfPatternSlots.createRecipeInput()))
             if(ItemStack.areItemsEqual(itemStack, remainingItem) && ItemStack.areItemsAndComponentsEqual(itemStack, remainingItem))
                 return true;
 
@@ -715,7 +720,7 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableInventoryEnerg
     private List<RecipeEntry<CraftingRecipe>> getRecipesFor(CraftingInventory patternSlots, World level) {
         return level.getRecipeManager().listAllOfType(RecipeType.CRAFTING).
                 stream().filter(recipe -> !RECIPE_BLACKLIST.contains(recipe.id())).
-                filter(recipe -> recipe.value().matches(patternSlots, level)).
+                filter(recipe -> recipe.value().matches(patternSlots.createRecipeInput(), level)).
                 sorted(Comparator.comparing(recipe -> recipe.value().getResult(level.getRegistryManager()).getTranslationKey())).
                 toList();
     }

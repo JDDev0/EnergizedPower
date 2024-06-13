@@ -319,9 +319,9 @@ public class TeleporterBlockEntity
         }
 
         Identifier fromDimensionTypeId = level.getDimensionEntry().getKey().map(RegistryKey::getValue).
-                orElse(new Identifier("empty"));
+                orElse(Identifier.of("empty"));
         Identifier toDimensionTypeId = toDimension.getDimensionEntry().getKey().map(RegistryKey::getValue).
-                orElse(new Identifier("empty"));
+                orElse(Identifier.of("empty"));
 
         //Dimension Type Blacklist
         if(TeleporterBlockEntity.DIMENSION_TYPE_BLACKLIST.contains(fromDimensionTypeId)) {

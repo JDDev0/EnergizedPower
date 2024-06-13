@@ -188,7 +188,7 @@ public final class ModMenuTypes {
             new ExtendedScreenHandlerType<>(FluidTankMenu::new, BlockPos.PACKET_CODEC.cast()));
 
     private static <T extends ScreenHandler> ScreenHandlerType<T> createScreenHandlerType(String name, ScreenHandlerType<T> screenHandlerType) {
-        return Registry.register(Registries.SCREEN_HANDLER, new Identifier(EnergizedPowerMod.MODID, name), screenHandlerType);
+        return Registry.register(Registries.SCREEN_HANDLER, Identifier.of(EnergizedPowerMod.MODID, name), screenHandlerType);
     }
 
     public static void register() {

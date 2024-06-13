@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 
 public record EnergySyncS2CPacket(long energy, long capacity, BlockPos pos) implements CustomPayload {
     public static final CustomPayload.Id<EnergySyncS2CPacket> ID =
-            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "energy_sync"));
+            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "energy_sync"));
     public static final PacketCodec<RegistryByteBuf, EnergySyncS2CPacket> PACKET_CODEC =
             PacketCodec.of(EnergySyncS2CPacket::write, EnergySyncS2CPacket::new);
 

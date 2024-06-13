@@ -21,12 +21,14 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.input.RecipeInput;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
 
 public class FiltrationPlantBlockEntity
-        extends SelectableRecipeFluidMachineBlockEntity<CombinedStorage<FluidVariant, SimpleFluidStorage>, FiltrationPlantRecipe> {
+        extends SelectableRecipeFluidMachineBlockEntity<CombinedStorage<FluidVariant, SimpleFluidStorage>, RecipeInput, FiltrationPlantRecipe> {
     public static final long TANK_CAPACITY = FluidUtils.convertMilliBucketsToDroplets(
             1000 * ModConfigs.COMMON_FILTRATION_PLANT_TANK_CAPACITY.getValue());
     public static final long DIRTY_WATER_CONSUMPTION_PER_RECIPE = FluidUtils.convertMilliBucketsToDroplets(
@@ -129,7 +131,7 @@ public class FiltrationPlantBlockEntity
 
     @Override
     protected void craftItem(RecipeEntry<FiltrationPlantRecipe> recipe) {
-        if(world == null || !hasRecipe())
+        if(world == null || !hasRecipe() || !(world instanceof ServerWorld serverWorld))
             return;
 
         try(Transaction transaction = Transaction.openOuter()) {
@@ -144,7 +146,7 @@ public class FiltrationPlantBlockEntity
             if(charcoalFilter.isEmpty() && !charcoalFilter.isOf(ModItems.CHARCOAL_FILTER))
                 continue;
 
-            charcoalFilter.damage(1, world.random, null, () -> charcoalFilter.setCount(0));
+            charcoalFilter.damage(1, serverWorld, null, item -> charcoalFilter.setCount(0));
             itemHandler.setStack(i, charcoalFilter);
         }
 

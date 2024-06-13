@@ -48,7 +48,7 @@ public class EnergizerCategory implements DisplayCategory<EnergizerDisplay> {
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/energizer.png");
+        Identifier texture = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/energizer.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 31, 18, 114, 50));
 
         widgets.add(Widgets.createSlot(new Point(x + 17, y + 17)).disableBackground().markInput().

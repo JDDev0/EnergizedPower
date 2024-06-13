@@ -10,12 +10,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.BlockPos;
@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public abstract class SimpleRecipeMachineBlockEntity<R extends Recipe<Inventory>>
+public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R extends Recipe<C>>
         extends WorkerMachineBlockEntity<RecipeEntry<R>> {
     protected final UpgradableMenuProvider menuProvider;
 
@@ -116,8 +116,10 @@ public abstract class SimpleRecipeMachineBlockEntity<R extends Recipe<Inventory>
         return menuProvider.createMenu(id, this, inventory, itemHandler, upgradeModuleInventory, data);
     }
 
+    protected abstract C getRecipeInput(SimpleInventory inventory);
+
     protected Optional<RecipeEntry<R>> getRecipeFor(SimpleInventory inventory) {
-        return world.getRecipeManager().getFirstMatch(recipeType, inventory, world);
+        return world.getRecipeManager().getFirstMatch(recipeType, getRecipeInput(inventory), world);
     }
 
     @Override

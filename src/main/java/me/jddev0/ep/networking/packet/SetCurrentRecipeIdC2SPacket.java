@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record SetCurrentRecipeIdC2SPacket(BlockPos pos, Identifier recipeId) implements CustomPayload {
     public static final CustomPayload.Id<SetCurrentRecipeIdC2SPacket> ID =
-            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "set_current_recipe_id"));
+            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "set_current_recipe_id"));
     public static final PacketCodec<RegistryByteBuf, SetCurrentRecipeIdC2SPacket> PACKET_CODEC =
             PacketCodec.of(SetCurrentRecipeIdC2SPacket::write, SetCurrentRecipeIdC2SPacket::new);
 

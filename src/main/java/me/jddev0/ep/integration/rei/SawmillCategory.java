@@ -45,7 +45,7 @@ public class SawmillCategory implements DisplayCategory<SawmillDisplay> {
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/sawmill.png");
+        Identifier texture = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/sawmill.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 42, 30, 109, 26));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().

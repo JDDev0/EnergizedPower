@@ -19,12 +19,13 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
 
 public class StoneSolidifierBlockEntity
-        extends SelectableRecipeFluidMachineBlockEntity<CombinedStorage<FluidVariant, SimpleFluidStorage>, StoneSolidifierRecipe> {
+        extends SelectableRecipeFluidMachineBlockEntity<CombinedStorage<FluidVariant, SimpleFluidStorage>, RecipeInput, StoneSolidifierRecipe> {
     public static final long TANK_CAPACITY = FluidUtils.convertMilliBucketsToDroplets(1000 *
             ModConfigs.COMMON_STONE_SOLIDIFIER_TANK_CAPACITY.getValue());
 

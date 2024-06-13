@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public record SetAdvancedAutoCrafterRecipeIndexC2SPacket(BlockPos pos, int recipeIndex) implements CustomPayload {
     public static final CustomPayload.Id<SetAdvancedAutoCrafterRecipeIndexC2SPacket> ID =
-            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "set_advanced_auto_crafter_recipe_index"));
+            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "set_advanced_auto_crafter_recipe_index"));
     public static final PacketCodec<RegistryByteBuf, SetAdvancedAutoCrafterRecipeIndexC2SPacket> PACKET_CODEC =
             PacketCodec.of(SetAdvancedAutoCrafterRecipeIndexC2SPacket::write, SetAdvancedAutoCrafterRecipeIndexC2SPacket::new);
 

@@ -4,6 +4,7 @@ import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.MetalPressRecipe;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
@@ -13,9 +14,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.input.RecipeInput;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 
-public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<MetalPressRecipe> {
+public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, MetalPressRecipe> {
     final InputOutputItemHandler itemHandlerTopSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 1) {
         @Override
         public int getMaxCountPerStack() {
@@ -79,15 +82,20 @@ public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<MetalP
     }
 
     @Override
+    protected RecipeInput getRecipeInput(SimpleInventory inventory) {
+        return new ContainerRecipeInputWrapper(inventory);
+    }
+
+    @Override
     protected void craftItem(RecipeEntry<MetalPressRecipe> recipe) {
-        if(world == null || !hasRecipe())
+        if(world == null || !hasRecipe() || !(world instanceof ServerWorld serverWorld))
             return;
 
          ItemStack pressMold = itemHandler.getStack(1).copy();
         if(pressMold.isEmpty() && !pressMold.isIn(EnergizedPowerItemTags.METAL_PRESS_MOLDS))
             return;
 
-        pressMold.damage(1, world.random, null, () -> pressMold.setCount(0));
+        pressMold.damage(1, serverWorld, null, item -> pressMold.setCount(0));
         itemHandler.setStack(1, pressMold);
 
         itemHandler.removeStack(0, recipe.value().getInputCount());

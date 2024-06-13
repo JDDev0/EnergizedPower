@@ -11,6 +11,7 @@ import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.FluidTransposerRecipe;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.FluidTransposerMenu;
@@ -25,6 +26,7 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.StringIdentifiable;
@@ -35,7 +37,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 public class FluidTransposerBlockEntity
-        extends SimpleRecipeFluidMachineBlockEntity<SimpleFluidStorage, FluidTransposerRecipe>
+        extends SimpleRecipeFluidMachineBlockEntity<SimpleFluidStorage, RecipeInput, FluidTransposerRecipe>
         implements CheckboxUpdate {
     public static final long TANK_CAPACITY = FluidUtils.convertMilliBucketsToDroplets(
             1000 * ModConfigs.COMMON_FLUID_TRANSPOSER_TANK_CAPACITY.getValue());
@@ -187,11 +189,16 @@ public class FluidTransposerBlockEntity
     protected Optional<RecipeEntry<FluidTransposerRecipe>> getRecipeFor(SimpleInventory inventory) {
         return world.getRecipeManager().listAllOfType(recipeType).
                 stream().filter(recipe -> recipe.value().getMode() == mode).
-                filter(recipe -> recipe.value().matches(inventory, world)).
+                filter(recipe -> recipe.value().matches(getRecipeInput(inventory), world)).
                 filter(recipe -> (mode == Mode.EMPTYING && fluidStorage.isEmpty()) ||
                         (recipe.value().getFluid().getFluidVariant().isOf(fluidStorage.getFluid().getFluid()) &&
                                 recipe.value().getFluid().getFluidVariant().componentsMatch(fluidStorage.getFluid().getFluidVariant().getComponents()))).
                 findFirst();
+    }
+
+    @Override
+    protected RecipeInput getRecipeInput(SimpleInventory inventory) {
+        return new ContainerRecipeInputWrapper(inventory);
     }
 
     @Override

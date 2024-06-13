@@ -20,8 +20,8 @@ public class AdvancedAutoCrafterScreen extends ConfigurableUpgradableEnergyStora
     public AdvancedAutoCrafterScreen(AdvancedAutoCrafterMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/advanced_auto_crafter.png"),
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/advanced_auto_crafter.png"));
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/advanced_auto_crafter.png"),
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/advanced_auto_crafter.png"));
 
         backgroundHeight = 224;
         playerInventoryTitleY = backgroundHeight - 94;

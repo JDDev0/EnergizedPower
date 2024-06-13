@@ -12,6 +12,6 @@ import net.minecraft.util.Identifier;
 public class TeleporterScreen extends EnergyStorageContainerScreen<TeleporterMenu> {
     public TeleporterScreen(TeleporterMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/teleporter.png"));
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/teleporter.png"));
     }
 }

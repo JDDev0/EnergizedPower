@@ -19,7 +19,7 @@ import java.util.Optional;
 public abstract class UpgradableEnergyStorageContainerScreen<T extends ScreenHandler & IEnergyStorageMenu>
         extends EnergyStorageContainerScreen<T> {
     protected final Identifier CONFIGURATION_ICONS_TEXTURE =
-            new Identifier(EnergizedPowerMod.MODID,
+            Identifier.of(EnergizedPowerMod.MODID,
                     "textures/gui/machine_configuration/configuration_buttons.png");
     protected final Identifier UPGRADE_VIEW_TEXTURE;
 

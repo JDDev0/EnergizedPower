@@ -14,8 +14,8 @@ public class PoweredFurnaceScreen extends ConfigurableUpgradableEnergyStorageCon
     public PoweredFurnaceScreen(PoweredFurnaceMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/powered_furnace.png"),
-                new Identifier(EnergizedPowerMod.MODID,
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/powered_furnace.png"),
+                Identifier.of(EnergizedPowerMod.MODID,
                         "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity_1_furnace_mode.png"));
     }
 

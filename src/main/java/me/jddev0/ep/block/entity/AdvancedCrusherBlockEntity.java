@@ -7,6 +7,7 @@ import me.jddev0.ep.fluid.ModFluids;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.CrusherRecipe;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.AdvancedCrusherMenu;
@@ -20,13 +21,14 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.util.math.BlockPos;
 import me.jddev0.ep.util.*;
 
 import java.util.List;
 
 public class AdvancedCrusherBlockEntity
-        extends SimpleRecipeFluidMachineBlockEntity<CombinedStorage<FluidVariant, SimpleFluidStorage>, CrusherRecipe> {
+        extends SimpleRecipeFluidMachineBlockEntity<CombinedStorage<FluidVariant, SimpleFluidStorage>, RecipeInput, CrusherRecipe> {
     public static final long TANK_CAPACITY = FluidUtils.convertMilliBucketsToDroplets(
             1000 * ModConfigs.COMMON_ADVANCED_CRUSHER_TANK_CAPACITY.getValue());
     public static final long WATER_CONSUMPTION_PER_RECIPE = FluidUtils.convertMilliBucketsToDroplets(
@@ -134,6 +136,11 @@ public class AdvancedCrusherBlockEntity
                     }
                 }
         ));
+    }
+
+    @Override
+    protected RecipeInput getRecipeInput(SimpleInventory inventory) {
+        return new ContainerRecipeInputWrapper(inventory);
     }
 
     @Override

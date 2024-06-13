@@ -15,7 +15,7 @@ public final class ModEntityTypes {
 
     @SuppressWarnings("unchecked")
     public static <T extends Entity> EntityType<T> registerEntity(String name, EntityType<? extends T> entityType) {
-        return (EntityType<T>)Registry.register(Registries.ENTITY_TYPE, new Identifier(EnergizedPowerMod.MODID, name), entityType);
+        return (EntityType<T>)Registry.register(Registries.ENTITY_TYPE, Identifier.of(EnergizedPowerMod.MODID, name), entityType);
     }
 
     public static final EntityType<MinecartBatteryBox> BATTERY_BOX_MINECART = registerEntity(

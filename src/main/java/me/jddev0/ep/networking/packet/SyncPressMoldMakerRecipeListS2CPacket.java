@@ -19,7 +19,7 @@ import java.util.stream.IntStream;
 
 public final class SyncPressMoldMakerRecipeListS2CPacket implements CustomPayload {
     public static final CustomPayload.Id<SyncPressMoldMakerRecipeListS2CPacket> ID =
-            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "sync_press_mold_maker_recipe_list"));
+            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "sync_press_mold_maker_recipe_list"));
     public static final PacketCodec<RegistryByteBuf, SyncPressMoldMakerRecipeListS2CPacket> PACKET_CODEC =
             PacketCodec.of(SyncPressMoldMakerRecipeListS2CPacket::write, SyncPressMoldMakerRecipeListS2CPacket::new);
 

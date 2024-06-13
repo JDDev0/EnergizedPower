@@ -106,38 +106,34 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
                     .texture(u0, v1)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
-                    .next();
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f);
 
             vertexConsumer.vertex(mat, .9375f, height * .0625f, 0.f)
                     .color(fluidColorTint)
                     .texture(u1, v1)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
-                    .next();
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f);
 
             vertexConsumer.vertex(mat, .9375f, 0.f, 0.f)
                     .color(fluidColorTint)
                     .texture(u1, v0)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
-                    .next();
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f);
 
             vertexConsumer.vertex(mat, .0625f, 0.f, 0.f)
                     .color(fluidColorTint)
                     .texture(u0, v0)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
-                    .next();
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f);
         }
 
         //Indicator bar
         {
             Sprite indicatorBarSprite = MinecraftClient.getInstance().getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).
-                    apply(new Identifier(EnergizedPowerMod.MODID, "block/fluid_tank_indicator_bar"));
+                    apply(Identifier.of(EnergizedPowerMod.MODID, "block/fluid_tank_indicator_bar"));
 
             float translateForMinMaxIndicatorBarHeight = height < 2?(height - 2) / 16.f:(height > 12?(height - 12) / 16.f:0.f);
 
@@ -156,32 +152,28 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
                     .texture(ibu0, ibv1)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
-                    .next();
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f);
 
             vertexConsumer.vertex(mat, .625f, .015f, -.05f)
                     .color(255, 255, 255, 255)
                     .texture(ibu1, ibv1)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
-                    .next();
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f);
 
             vertexConsumer.vertex(mat, .625f, -.015f, -.05f)
                     .color(255, 255, 255, 255)
                     .texture(ibu1, ibv0)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
-                    .next();
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f);
 
             vertexConsumer.vertex(mat, .375f, -.015f, -.05f)
                     .color(255, 255, 255, 255)
                     .texture(ibu0, ibv0)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
-                    .next();
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f);
 
             poseStack.translate(0.f, -translateForMinMaxIndicatorBarHeight, 0.f);
         }
@@ -199,32 +191,28 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
                     .texture(u0, v1)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
-                    .next();
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f);
 
             vertexConsumer.vertex(mat, .9375f, .875f, 0.f)
                     .color(fluidColorTint)
                     .texture(u1, v1)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
-                    .next();
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f);
 
             vertexConsumer.vertex(mat, .9375f, 0.f, 0.f)
                     .color(fluidColorTint)
                     .texture(u1, v0)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
-                    .next();
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f);
 
             vertexConsumer.vertex(mat, .0625f, 0.f, 0.f)
                     .color(fluidColorTint)
                     .texture(u0, v0)
                     .overlay(packedOverlay)
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .normal(poseStack.peek(), 0.f, 0.f, 0.f)
-                    .next();
+                    .normal(poseStack.peek(), 0.f, 0.f, 0.f);
         }
 
         poseStack.pop();

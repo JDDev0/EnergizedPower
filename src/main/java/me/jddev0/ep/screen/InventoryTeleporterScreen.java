@@ -18,7 +18,7 @@ public class InventoryTeleporterScreen extends EnergizedPowerBaseContainerScreen
     public InventoryTeleporterScreen(InventoryTeleporterMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component);
 
-        TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/inventory_teleporter.png");
+        TEXTURE = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/inventory_teleporter.png");
     }
 
     @Override

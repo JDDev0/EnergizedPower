@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 public class SolarPanelScreen extends UpgradableEnergyStorageContainerScreen<SolarPanelMenu> {
     public SolarPanelScreen(SolarPanelMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity_1_moon_light.png"));
+                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity_1_moon_light.png"));
 
         energyMeterX = 80;
     }

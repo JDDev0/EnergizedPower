@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public record SetWeatherFromWeatherControllerC2SPacket(BlockPos pos, int weatherType) implements CustomPayload {
     public static final CustomPayload.Id<SetWeatherFromWeatherControllerC2SPacket> ID =
-            new CustomPayload.Id<>(new Identifier(EnergizedPowerMod.MODID, "set_weather_from_weather_controller"));
+            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "set_weather_from_weather_controller"));
     public static final PacketCodec<RegistryByteBuf, SetWeatherFromWeatherControllerC2SPacket> PACKET_CODEC =
             PacketCodec.of(SetWeatherFromWeatherControllerC2SPacket::write, SetWeatherFromWeatherControllerC2SPacket::new);
 

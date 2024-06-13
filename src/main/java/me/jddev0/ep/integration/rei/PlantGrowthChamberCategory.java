@@ -50,7 +50,7 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
+        Identifier texture = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 61, 25, 108, 48));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 10)).disableBackground().markInput().

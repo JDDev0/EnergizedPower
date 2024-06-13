@@ -15,9 +15,9 @@ import net.minecraft.util.Identifier;
 import java.util.List;
 
 public class CompressorEMIRecipe implements EmiRecipe {
-    public static final Identifier SIMPLIFIED_TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/block/compressor_side.png");
+    public static final Identifier SIMPLIFIED_TEXTURE = Identifier.of(EnergizedPowerMod.MODID, "textures/block/compressor_side.png");
     public static final EmiStack ITEM = EmiStack.of(ModBlocks.COMPRESSOR_ITEM);
-    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new Identifier(EnergizedPowerMod.MODID, "compressor"),
+    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(Identifier.of(EnergizedPowerMod.MODID, "compressor"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final Identifier id;
@@ -62,7 +62,7 @@ public class CompressorEMIRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/compressor.png");
+        Identifier texture = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/compressor.png");
         widgets.addTexture(texture, 0, 0, 98, 26, 47, 30);
 
         widgets.addSlot(input.get(0), 0, 4).drawBack(false);

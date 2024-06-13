@@ -26,7 +26,14 @@ public class CutterItem extends ToolItem {
     @Override
     public ItemStack getRecipeRemainder(ItemStack itemStack) {
         ItemStack copy = itemStack.copy();
-        copy.damage(1, random, null, () -> copy.setCount(0));
+        //TODO fix for durability enchantment -> Get ServerWorld somehow and use instead of if:
+        //     "copy.damage(1, null, null, item -> copy.setCount(0));"
+        if(copy.isDamageable()) {
+            int i = copy.getDamage() + 1;
+            copy.setDamage(i);
+            if(i >= copy.getMaxDamage())
+                copy.setCount(0);
+        }
 
         return copy;
     }

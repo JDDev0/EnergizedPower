@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -13,12 +12,13 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 
-public class MetalPressRecipe implements Recipe<Inventory> {
+public class MetalPressRecipe implements Recipe<RecipeInput> {
     private final ItemStack output;
     private final ItemStack pressMold;
     private final Ingredient input;
@@ -48,16 +48,16 @@ public class MetalPressRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public boolean matches(Inventory container, World level) {
+    public boolean matches(RecipeInput container, World level) {
         if(level.isClient())
             return false;
 
-        return input.test(container.getStack(0)) && container.getStack(0).getCount() >= inputCount &&
-                ItemStack.areItemsEqual(pressMold, container.getStack(1));
+        return input.test(container.getStackInSlot(0)) && container.getStackInSlot(0).getCount() >= inputCount &&
+                ItemStack.areItemsEqual(pressMold, container.getStackInSlot(1));
     }
 
     @Override
-    public ItemStack craft(Inventory container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
         return output;
     }
 
@@ -102,7 +102,7 @@ public class MetalPressRecipe implements Recipe<Inventory> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "metal_press");
+        public static final Identifier ID = Identifier.of(EnergizedPowerMod.MODID, "metal_press");
 
         private final MapCodec<MetalPressRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {

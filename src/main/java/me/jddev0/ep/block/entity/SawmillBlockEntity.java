@@ -4,6 +4,7 @@ import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.recipe.SawmillRecipe;
 import me.jddev0.ep.screen.SawmillMenu;
@@ -11,9 +12,10 @@ import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.util.math.BlockPos;
 
-public class SawmillBlockEntity extends SimpleRecipeMachineBlockEntity<SawmillRecipe> {
+public class SawmillBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, SawmillRecipe> {
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1 || i == 2);
 
     public SawmillBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -32,6 +34,11 @@ public class SawmillBlockEntity extends SimpleRecipeMachineBlockEntity<SawmillRe
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
+    }
+
+    @Override
+    protected RecipeInput getRecipeInput(SimpleInventory inventory) {
+        return new ContainerRecipeInputWrapper(inventory);
     }
 
     @Override

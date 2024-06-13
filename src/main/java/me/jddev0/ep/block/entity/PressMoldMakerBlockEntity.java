@@ -5,6 +5,7 @@ import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncPressMoldMakerRecipeListS2CPacket;
+import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.PressMoldMakerMenu;
 import me.jddev0.ep.util.InventoryUtils;
@@ -96,7 +97,7 @@ public class PressMoldMakerBlockEntity
         if(recipe.isEmpty() || !(recipe.get().value() instanceof PressMoldMakerRecipe pressMoldMakerRecipe))
             return;
 
-        if(!pressMoldMakerRecipe.matches(itemHandler, world) ||
+        if(!pressMoldMakerRecipe.matches(new ContainerRecipeInputWrapper(itemHandler), world) ||
                 !InventoryUtils.canInsertItemIntoSlot(itemHandler, 1, pressMoldMakerRecipe.getResult(world.getRegistryManager())))
             return;
 
@@ -109,7 +110,7 @@ public class PressMoldMakerBlockEntity
         List<RecipeEntry<PressMoldMakerRecipe>> recipes = world.getRecipeManager().listAllOfType(PressMoldMakerRecipe.Type.INSTANCE);
         return recipes.stream().
                 sorted(Comparator.comparing(recipe -> recipe.value().getResult(world.getRegistryManager()).getTranslationKey())).
-                map(recipe -> Pair.of(recipe, recipe.value().matches(itemHandler, world))).
+                map(recipe -> Pair.of(recipe, recipe.value().matches(new ContainerRecipeInputWrapper(itemHandler), world))).
                 collect(Collectors.toList());
     }
 

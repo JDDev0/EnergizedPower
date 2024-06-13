@@ -5,7 +5,7 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.ExperienceDroppingBlock;
 import net.minecraft.block.MapColor;
-import net.minecraft.block.enums.Instrument;
+import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -34,7 +34,7 @@ public final class ModBlocks {
 
     public static final Block TIN_ORE = registerBlock("tin_ore",
             new ExperienceDroppingBlock(ConstantIntProvider.create(0), AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY)
-                    .instrument(Instrument.BASEDRUM).requiresTool().strength(3.0f, 3.0f)));
+                    .instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.0f, 3.0f)));
     public static final Item TIN_ORE_ITEM = createBlockItem("tin_ore", TIN_ORE);
 
     public static final Block DEEPSLATE_TIN_ORE = registerBlock("deepslate_tin_ore",
@@ -44,7 +44,7 @@ public final class ModBlocks {
 
     public static final Block RAW_TIN_BLOCK = registerBlock("raw_tin_block",
             new Block(AbstractBlock.Settings.create().mapColor(MapColor.RAW_IRON_PINK)
-                    .instrument(Instrument.BASEDRUM).requiresTool().strength(5.0f, 6.0f)));
+                    .instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(5.0f, 6.0f)));
     public static final Item RAW_TIN_BLOCK_ITEM = createBlockItem("raw_tin_block", RAW_TIN_BLOCK);
     
     public static final Block ITEM_CONVEYOR_BELT = registerBlock("item_conveyor_belt",
@@ -55,27 +55,27 @@ public final class ModBlocks {
 
     public static final Block ITEM_CONVEYOR_BELT_LOADER = registerBlock("item_conveyor_belt_loader",
             new ItemConveyorBeltLoaderBlock(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
-                    instrument(Instrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
     public static final Item ITEM_CONVEYOR_BELT_LOADER_ITEM = createBlockItem("item_conveyor_belt_loader", ITEM_CONVEYOR_BELT_LOADER);
 
     public static final Block ITEM_CONVEYOR_BELT_SORTER = registerBlock("item_conveyor_belt_sorter",
             new ItemConveyorBeltSorterBlock(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
-                    instrument(Instrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
     public static final Item ITEM_CONVEYOR_BELT_SORTER_ITEM = createBlockItem("item_conveyor_belt_sorter", ITEM_CONVEYOR_BELT_SORTER);
 
     public static final Block ITEM_CONVEYOR_BELT_SWITCH = registerBlock("item_conveyor_belt_switch",
             new ItemConveyorBeltSwitchBlock(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
-                    instrument(Instrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
     public static final Item ITEM_CONVEYOR_BELT_SWITCH_ITEM = createBlockItem("item_conveyor_belt_switch", ITEM_CONVEYOR_BELT_SWITCH);
 
     public static final Block ITEM_CONVEYOR_BELT_SPLITTER = registerBlock("item_conveyor_belt_splitter",
             new ItemConveyorBeltSplitterBlock(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
-                    instrument(Instrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
     public static final Item ITEM_CONVEYOR_BELT_SPLITTER_ITEM = createBlockItem("item_conveyor_belt_splitter", ITEM_CONVEYOR_BELT_SPLITTER);
 
     public static final Block ITEM_CONVEYOR_BELT_MERGER = registerBlock("item_conveyor_belt_merger",
             new ItemConveyorBeltMergerBlock(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
-                    instrument(Instrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
     public static final Item ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("item_conveyor_belt_merger", ITEM_CONVEYOR_BELT_MERGER);
 
     public static final FluidPipeBlock IRON_FLUID_PIPE = registerBlock("fluid_pipe",
@@ -104,7 +104,7 @@ public final class ModBlocks {
             new FluidTankBlock.Item(FLUID_TANK_LARGE, new Item.Settings(), FluidTankBlock.Tier.LARGE));
 
     private static Item createCableBlockItem(String name, CableBlock block) {
-        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
+        return Registry.register(Registries.ITEM, Identifier.of(EnergizedPowerMod.MODID, name),
                 new CableBlock.Item(block, new Item.Settings(), block.getTier()));
     }
     public static final CableBlock TIN_CABLE = registerBlock("tin_cable",
@@ -135,7 +135,7 @@ public final class ModBlocks {
             ENERGIZED_CRYSTAL_MATRIX_CABLE);
 
     private static Item createTransformerBlockItem(String name, TransformerBlock block) {
-        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
+        return Registry.register(Registries.ITEM, Identifier.of(EnergizedPowerMod.MODID, name),
                 new TransformerBlock.Item(block, new Item.Settings(), block.getTier(), block.getTransformerType()));
     }
     public static final TransformerBlock LV_TRANSFORMER_1_TO_N = registerBlock("lv_transformer_1_to_n",
@@ -224,7 +224,7 @@ public final class ModBlocks {
 
     public static final Block PRESS_MOLD_MAKER = registerBlock("press_mold_maker",
             new PressMoldMakerBlock(AbstractBlock.Settings.create().mapColor(MapColor.RED).
-                    instrument(Instrument.BASEDRUM).requiresTool().strength(2.0f, 6.0f).sounds(BlockSoundGroup.STONE)));
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(2.0f, 6.0f).sounds(BlockSoundGroup.STONE)));
     public static final Item PRESS_MOLD_MAKER_ITEM = createBlockItem("press_mold_maker", PRESS_MOLD_MAKER);
 
     public static final Block AUTO_CRAFTER = registerBlock("auto_crafter",
@@ -406,7 +406,7 @@ public final class ModBlocks {
 
 
     private static Item createSolarPanelBlockItem(String name, SolarPanelBlock block) {
-        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
+        return Registry.register(Registries.ITEM, Identifier.of(EnergizedPowerMod.MODID, name),
                 new SolarPanelBlock.Item(block, new Item.Settings(), block.getTier()));
     }
     public static final SolarPanelBlock SOLAR_PANEL_1 = registerBlock("solar_panel_1",
@@ -529,15 +529,15 @@ public final class ModBlocks {
     public static final Item REINFORCED_ADVANCED_MACHINE_FRAME_ITEM = createBlockItem("reinforced_advanced_machine_frame", REINFORCED_ADVANCED_MACHINE_FRAME);
 
     private static <T extends Block> T registerBlock(String name, T block) {
-        return Registry.register(Registries.BLOCK, new Identifier(EnergizedPowerMod.MODID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(EnergizedPowerMod.MODID, name), block);
     }
 
     private static Item createBlockItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(EnergizedPowerMod.MODID, name), item);
     }
 
     private static Item createBlockItem(String name, Block block, Item.Settings props) {
-        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
+        return Registry.register(Registries.ITEM, Identifier.of(EnergizedPowerMod.MODID, name),
                 new BlockItem(block, props));
     }
 

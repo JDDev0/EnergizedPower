@@ -32,7 +32,7 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
     public PressMoldMakerScreen(PressMoldMakerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component);
 
-        TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/press_mold_maker.png");
+        TEXTURE = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/press_mold_maker.png");
     }
 
     @Override

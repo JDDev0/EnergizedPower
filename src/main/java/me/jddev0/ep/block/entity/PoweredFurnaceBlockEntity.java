@@ -22,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.AbstractCookingRecipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -214,7 +215,7 @@ public class PoweredFurnaceBlockEntity
     private Optional<? extends RecipeEntry<? extends AbstractCookingRecipe>> getRecipeFor(Inventory container, World level) {
         return level.getRecipeManager().listAllOfType(getRecipeForFurnaceModeUpgrade()).
                 stream().filter(recipe -> !RECIPE_BLACKLIST.contains(recipe.id())).
-                filter(recipe -> recipe.value().matches(container, level)).
+                filter(recipe -> recipe.value().matches(new SingleStackRecipeInput(container.getStack(0)), level)).
                 findFirst();
     }
 

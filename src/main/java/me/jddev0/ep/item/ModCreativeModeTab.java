@@ -17,7 +17,7 @@ public class ModCreativeModeTab {
     }
 
     public static final RegistryKey<ItemGroup> ENERGIZED_POWER_TAB_REG_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP,
-            new Identifier(EnergizedPowerMod.MODID, "main"));
+            Identifier.of(EnergizedPowerMod.MODID, "main"));
     public static final ItemGroup ENERGIZED_POWER_TAB = registerItemGroup(ENERGIZED_POWER_TAB_REG_KEY, FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup.energizedpower.tab"))
             .icon(() -> new ItemStack(ModItems.ENERGIZED_COPPER_INGOT))
