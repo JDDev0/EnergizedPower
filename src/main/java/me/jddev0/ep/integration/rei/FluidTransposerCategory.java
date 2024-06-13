@@ -49,7 +49,7 @@ public class FluidTransposerCategory implements DisplayCategory<FluidTransposerD
         int y = bounds.y + PADDING;
 
         if(display.recipe().value().getMode() == FluidTransposerBlockEntity.Mode.EMPTYING) {
-            ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+            ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
             widgets.add(Widgets.createTexturedWidget(texture, x, y, 1, 133, 143, 26));
 
             widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().
@@ -60,10 +60,10 @@ public class FluidTransposerCategory implements DisplayCategory<FluidTransposerD
             widgets.add(Widgets.createSlot(new Point(x + 90, y + 5)).disableBackground().markOutput().
                     entries(display.getOutputEntries().get(1)));
 
-            widgets.add(Widgets.createTexturedWidget(new ResourceLocation("minecraft", "textures/item/bucket.png"),
+            widgets.add(Widgets.createTexturedWidget(ResourceLocation.fromNamespaceAndPath("minecraft", "textures/item/bucket.png"),
                     x + 120, y + 5, 16, 16, 16, 16, 16, 16, 16, 16));
         }else {
-            ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+            ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
             widgets.add(Widgets.createTexturedWidget(texture, x, y, 1, 161, 143, 26));
 
             widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().
@@ -74,7 +74,7 @@ public class FluidTransposerCategory implements DisplayCategory<FluidTransposerD
             widgets.add(Widgets.createSlot(new Point(x + 90, y + 5)).disableBackground().markOutput().
                     entries(display.getOutputEntries().get(0)));
 
-            widgets.add(Widgets.createTexturedWidget(new ResourceLocation("minecraft", "textures/item/water_bucket.png"),
+            widgets.add(Widgets.createTexturedWidget(ResourceLocation.fromNamespaceAndPath("minecraft", "textures/item/water_bucket.png"),
                     x + 120, y + 5, 16, 16, 16, 16, 16, 16, 16, 16));
         }
 

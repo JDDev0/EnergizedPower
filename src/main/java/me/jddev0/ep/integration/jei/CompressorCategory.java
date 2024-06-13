@@ -23,7 +23,7 @@ public class CompressorCategory implements IRecipeCategory<RecipeHolder<Compress
     private final IDrawable icon;
 
     public CompressorCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/compressor.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/compressor.png");
         background = helper.createDrawable(texture, 47, 30, 98, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.COMPRESSOR_ITEM.get()));

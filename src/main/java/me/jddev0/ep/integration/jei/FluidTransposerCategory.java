@@ -32,7 +32,7 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
     private final IDrawable icon;
 
     public FluidTransposerCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
         backgroundEmptying = helper.createDrawable(texture, 1, 133, 143, 26);
         backgroundFilling = helper.createDrawable(texture, 1, 161, 143, 26);
 

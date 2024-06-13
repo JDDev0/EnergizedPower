@@ -13,7 +13,7 @@ public class SolarPanelScreen
         extends UpgradableEnergyStorageContainerScreen<SolarPanelMenu> {
     public SolarPanelScreen(SolarPanelMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity_1_moon_light.png"));
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity_1_moon_light.png"));
 
         energyMeterX = 80;
     }

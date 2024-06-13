@@ -24,14 +24,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class EnergizerCategory implements IRecipeCategory<RecipeHolder<EnergizerRecipe>> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "energizer");
+    public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "energizer");
     public static final RecipeType<RecipeHolder<EnergizerRecipe>> TYPE = RecipeType.createFromVanilla(EnergizerRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public EnergizerCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/energizer.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/energizer.png");
         background = helper.createDrawable(texture, 31, 18, 114, 50);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.ENERGIZER_ITEM.get()));

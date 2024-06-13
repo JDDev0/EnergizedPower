@@ -19,7 +19,6 @@ import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.item.energy.ItemCapabilityEnergy;
 import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.painting.ModPaintings;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.*;
 import me.jddev0.ep.villager.ModVillager;
@@ -69,7 +68,6 @@ public class EnergizedPowerMod {
         ModMenuTypes.register(modEventBus);
         ModVillager.register(modEventBus);
         ModEntityTypes.register(modEventBus);
-        ModPaintings.register(modEventBus);
 
         ModFluids.register(modEventBus);
         ModFluidTypes.register(modEventBus);
@@ -362,11 +360,11 @@ public class EnergizedPowerMod {
             ModConfigs.registerConfigs(false);
 
             event.enqueueWork(() -> {
-                ItemProperties.registerGeneric(new ResourceLocation(MODID, "active"), (itemStack, level, entity, seed) -> {
+                ItemProperties.registerGeneric(ResourceLocation.fromNamespaceAndPath(MODID, "active"), (itemStack, level, entity, seed) -> {
                     Item item = itemStack.getItem();
                     return (item instanceof ActivatableItem && ((ActivatableItem)item).isActive(itemStack))?1.f:0.f;
                 });
-                ItemProperties.registerGeneric(new ResourceLocation(MODID, "working"), (itemStack, level, entity, seed) -> {
+                ItemProperties.registerGeneric(ResourceLocation.fromNamespaceAndPath(MODID, "working"), (itemStack, level, entity, seed) -> {
                     Item item = itemStack.getItem();
                     return (item instanceof WorkingItem && ((WorkingItem)item).isWorking(itemStack))?1.f:0.f;
                 });
@@ -374,10 +372,10 @@ public class EnergizedPowerMod {
 
             EntityRenderers.register(ModEntityTypes.BATTERY_BOX_MINECART.get(),
                     entity -> new MinecartRenderer<>(entity, new ModelLayerLocation(
-                            new ResourceLocation("minecraft", "chest_minecart"), "main")));
+                            ResourceLocation.fromNamespaceAndPath("minecraft", "chest_minecart"), "main")));
             EntityRenderers.register(ModEntityTypes.ADVANCED_BATTERY_BOX_MINECART.get(),
                     entity -> new MinecartRenderer<>(entity, new ModelLayerLocation(
-                            new ResourceLocation("minecraft", "chest_minecart"), "main")));
+                            ResourceLocation.fromNamespaceAndPath("minecraft", "chest_minecart"), "main")));
 
             ItemBlockRenderTypes.setRenderLayer(ModFluids.DIRTY_WATER.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_DIRTY_WATER.get(), RenderType.translucent());

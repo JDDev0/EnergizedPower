@@ -12,15 +12,11 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
-public class AssemblingMachineRecipe implements Recipe<Container> {
+public class AssemblingMachineRecipe implements Recipe<RecipeInput> {
     private final ItemStack output;
     private final IngredientWithCount[] inputs;
 
@@ -38,7 +34,7 @@ public class AssemblingMachineRecipe implements Recipe<Container> {
     }
 
     @Override
-    public boolean matches(Container container, Level level) {
+    public boolean matches(RecipeInput container, Level level) {
         if(level.isClientSide)
             return false;
 
@@ -80,7 +76,7 @@ public class AssemblingMachineRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container container, HolderLookup.Provider registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return output;
     }
 
@@ -125,7 +121,7 @@ public class AssemblingMachineRecipe implements Recipe<Container> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "assembling_machine");
+        public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "assembling_machine");
 
         private final MapCodec<AssemblingMachineRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {

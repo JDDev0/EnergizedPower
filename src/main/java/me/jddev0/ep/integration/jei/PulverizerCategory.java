@@ -26,7 +26,7 @@ public class PulverizerCategory implements IRecipeCategory<RecipeHolder<Pulveriz
     private final IDrawable icon;
 
     public PulverizerCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/pulverizer.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/pulverizer.png");
         background = helper.createDrawable(texture, 42, 30, 109, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.PULVERIZER_ITEM.get()));

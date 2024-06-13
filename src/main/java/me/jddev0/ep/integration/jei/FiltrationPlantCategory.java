@@ -28,7 +28,7 @@ public class FiltrationPlantCategory implements IRecipeCategory<RecipeHolder<Fil
     private final IDrawable icon;
 
     public FiltrationPlantCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
         background = helper.createDrawable(texture, 1, 105, 112, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.FILTRATION_PLANT_ITEM.get()));

@@ -15,18 +15,14 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class CrystalGrowthChamberRecipe implements Recipe<Container> {
+public class CrystalGrowthChamberRecipe implements Recipe<RecipeInput> {
     private final OutputItemStackWithPercentages output;
     private final Ingredient input;
     private final int inputCount;
@@ -70,7 +66,7 @@ public class CrystalGrowthChamberRecipe implements Recipe<Container> {
     }
 
     @Override
-    public boolean matches(Container container, Level level) {
+    public boolean matches(RecipeInput container, Level level) {
         if(level.isClientSide)
             return false;
 
@@ -78,7 +74,7 @@ public class CrystalGrowthChamberRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container container, HolderLookup.Provider registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
@@ -123,7 +119,7 @@ public class CrystalGrowthChamberRecipe implements Recipe<Container> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "crystal_growth_chamber");
+        public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "crystal_growth_chamber");
 
         private final MapCodec<CrystalGrowthChamberRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(OutputItemStackWithPercentages.CODEC.fieldOf("output").forGetter((recipe) -> {

@@ -10,12 +10,11 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
-public class CompressorRecipe implements Recipe<Container> {
+public class CompressorRecipe implements Recipe<RecipeInput> {
     private final ItemStack output;
     private final Ingredient input;
 
@@ -33,7 +32,7 @@ public class CompressorRecipe implements Recipe<Container> {
     }
 
     @Override
-    public boolean matches(Container container, Level level) {
+    public boolean matches(RecipeInput container, Level level) {
         if(level.isClientSide)
             return false;
 
@@ -41,7 +40,7 @@ public class CompressorRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container container, HolderLookup.Provider registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return output;
     }
 
@@ -93,7 +92,7 @@ public class CompressorRecipe implements Recipe<Container> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "compressor");
+        public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "compressor");
 
         private final MapCodec<CompressorRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {

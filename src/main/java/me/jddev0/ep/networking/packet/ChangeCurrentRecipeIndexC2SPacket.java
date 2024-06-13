@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record ChangeCurrentRecipeIndexC2SPacket(BlockPos pos, boolean downUp) implements CustomPacketPayload {
     public static final Type<ChangeCurrentRecipeIndexC2SPacket> ID =
-            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "change_current_recipe_index"));
+            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "change_current_recipe_index"));
     public static final StreamCodec<RegistryFriendlyByteBuf, ChangeCurrentRecipeIndexC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(ChangeCurrentRecipeIndexC2SPacket::write, ChangeCurrentRecipeIndexC2SPacket::new);
 

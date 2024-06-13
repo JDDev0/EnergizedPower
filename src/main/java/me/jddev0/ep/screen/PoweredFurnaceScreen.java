@@ -15,8 +15,8 @@ public class PoweredFurnaceScreen
     public PoweredFurnaceScreen(PoweredFurnaceMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/powered_furnace.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID,
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/powered_furnace.png"),
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID,
                         "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity_1_furnace_mode.png"));
     }
 

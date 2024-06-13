@@ -47,7 +47,7 @@ public class CrystalGrowthChamberCategory implements DisplayCategory<CrystalGrow
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/crystal_growth_chamber.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/crystal_growth_chamber.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 47, 30, 98, 38));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().

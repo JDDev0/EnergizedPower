@@ -7,6 +7,7 @@ import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.EnergizerRecipe;
 import me.jddev0.ep.screen.EnergizerMenu;
 import me.jddev0.ep.util.ByteUtils;
@@ -199,7 +200,8 @@ public class EnergizerBlockEntity
             for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
                 inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-            Optional<RecipeHolder<EnergizerRecipe>> recipe = level.getRecipeManager().getRecipeFor(EnergizerRecipe.Type.INSTANCE, inventory, level);
+            Optional<RecipeHolder<EnergizerRecipe>> recipe = level.getRecipeManager().
+                    getRecipeFor(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(inventory), level);
             if(recipe.isEmpty())
                 return;
 
@@ -269,7 +271,8 @@ public class EnergizerBlockEntity
         for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-        Optional<RecipeHolder<EnergizerRecipe>> recipe = level.getRecipeManager().getRecipeFor(EnergizerRecipe.Type.INSTANCE, inventory, level);
+        Optional<RecipeHolder<EnergizerRecipe>> recipe = level.getRecipeManager().
+                getRecipeFor(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(inventory), level);
 
         if(!hasRecipe(blockEntity) || recipe.isEmpty())
             return;
@@ -288,7 +291,8 @@ public class EnergizerBlockEntity
         for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
-        Optional<RecipeHolder<EnergizerRecipe>> recipe = level.getRecipeManager().getRecipeFor(EnergizerRecipe.Type.INSTANCE, inventory, level);
+        Optional<RecipeHolder<EnergizerRecipe>> recipe = level.getRecipeManager().
+                getRecipeFor(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(inventory), level);
 
         return recipe.isPresent() &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.get().value().getResultItem(level.registryAccess()));

@@ -19,8 +19,8 @@ public class FluidFillerScreen
         extends ConfigurableUpgradableEnergyStorageContainerScreen<FluidFillerMenu> {
     public FluidFillerScreen(FluidFillerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/fluid_filler.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_efficiency_1_energy_capacity.png"));
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/fluid_filler.png"),
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_efficiency_1_energy_capacity.png"));
     }
 
     @Override

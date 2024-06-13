@@ -20,14 +20,14 @@ import java.util.List;
 import java.util.Locale;
 
 public class AdvancedPulverizerCategory implements IRecipeCategory<RecipeHolder<PulverizerRecipe>> {
-    public static final RecipeType<RecipeHolder<PulverizerRecipe>> TYPE = new RecipeType<>(new ResourceLocation(EnergizedPowerMod.MODID, "advanced_pulverizer"),
+    public static final RecipeType<RecipeHolder<PulverizerRecipe>> TYPE = new RecipeType<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "advanced_pulverizer"),
             RecipeType.createFromVanilla(PulverizerRecipe.Type.INSTANCE).getRecipeClass());
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public AdvancedPulverizerCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/pulverizer.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/pulverizer.png");
         background = helper.createDrawable(texture, 42, 30, 109, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.ADVANCED_PULVERIZER_ITEM.get()));

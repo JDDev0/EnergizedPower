@@ -16,9 +16,9 @@ import net.minecraft.world.level.material.Fluids;
 import java.util.List;
 
 public class StoneSolidifierEMIRecipe implements EmiRecipe {
-    public static final ResourceLocation SIMPLIFIED_TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/block/stone_solidifier_front.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/block/stone_solidifier_front.png");
     public static final EmiStack ITEM = EmiStack.of(ModBlocks.STONE_SOLIDIFIER_ITEM.get());
-    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new ResourceLocation(EnergizedPowerMod.MODID, "stone_solidifier"),
+    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "stone_solidifier"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final ResourceLocation id;

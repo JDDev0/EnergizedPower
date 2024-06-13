@@ -15,8 +15,8 @@ public class AssemblingMachineScreen
     public AssemblingMachineScreen(AssemblingMachineMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/assembling_machine.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/assembling_machine.png"));
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/assembling_machine.png"),
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/assembling_machine.png"));
 
         imageHeight = 170;
         inventoryLabelY = imageHeight - 94;

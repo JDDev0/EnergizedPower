@@ -33,7 +33,7 @@ public class VillageAddition {
 
     private static void addVillageHouse(Registry<StructureTemplatePool> templatePoolRegistry, String villageType,
                                         String buildingName, int weight) {
-        StructureTemplatePool pool = templatePoolRegistry.get(new ResourceLocation(String.format("minecraft:village/%s/houses", villageType)));
+        StructureTemplatePool pool = templatePoolRegistry.get(ResourceLocation.parse(String.format("minecraft:village/%s/houses", villageType)));
         if(pool == null)
             return;
 

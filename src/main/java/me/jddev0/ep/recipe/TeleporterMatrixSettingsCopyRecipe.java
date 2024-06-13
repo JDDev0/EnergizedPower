@@ -4,9 +4,9 @@ import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -17,11 +17,11 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
     }
 
     @Override
-    public boolean matches(CraftingContainer container, Level level) {
+    public boolean matches(CraftingInput container, Level level) {
         ItemStack linkedTransportMatrix = ItemStack.EMPTY;
         int count = 0;
 
-        for(int i = 0;i < container.getContainerSize();i++) {
+        for(int i = 0;i < container.size();i++) {
             ItemStack itemStack = container.getItem(i);
             if(!itemStack.isEmpty()) {
                 if(!itemStack.is(ModItems.TELEPORTER_MATRIX.get()))
@@ -46,11 +46,11 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer container, HolderLookup.Provider registries) {
+    public ItemStack assemble(CraftingInput container, HolderLookup.Provider registries) {
         ItemStack linkedTransportMatrix = ItemStack.EMPTY;
         int count = 0;
 
-        for(int i = 0;i < container.getContainerSize();i++) {
+        for(int i = 0;i < container.size();i++) {
             ItemStack itemStack = container.getItem(i);
             if(!itemStack.isEmpty()) {
                 if(!itemStack.is(ModItems.TELEPORTER_MATRIX.get()))
@@ -81,8 +81,8 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
     }
 
     @Override
-    public NonNullList<ItemStack> getRemainingItems(CraftingContainer container) {
-        NonNullList<ItemStack> remainders = NonNullList.withSize(container.getContainerSize(), ItemStack.EMPTY);
+    public NonNullList<ItemStack> getRemainingItems(CraftingInput container) {
+        NonNullList<ItemStack> remainders = NonNullList.withSize(container.size(), ItemStack.EMPTY);
 
         for(int i = 0; i < remainders.size(); ++i) {
             ItemStack itemstack = container.getItem(i);

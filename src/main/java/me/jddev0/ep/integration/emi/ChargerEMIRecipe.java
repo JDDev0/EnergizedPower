@@ -20,9 +20,9 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 
 public class ChargerEMIRecipe implements EmiRecipe {
-    public static final ResourceLocation SIMPLIFIED_TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/block/charger_side.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/block/charger_side.png");
     public static final EmiStack ITEM = EmiStack.of(ModBlocks.CHARGER_ITEM.get());
-    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new ResourceLocation(EnergizedPowerMod.MODID, "charger"),
+    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "charger"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final ResourceLocation id;
@@ -69,7 +69,7 @@ public class ChargerEMIRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/charger.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/charger.png");
         widgets.addTexture(texture, 0, 0, 46, 46, 65, 20);
 
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 53, 14);

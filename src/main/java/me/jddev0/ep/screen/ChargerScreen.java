@@ -15,7 +15,7 @@ public class ChargerScreen
     public ChargerScreen(ChargerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.charger.item_energy_left.txt",
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/charger.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/charger.png"),
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 }

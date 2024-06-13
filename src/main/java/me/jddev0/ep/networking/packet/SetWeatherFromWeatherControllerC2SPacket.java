@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record SetWeatherFromWeatherControllerC2SPacket(BlockPos pos, int weatherType) implements CustomPacketPayload {
     public static final Type<SetWeatherFromWeatherControllerC2SPacket> ID =
-            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "set_weather_from_weather_controller"));
+            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "set_weather_from_weather_controller"));
     public static final StreamCodec<RegistryFriendlyByteBuf, SetWeatherFromWeatherControllerC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(SetWeatherFromWeatherControllerC2SPacket::write, SetWeatherFromWeatherControllerC2SPacket::new);
 

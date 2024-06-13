@@ -321,9 +321,9 @@ public class TeleporterBlockEntity
         }
 
         ResourceLocation fromDimensionTypeId = level.dimensionTypeRegistration().unwrapKey().
-                map(ResourceKey::location).orElse(new ResourceLocation("empty"));
+                map(ResourceKey::location).orElse(ResourceLocation.withDefaultNamespace("empty"));
         ResourceLocation toDimensionTypeId = toDimension.dimensionTypeRegistration().unwrapKey().
-                map(ResourceKey::location).orElse(new ResourceLocation("empty"));
+                map(ResourceKey::location).orElse(ResourceLocation.withDefaultNamespace("empty"));
 
         //Dimension Type Blacklist
         if(TeleporterBlockEntity.DIMENSION_TYPE_BLACKLIST.contains(fromDimensionTypeId)) {

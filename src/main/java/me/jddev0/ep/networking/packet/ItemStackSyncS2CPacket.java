@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record ItemStackSyncS2CPacket(int slot, ItemStack itemStack, BlockPos pos) implements CustomPacketPayload {
     public static final Type<ItemStackSyncS2CPacket> ID =
-            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "item_stack_sync"));
+            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "item_stack_sync"));
     public static final StreamCodec<RegistryFriendlyByteBuf, ItemStackSyncS2CPacket> STREAM_CODEC =
             StreamCodec.ofMember(ItemStackSyncS2CPacket::write, ItemStackSyncS2CPacket::new);
 

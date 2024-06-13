@@ -28,8 +28,8 @@ public class FluidPumpScreen
     public FluidPumpScreen(FluidPumpMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.fluid_pump.process_energy_left.txt",
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/fluid_pump.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/fluid_pump.png"));
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/fluid_pump.png"),
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/fluid_pump.png"));
 
         imageWidth = 230;
         energyMeterU = 230;

@@ -33,7 +33,7 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
     public FluidTankScreen(FluidTankMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
 
-        TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/fluid_tank.png");
+        TEXTURE = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/fluid_tank.png");
     }
 
     @Override

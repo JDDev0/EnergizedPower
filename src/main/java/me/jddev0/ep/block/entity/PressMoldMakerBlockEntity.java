@@ -5,6 +5,7 @@ import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncPressMoldMakerRecipeListS2CPacket;
+import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.PressMoldMakerMenu;
 import me.jddev0.ep.util.InventoryUtils;
@@ -108,7 +109,7 @@ public class PressMoldMakerBlockEntity
         for(int i = 0;i < itemHandler.getSlots();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
-        if(!pressMoldMakerRecipe.matches(inventory, level) ||
+        if(!pressMoldMakerRecipe.matches(new ContainerRecipeInputWrapper(inventory), level) ||
                 !InventoryUtils.canInsertItemIntoSlot(inventory, 1, pressMoldMakerRecipe.getResultItem(level.registryAccess())))
             return;
 
@@ -125,7 +126,7 @@ public class PressMoldMakerBlockEntity
         List<RecipeHolder<PressMoldMakerRecipe>> recipes = level.getRecipeManager().getAllRecipesFor(PressMoldMakerRecipe.Type.INSTANCE);
         return recipes.stream().
                 sorted(Comparator.comparing(recipe -> recipe.value().getResultItem(level.registryAccess()).getDescriptionId())).
-                map(recipe -> Pair.of(recipe, recipe.value().matches(inventory, level))).
+                map(recipe -> Pair.of(recipe, recipe.value().matches(new ContainerRecipeInputWrapper(inventory), level))).
                 collect(Collectors.toList());
     }
 

@@ -26,8 +26,8 @@ public class FiltrationPlantScreen
     public FiltrationPlantScreen(FiltrationPlantMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/filtration_plant.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID,
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/filtration_plant.png"),
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID,
                         "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
 
         recipeSelectorPosX = 98;

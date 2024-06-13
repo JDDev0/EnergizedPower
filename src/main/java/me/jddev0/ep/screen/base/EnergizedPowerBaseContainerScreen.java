@@ -1,10 +1,7 @@
 package me.jddev0.ep.screen.base;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -50,7 +47,7 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
         IClientFluidTypeExtensions fluidTypeExtensions = IClientFluidTypeExtensions.of(fluid);
         ResourceLocation stillFluidImageId = fluidTypeExtensions.getStillTexture(fluidStack);
         if(stillFluidImageId == null)
-            stillFluidImageId = new ResourceLocation("air");
+            stillFluidImageId = ResourceLocation.withDefaultNamespace("air");
         TextureAtlasSprite stillFluidSprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).
                 apply(stillFluidImageId);
 
@@ -81,13 +78,12 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
                 v0 = v0 - ((16 - height) / 16.f * (v0 - v1));
 
                 Tesselator tesselator = Tesselator.getInstance();
-                BufferBuilder bufferBuilder = tesselator.getBuilder();
-                bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-                bufferBuilder.vertex(mat, xOffset, yOffset, 0).uv(u0, v1).endVertex();
-                bufferBuilder.vertex(mat, xOffset + width, yOffset, 0).uv(u1, v1).endVertex();
-                bufferBuilder.vertex(mat, xOffset + width, yOffset - height, 0).uv(u1, v0).endVertex();
-                bufferBuilder.vertex(mat, xOffset, yOffset - height, 0).uv(u0, v0).endVertex();
-                tesselator.end();
+                BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+                bufferBuilder.addVertex(mat, xOffset, yOffset, 0).setUv(u0, v1);
+                bufferBuilder.addVertex(mat, xOffset + width, yOffset, 0).setUv(u1, v1);
+                bufferBuilder.addVertex(mat, xOffset + width, yOffset - height, 0).setUv(u1, v0);
+                bufferBuilder.addVertex(mat, xOffset, yOffset - height, 0).setUv(u0, v0);
+                BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
             }
         }
     }

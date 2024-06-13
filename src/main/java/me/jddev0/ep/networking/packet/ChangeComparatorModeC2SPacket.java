@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record ChangeComparatorModeC2SPacket(BlockPos pos) implements CustomPacketPayload {
     public static final Type<ChangeComparatorModeC2SPacket> ID =
-            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "change_comparator_mode"));
+            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "change_comparator_mode"));
     public static final StreamCodec<RegistryFriendlyByteBuf, ChangeComparatorModeC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(ChangeComparatorModeC2SPacket::write, ChangeComparatorModeC2SPacket::new);
 

@@ -7,15 +7,18 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.fluid.ModFluids;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.recipe.PulverizerRecipe;
 import me.jddev0.ep.screen.AdvancedPulverizerMenu;
 import me.jddev0.ep.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.energy.IEnergyStorage;
@@ -27,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AdvancedPulverizerBlockEntity
-        extends SimpleRecipeFluidMachineBlockEntity<EnergizedPowerFluidStorage, PulverizerRecipe> {
+        extends SimpleRecipeFluidMachineBlockEntity<EnergizedPowerFluidStorage, RecipeInput, PulverizerRecipe> {
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_ADVANCED_PULVERIZER_TANK_CAPACITY.getValue();
     public static final int WATER_CONSUMPTION_PER_RECIPE = ModConfigs.COMMON_ADVANCED_PULVERIZER_WATER_USAGE_PER_RECIPE.getValue();
 
@@ -122,6 +125,11 @@ public class AdvancedPulverizerBlockEntity
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
         return energyStorage;
+    }
+
+    @Override
+    protected RecipeInput getRecipeInput(Container inventory) {
+        return new ContainerRecipeInputWrapper(inventory);
     }
 
     @Override

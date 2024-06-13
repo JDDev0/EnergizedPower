@@ -19,7 +19,7 @@ import java.util.Optional;
 public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractContainerMenu & IEnergyStorageMenu>
         extends EnergyStorageContainerScreen<T> {
     protected final ResourceLocation CONFIGURATION_ICONS_TEXTURE =
-            new ResourceLocation(EnergizedPowerMod.MODID,
+            ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID,
                     "textures/gui/machine_configuration/configuration_buttons.png");
     protected final ResourceLocation UPGRADE_VIEW_TEXTURE;
 

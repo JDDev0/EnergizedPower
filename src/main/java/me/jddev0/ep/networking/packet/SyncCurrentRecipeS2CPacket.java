@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 public final class SyncCurrentRecipeS2CPacket<R extends Recipe<?>> implements CustomPacketPayload {
     public static final Type<SyncCurrentRecipeS2CPacket<?>> ID =
-            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "sync_current_recipe"));
+            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "sync_current_recipe"));
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncCurrentRecipeS2CPacket<?>> STREAM_CODEC =
             StreamCodec.ofMember(SyncCurrentRecipeS2CPacket::write, SyncCurrentRecipeS2CPacket::new);
 

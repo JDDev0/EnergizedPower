@@ -26,7 +26,7 @@ public class CreativeBatteryBoxScreen extends EnergizedPowerBaseContainerScreen<
     public CreativeBatteryBoxScreen(CreativeBatteryBoxMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
 
-        TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/creative_battery_box.png");
+        TEXTURE = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/creative_battery_box.png");
     }
 
     @Override

@@ -18,9 +18,9 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import java.util.List;
 
 public class FluidTransposerEMIRecipe implements EmiRecipe {
-    public static final ResourceLocation SIMPLIFIED_TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/block/fluid_transposer_front.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/block/fluid_transposer_front.png");
     public static final EmiStack ITEM = EmiStack.of(ModBlocks.FLUID_TRANSPOSER_ITEM.get());
-    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new ResourceLocation(EnergizedPowerMod.MODID, "fluid_transposer"),
+    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "fluid_transposer"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final ResourceLocation id;
@@ -87,7 +87,7 @@ public class FluidTransposerEMIRecipe implements EmiRecipe {
     @Override
     public void addWidgets(WidgetHolder widgets) {
         if(mode == FluidTransposerBlockEntity.Mode.EMPTYING) {
-            widgets.addTexture(new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png"),
+            widgets.addTexture(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png"),
                     0, 0, 143, 26, 1, 133);
 
             widgets.addSlot(input.get(0), 0, 4).drawBack(false);
@@ -95,10 +95,10 @@ public class FluidTransposerEMIRecipe implements EmiRecipe {
             widgets.addSlot(output.get(0), 63, 4).drawBack(false).recipeContext(this);
             widgets.addSlot(output.get(1), 89, 4).drawBack(false).recipeContext(this);
 
-            widgets.addTexture(new ResourceLocation("minecraft", "textures/item/bucket.png"),
+            widgets.addTexture(ResourceLocation.fromNamespaceAndPath("minecraft", "textures/item/bucket.png"),
                     120, 5, 16, 16, 0, 0, 16, 16, 16, 16);
         }else {
-            widgets.addTexture(new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png"),
+            widgets.addTexture(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png"),
                     0, 0, 143, 26, 1, 161);
 
             widgets.addSlot(input.get(0), 0, 4).drawBack(false);
@@ -106,7 +106,7 @@ public class FluidTransposerEMIRecipe implements EmiRecipe {
 
             widgets.addSlot(output.get(0), 89, 4).drawBack(false).recipeContext(this);
 
-            widgets.addTexture(new ResourceLocation("minecraft", "textures/item/water_bucket.png"),
+            widgets.addTexture(ResourceLocation.fromNamespaceAndPath("minecraft", "textures/item/water_bucket.png"),
                     120, 5, 16, 16, 0, 0, 16, 16, 16, 16);
         }
 

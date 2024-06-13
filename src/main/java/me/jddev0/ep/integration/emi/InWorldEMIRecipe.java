@@ -15,9 +15,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.List;
 
 public class InWorldEMIRecipe implements EmiRecipe {
-    public static final ResourceLocation SIMPLIFIED_TEXTURE = new ResourceLocation("textures/block/grass_block_side.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = ResourceLocation.withDefaultNamespace("textures/block/grass_block_side.png");
     public static final EmiStack ITEM = EmiStack.of(Items.GRASS_BLOCK);
-    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new ResourceLocation(EnergizedPowerMod.MODID, "in_world_crafting"),
+    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "in_world_crafting"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final ResourceLocation id;

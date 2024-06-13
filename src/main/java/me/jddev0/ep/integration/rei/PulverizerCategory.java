@@ -44,7 +44,7 @@ public class PulverizerCategory implements DisplayCategory<PulverizerDisplay> {
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/pulverizer.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/pulverizer.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 42, 30, 109, 26));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().

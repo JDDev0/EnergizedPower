@@ -19,7 +19,7 @@ public class InventoryChargerScreen extends EnergizedPowerBaseContainerScreen<In
     public InventoryChargerScreen(InventoryChargerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
 
-        TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/generic_1x" + InventoryChargerItem.SLOT_COUNT + ".png");
+        TEXTURE = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/generic_1x" + InventoryChargerItem.SLOT_COUNT + ".png");
     }
 
     @Override

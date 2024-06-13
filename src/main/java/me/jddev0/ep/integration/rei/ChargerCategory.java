@@ -48,7 +48,7 @@ public class ChargerCategory implements DisplayCategory<ChargerDisplay> {
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/charger.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/charger.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 65, 20, 46, 46));
 
         widgets.add(Widgets.createArrow(new Point(x + 55, y + 15)));

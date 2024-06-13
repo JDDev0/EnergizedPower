@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record UseTeleporterC2SPacket(BlockPos pos) implements CustomPacketPayload {
     public static final Type<UseTeleporterC2SPacket> ID =
-            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "use_teleporter"));
+            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "use_teleporter"));
     public static final StreamCodec<RegistryFriendlyByteBuf, UseTeleporterC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(UseTeleporterC2SPacket::write, UseTeleporterC2SPacket::new);
 

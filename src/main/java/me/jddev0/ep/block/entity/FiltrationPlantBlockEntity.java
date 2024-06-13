@@ -14,9 +14,11 @@ import me.jddev0.ep.screen.FiltrationPlantMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.energy.IEnergyStorage;
@@ -28,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FiltrationPlantBlockEntity
-        extends SelectableRecipeFluidMachineBlockEntity<EnergizedPowerFluidStorage, FiltrationPlantRecipe> {
+        extends SelectableRecipeFluidMachineBlockEntity<EnergizedPowerFluidStorage, RecipeInput, FiltrationPlantRecipe> {
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_FILTRATION_PLANT_TANK_CAPACITY.getValue();
     public static final int DIRTY_WATER_CONSUMPTION_PER_RECIPE = ModConfigs.COMMON_FILTRATION_PLANT_DIRTY_WATER_USAGE_PER_RECIPE.getValue();
 
@@ -119,7 +121,7 @@ public class FiltrationPlantBlockEntity
 
     @Override
     protected void craftItem(RecipeHolder<FiltrationPlantRecipe> recipe) {
-        if(level == null || !hasRecipe())
+        if(level == null || !hasRecipe() || !(level instanceof ServerLevel serverLevel))
             return;
 
         fluidStorage.drain(new FluidStack(ModFluids.DIRTY_WATER.get(), DIRTY_WATER_CONSUMPTION_PER_RECIPE), IFluidHandler.FluidAction.EXECUTE);
@@ -130,7 +132,7 @@ public class FiltrationPlantBlockEntity
             if(charcoalFilter.isEmpty() && !charcoalFilter.is(ModItems.CHARCOAL_FILTER.get()))
                 continue;
 
-            charcoalFilter.hurtAndBreak(1, level.random, null, () -> charcoalFilter.setCount(0));
+            charcoalFilter.hurtAndBreak(1, serverLevel, null, item -> charcoalFilter.setCount(0));
             itemHandler.setStackInSlot(i, charcoalFilter);
         }
 

@@ -32,7 +32,7 @@ public class CrystalGrowthChamberCategory implements IRecipeCategory<RecipeHolde
     private final IDrawable icon;
 
     public CrystalGrowthChamberCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/crystal_growth_chamber.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/crystal_growth_chamber.png");
         background = helper.createDrawable(texture, 47, 30, 98, 38);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM.get()));

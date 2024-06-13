@@ -17,9 +17,9 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 
 public class PressMoldMakerEMIRecipe implements EmiRecipe {
-    public static final ResourceLocation SIMPLIFIED_TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/block/press_mold_maker_front.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/block/press_mold_maker_front.png");
     public static final EmiStack ITEM = EmiStack.of(ModBlocks.PRESS_MOLD_MAKER_ITEM.get());
-    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new ResourceLocation(EnergizedPowerMod.MODID, "press_mold_maker"),
+    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "press_mold_maker"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final ResourceLocation id;

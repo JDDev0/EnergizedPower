@@ -26,7 +26,7 @@ public class AssemblingMachineCategory implements IRecipeCategory<RecipeHolder<A
     private final IDrawable icon;
 
     public AssemblingMachineCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/assembling_machine.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/assembling_machine.png");
         background = helper.createDrawable(texture, 43, 18, 115, 54);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.ASSEMBLING_MACHINE_ITEM.get()));

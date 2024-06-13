@@ -9,6 +9,7 @@ import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.FluidTransposerRecipe;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.FluidTransposerMenu;
@@ -25,6 +26,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -39,7 +41,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 public class FluidTransposerBlockEntity
-        extends SimpleRecipeFluidMachineBlockEntity<FluidTank, FluidTransposerRecipe>
+        extends SimpleRecipeFluidMachineBlockEntity<FluidTank, RecipeInput, FluidTransposerRecipe>
         implements CheckboxUpdate {
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_FLUID_TRANSPOSER_TANK_CAPACITY.getValue();
 
@@ -193,11 +195,16 @@ public class FluidTransposerBlockEntity
     protected Optional<RecipeHolder<FluidTransposerRecipe>> getRecipeFor(Container inventory) {
         return level.getRecipeManager().getAllRecipesFor(recipeType).
                 stream().filter(recipe -> recipe.value().getMode() == mode).
-                filter(recipe -> recipe.value().matches(inventory, level)).
+                filter(recipe -> recipe.value().matches(getRecipeInput(inventory), level)).
                 filter(recipe -> (mode == Mode.EMPTYING && fluidStorage.isEmpty()) ||
                         FluidStack.isSameFluidSameComponents(recipe.value().getFluid(),
                                 fluidStorage.getFluid())).
                 findFirst();
+    }
+
+    @Override
+    protected RecipeInput getRecipeInput(Container inventory) {
+        return new ContainerRecipeInputWrapper(inventory);
     }
 
     @Override

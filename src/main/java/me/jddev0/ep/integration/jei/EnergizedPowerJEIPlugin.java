@@ -30,7 +30,7 @@ import java.util.Arrays;
 public class EnergizedPowerJEIPlugin implements IModPlugin {
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(EnergizedPowerMod.MODID, "jei_plugin");
+        return ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "jei_plugin");
     }
 
     @Override

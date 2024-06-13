@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record ChangeRedstoneModeC2SPacket(BlockPos pos) implements CustomPacketPayload {
     public static final Type<ChangeRedstoneModeC2SPacket> ID =
-            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "change_redstone_mode"));
+            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "change_redstone_mode"));
     public static final StreamCodec<RegistryFriendlyByteBuf, ChangeRedstoneModeC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(ChangeRedstoneModeC2SPacket::write, ChangeRedstoneModeC2SPacket::new);
 

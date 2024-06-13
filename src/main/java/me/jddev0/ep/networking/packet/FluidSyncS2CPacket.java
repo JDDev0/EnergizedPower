@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record FluidSyncS2CPacket(int tank, FluidStack fluidStack, int capacity, BlockPos pos) implements CustomPacketPayload {
     public static final Type<FluidSyncS2CPacket> ID =
-            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "fluid_sync"));
+            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "fluid_sync"));
     public static final StreamCodec<RegistryFriendlyByteBuf, FluidSyncS2CPacket> STREAM_CODEC =
             StreamCodec.ofMember(FluidSyncS2CPacket::write, FluidSyncS2CPacket::new);
 

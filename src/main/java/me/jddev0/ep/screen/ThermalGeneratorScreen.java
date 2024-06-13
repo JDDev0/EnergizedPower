@@ -20,8 +20,8 @@ public class ThermalGeneratorScreen
     public ThermalGeneratorScreen(ThermalGeneratorMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.thermal_generator.txt",
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/thermal_generator.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/thermal_generator.png"),
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 
     @Override

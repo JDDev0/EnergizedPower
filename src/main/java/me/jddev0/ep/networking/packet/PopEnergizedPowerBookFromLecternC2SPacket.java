@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record PopEnergizedPowerBookFromLecternC2SPacket(BlockPos pos) implements CustomPacketPayload {
     public static final Type<PopEnergizedPowerBookFromLecternC2SPacket> ID =
-            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "pop_energized_power_book_from_lectern"));
+            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "pop_energized_power_book_from_lectern"));
     public static final StreamCodec<RegistryFriendlyByteBuf, PopEnergizedPowerBookFromLecternC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(PopEnergizedPowerBookFromLecternC2SPacket::write, PopEnergizedPowerBookFromLecternC2SPacket::new);
 

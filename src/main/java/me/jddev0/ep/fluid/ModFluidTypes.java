@@ -17,7 +17,7 @@ public final class ModFluidTypes {
 
     public static Supplier<FluidType> DIRTY_WATER_FLUID_TYPE = FLUID_TYPES.register("dirty_water",
             () -> new EnergizedPowerFluidType(FluidType.Properties.create().density(1200).viscosity(1200).canExtinguish(true),
-                    new ResourceLocation("block/water_still"), new ResourceLocation("block/water_flow"),
+                    ResourceLocation.withDefaultNamespace("block/water_still"), ResourceLocation.withDefaultNamespace("block/water_flow"),
                     null, 0xC86F3900, new Vector3f(100.f / 255.f, 50.f / 255.f, 0.f)));
 
     public static void register(IEventBus modEventBus) {

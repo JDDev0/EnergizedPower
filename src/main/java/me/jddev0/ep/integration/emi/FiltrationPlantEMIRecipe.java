@@ -21,9 +21,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class FiltrationPlantEMIRecipe implements EmiRecipe {
-    public static final ResourceLocation SIMPLIFIED_TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/block/filtration_plant_front.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/block/filtration_plant_front.png");
     public static final EmiStack ITEM = EmiStack.of(ModBlocks.FILTRATION_PLANT_ITEM.get());
-    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new ResourceLocation(EnergizedPowerMod.MODID, "filtration_plant"),
+    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "filtration_plant"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final ResourceLocation id;

@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record SetAdvancedAutoCrafterRecipeIndexC2SPacket(BlockPos pos, int recipeIndex) implements CustomPacketPayload {
     public static final Type<SetAdvancedAutoCrafterRecipeIndexC2SPacket> ID =
-            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "set_advanced_auto_crafter_recipe_index"));
+            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "set_advanced_auto_crafter_recipe_index"));
     public static final StreamCodec<RegistryFriendlyByteBuf, SetAdvancedAutoCrafterRecipeIndexC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(SetAdvancedAutoCrafterRecipeIndexC2SPacket::write, SetAdvancedAutoCrafterRecipeIndexC2SPacket::new);
 

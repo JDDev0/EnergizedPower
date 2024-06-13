@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record CraftPressMoldMakerRecipeC2SPacket(BlockPos pos, ResourceLocation resourceLocation) implements CustomPacketPayload {
     public static final Type<CraftPressMoldMakerRecipeC2SPacket> ID =
-            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "craft_press_mold_maker_recipe"));
+            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "craft_press_mold_maker_recipe"));
     public static final StreamCodec<RegistryFriendlyByteBuf, CraftPressMoldMakerRecipeC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(CraftPressMoldMakerRecipeC2SPacket::write, CraftPressMoldMakerRecipeC2SPacket::new);
 

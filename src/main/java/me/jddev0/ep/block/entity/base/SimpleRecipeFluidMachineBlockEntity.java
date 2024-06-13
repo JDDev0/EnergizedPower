@@ -13,6 +13,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public abstract class SimpleRecipeFluidMachineBlockEntity
-        <F extends IFluidHandler, R extends Recipe<Container>>
+        <F extends IFluidHandler, C extends RecipeInput, R extends Recipe<C>>
         extends WorkerFluidMachineBlockEntity<F, RecipeHolder<R>> {
     protected final UpgradableMenuProvider menuProvider;
 
@@ -88,9 +89,11 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
 
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }
+    
+    protected abstract C getRecipeInput(Container inventory);
 
     protected Optional<RecipeHolder<R>> getRecipeFor(Container inventory) {
-        return level.getRecipeManager().getRecipeFor(recipeType, inventory, level);
+        return level.getRecipeManager().getRecipeFor(recipeType, getRecipeInput(inventory), level);
     }
 
     @Override

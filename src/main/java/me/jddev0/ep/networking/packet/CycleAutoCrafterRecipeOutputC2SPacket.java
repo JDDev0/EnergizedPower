@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record CycleAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implements CustomPacketPayload {
     public static final Type<CycleAutoCrafterRecipeOutputC2SPacket> ID =
-            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "cycle_auto_crafter_recipe_output"));
+            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "cycle_auto_crafter_recipe_output"));
     public static final StreamCodec<RegistryFriendlyByteBuf, CycleAutoCrafterRecipeOutputC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(CycleAutoCrafterRecipeOutputC2SPacket::write, CycleAutoCrafterRecipeOutputC2SPacket::new);
 

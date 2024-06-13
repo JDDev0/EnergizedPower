@@ -9,6 +9,7 @@ import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ChargerRecipe;
+import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.screen.AdvancedChargerMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
@@ -226,7 +227,8 @@ public class AdvancedChargerBlockEntity
                 SimpleContainer inventory = new SimpleContainer(1);
                 inventory.setItem(0, blockEntity.itemHandler.getStackInSlot(i));
 
-                Optional<RecipeHolder<ChargerRecipe>> recipe = level.getRecipeManager().getRecipeFor(ChargerRecipe.Type.INSTANCE, inventory, level);
+                Optional<RecipeHolder<ChargerRecipe>> recipe = level.getRecipeManager().
+                        getRecipeFor(ChargerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(inventory), level);
                 if(recipe.isPresent()) {
                     if(blockEntity.energyConsumptionLeft[i] == -1)
                         blockEntity.energyConsumptionLeft[i] = (int)(recipe.get().value().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);
@@ -295,7 +297,8 @@ public class AdvancedChargerBlockEntity
         SimpleContainer inventory = new SimpleContainer(1);
         inventory.setItem(0, itemHandler.getStackInSlot(index));
 
-        Optional<RecipeHolder<ChargerRecipe>> recipe = level.getRecipeManager().getRecipeFor(ChargerRecipe.Type.INSTANCE, inventory, level);
+        Optional<RecipeHolder<ChargerRecipe>> recipe = level.getRecipeManager().
+                getRecipeFor(ChargerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(inventory), level);
 
         return recipe.isPresent();
     }

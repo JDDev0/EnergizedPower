@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class AdvancedPulverizerEMIRecipe implements EmiRecipe {
-    public static final ResourceLocation SIMPLIFIED_TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/block/advanced_pulverizer_side.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/block/advanced_pulverizer_side.png");
     public static final EmiStack ITEM = EmiStack.of(ModBlocks.ADVANCED_PULVERIZER_ITEM.get());
-    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new ResourceLocation(EnergizedPowerMod.MODID, "advanced_pulverizer"),
+    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "advanced_pulverizer"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final ResourceLocation id;
@@ -71,7 +71,7 @@ public class AdvancedPulverizerEMIRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/pulverizer.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/pulverizer.png");
         widgets.addTexture(texture, 0, 0, 109, 26, 42, 30);
 
         widgets.addSlot(input.get(0), 0, 4).drawBack(false);

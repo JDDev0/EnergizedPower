@@ -12,13 +12,12 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 
-public class HeatGeneratorRecipe implements Recipe<Container> {
+public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
     private final Fluid[] input;
     private final int energyProduction;
 
@@ -36,12 +35,12 @@ public class HeatGeneratorRecipe implements Recipe<Container> {
     }
 
     @Override
-    public boolean matches(Container container, Level level) {
+    public boolean matches(RecipeInput container, Level level) {
         return false;
     }
 
     @Override
-    public ItemStack assemble(Container container, HolderLookup.Provider registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
@@ -86,7 +85,7 @@ public class HeatGeneratorRecipe implements Recipe<Container> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "heat_generator");
+        public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "heat_generator");
 
         private final MapCodec<HeatGeneratorRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(Codec.either(new ArrayCodec<>(BuiltInRegistries.FLUID.byNameCodec(), Fluid[]::new),
@@ -130,7 +129,7 @@ public class HeatGeneratorRecipe implements Recipe<Container> {
             buffer.writeInt(recipe.getInput().length);
             for(Fluid fluid:recipe.input) {
                 ResourceLocation fluidId = BuiltInRegistries.FLUID.getKey(fluid);
-                if(fluidId == null || fluidId.equals(new ResourceLocation("empty")))
+                if(fluidId == null || fluidId.equals(ResourceLocation.withDefaultNamespace("empty")))
                     throw new IllegalArgumentException("Unregistered fluid '" + fluid + "'");
 
                 buffer.writeResourceLocation(fluidId);

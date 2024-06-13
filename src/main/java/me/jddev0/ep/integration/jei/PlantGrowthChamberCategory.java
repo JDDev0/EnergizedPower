@@ -31,7 +31,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
     private final IDrawable icon;
 
     public PlantGrowthChamberCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
         background = helper.createDrawable(texture, 61, 25, 108, 48);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()));

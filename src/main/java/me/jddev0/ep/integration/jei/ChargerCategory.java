@@ -30,7 +30,7 @@ public class ChargerCategory implements IRecipeCategory<RecipeHolder<ChargerReci
     private final IDrawable icon;
 
     public ChargerCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
         background = helper.createDrawable(texture, 1, 29, 113, 46);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.CHARGER_ITEM.get()));

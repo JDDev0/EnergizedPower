@@ -15,8 +15,8 @@ public class CoalEngineScreen
     public CoalEngineScreen(CoalEngineMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.coal_engine.txt",
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/coal_engine.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/coal_engine.png"),
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 
     @Override

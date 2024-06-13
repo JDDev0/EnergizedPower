@@ -32,7 +32,7 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
     public PressMoldMakerScreen(PressMoldMakerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
 
-        TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/press_mold_maker.png");
+        TEXTURE = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/press_mold_maker.png");
     }
 
     @Override

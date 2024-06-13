@@ -4,17 +4,21 @@ import me.jddev0.ep.block.entity.base.SelectableRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.AutoPressMoldMakerMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -23,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AutoPressMoldMakerBlockEntity
-        extends SelectableRecipeMachineBlockEntity<PressMoldMakerRecipe> {
+        extends SelectableRecipeMachineBlockEntity<RecipeInput, PressMoldMakerRecipe> {
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0 || i == 1, i -> i == 2);
 
     public AutoPressMoldMakerBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -80,14 +84,14 @@ public class AutoPressMoldMakerBlockEntity
 
     @Override
     protected void craftItem(RecipeHolder<PressMoldMakerRecipe> recipe) {
-        if(level == null || !hasRecipe())
+        if(level == null || !hasRecipe() || !(level instanceof ServerLevel serverLevel))
             return;
 
         ItemStack shovel = itemHandler.getStackInSlot(1).copy();
         if(shovel.isEmpty() && !shovel.is(ItemTags.SHOVELS))
             return;
 
-        shovel.hurtAndBreak(1, level.random, null, () -> shovel.setCount(0));
+        shovel.hurtAndBreak(1, serverLevel, null, item -> shovel.setCount(0));
         itemHandler.setStackInSlot(1, shovel);
 
         itemHandler.extractItem(0, recipe.value().getClayCount(), false);

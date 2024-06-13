@@ -26,7 +26,7 @@ public class MetalPressCategory implements IRecipeCategory<RecipeHolder<MetalPre
     private final IDrawable icon;
 
     public MetalPressCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/metal_press.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/metal_press.png");
         background = helper.createDrawable(texture, 47, 22, 98, 34);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.CRUSHER_ITEM.get()));

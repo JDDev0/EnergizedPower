@@ -42,11 +42,11 @@ import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class EnergizedPowerBookScreen extends Screen {
-    public static final ResourceLocation TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/book/energized_power_book.png");
-    public static final ResourceLocation FRONT_COVER = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/book/front_cover.png");
-    public static final ResourceLocation BACK_COVER = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/book/back_cover.png");
+    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/book/energized_power_book.png");
+    public static final ResourceLocation FRONT_COVER = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/book/front_cover.png");
+    public static final ResourceLocation BACK_COVER = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/book/back_cover.png");
 
-    public static final ResourceLocation ENERGIZED_COPPER_INGOT = new ResourceLocation(EnergizedPowerMod.MODID, "textures/item/energized_copper_ingot.png");
+    public static final ResourceLocation ENERGIZED_COPPER_INGOT = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energized_copper_ingot.png");
 
     public static final int IMAGE_CYCLE_DELAY = ModConfigs.CLIENT_ENERGIZED_POWER_BOOK_IMAGE_CYCLE_DELAY.getValue();
 
@@ -98,7 +98,7 @@ public class EnergizedPowerBookScreen extends Screen {
         this.createPageControlButtons();
 
         List<FormattedPageContent> formattedPages = new LinkedList<>();
-        formattedPages.add(new FormattedPageContent(new ResourceLocation(EnergizedPowerMod.MODID, "front_cover"),
+        formattedPages.add(new FormattedPageContent(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "front_cover"),
                 null,
                 font.split(Component.translatable("book.energizedpower.front.cover.text").
                         withStyle(ChatFormatting.GRAY), MAX_CHARS_PER_LINE), null, null));
@@ -126,14 +126,14 @@ public class EnergizedPowerBookScreen extends Screen {
                     imageResourceLocations, blockResourceLocations));
 
             for(int i = maxLineCountFirstPage, splitPageCount = 2;i < formattedPageComponents.size();i += MAX_LINES, splitPageCount++) {
-                ResourceLocation tmpPageId = new ResourceLocation(pageId.getNamespace(), pageId.getPath() + "/tmp_page_" + splitPageCount);
+                ResourceLocation tmpPageId = ResourceLocation.fromNamespaceAndPath(pageId.getNamespace(), pageId.getPath() + "/tmp_page_" + splitPageCount);
 
                 formattedPages.add(new FormattedPageContent(tmpPageId, null,
                         formattedPageComponents.subList(i, Math.min(i + MAX_LINES, formattedPageComponents.size())),
                         null, null));
             }
         }
-        formattedPages.add(new FormattedPageContent(new ResourceLocation(EnergizedPowerMod.MODID, "back_cover"),
+        formattedPages.add(new FormattedPageContent(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "back_cover"),
                 null, new ArrayList<>(0), null, null));
 
         this.formattedPages = new ArrayList<>(formattedPages);

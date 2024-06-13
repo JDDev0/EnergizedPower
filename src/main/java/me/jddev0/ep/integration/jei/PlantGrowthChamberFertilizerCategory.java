@@ -28,7 +28,7 @@ public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<Rec
     private final IDrawable icon;
 
     public PlantGrowthChamberFertilizerCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
         fertlizerSlot = helper.createDrawable(texture, 34, 34, 18, 18);
         background = helper.createBlankDrawable(144, 30);
 

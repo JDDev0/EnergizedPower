@@ -15,8 +15,8 @@ public class CrystalGrowthChamberScreen
     public CrystalGrowthChamberScreen(CrystalGrowthChamberMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/crystal_growth_chamber.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/2_speed_2_energy_efficiency_2_energy_capacity.png"));
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/crystal_growth_chamber.png"),
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/2_speed_2_energy_efficiency_2_energy_capacity.png"));
     }
 
     @Override

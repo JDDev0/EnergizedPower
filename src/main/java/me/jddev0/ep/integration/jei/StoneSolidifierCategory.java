@@ -24,7 +24,7 @@ public class StoneSolidifierCategory implements IRecipeCategory<RecipeHolder<Sto
     private final IDrawable icon;
 
     public StoneSolidifierCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
         background = helper.createDrawable(texture, 1, 1, 103, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.STONE_SOLIDIFIER_ITEM.get()));

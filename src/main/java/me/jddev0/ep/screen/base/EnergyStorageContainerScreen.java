@@ -38,7 +38,7 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
     public EnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                         String energyIndicatorBarTooltipComponentID) {
         this(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID,
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/generic_energy.png"));
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/generic_energy.png"));
     }
 
     public EnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,

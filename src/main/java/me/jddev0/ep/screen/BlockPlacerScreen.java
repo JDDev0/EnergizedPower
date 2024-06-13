@@ -21,8 +21,8 @@ public class BlockPlacerScreen
     public BlockPlacerScreen(BlockPlacerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.block_placer.block_energy_left.txt",
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/block_placer.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID,
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/block_placer.png"),
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID,
                         "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
     }
 

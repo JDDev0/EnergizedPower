@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class SyncFurnaceRecipeTypeS2CPacket implements CustomPacketPayload {
     public static final Type<SyncFurnaceRecipeTypeS2CPacket> ID =
-            new Type<>(new ResourceLocation(EnergizedPowerMod.MODID, "sync_furnace_recipe_type"));
+            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "sync_furnace_recipe_type"));
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncFurnaceRecipeTypeS2CPacket> STREAM_CODEC =
             StreamCodec.ofMember(SyncFurnaceRecipeTypeS2CPacket::write, SyncFurnaceRecipeTypeS2CPacket::new);
 

@@ -21,8 +21,8 @@ public class WeatherControllerScreen
         extends UpgradableEnergyStorageContainerScreen<WeatherControllerMenu> {
     public WeatherControllerScreen(WeatherControllerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/weather_controller.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_duration.png"));
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/weather_controller.png"),
+                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_duration.png"));
     }
 
     @Override

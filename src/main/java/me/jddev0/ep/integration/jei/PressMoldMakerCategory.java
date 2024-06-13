@@ -18,14 +18,14 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class PressMoldMakerCategory implements IRecipeCategory<RecipeHolder<PressMoldMakerRecipe>> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "press_mold_maker");
+    public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "press_mold_maker");
     public static final RecipeType<RecipeHolder<PressMoldMakerRecipe>> TYPE = RecipeType.createFromVanilla(PressMoldMakerRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public PressMoldMakerCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
         background = helper.createDrawable(texture, 1, 77, 85, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.PRESS_MOLD_MAKER_ITEM.get()));

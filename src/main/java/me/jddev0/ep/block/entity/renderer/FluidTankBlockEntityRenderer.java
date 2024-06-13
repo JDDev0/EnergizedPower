@@ -73,7 +73,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
         IClientFluidTypeExtensions fluidTypeExtensions = IClientFluidTypeExtensions.of(fluid);
         ResourceLocation stillFluidImageId = fluidTypeExtensions.getStillTexture(fluidStack);
         if(stillFluidImageId == null)
-            stillFluidImageId = new ResourceLocation("air");
+            stillFluidImageId = ResourceLocation.withDefaultNamespace("air");
         TextureAtlasSprite stillFluidSprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).
                 apply(stillFluidImageId);
 
@@ -101,43 +101,39 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
         {
             v1 = v1 - ((14 - height) / 16.f * dv);
 
-            vertexConsumer.vertex(mat, .0625f, height * .0625f, 0.f)
-                    .color(fluidColorTint)
-                    .uv(u0, v1)
-                    .overlayCoords(packedOverlay)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(poseStack.last(), 0.f, 0.f, 0.f)
-                    .endVertex();
+            vertexConsumer.addVertex(mat, .0625f, height * .0625f, 0.f)
+                    .setColor(fluidColorTint)
+                    .setUv(u0, v1)
+                    .setOverlay(packedOverlay)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(poseStack.last(), 0.f, 0.f, 0.f);
 
-            vertexConsumer.vertex(mat, .9375f, height * .0625f, 0.f)
-                    .color(fluidColorTint)
-                    .uv(u1, v1)
-                    .overlayCoords(packedOverlay)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(poseStack.last(), 0.f, 0.f, 0.f)
-                    .endVertex();
+            vertexConsumer.addVertex(mat, .9375f, height * .0625f, 0.f)
+                    .setColor(fluidColorTint)
+                    .setUv(u1, v1)
+                    .setOverlay(packedOverlay)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(poseStack.last(), 0.f, 0.f, 0.f);
 
-            vertexConsumer.vertex(mat, .9375f, 0.f, 0.f)
-                    .color(fluidColorTint)
-                    .uv(u1, v0)
-                    .overlayCoords(packedOverlay)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(poseStack.last(), 0.f, 0.f, 0.f)
-                    .endVertex();
+            vertexConsumer.addVertex(mat, .9375f, 0.f, 0.f)
+                    .setColor(fluidColorTint)
+                    .setUv(u1, v0)
+                    .setOverlay(packedOverlay)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(poseStack.last(), 0.f, 0.f, 0.f);
 
-            vertexConsumer.vertex(mat, .0625f, 0.f, 0.f)
-                    .color(fluidColorTint)
-                    .uv(u0, v0)
-                    .overlayCoords(packedOverlay)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(poseStack.last(), 0.f, 0.f, 0.f)
-                    .endVertex();
+            vertexConsumer.addVertex(mat, .0625f, 0.f, 0.f)
+                    .setColor(fluidColorTint)
+                    .setUv(u0, v0)
+                    .setOverlay(packedOverlay)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(poseStack.last(), 0.f, 0.f, 0.f);
         }
 
         //Indicator bar
         {
             TextureAtlasSprite indicatorBarSprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).
-                    apply(new ResourceLocation(EnergizedPowerMod.MODID, "block/fluid_tank_indicator_bar"));
+                    apply(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "block/fluid_tank_indicator_bar"));
 
             float translateForMinMaxIndicatorBarHeight = height < 2?(height - 2) / 16.f:(height > 12?(height - 12) / 16.f:0.f);
 
@@ -151,37 +147,33 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
             ibu1 = ibu0 + .0625f * (ibu1 - ibu0);
             ibv1 = ibv0 + .0625f * (ibv1 - ibv0);
 
-            vertexConsumer.vertex(mat, .375f, .015f, -.05f)
-                    .color(255, 255, 255, 255)
-                    .uv(ibu0, ibv1)
-                    .overlayCoords(packedOverlay)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(poseStack.last(), 0.f, 0.f, 0.f)
-                    .endVertex();
+            vertexConsumer.addVertex(mat, .375f, .015f, -.05f)
+                    .setColor(255, 255, 255, 255)
+                    .setUv(ibu0, ibv1)
+                    .setOverlay(packedOverlay)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(poseStack.last(), 0.f, 0.f, 0.f);
 
-            vertexConsumer.vertex(mat, .625f, .015f, -.05f)
-                    .color(255, 255, 255, 255)
-                    .uv(ibu1, ibv1)
-                    .overlayCoords(packedOverlay)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(poseStack.last(), 0.f, 0.f, 0.f)
-                    .endVertex();
+            vertexConsumer.addVertex(mat, .625f, .015f, -.05f)
+                    .setColor(255, 255, 255, 255)
+                    .setUv(ibu1, ibv1)
+                    .setOverlay(packedOverlay)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(poseStack.last(), 0.f, 0.f, 0.f);
 
-            vertexConsumer.vertex(mat, .625f, -.015f, -.05f)
-                    .color(255, 255, 255, 255)
-                    .uv(ibu1, ibv0)
-                    .overlayCoords(packedOverlay)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(poseStack.last(), 0.f, 0.f, 0.f)
-                    .endVertex();
+            vertexConsumer.addVertex(mat, .625f, -.015f, -.05f)
+                    .setColor(255, 255, 255, 255)
+                    .setUv(ibu1, ibv0)
+                    .setOverlay(packedOverlay)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(poseStack.last(), 0.f, 0.f, 0.f);
 
-            vertexConsumer.vertex(mat, .375f, -.015f, -.05f)
-                    .color(255, 255, 255, 255)
-                    .uv(ibu0, ibv0)
-                    .overlayCoords(packedOverlay)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(poseStack.last(), 0.f, 0.f, 0.f)
-                    .endVertex();
+            vertexConsumer.addVertex(mat, .375f, -.015f, -.05f)
+                    .setColor(255, 255, 255, 255)
+                    .setUv(ibu0, ibv0)
+                    .setOverlay(packedOverlay)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(poseStack.last(), 0.f, 0.f, 0.f);
 
             poseStack.translate(0.f, -translateForMinMaxIndicatorBarHeight, 0.f);
         }
@@ -194,37 +186,33 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
 
         //Top
         {
-            vertexConsumer.vertex(mat, .0625f, .875f, 0.f)
-                    .color(fluidColorTint)
-                    .uv(u0, v1)
-                    .overlayCoords(packedOverlay)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(poseStack.last(), 0.f, 0.f, 0.f)
-                    .endVertex();
+            vertexConsumer.addVertex(mat, .0625f, .875f, 0.f)
+                    .setColor(fluidColorTint)
+                    .setUv(u0, v1)
+                    .setOverlay(packedOverlay)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(poseStack.last(), 0.f, 0.f, 0.f);
 
-            vertexConsumer.vertex(mat, .9375f, .875f, 0.f)
-                    .color(fluidColorTint)
-                    .uv(u1, v1)
-                    .overlayCoords(packedOverlay)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(poseStack.last(), 0.f, 0.f, 0.f)
-                    .endVertex();
+            vertexConsumer.addVertex(mat, .9375f, .875f, 0.f)
+                    .setColor(fluidColorTint)
+                    .setUv(u1, v1)
+                    .setOverlay(packedOverlay)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(poseStack.last(), 0.f, 0.f, 0.f);
 
-            vertexConsumer.vertex(mat, .9375f, 0.f, 0.f)
-                    .color(fluidColorTint)
-                    .uv(u1, v0)
-                    .overlayCoords(packedOverlay)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(poseStack.last(), 0.f, 0.f, 0.f)
-                    .endVertex();
+            vertexConsumer.addVertex(mat, .9375f, 0.f, 0.f)
+                    .setColor(fluidColorTint)
+                    .setUv(u1, v0)
+                    .setOverlay(packedOverlay)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(poseStack.last(), 0.f, 0.f, 0.f);
 
-            vertexConsumer.vertex(mat, .0625f, 0.f, 0.f)
-                    .color(fluidColorTint)
-                    .uv(u0, v0)
-                    .overlayCoords(packedOverlay)
-                    .uv2(LightTexture.FULL_BRIGHT)
-                    .normal(poseStack.last(), 0.f, 0.f, 0.f)
-                    .endVertex();
+            vertexConsumer.addVertex(mat, .0625f, 0.f, 0.f)
+                    .setColor(fluidColorTint)
+                    .setUv(u0, v0)
+                    .setOverlay(packedOverlay)
+                    .setLight(LightTexture.FULL_BRIGHT)
+                    .setNormal(poseStack.last(), 0.f, 0.f, 0.f);
         }
 
         poseStack.popPose();
