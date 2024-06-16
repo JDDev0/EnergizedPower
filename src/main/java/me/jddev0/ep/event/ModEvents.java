@@ -227,7 +227,7 @@ public class ModEvents {
 
     private static void handlePlayerInWorldCraftingInteract(PlayerInteractEvent.RightClickBlock event) {
         ItemStack itemStack = event.getItemStack();
-        if(!itemStack.is(Tags.Items.TOOLS_SHEARS))
+        if(!itemStack.is(Tags.Items.TOOLS_SHEAR))
             return;
 
         Level level = event.getLevel();
