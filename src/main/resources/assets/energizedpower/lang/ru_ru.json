@@ -63,7 +63,7 @@
   "item.energizedpower.processing_unit": "Модуль обработки",
 
   "item.energizedpower.energized_power_book": "Руководство Energized Power",
-  "tooltip.energizedpower.energized_power_book.txt.shift.1": "Щелкните ЛКМ по блоку, чтобы открыть страницу книги этого блока..",
+  "tooltip.energizedpower.energized_power_book.txt.shift.1": "Щелкните ЛКМ по блоку, чтобы открыть страницу книги этого блока.",
   "book.energizedpower.front.cover.text": "Это ваше руководство по данному моду!",
 
   "item.energizedpower.cable_insulator": "Кабельный изолятор",
@@ -82,8 +82,8 @@
   "item.energizedpower.teleporter_matrix": "Матрица телепорта",
   "item.energizedpower.teleporter_matrix.linked": "Матрица телепорта [Связана]",
   "item.energizedpower.teleporter_matrix.unlinked": "Матрица телепорта [Не связана]",
-  "tooltip.energizedpower.teleporter_matrix.cleared": "Настройки матрицы телепорта были успешно очищены..",
-  "tooltip.energizedpower.teleporter_matrix.set": "Настройки матрицы телепорта были успешно установлены..",
+  "tooltip.energizedpower.teleporter_matrix.cleared": "Настройки матрицы телепорта были успешно очищены.",
+  "tooltip.energizedpower.teleporter_matrix.set": "Настройки матрицы телепорта были успешно установлены.",
   "tooltip.energizedpower.teleporter_matrix.set.warning": "Настройки матрицы телепорта установлены, но не указывают на позицию телепорта.",
   "tooltip.energizedpower.teleporter_matrix.status": "Статус:",
   "tooltip.energizedpower.teleporter_matrix.status.linked": "Связано",
@@ -122,7 +122,7 @@
   "item.energizedpower.duration_upgrade_module_3": "Модуль улучшения продолжительности (Уровень III)",
   "item.energizedpower.duration_upgrade_module_4": "Модуль улучшения продолжительности (Уровень IV)",
   "item.energizedpower.duration_upgrade_module_5": "Модуль улучшения продолжительности (Уровень V)",
-  "item.energizedpower.duration_upgrade_module_6": "Модуль улучшения продолжительности (Уровень VI)",
+  "item.energizedpower.duration_upgrade_module_6": "Модуль улучшения продолжительности (Уровень VI)",																					   
 
   "item.energizedpower.range_upgrade_module_1": "Модуль обновления дальности (Уровень I)",
   "item.energizedpower.range_upgrade_module_2": "Модуль обновления дальности (Уровень II)",
@@ -175,7 +175,7 @@
   "item.energizedpower.creative_battery": "Творческий аккумулятор",
 
   "item.energizedpower.energy_analyzer": "Анализатор энергии",
-  "tooltip.energizedpower.energy_analyzer.txt.shift.1": "Нажмите на энергетический блок, чтобы получить информацию..",
+  "tooltip.energizedpower.energy_analyzer.txt.shift.1": "Нажмите на энергетический блок, чтобы получить информацию.",
   "tooltip.energizedpower.energy_analyzer.txt.shift.2": "%s будет потреблено за одно использование",
   "txt.energizedpower.energy_analyzer.output_side_information": "Информация для выбранной грани блока:",
   "txt.energizedpower.energy_analyzer.no_energy_left": "Анализатору энергии не хватает мощности (требуется %s).",
@@ -189,7 +189,7 @@
   "txt.energizedpower.energy_analyzer.energy_can_extract_side": "Эта грань блока производит энергию.",
 
   "item.energizedpower.fluid_analyzer": "Анализатор жидкости",
-  "tooltip.energizedpower.fluid_analyzer.txt.shift.1": "Нажмите на блок, содержащий жидкости, чтобы получить информацию..",
+  "tooltip.energizedpower.fluid_analyzer.txt.shift.1": "Нажмите на блок, содержащий жидкости, чтобы получить информацию.",
   "tooltip.energizedpower.fluid_analyzer.txt.shift.2": "%s будет потреблено за одно использование",
   "txt.energizedpower.fluid_analyzer.output_side_information": "Информация для выбранной грани блока:",
   "txt.energizedpower.fluid_analyzer.no_energy_left": "Анализатору жидкости не хватает мощности (требуется %s).",
@@ -213,7 +213,7 @@
   "tooltip.energizedpower.wrench.select_face": "Выбранная грань: %s",
   "tooltip.energizedpower.wrench.not_configurable": "Этот блок не может быть настроен.",
 
-  "tooltip.energizedpower.wrench_configurable": "Этот блок можно настроить с помощью ключа..",
+  "tooltip.energizedpower.wrench_configurable": "Этот блок можно настроить с помощью ключа.",
 
   "item.energizedpower.battery_box_minecart": "Вагонетка с аккумулятором",
   "item.energizedpower.advanced_battery_box_minecart": "Вагонетка с продвинутым аккумулятором",
@@ -270,7 +270,7 @@
   "block.energizedpower.golden_fluid_pipe": "Золотая жидкостная труба",
   "item.energizedpower.golden_fluid_pipe": "Золотая жидкостная труба",
 
-  "tooltip.energizedpower.fluid_pipe.max_extraction": "Макс. извлечение на одну сторону экстрактора: %s/t",
+  "tooltip.energizedpower.fluid_pipe.max_extraction": "Макс. извлечение на одну сторону экстрактора: %s/т",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Тип соединения грани (%s) установлен на %s.",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Тип соединения грани (%s) изменить невозможно.",
 
@@ -529,11 +529,17 @@
   "item.energizedpower.stone_solidifier": "Отвердитель камня",
   "container.energizedpower.stone_solidifier": "Отвердитель камня",
 
+  "tooltip.energizedpower.stone_solidifier.btn.up": "Следующий рецепт",
+  "tooltip.energizedpower.stone_solidifier.btn.down": "Предыдущий рецепт",
+
   "block.energizedpower.filtration_plant": "Фильтрационная установка",
   "item.energizedpower.filtration_plant": "Фильтрационная установка",
   "container.energizedpower.filtration_plant": "Фильтрационная установка",
 
   "tooltip.energizedpower.filtration_plant.txt.shift.1": "Для этого блока требуются угольные фильтры.",
+  "tooltip.energizedpower.filtration_plant.btn.up": "Следующий рецепт",
+  "tooltip.energizedpower.filtration_plant.btn.down": "Предыдущий рецепт",
+  
   "tooltip.energizedpower.filtration_plant.charcoal_filter_missing": "Угольный фильтр отсутствует!",
 
   "block.energizedpower.fluid_transposer": "Жидкостный транспозер",
@@ -678,7 +684,7 @@
   "tooltip.energizedpower.recipe.selector.prev_recipe": "Предыдущий рецепт",
   "tooltip.energizedpower.shift_details.txt": "Нажмите [SHIFT] для получения подробной информации.",
   "tooltip.energizedpower.capacity.txt": "Емкость: %s",
-  "tooltip.energizedpower.transfer_rate.txt": "Скорость передачи: %s/t",
+  "tooltip.energizedpower.transfer_rate.txt": "Скорость передачи: %s/т",
   "tooltip.energizedpower.tank_capacity.txt": "Емкость резервуара: %s",
   "tooltip.energizedpower.not_enough_energy.txt": "Недостаточно энергии",
   "tooltip.energizedpower.ready.txt": "Готов",
@@ -713,7 +719,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "Скорость передачи энергии",
   "tooltip.energizedpower.upgrade_module_modifier.duration": "Продолжительность",
   "tooltip.energizedpower.upgrade_module_modifier.range": "Дальность",
-  "tooltip.energizedpower.upgrade_module_modifier.extraction_depth": "Глубина извлечения",
+  "tooltip.energizedpower.upgrade_module_modifier.extraction_depth": "Глубина извлечения",																													 
   "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "Режим печи",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Лунный свет",
 
@@ -727,7 +733,7 @@
 
   "itemGroup.energizedpower.tab": "Energized Power",
 
-  "entity.minecraft.villager.energizedpower.electrician": "Электрик",
+  "entity.minecraft.villager.electrician": "Электрик",
 
   "entity.energizedpower.battery_box_minecart": "Вагонетка с БатБоксом",
   "entity.energizedpower.advanced_battery_box_minecart": "Продвинутая вагонетка с БатБоксом",
@@ -780,10 +786,10 @@
   "advancements.energizedpower.reinforced_advanced_machine_frame.description": "Для самых продвинутых машин необходим этот базовый предмет для крафта.",
 
   "advancements.energizedpower.advanced_solar_cell.title": "Продвинутая солнечная ячейка",
-  "advancements.energizedpower.advanced_solar_cell.description": "Требуется для продвинутых солнечных панелей...",
+  "advancements.energizedpower.advanced_solar_cell.description": "Требуется для продвинутых солнечных панелей.",
 
   "advancements.energizedpower.reinforced_advanced_solar_cell.title": "Еще лучшая солнечная энергия",
-  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Требуется для лучших солнечных панелей...",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Требуется для лучших солнечных панелей.",
 
   "advancements.energizedpower.basic_circuit.title": "Базовая схема",
   "advancements.energizedpower.basic_circuit.description": "Создайте базовую схему.",
@@ -990,7 +996,7 @@
   "advancements.energizedpower.battery_5.description": "Уровень V: Вам нужно будет зарядить аккумулятор следующего уровня...",
 
   "advancements.energizedpower.battery_6.title": "Заряженные аккумуляторы",
-  "advancements.energizedpower.battery_6.description": "Уровень VI: Вы зарядили аккумулятор для еще большей емкости хранения..",
+  "advancements.energizedpower.battery_6.description": "Уровень VI: Вы зарядили аккумулятор для еще большей емкости хранения.",
 
   "advancements.energizedpower.battery_7.title": "Вы сказали, что вам нужно больше мощности?",
   "advancements.energizedpower.battery_7.description": "Уровень VII: четверть миллиона E емкости хранилища! Можем ли мы сделать лучше?",
@@ -1221,7 +1227,7 @@
   "advancements.energizedpower.silicon.description": "Теперь вы можете снабдить свой завод энергией!",
 
   "advancements.energizedpower.solar_panel_1.title": "Студент по солнечной энергетике",
-  "advancements.energizedpower.solar_panel_1.description": "Солнечная панель уровня I...",
+  "advancements.energizedpower.solar_panel_1.description": "Солнечная панель уровня I.",
 
   "advancements.energizedpower.solar_panel_2.title": "Стажер по солнечной энергетике",
   "advancements.energizedpower.solar_panel_2.description": "Уровень II лучше, чем уровень I.",
@@ -1230,9 +1236,9 @@
   "advancements.energizedpower.solar_panel_3.description": "Уровень III — лучший из базовых солнечных панелей.",
 
   "advancements.energizedpower.solar_panel_4.title": "Менеджер по солнечной энергетики",
-  "advancements.energizedpower.solar_panel_4.description": "Уровень IV: More than basic!",
+  "advancements.energizedpower.solar_panel_4.description": "Уровень IV: Больше чем базовый!",
 
-  "advancements.energizedpower.solar_panel_5.title": "Директор по солнечной энергетики",
+  "advancements.energizedpower.solar_panel_5.title": "Директор по солнечной энергетике",
   "advancements.energizedpower.solar_panel_5.description": "Уровень V — Остался только один уровень!",
 
   "advancements.energizedpower.solar_panel_6.title": "Работодатель в сфере солнечной энергетики",
@@ -1290,7 +1296,7 @@
   "book.energizedpower.page.cable_insulator.2": "Его можно изготовить, нажав на блок шерсти ножницами.",
   "book.energizedpower.page.cable_insulator.3": "Его также можно изготовить с помощью раздатчика.",
 
-  "book.energizedpower.page.saw_blade": "Лезвие пилы — это компонент, который используется для изготовления лесопилки..",
+  "book.energizedpower.page.saw_blade": "Лезвие пилы — это компонент, который используется для изготовления лесопилки.",
 
   "book.energizedpower.page.silicon.1": "Кремний — ингредиент, используемый во многих рецептах крафта этого мода.",
   "book.energizedpower.page.silicon.2": "Его можно изготовить путем плавки или взрыва кварца Нижнего мира.",
@@ -1334,7 +1340,7 @@
   "book.energizedpower.page.energy_capacity_upgrades": "Улучшение энергоемкости увеличивает емкость хранения энергии и скорость передачи энергии.",
 
   "book.energizedpower.page.duration_upgrades.1": "Улучшение продолжительности увеличивает продолжительность погоды, установленной контроллером погоды.",
-  "book.energizedpower.page.duration_upgrades.2": "Улучшение продолжительности (уровень VI) позволит контроллеру погоды поддерживать текущую погоду, но для этого потребуется постоянный запас энергии.",
+  "book.energizedpower.page.duration_upgrades.2": "Улучшение продолжительности (уровень VI) позволит контроллеру погоды поддерживать текущую погоду, но для этого потребуется постоянный запас энергии.",																							 
 
   "book.energizedpower.page.range_upgrades": "Улучшение дальности действия увеличивает дальность действия машины.",
 
