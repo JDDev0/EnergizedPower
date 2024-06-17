@@ -529,17 +529,11 @@
   "item.energizedpower.stone_solidifier": "Отвердитель камня",
   "container.energizedpower.stone_solidifier": "Отвердитель камня",
 
-  "tooltip.energizedpower.stone_solidifier.btn.up": "Следующий рецепт",
-  "tooltip.energizedpower.stone_solidifier.btn.down": "Предыдущий рецепт",
-
   "block.energizedpower.filtration_plant": "Фильтрационная установка",
   "item.energizedpower.filtration_plant": "Фильтрационная установка",
   "container.energizedpower.filtration_plant": "Фильтрационная установка",
 
   "tooltip.energizedpower.filtration_plant.txt.shift.1": "Для этого блока требуются угольные фильтры.",
-  "tooltip.energizedpower.filtration_plant.btn.up": "Следующий рецепт",
-  "tooltip.energizedpower.filtration_plant.btn.down": "Предыдущий рецепт",
-  
   "tooltip.energizedpower.filtration_plant.charcoal_filter_missing": "Угольный фильтр отсутствует!",
 
   "block.energizedpower.fluid_transposer": "Жидкостный транспозер",
@@ -733,7 +727,7 @@
 
   "itemGroup.energizedpower.tab": "Energized Power",
 
-  "entity.minecraft.villager.electrician": "Электрик",
+  "entity.minecraft.villager.energizedpower.electrician": "Электрик",
 
   "entity.energizedpower.battery_box_minecart": "Вагонетка с БатБоксом",
   "entity.energizedpower.advanced_battery_box_minecart": "Продвинутая вагонетка с БатБоксом",
