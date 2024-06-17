@@ -122,7 +122,7 @@
   "item.energizedpower.duration_upgrade_module_3": "Модуль улучшения продолжительности (Уровень III)",
   "item.energizedpower.duration_upgrade_module_4": "Модуль улучшения продолжительности (Уровень IV)",
   "item.energizedpower.duration_upgrade_module_5": "Модуль улучшения продолжительности (Уровень V)",
-  "item.energizedpower.duration_upgrade_module_6": "Модуль улучшения продолжительности (Уровень VI)",																					   
+  "item.energizedpower.duration_upgrade_module_6": "Модуль улучшения продолжительности (Уровень VI)",
 
   "item.energizedpower.range_upgrade_module_1": "Модуль обновления дальности (Уровень I)",
   "item.energizedpower.range_upgrade_module_2": "Модуль обновления дальности (Уровень II)",
@@ -719,7 +719,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "Скорость передачи энергии",
   "tooltip.energizedpower.upgrade_module_modifier.duration": "Продолжительность",
   "tooltip.energizedpower.upgrade_module_modifier.range": "Дальность",
-  "tooltip.energizedpower.upgrade_module_modifier.extraction_depth": "Глубина извлечения",																													 
+  "tooltip.energizedpower.upgrade_module_modifier.extraction_depth": "Глубина извлечения",
   "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "Режим печи",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Лунный свет",
 
@@ -1340,7 +1340,7 @@
   "book.energizedpower.page.energy_capacity_upgrades": "Улучшение энергоемкости увеличивает емкость хранения энергии и скорость передачи энергии.",
 
   "book.energizedpower.page.duration_upgrades.1": "Улучшение продолжительности увеличивает продолжительность погоды, установленной контроллером погоды.",
-  "book.energizedpower.page.duration_upgrades.2": "Улучшение продолжительности (уровень VI) позволит контроллеру погоды поддерживать текущую погоду, но для этого потребуется постоянный запас энергии.",																							 
+  "book.energizedpower.page.duration_upgrades.2": "Улучшение продолжительности (уровень VI) позволит контроллеру погоды поддерживать текущую погоду, но для этого потребуется постоянный запас энергии.",
 
   "book.energizedpower.page.range_upgrades": "Улучшение дальности действия увеличивает дальность действия машины.",
 
@@ -1514,7 +1514,7 @@
 
   "book.energizedpower.page.fluid_filler_fluid_drainer": "Наполнитель жидкости позволяет заливать жидкость в предметы, а устройство слив для жидкости позволяет сливать жидкость из предметов.",
 
- "book.energizedpower.page.fluid_pump": "Жидкостный насос может перекачивать жидкости из окружающего мира и для этого требуется булыжник.",																															  
+ "book.energizedpower.page.fluid_pump": "Жидкостный насос может перекачивать жидкости из окружающего мира и для этого требуется булыжник.",
 
   "book.energizedpower.page.charger_uncharger.1": "Зарядник может заряжать предметы, а разрядник устройство может разряжать предметы.",
   "book.energizedpower.page.charger_uncharger.2": "Продвинутая версия зарядника и разрядника имеет 3 слота.",
