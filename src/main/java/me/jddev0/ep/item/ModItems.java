@@ -30,6 +30,9 @@ public final class ModItems {
     public static final DeferredItem<Item> SILICON = ITEMS.register("silicon",
             () -> new Item(new Item.Properties()));
 
+    public static final DeferredItem<Item> STONE_PEBBLE = ITEMS.register("stone_pebble",
+            () -> new Item(new Item.Properties()));
+
     public static final DeferredItem<Item> RAW_TIN = ITEMS.register("raw_tin",
             () -> new Item(new Item.Properties()));
 
