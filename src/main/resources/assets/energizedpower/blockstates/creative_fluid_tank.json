@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "energizedpower:block/creative_fluid_tank",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "energizedpower:block/creative_fluid_tank"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/creative_fluid_tank",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/creative_fluid_tank",
+      "y": 270
+    }
+  }
+}

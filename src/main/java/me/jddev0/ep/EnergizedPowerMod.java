@@ -187,6 +187,7 @@ public class EnergizedPowerMod {
             event.accept(ModBlocks.FLUID_TANK_SMALL_ITEM);
             event.accept(ModBlocks.FLUID_TANK_MEDIUM_ITEM);
             event.accept(ModBlocks.FLUID_TANK_LARGE_ITEM);
+            event.accept(ModBlocks.CREATIVE_FLUID_TANK_ITEM);
             event.accept(ModBlocks.FLUID_FILLER_ITEM);
             event.accept(ModBlocks.FLUID_DRAINER_ITEM);
             event.accept(ModBlocks.FLUID_PUMP_ITEM);
@@ -386,6 +387,7 @@ public class EnergizedPowerMod {
             BlockEntityRenderers.register(ModBlockEntities.FLUID_TANK_SMALL_ENTITY.get(), FluidTankBlockEntityRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.FLUID_TANK_MEDIUM_ENTITY.get(), FluidTankBlockEntityRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.FLUID_TANK_LARGE_ENTITY.get(), FluidTankBlockEntityRenderer::new);
+            BlockEntityRenderers.register(ModBlockEntities.CREATIVE_FLUID_TANK_ENTITY.get(), FluidTankBlockEntityRenderer::new);
         }
 
         @SubscribeEvent
@@ -446,6 +448,7 @@ public class EnergizedPowerMod {
             event.register(ModMenuTypes.FLUID_TANK_SMALL.get(), FluidTankScreen::new);
             event.register(ModMenuTypes.FLUID_TANK_MEDIUM.get(), FluidTankScreen::new);
             event.register(ModMenuTypes.FLUID_TANK_LARGE.get(), FluidTankScreen::new);
+            event.register(ModMenuTypes.CREATIVE_FLUID_TANK.get(), CreativeFluidTankScreen::new);
 
             event.register(ModMenuTypes.INVENTORY_CHARGER_MENU.get(), InventoryChargerScreen::new);
             event.register(ModMenuTypes.INVENTORY_TELEPORTER_MENU.get(), InventoryTeleporterScreen::new);

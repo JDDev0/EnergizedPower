@@ -2,14 +2,11 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
-import me.jddev0.ep.block.entity.base.MenuFluidStorageBlockEntity;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.screen.FluidTankMenu;
-import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -18,17 +15,15 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidTankBlockEntity
-        extends MenuFluidStorageBlockEntity<FluidTank>
+        extends AbstractFluidTankBlockEntity<FluidTank>
         implements CheckboxUpdate {
     private final FluidTankBlock.Tier tier;
 
@@ -112,23 +107,6 @@ public class FluidTankBlockEntity
 
     public FluidTankBlock.Tier getTier() {
         return tier;
-    }
-
-    public static void tick(Level level, BlockPos blockPos, BlockState state, FluidTankBlockEntity blockEntity) {
-        if(level.isClientSide)
-            return;
-
-        //Sync item stacks to client every 5 seconds
-        if(level.getGameTime() % 100 == 0) //TODO improve
-            blockEntity.syncFluidToPlayers(64);
-    }
-
-    public int getRedstoneOutput() {
-        return FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
-    }
-
-    public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
-        return fluidStorage;
     }
 
     @Override

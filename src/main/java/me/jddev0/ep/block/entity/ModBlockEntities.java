@@ -38,6 +38,10 @@ public final class ModBlockEntities {
     public static final Supplier<BlockEntityType<FluidTankBlockEntity>> FLUID_TANK_LARGE_ENTITY =
             createFluidTankBlockEntity("fluid_tank_large", ModBlocks.FLUID_TANK_LARGE);
 
+    public static final Supplier<BlockEntityType<CreativeFluidTankBlockEntity>> CREATIVE_FLUID_TANK_ENTITY =
+            BLOCK_ENTITIES.register("creative_fluid_tank", () -> BlockEntityType.Builder.of(CreativeFluidTankBlockEntity::new,
+                    ModBlocks.CREATIVE_FLUID_TANK.get()).build(null));
+
     public static final Supplier<BlockEntityType<ItemConveyorBeltBlockEntity>> ITEM_CONVEYOR_BELT_ENTITY =
             BLOCK_ENTITIES.register("item_conveyor_belt", () -> BlockEntityType.Builder.of(ItemConveyorBeltBlockEntity::new,
                     ModBlocks.ITEM_CONVEYOR_BELT.get()).build(null));
@@ -361,6 +365,9 @@ public final class ModBlockEntities {
                 FLUID_TANK_MEDIUM_ENTITY.get(), FluidTankBlockEntity::getFluidHandlerCapability);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
                 FLUID_TANK_LARGE_ENTITY.get(), FluidTankBlockEntity::getFluidHandlerCapability);
+
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
+                CREATIVE_FLUID_TANK_ENTITY.get(), CreativeFluidTankBlockEntity::getFluidHandlerCapability);
 
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
                 ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntity::getItemHandlerCapability);
