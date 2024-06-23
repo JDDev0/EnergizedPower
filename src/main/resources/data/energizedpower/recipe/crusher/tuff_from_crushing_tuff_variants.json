@@ -1,0 +1,20 @@
+{
+  "type": "energizedpower:crusher",
+  "ingredient": [
+    {
+      "item": "minecraft:tuff_bricks"
+    },
+    {
+      "item": "minecraft:chiseled_tuff_bricks"
+    },
+    {
+      "item": "minecraft:chiseled_tuff"
+    },
+    {
+      "item": "minecraft:polished_tuff"
+    }
+  ],
+  "output": {
+    "item": "minecraft:tuff"
+  }
+}
