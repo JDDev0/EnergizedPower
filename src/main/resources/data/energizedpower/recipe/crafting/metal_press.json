@@ -8,17 +8,17 @@
     "I": {
       "tag": "c:storage_blocks/iron"
     },
-    "i": {
-      "tag": "c:plates/iron"
+    "S": {
+      "tag": "c:ingots/steel"
     },
     "B": {
       "item": "energizedpower:basic_machine_frame"
     }
   },
   "pattern": [
-    "iPi",
+    "SPS",
     "IBI",
-    "iIi"
+    "SIS"
   ],
   "result": {
     "id": "energizedpower:metal_press"
