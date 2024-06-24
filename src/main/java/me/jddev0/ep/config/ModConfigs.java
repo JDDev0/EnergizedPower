@@ -521,7 +521,7 @@ public final class ModConfigs {
     ));
 
     public static final ConfigValue<Float> COMMON_ALLOY_FURNACE_RECIPE_DURATION_MULTIPLIER = registerRecipeDurationMultiplierConfigValue(
-            "block.alloy_furnaces", "Alloy Furnace"
+            "block.alloy_furnace", "Alloy Furnace"
     );
 
     public static final ConfigValue<Integer> COMMON_COAL_ENGINE_CAPACITY = registerEnergyCapacityConfigValue(
@@ -863,6 +863,19 @@ public final class ModConfigs {
     );
     public static final ConfigValue<Integer> COMMON_ASSEMBLING_MACHINE_RECIPE_DURATION = registerRecipeDurationConfigValue(
             "block.assembling_machine", "Assembling Machine", 200
+    );
+
+    public static final ConfigValue<Integer> COMMON_INDUCTION_SMELTER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.induction_smelter", "Induction Smelter", 8192
+    );
+    public static final ConfigValue<Integer> COMMON_INDUCTION_SMELTER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.induction_smelter", "Induction Smelter", 256
+    );
+    public static final ConfigValue<Integer> COMMON_INDUCTION_SMELTER_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.induction_smelter", "Induction Smelter", 64
+    );
+    public static final ConfigValue<Float> COMMON_INDUCTION_SMELTER_RECIPE_DURATION_MULTIPLIER = registerRecipeDurationMultiplierConfigValue(
+            "block.induction_smelter", "Induction Smelter"
     );
 
     public static final ConfigValue<Integer> COMMON_POWERED_LAMP_TRANSFER_RATE = registerEnergyTransferRateConfigValue(

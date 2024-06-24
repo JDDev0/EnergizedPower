@@ -149,6 +149,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("assembling_machine", () -> BlockEntityType.Builder.of(AssemblingMachineBlockEntity::new,
                     ModBlocks.ASSEMBLING_MACHINE.get()).build(null));
 
+    public static final Supplier<BlockEntityType<InductionSmelterBlockEntity>> INDUCTION_SMELTER_ENTITY =
+            BLOCK_ENTITIES.register("induction_smelter", () -> BlockEntityType.Builder.of(InductionSmelterBlockEntity::new,
+                    ModBlocks.INDUCTION_SMELTER.get()).build(null));
+
     public static final Supplier<BlockEntityType<StoneSolidifierBlockEntity>> STONE_SOLIDIFIER_ENTITY =
             BLOCK_ENTITIES.register("stone_solidifier", () -> BlockEntityType.Builder.of(StoneSolidifierBlockEntity::new,
                     ModBlocks.STONE_SOLIDIFIER.get()).build(null));
@@ -471,6 +475,11 @@ public final class ModBlockEntities {
                 ASSEMBLING_MACHINE_ENTITY.get(), AssemblingMachineBlockEntity::getItemHandlerCapability);
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
                 ASSEMBLING_MACHINE_ENTITY.get(), AssemblingMachineBlockEntity::getEnergyStorageCapability);
+
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
+                INDUCTION_SMELTER_ENTITY.get(), InductionSmelterBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
+                INDUCTION_SMELTER_ENTITY.get(), InductionSmelterBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
                 STONE_SOLIDIFIER_ENTITY.get(), StoneSolidifierBlockEntity::getItemHandlerCapability);
