@@ -10,6 +10,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Powered Lamp
 - Powered Furnace
 - Press Mold Maker
+- Alloy Furnace (**In next release (v2.12.0)**)
 - Advanced Powered Furnace (3 input/output slot pairs)
 - Auto Crafter (Can handle recipe conflicts, that is recipes with the same inputs)
 - Advanced Auto Crafter (3 recipes at once)
