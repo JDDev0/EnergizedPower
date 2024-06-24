@@ -269,6 +269,12 @@ public final class ModBlocks {
                     instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(2.0f, 6.0f).sound(SoundType.STONE)));
     public static final DeferredItem<Item> PRESS_MOLD_MAKER_ITEM = createBlockItem("press_mold_maker", PRESS_MOLD_MAKER);
 
+    public static final DeferredBlock<Block> ALLOY_FURNACE = BLOCKS.register("alloy_furnace",
+            () -> new AlloyFurnaceBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_RED).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(2.0f, 6.0f).sound(SoundType.STONE).
+                    lightLevel(AlloyFurnaceBlock.LIGHT_EMISSION)));
+    public static final DeferredItem<Item> ALLOY_FURNACE_ITEM = createBlockItem("alloy_furnace", ALLOY_FURNACE);
+
     public static final DeferredBlock<Block> AUTO_CRAFTER = BLOCKS.register("auto_crafter",
             () -> new AutoCrafterBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));

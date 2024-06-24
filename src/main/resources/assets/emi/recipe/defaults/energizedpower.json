@@ -1,5 +1,7 @@
 {
   "recipes": [
+    "energizedpower:alloy_furnace/steel_ingot",
+
     "energizedpower:assembling/advanced_circuit",
     "energizedpower:assembling/advanced_solar_cell",
     "energizedpower:assembling/crystal_matrix",
@@ -27,6 +29,7 @@
     "energizedpower:crafting/advanced_pulverizer",
     "energizedpower:crafting/advanced_uncharger",
     "energizedpower:crafting/advanced_upgrade_module",
+    "energizedpower:crafting/alloy_furnace",
     "energizedpower:crafting/assembling_machine",
     "energizedpower:crafting/auto_crafter",
     "energizedpower:crafting/auto_press_mold_maker",

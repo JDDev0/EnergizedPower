@@ -93,6 +93,9 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.addWorkstations(PressMoldMakerCategory.CATEGORY, EntryStacks.of(ModBlocks.PRESS_MOLD_MAKER_ITEM.get()));
         registry.addWorkstations(PressMoldMakerCategory.CATEGORY, EntryStacks.of(ModBlocks.AUTO_PRESS_MOLD_MAKER_ITEM.get()));
 
+        registry.add(new AlloyFurnaceCategory());
+        registry.addWorkstations(AlloyFurnaceCategory.CATEGORY, EntryStacks.of(ModBlocks.ALLOY_FURNACE_ITEM.get()));
+
         registry.add(new StoneSolidifierCategory());
         registry.addWorkstations(StoneSolidifierCategory.CATEGORY, EntryStacks.of(ModBlocks.STONE_SOLIDIFIER_ITEM.get()));
 
@@ -146,6 +149,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.registerRecipeFiller(EnergizerRecipe.class, EnergizerRecipe.Type.INSTANCE, EnergizerDisplay::new);
         registry.registerRecipeFiller(CrystalGrowthChamberRecipe.class, CrystalGrowthChamberRecipe.Type.INSTANCE, CrystalGrowthChamberDisplay::new);
         registry.registerRecipeFiller(PressMoldMakerRecipe.class, PressMoldMakerRecipe.Type.INSTANCE, PressMoldMakerDisplay::new);
+        registry.registerRecipeFiller(AlloyFurnaceRecipe.class, AlloyFurnaceRecipe.Type.INSTANCE, AlloyFurnaceDisplay::new);
         registry.registerRecipeFiller(StoneSolidifierRecipe.class, StoneSolidifierRecipe.Type.INSTANCE, StoneSolidifierDisplay::new);
         registry.registerRecipeFiller(FiltrationPlantRecipe.class, FiltrationPlantRecipe.Type.INSTANCE, FiltrationPlantDisplay::new);
         registry.registerRecipeFiller(FluidTransposerRecipe.class, FluidTransposerRecipe.Type.INSTANCE, FluidTransposerDisplay::new);
@@ -177,6 +181,9 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
 
         registerRecipeClickArea(registry, new Rectangle(79, 25, 18, 17),
                 CoalEngineScreen.class, BuiltinPlugin.FUEL);
+
+        registry.registerContainerClickArea(new Rectangle(35, 36, 15, 15),
+                AlloyFurnaceScreen.class, BuiltinPlugin.FUEL);
 
         registerRecipeClickArea(registry, new Rectangle(25, 16, 40, 54),
                 ChargerScreen.class, ChargerCategory.CATEGORY);
@@ -213,6 +220,8 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
                 PressMoldMakerScreen.class, PressMoldMakerCategory.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(84, 43, 20, 17),
                 AutoPressMoldMakerScreen.class, PressMoldMakerCategory.CATEGORY);
+        registry.registerContainerClickArea(new Rectangle(79, 34, 24, 17),
+                AlloyFurnaceScreen.class, AlloyFurnaceCategory.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(69, 45, 20, 14),
                 StoneSolidifierScreen.class, StoneSolidifierCategory.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(123, 45, 20, 14),
