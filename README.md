@@ -24,6 +24,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Auto Press Mold Maker
 - Auto Stonecutter
 - Assembling Machine
+- Induction Smelter (**In next release (v2.12.0)**)
 - Plant Growth Chamber
 - Stone Solidifier
 - Filtration Plant
