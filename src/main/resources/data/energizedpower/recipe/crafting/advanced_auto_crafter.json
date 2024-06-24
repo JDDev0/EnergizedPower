@@ -5,8 +5,8 @@
     "c": {
       "item": "energizedpower:advanced_circuit"
     },
-    "C": {
-      "tag": "c:plates/energized_copper"
+    "P": {
+      "tag": "c:plates/advanced_alloy"
     },
     "G": {
       "tag": "c:plates/energized_gold"
@@ -21,7 +21,7 @@
   "pattern": [
     "GaG",
     "cAc",
-    "CaC"
+    "PaP"
   ],
   "result": {
     "id": "energizedpower:advanced_auto_crafter"

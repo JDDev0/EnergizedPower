@@ -11,8 +11,8 @@
     "E": {
       "tag": "c:plates/energized_copper"
     },
-    "c": {
-      "tag": "c:plates/copper"
+    "a": {
+      "tag": "c:plates/advanced_alloy"
     },
     "C": {
       "tag": "c:storage_blocks/copper"
@@ -22,7 +22,7 @@
     }
   },
   "pattern": [
-    "RcR",
+    "RaR",
     "GAG",
     "ECE"
   ],

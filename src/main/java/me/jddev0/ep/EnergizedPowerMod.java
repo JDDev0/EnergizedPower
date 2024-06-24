@@ -42,13 +42,11 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.slf4j.Logger;
 
 @Mod(EnergizedPowerMod.MODID)
@@ -321,6 +319,9 @@ public class EnergizedPowerMod {
             event.accept(ModItems.IRON_PLATE);
             event.accept(ModItems.GOLD_PLATE);
             event.accept(ModItems.STEEL_INGOT);
+            event.accept(ModItems.REDSTONE_ALLOY_INGOT);
+            event.accept(ModItems.ADVANCED_ALLOY_INGOT);
+            event.accept(ModItems.ADVANCED_ALLOY_PLATE);
             event.accept(ModItems.IRON_GEAR);
             event.accept(ModItems.IRON_ROD);
             event.accept(ModItems.TIN_WIRE);

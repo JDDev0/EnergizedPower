@@ -5,8 +5,8 @@
     "S": {
       "tag": "c:silicon"
     },
-    "C": {
-      "tag": "c:plates/energized_copper"
+    "a": {
+      "tag": "c:plates/advanced_alloy"
     },
     "G": {
       "tag": "c:plates/energized_gold"
@@ -21,7 +21,7 @@
   "pattern": [
     "GPG",
     "SAS",
-    "CPC"
+    "aPa"
   ],
   "result": {
     "id": "energizedpower:advanced_powered_furnace"

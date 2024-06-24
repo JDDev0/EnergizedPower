@@ -5,8 +5,8 @@
     "S": {
       "tag": "c:silicon"
     },
-    "C": {
-      "tag": "c:plates/energized_copper"
+    "a": {
+      "tag": "c:plates/advanced_alloy"
     },
     "G": {
       "tag": "c:plates/energized_gold"
@@ -20,7 +20,7 @@
   },
   "pattern": [
     "SGS",
-    "CAC",
+    "aAa",
     "GcG"
   ],
   "result": {

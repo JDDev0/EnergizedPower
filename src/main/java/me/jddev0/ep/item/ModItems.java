@@ -63,6 +63,15 @@ public final class ModItems {
     public static final DeferredItem<Item> STEEL_INGOT = ITEMS.register("steel_ingot",
             () -> new Item(new Item.Properties()));
 
+    public static final DeferredItem<Item> REDSTONE_ALLOY_INGOT = ITEMS.register("redstone_alloy_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final DeferredItem<Item> ADVANCED_ALLOY_INGOT = ITEMS.register("advanced_alloy_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final DeferredItem<Item> ADVANCED_ALLOY_PLATE = ITEMS.register("advanced_alloy_plate",
+            () -> new Item(new Item.Properties()));
+
     public static final DeferredItem<Item> IRON_GEAR = ITEMS.register("iron_gear",
             () -> new Item(new Item.Properties()));
 
