@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "a": {
-      "item": "energizedpower:advanced_circuit"
+    "P": {
+      "item": "energizedpower:processing_unit"
     },
     "C": {
       "item": "energizedpower:energized_crystal_matrix"
     },
-    "r": {
-      "tag": "c:storage_blocks/redstone"
+    "a": {
+      "tag": "c:plates/advanced_alloy"
     },
     "E": {
       "tag": "c:plates/energized_gold"
@@ -23,8 +23,8 @@
   },
   "pattern": [
     "CAC",
-    "aRa",
-    "rEr"
+    "PRP",
+    "aEa"
   ],
   "result": {
     "id": "energizedpower:weather_controller"

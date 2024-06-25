@@ -8,8 +8,8 @@
     "C": {
       "item": "energizedpower:energized_crystal_matrix"
     },
-    "r": {
-      "tag": "c:storage_blocks/redstone"
+    "A": {
+      "tag": "c:plates/advanced_alloy"
     },
     "E": {
       "tag": "c:plates/energized_gold"
@@ -24,7 +24,7 @@
   "pattern": [
     "CEC",
     "TRT",
-    "rSr"
+    "ASA"
   ],
   "result": {
     "id": "energizedpower:teleporter"
