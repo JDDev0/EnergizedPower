@@ -942,6 +942,9 @@
   "advancements.energizedpower.steel_ingot.title": "Steel Ingot",
   "advancements.energizedpower.steel_ingot.description": "Create a Steel Ingot.",
 
+  "advancements.energizedpower.redstone_alloy_ingot.title": "Redstone Alloy Ingot",
+  "advancements.energizedpower.redstone_alloy_ingot.description": "Create a Redstone Alloy Ingot.",
+
   "advancements.energizedpower.auto_crafter.title": "未来自动化",
   "advancements.energizedpower.auto_crafter.description": "如果这个方块可以自动制作，谁还愿意手动制作？",
 
