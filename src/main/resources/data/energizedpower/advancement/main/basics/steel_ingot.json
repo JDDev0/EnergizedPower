@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "items": [ "energizedpower:steel_ingot" ]
+            "items": "#c:ingots/steel"
           }
         ]
       }
