@@ -20,7 +20,7 @@
       "conditions": {
         "items": [
           {
-            "items": [ "energizedpower:redstone_alloy_ingot" ]
+            "items": "#c:ingots/redstone_alloy"
           }
         ]
       }
