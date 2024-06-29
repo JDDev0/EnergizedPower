@@ -4,7 +4,6 @@ import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
-import me.jddev0.ep.block.entity.base.MenuFluidStorageBlockEntity;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
@@ -22,13 +21,11 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import me.jddev0.ep.util.FluidUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidTankBlockEntity
-        extends MenuFluidStorageBlockEntity<SimpleFluidStorage>
+        extends AbstractFluidTankBlockEntity<SimpleFluidStorage>
         implements CheckboxUpdate {
     private final FluidTankBlock.Tier tier;
 
@@ -123,22 +120,8 @@ public class FluidTankBlockEntity
         return tier;
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, FluidTankBlockEntity blockEntity) {
-        if(level.isClient())
-            return;
-
-        //Sync item stacks to client every 5 seconds
-        if(level.getTime() % 100 == 0) { //TODO improve
-            blockEntity.syncFluidToPlayers(64);
-        }
-    }
-
-    public int getRedstoneOutput() {
-        return FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
-    }
-
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
+    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
         super.writeNbt(nbt, registries);
 
         nbt.putBoolean("ignore_nbt", ignoreNBT);
@@ -147,7 +130,7 @@ public class FluidTankBlockEntity
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
+    protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
         ignoreNBT = nbt.getBoolean("ignore_nbt");

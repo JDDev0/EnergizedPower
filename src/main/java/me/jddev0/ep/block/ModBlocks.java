@@ -1,6 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.item.ModItems;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.ExperienceDroppingBlock;
@@ -102,6 +103,12 @@ public final class ModBlocks {
             new FluidTankBlock(FluidTankBlock.Tier.LARGE));
     public static final Item FLUID_TANK_LARGE_ITEM = createBlockItem("fluid_tank_large",
             new FluidTankBlock.Item(FLUID_TANK_LARGE, new Item.Settings(), FluidTankBlock.Tier.LARGE));
+
+    public static final CreativeFluidTankBlock CREATIVE_FLUID_TANK = registerBlock("creative_fluid_tank",
+            new CreativeFluidTankBlock(AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).
+                    requiresTool().strength(-1.f, 3600000.f).dropsNothing()));
+    public static final Item CREATIVE_FLUID_TANK_ITEM = createBlockItem("creative_fluid_tank",
+            new CreativeFluidTankBlock.Item(CREATIVE_FLUID_TANK, new Item.Settings()));
 
     private static Item createCableBlockItem(String name, CableBlock block) {
         return Registry.register(Registries.ITEM, Identifier.of(EnergizedPowerMod.MODID, name),

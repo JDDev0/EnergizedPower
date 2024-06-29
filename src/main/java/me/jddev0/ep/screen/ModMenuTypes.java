@@ -187,6 +187,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<FluidTankMenu> FLUID_TANK_LARGE = createScreenHandlerType("fluid_tank_large",
             new ExtendedScreenHandlerType<>(FluidTankMenu::new, BlockPos.PACKET_CODEC.cast()));
 
+    public static final ScreenHandlerType<CreativeFluidTankMenu> CREATIVE_FLUID_TANK = createScreenHandlerType("creative_fluid_tank",
+            new ExtendedScreenHandlerType<>(CreativeFluidTankMenu::new, BlockPos.PACKET_CODEC.cast()));
+
     private static <T extends ScreenHandler> ScreenHandlerType<T> createScreenHandlerType(String name, ScreenHandlerType<T> screenHandlerType) {
         return Registry.register(Registries.SCREEN_HANDLER, Identifier.of(EnergizedPowerMod.MODID, name), screenHandlerType);
     }
