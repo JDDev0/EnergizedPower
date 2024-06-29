@@ -1403,6 +1403,10 @@
 
   "book.energizedpower.page.press_mold_maker": "Pres Kalıbı Üreticisi Metal Pres için Kalıp üretir.",
 
+  "book.energizedpower.page.alloy_furnace.1": "The Alloy Furnace can be used to produce alloys.",
+  "book.energizedpower.page.alloy_furnace.2": "Outputs and consumed fuels can be extracted from all sides.",
+  "book.energizedpower.page.alloy_furnace.3": "Fuel can be inserted from the top and the bottom. Inputs can be inserted from all other sides (Front: All inputs slots, Left: Left input slot, Back: Middle input slot, Right: Right input slot).",
+
 
   "book.energizedpower.page.chapter.energy_items.title": "Enerji Eşyaları",
   "book.energizedpower.page.chapter.energy_items": "Enerji Üreten,harcayan,depolayan ürünler.",
@@ -1544,6 +1548,10 @@
   "book.energizedpower.page.filtration_plant.2": "Charcoal Filters can be inserted from every block face. Outputs can be extracted from block face.",
 
   "book.energizedpower.page.fluid_transposer": "The Fluid Transposer can extract fluids from items (Mode: Emptying) and can inject fluids into items (Mode: Filling).",
+
+  "book.energizedpower.page.induction_smelter.1": "The Induction Smelter can be used to produce alloys.",
+  "book.energizedpower.page.induction_smelter.2": "Outputs can be extracted from all sides.",
+  "book.energizedpower.page.induction_smelter.3": "Inputs can be inserted from all sides (Front/Top/Bottom: All inputs slots, Left: Left input slot, Back: Middle input slot, Right: Right input slot).",
 
   "book.energizedpower.page.block_placer.1": "Blok Yerleştirici tüm blokları yerleştirebilir (Kapılar ve tohumlar dahil).",
   "book.energizedpower.page.block_placer.2": "Bloklar yalnızca mümkünse yerleştirilecektir.",
