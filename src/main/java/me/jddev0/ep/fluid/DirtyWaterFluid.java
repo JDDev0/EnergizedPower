@@ -55,7 +55,7 @@ public abstract class DirtyWaterFluid extends FlowableFluid {
         Block.dropStacks(state, world, pos, blockEntity);
     }
 
-    public int getFlowSpeed(WorldView world) {
+    public int getMaxFlowDistance(WorldView world) {
         return 4;
     }
 
