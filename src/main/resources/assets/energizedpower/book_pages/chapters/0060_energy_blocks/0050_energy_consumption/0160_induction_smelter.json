@@ -1,0 +1,29 @@
+{
+  "content": [
+    {
+      "translate": "book.energizedpower.page.induction_smelter.1",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.induction_smelter.2",
+      "color": "black",
+      "bold": true,
+      "font": "uniform",
+      "extra": [
+        "\n"
+      ]
+    },
+    {
+      "translate": "book.energizedpower.page.induction_smelter.3",
+      "color": "black",
+      "bold": true,
+      "font": "uniform"
+    }
+  ],
+  "block": "energizedpower:induction_smelter"
+}
