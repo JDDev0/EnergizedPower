@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:compressor",
+  "ingredient": {
+    "tag": "forge:storage_blocks/gold"
+  },
+  "output": {
+    "item": "energizedpower:gold_plate",
+    "count": 9
+  }
+}
