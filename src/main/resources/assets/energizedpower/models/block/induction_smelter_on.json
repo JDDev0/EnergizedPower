@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "particle": "#top",
+    "front": "energizedpower:block/induction_smelter_front_on",
+    "side": "energizedpower:block/induction_smelter_side",
+    "top": "energizedpower:block/induction_smelter_top"
+  }
+}

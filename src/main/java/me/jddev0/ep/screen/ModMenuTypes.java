@@ -172,6 +172,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<AssemblingMachineMenu> ASSEMBLING_MACHINE_MENU = createScreenHandlerType("assembling_machine",
             new ExtendedScreenHandlerType<>(AssemblingMachineMenu::new, BlockPos.PACKET_CODEC.cast()));
 
+    public static final ScreenHandlerType<InductionSmelterMenu> INDUCTION_SMELTER_MENU = createScreenHandlerType("induction_smelter",
+            new ExtendedScreenHandlerType<>(InductionSmelterMenu::new, BlockPos.PACKET_CODEC.cast()));
+
     public static final ScreenHandlerType<InventoryChargerMenu> INVENTORY_CHARGER_MENU = createScreenHandlerType("inventory_charger",
             new ScreenHandlerType<>(InventoryChargerMenu::new, FeatureFlags.VANILLA_FEATURES));
 

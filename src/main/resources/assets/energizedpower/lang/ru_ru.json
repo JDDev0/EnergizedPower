@@ -529,6 +529,10 @@
   "item.energizedpower.assembling_machine": "Сборочная машина",
   "container.energizedpower.assembling_machine": "Сборочная машина",
 
+  "block.energizedpower.induction_smelter": "Induction Smelter",
+  "item.energizedpower.induction_smelter": "Induction Smelter",
+  "container.energizedpower.induction_smelter": "Induction Smelter",
+
   "block.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
   "item.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
   "container.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
