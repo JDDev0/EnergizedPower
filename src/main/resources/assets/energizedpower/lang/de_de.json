@@ -30,6 +30,11 @@
 
   "item.energizedpower.iron_gear": "Eisenzahnrad",
 
+  "item.energizedpower.redstone_alloy_ingot": "Redstone-Legierungs-Barren",
+  "item.energizedpower.advanced_alloy_ingot": "Fortgeschrittener Legierungs-Barren",
+
+  "item.energizedpower.advanced_alloy_plate": "Fortgeschrittene Legierungs-Platte",
+
   "item.energizedpower.iron_rod": "Eisenstange",
 
   "item.energizedpower.tin_wire": "Zinndraht",

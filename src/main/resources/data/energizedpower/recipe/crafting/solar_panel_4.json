@@ -8,8 +8,8 @@
     "s": {
       "tag": "c:silicon"
     },
-    "C": {
-      "tag": "c:ingots/copper"
+    "R": {
+      "tag": "c:ingots/redstone_alloy"
     },
     "S": {
       "item": "energizedpower:solar_panel_3"
@@ -21,7 +21,7 @@
   "pattern": [
     "GGG",
     "SsS",
-    "ACA"
+    "ARA"
   ],
   "result": {
     "id": "energizedpower:solar_panel_4"

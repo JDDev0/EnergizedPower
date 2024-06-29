@@ -5,8 +5,8 @@
     "G": {
       "tag": "c:glass_panes/colorless"
     },
-    "C": {
-      "tag": "c:ingots/copper"
+    "R": {
+      "tag": "c:ingots/redstone_alloy"
     },
     "s": {
       "tag": "c:silicon"
@@ -21,7 +21,7 @@
   "pattern": [
     "GGG",
     "SBS",
-    "sCs"
+    "sRs"
   ],
   "result": {
     "id": "energizedpower:solar_panel_3"
