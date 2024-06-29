@@ -1403,6 +1403,10 @@
 
   "book.energizedpower.page.press_mold_maker": "Изготовитель пресс-форм можно использовать для создания пресс-форм для металлического пресса.",
 
+  "book.energizedpower.page.alloy_furnace.1": "The Alloy Furnace can be used to produce alloys.",
+  "book.energizedpower.page.alloy_furnace.2": "Outputs and consumed fuels can be extracted from all sides.",
+  "book.energizedpower.page.alloy_furnace.3": "Fuel can be inserted from the top and the bottom. Inputs can be inserted from all other sides (Front: All inputs slots, Left: Left input slot, Back: Middle input slot, Right: Right input slot).",
+
 
   "book.energizedpower.page.chapter.energy_items.title": "Энергопредметы",
   "book.energizedpower.page.chapter.energy_items": "Предметы, которые могут производить, потреблять или хранить энергию.",
@@ -1544,6 +1548,10 @@
   "book.energizedpower.page.filtration_plant.2": "Угольные фильтры могут быть вставлены с любой стороны блока. Выводы могут быть извлечены с любой стороны блока.",
 
   "book.energizedpower.page.fluid_transposer": "Жидкостный транспозер может извлекать жидкости из предметов (режим: опорожнение) и может впрыскивать жидкости в предметы (режим: заполнение).",
+
+  "book.energizedpower.page.induction_smelter.1": "The Induction Smelter can be used to produce alloys.",
+  "book.energizedpower.page.induction_smelter.2": "Outputs can be extracted from all sides.",
+  "book.energizedpower.page.induction_smelter.3": "Inputs can be inserted from all sides (Front/Top/Bottom: All inputs slots, Left: Left input slot, Back: Middle input slot, Right: Right input slot).",
 
   "book.energizedpower.page.block_placer.1": "Установщик блоков может размещать все блоки (даже двери и семена).",
   "book.energizedpower.page.block_placer.2": "Блоки будут размещаться только в том случае, если это возможно.",
