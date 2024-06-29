@@ -7,13 +7,17 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.recipe.RecipeEntry;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public record CompressorDisplay(RecipeEntry<CompressorRecipe> recipe) implements Display {
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(
-                EntryIngredients.ofIngredient(recipe.value().getInputItem())
+                EntryIngredients.ofItemStacks(Arrays.stream(recipe.value().getInputItem().getMatchingStacks()).
+                        map(itemStack -> itemStack.copyWithCount(recipe.value().getInputCount())).
+                        collect(Collectors.toList()))
         );
     }
 

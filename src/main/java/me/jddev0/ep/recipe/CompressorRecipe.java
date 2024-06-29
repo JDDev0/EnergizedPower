@@ -13,15 +13,18 @@ import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 
 public class CompressorRecipe implements Recipe<RecipeInput> {
     private final ItemStack output;
     private final Ingredient input;
+    private final int inputCount;
 
-    public CompressorRecipe(ItemStack output, Ingredient input) {
+    public CompressorRecipe(ItemStack output, Ingredient input, int inputCount) {
         this.output = output;
         this.input = input;
+        this.inputCount = inputCount;
     }
 
     public ItemStack getOutputItem() {
@@ -32,12 +35,16 @@ public class CompressorRecipe implements Recipe<RecipeInput> {
         return input;
     }
 
+    public int getInputCount() {
+        return inputCount;
+    }
+
     @Override
     public boolean matches(RecipeInput container, World level) {
         if(level.isClient())
             return false;
 
-        return input.test(container.getStackInSlot(0));
+        return input.test(container.getStackInSlot(0)) && container.getStackInSlot(0).getCount() >= inputCount;
     }
 
     @Override
@@ -100,6 +107,8 @@ public class CompressorRecipe implements Recipe<RecipeInput> {
                 return recipe.output;
             }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
+            }), Codecs.POSITIVE_INT.optionalFieldOf("inputCount", 1).forGetter((recipe) -> {
+                return recipe.inputCount;
             })).apply(instance, CompressorRecipe::new);
         });
 
@@ -118,13 +127,15 @@ public class CompressorRecipe implements Recipe<RecipeInput> {
 
         private static CompressorRecipe read(RegistryByteBuf buffer) {
             Ingredient input = Ingredient.PACKET_CODEC.decode(buffer);
+            int inputCount = buffer.readInt();
             ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
 
-            return new CompressorRecipe(output, input);
+            return new CompressorRecipe(output, input, inputCount);
         }
 
         private static void write(RegistryByteBuf buffer, CompressorRecipe recipe) {
             Ingredient.PACKET_CODEC.encode(buffer, recipe.input);
+            buffer.writeInt(recipe.inputCount);
             ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output);
         }
     }

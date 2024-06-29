@@ -36,6 +36,9 @@ public final class ModItems {
     public static final Item SILICON = registerItem("silicon",
             new Item(new Item.Settings()));
 
+    public static final Item STONE_PEBBLE = registerItem("stone_pebble",
+            new Item(new Item.Settings()));
+
     public static final Item RAW_TIN = registerItem("raw_tin",
             new Item(new Item.Settings()));
 

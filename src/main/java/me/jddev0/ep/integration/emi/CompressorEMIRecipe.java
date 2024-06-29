@@ -26,7 +26,7 @@ public class CompressorEMIRecipe implements EmiRecipe {
 
     public CompressorEMIRecipe(RecipeEntry<CompressorRecipe> recipe) {
         this.id = recipe.id();
-        this.input = List.of(EmiIngredient.of(recipe.value().getInputItem()));
+        this.input = List.of(EmiIngredient.of(recipe.value().getInputItem(), recipe.value().getInputCount()));
         this.output = List.of(EmiStack.of(recipe.value().getOutputItem()));
     }
 
