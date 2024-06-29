@@ -156,6 +156,9 @@ public final class ModMenuTypes {
     public static final ScreenHandlerType<PressMoldMakerMenu> PRESS_MOLD_MAKER_MENU = createScreenHandlerType("press_mold_maker",
             new ExtendedScreenHandlerType<>(PressMoldMakerMenu::new, BlockPos.PACKET_CODEC.cast()));
 
+    public static final ScreenHandlerType<AlloyFurnaceMenu> ALLOY_FURNACE_MENU = createScreenHandlerType("alloy_furnace",
+            new ExtendedScreenHandlerType<>(AlloyFurnaceMenu::new, BlockPos.PACKET_CODEC.cast()));
+
     public static final ScreenHandlerType<MetalPressMenu> METAL_PRESS_MENU = createScreenHandlerType("metal_press",
             new ExtendedScreenHandlerType<>(MetalPressMenu::new, BlockPos.PACKET_CODEC.cast()));
 

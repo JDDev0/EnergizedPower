@@ -234,6 +234,12 @@ public final class ModBlocks {
                     instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(2.0f, 6.0f).sounds(BlockSoundGroup.STONE)));
     public static final Item PRESS_MOLD_MAKER_ITEM = createBlockItem("press_mold_maker", PRESS_MOLD_MAKER);
 
+    public static final Block ALLOY_FURNACE = registerBlock("alloy_furnace",
+            new AlloyFurnaceBlock(AbstractBlock.Settings.create().mapColor(MapColor.RED).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(2.0f, 6.0f).sounds(BlockSoundGroup.STONE).
+                    luminance(AlloyFurnaceBlock.LIGHT_EMISSION)));
+    public static final Item ALLOY_FURNACE_ITEM = createBlockItem("alloy_furnace", ALLOY_FURNACE);
+
     public static final Block AUTO_CRAFTER = registerBlock("auto_crafter",
             new AutoCrafterBlock(AbstractBlock.Settings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

@@ -28,6 +28,8 @@
   "item.energizedpower.iron_plate": "铁板",
   "item.energizedpower.gold_plate": "金板",
 
+  "item.energizedpower.steel_ingot": "Steel Ingot",
+
   "item.energizedpower.iron_gear": "Iron Gear",
 
   "item.energizedpower.iron_rod": "Iron Rod",
@@ -284,6 +286,10 @@
   "tooltip.energizedpower.press_mold_maker.btn.down": "Scroll down",
 
   "tooltip.energizedpower.press_mold_maker.btn.recipes": "Requires %dx %s",
+
+  "block.energizedpower.alloy_furnace": "Alloy Furnace",
+  "item.energizedpower.alloy_furnace": "Alloy Furnace",
+  "container.energizedpower.alloy_furnace": "Alloy Furnace",
 
   "block.energizedpower.auto_crafter": "自动合成机",
   "item.energizedpower.auto_crafter": "自动合成机",
@@ -759,6 +765,7 @@
   "emi.category.energizedpower.energizer": "物品充能站",
   "emi.category.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
   "emi.category.energizedpower.press_mold_maker": "Press Mold Maker",
+  "emi.category.energizedpower.alloy_furnace": "Alloy Furnace",
   "emi.category.energizedpower.stone_solidifier": "Stone Solidifier",
   "emi.category.energizedpower.filtration_plant": "Filtration Plant",
   "emi.category.energizedpower.fluid_transposer": "Fluid Transposer",
