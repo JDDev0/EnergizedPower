@@ -5,8 +5,8 @@
     "R": {
       "tag": "forge:dusts/redstone"
     },
-    "I": {
-      "tag": "forge:plates/iron"
+    "s": {
+      "tag": "forge:ingots/steel"
     },
     "i": {
       "tag": "forge:gears/iron"
@@ -24,7 +24,7 @@
   "pattern": [
     "iRi",
     "BHB",
-    "SIS"
+    "SsS"
   ],
   "result": {
     "item": "energizedpower:assembling_machine"
