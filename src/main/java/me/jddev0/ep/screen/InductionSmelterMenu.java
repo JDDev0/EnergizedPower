@@ -149,7 +149,7 @@ public class InductionSmelterMenu extends UpgradableEnergyStorageMenu<InductionS
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!insertItem(sourceItem, 4 * 9 + 5, 4 * 9 + 5 + 3, false) &&
+            if(!insertMaxCount1Item(sourceItem, 4 * 9 + 5, 4 * 9 + 5 + 3, false) &&
                     !insertItem(sourceItem, 4 * 9, 4 * 9 + 3, false)) {
                 //"+3" instead of "+5": Do not allow adding to output slot
                 return ItemStack.EMPTY;
