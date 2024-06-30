@@ -3,7 +3,7 @@
   "icon": "minecraft:raw_iron",
   "output": {
     "output": {
-      "item": "minecraft:cobblestone"
+      "item": "energizedpower:stone_pebble"
     },
     "percentages": [ 0.33 ]
   },

@@ -54,4 +54,17 @@ public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<Compre
 
         return super.getCapability(cap, side);
     }
+
+    @Override
+    protected void craftItem(CompressorRecipe recipe) {
+        if(level == null || !hasRecipe())
+            return;
+
+        itemHandler.extractItem(0, recipe.getInputCount(), false);
+        itemHandler.setStackInSlot(1, recipe.getResultItem(level.registryAccess()).
+                copyWithCount(itemHandler.getStackInSlot(1).getCount() +
+                        recipe.getResultItem(level.registryAccess()).getCount()));
+
+        resetProgress();
+    }
 }

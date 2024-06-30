@@ -15,6 +15,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class CompressorCategory implements IRecipeCategory<CompressorRecipe> {
     public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "compressor");
     public static final RecipeType<CompressorRecipe> TYPE = new RecipeType<>(UID, CompressorRecipe.class);
@@ -51,7 +54,10 @@ public class CompressorCategory implements IRecipeCategory<CompressorRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, CompressorRecipe recipe, IFocusGroup iFocusGroup) {
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).addIngredients(recipe.getInput());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).addItemStacks(
+                Arrays.stream(recipe.getInput().getItems()).
+                        map(itemStack -> itemStack.copyWithCount(recipe.getInputCount())).
+                        collect(Collectors.toList()));
 
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 5).addItemStack(recipe.getOutput());
     }

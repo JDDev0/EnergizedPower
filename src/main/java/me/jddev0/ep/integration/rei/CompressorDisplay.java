@@ -6,13 +6,17 @@ import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public record CompressorDisplay(CompressorRecipe recipe) implements Display {
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(
-                EntryIngredients.ofIngredient(recipe.getInput())
+                EntryIngredients.ofItemStacks(Arrays.stream(recipe.getInput().getItems()).
+                        map(itemStack -> itemStack.copyWithCount(recipe.getInputCount())).
+                        collect(Collectors.toList()))
         );
     }
 
