@@ -116,6 +116,12 @@ public final class ModBlocks {
     public static final RegistryObject<Item> FLUID_TANK_LARGE_ITEM = ModItems.ITEMS.register("fluid_tank_large",
             () -> new FluidTankBlock.Item(FLUID_TANK_LARGE.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), FluidTankBlock.Tier.LARGE));
 
+    public static final RegistryObject<CreativeFluidTankBlock> CREATIVE_FLUID_TANK = BLOCKS.register("creative_fluid_tank",
+            () -> new CreativeFluidTankBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_PURPLE).
+                    requiresCorrectToolForDrops().strength(-1.f, 3600000.f).noLootTable()));
+    public static final RegistryObject<Item> CREATIVE_FLUID_TANK_ITEM = ModItems.ITEMS.register("creative_fluid_tank",
+            () -> new CreativeFluidTankBlock.Item(CREATIVE_FLUID_TANK.get(), new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final RegistryObject<CableBlock> TIN_CABLE = BLOCKS.register("tin_cable",
             () -> new CableBlock(CableBlock.Tier.TIER_TIN));
     public static final RegistryObject<Item> TIN_CABLE_ITEM = ModItems.ITEMS.register("tin_cable",
