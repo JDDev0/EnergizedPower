@@ -68,6 +68,15 @@ public final class ModItems {
     public static final Item STEEL_INGOT = registerItem("steel_ingot",
             new Item(new Item.Settings()));
 
+    public static final Item REDSTONE_ALLOY_INGOT = registerItem("redstone_alloy_ingot",
+            new Item(new Item.Settings()));
+
+    public static final Item ADVANCED_ALLOY_INGOT = registerItem("advanced_alloy_ingot",
+            new Item(new Item.Settings()));
+
+    public static final Item ADVANCED_ALLOY_PLATE = registerItem("advanced_alloy_plate",
+            new Item(new Item.Settings()));
+
     public static final Item IRON_GEAR = registerItem("iron_gear",
             new Item(new FabricItemSettings()));
 

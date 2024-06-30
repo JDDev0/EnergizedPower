@@ -5,8 +5,8 @@
     "S": {
       "tag": "c:silicon"
     },
-    "I": {
-      "tag": "c:iron_ingots"
+    "A": {
+      "tag": "c:advanced_alloy_ingots"
     },
     "E": {
       "tag": "c:energized_copper_ingots"
@@ -17,7 +17,7 @@
   },
   "pattern": [
     "ESE",
-    "IHI",
+    "AHA",
     "ESE"
   ],
   "result": {

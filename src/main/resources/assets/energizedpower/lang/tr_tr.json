@@ -30,6 +30,11 @@
 
   "item.energizedpower.steel_ingot": "Steel Ingot",
 
+  "item.energizedpower.redstone_alloy_ingot": "Redstone Alloy Ingot",
+  "item.energizedpower.advanced_alloy_ingot": "Advanced Alloy Ingot",
+
+  "item.energizedpower.advanced_alloy_plate": "Advanced Alloy Plate",
+
   "item.energizedpower.iron_gear": "Demir Dişli",
 
   "item.energizedpower.iron_rod": "Demir Çubuk",

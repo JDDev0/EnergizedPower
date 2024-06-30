@@ -14,12 +14,15 @@
     "E": {
       "tag": "c:energized_copper_plates"
     },
+    "a": {
+      "tag": "c:advanced_alloy_plates"
+    },
     "A": {
       "item": "energizedpower:advanced_machine_frame"
     }
   },
   "pattern": [
-    "RER",
+    "RaR",
     "GAG",
     "ESE"
   ],
