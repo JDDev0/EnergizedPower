@@ -116,6 +116,12 @@ public final class ModBlocks {
     public static final DeferredItem<Item> FLUID_TANK_LARGE_ITEM = ModItems.ITEMS.register("fluid_tank_large",
             () -> new FluidTankBlock.Item(FLUID_TANK_LARGE.get(), new Item.Properties(), FluidTankBlock.Tier.LARGE));
 
+    public static final DeferredBlock<CreativeFluidTankBlock> CREATIVE_FLUID_TANK = BLOCKS.register("creative_fluid_tank",
+            () -> new CreativeFluidTankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).
+                    requiresCorrectToolForDrops().strength(-1.f, 3600000.f).noLootTable()));
+    public static final DeferredItem<Item> CREATIVE_FLUID_TANK_ITEM = ModItems.ITEMS.register("creative_fluid_tank",
+            () -> new CreativeFluidTankBlock.Item(CREATIVE_FLUID_TANK.get(), new Item.Properties()));
+
     public static final DeferredBlock<CableBlock> TIN_CABLE = BLOCKS.register("tin_cable",
             () -> new CableBlock(CableBlock.Tier.TIER_TIN));
     public static final DeferredItem<Item> TIN_CABLE_ITEM = ModItems.ITEMS.register("tin_cable",

@@ -3,6 +3,7 @@ package me.jddev0.ep.block.entity.renderer;
 import com.mojang.blaze3d.vertex.*;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.FluidTankBlock;
+import me.jddev0.ep.block.entity.AbstractFluidTankBlockEntity;
 import me.jddev0.ep.block.entity.FluidTankBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
@@ -23,7 +24,7 @@ import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
 @OnlyIn(Dist.CLIENT)
-public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTankBlockEntity> {
+public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<AbstractFluidTankBlockEntity<?>> {
     private final BlockEntityRendererProvider.Context context;
 
     public FluidTankBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
@@ -31,7 +32,8 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
     }
 
     @Override
-    public void render(FluidTankBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+    public void render(AbstractFluidTankBlockEntity<?> blockEntity, float partialTick, PoseStack poseStack,
+                       MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         int capacity = blockEntity.getTankCapacity(0);
         FluidStack fluidStack = blockEntity.getFluid(0);
 
