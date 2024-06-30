@@ -529,6 +529,10 @@
   "item.energizedpower.assembling_machine": "Macchina per l'assemblaggio",
   "container.energizedpower.assembling_machine": "Macchina per l'assemblaggio",
 
+  "block.energizedpower.induction_smelter": "Induction Smelter",
+  "item.energizedpower.induction_smelter": "Induction Smelter",
+  "container.energizedpower.induction_smelter": "Induction Smelter",
+
   "block.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
   "item.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
   "container.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",

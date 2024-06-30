@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "energizedpower:basic_circuit"
+    },
+    "S": {
+      "tag": "forge:ingots/steel"
+    },
+    "H": {
+      "item": "energizedpower:hardened_machine_frame"
+    },
+    "A": {
+      "item": "energizedpower:alloy_furnace"
+    }
+  },
+  "pattern": [
+    "SAS",
+    "BHB",
+    "SAS"
+  ],
+  "result": {
+    "item": "energizedpower:induction_smelter"
+  }
+}
