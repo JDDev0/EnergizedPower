@@ -5,8 +5,8 @@
     "S": {
       "tag": "forge:silicon"
     },
-    "I": {
-      "tag": "forge:storage_blocks/iron"
+    "s": {
+      "tag": "forge:ingots/steel"
     },
     "i": {
       "tag": "forge:gears/iron"
@@ -19,9 +19,9 @@
     }
   },
   "pattern": [
-    "iIr",
+    "isr",
     "SBS",
-    "rIi"
+    "rsi"
   ],
   "result": {
     "item": "energizedpower:hardened_machine_frame"

@@ -5,14 +5,14 @@
     "F": {
       "item": "energizedpower:fluid_tank_small"
     },
-    "I": {
-      "tag": "forge:plates/iron"
+    "S": {
+      "tag": "forge:ingots/steel"
     }
   },
   "pattern": [
-    "IFI",
-    "IFI",
-    "IFI"
+    "SFS",
+    "SFS",
+    "SFS"
   ],
   "result": {
     "item": "energizedpower:fluid_tank_medium"
