@@ -10,7 +10,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Powered Lamp
 - Powered Furnace
 - Press Mold Maker
-- Alloy Furnace (**In next release (v2.12.0)**)
+- Alloy Furnace
 - Advanced Powered Furnace (3 input/output slot pairs)
 - Auto Crafter (Can handle recipe conflicts, that is recipes with the same inputs)
 - Advanced Auto Crafter (3 recipes at once)
@@ -24,7 +24,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Auto Press Mold Maker
 - Auto Stonecutter
 - Assembling Machine
-- Induction Smelter (**In next release (v2.12.0)**)
+- Induction Smelter
 - Plant Growth Chamber
 - Stone Solidifier
 - Filtration Plant
@@ -160,6 +160,7 @@ A tutorial world showcasing all the features of this mod can be downloaded on Cu
 
 ## Supported versions:
 Mod version: MC version
+- 2.12.x: 1.21, 1.20.2, 1.20.1, 1.19.2
 - 2.11.x: 1.21, 1.20.6, 1.20.2, 1.20.1, 1.19.2
 - 2.10.x: 1.20.6, 1.20.2, 1.20.1, 1.19.2
 - 2.9.x: 1.20.6, 1.20.5, 1.20.4, 1.20.2, 1.20.1, 1.19.2
