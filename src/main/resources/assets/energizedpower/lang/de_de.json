@@ -942,6 +942,9 @@
   "advancements.energizedpower.steel_ingot.title": "Stahlbarren",
   "advancements.energizedpower.steel_ingot.description": "Stelle einen Stahlbarren her.",
 
+  "advancements.energizedpower.redstone_alloy_ingot.title": "Redstone-Legierungs-Barren",
+  "advancements.energizedpower.redstone_alloy_ingot.description": "Stelle einen Redstone-Legierungs-Barren her.",
+
   "advancements.energizedpower.auto_crafter.title": "Automatisierung ist die Zukunft",
   "advancements.energizedpower.auto_crafter.description": "Wer braucht schon manuelles Herstellen, wenn dieser Block das automatisch kann?",
 
