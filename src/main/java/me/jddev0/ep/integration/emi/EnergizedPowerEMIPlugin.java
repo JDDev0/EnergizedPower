@@ -90,6 +90,7 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
         registry.addCategory(AlloyFurnaceEMIRecipe.CATEGORY);
         registry.addWorkstation(AlloyFurnaceEMIRecipe.CATEGORY, AlloyFurnaceEMIRecipe.ITEM);
+        registry.addWorkstation(AlloyFurnaceEMIRecipe.CATEGORY, EmiStack.of(ModBlocks.INDUCTION_SMELTER_ITEM));
 
         registry.addCategory(StoneSolidifierEMIRecipe.CATEGORY);
         registry.addWorkstation(StoneSolidifierEMIRecipe.CATEGORY, StoneSolidifierEMIRecipe.ITEM);
