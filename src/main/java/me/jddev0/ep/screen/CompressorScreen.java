@@ -20,8 +20,8 @@ public class CompressorScreen extends ConfigurableUpgradableEnergyStorageContain
     }
 
     @Override
-    protected void renderTooltipNormalView(DrawContext drawContext, int mouseX, int mouseY) {
-        super.renderTooltipNormalView(drawContext, mouseX, mouseY);
+    protected void renderBgNormalView(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
+        super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
 
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
