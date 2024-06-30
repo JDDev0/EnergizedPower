@@ -5,20 +5,20 @@
     "a": {
       "item": "minecraft:amethyst_block"
     },
-    "R": {
-      "tag": "c:redstone_dusts"
-    },
     "E": {
       "tag": "c:energized_copper_plates"
+    },
+    "P": {
+      "tag": "c:advanced_alloy_plates"
     },
     "A": {
       "item": "energizedpower:advanced_machine_frame"
     }
   },
   "pattern": [
-    "aRa",
+    "aPa",
     "EAE",
-    "aRa"
+    "aPa"
   ],
   "result": {
     "item": "energizedpower:crystal_growth_chamber"

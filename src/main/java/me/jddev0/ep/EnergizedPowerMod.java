@@ -298,6 +298,9 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(ModItems.IRON_PLATE);
             event.accept(ModItems.GOLD_PLATE);
             event.accept(ModItems.STEEL_INGOT);
+            event.accept(ModItems.REDSTONE_ALLOY_INGOT);
+            event.accept(ModItems.ADVANCED_ALLOY_INGOT);
+            event.accept(ModItems.ADVANCED_ALLOY_PLATE);
             event.accept(ModItems.IRON_GEAR);
             event.accept(ModItems.IRON_ROD);
             event.accept(ModItems.TIN_WIRE);

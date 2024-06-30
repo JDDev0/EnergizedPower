@@ -5,6 +5,9 @@
     "c": {
       "tag": "c:energized_copper_plates"
     },
+    "a": {
+      "tag": "c:advanced_alloy_plates"
+    },
     "F": {
       "item": "energizedpower:fluid_tank_small"
     },
@@ -16,7 +19,7 @@
     }
   },
   "pattern": [
-    "cCc",
+    "aCa",
     "FAF",
     "cCc"
   ],

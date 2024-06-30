@@ -9,7 +9,7 @@
       "tag": "c:gold_ingots"
     },
     "R": {
-      "tag": "c:redstone_dusts"
+      "tag": "c:redstone_alloy_ingots"
     },
     "B": {
       "item": "energizedpower:basic_upgrade_module"

@@ -21,9 +21,8 @@
     },
     {
       "input": {
-        "tag": "c:redstone_dusts"
-      },
-      "count": 2
+        "tag": "c:redstone_alloy_ingots"
+      }
     }
   ],
   "output": {
