@@ -18,12 +18,12 @@ public class InfinityFluidStorage implements IFluidHandler {
     }
 
     @Override
-    public FluidStack getFluidInTank(int amount) {
+    public FluidStack getFluidInTank(int tank) {
         return fluid;
     }
 
     @Override
-    public int getTankCapacity(int amount) {
+    public int getTankCapacity(int tank) {
         return Integer.MAX_VALUE;
     }
 
@@ -47,7 +47,7 @@ public class InfinityFluidStorage implements IFluidHandler {
     }
 
     @Override
-    public boolean isFluidValid(int amount, FluidStack fluidStack) {
+    public boolean isFluidValid(int tank, FluidStack fluidStack) {
         return true;
     }
 
