@@ -945,6 +945,12 @@
   "advancements.energizedpower.redstone_alloy_ingot.title": "Redstone Alloy Ingot",
   "advancements.energizedpower.redstone_alloy_ingot.description": "Create a Redstone Alloy Ingot.",
 
+  "advancements.energizedpower.advanced_alloy_ingot.title": "Advanced Alloy Ingot",
+  "advancements.energizedpower.advanced_alloy_ingot.description": "Create an Advanced Alloy Ingot.",
+
+  "advancements.energizedpower.advanced_alloy_plate.title": "Advanced Alloy Plate",
+  "advancements.energizedpower.advanced_alloy_plate.description": "Create an Advanced Alloy Plate.",
+
   "advancements.energizedpower.auto_crafter.title": "Автоматизация — это будущее",
   "advancements.energizedpower.auto_crafter.description": "Кому нужны ручные верстаки, если этот блок может делать это автоматически?",
 
