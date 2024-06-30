@@ -12,17 +12,20 @@ import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 
 public class CompressorRecipe implements Recipe<Inventory> {
     private final Identifier id;
     private final ItemStack output;
     private final Ingredient input;
+    private final int inputCount;
 
-    public CompressorRecipe(Identifier id, ItemStack output, Ingredient input) {
+    public CompressorRecipe(Identifier id, ItemStack output, Ingredient input, int inputCount) {
         this.id = id;
         this.output = output;
         this.input = input;
+        this.inputCount = inputCount;
     }
 
     public ItemStack getOutputItem() {
@@ -33,12 +36,16 @@ public class CompressorRecipe implements Recipe<Inventory> {
         return input;
     }
 
+    public int getInputCount() {
+        return inputCount;
+    }
+
     @Override
     public boolean matches(Inventory container, World level) {
         if(level.isClient())
             return false;
 
-        return input.test(container.getStack(0));
+        return input.test(container.getStack(0)) && container.getStack(0).getCount() >= inputCount;
     }
 
     @Override
@@ -104,22 +111,24 @@ public class CompressorRecipe implements Recipe<Inventory> {
         @Override
         public CompressorRecipe read(Identifier recipeID, JsonObject json) {
             Ingredient input = Ingredient.fromJson(json.get("ingredient"));
+            int inputCount = json.has("inputCount")?JsonHelper.getInt(json, "inputCount"):1;
             ItemStack output = ItemStackUtils.fromJson(JsonHelper.getObject(json, "output"));
 
-            return new CompressorRecipe(recipeID, output, input);
+            return new CompressorRecipe(recipeID, output, input, inputCount);
         }
 
         @Override
         public CompressorRecipe read(Identifier recipeID, PacketByteBuf buffer) {
             Ingredient input = Ingredient.fromPacket(buffer);
+            int inputCount = buffer.readInt();
             ItemStack output = buffer.readItemStack();
 
-            return new CompressorRecipe(recipeID, output, input);
+            return new CompressorRecipe(recipeID, output, input, inputCount);
         }
-
         @Override
         public void write(PacketByteBuf buffer, CompressorRecipe recipe) {
             recipe.input.write(buffer);
+            buffer.writeInt(recipe.inputCount);
             buffer.writeItemStack(recipe.output);
         }
     }

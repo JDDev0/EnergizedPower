@@ -30,4 +30,17 @@ public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<Compre
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
     }
+
+    @Override
+    protected void craftItem(CompressorRecipe recipe) {
+        if(world == null || !hasRecipe())
+            return;
+
+        itemHandler.removeStack(0, recipe.getInputCount());
+        itemHandler.setStack(1, recipe.getOutput(world.getRegistryManager()).
+                copyWithCount(itemHandler.getStack(1).getCount() +
+                        recipe.getOutput(world.getRegistryManager()).getCount()));
+
+        resetProgress();
+    }
 }
