@@ -166,6 +166,12 @@ public final class ModMessages {
                 encoder(SetCurrentRecipeIdC2SPacket::toBytes).
                 consumerMainThread(SetCurrentRecipeIdC2SPacket::handle).
                 add();
+
+        net.messageBuilder(SetCreativeFluidTankFluidStackC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER).
+                decoder(SetCreativeFluidTankFluidStackC2SPacket::new).
+                encoder(SetCreativeFluidTankFluidStackC2SPacket::toBytes).
+                consumerMainThread(SetCreativeFluidTankFluidStackC2SPacket::handle).
+                add();
     }
 
     public static <MSG> void sendToServer(MSG message) {
