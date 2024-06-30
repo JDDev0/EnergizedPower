@@ -169,6 +169,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<PressMoldMakerMenu>> PRESS_MOLD_MAKER_MENU = registerMenuType("press_mold_maker",
             PressMoldMakerMenu::new);
 
+    public static final RegistryObject<MenuType<AlloyFurnaceMenu>> ALLOY_FURNACE_MENU = registerMenuType("alloy_furnace",
+            AlloyFurnaceMenu::new);
+
     public static final RegistryObject<MenuType<MetalPressMenu>> METAL_PRESS_MENU = registerMenuType("metal_press",
             MetalPressMenu::new);
 

@@ -143,6 +143,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_5.get(), SolarPanelScreen::new);
             MenuScreens.register(ModMenuTypes.SOLAR_PANEL_MENU_6.get(), SolarPanelScreen::new);
             MenuScreens.register(ModMenuTypes.PRESS_MOLD_MAKER_MENU.get(), PressMoldMakerScreen::new);
+            MenuScreens.register(ModMenuTypes.ALLOY_FURNACE_MENU.get(), AlloyFurnaceScreen::new);
             MenuScreens.register(ModMenuTypes.METAL_PRESS_MENU.get(), MetalPressScreen::new);
             MenuScreens.register(ModMenuTypes.AUTO_PRESS_MOLD_MAKER_MENU.get(), AutoPressMoldMakerScreen::new);
             MenuScreens.register(ModMenuTypes.AUTO_STONECUTTER_MENU.get(), AutoStonecutterScreen::new);
