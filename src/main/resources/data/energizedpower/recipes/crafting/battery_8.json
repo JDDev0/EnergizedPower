@@ -8,8 +8,8 @@
     "E": {
       "tag": "c:energized_gold_plates"
     },
-    "C": {
-      "tag": "c:copper_plates"
+    "A": {
+      "tag": "c:advanced_alloy_plates"
     },
     "B": {
       "item": "energizedpower:battery_7"
@@ -18,7 +18,7 @@
   "pattern": [
     "G G",
     "EBE",
-    "CBC"
+    "ABA"
   ],
   "result": {
     "item": "energizedpower:battery_8"
