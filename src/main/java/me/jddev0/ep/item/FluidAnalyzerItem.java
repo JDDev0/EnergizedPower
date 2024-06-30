@@ -66,8 +66,12 @@ public class FluidAnalyzerItem extends EnergizedPowerEnergyItem {
 
         int tankCount = 0;
         Iterator<StorageView<FluidVariant>> fluidStorageIterator = fluidStorage.iterator();
-        while(fluidStorageIterator.hasNext() && tankCount < 100) //Limit max iterations to 100
+        while(fluidStorageIterator.hasNext() && tankCount < 100) {
+            //Limit max iterations to 100
             tankCount++;
+
+            fluidStorageIterator.next();
+        }
 
         components.add(Text.translatable("txt.energizedpower.fluid_analyzer.fluid_output.tank_count" + (blockFaceSpecificInformation?"_side":""),
                 tankCount).formatted(Formatting.BLUE));

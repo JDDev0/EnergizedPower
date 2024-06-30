@@ -570,6 +570,10 @@
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.1": "Setze den Filter mittels links-klick mit einem Item, dass eine Flüssigkeit enthält.",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.2": "Entferne den Filter mittels links-klick ohne einem Item.",
 
+  "block.energizedpower.creative_fluid_tank": "Creative-Flüssigkeits-Tank",
+  "item.energizedpower.creative_fluid_tank": "Creative-Flüssigkeits-Tank",
+  "container.energizedpower.creative_fluid_tank": "Creative-Flüssigkeits-Tank",
+
   "block.energizedpower.fluid_filler": "Flüssigkeits-Befüller",
   "item.energizedpower.fluid_filler": "Flüssigkeits-Befüller",
   "container.energizedpower.fluid_filler": "Flüssigkeits-Befüller",

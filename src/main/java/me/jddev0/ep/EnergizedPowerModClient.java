@@ -89,6 +89,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(ModMenuTypes.FLUID_TANK_SMALL, FluidTankScreen::new);
         HandledScreens.register(ModMenuTypes.FLUID_TANK_MEDIUM, FluidTankScreen::new);
         HandledScreens.register(ModMenuTypes.FLUID_TANK_LARGE, FluidTankScreen::new);
+        HandledScreens.register(ModMenuTypes.CREATIVE_FLUID_TANK, CreativeFluidTankScreen::new);
 
         HandledScreens.register(ModMenuTypes.INVENTORY_CHARGER_MENU, InventoryChargerScreen::new);
         HandledScreens.register(ModMenuTypes.INVENTORY_TELEPORTER_MENU, InventoryTeleporterScreen::new);
@@ -132,5 +133,6 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(ModBlockEntities.FLUID_TANK_SMALL_ENTITY, FluidTankBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.FLUID_TANK_MEDIUM_ENTITY, FluidTankBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ModBlockEntities.FLUID_TANK_LARGE_ENTITY, FluidTankBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(ModBlockEntities.CREATIVE_FLUID_TANK_ENTITY, FluidTankBlockEntityRenderer::new);
     }
 }

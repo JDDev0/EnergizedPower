@@ -570,6 +570,10 @@
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.1": "Set the filter by left-clicking with an item which contains fluids.",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.2": "Unset the filter by left-clicking without an item.",
 
+  "block.energizedpower.creative_fluid_tank": "Creative Fluid Tank",
+  "item.energizedpower.creative_fluid_tank": "Creative Fluid Tank",
+  "container.energizedpower.creative_fluid_tank": "Creative Fluid Tank",
+
   "block.energizedpower.fluid_filler": "Fluid Filler",
   "item.energizedpower.fluid_filler": "Fluid Filler",
   "container.energizedpower.fluid_filler": "Fluid Filler",
