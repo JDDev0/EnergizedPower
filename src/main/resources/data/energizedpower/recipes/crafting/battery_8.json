@@ -8,8 +8,8 @@
     "E": {
       "tag": "forge:plates/energized_gold"
     },
-    "C": {
-      "tag": "forge:plates/copper"
+    "A": {
+      "tag": "forge:plates/advanced_alloy"
     },
     "B": {
       "item": "energizedpower:battery_7"
@@ -18,7 +18,7 @@
   "pattern": [
     "G G",
     "EBE",
-    "CBC"
+    "ABA"
   ],
   "result": {
     "item": "energizedpower:battery_8"
