@@ -5,8 +5,8 @@
     "G": {
       "tag": "forge:glass_panes/colorless"
     },
-    "C": {
-      "tag": "forge:ingots/copper"
+    "R": {
+      "tag": "forge:ingots/redstone_alloy"
     },
     "s": {
       "tag": "forge:silicon"
@@ -21,7 +21,7 @@
   "pattern": [
     "GGG",
     "SBS",
-    "sCs"
+    "sRs"
   ],
   "result": {
     "item": "energizedpower:solar_panel_3"

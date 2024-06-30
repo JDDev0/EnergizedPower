@@ -5,20 +5,20 @@
     "a": {
       "tag": "forge:storage_blocks/amethyst"
     },
-    "R": {
-      "tag": "forge:dusts/redstone"
-    },
     "E": {
       "tag": "forge:plates/energized_copper"
+    },
+    "P": {
+      "tag": "forge:plates/advanced_alloy"
     },
     "A": {
       "item": "energizedpower:advanced_machine_frame"
     }
   },
   "pattern": [
-    "aRa",
+    "aPa",
     "EAE",
-    "aRa"
+    "aPa"
   ],
   "result": {
     "item": "energizedpower:crystal_growth_chamber"

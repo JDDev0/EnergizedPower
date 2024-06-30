@@ -1,0 +1,25 @@
+{
+  "type": "energizedpower:alloy_furnace",
+  "inputs": [
+    {
+      "input": {
+        "tag": "forge:ingots/tin"
+      }
+    },
+    {
+      "input": {
+        "tag": "forge:silicon"
+      }
+    },
+    {
+      "input": {
+        "tag": "forge:dusts/redstone"
+      },
+      "count": 2
+    }
+  ],
+  "ticks": 5000,
+  "output": {
+    "item": "energizedpower:redstone_alloy_ingot"
+  }
+}

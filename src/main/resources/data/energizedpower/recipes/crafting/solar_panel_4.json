@@ -8,8 +8,8 @@
     "s": {
       "tag": "forge:silicon"
     },
-    "C": {
-      "tag": "forge:ingots/copper"
+    "R": {
+      "tag": "forge:ingots/redstone_alloy"
     },
     "S": {
       "item": "energizedpower:solar_panel_3"
@@ -21,7 +21,7 @@
   "pattern": [
     "GGG",
     "SsS",
-    "ACA"
+    "ARA"
   ],
   "result": {
     "item": "energizedpower:solar_panel_4"
