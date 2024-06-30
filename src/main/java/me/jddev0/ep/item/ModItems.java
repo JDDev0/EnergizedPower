@@ -34,6 +34,9 @@ public final class ModItems {
     public static final Item SILICON = registerItem("silicon",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
+    public static final Item STONE_PEBBLE = registerItem("stone_pebble",
+            new Item(new Item.Settings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+
     public static final Item RAW_TIN = registerItem("raw_tin",
             new Item(new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
