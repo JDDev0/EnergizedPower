@@ -49,6 +49,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
                 new EnergizerCategory(registration.getJeiHelpers().getGuiHelper()),
                 new CrystalGrowthChamberCategory(registration.getJeiHelpers().getGuiHelper()),
                 new PressMoldMakerCategory(registration.getJeiHelpers().getGuiHelper()),
+                new AlloyFurnaceCategory(registration.getJeiHelpers().getGuiHelper()),
                 new StoneSolidifierCategory(registration.getJeiHelpers().getGuiHelper()),
                 new FiltrationPlantCategory(registration.getJeiHelpers().getGuiHelper()),
                 new FluidTransposerCategory(registration.getJeiHelpers().getGuiHelper()),
@@ -104,6 +105,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipes(EnergizerCategory.TYPE, recipeManager.getAllRecipesFor(EnergizerRecipe.Type.INSTANCE));
         registration.addRecipes(CrystalGrowthChamberCategory.TYPE, recipeManager.getAllRecipesFor(CrystalGrowthChamberRecipe.Type.INSTANCE));
         registration.addRecipes(PressMoldMakerCategory.TYPE, recipeManager.getAllRecipesFor(PressMoldMakerRecipe.Type.INSTANCE));
+        registration.addRecipes(AlloyFurnaceCategory.TYPE, recipeManager.getAllRecipesFor(AlloyFurnaceRecipe.Type.INSTANCE));
         registration.addRecipes(StoneSolidifierCategory.TYPE, recipeManager.getAllRecipesFor(StoneSolidifierRecipe.Type.INSTANCE));
         registration.addRecipes(FiltrationPlantCategory.TYPE, recipeManager.getAllRecipesFor(FiltrationPlantRecipe.Type.INSTANCE));
         registration.addRecipes(FluidTransposerCategory.TYPE, recipeManager.getAllRecipesFor(FluidTransposerRecipe.Type.INSTANCE));
@@ -155,6 +157,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM.get()), CrystalGrowthChamberCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.PRESS_MOLD_MAKER_ITEM.get()), PressMoldMakerCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.AUTO_PRESS_MOLD_MAKER_ITEM.get()), PressMoldMakerCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.ALLOY_FURNACE_ITEM.get()), AlloyFurnaceCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.STONE_SOLIDIFIER_ITEM.get()), StoneSolidifierCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.FILTRATION_PLANT_ITEM.get()), FiltrationPlantCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.FLUID_TRANSPOSER_ITEM.get()), FluidTransposerCategory.TYPE);
@@ -183,6 +186,8 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
 
         registerRecipeClickArea(registration, CoalEngineScreen.class, 79, 25, 18, 17, RecipeTypes.FUELING);
 
+        registration.addRecipeClickArea(AlloyFurnaceScreen.class, 35, 36, 15, 15, RecipeTypes.FUELING);
+
         registerRecipeClickArea(registration, ChargerScreen.class, 25, 16, 40, 54, ChargerCategory.TYPE);
         registerRecipeClickArea(registration, ChargerScreen.class, 111, 16, 58, 54, ChargerCategory.TYPE);
 
@@ -201,6 +206,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registerRecipeClickArea(registration, CrystalGrowthChamberScreen.class, 80, 34, 24, 17, CrystalGrowthChamberCategory.TYPE);
         registration.addRecipeClickArea(PressMoldMakerScreen.class, 7, 34, 18, 18, PressMoldMakerCategory.TYPE);
         registerRecipeClickArea(registration, AutoPressMoldMakerScreen.class, 84, 43, 24, 17, PressMoldMakerCategory.TYPE);
+        registration.addRecipeClickArea(AlloyFurnaceScreen.class, 79, 34, 24, 17, AlloyFurnaceCategory.TYPE);
         registerRecipeClickArea(registration, StoneSolidifierScreen.class, 69, 45, 20, 14, StoneSolidifierCategory.TYPE);
         registerRecipeClickArea(registration, StoneSolidifierScreen.class, 123, 45, 20, 14, StoneSolidifierCategory.TYPE);
         registerRecipeClickArea(registration, FiltrationPlantScreen.class, 67, 35, 78, 8, FiltrationPlantCategory.TYPE);
