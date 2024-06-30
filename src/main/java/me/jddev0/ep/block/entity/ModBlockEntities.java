@@ -130,6 +130,11 @@ public final class ModBlockEntities {
             (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
     );
 
+    public static final BlockEntityType<AlloyFurnaceBlockEntity> ALLOY_FURNACE_ENTITY = registerInventoryStorage(
+            createBlockEntity("alloy_furnace", ModBlocks.ALLOY_FURNACE, AlloyFurnaceBlockEntity::new),
+            AlloyFurnaceBlockEntity::getInventoryStorageForDirection
+    );
+
     public static final BlockEntityType<CrusherBlockEntity> CRUSHER_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
                     createBlockEntity("crusher", ModBlocks.CRUSHER, CrusherBlockEntity::new),

@@ -98,6 +98,11 @@ public final class ModRecipes {
     public static final RecipeType<FluidTransposerRecipe> FLUID_TRANSPOSER_TYPE =
             createRecipeType("fluid_transposer", FluidTransposerRecipe.Type.INSTANCE);
 
+    public static final RecipeSerializer<AlloyFurnaceRecipe> ALLOY_FURNACE_SERIALIZER =
+            createSerializer("alloy_furnace", AlloyFurnaceRecipe.Serializer.INSTANCE);
+    public static final RecipeType<AlloyFurnaceRecipe> ALLOY_FURNACE_TYPE =
+            createRecipeType("alloy_furnace", AlloyFurnaceRecipe.Type.INSTANCE);
+
     public static final RecipeSerializer<TeleporterMatrixSettingsCopyRecipe>
             TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER = createSerializer("teleporter_matrix_settings_copy",
             new SpecialRecipeSerializer<>(TeleporterMatrixSettingsCopyRecipe::new));
