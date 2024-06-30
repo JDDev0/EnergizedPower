@@ -9,7 +9,7 @@
       "tag": "forge:ingots/gold"
     },
     "r": {
-      "tag": "forge:dusts/redstone"
+      "tag": "forge:ingots/redstone_alloy"
     },
     "R": {
       "item": "energizedpower:reinforced_advanced_upgrade_module"
