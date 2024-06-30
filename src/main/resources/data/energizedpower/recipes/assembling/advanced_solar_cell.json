@@ -21,9 +21,8 @@
     },
     {
       "input": {
-        "tag": "forge:dusts/redstone"
-      },
-      "count": 2
+        "tag": "forge:ingots/redstone_alloy"
+      }
     }
   ],
   "output": {
