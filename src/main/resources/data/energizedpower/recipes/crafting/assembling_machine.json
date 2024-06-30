@@ -5,8 +5,8 @@
     "R": {
       "tag": "c:redstone_dusts"
     },
-    "I": {
-      "tag": "c:iron_plates"
+    "s": {
+      "tag": "c:steel_ingots"
     },
     "i": {
       "tag": "c:iron_gears"
@@ -24,7 +24,7 @@
   "pattern": [
     "iRi",
     "BHB",
-    "SIS"
+    "SsS"
   ],
   "result": {
     "item": "energizedpower:assembling_machine"
