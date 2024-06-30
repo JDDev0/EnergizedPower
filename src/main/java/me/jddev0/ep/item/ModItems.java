@@ -60,6 +60,9 @@ public final class ModItems {
     public static final DeferredItem<Item> GOLD_PLATE = ITEMS.register("gold_plate",
             () -> new Item(new Item.Properties()));
 
+    public static final DeferredItem<Item> STEEL_INGOT = ITEMS.register("steel_ingot",
+            () -> new Item(new Item.Properties()));
+
     public static final DeferredItem<Item> IRON_GEAR = ITEMS.register("iron_gear",
             () -> new Item(new Item.Properties()));
 

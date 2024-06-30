@@ -95,6 +95,10 @@ public final class ModBlockEntities {
             BLOCK_ENTITIES.register("press_mold_maker", () -> BlockEntityType.Builder.of(PressMoldMakerBlockEntity::new,
                     ModBlocks.PRESS_MOLD_MAKER.get()).build(null));
 
+    public static final Supplier<BlockEntityType<AlloyFurnaceBlockEntity>> ALLOY_FURNACE_ENTITY =
+            BLOCK_ENTITIES.register("alloy_furnace", () -> BlockEntityType.Builder.of(AlloyFurnaceBlockEntity::new,
+                    ModBlocks.ALLOY_FURNACE.get()).build(null));
+
     public static final Supplier<BlockEntityType<CrusherBlockEntity>> CRUSHER_ENTITY =
             BLOCK_ENTITIES.register("crusher", () -> BlockEntityType.Builder.of(CrusherBlockEntity::new,
                     ModBlocks.CRUSHER.get()).build(null));
