@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:compressor",
+  "ingredient": {
+    "tag": "c:iron_blocks"
+  },
+  "output": {
+    "item": "energizedpower:iron_plate",
+    "count": 9
+  }
+}
