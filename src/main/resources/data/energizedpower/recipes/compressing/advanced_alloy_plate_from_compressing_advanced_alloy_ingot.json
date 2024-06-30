@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:compressor",
+  "ingredient": {
+    "tag": "c:advanced_alloy_ingots"
+  },
+  "output": {
+    "item": "energizedpower:advanced_alloy_plate"
+  }
+}

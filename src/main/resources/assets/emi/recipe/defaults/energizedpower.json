@@ -1,5 +1,7 @@
 {
   "recipes": [
+    "energizedpower:alloy_furnace/advanced_alloy_ingot",
+    "energizedpower:alloy_furnace/redstone_alloy_ingot",
     "energizedpower:alloy_furnace/steel_ingot",
 
     "energizedpower:assembling/advanced_circuit",
@@ -9,6 +11,7 @@
     "energizedpower:assembling/reinforced_advanced_solar_cell",
     "energizedpower:assembling/teleporter_processing_unit",
 
+    "energizedpower:compressing/advanced_alloy_plate_from_compressing_advanced_alloy_ingot",
     "energizedpower:compressing/copper_plate_from_compressing_copper_ingot",
     "energizedpower:compressing/energized_copper_plate_from_compressing_energized_copper_ingot",
     "energizedpower:compressing/energized_gold_plate_from_compressing_energized_gold_ingot",
