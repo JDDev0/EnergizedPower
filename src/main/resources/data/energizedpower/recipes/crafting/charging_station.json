@@ -14,12 +14,15 @@
     "C": {
       "tag": "forge:storage_blocks/copper"
     },
+    "a": {
+      "tag": "forge:plates/advanced_alloy"
+    },
     "A": {
       "item": "energizedpower:advanced_machine_frame"
     }
   },
   "pattern": [
-    "ERE",
+    "aRa",
     "IAI",
     "ECE"
   ],
