@@ -224,7 +224,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.registerContainerClickArea(new Rectangle(79, 34, 24, 17),
                 AlloyFurnaceScreen.class, AlloyFurnaceCategory.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(104, 34, 24, 17),
-                InductionSmelterScreen.class, PressMoldMakerCategory.CATEGORY);
+                InductionSmelterScreen.class, AlloyFurnaceCategory.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(69, 45, 20, 14),
                 StoneSolidifierScreen.class, StoneSolidifierCategory.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(123, 45, 20, 14),
