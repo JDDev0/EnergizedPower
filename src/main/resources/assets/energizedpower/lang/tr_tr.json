@@ -28,6 +28,8 @@
   "item.energizedpower.iron_plate": "Demir Plaka",
   "item.energizedpower.gold_plate": "Altın Plaka",
 
+  "item.energizedpower.steel_ingot": "Steel Ingot",
+
   "item.energizedpower.iron_gear": "Demir Dişli",
 
   "item.energizedpower.iron_rod": "Demir Çubuk",
@@ -284,6 +286,10 @@
   "tooltip.energizedpower.press_mold_maker.btn.down": "Aşağı İndir",
 
   "tooltip.energizedpower.press_mold_maker.btn.recipes": "Gerektirir %dx %s",
+
+  "block.energizedpower.alloy_furnace": "Alloy Furnace",
+  "item.energizedpower.alloy_furnace": "Alloy Furnace",
+  "container.energizedpower.alloy_furnace": "Alloy Furnace",
 
   "block.energizedpower.auto_crafter": "Otomatik Eşya Yapıcı",
   "item.energizedpower.auto_crafter": "Otomatik Eşya Yapıcı",
@@ -759,6 +765,7 @@
   "emi.category.energizedpower.energizer": "Enerjileyici",
   "emi.category.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
   "emi.category.energizedpower.press_mold_maker": "Pres Kalıbı Yapar",
+  "emi.category.energizedpower.alloy_furnace": "Alloy Furnace",
   "emi.category.energizedpower.stone_solidifier": "Stone Solidifier",
   "emi.category.energizedpower.filtration_plant": "Filtration Plant",
   "emi.category.energizedpower.fluid_transposer": "Fluid Transposer",
