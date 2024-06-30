@@ -241,6 +241,14 @@ public final class ModBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
+    public static final BlockEntityType<InductionSmelterBlockEntity> INDUCTION_SMELTER_ENTITY = registerEnergyStorage(
+            registerInventoryStorage(
+                    createBlockEntity("induction_smelter", ModBlocks.INDUCTION_SMELTER, InductionSmelterBlockEntity::new),
+                    InductionSmelterBlockEntity::getInventoryStorageForDirection
+            ),
+            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
+    );
+
     public static final BlockEntityType<StoneSolidifierBlockEntity> STONE_SOLIDIFIER_ENTITY = registerEnergyStorage(
             registerFluidStorage(
                     registerInventoryStorage(

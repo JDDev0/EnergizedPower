@@ -335,6 +335,12 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item ASSEMBLING_MACHINE_ITEM = createBlockItem("assembling_machine", ASSEMBLING_MACHINE);
 
+    public static final Block INDUCTION_SMELTER = registerBlock("induction_smelter",
+            new InductionSmelterBlock(AbstractBlock.Settings.of(Material.METAL).
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL).
+                    luminance(InductionSmelterBlock.LIGHT_EMISSION)));
+    public static final Item INDUCTION_SMELTER_ITEM = createBlockItem("induction_smelter", INDUCTION_SMELTER);
+
     public static final Block FLUID_FILLER = registerBlock("fluid_filler",
             new FluidFillerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
