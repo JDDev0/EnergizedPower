@@ -21,8 +21,8 @@ public class CrusherScreen
     }
 
     @Override
-    protected void renderTooltipNormalView(PoseStack poseStack, int mouseX, int mouseY) {
-        super.renderTooltipNormalView(poseStack, mouseX, mouseY);
+    protected void renderBgNormalView(PoseStack poseStack, float partialTick, int mouseX, int mouseY) {
+        super.renderBgNormalView(poseStack, partialTick, mouseX, mouseY);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
