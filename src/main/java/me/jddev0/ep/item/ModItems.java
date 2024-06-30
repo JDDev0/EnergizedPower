@@ -65,6 +65,9 @@ public final class ModItems {
     public static final Item GOLD_PLATE = registerItem("gold_plate",
             new Item(new FabricItemSettings()));
 
+    public static final Item STEEL_INGOT = registerItem("steel_ingot",
+            new Item(new Item.Settings()));
+
     public static final Item IRON_GEAR = registerItem("iron_gear",
             new Item(new FabricItemSettings()));
 

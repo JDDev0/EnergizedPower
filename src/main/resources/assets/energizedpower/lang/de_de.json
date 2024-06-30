@@ -36,6 +36,8 @@
   "item.energizedpower.copper_wire": "Kupferdraht",
   "item.energizedpower.gold_wire": "Golddraht",
 
+  "item.energizedpower.steel_ingot": "Stahlbarren",
+
   "item.energizedpower.sawdust": "Sägemehl",
 
   "item.energizedpower.charcoal_dust": "Holzkohle-Staub",
@@ -284,6 +286,10 @@
   "tooltip.energizedpower.press_mold_maker.btn.down": "Nach unten scrollen",
 
   "tooltip.energizedpower.press_mold_maker.btn.recipes": "Benötigt %dx %s",
+
+  "block.energizedpower.alloy_furnace": "Legierungsofen",
+  "item.energizedpower.alloy_furnace": "Legierungsofen",
+  "container.energizedpower.alloy_furnace": "Legierungsofen",
 
   "block.energizedpower.auto_crafter": "Automatische Werkbank",
   "item.energizedpower.auto_crafter": "Automatische Werkbank",
@@ -759,6 +765,7 @@
   "emi.category.energizedpower.energizer": "Energetisierer",
   "emi.category.energizedpower.crystal_growth_chamber": "Kristall-Wachstums-Kammer",
   "emi.category.energizedpower.press_mold_maker": "Pressform-Hersteller",
+  "emi.category.energizedpower.alloy_furnace": "Legierungsofen",
   "emi.category.energizedpower.stone_solidifier": "Stein-Festiger",
   "emi.category.energizedpower.filtration_plant": "Filteranlage",
   "emi.category.energizedpower.fluid_transposer": "Flüssigkeits-Umsetzer",

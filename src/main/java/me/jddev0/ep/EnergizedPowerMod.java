@@ -125,6 +125,7 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(ModBlocks.EHV_TRANSFORMER_N_TO_1_ITEM);
 
             event.accept(ModBlocks.PRESS_MOLD_MAKER_ITEM);
+            event.accept(ModBlocks.ALLOY_FURNACE_ITEM);
 
             event.accept(ModBlocks.COAL_ENGINE_ITEM);
             event.accept(ModBlocks.HEAT_GENERATOR_ITEM);
@@ -295,6 +296,7 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(ModItems.COPPER_PLATE);
             event.accept(ModItems.IRON_PLATE);
             event.accept(ModItems.GOLD_PLATE);
+            event.accept(ModItems.STEEL_INGOT);
             event.accept(ModItems.IRON_GEAR);
             event.accept(ModItems.IRON_ROD);
             event.accept(ModItems.TIN_WIRE);
