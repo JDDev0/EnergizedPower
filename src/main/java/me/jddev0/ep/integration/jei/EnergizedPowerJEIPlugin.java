@@ -158,6 +158,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.PRESS_MOLD_MAKER_ITEM.get()), PressMoldMakerCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.AUTO_PRESS_MOLD_MAKER_ITEM.get()), PressMoldMakerCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.ALLOY_FURNACE_ITEM.get()), AlloyFurnaceCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.INDUCTION_SMELTER_ITEM.get()), AlloyFurnaceCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.STONE_SOLIDIFIER_ITEM.get()), StoneSolidifierCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.FILTRATION_PLANT_ITEM.get()), FiltrationPlantCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.FLUID_TRANSPOSER_ITEM.get()), FluidTransposerCategory.TYPE);
@@ -207,6 +208,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipeClickArea(PressMoldMakerScreen.class, 7, 34, 18, 18, PressMoldMakerCategory.TYPE);
         registerRecipeClickArea(registration, AutoPressMoldMakerScreen.class, 84, 43, 24, 17, PressMoldMakerCategory.TYPE);
         registration.addRecipeClickArea(AlloyFurnaceScreen.class, 79, 34, 24, 17, AlloyFurnaceCategory.TYPE);
+        registerRecipeClickArea(registration, InductionSmelterScreen.class, 104, 34, 24, 17, AlloyFurnaceCategory.TYPE);
         registerRecipeClickArea(registration, StoneSolidifierScreen.class, 69, 45, 20, 14, StoneSolidifierCategory.TYPE);
         registerRecipeClickArea(registration, StoneSolidifierScreen.class, 123, 45, 20, 14, StoneSolidifierCategory.TYPE);
         registerRecipeClickArea(registration, FiltrationPlantScreen.class, 67, 35, 78, 8, FiltrationPlantCategory.TYPE);

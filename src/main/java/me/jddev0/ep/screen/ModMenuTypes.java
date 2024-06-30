@@ -184,6 +184,9 @@ public final class ModMenuTypes {
     public static final RegistryObject<MenuType<AssemblingMachineMenu>> ASSEMBLING_MACHINE_MENU = registerMenuType("assembling_machine",
             AssemblingMachineMenu::new);
 
+    public static final RegistryObject<MenuType<InductionSmelterMenu>> INDUCTION_SMELTER_MENU = registerMenuType("induction_smelter",
+            InductionSmelterMenu::new);
+
     public static final RegistryObject<MenuType<FluidTankMenu>> FLUID_TANK_SMALL = registerMenuType("fluid_tank_small",
             FluidTankMenu::new);
     public static final RegistryObject<MenuType<FluidTankMenu>> FLUID_TANK_MEDIUM = registerMenuType("fluid_tank_medium",

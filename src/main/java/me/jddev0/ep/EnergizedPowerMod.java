@@ -148,6 +148,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.AUTO_PRESS_MOLD_MAKER_MENU.get(), AutoPressMoldMakerScreen::new);
             MenuScreens.register(ModMenuTypes.AUTO_STONECUTTER_MENU.get(), AutoStonecutterScreen::new);
             MenuScreens.register(ModMenuTypes.ASSEMBLING_MACHINE_MENU.get(), AssemblingMachineScreen::new);
+            MenuScreens.register(ModMenuTypes.INDUCTION_SMELTER_MENU.get(), InductionSmelterScreen::new);
             MenuScreens.register(ModMenuTypes.FLUID_TANK_SMALL.get(), FluidTankScreen::new);
             MenuScreens.register(ModMenuTypes.FLUID_TANK_MEDIUM.get(), FluidTankScreen::new);
             MenuScreens.register(ModMenuTypes.FLUID_TANK_LARGE.get(), FluidTankScreen::new);
