@@ -520,6 +520,10 @@ public final class ModConfigs {
             new ArrayList<>(0)
     ));
 
+    public static final ConfigValue<Float> COMMON_ALLOY_FURNACE_RECIPE_DURATION_MULTIPLIER = registerRecipeDurationMultiplierConfigValue(
+            "block.alloy_furnaces", "Alloy Furnace"
+    );
+
     public static final ConfigValue<Integer> COMMON_COAL_ENGINE_CAPACITY = registerEnergyCapacityConfigValue(
             "block.coal_engine", "Coal Engine", 2048
     );

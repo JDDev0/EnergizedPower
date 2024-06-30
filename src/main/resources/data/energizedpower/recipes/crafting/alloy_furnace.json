@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "forge:plates/iron"
+    },
+    "B": {
+      "item": "minecraft:bricks"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    }
+  },
+  "pattern": [
+    "III",
+    "FIF",
+    "BBB"
+  ],
+  "result": {
+    "item": "energizedpower:alloy_furnace"
+  }
+}

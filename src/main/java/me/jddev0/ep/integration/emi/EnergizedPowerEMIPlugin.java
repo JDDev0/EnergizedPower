@@ -90,6 +90,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
         registry.addWorkstation(PressMoldMakerEMIRecipe.CATEGORY, PressMoldMakerEMIRecipe.ITEM);
         registry.addWorkstation(PressMoldMakerEMIRecipe.CATEGORY, EmiStack.of(ModBlocks.AUTO_PRESS_MOLD_MAKER_ITEM.get()));
 
+        registry.addCategory(AlloyFurnaceEMIRecipe.CATEGORY);
+        registry.addWorkstation(AlloyFurnaceEMIRecipe.CATEGORY, AlloyFurnaceEMIRecipe.ITEM);
+
         registry.addCategory(StoneSolidifierEMIRecipe.CATEGORY);
         registry.addWorkstation(StoneSolidifierEMIRecipe.CATEGORY, StoneSolidifierEMIRecipe.ITEM);
 
@@ -147,6 +150,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
         for(PressMoldMakerRecipe recipe:recipeManager.getAllRecipesFor(PressMoldMakerRecipe.Type.INSTANCE))
             registry.addRecipe(new PressMoldMakerEMIRecipe(recipe));
+
+        for(AlloyFurnaceRecipe recipe:recipeManager.getAllRecipesFor(AlloyFurnaceRecipe.Type.INSTANCE))
+            registry.addRecipe(new AlloyFurnaceEMIRecipe(recipe));
 
         for(StoneSolidifierRecipe recipe:recipeManager.getAllRecipesFor(StoneSolidifierRecipe.Type.INSTANCE))
             registry.addRecipe(new StoneSolidifierEMIRecipe(recipe));
