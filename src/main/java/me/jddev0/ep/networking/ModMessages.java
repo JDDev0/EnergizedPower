@@ -88,6 +88,9 @@ public final class ModMessages {
 
         registerServerPacketReceiver(SetCurrentRecipeIdC2SPacket.ID,
                 SetCurrentRecipeIdC2SPacket::new, SetCurrentRecipeIdC2SPacket::receive);
+
+        registerServerPacketReceiver(SetCreativeFluidTankFluidStackC2SPacket.ID,
+                SetCreativeFluidTankFluidStackC2SPacket::new, SetCreativeFluidTankFluidStackC2SPacket::receive);
     }
 
     public static <P extends IEnergizedPowerPacket> void registerClientPacketReceiver(

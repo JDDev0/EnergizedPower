@@ -18,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
 import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 public final class ModBlockEntities {
     private ModBlockEntities() {}
@@ -47,6 +48,11 @@ public final class ModBlockEntities {
     );
     public static final BlockEntityType<FluidTankBlockEntity> FLUID_TANK_LARGE_ENTITY = registerFluidStorage(
             createFluidTankBlockEntity("fluid_tank_large", ModBlocks.FLUID_TANK_LARGE),
+            (blockEntity, direction) -> blockEntity.fluidStorage
+    );
+
+    public static final BlockEntityType<CreativeFluidTankBlockEntity> CREATIVE_FLUID_TANK_ENTITY = registerFluidStorage(
+            createBlockEntity("creative_fluid_tank", ModBlocks.CREATIVE_FLUID_TANK, CreativeFluidTankBlockEntity::new),
             (blockEntity, direction) -> blockEntity.fluidStorage
     );
 
