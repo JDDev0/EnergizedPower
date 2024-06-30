@@ -50,7 +50,8 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends ScreenHandler>
 
         int fluidColorTint = FluidVariantRendering.getColor(fluidStack.getFluidVariant());
 
-        int fluidMeterPos = tankCapacity == -1?0:(int)(h - ((fluidStack.getDropletsAmount() <= 0 || tankCapacity == 0)?0:
+        int fluidMeterPos = tankCapacity == -1 || (fluidStack.getDropletsAmount() > 0 && fluidStack.getDropletsAmount() == tankCapacity)?
+                0:(int)(h - ((fluidStack.getDropletsAmount() <= 0 || tankCapacity == 0)?0:
                 (Math.min(fluidStack.getDropletsAmount(), tankCapacity - 1) * h / tankCapacity + 1)));
 
         RenderSystem.setShaderTexture(0, PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);

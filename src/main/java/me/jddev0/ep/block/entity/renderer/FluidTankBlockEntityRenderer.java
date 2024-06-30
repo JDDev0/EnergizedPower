@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity.renderer;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.FluidTankBlock;
-import me.jddev0.ep.block.entity.FluidTankBlockEntity;
+import me.jddev0.ep.block.entity.AbstractFluidTankBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -25,7 +25,7 @@ import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Quaternion;
 
 @Environment(EnvType.CLIENT)
-public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTankBlockEntity> {
+public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<AbstractFluidTankBlockEntity> {
     private final BlockEntityRendererFactory.Context context;
 
     public FluidTankBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
@@ -33,7 +33,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
     }
 
     @Override
-    public void render(FluidTankBlockEntity blockEntity, float partialTick, MatrixStack poseStack, VertexConsumerProvider bufferSource, int packedLight, int packedOverlay) {
+    public void render(AbstractFluidTankBlockEntity blockEntity, float partialTick, MatrixStack poseStack, VertexConsumerProvider bufferSource, int packedLight, int packedOverlay) {
         long capacity = blockEntity.getTankCapacity(0);
         FluidStack fluidStack = blockEntity.getFluid(0);
 

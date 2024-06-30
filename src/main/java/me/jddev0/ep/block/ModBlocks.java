@@ -4,6 +4,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.item.ModCreativeModeTab;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
@@ -104,6 +105,12 @@ public final class ModBlocks {
             new FluidTankBlock(FluidTankBlock.Tier.LARGE));
     public static final Item FLUID_TANK_LARGE_ITEM = createBlockItem("fluid_tank_large",
             new FluidTankBlock.Item(FLUID_TANK_LARGE, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), FluidTankBlock.Tier.LARGE));
+
+    public static final CreativeFluidTankBlock CREATIVE_FLUID_TANK = registerBlock("creative_fluid_tank",
+            new CreativeFluidTankBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.PURPLE).
+                    requiresTool().strength(-1.f, 3600000.f).dropsNothing()));
+    public static final Item CREATIVE_FLUID_TANK_ITEM = createBlockItem("creative_fluid_tank",
+            new CreativeFluidTankBlock.Item(CREATIVE_FLUID_TANK, new Item.Settings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     private static Item createCableBlockItem(String name, CableBlock block) {
         return Registry.register(Registry.ITEM, new Identifier(EnergizedPowerMod.MODID, name),

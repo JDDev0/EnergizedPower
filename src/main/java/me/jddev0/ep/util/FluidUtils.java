@@ -33,10 +33,16 @@ public final class FluidUtils {
     }
 
     public static long convertDropletsToMilliBuckets(long droplets) {
+        if(droplets == Long.MAX_VALUE)
+            return Long.MAX_VALUE;
+
         return droplets * 1000 / FluidConstants.BUCKET;
     }
 
     public static long convertMilliBucketsToDroplets(long milliBuckets) {
+        if(milliBuckets == Long.MAX_VALUE)
+            return Long.MAX_VALUE;
+
         return milliBuckets * FluidConstants.BUCKET / 1000;
     }
 
