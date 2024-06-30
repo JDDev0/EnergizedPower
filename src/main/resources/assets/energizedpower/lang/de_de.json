@@ -945,6 +945,12 @@
   "advancements.energizedpower.redstone_alloy_ingot.title": "Redstone-Legierungs-Barren",
   "advancements.energizedpower.redstone_alloy_ingot.description": "Stelle einen Redstone-Legierungs-Barren her.",
 
+  "advancements.energizedpower.advanced_alloy_ingot.title": "Fortgeschrittener Legierungs-Barren",
+  "advancements.energizedpower.advanced_alloy_ingot.description": "Stelle einen Fortgeschrittener Legierungs-Barren her.",
+
+  "advancements.energizedpower.advanced_alloy_plate.title": "Fortgeschrittene Legierungs-Platte",
+  "advancements.energizedpower.advanced_alloy_plate.description": "Stelle eine Fortgeschrittene Legierungs-Platte her.",
+
   "advancements.energizedpower.auto_crafter.title": "Automatisierung ist die Zukunft",
   "advancements.energizedpower.auto_crafter.description": "Wer braucht schon manuelles Herstellen, wenn dieser Block das automatisch kann?",
 
