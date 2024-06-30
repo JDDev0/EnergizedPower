@@ -352,6 +352,12 @@ public final class ModBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final RegistryObject<Item> ASSEMBLING_MACHINE_ITEM = createBlockItem("assembling_machine", ASSEMBLING_MACHINE);
 
+    public static final RegistryObject<Block> INDUCTION_SMELTER = BLOCKS.register("induction_smelter",
+            () -> new InductionSmelterBlock(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).
+                    lightLevel(InductionSmelterBlock.LIGHT_EMISSION)));
+    public static final RegistryObject<Item> INDUCTION_SMELTER_ITEM = createBlockItem("induction_smelter", INDUCTION_SMELTER);
+
     public static final RegistryObject<Block> FLUID_FILLER = BLOCKS.register("fluid_filler",
             () -> new FluidFillerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
