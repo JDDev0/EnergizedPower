@@ -570,6 +570,10 @@
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.1": "Установите фильтр, щелкнув левой кнопкой мыши по элементу, содержащему жидкости.",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.2": "Снимите фильтр, щелкнув левой кнопкой мыши без предмета.",
 
+  "block.energizedpower.creative_fluid_tank": "Creative Fluid Tank",
+  "item.energizedpower.creative_fluid_tank": "Creative Fluid Tank",
+  "container.energizedpower.creative_fluid_tank": "Creative Fluid Tank",
+
   "block.energizedpower.fluid_filler": "Наполнитель жидкости",
   "item.energizedpower.fluid_filler": "Наполнитель жидкости",
   "container.energizedpower.fluid_filler": "Наполнитель жидкости",

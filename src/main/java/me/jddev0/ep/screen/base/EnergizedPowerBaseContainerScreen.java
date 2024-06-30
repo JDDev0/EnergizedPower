@@ -56,7 +56,8 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
 
         int fluidColorTint = fluidTypeExtensions.getTintColor(fluidStack);
 
-        int fluidMeterPos = tankCapacity == -1?0:(h - ((fluidStack.getAmount() <= 0 || tankCapacity == 0)?0:
+        int fluidMeterPos = tankCapacity == -1 || (fluidStack.getAmount() > 0 && fluidStack.getAmount() == tankCapacity)?
+                0:(h - ((fluidStack.getAmount() <= 0 || tankCapacity == 0)?0:
                 (Math.min(fluidStack.getAmount(), tankCapacity - 1) * h / tankCapacity + 1)));
 
         RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
