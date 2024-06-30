@@ -937,7 +937,10 @@
   "advancements.energizedpower.press_molds.description": "Cooked Press Molds can be used in the Metal Press.",
 
   "advancements.energizedpower.alloy_furnace.title": "Alloy Furnace",
-  "advancements.energizedpower.alloy_furnace.description": "Create an  Alloy Furnace.",
+  "advancements.energizedpower.alloy_furnace.description": "Create an Alloy Furnace.",
+
+  "advancements.energizedpower.steel_ingot.title": "Steel Ingot",
+  "advancements.energizedpower.steel_ingot.description": "Create a Steel Ingot.",
 
   "advancements.energizedpower.auto_crafter.title": "Automation is the future",
   "advancements.energizedpower.auto_crafter.description": "Who needs manual crafting tables when this block can do it automatically?",
