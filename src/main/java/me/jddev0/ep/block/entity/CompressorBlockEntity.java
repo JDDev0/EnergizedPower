@@ -9,6 +9,7 @@ import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.CompressorMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -53,5 +54,18 @@ public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<Compre
         }
 
         return super.getCapability(cap, side);
+    }
+
+    @Override
+    protected void craftItem(RecipeHolder<CompressorRecipe> recipe) {
+        if(level == null || !hasRecipe())
+            return;
+
+        itemHandler.extractItem(0, recipe.value().getInputCount(), false);
+        itemHandler.setStackInSlot(1, recipe.value().getResultItem(level.registryAccess()).
+                copyWithCount(itemHandler.getStackInSlot(1).getCount() +
+                        recipe.value().getResultItem(level.registryAccess()).getCount()));
+
+        resetProgress();
     }
 }

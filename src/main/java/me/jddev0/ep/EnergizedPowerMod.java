@@ -325,6 +325,8 @@ public class EnergizedPowerMod {
 
             event.accept(ModFluids.DIRTY_WATER_BUCKET_ITEM);
 
+            event.accept(ModItems.STONE_PEBBLE);
+
             event.accept(ModItems.RAW_TIN);
             event.accept(ModBlocks.TIN_ORE_ITEM);
             event.accept(ModBlocks.DEEPSLATE_TIN_ORE_ITEM);

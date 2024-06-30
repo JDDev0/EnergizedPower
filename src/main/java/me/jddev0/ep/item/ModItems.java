@@ -31,6 +31,9 @@ public final class ModItems {
     public static final RegistryObject<Item> SILICON = ITEMS.register("silicon",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> STONE_PEBBLE = ITEMS.register("stone_pebble",
+            () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> RAW_TIN = ITEMS.register("raw_tin",
             () -> new Item(new Item.Properties()));
 

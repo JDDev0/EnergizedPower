@@ -9,6 +9,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -17,10 +18,12 @@ import net.minecraft.world.level.Level;
 public class CompressorRecipe implements Recipe<Container> {
     private final ItemStack output;
     private final Ingredient input;
+    private final int inputCount;
 
-    public CompressorRecipe(ItemStack output, Ingredient input) {
+    public CompressorRecipe(ItemStack output, Ingredient input, int inputCount) {
         this.output = output;
         this.input = input;
+        this.inputCount = inputCount;
     }
 
     public ItemStack getOutput() {
@@ -31,12 +34,16 @@ public class CompressorRecipe implements Recipe<Container> {
         return input;
     }
 
+    public int getInputCount() {
+        return inputCount;
+    }
+
     @Override
     public boolean matches(Container container, Level level) {
         if(level.isClientSide)
             return false;
 
-        return input.test(container.getItem(0));
+        return input.test(container.getItem(0)) && container.getItem(0).getCount() >= inputCount;
     }
 
     @Override
@@ -99,6 +106,8 @@ public class CompressorRecipe implements Recipe<Container> {
                 return recipe.output;
             }), Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
+            }), ExtraCodecs.POSITIVE_INT.optionalFieldOf("inputCount", 1).forGetter((recipe) -> {
+                return recipe.inputCount;
             })).apply(instance, CompressorRecipe::new);
         });
 
@@ -110,14 +119,16 @@ public class CompressorRecipe implements Recipe<Container> {
         @Override
         public CompressorRecipe fromNetwork(FriendlyByteBuf buffer) {
             Ingredient input = Ingredient.fromNetwork(buffer);
+            int inputCount = buffer.readInt();
             ItemStack output = buffer.readItem();
 
-            return new CompressorRecipe(output, input);
+            return new CompressorRecipe(output, input, inputCount);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, CompressorRecipe recipe) {
             recipe.input.toNetwork(buffer);
+            buffer.writeInt(recipe.inputCount);
             buffer.writeItemStack(recipe.output, false);
         }
     }
