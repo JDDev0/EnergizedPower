@@ -16,11 +16,13 @@ public class CompressorRecipe implements Recipe<Container> {
     private final ResourceLocation id;
     private final ItemStack output;
     private final Ingredient input;
+    private final int inputCount;
 
-    public CompressorRecipe(ResourceLocation id, ItemStack output, Ingredient input) {
+    public CompressorRecipe(ResourceLocation id, ItemStack output, Ingredient input, int inputCount) {
         this.id = id;
         this.output = output;
         this.input = input;
+        this.inputCount = inputCount;
     }
 
     public ItemStack getOutput() {
@@ -31,12 +33,16 @@ public class CompressorRecipe implements Recipe<Container> {
         return input;
     }
 
+    public int getInputCount() {
+        return inputCount;
+    }
+
     @Override
     public boolean matches(Container container, Level level) {
         if(level.isClientSide)
             return false;
 
-        return input.test(container.getItem(0));
+        return input.test(container.getItem(0)) && container.getItem(0).getCount() >= inputCount;
     }
 
     @Override
@@ -102,22 +108,25 @@ public class CompressorRecipe implements Recipe<Container> {
         @Override
         public CompressorRecipe fromJson(ResourceLocation recipeID, JsonObject json) {
             Ingredient input = Ingredient.fromJson(json.get("ingredient"));
+            int inputCount = json.has("inputCount")?GsonHelper.getAsInt(json, "inputCount"):1;
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 
-            return new CompressorRecipe(recipeID, output, input);
+            return new CompressorRecipe(recipeID, output, input, inputCount);
         }
 
         @Override
         public CompressorRecipe fromNetwork(ResourceLocation recipeID, FriendlyByteBuf buffer) {
             Ingredient input = Ingredient.fromNetwork(buffer);
+            int inputCount = buffer.readInt();
             ItemStack output = buffer.readItem();
 
-            return new CompressorRecipe(recipeID, output, input);
+            return new CompressorRecipe(recipeID, output, input, inputCount);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, CompressorRecipe recipe) {
             recipe.input.toNetwork(buffer);
+            buffer.writeInt(recipe.inputCount);
             buffer.writeItemStack(recipe.output, false);
         }
     }
