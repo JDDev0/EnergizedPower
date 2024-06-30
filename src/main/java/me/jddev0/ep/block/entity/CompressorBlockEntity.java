@@ -8,6 +8,7 @@ import me.jddev0.ep.recipe.CompressorRecipe;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.CompressorMenu;
 import net.minecraft.block.BlockState;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.util.math.BlockPos;
 
 public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<CompressorRecipe> {
@@ -29,5 +30,18 @@ public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<Compre
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY
         );
+    }
+
+    @Override
+    protected void craftItem(RecipeEntry<CompressorRecipe> recipe) {
+        if(world == null || !hasRecipe())
+            return;
+
+        itemHandler.removeStack(0, recipe.value().getInputCount());
+        itemHandler.setStack(1, recipe.value().getResult(world.getRegistryManager()).
+                copyWithCount(itemHandler.getStack(1).getCount() +
+                        recipe.value().getResult(world.getRegistryManager()).getCount()));
+
+        resetProgress();
     }
 }
