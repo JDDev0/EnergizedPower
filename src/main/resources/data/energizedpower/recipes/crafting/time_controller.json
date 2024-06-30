@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "item": "energizedpower:advanced_circuit"
+    "P": {
+      "item": "energizedpower:processing_unit"
     },
     "c": {
       "item": "energizedpower:energized_crystal_matrix"
@@ -11,8 +11,8 @@
     "C": {
       "item": "minecraft:clock"
     },
-    "r": {
-      "tag": "forge:storage_blocks/redstone"
+    "a": {
+      "tag": "forge:plates/advanced_alloy"
     },
     "E": {
       "tag": "forge:plates/energized_gold"
@@ -23,8 +23,8 @@
   },
   "pattern": [
     "cCc",
-    "ARA",
-    "rEr"
+    "PRP",
+    "aEa"
   ],
   "result": {
     "item": "energizedpower:time_controller"
