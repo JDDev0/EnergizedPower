@@ -880,9 +880,13 @@ public final class ModConfigs {
     public static final ConfigValue<Long> COMMON_INDUCTION_SMELTER_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
             "block.induction_smelter", "Induction Smelter", 64
     );
-    public static final ConfigValue<Float> COMMON_INDUCTION_SMELTER_RECIPE_DURATION_MULTIPLIER = registerRecipeDurationMultiplierConfigValue(
-            "block.induction_smelter", "Induction Smelter"
-    );
+    public static final ConfigValue<Float> COMMON_INDUCTION_SMELTER_RECIPE_DURATION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
+            "block.induction_smelter.recipe_duration_multiplier",
+            "The multiplier by which the time a recipe of the Induction Smelter requires is multiplied by.\n" +
+                    "=> If set to 2 the Induction Smelter will be as fast as the Alloy Furnace.",
+            1.f,
+            0.f, null
+    ));
 
     public static final ConfigValue<Long> COMMON_POWERED_LAMP_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
             "block.powered_lamp", "Powered Lamp", 1
