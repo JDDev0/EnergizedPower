@@ -523,25 +523,13 @@
   "container.energizedpower.auto_press_mold_maker": "Автоматический изготовитель пресс-форм",
 
   "tooltip.energizedpower.auto_press_mold_maker.shovel_missing": "Лопата отсутствует!",
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   "block.energizedpower.auto_stonecutter": "Автоматический камнерез",
   "item.energizedpower.auto_stonecutter": "Автоматический камнерез",
   "container.energizedpower.auto_stonecutter": "Автоматический камнерез",
-  
-  
 
   "tooltip.energizedpower.auto_stonecutter.pickaxe_missing": "Кирка отсутсвует!",
-  
-  
-  
+
   "block.energizedpower.assembling_machine": "Сборочная машина",
   "item.energizedpower.assembling_machine": "Сборочная машина",
   "container.energizedpower.assembling_machine": "Сборочная машина",
@@ -564,9 +552,6 @@
 
   "tooltip.energizedpower.filtration_plant.txt.shift.1": "Для этого блока требуются угольные фильтры.",
   "tooltip.energizedpower.filtration_plant.charcoal_filter_missing": "Угольный фильтр отсутствует!",
-  
-  
-  
 
   "block.energizedpower.fluid_transposer": "Жидкостный транспозер",
   "item.energizedpower.fluid_transposer": "Жидкостный транспозер",
@@ -574,8 +559,7 @@
 
   "tooltip.energizedpower.fluid_transposer.mode.emptying": "Режим: Опорожнение",
   "tooltip.energizedpower.fluid_transposer.mode.filling": "Режим: Заполнение",
-  
-  
+
   "block.energizedpower.block_placer": "Укладчик блоков",
   "item.energizedpower.block_placer": "Укладчик блоков",
   "container.energizedpower.block_placer": "Укладчик блоков",
@@ -586,8 +570,6 @@
   "block.energizedpower.fluid_tank_small": "Жидкостный резервуар (маленький)",
   "item.energizedpower.fluid_tank_small": "Жидкостный резервуар (маленький)",
   "container.energizedpower.fluid_tank_small": "Жидкостный резервуар (маленький)",
-  
-  
 
   "block.energizedpower.fluid_tank_medium": "Жидкостный резервуар (средний)",
   "item.energizedpower.fluid_tank_medium": "Жидкостный резервуар (средний)",
@@ -610,8 +592,6 @@
   "block.energizedpower.fluid_filler": "Наполнитель жидкости",
   "item.energizedpower.fluid_filler": "Наполнитель жидкости",
   "container.energizedpower.fluid_filler": "Наполнитель жидкости",
-  
-  
 
   "block.energizedpower.fluid_drainer": "Сливатель жидкости",
   "item.energizedpower.fluid_drainer": "Сливатель жидкости",
@@ -650,8 +630,6 @@
 
   "tooltip.energizedpower.charging_station.txt.shift.1": "Зарядную станцию можно использовать для зарядки предметов в инвентаре игрока.",
 
-
-
   "block.energizedpower.crystal_growth_chamber": "Камера для выращивания кристаллов",
   "item.energizedpower.crystal_growth_chamber": "Камера для выращивания кристаллов",
   "container.energizedpower.crystal_growth_chamber": "Камера для выращивания кристаллов",
@@ -659,7 +637,6 @@
   "block.energizedpower.weather_controller": "Контроллер погоды",
   "item.energizedpower.weather_controller": "Контроллер погоды",
   "container.energizedpower.weather_controller": "Контроллер погоды",
-  
 
   "tooltip.energizedpower.weather_controller.btn.clear": "Установить ясную погоду",
   "tooltip.energizedpower.weather_controller.btn.rain": "Установить дождливую погоду",
@@ -673,19 +650,6 @@
   "tooltip.energizedpower.time_controller.btn.noon": "Установите время на полдень.",
   "tooltip.energizedpower.time_controller.btn.night": "Установите время на ночь",
   "tooltip.energizedpower.time_controller.btn.midnight": "Установите время на полночь.",
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 
   "block.energizedpower.teleporter": "Телепорт",
   "item.energizedpower.teleporter": "Телепорт",
@@ -775,7 +739,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Лунный свет",
 
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "Блоков",
- 
+
   "tooltip.energizedpower.upgrade.values": "Модификаторы модулей улучшения:",
   "tooltip.energizedpower.upgrade.value": "• %s: %s",
 
@@ -826,8 +790,8 @@
 
   "key.category.energizedpower": "Energized Power",
   "key.energizedpower.teleporter.use": "Используй телепорт",
-  
-  
+
+
   "advancements.energizedpower.hardened_machine_frame.title": "Тяжелые машины",
   "advancements.energizedpower.hardened_machine_frame.description": "Требуется для лучших машин.",
 
@@ -1031,13 +995,13 @@
 
   "advancements.energizedpower.fluid_filler.title": "Заполните жидкостный предмет",
   "advancements.energizedpower.fluid_filler.description": "Наполните предметы жидкостями.",
-  
+
   "advancements.energizedpower.fluid_drainer.title": "Слейте жидкостный предмет",
   "advancements.energizedpower.fluid_drainer.description": "Слейте жидкость из предметов.",
-  
+
   "advancements.energizedpower.fluid_pump.title": "Жидкостный насос",
   "advancements.energizedpower.fluid_pump.description": "Создайте жидкостный насос.",
-  
+
   "advancements.energizedpower.drain.title": "Слив",
   "advancements.energizedpower.drain.description": "Слейте жидкостные источники.",
 
@@ -1049,15 +1013,6 @@
 
   "advancements.energizedpower.battery_1.title": "Аккумулятор",
   "advancements.energizedpower.battery_1.description": "Хранит энергию в форме предмета.",
-  
-  
-  
-  
-  
-  
-  
-  
-  
 
   "advancements.energizedpower.battery_2.title": "4-х кратная энергия",
   "advancements.energizedpower.battery_2.description": "Этот аккумулятор может хранить столько же энергии, сколько 4 аккумулятора уровня I.",
@@ -1341,10 +1296,8 @@
 
   "book.energizedpower.tooltip.link": "Открыть ссылку",
   "book.energizedpower.tooltip.page": "Перейти на страницу",
-  
-  
-  
-  
+
+
   "book.energizedpower.page.welcome.title": "Добро пожаловать Energized Power!",
   "book.energizedpower.page.welcome.1": "Этот мод добавляет множество предметов и машин, связанных с энергией.",
   "book.energizedpower.page.welcome.2": "Официальная Energized Power wiki",
@@ -1357,15 +1310,7 @@
 
   "book.energizedpower.page.credits.title": "Авторы",
   "book.energizedpower.page.credits.subtitle": "Благодарим вас за вклад в Energized Power!",
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   "book.energizedpower.page.credits.1": "Текстуры активированных медного/золотого слитков",
   "book.energizedpower.page.credits.2": "Текстура аккумулятора",
   "book.energizedpower.page.credits.3": "Текстура кремния",
@@ -1378,33 +1323,14 @@
   "book.energizedpower.page.table_of_contents.title": "Оглавление",
 
 
-
-
-
-
-
-
-
-
-
   "book.energizedpower.page.chapter.resources.title": "Ресурсы",
   "book.energizedpower.page.chapter.resources.1": "Для создания предметов требуются ресурсы.",
-  
-  
-  
-  
-  
-  
-  
+
   "book.energizedpower.page.cable_insulator.1": "Кабельный изолятор необходим для изготовления кабеля.",
   "book.energizedpower.page.cable_insulator.2": "Его можно изготовить, нажав на блок шерсти ножницами.",
   "book.energizedpower.page.cable_insulator.3": "Его также можно изготовить с помощью раздатчика.",
 
   "book.energizedpower.page.saw_blade": "Лезвие пилы — это компонент, который используется для изготовления лесопилки.",
-
-
-
-
 
   "book.energizedpower.page.silicon.1": "Кремний — ингредиент, используемый во многих рецептах крафта этого мода.",
   "book.energizedpower.page.silicon.2": "Его можно изготовить путем плавки или взрыва кварца Нижнего мира.",
@@ -1413,7 +1339,6 @@
   "book.energizedpower.page.sawdust.2": "Опилочные брикеты можно сжечь до состояния древесного угля.",
 
   "book.energizedpower.page.fertilizers": "Для ускорения работы камеры роста растений можно использовать удобрения.",
-
 
   "book.energizedpower.page.ore_dusts": "Рудную пыль можно переплавить в слитки.",
 
@@ -1438,9 +1363,6 @@
 
   "book.energizedpower.page.energized_gold_ingot": "Активированные золотые слитки используются для некоторых современных машин (например, зарядной станции).",
 
-
-
-
   "book.energizedpower.page.energized_crystal_matrix": "Энергетическая кристаллическая матрица используется в качестве стабилизатора в некоторых современных машинах.",
 
 
@@ -1448,7 +1370,6 @@
   "book.energizedpower.page.chapter.upgrades": "Улучшения могут улучшать машины",
 
   "book.energizedpower.page.speed_upgrades": "Улучшение скорости делает машины более быстрыми и увеличивает потребление энергии.",
-
 
   "book.energizedpower.page.energy_efficiency_upgrades": "Улучшение энергоэффективности сокращает потребление энергии.",
 
@@ -1459,13 +1380,11 @@
 
   "book.energizedpower.page.range_upgrades": "Улучшение дальности действия увеличивает дальность действия машины.",
 
-
   "book.energizedpower.page.extraction_depth_upgrades": "Улучшение глубины добычи увеличивают глубину, на которой может работать машина.",
 
   "book.energizedpower.page.furnace_mode_upgrades": "Улучшения режима печи изменяют рецепты, которые может производить электрическая печь.",
 
   "book.energizedpower.page.moon_light_upgrades": "Модернизация «Лунный свет» позволяет солнечным панелям вырабатывать энергию ночью.",
-
 
 
   "book.energizedpower.page.chapter.tools.title": "Инструменты",
@@ -1479,13 +1398,10 @@
   "book.energizedpower.page.wrench": "Ключ можно использовать для настройки блоков.",
 
 
-
-
   "book.energizedpower.page.chapter.workbenches.title": "Верстаки",
   "book.energizedpower.page.chapter.workbenches": "Машины, которыми необходимо управлять вручную.",
 
   "book.energizedpower.page.press_mold_maker": "Изготовитель пресс-форм можно использовать для создания пресс-форм для металлического пресса.",
-
 
   "book.energizedpower.page.alloy_furnace.1": "Печь для сплавов можно использовать для производства сплавов.",
   "book.energizedpower.page.alloy_furnace.2": "Продукция и потребленное топливо могут быть извлечены со всех сторон.",
@@ -1494,8 +1410,6 @@
 
   "book.energizedpower.page.chapter.energy_items.title": "Энергопредметы",
   "book.energizedpower.page.chapter.energy_items": "Предметы, которые могут производить, потреблять или хранить энергию.",
-
-
 
   "book.energizedpower.page.inventory_coal_engine.1": "Этот предмет может производить и распределять энергию в вашем инвентаре.",
   "book.energizedpower.page.inventory_coal_engine.2": "Его можно активировать, щелкнув в воздухе.",
@@ -1506,13 +1420,12 @@
   "book.energizedpower.page.inventory_charger.2": "Необходимо вставить заряженные аккумуляторы.",
 
   "book.energizedpower.page.inventory_teleporter": "Инвентарный телепорт может телепортировать игроков. Для этого требуется энергия и связанная с ней матрица телепорта.",
-  
+
   "book.energizedpower.page.energy_analyzer.1": "Анализатор энергии может быть использован для получения статистики по энергии. В основном используется для энергетических блоков без графического интерфейса.",
   "book.energizedpower.page.energy_analyzer.2": "Его можно использовать, нажимая на энергетические блоки.",
 
   "book.energizedpower.page.fluid_analyzer.1": "Анализатор жидкости можно использовать для получения статистики по жидкости.",
   "book.energizedpower.page.fluid_analyzer.2": "Его можно использовать, нажимая на блоки, содержащие жидкости.",
-
 
   "book.energizedpower.page.batteries.1": "Аккумуляторы могут хранить энергию.",
   "book.energizedpower.page.batteries.2": "Их можно заряжать с помощью зарядника или генераторов, а разряжать — с помощью разрядника.",
@@ -1553,13 +1466,6 @@
   "book.energizedpower.page.minecart_charger_uncharger.3": "Продвинутые версии имеют более высокую скорость передачи.",
 
 
-
-
-
-
-
-
-
   "book.energizedpower.page.chapter.energy_blocks.energy_storage.title": "Хранение энергии",
   "book.energizedpower.page.chapter.energy_blocks.energy_storage": "Блоки для хранения энергии",
 
@@ -1586,8 +1492,6 @@
   "book.energizedpower.page.thermal_generator.1": "Термальный генератор вырабатывает энергию путем потребления горячих жидкостей.",
   "book.energizedpower.page.thermal_generator.2": "Если вы играете в модпак, другие горячие жидкости также могут поддерживаться.",
 
-
-
   "book.energizedpower.page.lightning_generator.1": "Генератор молний вырабатывает большое количество энергии за один удар молнии.",
   "book.energizedpower.page.lightning_generator.2": "Для того чтобы этот блок функционировал, над ним необходимо разместить громоотвод.",
 
@@ -1608,8 +1512,6 @@
   "book.energizedpower.page.crushers.1": "Дробилка может дробить такие блоки, как камень, песчаник, булыжник и гравий.",
   "book.energizedpower.page.crushers.2": "Продвинутая версия дробилки потребляет воду и производит грязную воду.",
 
-
-
   "book.energizedpower.page.pulverizers.1": "Измельчитель производит рудную пыль, которую можно переплавить в слитки.",
   "book.energizedpower.page.pulverizers.2": "Продвинутая версия измельчителя потребляет воду и производит грязную воду.",
 
@@ -1618,20 +1520,14 @@
 
   "book.energizedpower.page.compressor": "Компрессор сжимает слитки в пластины.",
 
-
   "book.energizedpower.page.metal_press.1": "Металлический пресс изготавливает металлические изделия (например, провода) из металлов.",
   "book.energizedpower.page.metal_press.2": "Пресс-формы можно создавать в изготовителе пресс-форм.",
   "book.energizedpower.page.metal_press.3": "Пресс-формы можно вставлять и извлекать сверху.",
   "book.energizedpower.page.metal_press.4": "Вводы могут быть вставлены, а выводы могут быть извлечены со всех других сторон.",
 
   "book.energizedpower.page.auto_press_mold_maker": "Автоматический изготовитель пресс-форм — это автоматизированная версия изготовителя пресс-форм, но для создания рецептов требуется лопата.",
-  
-  
-  
-  
+
   "book.energizedpower.page.auto_stonecutter": "Автоматический камнерез — это автоматизированная версия камнерез, но для создания рецептов ему требуется кирка.",
-
-
 
   "book.energizedpower.page.assembling_machine.1": "Сборочная машина создает электронные компоненты (например, схемы).",
   "book.energizedpower.page.assembling_machine.2": "Выводы могут быть извлечены со всех сторон.",
@@ -1662,7 +1558,7 @@
 
   "book.energizedpower.page.fluid_filler_fluid_drainer": "Наполнитель жидкости позволяет заливать жидкость в предметы, а устройство слив для жидкости позволяет сливать жидкость из предметов.",
 
- "book.energizedpower.page.fluid_pump": "Жидкостный насос может перекачивать жидкости из окружающего мира и для этого требуется булыжник.",
+  "book.energizedpower.page.fluid_pump": "Жидкостный насос может перекачивать жидкости из окружающего мира и для этого требуется булыжник.",
 
   "book.energizedpower.page.charger_uncharger.1": "Зарядник может заряжать предметы, а разрядник устройство может разряжать предметы.",
   "book.energizedpower.page.charger_uncharger.2": "Продвинутая версия зарядника и разрядника имеет 3 слота.",
