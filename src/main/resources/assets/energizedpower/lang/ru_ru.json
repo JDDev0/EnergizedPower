@@ -10,7 +10,7 @@
 
   "item.energizedpower.silicon": "Кремний",
 
-  "item.energizedpower.stone_pebble": "Stone Pebble",
+  "item.energizedpower.stone_pebble": "Каменная галька",
 
   "item.energizedpower.raw_tin": "Необработанное олово",
 
@@ -28,12 +28,12 @@
   "item.energizedpower.iron_plate": "Железная пластина",
   "item.energizedpower.gold_plate": "Золотая пластина",
 
-  "item.energizedpower.steel_ingot": "Steel Ingot",
+  "item.energizedpower.steel_ingot": "Стальной слиток",
 
-  "item.energizedpower.redstone_alloy_ingot": "Redstone Alloy Ingot",
-  "item.energizedpower.advanced_alloy_ingot": "Advanced Alloy Ingot",
+  "item.energizedpower.redstone_alloy_ingot": "Слиток редстоунового сплава",
+  "item.energizedpower.advanced_alloy_ingot": "Слиток продвинутого сплава",
 
-  "item.energizedpower.advanced_alloy_plate": "Advanced Alloy Plate",
+  "item.energizedpower.advanced_alloy_plate": "Пластина из продвинутого сплава",
 
   "item.energizedpower.iron_gear": "Железная шестерня",
 
@@ -292,9 +292,9 @@
 
   "tooltip.energizedpower.press_mold_maker.btn.recipes": "Требуется %dx %s",
 
-  "block.energizedpower.alloy_furnace": "Alloy Furnace",
-  "item.energizedpower.alloy_furnace": "Alloy Furnace",
-  "container.energizedpower.alloy_furnace": "Alloy Furnace",
+  "block.energizedpower.alloy_furnace": "Печь для сплавов",
+  "item.energizedpower.alloy_furnace": "Печь для сплавов",
+  "container.energizedpower.alloy_furnace": "Печь для сплавов",
 
   "block.energizedpower.auto_crafter": "Авто-крафтер",
   "item.energizedpower.auto_crafter": "Авто-крафтер",
@@ -524,19 +524,31 @@
 
   "tooltip.energizedpower.auto_press_mold_maker.shovel_missing": "Лопата отсутствует!",
   
+  
+  
+  
+  
+  
+  
+  
+  
   "block.energizedpower.auto_stonecutter": "Автоматический камнерез",
   "item.energizedpower.auto_stonecutter": "Автоматический камнерез",
   "container.energizedpower.auto_stonecutter": "Автоматический камнерез",
+  
+  
 
   "tooltip.energizedpower.auto_stonecutter.pickaxe_missing": "Кирка отсутсвует!",
+  
+  
   
   "block.energizedpower.assembling_machine": "Сборочная машина",
   "item.energizedpower.assembling_machine": "Сборочная машина",
   "container.energizedpower.assembling_machine": "Сборочная машина",
 
-  "block.energizedpower.induction_smelter": "Induction Smelter",
-  "item.energizedpower.induction_smelter": "Induction Smelter",
-  "container.energizedpower.induction_smelter": "Induction Smelter",
+  "block.energizedpower.induction_smelter": "Индукционная плавильня",
+  "item.energizedpower.induction_smelter": "Индукционная плавильня",
+  "container.energizedpower.induction_smelter": "Индукционная плавильня",
 
   "block.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
   "item.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
@@ -552,6 +564,9 @@
 
   "tooltip.energizedpower.filtration_plant.txt.shift.1": "Для этого блока требуются угольные фильтры.",
   "tooltip.energizedpower.filtration_plant.charcoal_filter_missing": "Угольный фильтр отсутствует!",
+  
+  
+  
 
   "block.energizedpower.fluid_transposer": "Жидкостный транспозер",
   "item.energizedpower.fluid_transposer": "Жидкостный транспозер",
@@ -559,6 +574,7 @@
 
   "tooltip.energizedpower.fluid_transposer.mode.emptying": "Режим: Опорожнение",
   "tooltip.energizedpower.fluid_transposer.mode.filling": "Режим: Заполнение",
+  
   
   "block.energizedpower.block_placer": "Укладчик блоков",
   "item.energizedpower.block_placer": "Укладчик блоков",
@@ -570,6 +586,8 @@
   "block.energizedpower.fluid_tank_small": "Жидкостный резервуар (маленький)",
   "item.energizedpower.fluid_tank_small": "Жидкостный резервуар (маленький)",
   "container.energizedpower.fluid_tank_small": "Жидкостный резервуар (маленький)",
+  
+  
 
   "block.energizedpower.fluid_tank_medium": "Жидкостный резервуар (средний)",
   "item.energizedpower.fluid_tank_medium": "Жидкостный резервуар (средний)",
@@ -585,13 +603,15 @@
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.1": "Установите фильтр, щелкнув левой кнопкой мыши по элементу, содержащему жидкости.",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.2": "Снимите фильтр, щелкнув левой кнопкой мыши без предмета.",
 
-  "block.energizedpower.creative_fluid_tank": "Creative Fluid Tank",
-  "item.energizedpower.creative_fluid_tank": "Creative Fluid Tank",
-  "container.energizedpower.creative_fluid_tank": "Creative Fluid Tank",
+  "block.energizedpower.creative_fluid_tank": "Творческий жидкостный резервуар",
+  "item.energizedpower.creative_fluid_tank": "Творческий жидкостный резервуар",
+  "container.energizedpower.creative_fluid_tank": "Творческий жидкостный резервуар",
 
   "block.energizedpower.fluid_filler": "Наполнитель жидкости",
   "item.energizedpower.fluid_filler": "Наполнитель жидкости",
   "container.energizedpower.fluid_filler": "Наполнитель жидкости",
+  
+  
 
   "block.energizedpower.fluid_drainer": "Сливатель жидкости",
   "item.energizedpower.fluid_drainer": "Сливатель жидкости",
@@ -628,7 +648,9 @@
   "item.energizedpower.charging_station": "Зарядная станция",
   "container.energizedpower.charging_station": "Зарядная станция",
 
-  "tooltip.energizedpower.charging_station.txt.shift.1": "Зарядную станцию ​​можно использовать для зарядки предметов в инвентаре игрока.",
+  "tooltip.energizedpower.charging_station.txt.shift.1": "Зарядную станцию можно использовать для зарядки предметов в инвентаре игрока.",
+
+
 
   "block.energizedpower.crystal_growth_chamber": "Камера для выращивания кристаллов",
   "item.energizedpower.crystal_growth_chamber": "Камера для выращивания кристаллов",
@@ -637,6 +659,7 @@
   "block.energizedpower.weather_controller": "Контроллер погоды",
   "item.energizedpower.weather_controller": "Контроллер погоды",
   "container.energizedpower.weather_controller": "Контроллер погоды",
+  
 
   "tooltip.energizedpower.weather_controller.btn.clear": "Установить ясную погоду",
   "tooltip.energizedpower.weather_controller.btn.rain": "Установить дождливую погоду",
@@ -650,6 +673,19 @@
   "tooltip.energizedpower.time_controller.btn.noon": "Установите время на полдень.",
   "tooltip.energizedpower.time_controller.btn.night": "Установите время на ночь",
   "tooltip.energizedpower.time_controller.btn.midnight": "Установите время на полночь.",
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   "block.energizedpower.teleporter": "Телепорт",
   "item.energizedpower.teleporter": "Телепорт",
@@ -774,7 +810,7 @@
   "emi.category.energizedpower.energizer": "Активатор",
   "emi.category.energizedpower.crystal_growth_chamber": "Камера выращивания кристалов",
   "emi.category.energizedpower.press_mold_maker": "Изготовитель пресс-форм",
-  "emi.category.energizedpower.alloy_furnace": "Alloy Furnace",
+  "emi.category.energizedpower.alloy_furnace": "Печь для сплавов",
   "emi.category.energizedpower.stone_solidifier": "Отвердитель камня",
   "emi.category.energizedpower.filtration_plant": "Фильтрационная установка",
   "emi.category.energizedpower.fluid_transposer": "Жидкостный транспозер",
@@ -790,8 +826,8 @@
 
   "key.category.energizedpower": "Energized Power",
   "key.energizedpower.teleporter.use": "Используй телепорт",
-
-
+  
+  
   "advancements.energizedpower.hardened_machine_frame.title": "Тяжелые машины",
   "advancements.energizedpower.hardened_machine_frame.description": "Требуется для лучших машин.",
 
@@ -936,20 +972,20 @@
   "advancements.energizedpower.press_molds.title": "Пресс-форма",
   "advancements.energizedpower.press_molds.description": "Приготовленный пресс-формы можно использовать в металлическом прессе.",
 
-  "advancements.energizedpower.alloy_furnace.title": "Alloy Furnace",
-  "advancements.energizedpower.alloy_furnace.description": "Create an Alloy Furnace.",
+  "advancements.energizedpower.alloy_furnace.title": "Печь для сплавов",
+  "advancements.energizedpower.alloy_furnace.description": "Создайте печь для сплавов.",
 
-  "advancements.energizedpower.steel_ingot.title": "Steel Ingot",
-  "advancements.energizedpower.steel_ingot.description": "Create a Steel Ingot.",
+  "advancements.energizedpower.steel_ingot.title": "Стальной слиток",
+  "advancements.energizedpower.steel_ingot.description": "Создайте стальной слиток.",
 
-  "advancements.energizedpower.redstone_alloy_ingot.title": "Redstone Alloy Ingot",
-  "advancements.energizedpower.redstone_alloy_ingot.description": "Create a Redstone Alloy Ingot.",
+  "advancements.energizedpower.redstone_alloy_ingot.title": "Слиток редстоунового сплава",
+  "advancements.energizedpower.redstone_alloy_ingot.description": "Создайте слиток из редстоунового сплава.",
 
-  "advancements.energizedpower.advanced_alloy_ingot.title": "Advanced Alloy Ingot",
-  "advancements.energizedpower.advanced_alloy_ingot.description": "Create an Advanced Alloy Ingot.",
+  "advancements.energizedpower.advanced_alloy_ingot.title": "Слиток продвинутого сплава",
+  "advancements.energizedpower.advanced_alloy_ingot.description": "Создайте слиток из продвинутого сплава.",
 
-  "advancements.energizedpower.advanced_alloy_plate.title": "Advanced Alloy Plate",
-  "advancements.energizedpower.advanced_alloy_plate.description": "Create an Advanced Alloy Plate.",
+  "advancements.energizedpower.advanced_alloy_plate.title": "Пластина из продвинутого сплава",
+  "advancements.energizedpower.advanced_alloy_plate.description": "Создайте пластину из продвинутого сплава.",
 
   "advancements.energizedpower.auto_crafter.title": "Автоматизация — это будущее",
   "advancements.energizedpower.auto_crafter.description": "Кому нужны ручные верстаки, если этот блок может делать это автоматически?",
@@ -995,13 +1031,13 @@
 
   "advancements.energizedpower.fluid_filler.title": "Заполните жидкостный предмет",
   "advancements.energizedpower.fluid_filler.description": "Наполните предметы жидкостями.",
-
+  
   "advancements.energizedpower.fluid_drainer.title": "Слейте жидкостный предмет",
   "advancements.energizedpower.fluid_drainer.description": "Слейте жидкость из предметов.",
   
   "advancements.energizedpower.fluid_pump.title": "Жидкостный насос",
   "advancements.energizedpower.fluid_pump.description": "Создайте жидкостный насос.",
-
+  
   "advancements.energizedpower.drain.title": "Слив",
   "advancements.energizedpower.drain.description": "Слейте жидкостные источники.",
 
@@ -1013,6 +1049,15 @@
 
   "advancements.energizedpower.battery_1.title": "Аккумулятор",
   "advancements.energizedpower.battery_1.description": "Хранит энергию в форме предмета.",
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   "advancements.energizedpower.battery_2.title": "4-х кратная энергия",
   "advancements.energizedpower.battery_2.description": "Этот аккумулятор может хранить столько же энергии, сколько 4 аккумулятора уровня I.",
@@ -1095,8 +1140,8 @@
   "advancements.energizedpower.fluid_transposer.title": "Жидкостный транспозер",
   "advancements.energizedpower.fluid_transposer.description": "Создайте жидкостный транспозер",
 
-  "advancements.energizedpower.induction_smelter.title": "Induction Smelter",
-  "advancements.energizedpower.induction_smelter.description": "Craft an Induction Smelter.",
+  "advancements.energizedpower.induction_smelter.title": "Индукционная плавильня",
+  "advancements.energizedpower.induction_smelter.description": "Создайте индукционную плавильню.",
 
   "advancements.energizedpower.powered_lamp.title": "Электрическое освещение",
   "advancements.energizedpower.powered_lamp.description": "Конвертируйте энергию в свет.",
@@ -1290,14 +1335,16 @@
   "advancements.energizedpower.minecart_uncharger.title": "Разряди вагонетку!",
   "advancements.energizedpower.minecart_uncharger.description": "Разрядите вагонетку.",
 
-  "advancements.energizedpower.advanced_minecart_uncharger.title": "Продвинутая разгрузка вагонетки",
+  "advancements.energizedpower.advanced_minecart_uncharger.title": "Продвинутая разрядка вагонетки",
   "advancements.energizedpower.advanced_minecart_uncharger.description": "Разряжает вагонетки быстрее.",
 
 
   "book.energizedpower.tooltip.link": "Открыть ссылку",
   "book.energizedpower.tooltip.page": "Перейти на страницу",
-
-
+  
+  
+  
+  
   "book.energizedpower.page.welcome.title": "Добро пожаловать Energized Power!",
   "book.energizedpower.page.welcome.1": "Этот мод добавляет множество предметов и машин, связанных с энергией.",
   "book.energizedpower.page.welcome.2": "Официальная Energized Power wiki",
@@ -1310,7 +1357,15 @@
 
   "book.energizedpower.page.credits.title": "Авторы",
   "book.energizedpower.page.credits.subtitle": "Благодарим вас за вклад в Energized Power!",
-
+  
+  
+  
+  
+  
+  
+  
+  
+  
   "book.energizedpower.page.credits.1": "Текстуры активированных медного/золотого слитков",
   "book.energizedpower.page.credits.2": "Текстура аккумулятора",
   "book.energizedpower.page.credits.3": "Текстура кремния",
@@ -1318,19 +1373,38 @@
   "book.energizedpower.page.credits.5": "Китайский (Упрощенный) перевод",
   "book.energizedpower.page.credits.6": "Итальянский перевод",
   "book.energizedpower.page.credits.7": "Турецкий перевод",
-  "book.enerfizedpower.page.credits.8": "Русский перевод",
+  "book.energizedpower.page.credits.8": "Русский перевод",
 
   "book.energizedpower.page.table_of_contents.title": "Оглавление",
 
 
+
+
+
+
+
+
+
+
+
   "book.energizedpower.page.chapter.resources.title": "Ресурсы",
   "book.energizedpower.page.chapter.resources.1": "Для создания предметов требуются ресурсы.",
-
+  
+  
+  
+  
+  
+  
+  
   "book.energizedpower.page.cable_insulator.1": "Кабельный изолятор необходим для изготовления кабеля.",
   "book.energizedpower.page.cable_insulator.2": "Его можно изготовить, нажав на блок шерсти ножницами.",
   "book.energizedpower.page.cable_insulator.3": "Его также можно изготовить с помощью раздатчика.",
 
   "book.energizedpower.page.saw_blade": "Лезвие пилы — это компонент, который используется для изготовления лесопилки.",
+
+
+
+
 
   "book.energizedpower.page.silicon.1": "Кремний — ингредиент, используемый во многих рецептах крафта этого мода.",
   "book.energizedpower.page.silicon.2": "Его можно изготовить путем плавки или взрыва кварца Нижнего мира.",
@@ -1340,16 +1414,17 @@
 
   "book.energizedpower.page.fertilizers": "Для ускорения работы камеры роста растений можно использовать удобрения.",
 
+
   "book.energizedpower.page.ore_dusts": "Рудную пыль можно переплавить в слитки.",
 
   "book.energizedpower.page.charcoal_dust": "Угольную пыль можно использовать для изготовления угольных фильтров.",
 
   "book.energizedpower.page.charcoal_filter": "Угольные фильтры используются для фильтрации грязной воды на фильтровальной установке.",
 
-  "book.energizedpower.page.alloys": "Alloys are used in many recipes and can be produced in the Alloy Furnace and the Induction Smelter.",
+  "book.energizedpower.page.alloys": "Сплавы используются во многих рецептах и могут быть произведены в печи для сплавов и индукционной плавильне.",
 
   "book.energizedpower.page.plates.1": "Пластины используются в качестве ингредиента крафта в большинстве машин. Пластины можно изготовить с помощью молотков или с помощью компрессора.",
-  "book.energizedpower.page.plates.2": "Advanced Alloy and energized plates can be created in the compressor only.",
+  "book.energizedpower.page.plates.2": "Пластины из продвин сплава и активированные пластины можно создавать только в компрессоре.",
 
   "book.energizedpower.page.metal_products.1": "Металлические изделия (шестерни, стержни, провода) используются во многих рецептах.",
   "book.energizedpower.page.metal_products.2": "Изделия из металла можно изготавливать в металлическом прессе.",
@@ -1363,6 +1438,9 @@
 
   "book.energizedpower.page.energized_gold_ingot": "Активированные золотые слитки используются для некоторых современных машин (например, зарядной станции).",
 
+
+
+
   "book.energizedpower.page.energized_crystal_matrix": "Энергетическая кристаллическая матрица используется в качестве стабилизатора в некоторых современных машинах.",
 
 
@@ -1370,6 +1448,7 @@
   "book.energizedpower.page.chapter.upgrades": "Улучшения могут улучшать машины",
 
   "book.energizedpower.page.speed_upgrades": "Улучшение скорости делает машины более быстрыми и увеличивает потребление энергии.",
+
 
   "book.energizedpower.page.energy_efficiency_upgrades": "Улучшение энергоэффективности сокращает потребление энергии.",
 
@@ -1380,11 +1459,13 @@
 
   "book.energizedpower.page.range_upgrades": "Улучшение дальности действия увеличивает дальность действия машины.",
 
+
   "book.energizedpower.page.extraction_depth_upgrades": "Улучшение глубины добычи увеличивают глубину, на которой может работать машина.",
 
   "book.energizedpower.page.furnace_mode_upgrades": "Улучшения режима печи изменяют рецепты, которые может производить электрическая печь.",
 
   "book.energizedpower.page.moon_light_upgrades": "Модернизация «Лунный свет» позволяет солнечным панелям вырабатывать энергию ночью.",
+
 
 
   "book.energizedpower.page.chapter.tools.title": "Инструменты",
@@ -1398,18 +1479,23 @@
   "book.energizedpower.page.wrench": "Ключ можно использовать для настройки блоков.",
 
 
+
+
   "book.energizedpower.page.chapter.workbenches.title": "Верстаки",
   "book.energizedpower.page.chapter.workbenches": "Машины, которыми необходимо управлять вручную.",
 
   "book.energizedpower.page.press_mold_maker": "Изготовитель пресс-форм можно использовать для создания пресс-форм для металлического пресса.",
 
-  "book.energizedpower.page.alloy_furnace.1": "The Alloy Furnace can be used to produce alloys.",
-  "book.energizedpower.page.alloy_furnace.2": "Outputs and consumed fuels can be extracted from all sides.",
-  "book.energizedpower.page.alloy_furnace.3": "Fuel can be inserted from the top and the bottom. Inputs can be inserted from all other sides (Front: All inputs slots, Left: Left input slot, Back: Middle input slot, Right: Right input slot).",
+
+  "book.energizedpower.page.alloy_furnace.1": "Печь для сплавов можно использовать для производства сплавов.",
+  "book.energizedpower.page.alloy_furnace.2": "Продукция и потребленное топливо могут быть извлечены со всех сторон.",
+  "book.energizedpower.page.alloy_furnace.3": "Топливо можно вставлять сверху и снизу. Ингредиенты можно вставлять со всех других сторон (спереди: все входные слоты, слева: левый входной слот, сзади: средний входной слот, справа: правый входной слот).",
 
 
   "book.energizedpower.page.chapter.energy_items.title": "Энергопредметы",
   "book.energizedpower.page.chapter.energy_items": "Предметы, которые могут производить, потреблять или хранить энергию.",
+
+
 
   "book.energizedpower.page.inventory_coal_engine.1": "Этот предмет может производить и распределять энергию в вашем инвентаре.",
   "book.energizedpower.page.inventory_coal_engine.2": "Его можно активировать, щелкнув в воздухе.",
@@ -1426,6 +1512,7 @@
 
   "book.energizedpower.page.fluid_analyzer.1": "Анализатор жидкости можно использовать для получения статистики по жидкости.",
   "book.energizedpower.page.fluid_analyzer.2": "Его можно использовать, нажимая на блоки, содержащие жидкости.",
+
 
   "book.energizedpower.page.batteries.1": "Аккумуляторы могут хранить энергию.",
   "book.energizedpower.page.batteries.2": "Их можно заряжать с помощью зарядника или генераторов, а разряжать — с помощью разрядника.",
@@ -1466,6 +1553,13 @@
   "book.energizedpower.page.minecart_charger_uncharger.3": "Продвинутые версии имеют более высокую скорость передачи.",
 
 
+
+
+
+
+
+
+
   "book.energizedpower.page.chapter.energy_blocks.energy_storage.title": "Хранение энергии",
   "book.energizedpower.page.chapter.energy_blocks.energy_storage": "Блоки для хранения энергии",
 
@@ -1492,6 +1586,8 @@
   "book.energizedpower.page.thermal_generator.1": "Термальный генератор вырабатывает энергию путем потребления горячих жидкостей.",
   "book.energizedpower.page.thermal_generator.2": "Если вы играете в модпак, другие горячие жидкости также могут поддерживаться.",
 
+
+
   "book.energizedpower.page.lightning_generator.1": "Генератор молний вырабатывает большое количество энергии за один удар молнии.",
   "book.energizedpower.page.lightning_generator.2": "Для того чтобы этот блок функционировал, над ним необходимо разместить громоотвод.",
 
@@ -1512,6 +1608,8 @@
   "book.energizedpower.page.crushers.1": "Дробилка может дробить такие блоки, как камень, песчаник, булыжник и гравий.",
   "book.energizedpower.page.crushers.2": "Продвинутая версия дробилки потребляет воду и производит грязную воду.",
 
+
+
   "book.energizedpower.page.pulverizers.1": "Измельчитель производит рудную пыль, которую можно переплавить в слитки.",
   "book.energizedpower.page.pulverizers.2": "Продвинутая версия измельчителя потребляет воду и производит грязную воду.",
 
@@ -1520,6 +1618,7 @@
 
   "book.energizedpower.page.compressor": "Компрессор сжимает слитки в пластины.",
 
+
   "book.energizedpower.page.metal_press.1": "Металлический пресс изготавливает металлические изделия (например, провода) из металлов.",
   "book.energizedpower.page.metal_press.2": "Пресс-формы можно создавать в изготовителе пресс-форм.",
   "book.energizedpower.page.metal_press.3": "Пресс-формы можно вставлять и извлекать сверху.",
@@ -1527,7 +1626,12 @@
 
   "book.energizedpower.page.auto_press_mold_maker": "Автоматический изготовитель пресс-форм — это автоматизированная версия изготовителя пресс-форм, но для создания рецептов требуется лопата.",
   
+  
+  
+  
   "book.energizedpower.page.auto_stonecutter": "Автоматический камнерез — это автоматизированная версия камнерез, но для создания рецептов ему требуется кирка.",
+
+
 
   "book.energizedpower.page.assembling_machine.1": "Сборочная машина создает электронные компоненты (например, схемы).",
   "book.energizedpower.page.assembling_machine.2": "Выводы могут быть извлечены со всех сторон.",
@@ -1549,9 +1653,9 @@
 
   "book.energizedpower.page.fluid_transposer": "Жидкостный транспозер может извлекать жидкости из предметов (режим: опорожнение) и может впрыскивать жидкости в предметы (режим: заполнение).",
 
-  "book.energizedpower.page.induction_smelter.1": "The Induction Smelter can be used to produce alloys.",
-  "book.energizedpower.page.induction_smelter.2": "Outputs can be extracted from all sides.",
-  "book.energizedpower.page.induction_smelter.3": "Inputs can be inserted from all sides (Front/Top/Bottom: All inputs slots, Left: Left input slot, Back: Middle input slot, Right: Right input slot).",
+  "book.energizedpower.page.induction_smelter.1": "Индукционная плавильня используется для производства сплавов.",
+  "book.energizedpower.page.induction_smelter.2": "Продукция может быть извлечена со всех сторон.",
+  "book.energizedpower.page.induction_smelter.3": "Ингредиенты можно вставлять со всех сторон (спереди/сверху/снизу: все слоты входов, слева: левый слот входов, сзади: средний слот входов, справа: правый слот входов).",
 
   "book.energizedpower.page.block_placer.1": "Установщик блоков может размещать все блоки (даже двери и семена).",
   "book.energizedpower.page.block_placer.2": "Блоки будут размещаться только в том случае, если это возможно.",
