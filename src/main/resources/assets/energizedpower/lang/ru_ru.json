@@ -1030,13 +1030,13 @@
   "advancements.energizedpower.battery_6.description": "Уровень VI: Вы зарядили аккумулятор для еще большей емкости хранения.",
 
   "advancements.energizedpower.battery_7.title": "Вы сказали, что вам нужно больше мощности?",
-  "advancements.energizedpower.battery_7.description": "Уровень VII: четверть миллиона E емкости хранилища! Можем ли мы сделать лучше?",
+  "advancements.energizedpower.battery_7.description": "Уровень VII: четверть миллиона FE емкости хранилища! Можем ли мы сделать лучше?",
 
   "advancements.energizedpower.battery_8.title": "Мне нужно больше ЭНЕРГИИ",
-  "advancements.energizedpower.battery_8.description": "Это лучший аккумулятор этого мода (он может хранить более 1 миллиона Е).",
+  "advancements.energizedpower.battery_8.description": "Это лучший аккумулятор этого мода (он может хранить более 1 миллиона FЕ).",
 
   "advancements.energizedpower.battery_8_fully_charged.title": "Мастер хранения энергии",
-  "advancements.energizedpower.battery_8_fully_charged.description": "Вы полностью зарядили свой аккумулятор емкостью 1 миллион Е!",
+  "advancements.energizedpower.battery_8_fully_charged.description": "Вы полностью зарядили свой аккумулятор емкостью 1 миллион FЕ!",
 
   "advancements.energizedpower.cable_insulator.title": "Оболочка для вашего кабеля",
   "advancements.energizedpower.cable_insulator.description": "Покройте кабели этим ингредиентом. (Можно изготовить, нажав на шерсть ножницами [Можно также использовать раздатчик]).",
@@ -1168,7 +1168,7 @@
   "advancements.energizedpower.hv_transformers.description": "Можно передавать еще больше энергии.",
 
   "advancements.energizedpower.ehv_transformers.title": "Сверхвысоковольтные трансформаторы",
-  "advancements.energizedpower.ehv_transformers.description": "Можно передавать более 2 миллионов E за тик.",
+  "advancements.energizedpower.ehv_transformers.description": "Можно передавать более 2 миллионов FE за тик.",
 
   "advancements.energizedpower.battery_box.title": "БатБокс",
   "advancements.energizedpower.battery_box.description": "Храните энергию с помощью блока аккумуляторов.",
