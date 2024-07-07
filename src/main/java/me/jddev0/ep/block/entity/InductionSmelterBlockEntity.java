@@ -119,7 +119,7 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
 
     @Override
     protected double getRecipeDependentRecipeDuration(RecipeEntry<AlloyFurnaceRecipe> recipe) {
-        return recipe.value().getTicks() * RECIPE_DURATION_MULTIPLIER;
+        return recipe.value().getTicks() * RECIPE_DURATION_MULTIPLIER / 2.f;
     }
 
     protected void craftItem(RecipeEntry<AlloyFurnaceRecipe> recipe) {
