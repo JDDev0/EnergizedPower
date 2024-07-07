@@ -20,7 +20,7 @@
       "count": 3
     }
   ],
-  "ticks": 15000,
+  "ticks": 10000,
   "output": {
     "item": "energizedpower:advanced_alloy_ingot"
   }
