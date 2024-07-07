@@ -13,7 +13,7 @@
       "count": 3
     }
   ],
-  "ticks": 1000,
+  "ticks": 500,
   "output": {
     "item": "energizedpower:steel_ingot"
   }
