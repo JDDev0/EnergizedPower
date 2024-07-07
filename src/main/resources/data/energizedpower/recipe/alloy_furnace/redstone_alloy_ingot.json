@@ -18,7 +18,7 @@
       "count": 2
     }
   ],
-  "ticks": 5000,
+  "ticks": 2500,
   "output": {
     "item": "energizedpower:redstone_alloy_ingot"
   }
