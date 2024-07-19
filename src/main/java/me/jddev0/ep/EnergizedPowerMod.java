@@ -1,5 +1,7 @@
 package me.jddev0.ep;
 
+import com.mojang.blaze3d.shaders.FogShape;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.logging.LogUtils;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.behavior.ModBlockBehaviors;
@@ -22,7 +24,10 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.*;
 import me.jddev0.ep.villager.ModVillager;
+import net.minecraft.client.Camera;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -42,11 +47,16 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 import org.slf4j.Logger;
 
 @Mod(EnergizedPowerMod.MODID)
@@ -392,6 +402,42 @@ public class EnergizedPowerMod {
             BlockEntityRenderers.register(ModBlockEntities.FLUID_TANK_MEDIUM_ENTITY.get(), FluidTankBlockEntityRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.FLUID_TANK_LARGE_ENTITY.get(), FluidTankBlockEntityRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.CREATIVE_FLUID_TANK_ENTITY.get(), FluidTankBlockEntityRenderer::new);
+        }
+
+        @SubscribeEvent
+        static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
+            event.registerFluidType(new IClientFluidTypeExtensions() {
+                @Override
+                public int getTintColor() {
+                    return ModFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getTintColor();
+                }
+
+                @Override
+                public ResourceLocation getStillTexture() {
+                    return ModFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getStillTexture();
+                }
+
+                @Override
+                public ResourceLocation getFlowingTexture() {
+                    return ModFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getFlowingTexture();
+                }
+
+                @Override
+                public @Nullable ResourceLocation getOverlayTexture() {
+                    return ModFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getOverlayTexture();
+                }
+
+                @Override
+                public @NotNull Vector3f modifyFogColor(Camera camera, float partialTick, ClientLevel level, int renderDistance, float darkenWorldAmount, Vector3f fluidFogColor) {
+                    return ModFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getFogColor();
+                }
+
+                @Override
+                public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick, float nearDistance, float farDistance, FogShape shape) {
+                    RenderSystem.setShaderFogStart(.25f);
+                    RenderSystem.setShaderFogEnd(3.f);
+                }
+            }, ModFluidTypes.DIRTY_WATER_FLUID_TYPE.get());
         }
 
         @SubscribeEvent
