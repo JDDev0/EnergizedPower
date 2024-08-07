@@ -6,6 +6,7 @@ import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.recipe.FluidTransposerRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -94,17 +95,13 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
     }
 
     @Override
-    public List<Component> getTooltipStrings(RecipeHolder<FluidTransposerRecipe> recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-        List<Component> components = new ArrayList<>();
-
+    public void getTooltip(ITooltipBuilder tooltip, RecipeHolder<FluidTransposerRecipe> recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         int tooltipX = 119;
         int tooltipY = 4;
         if(mouseX >= (double)(tooltipX - 1) && mouseX < (double)(tooltipX + 20 + 1) &&
                 mouseY >= (double)(tooltipY - 1) && mouseY < (double)(tooltipY + 20 + 1)) {
-            components.add(Component.translatable("tooltip.energizedpower.fluid_transposer.mode." +
+            tooltip.add(Component.translatable("tooltip.energizedpower.fluid_transposer.mode." +
                     recipe.value().getMode().getSerializedName()));
         }
-
-        return components;
     }
 }
