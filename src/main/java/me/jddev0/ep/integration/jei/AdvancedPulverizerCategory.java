@@ -60,7 +60,7 @@ public class AdvancedPulverizerCategory implements IRecipeCategory<RecipeHolder<
         ItemStack[] outputEntries = recipe.value().getMaxOutputCounts(true);
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).addItemStack(outputEntries[0]).
-                addTooltipCallback((view, tooltip) -> {
+                addRichTooltipCallback((view, tooltip) -> {
                     tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                     double[] percentages = recipe.value().getOutput().percentagesAdvanced();
@@ -70,7 +70,7 @@ public class AdvancedPulverizerCategory implements IRecipeCategory<RecipeHolder<
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 92, 5).
                 addItemStacks(outputEntries[1].isEmpty()?List.of():List.of(outputEntries[1])).
-                addTooltipCallback((view, tooltip) -> {
+                addRichTooltipCallback((view, tooltip) -> {
                     if(view.isEmpty())
                         return;
 

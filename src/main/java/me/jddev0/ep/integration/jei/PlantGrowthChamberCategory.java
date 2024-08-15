@@ -7,7 +7,7 @@ import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
+import mezz.jei.api.gui.ingredient.IRecipeSlotRichTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
@@ -69,7 +69,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
         for(int i = 0;i < outputEntries.length;i++)
             outputSlotEntries.get(i % 4).add(outputEntries[i]);
 
-        IRecipeSlotTooltipCallback callback = (view, tooltip) -> {
+        IRecipeSlotRichTooltipCallback callback = (view, tooltip) -> {
             if(view.isEmpty())
                 return;
 
@@ -92,13 +92,13 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
         };
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 73, 1).addItemStacks(outputSlotEntries.get(0)).
-                addTooltipCallback(callback);
+                addRichTooltipCallback(callback);
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 91, 1).addItemStacks(outputSlotEntries.get(1)).
-                addTooltipCallback(callback);
+                addRichTooltipCallback(callback);
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 73, 19).addItemStacks(outputSlotEntries.get(2)).
-                addTooltipCallback(callback);
+                addRichTooltipCallback(callback);
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 91, 19).addItemStacks(outputSlotEntries.get(3)).
-                addTooltipCallback(callback);
+                addRichTooltipCallback(callback);
     }
 
     @Override

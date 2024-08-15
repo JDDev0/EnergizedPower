@@ -59,7 +59,7 @@ public class PulverizerCategory implements IRecipeCategory<RecipeHolder<Pulveriz
         ItemStack[] outputEntries = recipe.value().getMaxOutputCounts(false);
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).addItemStack(outputEntries[0]).
-                addTooltipCallback((view, tooltip) -> {
+                addRichTooltipCallback((view, tooltip) -> {
                     tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                     double[] percentages = recipe.value().getOutput().percentages();
@@ -69,7 +69,7 @@ public class PulverizerCategory implements IRecipeCategory<RecipeHolder<Pulveriz
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 92, 5).
                 addItemStacks(outputEntries[1].isEmpty()?List.of():List.of(outputEntries[1])).
-                addTooltipCallback((view, tooltip) -> {
+                addRichTooltipCallback((view, tooltip) -> {
                     if(view.isEmpty())
                         return;
 

@@ -76,7 +76,7 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeHolder<AlloyF
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 100, 5).addItemStack(outputEntries[0]);
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 126, 5).
                 addItemStacks(outputEntries[1].isEmpty()?List.of():List.of(outputEntries[1])).
-                addTooltipCallback((view, tooltip) -> {
+                addRichTooltipCallback((view, tooltip) -> {
                     if(view.isEmpty())
                         return;
 
