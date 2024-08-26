@@ -145,8 +145,8 @@ dependencies {
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:12.+"
 
     // JEI integration
-    compileOnly "mezz.jei:jei-1.21.1-common-api:19.9.0.122"
-    compileOnly "mezz.jei:jei-1.21.1-neoforge-api:19.9.0.122"
+    compileOnly "mezz.jei:jei-1.21.1-common-api:19.11.0.128"
+    compileOnly "mezz.jei:jei-1.21.1-neoforge-api:19.11.0.128"
 
     // EMI integration
     compileOnly "dev.emi:emi-neoforge:1.1.12+1.21:api"
