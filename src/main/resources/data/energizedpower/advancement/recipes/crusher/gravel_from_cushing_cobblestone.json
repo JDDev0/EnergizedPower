@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#c:cobblestone/normal"
+            "items": "#c:cobblestones/normal"
           }
         ]
       }
