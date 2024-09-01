@@ -93,10 +93,8 @@ public final class ModItems {
 
     public static final DeferredItem<Item> BASIC_FERTILIZER = ITEMS.register("basic_fertilizer",
             () -> new Item(new Item.Properties()));
-
     public static final DeferredItem<Item> GOOD_FERTILIZER = ITEMS.register("good_fertilizer",
             () -> new Item(new Item.Properties()));
-
     public static final DeferredItem<Item> ADVANCED_FERTILIZER = ITEMS.register("advanced_fertilizer",
             () -> new Item(new Item.Properties()));
 
