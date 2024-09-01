@@ -1,0 +1,8 @@
+{
+  "parent": "energizedpower:block/solar_panel_template",
+  "textures": {
+    "particle": "#top",
+    "side": "energizedpower:block/solar_panel_2_side",
+    "top": "energizedpower:block/solar_panel_2_top"
+  }
+}
