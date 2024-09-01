@@ -1,0 +1,10 @@
+{
+  "values": [
+    "#c:ingots/tin",
+    "#c:ingots/steel",
+    "#c:ingots/redstone_alloy",
+    "#c:ingots/advanced_alloy",
+    "#c:ingots/energized_copper",
+    "#c:ingots/energized_gold"
+  ]
+}
