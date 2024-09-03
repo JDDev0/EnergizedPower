@@ -21,7 +21,7 @@ public class EnergizedPowerDataGenerators {
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
         generator.addProvider(event.includeServer(), new ModRecipeProvider(output, lookupProvider));
-        //TODO enable: generator.addProvider(event.includeServer(), ModLootTableProvider.create(output, lookupProvider));
+        generator.addProvider(event.includeServer(), ModLootTableProvider.create(output, lookupProvider));
 
         generator.addProvider(event.includeClient(), new ModBlockStateProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new ModItemModelProvider(output, existingFileHelper));

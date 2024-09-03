@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "energizedpower:energized_crystal_matrix_cable"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "energizedpower:blocks/energized_crystal_matrix_cable"
+}
