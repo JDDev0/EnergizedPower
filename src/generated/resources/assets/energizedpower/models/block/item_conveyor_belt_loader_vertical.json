@@ -1,11 +1,11 @@
 {
-  "parent": "minecraft:block/orientable",
+  "parent": "minecraft:block/cube",
   "elements": [
     {
       "faces": {
         "down": {
           "cullface": "down",
-          "texture": "#side",
+          "texture": "#back",
           "uv": [
             0.0,
             16.0,
@@ -49,10 +49,11 @@
     }
   ],
   "textures": {
-    "bottom": "energizedpower:block/advanced_minecart_charger_bottom",
-    "front": "energizedpower:block/advanced_minecart_charger_front",
+    "back": "energizedpower:block/item_conveyor_belt_loader_back",
+    "bottom": "energizedpower:block/item_conveyor_belt_loader_top",
+    "front": "energizedpower:block/item_conveyor_belt_loader_front",
     "particle": "#top",
-    "side": "energizedpower:block/advanced_minecart_charger_side",
-    "top": "energizedpower:block/advanced_minecart_charger_top"
+    "side": "energizedpower:block/item_conveyor_belt_loader_side",
+    "top": "energizedpower:block/item_conveyor_belt_loader_top"
   }
 }

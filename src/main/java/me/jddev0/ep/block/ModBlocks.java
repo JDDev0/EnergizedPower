@@ -58,7 +58,7 @@ public final class ModBlocks {
                     .instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(5.0f, 6.0f)));
     public static final DeferredItem<Item> RAW_TIN_BLOCK_ITEM = createBlockItem("raw_tin_block", RAW_TIN_BLOCK);
 
-    public static final DeferredBlock<Block> ITEM_CONVEYOR_BELT = BLOCKS.register("item_conveyor_belt",
+    public static final DeferredBlock<ItemConveyorBeltBlock> ITEM_CONVEYOR_BELT = BLOCKS.register("item_conveyor_belt",
             () -> new ItemConveyorBeltBlock(BlockBehaviour.Properties.of().noCollission().
                     strength(2.5f, 3.0f).sound(SoundType.METAL)));
     public static final DeferredItem<Item> ITEM_CONVEYOR_BELT_ITEM = ModItems.ITEMS.register("item_conveyor_belt",
