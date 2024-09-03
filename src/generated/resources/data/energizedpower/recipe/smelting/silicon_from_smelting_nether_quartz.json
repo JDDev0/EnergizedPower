@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 500,
+  "experience": 4.1,
+  "group": "silicon",
+  "ingredient": {
+    "tag": "c:gems/quartz"
+  },
+  "result": {
+    "count": 1,
+    "id": "energizedpower:silicon"
+  }
+}
