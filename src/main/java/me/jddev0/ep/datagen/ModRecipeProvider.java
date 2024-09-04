@@ -3,6 +3,7 @@ package me.jddev0.ep.datagen;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
@@ -13,6 +14,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -21,6 +23,7 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -33,6 +36,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     @Override
     protected void buildRecipes(RecipeOutput output) {
         buildCookingRecipes(output);
+        buildAlloyFurnaceRecipes(output);
     }
 
     private void buildCookingRecipes(RecipeOutput output) {
@@ -67,6 +71,25 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 200, .3f, null);
         addSmeltingRecipe(output, ModItems.RAW_WIRE_PRESS_MOLD.get(), new ItemStack(ModItems.WIRE_PRESS_MOLD.get()), CookingBookCategory.MISC,
                 200, .3f, null);
+    }
+
+    private void buildAlloyFurnaceRecipes(RecipeOutput output) {
+        addAlloyFurnaceRecipe(output, new AlloyFurnaceRecipe.IngredientWithCount[] {
+                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.of(Tags.Items.INGOTS_IRON), 1),
+                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.of(ItemTags.COALS), 3)
+        }, new ItemStack(ModItems.STEEL_INGOT.get()), 500);
+
+        addAlloyFurnaceRecipe(output, new AlloyFurnaceRecipe.IngredientWithCount[] {
+                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.of(CommonItemTags.INGOTS_TIN), 1),
+                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.of(CommonItemTags.SILICON),1),
+                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.of(Tags.Items.DUSTS_REDSTONE), 2)
+        }, new ItemStack(ModItems.REDSTONE_ALLOY_INGOT.get()), 2500);
+
+        addAlloyFurnaceRecipe(output, new AlloyFurnaceRecipe.IngredientWithCount[] {
+                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.of(CommonItemTags.INGOTS_STEEL), 3),
+                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.of(Tags.Items.INGOTS_COPPER), 3),
+                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.of(CommonItemTags.INGOTS_TIN), 3)
+        }, new ItemStack(ModItems.ADVANCED_ALLOY_INGOT.get()), 10000);
     }
 
     private static void addBlastingAndSmeltingRecipes(RecipeOutput output, ItemLike ingredient, ItemStack result,
@@ -106,9 +129,9 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .addCriterion("has_the_ingredient", has(ingredient))
                 .rewards(AdvancementRewards.Builder.recipe(recipeId))
                 .requirements(AdvancementRequirements.Strategy.OR);
-        AbstractCookingRecipe abstractcookingrecipe = new SmeltingRecipe(Objects.requireNonNullElse(group, ""),
+        AbstractCookingRecipe recipe = new SmeltingRecipe(Objects.requireNonNullElse(group, ""),
                 category, Ingredient.of(ingredient), result, xp, time);
-        output.accept(recipeId, abstractcookingrecipe, advancementBuilder.build(recipeId.withPrefix("recipes/")));
+        output.accept(recipeId, recipe, advancementBuilder.build(recipeId.withPrefix("recipes/")));
     }
 
     private static void addSmeltingRecipe(RecipeOutput output, TagKey<Item> ingredient, ItemStack result, CookingBookCategory category,
@@ -121,9 +144,9 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .addCriterion("has_the_ingredient", has(ingredient))
                 .rewards(AdvancementRewards.Builder.recipe(recipeId))
                 .requirements(AdvancementRequirements.Strategy.OR);
-        AbstractCookingRecipe abstractcookingrecipe = new SmeltingRecipe(Objects.requireNonNullElse(group, ""),
+        AbstractCookingRecipe recipe = new SmeltingRecipe(Objects.requireNonNullElse(group, ""),
                 category, Ingredient.of(ingredient), result, xp, time);
-        output.accept(recipeId, abstractcookingrecipe, advancementBuilder.build(recipeId.withPrefix("recipes/")));
+        output.accept(recipeId, recipe, advancementBuilder.build(recipeId.withPrefix("recipes/")));
     }
 
     private static void addBlastingRecipe(RecipeOutput output, ItemLike ingredient, ItemStack result, CookingBookCategory category,
@@ -136,9 +159,9 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .addCriterion("has_the_ingredient", has(ingredient))
                 .rewards(AdvancementRewards.Builder.recipe(recipeId))
                 .requirements(AdvancementRequirements.Strategy.OR);
-        AbstractCookingRecipe abstractcookingrecipe = new BlastingRecipe(Objects.requireNonNullElse(group, ""),
+        AbstractCookingRecipe recipe = new BlastingRecipe(Objects.requireNonNullElse(group, ""),
                 category, Ingredient.of(ingredient), result, xp, time);
-        output.accept(recipeId, abstractcookingrecipe, advancementBuilder.build(recipeId.withPrefix("recipes/")));
+        output.accept(recipeId, recipe, advancementBuilder.build(recipeId.withPrefix("recipes/")));
     }
 
     private static void addBlastingRecipe(RecipeOutput output, TagKey<Item> ingredient, ItemStack result, CookingBookCategory category,
@@ -151,8 +174,28 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .addCriterion("has_the_ingredient", has(ingredient))
                 .rewards(AdvancementRewards.Builder.recipe(recipeId))
                 .requirements(AdvancementRequirements.Strategy.OR);
-        AbstractCookingRecipe abstractcookingrecipe = new BlastingRecipe(Objects.requireNonNullElse(group, ""),
+        AbstractCookingRecipe recipe = new BlastingRecipe(Objects.requireNonNullElse(group, ""),
                 category, Ingredient.of(ingredient), result, xp, time);
-        output.accept(recipeId, abstractcookingrecipe, advancementBuilder.build(recipeId.withPrefix("recipes/")));
+        output.accept(recipeId, recipe, advancementBuilder.build(recipeId.withPrefix("recipes/")));
+    }
+
+    private static void addAlloyFurnaceRecipe(RecipeOutput recipeOutput,
+                                              AlloyFurnaceRecipe.IngredientWithCount[] inputs,
+                                              ItemStack output,
+                                              int ticks) {
+        addAlloyFurnaceRecipe(recipeOutput, inputs, output,
+                new AlloyFurnaceRecipe.OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0]), ticks);
+    }
+
+    private static void addAlloyFurnaceRecipe(RecipeOutput recipeOutput,
+                                              AlloyFurnaceRecipe.IngredientWithCount[] inputs,
+                                              ItemStack output,
+                                              AlloyFurnaceRecipe.OutputItemStackWithPercentages secondaryOutput,
+                                              int ticks) {
+        ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "alloy_furnace/" +
+                getItemName(output.getItem()));
+
+        AlloyFurnaceRecipe recipe = new AlloyFurnaceRecipe(output, secondaryOutput, inputs, ticks);
+        recipeOutput.accept(recipeId, recipe, null);
     }
 }

@@ -12,14 +12,14 @@
       }
     },
     {
+      "count": 2,
       "input": {
         "tag": "c:dusts/redstone"
-      },
-      "count": 2
+      }
     }
   ],
-  "ticks": 2500,
   "output": {
     "item": "energizedpower:redstone_alloy_ingot"
-  }
+  },
+  "ticks": 2500
 }
