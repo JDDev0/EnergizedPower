@@ -1,6 +1,5 @@
 package me.jddev0.ep.recipe;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
@@ -11,7 +10,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
@@ -55,8 +53,8 @@ public class AssemblingMachineRecipe implements Recipe<RecipeInput> {
 
                 ItemStack item = container.getItem(j);
 
-                if((indexMinCount == -1 || item.getCount() < minCount) && input.input.test(item) &&
-                        item.getCount() >= input.count) {
+                if((indexMinCount == -1 || item.getCount() < minCount) && input.input().test(item) &&
+                        item.getCount() >= input.count()) {
                     indexMinCount = j;
                     minCount = item.getCount();
                 }
@@ -126,7 +124,7 @@ public class AssemblingMachineRecipe implements Recipe<RecipeInput> {
         private final MapCodec<AssemblingMachineRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
-            }), new ArrayCodec<>(IngredientWithCount.CODEC, IngredientWithCount[]::new).fieldOf("inputs").forGetter((recipe) -> {
+            }), new ArrayCodec<>(IngredientWithCount.CODEC_NONEMPTY, IngredientWithCount[]::new).fieldOf("inputs").forGetter((recipe) -> {
                 return recipe.inputs;
             })).apply(instance, AssemblingMachineRecipe::new);
         });
@@ -147,12 +145,8 @@ public class AssemblingMachineRecipe implements Recipe<RecipeInput> {
         private static AssemblingMachineRecipe read(RegistryFriendlyByteBuf buffer) {
             int len = buffer.readInt();
             IngredientWithCount[] inputs = new IngredientWithCount[len];
-            for(int i = 0;i < len;i++) {
-                Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-                int count = buffer.readInt();
-
-                inputs[i] = new IngredientWithCount(input, count);
-            }
+            for(int i = 0;i < len;i++)
+                inputs[i] = IngredientWithCount.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
@@ -161,22 +155,10 @@ public class AssemblingMachineRecipe implements Recipe<RecipeInput> {
 
         private static void write(RegistryFriendlyByteBuf buffer, AssemblingMachineRecipe recipe) {
             buffer.writeInt(recipe.inputs.length);
-            for(int i = 0; i < recipe.inputs.length; i++) {
-                Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.inputs[i].input);
-                buffer.writeInt(recipe.inputs[i].count);
-            }
+            for(int i = 0; i < recipe.inputs.length; i++)
+                IngredientWithCount.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.inputs[i]);
 
             ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
         }
-    }
-
-    public record IngredientWithCount(Ingredient input, int count) {
-        public static final Codec<IngredientWithCount> CODEC = RecordCodecBuilder.create((instance) -> {
-            return instance.group(Ingredient.CODEC_NONEMPTY.fieldOf("input").forGetter((input) -> {
-                return input.input;
-            }), ExtraCodecs.POSITIVE_INT.optionalFieldOf("count", 1).forGetter((input) -> {
-                return input.count;
-            })).apply(instance, IngredientWithCount::new);
-        });
     }
 }

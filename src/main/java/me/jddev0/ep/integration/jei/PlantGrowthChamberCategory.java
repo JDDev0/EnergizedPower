@@ -3,6 +3,7 @@ package me.jddev0.ep.integration.jei;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
+import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -79,7 +80,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
 
             tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
-            PlantGrowthChamberRecipe.OutputItemStackWithPercentages[] outputs = recipe.value().getOutputs();
+            OutputItemStackWithPercentages[] outputs = recipe.value().getOutputs();
             for(int i = 0;i < outputs.length;i++) {
                 if(ItemStack.isSameItemSameComponents(optionalItemStack.get(), outputs[i].output())) {
                     double[] percentages = outputs[i].percentages();

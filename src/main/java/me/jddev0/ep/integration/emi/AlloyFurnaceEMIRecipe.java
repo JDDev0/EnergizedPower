@@ -11,6 +11,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
 import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
+import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -31,7 +32,7 @@ public class AlloyFurnaceEMIRecipe implements EmiRecipe {
     private final ResourceLocation id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
-    private final AlloyFurnaceRecipe.OutputItemStackWithPercentages secondaryOutputWithPercentages;
+    private final OutputItemStackWithPercentages secondaryOutputWithPercentages;
     private final int ticks;
 
     public AlloyFurnaceEMIRecipe(RecipeHolder<AlloyFurnaceRecipe> recipe) {

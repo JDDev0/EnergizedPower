@@ -1,15 +1,10 @@
 package me.jddev0.ep.recipe;
 
-import com.mojang.datafixers.util.Pair;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
-import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -20,9 +15,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class PlantGrowthChamberRecipe implements Recipe<RecipeInput> {
     private final OutputItemStackWithPercentages[] outputs;
@@ -51,7 +43,7 @@ public class PlantGrowthChamberRecipe implements Recipe<RecipeInput> {
         ItemStack[] generatedOutputs = new ItemStack[outputs.length];
         for(int i = 0;i < outputs.length;i++) {
             OutputItemStackWithPercentages output = outputs[i];
-            generatedOutputs[i] = output.output.copyWithCount(output.percentages.length);
+            generatedOutputs[i] = output.output().copyWithCount(output.percentages().length);
         }
 
         return generatedOutputs;
@@ -63,11 +55,11 @@ public class PlantGrowthChamberRecipe implements Recipe<RecipeInput> {
             int count = 0;
             OutputItemStackWithPercentages output = outputs[i];
 
-            for(double percentage:output.percentages)
+            for(double percentage:output.percentages())
                 if(randomSource.nextDouble() <= percentage)
                     count++;
 
-            generatedOutputs[i] = output.output.copyWithCount(count);
+            generatedOutputs[i] = output.output().copyWithCount(count);
         }
 
         return generatedOutputs;
@@ -137,7 +129,7 @@ public class PlantGrowthChamberRecipe implements Recipe<RecipeInput> {
         public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "plant_growth_chamber");
 
         private final MapCodec<PlantGrowthChamberRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(new ArrayCodec<>(OutputItemStackWithPercentages.CODEC, OutputItemStackWithPercentages[]::new).fieldOf("outputs").forGetter((recipe) -> {
+            return instance.group(new ArrayCodec<>(OutputItemStackWithPercentages.CODEC_NONEMPTY, OutputItemStackWithPercentages[]::new).fieldOf("outputs").forGetter((recipe) -> {
                 return recipe.outputs;
             }), Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
@@ -165,16 +157,8 @@ public class PlantGrowthChamberRecipe implements Recipe<RecipeInput> {
 
             int outputCount = buffer.readInt();
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[outputCount];
-            for(int i = 0;i < outputCount;i++) {
-                ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
-
-                int percentageCount = buffer.readInt();
-                double[] percentages = new double[percentageCount];
-                for(int j = 0;j < percentageCount;j++)
-                    percentages[j] = buffer.readDouble();
-
-                outputs[i] = new OutputItemStackWithPercentages(output, percentages);
-            }
+            for(int i = 0;i < outputCount;i++)
+                outputs[i] = OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new PlantGrowthChamberRecipe(outputs, input, ticks);
         }
@@ -184,39 +168,8 @@ public class PlantGrowthChamberRecipe implements Recipe<RecipeInput> {
             buffer.writeInt(recipe.ticks);
 
             buffer.writeInt(recipe.outputs.length);
-            for(OutputItemStackWithPercentages output:recipe.outputs) {
-                ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, output.output);
-
-                buffer.writeInt(output.percentages.length);
-                for(double percentage:output.percentages)
-                    buffer.writeDouble(percentage);
-            }
+            for(OutputItemStackWithPercentages output:recipe.outputs)
+                OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.encode(buffer, output);
         }
-    }
-
-    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages) {
-        private static final Codec<double[]> DOUBLE_ARRAY_CODEC = new Codec<>() {
-            private static final Codec<List<Double>> DOUBLE_LIST_CODEC = Codec.doubleRange(0, 1).listOf();
-
-            @Override
-            public <T> DataResult<Pair<double[], T>> decode(DynamicOps<T> ops, T input) {
-                return DOUBLE_LIST_CODEC.decode(ops, input).map(res -> {
-                    return Pair.of(res.getFirst().stream().mapToDouble(Double::doubleValue).toArray(), res.getSecond());
-                });
-            }
-
-            @Override
-            public <T> DataResult<T> encode(double[] input, DynamicOps<T> ops, T prefix) {
-                return DOUBLE_LIST_CODEC.encode(Arrays.stream(input).boxed().toList(), ops, prefix);
-            }
-        };
-
-        public static final Codec<OutputItemStackWithPercentages> CODEC = RecordCodecBuilder.create((instance) -> {
-            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((output) -> {
-                return output.output;
-            }), DOUBLE_ARRAY_CODEC.fieldOf("percentages").forGetter((output) -> {
-                return output.percentages;
-            })).apply(instance, OutputItemStackWithPercentages::new);
-        });
     }
 }

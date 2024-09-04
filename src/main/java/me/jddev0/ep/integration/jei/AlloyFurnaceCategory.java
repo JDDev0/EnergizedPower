@@ -4,6 +4,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
 import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
+import me.jddev0.ep.recipe.IngredientWithCount;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -63,7 +64,7 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeHolder<AlloyF
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<AlloyFurnaceRecipe> recipe, IFocusGroup iFocusGroup) {
         int len = Math.min(recipe.value().getInputs().length, 3);
         for(int i = 0;i < len;i++) {
-            AlloyFurnaceRecipe.IngredientWithCount input = recipe.value().getInputs()[i];
+            IngredientWithCount input = recipe.value().getInputs()[i];
 
             iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1 + 18 * i, 5).
                     addItemStacks(Arrays.stream(input.input().getItems()).

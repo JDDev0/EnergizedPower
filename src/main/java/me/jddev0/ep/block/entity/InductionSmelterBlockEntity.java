@@ -7,6 +7,7 @@ import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
+import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.InductionSmelterMenu;
 import me.jddev0.ep.util.InventoryUtils;
@@ -62,7 +63,7 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
                     case 0, 1, 2 -> level == null || level.getRecipeManager().
                             getAllRecipesFor(AlloyFurnaceRecipe.Type.INSTANCE).stream().
                             map(RecipeHolder::value).map(AlloyFurnaceRecipe::getInputs).anyMatch(inputs ->
-                                    Arrays.stream(inputs).map(AlloyFurnaceRecipe.IngredientWithCount::input).
+                                    Arrays.stream(inputs).map(IngredientWithCount::input).
                                             anyMatch(ingredient -> ingredient.test(stack)));
                     case 3, 4 -> false;
                     default -> false;
@@ -140,7 +141,7 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
         if(level == null || !hasRecipe())
             return;
 
-        AlloyFurnaceRecipe.IngredientWithCount[] inputs = recipe.value().getInputs();
+        IngredientWithCount[] inputs = recipe.value().getInputs();
 
         boolean[] usedIndices = new boolean[3];
         for(int i = 0;i < 3;i++)
@@ -148,7 +149,7 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
 
         int len = Math.min(inputs.length, 3);
         for(int i = 0;i < len;i++) {
-            AlloyFurnaceRecipe.IngredientWithCount input = inputs[i];
+            IngredientWithCount input = inputs[i];
 
             int indexMinCount = -1;
             int minCount = Integer.MAX_VALUE;

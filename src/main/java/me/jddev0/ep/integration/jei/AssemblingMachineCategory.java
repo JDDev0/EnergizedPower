@@ -3,6 +3,7 @@ package me.jddev0.ep.integration.jei;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
+import me.jddev0.ep.recipe.IngredientWithCount;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -56,7 +57,7 @@ public class AssemblingMachineCategory implements IRecipeCategory<RecipeHolder<A
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<AssemblingMachineRecipe> recipe, IFocusGroup iFocusGroup) {
         int len = Math.min(recipe.value().getInputs().length, 4);
         for(int i = 0;i < len;i++) {
-            AssemblingMachineRecipe.IngredientWithCount input = recipe.value().getInputs()[i];
+            IngredientWithCount input = recipe.value().getInputs()[i];
 
             iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, i == 1?1:(i == 2?37:19), i == 0?1:(i == 3?37:19)).
                     addItemStacks(Arrays.stream(input.input().getItems()).
