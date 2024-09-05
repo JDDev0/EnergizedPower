@@ -2,22 +2,22 @@
   "type": "energizedpower:assembling_machine",
   "inputs": [
     {
+      "count": 6,
       "input": {
-        "item": "energizedpower:basic_solar_cell"
-      },
-      "count": 2
+        "tag": "c:gems/amethyst"
+      }
     },
     {
+      "count": 2,
       "input": {
-        "tag": "c:ingots/energized_copper"
-      },
-      "count": 4
+        "tag": "c:gems/diamond"
+      }
     },
     {
+      "count": 2,
       "input": {
-        "tag": "c:ingots/tin"
-      },
-      "count": 2
+        "tag": "c:gems/emerald"
+      }
     },
     {
       "input": {
@@ -26,6 +26,6 @@
     }
   ],
   "output": {
-    "item": "energizedpower:advanced_solar_cell"
+    "item": "energizedpower:crystal_matrix"
   }
 }
