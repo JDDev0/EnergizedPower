@@ -20,10 +20,10 @@ public class ChargerRecipe implements Recipe<RecipeInput> {
     private final Ingredient input;
     private final int energyConsumption;
 
-    public ChargerRecipe(ItemStack output, Ingredient input, int energyNeeds) {
+    public ChargerRecipe(ItemStack output, Ingredient input, int energyConsumption) {
         this.output = output;
         this.input = input;
-        this.energyConsumption = energyNeeds;
+        this.energyConsumption = energyConsumption;
     }
 
     public ItemStack getOutput() {
