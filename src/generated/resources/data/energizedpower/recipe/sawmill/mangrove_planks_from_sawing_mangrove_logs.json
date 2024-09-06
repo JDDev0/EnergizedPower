@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "tag": "minecraft:mangrove_logs"
+  },
+  "output": {
+    "count": 6,
+    "item": "minecraft:mangrove_planks"
+  },
+  "sawdustAmount": 1
+}

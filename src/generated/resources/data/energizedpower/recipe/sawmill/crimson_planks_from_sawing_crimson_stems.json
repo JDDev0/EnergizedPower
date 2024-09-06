@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "tag": "minecraft:crimson_stems"
+  },
+  "output": {
+    "count": 6,
+    "item": "minecraft:crimson_planks"
+  },
+  "sawdustAmount": 1
+}
