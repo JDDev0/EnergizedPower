@@ -44,6 +44,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         buildPressMoldMakerRecipes(output);
         buildAlloyFurnaceRecipes(output);
         buildCompressorRecipes(output);
+        buildCrusherRecipes(output);
+        buildPulverizerRecipes(output);
         buildMetalPressRecipes(output);
         buildHeatGeneratorRecipes(output);
         buildThermalGeneratorRecipes(output);
@@ -142,6 +144,141 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 new ItemStack(ModItems.ENERGIZED_COPPER_PLATE.get()), "energized_copper");
         addPlateCompressorIngotRecipe(output, Ingredient.of(CommonItemTags.INGOTS_ENERGIZED_GOLD),
                 new ItemStack(ModItems.ENERGIZED_GOLD_PLATE.get()), "energized_gold");
+    }
+
+    private void buildCrusherRecipes(RecipeOutput output) {
+        addCrusherRecipe(output, Ingredient.of(Items.STONE), new ItemStack(Items.COBBLESTONE),
+                "stone");
+        addCrusherRecipe(output, Ingredient.of(Items.STONE_BRICKS, Items.CHISELED_STONE_BRICKS, Items.CRACKED_STONE_BRICKS,
+                        Items.SMOOTH_STONE), new ItemStack(Items.COBBLESTONE),
+                "stone_variants");
+
+        addCrusherRecipe(output, Ingredient.of(Items.MOSSY_STONE_BRICKS), new ItemStack(Items.MOSSY_COBBLESTONE),
+                "mossy_stone_bricks");
+
+        addCrusherRecipe(output, Ingredient.of(Items.TUFF_BRICKS, Items.CHISELED_TUFF_BRICKS, Items.CHISELED_TUFF,
+                        Items.POLISHED_TUFF), new ItemStack(Items.TUFF),
+                "tuff_variants");
+
+        addCrusherRecipe(output, Ingredient.of(Items.DEEPSLATE), new ItemStack(Items.COBBLED_DEEPSLATE),
+                "deepslate");
+        addCrusherRecipe(output, Ingredient.of(Items.DEEPSLATE_BRICKS, Items.CHISELED_DEEPSLATE, Items.CRACKED_DEEPSLATE_BRICKS,
+                        Items.DEEPSLATE_TILES, Items.CRACKED_DEEPSLATE_TILES, Items.POLISHED_DEEPSLATE), new ItemStack(Items.COBBLED_DEEPSLATE),
+                "deepslate_variants");
+
+        addCrusherRecipe(output, Ingredient.of(Items.POLISHED_GRANITE), new ItemStack(Items.GRANITE),
+                "polished_granite");
+        addCrusherRecipe(output, Ingredient.of(Items.POLISHED_DIORITE), new ItemStack(Items.DIORITE),
+                "polished_diorite");
+        addCrusherRecipe(output, Ingredient.of(Items.POLISHED_ANDESITE), new ItemStack(Items.ANDESITE),
+                "polished_andesite");
+
+        addCrusherRecipe(output, Ingredient.of(Tags.Items.COBBLESTONES_NORMAL), new ItemStack(Items.GRAVEL),
+                "cobblestone");
+
+        addCrusherRecipe(output, Ingredient.of(Tags.Items.GRAVELS), new ItemStack(Items.SAND),
+                "gravel");
+
+        addCrusherRecipe(output, Ingredient.of(Items.SANDSTONE), new ItemStack(Items.SAND),
+                "sandstone");
+        addCrusherRecipe(output, Ingredient.of(Items.SMOOTH_SANDSTONE, Items.CUT_SANDSTONE,
+                        Items.CHISELED_SANDSTONE), new ItemStack(Items.SAND),
+                "sandstone_variants");
+
+        addCrusherRecipe(output, Ingredient.of(Items.RED_SANDSTONE), new ItemStack(Items.RED_SAND),
+                "red_sandstone");
+        addCrusherRecipe(output, Ingredient.of(Items.SMOOTH_RED_SANDSTONE, Items.CUT_RED_SANDSTONE,
+                        Items.CHISELED_RED_SANDSTONE), new ItemStack(Items.RED_SAND),
+                "red_sandstone_variants");
+
+        addCrusherRecipe(output, Ingredient.of(Items.POLISHED_BLACKSTONE, Items.POLISHED_BLACKSTONE_BRICKS,
+                        Items.CHISELED_POLISHED_BLACKSTONE, Items.CRACKED_POLISHED_BLACKSTONE_BRICKS,
+                        Items.GILDED_BLACKSTONE), new ItemStack(Items.BLACKSTONE),
+                "blackstone_variants");
+
+        addCrusherRecipe(output, Ingredient.of(Items.SMOOTH_BASALT, Items.POLISHED_BASALT), new ItemStack(Items.BASALT),
+                "basalt_variants");
+    }
+
+    private void buildPulverizerRecipes(RecipeOutput output) {
+        addBasicMetalPulverizerRecipes(output,
+                Ingredient.of(CommonItemTags.ORES_TIN), Ingredient.of(CommonItemTags.RAW_MATERIALS_TIN),
+                Ingredient.of(CommonItemTags.STORAGE_BLOCKS_RAW_TIN), Ingredient.of(CommonItemTags.INGOTS_TIN),
+                new ItemStack(ModItems.TIN_DUST.get()), "tin");
+        addBasicMetalPulverizerRecipes(output,
+                Ingredient.of(Tags.Items.ORES_IRON), Ingredient.of(Tags.Items.RAW_MATERIALS_IRON),
+                Ingredient.of(Tags.Items.STORAGE_BLOCKS_RAW_IRON), Ingredient.of(Tags.Items.INGOTS_IRON),
+                new ItemStack(ModItems.IRON_DUST.get()), "iron");
+        addBasicMetalPulverizerRecipes(output,
+                Ingredient.of(Tags.Items.ORES_GOLD), Ingredient.of(Tags.Items.RAW_MATERIALS_GOLD),
+                Ingredient.of(Tags.Items.STORAGE_BLOCKS_RAW_GOLD), Ingredient.of(Tags.Items.INGOTS_GOLD),
+                new ItemStack(ModItems.GOLD_DUST.get()), "gold");
+
+        addPulverizerRecipe(output, Ingredient.of(Tags.Items.ORES_COPPER),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(ModItems.COPPER_DUST.get()), new double[] {
+                        1., 1., 1., 1., .5, .5
+                }, new double[] {
+                        1., 1., 1., 1., .75, .5, .25
+                }),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(ModItems.GOLD_DUST.get()),
+                        .1, .2), "copper_ores");
+        addRawMetalAndIngotPulverizerRecipes(output,
+                Ingredient.of(Tags.Items.RAW_MATERIALS_COPPER),
+                Ingredient.of(Tags.Items.STORAGE_BLOCKS_RAW_COPPER), Ingredient.of(Tags.Items.INGOTS_COPPER),
+                new ItemStack(ModItems.COPPER_DUST.get()), "copper");
+
+        addPulverizerRecipe(output, Ingredient.of(Tags.Items.ORES_COAL),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.COAL), new double[] {
+                        1., 1., .25
+                }, new double[] {
+                        1., 1., .5, .25
+                }), "coal_ores");
+
+        addPulverizerRecipe(output, Ingredient.of(Tags.Items.ORES_REDSTONE),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.REDSTONE), new double[] {
+                        1., 1., 1., 1., 1., .67, .33, .33, .17
+                }, new double[] {
+                        1., 1., 1., 1., 1., .67, .67, .33, .33, .17
+                }), "redstone_ores");
+
+        addPulverizerRecipe(output, Ingredient.of(Tags.Items.ORES_LAPIS),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.LAPIS_LAZULI), new double[] {
+                        1., 1., 1., 1., 1., 1., 1., 1., .5, .5, .25, .125
+                }, new double[] {
+                        1., 1., 1., 1., 1., 1., 1., 1., .75, .5, .5, .25, .125
+                }), "lapis_ores");
+
+        addPulverizerRecipe(output, Ingredient.of(Tags.Items.ORES_EMERALD),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.EMERALD), new double[] {
+                        1., .67, .17
+                }, new double[] {
+                        1., .67, .33, .17
+                }), "emerald_ores");
+
+        addPulverizerRecipe(output, Ingredient.of(Tags.Items.ORES_DIAMOND),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.DIAMOND), new double[] {
+                        1., .67, .17
+                }, new double[] {
+                        1., .67, .33, .17
+                }), "diamond_ores");
+
+        addPulverizerRecipe(output, Ingredient.of(Tags.Items.ORES_QUARTZ),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.QUARTZ), new double[] {
+                        1., .67, .17
+                }, new double[] {
+                        1., .67, .33, .17
+                }), "nether_quartz_ores");
+
+        addPulverizerRecipe(output, Ingredient.of(Tags.Items.ORES_NETHERITE_SCRAP),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.NETHERITE_SCRAP), new double[] {
+                        1., .125, .125
+                }, new double[] {
+                        1., .25, .25, .125
+                }), "ancient_debris");
+
+        addPulverizerRecipe(output, Ingredient.of(Items.CHARCOAL),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(ModItems.CHARCOAL_DUST.get()),
+                        1., 1.), "charcoal");
     }
 
     private void buildMetalPressRecipes(RecipeOutput output) {
@@ -402,6 +539,61 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 getItemName(output.getItem()) + "_from_compressing_" + recipeIngredientName);
 
         CompressorRecipe recipe = new CompressorRecipe(output, input, inputCount);
+        recipeOutput.accept(recipeId, recipe, null);
+    }
+
+    private static void addCrusherRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output,
+                                         String recipeIngredientName) {
+        ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "crusher/" +
+                getItemName(output.getItem()) + "_from_crushing_" + recipeIngredientName);
+
+        CrusherRecipe recipe = new CrusherRecipe(output, input);
+        recipeOutput.accept(recipeId, recipe, null);
+    }
+
+    private static void addBasicMetalPulverizerRecipes(RecipeOutput recipeOutput, Ingredient oreInput,
+                                                       Ingredient rawMetalInput, Ingredient rawMetalBlockInput,
+                                                       Ingredient ingotInput, ItemStack output, String metalName) {
+        addPulverizerRecipe(recipeOutput, oreInput, new PulverizerRecipe.OutputItemStackWithPercentages(output, new double[] {
+                1., 1., .25
+        }, new double[] {
+                1., 1, .5, .25
+        }), metalName + "_ores");
+
+        addRawMetalAndIngotPulverizerRecipes(recipeOutput, rawMetalInput, rawMetalBlockInput, ingotInput, output, metalName);
+    }
+    private static void addRawMetalAndIngotPulverizerRecipes(RecipeOutput recipeOutput,
+                                                             Ingredient rawMetalInput, Ingredient rawMetalBlockInput,
+                                                             Ingredient ingotInput, ItemStack output, String metalName) {
+        addPulverizerRecipe(recipeOutput, rawMetalInput, new PulverizerRecipe.OutputItemStackWithPercentages(output, new double[] {
+                1., .25
+        }, new double[] {
+                1., .5
+        }), "raw_" + metalName);
+
+        addPulverizerRecipe(recipeOutput, rawMetalBlockInput, new PulverizerRecipe.OutputItemStackWithPercentages(output, new double[] {
+                1., 1., 1., 1., 1., 1., 1., 1., 1., .5, .5, .25
+        }, new double[] {
+                1., 1., 1., 1., 1., 1., 1., 1., 1., .75, .5, .25, .25
+        }), "raw_" + metalName + "_blocks");
+
+        addPulverizerRecipe(recipeOutput, ingotInput, new PulverizerRecipe.OutputItemStackWithPercentages(output,
+                1., 1.), metalName + "_ingots");
+    }
+    private static void addPulverizerRecipe(RecipeOutput recipeOutput, Ingredient input,
+                                            PulverizerRecipe.OutputItemStackWithPercentages output,
+                                            String recipeIngredientName) {
+        addPulverizerRecipe(recipeOutput, input, output,
+                new PulverizerRecipe.OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0], new double[0]), recipeIngredientName);
+    }
+    private static void addPulverizerRecipe(RecipeOutput recipeOutput, Ingredient input,
+                                            PulverizerRecipe.OutputItemStackWithPercentages output,
+                                            PulverizerRecipe.OutputItemStackWithPercentages secondaryOutput,
+                                            String recipeIngredientName) {
+        ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "pulverizer/" +
+                getItemName(output.output().getItem()) + "_from_pulverizer_" + recipeIngredientName);
+
+        PulverizerRecipe recipe = new PulverizerRecipe(output, secondaryOutput, input);
         recipeOutput.accept(recipeId, recipe, null);
     }
 
