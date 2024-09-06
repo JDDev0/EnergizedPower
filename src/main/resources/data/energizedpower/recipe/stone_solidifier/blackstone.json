@@ -1,8 +1,0 @@
-{
-  "type": "energizedpower:stone_solidifier",
-  "waterAmount": 1000,
-  "lavaAmount": 250,
-  "output": {
-    "item": "minecraft:blackstone"
-  }
-}
