@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "energizedpower:fluid_tank_small"
+    },
+    "I": {
+      "tag": "c:storage_blocks/iron"
+    }
+  },
+  "pattern": [
+    "IFI",
+    "IFI",
+    "IFI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:fluid_tank_large"
+  }
+}

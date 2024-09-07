@@ -9,8 +9,11 @@ import me.jddev0.ep.registry.tags.CommonItemTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
+import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -29,6 +32,8 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 import net.neoforged.neoforge.fluids.FluidStack;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
@@ -40,6 +45,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     @Override
     protected void buildRecipes(RecipeOutput output) {
+        buildCraftingRecipes(output);
         buildCookingRecipes(output);
         buildSmithingRecipes(output);
         buildPressMoldMakerRecipes(output);
@@ -60,6 +66,333 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         buildChargerRecipes(output);
         buildEnergizerRecipes(output);
         buildCrystalGrowthChamberRecipes(output);
+    }
+
+    private void buildCraftingRecipes(RecipeOutput output) {
+        buildItemTransportCraftingRecipes(output);
+        buildFluidTransportCraftingRecipes(output);
+        buildEnergyTransportCraftingRecipes(output);
+    }
+    private void buildItemTransportCraftingRecipes(RecipeOutput output) {
+        addShapedCraftingRecipe(output, has(CommonItemTags.PLATES_IRON), Map.of(
+                'L', Ingredient.of(Tags.Items.LEATHERS),
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'R', Ingredient.of(Tags.Items.DUSTS_REDSTONE)
+        ), new String[] {
+                "   ",
+                "LLL",
+                "IRI"
+        }, new ItemStack(ModBlocks.ITEM_CONVEYOR_BELT_ITEM.get(), 6), CraftingBookCategory.MISC,
+                "item_conveyor_belt", "_from_leather");
+
+        addShapedCraftingRecipe(output, has(CommonItemTags.PLATES_IRON), Map.of(
+                'K', Ingredient.of(Items.DRIED_KELP),
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'R', Ingredient.of(Tags.Items.DUSTS_REDSTONE)
+        ), new String[] {
+                "   ",
+                "KKK",
+                "IRI"
+        }, new ItemStack(ModBlocks.ITEM_CONVEYOR_BELT_ITEM.get(), 6), CraftingBookCategory.MISC,
+                "item_conveyor_belt", "_from_dried_kelp");
+
+        addShapedCraftingRecipe(output, has(ModBlocks.ITEM_CONVEYOR_BELT_ITEM), Map.of(
+                'C', Ingredient.of(Tags.Items.COBBLESTONES_NORMAL),
+                'c', Ingredient.of(ModBlocks.ITEM_CONVEYOR_BELT_ITEM),
+                'H', Ingredient.of(Items.HOPPER)
+        ), new String[] {
+                "CCC",
+                "CHC",
+                "CcC"
+        }, new ItemStack(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
+                'C', Ingredient.of(Tags.Items.COBBLESTONES_NORMAL),
+                'I', Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON),
+                'R', Ingredient.of(Tags.Items.STORAGE_BLOCKS_REDSTONE),
+                'L', Ingredient.of(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM)
+        ), new String[] {
+                "CRC",
+                "ILI",
+                "CRC"
+        }, new ItemStack(ModBlocks.ITEM_CONVEYOR_BELT_SORTER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
+                'C', Ingredient.of(Tags.Items.COBBLESTONES_NORMAL),
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'R', Ingredient.of(Tags.Items.DUSTS_REDSTONE),
+                'l', Ingredient.of(Items.LEVER),
+                'L', Ingredient.of(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM)
+        ), new String[] {
+                "ClC",
+                "ILI",
+                "CRC"
+        }, new ItemStack(ModBlocks.ITEM_CONVEYOR_BELT_SWITCH_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
+                'C', Ingredient.of(Tags.Items.COBBLESTONES_NORMAL),
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'R', Ingredient.of(Tags.Items.DUSTS_REDSTONE),
+                'L', Ingredient.of(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM)
+        ), new String[] {
+                "CIC",
+                "ILI",
+                "CRC"
+        }, new ItemStack(ModBlocks.ITEM_CONVEYOR_BELT_SPLITTER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
+                'C', Ingredient.of(Tags.Items.COBBLESTONES_NORMAL),
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'R', Ingredient.of(Tags.Items.DUSTS_REDSTONE),
+                'L', Ingredient.of(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM)
+        ), new String[] {
+                "CRC",
+                "ILI",
+                "CIC"
+        }, new ItemStack(ModBlocks.ITEM_CONVEYOR_BELT_MERGER_ITEM.get()), CraftingBookCategory.MISC);
+    }
+    private void buildFluidTransportCraftingRecipes(RecipeOutput output) {
+        addShapedCraftingRecipe(output, has(CommonItemTags.PLATES_IRON), Map.of(
+                'I', Ingredient.of(Tags.Items.INGOTS_IRON),
+                'i', Ingredient.of(CommonItemTags.PLATES_IRON)
+        ), new String[] {
+                "IiI",
+                "IiI",
+                "IiI"
+        }, new ItemStack(ModBlocks.IRON_FLUID_PIPE_ITEM.get(), 12), CraftingBookCategory.MISC,
+                "", "", "iron_");
+
+        addShapedCraftingRecipe(output, has(CommonItemTags.PLATES_GOLD), Map.of(
+                'G', Ingredient.of(Tags.Items.INGOTS_GOLD),
+                'g', Ingredient.of(CommonItemTags.PLATES_GOLD)
+        ), new String[] {
+                "GgG",
+                "GgG",
+                "GgG"
+        }, new ItemStack(ModBlocks.GOLDEN_FLUID_PIPE_ITEM.get(), 12), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(CommonItemTags.PLATES_IRON), Map.of(
+                'G', Ingredient.of(Tags.Items.GLASS_PANES_COLORLESS),
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON)
+        ), new String[] {
+                "IGI",
+                "IGI",
+                "IGI"
+        }, new ItemStack(ModBlocks.FLUID_TANK_SMALL_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(ModBlocks.FLUID_TANK_SMALL_ITEM), Map.of(
+                'F', Ingredient.of(ModBlocks.FLUID_TANK_SMALL_ITEM.get()),
+                'S', Ingredient.of(CommonItemTags.INGOTS_STEEL)
+        ), new String[] {
+                "SFS",
+                "SFS",
+                "SFS"
+        }, new ItemStack(ModBlocks.FLUID_TANK_MEDIUM_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(ModBlocks.FLUID_TANK_MEDIUM_ITEM), Map.of(
+                'F', Ingredient.of(ModBlocks.FLUID_TANK_SMALL_ITEM.get()),
+                'I', Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON)
+        ), new String[] {
+                "IFI",
+                "IFI",
+                "IFI"
+        }, new ItemStack(ModBlocks.FLUID_TANK_LARGE_ITEM.get()), CraftingBookCategory.MISC);
+    }
+    private void buildEnergyTransportCraftingRecipes(RecipeOutput output) {
+        addBasicCableCraftingRecipes(output, CommonItemTags.INGOTS_TIN, CommonItemTags.WIRES_TIN,
+                new ItemStack(ModBlocks.TIN_CABLE_ITEM.get(), 9));
+
+        addBasicCableCraftingRecipes(output, Tags.Items.INGOTS_COPPER, CommonItemTags.WIRES_COPPER,
+                new ItemStack(ModBlocks.COPPER_CABLE_ITEM.get(), 6));
+        addBasicCableCraftingRecipes(output, Tags.Items.INGOTS_GOLD, CommonItemTags.WIRES_GOLD,
+                new ItemStack(ModBlocks.GOLD_CABLE_ITEM.get(), 6));
+
+        addBasicCableCraftingRecipes(output, CommonItemTags.INGOTS_ENERGIZED_COPPER, CommonItemTags.WIRES_ENERGIZED_COPPER,
+                new ItemStack(ModBlocks.ENERGIZED_COPPER_CABLE_ITEM.get(), 3));
+        addBasicCableCraftingRecipes(output, CommonItemTags.INGOTS_ENERGIZED_GOLD, CommonItemTags.WIRES_ENERGIZED_GOLD,
+                new ItemStack(ModBlocks.ENERGIZED_GOLD_CABLE_ITEM.get(), 3));
+
+        addShapedCraftingRecipe(output, has(ModItems.ENERGIZED_CRYSTAL_MATRIX), Map.of(
+                'I', Ingredient.of(ModItems.CABLE_INSULATOR),
+                'C', Ingredient.of(ModItems.ENERGIZED_CRYSTAL_MATRIX)
+        ), new String[] {
+                "ICI",
+                "ICI",
+                "ICI"
+        }, new ItemStack(ModBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.of(CommonItemTags.SILICON),
+                'C', Ingredient.of(CommonItemTags.PLATES_COPPER),
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'R', Ingredient.of(Tags.Items.DUSTS_REDSTONE),
+                'M', Ingredient.of(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
+        ), new String[] {
+                "CSI",
+                "RMR",
+                "CSI"
+        }, new ItemStack(ModBlocks.LV_TRANSFORMER_1_TO_N_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.of(CommonItemTags.SILICON),
+                'C', Ingredient.of(CommonItemTags.PLATES_COPPER),
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'R', Ingredient.of(Tags.Items.DUSTS_REDSTONE),
+                'M', Ingredient.of(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
+        ), new String[] {
+                "CSI",
+                "SMR",
+                "CRI"
+        }, new ItemStack(ModBlocks.LV_TRANSFORMER_3_TO_3_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.of(CommonItemTags.SILICON),
+                'C', Ingredient.of(CommonItemTags.PLATES_COPPER),
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'R', Ingredient.of(Tags.Items.DUSTS_REDSTONE),
+                'M', Ingredient.of(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
+        ), new String[] {
+                "CRI",
+                "SMS",
+                "CRI"
+        }, new ItemStack(ModBlocks.LV_TRANSFORMER_N_TO_1_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(ModBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.of(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'C', Ingredient.of(Tags.Items.STORAGE_BLOCKS_COPPER),
+                'I', Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON),
+                'M', Ingredient.of(ModBlocks.HARDENED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.of(ModBlocks.LV_TRANSFORMER_1_TO_N_ITEM)
+        ), new String[] {
+                "CTI",
+                "SMS",
+                "CTI"
+        }, new ItemStack(ModBlocks.MV_TRANSFORMER_1_TO_N_ITEM.get()), CraftingBookCategory.MISC,
+                "", "", "mv_");
+
+        addShapedCraftingRecipe(output, has(ModBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.of(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'C', Ingredient.of(Tags.Items.STORAGE_BLOCKS_COPPER),
+                'I', Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON),
+                'M', Ingredient.of(ModBlocks.HARDENED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.of(ModBlocks.LV_TRANSFORMER_3_TO_3_ITEM)
+        ), new String[] {
+                "CTI",
+                "SMS",
+                "CTI"
+        }, new ItemStack(ModBlocks.MV_TRANSFORMER_3_TO_3_ITEM.get()), CraftingBookCategory.MISC,
+                "", "", "mv_");
+
+        addShapedCraftingRecipe(output, has(ModBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.of(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'C', Ingredient.of(Tags.Items.STORAGE_BLOCKS_COPPER),
+                'I', Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON),
+                'M', Ingredient.of(ModBlocks.HARDENED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.of(ModBlocks.LV_TRANSFORMER_N_TO_1_ITEM)
+        ), new String[] {
+                "CTI",
+                "SMS",
+                "CTI"
+        }, new ItemStack(ModBlocks.MV_TRANSFORMER_N_TO_1_ITEM.get()), CraftingBookCategory.MISC,
+                "", "", "mv_");
+
+        addShapedCraftingRecipe(output, has(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.of(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'G', Ingredient.of(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'M', Ingredient.of(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.of(ModBlocks.MV_TRANSFORMER_1_TO_N_ITEM)
+        ), new String[] {
+                "GTG",
+                "SMS",
+                "GTG"
+        }, new ItemStack(ModBlocks.HV_TRANSFORMER_1_TO_N_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.of(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'G', Ingredient.of(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'M', Ingredient.of(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.of(ModBlocks.MV_TRANSFORMER_3_TO_3_ITEM)
+        ), new String[] {
+                "GTG",
+                "SMS",
+                "GTG"
+        }, new ItemStack(ModBlocks.HV_TRANSFORMER_3_TO_3_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.of(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'G', Ingredient.of(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'M', Ingredient.of(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.of(ModBlocks.MV_TRANSFORMER_N_TO_1_ITEM)
+        ), new String[] {
+                "GTG",
+                "SMS",
+                "GTG"
+        }, new ItemStack(ModBlocks.HV_TRANSFORMER_N_TO_1_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.of(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'C', Ingredient.of(ModItems.ENERGIZED_CRYSTAL_MATRIX),
+                'M', Ingredient.of(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.of(ModBlocks.HV_TRANSFORMER_1_TO_N_ITEM)
+        ), new String[] {
+                "CTC",
+                "SMS",
+                "CTC"
+        }, new ItemStack(ModBlocks.EHV_TRANSFORMER_1_TO_N_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.of(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'C', Ingredient.of(ModItems.ENERGIZED_CRYSTAL_MATRIX),
+                'M', Ingredient.of(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.of(ModBlocks.HV_TRANSFORMER_3_TO_3_ITEM)
+        ), new String[] {
+                "CTC",
+                "SMS",
+                "CTC"
+        }, new ItemStack(ModBlocks.EHV_TRANSFORMER_3_TO_3_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.of(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'C', Ingredient.of(ModItems.ENERGIZED_CRYSTAL_MATRIX),
+                'M', Ingredient.of(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.of(ModBlocks.HV_TRANSFORMER_N_TO_1_ITEM)
+        ), new String[] {
+                "CTC",
+                "SMS",
+                "CTC"
+        }, new ItemStack(ModBlocks.EHV_TRANSFORMER_N_TO_1_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.of(CommonItemTags.SILICON),
+                'C', Ingredient.of(CommonItemTags.PLATES_COPPER),
+                'B', Ingredient.of(ModItems.BATTERY_5),
+                'M', Ingredient.of(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
+        ), new String[] {
+                "CBC",
+                "BMB",
+                "SBS"
+        }, new ItemStack(ModBlocks.BATTERY_BOX_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.of(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'E', Ingredient.of(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'B', Ingredient.of(ModItems.BATTERY_8),
+                'M', Ingredient.of(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM)
+        ), new String[] {
+                "EBE",
+                "BMB",
+                "BSB"
+        }, new ItemStack(ModBlocks.ADVANCED_BATTERY_BOX_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapelessCraftingRecipe(output, has(ModBlocks.BATTERY_BOX_ITEM), List.of(
+                Ingredient.of(ModBlocks.BATTERY_BOX_ITEM),
+                Ingredient.of(Items.MINECART)
+        ), new ItemStack(ModItems.BATTERY_BOX_MINECART.get()), CraftingBookCategory.MISC);
+
+        addShapelessCraftingRecipe(output, has(ModBlocks.ADVANCED_BATTERY_BOX_ITEM), List.of(
+                Ingredient.of(ModBlocks.ADVANCED_BATTERY_BOX_ITEM),
+                Ingredient.of(Items.MINECART)
+        ), new ItemStack(ModItems.ADVANCED_BATTERY_BOX_MINECART.get()), CraftingBookCategory.MISC);
     }
 
     private void buildCookingRecipes(RecipeOutput output) {
@@ -688,6 +1021,97 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         addCrystalGrowthChamberRecipe(output, Ingredient.of(Items.AMETHYST_BLOCK),
                 new OutputItemStackWithPercentages(new ItemStack(Items.BUDDING_AMETHYST), .25), 4,
                 32000);
+    }
+
+    private static void addBasicCableCraftingRecipes(RecipeOutput output, TagKey<Item> ingotInput, TagKey<Item> wireInput,
+                                                     ItemStack cableItem) {
+        addCableCraftingRecipe(output, ingotInput, cableItem);
+        addCableUsingWireCraftingRecipe(output, wireInput, cableItem);
+    }
+    private static void addCableUsingWireCraftingRecipe(RecipeOutput output, TagKey<Item> wireInput,
+                                                        ItemStack cableItem) {
+        addShapedCraftingRecipe(output, has(wireInput), Map.of(
+                'W', Ingredient.of(wireInput),
+                'I', Ingredient.of(ModItems.CABLE_INSULATOR)
+        ), new String[] {
+                "IWI",
+                "IWI",
+                "IWI"
+        }, cableItem, CraftingBookCategory.MISC, getItemName(cableItem.getItem()), "_using_wire");
+    }
+    private static void addCableCraftingRecipe(RecipeOutput output, TagKey<Item> ingotInput,
+                                               ItemStack cableItem) {
+        addShapedCraftingRecipe(output, has(ingotInput), Map.of(
+                'I', Ingredient.of(ingotInput),
+                'i', Ingredient.of(ModItems.CABLE_INSULATOR)
+        ), new String[] {
+                "iIi",
+                "iIi",
+                "iIi"
+        }, cableItem, CraftingBookCategory.MISC, getItemName(cableItem.getItem()));
+    }
+    private static void addShapedCraftingRecipe(RecipeOutput output, Criterion<InventoryChangeTrigger.TriggerInstance> hasIngredientTrigger,
+                                                Map<Character, Ingredient> key, String[] pattern,
+                                                ItemStack result, CraftingBookCategory category) {
+        addShapedCraftingRecipe(output, hasIngredientTrigger, key, pattern, result, category, "");
+    }
+    private static void addShapedCraftingRecipe(RecipeOutput output, Criterion<InventoryChangeTrigger.TriggerInstance> hasIngredientTrigger,
+                                                Map<Character, Ingredient> key, String[] pattern,
+                                                ItemStack result, CraftingBookCategory category,
+                                                String group) {
+        addShapedCraftingRecipe(output, hasIngredientTrigger, key, pattern, result, category, group, "");
+    }
+    private static void addShapedCraftingRecipe(RecipeOutput output, Criterion<InventoryChangeTrigger.TriggerInstance> hasIngredientTrigger,
+                                                Map<Character, Ingredient> key, String[] pattern,
+                                                ItemStack result, CraftingBookCategory category,
+                                                String group, String recipeIdSuffix) {
+        addShapedCraftingRecipe(output, hasIngredientTrigger, key, pattern, result, category, group, recipeIdSuffix, "");
+    }
+    private static void addShapedCraftingRecipe(RecipeOutput output, Criterion<InventoryChangeTrigger.TriggerInstance> hasIngredientTrigger,
+                                                Map<Character, Ingredient> key, String[] pattern,
+                                                ItemStack result, CraftingBookCategory category,
+                                                String group, String recipeIdSuffix, String recipeIdPrefix) {
+        ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "crafting/" +
+                recipeIdPrefix + getItemName(result.getItem()) + recipeIdSuffix);
+
+        Advancement.Builder advancementBuilder = output.advancement()
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId))
+                .addCriterion("has_the_ingredient", hasIngredientTrigger)
+                .rewards(AdvancementRewards.Builder.recipe(recipeId))
+                .requirements(AdvancementRequirements.Strategy.OR);
+        ShapedRecipe recipe = new ShapedRecipe(Objects.requireNonNullElse(group, ""),
+                category, ShapedRecipePattern.of(key, pattern), result);
+        output.accept(recipeId, recipe, advancementBuilder.build(recipeId.withPrefix("recipes/")));
+    }
+
+    private static void addShapelessCraftingRecipe(RecipeOutput output, Criterion<InventoryChangeTrigger.TriggerInstance> hasIngredientTrigger,
+                                                   List<Ingredient> inputs, ItemStack result, CraftingBookCategory category) {
+        addShapelessCraftingRecipe(output, hasIngredientTrigger, inputs, result, category, "");
+    }
+    private static void addShapelessCraftingRecipe(RecipeOutput output, Criterion<InventoryChangeTrigger.TriggerInstance> hasIngredientTrigger,
+                                                   List<Ingredient> inputs, ItemStack result, CraftingBookCategory category,
+                                                   String group) {
+        addShapelessCraftingRecipe(output, hasIngredientTrigger, inputs, result, category, group, "");
+    }
+    private static void addShapelessCraftingRecipe(RecipeOutput output, Criterion<InventoryChangeTrigger.TriggerInstance> hasIngredientTrigger,
+                                                   List<Ingredient> inputs, ItemStack result, CraftingBookCategory category,
+                                                   String group, String recipeIdSuffix) {
+        addShapelessCraftingRecipe(output, hasIngredientTrigger, inputs, result, category, group, recipeIdSuffix, "");
+    }
+    private static void addShapelessCraftingRecipe(RecipeOutput output, Criterion<InventoryChangeTrigger.TriggerInstance> hasIngredientTrigger,
+                                                   List<Ingredient> inputs, ItemStack result, CraftingBookCategory category,
+                                                   String group, String recipeIdSuffix, String recipeIdPrefix) {
+        ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "crafting/" +
+                recipeIdPrefix + getItemName(result.getItem()) + recipeIdSuffix);
+
+        Advancement.Builder advancementBuilder = output.advancement()
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId))
+                .addCriterion("has_the_ingredient", hasIngredientTrigger)
+                .rewards(AdvancementRewards.Builder.recipe(recipeId))
+                .requirements(AdvancementRequirements.Strategy.OR);
+        ShapelessRecipe recipe = new ShapelessRecipe(Objects.requireNonNullElse(group, ""), category, result,
+                NonNullList.of(Ingredient.EMPTY, inputs.toArray(Ingredient[]::new)));
+        output.accept(recipeId, recipe, advancementBuilder.build(recipeId.withPrefix("recipes/")));
     }
 
     private static void addBlastingAndSmeltingRecipes(RecipeOutput output, ItemLike ingredient, ItemStack result,

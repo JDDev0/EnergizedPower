@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:plates/copper"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "M": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "S": {
+      "tag": "c:silicon"
+    }
+  },
+  "pattern": [
+    "CSI",
+    "SMR",
+    "CRI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:lv_transformer_3_to_3"
+  }
+}
