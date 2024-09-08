@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/coal_engine",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:heat_generator"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.heat_generator.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:heat_generator"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.heat_generator.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

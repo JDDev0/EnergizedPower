@@ -28,8 +28,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     private ModelFile solarPanelTemplate;
 
-    public ModBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
-        super(output, EnergizedPowerMod.MODID, exFileHelper);
+    public ModBlockStateProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+        super(output, EnergizedPowerMod.MODID, existingFileHelper);
     }
 
     @Override

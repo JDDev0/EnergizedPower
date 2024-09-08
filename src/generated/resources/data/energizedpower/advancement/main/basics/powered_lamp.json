@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/silicon",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:powered_lamp"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.powered_lamp.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:powered_lamp"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.powered_lamp.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

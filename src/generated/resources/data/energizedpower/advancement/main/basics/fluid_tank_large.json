@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/fluid_tank_medium",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:fluid_tank_large"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.fluid_tank_large.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:fluid_tank_large"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.fluid_tank_large.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

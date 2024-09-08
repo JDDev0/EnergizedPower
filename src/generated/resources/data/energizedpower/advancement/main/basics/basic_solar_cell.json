@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/silicon",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:basic_solar_cell"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.basic_solar_cell.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:basic_solar_cell"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.basic_solar_cell.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

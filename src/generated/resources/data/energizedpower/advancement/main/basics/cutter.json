@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/iron_plate",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:tools/cutters"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.cutter.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:cutter"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.cutter.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

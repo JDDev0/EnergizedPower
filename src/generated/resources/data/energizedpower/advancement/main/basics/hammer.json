@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/energizedpower_basics",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:tools/hammers"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.hammer.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:iron_hammer"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.hammer.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

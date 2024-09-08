@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/hardened_machine_frame",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:induction_smelter"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.induction_smelter.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:induction_smelter"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.induction_smelter.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/energizedpower_basics",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:energized_power_book"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.energized_power_book.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:energized_power_book"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.energized_power_book.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

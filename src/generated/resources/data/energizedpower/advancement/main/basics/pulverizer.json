@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/basic_machine_frame",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:pulverizer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.pulverizer.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:pulverizer"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.pulverizer.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

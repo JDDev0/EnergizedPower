@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/basic_upgrade_module",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:moon_light_upgrade_module_1"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.moon_light_upgrade_module_1.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:moon_light_upgrade_module_1"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.moon_light_upgrade_module_1.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
