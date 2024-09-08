@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "I": {
+      "tag": "c:gears/iron"
+    },
+    "P": {
+      "item": "energizedpower:press_mold_maker"
+    },
+    "i": {
+      "tag": "c:rods/iron"
+    }
+  },
+  "pattern": [
+    "IPI",
+    "iBi",
+    "IPI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:auto_press_mold_maker"
+  }
+}

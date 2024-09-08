@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "F": {
+      "item": "energizedpower:fluid_tank_small"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "p": {
+      "item": "energizedpower:fluid_pipe"
+    }
+  },
+  "pattern": [
+    "RPR",
+    "FBF",
+    "IpI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:fluid_pump"
+  }
+}

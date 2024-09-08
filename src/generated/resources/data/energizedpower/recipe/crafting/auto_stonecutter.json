@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "C": {
+      "tag": "c:plates/copper"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "S": {
+      "item": "minecraft:stonecutter"
+    },
+    "s": {
+      "tag": "c:silicon"
+    }
+  },
+  "pattern": [
+    "CSC",
+    "sBs",
+    "ISI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:auto_stonecutter"
+  }
+}

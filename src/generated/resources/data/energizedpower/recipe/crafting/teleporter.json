@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:plates/advanced_alloy"
+    },
+    "C": {
+      "item": "energizedpower:energized_crystal_matrix"
+    },
+    "E": {
+      "tag": "c:plates/energized_gold"
+    },
+    "R": {
+      "item": "energizedpower:reinforced_advanced_machine_frame"
+    },
+    "S": {
+      "tag": "c:storage_blocks/silicon"
+    },
+    "T": {
+      "item": "energizedpower:teleporter_processing_unit"
+    }
+  },
+  "pattern": [
+    "CEC",
+    "TRT",
+    "ASA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:teleporter"
+  }
+}

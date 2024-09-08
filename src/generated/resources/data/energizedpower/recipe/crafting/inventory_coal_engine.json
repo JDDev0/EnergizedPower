@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "energizedpower:coal_engine"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "S": {
+      "tag": "c:silicon"
+    },
+    "c": {
+      "tag": "c:plates/copper"
+    }
+  },
+  "pattern": [
+    "SIS",
+    "RCR",
+    "cIc"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:inventory_coal_engine"
+  }
+}

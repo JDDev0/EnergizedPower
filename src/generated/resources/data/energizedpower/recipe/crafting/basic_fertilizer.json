@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:allium"
+    },
+    "B": {
+      "item": "minecraft:bone_meal"
+    },
+    "D": {
+      "item": "minecraft:dandelion"
+    },
+    "L": {
+      "tag": "c:gems/lapis"
+    },
+    "P": {
+      "item": "minecraft:poppy"
+    },
+    "b": {
+      "item": "minecraft:blue_orchid"
+    }
+  },
+  "pattern": [
+    "DBb",
+    "BLB",
+    "ABP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "energizedpower:basic_fertilizer"
+  }
+}

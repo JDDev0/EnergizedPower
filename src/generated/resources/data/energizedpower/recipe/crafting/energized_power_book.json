@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:book"
+    },
+    {
+      "item": "energizedpower:basic_machine_frame"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:energized_power_book"
+  }
+}
