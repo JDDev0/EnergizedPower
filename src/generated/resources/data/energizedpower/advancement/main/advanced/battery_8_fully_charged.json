@@ -1,0 +1,40 @@
+{
+  "parent": "energizedpower:main/advanced/battery_8",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "energizedpower:energy": 1048576
+            },
+            "items": "energizedpower:battery_8"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.battery_8_fully_charged.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "components": {
+        "energizedpower:energy": 1048576
+      },
+      "count": 1,
+      "id": "energizedpower:battery_8"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.battery_8_fully_charged.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

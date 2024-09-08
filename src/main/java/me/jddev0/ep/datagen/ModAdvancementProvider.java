@@ -1,5 +1,6 @@
 package me.jddev0.ep.datagen;
 
+import me.jddev0.ep.datagen.adavancement.ModAdvancedAdvancements;
 import me.jddev0.ep.datagen.adavancement.ModBasicsAdvancements;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -13,7 +14,8 @@ public class ModAdvancementProvider {
     public static AdvancementProvider create(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
                                            ExistingFileHelper existingFileHelper) {
         return new AdvancementProvider(output, lookupProvider, existingFileHelper, List.of(
-                new ModBasicsAdvancements()
+                new ModBasicsAdvancements(),
+                new ModAdvancedAdvancements()
         ));
     }
 }

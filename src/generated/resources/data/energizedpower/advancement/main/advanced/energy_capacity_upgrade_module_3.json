@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/advanced/advanced_upgrade_module",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:energy_capacity_upgrade_module_3"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.energy_capacity_upgrade_module_3.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:energy_capacity_upgrade_module_3"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.energy_capacity_upgrade_module_3.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

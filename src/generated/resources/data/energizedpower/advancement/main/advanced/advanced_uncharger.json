@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/advanced/energized_gold_ingot",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:advanced_uncharger"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.advanced_uncharger.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:advanced_uncharger"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.advanced_uncharger.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

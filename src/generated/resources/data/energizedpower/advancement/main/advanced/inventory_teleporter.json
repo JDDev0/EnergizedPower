@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/advanced/teleporter",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:inventory_teleporter"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.inventory_teleporter.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:inventory_teleporter"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.inventory_teleporter.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

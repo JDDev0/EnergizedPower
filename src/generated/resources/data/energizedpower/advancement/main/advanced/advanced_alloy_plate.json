@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/advanced/advanced_alloy_ingot",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:plates/advanced_alloy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.advanced_alloy_plate.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:advanced_alloy_plate"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.advanced_alloy_plate.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

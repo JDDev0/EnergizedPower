@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/advanced/energized_crystal_matrix",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:teleporter_matrix"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.teleporter_matrix.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:teleporter_matrix"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.teleporter_matrix.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
