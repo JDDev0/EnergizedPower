@@ -5,13 +5,11 @@
       "conditions": {
         "items": [
           {
-            "items": "energizedpower:ehv_transformer_1_to_n"
-          },
-          {
-            "items": "energizedpower:ehv_transformer_3_to_3"
-          },
-          {
-            "items": "energizedpower:ehv_transformer_n_to_1"
+            "items": [
+              "energizedpower:ehv_transformer_1_to_n",
+              "energizedpower:ehv_transformer_3_to_3",
+              "energizedpower:ehv_transformer_n_to_1"
+            ]
           }
         ]
       },

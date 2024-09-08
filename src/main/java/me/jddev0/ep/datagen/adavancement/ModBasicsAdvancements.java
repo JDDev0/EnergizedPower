@@ -353,9 +353,11 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
                 advancementOutput, existingFileHelper, tinCable,
                 ModBlocks.LV_TRANSFORMER_1_TO_N_ITEM, "lv_transformers", AdvancementType.TASK,
                 InventoryChangeTrigger.TriggerInstance.hasItems(
-                        ModBlocks.LV_TRANSFORMER_1_TO_N_ITEM,
-                        ModBlocks.LV_TRANSFORMER_3_TO_3_ITEM,
-                        ModBlocks.LV_TRANSFORMER_N_TO_1_ITEM
+                        ItemPredicate.Builder.item().of(
+                                ModBlocks.LV_TRANSFORMER_1_TO_N_ITEM,
+                                ModBlocks.LV_TRANSFORMER_3_TO_3_ITEM,
+                                ModBlocks.LV_TRANSFORMER_N_TO_1_ITEM
+                        ).build()
                 )
         );
 
@@ -610,9 +612,11 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
                 advancementOutput, existingFileHelper, hardenedMachineFrame,
                 ModBlocks.MV_TRANSFORMER_1_TO_N, "mv_transformers", AdvancementType.TASK,
                 InventoryChangeTrigger.TriggerInstance.hasItems(
-                        ModBlocks.MV_TRANSFORMER_1_TO_N_ITEM,
-                        ModBlocks.MV_TRANSFORMER_3_TO_3_ITEM,
-                        ModBlocks.MV_TRANSFORMER_N_TO_1_ITEM
+                        ItemPredicate.Builder.item().of(
+                                ModBlocks.MV_TRANSFORMER_1_TO_N_ITEM,
+                                ModBlocks.MV_TRANSFORMER_3_TO_3_ITEM,
+                                ModBlocks.MV_TRANSFORMER_N_TO_1_ITEM
+                        ).build()
                 )
         );
 
