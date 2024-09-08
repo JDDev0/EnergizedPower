@@ -16,6 +16,7 @@
     "description": {
       "translate": "advancements.energizedpower.energized_crystal_matrix_cable.description"
     },
+    "frame": "challenge",
     "icon": {
       "count": 1,
       "id": "energizedpower:energized_crystal_matrix_cable"
