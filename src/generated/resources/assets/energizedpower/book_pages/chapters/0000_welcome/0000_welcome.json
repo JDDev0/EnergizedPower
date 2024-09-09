@@ -1,0 +1,125 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "gold",
+        "extra": [
+          "\n\n"
+        ],
+        "translate": "book.energizedpower.page.welcome.title"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.welcome.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "clickEvent": {
+              "action": "open_url",
+              "value": "https://github.com/JDDev0/EnergizedPower/wiki"
+            },
+            "color": "blue",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.link"
+              }
+            },
+            "translate": "book.energizedpower.page.welcome.2",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "translate": "book.energizedpower.page.welcome.3"
+          },
+          ": ",
+          {
+            "clickEvent": {
+              "action": "open_url",
+              "value": "https://github.com/JDDev0/EnergizedPower/issues"
+            },
+            "color": "blue",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.link"
+              }
+            },
+            "translate": "book.energizedpower.page.welcome.3.link",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "translate": "book.energizedpower.page.welcome.4"
+          },
+          ": ",
+          {
+            "clickEvent": {
+              "action": "open_url",
+              "value": "https://discord.gg/sAKDNAU7yH"
+            },
+            "color": "blue",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.link"
+              }
+            },
+            "translate": "book.energizedpower.page.welcome.4.link",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "translate": "book.energizedpower.page.welcome.5"
+          },
+          ": ",
+          {
+            "clickEvent": {
+              "action": "open_url",
+              "value": "https://www.reddit.com/r/EnergizedPower/"
+            },
+            "color": "blue",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.link"
+              }
+            },
+            "translate": "book.energizedpower.page.welcome.5.link",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n"
+      }
+    ],
+    "text": ""
+  }
+}

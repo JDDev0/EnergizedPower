@@ -1,0 +1,23 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.sawdust.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.sawdust.2"
+      }
+    ],
+    "text": ""
+  },
+  "image": "energizedpower:textures/item/sawdust.png"
+}

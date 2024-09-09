@@ -1,0 +1,44 @@
+{
+  "block": [
+    "energizedpower:auto_crafter",
+    "energizedpower:advanced_auto_crafter"
+  ],
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.auto_crafters.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.auto_crafters.2"
+      },
+      {
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.auto_crafters.3"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.auto_crafters.4"
+      }
+    ],
+    "text": ""
+  }
+}

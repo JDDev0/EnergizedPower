@@ -1,0 +1,27 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.solar_cells.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.solar_cells.2"
+      }
+    ],
+    "text": ""
+  },
+  "image": [
+    "energizedpower:textures/item/basic_solar_cell.png",
+    "energizedpower:textures/item/advanced_solar_cell.png",
+    "energizedpower:textures/item/reinforced_advanced_solar_cell.png"
+  ]
+}

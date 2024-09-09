@@ -1,0 +1,26 @@
+{
+  "block": [
+    "energizedpower:crusher",
+    "energizedpower:advanced_crusher"
+  ],
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.crushers.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.crushers.2"
+      }
+    ],
+    "text": ""
+  }
+}

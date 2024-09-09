@@ -1,0 +1,26 @@
+{
+  "block": [
+    "energizedpower:powered_furnace",
+    "energizedpower:advanced_powered_furnace"
+  ],
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.powered_furnaces.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.powered_furnaces.2"
+      }
+    ],
+    "text": ""
+  }
+}

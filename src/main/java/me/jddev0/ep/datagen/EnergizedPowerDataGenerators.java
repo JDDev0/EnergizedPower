@@ -23,13 +23,13 @@ public class EnergizedPowerDataGenerators {
                 generator.addProvider(event.includeServer(), new ModRegistriesProvider(output, event.getLookupProvider())).
                         getRegistryProvider();
 
+        generator.addProvider(event.includeClient(), new ModBlockStateProvider(output, existingFileHelper));
+        generator.addProvider(event.includeClient(), new ModItemModelProvider(output, existingFileHelper));
+        generator.addProvider(event.includeClient(), new ModBookPageContentProvider(output, lookupProvider, existingFileHelper));
+
         generator.addProvider(event.includeServer(), new ModRecipeProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), ModLootTableProvider.create(output, lookupProvider));
         generator.addProvider(event.includeServer(), ModAdvancementProvider.create(output, lookupProvider, existingFileHelper));
-
-        generator.addProvider(event.includeClient(), new ModBlockStateProvider(output, existingFileHelper));
-        generator.addProvider(event.includeClient(), new ModItemModelProvider(output, existingFileHelper));
-        //TODO add custom generator for book pages (Builder and Provider base class)
 
         ModBlockTagProvider blockTagProvider = generator.addProvider(event.includeServer(),
                 new ModBlockTagProvider(output, lookupProvider, existingFileHelper));

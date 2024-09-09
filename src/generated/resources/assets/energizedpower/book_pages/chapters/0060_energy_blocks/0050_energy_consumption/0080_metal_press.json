@@ -1,0 +1,41 @@
+{
+  "block": "energizedpower:metal_press",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.metal_press.1"
+      },
+      {
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.metal_press.2"
+      },
+      {
+        "color": "black",
+        "extra": [
+          " "
+        ],
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.metal_press.3"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.metal_press.4"
+      }
+    ],
+    "text": ""
+  }
+}

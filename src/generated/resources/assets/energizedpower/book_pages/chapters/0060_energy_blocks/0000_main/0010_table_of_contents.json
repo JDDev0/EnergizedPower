@@ -1,0 +1,124 @@
+{
+  "content": {
+    "bold": true,
+    "color": "gold",
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "clickEvent": {
+              "action": "change_page",
+              "value": "energizedpower:chapters/0060_energy_blocks/0010_general/0000_general_chapter"
+            },
+            "color": "dark_green",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.page"
+              }
+            },
+            "translate": "book.energizedpower.page.chapter.energy_blocks.general.title",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "clickEvent": {
+              "action": "change_page",
+              "value": "energizedpower:chapters/0060_energy_blocks/0020_energy_transportation/0000_energy_transportation_chapter"
+            },
+            "color": "dark_green",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.page"
+              }
+            },
+            "translate": "book.energizedpower.page.chapter.energy_blocks.energy_transportation.title",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "clickEvent": {
+              "action": "change_page",
+              "value": "energizedpower:chapters/0060_energy_blocks/0030_energy_storage/0000_energy_storage_chapter"
+            },
+            "color": "dark_green",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.page"
+              }
+            },
+            "translate": "book.energizedpower.page.chapter.energy_blocks.energy_storage.title",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "clickEvent": {
+              "action": "change_page",
+              "value": "energizedpower:chapters/0060_energy_blocks/0040_energy_production/0000_energy_production_chapter"
+            },
+            "color": "dark_green",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.page"
+              }
+            },
+            "translate": "book.energizedpower.page.chapter.energy_blocks.energy_production.title",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "clickEvent": {
+              "action": "change_page",
+              "value": "energizedpower:chapters/0060_energy_blocks/0050_energy_consumption/0000_energy_consumption_chapter"
+            },
+            "color": "dark_green",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.page"
+              }
+            },
+            "translate": "book.energizedpower.page.chapter.energy_blocks.energy_consumption.title",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n\n• "
+      }
+    ],
+    "translate": "book.energizedpower.page.energy_blocks.table_of_contents.title"
+  }
+}

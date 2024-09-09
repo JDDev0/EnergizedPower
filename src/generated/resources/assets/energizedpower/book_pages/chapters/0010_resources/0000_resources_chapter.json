@@ -1,0 +1,38 @@
+{
+  "content": {
+    "extra": [
+      {
+        "translate": "book.energizedpower.page.chapter.resources.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "clickEvent": {
+              "action": "change_page",
+              "value": "energizedpower:chapters/0000_welcome/0020_table_of_contents"
+            },
+            "color": "dark_green",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.page"
+              }
+            },
+            "translate": "book.energizedpower.page.table_of_contents.title",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n\n"
+      }
+    ],
+    "text": ""
+  },
+  "image": "energizedpower:textures/item/energized_copper_ingot.png",
+  "title": {
+    "color": "gold",
+    "translate": "book.energizedpower.page.chapter.resources.title"
+  }
+}

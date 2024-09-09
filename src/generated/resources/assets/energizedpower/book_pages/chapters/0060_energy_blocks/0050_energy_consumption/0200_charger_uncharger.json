@@ -1,0 +1,28 @@
+{
+  "block": [
+    "energizedpower:charger",
+    "energizedpower:uncharger",
+    "energizedpower:advanced_charger",
+    "energizedpower:advanced_uncharger"
+  ],
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.charger_uncharger.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.charger_uncharger.2"
+      }
+    ],
+    "text": ""
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "gold",
+        "extra": [
+          "\n\n"
+        ],
+        "translate": "book.energizedpower.page.electrician.title"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.electrician.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.electrician.2"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.electrician.3"
+      }
+    ],
+    "text": ""
+  }
+}

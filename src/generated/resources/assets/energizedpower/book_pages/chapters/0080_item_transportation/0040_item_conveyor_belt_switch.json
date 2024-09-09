@@ -1,0 +1,23 @@
+{
+  "block": "energizedpower:item_conveyor_belt_switch",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          " "
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.item_conveyor_belt_switch.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.item_conveyor_belt_switch.2"
+      }
+    ],
+    "text": ""
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "content": {
+    "extra": [
+      {
+        "translate": "book.energizedpower.page.chapter.energy_blocks.general"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "clickEvent": {
+              "action": "change_page",
+              "value": "energizedpower:chapters/0060_energy_blocks/0000_main/0010_table_of_contents"
+            },
+            "color": "dark_green",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.page"
+              }
+            },
+            "translate": "book.energizedpower.page.energy_blocks.table_of_contents.title",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n\n"
+      }
+    ],
+    "text": ""
+  },
+  "title": {
+    "color": "gold",
+    "translate": "book.energizedpower.page.chapter.energy_blocks.general.title"
+  }
+}
