@@ -17,6 +17,9 @@
 	"icon": "assets/energizedpower/icon.png",
 	"environment": "*",
 	"entrypoints": {
+		"fabric-datagen": [
+			"me.jddev0.ep.datagen.EnergizedPowerDataGenerators"
+		],
 		"main": [
 			"me.jddev0.ep.EnergizedPowerMod"
 		],
