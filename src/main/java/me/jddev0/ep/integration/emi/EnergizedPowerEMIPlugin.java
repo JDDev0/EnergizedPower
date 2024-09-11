@@ -10,6 +10,7 @@ import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.screen.ModMenuTypes;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeEntry;
@@ -165,12 +166,12 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
         registry.addRecipe(new DispenserEMIRecipe(new DispenserEMIRecipe.DispenserRecipe(
                 Identifier.of(EnergizedPowerMod.MODID, "dispenser/energizedpower/cable_insulator"),
-                Ingredient.fromTag(CommonItemTags.SHEARS), Ingredient.fromTag(ItemTags.WOOL),
+                Ingredient.fromTag(ConventionalItemTags.SHEAR_TOOLS), Ingredient.fromTag(ItemTags.WOOL),
                 new ItemStack(ModItems.CABLE_INSULATOR, 18))));
 
         registry.addRecipe(new InWorldEMIRecipe(new InWorldEMIRecipe.InWorldRecipe(
                 Identifier.of(EnergizedPowerMod.MODID, "in_world_crafting/energizedpower/cable_insulator"),
-                Ingredient.fromTag(CommonItemTags.SHEARS), Ingredient.fromTag(ItemTags.WOOL),
+                Ingredient.fromTag(ConventionalItemTags.SHEAR_TOOLS), Ingredient.fromTag(ItemTags.WOOL),
                 new ItemStack(ModItems.CABLE_INSULATOR, 18))));
     }
 

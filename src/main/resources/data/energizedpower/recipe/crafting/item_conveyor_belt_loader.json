@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "C": {
-      "tag": "c:cobblestone/normal"
+      "tag": "c:cobblestones/normal"
     },
     "c": {
       "item": "energizedpower:item_conveyor_belt"

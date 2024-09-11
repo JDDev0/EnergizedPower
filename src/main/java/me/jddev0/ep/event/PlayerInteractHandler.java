@@ -6,6 +6,7 @@ import me.jddev0.ep.networking.packet.OpenEnergizedPowerBookS2CPacket;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LecternBlock;
 import net.minecraft.block.entity.BlockEntity;
@@ -62,7 +63,7 @@ public class PlayerInteractHandler implements UseBlockCallback {
 
     private static ActionResult handlePlayerInWorldCraftingInteract(PlayerEntity player, World level, Hand hand, BlockHitResult hitResult) {
         ItemStack itemStack = player.getStackInHand(hand);
-        if(!itemStack.isIn(CommonItemTags.SHEARS))
+        if(!itemStack.isIn(ConventionalItemTags.SHEAR_TOOLS))
             return ActionResult.PASS;
 
         BlockPos blockPos = hitResult.getBlockPos();

@@ -6,6 +6,7 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.registry.tag.ItemTags;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class DispenserDisplay implements Display {
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(
-                EntryIngredients.ofItemTag(CommonItemTags.SHEARS),
+                EntryIngredients.ofItemTag(ConventionalItemTags.SHEAR_TOOLS),
                 EntryIngredients.ofItemTag(ItemTags.WOOL)
         );
     }
