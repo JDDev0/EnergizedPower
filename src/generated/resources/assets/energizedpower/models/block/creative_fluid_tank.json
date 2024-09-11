@@ -1,0 +1,10 @@
+{
+  "parent": "energizedpower:block/fluid_tank_template",
+  "textures": {
+    "front": "energizedpower:block/creative_fluid_tank_front",
+    "interior": "energizedpower:block/creative_fluid_tank_interior",
+    "particle": "energizedpower:block/creative_fluid_tank_top",
+    "side": "energizedpower:block/creative_fluid_tank_side",
+    "up": "energizedpower:block/creative_fluid_tank_top"
+  }
+}

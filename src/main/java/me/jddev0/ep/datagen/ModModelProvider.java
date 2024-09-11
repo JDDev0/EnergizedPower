@@ -1,8 +1,7 @@
 package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.block.CableBlock;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.*;
 import me.jddev0.ep.datagen.model.ItemWithDisplayModelSupplier;
 import me.jddev0.ep.datagen.model.ItemWithOverridesModelSupplier;
 import me.jddev0.ep.datagen.model.ModTexturedModel;
@@ -14,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.data.client.*;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
 import org.joml.Vector3f;
 
@@ -30,6 +30,13 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
     private void registerBlocks(BlockStateModelGenerator generator) {
+        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_1);
+        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_2);
+        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_3);
+        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_4);
+        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_5);
+        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_6);
+
         cubeAllBlockWithItem(generator, ModBlocks.SILICON_BLOCK);
 
         cubeAllBlockWithItem(generator, ModBlocks.TIN_BLOCK);
@@ -41,6 +48,14 @@ public class ModModelProvider extends FabricModelProvider {
 
         cubeAllBlockWithItem(generator, ModBlocks.RAW_TIN_BLOCK);
 
+        fluidPipeBlockWithItem(generator, ModBlocks.IRON_FLUID_PIPE);
+        fluidPipeBlockWithItem(generator, ModBlocks.GOLDEN_FLUID_PIPE);
+
+        fluidTankBlockWithItem(generator, ModBlocks.FLUID_TANK_SMALL);
+        fluidTankBlockWithItem(generator, ModBlocks.FLUID_TANK_MEDIUM);
+        fluidTankBlockWithItem(generator, ModBlocks.FLUID_TANK_LARGE);
+        fluidTankBlockWithItem(generator, ModBlocks.CREATIVE_FLUID_TANK);
+
         cableBlockWithItem(generator, ModBlocks.TIN_CABLE);
         cableBlockWithItem(generator, ModBlocks.COPPER_CABLE);
         cableBlockWithItem(generator, ModBlocks.GOLD_CABLE);
@@ -51,6 +66,91 @@ public class ModModelProvider extends FabricModelProvider {
 
     private void cubeAllBlockWithItem(BlockStateModelGenerator generator, Block block) {
         generator.registerSimpleCubeAll(block);
+    }
+
+    private void solarPanelBlockWithItem(BlockStateModelGenerator generator, Block block) {
+        Identifier solarPanel = ModTexturedModel.SOLAR_PANEL.get(block).upload(block, generator.modelCollector);
+
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block,
+                BlockStateVariant.create().put(VariantSettings.MODEL, solarPanel)));
+
+        generator.registerParentedItemModel(block.asItem(), solarPanel);
+    }
+
+    private void fluidPipeBlockWithItem(BlockStateModelGenerator generator, Block block) {
+        Identifier fluidPipeCore = ModTexturedModel.FLUID_PIPE_CORE.get(block).
+                upload(block, "_core", generator.modelCollector);
+        Identifier fluidPipeSideConnected = ModTexturedModel.FLUID_PIPE_SIDE_CONNECTED.get(block).
+                upload(block, "_side_connected", generator.modelCollector);
+        Identifier fluidPipeSideExtract = ModTexturedModel.FLUID_PIPE_SIDE_EXTRACT.get(block).
+                upload(block, "_side_extract", generator.modelCollector);
+
+        generator.blockStateCollector.accept(
+                MultipartBlockStateSupplier.create(block).
+                        with(BlockStateVariant.create().
+                                put(VariantSettings.MODEL, fluidPipeCore)).
+                        with(When.create().set(FluidPipeBlock.UP, ModBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
+                                put(VariantSettings.MODEL, fluidPipeSideConnected).
+                                put(VariantSettings.X, VariantSettings.Rotation.R270)).
+                        with(When.create().set(FluidPipeBlock.UP, ModBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
+                                put(VariantSettings.MODEL, fluidPipeSideExtract).
+                                put(VariantSettings.X, VariantSettings.Rotation.R270)).
+                        with(When.create().set(FluidPipeBlock.DOWN, ModBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
+                                put(VariantSettings.MODEL, fluidPipeSideConnected).
+                                put(VariantSettings.X, VariantSettings.Rotation.R90)).
+                        with(When.create().set(FluidPipeBlock.DOWN, ModBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
+                                put(VariantSettings.MODEL, fluidPipeSideExtract).
+                                put(VariantSettings.X, VariantSettings.Rotation.R90)).
+                        with(When.create().set(FluidPipeBlock.NORTH, ModBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
+                                put(VariantSettings.MODEL, fluidPipeSideConnected)).
+                        with(When.create().set(FluidPipeBlock.NORTH, ModBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
+                                put(VariantSettings.MODEL, fluidPipeSideExtract)).
+                        with(When.create().set(FluidPipeBlock.SOUTH, ModBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
+                                put(VariantSettings.MODEL, fluidPipeSideConnected).
+                                put(VariantSettings.X, VariantSettings.Rotation.R180)).
+                        with(When.create().set(FluidPipeBlock.SOUTH, ModBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
+                                put(VariantSettings.MODEL, fluidPipeSideExtract).
+                                put(VariantSettings.X, VariantSettings.Rotation.R180)).
+                        with(When.create().set(FluidPipeBlock.EAST, ModBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
+                                put(VariantSettings.MODEL, fluidPipeSideConnected).
+                                put(VariantSettings.Y, VariantSettings.Rotation.R90)).
+                        with(When.create().set(FluidPipeBlock.EAST, ModBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
+                                put(VariantSettings.MODEL, fluidPipeSideExtract).
+                                put(VariantSettings.Y, VariantSettings.Rotation.R90)).
+                        with(When.create().set(FluidPipeBlock.WEST, ModBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
+                                put(VariantSettings.MODEL, fluidPipeSideConnected).
+                                put(VariantSettings.Y, VariantSettings.Rotation.R270)).
+                        with(When.create().set(FluidPipeBlock.WEST, ModBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
+                                put(VariantSettings.MODEL, fluidPipeSideExtract).
+                                put(VariantSettings.Y, VariantSettings.Rotation.R270))
+        );
+
+        generator.modelCollector.accept(ModelIds.getItemModelId(block.asItem()), new ItemWithDisplayModelSupplier(fluidPipeCore,
+                new Vector3f(.65f, .65f, .65f),
+                new Vector3f(1.f, 1.f, 1.f),
+                new Vec3i(30, 45, 0)
+        ));
+    }
+
+    private void fluidTankBlockWithItem(BlockStateModelGenerator generator, Block block) {
+        Identifier fluidTank = ModTexturedModel.FLUID_TANK.get(block).upload(block, generator.modelCollector);
+
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).
+                coordinate(BlockStateVariantMap.create(FluidTankBlock.FACING).
+                        register(Direction.NORTH, BlockStateVariant.create().
+                                put(VariantSettings.MODEL, fluidTank)).
+                        register(Direction.SOUTH, BlockStateVariant.create().
+                                put(VariantSettings.MODEL, fluidTank).
+                                put(VariantSettings.Y, VariantSettings.Rotation.R180)).
+                        register(Direction.EAST, BlockStateVariant.create().
+                                put(VariantSettings.MODEL, fluidTank).
+                                put(VariantSettings.Y, VariantSettings.Rotation.R90)).
+                        register(Direction.WEST, BlockStateVariant.create().
+                                put(VariantSettings.MODEL, fluidTank).
+                                put(VariantSettings.Y, VariantSettings.Rotation.R270))
+                ));
+
+        generator.registerParentedItemModel(block.asItem(), fluidTank);
     }
 
     private void cableBlockWithItem(BlockStateModelGenerator generator, Block block) {
