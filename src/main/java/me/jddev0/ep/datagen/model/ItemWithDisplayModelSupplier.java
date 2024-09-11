@@ -9,7 +9,7 @@ import org.joml.Vector3f;
 
 import java.util.function.Supplier;
 
-public record DisplayModelSupplier(
+public record ItemWithDisplayModelSupplier(
         Identifier parent,
         Vector3f scaleFirstPersonLeftHand,
         Vector3f scaleFirstPersonRightHand,
@@ -19,7 +19,7 @@ public record DisplayModelSupplier(
         Vector3f scaleGround,
         Vector3f scaleGui, Vec3i rotationGui
 ) implements Supplier<JsonElement> {
-    public DisplayModelSupplier(Identifier parent, Vector3f scaleWorld, Vector3f scaleGui, Vec3i rotationGui) {
+    public ItemWithDisplayModelSupplier(Identifier parent, Vector3f scaleWorld, Vector3f scaleGui, Vec3i rotationGui) {
         this(parent, scaleWorld, scaleWorld, scaleWorld, scaleWorld, scaleWorld, scaleWorld, scaleGui, rotationGui);
     }
 
