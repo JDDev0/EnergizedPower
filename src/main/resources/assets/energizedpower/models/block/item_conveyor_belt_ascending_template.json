@@ -1,0 +1,47 @@
+{
+  "ambientocclusion": false,
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "texture": "#belt",
+          "uv": [
+            16.0,
+            0.0,
+            0.0,
+            16.0
+          ]
+        },
+        "up": {
+          "texture": "#belt",
+          "uv": [
+            16.0,
+            16.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "from": [
+        0,
+        9,
+        0
+      ],
+      "rotation": {
+        "angle": -45.0,
+        "axis": "x",
+        "origin": [
+          8,
+          9,
+          8
+        ],
+        "rescale": true
+      },
+      "to": [
+        16,
+        9,
+        16
+      ]
+    }
+  ]
+}

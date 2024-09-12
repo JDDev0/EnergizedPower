@@ -10,6 +10,15 @@ import java.util.Optional;
 public final class ModModels {
     public static final Model ORIENTABLE_VERTICAL = block("orientable_vertical",
             TextureKey.PARTICLE, TextureKey.TOP, TextureKey.BOTTOM, TextureKey.FRONT, TextureKey.SIDE);
+    public static final Model ORIENTABLE_VERTICAL_WITH_BACK = block("orientable_vertical_with_back",
+            TextureKey.PARTICLE, TextureKey.TOP, TextureKey.BOTTOM, TextureKey.FRONT, TextureKey.BACK, TextureKey.SIDE);
+
+    public static final Model ITEM_CONVEYOR_BELT_FLAT_TEMPLATE = block("item_conveyor_belt_flat_template",
+            TextureKey.PARTICLE, ModTextureKey.BELT);
+    public static final Model ITEM_CONVEYOR_BELT_ASCENDING_TEMPLATE = block("item_conveyor_belt_ascending_template",
+            TextureKey.PARTICLE, ModTextureKey.BELT);
+    public static final Model ITEM_CONVEYOR_BELT_DESCENDING_TEMPLATE = block("item_conveyor_belt_descending_template",
+            TextureKey.PARTICLE, ModTextureKey.BELT);
 
     public static final Model FLUID_PIPE_CORE_TEMPLATE = block("fluid_pipe_core_template",
             TextureKey.PARTICLE, ModTextureKey.FLUID_PIPE_CORE);
