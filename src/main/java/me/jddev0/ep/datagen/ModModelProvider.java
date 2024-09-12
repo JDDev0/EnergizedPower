@@ -4,6 +4,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.*;
 import me.jddev0.ep.datagen.model.ItemWithDisplayModelSupplier;
 import me.jddev0.ep.datagen.model.ItemWithOverridesModelSupplier;
+import me.jddev0.ep.datagen.model.ModModels;
 import me.jddev0.ep.datagen.model.ModTexturedModel;
 import me.jddev0.ep.fluid.ModFluids;
 import me.jddev0.ep.item.ModItems;
@@ -12,12 +13,14 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.data.client.*;
 import net.minecraft.item.Item;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
 import org.joml.Vector3f;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ModModelProvider extends FabricModelProvider {
     public ModModelProvider(FabricDataOutput output) {
@@ -30,13 +33,6 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
     private void registerBlocks(BlockStateModelGenerator generator) {
-        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_1);
-        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_2);
-        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_3);
-        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_4);
-        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_5);
-        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_6);
-
         cubeAllBlockWithItem(generator, ModBlocks.SILICON_BLOCK);
 
         cubeAllBlockWithItem(generator, ModBlocks.TIN_BLOCK);
@@ -62,19 +58,168 @@ public class ModModelProvider extends FabricModelProvider {
         cableBlockWithItem(generator, ModBlocks.ENERGIZED_COPPER_CABLE);
         cableBlockWithItem(generator, ModBlocks.ENERGIZED_GOLD_CABLE);
         cableBlockWithItem(generator, ModBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE);
+
+        transformerBlockWithItem(generator, ModBlocks.LV_TRANSFORMER_1_TO_N);
+        transformerBlockWithItem(generator, ModBlocks.LV_TRANSFORMER_3_TO_3);
+        transformerBlockWithItem(generator, ModBlocks.LV_TRANSFORMER_N_TO_1);
+        transformerBlockWithItem(generator, ModBlocks.MV_TRANSFORMER_1_TO_N);
+        transformerBlockWithItem(generator, ModBlocks.MV_TRANSFORMER_3_TO_3);
+        transformerBlockWithItem(generator, ModBlocks.MV_TRANSFORMER_N_TO_1);
+        transformerBlockWithItem(generator, ModBlocks.HV_TRANSFORMER_1_TO_N);
+        transformerBlockWithItem(generator, ModBlocks.HV_TRANSFORMER_3_TO_3);
+        transformerBlockWithItem(generator, ModBlocks.HV_TRANSFORMER_N_TO_1);
+        transformerBlockWithItem(generator, ModBlocks.EHV_TRANSFORMER_1_TO_N);
+        transformerBlockWithItem(generator, ModBlocks.EHV_TRANSFORMER_3_TO_3);
+        transformerBlockWithItem(generator, ModBlocks.EHV_TRANSFORMER_N_TO_1);
+
+        horizontalBlockWithItem(generator, ModBlocks.BATTERY_BOX, true);
+        horizontalBlockWithItem(generator, ModBlocks.ADVANCED_BATTERY_BOX, true);
+        horizontalBlockWithItem(generator, ModBlocks.CREATIVE_BATTERY_BOX, true);
+
+        horizontalTwoSideBlockWithItem(generator, ModBlocks.PRESS_MOLD_MAKER, true);
+
+        horizontalTwoSideBlockWithItem(generator, ModBlocks.AUTO_CRAFTER, true);
+        horizontalTwoSideBlockWithItem(generator, ModBlocks.ADVANCED_AUTO_CRAFTER, true);
+
+        horizontalBlockWithItem(generator, ModBlocks.CRUSHER, true);
+        horizontalBlockWithItem(generator, ModBlocks.ADVANCED_CRUSHER, true);
+
+        horizontalBlockWithItem(generator, ModBlocks.PULVERIZER, true);
+        horizontalBlockWithItem(generator, ModBlocks.ADVANCED_PULVERIZER, true);
+
+        horizontalBlockWithItem(generator, ModBlocks.SAWMILL, true);
+
+        horizontalBlockWithItem(generator, ModBlocks.COMPRESSOR, true);
+
+        horizontalBlockWithItem(generator, ModBlocks.METAL_PRESS, false);
+
+        horizontalTwoSideBlockWithItem(generator, ModBlocks.AUTO_PRESS_MOLD_MAKER, true);
+
+        horizontalBlockWithItem(generator, ModBlocks.AUTO_STONECUTTER, false);
+
+        orientableSixDirsBlockWithItem(generator, ModBlocks.BLOCK_PLACER, true);
+
+        horizontalBlockWithItem(generator, ModBlocks.FLUID_FILLER, true);
+
+        horizontalTwoSideBlockWithItem(generator, ModBlocks.FILTRATION_PLANT, false);
+
+        horizontalBlockWithItem(generator, ModBlocks.FLUID_DRAINER, true);
+
+        horizontalBlockWithItem(generator, ModBlocks.FLUID_PUMP, false);
+
+        horizontalBlockWithItem(generator, ModBlocks.DRAIN, true);
+
+        horizontalBlockWithItem(generator, ModBlocks.CHARGER, true);
+        horizontalBlockWithItem(generator, ModBlocks.ADVANCED_CHARGER, true);
+
+        horizontalBlockWithItem(generator, ModBlocks.UNCHARGER, true);
+        horizontalBlockWithItem(generator, ModBlocks.ADVANCED_UNCHARGER, true);
+
+        orientableSixDirsBlockWithItem(generator, ModBlocks.MINECART_CHARGER, true);
+        orientableSixDirsBlockWithItem(generator, ModBlocks.ADVANCED_MINECART_CHARGER, true);
+
+        orientableSixDirsBlockWithItem(generator, ModBlocks.MINECART_UNCHARGER, true);
+        orientableSixDirsBlockWithItem(generator, ModBlocks.ADVANCED_MINECART_UNCHARGER, true);
+
+        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_1);
+        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_2);
+        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_3);
+        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_4);
+        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_5);
+        solarPanelBlockWithItem(generator, ModBlocks.SOLAR_PANEL_6);
+
+        poweredLampBlockWithItem(generator, ModBlocks.POWERED_LAMP);
+
+        horizontalBlockWithItem(generator, ModBlocks.HEAT_GENERATOR, false);
+
+        horizontalBlockWithItem(generator, ModBlocks.CRYSTAL_GROWTH_CHAMBER, false);
+
+        horizontalTwoSideBlockWithItem(generator, ModBlocks.WEATHER_CONTROLLER, false);
+
+        horizontalTwoSideBlockWithItem(generator, ModBlocks.TIME_CONTROLLER, false);
+
+        horizontalBlockWithItem(generator, ModBlocks.BASIC_MACHINE_FRAME, false);
+        horizontalBlockWithItem(generator, ModBlocks.HARDENED_MACHINE_FRAME, false);
+        horizontalBlockWithItem(generator, ModBlocks.ADVANCED_MACHINE_FRAME, false);
+        horizontalBlockWithItem(generator, ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME, false);
     }
 
     private void cubeAllBlockWithItem(BlockStateModelGenerator generator, Block block) {
         generator.registerSimpleCubeAll(block);
     }
 
-    private void solarPanelBlockWithItem(BlockStateModelGenerator generator, Block block) {
-        Identifier solarPanel = ModTexturedModel.SOLAR_PANEL.get(block).upload(block, generator.modelCollector);
+    private void horizontalBlockWithItem(BlockStateModelGenerator generator, Block block, boolean uniqueBottomTexture) {
+        Identifier model = TexturedModel.makeFactory(unused -> new TextureMap().
+                        put(TextureKey.UP, TextureMap.getSubId(block, "_top")).
+                        put(TextureKey.DOWN, TextureMap.getSubId(block, uniqueBottomTexture?"_bottom":"_top")).
+                        put(TextureKey.NORTH, TextureMap.getSubId(block, "_side")).
+                        put(TextureKey.SOUTH, TextureMap.getSubId(block, "_side")).
+                        put(TextureKey.EAST, TextureMap.getSubId(block, "_side")).
+                        put(TextureKey.WEST, TextureMap.getSubId(block, "_side")).
+                        copy(TextureKey.UP, TextureKey.PARTICLE),
+                Models.CUBE).get(block).upload(block, generator.modelCollector);
 
         generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block,
-                BlockStateVariant.create().put(VariantSettings.MODEL, solarPanel)));
+                BlockStateVariant.create().put(VariantSettings.MODEL, model)));
 
-        generator.registerParentedItemModel(block.asItem(), solarPanel);
+        generator.registerParentedItemModel(block.asItem(), model);
+    }
+
+    private void horizontalTwoSideBlockWithItem(BlockStateModelGenerator generator, Block block, boolean uniqueBottomTexture) {
+        Identifier model = TexturedModel.makeFactory(unused -> new TextureMap().
+                        put(TextureKey.UP, TextureMap.getSubId(block, "_top")).
+                        put(TextureKey.DOWN, TextureMap.getSubId(block, uniqueBottomTexture?"_bottom":"_top")).
+                        put(TextureKey.NORTH, TextureMap.getSubId(block, "_front")).
+                        put(TextureKey.SOUTH, TextureMap.getSubId(block, "_side")).
+                        put(TextureKey.EAST, TextureMap.getSubId(block, "_side")).
+                        put(TextureKey.WEST, TextureMap.getSubId(block, "_front")).
+                        copy(TextureKey.UP, TextureKey.PARTICLE),
+                Models.CUBE).get(block).upload(block, generator.modelCollector);
+
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block,
+                BlockStateVariant.create().put(VariantSettings.MODEL, model)));
+
+        generator.registerParentedItemModel(block.asItem(), model);
+    }
+
+    private void orientableSixDirsBlockWithItem(BlockStateModelGenerator generator, Block block, boolean uniqueBottomTexture) {
+        Identifier modelNormal = TexturedModel.makeFactory(unused -> new TextureMap().
+                        put(TextureKey.TOP, TextureMap.getSubId(block, "_top")).
+                        put(TextureKey.BOTTOM, TextureMap.getSubId(block, uniqueBottomTexture?"_bottom":"_top")).
+                        put(TextureKey.FRONT, TextureMap.getSubId(block, "_front")).
+                        put(TextureKey.SIDE, TextureMap.getSubId(block, "_side")).
+                        copy(TextureKey.UP, TextureKey.PARTICLE),
+                Models.ORIENTABLE_WITH_BOTTOM).get(block).upload(block, generator.modelCollector);
+
+        Identifier modelVertical = TexturedModel.makeFactory(unused -> new TextureMap().
+                        put(TextureKey.TOP, TextureMap.getSubId(block, "_top")).
+                        put(TextureKey.BOTTOM, TextureMap.getSubId(block, uniqueBottomTexture?"_bottom":"_top")).
+                        put(TextureKey.FRONT, TextureMap.getSubId(block, "_front")).
+                        put(TextureKey.SIDE, TextureMap.getSubId(block, "_side")).
+                        copy(TextureKey.FRONT, TextureKey.PARTICLE),
+                ModModels.ORIENTABLE_VERTICAL).get(block).upload(block, "_vertical", generator.modelCollector);
+
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).
+                coordinate(BlockStateVariantMap.create(Properties.FACING).
+                        register(Direction.UP, BlockStateVariant.create().
+                                put(VariantSettings.MODEL, modelVertical)).
+                        register(Direction.DOWN, BlockStateVariant.create().
+                                put(VariantSettings.MODEL, modelVertical).
+                                put(VariantSettings.X, VariantSettings.Rotation.R180)).
+                        register(Direction.NORTH, BlockStateVariant.create().
+                                put(VariantSettings.MODEL, modelNormal)).
+                        register(Direction.SOUTH, BlockStateVariant.create().
+                                put(VariantSettings.MODEL, modelNormal).
+                                put(VariantSettings.Y, VariantSettings.Rotation.R180)).
+                        register(Direction.EAST, BlockStateVariant.create().
+                                put(VariantSettings.MODEL, modelNormal).
+                                put(VariantSettings.Y, VariantSettings.Rotation.R90)).
+                        register(Direction.WEST, BlockStateVariant.create().
+                                put(VariantSettings.MODEL, modelNormal).
+                                put(VariantSettings.Y, VariantSettings.Rotation.R270))
+                ));
+
+        generator.registerParentedItemModel(block.asItem(), modelNormal);
     }
 
     private void fluidPipeBlockWithItem(BlockStateModelGenerator generator, Block block) {
@@ -185,6 +330,123 @@ public class ModModelProvider extends FabricModelProvider {
                 new Vector3f(1.5f, 1.5f, 1.5f),
                 new Vec3i(30, 45, 0)
         ));
+    }
+
+    private void transformerBlockWithItem(BlockStateModelGenerator generator, TransformerBlock block) {
+        String textureName = switch(block.getTier()) {
+            case TIER_LV -> "lv_transformer";
+            case TIER_MV -> "mv_transformer";
+            case TIER_HV -> "hv_transformer";
+            case TIER_EHV -> "ehv_transformer";
+        };
+
+        TransformerBlock.Type transformerType = block.getTransformerType();
+        switch(transformerType) {
+            case TYPE_1_TO_N, TYPE_N_TO_1 -> {
+                String singleSuffix = transformerType == TransformerBlock.Type.TYPE_1_TO_N?"_input":"_output";
+                String multipleSuffix = transformerType == TransformerBlock.Type.TYPE_1_TO_N?"_output":"_input";
+
+                Identifier transformer = TexturedModel.makeFactory(unused -> new TextureMap().
+                                put(TextureKey.TOP, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + multipleSuffix)).
+                                put(TextureKey.BOTTOM, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + multipleSuffix)).
+                                put(TextureKey.FRONT, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + singleSuffix)).
+                                put(TextureKey.SIDE, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + multipleSuffix)).
+                                copy(TextureKey.TOP, TextureKey.PARTICLE),
+                        Models.ORIENTABLE_WITH_BOTTOM).get(block).upload(block, generator.modelCollector);
+
+                generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).
+                        coordinate(BlockStateVariantMap.create(Properties.FACING).
+                                register(Direction.UP, BlockStateVariant.create().
+                                        put(VariantSettings.MODEL, transformer).
+                                        put(VariantSettings.X, VariantSettings.Rotation.R270)).
+                                register(Direction.DOWN, BlockStateVariant.create().
+                                        put(VariantSettings.MODEL, transformer).
+                                        put(VariantSettings.X, VariantSettings.Rotation.R90)).
+                                register(Direction.NORTH, BlockStateVariant.create().
+                                        put(VariantSettings.MODEL, transformer)).
+                                register(Direction.SOUTH, BlockStateVariant.create().
+                                        put(VariantSettings.MODEL, transformer).
+                                        put(VariantSettings.Y, VariantSettings.Rotation.R180)).
+                                register(Direction.EAST, BlockStateVariant.create().
+                                        put(VariantSettings.MODEL, transformer).
+                                        put(VariantSettings.Y, VariantSettings.Rotation.R90)).
+                                register(Direction.WEST, BlockStateVariant.create().
+                                        put(VariantSettings.MODEL, transformer).
+                                        put(VariantSettings.Y, VariantSettings.Rotation.R270))
+                        ));
+
+                generator.registerParentedItemModel(block.asItem(), transformer);
+            }
+            case TYPE_3_TO_3 -> {
+                Identifier transformer = TexturedModel.makeFactory(unused -> new TextureMap().
+                                put(TextureKey.UP, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + "_input")).
+                                put(TextureKey.DOWN, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + "_output")).
+                                put(TextureKey.NORTH, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + "_input")).
+                                put(TextureKey.SOUTH, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + "_output")).
+                                put(TextureKey.EAST, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + "_output")).
+                                put(TextureKey.WEST, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + "_input")).
+                                copy(TextureKey.UP, TextureKey.PARTICLE),
+                        Models.CUBE).get(block).upload(block, generator.modelCollector);
+
+                generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).
+                        coordinate(BlockStateVariantMap.create(Properties.FACING).
+                                register(Direction.UP, BlockStateVariant.create().
+                                        put(VariantSettings.MODEL, transformer).
+                                        put(VariantSettings.X, VariantSettings.Rotation.R270)).
+                                register(Direction.DOWN, BlockStateVariant.create().
+                                        put(VariantSettings.MODEL, transformer).
+                                        put(VariantSettings.X, VariantSettings.Rotation.R90).
+                                        put(VariantSettings.Y, VariantSettings.Rotation.R90)).
+                                register(Direction.NORTH, BlockStateVariant.create().
+                                        put(VariantSettings.MODEL, transformer)).
+                                register(Direction.SOUTH, BlockStateVariant.create().
+                                        put(VariantSettings.MODEL, transformer).
+                                        put(VariantSettings.X, VariantSettings.Rotation.R90).
+                                        put(VariantSettings.Y, VariantSettings.Rotation.R180)).
+                                register(Direction.EAST, BlockStateVariant.create().
+                                        put(VariantSettings.MODEL, transformer).
+                                        put(VariantSettings.Y, VariantSettings.Rotation.R90)).
+                                register(Direction.WEST, BlockStateVariant.create().
+                                        put(VariantSettings.MODEL, transformer).
+                                        put(VariantSettings.X, VariantSettings.Rotation.R90).
+                                        put(VariantSettings.Y, VariantSettings.Rotation.R270))
+                        ));
+
+                generator.registerParentedItemModel(block.asItem(), transformer);
+            }
+        }
+    }
+
+    private void solarPanelBlockWithItem(BlockStateModelGenerator generator, Block block) {
+        Identifier solarPanel = ModTexturedModel.SOLAR_PANEL.get(block).upload(block, generator.modelCollector);
+
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block,
+                BlockStateVariant.create().put(VariantSettings.MODEL, solarPanel)));
+
+        generator.registerParentedItemModel(block.asItem(), solarPanel);
+    }
+
+    private void poweredLampBlockWithItem(BlockStateModelGenerator generator, Block block) {
+        Identifier modelOff = TexturedModel.makeFactory(unused -> new TextureMap().
+                        put(TextureKey.ALL, TextureMap.getId(block)),
+                Models.CUBE_ALL).get(block).upload(block, generator.modelCollector);
+
+        Identifier modelOn = TexturedModel.makeFactory(unused -> new TextureMap().
+                        put(TextureKey.ALL, TextureMap.getSubId(block, "_on")),
+                Models.CUBE_ALL).get(block).upload(block, "_on", generator.modelCollector);
+
+        BlockStateVariantMap.SingleProperty<Integer> builder = BlockStateVariantMap.create(Properties.LEVEL_15).
+                register(0, BlockStateVariant.create().
+                        put(VariantSettings.MODEL, modelOff));
+
+        for(int i = 1;i < 16;i++)
+            builder.register(i, BlockStateVariant.create().
+                    put(VariantSettings.MODEL, modelOn));
+
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).
+                coordinate(builder));
+
+        generator.registerParentedItemModel(block.asItem(), modelOff);
     }
 
     @Override
@@ -336,6 +598,7 @@ public class ModModelProvider extends FabricModelProvider {
         basicItem(generator, ModItems.BATTERY_6);
         basicItem(generator, ModItems.BATTERY_7);
         basicItem(generator, ModItems.BATTERY_8);
+        basicItem(generator, ModItems.CREATIVE_BATTERY);
 
         basicItem(generator, ModItems.ENERGY_ANALYZER);
 

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "energizedpower:block/auto_stonecutter_top",
+    "east": "energizedpower:block/auto_stonecutter_side",
+    "north": "energizedpower:block/auto_stonecutter_side",
+    "particle": "energizedpower:block/auto_stonecutter_top",
+    "south": "energizedpower:block/auto_stonecutter_side",
+    "up": "energizedpower:block/auto_stonecutter_top",
+    "west": "energizedpower:block/auto_stonecutter_side"
+  }
+}
