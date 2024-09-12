@@ -26,6 +26,7 @@ import net.minecraft.world.World;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class AlloyFurnaceRecipe implements Recipe<RecipeInput> {
     private final ItemStack output;
@@ -174,14 +175,18 @@ public class AlloyFurnaceRecipe implements Recipe<RecipeInput> {
         private final MapCodec<AlloyFurnaceRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
-            }), OutputItemStackWithPercentages.CODEC.optionalFieldOf("secondaryOutput",
-                    new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0])).forGetter((recipe) -> {
-                return recipe.secondaryOutput;
+            }), OutputItemStackWithPercentages.CODEC.optionalFieldOf("secondaryOutput").forGetter((recipe) -> {
+                if(recipe.secondaryOutput.output.isEmpty() || recipe.secondaryOutput.percentages.length == 0)
+                    return Optional.empty();
+
+                return Optional.of(recipe.secondaryOutput);
             }), new ArrayCodec<>(IngredientWithCount.CODEC, IngredientWithCount[]::new).fieldOf("inputs").forGetter((recipe) -> {
                 return recipe.inputs;
             }), Codecs.POSITIVE_INT.fieldOf("ticks").forGetter((recipe) -> {
                 return recipe.ticks;
-            })).apply(instance, AlloyFurnaceRecipe::new);
+            })).apply(instance, (output, secondaryOutput, inputs, ticks) -> new AlloyFurnaceRecipe(output,
+                    secondaryOutput.orElse(new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0])), inputs,
+                    ticks));
         });
 
         private final PacketCodec<RegistryByteBuf, AlloyFurnaceRecipe> PACKET_CODEC = PacketCodec.ofStatic(
