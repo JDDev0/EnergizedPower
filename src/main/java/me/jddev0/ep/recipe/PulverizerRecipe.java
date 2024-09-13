@@ -140,12 +140,16 @@ public class PulverizerRecipe implements Recipe<RecipeInput> {
         private final MapCodec<PulverizerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(OutputItemStackWithPercentages.createCodec(true).fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
-            }), OutputItemStackWithPercentages.createCodec(false).optionalFieldOf("secondaryOutput",
-                    new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0], new double[0])).forGetter((recipe) -> {
-                return recipe.secondaryOutput;
+            }), OutputItemStackWithPercentages.createCodec(false).optionalFieldOf("secondaryOutput").forGetter((recipe) -> {
+                if(recipe.secondaryOutput.output.isEmpty() || recipe.secondaryOutput.percentages.length == 0)
+                    return Optional.empty();
+
+                return Optional.of(recipe.secondaryOutput);
             }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
-            })).apply(instance, PulverizerRecipe::new);
+            })).apply(instance, (output, secondaryOutput, input) -> new PulverizerRecipe(output,
+                    secondaryOutput.orElse(new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0], new double[0])),
+                    input));
         });
 
         private final PacketCodec<RegistryByteBuf, PulverizerRecipe> PACKET_CODEC = PacketCodec.ofStatic(

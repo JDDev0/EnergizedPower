@@ -114,9 +114,11 @@ public class SawmillRecipe implements Recipe<RecipeInput> {
             }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
             }), Codec.INT.optionalFieldOf("sawdustAmount").forGetter((recipe) -> {
-                return Optional.of(recipe.secondaryOutput.getCount());
+                return ItemStack.areItemsAndComponentsEqual(recipe.secondaryOutput, new ItemStack(ModItems.SAWDUST))?
+                        Optional.of(recipe.secondaryOutput.getCount()):Optional.empty();
             }), CodecFix.ITEM_STACK_CODEC.optionalFieldOf("secondaryOutput").forGetter((recipe) -> {
-                return Optional.of(recipe.secondaryOutput);
+                return ItemStack.areItemsAndComponentsEqual(recipe.secondaryOutput, new ItemStack(ModItems.SAWDUST))?
+                        Optional.empty():Optional.of(recipe.secondaryOutput);
             })).apply(instance, (output, ingredient, sawdustAmount, secondaryOutput) -> {
                 return secondaryOutput.map(o -> new SawmillRecipe(output, o, ingredient)).
                         orElseGet(() -> sawdustAmount.map(a -> new SawmillRecipe(output, ingredient, a)).

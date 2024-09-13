@@ -1,4 +1,4 @@
-package me.jddev0.ep.datagen;
+package me.jddev0.ep.datagen.loot;
 
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.ModItems;
@@ -16,8 +16,8 @@ import net.minecraft.registry.RegistryWrapper;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-public class ModLootTableProvider extends FabricBlockLootTableProvider {
-    protected ModLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> lookupProvider) {
+public class ModBlockLootTables extends FabricBlockLootTableProvider {
+    public ModBlockLootTables(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> lookupProvider) {
         super(dataOutput, lookupProvider);
     }
 

@@ -7,6 +7,7 @@ import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
+import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.AssemblingMachineMenu;
 import me.jddev0.ep.util.InventoryUtils;
@@ -56,7 +57,7 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
                     case 0, 1, 2, 3 -> world == null || world.getRecipeManager().
                             listAllOfType(AssemblingMachineRecipe.Type.INSTANCE).stream().
                             map(RecipeEntry::value).map(AssemblingMachineRecipe::getInputs).anyMatch(inputs ->
-                                    Arrays.stream(inputs).map(AssemblingMachineRecipe.IngredientWithCount::input).
+                                    Arrays.stream(inputs).map(IngredientWithCount::input).
                                             anyMatch(ingredient -> ingredient.test(stack)));
                     case 4 -> false;
                     default -> super.isValid(slot, stack);
@@ -115,7 +116,7 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
         if(world == null || !hasRecipe())
             return;
 
-        AssemblingMachineRecipe.IngredientWithCount[] inputs = recipe.value().getInputs();
+        IngredientWithCount[] inputs = recipe.value().getInputs();
 
         boolean[] usedIndices = new boolean[4];
         for(int i = 0;i < 4;i++)
@@ -123,7 +124,7 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
 
         int len = Math.min(inputs.length, 4);
         for(int i = 0;i < len;i++) {
-            AssemblingMachineRecipe.IngredientWithCount input = inputs[i];
+            IngredientWithCount input = inputs[i];
 
             int indexMinCount = -1;
             int minCount = Integer.MAX_VALUE;

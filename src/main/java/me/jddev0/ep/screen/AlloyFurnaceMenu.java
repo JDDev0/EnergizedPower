@@ -4,6 +4,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
+import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.entity.BlockEntity;
@@ -36,7 +37,7 @@ public class AlloyFurnaceMenu extends ScreenHandler {
                     case 0, 1, 2 -> inv.player.getWorld().getRecipeManager().
                             listAllOfType(AlloyFurnaceRecipe.Type.INSTANCE).stream().
                             map(RecipeEntry::value).map(AlloyFurnaceRecipe::getInputs).anyMatch(inputs ->
-                                    Arrays.stream(inputs).map(AlloyFurnaceRecipe.IngredientWithCount::input).
+                                    Arrays.stream(inputs).map(IngredientWithCount::input).
                                             anyMatch(ingredient -> ingredient.test(stack)));
                     case 3 -> {
                         Integer burnTime = FuelRegistry.INSTANCE.get(stack.getItem());

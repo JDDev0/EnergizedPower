@@ -6,6 +6,7 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
+import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.AlloyFurnaceMenu;
 import me.jddev0.ep.util.ByteUtils;
@@ -82,7 +83,7 @@ public class AlloyFurnaceBlockEntity
                     case 0, 1, 2 -> world == null || world.getRecipeManager().
                             listAllOfType(AlloyFurnaceRecipe.Type.INSTANCE).stream().
                             map(RecipeEntry::value).map(AlloyFurnaceRecipe::getInputs).anyMatch(inputs ->
-                                    Arrays.stream(inputs).map(AlloyFurnaceRecipe.IngredientWithCount::input).
+                                    Arrays.stream(inputs).map(IngredientWithCount::input).
                                             anyMatch(ingredient -> ingredient.test(stack)));
                     case 3 -> {
                         Integer burnTime = FuelRegistry.INSTANCE.get(stack.getItem());
@@ -318,7 +319,7 @@ public class AlloyFurnaceBlockEntity
         if(world == null || !hasRecipe())
             return;
 
-        AlloyFurnaceRecipe.IngredientWithCount[] inputs = recipe.value().getInputs();
+        IngredientWithCount[] inputs = recipe.value().getInputs();
 
         boolean[] usedIndices = new boolean[3];
         for(int i = 0;i < 3;i++)
@@ -326,7 +327,7 @@ public class AlloyFurnaceBlockEntity
 
         int len = Math.min(inputs.length, 3);
         for(int i = 0;i < len;i++) {
-            AlloyFurnaceRecipe.IngredientWithCount input = inputs[i];
+            IngredientWithCount input = inputs[i];
 
             int indexMinCount = -1;
             int minCount = Integer.MAX_VALUE;
