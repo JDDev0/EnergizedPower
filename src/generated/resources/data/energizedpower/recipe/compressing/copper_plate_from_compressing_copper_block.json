@@ -4,7 +4,7 @@
     "tag": "c:storage_blocks/copper"
   },
   "output": {
-    "item": "energizedpower:copper_plate",
-    "count": 9
+    "count": 9,
+    "item": "energizedpower:copper_plate"
   }
 }

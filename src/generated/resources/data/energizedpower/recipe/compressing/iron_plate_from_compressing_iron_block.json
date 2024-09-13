@@ -4,7 +4,7 @@
     "tag": "c:storage_blocks/iron"
   },
   "output": {
-    "item": "energizedpower:iron_plate",
-    "count": 9
+    "count": 9,
+    "item": "energizedpower:iron_plate"
   }
 }
