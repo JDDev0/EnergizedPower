@@ -1,0 +1,13 @@
+{
+  "type": "energizedpower:metal_press",
+  "ingredient": {
+    "tag": "c:plates/gold"
+  },
+  "output": {
+    "count": 3,
+    "item": "energizedpower:gold_wire"
+  },
+  "pressMold": {
+    "item": "energizedpower:wire_press_mold"
+  }
+}

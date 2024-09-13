@@ -1,0 +1,14 @@
+{
+  "type": "energizedpower:fluid_transposer",
+  "fluid": {
+    "amount": 1000,
+    "id": "minecraft:water"
+  },
+  "ingredient": {
+    "item": "minecraft:wet_sponge"
+  },
+  "mode": "EMPTYING",
+  "output": {
+    "item": "minecraft:sponge"
+  }
+}

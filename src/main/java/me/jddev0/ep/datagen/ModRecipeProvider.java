@@ -2,9 +2,12 @@ package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
+import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.registry.tags.CommonItemTags;
+import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
@@ -13,15 +16,15 @@ import net.minecraft.advancement.AdvancementRequirements;
 import net.minecraft.advancement.AdvancementRewards;
 import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
 import net.minecraft.data.server.recipe.RecipeExporter;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.AbstractCookingRecipe;
-import net.minecraft.recipe.BlastingRecipe;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.SmeltingRecipe;
+import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.CookingRecipeCategory;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
@@ -38,10 +41,19 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     @Override
     public void generate(RecipeExporter output) {
         buildCookingRecipes(output);
-        buildCompressorRecipes(output);
-        buildChargerRecipes(output);
+        buildSmithingRecipes(output);
+        buildPressMoldMakerRecipes(output);
         buildAlloyFurnaceRecipes(output);
+        buildCompressorRecipes(output);
+        buildMetalPressRecipes(output);
+        buildHeatGeneratorRecipes(output);
+        buildThermalGeneratorRecipes(output);
         buildAssemblingMachineRecipes(output);
+        buildFiltrationPlantRecipes(output);
+        buildFluidTransposerRecipes(output);
+        buildChargerRecipes(output);
+        buildEnergizerRecipes(output);
+        buildCrystalGrowthChamberRecipes(output);
     }
 
     private void buildCookingRecipes(RecipeExporter output) {
@@ -78,15 +90,26 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 200, .3f, null);
     }
 
+    private void buildSmithingRecipes(RecipeExporter output) {
+        addNetheriteSmithingUpgradeRecipe(output, Ingredient.ofItems(ModItems.DIAMOND_HAMMER),
+                new ItemStack(ModItems.NETHERITE_HAMMER));
+    }
+
+    private void buildPressMoldMakerRecipes(RecipeExporter output) {
+        addPressMoldMakerRecipe(output, 4, new ItemStack(ModItems.RAW_GEAR_PRESS_MOLD));
+        addPressMoldMakerRecipe(output, 9, new ItemStack(ModItems.RAW_ROD_PRESS_MOLD));
+        addPressMoldMakerRecipe(output, 6, new ItemStack(ModItems.RAW_WIRE_PRESS_MOLD));
+    }
+
     private void buildAlloyFurnaceRecipes(RecipeExporter output) {
         addAlloyFurnaceRecipe(output, new IngredientWithCount[] {
-                new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.IRON_INGOTS), 1),
+                new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.IRON_INGOTS)),
                 new IngredientWithCount(Ingredient.fromTag(ItemTags.COALS), 3)
         }, new ItemStack(ModItems.STEEL_INGOT), 500);
 
         addAlloyFurnaceRecipe(output, new IngredientWithCount[] {
-                new IngredientWithCount(Ingredient.fromTag(CommonItemTags.INGOTS_TIN), 1),
-                new IngredientWithCount(Ingredient.fromTag(CommonItemTags.SILICON),1),
+                new IngredientWithCount(Ingredient.fromTag(CommonItemTags.INGOTS_TIN)),
+                new IngredientWithCount(Ingredient.fromTag(CommonItemTags.SILICON)),
                 new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS), 2)
         }, new ItemStack(ModItems.REDSTONE_ALLOY_INGOT), 2500);
 
@@ -122,9 +145,26 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 new ItemStack(ModItems.ENERGIZED_GOLD_PLATE), "energized_gold");
     }
 
-    private void buildChargerRecipes(RecipeExporter output) {
-        addChargerRecipe(output, Ingredient.fromTag(ConventionalItemTags.COPPER_INGOTS),
-                new ItemStack(ModItems.ENERGIZED_COPPER_INGOT), 4194304);
+    private void buildMetalPressRecipes(RecipeExporter output) {
+        addGearMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.PLATES_IRON), new ItemStack(ModItems.IRON_GEAR));
+
+        addRodMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.PLATES_IRON), new ItemStack(ModItems.IRON_ROD));
+
+        addWireMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.PLATES_TIN), new ItemStack(ModItems.TIN_WIRE));
+        addWireMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.PLATES_COPPER), new ItemStack(ModItems.COPPER_WIRE));
+        addWireMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.PLATES_GOLD), new ItemStack(ModItems.GOLD_WIRE));
+
+        addWireMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.PLATES_ENERGIZED_COPPER), new ItemStack(ModItems.ENERGIZED_COPPER_WIRE));
+        addWireMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.PLATES_ENERGIZED_GOLD), new ItemStack(ModItems.ENERGIZED_GOLD_WIRE));
+    }
+
+    private void buildHeatGeneratorRecipes(RecipeExporter output) {
+        addHeatGeneratorRecipe(output, Fluids.FLOWING_LAVA, 15, "flowing_lava");
+        addHeatGeneratorRecipe(output, Fluids.LAVA, 25, "still_lava");
+    }
+
+    private void buildThermalGeneratorRecipes(RecipeExporter output) {
+        addThermalGeneratorRecipe(output, Fluids.LAVA, 20000, "lava");
     }
 
     private void buildAssemblingMachineRecipes(RecipeExporter output) {
@@ -170,13 +210,70 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         }, new ItemStack(ModItems.CRYSTAL_MATRIX));
     }
 
+    private void buildFiltrationPlantRecipes(RecipeExporter output) {
+        addOreFiltrationRecipe(output, new ItemStack(ModItems.RAW_TIN), 0.05, "tin");
+        addOreFiltrationRecipe(output, new ItemStack(Items.RAW_COPPER), 0.05, "copper");
+        addOreFiltrationRecipe(output, new ItemStack(Items.RAW_IRON), 0.05, "iron");
+        addOreFiltrationRecipe(output, new ItemStack(Items.RAW_GOLD), 0.005, "gold");
+    }
+
+    private void buildFluidTransposerRecipes(RecipeExporter output) {
+        addConcreteFluidTransposerRecipe(output, Ingredient.ofItems(Items.WHITE_CONCRETE_POWDER), new ItemStack(Items.WHITE_CONCRETE));
+        addConcreteFluidTransposerRecipe(output, Ingredient.ofItems(Items.ORANGE_CONCRETE_POWDER), new ItemStack(Items.ORANGE_CONCRETE));
+        addConcreteFluidTransposerRecipe(output, Ingredient.ofItems(Items.MAGENTA_CONCRETE_POWDER), new ItemStack(Items.MAGENTA_CONCRETE));
+        addConcreteFluidTransposerRecipe(output, Ingredient.ofItems(Items.LIGHT_BLUE_CONCRETE_POWDER), new ItemStack(Items.LIGHT_BLUE_CONCRETE));
+        addConcreteFluidTransposerRecipe(output, Ingredient.ofItems(Items.YELLOW_CONCRETE_POWDER), new ItemStack(Items.YELLOW_CONCRETE));
+        addConcreteFluidTransposerRecipe(output, Ingredient.ofItems(Items.LIME_CONCRETE_POWDER), new ItemStack(Items.LIME_CONCRETE));
+        addConcreteFluidTransposerRecipe(output, Ingredient.ofItems(Items.PINK_CONCRETE_POWDER), new ItemStack(Items.PINK_CONCRETE));
+        addConcreteFluidTransposerRecipe(output, Ingredient.ofItems(Items.GRAY_CONCRETE_POWDER), new ItemStack(Items.GRAY_CONCRETE));
+        addConcreteFluidTransposerRecipe(output, Ingredient.ofItems(Items.LIGHT_GRAY_CONCRETE_POWDER), new ItemStack(Items.LIGHT_GRAY_CONCRETE));
+        addConcreteFluidTransposerRecipe(output, Ingredient.ofItems(Items.CYAN_CONCRETE_POWDER), new ItemStack(Items.CYAN_CONCRETE));
+        addConcreteFluidTransposerRecipe(output, Ingredient.ofItems(Items.PURPLE_CONCRETE_POWDER), new ItemStack(Items.PURPLE_CONCRETE));
+        addConcreteFluidTransposerRecipe(output, Ingredient.ofItems(Items.BLUE_CONCRETE_POWDER), new ItemStack(Items.BLUE_CONCRETE));
+        addConcreteFluidTransposerRecipe(output, Ingredient.ofItems(Items.BROWN_CONCRETE_POWDER), new ItemStack(Items.BROWN_CONCRETE));
+        addConcreteFluidTransposerRecipe(output, Ingredient.ofItems(Items.GREEN_CONCRETE_POWDER), new ItemStack(Items.GREEN_CONCRETE));
+        addConcreteFluidTransposerRecipe(output, Ingredient.ofItems(Items.RED_CONCRETE_POWDER), new ItemStack(Items.RED_CONCRETE));
+        addConcreteFluidTransposerRecipe(output, Ingredient.ofItems(Items.BLACK_CONCRETE_POWDER), new ItemStack(Items.BLACK_CONCRETE));
+
+        addFluidTransposerRecipe(output, Ingredient.ofItems(Items.SPONGE), new ItemStack(Items.WET_SPONGE), FluidTransposerBlockEntity.Mode.FILLING,
+                new FluidStack(Fluids.WATER, FluidUtils.convertMilliBucketsToDroplets(1000)));
+        addFluidTransposerRecipe(output, Ingredient.ofItems(Items.WET_SPONGE), new ItemStack(Items.SPONGE), FluidTransposerBlockEntity.Mode.EMPTYING,
+                new FluidStack(Fluids.WATER, FluidUtils.convertMilliBucketsToDroplets(1000)));
+
+        addFluidTransposerRecipe(output, Ingredient.ofItems(Items.DIRT), new ItemStack(Items.MUD), FluidTransposerBlockEntity.Mode.FILLING,
+                new FluidStack(Fluids.WATER, FluidUtils.convertMilliBucketsToDroplets(250)));
+    }
+
+    private void buildChargerRecipes(RecipeExporter output) {
+        addChargerRecipe(output, Ingredient.fromTag(ConventionalItemTags.COPPER_INGOTS),
+                new ItemStack(ModItems.ENERGIZED_COPPER_INGOT), 4194304);
+    }
+
+    private void buildEnergizerRecipes(RecipeExporter output) {
+        addEnergizerRecipe(output, Ingredient.fromTag(ConventionalItemTags.COPPER_INGOTS),
+                new ItemStack(ModItems.ENERGIZED_COPPER_INGOT), 32768);
+        addEnergizerRecipe(output, Ingredient.fromTag(ConventionalItemTags.GOLD_INGOTS),
+                new ItemStack(ModItems.ENERGIZED_GOLD_INGOT), 131072);
+        addEnergizerRecipe(output, Ingredient.ofItems(ModItems.CRYSTAL_MATRIX),
+                new ItemStack(ModItems.ENERGIZED_CRYSTAL_MATRIX), 524288);
+    }
+
+    private void buildCrystalGrowthChamberRecipes(RecipeExporter output) {
+        addCrystalGrowthChamberRecipe(output, Ingredient.fromTag(ConventionalItemTags.AMETHYST_GEMS),
+                new OutputItemStackWithPercentages(new ItemStack(Items.AMETHYST_SHARD), new double[] {
+                        1., 1., .67, .5, .25, .125
+                }), 16000);
+        addCrystalGrowthChamberRecipe(output, Ingredient.ofItems(Items.AMETHYST_BLOCK),
+                new OutputItemStackWithPercentages(new ItemStack(Items.BUDDING_AMETHYST), .25), 4,
+                32000);
+    }
+
     private static void addBlastingAndSmeltingRecipes(RecipeExporter output, ItemConvertible ingredient, ItemStack result,
                                                       CookingRecipeCategory category, int time, float xp, String group,
                                                       String recipeIngredientName) {
         addBlastingRecipe(output, ingredient, result, category, time, xp, group, recipeIngredientName);
         addSmeltingRecipe(output, ingredient, result, category, 2 * time, xp, group, recipeIngredientName);
     }
-
     private static void addBlastingAndSmeltingRecipes(RecipeExporter output, TagKey<Item> ingredient, ItemStack result,
                                                       CookingRecipeCategory category, int time, float xp, String group,
                                                       String recipeIngredientName) {
@@ -191,7 +288,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
         addSmeltingRecipe(output, ingredient, result, category, time, xp, group, recipeId);
     }
-
     private static void addSmeltingRecipe(RecipeExporter output, ItemConvertible ingredient, ItemStack result, CookingRecipeCategory category,
                                           int time, float xp, String group, String recipeIngredientName) {
         Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "smelting/" +
@@ -199,7 +295,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
         addSmeltingRecipe(output, ingredient, result, category, time, xp, group, recipeId);
     }
-
     private static void addSmeltingRecipe(RecipeExporter output, ItemConvertible ingredient, ItemStack result, CookingRecipeCategory category,
                                           int time, float xp, String group, Identifier recipeId) {
         Advancement.Builder advancementBuilder = output.getAdvancementBuilder()
@@ -211,7 +306,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 category, Ingredient.ofItems(ingredient), result, xp, time);
         output.accept(recipeId, recipe, advancementBuilder.build(recipeId.withPrefixedPath("recipes/")));
     }
-
     private static void addSmeltingRecipe(RecipeExporter output, TagKey<Item> ingredient, ItemStack result, CookingRecipeCategory category,
                                           int time, float xp, String group, String recipeIngredientName) {
         Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "smelting/" +
@@ -241,7 +335,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 category, Ingredient.ofItems(ingredient), result, xp, time);
         output.accept(recipeId, recipe, advancementBuilder.build(recipeId.withPrefixedPath("recipes/")));
     }
-
     private static void addBlastingRecipe(RecipeExporter output, TagKey<Item> ingredient, ItemStack result, CookingRecipeCategory category,
                                           int time, float xp, String group, String recipeIngredientName) {
         Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "blasting/" +
@@ -257,17 +350,111 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         output.accept(recipeId, recipe, advancementBuilder.build(recipeId.withPrefixedPath("recipes/")));
     }
 
+    private static void addNetheriteSmithingUpgradeRecipe(RecipeExporter RecipeExporter, Ingredient base, ItemStack output) {
+        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "smithing/" +
+                getItemPath(output.getItem()));
+
+        Advancement.Builder advancementBuilder = RecipeExporter.getAdvancementBuilder()
+                .criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeId))
+                .criterion("has_the_ingredient", conditionsFromTag(ConventionalItemTags.NETHERITE_INGOTS))
+                .rewards(AdvancementRewards.Builder.recipe(recipeId))
+                .criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
+        SmithingTransformRecipe recipe = new SmithingTransformRecipe(Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+                base, Ingredient.fromTag(ConventionalItemTags.NETHERITE_INGOTS), output);
+        RecipeExporter.accept(recipeId, recipe, advancementBuilder.build(recipeId.withPrefixedPath("recipes/")));
+    }
+
     private static void addAlloyFurnaceRecipe(RecipeExporter RecipeExporter, IngredientWithCount[] inputs, ItemStack output,
                                               int ticks) {
         addAlloyFurnaceRecipe(RecipeExporter, inputs, output, OutputItemStackWithPercentages.EMPTY, ticks);
     }
-
     private static void addAlloyFurnaceRecipe(RecipeExporter RecipeExporter, IngredientWithCount[] inputs, ItemStack output,
                                               OutputItemStackWithPercentages secondaryOutput, int ticks) {
         Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "alloy_furnace/" +
                 getItemPath(output.getItem()));
 
         AlloyFurnaceRecipe recipe = new AlloyFurnaceRecipe(output, secondaryOutput, inputs, ticks);
+        RecipeExporter.accept(recipeId, recipe, null);
+    }
+
+    private static void addPressMoldMakerRecipe(RecipeExporter RecipeExporter, int clayCount, ItemStack output) {
+        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "press_mold_maker/" +
+                getItemPath(output.getItem()));
+
+        PressMoldMakerRecipe recipe = new PressMoldMakerRecipe(output, clayCount);
+        RecipeExporter.accept(recipeId, recipe, null);
+    }
+
+    private static void addPlateCompressorRecipes(RecipeExporter RecipeExporter, Ingredient ingotInput,
+                                                  Ingredient blockInput, ItemStack output, String metalName) {
+        addPlateCompressorIngotRecipe(RecipeExporter, ingotInput, output, metalName);
+        addCompressorRecipe(RecipeExporter, blockInput, output.copyWithCount(9), metalName + "_block");
+    }
+    private static void addPlateCompressorIngotRecipe(RecipeExporter RecipeExporter, Ingredient ingotInput,
+                                                      ItemStack output, String metalName) {
+        addCompressorRecipe(RecipeExporter, ingotInput, output, metalName + "_ingot");
+    }
+    private static void addCompressorRecipe(RecipeExporter RecipeExporter, Ingredient input, ItemStack output, String recipeIngredientName) {
+        addCompressorRecipe(RecipeExporter, input, output, 1, recipeIngredientName);
+    }
+    private static void addCompressorRecipe(RecipeExporter RecipeExporter, Ingredient input, ItemStack output, int inputCount,
+                                            String recipeIngredientName) {
+        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "compressing/" +
+                getItemPath(output.getItem()) + "_from_compressing_" + recipeIngredientName);
+
+        CompressorRecipe recipe = new CompressorRecipe(output, input, inputCount);
+        RecipeExporter.accept(recipeId, recipe, null);
+    }
+
+    private static void addGearMetalPressRecipe(RecipeExporter RecipeExporter, Ingredient input, ItemStack output) {
+        addMetalPressRecipe(RecipeExporter, input, output, new ItemStack(ModItems.GEAR_PRESS_MOLD), 2);
+    }
+    private static void addRodMetalPressRecipe(RecipeExporter RecipeExporter, Ingredient input, ItemStack output) {
+        addMetalPressRecipe(RecipeExporter, input, output.copyWithCount(2), new ItemStack(ModItems.ROD_PRESS_MOLD));
+    }
+    private static void addWireMetalPressRecipe(RecipeExporter RecipeExporter, Ingredient input, ItemStack output) {
+        addMetalPressRecipe(RecipeExporter, input, output.copyWithCount(3), new ItemStack(ModItems.WIRE_PRESS_MOLD));
+    }
+    private static void addMetalPressRecipe(RecipeExporter RecipeExporter, Ingredient input, ItemStack output,
+                                            ItemStack pressMold) {
+        addMetalPressRecipe(RecipeExporter, input, output, pressMold, 1);
+    }
+    private static void addMetalPressRecipe(RecipeExporter RecipeExporter, Ingredient input, ItemStack output,
+                                            ItemStack pressMold, int inputCount) {
+        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "metal_press/" +
+                getItemPath(output.getItem()));
+
+        MetalPressRecipe recipe = new MetalPressRecipe(output, pressMold, input, inputCount);
+        RecipeExporter.accept(recipeId, recipe, null);
+    }
+
+    private static void addHeatGeneratorRecipe(RecipeExporter RecipeExporter, Fluid input, int energyProduction,
+                                               String recipeIngredientName) {
+        addHeatGeneratorRecipe(RecipeExporter, new Fluid[] {
+                input
+        }, energyProduction, recipeIngredientName);
+    }
+    private static void addHeatGeneratorRecipe(RecipeExporter RecipeExporter, Fluid[] input, int energyProduction,
+                                               String recipeIngredientName) {
+        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "heat_generator/" +
+                "energy_production_from_" + recipeIngredientName);
+
+        HeatGeneratorRecipe recipe = new HeatGeneratorRecipe(input, energyProduction);
+        RecipeExporter.accept(recipeId, recipe, null);
+    }
+
+    private static void addThermalGeneratorRecipe(RecipeExporter RecipeExporter, Fluid input, int energyProduction,
+                                                  String recipeIngredientName) {
+        addThermalGeneratorRecipe(RecipeExporter, new Fluid[] {
+                input
+        }, energyProduction, recipeIngredientName);
+    }
+    private static void addThermalGeneratorRecipe(RecipeExporter RecipeExporter, Fluid[] input, int energyProduction,
+                                                  String recipeIngredientName) {
+        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "thermal_generator/" +
+                "energy_production_from_" + recipeIngredientName);
+
+        ThermalGeneratorRecipe recipe = new ThermalGeneratorRecipe(input, energyProduction);
         RecipeExporter.accept(recipeId, recipe, null);
     }
 
@@ -279,27 +466,36 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         RecipeExporter.accept(recipeId, recipe, null);
     }
 
-    private static void addPlateCompressorRecipes(RecipeExporter RecipeExporter, Ingredient ingotInput,
-                                                  Ingredient blockInput, ItemStack output, String metalName) {
-        addPlateCompressorIngotRecipe(RecipeExporter, ingotInput, output, metalName);
-        addCompressorRecipe(RecipeExporter, blockInput, output.copyWithCount(9), metalName + "_block");
+    private static void addOreFiltrationRecipe(RecipeExporter RecipeExporter, ItemStack oreOutput, double oreOutputPercentage,
+                                               String oreName) {
+        addFiltrationPlantRecipe(RecipeExporter, new OutputItemStackWithPercentages(new ItemStack(ModItems.STONE_PEBBLE), .33),
+                new OutputItemStackWithPercentages(oreOutput, oreOutputPercentage), Registries.ITEM.getId(oreOutput.getItem()),
+                oreName + "_ore_filtration");
+    }
+    private static void addFiltrationPlantRecipe(RecipeExporter RecipeExporter, OutputItemStackWithPercentages output,
+                                                 Identifier icon, String recipeName) {
+        addFiltrationPlantRecipe(RecipeExporter, output, OutputItemStackWithPercentages.EMPTY, icon, recipeName);
+    }
+    private static void addFiltrationPlantRecipe(RecipeExporter RecipeExporter, OutputItemStackWithPercentages output,
+                                                 OutputItemStackWithPercentages secondaryOutput, Identifier icon,
+                                                 String recipeName) {
+        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "filtration_plant/" +
+                recipeName);
+
+        FiltrationPlantRecipe recipe = new FiltrationPlantRecipe(output, secondaryOutput, icon);
+        RecipeExporter.accept(recipeId, recipe, null);
     }
 
-    private static void addPlateCompressorIngotRecipe(RecipeExporter RecipeExporter, Ingredient ingotInput,
-                                                      ItemStack output, String metalName) {
-        addCompressorRecipe(RecipeExporter, ingotInput, output, metalName + "_ingot");
+    private static void addConcreteFluidTransposerRecipe(RecipeExporter RecipeExporter, Ingredient input, ItemStack output) {
+        addFluidTransposerRecipe(RecipeExporter, input, output, FluidTransposerBlockEntity.Mode.FILLING,
+                new FluidStack(Fluids.WATER, FluidUtils.convertMilliBucketsToDroplets(1000)));
     }
+    private static void addFluidTransposerRecipe(RecipeExporter RecipeExporter, Ingredient input, ItemStack output,
+                                                 FluidTransposerBlockEntity.Mode mode, FluidStack fluid) {
+        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "fluid_transposer/" +
+                getItemPath(output.getItem()));
 
-    private static void addCompressorRecipe(RecipeExporter RecipeExporter, Ingredient input, ItemStack output, String recipeIngredientName) {
-        addCompressorRecipe(RecipeExporter, input, output, 1, recipeIngredientName);
-    }
-
-    private static void addCompressorRecipe(RecipeExporter RecipeExporter, Ingredient input, ItemStack output, int inputCount,
-                                            String recipeIngredientName) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "compressing/" +
-                getItemPath(output.getItem()) + "_from_compressing_" + recipeIngredientName);
-
-        CompressorRecipe recipe = new CompressorRecipe(output, input, inputCount);
+        FluidTransposerRecipe recipe = new FluidTransposerRecipe(mode, output, input, fluid);
         RecipeExporter.accept(recipeId, recipe, null);
     }
 
@@ -308,6 +504,27 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 getItemPath(output.getItem()));
 
         ChargerRecipe recipe = new ChargerRecipe(output, input, energyConsumption);
+        RecipeExporter.accept(recipeId, recipe, null);
+    }
+
+    private static void addEnergizerRecipe(RecipeExporter RecipeExporter, Ingredient input, ItemStack output, int energyConsumption) {
+        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "energizer/" +
+                getItemPath(output.getItem()));
+
+        EnergizerRecipe recipe = new EnergizerRecipe(output, input, energyConsumption);
+        RecipeExporter.accept(recipeId, recipe, null);
+    }
+
+    private static void addCrystalGrowthChamberRecipe(RecipeExporter RecipeExporter, Ingredient input, OutputItemStackWithPercentages output,
+                                                      int ticks) {
+        addCrystalGrowthChamberRecipe(RecipeExporter, input, output, 1, ticks);
+    }
+    private static void addCrystalGrowthChamberRecipe(RecipeExporter RecipeExporter, Ingredient input, OutputItemStackWithPercentages output,
+                                                      int inputCount, int ticks) {
+        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "crystal_growing/" +
+                getItemPath(output.output().getItem()));
+
+        CrystalGrowthChamberRecipe recipe = new CrystalGrowthChamberRecipe(output, input, inputCount, ticks);
         RecipeExporter.accept(recipeId, recipe, null);
     }
 }

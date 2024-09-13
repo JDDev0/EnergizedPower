@@ -1,0 +1,13 @@
+{
+  "type": "energizedpower:metal_press",
+  "ingredient": {
+    "tag": "c:plates/copper"
+  },
+  "output": {
+    "count": 3,
+    "item": "energizedpower:copper_wire"
+  },
+  "pressMold": {
+    "item": "energizedpower:wire_press_mold"
+  }
+}

@@ -30,6 +30,7 @@ import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 
@@ -258,8 +259,9 @@ public class FluidTransposerBlockEntity
     public enum Mode implements StringIdentifiable {
         EMPTYING, FILLING;
 
-        public static final Codec<Mode> CODEC = new BasicCodec<>(
-                Mode.values(), Mode::valueOf, Mode::ordinal
+        public static final Codec<Mode> CODEC = Codecs.orCompressed(
+                Codec.stringResolver(Mode::name, Mode::valueOf),
+                Codecs.rawIdChecked(Mode::ordinal, i -> i >= 0 && i < Mode.values().length?Mode.values()[i]:null, -1)
         );
 
         /**

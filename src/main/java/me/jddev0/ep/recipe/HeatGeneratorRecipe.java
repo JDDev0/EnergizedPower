@@ -93,7 +93,7 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
         private final MapCodec<HeatGeneratorRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(Codec.either(new ArrayCodec<>(Registries.FLUID.getCodec(), Fluid[]::new),
                     Registries.FLUID.getCodec()).fieldOf("input").forGetter((recipe) -> {
-                return Either.left(recipe.input);
+                return recipe.input.length == 1?Either.right(recipe.input[0]):Either.left(recipe.input);
             }), Codec.LONG.fieldOf("energy").forGetter((recipe) -> {
                 return recipe.energyProduction;
             })).apply(instance, (input, energy) -> {
