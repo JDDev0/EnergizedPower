@@ -2,28 +2,28 @@
   "type": "energizedpower:assembling_machine",
   "inputs": [
     {
+      "count": 4,
       "input": {
         "item": "energizedpower:basic_circuit"
-      },
-      "count": 4
+      }
     },
     {
+      "count": 4,
       "input": {
         "tag": "c:wires/energized_copper"
-      },
-      "count": 4
+      }
     },
     {
+      "count": 4,
       "input": {
         "tag": "c:silicon"
-      },
-      "count": 4
+      }
     },
     {
+      "count": 2,
       "input": {
         "tag": "c:dusts/redstone"
-      },
-      "count": 2
+      }
     }
   ],
   "output": {
