@@ -1,0 +1,21 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "gold",
+        "extra": [
+          "\n\n"
+        ],
+        "translate": "book.energizedpower.page.small_solar_farm.title"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.small_solar_farm.1"
+      }
+    ],
+    "text": ""
+  }
+}

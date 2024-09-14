@@ -1,0 +1,44 @@
+{
+  "block": [
+    "energizedpower:fluid_pump",
+    "energizedpower:golden_fluid_pipe"
+  ],
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.fluid_pipes.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.fluid_pipes.2"
+      },
+      {
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.fluid_pipes.3"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.fluid_pipes.4"
+      }
+    ],
+    "text": ""
+  }
+}

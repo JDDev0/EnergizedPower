@@ -1,0 +1,23 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.fluid_analyzer.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.fluid_analyzer.2"
+      }
+    ],
+    "text": ""
+  },
+  "image": "energizedpower:textures/item/fluid_analyzer.png"
+}

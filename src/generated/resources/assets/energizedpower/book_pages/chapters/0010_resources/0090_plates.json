@@ -1,0 +1,31 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.plates.1"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.plates.2"
+      }
+    ],
+    "text": ""
+  },
+  "image": [
+    "energizedpower:textures/item/tin_plate.png",
+    "energizedpower:textures/item/copper_plate.png",
+    "energizedpower:textures/item/iron_plate.png",
+    "energizedpower:textures/item/gold_plate.png",
+    "energizedpower:textures/item/advanced_alloy_plate.png",
+    "energizedpower:textures/item/energized_copper_plate.png",
+    "energizedpower:textures/item/energized_gold_plate.png"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "block": "energizedpower:assembling_machine",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.assembling_machine.1"
+      },
+      {
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.assembling_machine.2"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.assembling_machine.3"
+      }
+    ],
+    "text": ""
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "block": [
+    "energizedpower:minecart_charger",
+    "energizedpower:minecart_uncharger",
+    "energizedpower:advanced_minecart_charger",
+    "energizedpower:advanced_minecart_uncharger"
+  ],
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          " "
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.minecart_charger_uncharger.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.minecart_charger_uncharger.2"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.minecart_charger_uncharger.3"
+      }
+    ],
+    "text": ""
+  }
+}

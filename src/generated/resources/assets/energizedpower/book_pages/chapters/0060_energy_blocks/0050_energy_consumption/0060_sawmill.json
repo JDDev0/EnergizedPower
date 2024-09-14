@@ -1,0 +1,23 @@
+{
+  "block": "energizedpower:sawmill",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.sawmill.1"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.sawmill.2"
+      }
+    ],
+    "text": ""
+  }
+}

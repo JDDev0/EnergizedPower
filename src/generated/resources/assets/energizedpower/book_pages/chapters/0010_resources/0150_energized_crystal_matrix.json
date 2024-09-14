@@ -1,0 +1,14 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.energized_crystal_matrix"
+      }
+    ],
+    "text": ""
+  },
+  "image": "energizedpower:textures/item/energized_crystal_matrix.png"
+}

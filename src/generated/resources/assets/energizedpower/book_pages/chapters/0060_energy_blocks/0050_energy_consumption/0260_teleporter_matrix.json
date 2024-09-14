@@ -1,0 +1,23 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.teleporter_matrix.1"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.teleporter_matrix.2"
+      }
+    ],
+    "text": ""
+  },
+  "image": "energizedpower:textures/item/teleporter_matrix.png"
+}

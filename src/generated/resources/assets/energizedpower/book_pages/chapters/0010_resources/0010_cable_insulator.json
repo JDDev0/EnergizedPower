@@ -1,0 +1,32 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.cable_insulator.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.cable_insulator.2"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.cable_insulator.3"
+      }
+    ],
+    "text": ""
+  },
+  "image": "energizedpower:textures/item/cable_insulator.png"
+}

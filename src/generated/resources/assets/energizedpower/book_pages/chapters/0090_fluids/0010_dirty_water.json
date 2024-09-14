@@ -1,0 +1,23 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.dirty_water.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.dirty_water.2"
+      }
+    ],
+    "text": ""
+  },
+  "image": "energizedpower:textures/item/dirty_water_bucket.png"
+}

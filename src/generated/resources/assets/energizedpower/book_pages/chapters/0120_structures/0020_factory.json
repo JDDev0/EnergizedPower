@@ -1,0 +1,21 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "gold",
+        "extra": [
+          "\n\n"
+        ],
+        "translate": "book.energizedpower.page.factory.title"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.factory.1"
+      }
+    ],
+    "text": ""
+  }
+}
