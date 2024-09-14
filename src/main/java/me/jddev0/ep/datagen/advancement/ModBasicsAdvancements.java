@@ -1,4 +1,4 @@
-package me.jddev0.ep.datagen.adavancement;
+package me.jddev0.ep.datagen.advancement;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
