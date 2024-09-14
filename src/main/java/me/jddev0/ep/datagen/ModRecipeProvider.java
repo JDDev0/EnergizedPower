@@ -2690,7 +2690,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .rewards(AdvancementRewards.Builder.recipe(recipeId))
                 .requirements(AdvancementRequirements.Strategy.OR);
         SmithingTransformRecipe recipe = new SmithingTransformRecipe(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-                base, Ingredient.of(Items.NETHERITE_INGOT), output);
+                base, Ingredient.of(Tags.Items.INGOTS_NETHERITE), output);
         recipeOutput.accept(recipeId, recipe, advancementBuilder.build(recipeId.withPrefix("recipes/")));
     }
 

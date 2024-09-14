@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smithing_transform",
   "addition": {
-    "item": "minecraft:netherite_ingot"
+    "tag": "c:ingots/netherite"
   },
   "base": {
     "item": "energizedpower:diamond_hammer"
