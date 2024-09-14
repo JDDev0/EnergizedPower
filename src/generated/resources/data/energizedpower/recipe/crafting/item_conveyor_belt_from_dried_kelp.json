@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "item_conveyor_belt",
+  "key": {
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "K": {
+      "item": "minecraft:dried_kelp"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    }
+  },
+  "pattern": [
+    "   ",
+    "KKK",
+    "IRI"
+  ],
+  "result": {
+    "count": 6,
+    "id": "energizedpower:item_conveyor_belt"
+  }
+}

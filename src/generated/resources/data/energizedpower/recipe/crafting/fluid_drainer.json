@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "C": {
+      "tag": "c:plates/copper"
+    },
+    "F": {
+      "item": "energizedpower:fluid_tank_small"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "S": {
+      "tag": "c:silicon"
+    }
+  },
+  "pattern": [
+    "CFC",
+    "IBI",
+    "SIS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:fluid_drainer"
+  }
+}

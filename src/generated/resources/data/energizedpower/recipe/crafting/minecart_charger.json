@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:storage_blocks/copper"
+    },
+    "H": {
+      "item": "energizedpower:charger"
+    },
+    "I": {
+      "tag": "c:storage_blocks/iron"
+    },
+    "S": {
+      "tag": "c:silicon"
+    },
+    "c": {
+      "tag": "c:plates/copper"
+    },
+    "i": {
+      "tag": "c:plates/iron"
+    }
+  },
+  "pattern": [
+    "cCc",
+    "SHS",
+    "iIi"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:minecart_charger"
+  }
+}

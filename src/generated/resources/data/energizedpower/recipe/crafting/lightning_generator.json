@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    },
+    "C": {
+      "tag": "c:storage_blocks/copper"
+    },
+    "E": {
+      "tag": "c:plates/energized_copper"
+    },
+    "G": {
+      "tag": "c:plates/gold"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "a": {
+      "tag": "c:plates/advanced_alloy"
+    }
+  },
+  "pattern": [
+    "RaR",
+    "GAG",
+    "ECE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:lightning_generator"
+  }
+}

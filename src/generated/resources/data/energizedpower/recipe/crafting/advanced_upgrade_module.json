@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "energizedpower:advanced_circuit"
+    },
+    "B": {
+      "item": "energizedpower:basic_upgrade_module"
+    },
+    "C": {
+      "tag": "c:plates/energized_copper"
+    },
+    "G": {
+      "tag": "c:wires/energized_gold"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "CBC",
+    "CAC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:advanced_upgrade_module"
+  }
+}

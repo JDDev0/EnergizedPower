@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    },
+    "C": {
+      "tag": "c:storage_blocks/copper"
+    },
+    "E": {
+      "tag": "c:plates/energized_gold"
+    },
+    "I": {
+      "tag": "c:storage_blocks/iron"
+    },
+    "R": {
+      "tag": "c:storage_blocks/redstone"
+    },
+    "a": {
+      "tag": "c:plates/advanced_alloy"
+    }
+  },
+  "pattern": [
+    "aRa",
+    "IAI",
+    "ECE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:charging_station"
+  }
+}

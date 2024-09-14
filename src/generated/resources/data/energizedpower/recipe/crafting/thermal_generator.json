@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:storage_blocks/copper"
+    },
+    "E": {
+      "item": "energizedpower:coal_engine"
+    },
+    "F": {
+      "item": "energizedpower:fluid_tank_small"
+    },
+    "H": {
+      "item": "energizedpower:hardened_machine_frame"
+    },
+    "S": {
+      "tag": "c:silicon"
+    },
+    "c": {
+      "tag": "c:plates/copper"
+    }
+  },
+  "pattern": [
+    "cHc",
+    "SES",
+    "CFC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:thermal_generator"
+  }
+}
