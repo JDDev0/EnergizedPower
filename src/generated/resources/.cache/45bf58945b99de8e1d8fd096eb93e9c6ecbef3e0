@@ -1,4 +1,4 @@
-// 1.21.1	2024-09-14T18:04:49.070989772	Energized Power/Advancements (Advanced)
+// 1.21.1	2024-09-14T18:06:52.617602663	Energized Power/Advancements (Advanced)
 348c143ab4a32c8091ebc4914c660de205443faf data/energizedpower/advancement/main/advanced/duration_upgrade_module_4.json
 98ec67818acc1cfeb4cb0869518643cdb8558c7f data/energizedpower/advancement/main/advanced/range_upgrade_module_2.json
 bf7fb6ac9fc4d202afead358445745e4a0df19de data/energizedpower/advancement/main/advanced/reinforced_advanced_upgrade_module.json
@@ -24,7 +24,7 @@ e10400a823fe6827988d83d37581bb3572d92a56 data/energizedpower/advancement/main/ad
 8b70e952bc2461a2e156afe21107aaf661fd5151 data/energizedpower/advancement/main/advanced/energizedpower_advanced.json
 19b8faf2b64130b3202b5cdefb7c3c859e7a24d8 data/energizedpower/advancement/main/advanced/moon_light_upgrade_module_2.json
 9a90000c7a412fa704faa938b5115ec6ef7243ba data/energizedpower/advancement/main/advanced/teleporter.json
-cfc750f4f85c9349914176d1d497e3d54af313f7 data/energizedpower/advancement/main/advanced/energized_crystal_matrix_cable.json
+082aa495a090d34a7355f97402400f9160b48151 data/energizedpower/advancement/main/advanced/energized_crystal_matrix_cable.json
 6c9a05ffb1f7b85a5ba1e35c7925738d362637a4 data/energizedpower/advancement/main/advanced/duration_upgrade_module_6.json
 92a8bd08e2c38d72e231229865a6c4c1d2856506 data/energizedpower/advancement/main/advanced/energy_efficiency_upgrade_module_3.json
 9b75dc4b52eafa5fc90f04afb53becb4ac186da7 data/energizedpower/advancement/main/advanced/speed_upgrade_module_4.json
