@@ -1,4 +1,4 @@
-// 1.21.1	2024-09-14T17:58:54.647134761	Energized Power/Recipes
+// 1.21.1	2024-09-14T18:04:49.072170174	Energized Power/Recipes
 309b74dcc62e568b76d9a9298db048a033a685aa data/energizedpower/advancement/recipes/crafting/tin_wire.json
 89ff59d99ae9b8f7a6a0240d59dac2c2dd62cfda data/energizedpower/advancement/recipes/crafting/compressor.json
 250592724a832ed9c999257b095714e35512589e data/energizedpower/recipe/crafting/sawmill.json
@@ -191,7 +191,7 @@ f62e92729e75f92ebc56557263f9e119a2450209 data/energizedpower/recipe/crafting/ene
 fd7a276c4aceff0cf857f65b3b860b85c5349a65 data/energizedpower/recipe/pulverizer/lapis_lazuli_from_pulverizer_lapis_ores.json
 6a7414c6185cae2404e71b27fb7e9b5ea13477fc data/energizedpower/advancement/recipes/crafting/advanced_powered_furnace.json
 d4c1af386945f85bd86945d990c701ba5257a5ac data/energizedpower/recipe/crafting/lv_transformer_3_to_3.json
-cb09bafe0d636dc7021ae3086508aa6b0936f2fa data/energizedpower/advancement/recipes/crafting/energized_power_book.json
+2d039da7e01c5008c57b00f6ce61b74d949eb4dd data/energizedpower/advancement/recipes/crafting/energized_power_book.json
 aaeebc4c2c3f92ace1ec562f65b3ab8d793b7107 data/energizedpower/recipe/crafting/alloy_furnace.json
 0f649addbca124519bb5b96d7d23abbed02e72ee data/energizedpower/recipe/crafting/item_conveyor_belt_from_leather.json
 8addf6060bea456ea84d4a1c5fa4e52f877e21eb data/energizedpower/recipe/sawmill/mangrove_planks_from_sawing_mangrove_fence.json

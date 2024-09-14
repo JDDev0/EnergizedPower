@@ -244,9 +244,11 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
                 advancementOutput, advancedMachineFrame,
                 ModBlocks.HV_TRANSFORMER_1_TO_N_ITEM, "hv_transformers", AdvancementFrame.TASK,
                 InventoryChangedCriterion.Conditions.items(
-                        ModBlocks.HV_TRANSFORMER_1_TO_N_ITEM,
-                        ModBlocks.HV_TRANSFORMER_3_TO_3_ITEM,
-                        ModBlocks.HV_TRANSFORMER_N_TO_1_ITEM
+                        ItemPredicate.Builder.create().items(
+                                ModBlocks.HV_TRANSFORMER_1_TO_N_ITEM,
+                                ModBlocks.HV_TRANSFORMER_3_TO_3_ITEM,
+                                ModBlocks.HV_TRANSFORMER_N_TO_1_ITEM
+                        ).build()
                 )
         );
 
@@ -476,9 +478,11 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
                 advancementOutput, reinforcedAdvancedMachineFrame,
                 ModBlocks.EHV_TRANSFORMER_1_TO_N_ITEM, "ehv_transformers", AdvancementFrame.TASK,
                 InventoryChangedCriterion.Conditions.items(
-                        ModBlocks.EHV_TRANSFORMER_1_TO_N_ITEM,
-                        ModBlocks.EHV_TRANSFORMER_3_TO_3_ITEM,
-                        ModBlocks.EHV_TRANSFORMER_N_TO_1_ITEM
+                        ItemPredicate.Builder.create().items(
+                                ModBlocks.EHV_TRANSFORMER_1_TO_N_ITEM,
+                                ModBlocks.EHV_TRANSFORMER_3_TO_3_ITEM,
+                                ModBlocks.EHV_TRANSFORMER_N_TO_1_ITEM
+                        ).build()
                 )
         );
 
