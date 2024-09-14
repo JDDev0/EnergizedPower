@@ -2371,23 +2371,23 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private void buildStoneSolidifierRecipes(RecipeOutput output) {
-        addStoneSolidierRecipe(output, 1000, 50, new ItemStack(Items.STONE));
+        addStoneSolidifierRecipe(output, 1000, 50, new ItemStack(Items.STONE));
 
-        addStoneSolidierRecipe(output, 50, 50, new ItemStack(Items.COBBLESTONE));
+        addStoneSolidifierRecipe(output, 50, 50, new ItemStack(Items.COBBLESTONE));
 
-        addStoneSolidierRecipe(output, 1000, 150, new ItemStack(Items.DEEPSLATE));
+        addStoneSolidifierRecipe(output, 1000, 150, new ItemStack(Items.DEEPSLATE));
 
-        addStoneSolidierRecipe(output, 150, 150, new ItemStack(Items.COBBLED_DEEPSLATE));
+        addStoneSolidifierRecipe(output, 150, 150, new ItemStack(Items.COBBLED_DEEPSLATE));
 
-        addStoneSolidierRecipe(output, 1000, 50, new ItemStack(Items.GRANITE));
+        addStoneSolidifierRecipe(output, 1000, 50, new ItemStack(Items.GRANITE));
 
-        addStoneSolidierRecipe(output, 1000, 50, new ItemStack(Items.DIORITE));
+        addStoneSolidifierRecipe(output, 1000, 50, new ItemStack(Items.DIORITE));
 
-        addStoneSolidierRecipe(output, 1000, 50, new ItemStack(Items.ANDESITE));
+        addStoneSolidifierRecipe(output, 1000, 50, new ItemStack(Items.ANDESITE));
 
-        addStoneSolidierRecipe(output, 1000, 250, new ItemStack(Items.BLACKSTONE));
+        addStoneSolidifierRecipe(output, 1000, 250, new ItemStack(Items.BLACKSTONE));
 
-        addStoneSolidierRecipe(output, 1000, 1000, new ItemStack(Items.OBSIDIAN));
+        addStoneSolidifierRecipe(output, 1000, 1000, new ItemStack(Items.OBSIDIAN));
     }
 
     private void buildFiltrationPlantRecipes(RecipeOutput output) {
@@ -2949,7 +2949,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         recipeOutput.accept(recipeId, recipe, null);
     }
 
-    private static void addStoneSolidierRecipe(RecipeOutput recipeOutput, int waterAmount, int lavaAmount, ItemStack output) {
+    private static void addStoneSolidifierRecipe(RecipeOutput recipeOutput, int waterAmount, int lavaAmount, ItemStack output) {
         ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "stone_solidifier/" +
                 getItemName(output.getItem()));
 
