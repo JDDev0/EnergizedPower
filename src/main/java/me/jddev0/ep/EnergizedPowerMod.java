@@ -16,7 +16,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.ModMenuTypes;
 import me.jddev0.ep.villager.ModVillager;
-import me.jddev0.ep.worldgen.ModOreGeneration;
+import me.jddev0.ep.world.gen.ModWorldGeneration;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -56,7 +56,7 @@ public class EnergizedPowerMod implements ModInitializer {
         ModCreativeModeTab.register();
         addCreativeTab();
 
-        ModOreGeneration.register();
+        ModWorldGeneration.register();
 
         ModMessages.registerTypedPayloads();
         ModMessages.registerPacketsC2S();

@@ -14,6 +14,11 @@ public class ModRegistriesProvider extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup lookupProvider, Entries entries) {
+        entries.addAll(lookupProvider.getWrapperOrThrow(RegistryKeys.CONFIGURED_FEATURE));
+        entries.addAll(lookupProvider.getWrapperOrThrow(RegistryKeys.PLACED_FEATURE));
+        entries.addAll(lookupProvider.getWrapperOrThrow(RegistryKeys.TEMPLATE_POOL));
+        entries.addAll(lookupProvider.getWrapperOrThrow(RegistryKeys.STRUCTURE));
+        entries.addAll(lookupProvider.getWrapperOrThrow(RegistryKeys.STRUCTURE_SET));
         entries.addAll(lookupProvider.getWrapperOrThrow(RegistryKeys.PAINTING_VARIANT));
     }
 

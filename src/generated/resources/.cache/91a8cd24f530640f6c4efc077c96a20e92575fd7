@@ -1,3 +1,11 @@
-// 1.21.1	2024-09-14T18:06:52.617409135	Energized Power/Registries Provider
+// 1.21.1	2024-09-14T18:35:13.350546286	Energized Power/Registries Provider
+316a8070a2e8dec6a6b08dfd04b23753c416ee12 data/energizedpower/worldgen/placed_feature/tin_ore.json
+9878f9343dbce3411240fe787a7ed64c53c4b4f7 data/energizedpower/worldgen/template_pool/small_solar_farm/start_pool.json
+0500aa67ea447840a34da89ebbd66f9dc2537655 data/energizedpower/worldgen/structure/small_solar_farm.json
+d5cab9c11276e0886a4551f58ebfa1292873b4c9 data/energizedpower/worldgen/template_pool/factory_1/start_pool.json
+7eb9432a99d812d01c0f4849e2ef13bb2e9a2c00 data/energizedpower/worldgen/structure_set/factory_1.json
+bf89128f4dddb66a1c182d41a8e696a3110648e0 data/energizedpower/worldgen/structure_set/small_solar_farm.json
 5ad2dc86a2177ff5f25a527336dc78b3dd2dc062 data/energizedpower/painting_variant/gear.json
+aaa78c8c33a9aa7cd3386b065f9ab80bd1db1ad4 data/energizedpower/worldgen/configured_feature/tin_ore.json
+7ccd724e560b63f6b4858380f484c3c84b2dd1c0 data/energizedpower/worldgen/structure/factory_1.json
 315171f8b72c2c383c6e8644ee24528e46a14d3e data/energizedpower/painting_variant/factory.json
