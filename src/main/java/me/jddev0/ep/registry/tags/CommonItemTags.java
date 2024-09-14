@@ -19,8 +19,24 @@ public final class CommonItemTags {
     public static final TagKey<Item> ORES_IN_GROUND_DEEPSLATE = TagKey.of(RegistryKeys.ITEM,
             Identifier.of("c", "ores_in_ground/deepslate"));
 
+    public static final TagKey<Item> ORES_COAL = TagKey.of(RegistryKeys.ITEM,
+            Identifier.of("c", "ores/coal"));
     public static final TagKey<Item> ORES_TIN = TagKey.of(RegistryKeys.ITEM,
             Identifier.of("c", "ores/tin"));
+    public static final TagKey<Item> ORES_COPPER = TagKey.of(RegistryKeys.ITEM,
+            Identifier.of("c", "ores/copper"));
+    public static final TagKey<Item> ORES_IRON = TagKey.of(RegistryKeys.ITEM,
+            Identifier.of("c", "ores/iron"));
+    public static final TagKey<Item> ORES_GOLD = TagKey.of(RegistryKeys.ITEM,
+            Identifier.of("c", "ores/gold"));
+    public static final TagKey<Item> ORES_REDSTONE = TagKey.of(RegistryKeys.ITEM,
+            Identifier.of("c", "ores/redstone"));
+    public static final TagKey<Item> ORES_LAPIS = TagKey.of(RegistryKeys.ITEM,
+            Identifier.of("c", "ores/lapis"));
+    public static final TagKey<Item> ORES_EMERALD = TagKey.of(RegistryKeys.ITEM,
+            Identifier.of("c", "ores/emerald"));
+    public static final TagKey<Item> ORES_DIAMOND = TagKey.of(RegistryKeys.ITEM,
+            Identifier.of("c", "ores/diamond"));
 
     public static final TagKey<Item> STORAGE_BLOCKS_SILICON = TagKey.of(RegistryKeys.ITEM,
             Identifier.of("c", "storage_blocks/silicon"));

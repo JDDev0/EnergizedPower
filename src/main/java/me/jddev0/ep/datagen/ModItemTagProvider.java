@@ -92,10 +92,34 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 add(Items.GRAVEL);
 
         getOrCreateTagBuilder(ConventionalItemTags.ORES).
-                addTag(CommonItemTags.ORES_TIN);
+                addTag(CommonItemTags.ORES_COAL).
+                addTag(CommonItemTags.ORES_TIN).
+                addTag(CommonItemTags.ORES_COPPER).
+                addTag(CommonItemTags.ORES_IRON).
+                addTag(CommonItemTags.ORES_GOLD).
+                addTag(CommonItemTags.ORES_REDSTONE).
+                addTag(CommonItemTags.ORES_LAPIS).
+                addTag(CommonItemTags.ORES_EMERALD).
+                addTag(CommonItemTags.ORES_DIAMOND);
+        getOrCreateTagBuilder(CommonItemTags.ORES_COAL).
+                addOptionalTag(ItemTags.COAL_ORES);
         getOrCreateTagBuilder(CommonItemTags.ORES_TIN).
                 add(ModBlocks.TIN_ORE_ITEM,
                         ModBlocks.DEEPSLATE_TIN_ORE_ITEM);
+        getOrCreateTagBuilder(CommonItemTags.ORES_COPPER).
+                addOptionalTag(ItemTags.COPPER_ORES);
+        getOrCreateTagBuilder(CommonItemTags.ORES_IRON).
+                addOptionalTag(ItemTags.IRON_ORES);
+        getOrCreateTagBuilder(CommonItemTags.ORES_GOLD).
+                addOptionalTag(ItemTags.GOLD_ORES);
+        getOrCreateTagBuilder(CommonItemTags.ORES_REDSTONE).
+                addOptionalTag(ItemTags.REDSTONE_ORES);
+        getOrCreateTagBuilder(CommonItemTags.ORES_LAPIS).
+                addOptionalTag(ItemTags.LAPIS_ORES);
+        getOrCreateTagBuilder(CommonItemTags.ORES_EMERALD).
+                addOptionalTag(ItemTags.EMERALD_ORES);
+        getOrCreateTagBuilder(CommonItemTags.ORES_DIAMOND).
+                addOptionalTag(ItemTags.DIAMOND_ORES);
 
         getOrCreateTagBuilder(CommonItemTags.ORES_IN_GROUND_STONE).
                 add(ModBlocks.TIN_ORE_ITEM);

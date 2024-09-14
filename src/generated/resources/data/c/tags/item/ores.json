@@ -1,5 +1,13 @@
 {
   "values": [
-    "#c:ores/tin"
+    "#c:ores/coal",
+    "#c:ores/tin",
+    "#c:ores/copper",
+    "#c:ores/iron",
+    "#c:ores/gold",
+    "#c:ores/redstone",
+    "#c:ores/lapis",
+    "#c:ores/emerald",
+    "#c:ores/diamond"
   ]
 }

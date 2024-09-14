@@ -1,0 +1,39 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": {
+    "tag": "c:ores/copper"
+  },
+  "output": {
+    "output": {
+      "item": "energizedpower:copper_dust"
+    },
+    "percentages": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.5,
+      0.5
+    ],
+    "percentagesAdvanced": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.75,
+      0.5,
+      0.25
+    ]
+  },
+  "secondaryOutput": {
+    "output": {
+      "item": "energizedpower:gold_dust"
+    },
+    "percentages": [
+      0.1
+    ],
+    "percentagesAdvanced": [
+      0.2
+    ]
+  }
+}
