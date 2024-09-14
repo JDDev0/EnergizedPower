@@ -15,6 +15,7 @@ import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 import java.util.Optional;
 
@@ -29,8 +30,8 @@ public class SawmillRecipe implements Recipe<RecipeInput> {
 
     public SawmillRecipe(ItemStack output, ItemStack secondaryOutput, Ingredient input) {
         this.output = output;
-        this.input = input;
         this.secondaryOutput = secondaryOutput;
+        this.input = input;
     }
 
     public ItemStack getOutputItem() {
@@ -113,10 +114,16 @@ public class SawmillRecipe implements Recipe<RecipeInput> {
                 return recipe.output;
             }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
-            }), Codec.INT.optionalFieldOf("sawdustAmount").forGetter((recipe) -> {
+            }), Codecs.NONNEGATIVE_INT.optionalFieldOf("sawdustAmount").forGetter((recipe) -> {
+                if(recipe.secondaryOutput.isEmpty())
+                    return Optional.of(0);
+
                 return ItemStack.areItemsAndComponentsEqual(recipe.secondaryOutput, new ItemStack(ModItems.SAWDUST))?
                         Optional.of(recipe.secondaryOutput.getCount()):Optional.empty();
             }), CodecFix.ITEM_STACK_CODEC.optionalFieldOf("secondaryOutput").forGetter((recipe) -> {
+                if(recipe.secondaryOutput.isEmpty())
+                    return Optional.empty();
+
                 return ItemStack.areItemsAndComponentsEqual(recipe.secondaryOutput, new ItemStack(ModItems.SAWDUST))?
                         Optional.empty():Optional.of(recipe.secondaryOutput);
             })).apply(instance, (output, ingredient, sawdustAmount, secondaryOutput) -> {

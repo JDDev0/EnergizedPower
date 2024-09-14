@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:oak_fence_gate"
+  },
+  "output": {
+    "count": 2,
+    "item": "minecraft:oak_planks"
+  },
+  "sawdustAmount": 3
+}

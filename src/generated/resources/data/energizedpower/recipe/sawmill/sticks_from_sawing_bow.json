@@ -1,0 +1,14 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:bow"
+  },
+  "output": {
+    "count": 3,
+    "item": "minecraft:stick"
+  },
+  "secondaryOutput": {
+    "count": 3,
+    "item": "minecraft:string"
+  }
+}

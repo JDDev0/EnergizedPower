@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:warped_fence"
+  },
+  "output": {
+    "item": "minecraft:warped_planks"
+  },
+  "sawdustAmount": 2
+}
