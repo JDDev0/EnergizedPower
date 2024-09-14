@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/basic_machine_frame",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:fluid_pump"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.fluid_pump.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:fluid_pump"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.fluid_pump.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

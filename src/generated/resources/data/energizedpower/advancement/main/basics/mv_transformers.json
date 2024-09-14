@@ -1,0 +1,39 @@
+{
+  "parent": "energizedpower:main/basics/hardened_machine_frame",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:transformer_1_to_n"
+          },
+          {
+            "items": "energizedpower:transformer_3_to_3"
+          },
+          {
+            "items": "energizedpower:transformer_n_to_1"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.mv_transformers.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:transformer_1_to_n"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.mv_transformers.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

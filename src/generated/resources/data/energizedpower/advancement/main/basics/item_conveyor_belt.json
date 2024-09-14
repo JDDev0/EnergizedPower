@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/iron_plate",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:item_conveyor_belt"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.item_conveyor_belt.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:item_conveyor_belt"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.item_conveyor_belt.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

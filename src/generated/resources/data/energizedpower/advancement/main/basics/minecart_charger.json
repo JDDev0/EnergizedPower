@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/charger",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:minecart_charger"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.minecart_charger.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:minecart_charger"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.minecart_charger.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

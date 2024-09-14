@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/speed_upgrade_module_1",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:speed_upgrade_module_2"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.speed_upgrade_module_2.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:speed_upgrade_module_2"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.speed_upgrade_module_2.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

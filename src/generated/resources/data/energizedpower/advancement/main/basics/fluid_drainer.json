@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/basic_machine_frame",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:fluid_drainer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.fluid_drainer.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:fluid_drainer"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.fluid_drainer.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

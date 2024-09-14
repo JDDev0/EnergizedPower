@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/alloy_furnace",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ingots/redstone_alloy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.redstone_alloy_ingot.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:redstone_alloy_ingot"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.redstone_alloy_ingot.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

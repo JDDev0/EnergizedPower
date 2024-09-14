@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/cutter",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:wires/tin"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.tin_wire.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:tin_wire"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.tin_wire.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
