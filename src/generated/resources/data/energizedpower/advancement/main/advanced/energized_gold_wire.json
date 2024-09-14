@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/advanced/energized_gold_plate",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:wires/energized_gold"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.energized_gold_wire.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:energized_gold_wire"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.energized_gold_wire.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

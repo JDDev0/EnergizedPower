@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/advanced/energizedpower_advanced",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:advanced_machine_frame"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.advanced_machine_frame.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:advanced_machine_frame"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.advanced_machine_frame.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

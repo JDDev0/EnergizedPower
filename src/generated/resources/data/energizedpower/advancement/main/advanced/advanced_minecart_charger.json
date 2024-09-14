@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/advanced/advanced_charger",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:advanced_minecart_charger"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.advanced_minecart_charger.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:advanced_minecart_charger"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.advanced_minecart_charger.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

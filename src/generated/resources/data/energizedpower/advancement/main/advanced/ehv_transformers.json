@@ -1,0 +1,39 @@
+{
+  "parent": "energizedpower:main/advanced/reinforced_advanced_machine_frame",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:ehv_transformer_1_to_n"
+          },
+          {
+            "items": "energizedpower:ehv_transformer_3_to_3"
+          },
+          {
+            "items": "energizedpower:ehv_transformer_n_to_1"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.ehv_transformers.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:ehv_transformer_1_to_n"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.ehv_transformers.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

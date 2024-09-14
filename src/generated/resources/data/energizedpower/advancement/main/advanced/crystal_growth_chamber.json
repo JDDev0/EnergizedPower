@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/advanced/advanced_machine_frame",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:crystal_growth_chamber"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.crystal_growth_chamber.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:crystal_growth_chamber"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.crystal_growth_chamber.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

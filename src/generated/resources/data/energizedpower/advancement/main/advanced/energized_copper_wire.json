@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/advanced/energized_copper_plate",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:wires/energized_copper"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.energized_copper_wire.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:energized_copper_wire"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.energized_copper_wire.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

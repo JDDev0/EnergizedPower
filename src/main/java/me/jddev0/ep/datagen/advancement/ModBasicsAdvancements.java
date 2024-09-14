@@ -678,4 +678,9 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                 criterion("has_the_item", trigger).
                 build(advancementOutput, EnergizedPowerMod.MODID + ":main/basics/" + advancementId);
     }
+
+    @Override
+    public String getName() {
+        return "Advancements (Basics)";
+    }
 }

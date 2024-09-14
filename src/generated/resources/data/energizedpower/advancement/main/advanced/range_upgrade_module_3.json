@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/advanced/range_upgrade_module_2",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:range_upgrade_module_3"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.range_upgrade_module_3.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:range_upgrade_module_3"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.range_upgrade_module_3.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

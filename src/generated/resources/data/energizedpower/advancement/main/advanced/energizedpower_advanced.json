@@ -1,0 +1,33 @@
+{
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ingots/energized_copper"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "energizedpower:textures/block/advanced_machine_frame_top.png",
+    "description": {
+      "translate": "advancements.energizedpower.energizedpower_advanced.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:energized_copper_ingot"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.energizedpower_advanced.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
