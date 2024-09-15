@@ -12,8 +12,12 @@ group = mod_group_id
 repositories {
     maven { url "https://maven.shedaniel.me" }
     maven { url "https://modmaven.dev" }
-    maven { url "https://maven.theillusivec4.top/" }
     maven { url "https://maven.terraformersmc.com/" }
+
+    maven {
+        name "OctoStudios"
+        url "https://maven.octo-studios.com/releases"
+    }
 
     maven {
         url "https://maven.squiddev.cc/"
@@ -151,8 +155,8 @@ dependencies {
     // EMI integration
     compileOnly "dev.emi:emi-neoforge:1.1.13+1.21.1:api"
 
-    // Curios integration
-    compileOnly "top.theillusivec4.curios:curios-neoforge:8.0.0-beta.6+1.20.6"
+    // Curios Continuation integration
+    compileOnly "top.theillusivec4.curios:curios-neoforge:9.0.9+1.21"
 
     // CCTweaked integration
     compileOnly "cc.tweaked:cc-tweaked-1.21.1-core-api:1.113.1"
