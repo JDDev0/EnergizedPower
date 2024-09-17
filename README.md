@@ -104,6 +104,11 @@ Every machine supports auto-insert and auto-extract of items from all block face
   - Weather Controller
   - Time Controller
 
+### Energized Power Add-ons
+
+- [Energized Power - Biomes O' Plenty](https://github.com/JDDev0/EnergizedPower-BiomesOPlenty)
+- [Energized Power - Regions Unexplored](https://github.com/JDDev0/EnergizedPower-RegionsUnexplored)
+
 ### World generation
 
 - Electrician villager
