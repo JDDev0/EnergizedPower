@@ -1,4 +1,4 @@
-// 1.20.2	2024-09-18T20:09:04.767339933	Item Models: energizedpower
+// 1.20.2	2024-09-18T20:14:15.265736776	Item Models: energizedpower
 924d24d253d5e8c92cfcd342e35f13f9eb6eb1d3 assets/energizedpower/models/item/advanced_alloy_ingot.json
 a875e626086cb13fc9cf52bec9d323a84902103d assets/energizedpower/models/item/advanced_alloy_plate.json
 ec0a6b00d6535d32f24b246de790516aff3c7895 assets/energizedpower/models/item/advanced_battery_box_minecart.json
@@ -26,6 +26,7 @@ a46ab724d76d9aa83b2fa1aa3c2beb550f73a8e0 assets/energizedpower/models/item/charc
 1f6138c9b38413e62e027e9e249bf9ba567d0d5c assets/energizedpower/models/item/copper_dust.json
 b043ed0b7554c18d716faebec7b277e8bbc9e3ec assets/energizedpower/models/item/copper_plate.json
 fc3199a3a40ade13137276b08589ddce3ee1d4f3 assets/energizedpower/models/item/copper_wire.json
+d80e56e84556720ab23dfaeb4968be7372fa9cf1 assets/energizedpower/models/item/creative_battery.json
 d23513f07bc7e015d28446b3afae7a29babe0c0e assets/energizedpower/models/item/crystal_matrix.json
 d18cb1c8afa39e643c0a4df22940b041d7b9675c assets/energizedpower/models/item/cutter.json
 97c9c2352bcdfdc6e6612ea126d22bc640d06085 assets/energizedpower/models/item/diamond_hammer.json

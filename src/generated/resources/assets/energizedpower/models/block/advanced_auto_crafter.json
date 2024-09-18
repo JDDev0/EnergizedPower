@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "energizedpower:block/advanced_auto_crafter_bottom",
+    "east": "energizedpower:block/advanced_auto_crafter_side",
+    "north": "energizedpower:block/advanced_auto_crafter_front",
+    "particle": "#up",
+    "south": "energizedpower:block/advanced_auto_crafter_side",
+    "up": "energizedpower:block/advanced_auto_crafter_top",
+    "west": "energizedpower:block/advanced_auto_crafter_front"
+  }
+}
