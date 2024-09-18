@@ -5,7 +5,8 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.datagen.recipe.AbstractCookingFinishedRecipe;
 import me.jddev0.ep.datagen.recipe.AlloyFurnaceFinishedRecipe;
 import me.jddev0.ep.item.ModItems;
-import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
+import me.jddev0.ep.recipe.IngredientWithCount;
+import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
@@ -26,7 +27,6 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -77,21 +77,21 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private void buildAlloyFurnaceRecipes(RecipeOutput output) {
-        addAlloyFurnaceRecipe(output, new AlloyFurnaceRecipe.IngredientWithCount[] {
-                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.of(Tags.Items.INGOTS_IRON), 1),
-                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.of(ItemTags.COALS), 3)
+        addAlloyFurnaceRecipe(output, new IngredientWithCount[] {
+                new IngredientWithCount(Ingredient.of(Tags.Items.INGOTS_IRON), 1),
+                new IngredientWithCount(Ingredient.of(ItemTags.COALS), 3)
         }, new ItemStack(ModItems.STEEL_INGOT.get()), 500);
 
-        addAlloyFurnaceRecipe(output, new AlloyFurnaceRecipe.IngredientWithCount[] {
-                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.of(CommonItemTags.INGOTS_TIN), 1),
-                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.of(CommonItemTags.SILICON),1),
-                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.of(Tags.Items.DUSTS_REDSTONE), 2)
+        addAlloyFurnaceRecipe(output, new IngredientWithCount[] {
+                new IngredientWithCount(Ingredient.of(CommonItemTags.INGOTS_TIN), 1),
+                new IngredientWithCount(Ingredient.of(CommonItemTags.SILICON),1),
+                new IngredientWithCount(Ingredient.of(Tags.Items.DUSTS_REDSTONE), 2)
         }, new ItemStack(ModItems.REDSTONE_ALLOY_INGOT.get()), 2500);
 
-        addAlloyFurnaceRecipe(output, new AlloyFurnaceRecipe.IngredientWithCount[] {
-                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.of(CommonItemTags.INGOTS_STEEL), 3),
-                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.of(Tags.Items.INGOTS_COPPER), 3),
-                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.of(CommonItemTags.INGOTS_TIN), 3)
+        addAlloyFurnaceRecipe(output, new IngredientWithCount[] {
+                new IngredientWithCount(Ingredient.of(CommonItemTags.INGOTS_STEEL), 3),
+                new IngredientWithCount(Ingredient.of(Tags.Items.INGOTS_COPPER), 3),
+                new IngredientWithCount(Ingredient.of(CommonItemTags.INGOTS_TIN), 3)
         }, new ItemStack(ModItems.ADVANCED_ALLOY_INGOT.get()), 10000);
     }
 
@@ -207,17 +207,17 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private static void addAlloyFurnaceRecipe(RecipeOutput recipeOutput,
-                                              AlloyFurnaceRecipe.IngredientWithCount[] inputs,
+                                              IngredientWithCount[] inputs,
                                               ItemStack output,
                                               int ticks) {
         addAlloyFurnaceRecipe(recipeOutput, inputs, output,
-                new AlloyFurnaceRecipe.OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0]), ticks);
+                new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0]), ticks);
     }
 
     private static void addAlloyFurnaceRecipe(RecipeOutput recipeOutput,
-                                              AlloyFurnaceRecipe.IngredientWithCount[] inputs,
+                                              IngredientWithCount[] inputs,
                                               ItemStack output,
-                                              AlloyFurnaceRecipe.OutputItemStackWithPercentages secondaryOutput,
+                                              OutputItemStackWithPercentages secondaryOutput,
                                               int ticks) {
         ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "alloy_furnace/" +
                 getItemName(output.getItem()));

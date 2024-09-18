@@ -138,12 +138,16 @@ public class PulverizerRecipe implements Recipe<Container> {
         private final Codec<PulverizerRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
             return instance.group(OutputItemStackWithPercentages.createCodec(true).fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
-            }), OutputItemStackWithPercentages.createCodec(false).optionalFieldOf("secondaryOutput",
-                    new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0], new double[0])).forGetter((recipe) -> {
-                return recipe.secondaryOutput;
+            }), OutputItemStackWithPercentages.createCodec(false).optionalFieldOf("secondaryOutput").forGetter((recipe) -> {
+                if(recipe.secondaryOutput.output.isEmpty() || recipe.secondaryOutput.percentages.length == 0)
+                    return Optional.empty();
+
+                return Optional.of(recipe.secondaryOutput);
             }), Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
-            })).apply(instance, PulverizerRecipe::new);
+            })).apply(instance, (output, secondaryOutput, input) -> new PulverizerRecipe(output,
+                    secondaryOutput.orElse(new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0], new double[0])),
+                    input));
         });
 
         @Override

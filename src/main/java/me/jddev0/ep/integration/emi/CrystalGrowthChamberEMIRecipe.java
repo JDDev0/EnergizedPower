@@ -11,6 +11,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.CrystalGrowthChamberBlockEntity;
 import me.jddev0.ep.recipe.CrystalGrowthChamberRecipe;
+import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -29,7 +30,7 @@ public class CrystalGrowthChamberEMIRecipe implements EmiRecipe {
     private final ResourceLocation id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
-    private final CrystalGrowthChamberRecipe.OutputItemStackWithPercentages outputWithPercentages;
+    private final OutputItemStackWithPercentages outputWithPercentages;
     private final int ticks;
 
     public CrystalGrowthChamberEMIRecipe(RecipeHolder<CrystalGrowthChamberRecipe> recipe) {
