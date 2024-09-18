@@ -1,0 +1,11 @@
+{
+  "values": [
+    "#forge:plates/tin",
+    "#forge:plates/copper",
+    "#forge:plates/iron",
+    "#forge:plates/gold",
+    "#forge:plates/advanced_alloy",
+    "#forge:plates/energized_copper",
+    "#forge:plates/energized_gold"
+  ]
+}
