@@ -2,22 +2,22 @@
   "type": "energizedpower:assembling_machine",
   "inputs": [
     {
+      "count": 2,
       "input": {
         "item": "energizedpower:basic_solar_cell"
-      },
-      "count": 2
+      }
     },
     {
+      "count": 4,
       "input": {
         "tag": "forge:ingots/energized_copper"
-      },
-      "count": 4
+      }
     },
     {
+      "count": 2,
       "input": {
         "tag": "forge:ingots/tin"
-      },
-      "count": 2
+      }
     },
     {
       "input": {

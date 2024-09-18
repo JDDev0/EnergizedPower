@@ -2,31 +2,31 @@
   "type": "energizedpower:assembling_machine",
   "inputs": [
     {
+      "count": 4,
       "input": {
-        "item": "energizedpower:advanced_solar_cell"
-      },
-      "count": 2
+        "item": "energizedpower:basic_circuit"
+      }
     },
     {
+      "count": 4,
       "input": {
-        "item": "energizedpower:energized_crystal_matrix"
-      },
-      "count": 4
+        "tag": "forge:wires/energized_copper"
+      }
     },
     {
+      "count": 4,
       "input": {
         "tag": "forge:silicon"
-      },
-      "count": 2
+      }
     },
     {
+      "count": 2,
       "input": {
         "tag": "forge:dusts/redstone"
-      },
-      "count": 2
+      }
     }
   ],
   "output": {
-    "item": "energizedpower:reinforced_advanced_solar_cell"
+    "item": "energizedpower:advanced_circuit"
   }
 }

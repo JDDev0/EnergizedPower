@@ -2,13 +2,11 @@
   "type": "energizedpower:alloy_furnace",
   "inputs": [
     {
-      "count": 1,
       "input": {
         "tag": "forge:ingots/tin"
       }
     },
     {
-      "count": 1,
       "input": {
         "tag": "forge:silicon"
       }
