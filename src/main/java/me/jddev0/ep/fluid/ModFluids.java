@@ -30,7 +30,7 @@ public final class ModFluids {
     public static final Supplier<FlowingFluid> FLOWING_DIRTY_WATER = FLUIDS.register("flowing_dirty_water",
             () -> new BaseFlowingFluid.Flowing(ModFluids.DIRTY_WATER_PROPS));
     public static final DeferredBlock<LiquidBlock> DIRTY_WATER_BLOCK = ModBlocks.BLOCKS.register("dirty_water",
-            () -> new LiquidBlock(DIRTY_WATER, BlockBehaviour.Properties.copy(Blocks.WATER)));
+            () -> new LiquidBlock(DIRTY_WATER, BlockBehaviour.Properties.copy(Blocks.WATER).noLootTable()));
     public static final DeferredItem<BucketItem> DIRTY_WATER_BUCKET_ITEM = ModItems.ITEMS.register("dirty_water_bucket",
             () -> new BucketItem(DIRTY_WATER, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
     private static final BaseFlowingFluid.Properties DIRTY_WATER_PROPS = new BaseFlowingFluid.Properties(
