@@ -24,7 +24,7 @@
         },
         "south": {
           "cullface": "south",
-          "texture": "#down"
+          "texture": "#bottom"
         },
         "up": {
           "cullface": "up",
@@ -49,9 +49,9 @@
     }
   ],
   "textures": {
-    "down": "energizedpower:block/minecart_charger_bottom",
+    "bottom": "energizedpower:block/minecart_charger_bottom",
     "front": "energizedpower:block/minecart_charger_front",
-    "particle": "#front",
+    "particle": "#top",
     "side": "energizedpower:block/minecart_charger_side",
     "top": "energizedpower:block/minecart_charger_top"
   }
