@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:compressor",
+  "ingredient": {
+    "tag": "forge:ingots/copper"
+  },
+  "inputCount": 1,
+  "output": {
+    "item": "energizedpower:copper_plate"
+  }
+}

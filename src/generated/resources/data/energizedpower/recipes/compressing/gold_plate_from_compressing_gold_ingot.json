@@ -3,6 +3,7 @@
   "ingredient": {
     "tag": "forge:ingots/gold"
   },
+  "inputCount": 1,
   "output": {
     "item": "energizedpower:gold_plate"
   }
