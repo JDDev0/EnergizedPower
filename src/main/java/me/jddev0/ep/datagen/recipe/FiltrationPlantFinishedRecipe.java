@@ -4,27 +4,39 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import me.jddev0.ep.codec.CodecFix;
-import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jetbrains.annotations.Nullable;
 
-public record AlloyFurnaceFinishedRecipe(
+public record FiltrationPlantFinishedRecipe(
         ResourceLocation id,
-        ItemStack output,
+        OutputItemStackWithPercentages output,
         OutputItemStackWithPercentages secondaryOutput,
-        IngredientWithCount[] inputs,
-        int ticks
+        ResourceLocation icon
 ) implements FinishedRecipe {
     @Override
     public void serializeRecipeData(JsonObject jsonObject) {
-        jsonObject.add("output", CodecFix.ITEM_STACK_CODEC.encodeStart(JsonOps.INSTANCE, output).
-                result().orElseThrow());
+       {
+            JsonObject secondaryOutputJson = new JsonObject();
+
+            secondaryOutputJson.add("output", CodecFix.ITEM_STACK_CODEC.encodeStart(JsonOps.INSTANCE, output.output()).
+                    result().orElseThrow());
+
+            {
+                JsonArray percentagesJson = new JsonArray();
+
+                for(double percentage:output.percentages())
+                    percentagesJson.add(percentage);
+
+                secondaryOutputJson.add("percentages", percentagesJson);
+            }
+
+            jsonObject.add("output", secondaryOutputJson);
+        }
 
         if(!secondaryOutput.output().isEmpty() && secondaryOutput.percentages().length != 0) {
             JsonObject secondaryOutputJson = new JsonObject();
@@ -44,22 +56,12 @@ public record AlloyFurnaceFinishedRecipe(
             jsonObject.add("secondaryOutput", secondaryOutputJson);
         }
 
-        {
-            JsonArray inputsJson = new JsonArray();
-
-            for(IngredientWithCount input:inputs)
-                inputsJson.add(IngredientWithCount.CODEC_NONEMPTY.encodeStart(JsonOps.INSTANCE, input).
-                        result().orElseThrow());
-
-            jsonObject.add("inputs", inputsJson);
-        }
-
-        jsonObject.addProperty("ticks", ticks);
+        jsonObject.addProperty("icon", icon.toString());
     }
 
     @Override
     public RecipeSerializer<?> type() {
-        return ModRecipes.ALLOY_FURNACE_SERIALIZER.get();
+        return ModRecipes.FILTRATION_PLANT_SERIALIZER.get();
     }
 
     @Override
