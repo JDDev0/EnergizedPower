@@ -1,8 +1,7 @@
 package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.EnergizedPowerMod;
-import me.jddev0.ep.block.CableBlock;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.*;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
@@ -17,6 +16,14 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import java.util.Objects;
 
 public class ModBlockStateProvider extends BlockStateProvider {
+    private ModelFile solarPanelTemplate;
+
+    private ModelFile fluidPipeCoreTemplate;
+    private ModelFile fluidPipeSideConnectedTemplate;
+    private ModelFile fluidPipeSideExtractTemplate;
+
+    private ModelFile fluidTankTemplate;
+
     private ModelFile cableCoreTemplate;
     private ModelFile cableSideTemplate;
 
@@ -31,15 +38,36 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void registerTemplates() {
+        solarPanelTemplate = models().
+                withExistingParent("solar_panel_template", ModelProvider.BLOCK_FOLDER + "/thin_block").
+                element().from(0, 0, 0).to(16, 4, 16).
+                face(Direction.DOWN).uvs(0, 0, 16, 16).cullface(Direction.DOWN).texture("#side").end().
+                face(Direction.UP).uvs(0, 0, 16, 16).texture("#top").end().
+                face(Direction.NORTH).uvs(0, 12, 16, 16).cullface(Direction.NORTH).texture("#side").end().
+                face(Direction.SOUTH).uvs(0, 12, 16, 16).cullface(Direction.SOUTH).texture("#side").end().
+                face(Direction.WEST).uvs(0, 12, 16, 16).cullface(Direction.WEST).texture("#side").end().
+                face(Direction.EAST).uvs(0, 12, 16, 16).cullface(Direction.EAST).texture("#side").end().
+                end();
+
+        fluidPipeCoreTemplate = models().getExistingFile(
+                new ResourceLocation(EnergizedPowerMod.MODID, "fluid_pipe_core_template"));
+        fluidPipeSideConnectedTemplate = models().getExistingFile(
+                new ResourceLocation(EnergizedPowerMod.MODID, "fluid_pipe_side_connected_template"));
+        fluidPipeSideExtractTemplate = models().getExistingFile(
+                new ResourceLocation(EnergizedPowerMod.MODID, "fluid_pipe_side_extract_template"));
+
+        fluidTankTemplate = models().getExistingFile(
+                new ResourceLocation(EnergizedPowerMod.MODID, "fluid_tank_template"));
+
         cableCoreTemplate = models().
                 withExistingParent("cable_core_template", ModelProvider.BLOCK_FOLDER + "/thin_block").
                 element().from(6, 6, 6).to(10, 10, 10).
-                face(Direction.DOWN).uvs(0, 7, 4, 11).texture("#cable").end().
-                face(Direction.UP).uvs(0, 7, 4, 11).texture("#cable").end().
-                face(Direction.NORTH).uvs(0, 7, 4, 11).texture("#cable").end().
-                face(Direction.SOUTH).uvs(0, 7, 4, 11).texture("#cable").end().
-                face(Direction.WEST).uvs(0, 7, 4, 11).texture("#cable").end().
-                face(Direction.EAST).uvs(0, 7, 4, 11).texture("#cable").end().
+                face(Direction.DOWN).uvs(0, 7, 4, 11).cullface(Direction.DOWN).texture("#cable").end().
+                face(Direction.UP).uvs(0, 7, 4, 11).cullface(Direction.UP).texture("#cable").end().
+                face(Direction.NORTH).uvs(0, 7, 4, 11).cullface(Direction.NORTH).texture("#cable").end().
+                face(Direction.SOUTH).uvs(0, 7, 4, 11).cullface(Direction.SOUTH).texture("#cable").end().
+                face(Direction.WEST).uvs(0, 7, 4, 11).cullface(Direction.WEST).texture("#cable").end().
+                face(Direction.EAST).uvs(0, 7, 4, 11).cullface(Direction.EAST).texture("#cable").end().
                 end();
 
         cableSideTemplate = models().
@@ -55,6 +83,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void registerBlocks() {
+        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_1);
+        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_2);
+        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_3);
+        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_4);
+        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_5);
+        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_6);
+
         cubeAllBlockWithItem(ModBlocks.SILICON_BLOCK);
 
         cubeAllBlockWithItem(ModBlocks.TIN_BLOCK);
@@ -66,6 +101,14 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         cubeAllBlockWithItem(ModBlocks.RAW_TIN_BLOCK);
 
+        fluidPipeBlockWithItem(ModBlocks.IRON_FLUID_PIPE);
+        fluidPipeBlockWithItem(ModBlocks.GOLDEN_FLUID_PIPE);
+
+        fluidTankBlockWithItem(ModBlocks.FLUID_TANK_SMALL);
+        fluidTankBlockWithItem(ModBlocks.FLUID_TANK_MEDIUM);
+        fluidTankBlockWithItem(ModBlocks.FLUID_TANK_LARGE);
+        fluidTankBlockWithItem(ModBlocks.CREATIVE_FLUID_TANK);
+
         cableBlockWithItem(ModBlocks.TIN_CABLE);
         cableBlockWithItem(ModBlocks.COPPER_CABLE);
         cableBlockWithItem(ModBlocks.GOLD_CABLE);
@@ -76,6 +119,97 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     private void cubeAllBlockWithItem(Holder<Block> block) {
         simpleBlockWithItem(block.value(), cubeAll(block.value()));
+    }
+
+    private void solarPanelBlockWithItem(Holder<Block> block) {
+        ResourceLocation blockId = Objects.requireNonNull(block.unwrapKey().orElseThrow()).location();
+
+        ModelFile solarPanel = models().
+                getBuilder(blockId.getPath()).parent(solarPanelTemplate).
+                texture("particle", "#top").
+                texture("top", getBlockTexture(block, "_top")).
+                texture("side", getBlockTexture(block, "_side"));
+
+        getVariantBuilder(block.value()).partialState().
+                modelForState().modelFile(solarPanel).addModel();
+
+        simpleBlockItem(block.value(), solarPanel);
+    }
+
+    private void fluidPipeBlockWithItem(Holder<Block> block) {
+        ResourceLocation blockId = Objects.requireNonNull(block.unwrapKey().orElseThrow()).location();
+
+        ModelFile fluidPipeCore = models().
+                getBuilder(blockId.getPath() + "_core").parent(fluidPipeCoreTemplate).
+                texture("particle", getBlockTexture(block, "_core")).
+                texture("fluid_pipe_core", getBlockTexture(block, "_core"));
+        ModelFile fluidPipeSideConnected = models().
+                getBuilder(blockId.getPath() + "_side_connected").parent(fluidPipeSideConnectedTemplate).
+                texture("particle", getBlockTexture(block, "_side_connected")).
+                texture("fluid_pipe_side", getBlockTexture(block, "_side_connected"));
+        ModelFile fluidPipeSideExtract = models().
+                getBuilder(blockId.getPath() + "_side_extract").parent(fluidPipeSideExtractTemplate).
+                texture("particle", getBlockTexture(block, "_side_outer_extract")).
+                texture("fluid_pipe_side_inner", getBlockTexture(block, "_side_inner_extract")).
+                texture("fluid_pipe_side_outer", getBlockTexture(block, "_side_outer_extract"));
+
+        getMultipartBuilder(block.value()).part().
+                modelFile(fluidPipeCore).addModel().end().part().
+                modelFile(fluidPipeSideConnected).rotationX(270).addModel().condition(FluidPipeBlock.UP,
+                        ModBlockStateProperties.PipeConnection.CONNECTED).end().part().
+                modelFile(fluidPipeSideExtract).rotationX(270).addModel().condition(FluidPipeBlock.UP,
+                        ModBlockStateProperties.PipeConnection.EXTRACT).end().part().
+                modelFile(fluidPipeSideConnected).rotationX(90).addModel().condition(FluidPipeBlock.DOWN,
+                        ModBlockStateProperties.PipeConnection.CONNECTED).end().part().
+                modelFile(fluidPipeSideExtract).rotationX(90).addModel().condition(FluidPipeBlock.DOWN,
+                        ModBlockStateProperties.PipeConnection.EXTRACT).end().part().
+                modelFile(fluidPipeSideConnected).addModel().condition(FluidPipeBlock.NORTH,
+                        ModBlockStateProperties.PipeConnection.CONNECTED).end().part().
+                modelFile(fluidPipeSideExtract).addModel().condition(FluidPipeBlock.NORTH,
+                        ModBlockStateProperties.PipeConnection.EXTRACT).end().part().
+                modelFile(fluidPipeSideConnected).rotationX(180).addModel().condition(FluidPipeBlock.SOUTH,
+                        ModBlockStateProperties.PipeConnection.CONNECTED).end().part().
+                modelFile(fluidPipeSideExtract).rotationX(180).addModel().condition(FluidPipeBlock.SOUTH,
+                        ModBlockStateProperties.PipeConnection.EXTRACT).end().part().
+                modelFile(fluidPipeSideConnected).rotationY(90).addModel().condition(FluidPipeBlock.EAST,
+                        ModBlockStateProperties.PipeConnection.CONNECTED).end().part().
+                modelFile(fluidPipeSideExtract).rotationY(90).addModel().condition(FluidPipeBlock.EAST,
+                        ModBlockStateProperties.PipeConnection.EXTRACT).end().part().
+                modelFile(fluidPipeSideConnected).rotationY(270).addModel().condition(FluidPipeBlock.WEST,
+                        ModBlockStateProperties.PipeConnection.CONNECTED).end().part().
+                modelFile(fluidPipeSideExtract).rotationY(270).addModel().condition(FluidPipeBlock.WEST,
+                        ModBlockStateProperties.PipeConnection.EXTRACT).end();
+
+        itemModels().
+                getBuilder(blockId.getPath()).parent(fluidPipeCore).
+                transforms().
+                transform(ItemDisplayContext.GUI).rotation(30, 45, 0).end().
+                transform(ItemDisplayContext.GROUND).scale(.65f, .65f, .65f).end().
+                transform(ItemDisplayContext.FIXED).scale(.65f, .65f, .65f).end().
+                transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).scale(.65f, .65f, .65f).end().
+                transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND).scale(.65f, .65f, .65f).end().
+                transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).scale(.65f, .65f, .65f).end().
+                transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND).scale(.65f, .65f, .65f).end().end();
+    }
+
+    private void fluidTankBlockWithItem(Holder<Block> block) {
+        ResourceLocation blockId = Objects.requireNonNull(block.unwrapKey().orElseThrow()).location();
+
+        ModelFile fluidTank = models().
+                getBuilder(blockId.getPath()).parent(fluidTankTemplate).
+                texture("particle", "#up").
+                texture("front", getBlockTexture(block, "_front")).
+                texture("side", getBlockTexture(block, "_side")).
+                texture("up", getBlockTexture(block, "_top")).
+                texture("interior", getBlockTexture(block, "_interior"));
+
+        getVariantBuilder(block.value()).partialState().
+                with(FluidTankBlock.FACING, Direction.NORTH).modelForState().modelFile(fluidTank).addModel().partialState().
+                with(FluidTankBlock.FACING, Direction.SOUTH).modelForState().rotationY(180).modelFile(fluidTank).addModel().partialState().
+                with(FluidTankBlock.FACING, Direction.EAST).modelForState().rotationY(90).modelFile(fluidTank).addModel().partialState().
+                with(FluidTankBlock.FACING, Direction.WEST).modelForState().rotationY(270).modelFile(fluidTank).addModel().partialState();
+
+        simpleBlockItem(block.value(), fluidTank);
     }
 
     private void cableBlockWithItem(Holder<Block> block) {
@@ -116,5 +250,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         return new ResourceLocation(blockId.getNamespace(),
                 ModelProvider.BLOCK_FOLDER + "/" + blockId.getPath());
+    }
+
+    private ResourceLocation getBlockTexture(Holder<Block> block, String pathSuffix) {
+        ResourceLocation blockId = Objects.requireNonNull(block.unwrapKey().orElseThrow()).location();
+
+        return new ResourceLocation(blockId.getNamespace(),
+                ModelProvider.BLOCK_FOLDER + "/" + blockId.getPath() + pathSuffix);
     }
 }

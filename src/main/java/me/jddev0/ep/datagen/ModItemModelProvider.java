@@ -214,10 +214,10 @@ public class ModItemModelProvider extends ItemModelProvider {
                 .texture("layer0", new ResourceLocation(itemID.getNamespace(), "item/" + itemID.getPath()));
     }
 
-    private ItemModelBuilder basicItem(Holder<Item> item, String pathPostfix) {
+    private ItemModelBuilder basicItem(Holder<Item> item, String pathSuffix) {
         ResourceLocation itemID = Objects.requireNonNull(item.unwrapKey().orElseThrow()).location();
 
-        return withExistingParent(itemID.getPath() + pathPostfix, "generated")
-                .texture("layer0", new ResourceLocation(itemID.getNamespace(), "item/" + itemID.getPath() + pathPostfix));
+        return withExistingParent(itemID.getPath() + pathSuffix, "generated")
+                .texture("layer0", new ResourceLocation(itemID.getNamespace(), "item/" + itemID.getPath() + pathSuffix));
     }
 }
