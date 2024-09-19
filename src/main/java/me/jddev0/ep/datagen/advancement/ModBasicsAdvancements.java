@@ -391,8 +391,7 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
 
         AdvancementHolder poweredFurnace = addAdvancement(
                 advancementOutput, existingFileHelper, basicMachineFrame,
-                ModBlocks.POWERED_FURNACE_ITEM, "powered_furnace", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.POWERED_FURNACE_ITEM)
+                ModBlocks.POWERED_FURNACE_ITEM, "powered_furnace", FrameType.TASK
         );
 
         AdvancementHolder pulverizer = addAdvancement(
