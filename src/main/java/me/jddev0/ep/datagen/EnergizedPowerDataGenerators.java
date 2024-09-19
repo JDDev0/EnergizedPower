@@ -18,7 +18,10 @@ public class EnergizedPowerDataGenerators {
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-        CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+
+        CompletableFuture<HolderLookup.Provider> lookupProvider =
+                generator.addProvider(event.includeServer(), new ModRegistriesProvider(output, event.getLookupProvider())).
+                        getRegistryProvider();
 
         generator.addProvider(event.includeServer(), new ModRecipeProvider(output, lookupProvider));
         generator.addProvider(event.includeServer(), ModLootTableProvider.create(output));
@@ -34,6 +37,7 @@ public class EnergizedPowerDataGenerators {
                 blockTagProvider.contentsGetter(), existingFileHelper));
         generator.addProvider(event.includeServer(), new ModPoiTypeTagProvider(output, lookupProvider,
                 existingFileHelper));
+        generator.addProvider(event.includeServer(), new ModBiomeTagProvider(output, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new ModPaintingVariantTagProvider(output, lookupProvider,
                 existingFileHelper));
     }

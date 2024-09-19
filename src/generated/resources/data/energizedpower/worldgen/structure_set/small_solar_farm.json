@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1516723498,
+    "separation": 20,
+    "spacing": 40
+  },
+  "structures": [
+    {
+      "structure": "energizedpower:small_solar_farm",
+      "weight": 1
+    }
+  ]
+}
