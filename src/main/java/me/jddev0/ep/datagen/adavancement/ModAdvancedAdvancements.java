@@ -444,7 +444,7 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
 
         AdvancementHolder energizedCrystalMatrixCable = addAdvancement(
                 advancementOutput, existingFileHelper, energizedCrystalMatrix,
-                ModBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM, "energized_crystal_matrix_cable", FrameType.TASK,
+                ModBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM, "energized_crystal_matrix_cable", FrameType.CHALLENGE,
                 InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM)
         );
 
