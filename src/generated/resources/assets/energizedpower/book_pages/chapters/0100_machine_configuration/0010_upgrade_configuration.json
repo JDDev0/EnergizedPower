@@ -1,0 +1,14 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.upgrade_configuration"
+      }
+    ],
+    "text": ""
+  },
+  "image": "energizedpower:textures/gui/book_icons/upgrade_view.png"
+}

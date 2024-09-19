@@ -1,0 +1,33 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.metal_products.1"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.metal_products.2"
+      }
+    ],
+    "text": ""
+  },
+  "image": [
+    "energizedpower:textures/item/iron_gear.png",
+    "energizedpower:textures/item/iron_rod.png",
+    "energizedpower:textures/item/tin_wire.png",
+    "energizedpower:textures/item/copper_wire.png",
+    "energizedpower:textures/item/gold_wire.png",
+    "energizedpower:textures/item/energized_copper_wire.png",
+    "energizedpower:textures/item/energized_gold_wire.png"
+  ]
+}

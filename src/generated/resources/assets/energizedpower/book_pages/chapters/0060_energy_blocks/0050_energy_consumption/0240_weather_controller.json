@@ -1,0 +1,14 @@
+{
+  "block": "energizedpower:weather_controller",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.weather_controller"
+      }
+    ],
+    "text": ""
+  }
+}

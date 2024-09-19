@@ -1,0 +1,115 @@
+{
+  "block": [
+    "energizedpower:lv_transformer_1_to_n",
+    "energizedpower:lv_transformer_3_to_3",
+    "energizedpower:lv_transformer_n_to_1",
+    "energizedpower:transformer_1_to_n",
+    "energizedpower:transformer_3_to_3",
+    "energizedpower:transformer_n_to_1",
+    "energizedpower:hv_transformer_1_to_n",
+    "energizedpower:hv_transformer_3_to_3",
+    "energizedpower:hv_transformer_n_to_1",
+    "energizedpower:ehv_transformer_1_to_n",
+    "energizedpower:ehv_transformer_3_to_3",
+    "energizedpower:ehv_transformer_n_to_1"
+  ],
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.transformers.1"
+      },
+      {
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.transformers.2"
+      },
+      {
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.transformers.3"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.transformers.4"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.transformers.5"
+      },
+      {
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.transformers.6"
+      },
+      {
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.transformers.7"
+      },
+      {
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.transformers.8"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.transformers.9"
+      }
+    ],
+    "text": ""
+  }
+}
