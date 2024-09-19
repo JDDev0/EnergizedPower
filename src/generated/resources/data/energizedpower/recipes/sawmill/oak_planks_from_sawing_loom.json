@@ -1,0 +1,14 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:loom"
+  },
+  "output": {
+    "count": 2,
+    "item": "minecraft:oak_planks"
+  },
+  "secondaryOutput": {
+    "count": 2,
+    "item": "minecraft:string"
+  }
+}
