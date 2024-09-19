@@ -236,9 +236,11 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
                 advancementOutput, existingFileHelper, advancedMachineFrame,
                 ModBlocks.HV_TRANSFORMER_1_TO_N_ITEM, "hv_transformers", FrameType.TASK,
                 InventoryChangeTrigger.TriggerInstance.hasItems(
-                        ModBlocks.HV_TRANSFORMER_1_TO_N_ITEM,
-                        ModBlocks.HV_TRANSFORMER_3_TO_3_ITEM,
-                        ModBlocks.HV_TRANSFORMER_N_TO_1_ITEM
+                        ItemPredicate.Builder.item().of(
+                                ModBlocks.HV_TRANSFORMER_1_TO_N_ITEM,
+                                ModBlocks.HV_TRANSFORMER_3_TO_3_ITEM,
+                                ModBlocks.HV_TRANSFORMER_N_TO_1_ITEM
+                        ).build()
                 )
         );
 
@@ -468,9 +470,11 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
                 advancementOutput, existingFileHelper, reinforcedAdvancedMachineFrame,
                 ModBlocks.EHV_TRANSFORMER_1_TO_N_ITEM, "ehv_transformers", FrameType.TASK,
                 InventoryChangeTrigger.TriggerInstance.hasItems(
-                        ModBlocks.EHV_TRANSFORMER_1_TO_N_ITEM,
-                        ModBlocks.EHV_TRANSFORMER_3_TO_3_ITEM,
-                        ModBlocks.EHV_TRANSFORMER_N_TO_1_ITEM
+                        ItemPredicate.Builder.item().of(
+                                ModBlocks.EHV_TRANSFORMER_1_TO_N_ITEM,
+                                ModBlocks.EHV_TRANSFORMER_3_TO_3_ITEM,
+                                ModBlocks.EHV_TRANSFORMER_N_TO_1_ITEM
+                        ).build()
                 )
         );
 
