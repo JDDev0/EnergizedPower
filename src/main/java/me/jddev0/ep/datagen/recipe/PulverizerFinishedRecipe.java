@@ -5,25 +5,26 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.recipe.ModRecipes;
-import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
+import me.jddev0.ep.recipe.PulverizerRecipe;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jetbrains.annotations.Nullable;
 
-public record FiltrationPlantFinishedRecipe(
+public record PulverizerFinishedRecipe(
         ResourceLocation id,
-        OutputItemStackWithPercentages output,
-        OutputItemStackWithPercentages secondaryOutput,
-        ResourceLocation icon
+        PulverizerRecipe.OutputItemStackWithPercentages output,
+        PulverizerRecipe.OutputItemStackWithPercentages secondaryOutput,
+        Ingredient input
 ) implements FinishedRecipe {
     @Override
     public void serializeRecipeData(JsonObject jsonObject) {
-       {
+        {
             JsonObject outputJson = new JsonObject();
 
-           outputJson.add("output", CodecFix.ITEM_STACK_CODEC.encodeStart(JsonOps.INSTANCE, output.output()).
+            outputJson.add("output", CodecFix.ITEM_STACK_CODEC.encodeStart(JsonOps.INSTANCE, output.output()).
                     result().orElseThrow());
 
             {
@@ -33,6 +34,15 @@ public record FiltrationPlantFinishedRecipe(
                     percentagesJson.add(percentage);
 
                 outputJson.add("percentages", percentagesJson);
+            }
+
+            {
+                JsonArray percentagesAdvancedJson = new JsonArray();
+
+                for(double percentage:output.percentagesAdvanced())
+                    percentagesAdvancedJson.add(percentage);
+
+                outputJson.add("percentagesAdvanced", percentagesAdvancedJson);
             }
 
             jsonObject.add("output", outputJson);
@@ -53,15 +63,24 @@ public record FiltrationPlantFinishedRecipe(
                 secondaryOutputJson.add("percentages", percentagesJson);
             }
 
+            {
+                JsonArray percentagesAdvancedJson = new JsonArray();
+
+                for(double percentage:secondaryOutput.percentagesAdvanced())
+                    percentagesAdvancedJson.add(percentage);
+
+                secondaryOutputJson.add("percentagesAdvanced", percentagesAdvancedJson);
+            }
+
             jsonObject.add("secondaryOutput", secondaryOutputJson);
         }
 
-        jsonObject.addProperty("icon", icon.toString());
+        jsonObject.add("ingredient", input.toJson(false));
     }
 
     @Override
     public RecipeSerializer<?> type() {
-        return ModRecipes.FILTRATION_PLANT_SERIALIZER.get();
+        return ModRecipes.PULVERIZER_SERIALIZER.get();
     }
 
     @Override
