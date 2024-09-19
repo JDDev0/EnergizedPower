@@ -15,6 +15,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
@@ -48,304 +50,245 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
 
         AdvancementHolder energizedPowerBook = addAdvancement(
                 advancementOutput, existingFileHelper, energizedPowerBasics,
-                ModItems.ENERGIZED_POWER_BOOK, "energized_power_book", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.ENERGIZED_POWER_BOOK)
+                ModItems.ENERGIZED_POWER_BOOK, "energized_power_book", FrameType.TASK
         );
 
         AdvancementHolder pressMoldMaker = addAdvancement(
                 advancementOutput, existingFileHelper, energizedPowerBasics,
-                ModBlocks.PRESS_MOLD_MAKER_ITEM, "press_mold_maker", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.PRESS_MOLD_MAKER_ITEM)
+                ModBlocks.PRESS_MOLD_MAKER_ITEM, "press_mold_maker", FrameType.TASK
         );
 
         AdvancementHolder rawPressMolds = addAdvancement(
                 advancementOutput, existingFileHelper, pressMoldMaker,
                 ModItems.RAW_GEAR_PRESS_MOLD, "raw_press_molds", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                        EnergizedPowerItemTags.RAW_METAL_PRESS_MOLDS
-                ))
+                EnergizedPowerItemTags.RAW_METAL_PRESS_MOLDS
         );
 
         AdvancementHolder pressMolds = addAdvancement(
                 advancementOutput, existingFileHelper, rawPressMolds,
                 ModItems.GEAR_PRESS_MOLD, "press_molds", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                        EnergizedPowerItemTags.METAL_PRESS_MOLDS
-                ))
+                EnergizedPowerItemTags.METAL_PRESS_MOLDS
         );
 
         AdvancementHolder alloyFurnace = addAdvancement(
                 advancementOutput, existingFileHelper, energizedPowerBasics,
-                ModBlocks.ALLOY_FURNACE_ITEM, "alloy_furnace", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.ALLOY_FURNACE_ITEM)
+                ModBlocks.ALLOY_FURNACE_ITEM, "alloy_furnace", FrameType.TASK
         );
 
         AdvancementHolder steelIngot = addAdvancement(
                 advancementOutput, existingFileHelper, alloyFurnace,
                 ModItems.STEEL_INGOT, "steel_ingot", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                        CommonItemTags.INGOTS_STEEL
-                ))
+                CommonItemTags.INGOTS_STEEL
         );
 
         AdvancementHolder redstoneAlloyIngot = addAdvancement(
                 advancementOutput, existingFileHelper, alloyFurnace,
                 ModItems.REDSTONE_ALLOY_INGOT, "redstone_alloy_ingot", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                        CommonItemTags.INGOTS_REDSTONE_ALLOY
-                ))
+                CommonItemTags.INGOTS_REDSTONE_ALLOY
         );
 
         AdvancementHolder wrench = addAdvancement(
                 advancementOutput, existingFileHelper, energizedPowerBasics,
-                ModItems.WRENCH, "wrench", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.WRENCH)
+                ModItems.WRENCH, "wrench", FrameType.TASK
         );
 
         AdvancementHolder hammer = addAdvancement(
                 advancementOutput, existingFileHelper, energizedPowerBasics,
                 ModItems.IRON_HAMMER, "hammer", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                        CommonItemTags.TOOLS_HAMMERS
-                ))
+                CommonItemTags.TOOLS_HAMMERS
         );
 
         AdvancementHolder tinPlate = addAdvancement(
                 advancementOutput, existingFileHelper, hammer,
                 ModItems.TIN_PLATE, "tin_plate", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                        CommonItemTags.PLATES_TIN
-                ))
+                CommonItemTags.PLATES_TIN
         );
 
         AdvancementHolder copperPlate = addAdvancement(
                 advancementOutput, existingFileHelper, hammer,
                 ModItems.COPPER_PLATE, "copper_plate", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                        CommonItemTags.PLATES_COPPER
-                ))
+                CommonItemTags.PLATES_COPPER
         );
 
         AdvancementHolder goldPlate = addAdvancement(
                 advancementOutput, existingFileHelper, hammer,
                 ModItems.GOLD_PLATE, "gold_plate", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                        CommonItemTags.PLATES_GOLD
-                ))
+                CommonItemTags.PLATES_GOLD
         );
 
         AdvancementHolder ironPlate = addAdvancement(
                 advancementOutput, existingFileHelper, hammer,
                 ModItems.IRON_PLATE, "iron_plate", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                        CommonItemTags.PLATES_IRON
-                ))
+                CommonItemTags.PLATES_IRON
         );
 
         AdvancementHolder cutter = addAdvancement(
                 advancementOutput, existingFileHelper, ironPlate,
                 ModItems.CUTTER, "cutter", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                        CommonItemTags.TOOLS_CUTTERS
-                ))
+                CommonItemTags.TOOLS_CUTTERS
         );
 
         AdvancementHolder tinWire = addAdvancement(
                 advancementOutput, existingFileHelper, cutter,
                 ModItems.TIN_WIRE, "tin_wire", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                        CommonItemTags.WIRES_TIN
-                ))
+                CommonItemTags.WIRES_TIN
         );
 
         AdvancementHolder goldWire = addAdvancement(
                 advancementOutput, existingFileHelper, cutter,
                 ModItems.GOLD_WIRE, "gold_wire", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                        CommonItemTags.WIRES_GOLD
-                ))
+                CommonItemTags.WIRES_GOLD
         );
 
         AdvancementHolder copperWire = addAdvancement(
                 advancementOutput, existingFileHelper, cutter,
                 ModItems.COPPER_WIRE, "copper_wire", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                        CommonItemTags.WIRES_COPPER
-                ))
+                CommonItemTags.WIRES_COPPER
         );
 
         AdvancementHolder basicCircuit = addAdvancement(
                 advancementOutput, existingFileHelper, copperWire,
-                ModItems.BASIC_CIRCUIT, "basic_circuit", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.BASIC_CIRCUIT)
+                ModItems.BASIC_CIRCUIT, "basic_circuit", FrameType.TASK
         );
 
         AdvancementHolder basicUpgradeModule = addAdvancement(
                 advancementOutput, existingFileHelper, basicCircuit,
-                ModItems.BASIC_UPGRADE_MODULE, "basic_upgrade_module", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.BASIC_UPGRADE_MODULE)
+                ModItems.BASIC_UPGRADE_MODULE, "basic_upgrade_module", FrameType.TASK
         );
 
         AdvancementHolder speedUpgradeUpgradeModule1 = addAdvancement(
                 advancementOutput, existingFileHelper, basicUpgradeModule,
-                ModItems.SPEED_UPGRADE_MODULE_1, "speed_upgrade_module_1", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SPEED_UPGRADE_MODULE_1)
+                ModItems.SPEED_UPGRADE_MODULE_1, "speed_upgrade_module_1", FrameType.TASK
         );
 
         AdvancementHolder speedUpgradeUpgradeModule2 = addAdvancement(
                 advancementOutput, existingFileHelper, speedUpgradeUpgradeModule1,
-                ModItems.SPEED_UPGRADE_MODULE_2, "speed_upgrade_module_2", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SPEED_UPGRADE_MODULE_2)
+                ModItems.SPEED_UPGRADE_MODULE_2, "speed_upgrade_module_2", FrameType.TASK
         );
 
         AdvancementHolder energyEfficiencyUpgradeModule1 = addAdvancement(
                 advancementOutput, existingFileHelper, basicUpgradeModule,
-                ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1, "energy_efficiency_upgrade_module_1", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1)
+                ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1, "energy_efficiency_upgrade_module_1", FrameType.TASK
         );
 
         AdvancementHolder energyEfficiencyUpgradeModule2 = addAdvancement(
                 advancementOutput, existingFileHelper, energyEfficiencyUpgradeModule1,
-                ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2, "energy_efficiency_upgrade_module_2", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2)
+                ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2, "energy_efficiency_upgrade_module_2", FrameType.TASK
         );
 
         AdvancementHolder energyCapacityUpgradeModule1 = addAdvancement(
                 advancementOutput, existingFileHelper, basicUpgradeModule,
-                ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_1, "energy_capacity_upgrade_module_1", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_1)
+                ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_1, "energy_capacity_upgrade_module_1", FrameType.TASK
         );
 
         AdvancementHolder energyCapacityUpgradeModule2 = addAdvancement(
                 advancementOutput, existingFileHelper, energyCapacityUpgradeModule1,
-                ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_2, "energy_capacity_upgrade_module_2", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_2)
+                ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_2, "energy_capacity_upgrade_module_2", FrameType.TASK
         );
 
         AdvancementHolder extractionDepthUpgradeModule1 = addAdvancement(
                 advancementOutput, existingFileHelper, basicUpgradeModule,
-                ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1, "extraction_depth_upgrade_module_1", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1)
+                ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1, "extraction_depth_upgrade_module_1", FrameType.TASK
         );
 
         AdvancementHolder extractionDepthUpgradeModule2 = addAdvancement(
                 advancementOutput, existingFileHelper, extractionDepthUpgradeModule1,
-                ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2, "extraction_depth_upgrade_module_2", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2)
+                ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2, "extraction_depth_upgrade_module_2", FrameType.TASK
         );
 
         AdvancementHolder blastFurnaceUpgradeModule = addAdvancement(
                 advancementOutput, existingFileHelper, basicUpgradeModule,
-                ModItems.BLAST_FURNACE_UPGRADE_MODULE, "blast_furnace_upgrade_module", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.BLAST_FURNACE_UPGRADE_MODULE)
+                ModItems.BLAST_FURNACE_UPGRADE_MODULE, "blast_furnace_upgrade_module", FrameType.TASK
         );
 
         AdvancementHolder smokerUpgradeModule = addAdvancement(
                 advancementOutput, existingFileHelper, basicUpgradeModule,
-                ModItems.SMOKER_UPGRADE_MODULE, "smoker_upgrade_module", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SMOKER_UPGRADE_MODULE)
+                ModItems.SMOKER_UPGRADE_MODULE, "smoker_upgrade_module", FrameType.TASK
         );
 
         AdvancementHolder moonLightUpgradeModule1 = addAdvancement(
                 advancementOutput, existingFileHelper, basicUpgradeModule,
-                ModItems.MOON_LIGHT_UPGRADE_MODULE_1, "moon_light_upgrade_module_1", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.MOON_LIGHT_UPGRADE_MODULE_1)
+                ModItems.MOON_LIGHT_UPGRADE_MODULE_1, "moon_light_upgrade_module_1", FrameType.TASK
         );
 
         AdvancementHolder itemConveyorBelt = addAdvancement(
                 advancementOutput, existingFileHelper, ironPlate,
-                ModBlocks.ITEM_CONVEYOR_BELT_ITEM, "item_conveyor_belt", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.ITEM_CONVEYOR_BELT_ITEM)
+                ModBlocks.ITEM_CONVEYOR_BELT_ITEM, "item_conveyor_belt", FrameType.TASK
         );
 
         AdvancementHolder itemConveyorBeltLoader = addAdvancement(
                 advancementOutput, existingFileHelper, itemConveyorBelt,
-                ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM, "item_conveyor_belt_loader", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM)
+                ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM, "item_conveyor_belt_loader", FrameType.TASK
         );
 
         AdvancementHolder itemConveyorBeltSorter = addAdvancement(
                 advancementOutput, existingFileHelper, itemConveyorBeltLoader,
-                ModBlocks.ITEM_CONVEYOR_BELT_SORTER_ITEM, "item_conveyor_belt_sorter", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.ITEM_CONVEYOR_BELT_SORTER_ITEM)
+                ModBlocks.ITEM_CONVEYOR_BELT_SORTER_ITEM, "item_conveyor_belt_sorter", FrameType.TASK
         );
 
         AdvancementHolder itemConveyorBeltSwitch = addAdvancement(
                 advancementOutput, existingFileHelper, itemConveyorBeltLoader,
-                ModBlocks.ITEM_CONVEYOR_BELT_SWITCH_ITEM, "item_conveyor_belt_switch", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.ITEM_CONVEYOR_BELT_SWITCH_ITEM)
+                ModBlocks.ITEM_CONVEYOR_BELT_SWITCH_ITEM, "item_conveyor_belt_switch", FrameType.TASK
         );
 
         AdvancementHolder itemConveyorBeltSplitter = addAdvancement(
                 advancementOutput, existingFileHelper, itemConveyorBeltLoader,
-                ModBlocks.ITEM_CONVEYOR_BELT_SPLITTER_ITEM, "item_conveyor_belt_splitter", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.ITEM_CONVEYOR_BELT_SPLITTER_ITEM)
+                ModBlocks.ITEM_CONVEYOR_BELT_SPLITTER_ITEM, "item_conveyor_belt_splitter", FrameType.TASK
         );
 
         AdvancementHolder itemConveyorBeltMerger = addAdvancement(
                 advancementOutput, existingFileHelper, itemConveyorBeltLoader,
-                ModBlocks.ITEM_CONVEYOR_BELT_MERGER_ITEM, "item_conveyor_belt_merger", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.ITEM_CONVEYOR_BELT_MERGER_ITEM)
+                ModBlocks.ITEM_CONVEYOR_BELT_MERGER_ITEM, "item_conveyor_belt_merger", FrameType.TASK
         );
 
         AdvancementHolder ironFluidPipe = addAdvancement(
                 advancementOutput, existingFileHelper, ironPlate,
-                ModBlocks.IRON_FLUID_PIPE_ITEM, "iron_fluid_pipe", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.IRON_FLUID_PIPE_ITEM)
+                ModBlocks.IRON_FLUID_PIPE_ITEM, "iron_fluid_pipe", FrameType.TASK
         );
 
         AdvancementHolder goldenFluidPipe = addAdvancement(
                 advancementOutput, existingFileHelper, ironFluidPipe,
-                ModBlocks.GOLDEN_FLUID_PIPE_ITEM, "golden_fluid_pipe", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.GOLDEN_FLUID_PIPE_ITEM)
+                ModBlocks.GOLDEN_FLUID_PIPE_ITEM, "golden_fluid_pipe", FrameType.TASK
         );
 
         AdvancementHolder fluidTankSmall = addAdvancement(
                 advancementOutput, existingFileHelper, ironFluidPipe,
-                ModBlocks.FLUID_TANK_SMALL_ITEM, "fluid_tank_small", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.FLUID_TANK_SMALL_ITEM)
+                ModBlocks.FLUID_TANK_SMALL_ITEM, "fluid_tank_small", FrameType.TASK
         );
 
         AdvancementHolder fluidTankMedium = addAdvancement(
                 advancementOutput, existingFileHelper, fluidTankSmall,
-                ModBlocks.FLUID_TANK_MEDIUM_ITEM, "fluid_tank_medium", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.FLUID_TANK_MEDIUM_ITEM)
+                ModBlocks.FLUID_TANK_MEDIUM_ITEM, "fluid_tank_medium", FrameType.TASK
         );
 
         AdvancementHolder fluidTankLarge = addAdvancement(
                 advancementOutput, existingFileHelper, fluidTankMedium,
-                ModBlocks.FLUID_TANK_LARGE_ITEM, "fluid_tank_large", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.FLUID_TANK_LARGE_ITEM)
+                ModBlocks.FLUID_TANK_LARGE_ITEM, "fluid_tank_large", FrameType.TASK
         );
 
         AdvancementHolder drain = addAdvancement(
                 advancementOutput, existingFileHelper, ironPlate,
-                ModBlocks.DRAIN_ITEM, "drain", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.DRAIN_ITEM)
+                ModBlocks.DRAIN_ITEM, "drain", FrameType.TASK
         );
 
         AdvancementHolder cableInsulator = addAdvancement(
                 advancementOutput, existingFileHelper, energizedPowerBasics,
-                ModItems.CABLE_INSULATOR, "cable_insulator", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.CABLE_INSULATOR)
+                ModItems.CABLE_INSULATOR, "cable_insulator", FrameType.TASK
         );
 
         AdvancementHolder tinCable = addAdvancement(
                 advancementOutput, existingFileHelper, cableInsulator,
-                ModBlocks.TIN_CABLE_ITEM, "tin_cable", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.TIN_CABLE_ITEM)
+                ModBlocks.TIN_CABLE_ITEM, "tin_cable", FrameType.TASK
         );
 
         AdvancementHolder copperCable = addAdvancement(
                 advancementOutput, existingFileHelper, tinCable,
-                ModBlocks.COPPER_CABLE_ITEM, "copper_cable", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.COPPER_CABLE_ITEM)
+                ModBlocks.COPPER_CABLE_ITEM, "copper_cable", FrameType.TASK
         );
 
         AdvancementHolder goldCable = addAdvancement(
                 advancementOutput, existingFileHelper, copperCable,
-                ModBlocks.GOLD_CABLE_ITEM, "gold_cable", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.GOLD_CABLE_ITEM)
+                ModBlocks.GOLD_CABLE_ITEM, "gold_cable", FrameType.TASK
         );
 
         AdvancementHolder lvTransformers = addAdvancement(
@@ -363,105 +306,87 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
         AdvancementHolder silicon = addAdvancement(
                 advancementOutput, existingFileHelper, energizedPowerBasics,
                 ModItems.SILICON, "silicon", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                        CommonItemTags.SILICON
-                ))
+                CommonItemTags.SILICON
         );
 
         AdvancementHolder poweredLamp = addAdvancement(
                 advancementOutput, existingFileHelper, silicon,
-                ModBlocks.POWERED_LAMP_ITEM, "powered_lamp", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.POWERED_LAMP_ITEM)
+                ModBlocks.POWERED_LAMP_ITEM, "powered_lamp", FrameType.TASK
         );
 
         AdvancementHolder basicSolarCell = addAdvancement(
                 advancementOutput, existingFileHelper, silicon,
-                ModItems.BASIC_SOLAR_CELL, "basic_solar_cell", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.BASIC_SOLAR_CELL)
+                ModItems.BASIC_SOLAR_CELL, "basic_solar_cell", FrameType.TASK
         );
 
         AdvancementHolder solarPanel1 = addAdvancement(
                 advancementOutput, existingFileHelper, basicSolarCell,
-                ModBlocks.SOLAR_PANEL_ITEM_1, "solar_panel_1", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.SOLAR_PANEL_ITEM_1)
+                ModBlocks.SOLAR_PANEL_ITEM_1, "solar_panel_1", FrameType.TASK
         );
 
         AdvancementHolder solarPanel2 = addAdvancement(
                 advancementOutput, existingFileHelper, solarPanel1,
-                ModBlocks.SOLAR_PANEL_ITEM_2, "solar_panel_2", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.SOLAR_PANEL_ITEM_2)
+                ModBlocks.SOLAR_PANEL_ITEM_2, "solar_panel_2", FrameType.TASK
         );
 
         AdvancementHolder solarPanel3 = addAdvancement(
                 advancementOutput, existingFileHelper, solarPanel2,
-                ModBlocks.SOLAR_PANEL_ITEM_3, "solar_panel_3", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.SOLAR_PANEL_ITEM_3)
+                ModBlocks.SOLAR_PANEL_ITEM_3, "solar_panel_3", FrameType.TASK
         );
 
         AdvancementHolder basicMachineFrame = addAdvancement(
                 advancementOutput, existingFileHelper, silicon,
-                ModBlocks.BASIC_MACHINE_FRAME_ITEM, "basic_machine_frame", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
+                ModBlocks.BASIC_MACHINE_FRAME_ITEM, "basic_machine_frame", FrameType.TASK
         );
 
         AdvancementHolder autoCrafter = addAdvancement(
                 advancementOutput, existingFileHelper, basicMachineFrame,
-                ModBlocks.AUTO_CRAFTER_ITEM, "auto_crafter", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.AUTO_CRAFTER_ITEM)
+                ModBlocks.AUTO_CRAFTER_ITEM, "auto_crafter", FrameType.TASK
         );
 
         AdvancementHolder crusher = addAdvancement(
                 advancementOutput, existingFileHelper, basicMachineFrame,
-                ModBlocks.CRUSHER_ITEM, "crusher", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.CRUSHER_ITEM)
+                ModBlocks.CRUSHER_ITEM, "crusher", FrameType.TASK
         );
 
         AdvancementHolder sawmill = addAdvancement(
                 advancementOutput, existingFileHelper, basicMachineFrame,
-                ModBlocks.SAWMILL_ITEM, "sawmill", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.SAWMILL_ITEM)
+                ModBlocks.SAWMILL_ITEM, "sawmill", FrameType.TASK
         );
 
         AdvancementHolder compressor = addAdvancement(
                 advancementOutput, existingFileHelper, basicMachineFrame,
-                ModBlocks.COMPRESSOR_ITEM, "compressor", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.COMPRESSOR_ITEM)
+                ModBlocks.COMPRESSOR_ITEM, "compressor", FrameType.TASK
         );
 
         AdvancementHolder autoStonecutter = addAdvancement(
                 advancementOutput, existingFileHelper, basicMachineFrame,
-                ModBlocks.AUTO_STONECUTTER_ITEM, "auto_stonecutter", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.AUTO_STONECUTTER_ITEM)
+                ModBlocks.AUTO_STONECUTTER_ITEM, "auto_stonecutter", FrameType.TASK
         );
 
         AdvancementHolder plantGrowthChamber = addAdvancement(
                 advancementOutput, existingFileHelper, basicMachineFrame,
-                ModBlocks.PLANT_GROWTH_CHAMBER_ITEM, "plant_growth_chamber", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM)
+                ModBlocks.PLANT_GROWTH_CHAMBER_ITEM, "plant_growth_chamber", FrameType.TASK
         );
 
         AdvancementHolder blockPlacer = addAdvancement(
                 advancementOutput, existingFileHelper, basicMachineFrame,
-                ModBlocks.BLOCK_PLACER_ITEM, "block_placer", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.BLOCK_PLACER_ITEM)
+                ModBlocks.BLOCK_PLACER_ITEM, "block_placer", FrameType.TASK
         );
 
         AdvancementHolder fluidFiller = addAdvancement(
                 advancementOutput, existingFileHelper, basicMachineFrame,
-                ModBlocks.FLUID_FILLER_ITEM, "fluid_filler", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.FLUID_FILLER_ITEM)
+                ModBlocks.FLUID_FILLER_ITEM, "fluid_filler", FrameType.TASK
         );
 
         AdvancementHolder fluidDrainer = addAdvancement(
                 advancementOutput, existingFileHelper, basicMachineFrame,
-                ModBlocks.FLUID_DRAINER_ITEM, "fluid_drainer", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.FLUID_DRAINER_ITEM)
+                ModBlocks.FLUID_DRAINER_ITEM, "fluid_drainer", FrameType.TASK
         );
 
         AdvancementHolder fluidPump = addAdvancement(
                 advancementOutput, existingFileHelper, basicMachineFrame,
-                ModBlocks.FLUID_PUMP_ITEM, "fluid_pump", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.FLUID_PUMP_ITEM)
+                ModBlocks.FLUID_PUMP_ITEM, "fluid_pump", FrameType.TASK
         );
 
         AdvancementHolder poweredFurnace = addAdvancement(
@@ -472,20 +397,17 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
 
         AdvancementHolder pulverizer = addAdvancement(
                 advancementOutput, existingFileHelper, basicMachineFrame,
-                ModBlocks.PULVERIZER_ITEM, "pulverizer", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.PULVERIZER_ITEM)
+                ModBlocks.PULVERIZER_ITEM, "pulverizer", FrameType.TASK
         );
 
         AdvancementHolder charcoalFilter = addAdvancement(
                 advancementOutput, existingFileHelper, pulverizer,
-                ModItems.CHARCOAL_FILTER, "charcoal_filter", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.CHARCOAL_FILTER)
+                ModItems.CHARCOAL_FILTER, "charcoal_filter", FrameType.TASK
         );
 
         AdvancementHolder coalEngine = addAdvancement(
                 advancementOutput, existingFileHelper, basicMachineFrame,
-                ModBlocks.COAL_ENGINE_ITEM, "coal_engine", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.COAL_ENGINE_ITEM)
+                ModBlocks.COAL_ENGINE_ITEM, "coal_engine", FrameType.TASK
         );
 
         ItemStack inventoryCoalEngineIcon = new ItemStack(ModItems.INVENTORY_COAL_ENGINE.get());
@@ -500,110 +422,92 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
 
         AdvancementHolder heatGenerator = addAdvancement(
                 advancementOutput, existingFileHelper, coalEngine,
-                ModBlocks.HEAT_GENERATOR_ITEM, "heat_generator", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.HEAT_GENERATOR_ITEM)
+                ModBlocks.HEAT_GENERATOR_ITEM, "heat_generator", FrameType.TASK
         );
 
         AdvancementHolder charger = addAdvancement(
                 advancementOutput, existingFileHelper, basicMachineFrame,
-                ModBlocks.CHARGER_ITEM, "charger", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.CHARGER_ITEM)
+                ModBlocks.CHARGER_ITEM, "charger", FrameType.TASK
         );
 
         AdvancementHolder minecartCharger = addAdvancement(
                 advancementOutput, existingFileHelper, charger,
-                ModBlocks.MINECART_CHARGER_ITEM, "minecart_charger", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.MINECART_CHARGER_ITEM)
+                ModBlocks.MINECART_CHARGER_ITEM, "minecart_charger", FrameType.TASK
         );
 
         AdvancementHolder uncharger = addAdvancement(
                 advancementOutput, existingFileHelper, charger,
-                ModBlocks.UNCHARGER_ITEM, "uncharger", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.UNCHARGER_ITEM)
+                ModBlocks.UNCHARGER_ITEM, "uncharger", FrameType.TASK
         );
 
         AdvancementHolder minecartUncharger = addAdvancement(
                 advancementOutput, existingFileHelper, uncharger,
-                ModBlocks.MINECART_UNCHARGER_ITEM, "minecart_uncharger", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.MINECART_UNCHARGER_ITEM)
+                ModBlocks.MINECART_UNCHARGER_ITEM, "minecart_uncharger", FrameType.TASK
         );
 
         AdvancementHolder inventoryCharger = addAdvancement(
                 advancementOutput, existingFileHelper, charger,
-                ModItems.INVENTORY_CHARGER, "inventory_charger", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.INVENTORY_CHARGER)
+                ModItems.INVENTORY_CHARGER, "inventory_charger", FrameType.TASK
         );
 
         AdvancementHolder battery1 = addAdvancement(
                 advancementOutput, existingFileHelper, charger,
-                ModItems.BATTERY_1, "battery_1", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.BATTERY_1)
+                ModItems.BATTERY_1, "battery_1", FrameType.TASK
         );
 
         AdvancementHolder battery2 = addAdvancement(
                 advancementOutput, existingFileHelper, battery1,
-                ModItems.BATTERY_2, "battery_2", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.BATTERY_2)
+                ModItems.BATTERY_2, "battery_2", FrameType.TASK
         );
 
         AdvancementHolder battery3 = addAdvancement(
                 advancementOutput, existingFileHelper, battery2,
-                ModItems.BATTERY_3, "battery_3", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.BATTERY_3)
+                ModItems.BATTERY_3, "battery_3", FrameType.TASK
         );
 
         AdvancementHolder energyAnalyzer = addAdvancement(
                 advancementOutput, existingFileHelper, battery3,
-                ModItems.ENERGY_ANALYZER, "energy_analyzer", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.ENERGY_ANALYZER)
+                ModItems.ENERGY_ANALYZER, "energy_analyzer", FrameType.TASK
         );
 
         AdvancementHolder fluidAnalyzer = addAdvancement(
                 advancementOutput, existingFileHelper, battery3,
-                ModItems.FLUID_ANALYZER, "fluid_analyzer", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.FLUID_ANALYZER)
+                ModItems.FLUID_ANALYZER, "fluid_analyzer", FrameType.TASK
         );
 
         AdvancementHolder battery4 = addAdvancement(
                 advancementOutput, existingFileHelper, battery3,
-                ModItems.BATTERY_4, "battery_4", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.BATTERY_4)
+                ModItems.BATTERY_4, "battery_4", FrameType.TASK
         );
 
         AdvancementHolder battery5 = addAdvancement(
                 advancementOutput, existingFileHelper, battery4,
-                ModItems.BATTERY_5, "battery_5", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.BATTERY_5)
+                ModItems.BATTERY_5, "battery_5", FrameType.TASK
         );
 
         AdvancementHolder batteryBox = addAdvancement(
                 advancementOutput, existingFileHelper, battery5,
-                ModBlocks.BATTERY_BOX_ITEM, "battery_box", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.BATTERY_BOX_ITEM)
+                ModBlocks.BATTERY_BOX_ITEM, "battery_box", FrameType.TASK
         );
 
         AdvancementHolder batteryBoxMinecart = addAdvancement(
                 advancementOutput, existingFileHelper, batteryBox,
-                ModItems.BATTERY_BOX_MINECART, "battery_box_minecart", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.BATTERY_BOX_MINECART)
+                ModItems.BATTERY_BOX_MINECART, "battery_box_minecart", FrameType.TASK
         );
 
         AdvancementHolder metalPress = addAdvancement(
                 advancementOutput, existingFileHelper, basicMachineFrame,
-                ModBlocks.METAL_PRESS_ITEM, "metal_press", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.METAL_PRESS_ITEM)
+                ModBlocks.METAL_PRESS_ITEM, "metal_press", FrameType.TASK
         );
 
         AdvancementHolder autoPressMoldMaker = addAdvancement(
                 advancementOutput, existingFileHelper, metalPress,
-                ModBlocks.AUTO_PRESS_MOLD_MAKER, "auto_press_mold_maker", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.AUTO_PRESS_MOLD_MAKER)
+                ModBlocks.AUTO_PRESS_MOLD_MAKER, "auto_press_mold_maker", FrameType.TASK
         );
 
         AdvancementHolder hardenedMachineFrame = addAdvancement(
                 advancementOutput, existingFileHelper, metalPress,
-                ModBlocks.HARDENED_MACHINE_FRAME_ITEM, "hardened_machine_frame", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.HARDENED_MACHINE_FRAME_ITEM)
+                ModBlocks.HARDENED_MACHINE_FRAME_ITEM, "hardened_machine_frame", FrameType.TASK
         );
 
         AdvancementHolder mvTransformers = addAdvancement(
@@ -620,41 +524,53 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
 
         AdvancementHolder assemblingMachine = addAdvancement(
                 advancementOutput, existingFileHelper, hardenedMachineFrame,
-                ModBlocks.ASSEMBLING_MACHINE_ITEM, "assembling_machine", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.ASSEMBLING_MACHINE_ITEM)
+                ModBlocks.ASSEMBLING_MACHINE_ITEM, "assembling_machine", FrameType.TASK
         );
 
         AdvancementHolder inductionSmelter = addAdvancement(
                 advancementOutput, existingFileHelper, hardenedMachineFrame,
-                ModBlocks.INDUCTION_SMELTER_ITEM, "induction_smelter", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.INDUCTION_SMELTER_ITEM)
+                ModBlocks.INDUCTION_SMELTER_ITEM, "induction_smelter", FrameType.TASK
         );
 
         AdvancementHolder stoneSolidifier = addAdvancement(
                 advancementOutput, existingFileHelper, hardenedMachineFrame,
-                ModBlocks.STONE_SOLIDIFIER_ITEM, "stone_solidifier", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.STONE_SOLIDIFIER_ITEM)
+                ModBlocks.STONE_SOLIDIFIER_ITEM, "stone_solidifier", FrameType.TASK
         );
 
         AdvancementHolder fluidTransposer = addAdvancement(
                 advancementOutput, existingFileHelper, hardenedMachineFrame,
-                ModBlocks.FLUID_TRANSPOSER_ITEM, "fluid_transposer", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.FLUID_TRANSPOSER_ITEM)
+                ModBlocks.FLUID_TRANSPOSER_ITEM, "fluid_transposer", FrameType.TASK
         );
 
         AdvancementHolder filtrationPlant = addAdvancement(
                 advancementOutput, existingFileHelper, hardenedMachineFrame,
-                ModBlocks.FILTRATION_PLANT_ITEM, "filtration_plant", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.FILTRATION_PLANT_ITEM)
+                ModBlocks.FILTRATION_PLANT_ITEM, "filtration_plant", FrameType.TASK
         );
 
         AdvancementHolder thermalGenerator = addAdvancement(
                 advancementOutput, existingFileHelper, hardenedMachineFrame,
-                ModBlocks.THERMAL_GENERATOR_ITEM, "thermal_generator", FrameType.TASK,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.THERMAL_GENERATOR_ITEM)
+                ModBlocks.THERMAL_GENERATOR_ITEM, "thermal_generator", FrameType.TASK
         );
     }
 
+    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, ExistingFileHelper existingFileHelper,
+                                             AdvancementHolder parent, ItemLike icon, String advancementId, FrameType type) {
+        return addAdvancement(advancementOutput, existingFileHelper, parent, icon, advancementId, type, icon);
+    }
+    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, ExistingFileHelper existingFileHelper,
+                                             AdvancementHolder parent, ItemLike icon, String advancementId, FrameType type,
+                                             ItemLike trigger) {
+        return addAdvancement(advancementOutput, existingFileHelper, parent, new ItemStack(icon), advancementId, type,
+                InventoryChangeTrigger.TriggerInstance.hasItems(trigger));
+    }
+    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, ExistingFileHelper existingFileHelper,
+                                             AdvancementHolder parent, ItemLike icon, String advancementId, FrameType type,
+                                             TagKey<Item> trigger) {
+        return addAdvancement(advancementOutput, existingFileHelper, parent, new ItemStack(icon), advancementId, type,
+                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
+                        trigger
+                )));
+    }
     private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, ExistingFileHelper existingFileHelper,
                                              AdvancementHolder parent, ItemLike icon, String advancementId, FrameType type,
                                              Criterion<?> trigger) {
