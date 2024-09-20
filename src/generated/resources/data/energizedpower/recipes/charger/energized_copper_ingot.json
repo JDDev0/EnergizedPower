@@ -1,9 +1,9 @@
 {
   "type": "energizedpower:charger",
+  "energy": 4194304,
   "ingredient": {
     "tag": "forge:ingots/copper"
   },
-  "energy": 4194304,
   "output": {
     "item": "energizedpower:energized_copper_ingot"
   }

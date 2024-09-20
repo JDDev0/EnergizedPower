@@ -1,9 +1,11 @@
 {
   "type": "energizedpower:compressor",
   "ingredient": {
-    "tag": "forge:ingots/iron"
+    "tag": "forge:storage_blocks/iron"
   },
+  "inputCount": 1,
   "output": {
+    "count": 9,
     "item": "energizedpower:iron_plate"
   }
 }

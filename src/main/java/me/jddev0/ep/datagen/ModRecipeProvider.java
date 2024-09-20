@@ -2,12 +2,9 @@ package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.datagen.recipe.AbstractCookingFinishedRecipe;
-import me.jddev0.ep.datagen.recipe.AlloyFurnaceFinishedRecipe;
-import me.jddev0.ep.datagen.recipe.AssemblingMachineFinishedRecipe;
+import me.jddev0.ep.datagen.recipe.*;
 import me.jddev0.ep.item.ModItems;
-import me.jddev0.ep.recipe.IngredientWithCount;
-import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
+import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
@@ -40,6 +37,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     @Override
     protected void buildRecipes(RecipeOutput output) {
         buildCookingRecipes(output);
+        buildCompressorRecipes(output);
+        buildChargerRecipes(output);
         buildAlloyFurnaceRecipes(output);
         buildAssemblingMachineRecipes(output);
     }
@@ -95,6 +94,36 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 new IngredientWithCount(Ingredient.of(Tags.Items.INGOTS_COPPER), 3),
                 new IngredientWithCount(Ingredient.of(CommonItemTags.INGOTS_TIN), 3)
         }, new ItemStack(ModItems.ADVANCED_ALLOY_INGOT.get()), 10000);
+    }
+
+    private void buildCompressorRecipes(RecipeOutput output) {
+        addCompressorRecipe(output, Ingredient.of(ModItems.STONE_PEBBLE.get()), new ItemStack(Items.COBBLESTONE),
+                16, "stone_pebbles");
+
+        addPlateCompressorRecipes(output, Ingredient.of(CommonItemTags.INGOTS_TIN),
+                Ingredient.of(CommonItemTags.STORAGE_BLOCKS_TIN), new ItemStack(ModItems.TIN_PLATE.get()),
+                "tin");
+        addPlateCompressorRecipes(output, Ingredient.of(Tags.Items.INGOTS_COPPER),
+                Ingredient.of(Tags.Items.STORAGE_BLOCKS_COPPER), new ItemStack(ModItems.COPPER_PLATE.get()),
+                "copper");
+        addPlateCompressorRecipes(output, Ingredient.of(Tags.Items.INGOTS_IRON),
+                Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON), new ItemStack(ModItems.IRON_PLATE.get()),
+                "iron");
+        addPlateCompressorRecipes(output, Ingredient.of(Tags.Items.INGOTS_GOLD),
+                Ingredient.of(Tags.Items.STORAGE_BLOCKS_GOLD), new ItemStack(ModItems.GOLD_PLATE.get()),
+                "gold");
+
+        addPlateCompressorIngotRecipe(output, Ingredient.of(CommonItemTags.INGOTS_ADVANCED_ALLOY),
+                new ItemStack(ModItems.ADVANCED_ALLOY_PLATE.get()), "advanced_alloy");
+        addPlateCompressorIngotRecipe(output, Ingredient.of(CommonItemTags.INGOTS_ENERGIZED_COPPER),
+                new ItemStack(ModItems.ENERGIZED_COPPER_PLATE.get()), "energized_copper");
+        addPlateCompressorIngotRecipe(output, Ingredient.of(CommonItemTags.INGOTS_ENERGIZED_GOLD),
+                new ItemStack(ModItems.ENERGIZED_GOLD_PLATE.get()), "energized_gold");
+    }
+
+    private void buildChargerRecipes(RecipeOutput output) {
+        addChargerRecipe(output, Ingredient.of(Tags.Items.INGOTS_COPPER),
+                new ItemStack(ModItems.ENERGIZED_COPPER_INGOT.get()), 4194304);
     }
 
     private void buildAssemblingMachineRecipes(RecipeOutput output) {
@@ -281,6 +310,44 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         AssemblingMachineFinishedRecipe recipe = new AssemblingMachineFinishedRecipe(
                 recipeId,
                 output, inputs
+        );
+        recipeOutput.accept(recipe);
+    }
+
+    private static void addPlateCompressorRecipes(RecipeOutput recipeOutput, Ingredient ingotInput,
+                                                  Ingredient blockInput, ItemStack output, String metalName) {
+        addPlateCompressorIngotRecipe(recipeOutput, ingotInput, output, metalName);
+        addCompressorRecipe(recipeOutput, blockInput, output.copyWithCount(9), metalName + "_block");
+    }
+
+    private static void addPlateCompressorIngotRecipe(RecipeOutput recipeOutput, Ingredient ingotInput,
+                                                   ItemStack output, String metalName) {
+        addCompressorRecipe(recipeOutput, ingotInput, output, metalName + "_ingot");
+    }
+
+    private static void addCompressorRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output, String recipeIngredientName) {
+        addCompressorRecipe(recipeOutput, input, output, 1, recipeIngredientName);
+    }
+
+    private static void addCompressorRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output, int inputCount,
+                                            String recipeIngredientName) {
+        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "compressing/" +
+                getItemName(output.getItem()) + "_from_compressing_" + recipeIngredientName);
+
+        CompressorFinishedRecipe recipe = new CompressorFinishedRecipe(
+                recipeId,
+                output, input, inputCount
+        );
+        recipeOutput.accept(recipe);
+    }
+
+    private static void addChargerRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output, int energyConsumption) {
+        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "charger/" +
+                getItemName(output.getItem()));
+
+        ChargerFinishedRecipe recipe = new ChargerFinishedRecipe(
+                recipeId,
+                output, input, energyConsumption
         );
         recipeOutput.accept(recipe);
     }
