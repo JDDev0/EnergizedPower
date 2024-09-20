@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/orientable",
   "textures": {
-    "down": "energizedpower:block/advanced_minecart_uncharger_bottom",
+    "bottom": "energizedpower:block/advanced_minecart_uncharger_bottom",
     "front": "energizedpower:block/advanced_minecart_uncharger_front",
     "particle": "#top",
     "side": "energizedpower:block/advanced_minecart_uncharger_side",
