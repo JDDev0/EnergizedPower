@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "C": {
+      "tag": "forge:plates/copper"
+    },
+    "I": {
+      "tag": "forge:plates/iron"
+    },
+    "S": {
+      "tag": "forge:storage_blocks/silicon"
+    },
+    "s": {
+      "tag": "forge:silicon"
+    }
+  },
+  "pattern": [
+    "CSC",
+    "IBI",
+    "sCs"
+  ],
+  "result": {
+    "item": "energizedpower:uncharger"
+  }
+}

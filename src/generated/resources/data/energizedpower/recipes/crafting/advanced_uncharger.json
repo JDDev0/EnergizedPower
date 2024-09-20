@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    },
+    "G": {
+      "tag": "forge:plates/energized_gold"
+    },
+    "S": {
+      "tag": "forge:silicon"
+    },
+    "U": {
+      "item": "energizedpower:uncharger"
+    },
+    "a": {
+      "tag": "forge:plates/advanced_alloy"
+    }
+  },
+  "pattern": [
+    "GUG",
+    "aAa",
+    "SGS"
+  ],
+  "result": {
+    "item": "energizedpower:advanced_uncharger"
+  }
+}
