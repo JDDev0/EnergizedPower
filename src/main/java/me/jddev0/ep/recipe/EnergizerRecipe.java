@@ -20,10 +20,10 @@ public class EnergizerRecipe implements Recipe<Container> {
     private final Ingredient input;
     private final int energyConsumption;
 
-    public EnergizerRecipe(ItemStack output, Ingredient input, int energyNeeds) {
+    public EnergizerRecipe(ItemStack output, Ingredient input, int energyConsumption) {
         this.output = output;
         this.input = input;
-        this.energyConsumption = energyNeeds;
+        this.energyConsumption = energyConsumption;
     }
 
     public ItemStack getOutput() {

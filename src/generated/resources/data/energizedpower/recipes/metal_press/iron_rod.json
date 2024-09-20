@@ -1,0 +1,17 @@
+{
+  "type": "energizedpower:metal_press",
+  "ingredient": {
+    "tag": "forge:plates/iron"
+  },
+  "inputCount": 1,
+  "output": {
+    "count": 2,
+    "item": "energizedpower:iron_rod"
+  },
+  "pressMold": {
+    "item": "energizedpower:rod_press_mold",
+    "tag": {
+      "Damage": 0
+    }
+  }
+}

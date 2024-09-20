@@ -18,6 +18,7 @@ import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -249,8 +250,9 @@ public class FluidTransposerBlockEntity
     public enum Mode implements StringRepresentable {
         EMPTYING, FILLING;
 
-        public static final Codec<Mode> CODEC = new EnumCodec<>(
-                Mode.values(), Mode::valueOf
+        public static final Codec<Mode> CODEC = ExtraCodecs.orCompressed(
+                ExtraCodecs.stringResolverCodec(Mode::name, Mode::valueOf),
+                ExtraCodecs.idResolverCodec(Mode::ordinal, i -> i >= 0 && i < Mode.values().length?Mode.values()[i]:null, -1)
         );
 
         /**

@@ -1,0 +1,41 @@
+package me.jddev0.ep.datagen.recipe;
+
+import com.google.gson.JsonObject;
+import com.mojang.serialization.JsonOps;
+import me.jddev0.ep.codec.CodecFix;
+import me.jddev0.ep.recipe.ModRecipes;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import org.jetbrains.annotations.Nullable;
+
+public record MetalPressFinishedRecipe(
+        ResourceLocation id,
+        ItemStack output,
+        ItemStack pressMold,
+        Ingredient input,
+        int inputCount
+) implements FinishedRecipe {
+    @Override
+    public void serializeRecipeData(JsonObject jsonObject) {
+        jsonObject.add("output", CodecFix.ITEM_STACK_CODEC.encodeStart(JsonOps.INSTANCE, output).
+                result().orElseThrow());
+        jsonObject.add("pressMold", CodecFix.ITEM_STACK_CODEC.encodeStart(JsonOps.INSTANCE, pressMold).
+                result().orElseThrow());
+        jsonObject.add("ingredient", input.toJson(false));
+        jsonObject.addProperty("inputCount", inputCount);
+    }
+
+    @Override
+    public RecipeSerializer<?> type() {
+        return ModRecipes.METAL_PRESS_SERIALIZER.get();
+    }
+
+    @Override
+    public @Nullable AdvancementHolder advancement() {
+        return null;
+    }
+}
