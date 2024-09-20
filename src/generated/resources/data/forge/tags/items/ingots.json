@@ -1,0 +1,10 @@
+{
+  "values": [
+    "#forge:ingots/tin",
+    "#forge:ingots/steel",
+    "#forge:ingots/redstone_alloy",
+    "#forge:ingots/advanced_alloy",
+    "#forge:ingots/energized_copper",
+    "#forge:ingots/energized_gold"
+  ]
+}
