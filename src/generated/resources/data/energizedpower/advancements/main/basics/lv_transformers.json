@@ -6,16 +6,8 @@
         "items": [
           {
             "items": [
-              "energizedpower:lv_transformer_1_to_n"
-            ]
-          },
-          {
-            "items": [
-              "energizedpower:lv_transformer_3_to_3"
-            ]
-          },
-          {
-            "items": [
+              "energizedpower:lv_transformer_1_to_n",
+              "energizedpower:lv_transformer_3_to_3",
               "energizedpower:lv_transformer_n_to_1"
             ]
           }
