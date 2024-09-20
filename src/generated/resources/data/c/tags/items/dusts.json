@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#c:saw_dusts",
+    "#c:charcoal_dusts",
+    "#c:tin_dusts",
+    "#c:copper_dusts",
+    "#c:iron_dusts",
+    "#c:gold_dusts"
+  ]
+}

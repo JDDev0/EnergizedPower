@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#c:tin_ingots",
+    "#c:steel_ingots",
+    "#c:redstone_alloy_ingots",
+    "#c:advanced_alloy_ingots",
+    "#c:energized_copper_ingots",
+    "#c:energized_gold_ingots"
+  ]
+}
