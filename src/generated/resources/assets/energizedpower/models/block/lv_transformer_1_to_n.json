@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "bottom": "energizedpower:block/lv_transformer_output",
+    "front": "energizedpower:block/lv_transformer_input",
+    "particle": "#top",
+    "side": "energizedpower:block/lv_transformer_output",
+    "top": "energizedpower:block/lv_transformer_output"
+  }
+}

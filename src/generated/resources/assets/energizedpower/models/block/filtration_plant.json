@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "energizedpower:block/filtration_plant_top",
+    "east": "energizedpower:block/filtration_plant_side",
+    "north": "energizedpower:block/filtration_plant_front",
+    "particle": "#up",
+    "south": "energizedpower:block/filtration_plant_side",
+    "up": "energizedpower:block/filtration_plant_top",
+    "west": "energizedpower:block/filtration_plant_front"
+  }
+}
