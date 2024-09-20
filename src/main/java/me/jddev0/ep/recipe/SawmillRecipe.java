@@ -10,6 +10,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -28,8 +29,8 @@ public class SawmillRecipe implements Recipe<Container> {
 
     public SawmillRecipe(ItemStack output, ItemStack secondaryOutput, Ingredient input) {
         this.output = output;
-        this.input = input;
         this.secondaryOutput = secondaryOutput;
+        this.input = input;
     }
 
     public ItemStack getOutput() {
@@ -112,10 +113,16 @@ public class SawmillRecipe implements Recipe<Container> {
                 return recipe.output;
             }), Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
-            }), Codec.INT.optionalFieldOf("sawdustAmount").forGetter((recipe) -> {
+            }), ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("sawdustAmount").forGetter((recipe) -> {
+                if(recipe.secondaryOutput.isEmpty())
+                    return Optional.of(0);
+
                 return ItemStack.isSameItemSameTags(recipe.secondaryOutput, new ItemStack(ModItems.SAWDUST.get()))?
                         Optional.of(recipe.secondaryOutput.getCount()):Optional.empty();
             }), CodecFix.ITEM_STACK_CODEC.optionalFieldOf("secondaryOutput").forGetter((recipe) -> {
+                if(recipe.secondaryOutput.isEmpty())
+                    return Optional.empty();
+
                 return ItemStack.isSameItemSameTags(recipe.secondaryOutput, new ItemStack(ModItems.SAWDUST.get()))?
                         Optional.empty():Optional.of(recipe.secondaryOutput);
             })).apply(instance, (output, ingredient, sawdustAmount, secondaryOutput) -> {
