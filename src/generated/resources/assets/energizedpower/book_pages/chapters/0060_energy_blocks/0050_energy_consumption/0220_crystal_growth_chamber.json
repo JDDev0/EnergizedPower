@@ -1,0 +1,14 @@
+{
+  "block": "energizedpower:crystal_growth_chamber",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.crystal_growth_chamber"
+      }
+    ],
+    "text": ""
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "block": "energizedpower:teleporter",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.teleporter.1"
+      },
+      {
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.teleporter.2"
+      },
+      {
+        "color": "black",
+        "extra": [
+          {
+            "color": "black",
+            "font": "minecraft:default",
+            "text": " ["
+          },
+          {
+            "color": "dark_gray",
+            "font": "minecraft:default",
+            "keybind": "key.energizedpower.teleporter.use"
+          },
+          {
+            "color": "black",
+            "font": "minecraft:default",
+            "text": "] "
+          },
+          {
+            "translate": "book.energizedpower.page.teleporter.3.2"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.teleporter.3.1"
+      }
+    ],
+    "text": ""
+  }
+}

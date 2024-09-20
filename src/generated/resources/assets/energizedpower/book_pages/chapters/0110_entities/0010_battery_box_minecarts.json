@@ -1,0 +1,17 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.battery_box_minecarts"
+      }
+    ],
+    "text": ""
+  },
+  "image": [
+    "energizedpower:textures/item/battery_box_minecart.png",
+    "energizedpower:textures/item/advanced_battery_box_minecart.png"
+  ]
+}

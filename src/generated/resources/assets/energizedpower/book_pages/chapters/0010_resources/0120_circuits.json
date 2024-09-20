@@ -1,0 +1,19 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.circuits"
+      }
+    ],
+    "text": ""
+  },
+  "image": [
+    "energizedpower:textures/item/basic_circuit.png",
+    "energizedpower:textures/item/advanced_circuit.png",
+    "energizedpower:textures/item/processing_unit.png",
+    "energizedpower:textures/item/teleporter_processing_unit.png"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.charcoal_filter"
+      }
+    ],
+    "text": ""
+  },
+  "image": "energizedpower:textures/item/charcoal_filter.png"
+}

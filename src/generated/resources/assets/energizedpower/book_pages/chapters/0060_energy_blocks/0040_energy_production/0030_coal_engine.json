@@ -1,0 +1,25 @@
+{
+  "block": "energizedpower:coal_engine",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.coal_engine.1"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.coal_engine.2"
+      }
+    ],
+    "text": ""
+  }
+}

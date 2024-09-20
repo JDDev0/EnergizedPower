@@ -1,8 +1,0 @@
-{
-  "content": {
-    "translate": "book.energizedpower.page.charging_station",
-    "bold": true,
-    "font": "uniform"
-  },
-  "block": "energizedpower:charging_station"
-}
