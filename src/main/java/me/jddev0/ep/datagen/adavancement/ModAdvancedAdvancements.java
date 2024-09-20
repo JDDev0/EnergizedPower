@@ -380,7 +380,7 @@ public class ModAdvancedAdvancements implements ForgeAdvancementProvider.Advance
 
         AdvancementHolder energizedCrystalMatrixCable = addAdvancement(
                 advancementOutput, existingFileHelper, energizedCrystalMatrix,
-                ModBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM, "energized_crystal_matrix_cable", FrameType.TASK
+                ModBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM, "energized_crystal_matrix_cable", FrameType.CHALLENGE
         );
 
         AdvancementHolder reinforcedAdvancedSolarCell = addAdvancement(
