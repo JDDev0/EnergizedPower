@@ -1,0 +1,37 @@
+{
+  "ambientocclusion": false,
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "texture": "#belt",
+          "uv": [
+            16.0,
+            0.0,
+            0.0,
+            16.0
+          ]
+        },
+        "up": {
+          "texture": "#belt",
+          "uv": [
+            16.0,
+            16.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "from": [
+        0,
+        1,
+        0
+      ],
+      "to": [
+        16,
+        1,
+        16
+      ]
+    }
+  ]
+}

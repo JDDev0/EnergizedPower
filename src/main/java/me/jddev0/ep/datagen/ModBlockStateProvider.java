@@ -14,6 +14,10 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModBlockStateProvider extends BlockStateProvider {
+    private ModelFile itemConveyorBeltFlatTemplate;
+    private ModelFile itemConveyorBeltAscendingTemplate;
+    private ModelFile itemConveyorBeltDescendingTemplate;
+
     private ModelFile fluidPipeCoreTemplate;
     private ModelFile fluidPipeSideConnectedTemplate;
     private ModelFile fluidPipeSideExtractTemplate;
@@ -36,6 +40,24 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void registerTemplates() {
+        itemConveyorBeltFlatTemplate = models().getBuilder("item_conveyor_belt_flat_template").
+                ao(false).
+                element().from(0, 1, 0).to(16, 1, 16).
+                face(Direction.DOWN).uvs(16, 0, 0, 16).texture("#belt").end().
+                face(Direction.UP).uvs(16, 16, 0, 0).texture("#belt").end().end();
+        itemConveyorBeltAscendingTemplate = models().getBuilder("item_conveyor_belt_ascending_template").
+                ao(false).
+                element().from(0, 9, 0).to(16, 9, 16).
+                rotation().origin(8, 9, 8).axis(Direction.Axis.X).angle(-45.f).rescale(true).end().
+                face(Direction.DOWN).uvs(16, 0, 0, 16).texture("#belt").end().
+                face(Direction.UP).uvs(16, 16, 0, 0).texture("#belt").end().end();
+        itemConveyorBeltDescendingTemplate = models().getBuilder("item_conveyor_belt_descending_template").
+                ao(false).
+                element().from(0, 9, 0).to(16, 9, 16).
+                rotation().origin(8, 9, 8).axis(Direction.Axis.X).angle(-45.f).rescale(true).end().
+                face(Direction.DOWN).uvs(0, 16, 16, 0).texture("#belt").end().
+                face(Direction.UP).uvs(0, 0, 16, 16).texture("#belt").end().end();
+
         fluidPipeCoreTemplate = models().getExistingFile(
                 new ResourceLocation(EnergizedPowerMod.MODID, "fluid_pipe_core_template"));
         fluidPipeSideConnectedTemplate = models().getExistingFile(
@@ -487,34 +509,23 @@ public class ModBlockStateProvider extends BlockStateProvider {
     private void itemConveyorBeltBlockWithItem(RegistryObject<? extends ItemConveyorBeltBlock> block) {
         ResourceLocation blockId = block.getId();
 
-        ModelFile modelFlat = models().getBuilder(blockId.getPath() + "_flat").
-                ao(false).
+        ModelFile modelFlat = models().
+                getBuilder(blockId.getPath() + "_flat").parent(itemConveyorBeltFlatTemplate).
                 texture("particle", "#belt").
-                texture("belt", getBlockTexture(block)).
-                element().from(0, 1, 0).to(16, 1, 16).
-                face(Direction.DOWN).uvs(16, 0, 0, 16).texture("#belt").end().
-                face(Direction.UP).uvs(16, 16, 0, 0).texture("#belt").end().end();
+                texture("belt", getBlockTexture(block));
 
-        ModelFile modelAscending = models().getBuilder(blockId.getPath() + "_ascending").
-                ao(false).
+        ModelFile modelAscending = models().
+                getBuilder(blockId.getPath() + "_ascending").parent(itemConveyorBeltAscendingTemplate).
                 texture("particle", "#belt").
-                texture("belt", getBlockTexture(block)).
-                element().from(0, 9, 0).to(16, 9, 16).
-                rotation().origin(8, 9, 8).axis(Direction.Axis.X).angle(-45.f).rescale(true).end().
-                face(Direction.DOWN).uvs(16, 0, 0, 16).texture("#belt").end().
-                face(Direction.UP).uvs(16, 16, 0, 0).texture("#belt").end().end();
+                texture("belt", getBlockTexture(block));
 
-        ModelFile modelDescending = models().getBuilder(blockId.getPath() + "_descending").
-                ao(false).
+        ModelFile modelDescending = models().
+                getBuilder(blockId.getPath() + "_descending").parent(itemConveyorBeltDescendingTemplate).
                 texture("particle", "#belt").
-                texture("belt", getBlockTexture(block)).
-                element().from(0, 9, 0).to(16, 9, 16).
-                rotation().origin(8, 9, 8).axis(Direction.Axis.X).angle(-45.f).rescale(true).end().
-                face(Direction.DOWN).uvs(0, 16, 16, 0).texture("#belt").end().
-                face(Direction.UP).uvs(0, 0, 16, 16).texture("#belt").end().end();
+                texture("belt", getBlockTexture(block));
 
         VariantBlockStateBuilder blockStateBuilder = getVariantBuilder(block.get());
-        for(ModBlockStateProperties.ConveyorBeltDirection beltDir: ModBlockStateProperties.ConveyorBeltDirection.values()) {
+        for(ModBlockStateProperties.ConveyorBeltDirection beltDir:ModBlockStateProperties.ConveyorBeltDirection.values()) {
             ConfiguredModel.Builder<VariantBlockStateBuilder> configuredModelBuilder = blockStateBuilder.partialState().
                     with(ItemConveyorBeltBlock.FACING, beltDir).modelForState();
             if(beltDir.isAscending()) {
