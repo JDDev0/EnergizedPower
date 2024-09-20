@@ -2,7 +2,6 @@
   "type": "energizedpower:alloy_furnace",
   "inputs": [
     {
-      "count": 1,
       "input": {
         "tag": "forge:ingots/iron"
       }

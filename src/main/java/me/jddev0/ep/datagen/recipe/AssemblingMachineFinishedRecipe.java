@@ -6,7 +6,6 @@ import com.mojang.serialization.JsonOps;
 import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.recipe.ModRecipes;
-import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -14,35 +13,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jetbrains.annotations.Nullable;
 
-public record AlloyFurnaceFinishedRecipe(
+public record AssemblingMachineFinishedRecipe(
         ResourceLocation id,
         ItemStack output,
-        OutputItemStackWithPercentages secondaryOutput,
-        IngredientWithCount[] inputs,
-        int ticks
+        IngredientWithCount[] inputs
 ) implements FinishedRecipe {
     @Override
     public void serializeRecipeData(JsonObject jsonObject) {
         jsonObject.add("output", CodecFix.ITEM_STACK_CODEC.encodeStart(JsonOps.INSTANCE, output).
                 result().orElseThrow());
-
-        if(!secondaryOutput.output().isEmpty() && secondaryOutput.percentages().length != 0) {
-            JsonObject secondaryOutputJson = new JsonObject();
-
-            secondaryOutputJson.add("output", CodecFix.ITEM_STACK_CODEC.encodeStart(JsonOps.INSTANCE, output).
-                    result().orElseThrow());
-
-            {
-                JsonArray percentagesJson = new JsonArray();
-
-                for(double percentage:secondaryOutput.percentages())
-                    percentagesJson.add(percentage);
-
-                secondaryOutputJson.add("percentages", percentagesJson);
-            }
-
-            jsonObject.add("secondaryOutput", secondaryOutputJson);
-        }
 
         {
             JsonArray inputsJson = new JsonArray();
@@ -53,13 +32,11 @@ public record AlloyFurnaceFinishedRecipe(
 
             jsonObject.add("inputs", inputsJson);
         }
-
-        jsonObject.addProperty("ticks", ticks);
     }
 
     @Override
     public RecipeSerializer<?> type() {
-        return ModRecipes.ALLOY_FURNACE_SERIALIZER.get();
+        return ModRecipes.ASSEMBLING_MACHINE_SERIALIZER.get();
     }
 
     @Override
