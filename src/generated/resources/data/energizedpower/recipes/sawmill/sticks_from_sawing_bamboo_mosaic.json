@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:bamboo_mosaic"
+  },
+  "output": {
+    "count": 3,
+    "item": "minecraft:stick"
+  },
+  "sawdustAmount": 3
+}

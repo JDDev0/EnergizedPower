@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "tag": "minecraft:planks"
+  },
+  "output": {
+    "count": 3,
+    "item": "minecraft:stick"
+  },
+  "sawdustAmount": 1
+}
