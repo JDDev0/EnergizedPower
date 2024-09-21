@@ -1,0 +1,28 @@
+{
+  "block": [
+    "energizedpower:pulverizer",
+    "energizedpower:advanced_pulverizer"
+  ],
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.pulverizers.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.pulverizers.2"
+      }
+    ],
+    "text": ""
+  }
+}

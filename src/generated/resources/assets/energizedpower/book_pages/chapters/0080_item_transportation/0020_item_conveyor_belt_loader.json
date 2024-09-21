@@ -1,0 +1,58 @@
+{
+  "block": "energizedpower:item_conveyor_belt_loader",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.item_conveyor_belt_loader.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.item_conveyor_belt_loader.2"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.item_conveyor_belt_loader.3"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.item_conveyor_belt_loader.4"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.item_conveyor_belt_loader.5"
+      }
+    ],
+    "text": ""
+  }
+}

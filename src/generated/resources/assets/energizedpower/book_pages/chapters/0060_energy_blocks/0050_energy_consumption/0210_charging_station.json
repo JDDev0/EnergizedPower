@@ -1,0 +1,14 @@
+{
+  "block": "energizedpower:charging_station",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.charging_station"
+      }
+    ],
+    "text": ""
+  }
+}

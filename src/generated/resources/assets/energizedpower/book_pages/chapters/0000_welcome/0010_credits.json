@@ -1,0 +1,248 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "gold",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "translate": "book.energizedpower.page.credits.title"
+      },
+      {
+        "bold": true,
+        "color": "dark_green",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.credits.subtitle"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "translate": "book.energizedpower.page.credits.1"
+          },
+          {
+            "text": ": "
+          },
+          {
+            "clickEvent": {
+              "action": "open_url",
+              "value": "https://github.com/flashbulbs"
+            },
+            "color": "blue",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.link"
+              }
+            },
+            "text": "flashbulbs",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "translate": "book.energizedpower.page.credits.2"
+          },
+          {
+            "text": ": "
+          },
+          {
+            "clickEvent": {
+              "action": "open_url",
+              "value": "https://github.com/flashbulbs"
+            },
+            "color": "blue",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.link"
+              }
+            },
+            "text": "flashbulbs",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "translate": "book.energizedpower.page.credits.3"
+          },
+          {
+            "text": ": "
+          },
+          {
+            "clickEvent": {
+              "action": "open_url",
+              "value": "https://github.com/flashbulbs"
+            },
+            "color": "blue",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.link"
+              }
+            },
+            "text": "flashbulbs",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "translate": "book.energizedpower.page.credits.4"
+          },
+          {
+            "text": ": "
+          },
+          {
+            "clickEvent": {
+              "action": "open_url",
+              "value": "https://github.com/flashbulbs"
+            },
+            "color": "blue",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.link"
+              }
+            },
+            "text": "flashbulbs",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "translate": "book.energizedpower.page.credits.5"
+          },
+          {
+            "text": ": "
+          },
+          {
+            "clickEvent": {
+              "action": "open_url",
+              "value": "https://github.com/HanJiang-cn"
+            },
+            "color": "blue",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.link"
+              }
+            },
+            "text": "HanJiang-cn",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "translate": "book.energizedpower.page.credits.6"
+          },
+          {
+            "text": ": "
+          },
+          {
+            "clickEvent": {
+              "action": "open_url",
+              "value": "https://github.com/Roby1164"
+            },
+            "color": "blue",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.link"
+              }
+            },
+            "text": "Roby1164",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "translate": "book.energizedpower.page.credits.7"
+          },
+          {
+            "text": ": "
+          },
+          {
+            "clickEvent": {
+              "action": "open_url",
+              "value": "https://github.com/EyyupBerkOZASLAN"
+            },
+            "color": "blue",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.link"
+              }
+            },
+            "text": "Eyyüp Berk ÖZASLAN",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "translate": "book.energizedpower.page.credits.8"
+          },
+          {
+            "text": ": "
+          },
+          {
+            "text": "Imperial Officer"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
+      }
+    ],
+    "text": ""
+  }
+}

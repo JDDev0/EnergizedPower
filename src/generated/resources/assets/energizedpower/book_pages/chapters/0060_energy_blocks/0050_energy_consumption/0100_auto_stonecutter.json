@@ -1,0 +1,14 @@
+{
+  "block": "energizedpower:auto_stonecutter",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.auto_stonecutter"
+      }
+    ],
+    "text": ""
+  }
+}
