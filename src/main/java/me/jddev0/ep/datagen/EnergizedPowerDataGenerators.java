@@ -14,6 +14,7 @@ public class EnergizedPowerDataGenerators implements DataGeneratorEntrypoint {
 
         pack.addProvider(ModRecipeProvider::new);
         pack.addProvider(ModBlockLootTables::new);
+        ModAdvancementProvider.create(pack);
 
         pack.addProvider(ModModelProvider::new);
 
