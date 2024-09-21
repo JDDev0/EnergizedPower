@@ -1,7 +1,0 @@
-{
-	"parent": "energizedpower:block/fluid_pipe_core_template",
-	"textures": {
-		"particle": "energizedpower:block/golden_fluid_pipe_core",
-		"fluid_pipe_core": "energizedpower:block/golden_fluid_pipe_core"
-	}
-}
