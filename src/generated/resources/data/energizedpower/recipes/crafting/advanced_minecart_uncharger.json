@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:copper_blocks"
+    },
+    "G": {
+      "tag": "c:gold_blocks"
+    },
+    "S": {
+      "tag": "c:silicon"
+    },
+    "U": {
+      "item": "energizedpower:advanced_uncharger"
+    },
+    "c": {
+      "tag": "c:energized_copper_plates"
+    },
+    "g": {
+      "tag": "c:energized_gold_plates"
+    }
+  },
+  "pattern": [
+    "cCc",
+    "SUS",
+    "gGg"
+  ],
+  "result": {
+    "item": "energizedpower:advanced_minecart_uncharger"
+  }
+}

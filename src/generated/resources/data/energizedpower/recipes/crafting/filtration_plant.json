@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:iron_bars"
+    },
+    "F": {
+      "item": "energizedpower:fluid_tank_small"
+    },
+    "H": {
+      "item": "energizedpower:hardened_machine_frame"
+    },
+    "I": {
+      "tag": "c:iron_blocks"
+    },
+    "f": {
+      "item": "energizedpower:fluid_pipe"
+    },
+    "i": {
+      "tag": "c:iron_gears"
+    }
+  },
+  "pattern": [
+    "iBi",
+    "FHF",
+    "IfI"
+  ],
+  "result": {
+    "item": "energizedpower:filtration_plant"
+  }
+}

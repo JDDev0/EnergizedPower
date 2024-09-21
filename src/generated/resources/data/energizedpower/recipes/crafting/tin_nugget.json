@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:tin_nuggets"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "energizedpower:tin_nugget"
+  }
+}

@@ -242,7 +242,10 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 add(ModItems.IRON_GEAR);
 
         getOrCreateTagBuilder(CommonItemTags.RODS).
+                addTag(CommonItemTags.WOODEN_RODS).
                 addTag(CommonItemTags.IRON_RODS);
+        getOrCreateTagBuilder(CommonItemTags.WOODEN_RODS).
+                add(Items.STICK);
         getOrCreateTagBuilder(CommonItemTags.IRON_RODS).
                 add(ModItems.IRON_ROD);
 
