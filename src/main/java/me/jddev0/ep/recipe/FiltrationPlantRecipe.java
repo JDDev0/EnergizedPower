@@ -1,17 +1,12 @@
 package me.jddev0.ep.recipe;
 
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -20,8 +15,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Optional;
 
 public class FiltrationPlantRecipe implements Recipe<Inventory> {
     private final OutputItemStackWithPercentages output;
@@ -49,8 +43,8 @@ public class FiltrationPlantRecipe implements Recipe<Inventory> {
     public ItemStack[] getMaxOutputCounts() {
         ItemStack[] generatedOutputs = new ItemStack[2];
 
-        generatedOutputs[0] = output.output.copyWithCount(output.percentages.length);
-        generatedOutputs[1] = secondaryOutput.output.copyWithCount(secondaryOutput.percentages.length);
+        generatedOutputs[0] = output.output().copyWithCount(output.percentages().length);
+        generatedOutputs[1] = secondaryOutput.output().copyWithCount(secondaryOutput.percentages().length);
 
         return generatedOutputs;
     }
@@ -61,11 +55,11 @@ public class FiltrationPlantRecipe implements Recipe<Inventory> {
             int count = 0;
             OutputItemStackWithPercentages output = i == 0?this.output:this.secondaryOutput;
 
-            for(double percentage:output.percentages)
+            for(double percentage:output.percentages())
                 if(randomSource.nextDouble() <= percentage)
                     count++;
 
-            generatedOutputs[i] = output.output.copyWithCount(count);
+            generatedOutputs[i] = output.output().copyWithCount(count);
         }
 
         return generatedOutputs;
@@ -125,14 +119,14 @@ public class FiltrationPlantRecipe implements Recipe<Inventory> {
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "filtration_plant");
 
         private final Codec<FiltrationPlantRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
-            return instance.group(OutputItemStackWithPercentages.CODEC.fieldOf("output").forGetter((recipe) -> {
+            return instance.group(OutputItemStackWithPercentages.CODEC_NONEMPTY.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
-            }), OutputItemStackWithPercentages.CODEC.optionalFieldOf("secondaryOutput",
-                    new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0])).forGetter((recipe) -> {
-                return recipe.secondaryOutput;
+            }), OutputItemStackWithPercentages.CODEC_NONEMPTY.optionalFieldOf("secondaryOutput").forGetter((recipe) -> {
+                return Optional.ofNullable(recipe.secondaryOutput.isEmpty()?null:recipe.secondaryOutput);
             }), Identifier.CODEC.fieldOf("icon").forGetter((recipe) -> {
                 return recipe.icon;
-            })).apply(instance, FiltrationPlantRecipe::new);
+            })).apply(instance, (output, secondaryOutput, icon) -> new FiltrationPlantRecipe(output,
+                    secondaryOutput.orElse(OutputItemStackWithPercentages.EMPTY), icon));
         });
 
         @Override
@@ -143,16 +137,8 @@ public class FiltrationPlantRecipe implements Recipe<Inventory> {
         @Override
         public FiltrationPlantRecipe read(PacketByteBuf buffer) {
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[2];
-            for(int i = 0;i < 2;i++) {
-                ItemStack output = buffer.readItemStack();
-
-                int percentageCount = buffer.readInt();
-                double[] percentages = new double[percentageCount];
-                for(int j = 0;j < percentageCount;j++)
-                    percentages[j] = buffer.readDouble();
-
-                outputs[i] = new OutputItemStackWithPercentages(output, percentages);
-            }
+            for(int i = 0;i < 2;i++)
+                outputs[i] = OutputItemStackWithPercentages.fromNetwork(buffer);
 
             Identifier icon = buffer.readIdentifier();
 
@@ -163,40 +149,10 @@ public class FiltrationPlantRecipe implements Recipe<Inventory> {
         public void write(PacketByteBuf buffer, FiltrationPlantRecipe recipe) {
             for(int i = 0;i < 2;i++) {
                 OutputItemStackWithPercentages output = i == 0?recipe.output:recipe.secondaryOutput;
-                buffer.writeItemStack(output.output);
-
-                buffer.writeInt(output.percentages.length);
-                for(double percentage:output.percentages)
-                    buffer.writeDouble(percentage);
+                output.toNetwork(buffer);
             }
 
             buffer.writeIdentifier(recipe.icon);
         }
-    }
-
-    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages) {
-        private static final Codec<double[]> DOUBLE_ARRAY_CODEC = new Codec<>() {
-            private static final Codec<List<Double>> DOUBLE_LIST_CODEC = Codec.doubleRange(0, 1).listOf();
-
-            @Override
-            public <T> DataResult<Pair<double[], T>> decode(DynamicOps<T> ops, T input) {
-                return DOUBLE_LIST_CODEC.decode(ops, input).map(res -> {
-                    return Pair.of(res.getFirst().stream().mapToDouble(Double::doubleValue).toArray(), res.getSecond());
-                });
-            }
-
-            @Override
-            public <T> DataResult<T> encode(double[] input, DynamicOps<T> ops, T prefix) {
-                return DOUBLE_LIST_CODEC.encode(Arrays.stream(input).boxed().toList(), ops, prefix);
-            }
-        };
-
-        public static final Codec<OutputItemStackWithPercentages> CODEC = RecordCodecBuilder.create((instance) -> {
-            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((output) -> {
-                return output.output;
-            }), DOUBLE_ARRAY_CODEC.fieldOf("percentages").forGetter((output) -> {
-                return output.percentages;
-            })).apply(instance, OutputItemStackWithPercentages::new);
-        });
     }
 }

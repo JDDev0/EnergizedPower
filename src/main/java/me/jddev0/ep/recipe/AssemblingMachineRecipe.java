@@ -9,13 +9,11 @@ import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 
 public class AssemblingMachineRecipe implements Recipe<Inventory> {
@@ -57,8 +55,8 @@ public class AssemblingMachineRecipe implements Recipe<Inventory> {
 
                 ItemStack item = container.getStack(j);
 
-                if((indexMinCount == -1 || item.getCount() < minCount) && input.input.test(item) &&
-                        item.getCount() >= input.count) {
+                if((indexMinCount == -1 || item.getCount() < minCount) && input.input().test(item) &&
+                        item.getCount() >= input.count()) {
                     indexMinCount = j;
                     minCount = item.getCount();
                 }
@@ -128,7 +126,7 @@ public class AssemblingMachineRecipe implements Recipe<Inventory> {
         private final Codec<AssemblingMachineRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
-            }), new ArrayCodec<>(IngredientWithCount.CODEC, IngredientWithCount[]::new).fieldOf("inputs").forGetter((recipe) -> {
+            }), new ArrayCodec<>(IngredientWithCount.CODEC_NONEMPTY, IngredientWithCount[]::new).fieldOf("inputs").forGetter((recipe) -> {
                 return recipe.inputs;
             })).apply(instance, AssemblingMachineRecipe::new);
         });
@@ -142,12 +140,8 @@ public class AssemblingMachineRecipe implements Recipe<Inventory> {
         public AssemblingMachineRecipe read(PacketByteBuf buffer) {
             int len = buffer.readInt();
             IngredientWithCount[] inputs = new IngredientWithCount[len];
-            for(int i = 0;i < len;i++) {
-                Ingredient input = Ingredient.fromPacket(buffer);
-                int count = buffer.readInt();
-
-                inputs[i] = new IngredientWithCount(input, count);
-            }
+            for(int i = 0;i < len;i++)
+                inputs[i] = IngredientWithCount.fromNetwork(buffer);
 
             ItemStack output = buffer.readItemStack();
 
@@ -157,22 +151,10 @@ public class AssemblingMachineRecipe implements Recipe<Inventory> {
         @Override
         public void write(PacketByteBuf buffer, AssemblingMachineRecipe recipe) {
             buffer.writeInt(recipe.inputs.length);
-            for(int i = 0; i < recipe.inputs.length; i++) {
-                recipe.inputs[i].input.write(buffer);
-                buffer.writeInt(recipe.inputs[i].count);
-            }
+            for(int i = 0; i < recipe.inputs.length; i++)
+                recipe.inputs[i].toNetwork(buffer);
 
             buffer.writeItemStack(recipe.output);
         }
-    }
-
-    public record IngredientWithCount(Ingredient input, int count) {
-        public static final Codec<IngredientWithCount> CODEC = RecordCodecBuilder.create((instance) -> {
-            return instance.group(Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("input").forGetter((input) -> {
-                return input.input;
-            }), Codecs.POSITIVE_INT.optionalFieldOf("count", 1).forGetter((input) -> {
-                return input.count;
-            })).apply(instance, IngredientWithCount::new);
-        });
     }
 }
