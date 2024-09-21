@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/orientable",
   "textures": {
-    "down": "energizedpower:block/block_placer_bottom",
+    "bottom": "energizedpower:block/block_placer_bottom",
     "front": "energizedpower:block/block_placer_front",
     "particle": "#top",
     "side": "energizedpower:block/block_placer_side",

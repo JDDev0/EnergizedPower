@@ -1,6 +1,7 @@
 package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.fluid.ModFluids;
 import me.jddev0.ep.item.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -184,6 +185,8 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         basicItem(ModItems.BATTERY_BOX_MINECART);
         basicItem(ModItems.ADVANCED_BATTERY_BOX_MINECART);
+
+        basicItem(ModFluids.DIRTY_WATER_BUCKET_ITEM);
     }
 
     private void registerSpecialModels() {
