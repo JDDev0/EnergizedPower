@@ -446,7 +446,7 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
 
         AdvancementEntry energizedCrystalMatrixCable = addAdvancement(
                 advancementOutput, energizedCrystalMatrix,
-                ModBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM, "energized_crystal_matrix_cable", AdvancementFrame.TASK,
+                ModBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM, "energized_crystal_matrix_cable", AdvancementFrame.CHALLENGE,
                 InventoryChangedCriterion.Conditions.items(ModBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM)
         );
 
