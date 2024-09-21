@@ -6,6 +6,13 @@ import net.minecraft.data.client.TextureMap;
 import net.minecraft.data.client.TexturedModel;
 
 public final class ModTexturedModel {
+    public static final TexturedModel.Factory ITEM_CONVEYOR_BELT_FLAT = TexturedModel.makeFactory(ModTexturedModel::itemConveyorBelt,
+            ModModels.ITEM_CONVEYOR_BELT_FLAT_TEMPLATE);
+    public static final TexturedModel.Factory ITEM_CONVEYOR_BELT_ASCENDING = TexturedModel.makeFactory(ModTexturedModel::itemConveyorBelt,
+            ModModels.ITEM_CONVEYOR_BELT_ASCENDING_TEMPLATE);
+    public static final TexturedModel.Factory ITEM_CONVEYOR_BELT_DESCENDING = TexturedModel.makeFactory(ModTexturedModel::itemConveyorBelt,
+            ModModels.ITEM_CONVEYOR_BELT_DESCENDING_TEMPLATE);
+
     public static final TexturedModel.Factory FLUID_PIPE_CORE = TexturedModel.makeFactory(ModTexturedModel::fluidPipeCore,
             ModModels.FLUID_PIPE_CORE_TEMPLATE);
     public static final TexturedModel.Factory FLUID_PIPE_SIDE_CONNECTED = TexturedModel.makeFactory(ModTexturedModel::fluidPipeSideConnected,
@@ -25,6 +32,12 @@ public final class ModTexturedModel {
             ModModels.SOLAR_PANEL_TEMPLATE);
 
     private ModTexturedModel() {}
+
+    public static TextureMap itemConveyorBelt(Block block) {
+        return new TextureMap().
+                put(TextureKey.PARTICLE, TextureMap.getId(block)).
+                put(ModTextureKey.BELT, TextureMap.getId(block));
+    }
 
     public static TextureMap fluidPipeCore(Block block) {
         return new TextureMap().

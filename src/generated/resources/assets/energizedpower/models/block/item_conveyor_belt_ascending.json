@@ -1,0 +1,7 @@
+{
+  "parent": "energizedpower:block/item_conveyor_belt_ascending_template",
+  "textures": {
+    "belt": "energizedpower:block/item_conveyor_belt",
+    "particle": "energizedpower:block/item_conveyor_belt"
+  }
+}

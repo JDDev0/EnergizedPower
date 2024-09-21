@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "energizedpower:block/energizer_bottom",
+    "front": "energizedpower:block/energizer_front",
+    "side": "energizedpower:block/energizer_side",
+    "top": "energizedpower:block/energizer_top"
+  }
+}

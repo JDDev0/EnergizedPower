@@ -51,7 +51,7 @@ public final class ModBlocks {
                     .instrument(Instrument.BASEDRUM).requiresTool().strength(5.0f, 6.0f)));
     public static final Item RAW_TIN_BLOCK_ITEM = createBlockItem("raw_tin_block", RAW_TIN_BLOCK);
     
-    public static final Block ITEM_CONVEYOR_BELT = registerBlock("item_conveyor_belt",
+    public static final ItemConveyorBeltBlock ITEM_CONVEYOR_BELT = registerBlock("item_conveyor_belt",
             new ItemConveyorBeltBlock(FabricBlockSettings.create().noCollision().
                     strength(2.5f, 3.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item ITEM_CONVEYOR_BELT_ITEM = createBlockItem("item_conveyor_belt",
