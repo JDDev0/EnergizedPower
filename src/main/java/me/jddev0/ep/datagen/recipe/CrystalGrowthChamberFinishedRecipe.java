@@ -23,9 +23,9 @@ public record CrystalGrowthChamberFinishedRecipe(
     @Override
     public void serialize(JsonObject jsonObject) {
         {
-            JsonObject secondaryOutputJson = new JsonObject();
+            JsonObject outputJson = new JsonObject();
 
-            secondaryOutputJson.add("output", CodecFix.ITEM_STACK_CODEC.encodeStart(JsonOps.INSTANCE, output.output()).
+            outputJson.add("output", CodecFix.ITEM_STACK_CODEC.encodeStart(JsonOps.INSTANCE, output.output()).
                     result().orElseThrow());
 
             {
@@ -34,10 +34,10 @@ public record CrystalGrowthChamberFinishedRecipe(
                 for(double percentage:output.percentages())
                     percentagesJson.add(percentage);
 
-                secondaryOutputJson.add("percentages", percentagesJson);
+                outputJson.add("percentages", percentagesJson);
             }
 
-            jsonObject.add("output", secondaryOutputJson);
+            jsonObject.add("output", outputJson);
         }
 
         jsonObject.add("ingredient", input.toJson(false));
