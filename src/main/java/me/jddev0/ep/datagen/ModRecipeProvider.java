@@ -3,7 +3,9 @@ package me.jddev0.ep.datagen;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.datagen.recipe.AbstractCookingFinishedRecipe;
+import me.jddev0.ep.datagen.recipe.AlloyFurnaceFinishedRecipe;
 import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -21,6 +23,7 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.book.CookingRecipeCategory;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
@@ -34,6 +37,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     @Override
     public void generate(RecipeExporter output) {
         buildCookingRecipes(output);
+        buildAlloyFurnaceRecipes(output);
     }
 
     private void buildCookingRecipes(RecipeExporter output) {
@@ -68,6 +72,25 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 200, .3f, null);
         addSmeltingRecipe(output, ModItems.RAW_WIRE_PRESS_MOLD, new ItemStack(ModItems.WIRE_PRESS_MOLD), CookingRecipeCategory.MISC,
                 200, .3f, null);
+    }
+
+    private void buildAlloyFurnaceRecipes(RecipeExporter output) {
+        addAlloyFurnaceRecipe(output, new AlloyFurnaceRecipe.IngredientWithCount[] {
+                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.IRON_INGOTS), 1),
+                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.fromTag(ItemTags.COALS), 3)
+        }, new ItemStack(ModItems.STEEL_INGOT), 500);
+
+        addAlloyFurnaceRecipe(output, new AlloyFurnaceRecipe.IngredientWithCount[] {
+                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.fromTag(CommonItemTags.TIN_INGOTS), 1),
+                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.fromTag(CommonItemTags.SILICON),1),
+                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS), 2)
+        }, new ItemStack(ModItems.REDSTONE_ALLOY_INGOT), 2500);
+
+        addAlloyFurnaceRecipe(output, new AlloyFurnaceRecipe.IngredientWithCount[] {
+                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.fromTag(CommonItemTags.STEEL_INGOTS), 3),
+                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.COPPER_INGOTS), 3),
+                new AlloyFurnaceRecipe.IngredientWithCount(Ingredient.fromTag(CommonItemTags.TIN_INGOTS), 3)
+        }, new ItemStack(ModItems.ADVANCED_ALLOY_INGOT), 10000);
     }
 
     private static void addBlastingAndSmeltingRecipes(RecipeExporter output, ItemConvertible ingredient, ItemStack result,
@@ -179,5 +202,28 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 RecipeSerializer.BLASTING
         );
         output.accept(recipe);
+    }
+
+    private static void addAlloyFurnaceRecipe(RecipeExporter recipeOutput,
+                                              AlloyFurnaceRecipe.IngredientWithCount[] inputs,
+                                              ItemStack output,
+                                              int ticks) {
+        addAlloyFurnaceRecipe(recipeOutput, inputs, output,
+                new AlloyFurnaceRecipe.OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0]), ticks);
+    }
+
+    private static void addAlloyFurnaceRecipe(RecipeExporter recipeOutput,
+                                              AlloyFurnaceRecipe.IngredientWithCount[] inputs,
+                                              ItemStack output,
+                                              AlloyFurnaceRecipe.OutputItemStackWithPercentages secondaryOutput,
+                                              int ticks) {
+        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "alloy_furnace/" +
+                getItemPath(output.getItem()));
+
+        AlloyFurnaceFinishedRecipe recipe = new AlloyFurnaceFinishedRecipe(
+                recipeId,
+                output, secondaryOutput, inputs, ticks
+        );
+        recipeOutput.accept(recipe);
     }
 }
