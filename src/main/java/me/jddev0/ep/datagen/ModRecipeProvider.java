@@ -2367,7 +2367,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         addAssemblingMachineRecipe(output, new IngredientWithCount[] {
                 new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.AMETHYST_GEMS), 6),
                 new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.DIAMOND_GEMS), 2),
-                new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.DIAMOND_GEMS), 2),
+                new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.EMERALD_GEMS), 2),
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.INGOTS_REDSTONE_ALLOY), 1)
         }, new ItemStack(ModItems.CRYSTAL_MATRIX));
     }

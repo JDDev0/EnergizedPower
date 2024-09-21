@@ -1,4 +1,4 @@
-// 1.21.1	2024-09-14T19:14:58.468889884	Energized Power/Recipes
+// 1.21.1	2024-09-21T20:30:22.457354853	Energized Power/Recipes
 309b74dcc62e568b76d9a9298db048a033a685aa data/energizedpower/advancement/recipes/crafting/tin_wire.json
 89ff59d99ae9b8f7a6a0240d59dac2c2dd62cfda data/energizedpower/advancement/recipes/crafting/compressor.json
 250592724a832ed9c999257b095714e35512589e data/energizedpower/recipe/crafting/sawmill.json
@@ -273,7 +273,7 @@ b0cf29616e8212ac03be483036bf004ee9f2ee79 data/energizedpower/advancement/recipes
 dd39dc01a6a025a66d1181fb7de0778f6a457bbb data/energizedpower/advancement/recipes/crafting/extraction_depth_upgrade_module_1.json
 cb77fe134978aad8dc16774124109c9f5d530b83 data/energizedpower/recipe/sawmill/oak_planks_from_sawing_crafting_table.json
 36d994842cd0e3bbfa8f7bf01bf24818cd104e70 data/energizedpower/advancement/recipes/smithing/netherite_hammer.json
-c2c52df40d560a55fcc6cd9ef67c8054a0b97bd8 data/energizedpower/recipe/assembling/crystal_matrix.json
+d72dc627b1269cf70882bac44c041b70eb415744 data/energizedpower/recipe/assembling/crystal_matrix.json
 8148ea57fe5bf422fa62cb0e7e2646b933070b8c data/energizedpower/advancement/recipes/smelting/charcoal_from_smelting_sawdust_block.json
 899bc0c384ac46fe4f25899d6817c0035c650fc9 data/energizedpower/recipe/sawmill/crimson_planks_from_sawing_crimson_door.json
 cc1a88ba6493addd3ae0ac507dd54d8f9d08fc09 data/energizedpower/recipe/sawmill/sticks_from_sawing_bow.json
