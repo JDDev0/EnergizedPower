@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "energizedpower:block/advanced_crusher_bottom",
+    "east": "energizedpower:block/advanced_crusher_side",
+    "north": "energizedpower:block/advanced_crusher_side",
+    "particle": "energizedpower:block/advanced_crusher_top",
+    "south": "energizedpower:block/advanced_crusher_side",
+    "up": "energizedpower:block/advanced_crusher_top",
+    "west": "energizedpower:block/advanced_crusher_side"
+  }
+}

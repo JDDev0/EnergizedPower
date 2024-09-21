@@ -1,0 +1,10 @@
+{
+  "parent": "energizedpower:block/orientable_vertical",
+  "textures": {
+    "bottom": "energizedpower:block/advanced_minecart_uncharger_bottom",
+    "front": "energizedpower:block/advanced_minecart_uncharger_front",
+    "particle": "energizedpower:block/advanced_minecart_uncharger_front",
+    "side": "energizedpower:block/advanced_minecart_uncharger_side",
+    "top": "energizedpower:block/advanced_minecart_uncharger_top"
+  }
+}

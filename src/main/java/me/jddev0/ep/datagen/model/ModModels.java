@@ -8,6 +8,9 @@ import net.minecraft.util.Identifier;
 import java.util.Optional;
 
 public final class ModModels {
+    public static final Model ORIENTABLE_VERTICAL = block("orientable_vertical",
+            TextureKey.PARTICLE, TextureKey.TOP, TextureKey.BOTTOM, TextureKey.FRONT, TextureKey.SIDE);
+
     public static final Model FLUID_PIPE_CORE_TEMPLATE = block("fluid_pipe_core_template",
             TextureKey.PARTICLE, ModTextureKey.FLUID_PIPE_CORE);
     public static final Model FLUID_PIPE_SIDE_CONNECTED_TEMPLATE = block("fluid_pipe_side_connected_template",
