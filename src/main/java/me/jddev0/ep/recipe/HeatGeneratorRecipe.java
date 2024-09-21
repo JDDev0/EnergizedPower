@@ -88,26 +88,23 @@ public class HeatGeneratorRecipe implements Recipe<Inventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "heat_generator");
 
-        private final Codec<HeatGeneratorRecipe> CODEC_SINGLE_FLUID = RecordCodecBuilder.create((instance) -> {
-            return instance.group(Registries.FLUID.getCodec().fieldOf("input").forGetter((recipe) -> {
-                return recipe.input[0];
+        private final Codec<HeatGeneratorRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+            return instance.group(Codec.either(new ArrayCodec<>(Registries.FLUID.getCodec(), Fluid[]::new),
+                    Registries.FLUID.getCodec()).fieldOf("input").forGetter((recipe) -> {
+                return recipe.input.length == 1?Either.right(recipe.input[0]):Either.left(recipe.input);
             }), Codec.LONG.fieldOf("energy").forGetter((recipe) -> {
                 return recipe.energyProduction;
-            })).apply(instance, (f, e) -> new HeatGeneratorRecipe(new Fluid[] {f}, e));
-        });
-
-        private final Codec<HeatGeneratorRecipe> CODEC_FLUID_ARRAY = RecordCodecBuilder.create((instance) -> {
-            return instance.group(new ArrayCodec<>(Registries.FLUID.getCodec(), Fluid[]::new).fieldOf("input").forGetter((recipe) -> {
-                return recipe.input;
-            }), Codec.LONG.fieldOf("energy").forGetter((recipe) -> {
-                return recipe.energyProduction;
-            })).apply(instance, HeatGeneratorRecipe::new);
+            })).apply(instance, (input, energy) -> {
+                return input.map(
+                        f -> new HeatGeneratorRecipe(f, energy),
+                        f -> new HeatGeneratorRecipe(new Fluid[] {f}, energy)
+                );
+            });
         });
 
         @Override
         public Codec<HeatGeneratorRecipe> codec() {
-            return Codec.either(CODEC_FLUID_ARRAY, CODEC_SINGLE_FLUID).
-                    xmap(e -> e.left().orElseGet(() -> e.right().orElseThrow()), Either::left);
+            return CODEC;
         }
 
         @Override

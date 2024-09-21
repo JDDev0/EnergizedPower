@@ -4,27 +4,39 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import me.jddev0.ep.codec.CodecFix;
-import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
-import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
-public record AlloyFurnaceFinishedRecipe(
+public record FiltrationPlantFinishedRecipe(
         Identifier id,
-        ItemStack output,
+        OutputItemStackWithPercentages output,
         OutputItemStackWithPercentages secondaryOutput,
-        IngredientWithCount[] inputs,
-        int ticks
+        Identifier icon
 ) implements RecipeJsonProvider {
     @Override
     public void serialize(JsonObject jsonObject) {
-        jsonObject.add("output", CodecFix.ITEM_STACK_CODEC.encodeStart(JsonOps.INSTANCE, output).
-                result().orElseThrow());
+        {
+            JsonObject secondaryOutputJson = new JsonObject();
+
+            secondaryOutputJson.add("output", CodecFix.ITEM_STACK_CODEC.encodeStart(JsonOps.INSTANCE, output.output()).
+                    result().orElseThrow());
+
+            {
+                JsonArray percentagesJson = new JsonArray();
+
+                for(double percentage:output.percentages())
+                    percentagesJson.add(percentage);
+
+                secondaryOutputJson.add("percentages", percentagesJson);
+            }
+
+            jsonObject.add("output", secondaryOutputJson);
+        }
 
         if(!secondaryOutput.output().isEmpty() && secondaryOutput.percentages().length != 0) {
             JsonObject secondaryOutputJson = new JsonObject();
@@ -44,22 +56,12 @@ public record AlloyFurnaceFinishedRecipe(
             jsonObject.add("secondaryOutput", secondaryOutputJson);
         }
 
-        {
-            JsonArray inputsJson = new JsonArray();
-
-            for(IngredientWithCount input:inputs)
-                inputsJson.add(IngredientWithCount.CODEC_NONEMPTY.encodeStart(JsonOps.INSTANCE, input).
-                        result().orElseThrow());
-
-            jsonObject.add("inputs", inputsJson);
-        }
-
-        jsonObject.addProperty("ticks", ticks);
+        jsonObject.addProperty("icon", icon.toString());
     }
 
     @Override
     public RecipeSerializer<?> serializer() {
-        return ModRecipes.ALLOY_FURNACE_SERIALIZER;
+        return ModRecipes.FILTRATION_PLANT_SERIALIZER;
     }
 
     @Override

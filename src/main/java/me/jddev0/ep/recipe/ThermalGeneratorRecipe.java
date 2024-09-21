@@ -88,26 +88,23 @@ public class ThermalGeneratorRecipe implements Recipe<Inventory> {
         public static final Serializer INSTANCE = new Serializer();
         public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "thermal_generator");
 
-        private final Codec<ThermalGeneratorRecipe> CODEC_SINGLE_FLUID = RecordCodecBuilder.create((instance) -> {
-            return instance.group(Registries.FLUID.getCodec().fieldOf("input").forGetter((recipe) -> {
-                return recipe.input[0];
+        private final Codec<ThermalGeneratorRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
+            return instance.group(Codec.either(new ArrayCodec<>(Registries.FLUID.getCodec(), Fluid[]::new),
+                    Registries.FLUID.getCodec()).fieldOf("input").forGetter((recipe) -> {
+                return recipe.input.length == 1?Either.right(recipe.input[0]):Either.left(recipe.input);
             }), Codec.LONG.fieldOf("energy").forGetter((recipe) -> {
                 return recipe.energyProduction;
-            })).apply(instance, (f, e) -> new ThermalGeneratorRecipe(new Fluid[] {f}, e));
-        });
-
-        private final Codec<ThermalGeneratorRecipe> CODEC_FLUID_ARRAY = RecordCodecBuilder.create((instance) -> {
-            return instance.group(new ArrayCodec<>(Registries.FLUID.getCodec(), Fluid[]::new).fieldOf("input").forGetter((recipe) -> {
-                return recipe.input;
-            }), Codec.LONG.fieldOf("energy").forGetter((recipe) -> {
-                return recipe.energyProduction;
-            })).apply(instance, ThermalGeneratorRecipe::new);
+            })).apply(instance, (input, energy) -> {
+                return input.map(
+                        f -> new ThermalGeneratorRecipe(f, energy),
+                        f -> new ThermalGeneratorRecipe(new Fluid[] {f}, energy)
+                );
+            });
         });
 
         @Override
         public Codec<ThermalGeneratorRecipe> codec() {
-            return Codec.either(CODEC_FLUID_ARRAY, CODEC_SINGLE_FLUID).
-                    xmap(e -> e.left().orElseGet(() -> e.right().orElseThrow()), Either::left);
+            return CODEC;
         }
 
         @Override
