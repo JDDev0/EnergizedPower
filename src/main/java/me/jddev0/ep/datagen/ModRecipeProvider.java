@@ -1793,7 +1793,10 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         }, new ItemStack(ModBlocks.TELEPORTER_ITEM), CraftingRecipeCategory.MISC);
     }
     private void buildMiscCraftingRecipes(RecipeExporter output) {
-        addShapelessCraftingRecipe(output, conditionsFromItem(Items.BOOK), List.of(
+        addShapelessCraftingRecipe(output, InventoryChangedCriterion.Conditions.items(
+                Items.BOOK,
+                ModBlocks.BASIC_MACHINE_FRAME_ITEM
+        ), List.of(
                 Ingredient.ofItems(Items.BOOK),
                 Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new ItemStack(ModItems.ENERGIZED_POWER_BOOK), CraftingRecipeCategory.MISC);

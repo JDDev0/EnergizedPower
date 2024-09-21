@@ -1,4 +1,4 @@
-// 1.20.2	2024-09-21T21:49:47.324230224	Energized Power/Advancements (Basics)
+// 1.20.2	2024-09-21T21:51:00.652397417	Energized Power/Advancements (Basics)
 11d7a188e79c7f0aabd67f79b2092dab9c73338c data/energizedpower/advancements/main/basics/moon_light_upgrade_module_1.json
 98e0a9fd6575fc865f7f50918043a50262e9c697 data/energizedpower/advancements/main/basics/press_molds.json
 743bc5a9c6f543d30cf5538590ac02543df7267e data/energizedpower/advancements/main/basics/battery_box.json
@@ -6,7 +6,7 @@
 cb16ccd834e584f612bbaabf8f003663cfdced02 data/energizedpower/advancements/main/basics/copper_wire.json
 f7eb8ec2832d93c8924837f0c0950ede8e224a4e data/energizedpower/advancements/main/basics/hardened_machine_frame.json
 f2edd48f318a25847bf41dd7c2912df6fce79693 data/energizedpower/advancements/main/basics/thermal_generator.json
-c2f9f6b94efefddef13c4422d42446150874822e data/energizedpower/advancements/main/basics/mv_transformers.json
+573bf343e5169716b80ce112b316179ab13bc5b9 data/energizedpower/advancements/main/basics/mv_transformers.json
 795cc3a631dc0674ed0cad52845eb1de492e875b data/energizedpower/advancements/main/basics/energy_efficiency_upgrade_module_1.json
 4e1f3443800b6cb211e95e9cb6c0a1a5a3ac86f3 data/energizedpower/advancements/main/basics/battery_1.json
 6bce692e6bda01fcb461de46fe4c637bf8c0370d data/energizedpower/advancements/main/basics/minecart_charger.json
@@ -57,7 +57,7 @@ ab10ea1f18b7a14258571c616e1a96b1f22894a3 data/energizedpower/advancements/main/b
 4fcb2b311d6bcea792f359657d2ecd2a198c7507 data/energizedpower/advancements/main/basics/battery_4.json
 eef5005ae8fb457ca1bb88c6431a4be982da7b3f data/energizedpower/advancements/main/basics/basic_circuit.json
 8c88c24cf0c5fc0b970886cff2762ad752f2a44c data/energizedpower/advancements/main/basics/charcoal_filter.json
-42b956137bae25c2a7873781288318af74cb7926 data/energizedpower/advancements/main/basics/lv_transformers.json
+792f12f2e0849c8a11e8744fdcd65c0080c5d071 data/energizedpower/advancements/main/basics/lv_transformers.json
 851920f7b007cb8066e70b087341457d67ec573d data/energizedpower/advancements/main/basics/minecart_uncharger.json
 1e178ccf5fff64044314342133ab35c45ccfa6aa data/energizedpower/advancements/main/basics/cutter.json
 e9cdc2fc6fa96725a358b50df8c342a79a5505a4 data/energizedpower/advancements/main/basics/press_mold_maker.json

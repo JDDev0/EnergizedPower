@@ -353,9 +353,11 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                 advancementOutput, tinCable,
                 ModBlocks.LV_TRANSFORMER_1_TO_N_ITEM, "lv_transformers", AdvancementFrame.TASK,
                 InventoryChangedCriterion.Conditions.items(
-                        ModBlocks.LV_TRANSFORMER_1_TO_N_ITEM,
-                        ModBlocks.LV_TRANSFORMER_3_TO_3_ITEM,
-                        ModBlocks.LV_TRANSFORMER_N_TO_1_ITEM
+                        ItemPredicate.Builder.create().items(
+                                ModBlocks.LV_TRANSFORMER_1_TO_N_ITEM,
+                                ModBlocks.LV_TRANSFORMER_3_TO_3_ITEM,
+                                ModBlocks.LV_TRANSFORMER_N_TO_1_ITEM
+                        ).build()
                 )
         );
 
@@ -609,9 +611,11 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                 advancementOutput, hardenedMachineFrame,
                 ModBlocks.MV_TRANSFORMER_1_TO_N, "mv_transformers", AdvancementFrame.TASK,
                 InventoryChangedCriterion.Conditions.items(
-                        ModBlocks.MV_TRANSFORMER_1_TO_N_ITEM,
-                        ModBlocks.MV_TRANSFORMER_3_TO_3_ITEM,
-                        ModBlocks.MV_TRANSFORMER_N_TO_1_ITEM
+                        ItemPredicate.Builder.create().items(
+                                ModBlocks.MV_TRANSFORMER_1_TO_N_ITEM,
+                                ModBlocks.MV_TRANSFORMER_3_TO_3_ITEM,
+                                ModBlocks.MV_TRANSFORMER_N_TO_1_ITEM
+                        ).build()
                 )
         );
 
