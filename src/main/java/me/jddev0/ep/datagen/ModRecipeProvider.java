@@ -50,9 +50,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         buildCompressorRecipes(output);
         buildCrusherRecipes(output);
         buildPulverizerRecipes(output);
+        buildPlantGrowthChamberRecipes(output);
+        buildPlantGrowthChamberFertilizerRecipes(output);
         buildMetalPressRecipes(output);
         buildHeatGeneratorRecipes(output);
         buildThermalGeneratorRecipes(output);
+        buildStoneSolidifierRecipes(output);
         buildAssemblingMachineRecipes(output);
         buildFiltrationPlantRecipes(output);
         buildFluidTransposerRecipes(output);
@@ -281,6 +284,120 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         1., 1.), "charcoal");
     }
 
+    private void buildPlantGrowthChamberRecipes(RecipeExporter output) {
+        addBasicFlowerGrowingRecipe(output, Items.DANDELION, "dandelions");
+        addBasicFlowerGrowingRecipe(output, Items.POPPY, "poppies");
+        addBasicFlowerGrowingRecipe(output, Items.BLUE_ORCHID, "blue_orchids");
+        addBasicFlowerGrowingRecipe(output, Items.ALLIUM, "alliums");
+        addBasicFlowerGrowingRecipe(output, Items.AZURE_BLUET, "azure_bluets");
+        addBasicFlowerGrowingRecipe(output, Items.RED_TULIP, "red_tulips");
+        addBasicFlowerGrowingRecipe(output, Items.ORANGE_TULIP, "orange_tulips");
+        addBasicFlowerGrowingRecipe(output, Items.WHITE_TULIP, "white_tulips");
+        addBasicFlowerGrowingRecipe(output, Items.PINK_TULIP, "pink_tulips");
+        addBasicFlowerGrowingRecipe(output, Items.OXEYE_DAISY, "oxeye_daisies");
+        addBasicFlowerGrowingRecipe(output, Items.CORNFLOWER, "cornflowers");
+        addBasicFlowerGrowingRecipe(output, Items.LILY_OF_THE_VALLEY, "lily_of_the_valley");
+
+        addBasicFlowerGrowingRecipe(output, Items.SUNFLOWER, "sunflowers");
+        addBasicFlowerGrowingRecipe(output, Items.LILAC, "lilacs");
+        addBasicFlowerGrowingRecipe(output, Items.ROSE_BUSH, "rose_bushes");
+        addBasicFlowerGrowingRecipe(output, Items.PEONY, "peonies");
+
+        addBasicMushroomsGrowingRecipe(output, Items.BROWN_MUSHROOM, "brown_mushrooms");
+        addBasicMushroomsGrowingRecipe(output, Items.RED_MUSHROOM, "red_mushrooms");
+
+        addBasicAncientFlowerGrowingRecipe(output, Items.TORCHFLOWER_SEEDS, Items.TORCHFLOWER, "torchflowers");
+        addBasicAncientFlowerGrowingRecipe(output, Items.PITCHER_POD, Items.PITCHER_PLANT, "pitcher_plants");
+
+        addPlantGrowthChamberRecipe(output, Ingredient.ofItems(Items.PINK_PETALS), new OutputItemStackWithPercentages[] {
+                new OutputItemStackWithPercentages(new ItemStack(Items.PINK_PETALS), new double[] {
+                        1., 1., 1., .67, .33, .33, .15
+                })
+        }, 16000, "pink_petals", "pink_petals");
+
+        addPlantGrowthChamberRecipe(output, Ingredient.ofItems(Items.SWEET_BERRIES), new OutputItemStackWithPercentages[] {
+                new OutputItemStackWithPercentages(new ItemStack(Items.SWEET_BERRIES), new double[] {
+                        1., 1., .33, .17
+                })
+        }, 16000, "sweet_berries", "sweet_berries");
+
+        addPlantGrowthChamberRecipe(output, Ingredient.ofItems(Items.GLOW_BERRIES), new OutputItemStackWithPercentages[] {
+                new OutputItemStackWithPercentages(new ItemStack(Items.GLOW_BERRIES), new double[] {
+                        1., 1., .67, .33, .17, .17
+                })
+        }, 16000, "glow_berries", "glow_berries");
+
+        addPlantGrowthChamberRecipe(output, Ingredient.ofItems(Items.WHEAT_SEEDS), new OutputItemStackWithPercentages[] {
+                new OutputItemStackWithPercentages(new ItemStack(Items.WHEAT_SEEDS), new double[] {
+                        1., .33, .33
+                }),
+                new OutputItemStackWithPercentages(new ItemStack(Items.WHEAT), new double[] {
+                        1., .75, .25
+                })
+        }, 16000, "wheat", "wheat_seeds");
+
+        addPlantGrowthChamberRecipe(output, Ingredient.ofItems(Items.BEETROOT_SEEDS), new OutputItemStackWithPercentages[] {
+                new OutputItemStackWithPercentages(new ItemStack(Items.BEETROOT_SEEDS), new double[] {
+                        1., .33, .33
+                }),
+                new OutputItemStackWithPercentages(new ItemStack(Items.BEETROOT), new double[] {
+                        1., .75, .25, .25
+                })
+        }, 16000, "beetroots", "beetroot_seeds");
+
+        addPlantGrowthChamberRecipe(output, Ingredient.ofItems(Items.POTATO), new OutputItemStackWithPercentages[] {
+                new OutputItemStackWithPercentages(new ItemStack(Items.POTATO), new double[] {
+                        1., .75, .25, .25
+                }),
+                new OutputItemStackWithPercentages(new ItemStack(Items.POISONOUS_POTATO), new double[] {
+                        .125
+                })
+        }, 16000, "potatoes", "potato");
+
+        addPlantGrowthChamberRecipe(output, Ingredient.ofItems(Items.CARROT), new OutputItemStackWithPercentages[] {
+                new OutputItemStackWithPercentages(new ItemStack(Items.CARROT), new double[] {
+                        1., .75, .25, .25
+                })
+        }, 16000, "carrots", "carrot");
+
+        addPlantGrowthChamberRecipe(output, Ingredient.ofItems(Items.MELON_SEEDS), new OutputItemStackWithPercentages[] {
+                new OutputItemStackWithPercentages(new ItemStack(Items.MELON_SLICE), new double[] {
+                        1., 1., .75, .25, .25
+                })
+        }, 16000, "melon_slices", "melon_seeds");
+
+        addPlantGrowthChamberRecipe(output, Ingredient.ofItems(Items.PUMPKIN_SEEDS), new OutputItemStackWithPercentages[] {
+                new OutputItemStackWithPercentages(new ItemStack(Items.PUMPKIN), new double[] {
+                        1.
+                })
+        }, 16000, "pumpkin", "pumpkin_seeds");
+
+        addPlantGrowthChamberRecipe(output, Ingredient.ofItems(Items.SUGAR_CANE), new OutputItemStackWithPercentages[] {
+                new OutputItemStackWithPercentages(new ItemStack(Items.SUGAR_CANE), new double[] {
+                        1., 1., .67, .67, .33, .17, .17
+                })
+        }, 16000, "sugar_canes", "sugar_cane");
+        addPlantGrowthChamberRecipe(output, Ingredient.ofItems(Items.BAMBOO), new OutputItemStackWithPercentages[] {
+                new OutputItemStackWithPercentages(new ItemStack(Items.BAMBOO), new double[] {
+                        1., 1., .67, .17
+                })
+        }, 16000, "bamboo", "bamboo");
+    }
+
+    private void buildPlantGrowthChamberFertilizerRecipes(RecipeExporter output) {
+        addPlantGrowthChamberFertilizerRecipe(output, Ingredient.ofItems(Items.BONE_MEAL),
+                1.5, 3., "bone_meal");
+
+        addPlantGrowthChamberFertilizerRecipe(output, Ingredient.ofItems(ModItems.BASIC_FERTILIZER),
+                2.5, 3.5, "basic_fertilizer");
+
+        addPlantGrowthChamberFertilizerRecipe(output, Ingredient.ofItems(ModItems.GOOD_FERTILIZER),
+                3.5, 5., "good_fertilizer");
+
+        addPlantGrowthChamberFertilizerRecipe(output, Ingredient.ofItems(ModItems.ADVANCED_FERTILIZER),
+                5., 6.5, "advanced_fertilizer");
+    }
+
     private void buildMetalPressRecipes(RecipeExporter output) {
         addGearMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.IRON_PLATES), new ItemStack(ModItems.IRON_GEAR));
 
@@ -344,6 +461,26 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.EMERALDS), 2),
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.REDSTONE_ALLOY_INGOTS), 1)
         }, new ItemStack(ModItems.CRYSTAL_MATRIX));
+    }
+
+    private void buildStoneSolidifierRecipes(RecipeExporter output) {
+        addStoneSolidifierRecipe(output, 1000, 50, new ItemStack(Items.STONE));
+
+        addStoneSolidifierRecipe(output, 50, 50, new ItemStack(Items.COBBLESTONE));
+
+        addStoneSolidifierRecipe(output, 1000, 150, new ItemStack(Items.DEEPSLATE));
+
+        addStoneSolidifierRecipe(output, 150, 150, new ItemStack(Items.COBBLED_DEEPSLATE));
+
+        addStoneSolidifierRecipe(output, 1000, 50, new ItemStack(Items.GRANITE));
+
+        addStoneSolidifierRecipe(output, 1000, 50, new ItemStack(Items.DIORITE));
+
+        addStoneSolidifierRecipe(output, 1000, 50, new ItemStack(Items.ANDESITE));
+
+        addStoneSolidifierRecipe(output, 1000, 250, new ItemStack(Items.BLACKSTONE));
+
+        addStoneSolidifierRecipe(output, 1000, 1000, new ItemStack(Items.OBSIDIAN));
     }
 
     private void buildFiltrationPlantRecipes(RecipeExporter output) {
@@ -642,6 +779,59 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         RecipeExporter.accept(recipe);
     }
 
+    private static void addBasicFlowerGrowingRecipe(RecipeExporter RecipeExporter, ItemConvertible flowerItem,
+                                                    String outputName) {
+        addPlantGrowthChamberRecipe(RecipeExporter, Ingredient.ofItems(flowerItem), new OutputItemStackWithPercentages[] {
+                new OutputItemStackWithPercentages(new ItemStack(flowerItem), new double[] {
+                        1., 1., .33
+                })
+        }, 16000, outputName, getItemPath(flowerItem));
+    }
+    private static void addBasicMushroomsGrowingRecipe(RecipeExporter RecipeExporter, ItemConvertible mushroomItem,
+                                                       String outputName) {
+        addPlantGrowthChamberRecipe(RecipeExporter, Ingredient.ofItems(mushroomItem), new OutputItemStackWithPercentages[] {
+                new OutputItemStackWithPercentages(new ItemStack(mushroomItem), new double[] {
+                        1., 1., .5, .25
+                })
+        }, 16000, outputName, getItemPath(mushroomItem));
+    }
+    private static void addBasicAncientFlowerGrowingRecipe(RecipeExporter RecipeExporter, ItemConvertible seedItem,
+                                                           ItemConvertible flowerItem, String outputName) {
+        addPlantGrowthChamberRecipe(RecipeExporter, Ingredient.ofItems(seedItem), new OutputItemStackWithPercentages[] {
+                new OutputItemStackWithPercentages(new ItemStack(seedItem), new double[] {
+                        1., .33, .15
+                }),
+                new OutputItemStackWithPercentages(new ItemStack(flowerItem), new double[] {
+                        1., .15
+                })
+        }, 16000, outputName, getItemPath(seedItem));
+    }
+    private static void addPlantGrowthChamberRecipe(RecipeExporter RecipeExporter, Ingredient input,
+                                                    OutputItemStackWithPercentages[] outputs, int ticks,
+                                                    String outputName, String recipeIngredientName) {
+        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "growing/" +
+                outputName + "_from_growing_" + recipeIngredientName);
+
+        PlantGrowthChamberFinishedRecipe recipe = new PlantGrowthChamberFinishedRecipe(
+                recipeId,
+                outputs, input, ticks
+        );
+        RecipeExporter.accept(recipe);
+    }
+
+    private static void addPlantGrowthChamberFertilizerRecipe(RecipeExporter RecipeExporter, Ingredient input,
+                                                              double speedMultiplier, double energyConsumptionMultiplier,
+                                                              String recipeIngredientName) {
+        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "growing/fertilizer/" +
+                recipeIngredientName);
+
+        PlantGrowthChamberFertilizerFinishedRecipe recipe = new PlantGrowthChamberFertilizerFinishedRecipe(
+                recipeId,
+                input, speedMultiplier, energyConsumptionMultiplier
+        );
+        RecipeExporter.accept(recipe);
+    }
+
     private static void addGearMetalPressRecipe(RecipeExporter RecipeExporter, Ingredient input, ItemStack output) {
         addMetalPressRecipe(RecipeExporter, input, output, new ItemStack(ModItems.GEAR_PRESS_MOLD), 2);
     }
@@ -699,6 +889,17 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         ThermalGeneratorFinishedRecipe recipe = new ThermalGeneratorFinishedRecipe(
                 recipeId,
                 input, energyProduction
+        );
+        RecipeExporter.accept(recipe);
+    }
+
+    private static void addStoneSolidifierRecipe(RecipeExporter RecipeExporter, int waterAmount, int lavaAmount, ItemStack output) {
+        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "stone_solidifier/" +
+                getItemPath(output.getItem()));
+
+        StoneSolidifierFinishedRecipe recipe = new StoneSolidifierFinishedRecipe(
+                recipeId,
+                output, waterAmount, lavaAmount
         );
         RecipeExporter.accept(recipe);
     }
