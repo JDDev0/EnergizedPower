@@ -3,6 +3,7 @@
   "ingredient": {
     "tag": "c:iron_ingots"
   },
+  "inputCount": 1,
   "output": {
     "item": "energizedpower:iron_plate"
   }

@@ -3,6 +3,7 @@
   "ingredient": {
     "tag": "c:energized_copper_ingots"
   },
+  "inputCount": 1,
   "output": {
     "item": "energizedpower:energized_copper_plate"
   }
