@@ -1,0 +1,38 @@
+{
+  "parent": "energizedpower:main/basics/item_conveyor_belt_loader",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:item_conveyor_belt_merger"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.item_conveyor_belt_merger.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:item_conveyor_belt_merger"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.item_conveyor_belt_merger.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
