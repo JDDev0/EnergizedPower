@@ -128,6 +128,8 @@ public final class CommonItemTags {
 
     public static final TagKey<Item> RODS = TagKey.of(RegistryKeys.ITEM,
             Identifier.of("c", "rods"));
+    public static final TagKey<Item> WOODEN_RODS = TagKey.of(RegistryKeys.ITEM,
+            Identifier.of("c", "wooden_rods"));
     public static final TagKey<Item> IRON_RODS = TagKey.of(RegistryKeys.ITEM,
             Identifier.of("c", "iron_rods"));
 

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:cobblestones"
+    },
+    "I": {
+      "tag": "c:iron_plates"
+    },
+    "L": {
+      "item": "energizedpower:item_conveyor_belt_loader"
+    },
+    "R": {
+      "tag": "c:redstone_dusts"
+    }
+  },
+  "pattern": [
+    "CRC",
+    "ILI",
+    "CIC"
+  ],
+  "result": {
+    "item": "energizedpower:item_conveyor_belt_merger"
+  }
+}

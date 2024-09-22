@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "C": {
+      "tag": "c:copper_plates"
+    },
+    "I": {
+      "tag": "c:iron_plates"
+    },
+    "T": {
+      "item": "minecraft:crafting_table"
+    },
+    "b": {
+      "item": "energizedpower:basic_circuit"
+    }
+  },
+  "pattern": [
+    "CTC",
+    "bBb",
+    "ITI"
+  ],
+  "result": {
+    "item": "energizedpower:auto_crafter"
+  }
+}

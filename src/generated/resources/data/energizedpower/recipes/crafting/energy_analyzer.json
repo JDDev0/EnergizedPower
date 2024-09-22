@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "energizedpower:battery_3"
+    },
+    "C": {
+      "tag": "c:copper_plates"
+    },
+    "R": {
+      "tag": "c:redstone_dusts"
+    },
+    "S": {
+      "tag": "c:silicon"
+    },
+    "b": {
+      "item": "energizedpower:basic_circuit"
+    }
+  },
+  "pattern": [
+    "S S",
+    "bRb",
+    "CBC"
+  ],
+  "result": {
+    "item": "energizedpower:energy_analyzer"
+  }
+}

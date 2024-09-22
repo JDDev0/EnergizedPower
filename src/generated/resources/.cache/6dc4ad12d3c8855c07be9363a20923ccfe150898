@@ -1,4 +1,4 @@
-// 1.20.1	2024-09-22T13:22:02.694477438	Energized Power/Tags for minecraft:item
+// 1.20.1	2024-09-22T13:26:24.577163975	Energized Power/Tags for minecraft:item
 dc1eecfb81d5eda9759e3ffd6a63e80990cd4b67 data/c/tags/items/energized_copper_plates.json
 f49f51e79d8efb9d3426fb99669723302f4a10b3 data/c/tags/items/emerald_ores.json
 1e9b2f170f3826ddfd6e8fa673f8abafba35b85f data/c/tags/items/nuggets.json
@@ -28,7 +28,7 @@ f5254522619427812e22d8c5038b309117bd3c4a data/c/tags/items/advanced_alloy_plates
 70aac843d19b3be0c7d5d158c7a01c75d595040e data/c/tags/items/coal_ores.json
 3dd5ea03857563007456955220ec4e5121dce033 data/c/tags/items/steel_ingots.json
 231aa46493779754206a429c51e68a0d22f0601c data/c/tags/items/dusts.json
-552ba55ce6bb6379d87ae85fcaa51335a26daa45 data/c/tags/items/rods.json
+8dd2566f53ee47f9ad08e41b25a0f35e37b58fc7 data/c/tags/items/rods.json
 22c0259e68eb75e802e3d4919fa41b4c2f80bf14 data/ae2/tags/items/p2p_attunements/item_p2p_tunnel.json
 9ef026e4c0c9e4168988c36fe15fcccb78290b97 data/c/tags/items/hammers.json
 7eb53ad6e775bb97bf75fa205fcd5982a91f892a data/c/tags/items/iron_rods.json
@@ -38,6 +38,7 @@ fe06c780f7148717b15682837480edb1fe7d6c6b data/energizedpower/tags/items/metal_pr
 67bd7eb9ea1899e26eb9b3adce50b210dc2e9362 data/c/tags/items/redstone_alloy_ingots.json
 6f38f9e406cc9b53aedc6f1305b07490c48e55c8 data/c/tags/items/copper_wires.json
 360a9d836b5ef0aa0b96f08d3983c8426d3184ce data/c/tags/items/copper_ores.json
+7f38b782ef0289e7cf67edbd0ff54f8409646dc9 data/c/tags/items/wooden_rods.json
 efa481a4459e3a60145aa2474cf8dcceb9fd0e9e data/c/tags/items/lapis_ores.json
 d8055eda6142427e8f950ade647ba8a9f3f37b67 data/c/tags/items/iron_dusts.json
 0f9192f7fa9c85ad23e0033349cb2cf7549f6710 data/c/tags/items/raw_tin_ores.json

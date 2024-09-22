@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": {
+      "tag": "c:diamonds"
+    },
+    "S": {
+      "tag": "c:wooden_rods"
+    }
+  },
+  "pattern": [
+    " M ",
+    " SM",
+    "S  "
+  ],
+  "result": {
+    "item": "energizedpower:diamond_hammer"
+  }
+}
