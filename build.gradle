@@ -46,6 +46,8 @@ fabricApi {
 	configureDataGeneration {
 		getOutputDirectory().set(getProject().file("src/generated/resources"))
 	}
+
+	loom.runConfigs.datagen.runDir("run")
 }
 
 dependencies {
