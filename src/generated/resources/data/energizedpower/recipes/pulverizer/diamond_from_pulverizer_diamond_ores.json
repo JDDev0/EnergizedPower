@@ -1,0 +1,22 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": {
+    "tag": "c:diamond_ores"
+  },
+  "output": {
+    "output": {
+      "item": "minecraft:diamond"
+    },
+    "percentages": [
+      1.0,
+      0.67,
+      0.17
+    ],
+    "percentagesAdvanced": [
+      1.0,
+      0.67,
+      0.33,
+      0.17
+    ]
+  }
+}

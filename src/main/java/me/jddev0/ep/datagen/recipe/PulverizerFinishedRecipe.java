@@ -3,18 +3,19 @@ package me.jddev0.ep.datagen.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.recipe.ModRecipes;
-import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
+import me.jddev0.ep.recipe.PulverizerRecipe;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
-public record FiltrationPlantFinishedRecipe(
+public record PulverizerFinishedRecipe(
         Identifier id,
-        OutputItemStackWithPercentages output,
-        OutputItemStackWithPercentages secondaryOutput,
-        Identifier icon
+        PulverizerRecipe.OutputItemStackWithPercentages output,
+        PulverizerRecipe.OutputItemStackWithPercentages secondaryOutput,
+        Ingredient input
 ) implements RecipeJsonProvider {
     @Override
     public void serialize(JsonObject jsonObject) {
@@ -30,6 +31,15 @@ public record FiltrationPlantFinishedRecipe(
                     percentagesJson.add(percentage);
 
                 outputJson.add("percentages", percentagesJson);
+            }
+
+            {
+                JsonArray percentagesAdvancedJson = new JsonArray();
+
+                for(double percentage:output.percentagesAdvanced())
+                    percentagesAdvancedJson.add(percentage);
+
+                outputJson.add("percentagesAdvanced", percentagesAdvancedJson);
             }
 
             jsonObject.add("output", outputJson);
@@ -49,10 +59,19 @@ public record FiltrationPlantFinishedRecipe(
                 secondaryOutputJson.add("percentages", percentagesJson);
             }
 
+            {
+                JsonArray percentagesAdvancedJson = new JsonArray();
+
+                for(double percentage:secondaryOutput.percentagesAdvanced())
+                    percentagesAdvancedJson.add(percentage);
+
+                secondaryOutputJson.add("percentagesAdvanced", percentagesAdvancedJson);
+            }
+
             jsonObject.add("secondaryOutput", secondaryOutputJson);
         }
 
-        jsonObject.addProperty("icon", icon.toString());
+        jsonObject.add("ingredient", input.toJson());
     }
 
     @Override
@@ -62,7 +81,7 @@ public record FiltrationPlantFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.FILTRATION_PLANT_SERIALIZER;
+        return ModRecipes.PULVERIZER_SERIALIZER;
     }
 
     @Override
