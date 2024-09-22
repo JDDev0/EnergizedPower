@@ -1,0 +1,28 @@
+{
+  "type": "energizedpower:plant_growth_chamber",
+  "ingredient": {
+    "item": "minecraft:torchflower_seeds"
+  },
+  "outputs": [
+    {
+      "output": {
+        "item": "minecraft:torchflower_seeds"
+      },
+      "percentages": [
+        1.0,
+        0.33,
+        0.15
+      ]
+    },
+    {
+      "output": {
+        "item": "minecraft:torchflower"
+      },
+      "percentages": [
+        1.0,
+        0.15
+      ]
+    }
+  ],
+  "ticks": 16000
+}
