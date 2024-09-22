@@ -1,4 +1,4 @@
-package me.jddev0.ep.painting;
+package me.jddev0.ep.paintings;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import net.minecraft.world.entity.decoration.PaintingVariant;
