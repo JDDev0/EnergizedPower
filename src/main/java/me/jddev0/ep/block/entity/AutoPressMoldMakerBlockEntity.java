@@ -6,10 +6,10 @@ import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.recipe.ModRecipes;
-import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.screen.AutoPressMoldMakerMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.ItemStackUtils;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
@@ -48,7 +48,7 @@ public class AutoPressMoldMakerBlockEntity
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
                     case 0 -> stack.isOf(Items.CLAY_BALL);
-                    case 1 -> stack.isIn(CommonItemTags.SHOVELS);
+                    case 1 -> stack.isIn(ConventionalItemTags.SHOVELS);
                     case 2 -> false;
                     default -> super.isValid(slot, stack);
                 };
@@ -67,7 +67,7 @@ public class AutoPressMoldMakerBlockEntity
             return;
 
         ItemStack shovel = itemHandler.getStack(1).copy();
-        if(shovel.isEmpty() && !shovel.isIn(CommonItemTags.SHOVELS))
+        if(shovel.isEmpty() && !shovel.isIn(ConventionalItemTags.SHOVELS))
             return;
 
         if(shovel.damage(1, world.random, null))
@@ -88,7 +88,7 @@ public class AutoPressMoldMakerBlockEntity
         return world != null &&
                 itemHandler.getStack(0).isOf(Items.CLAY_BALL) &&
                 itemHandler.getStack(0).getCount() >= recipe.getClayCount() &&
-                itemHandler.getStack(1).isIn(CommonItemTags.SHOVELS) &&
+                itemHandler.getStack(1).isIn(ConventionalItemTags.SHOVELS) &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.getOutput());
     }
 }

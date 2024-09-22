@@ -1,6 +1,6 @@
-// 1.19.2	2024-09-22T16:15:27.103178131	Models
-f28a005331d2164661005c95e142d0de092be1d1 assets/energizedpower/blockstates/tin_cable.json
+// 1.19.2	2024-09-22T16:39:06.471453143	Models
 0f897cc8a85013db3703e3952bf326d4652395e4 assets/energizedpower/blockstates/sawdust_block.json
+f28a005331d2164661005c95e142d0de092be1d1 assets/energizedpower/blockstates/tin_cable.json
 01fefe01ec8b6b044d299198f9f7a14f8f09daa2 assets/energizedpower/models/block/tin_ore.json
 685ddf9840831a5575a50b0dba31f6a9600f602c assets/energizedpower/models/item/energized_copper_cable.json
 de6ede49705d314654b15bff34c6e7265a939e9e assets/energizedpower/models/block/gold_cable_side.json
@@ -32,8 +32,8 @@ accf776261671d1ca7e0b361009cab52d190f5cf assets/energizedpower/models/block/ener
 c07deee6fbbaeddf6987586760841d3de6c93b63 assets/energizedpower/models/block/energized_gold_cable_side.json
 d4ce087202cf687a4ed601931a3917a5a40870b7 assets/energizedpower/blockstates/energized_crystal_matrix_cable.json
 dd605f815c47b107c7468f55b7ec708683a5c9c6 assets/energizedpower/blockstates/gold_cable.json
-10aad478e69cde0660a4b9d64ca4d1bcf76352f8 assets/energizedpower/blockstates/copper_cable.json
 618ae493f34533bfd5b8557b4023f3157d074855 assets/energizedpower/blockstates/raw_tin_block.json
+10aad478e69cde0660a4b9d64ca4d1bcf76352f8 assets/energizedpower/blockstates/copper_cable.json
 c5c550d7109c77ca0466d9e17b27580ef4694ccc assets/energizedpower/models/item/gold_cable.json
 9f5dcb57c1f31d30ddf04868e2b406fe2f855bcb assets/energizedpower/models/block/silicon_block.json
 44747389ae40d79e7ae6747627aa39c3b1016de5 assets/energizedpower/blockstates/deepslate_tin_ore.json

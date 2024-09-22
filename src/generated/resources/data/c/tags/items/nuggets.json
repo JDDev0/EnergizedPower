@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#c:tin_nuggets",
+    "#c:iron_nuggets",
+    "#c:gold_nuggets"
+  ]
+}

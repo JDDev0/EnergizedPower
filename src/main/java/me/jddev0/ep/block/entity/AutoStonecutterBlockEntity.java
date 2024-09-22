@@ -4,11 +4,11 @@ import me.jddev0.ep.block.entity.base.SelectableRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.screen.AutoStonecutterMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.ItemStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
@@ -49,7 +49,7 @@ public class AutoStonecutterBlockEntity
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
                     case 0 -> world == null || RecipeUtils.isIngredientOfAny(world, recipeType, stack);
-                    case 1 -> stack.isIn(CommonItemTags.PICKAXES);
+                    case 1 -> stack.isIn(ConventionalItemTags.PICKAXES);
                     case 2 -> false;
                     default -> super.isValid(slot, stack);
                 };
@@ -68,7 +68,7 @@ public class AutoStonecutterBlockEntity
             return;
 
         ItemStack pickaxe = itemHandler.getStack(1).copy();
-        if(pickaxe.isEmpty() && !pickaxe.isIn(CommonItemTags.PICKAXES))
+        if(pickaxe.isEmpty() && !pickaxe.isIn(ConventionalItemTags.PICKAXES))
             return;
 
         if(pickaxe.damage(1, world.random, null))
@@ -88,7 +88,7 @@ public class AutoStonecutterBlockEntity
     protected boolean canCraftRecipe(SimpleInventory inventory, StonecuttingRecipe recipe) {
         return world != null &&
                 recipe.matches(inventory, world) &&
-                itemHandler.getStack(1).isIn(CommonItemTags.PICKAXES) &&
+                itemHandler.getStack(1).isIn(ConventionalItemTags.PICKAXES) &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.getOutput());
     }
 }

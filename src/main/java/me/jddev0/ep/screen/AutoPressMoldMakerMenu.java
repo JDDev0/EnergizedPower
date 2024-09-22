@@ -9,12 +9,12 @@ import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
-import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.ISelectableRecipeMachineMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -38,7 +38,7 @@ public class AutoPressMoldMakerMenu extends UpgradableEnergyStorageMenu<AutoPres
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
                     case 0 -> stack.isOf(Items.CLAY_BALL);
-                    case 1 -> stack.isIn(CommonItemTags.SHOVELS);
+                    case 1 -> stack.isIn(ConventionalItemTags.SHOVELS);
                     case 2 -> false;
                     default -> super.isValid(slot, stack);
                 };

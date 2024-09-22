@@ -8,13 +8,13 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.ISelectableRecipeMachineMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -39,7 +39,7 @@ public class AutoStonecutterMenu extends UpgradableEnergyStorageMenu<AutoStonecu
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
                     case 0 -> RecipeUtils.isIngredientOfAny(inv.player.getWorld(), RecipeType.STONECUTTING, stack);
-                    case 1 -> stack.isIn(CommonItemTags.PICKAXES);
+                    case 1 -> stack.isIn(ConventionalItemTags.PICKAXES);
                     case 2 -> false;
                     default -> super.isValid(slot, stack);
                 };

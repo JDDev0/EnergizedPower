@@ -11,7 +11,7 @@ import me.jddev0.ep.event.ServerStartingHandler;
 import me.jddev0.ep.fluid.ModFluids;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.painting.ModPaintings;
+import me.jddev0.ep.paintings.ModPaintings;
 import me.jddev0.ep.recipe.ModRecipes;
 import me.jddev0.ep.screen.ModMenuTypes;
 import me.jddev0.ep.villager.ModVillager;
@@ -59,7 +59,7 @@ public class EnergizedPowerMod implements ModInitializer {
         ServerLifecycleEvents.SERVER_STARTING.register(new ServerStartingHandler());
 
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.SAWDUST_BLOCK, 5, 20);
-	}
+    }
 
     private ItemStack getChargedItemStack(Item item, long energy) {
         ItemStack itemStack = new ItemStack(item);
