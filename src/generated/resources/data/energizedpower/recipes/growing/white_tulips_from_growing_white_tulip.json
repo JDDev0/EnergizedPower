@@ -1,0 +1,19 @@
+{
+  "type": "energizedpower:plant_growth_chamber",
+  "ingredient": {
+    "item": "minecraft:white_tulip"
+  },
+  "outputs": [
+    {
+      "output": {
+        "item": "minecraft:white_tulip"
+      },
+      "percentages": [
+        1.0,
+        1.0,
+        0.33
+      ]
+    }
+  ],
+  "ticks": 16000
+}
