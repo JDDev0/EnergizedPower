@@ -72,11 +72,12 @@ dependencies {
 	// Team Reborn: Fabric energy
 	include modApi('teamreborn:energy:2.3.0') {
 		exclude(group: "net.fabricmc.fabric-api")
+		exclude(group: "net.fabricmc", module: "fabric-loader")
 	}
 
 	// REI integration
-	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:9.1.587"
-	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:9.1.587"
+	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:9.2.766"
+	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:9.2.766"
 
 	// EMI integration
 	modCompileOnly "dev.emi:emi-fabric:1.0.4+1.19.2:api"
