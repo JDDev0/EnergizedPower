@@ -9,6 +9,7 @@ public class EnergizedPowerDataGenerators implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator pack) {
         pack.addProvider(ModRecipeProvider::new);
         pack.addProvider(ModBlockLootTables::new);
+        ModAdvancementProvider.create(pack);
 
         pack.addProvider(ModModelProvider::new);
 

@@ -1,0 +1,38 @@
+{
+  "parent": "energizedpower:main/basics/coal_engine",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:inventory_coal_engine"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.inventory_coal_engine.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:inventory_coal_engine",
+      "nbt": "{active:1b,working:1b}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.inventory_coal_engine.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}

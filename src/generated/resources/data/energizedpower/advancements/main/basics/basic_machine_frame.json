@@ -1,0 +1,37 @@
+{
+  "parent": "energizedpower:main/basics/silicon",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:basic_machine_frame"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.basic_machine_frame.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.basic_machine_frame.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}

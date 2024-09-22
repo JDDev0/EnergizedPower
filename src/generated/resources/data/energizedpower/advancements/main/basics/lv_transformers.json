@@ -1,0 +1,39 @@
+{
+  "parent": "energizedpower:main/basics/tin_cable",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:lv_transformer_1_to_n",
+              "energizedpower:lv_transformer_3_to_3",
+              "energizedpower:lv_transformer_n_to_1"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.lv_transformers.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:lv_transformer_1_to_n"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.lv_transformers.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}
