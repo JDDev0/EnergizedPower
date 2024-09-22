@@ -1,0 +1,25 @@
+{
+  "block": "energizedpower:thermal_generator",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.thermal_generator.1"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.thermal_generator.2"
+      }
+    ],
+    "text": ""
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "block": "energizedpower:energizer",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.energizer"
+      }
+    ],
+    "text": ""
+  }
+}

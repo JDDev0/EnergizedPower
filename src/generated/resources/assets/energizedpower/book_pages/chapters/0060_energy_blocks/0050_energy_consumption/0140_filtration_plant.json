@@ -1,0 +1,25 @@
+{
+  "block": "energizedpower:filtration_plant",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.filtration_plant.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.filtration_plant.2"
+      }
+    ],
+    "text": ""
+  }
+}

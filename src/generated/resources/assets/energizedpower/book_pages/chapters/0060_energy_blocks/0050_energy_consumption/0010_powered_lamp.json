@@ -1,0 +1,14 @@
+{
+  "block": "energizedpower:powered_lamp",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.powered_lamp"
+      }
+    ],
+    "text": ""
+  }
+}

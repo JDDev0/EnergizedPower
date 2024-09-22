@@ -1,0 +1,14 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.inventory_teleporter"
+      }
+    ],
+    "text": ""
+  },
+  "image": "energizedpower:textures/item/inventory_teleporter.png"
+}
