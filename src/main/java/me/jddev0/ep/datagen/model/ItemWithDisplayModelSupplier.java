@@ -9,7 +9,7 @@ import net.minecraft.util.math.Vec3i;
 
 import java.util.function.Supplier;
 
-public record DisplayModelSupplier(
+public record ItemWithDisplayModelSupplier(
         Identifier parent,
         Vec3f scaleFirstPersonLeftHand,
         Vec3f scaleFirstPersonRightHand,
@@ -19,7 +19,7 @@ public record DisplayModelSupplier(
         Vec3f scaleGround,
         Vec3f scaleGui, Vec3i rotationGui
 ) implements Supplier<JsonElement> {
-    public DisplayModelSupplier(Identifier parent, Vec3f scaleWorld, Vec3f scaleGui, Vec3i rotationGui) {
+    public ItemWithDisplayModelSupplier(Identifier parent, Vec3f scaleWorld, Vec3f scaleGui, Vec3i rotationGui) {
         this(parent, scaleWorld, scaleWorld, scaleWorld, scaleWorld, scaleWorld, scaleWorld, scaleGui, rotationGui);
     }
 
