@@ -2,28 +2,28 @@
   "type": "energizedpower:assembling_machine",
   "inputs": [
     {
+      "count": 4,
       "input": {
         "item": "energizedpower:processing_unit"
-      },
-      "count": 4
+      }
     },
     {
+      "count": 4,
       "input": {
         "item": "energizedpower:teleporter_matrix"
-      },
-      "count": 4
+      }
     },
     {
+      "count": 2,
       "input": {
         "item": "energizedpower:energized_crystal_matrix"
-      },
-      "count": 2
+      }
     },
     {
+      "count": 2,
       "input": {
         "tag": "forge:silicon"
-      },
-      "count": 2
+      }
     }
   ],
   "output": {

@@ -2,24 +2,25 @@
   "type": "energizedpower:assembling_machine",
   "inputs": [
     {
+      "count": 6,
       "input": {
         "tag": "forge:gems/amethyst"
-      },
-      "count": 6
+      }
     },
     {
+      "count": 2,
       "input": {
         "tag": "forge:gems/diamond"
-      },
-      "count": 2
+      }
     },
     {
+      "count": 2,
       "input": {
         "tag": "forge:gems/emerald"
-      },
-      "count": 2
+      }
     },
     {
+      "count": 1,
       "input": {
         "tag": "forge:ingots/redstone_alloy"
       }
