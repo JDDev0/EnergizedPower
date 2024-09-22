@@ -13,3 +13,10 @@ accessible    field    net/minecraft/client/gui/screen/ingame/HandledScreen    x
 accessible    field    net/minecraft/client/gui/screen/ingame/HandledScreen    y    I
 
 accessible    method    net/minecraft/util/thread/ThreadExecutor    submitAsync    (Ljava/lang/Runnable;)Ljava/util/concurrent/CompletableFuture;
+
+accessible    method    net/minecraft/recipe/Ingredient    ofEntries    (Ljava/util/stream/Stream;)Lnet/minecraft/recipe/Ingredient;
+accessible    class    net/minecraft/recipe/Ingredient$StackEntry
+accessible    method    net/minecraft/recipe/Ingredient$StackEntry    <init>    (Lnet/minecraft/item/ItemStack;)V
+accessible    class    net/minecraft/recipe/Ingredient$TagEntry
+accessible    method    net/minecraft/recipe/Ingredient$TagEntry    <init>    (Lnet/minecraft/tag/TagKey;)V
+accessible    class    net/minecraft/recipe/Ingredient$Entry

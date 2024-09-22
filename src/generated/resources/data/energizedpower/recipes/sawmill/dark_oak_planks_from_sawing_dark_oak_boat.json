@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:dark_oak_boat"
+  },
+  "output": {
+    "count": 4,
+    "item": "minecraft:dark_oak_planks"
+  },
+  "sawdustAmount": 3
+}

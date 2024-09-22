@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:dark_oak_trapdoor"
+  },
+  "output": {
+    "count": 2,
+    "item": "minecraft:dark_oak_planks"
+  },
+  "sawdustAmount": 3
+}

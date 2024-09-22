@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:stick"
+  },
+  "output": {
+    "item": "energizedpower:sawdust"
+  },
+  "sawdustAmount": 0
+}
