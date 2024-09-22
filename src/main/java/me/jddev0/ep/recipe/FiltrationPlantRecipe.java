@@ -1,6 +1,5 @@
 package me.jddev0.ep.recipe;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
@@ -43,8 +42,8 @@ public class FiltrationPlantRecipe implements Recipe<Container> {
     public ItemStack[] getMaxOutputCounts() {
         ItemStack[] generatedOutputs = new ItemStack[2];
 
-        generatedOutputs[0] = ItemStackUtils.copyWithCount(output.output, output.percentages.length);
-        generatedOutputs[1] = ItemStackUtils.copyWithCount(secondaryOutput.output, secondaryOutput.percentages.length);
+        generatedOutputs[0] = ItemStackUtils.copyWithCount(output.output(), output.percentages().length);
+        generatedOutputs[1] = ItemStackUtils.copyWithCount(secondaryOutput.output(), secondaryOutput.percentages().length);
 
         return generatedOutputs;
     }
@@ -55,11 +54,11 @@ public class FiltrationPlantRecipe implements Recipe<Container> {
             int count = 0;
             OutputItemStackWithPercentages output = i == 0?this.output:this.secondaryOutput;
 
-            for(double percentage:output.percentages)
+            for(double percentage:output.percentages())
                 if(randomSource.nextDouble() <= percentage)
                     count++;
 
-            generatedOutputs[i] = ItemStackUtils.copyWithCount(output.output, count);
+            generatedOutputs[i] = ItemStackUtils.copyWithCount(output.output(), count);
         }
 
         return generatedOutputs;
@@ -126,27 +125,12 @@ public class FiltrationPlantRecipe implements Recipe<Container> {
         @Override
         public FiltrationPlantRecipe fromJson(ResourceLocation recipeID, JsonObject json) {
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[2];
-            for(int i = 0;i < 2;i++) {
-                JsonObject outputJson = json.getAsJsonObject(i == 0?"output":"secondaryOutput");
 
-                ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(outputJson, "output"));
+            outputs[0] = OutputItemStackWithPercentages.fromJson(json.get("output").getAsJsonObject());
 
-                JsonArray percentagesJson = GsonHelper.getAsJsonArray(outputJson, "percentages");
-                double[] percentages = new double[percentagesJson.size()];
-                for(int j = 0;j < percentagesJson.size();j++) {
-                    double value = percentagesJson.get(j).getAsDouble();
-
-                    percentages[j] = value;
-                }
-
-                outputs[i] = new OutputItemStackWithPercentages(output, percentages);
-
-                if(!json.has("secondaryOutput")) {
-                    outputs[1] = new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0]);
-
-                    break;
-                }
-            }
+            outputs[1] = json.has("secondaryOutput")?
+                    OutputItemStackWithPercentages.fromJson(json.get("secondaryOutput").getAsJsonObject()):
+                    OutputItemStackWithPercentages.EMPTY;
 
             ResourceLocation icon = ResourceLocation.tryParse(GsonHelper.getAsString(json, "icon"));
 
@@ -156,16 +140,8 @@ public class FiltrationPlantRecipe implements Recipe<Container> {
         @Override
         public FiltrationPlantRecipe fromNetwork(ResourceLocation recipeID, FriendlyByteBuf buffer) {
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[2];
-            for(int i = 0;i < 2;i++) {
-                ItemStack output = buffer.readItem();
-
-                int percentageCount = buffer.readInt();
-                double[] percentages = new double[percentageCount];
-                for(int j = 0;j < percentageCount;j++)
-                    percentages[j] = buffer.readDouble();
-
-                outputs[i] = new OutputItemStackWithPercentages(output, percentages);
-            }
+            for(int i = 0;i < 2;i++)
+                outputs[i] = OutputItemStackWithPercentages.fromNetwork(buffer);
 
             ResourceLocation icon = buffer.readResourceLocation();
 
@@ -176,16 +152,10 @@ public class FiltrationPlantRecipe implements Recipe<Container> {
         public void toNetwork(FriendlyByteBuf buffer, FiltrationPlantRecipe recipe) {
             for(int i = 0;i < 2;i++) {
                 OutputItemStackWithPercentages output = i == 0?recipe.output:recipe.secondaryOutput;
-                buffer.writeItem(output.output);
-
-                buffer.writeInt(output.percentages.length);
-                for(double percentage:output.percentages)
-                    buffer.writeDouble(percentage);
+                output.toNetwork(buffer);
             }
 
             buffer.writeResourceLocation(recipe.icon);
         }
     }
-
-    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages) {}
 }

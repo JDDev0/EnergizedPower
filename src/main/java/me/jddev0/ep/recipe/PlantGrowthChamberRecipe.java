@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -43,9 +44,7 @@ public class PlantGrowthChamberRecipe implements Recipe<Container> {
         ItemStack[] generatedOutputs = new ItemStack[outputs.length];
         for(int i = 0;i < outputs.length;i++) {
             OutputItemStackWithPercentages output = outputs[i];
-            ItemStack itemStackCopy = output.output.copy();
-            itemStackCopy.setCount(output.percentages.length);
-            generatedOutputs[i] = itemStackCopy;
+            generatedOutputs[i] = ItemStackUtils.copyWithCount(output.output(), output.percentages().length);
         }
 
         return generatedOutputs;
@@ -57,13 +56,11 @@ public class PlantGrowthChamberRecipe implements Recipe<Container> {
             int count = 0;
             OutputItemStackWithPercentages output = outputs[i];
 
-            for(double percentage:output.percentages)
+            for(double percentage:output.percentages())
                 if(randomSource.nextDouble() <= percentage)
                     count++;
 
-            ItemStack itemStackCopy = output.output.copy();
-            itemStackCopy.setCount(count);
-            generatedOutputs[i] = itemStackCopy;
+            generatedOutputs[i] = ItemStackUtils.copyWithCount(output.output(), count);
         }
 
         return generatedOutputs;
@@ -144,18 +141,8 @@ public class PlantGrowthChamberRecipe implements Recipe<Container> {
 
             JsonArray outputsJson = GsonHelper.getAsJsonArray(json, "outputs");
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[outputsJson.size()];
-            for(int i = 0;i < outputsJson.size();i++) {
-                JsonObject outputJson = outputsJson.get(i).getAsJsonObject();
-
-                ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(outputJson, "output"));
-
-                JsonArray percentagesJson = GsonHelper.getAsJsonArray(outputJson, "percentages");
-                double[] percentages = new double[percentagesJson.size()];
-                for(int j = 0;j < percentagesJson.size();j++)
-                    percentages[j] = percentagesJson.get(j).getAsDouble();
-
-                outputs[i] = new OutputItemStackWithPercentages(output, percentages);
-            }
+            for(int i = 0;i < outputsJson.size();i++)
+                outputs[i] = OutputItemStackWithPercentages.fromJson(outputsJson.get(i).getAsJsonObject());
 
             return new PlantGrowthChamberRecipe(recipeID, outputs, input, ticks);
         }
@@ -167,16 +154,8 @@ public class PlantGrowthChamberRecipe implements Recipe<Container> {
 
             int outputCount = buffer.readInt();
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[outputCount];
-            for(int i = 0;i < outputCount;i++) {
-                ItemStack output = buffer.readItem();
-
-                int percentageCount = buffer.readInt();
-                double[] percentages = new double[percentageCount];
-                for(int j = 0;j < percentageCount;j++)
-                    percentages[j] = buffer.readDouble();
-
-                outputs[i] = new OutputItemStackWithPercentages(output, percentages);
-            }
+            for(int i = 0;i < outputCount;i++)
+                outputs[i] = OutputItemStackWithPercentages.fromNetwork(buffer);
 
             return new PlantGrowthChamberRecipe(recipeID, outputs, input, ticks);
         }
@@ -187,15 +166,8 @@ public class PlantGrowthChamberRecipe implements Recipe<Container> {
             buffer.writeInt(recipe.ticks);
 
             buffer.writeInt(recipe.outputs.length);
-            for(OutputItemStackWithPercentages output:recipe.outputs) {
-                buffer.writeItemStack(output.output, false);
-
-                buffer.writeInt(output.percentages.length);
-                for(double percentage:output.percentages)
-                    buffer.writeDouble(percentage);
-            }
+            for(OutputItemStackWithPercentages output:recipe.outputs)
+                output.toNetwork(buffer);
         }
     }
-
-    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages) {}
 }

@@ -12,6 +12,7 @@ import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.FiltrationPlantBlockEntity;
 import me.jddev0.ep.fluid.ModFluids;
 import me.jddev0.ep.recipe.FiltrationPlantRecipe;
+import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -28,8 +29,8 @@ public class FiltrationPlantEMIRecipe implements EmiRecipe {
     private final ResourceLocation id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
-    private final FiltrationPlantRecipe.OutputItemStackWithPercentages outputWithPercentages;
-    private final FiltrationPlantRecipe.OutputItemStackWithPercentages secondaryOutputWithPercentages;
+    private final OutputItemStackWithPercentages outputWithPercentages;
+    private final OutputItemStackWithPercentages secondaryOutputWithPercentages;
 
     public FiltrationPlantEMIRecipe(FiltrationPlantRecipe recipe) {
         this.id = recipe.getId();

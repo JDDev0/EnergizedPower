@@ -2,8 +2,9 @@ package me.jddev0.ep.datagen.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
+import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -14,8 +15,8 @@ import org.jetbrains.annotations.Nullable;
 public record AlloyFurnaceFinishedRecipe(
         ResourceLocation id,
         ItemStack output,
-        AlloyFurnaceRecipe.OutputItemStackWithPercentages secondaryOutput,
-        AlloyFurnaceRecipe.IngredientWithCount[] inputs,
+        OutputItemStackWithPercentages secondaryOutput,
+        IngredientWithCount[] inputs,
         int ticks
 ) implements FinishedRecipe {
     @Override
@@ -42,7 +43,7 @@ public record AlloyFurnaceFinishedRecipe(
         {
             JsonArray inputsJson = new JsonArray();
 
-            for(AlloyFurnaceRecipe.IngredientWithCount input:inputs) {
+            for(IngredientWithCount input:inputs) {
                 JsonObject inputJson = new JsonObject();
 
                 inputJson.add("input", input.input().toJson());
