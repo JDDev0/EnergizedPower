@@ -231,5 +231,17 @@ public class PulverizerRecipe implements Recipe<Container> {
         }
     }
 
-    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages, double[] percentagesAdvanced) {}
+    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages, double[] percentagesAdvanced) {
+        public OutputItemStackWithPercentages(ItemStack output, double percentage, double percentageAdvanced) {
+            this(output, new double[] {
+                    percentage
+            }, new double[] {
+                    percentageAdvanced
+            });
+        }
+
+        public OutputItemStackWithPercentages(ItemStack output) {
+            this(output, 1., 1.);
+        }
+    }
 }
