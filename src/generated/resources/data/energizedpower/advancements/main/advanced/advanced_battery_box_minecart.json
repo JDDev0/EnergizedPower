@@ -1,0 +1,37 @@
+{
+  "parent": "energizedpower:main/advanced/advanced_battery_box",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:advanced_battery_box_minecart"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.advanced_battery_box_minecart.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:advanced_battery_box_minecart"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.advanced_battery_box_minecart.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}

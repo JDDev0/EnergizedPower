@@ -1,4 +1,4 @@
-// 1.19.2	2024-09-22T17:21:51.522840649	Models
+// 1.19.2	2024-09-22T17:23:29.293109976	Models
 ca76b5ac4db2216a2ab6250baf6f84d5ba33acd8 assets/energizedpower/blockstates/fluid_tank_medium.json
 952e2488cacb991210a8a80387215f6f216ea320 assets/energizedpower/models/item/tin_dust.json
 a6b104fa8caf7830dd99f3efba76aec320c7855e assets/energizedpower/models/block/copper_cable_side.json
@@ -124,8 +124,8 @@ fb0e90d1d3b5c7d4d1ac8264b27f3a81be7a8c08 assets/energizedpower/models/block/item
 b24ea706373ed2fb96165a8c6da0c0309adb3112 assets/energizedpower/models/item/extraction_depth_upgrade_module_5.json
 83dfaf85886217b029a37db6b650f863d772dc91 assets/energizedpower/models/block/advanced_battery_box.json
 b982bf53e3cc6b4ab99a408575a62c4c0d85013b assets/energizedpower/models/block/advanced_minecart_charger.json
-17d8a7f18babcbfd9d78be66322d8351cea4f8c8 assets/energizedpower/blockstates/advanced_auto_crafter.json
 bdaa97cd9c8644a7feb3ff7eb30af54f73412006 assets/energizedpower/blockstates/tin_ore.json
+17d8a7f18babcbfd9d78be66322d8351cea4f8c8 assets/energizedpower/blockstates/advanced_auto_crafter.json
 948fb3b46e7a003c728cca7442e330f3e4723d5b assets/energizedpower/models/block/raw_tin_block.json
 1512e69d7a401332dc7a8ec7cba40b03bd75b382 assets/energizedpower/models/item/range_upgrade_module_3.json
 041643a52ba21431a32eb0d7a98f56b3293fee17 assets/energizedpower/models/block/tin_block.json

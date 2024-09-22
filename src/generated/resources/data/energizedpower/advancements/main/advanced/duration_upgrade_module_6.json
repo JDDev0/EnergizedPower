@@ -1,0 +1,37 @@
+{
+  "parent": "energizedpower:main/advanced/duration_upgrade_module_5",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:duration_upgrade_module_6"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.duration_upgrade_module_6.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:duration_upgrade_module_6"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.duration_upgrade_module_6.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}
