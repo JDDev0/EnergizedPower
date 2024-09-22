@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "energizedpower:block/assembling_machine_top",
+    "front": "energizedpower:block/assembling_machine_front",
+    "side": "energizedpower:block/assembling_machine_side",
+    "top": "energizedpower:block/assembling_machine_top"
+  }
+}
