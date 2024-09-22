@@ -7,6 +7,11 @@
             "items": [
               "minecraft:book"
             ]
+          },
+          {
+            "items": [
+              "energizedpower:basic_machine_frame"
+            ]
           }
         ]
       },
