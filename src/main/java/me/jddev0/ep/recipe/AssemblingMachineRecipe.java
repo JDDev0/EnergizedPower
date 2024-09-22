@@ -55,8 +55,8 @@ public class AssemblingMachineRecipe implements Recipe<Inventory> {
 
                 ItemStack item = container.getStack(j);
 
-                if((indexMinCount == -1 || item.getCount() < minCount) && input.input.test(item) &&
-                        item.getCount() >= input.count) {
+                if((indexMinCount == -1 || item.getCount() < minCount) && input.input().test(item) &&
+                        item.getCount() >= input.count()) {
                     indexMinCount = j;
                     minCount = item.getCount();
                 }
@@ -132,14 +132,8 @@ public class AssemblingMachineRecipe implements Recipe<Inventory> {
         public AssemblingMachineRecipe read(Identifier recipeID, JsonObject json) {
             JsonArray inputsJson = JsonHelper.getArray(json, "inputs");
             IngredientWithCount[] inputs = new IngredientWithCount[inputsJson.size()];
-            for(int i = 0;i < inputsJson.size();i++) {
-                JsonObject inputJson = inputsJson.get(i).getAsJsonObject();
-
-                Ingredient input = Ingredient.fromJson(inputJson.get("input"));
-                int count = inputJson.has("count")?JsonHelper.getInt(inputJson, "count"):1;
-
-                inputs[i] = new IngredientWithCount(input, count);
-            }
+            for(int i = 0;i < inputsJson.size();i++)
+                inputs[i] = IngredientWithCount.fromJson(inputsJson.get(i).getAsJsonObject());
 
             ItemStack output = ItemStackUtils.fromJson(JsonHelper.getObject(json, "output"));
 
@@ -150,12 +144,8 @@ public class AssemblingMachineRecipe implements Recipe<Inventory> {
         public AssemblingMachineRecipe read(Identifier recipeID, PacketByteBuf buffer) {
             int len = buffer.readInt();
             IngredientWithCount[] inputs = new IngredientWithCount[len];
-            for(int i = 0;i < len;i++) {
-                Ingredient input = Ingredient.fromPacket(buffer);
-                int count = buffer.readInt();
-
-                inputs[i] = new IngredientWithCount(input, count);
-            }
+            for(int i = 0;i < len;i++)
+                inputs[i] = IngredientWithCount.fromNetwork(buffer);
 
             ItemStack output = buffer.readItemStack();
 
@@ -165,14 +155,10 @@ public class AssemblingMachineRecipe implements Recipe<Inventory> {
         @Override
         public void write(PacketByteBuf buffer, AssemblingMachineRecipe recipe) {
             buffer.writeInt(recipe.inputs.length);
-            for(int i = 0; i < recipe.inputs.length; i++) {
-                recipe.inputs[i].input.write(buffer);
-                buffer.writeInt(recipe.inputs[i].count);
-            }
+            for(int i = 0; i < recipe.inputs.length; i++)
+                recipe.inputs[i].toNetwork(buffer);
 
             buffer.writeItemStack(recipe.output);
         }
     }
-
-    public record IngredientWithCount(Ingredient input, int count) {}
 }

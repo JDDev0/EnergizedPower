@@ -1,10 +1,8 @@
 package me.jddev0.ep.recipe;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -48,17 +46,17 @@ public class CrystalGrowthChamberRecipe implements Recipe<Inventory> {
     }
 
     public ItemStack getMaxOutputCount() {
-        return output.output.copyWithCount(output.percentages.length);
+        return output.output().copyWithCount(output.percentages().length);
     }
 
     public ItemStack generateOutput(Random randomSource) {
         int count = 0;
 
-        for(double percentage:output.percentages)
+        for(double percentage:output.percentages())
             if(randomSource.nextDouble() <= percentage)
                 count++;
 
-        return output.output.copyWithCount(count);
+        return output.output().copyWithCount(count);
     }
 
     @Override
@@ -128,18 +126,9 @@ public class CrystalGrowthChamberRecipe implements Recipe<Inventory> {
             int inputCount = json.has("inputCount")?JsonHelper.getInt(json, "inputCount"):1;
             int ticks = JsonHelper.getInt(json, "ticks");
 
-            JsonObject outputJson = json.get("output").getAsJsonObject();
+            OutputItemStackWithPercentages output = OutputItemStackWithPercentages.fromJson(json.get("output").getAsJsonObject());
 
-            ItemStack output = ItemStackUtils.fromJson(JsonHelper.getObject(outputJson, "output"));
-
-            JsonArray percentagesJson = JsonHelper.getArray(outputJson, "percentages");
-            double[] percentages = new double[percentagesJson.size()];
-            for(int j = 0;j < percentagesJson.size();j++)
-                percentages[j] = percentagesJson.get(j).getAsDouble();
-
-            OutputItemStackWithPercentages outputWithPercentages = new OutputItemStackWithPercentages(output, percentages);
-
-            return new CrystalGrowthChamberRecipe(recipeID, outputWithPercentages, input, inputCount, ticks);
+            return new CrystalGrowthChamberRecipe(recipeID, output, input, inputCount, ticks);
         }
 
         @Override
@@ -148,16 +137,9 @@ public class CrystalGrowthChamberRecipe implements Recipe<Inventory> {
             int inputCount = buffer.readInt();
             int ticks = buffer.readInt();
 
-            ItemStack output = buffer.readItemStack();
+            OutputItemStackWithPercentages output = OutputItemStackWithPercentages.fromNetwork(buffer);
 
-            int percentageCount = buffer.readInt();
-            double[] percentages = new double[percentageCount];
-            for(int j = 0;j < percentageCount;j++)
-                percentages[j] = buffer.readDouble();
-
-            OutputItemStackWithPercentages outputItemStackWithPercentages = new OutputItemStackWithPercentages(output, percentages);
-
-            return new CrystalGrowthChamberRecipe(recipeId, outputItemStackWithPercentages, input, inputCount, ticks);
+            return new CrystalGrowthChamberRecipe(recipeId, output, input, inputCount, ticks);
         }
 
         @Override
@@ -166,13 +148,7 @@ public class CrystalGrowthChamberRecipe implements Recipe<Inventory> {
             buffer.writeInt(recipe.inputCount);
             buffer.writeInt(recipe.ticks);
 
-            buffer.writeItemStack(recipe.output.output);
-
-            buffer.writeInt(recipe.output.percentages.length);
-            for(double percentage:recipe.output.percentages)
-                buffer.writeDouble(percentage);
+            recipe.output.toNetwork(buffer);
         }
     }
-
-    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages) {}
 }
