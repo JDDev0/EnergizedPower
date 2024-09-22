@@ -1,6 +1,7 @@
 package me.jddev0.ep.datagen;
 
 import com.google.common.collect.ImmutableList;
+import me.jddev0.ep.datagen.adavancement.ModAdvancedAdvancements;
 import me.jddev0.ep.datagen.adavancement.ModBasicsAdvancements;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.DataGenerator;
@@ -17,7 +18,8 @@ public class ModAdvancementProvider extends AdvancementProvider {
     @Override
     protected void registerAdvancements(Consumer<Advancement> consumer, ExistingFileHelper existingFileHelper) {
         ImmutableList.of(
-            new ModBasicsAdvancements()
+                new ModBasicsAdvancements(),
+                new ModAdvancedAdvancements()
         ).forEach(generator -> generator.accept(consumer, existingFileHelper));
     }
 }

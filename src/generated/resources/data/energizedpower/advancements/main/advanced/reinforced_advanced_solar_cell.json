@@ -1,0 +1,37 @@
+{
+  "parent": "energizedpower:main/advanced/energized_crystal_matrix",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:reinforced_advanced_solar_cell"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.reinforced_advanced_solar_cell.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:reinforced_advanced_solar_cell"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.reinforced_advanced_solar_cell.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}
