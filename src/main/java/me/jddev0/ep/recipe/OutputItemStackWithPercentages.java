@@ -10,6 +10,16 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 public record OutputItemStackWithPercentages(ItemStack output, double[] percentages) {
     public static final OutputItemStackWithPercentages EMPTY = new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0]);
 
+    public OutputItemStackWithPercentages(ItemStack output, double percentage) {
+        this(output, new double[] {
+                percentage
+        });
+    }
+
+    public OutputItemStackWithPercentages(ItemStack output) {
+        this(output, 1.);
+    }
+
     public boolean isEmpty() {
         return output.isEmpty() || percentages.length == 0;
     }

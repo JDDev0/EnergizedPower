@@ -1,0 +1,15 @@
+{
+  "type": "energizedpower:metal_press",
+  "ingredient": {
+    "tag": "forge:plates/energized_gold"
+  },
+  "inputCount": 1,
+  "output": {
+    "count": 3,
+    "item": "energizedpower:energized_gold_wire"
+  },
+  "pressMold": {
+    "item": "energizedpower:wire_press_mold",
+    "nbt": "{Damage:0}"
+  }
+}
