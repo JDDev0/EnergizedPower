@@ -10,6 +10,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
+import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
@@ -27,7 +28,7 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
     private final Identifier id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
-    private final PlantGrowthChamberRecipe.OutputItemStackWithPercentages[] outputsWithPercentages;
+    private final OutputItemStackWithPercentages[] outputsWithPercentages;
     private final int ticks;
 
     public PlantGrowthChamberEMIRecipe(PlantGrowthChamberRecipe recipe) {

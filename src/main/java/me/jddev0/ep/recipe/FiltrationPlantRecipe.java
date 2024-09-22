@@ -1,6 +1,5 @@
 package me.jddev0.ep.recipe;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
@@ -11,7 +10,6 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.math.random.Random;
@@ -45,8 +43,8 @@ public class FiltrationPlantRecipe implements Recipe<Inventory> {
     public ItemStack[] getMaxOutputCounts() {
         ItemStack[] generatedOutputs = new ItemStack[2];
 
-        generatedOutputs[0] = ItemStackUtils.copyWithCount(output.output, output.percentages.length);
-        generatedOutputs[1] = ItemStackUtils.copyWithCount(secondaryOutput.output, secondaryOutput.percentages.length);
+        generatedOutputs[0] = ItemStackUtils.copyWithCount(output.output(), output.percentages().length);
+        generatedOutputs[1] = ItemStackUtils.copyWithCount(secondaryOutput.output(), secondaryOutput.percentages().length);
 
         return generatedOutputs;
     }
@@ -57,11 +55,11 @@ public class FiltrationPlantRecipe implements Recipe<Inventory> {
             int count = 0;
             OutputItemStackWithPercentages output = i == 0?this.output:this.secondaryOutput;
 
-            for(double percentage:output.percentages)
+            for(double percentage:output.percentages())
                 if(randomSource.nextDouble() <= percentage)
                     count++;
 
-            generatedOutputs[i] = ItemStackUtils.copyWithCount(output.output, count);
+            generatedOutputs[i] = ItemStackUtils.copyWithCount(output.output(), count);
         }
 
         return generatedOutputs;
@@ -128,27 +126,12 @@ public class FiltrationPlantRecipe implements Recipe<Inventory> {
         @Override
         public FiltrationPlantRecipe read(Identifier recipeID, JsonObject json) {
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[2];
-            for(int i = 0;i < 2;i++) {
-                JsonObject outputJson = json.getAsJsonObject(i == 0?"output":"secondaryOutput");
 
-                ItemStack output = ItemStackUtils.fromJson(JsonHelper.getObject(outputJson, "output"));
+            outputs[0] = OutputItemStackWithPercentages.fromJson(json.get("output").getAsJsonObject());
 
-                JsonArray percentagesJson = JsonHelper.getArray(outputJson, "percentages");
-                double[] percentages = new double[percentagesJson.size()];
-                for(int j = 0;j < percentagesJson.size();j++) {
-                    double value = percentagesJson.get(j).getAsDouble();
-
-                    percentages[j] = value;
-                }
-
-                outputs[i] = new OutputItemStackWithPercentages(output, percentages);
-
-                if(!json.has("secondaryOutput")) {
-                    outputs[1] = new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0]);
-
-                    break;
-                }
-            }
+            outputs[1] = json.has("secondaryOutput")?
+                    OutputItemStackWithPercentages.fromJson(json.get("secondaryOutput").getAsJsonObject()):
+                    OutputItemStackWithPercentages.EMPTY;
 
             Identifier icon = Identifier.tryParse(JsonHelper.getString(json, "icon"));
 
@@ -158,16 +141,8 @@ public class FiltrationPlantRecipe implements Recipe<Inventory> {
         @Override
         public FiltrationPlantRecipe read(Identifier recipeID, PacketByteBuf buffer) {
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[2];
-            for(int i = 0;i < 2;i++) {
-                ItemStack output = buffer.readItemStack();
-
-                int percentageCount = buffer.readInt();
-                double[] percentages = new double[percentageCount];
-                for(int j = 0;j < percentageCount;j++)
-                    percentages[j] = buffer.readDouble();
-
-                outputs[i] = new OutputItemStackWithPercentages(output, percentages);
-            }
+            for(int i = 0;i < 2;i++)
+                outputs[i] = OutputItemStackWithPercentages.fromNetwork(buffer);
 
             Identifier icon = buffer.readIdentifier();
 
@@ -178,16 +153,11 @@ public class FiltrationPlantRecipe implements Recipe<Inventory> {
         public void write(PacketByteBuf buffer, FiltrationPlantRecipe recipe) {
             for(int i = 0;i < 2;i++) {
                 OutputItemStackWithPercentages output = i == 0?recipe.output:recipe.secondaryOutput;
-                buffer.writeItemStack(output.output);
 
-                buffer.writeInt(output.percentages.length);
-                for(double percentage:output.percentages)
-                    buffer.writeDouble(percentage);
+                output.toNetwork(buffer);
             }
 
             buffer.writeIdentifier(recipe.icon);
         }
     }
-
-    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages) {}
 }

@@ -8,7 +8,6 @@ import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -53,7 +52,7 @@ public class AlloyFurnaceRecipe implements Recipe<Inventory> {
         ItemStack[] generatedOutputs = new ItemStack[2];
 
         generatedOutputs[0] = ItemStackUtils.copyWithCount(output, output.getCount());
-        generatedOutputs[1] = ItemStackUtils.copyWithCount(secondaryOutput.output, secondaryOutput.percentages.length);
+        generatedOutputs[1] = ItemStackUtils.copyWithCount(secondaryOutput.output(), secondaryOutput.percentages().length);
 
         return generatedOutputs;
     }
@@ -64,11 +63,11 @@ public class AlloyFurnaceRecipe implements Recipe<Inventory> {
         generatedOutputs[0] = ItemStackUtils.copyWithCount(output, output.getCount());
 
         int count = 0;
-        for(double percentage:secondaryOutput.percentages)
+        for(double percentage:secondaryOutput.percentages())
             if(randomSource.nextDouble() <= percentage)
                 count++;
 
-        generatedOutputs[1] = ItemStackUtils.copyWithCount(secondaryOutput.output, count);
+        generatedOutputs[1] = ItemStackUtils.copyWithCount(secondaryOutput.output(), count);
 
         return generatedOutputs;
     }
@@ -95,8 +94,8 @@ public class AlloyFurnaceRecipe implements Recipe<Inventory> {
 
                 ItemStack item = container.getStack(j);
 
-                if((indexMinCount == -1 || item.getCount() < minCount) && input.input.test(item) &&
-                        item.getCount() >= input.count) {
+                if((indexMinCount == -1 || item.getCount() < minCount) && input.input().test(item) &&
+                        item.getCount() >= input.count()) {
                     indexMinCount = j;
                     minCount = item.getCount();
                 }
@@ -172,89 +171,47 @@ public class AlloyFurnaceRecipe implements Recipe<Inventory> {
         public AlloyFurnaceRecipe read(Identifier recipeID, JsonObject json) {
             JsonArray inputsJson = JsonHelper.getArray(json, "inputs");
             IngredientWithCount[] inputs = new IngredientWithCount[inputsJson.size()];
-            for(int i = 0;i < inputsJson.size();i++) {
-                JsonObject inputJson = inputsJson.get(i).getAsJsonObject();
+            for(int i = 0;i < inputsJson.size();i++)
+                inputs[i] = IngredientWithCount.fromJson(inputsJson.get(i).getAsJsonObject());
 
-                Ingredient input = Ingredient.fromJson(inputJson.get("input"));
-                int count = inputJson.has("count")?JsonHelper.getInt(inputJson, "count"):1;
-
-                inputs[i] = new IngredientWithCount(input, count);
-            }
             int ticks = JsonHelper.getInt(json, "ticks");
 
             ItemStack output = ItemStackUtils.fromJson(JsonHelper.getObject(json, "output"));
 
-            OutputItemStackWithPercentages secondaryOutputItemStackWithPercentages;
-            if(json.has("secondaryOutput")) {
-                JsonObject secondaryOutputJson = json.getAsJsonObject("secondaryOutput");
+            OutputItemStackWithPercentages secondaryOutput = json.has("secondaryOutput")?
+                    OutputItemStackWithPercentages.fromJson(json.get("secondaryOutput").getAsJsonObject()):
+                    OutputItemStackWithPercentages.EMPTY;
 
-                ItemStack secondaryOutput = ItemStackUtils.fromJson(JsonHelper.getObject(secondaryOutputJson, "output"));
-
-                JsonArray percentagesJson = JsonHelper.getArray(secondaryOutputJson, "percentages");
-                double[] percentages = new double[percentagesJson.size()];
-                for(int j = 0;j < percentagesJson.size();j++) {
-                    double value = percentagesJson.get(j).getAsDouble();
-
-                    percentages[j] = value;
-                }
-
-                secondaryOutputItemStackWithPercentages = new OutputItemStackWithPercentages(secondaryOutput, percentages);
-            }else {
-                secondaryOutputItemStackWithPercentages = new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0]);
-            }
-
-            return new AlloyFurnaceRecipe(recipeID, output, secondaryOutputItemStackWithPercentages, inputs, ticks);
+            return new AlloyFurnaceRecipe(recipeID, output, secondaryOutput, inputs, ticks);
         }
 
         @Override
         public AlloyFurnaceRecipe read(Identifier recipeID, PacketByteBuf buffer) {
             int len = buffer.readInt();
             IngredientWithCount[] inputs = new IngredientWithCount[len];
-            for(int i = 0;i < len;i++) {
-                Ingredient input = Ingredient.fromPacket(buffer);
-                int count = buffer.readInt();
-
-                inputs[i] = new IngredientWithCount(input, count);
-            }
+            for(int i = 0;i < len;i++)
+                inputs[i] = IngredientWithCount.fromNetwork(buffer);
 
             int ticks = buffer.readInt();
 
             ItemStack output = buffer.readItemStack();
 
-            ItemStack secondaryOutput = buffer.readItemStack();
+            OutputItemStackWithPercentages secondaryOutput = OutputItemStackWithPercentages.fromNetwork(buffer);
 
-            int percentageCount = buffer.readInt();
-            double[] percentages = new double[percentageCount];
-            for(int j = 0;j < percentageCount;j++)
-                percentages[j] = buffer.readDouble();
-
-            OutputItemStackWithPercentages secondaryOutputItemStackWithPercentages =
-                    new OutputItemStackWithPercentages(secondaryOutput, percentages);
-
-            return new AlloyFurnaceRecipe(recipeID, output, secondaryOutputItemStackWithPercentages, inputs, ticks);
+            return new AlloyFurnaceRecipe(recipeID, output, secondaryOutput, inputs, ticks);
         }
 
         @Override
         public void write(PacketByteBuf buffer, AlloyFurnaceRecipe recipe) {
             buffer.writeInt(recipe.inputs.length);
-            for(int i = 0; i < recipe.inputs.length; i++) {
-                recipe.inputs[i].input.write(buffer);
-                buffer.writeInt(recipe.inputs[i].count);
-            }
+            for(int i = 0; i < recipe.inputs.length; i++)
+                recipe.inputs[i].toNetwork(buffer);
 
             buffer.writeInt(recipe.ticks);
 
             buffer.writeItemStack(recipe.output);
 
-            buffer.writeItemStack(recipe.secondaryOutput.output);
-
-            buffer.writeInt(recipe.secondaryOutput.percentages.length);
-            for(double percentage:recipe.secondaryOutput.percentages)
-                buffer.writeDouble(percentage);
+            recipe.secondaryOutput.toNetwork(buffer);
         }
     }
-
-    public record IngredientWithCount(Ingredient input, int count) {}
-
-    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages) {}
 }

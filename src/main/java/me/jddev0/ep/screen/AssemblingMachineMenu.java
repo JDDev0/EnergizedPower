@@ -9,6 +9,7 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
@@ -38,7 +39,7 @@ public class AssemblingMachineMenu extends UpgradableEnergyStorageMenu<Assemblin
                     case 0, 1, 2, 3 -> inv.player.getWorld() == null || inv.player.getWorld().getRecipeManager().
                             listAllOfType(AssemblingMachineRecipe.Type.INSTANCE).stream().
                             map(AssemblingMachineRecipe::getInputs).anyMatch(inputs ->
-                                    Arrays.stream(inputs).map(AssemblingMachineRecipe.IngredientWithCount::input).
+                                    Arrays.stream(inputs).map(IngredientWithCount::input).
                                             anyMatch(ingredient -> ingredient.test(stack)));
                     case 4 -> false;
                     default -> super.isValid(slot, stack);
