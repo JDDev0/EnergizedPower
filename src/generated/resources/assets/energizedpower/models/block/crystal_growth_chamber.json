@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "energizedpower:block/crystal_growth_chamber_top",
+    "east": "energizedpower:block/crystal_growth_chamber_side",
+    "north": "energizedpower:block/crystal_growth_chamber_side",
+    "particle": "energizedpower:block/crystal_growth_chamber_top",
+    "south": "energizedpower:block/crystal_growth_chamber_side",
+    "up": "energizedpower:block/crystal_growth_chamber_top",
+    "west": "energizedpower:block/crystal_growth_chamber_side"
+  }
+}
