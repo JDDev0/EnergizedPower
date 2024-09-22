@@ -1,0 +1,15 @@
+{
+  "type": "energizedpower:metal_press",
+  "ingredient": {
+    "tag": "c:tin_plates"
+  },
+  "inputCount": 1,
+  "output": {
+    "count": 3,
+    "item": "energizedpower:tin_wire"
+  },
+  "pressMold": {
+    "item": "energizedpower:wire_press_mold",
+    "tag": "{Damage:0}"
+  }
+}

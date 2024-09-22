@@ -8,6 +8,10 @@ import net.minecraft.util.JsonHelper;
 public record IngredientWithCount(Ingredient input, int count) {
     public static final IngredientWithCount EMPTY = new IngredientWithCount(Ingredient.EMPTY, 0);
 
+    public IngredientWithCount(Ingredient input) {
+        this(input, 1);
+    }
+
     public boolean isEmpty() {
         return input.isEmpty() || count <= 0;
     }

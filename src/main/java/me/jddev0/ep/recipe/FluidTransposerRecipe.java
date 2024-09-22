@@ -5,6 +5,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
+import me.jddev0.ep.util.FluidStackUtils;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -119,7 +120,7 @@ public class FluidTransposerRecipe implements Recipe<Inventory> {
             FluidTransposerBlockEntity.Mode mode = FluidTransposerBlockEntity.Mode.valueOf(JsonHelper.getString(json, "mode"));
             Ingredient input = Ingredient.fromJson(json.get("ingredient"));
             ItemStack output = ItemStackUtils.fromJson(JsonHelper.getObject(json, "output"));
-            FluidStack fluid = FluidStack.fromJson(json.get("fluid"));
+            FluidStack fluid = FluidStackUtils.fromJson(JsonHelper.getObject(json, "fluid"));
 
             return new FluidTransposerRecipe(recipeID, mode, output, input, fluid);
         }

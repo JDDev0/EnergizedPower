@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "addition": {
+    "tag": "c:netherite_ingots"
+  },
+  "base": {
+    "item": "energizedpower:diamond_hammer"
+  },
+  "result": {
+    "item": "energizedpower:netherite_hammer"
+  }
+}

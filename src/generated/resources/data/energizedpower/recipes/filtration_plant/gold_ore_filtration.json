@@ -1,0 +1,20 @@
+{
+  "type": "energizedpower:filtration_plant",
+  "icon": "minecraft:raw_gold",
+  "output": {
+    "output": {
+      "item": "energizedpower:stone_pebble"
+    },
+    "percentages": [
+      0.33
+    ]
+  },
+  "secondaryOutput": {
+    "output": {
+      "item": "minecraft:raw_gold"
+    },
+    "percentages": [
+      0.005
+    ]
+  }
+}

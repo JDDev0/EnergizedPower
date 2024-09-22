@@ -19,11 +19,11 @@ public class EnergizerRecipe implements Recipe<Inventory> {
     private final Ingredient input;
     private final int energyConsumption;
 
-    public EnergizerRecipe(Identifier id, ItemStack output, Ingredient input, int energyNeeds) {
+    public EnergizerRecipe(Identifier id, ItemStack output, Ingredient input, int energyConsumption) {
         this.id = id;
         this.output = output;
         this.input = input;
-        this.energyConsumption = energyNeeds;
+        this.energyConsumption = energyConsumption;
     }
 
     public ItemStack getOutputItem() {
