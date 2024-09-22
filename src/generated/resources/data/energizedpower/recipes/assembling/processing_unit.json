@@ -2,22 +2,22 @@
   "type": "energizedpower:assembling_machine",
   "inputs": [
     {
+      "count": 4,
       "input": {
         "item": "energizedpower:advanced_circuit"
-      },
-      "count": 4
+      }
     },
     {
+      "count": 6,
       "input": {
         "tag": "c:energized_gold_wires"
-      },
-      "count": 6
+      }
     },
     {
+      "count": 6,
       "input": {
         "tag": "c:silicon"
-      },
-      "count": 6
+      }
     }
   ],
   "output": {

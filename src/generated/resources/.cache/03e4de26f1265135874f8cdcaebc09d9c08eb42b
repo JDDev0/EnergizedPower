@@ -1,4 +1,4 @@
-// 1.19.2	2024-09-22T17:03:09.175311266	Tags for minecraft:item
+// 1.19.2	2024-09-22T17:04:17.896122623	Tags for minecraft:item
 dc1eecfb81d5eda9759e3ffd6a63e80990cd4b67 data/c/tags/items/energized_copper_plates.json
 1e9b2f170f3826ddfd6e8fa673f8abafba35b85f data/c/tags/items/nuggets.json
 33ab6e8b8ef078f80b6c1f2a63aac9631c2a8820 data/c/tags/items/ingots.json
@@ -49,6 +49,7 @@ c48d8c8b12d016b9951c98c84526d5e5553545d6 data/c/tags/items/gold_blocks.json
 b12e84258d79a0102a52ccd0d1b7658698e0891b data/c/tags/items/gears.json
 d2eb0460d1d9d60aff3395c79a1a358dbc9e6c6c data/c/tags/items/redstone_blocks.json
 68a096f8f2b56138288a4fc84131bf146df12b38 data/c/tags/items/charcoal_dusts.json
+567f8a4e05eb570da4481f857df7456607f1bc95 data/c/tags/items/amethysts.json
 860fe01a6ca27792eb09feb587b006e42be4d60b data/c/tags/items/glass_panes_colorless.json
 cfa612cb64f7e213d984ca4431202690f594df8a data/c/tags/items/ender_pearls.json
 acb4bfe64edcc6f243f94a58587f56891fd19d9c data/c/tags/items/gold_nuggets.json

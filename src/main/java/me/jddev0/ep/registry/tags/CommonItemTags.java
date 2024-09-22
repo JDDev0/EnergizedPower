@@ -71,6 +71,9 @@ public final class CommonItemTags {
     public static final TagKey<Item> GOLD_NUGGETS = TagKey.of(Registry.ITEM_KEY,
             Identifier.of("c", "gold_nuggets"));
 
+    public static final TagKey<Item> AMETHYSTS = TagKey.of(Registry.ITEM_KEY,
+            Identifier.of("c", "amethysts"));
+
     public static final TagKey<Item> SILICON = TagKey.of(Registry.ITEM_KEY,
             Identifier.of("c", "silicon"));
 
