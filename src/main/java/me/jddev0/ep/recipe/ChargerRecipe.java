@@ -19,11 +19,11 @@ public class ChargerRecipe implements Recipe<Container> {
     private final Ingredient input;
     private final int energyConsumption;
 
-    public ChargerRecipe(ResourceLocation id, ItemStack output, Ingredient input, int energyNeeds) {
+    public ChargerRecipe(ResourceLocation id, ItemStack output, Ingredient input, int energyConsumption) {
         this.id = id;
         this.output = output;
         this.input = input;
-        this.energyConsumption = energyNeeds;
+        this.energyConsumption = energyConsumption;
     }
 
     public ItemStack getOutput() {
