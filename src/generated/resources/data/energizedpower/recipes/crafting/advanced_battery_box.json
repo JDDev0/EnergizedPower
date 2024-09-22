@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "energizedpower:battery_8"
+    },
+    "E": {
+      "tag": "c:energized_gold_plates"
+    },
+    "M": {
+      "item": "energizedpower:advanced_machine_frame"
+    },
+    "S": {
+      "tag": "c:silicon_blocks"
+    }
+  },
+  "pattern": [
+    "EBE",
+    "BMB",
+    "BSB"
+  ],
+  "result": {
+    "item": "energizedpower:advanced_battery_box"
+  }
+}

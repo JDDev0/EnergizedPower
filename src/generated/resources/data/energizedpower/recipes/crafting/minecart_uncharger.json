@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "c:copper_blocks"
+    },
+    "I": {
+      "tag": "c:iron_blocks"
+    },
+    "S": {
+      "tag": "c:silicon"
+    },
+    "U": {
+      "item": "energizedpower:uncharger"
+    },
+    "c": {
+      "tag": "c:copper_plates"
+    },
+    "i": {
+      "tag": "c:iron_plates"
+    }
+  },
+  "pattern": [
+    "iIi",
+    "SUS",
+    "cCc"
+  ],
+  "result": {
+    "item": "energizedpower:minecart_uncharger"
+  }
+}

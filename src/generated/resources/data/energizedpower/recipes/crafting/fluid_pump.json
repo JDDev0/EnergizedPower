@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "F": {
+      "item": "energizedpower:fluid_tank_small"
+    },
+    "I": {
+      "tag": "c:iron_plates"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "R": {
+      "tag": "c:redstone_dusts"
+    },
+    "p": {
+      "item": "energizedpower:fluid_pipe"
+    }
+  },
+  "pattern": [
+    "RPR",
+    "FBF",
+    "IpI"
+  ],
+  "result": {
+    "item": "energizedpower:fluid_pump"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "c:copper_ingots"
+    },
+    "I": {
+      "tag": "c:iron_ingots"
+    },
+    "S": {
+      "tag": "c:silicon_blocks"
+    }
+  },
+  "pattern": [
+    "CIC",
+    "ISI",
+    "CIC"
+  ],
+  "result": {
+    "item": "energizedpower:basic_machine_frame"
+  }
+}

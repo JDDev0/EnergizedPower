@@ -1,7 +1,7 @@
 {
   "type": "energizedpower:sawmill",
   "ingredient": {
-    "item": "minecraft:stick"
+    "tag": "c:wooden_rods"
   },
   "output": {
     "item": "energizedpower:sawdust"

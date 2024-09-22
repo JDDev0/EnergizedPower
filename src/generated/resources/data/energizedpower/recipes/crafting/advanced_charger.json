@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    },
+    "C": {
+      "item": "energizedpower:charger"
+    },
+    "G": {
+      "tag": "c:energized_gold_plates"
+    },
+    "S": {
+      "tag": "c:silicon"
+    },
+    "a": {
+      "tag": "c:advanced_alloy_plates"
+    }
+  },
+  "pattern": [
+    "SGS",
+    "aAa",
+    "GCG"
+  ],
+  "result": {
+    "item": "energizedpower:advanced_charger"
+  }
+}

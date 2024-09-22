@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "c:copper_plates"
+    },
+    "I": {
+      "tag": "c:iron_plates"
+    },
+    "M": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "R": {
+      "tag": "c:redstone_dusts"
+    },
+    "S": {
+      "tag": "c:silicon"
+    }
+  },
+  "pattern": [
+    "CRI",
+    "SMS",
+    "CRI"
+  ],
+  "result": {
+    "item": "energizedpower:lv_transformer_n_to_1"
+  }
+}

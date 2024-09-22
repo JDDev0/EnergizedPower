@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "M": {
+      "tag": "c:iron_ingots"
+    },
+    "S": {
+      "tag": "c:wooden_rods"
+    }
+  },
+  "pattern": [
+    " M ",
+    " SM",
+    "S  "
+  ],
+  "result": {
+    "item": "energizedpower:iron_hammer"
+  }
+}

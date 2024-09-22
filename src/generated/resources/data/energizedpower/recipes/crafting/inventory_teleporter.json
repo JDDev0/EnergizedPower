@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "item": "energizedpower:energized_crystal_matrix"
+    },
+    "G": {
+      "tag": "c:energized_gold_plates"
+    },
+    "R": {
+      "tag": "c:redstone_dusts"
+    },
+    "T": {
+      "item": "energizedpower:teleporter"
+    },
+    "c": {
+      "tag": "c:energized_copper_plates"
+    }
+  },
+  "pattern": [
+    "CcC",
+    "RTR",
+    "GcG"
+  ],
+  "result": {
+    "item": "energizedpower:inventory_teleporter"
+  }
+}

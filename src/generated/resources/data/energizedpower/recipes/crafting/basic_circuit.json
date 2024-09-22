@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "c:copper_wires"
+    },
+    "I": {
+      "tag": "c:iron_plates"
+    },
+    "R": {
+      "tag": "c:redstone_dusts"
+    },
+    "S": {
+      "tag": "c:silicon"
+    }
+  },
+  "pattern": [
+    "RCR",
+    "CIC",
+    "SCS"
+  ],
+  "result": {
+    "item": "energizedpower:basic_circuit"
+  }
+}

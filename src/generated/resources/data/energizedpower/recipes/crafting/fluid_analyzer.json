@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "energizedpower:battery_3"
+    },
+    "C": {
+      "tag": "c:copper_plates"
+    },
+    "L": {
+      "tag": "c:lapis"
+    },
+    "S": {
+      "tag": "c:silicon"
+    },
+    "b": {
+      "item": "energizedpower:basic_circuit"
+    }
+  },
+  "pattern": [
+    "S S",
+    "bLb",
+    "CBC"
+  ],
+  "result": {
+    "item": "energizedpower:fluid_analyzer"
+  }
+}

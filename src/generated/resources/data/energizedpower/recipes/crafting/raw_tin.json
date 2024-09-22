@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:raw_tin_blocks"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "energizedpower:raw_tin"
+  }
+}

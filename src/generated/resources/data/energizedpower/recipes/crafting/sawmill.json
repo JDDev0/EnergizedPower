@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "C": {
+      "tag": "c:copper_plates"
+    },
+    "I": {
+      "tag": "c:iron_plates"
+    },
+    "S": {
+      "item": "energizedpower:saw_blade"
+    },
+    "s": {
+      "item": "energizedpower:silicon"
+    }
+  },
+  "pattern": [
+    "sSs",
+    "CBC",
+    "sIs"
+  ],
+  "result": {
+    "item": "energizedpower:sawmill"
+  }
+}

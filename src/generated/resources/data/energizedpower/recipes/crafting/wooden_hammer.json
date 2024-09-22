@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "M": {
+      "tag": "minecraft:planks"
+    },
+    "S": {
+      "tag": "c:wooden_rods"
+    }
+  },
+  "pattern": [
+    " M ",
+    " SM",
+    "S  "
+  ],
+  "result": {
+    "item": "energizedpower:wooden_hammer"
+  }
+}

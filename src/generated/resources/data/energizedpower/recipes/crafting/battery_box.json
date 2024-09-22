@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "energizedpower:battery_5"
+    },
+    "C": {
+      "tag": "c:copper_plates"
+    },
+    "M": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "S": {
+      "tag": "c:silicon"
+    }
+  },
+  "pattern": [
+    "CBC",
+    "BMB",
+    "SBS"
+  ],
+  "result": {
+    "item": "energizedpower:battery_box"
+  }
+}

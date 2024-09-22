@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "tag": "c:advanced_alloy_plates"
+    },
+    "B": {
+      "item": "energizedpower:battery_7"
+    },
+    "E": {
+      "tag": "c:energized_gold_plates"
+    },
+    "G": {
+      "tag": "c:gold_nuggets"
+    }
+  },
+  "pattern": [
+    "G G",
+    "EBE",
+    "ABA"
+  ],
+  "result": {
+    "item": "energizedpower:battery_8"
+  }
+}

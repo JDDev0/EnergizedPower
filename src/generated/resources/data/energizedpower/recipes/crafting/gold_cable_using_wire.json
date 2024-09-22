@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "gold_cable",
+  "key": {
+    "I": {
+      "item": "energizedpower:cable_insulator"
+    },
+    "W": {
+      "tag": "c:gold_wires"
+    }
+  },
+  "pattern": [
+    "IWI",
+    "IWI",
+    "IWI"
+  ],
+  "result": {
+    "count": 6,
+    "item": "energizedpower:gold_cable"
+  }
+}

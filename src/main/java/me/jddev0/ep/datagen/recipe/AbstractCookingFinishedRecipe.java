@@ -24,7 +24,7 @@ public record AbstractCookingFinishedRecipe(
 ) implements RecipeJsonProvider {
     @Override
     public void serialize(JsonObject jsonObject) {
-        if(!this.group.isEmpty())
+        if(!group.isEmpty())
             jsonObject.addProperty("group", group);
 
         jsonObject.add("ingredient", ingredient.toJson());

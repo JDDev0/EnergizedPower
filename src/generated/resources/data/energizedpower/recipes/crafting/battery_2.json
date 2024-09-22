@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "energizedpower:battery_1"
+    },
+    "C": {
+      "tag": "c:copper_plates"
+    },
+    "I": {
+      "tag": "c:iron_plates"
+    },
+    "T": {
+      "tag": "c:tin_nuggets"
+    },
+    "c": {
+      "tag": "minecraft:coals"
+    }
+  },
+  "pattern": [
+    "T T",
+    "CBC",
+    "IcI"
+  ],
+  "result": {
+    "item": "energizedpower:battery_2"
+  }
+}

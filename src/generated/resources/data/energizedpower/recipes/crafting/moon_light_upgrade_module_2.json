@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "energizedpower:advanced_upgrade_module"
+    },
+    "B": {
+      "item": "energizedpower:basic_solar_cell"
+    },
+    "G": {
+      "tag": "c:gold_plates"
+    },
+    "M": {
+      "item": "energizedpower:moon_light_upgrade_module_1"
+    },
+    "S": {
+      "tag": "c:silicon"
+    }
+  },
+  "pattern": [
+    "GSG",
+    "BAB",
+    "GMG"
+  ],
+  "result": {
+    "item": "energizedpower:moon_light_upgrade_module_2"
+  }
+}

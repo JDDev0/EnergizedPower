@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "c:copper_blocks"
+    },
+    "F": {
+      "item": "energizedpower:fluid_tank_small"
+    },
+    "H": {
+      "item": "energizedpower:hardened_machine_frame"
+    },
+    "I": {
+      "tag": "c:iron_plates"
+    },
+    "S": {
+      "tag": "c:silicon"
+    },
+    "i": {
+      "tag": "c:iron_gears"
+    }
+  },
+  "pattern": [
+    "iSi",
+    "FHF",
+    "CIC"
+  ],
+  "result": {
+    "item": "energizedpower:stone_solidifier"
+  }
+}

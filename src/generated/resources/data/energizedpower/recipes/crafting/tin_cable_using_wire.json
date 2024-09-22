@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tin_cable",
+  "key": {
+    "I": {
+      "item": "energizedpower:cable_insulator"
+    },
+    "W": {
+      "tag": "c:tin_wires"
+    }
+  },
+  "pattern": [
+    "IWI",
+    "IWI",
+    "IWI"
+  ],
+  "result": {
+    "count": 9,
+    "item": "energizedpower:tin_cable"
+  }
+}

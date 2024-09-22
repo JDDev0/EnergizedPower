@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "energizedpower:basic_machine_frame"
+    },
+    "C": {
+      "tag": "c:copper_plates"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    },
+    "I": {
+      "tag": "c:iron_plates"
+    },
+    "S": {
+      "tag": "c:silicon"
+    }
+  },
+  "pattern": [
+    "ISI",
+    "CBC",
+    "IFI"
+  ],
+  "result": {
+    "item": "energizedpower:coal_engine"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "c:copper_ingots"
+    },
+    "Q": {
+      "tag": "c:quartz"
+    },
+    "S": {
+      "tag": "c:silicon"
+    },
+    "T": {
+      "tag": "c:tin_ingots"
+    }
+  },
+  "pattern": [
+    " C ",
+    "SQS",
+    " T "
+  ],
+  "result": {
+    "item": "energizedpower:basic_solar_cell"
+  }
+}

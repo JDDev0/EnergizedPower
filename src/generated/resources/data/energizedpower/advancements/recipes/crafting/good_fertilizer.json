@@ -1,0 +1,33 @@
+{
+  "criteria": {
+    "has_the_ingredient": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:basic_fertilizer"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "energizedpower:crafting/good_fertilizer"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_the_ingredient"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "energizedpower:crafting/good_fertilizer"
+    ]
+  }
+}

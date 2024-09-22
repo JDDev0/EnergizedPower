@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:silicon_blocks"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "energizedpower:silicon"
+  }
+}

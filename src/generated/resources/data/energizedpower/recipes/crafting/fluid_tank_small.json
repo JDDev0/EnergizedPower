@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "G": {
+      "tag": "c:glass_panes_colorless"
+    },
+    "I": {
+      "tag": "c:iron_plates"
+    }
+  },
+  "pattern": [
+    "IGI",
+    "IGI",
+    "IGI"
+  ],
+  "result": {
+    "item": "energizedpower:fluid_tank_small"
+  }
+}
