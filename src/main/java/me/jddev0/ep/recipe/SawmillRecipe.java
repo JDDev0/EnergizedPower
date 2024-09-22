@@ -26,8 +26,8 @@ public class SawmillRecipe implements Recipe<Container> {
     public SawmillRecipe(ResourceLocation id, ItemStack output, ItemStack secondaryOutput, Ingredient input) {
         this.id = id;
         this.output = output;
-        this.input = input;
         this.secondaryOutput = secondaryOutput;
+        this.input = input;
     }
 
     public ItemStack getOutput() {
