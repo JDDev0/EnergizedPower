@@ -1,0 +1,17 @@
+{
+  "type": "energizedpower:plant_growth_chamber",
+  "ingredient": {
+    "item": "minecraft:pumpkin_seeds"
+  },
+  "outputs": [
+    {
+      "output": {
+        "item": "minecraft:pumpkin"
+      },
+      "percentages": [
+        1.0
+      ]
+    }
+  ],
+  "ticks": 16000
+}
