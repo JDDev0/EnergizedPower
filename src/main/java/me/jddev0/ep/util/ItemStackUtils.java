@@ -1,14 +1,15 @@
 package me.jddev0.ep.util;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedList;
@@ -56,19 +57,43 @@ public final class ItemStackUtils {
         return combinedItemStacks;
     }
     
-    public static ItemStack fromJson(JsonElement json) {
+    public static ItemStack fromJson(JsonObject json) {
         try {
-            NbtCompound nbt = StringNbtReader.parse(json.toString());
-            Item item = Registry.ITEM.get(new Identifier(nbt.getString("item")));
-            int count = nbt.contains("count", NbtElement.NUMBER_TYPE)?nbt.getByte("count"):1;
+            Item item = Registry.ITEM.get(new Identifier(JsonHelper.getString(json, "item")));
+            int count = json.has("count")?JsonHelper.getByte(json, "count"):1;
 
             ItemStack itemStack = new ItemStack(item, count);
-            if(nbt.contains("tag", NbtElement.COMPOUND_TYPE))
-                itemStack.setNbt(nbt.getCompound("tag"));
+
+            if(json.has("tag")) {
+                JsonElement tagJson = json.get("tag");
+                if(tagJson.isJsonObject()) {
+                    NbtCompound nbt = StringNbtReader.parse(tagJson.toString());
+                    itemStack.setNbt(nbt);
+                }else if(tagJson.isJsonPrimitive() && tagJson.getAsJsonPrimitive().isString()) {
+                    NbtCompound nbt = StringNbtReader.parse(tagJson.getAsString());
+                    itemStack.setNbt(nbt);
+                }else {
+                    throw new JsonSyntaxException("Invalid ItemStack nbt data (Expected json object or string)");
+                }
+            }
 
             return itemStack;
-        } catch(CommandSyntaxException e) {
+        }catch(CommandSyntaxException e) {
             throw new JsonSyntaxException("Invalid ItemStack json representation", e);
         }
+    }
+
+    public static JsonElement toJson(ItemStack item) {
+        JsonObject itemJson = new JsonObject();
+
+        itemJson.addProperty("item", Registry.ITEM.getId(item.getItem()).toString());
+
+        if(item.getCount() != 1)
+            itemJson.addProperty("count", item.getCount());
+
+        if(item.hasNbt())
+            itemJson.addProperty("tag", item.getNbt().toString());
+
+        return itemJson;
     }
 }
