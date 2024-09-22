@@ -1,4 +1,4 @@
-// 1.20.1	2024-09-22T13:36:00.570012078	Energized Power/Advancements (Basics)
+// 1.20.1	2024-09-22T13:38:10.127892302	Energized Power/Advancements (Basics)
 11d7a188e79c7f0aabd67f79b2092dab9c73338c data/energizedpower/advancements/main/basics/moon_light_upgrade_module_1.json
 98e0a9fd6575fc865f7f50918043a50262e9c697 data/energizedpower/advancements/main/basics/press_molds.json
 743bc5a9c6f543d30cf5538590ac02543df7267e data/energizedpower/advancements/main/basics/battery_box.json
@@ -90,7 +90,7 @@ ab7979c283be411d2be137783085058cb797df94 data/energizedpower/advancements/main/b
 609388546a22fc5d7bf7e71ed8a40a933ecabbe6 data/energizedpower/advancements/main/basics/crusher.json
 025e3bcdf95f8a9c148746693cef7d16f6efaf93 data/energizedpower/advancements/main/basics/basic_upgrade_module.json
 64c0f4ca3bc96fdcd1245e16dc81a0efb0d62cf6 data/energizedpower/advancements/main/basics/coal_engine.json
-42316c06ac045e25618da59047d0ca3b2feca0f2 data/energizedpower/advancements/main/basics/hammer.json
 8e21c84005b4cef325ccbee41797f2144d1ad154 data/energizedpower/advancements/main/basics/item_conveyor_belt_switch.json
+42316c06ac045e25618da59047d0ca3b2feca0f2 data/energizedpower/advancements/main/basics/hammer.json
 e40007173e3077e0562d26bdb15614dc45bc7198 data/energizedpower/advancements/main/basics/metal_press.json
 7bc1894f163d8c6467d92a225e48317ea23660b8 data/energizedpower/advancements/main/basics/induction_smelter.json

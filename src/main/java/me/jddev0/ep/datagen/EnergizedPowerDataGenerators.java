@@ -1,9 +1,11 @@
 package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.datagen.loot.ModBlockLootTables;
+import me.jddev0.ep.world.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
+import net.minecraft.registry.RegistryKeys;
 
 public class EnergizedPowerDataGenerators implements DataGeneratorEntrypoint {
     @Override
@@ -21,11 +23,16 @@ public class EnergizedPowerDataGenerators implements DataGeneratorEntrypoint {
         pack.addProvider(ModBlockTagProvider::new);
         pack.addProvider(ModItemTagProvider::new);
         pack.addProvider(ModPoiTypeTagProvider::new);
+        pack.addProvider(ModBiomeTagProvider::new);
         pack.addProvider(ModPaintingVariantTagProvider::new);
     }
 
     @Override
     public void buildRegistry(RegistryBuilder registryBuilder) {
-        //TODO worldgen
+        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModPlacedFeatures::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.TEMPLATE_POOL, ModTemplatePools::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.STRUCTURE, ModStructures::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.STRUCTURE_SET, ModStructureSets::bootstrap);
     }
 }
