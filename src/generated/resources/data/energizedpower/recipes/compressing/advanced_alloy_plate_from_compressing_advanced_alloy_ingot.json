@@ -3,6 +3,7 @@
   "ingredient": {
     "tag": "forge:ingots/advanced_alloy"
   },
+  "inputCount": 1,
   "output": {
     "item": "energizedpower:advanced_alloy_plate"
   }

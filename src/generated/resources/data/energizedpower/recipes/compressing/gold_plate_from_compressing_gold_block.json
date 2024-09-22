@@ -3,8 +3,9 @@
   "ingredient": {
     "tag": "forge:storage_blocks/gold"
   },
+  "inputCount": 1,
   "output": {
-    "item": "energizedpower:gold_plate",
-    "count": 9
+    "count": 9,
+    "item": "energizedpower:gold_plate"
   }
 }
