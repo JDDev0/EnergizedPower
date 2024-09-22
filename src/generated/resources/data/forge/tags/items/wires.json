@@ -1,0 +1,9 @@
+{
+  "values": [
+    "#forge:wires/tin",
+    "#forge:wires/copper",
+    "#forge:wires/gold",
+    "#forge:wires/energized_copper",
+    "#forge:wires/energized_gold"
+  ]
+}

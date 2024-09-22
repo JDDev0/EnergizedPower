@@ -24,5 +24,7 @@ public class EnergizedPowerDataGenerators {
         ModBlockTagProvider blockTagProvider = new ModBlockTagProvider(generator, existingFileHelper);
         generator.addProvider(event.includeServer(), blockTagProvider);
         generator.addProvider(event.includeServer(), new ModItemTagProvider(generator, blockTagProvider, existingFileHelper));
+        generator.addProvider(event.includeServer(), new ModPoiTypeTagProvider(generator, existingFileHelper));
+        generator.addProvider(event.includeServer(), new ModPaintingVariantTagProvider(generator, existingFileHelper));
     }
 }

@@ -1,8 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "#forge:storage_blocks/silicon",
-    "#forge:storage_blocks/tin",
-    "#forge:storage_blocks/raw_tin"
-  ]
-}
