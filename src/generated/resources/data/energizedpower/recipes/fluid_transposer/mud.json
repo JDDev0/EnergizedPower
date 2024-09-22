@@ -1,0 +1,14 @@
+{
+  "type": "energizedpower:fluid_transposer",
+  "fluid": {
+    "Amount": 250,
+    "FluidName": "minecraft:water"
+  },
+  "ingredient": {
+    "item": "minecraft:dirt"
+  },
+  "mode": "FILLING",
+  "output": {
+    "item": "minecraft:mud"
+  }
+}
