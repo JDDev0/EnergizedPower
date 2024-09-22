@@ -2,9 +2,7 @@ package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.datagen.recipe.AbstractCookingFinishedRecipe;
-import me.jddev0.ep.datagen.recipe.AlloyFurnaceFinishedRecipe;
-import me.jddev0.ep.datagen.recipe.AssemblingMachineFinishedRecipe;
+import me.jddev0.ep.datagen.recipe.*;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
@@ -39,6 +37,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     @Override
     public void generate(Consumer<RecipeJsonProvider> output) {
         buildCookingRecipes(output);
+        buildCompressorRecipes(output);
+        buildChargerRecipes(output);
         buildAlloyFurnaceRecipes(output);
         buildAssemblingMachineRecipes(output);
     }
@@ -94,6 +94,36 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.COPPER_INGOTS), 3),
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.TIN_INGOTS), 3)
         }, new ItemStack(ModItems.ADVANCED_ALLOY_INGOT), 10000);
+    }
+
+    private void buildCompressorRecipes(Consumer<RecipeJsonProvider> output) {
+        addCompressorRecipe(output, Ingredient.ofItems(ModItems.STONE_PEBBLE), new ItemStack(Items.COBBLESTONE),
+                16, "stone_pebbles");
+
+        addPlateCompressorRecipes(output, Ingredient.fromTag(CommonItemTags.TIN_INGOTS),
+                Ingredient.fromTag(CommonItemTags.TIN_BLOCKS), new ItemStack(ModItems.TIN_PLATE),
+                "tin");
+        addPlateCompressorRecipes(output, Ingredient.fromTag(ConventionalItemTags.COPPER_INGOTS),
+                Ingredient.fromTag(CommonItemTags.COPPER_BLOCKS), new ItemStack(ModItems.COPPER_PLATE),
+                "copper");
+        addPlateCompressorRecipes(output, Ingredient.fromTag(ConventionalItemTags.IRON_INGOTS),
+                Ingredient.fromTag(CommonItemTags.IRON_BLOCKS), new ItemStack(ModItems.IRON_PLATE),
+                "iron");
+        addPlateCompressorRecipes(output, Ingredient.fromTag(ConventionalItemTags.GOLD_INGOTS),
+                Ingredient.fromTag(CommonItemTags.GOLD_BLOCKS), new ItemStack(ModItems.GOLD_PLATE),
+                "gold");
+
+        addPlateCompressorIngotRecipe(output, Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_INGOTS),
+                new ItemStack(ModItems.ADVANCED_ALLOY_PLATE), "advanced_alloy");
+        addPlateCompressorIngotRecipe(output, Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_INGOTS),
+                new ItemStack(ModItems.ENERGIZED_COPPER_PLATE), "energized_copper");
+        addPlateCompressorIngotRecipe(output, Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_INGOTS),
+                new ItemStack(ModItems.ENERGIZED_GOLD_PLATE), "energized_gold");
+    }
+
+    private void buildChargerRecipes(Consumer<RecipeJsonProvider> output) {
+        addChargerRecipe(output, Ingredient.fromTag(ConventionalItemTags.COPPER_INGOTS),
+                new ItemStack(ModItems.ENERGIZED_COPPER_INGOT), 4194304);
     }
 
     private void buildAssemblingMachineRecipes(Consumer<RecipeJsonProvider> output) {
@@ -254,19 +284,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         output.accept(recipe);
     }
 
-    private static void addAlloyFurnaceRecipe(Consumer<RecipeJsonProvider> recipeOutput,
-                                              IngredientWithCount[] inputs,
-                                              ItemStack output,
+    private static void addAlloyFurnaceRecipe(Consumer<RecipeJsonProvider> recipeOutput, IngredientWithCount[] inputs, ItemStack output,
                                               int ticks) {
-        addAlloyFurnaceRecipe(recipeOutput, inputs, output,
-                new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0]), ticks);
+        addAlloyFurnaceRecipe(recipeOutput, inputs, output, OutputItemStackWithPercentages.EMPTY, ticks);
     }
 
-    private static void addAlloyFurnaceRecipe(Consumer<RecipeJsonProvider> recipeOutput,
-                                              IngredientWithCount[] inputs,
-                                              ItemStack output,
-                                              OutputItemStackWithPercentages secondaryOutput,
-                                              int ticks) {
+    private static void addAlloyFurnaceRecipe(Consumer<RecipeJsonProvider> recipeOutput, IngredientWithCount[] inputs, ItemStack output,
+                                              OutputItemStackWithPercentages secondaryOutput, int ticks) {
         Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "alloy_furnace/" +
                 getItemPath(output.getItem()));
 
@@ -284,6 +308,44 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         AssemblingMachineFinishedRecipe recipe = new AssemblingMachineFinishedRecipe(
                 recipeId,
                 output, inputs
+        );
+        recipeOutput.accept(recipe);
+    }
+
+    private static void addPlateCompressorRecipes(Consumer<RecipeJsonProvider> recipeOutput, Ingredient ingotInput,
+                                                  Ingredient blockInput, ItemStack output, String metalName) {
+        addPlateCompressorIngotRecipe(recipeOutput, ingotInput, output, metalName);
+        addCompressorRecipe(recipeOutput, blockInput, output.copyWithCount(9), metalName + "_block");
+    }
+
+    private static void addPlateCompressorIngotRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient ingotInput,
+                                                      ItemStack output, String metalName) {
+        addCompressorRecipe(recipeOutput, ingotInput, output, metalName + "_ingot");
+    }
+
+    private static void addCompressorRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient input, ItemStack output, String recipeIngredientName) {
+        addCompressorRecipe(recipeOutput, input, output, 1, recipeIngredientName);
+    }
+
+    private static void addCompressorRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient input, ItemStack output, int inputCount,
+                                            String recipeIngredientName) {
+        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "compressing/" +
+                getItemPath(output.getItem()) + "_from_compressing_" + recipeIngredientName);
+
+        CompressorFinishedRecipe recipe = new CompressorFinishedRecipe(
+                recipeId,
+                output, input, inputCount
+        );
+        recipeOutput.accept(recipe);
+    }
+
+    private static void addChargerRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient input, ItemStack output, int energyConsumption) {
+        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "charger/" +
+                getItemPath(output.getItem()));
+
+        ChargerFinishedRecipe recipe = new ChargerFinishedRecipe(
+                recipeId,
+                output, input, energyConsumption
         );
         recipeOutput.accept(recipe);
     }
