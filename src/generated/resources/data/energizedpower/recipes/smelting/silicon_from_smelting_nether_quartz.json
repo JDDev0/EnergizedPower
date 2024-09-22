@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 500,
+  "experience": 4.1,
+  "group": "silicon",
+  "ingredient": {
+    "tag": "c:quartz"
+  },
+  "result": "energizedpower:silicon"
+}
