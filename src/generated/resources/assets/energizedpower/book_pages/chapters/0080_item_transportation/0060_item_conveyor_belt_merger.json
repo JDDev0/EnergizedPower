@@ -1,0 +1,14 @@
+{
+  "block": "energizedpower:item_conveyor_belt_merger",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.item_conveyor_belt_merger"
+      }
+    ],
+    "text": ""
+  }
+}

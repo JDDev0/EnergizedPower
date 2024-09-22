@@ -1,0 +1,25 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.inventory_charger.1"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.inventory_charger.2"
+      }
+    ],
+    "text": ""
+  },
+  "image": "energizedpower:textures/item/inventory_charger.png"
+}

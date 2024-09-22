@@ -1,0 +1,18 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.fertilizers"
+      }
+    ],
+    "text": ""
+  },
+  "image": [
+    "energizedpower:textures/item/basic_fertilizer.png",
+    "energizedpower:textures/item/good_fertilizer.png",
+    "energizedpower:textures/item/advanced_fertilizer.png"
+  ]
+}
