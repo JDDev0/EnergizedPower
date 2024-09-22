@@ -1,0 +1,35 @@
+{
+  "parent": "energizedpower:main/basics/hammer",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:plates/copper"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.copper_plate.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:copper_plate"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.copper_plate.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}

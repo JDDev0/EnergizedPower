@@ -1,0 +1,37 @@
+{
+  "parent": "energizedpower:main/basics/battery_3",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:energy_analyzer"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.energy_analyzer.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:energy_analyzer"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.energy_analyzer.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}

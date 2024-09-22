@@ -1,0 +1,37 @@
+{
+  "parent": "energizedpower:main/basics/iron_plate",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:drain"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.drain.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:drain"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.drain.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}

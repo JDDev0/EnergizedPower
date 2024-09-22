@@ -16,6 +16,7 @@ public class EnergizedPowerDataGenerators {
 
         generator.addProvider(event.includeServer(), new ModRecipeProvider(generator));
         generator.addProvider(event.includeServer(), new ModLootTableProvider(generator));
+        generator.addProvider(event.includeServer(), new ModAdvancementProvider(generator, existingFileHelper));
 
         generator.addProvider(event.includeClient(), new ModBlockStateProvider(generator, existingFileHelper));
         generator.addProvider(event.includeClient(), new ModItemModelProvider(generator, existingFileHelper));

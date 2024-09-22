@@ -1,0 +1,37 @@
+{
+  "parent": "energizedpower:main/basics/charger",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:uncharger"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.uncharger.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:uncharger"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.uncharger.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}

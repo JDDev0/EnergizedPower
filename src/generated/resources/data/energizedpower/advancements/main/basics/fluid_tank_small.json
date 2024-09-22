@@ -1,0 +1,37 @@
+{
+  "parent": "energizedpower:main/basics/iron_fluid_pipe",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:fluid_tank_small"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.fluid_tank_small.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:fluid_tank_small"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.fluid_tank_small.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}

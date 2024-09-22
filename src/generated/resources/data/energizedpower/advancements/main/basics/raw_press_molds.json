@@ -1,0 +1,35 @@
+{
+  "parent": "energizedpower:main/basics/press_mold_maker",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "energizedpower:metal_press/raw_press_molds"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.raw_press_molds.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:raw_gear_press_mold"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.raw_press_molds.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "parent": "energizedpower:main/basics/hardened_machine_frame",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:assembling_machine"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.assembling_machine.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:assembling_machine"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.assembling_machine.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}

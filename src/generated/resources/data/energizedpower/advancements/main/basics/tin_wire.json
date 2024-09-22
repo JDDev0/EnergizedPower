@@ -1,0 +1,35 @@
+{
+  "parent": "energizedpower:main/basics/cutter",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:wires/tin"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.tin_wire.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:tin_wire"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.tin_wire.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}

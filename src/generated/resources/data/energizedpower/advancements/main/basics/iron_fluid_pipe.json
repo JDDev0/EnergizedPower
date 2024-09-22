@@ -1,0 +1,37 @@
+{
+  "parent": "energizedpower:main/basics/iron_plate",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:fluid_pipe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.iron_fluid_pipe.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:fluid_pipe"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.iron_fluid_pipe.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}

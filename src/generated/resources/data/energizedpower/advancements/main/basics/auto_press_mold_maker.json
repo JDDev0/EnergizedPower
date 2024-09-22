@@ -1,0 +1,37 @@
+{
+  "parent": "energizedpower:main/basics/metal_press",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:auto_press_mold_maker"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.auto_press_mold_maker.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:auto_press_mold_maker"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.auto_press_mold_maker.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ]
+}
