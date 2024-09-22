@@ -1,0 +1,38 @@
+{
+  "parent": "energizedpower:main/advanced/advanced_solar_cell",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:solar_panel_4"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.solar_panel_4.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:solar_panel_4"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.solar_panel_4.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
