@@ -1,6 +1,9 @@
 package me.jddev0.ep.util;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -45,5 +48,19 @@ public final class ItemStackUtils {
         }
 
         return combinedItemStacks;
+    }
+
+    public static JsonElement toJson(ItemStack item) {
+        JsonObject itemJson = new JsonObject();
+
+        itemJson.addProperty("item", ForgeRegistries.ITEMS.getKey(item.getItem()).toString());
+
+        if(item.getCount() != 1)
+            itemJson.addProperty("count", item.getCount());
+
+        if(item.hasTag())
+            itemJson.addProperty("nbt", item.getTag().toString());
+
+        return itemJson;
     }
 }
