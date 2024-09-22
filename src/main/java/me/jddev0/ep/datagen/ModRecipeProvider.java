@@ -2710,7 +2710,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         SmithingUpgradeFinishedRecipe recipe = new SmithingUpgradeFinishedRecipe(
                 recipeId,
                 base,
-                Ingredient.of(Items.NETHERITE_INGOT),
+                Ingredient.of(Tags.Items.INGOTS_NETHERITE),
                 output.getItem(),
                 advancementBuilder,
                 withPrefix(recipeId, "recipes/")
