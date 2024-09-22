@@ -26,8 +26,26 @@ public final class CommonItemTags {
     public static final TagKey<Item> ENDER_PEARLS = TagKey.of(Registry.ITEM_KEY,
             Identifier.of("c", "ender_pearls"));
 
+    public static final TagKey<Item> COAL_ORES = TagKey.of(Registry.ITEM_KEY,
+            Identifier.of("c", "coal_ores"));
     public static final TagKey<Item> TIN_ORES = TagKey.of(Registry.ITEM_KEY,
             Identifier.of("c", "tin_ores"));
+    public static final TagKey<Item> COPPER_ORES = TagKey.of(Registry.ITEM_KEY,
+            Identifier.of("c", "copper_ores"));
+    public static final TagKey<Item> IRON_ORES = TagKey.of(Registry.ITEM_KEY,
+            Identifier.of("c", "iron_ores"));
+    public static final TagKey<Item> GOLD_ORES = TagKey.of(Registry.ITEM_KEY,
+            Identifier.of("c", "gold_ores"));
+    public static final TagKey<Item> REDSTONE_ORES = TagKey.of(Registry.ITEM_KEY,
+            Identifier.of("c", "redstone_ores"));
+    public static final TagKey<Item> LAPIS_ORES = TagKey.of(Registry.ITEM_KEY,
+            Identifier.of("c", "lapis_ores"));
+    public static final TagKey<Item> EMERALD_ORES = TagKey.of(Registry.ITEM_KEY,
+            Identifier.of("c", "emerald_ores"));
+    public static final TagKey<Item> DIAMOND_ORES = TagKey.of(Registry.ITEM_KEY,
+            Identifier.of("c", "diamond_ores"));
+    public static final TagKey<Item> NETHERITE_SCRAP_ORES = TagKey.of(Registry.ITEM_KEY,
+            Identifier.of("c", "netherite_scrap_ores"));
 
     public static final TagKey<Item> COPPER_BLOCKS = TagKey.of(Registry.ITEM_KEY,
             Identifier.of("c", "copper_blocks"));

@@ -1,6 +1,15 @@
 {
   "replace": false,
   "values": [
-    "#c:tin_ores"
+    "#c:coal_ores",
+    "#c:tin_ores",
+    "#c:copper_ores",
+    "#c:iron_ores",
+    "#c:gold_ores",
+    "#c:redstone_ores",
+    "#c:lapis_ores",
+    "#c:emerald_ores",
+    "#c:diamond_ores",
+    "#c:netherite_scrap_ores"
   ]
 }

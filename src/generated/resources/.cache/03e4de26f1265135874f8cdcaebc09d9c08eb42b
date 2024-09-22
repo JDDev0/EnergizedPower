@@ -1,17 +1,21 @@
-// 1.19.2	2024-09-22T17:08:09.319707956	Tags for minecraft:item
+// 1.19.2	2024-09-22T17:09:22.787104664	Tags for minecraft:item
 dc1eecfb81d5eda9759e3ffd6a63e80990cd4b67 data/c/tags/items/energized_copper_plates.json
+f49f51e79d8efb9d3426fb99669723302f4a10b3 data/c/tags/items/emerald_ores.json
 1e9b2f170f3826ddfd6e8fa673f8abafba35b85f data/c/tags/items/nuggets.json
 33ab6e8b8ef078f80b6c1f2a63aac9631c2a8820 data/c/tags/items/ingots.json
 1eb80754d00d42e071c653bcecf6a4adba6f2496 data/c/tags/items/copper_blocks.json
 db5fafaa799bebc742e20a260c37647b14f5d995 data/c/tags/items/tin_blocks.json
 989b799a247e595b14e76a145d6ff3566337b58f data/c/tags/items/iron_nuggets.json
 118bd4683b62cec68ff478ca69ffa30f7d9b0bcc data/c/tags/items/plates.json
+e5aa41c7d7810a572967e761e7c5707aa36a9522 data/c/tags/items/iron_ores.json
+b931e727f3ea7f25d6fba33c1fc5881a16f54081 data/c/tags/items/gold_ores.json
 b5a6f0c17d4f677d238d20cdd070291058038b83 data/c/tags/items/iron_gears.json
 a05897408d9cafd0c65a22b0207bf5f050c6083c data/c/tags/items/energized_copper_ingots.json
 f614326002f8768e550175aab0f3c7dd7e4a7a3b data/c/tags/items/tin_ores.json
 1dd8dedc15170f05659ccb9e04f2ebaf2ce258a2 data/c/tags/items/energized_gold_plates.json
 9bc1a312edabdf715fce9a7604810fe54ba72cd2 data/c/tags/items/tin_plates.json
 60c34b1f2ff28d2fb9f54c5498e6b1a7aa2323a1 data/c/tags/items/gold_dusts.json
+a5632c7bbb7238923790316794f7c8aade6ef3fe data/c/tags/items/redstone_ores.json
 92e9b99eaa4190f1cbfa3fc51250d6605301ac74 data/c/tags/items/gravels.json
 853989e90ceeb5599dafb3eac612b0aecdca760b data/c/tags/items/wires.json
 3cce19b431da6f1356de3408642e66ded9deefd9 data/c/tags/items/copper_dusts.json
@@ -20,17 +24,20 @@ f5254522619427812e22d8c5038b309117bd3c4a data/c/tags/items/advanced_alloy_plates
 1d8dd40b38316287e8743dd8807de463eb74f314 data/minecraft/tags/items/piglin_loved.json
 53b0d34d2d7f37a0cb059f0964fa37b04eb7413f data/c/tags/items/energized_gold_ingots.json
 8ab1414552e837f706fdd7cbb10d704e02b763bc data/c/tags/items/glass_blocks_colorless.json
+70aac843d19b3be0c7d5d158c7a01c75d595040e data/c/tags/items/coal_ores.json
 3dd5ea03857563007456955220ec4e5121dce033 data/c/tags/items/steel_ingots.json
 231aa46493779754206a429c51e68a0d22f0601c data/c/tags/items/dusts.json
 552ba55ce6bb6379d87ae85fcaa51335a26daa45 data/c/tags/items/rods.json
 22c0259e68eb75e802e3d4919fa41b4c2f80bf14 data/ae2/tags/items/p2p_attunements/item_p2p_tunnel.json
 9ef026e4c0c9e4168988c36fe15fcccb78290b97 data/c/tags/items/hammers.json
 7eb53ad6e775bb97bf75fa205fcd5982a91f892a data/c/tags/items/iron_rods.json
-751285e3ea7ac55ea84662e503489ff51e613174 data/c/tags/items/ores.json
+8b37f8c3095fb96731c36f123edeab896662bef5 data/c/tags/items/ores.json
 1a480f15476fd5fb35daf9314a370d94acd24b5e data/c/tags/items/gold_plates.json
 fe06c780f7148717b15682837480edb1fe7d6c6b data/energizedpower/tags/items/metal_press/press_molds.json
 67bd7eb9ea1899e26eb9b3adce50b210dc2e9362 data/c/tags/items/redstone_alloy_ingots.json
 6f38f9e406cc9b53aedc6f1305b07490c48e55c8 data/c/tags/items/copper_wires.json
+360a9d836b5ef0aa0b96f08d3983c8426d3184ce data/c/tags/items/copper_ores.json
+efa481a4459e3a60145aa2474cf8dcceb9fd0e9e data/c/tags/items/lapis_ores.json
 d8055eda6142427e8f950ade647ba8a9f3f37b67 data/c/tags/items/iron_dusts.json
 0f9192f7fa9c85ad23e0033349cb2cf7549f6710 data/c/tags/items/raw_tin_ores.json
 dc8c62df7f50a9713b4bcaf4b07472a2735b6ae5 data/c/tags/items/advanced_alloy_ingots.json
@@ -42,6 +49,7 @@ cbd27c35ba68083ff81531232078af98f7a4c3fd data/c/tags/items/energized_copper_wire
 bf88bfd2643684622246b8b7dcaf34414e20fcee data/c/tags/items/cobblestones.json
 946e096a8a40ff462ff3a2f923f6910f0896a8c0 data/c/tags/items/iron_plates.json
 325aa899cbb4edff21fe5ab28c885fc3e9c67c24 data/ae2/tags/items/p2p_attunements/fe_p2p_tunnel.json
+36dfd86f5ca02abfb51d14b69f8e663477a43816 data/c/tags/items/diamond_ores.json
 34a99827fbce383831a8ba1be20158630df1a860 data/ae2/tags/items/p2p_attunements/fluid_p2p_tunnel.json
 706eacda6d6fb3a201671d5eac5efcb595caf17a data/c/tags/items/raw_tin_blocks.json
 64ee5daa92cda1a3ebb456ed2721c7003a033e0f data/c/tags/items/tin_ingots.json
@@ -51,6 +59,7 @@ d2eb0460d1d9d60aff3395c79a1a358dbc9e6c6c data/c/tags/items/redstone_blocks.json
 68a096f8f2b56138288a4fc84131bf146df12b38 data/c/tags/items/charcoal_dusts.json
 567f8a4e05eb570da4481f857df7456607f1bc95 data/c/tags/items/amethysts.json
 860fe01a6ca27792eb09feb587b006e42be4d60b data/c/tags/items/glass_panes_colorless.json
+75fa2796e98dbaa08a6518ad3632c261966f455c data/c/tags/items/netherite_scrap_ores.json
 cfa612cb64f7e213d984ca4431202690f594df8a data/c/tags/items/ender_pearls.json
 acb4bfe64edcc6f243f94a58587f56891fd19d9c data/c/tags/items/gold_nuggets.json
 7e91177859f362e2aec46fb683b944974fa3a159 data/c/tags/items/iron_blocks.json

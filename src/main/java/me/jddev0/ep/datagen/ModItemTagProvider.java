@@ -98,10 +98,37 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 add(Items.ENDER_PEARL);
 
         getOrCreateTagBuilder(ConventionalItemTags.ORES).
-                addTag(CommonItemTags.TIN_ORES);
+                addTag(CommonItemTags.COAL_ORES).
+                addTag(CommonItemTags.TIN_ORES).
+                addTag(CommonItemTags.COPPER_ORES).
+                addTag(CommonItemTags.IRON_ORES).
+                addTag(CommonItemTags.GOLD_ORES).
+                addTag(CommonItemTags.REDSTONE_ORES).
+                addTag(CommonItemTags.LAPIS_ORES).
+                addTag(CommonItemTags.EMERALD_ORES).
+                addTag(CommonItemTags.DIAMOND_ORES).
+                addTag(CommonItemTags.NETHERITE_SCRAP_ORES);
+        getOrCreateTagBuilder(CommonItemTags.COAL_ORES).
+                addOptionalTag(ItemTags.COAL_ORES);
         getOrCreateTagBuilder(CommonItemTags.TIN_ORES).
                 add(ModBlocks.TIN_ORE_ITEM,
                         ModBlocks.DEEPSLATE_TIN_ORE_ITEM);
+        getOrCreateTagBuilder(CommonItemTags.COPPER_ORES).
+                addOptionalTag(ItemTags.COPPER_ORES);
+        getOrCreateTagBuilder(CommonItemTags.IRON_ORES).
+                addOptionalTag(ItemTags.IRON_ORES);
+        getOrCreateTagBuilder(CommonItemTags.GOLD_ORES).
+                addOptionalTag(ItemTags.GOLD_ORES);
+        getOrCreateTagBuilder(CommonItemTags.REDSTONE_ORES).
+                addOptionalTag(ItemTags.REDSTONE_ORES);
+        getOrCreateTagBuilder(CommonItemTags.LAPIS_ORES).
+                addOptionalTag(ItemTags.LAPIS_ORES);
+        getOrCreateTagBuilder(CommonItemTags.EMERALD_ORES).
+                addOptionalTag(ItemTags.EMERALD_ORES);
+        getOrCreateTagBuilder(CommonItemTags.DIAMOND_ORES).
+                addOptionalTag(ItemTags.DIAMOND_ORES);
+        getOrCreateTagBuilder(CommonItemTags.NETHERITE_SCRAP_ORES).
+                add(Items.ANCIENT_DEBRIS);
 
         getOrCreateTagBuilder(CommonItemTags.COPPER_BLOCKS).
                 add(Items.COPPER_BLOCK);

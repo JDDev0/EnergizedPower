@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:crusher",
+  "ingredient": {
+    "tag": "c:cobblestones"
+  },
+  "output": {
+    "item": "minecraft:gravel"
+  }
+}
