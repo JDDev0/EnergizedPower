@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "energizedpower:block/stone_solidifier_top",
+    "front": "energizedpower:block/stone_solidifier_front",
+    "side": "energizedpower:block/stone_solidifier_side",
+    "top": "energizedpower:block/stone_solidifier_top"
+  }
+}

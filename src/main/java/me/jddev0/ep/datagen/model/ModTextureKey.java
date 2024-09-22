@@ -5,6 +5,8 @@ import net.minecraft.data.client.TextureKey;
 public final class ModTextureKey {
     public static final TextureKey INTERIOR = TextureKey.of("interior");
 
+    public static final TextureKey BELT = TextureKey.of("belt");
+
     public static final TextureKey FLUID_PIPE_CORE = TextureKey.of("fluid_pipe_core");
     public static final TextureKey FLUID_PIPE_SIDE = TextureKey.of("fluid_pipe_side");
     public static final TextureKey FLUID_PIPE_SIDE_INNER = TextureKey.of("fluid_pipe_side_inner");

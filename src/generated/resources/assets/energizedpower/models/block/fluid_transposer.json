@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "energizedpower:block/fluid_transposer_top",
+    "front": "energizedpower:block/fluid_transposer_front",
+    "side": "energizedpower:block/fluid_transposer_side",
+    "top": "energizedpower:block/fluid_transposer_top"
+  }
+}

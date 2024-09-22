@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "energizedpower:block/advanced_powered_furnace_top",
+    "front": "energizedpower:block/advanced_powered_furnace_front",
+    "side": "energizedpower:block/advanced_powered_furnace_side",
+    "top": "energizedpower:block/advanced_powered_furnace_top"
+  }
+}
