@@ -1,4 +1,4 @@
-// 1.20.1	2024-09-22T12:37:07.231049763	Energized Power/Block Loot Tables
+// 1.20.1	2024-09-22T12:42:13.191765953	Energized Power/Block Loot Tables
 75cd2b9225591085c881138629a609012dfecb68 data/energizedpower/loot_tables/blocks/fluid_pipe.json
 616950a2a37d1032997d6adcc28ddc462e137e97 data/energizedpower/loot_tables/blocks/fluid_filler.json
 7609cb3e8c196b21ac938fed38933747b35ca45e data/energizedpower/loot_tables/blocks/advanced_powered_furnace.json
@@ -9,8 +9,8 @@ f45b2ebc2464001e0835b5359756c02191c8e7dd data/energizedpower/loot_tables/blocks/
 b60f49c54e55112de1d96e0f0c51b62b8f3418e9 data/energizedpower/loot_tables/blocks/uncharger.json
 0969fa6cea044e0a38c7e55a6f7ddb6bd0c39218 data/energizedpower/loot_tables/blocks/stone_solidifier.json
 0a4907c52a43dbe2a6eed94842d3d2cc813f36d9 data/energizedpower/loot_tables/blocks/time_controller.json
-76ab4edd9aed5a91bfb63040307585a3ed8d827f data/energizedpower/loot_tables/blocks/auto_crafter.json
 247e715a0a3855a31da131c729b1c78811edbda8 data/energizedpower/loot_tables/blocks/silicon_block.json
+76ab4edd9aed5a91bfb63040307585a3ed8d827f data/energizedpower/loot_tables/blocks/auto_crafter.json
 3c6e9fb22924331a2cedd248d263919c93d36894 data/energizedpower/loot_tables/blocks/minecart_uncharger.json
 1bef854e0fd9fa139103878a73396e50924e35a4 data/energizedpower/loot_tables/blocks/powered_furnace.json
 a9941e028bb375a16db89388837b7ff99c51f4cc data/energizedpower/loot_tables/blocks/item_conveyor_belt_splitter.json

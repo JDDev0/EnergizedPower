@@ -2,24 +2,25 @@
   "type": "energizedpower:assembling_machine",
   "inputs": [
     {
+      "count": 2,
       "input": {
         "item": "energizedpower:basic_solar_cell"
-      },
-      "count": 2
+      }
     },
     {
+      "count": 4,
       "input": {
         "tag": "c:energized_copper_ingots"
-      },
-      "count": 4
+      }
     },
     {
+      "count": 2,
       "input": {
         "tag": "c:tin_ingots"
-      },
-      "count": 2
+      }
     },
     {
+      "count": 1,
       "input": {
         "tag": "c:redstone_alloy_ingots"
       }

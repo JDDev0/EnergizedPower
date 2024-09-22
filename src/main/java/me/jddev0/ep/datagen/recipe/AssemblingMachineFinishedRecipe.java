@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.recipe.ModRecipes;
-import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.ItemStack;
@@ -12,33 +11,14 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
-public record AlloyFurnaceFinishedRecipe(
+public record AssemblingMachineFinishedRecipe(
         Identifier id,
         ItemStack output,
-        OutputItemStackWithPercentages secondaryOutput,
-        IngredientWithCount[] inputs,
-        int ticks
+        IngredientWithCount[] inputs
 ) implements RecipeJsonProvider {
     @Override
     public void serialize(JsonObject jsonObject) {
         jsonObject.add("output", ItemStackUtils.toJson(output));
-
-        if(!secondaryOutput.output().isEmpty() && secondaryOutput.percentages().length != 0) {
-            JsonObject secondaryOutputJson = new JsonObject();
-
-            secondaryOutputJson.add("output", ItemStackUtils.toJson(secondaryOutput.output()));
-
-            {
-                JsonArray percentagesJson = new JsonArray();
-
-                for(double percentage:secondaryOutput.percentages())
-                    percentagesJson.add(percentage);
-
-                secondaryOutputJson.add("percentages", percentagesJson);
-            }
-
-            jsonObject.add("secondaryOutput", secondaryOutputJson);
-        }
 
         {
             JsonArray inputsJson = new JsonArray();
@@ -54,8 +34,6 @@ public record AlloyFurnaceFinishedRecipe(
 
             jsonObject.add("inputs", inputsJson);
         }
-
-        jsonObject.addProperty("ticks", ticks);
     }
 
     @Override
@@ -65,7 +43,7 @@ public record AlloyFurnaceFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.ALLOY_FURNACE_SERIALIZER;
+        return ModRecipes.ASSEMBLING_MACHINE_SERIALIZER;
     }
 
     @Override

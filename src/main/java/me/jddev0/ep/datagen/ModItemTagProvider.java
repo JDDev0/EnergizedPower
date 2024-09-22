@@ -160,6 +160,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(CommonItemTags.TIN_NUGGETS).
                 add(ModItems.TIN_NUGGET);
 
+        getOrCreateTagBuilder(CommonItemTags.AMETHYSTS).
+                add(Items.AMETHYST_SHARD);
+
         getOrCreateTagBuilder(CommonItemTags.SILICON).
                 add(ModItems.SILICON);
 

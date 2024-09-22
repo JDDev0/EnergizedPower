@@ -4,6 +4,7 @@ import me.jddev0.ep.EnergizedPowerMod;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.datagen.recipe.AbstractCookingFinishedRecipe;
 import me.jddev0.ep.datagen.recipe.AlloyFurnaceFinishedRecipe;
+import me.jddev0.ep.datagen.recipe.AssemblingMachineFinishedRecipe;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
@@ -39,6 +40,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     public void generate(Consumer<RecipeJsonProvider> output) {
         buildCookingRecipes(output);
         buildAlloyFurnaceRecipes(output);
+        buildAssemblingMachineRecipes(output);
     }
 
     private void buildCookingRecipes(Consumer<RecipeJsonProvider> output) {
@@ -92,6 +94,49 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.COPPER_INGOTS), 3),
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.TIN_INGOTS), 3)
         }, new ItemStack(ModItems.ADVANCED_ALLOY_INGOT), 10000);
+    }
+
+    private void buildAssemblingMachineRecipes(Consumer<RecipeJsonProvider> output) {
+        addAssemblingMachineRecipe(output, new IngredientWithCount[] {
+                new IngredientWithCount(Ingredient.ofItems(ModItems.BASIC_SOLAR_CELL), 2),
+                new IngredientWithCount(Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_INGOTS), 4),
+                new IngredientWithCount(Ingredient.fromTag(CommonItemTags.TIN_INGOTS), 2),
+                new IngredientWithCount(Ingredient.fromTag(CommonItemTags.REDSTONE_ALLOY_INGOTS), 1)
+        }, new ItemStack(ModItems.ADVANCED_SOLAR_CELL));
+
+        addAssemblingMachineRecipe(output, new IngredientWithCount[] {
+                new IngredientWithCount(Ingredient.ofItems(ModItems.ADVANCED_SOLAR_CELL), 2),
+                new IngredientWithCount(Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX), 4),
+                new IngredientWithCount(Ingredient.fromTag(CommonItemTags.SILICON), 2),
+                new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS), 2)
+        }, new ItemStack(ModItems.REINFORCED_ADVANCED_SOLAR_CELL));
+
+        addAssemblingMachineRecipe(output, new IngredientWithCount[] {
+                new IngredientWithCount(Ingredient.ofItems(ModItems.BASIC_CIRCUIT), 4),
+                new IngredientWithCount(Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_WIRES), 4),
+                new IngredientWithCount(Ingredient.fromTag(CommonItemTags.SILICON), 4),
+                new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS), 2)
+        }, new ItemStack(ModItems.ADVANCED_CIRCUIT));
+
+        addAssemblingMachineRecipe(output, new IngredientWithCount[] {
+                new IngredientWithCount(Ingredient.ofItems(ModItems.ADVANCED_CIRCUIT), 4),
+                new IngredientWithCount(Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_WIRES), 6),
+                new IngredientWithCount(Ingredient.fromTag(CommonItemTags.SILICON), 6)
+        }, new ItemStack(ModItems.PROCESSING_UNIT));
+
+        addAssemblingMachineRecipe(output, new IngredientWithCount[] {
+                new IngredientWithCount(Ingredient.ofItems(ModItems.PROCESSING_UNIT), 4),
+                new IngredientWithCount(Ingredient.ofItems(ModItems.TELEPORTER_MATRIX), 4),
+                new IngredientWithCount(Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX), 2),
+                new IngredientWithCount(Ingredient.fromTag(CommonItemTags.SILICON), 2)
+        }, new ItemStack(ModItems.TELEPORTER_PROCESSING_UNIT));
+
+        addAssemblingMachineRecipe(output, new IngredientWithCount[] {
+                new IngredientWithCount(Ingredient.fromTag(CommonItemTags.AMETHYSTS), 6),
+                new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.DIAMONDS), 2),
+                new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.EMERALDS), 2),
+                new IngredientWithCount(Ingredient.fromTag(CommonItemTags.REDSTONE_ALLOY_INGOTS), 1)
+        }, new ItemStack(ModItems.CRYSTAL_MATRIX));
     }
 
     private static void addBlastingAndSmeltingRecipes(Consumer<RecipeJsonProvider> output, ItemConvertible ingredient, ItemStack result,
@@ -228,6 +273,17 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         AlloyFurnaceFinishedRecipe recipe = new AlloyFurnaceFinishedRecipe(
                 recipeId,
                 output, secondaryOutput, inputs, ticks
+        );
+        recipeOutput.accept(recipe);
+    }
+
+    private static void addAssemblingMachineRecipe(Consumer<RecipeJsonProvider> recipeOutput, IngredientWithCount[] inputs, ItemStack output) {
+        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "assembling/" +
+                getItemPath(output.getItem()));
+
+        AssemblingMachineFinishedRecipe recipe = new AssemblingMachineFinishedRecipe(
+                recipeId,
+                output, inputs
         );
         recipeOutput.accept(recipe);
     }
