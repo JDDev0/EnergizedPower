@@ -165,6 +165,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.BATTERY_6);
         basicItem(ModItems.BATTERY_7);
         basicItem(ModItems.BATTERY_8);
+        basicItem(ModItems.CREATIVE_BATTERY);
 
         basicItem(ModItems.ENERGY_ANALYZER);
 

@@ -7,15 +7,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.client.model.generators.ModelProvider;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModBlockStateProvider extends BlockStateProvider {
-    private ModelFile solarPanelTemplate;
-
     private ModelFile fluidPipeCoreTemplate;
     private ModelFile fluidPipeSideConnectedTemplate;
     private ModelFile fluidPipeSideExtractTemplate;
@@ -24,6 +21,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     private ModelFile cableCoreTemplate;
     private ModelFile cableSideTemplate;
+
+    private ModelFile solarPanelTemplate;
 
     public ModBlockStateProvider(DataGenerator output, ExistingFileHelper exFileHelper) {
         super(output, EnergizedPowerMod.MODID, exFileHelper);
@@ -36,17 +35,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void registerTemplates() {
-        solarPanelTemplate = models().
-                withExistingParent("solar_panel_template", ModelProvider.BLOCK_FOLDER + "/thin_block").
-                element().from(0, 0, 0).to(16, 4, 16).
-                face(Direction.DOWN).uvs(0, 0, 16, 16).cullface(Direction.DOWN).texture("#side").end().
-                face(Direction.UP).uvs(0, 0, 16, 16).texture("#top").end().
-                face(Direction.NORTH).uvs(0, 12, 16, 16).cullface(Direction.NORTH).texture("#side").end().
-                face(Direction.SOUTH).uvs(0, 12, 16, 16).cullface(Direction.SOUTH).texture("#side").end().
-                face(Direction.WEST).uvs(0, 12, 16, 16).cullface(Direction.WEST).texture("#side").end().
-                face(Direction.EAST).uvs(0, 12, 16, 16).cullface(Direction.EAST).texture("#side").end().
-                end();
-
         fluidPipeCoreTemplate = models().getExistingFile(
                 new ResourceLocation(EnergizedPowerMod.MODID, "fluid_pipe_core_template"));
         fluidPipeSideConnectedTemplate = models().getExistingFile(
@@ -78,16 +66,20 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 face(Direction.WEST).uvs(5, 7, 11, 11).texture("#cable").end().
                 face(Direction.EAST).uvs(5, 7, 11, 11).texture("#cable").end().
                 end();
+
+        solarPanelTemplate = models().
+                withExistingParent("solar_panel_template", ModelProvider.BLOCK_FOLDER + "/thin_block").
+                element().from(0, 0, 0).to(16, 4, 16).
+                face(Direction.DOWN).uvs(0, 0, 16, 16).cullface(Direction.DOWN).texture("#side").end().
+                face(Direction.UP).uvs(0, 0, 16, 16).texture("#top").end().
+                face(Direction.NORTH).uvs(0, 12, 16, 16).cullface(Direction.NORTH).texture("#side").end().
+                face(Direction.SOUTH).uvs(0, 12, 16, 16).cullface(Direction.SOUTH).texture("#side").end().
+                face(Direction.WEST).uvs(0, 12, 16, 16).cullface(Direction.WEST).texture("#side").end().
+                face(Direction.EAST).uvs(0, 12, 16, 16).cullface(Direction.EAST).texture("#side").end().
+                end();
     }
 
     private void registerBlocks() {
-        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_1);
-        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_2);
-        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_3);
-        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_4);
-        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_5);
-        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_6);
-
         cubeAllBlockWithItem(ModBlocks.SILICON_BLOCK);
 
         cubeAllBlockWithItem(ModBlocks.TIN_BLOCK);
@@ -113,28 +105,169 @@ public class ModBlockStateProvider extends BlockStateProvider {
         cableBlockWithItem(ModBlocks.ENERGIZED_COPPER_CABLE);
         cableBlockWithItem(ModBlocks.ENERGIZED_GOLD_CABLE);
         cableBlockWithItem(ModBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE);
+
+        transformerBlockWithItem(ModBlocks.LV_TRANSFORMER_1_TO_N);
+        transformerBlockWithItem(ModBlocks.LV_TRANSFORMER_3_TO_3);
+        transformerBlockWithItem(ModBlocks.LV_TRANSFORMER_N_TO_1);
+        transformerBlockWithItem(ModBlocks.MV_TRANSFORMER_1_TO_N);
+        transformerBlockWithItem(ModBlocks.MV_TRANSFORMER_3_TO_3);
+        transformerBlockWithItem(ModBlocks.MV_TRANSFORMER_N_TO_1);
+        transformerBlockWithItem(ModBlocks.HV_TRANSFORMER_1_TO_N);
+        transformerBlockWithItem(ModBlocks.HV_TRANSFORMER_3_TO_3);
+        transformerBlockWithItem(ModBlocks.HV_TRANSFORMER_N_TO_1);
+        transformerBlockWithItem(ModBlocks.EHV_TRANSFORMER_1_TO_N);
+        transformerBlockWithItem(ModBlocks.EHV_TRANSFORMER_3_TO_3);
+        transformerBlockWithItem(ModBlocks.EHV_TRANSFORMER_N_TO_1);
+
+        horizontalBlockWithItem(ModBlocks.BATTERY_BOX, true);
+        horizontalBlockWithItem(ModBlocks.ADVANCED_BATTERY_BOX, true);
+        horizontalBlockWithItem(ModBlocks.CREATIVE_BATTERY_BOX, true);
+
+        horizontalTwoSideBlockWithItem(ModBlocks.PRESS_MOLD_MAKER, true);
+
+        horizontalTwoSideBlockWithItem(ModBlocks.AUTO_CRAFTER, true);
+        horizontalTwoSideBlockWithItem(ModBlocks.ADVANCED_AUTO_CRAFTER, true);
+
+        horizontalBlockWithItem(ModBlocks.CRUSHER, true);
+        horizontalBlockWithItem(ModBlocks.ADVANCED_CRUSHER, true);
+
+        horizontalBlockWithItem(ModBlocks.PULVERIZER, true);
+        horizontalBlockWithItem(ModBlocks.ADVANCED_PULVERIZER, true);
+
+        horizontalBlockWithItem(ModBlocks.SAWMILL, true);
+
+        horizontalBlockWithItem(ModBlocks.COMPRESSOR, true);
+
+        horizontalBlockWithItem(ModBlocks.METAL_PRESS, false);
+
+        horizontalTwoSideBlockWithItem(ModBlocks.AUTO_PRESS_MOLD_MAKER, true);
+
+        horizontalBlockWithItem(ModBlocks.AUTO_STONECUTTER, false);
+
+        orientableSixDirsBlockWithItem(ModBlocks.BLOCK_PLACER, true);
+
+        horizontalBlockWithItem(ModBlocks.FLUID_FILLER, true);
+
+        horizontalTwoSideBlockWithItem(ModBlocks.FILTRATION_PLANT, false);
+
+        horizontalBlockWithItem(ModBlocks.FLUID_DRAINER, true);
+
+        horizontalBlockWithItem(ModBlocks.FLUID_PUMP, false);
+
+        horizontalBlockWithItem(ModBlocks.DRAIN, true);
+
+        horizontalBlockWithItem(ModBlocks.CHARGER, true);
+        horizontalBlockWithItem(ModBlocks.ADVANCED_CHARGER, true);
+
+        horizontalBlockWithItem(ModBlocks.UNCHARGER, true);
+        horizontalBlockWithItem(ModBlocks.ADVANCED_UNCHARGER, true);
+
+        orientableSixDirsBlockWithItem(ModBlocks.MINECART_CHARGER, true);
+        orientableSixDirsBlockWithItem(ModBlocks.ADVANCED_MINECART_CHARGER, true);
+
+        orientableSixDirsBlockWithItem(ModBlocks.MINECART_UNCHARGER, true);
+        orientableSixDirsBlockWithItem(ModBlocks.ADVANCED_MINECART_UNCHARGER, true);
+
+        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_1);
+        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_2);
+        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_3);
+        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_4);
+        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_5);
+        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_6);
+
+        poweredLampBlockWithItem(ModBlocks.POWERED_LAMP);
+
+        horizontalBlockWithItem(ModBlocks.HEAT_GENERATOR, false);
+
+        horizontalBlockWithItem(ModBlocks.CRYSTAL_GROWTH_CHAMBER, false);
+
+        horizontalTwoSideBlockWithItem(ModBlocks.WEATHER_CONTROLLER, false);
+
+        horizontalTwoSideBlockWithItem(ModBlocks.TIME_CONTROLLER, false);
+
+        horizontalBlockWithItem(ModBlocks.BASIC_MACHINE_FRAME, false);
+        horizontalBlockWithItem(ModBlocks.HARDENED_MACHINE_FRAME, false);
+        horizontalBlockWithItem(ModBlocks.ADVANCED_MACHINE_FRAME, false);
+        horizontalBlockWithItem(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME, false);
+    }
+
+    private void simpleBlockWithItem(Block block, ModelFile model) {
+        simpleBlock(block, model);
+        simpleBlockItem(block, model);
     }
 
     private void cubeAllBlockWithItem(RegistryObject<? extends Block> block) {
-        ModelFile model = cubeAll(block.get());
-
-        simpleBlock(block.get(), model);
-        simpleBlockItem(block.get(), model);
+        simpleBlockWithItem(block.get(), cubeAll(block.get()));
     }
 
-    private void solarPanelBlockWithItem(RegistryObject<? extends Block> block) {
+    private void horizontalBlockWithItem(RegistryObject<? extends Block> block, boolean uniqueBottomTexture) {
+            ResourceLocation blockId = block.getId();
+
+        ModelFile model = models().
+                withExistingParent(blockId.getPath(), ModelProvider.BLOCK_FOLDER + "/cube").
+                texture("particle", "#up").
+                texture("up", getBlockTexture(block, "_top")).
+                texture("down", getBlockTexture(block, uniqueBottomTexture?"_bottom":"_top")).
+                texture("north", getBlockTexture(block, "_side")).
+                texture("south", getBlockTexture(block, "_side")).
+                texture("east", getBlockTexture(block, "_side")).
+                texture("west", getBlockTexture(block, "_side"));
+
+        simpleBlockWithItem(block.get(), model);
+    }
+
+    private void horizontalTwoSideBlockWithItem(RegistryObject<? extends Block> block, boolean uniqueBottomTexture) {
         ResourceLocation blockId = block.getId();
 
-        ModelFile solarPanel = models().
-                getBuilder(blockId.getPath()).parent(solarPanelTemplate).
+        ModelFile model = models().
+                withExistingParent(blockId.getPath(), ModelProvider.BLOCK_FOLDER + "/cube").
+                texture("particle", "#up").
+                texture("up", getBlockTexture(block, "_top")).
+                texture("down", getBlockTexture(block, uniqueBottomTexture?"_bottom":"_top")).
+                texture("north", getBlockTexture(block, "_front")).
+                texture("south", getBlockTexture(block, "_side")).
+                texture("east", getBlockTexture(block, "_side")).
+                texture("west", getBlockTexture(block, "_front"));
+
+        simpleBlockWithItem(block.get(), model);
+    }
+
+    private void orientableSixDirsBlockWithItem(RegistryObject<? extends Block> block, boolean uniqueBottomTexture) {
+        ResourceLocation blockId = block.getId();
+
+        ModelFile modelNormal = models().
+                withExistingParent(blockId.getPath(), ModelProvider.BLOCK_FOLDER + "/orientable").
                 texture("particle", "#top").
                 texture("top", getBlockTexture(block, "_top")).
+                texture("down", getBlockTexture(block, uniqueBottomTexture?"_bottom":"_top")).
+                texture("front", getBlockTexture(block, "_front")).
+                texture("side", getBlockTexture(block, "_side"));
+
+        ModelFile modelVertical = models().
+                withExistingParent(blockId.getPath() + "_vertical", ModelProvider.BLOCK_FOLDER + "/orientable").
+                element().
+                face(Direction.UP).cullface(Direction.UP).texture("#front").end().
+                face(Direction.DOWN).uvs(0, 16, 16, 0).cullface(Direction.DOWN).texture("#side").end().
+                face(Direction.NORTH).cullface(Direction.NORTH).texture("#top").end().
+                face(Direction.SOUTH).cullface(Direction.SOUTH).texture("#down").end().
+                face(Direction.WEST).rotation(ModelBuilder.FaceRotation.COUNTERCLOCKWISE_90).cullface(Direction.WEST).texture("#side").end().
+                face(Direction.EAST).rotation(ModelBuilder.FaceRotation.CLOCKWISE_90).cullface(Direction.EAST).texture("#side").end().
+                end().
+                texture("particle", "#front").
+                texture("front", getBlockTexture(block, "_front")).
+                texture("top", getBlockTexture(block, "_top")).
+                texture("down", getBlockTexture(block, uniqueBottomTexture?"_bottom":"_top")).
                 texture("side", getBlockTexture(block, "_side"));
 
         getVariantBuilder(block.get()).partialState().
-                modelForState().modelFile(solarPanel).addModel();
+                with(BlockStateProperties.FACING, Direction.UP).modelForState().modelFile(modelVertical).addModel().partialState().
+                with(BlockStateProperties.FACING, Direction.DOWN).modelForState().rotationX(180).modelFile(modelVertical).addModel().partialState().
+                with(BlockStateProperties.FACING, Direction.NORTH).modelForState().modelFile(modelNormal).addModel().partialState().
+                with(BlockStateProperties.FACING, Direction.SOUTH).modelForState().rotationY(180).modelFile(modelNormal).addModel().partialState().
+                with(BlockStateProperties.FACING, Direction.EAST).modelForState().rotationY(90).modelFile(modelNormal).addModel().partialState().
+                with(BlockStateProperties.FACING, Direction.WEST).modelForState().rotationY(270).modelFile(modelNormal).addModel().partialState();
 
-        simpleBlockItem(block.get(), solarPanel);
+        simpleBlockItem(block.get(), modelNormal);
     }
 
     private void fluidPipeBlockWithItem(RegistryObject<? extends Block> block) {
@@ -244,6 +377,94 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 transform(ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND).scale(1.01f, 1.01f, 1.01f).end().
                 transform(ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND).scale(1.01f, 1.01f, 1.01f).end().
                 transform(ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND).scale(1.01f, 1.01f, 1.01f).end().end();
+    }
+
+    private void transformerBlockWithItem(RegistryObject<? extends TransformerBlock> block) {
+        ResourceLocation blockId = block.getId();
+        String textureName = switch(block.get().getTier()) {
+            case TIER_LV -> "lv_transformer";
+            case TIER_MV -> "mv_transformer";
+            case TIER_HV -> "hv_transformer";
+            case TIER_EHV -> "ehv_transformer";
+        };
+
+        TransformerBlock.Type transformerType = block.get().getTransformerType();
+        switch(transformerType) {
+            case TYPE_1_TO_N, TYPE_N_TO_1 -> {
+                String singleSuffix = transformerType == TransformerBlock.Type.TYPE_1_TO_N?"_input":"_output";
+                String multipleSuffix = transformerType == TransformerBlock.Type.TYPE_1_TO_N?"_output":"_input";
+
+                ModelFile transformer = models().
+                        withExistingParent(blockId.getPath(), ModelProvider.BLOCK_FOLDER + "/orientable").
+                        texture("particle", "#top").
+                        texture("top", ModelProvider.BLOCK_FOLDER + "/" + textureName + multipleSuffix).
+                        texture("bottom", ModelProvider.BLOCK_FOLDER + "/" + textureName + multipleSuffix).
+                        texture("front", ModelProvider.BLOCK_FOLDER + "/" + textureName + singleSuffix).
+                        texture("side", ModelProvider.BLOCK_FOLDER + "/" + textureName + multipleSuffix);
+
+                getVariantBuilder(block.get()).partialState().
+                        with(TransformerBlock.FACING, Direction.UP).modelForState().rotationX(270).modelFile(transformer).addModel().partialState().
+                        with(TransformerBlock.FACING, Direction.DOWN).modelForState().rotationX(90).modelFile(transformer).addModel().partialState().
+                        with(TransformerBlock.FACING, Direction.NORTH).modelForState().modelFile(transformer).addModel().partialState().
+                        with(TransformerBlock.FACING, Direction.SOUTH).modelForState().rotationY(180).modelFile(transformer).addModel().partialState().
+                        with(TransformerBlock.FACING, Direction.EAST).modelForState().rotationY(90).modelFile(transformer).addModel().partialState().
+                        with(TransformerBlock.FACING, Direction.WEST).modelForState().rotationY(270).modelFile(transformer).addModel().partialState();
+
+                simpleBlockItem(block.get(), transformer);
+            }
+            case TYPE_3_TO_3 -> {
+                ModelFile transformer = models().
+                        withExistingParent(blockId.getPath(), ModelProvider.BLOCK_FOLDER + "/cube").
+                        texture("particle", "#up").
+                        texture("up", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_input").
+                        texture("down", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_output").
+                        texture("north", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_input").
+                        texture("south", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_output").
+                        texture("east", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_output").
+                        texture("west", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_input");
+
+                getVariantBuilder(block.get()).partialState().
+                        with(TransformerBlock.FACING, Direction.UP).modelForState().rotationX(270).modelFile(transformer).addModel().partialState().
+                        with(TransformerBlock.FACING, Direction.DOWN).modelForState().rotationX(90).rotationY(90).modelFile(transformer).addModel().partialState().
+                        with(TransformerBlock.FACING, Direction.NORTH).modelForState().modelFile(transformer).addModel().partialState().
+                        with(TransformerBlock.FACING, Direction.SOUTH).modelForState().rotationX(90).rotationY(180).modelFile(transformer).addModel().partialState().
+                        with(TransformerBlock.FACING, Direction.EAST).modelForState().rotationY(90).modelFile(transformer).addModel().partialState().
+                        with(TransformerBlock.FACING, Direction.WEST).modelForState().rotationX(90).rotationY(270).modelFile(transformer).addModel().partialState();
+
+                simpleBlockItem(block.get(), transformer);
+            }
+        }
+    }
+
+    private void solarPanelBlockWithItem(RegistryObject<? extends Block> block) {
+        ResourceLocation blockId = block.getId();
+
+        ModelFile solarPanel = models().
+                getBuilder(blockId.getPath()).parent(solarPanelTemplate).
+                texture("particle", "#top").
+                texture("top", getBlockTexture(block, "_top")).
+                texture("side", getBlockTexture(block, "_side"));
+
+        getVariantBuilder(block.get()).partialState().
+                modelForState().modelFile(solarPanel).addModel();
+
+        simpleBlockItem(block.get(), solarPanel);
+    }
+
+    private void poweredLampBlockWithItem(RegistryObject<? extends Block> block) {
+        ResourceLocation blockId = block.getId();
+
+        ModelFile modelOff = models().cubeAll(blockId.getPath(), getBlockTexture(block));
+        ModelFile modelOn = models().cubeAll(blockId.getPath() + "_on", getBlockTexture(block, "_on"));
+
+        VariantBlockStateBuilder blockStateBuilder = getVariantBuilder(block.get()).partialState().
+                with(BlockStateProperties.LEVEL, 0).modelForState().modelFile(modelOff).addModel();
+
+        for(int i = 1;i < 16;i++)
+                blockStateBuilder.partialState().
+                        with(BlockStateProperties.LEVEL, i).modelForState().modelFile(modelOn).addModel();
+
+        simpleBlockItem(block.get(), modelOff);
     }
 
     private ResourceLocation getBlockTexture(RegistryObject<? extends Block> block) {

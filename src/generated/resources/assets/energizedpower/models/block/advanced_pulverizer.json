@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "energizedpower:block/advanced_pulverizer_bottom",
+    "east": "energizedpower:block/advanced_pulverizer_side",
+    "north": "energizedpower:block/advanced_pulverizer_side",
+    "particle": "#up",
+    "south": "energizedpower:block/advanced_pulverizer_side",
+    "up": "energizedpower:block/advanced_pulverizer_top",
+    "west": "energizedpower:block/advanced_pulverizer_side"
+  }
+}
