@@ -364,7 +364,7 @@ public class ModAdvancedAdvancements implements ForgeAdvancementProvider.Advance
 
         Advancement energizedCrystalMatrix = addAdvancement(
                 advancementOutput, existingFileHelper, energizedGoldIngot,
-                ModItems.ENERGIZED_CRYSTAL_MATRIX, "energized_crystal_matrix", FrameType.TASK
+                ModItems.ENERGIZED_CRYSTAL_MATRIX, "energized_crystal_matrix", FrameType.CHALLENGE
         );
 
         Advancement teleporterMatrix = addAdvancement(
