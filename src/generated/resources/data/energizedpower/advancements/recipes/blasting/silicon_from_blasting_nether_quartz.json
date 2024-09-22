@@ -1,0 +1,31 @@
+{
+  "criteria": {
+    "has_the_ingredient": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:gems/quartz"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "energizedpower:blasting/silicon_from_blasting_nether_quartz"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_the_ingredient"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "energizedpower:blasting/silicon_from_blasting_nether_quartz"
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "criteria": {
+    "has_the_ingredient": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:dusts/copper"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "energizedpower:smelting/copper_ingot_from_smelting_copper_dust"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_the_ingredient"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "energizedpower:smelting/copper_ingot_from_smelting_copper_dust"
+    ]
+  }
+}
