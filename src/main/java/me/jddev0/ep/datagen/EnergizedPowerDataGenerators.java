@@ -15,7 +15,7 @@ public class EnergizedPowerDataGenerators {
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
         generator.addProvider(event.includeServer(), new ModRecipeProvider(generator));
-        //TODO enable: generator.addProvider(event.includeServer(), new ModLootTableProvider(generator));
+        generator.addProvider(event.includeServer(), new ModLootTableProvider(generator));
 
         generator.addProvider(event.includeClient(), new ModBlockStateProvider(generator, existingFileHelper));
         generator.addProvider(event.includeClient(), new ModItemModelProvider(generator, existingFileHelper));
