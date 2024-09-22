@@ -1787,7 +1787,10 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         }, new ItemStack(ModBlocks.TELEPORTER_ITEM.get()));
     }
     private void buildMiscCraftingRecipes(Consumer<FinishedRecipe> output) {
-        addShapelessCraftingRecipe(output, has(Items.BOOK), List.of(
+        addShapelessCraftingRecipe(output, InventoryChangeTrigger.TriggerInstance.hasItems(
+                Items.BOOK,
+                ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()
+        ), List.of(
                 Ingredient.of(Items.BOOK),
                 Ingredient.of(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get())
         ), new ItemStack(ModItems.ENERGIZED_POWER_BOOK.get()));
