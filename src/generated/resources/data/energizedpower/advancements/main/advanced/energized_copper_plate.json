@@ -1,0 +1,36 @@
+{
+  "parent": "energizedpower:main/advanced/energizedpower_advanced",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:plates/energized_copper"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.energized_copper_plate.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:energized_copper_plate"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.energized_copper_plate.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

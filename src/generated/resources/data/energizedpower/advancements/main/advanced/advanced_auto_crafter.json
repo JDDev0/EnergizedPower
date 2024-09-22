@@ -1,0 +1,38 @@
+{
+  "parent": "energizedpower:main/advanced/energized_gold_ingot",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:advanced_auto_crafter"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.advanced_auto_crafter.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:advanced_auto_crafter"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.advanced_auto_crafter.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
