@@ -1,8 +1,8 @@
 package me.jddev0.ep.datagen;
 
 import com.google.common.collect.ImmutableList;
-import me.jddev0.ep.datagen.adavancement.ModAdvancedAdvancements;
-import me.jddev0.ep.datagen.adavancement.ModBasicsAdvancements;
+import me.jddev0.ep.datagen.advancement.ModAdvancedAdvancements;
+import me.jddev0.ep.datagen.advancement.ModBasicsAdvancements;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.advancements.AdvancementProvider;
