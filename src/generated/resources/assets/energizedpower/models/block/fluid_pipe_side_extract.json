@@ -1,0 +1,8 @@
+{
+  "parent": "energizedpower:block/fluid_pipe_side_extract_template",
+  "textures": {
+    "fluid_pipe_side_inner": "energizedpower:block/fluid_pipe_side_inner_extract",
+    "fluid_pipe_side_outer": "energizedpower:block/fluid_pipe_side_outer_extract",
+    "particle": "energizedpower:block/fluid_pipe_side_outer_extract"
+  }
+}
