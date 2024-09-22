@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:crimson_trapdoor"
+  },
+  "output": {
+    "count": 2,
+    "item": "minecraft:crimson_planks"
+  },
+  "sawdustAmount": 3
+}

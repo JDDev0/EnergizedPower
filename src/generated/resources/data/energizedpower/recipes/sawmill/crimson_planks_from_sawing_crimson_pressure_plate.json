@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:crimson_pressure_plate"
+  },
+  "output": {
+    "item": "minecraft:crimson_planks"
+  },
+  "sawdustAmount": 2
+}
