@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    },
+    "C": {
+      "item": "energizedpower:crusher"
+    },
+    "F": {
+      "item": "energizedpower:fluid_tank_small"
+    },
+    "a": {
+      "tag": "forge:plates/advanced_alloy"
+    },
+    "c": {
+      "tag": "forge:plates/energized_copper"
+    }
+  },
+  "pattern": [
+    "aCa",
+    "FAF",
+    "cCc"
+  ],
+  "result": {
+    "item": "energizedpower:advanced_crusher"
+  }
+}

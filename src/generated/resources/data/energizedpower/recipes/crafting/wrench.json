@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "i": {
+      "tag": "forge:nuggets/iron"
+    }
+  },
+  "pattern": [
+    " I ",
+    " iI",
+    "i  "
+  ],
+  "result": {
+    "item": "energizedpower:wrench"
+  }
+}

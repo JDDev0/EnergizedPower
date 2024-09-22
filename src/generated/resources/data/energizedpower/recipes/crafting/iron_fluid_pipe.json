@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "i": {
+      "tag": "forge:plates/iron"
+    }
+  },
+  "pattern": [
+    "IiI",
+    "IiI",
+    "IiI"
+  ],
+  "result": {
+    "count": 12,
+    "item": "energizedpower:fluid_pipe"
+  }
+}

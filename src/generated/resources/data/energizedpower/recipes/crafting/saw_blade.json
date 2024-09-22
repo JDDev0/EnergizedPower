@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "i": {
+      "tag": "forge:nuggets/iron"
+    }
+  },
+  "pattern": [
+    " i ",
+    "iIi",
+    " i "
+  ],
+  "result": {
+    "item": "energizedpower:saw_blade"
+  }
+}

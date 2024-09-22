@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "R": {
+      "item": "minecraft:redstone_lamp"
+    },
+    "S": {
+      "tag": "forge:silicon"
+    }
+  },
+  "pattern": [
+    "CSC",
+    "SRS",
+    "CSC"
+  ],
+  "result": {
+    "item": "energizedpower:powered_lamp"
+  }
+}

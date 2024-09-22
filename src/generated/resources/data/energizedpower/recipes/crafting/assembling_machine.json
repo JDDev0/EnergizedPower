@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "energizedpower:basic_circuit"
+    },
+    "H": {
+      "item": "energizedpower:hardened_machine_frame"
+    },
+    "R": {
+      "tag": "forge:dusts/redstone"
+    },
+    "S": {
+      "tag": "forge:storage_blocks/silicon"
+    },
+    "i": {
+      "tag": "forge:gears/iron"
+    },
+    "s": {
+      "tag": "forge:ingots/steel"
+    }
+  },
+  "pattern": [
+    "iRi",
+    "BHB",
+    "SsS"
+  ],
+  "result": {
+    "item": "energizedpower:assembling_machine"
+  }
+}

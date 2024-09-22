@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "energizedpower:basic_fertilizer"
+    },
+    "K": {
+      "item": "minecraft:kelp"
+    },
+    "S": {
+      "item": "minecraft:sugar_cane"
+    },
+    "W": {
+      "item": "minecraft:wheat_seeds"
+    },
+    "b": {
+      "item": "minecraft:bamboo"
+    },
+    "s": {
+      "item": "minecraft:sugar"
+    }
+  },
+  "pattern": [
+    "SBK",
+    "BsB",
+    "bBW"
+  ],
+  "result": {
+    "count": 4,
+    "item": "energizedpower:good_fertilizer"
+  }
+}

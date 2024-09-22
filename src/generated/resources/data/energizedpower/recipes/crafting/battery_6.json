@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "energizedpower:battery_5"
+    },
+    "E": {
+      "tag": "forge:plates/energized_copper"
+    },
+    "T": {
+      "tag": "forge:nuggets/tin"
+    }
+  },
+  "pattern": [
+    "T T",
+    "EBE",
+    "EBE"
+  ],
+  "result": {
+    "item": "energizedpower:battery_6"
+  }
+}

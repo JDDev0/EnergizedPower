@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "energizedpower:advanced_upgrade_module"
+    },
+    "C": {
+      "tag": "forge:plates/copper"
+    },
+    "E": {
+      "item": "energizedpower:energy_capacity_upgrade_module_2"
+    },
+    "T": {
+      "tag": "forge:plates/tin"
+    },
+    "c": {
+      "tag": "minecraft:coals"
+    }
+  },
+  "pattern": [
+    "CTC",
+    "cAc",
+    "CEC"
+  ],
+  "result": {
+    "item": "energizedpower:energy_capacity_upgrade_module_3"
+  }
+}

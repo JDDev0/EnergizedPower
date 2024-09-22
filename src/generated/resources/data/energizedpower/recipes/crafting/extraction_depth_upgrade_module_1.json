@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "energizedpower:basic_upgrade_module"
+    },
+    "F": {
+      "item": "energizedpower:fluid_pipe"
+    },
+    "I": {
+      "tag": "forge:plates/iron"
+    },
+    "R": {
+      "tag": "forge:dusts/redstone"
+    }
+  },
+  "pattern": [
+    "IFI",
+    "RBR",
+    "IFI"
+  ],
+  "result": {
+    "item": "energizedpower:extraction_depth_upgrade_module_1"
+  }
+}

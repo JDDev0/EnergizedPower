@@ -1,0 +1,33 @@
+{
+  "criteria": {
+    "has_the_ingredient": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:energy_efficiency_upgrade_module_2"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "energizedpower:crafting/energy_efficiency_upgrade_module_3"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_the_ingredient"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "energizedpower:crafting/energy_efficiency_upgrade_module_3"
+    ]
+  }
+}

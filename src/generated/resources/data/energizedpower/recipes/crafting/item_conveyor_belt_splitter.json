@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "forge:cobblestone/normal"
+    },
+    "I": {
+      "tag": "forge:plates/iron"
+    },
+    "L": {
+      "item": "energizedpower:item_conveyor_belt_loader"
+    },
+    "R": {
+      "tag": "forge:dusts/redstone"
+    }
+  },
+  "pattern": [
+    "CIC",
+    "ILI",
+    "CRC"
+  ],
+  "result": {
+    "item": "energizedpower:item_conveyor_belt_splitter"
+  }
+}

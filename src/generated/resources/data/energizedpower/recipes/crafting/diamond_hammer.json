@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "M": {
+      "tag": "forge:gems/diamond"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "pattern": [
+    " M ",
+    " SM",
+    "S  "
+  ],
+  "result": {
+    "item": "energizedpower:diamond_hammer"
+  }
+}

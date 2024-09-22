@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "energizedpower:advanced_upgrade_module"
+    },
+    "C": {
+      "tag": "forge:plates/copper"
+    },
+    "E": {
+      "item": "energizedpower:energy_efficiency_upgrade_module_3"
+    },
+    "G": {
+      "tag": "forge:ingots/gold"
+    },
+    "R": {
+      "tag": "forge:ingots/redstone_alloy"
+    }
+  },
+  "pattern": [
+    "CGC",
+    "RAR",
+    "CEC"
+  ],
+  "result": {
+    "item": "energizedpower:energy_efficiency_upgrade_module_4"
+  }
+}

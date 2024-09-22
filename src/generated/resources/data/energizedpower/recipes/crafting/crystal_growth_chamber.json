@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "energizedpower:advanced_machine_frame"
+    },
+    "E": {
+      "tag": "forge:plates/energized_copper"
+    },
+    "P": {
+      "tag": "forge:plates/advanced_alloy"
+    },
+    "a": {
+      "item": "minecraft:amethyst_block"
+    }
+  },
+  "pattern": [
+    "aPa",
+    "EAE",
+    "aPa"
+  ],
+  "result": {
+    "item": "energizedpower:crystal_growth_chamber"
+  }
+}

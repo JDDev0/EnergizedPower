@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "forge:storage_blocks/copper"
+    },
+    "I": {
+      "tag": "forge:storage_blocks/iron"
+    },
+    "M": {
+      "item": "energizedpower:hardened_machine_frame"
+    },
+    "S": {
+      "tag": "forge:storage_blocks/silicon"
+    },
+    "T": {
+      "item": "energizedpower:lv_transformer_n_to_1"
+    }
+  },
+  "pattern": [
+    "CTI",
+    "SMS",
+    "CTI"
+  ],
+  "result": {
+    "item": "energizedpower:transformer_n_to_1"
+  }
+}
