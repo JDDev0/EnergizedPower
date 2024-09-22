@@ -19,7 +19,7 @@
     "description": {
       "translate": "advancements.energizedpower.energized_crystal_matrix.description"
     },
-    "frame": "task",
+    "frame": "challenge",
     "hidden": false,
     "icon": {
       "item": "energizedpower:energized_crystal_matrix"

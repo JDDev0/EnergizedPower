@@ -1,4 +1,4 @@
-// 1.19.2	2024-09-22T15:29:45.702155081	Advancements
+// 1.19.2	2024-09-22T15:30:23.408833086	Advancements
 2e0eabd250b09ca070fda2c25afef09847e0ca4f data/energizedpower/advancements/main/advanced/advanced_alloy_ingot.json
 5cf010f6a295a72201b2a5e423a6d65a4c2743d0 data/energizedpower/advancements/main/advanced/advanced_alloy_plate.json
 a037b770c9123a7016078acd142d0616ad460924 data/energizedpower/advancements/main/advanced/advanced_auto_crafter.json
@@ -31,7 +31,7 @@ bdd787ffe3de055125c04b1ca8a75706c3e49123 data/energizedpower/advancements/main/a
 1ce749d7bc77e682396cc2e71f8866fbb367b671 data/energizedpower/advancements/main/advanced/energized_copper_cable.json
 e13d160259b59d5b81c8d64ca1e2a4bb0fd1fe77 data/energizedpower/advancements/main/advanced/energized_copper_plate.json
 c4120c8f07a4e6270ec689df65d5accb3eb87fc6 data/energizedpower/advancements/main/advanced/energized_copper_wire.json
-ec39633ece72f071ce40d84a29cbdbe37b113a5a data/energizedpower/advancements/main/advanced/energized_crystal_matrix.json
+6c22d037864c7785259a6ad1a1710f4e603fc723 data/energizedpower/advancements/main/advanced/energized_crystal_matrix.json
 beede0b6a109f680711b0405ddafa2d8456a360b data/energizedpower/advancements/main/advanced/energized_crystal_matrix_cable.json
 787c313dfef14bac5062da57e04b52f4bbb450f9 data/energizedpower/advancements/main/advanced/energized_gold_cable.json
 b8d594075e129dbe1beb80e6aca57bfa166f7929 data/energizedpower/advancements/main/advanced/energized_gold_ingot.json
