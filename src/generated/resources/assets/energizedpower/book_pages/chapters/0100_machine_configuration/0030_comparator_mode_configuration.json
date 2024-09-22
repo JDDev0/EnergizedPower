@@ -1,0 +1,60 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.comparator_mode_configuration.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "black",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.comparator_mode_configuration.2"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "black",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.comparator_mode_configuration.3"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "black",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.comparator_mode_configuration.4"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n\n• "
+      }
+    ],
+    "text": ""
+  },
+  "image": [
+    "energizedpower:textures/gui/book_icons/comparator_mode_item.png",
+    "energizedpower:textures/gui/book_icons/comparator_mode_fluid.png",
+    "energizedpower:textures/gui/book_icons/comparator_mode_energy.png"
+  ]
+}

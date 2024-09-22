@@ -1,0 +1,20 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.extraction_depth_upgrades"
+      }
+    ],
+    "text": ""
+  },
+  "image": [
+    "energizedpower:textures/item/extraction_depth_upgrade_module_1.png",
+    "energizedpower:textures/item/extraction_depth_upgrade_module_2.png",
+    "energizedpower:textures/item/extraction_depth_upgrade_module_3.png",
+    "energizedpower:textures/item/extraction_depth_upgrade_module_4.png",
+    "energizedpower:textures/item/extraction_depth_upgrade_module_5.png"
+  ]
+}

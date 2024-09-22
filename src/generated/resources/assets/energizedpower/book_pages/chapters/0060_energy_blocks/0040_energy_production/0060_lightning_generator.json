@@ -1,0 +1,25 @@
+{
+  "block": "energizedpower:lightning_generator",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.lightning_generator.1"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.lightning_generator.2"
+      }
+    ],
+    "text": ""
+  }
+}

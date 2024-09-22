@@ -1,0 +1,34 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": "\n\n"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.batteries.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.batteries.2"
+      }
+    ],
+    "text": ""
+  },
+  "image": [
+    "energizedpower:textures/item/battery_1.png",
+    "energizedpower:textures/item/battery_2.png",
+    "energizedpower:textures/item/battery_3.png",
+    "energizedpower:textures/item/battery_4.png",
+    "energizedpower:textures/item/battery_5.png",
+    "energizedpower:textures/item/battery_6.png",
+    "energizedpower:textures/item/battery_7.png",
+    "energizedpower:textures/item/battery_8.png"
+  ]
+}

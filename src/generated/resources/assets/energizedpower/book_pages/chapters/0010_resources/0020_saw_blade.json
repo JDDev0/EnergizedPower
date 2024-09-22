@@ -1,0 +1,14 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.saw_blade"
+      }
+    ],
+    "text": ""
+  },
+  "image": "energizedpower:textures/item/saw_blade.png"
+}
