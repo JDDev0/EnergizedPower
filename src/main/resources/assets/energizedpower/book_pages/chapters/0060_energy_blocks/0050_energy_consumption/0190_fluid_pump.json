@@ -1,8 +1,0 @@
-{
-  "content": {
-    "translate": "book.energizedpower.page.fluid_pump",
-    "bold": true,
-    "font": "uniform"
-  },
-  "block": "energizedpower:fluid_pump"
-}

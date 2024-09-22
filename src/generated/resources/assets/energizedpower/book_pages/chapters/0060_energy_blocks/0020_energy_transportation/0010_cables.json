@@ -1,0 +1,43 @@
+{
+  "block": [
+    "energizedpower:tin_cable",
+    "energizedpower:copper_cable",
+    "energizedpower:gold_cable",
+    "energizedpower:energized_copper_cable",
+    "energizedpower:energized_gold_cable",
+    "energizedpower:energized_crystal_matrix_cable"
+  ],
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": " "
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.cables.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "text": " "
+          }
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.cables.2"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.cables.3"
+      }
+    ],
+    "text": ""
+  }
+}

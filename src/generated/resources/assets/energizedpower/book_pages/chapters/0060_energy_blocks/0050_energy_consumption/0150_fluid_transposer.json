@@ -1,0 +1,14 @@
+{
+  "block": "energizedpower:fluid_transposer",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.fluid_transposer"
+      }
+    ],
+    "text": ""
+  }
+}
