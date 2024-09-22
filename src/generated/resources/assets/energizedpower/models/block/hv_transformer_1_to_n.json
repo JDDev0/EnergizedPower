@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "energizedpower:block/hv_transformer_output",
+    "front": "energizedpower:block/hv_transformer_input",
+    "side": "energizedpower:block/hv_transformer_output",
+    "top": "energizedpower:block/hv_transformer_output"
+  }
+}
