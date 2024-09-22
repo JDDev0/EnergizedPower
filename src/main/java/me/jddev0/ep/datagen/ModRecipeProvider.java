@@ -2754,7 +2754,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 recipeId,
                 Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
                 base,
-                Ingredient.of(Items.NETHERITE_INGOT),
+                Ingredient.of(Tags.Items.INGOTS_NETHERITE),
                 output.getItem(),
                 advancementBuilder,
                 recipeId.withPrefix("recipes/")

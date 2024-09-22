@@ -1,4 +1,4 @@
-// 1.20.1	2024-09-22T11:26:57.352838228	Recipes
+// 1.20.1	2024-09-22T11:28:38.177913383	Recipes
 1fed4d16bb44e54572f7d2dee9a184558972f295 data/energizedpower/advancements/recipes/blasting/copper_ingot_from_blasting_copper_dust.json
 4e3e632d300955e895a55619505fb9c35bf817fd data/energizedpower/advancements/recipes/blasting/gold_ingot_from_blasting_gold_dust.json
 b4b30b070eccc020188f7eab932b11e8cc97dabd data/energizedpower/advancements/recipes/blasting/gold_nugget_from_blasting_golden_hammer.json
@@ -659,7 +659,7 @@ ff63795959370fc17b6d377822fd97288e8388d9 data/energizedpower/recipes/smelting/si
 002cc7d4fe7440e5715dbcbd9af46f944d16f6c3 data/energizedpower/recipes/smelting/tin_ingot_from_smelting_tin_dust.json
 3ae319ec160669c54aa9730ccad4f8f515848750 data/energizedpower/recipes/smelting/tin_ingot_from_smelting_tin_ores.json
 f5a4fc088653f1f2e8e4959e5a49234470eea9d3 data/energizedpower/recipes/smelting/wire_press_mold.json
-40ad0e59a589e321eab41f92a97e10f9ab37f491 data/energizedpower/recipes/smithing/netherite_hammer.json
+673fb26de9468c304344ae56b6bbf85a1dbb9e7f data/energizedpower/recipes/smithing/netherite_hammer.json
 1a390e1e19addcab5ff16d7d440ac01f4b4ff7a7 data/energizedpower/recipes/stone_solidifier/andesite.json
 882762de9f2e9db993ff90f2522bd7912ab5c5fb data/energizedpower/recipes/stone_solidifier/blackstone.json
 b9bf04309a7dd99df2b0db778163a62e700c9d9a data/energizedpower/recipes/stone_solidifier/cobbled_deepslate.json
