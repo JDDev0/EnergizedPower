@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#c:tin_wires",
+    "#c:copper_wires",
+    "#c:gold_wires",
+    "#c:energized_copper_wires",
+    "#c:energized_gold_wires"
+  ]
+}

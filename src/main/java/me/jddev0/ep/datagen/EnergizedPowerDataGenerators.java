@@ -9,6 +9,8 @@ public class EnergizedPowerDataGenerators implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
+        pack.addProvider(ModRegistriesProvider::new);
+
         pack.addProvider(ModRecipeProvider::new);
         //TODO enable: pack.addProvider(ModLootTableProvider::new);
 
@@ -16,10 +18,12 @@ public class EnergizedPowerDataGenerators implements DataGeneratorEntrypoint {
 
         pack.addProvider(ModBlockTagProvider::new);
         pack.addProvider(ModItemTagProvider::new);
+        pack.addProvider(ModPoiTypeTagProvider::new);
+        pack.addProvider(ModPaintingVariantTagProvider::new);
     }
 
     @Override
     public void buildRegistry(RegistryBuilder registryBuilder) {
-        //TODO worldgen & paintings
+        //TODO worldgen
     }
 }

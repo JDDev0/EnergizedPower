@@ -3,7 +3,6 @@ package me.jddev0.ep.integration.rei;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.recipe.*;
-import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.screen.*;
 import me.jddev0.ep.screen.base.EnergyStorageContainerScreen;
 import me.jddev0.ep.screen.base.IUpgradeModuleMenu;
@@ -17,6 +16,7 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.plugin.common.BuiltinPlugin;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.client.gui.screen.ingame.Generic3x3ContainerScreen;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.StonecuttingRecipe;
@@ -104,7 +104,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
 
 
         registry.add(new InWorldCategory());
-        registry.addWorkstations(InWorldCategory.CATEGORY, EntryIngredients.ofItemTag(CommonItemTags.SHEARS));
+        registry.addWorkstations(InWorldCategory.CATEGORY, EntryIngredients.ofItemTag(ConventionalItemTags.SHEARS));
 
         registry.add(new DispenserCategory());
         registry.addWorkstations(DispenserCategory.CATEGORY, EntryIngredients.of(Items.DISPENSER));

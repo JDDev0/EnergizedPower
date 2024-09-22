@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#c:tin_plates",
+    "#c:copper_plates",
+    "#c:iron_plates",
+    "#c:gold_plates",
+    "#c:advanced_alloy_plates",
+    "#c:energized_copper_plates",
+    "#c:energized_gold_plates"
+  ]
+}
