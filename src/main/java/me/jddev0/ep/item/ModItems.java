@@ -1,6 +1,6 @@
 package me.jddev0.ep.item;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
 import net.neoforged.bus.api.IEventBus;
@@ -10,7 +10,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public final class ModItems {
     private ModItems() {}
     
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(EnergizedPowerMod.MODID);
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(EPAPI.MOD_ID);
 
     public static final DeferredItem<Item> ENERGIZED_COPPER_INGOT = ITEMS.register("energized_copper_ingot",
             () -> new Item(new Item.Properties()));

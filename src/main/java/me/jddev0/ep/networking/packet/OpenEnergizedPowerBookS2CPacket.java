@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.EnergizedPowerBookScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record OpenEnergizedPowerBookS2CPacket(BlockPos pos) implements CustomPacketPayload {
     public static final Type<OpenEnergizedPowerBookS2CPacket> ID =
-            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "open_energized_power_book"));
+            new Type<>(EPAPI.id("open_energized_power_book"));
     public static final StreamCodec<RegistryFriendlyByteBuf, OpenEnergizedPowerBookS2CPacket> STREAM_CODEC =
             StreamCodec.ofMember(OpenEnergizedPowerBookS2CPacket::write, OpenEnergizedPowerBookS2CPacket::new);
 

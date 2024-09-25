@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.SetCurrentRecipeIdPacketUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record SetCurrentRecipeIdC2SPacket(BlockPos pos, ResourceLocation recipeId) implements CustomPacketPayload {
     public static final Type<SetCurrentRecipeIdC2SPacket> ID =
-            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "set_current_recipe_id"));
+            new Type<>(EPAPI.id("set_current_recipe_id"));
     public static final StreamCodec<RegistryFriendlyByteBuf, SetCurrentRecipeIdC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(SetCurrentRecipeIdC2SPacket::write, SetCurrentRecipeIdC2SPacket::new);
 

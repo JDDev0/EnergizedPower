@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.CrystalGrowthChamberBlockEntity;
 import me.jddev0.ep.recipe.CrystalGrowthChamberRecipe;
@@ -32,7 +32,7 @@ public class CrystalGrowthChamberCategory implements IRecipeCategory<RecipeHolde
     private final IDrawable icon;
 
     public CrystalGrowthChamberCategory(IGuiHelper helper) {
-        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/crystal_growth_chamber.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/crystal_growth_chamber.png");
         background = helper.createDrawable(texture, 47, 30, 98, 38);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM.get()));

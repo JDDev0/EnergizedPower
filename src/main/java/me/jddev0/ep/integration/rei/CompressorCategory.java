@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompressorCategory implements DisplayCategory<CompressorDisplay> {
-    public static final CategoryIdentifier<CompressorDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "compressor");
+    public static final CategoryIdentifier<CompressorDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "compressor");
 
     private static final int PADDING = 5;
 
@@ -45,7 +45,7 @@ public class CompressorCategory implements DisplayCategory<CompressorDisplay> {
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/compressor.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/compressor.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 47, 30, 98, 26));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().

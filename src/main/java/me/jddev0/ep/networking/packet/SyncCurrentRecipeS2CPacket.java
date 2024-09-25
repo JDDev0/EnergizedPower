@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.CurrentRecipePacketUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 public final class SyncCurrentRecipeS2CPacket<R extends Recipe<?>> implements CustomPacketPayload {
     public static final Type<SyncCurrentRecipeS2CPacket<?>> ID =
-            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "sync_current_recipe"));
+            new Type<>(EPAPI.id("sync_current_recipe"));
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncCurrentRecipeS2CPacket<?>> STREAM_CODEC =
             StreamCodec.ofMember(SyncCurrentRecipeS2CPacket::write, SyncCurrentRecipeS2CPacket::new);
 

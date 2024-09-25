@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.FluidTankBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record SetFluidTankFilterC2SPacket(BlockPos pos, FluidStack fluidFilter) implements CustomPacketPayload {
     public static final Type<SetFluidTankFilterC2SPacket> ID =
-            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "set_fluid_tank_filter"));
+            new Type<>(EPAPI.id("set_fluid_tank_filter"));
     public static final StreamCodec<RegistryFriendlyByteBuf, SetFluidTankFilterC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(SetFluidTankFilterC2SPacket::write, SetFluidTankFilterC2SPacket::new);
 

@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record ChangeComparatorModeC2SPacket(BlockPos pos) implements CustomPacketPayload {
     public static final Type<ChangeComparatorModeC2SPacket> ID =
-            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "change_comparator_mode"));
+            new Type<>(EPAPI.id("change_comparator_mode"));
     public static final StreamCodec<RegistryFriendlyByteBuf, ChangeComparatorModeC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(ChangeComparatorModeC2SPacket::write, ChangeComparatorModeC2SPacket::new);
 

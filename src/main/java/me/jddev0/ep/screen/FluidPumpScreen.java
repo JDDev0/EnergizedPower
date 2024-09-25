@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
@@ -28,8 +28,8 @@ public class FluidPumpScreen
     public FluidPumpScreen(FluidPumpMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.fluid_pump.process_energy_left.txt",
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/fluid_pump.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/fluid_pump.png"));
+                EPAPI.id("textures/gui/container/fluid_pump.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/fluid_pump.png"));
 
         imageWidth = 230;
         energyMeterU = 230;

@@ -1,6 +1,6 @@
 package me.jddev0.ep.paintings;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -21,7 +21,7 @@ public final class ModPaintingVariants {
 
     public static ResourceKey<PaintingVariant> registerKey(String name) {
         return ResourceKey.create(Registries.PAINTING_VARIANT,
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, name));
+                EPAPI.id(name));
     }
 
     private static void register(BootstrapContext<PaintingVariant> context, ResourceKey<PaintingVariant> key,

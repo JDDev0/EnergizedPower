@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record FluidSyncS2CPacket(int tank, FluidStack fluidStack, int capacity, BlockPos pos) implements CustomPacketPayload {
     public static final Type<FluidSyncS2CPacket> ID =
-            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "fluid_sync"));
+            new Type<>(EPAPI.id("fluid_sync"));
     public static final StreamCodec<RegistryFriendlyByteBuf, FluidSyncS2CPacket> STREAM_CODEC =
             StreamCodec.ofMember(FluidSyncS2CPacket::write, FluidSyncS2CPacket::new);
 

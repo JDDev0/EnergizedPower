@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record ChangeRedstoneModeC2SPacket(BlockPos pos) implements CustomPacketPayload {
     public static final Type<ChangeRedstoneModeC2SPacket> ID =
-            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "change_redstone_mode"));
+            new Type<>(EPAPI.id("change_redstone_mode"));
     public static final StreamCodec<RegistryFriendlyByteBuf, ChangeRedstoneModeC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(ChangeRedstoneModeC2SPacket::write, ChangeRedstoneModeC2SPacket::new);
 

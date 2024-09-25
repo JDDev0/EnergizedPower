@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen.advancement;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.component.ModDataComponentTypes;
 import me.jddev0.ep.item.ModItems;
@@ -36,7 +36,7 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
                         Items.COPPER_INGOT,
                         Component.translatable("advancements.energizedpower.energizedpower_basics.title"),
                         Component.translatable("advancements.energizedpower.energizedpower_basics.description"),
-                        ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/block/basic_machine_frame_top.png"),
+                        EPAPI.id("textures/block/basic_machine_frame_top.png"),
                         AdvancementType.TASK,
                         true,
                         false,
@@ -46,8 +46,7 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
                         InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
                                 Tags.Items.INGOTS_COPPER
                         ))).
-                save(advancementOutput, ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID,
-                                "main/basics/energizedpower_basics"), existingFileHelper);
+                save(advancementOutput, EPAPI.id("main/basics/energizedpower_basics"), existingFileHelper);
 
         AdvancementHolder energizedPowerBook = addAdvancement(
                 advancementOutput, existingFileHelper, energizedPowerBasics,
@@ -592,7 +591,6 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
                         false
                 ).
                 addCriterion("has_the_item", trigger).
-                save(advancementOutput, ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID,
-                        "main/basics/" + advancementId), existingFileHelper);
+                save(advancementOutput, EPAPI.id("main/basics/" + advancementId), existingFileHelper);
     }
 }

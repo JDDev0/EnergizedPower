@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.SawmillRecipe;
 import mezz.jei.api.constants.VanillaTypes;
@@ -26,7 +26,7 @@ public class SawmillCategory implements IRecipeCategory<RecipeHolder<SawmillReci
     private final IDrawable icon;
 
     public SawmillCategory(IGuiHelper helper) {
-        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/sawmill.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/sawmill.png");
         background = helper.createDrawable(texture, 42, 30, 109, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.SAWMILL_ITEM.get()));

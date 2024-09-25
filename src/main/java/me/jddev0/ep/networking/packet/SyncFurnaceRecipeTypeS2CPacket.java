@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.FurnaceRecipeTypePacketUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class SyncFurnaceRecipeTypeS2CPacket implements CustomPacketPayload {
     public static final Type<SyncFurnaceRecipeTypeS2CPacket> ID =
-            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "sync_furnace_recipe_type"));
+            new Type<>(EPAPI.id("sync_furnace_recipe_type"));
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncFurnaceRecipeTypeS2CPacket> STREAM_CODEC =
             StreamCodec.ofMember(SyncFurnaceRecipeTypeS2CPacket::write, SyncFurnaceRecipeTypeS2CPacket::new);
 

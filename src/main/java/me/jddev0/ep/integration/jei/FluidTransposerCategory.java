@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.recipe.FluidTransposerRecipe;
@@ -22,9 +22,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.fluids.FluidStack;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<FluidTransposerRecipe>> {
     public static final RecipeType<RecipeHolder<FluidTransposerRecipe>> TYPE = RecipeType.createFromVanilla(FluidTransposerRecipe.Type.INSTANCE);
 
@@ -33,7 +30,7 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
     private final IDrawable icon;
 
     public FluidTransposerCategory(IGuiHelper helper) {
-        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
         backgroundEmptying = helper.createDrawable(texture, 1, 133, 143, 26);
         backgroundFilling = helper.createDrawable(texture, 1, 161, 143, 26);
 

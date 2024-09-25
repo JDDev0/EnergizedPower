@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -15,8 +15,8 @@ public class AssemblingMachineScreen
     public AssemblingMachineScreen(AssemblingMachineMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/assembling_machine.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/assembling_machine.png"));
+                EPAPI.id("textures/gui/container/assembling_machine.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/assembling_machine.png"));
 
         imageHeight = 170;
         inventoryLabelY = imageHeight - 94;

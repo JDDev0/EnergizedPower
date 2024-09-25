@@ -1,6 +1,6 @@
 package me.jddev0.ep.world;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -39,6 +39,6 @@ public final class ModStructureSets {
 
     public static ResourceKey<StructureSet> registerKey(String name) {
         return ResourceKey.create(Registries.STRUCTURE_SET,
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, name));
+                EPAPI.id(name));
     }
 }

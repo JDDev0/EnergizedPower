@@ -1,7 +1,7 @@
 package me.jddev0.ep.component;
 
 import com.mojang.serialization.Codec;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -17,7 +17,7 @@ import java.util.function.UnaryOperator;
 public final class ModDataComponentTypes {
     private ModDataComponentTypes() {}
 
-    public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, EnergizedPowerMod.MODID);
+    public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, EPAPI.MOD_ID);
 
     public static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> registerDataComponentType(
             String name, Supplier<UnaryOperator<DataComponentType.Builder<T>>> builderOperator) {

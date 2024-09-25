@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetWeatherFromWeatherControllerC2SPacket;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageContainerScreen;
@@ -21,8 +21,8 @@ public class WeatherControllerScreen
         extends UpgradableEnergyStorageContainerScreen<WeatherControllerMenu> {
     public WeatherControllerScreen(WeatherControllerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/weather_controller.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_duration.png"));
+                EPAPI.id("textures/gui/container/weather_controller.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/1_duration.png"));
     }
 
     @Override

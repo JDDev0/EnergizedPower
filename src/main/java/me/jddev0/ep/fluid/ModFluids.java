@@ -1,6 +1,6 @@
 package me.jddev0.ep.fluid;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.ModItems;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -22,7 +22,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public final class ModFluids {
     private ModFluids() {}
 
-    public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(BuiltInRegistries.FLUID, EnergizedPowerMod.MODID);
+    public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(BuiltInRegistries.FLUID, EPAPI.MOD_ID);
 
     public static final DeferredHolder<Fluid, FlowingFluid> DIRTY_WATER = FLUIDS.register("dirty_water",
             () -> new BaseFlowingFluid.Source(ModFluids.DIRTY_WATER_PROPS));

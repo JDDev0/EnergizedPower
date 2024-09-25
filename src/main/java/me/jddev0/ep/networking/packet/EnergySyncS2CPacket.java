@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record EnergySyncS2CPacket(int energy, int capacity, BlockPos pos) implements CustomPacketPayload {
     public static final Type<EnergySyncS2CPacket> ID =
-            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "energy_sync"));
+            new Type<>(EPAPI.id("energy_sync"));
     public static final StreamCodec<RegistryFriendlyByteBuf, EnergySyncS2CPacket> STREAM_CODEC =
             StreamCodec.ofMember(EnergySyncS2CPacket::write, EnergySyncS2CPacket::new);
 

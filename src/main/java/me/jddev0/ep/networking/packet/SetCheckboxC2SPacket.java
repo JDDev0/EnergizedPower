@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record SetCheckboxC2SPacket(BlockPos pos, int checkboxId, boolean checked) implements CustomPacketPayload {
     public static final Type<SetCheckboxC2SPacket> ID =
-            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "set_checkbox"));
+            new Type<>(EPAPI.id("set_checkbox"));
     public static final StreamCodec<RegistryFriendlyByteBuf, SetCheckboxC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(SetCheckboxC2SPacket::write, SetCheckboxC2SPacket::new);
 

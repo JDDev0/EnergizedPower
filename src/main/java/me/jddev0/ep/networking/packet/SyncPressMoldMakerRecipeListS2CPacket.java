@@ -1,7 +1,7 @@
 package me.jddev0.ep.networking.packet;
 
 import com.mojang.datafixers.util.Pair;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.PressMoldMakerBlockEntity;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import net.minecraft.core.BlockPos;
@@ -20,7 +20,7 @@ import java.util.stream.IntStream;
 
 public final class SyncPressMoldMakerRecipeListS2CPacket implements CustomPacketPayload {
     public static final Type<SyncPressMoldMakerRecipeListS2CPacket> ID =
-            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "sync_press_mold_maker_recipe_list"));
+            new Type<>(EPAPI.id("sync_press_mold_maker_recipe_list"));
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncPressMoldMakerRecipeListS2CPacket> STREAM_CODEC =
             StreamCodec.ofMember(SyncPressMoldMakerRecipeListS2CPacket::write, SyncPressMoldMakerRecipeListS2CPacket::new);
 

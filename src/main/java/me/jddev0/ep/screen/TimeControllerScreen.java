@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetTimeFromTimeControllerC2SPacket;
@@ -23,7 +23,7 @@ import java.util.Optional;
 public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeControllerMenu> {
     public TimeControllerScreen(TimeControllerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/time_controller.png"));
+                EPAPI.id("textures/gui/container/time_controller.png"));
     }
 
     @Override

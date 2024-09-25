@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.TeleporterBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record UseTeleporterC2SPacket(BlockPos pos) implements CustomPacketPayload {
     public static final Type<UseTeleporterC2SPacket> ID =
-            new Type<>(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "use_teleporter"));
+            new Type<>(EPAPI.id("use_teleporter"));
     public static final StreamCodec<RegistryFriendlyByteBuf, UseTeleporterC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(UseTeleporterC2SPacket::write, UseTeleporterC2SPacket::new);
 

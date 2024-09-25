@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen.base;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -19,8 +19,7 @@ import java.util.Optional;
 public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractContainerMenu & IEnergyStorageMenu>
         extends EnergyStorageContainerScreen<T> {
     protected final ResourceLocation CONFIGURATION_ICONS_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID,
-                    "textures/gui/machine_configuration/configuration_buttons.png");
+            EPAPI.id("textures/gui/machine_configuration/configuration_buttons.png");
     protected final ResourceLocation UPGRADE_VIEW_TEXTURE;
 
     public UpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,

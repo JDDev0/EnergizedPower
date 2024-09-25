@@ -1,7 +1,7 @@
 package me.jddev0.ep.event;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.EnergizedPowerBookItem;
 import me.jddev0.ep.item.ModItems;
@@ -38,7 +38,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import java.util.List;
 import java.util.Optional;
 
-@EventBusSubscriber(modid = EnergizedPowerMod.MODID)
+@EventBusSubscriber(modid = EPAPI.MOD_ID)
 public class ModEvents {
     @SubscribeEvent
     public static void addCustomTrades(VillagerTradesEvent event) {

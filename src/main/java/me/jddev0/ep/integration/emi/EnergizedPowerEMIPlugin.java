@@ -5,7 +5,7 @@ import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.stack.EmiStack;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.recipe.*;
@@ -166,12 +166,12 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
             registry.addRecipe(new FluidTransposerEMIRecipe(recipe));
 
         registry.addRecipe(new DispenserEMIRecipe(new DispenserEMIRecipe.DispenserRecipe(
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "dispenser/energizedpower/cable_insulator"),
+                EPAPI.id("dispenser/energizedpower/cable_insulator"),
                 Ingredient.of(Tags.Items.TOOLS_SHEAR), Ingredient.of(ItemTags.WOOL),
                 new ItemStack(ModItems.CABLE_INSULATOR.get(), 18))));
 
         registry.addRecipe(new InWorldEMIRecipe(new InWorldEMIRecipe.InWorldRecipe(
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "in_world_crafting/energizedpower/cable_insulator"),
+                EPAPI.id("in_world_crafting/energizedpower/cable_insulator"),
                 Ingredient.of(Tags.Items.TOOLS_SHEAR), Ingredient.of(ItemTags.WOOL),
                 new ItemStack(ModItems.CABLE_INSULATOR.get(), 18))));
     }

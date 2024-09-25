@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.paintings.ModPaintingVariants;
 import me.jddev0.ep.world.*;
 import net.minecraft.core.HolderLookup;
@@ -24,6 +24,6 @@ public class ModRegistriesProvider extends DatapackBuiltinEntriesProvider {
             add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers::bootstrap);
 
     public ModRegistriesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(output, lookupProvider, BUILDER, Set.of(EnergizedPowerMod.MODID));
+        super(output, lookupProvider, BUILDER, Set.of(EPAPI.MOD_ID));
     }
 }

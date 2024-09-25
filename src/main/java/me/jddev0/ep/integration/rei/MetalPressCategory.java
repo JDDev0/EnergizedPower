@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MetalPressCategory implements DisplayCategory<MetalPressDisplay> {
-    public static final CategoryIdentifier<MetalPressDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "metal_press");
+    public static final CategoryIdentifier<MetalPressDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "metal_press");
 
     private static final int PADDING = 5;
 
@@ -45,7 +45,7 @@ public class MetalPressCategory implements DisplayCategory<MetalPressDisplay> {
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/metal_press.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/metal_press.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 47, 22, 98, 34));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 13)).disableBackground().markInput().

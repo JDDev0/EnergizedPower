@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.paintings.ModPaintingVariants;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 public class ModPaintingVariantTagProvider extends PaintingVariantTagsProvider {
     public ModPaintingVariantTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
                                          @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, EnergizedPowerMod.MODID, existingFileHelper);
+        super(output, lookupProvider, EPAPI.MOD_ID, existingFileHelper);
     }
 
     @Override

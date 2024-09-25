@@ -2,7 +2,7 @@ package me.jddev0.ep;
 
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.logging.LogUtils;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.behavior.ModBlockBehaviors;
 import me.jddev0.ep.block.entity.ModBlockEntities;
@@ -57,13 +57,9 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
-import org.slf4j.Logger;
 
-@Mod(EnergizedPowerMod.MODID)
+@Mod(EPAPI.MOD_ID)
 public class EnergizedPowerMod {
-    public static final String MODID = "energizedpower";
-    private static final Logger LOGGER = LogUtils.getLogger();
-
     public EnergizedPowerMod(IEventBus modEventBus) {
         ModConfigs.registerConfigs(true);
 
@@ -370,18 +366,18 @@ public class EnergizedPowerMod {
         ModBlockEntities.registerCapabilities(event);
     }
 
-    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = EPAPI.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             ModConfigs.registerConfigs(false);
 
             event.enqueueWork(() -> {
-                ItemProperties.registerGeneric(ResourceLocation.fromNamespaceAndPath(MODID, "active"), (itemStack, level, entity, seed) -> {
+                ItemProperties.registerGeneric(EPAPI.id("active"), (itemStack, level, entity, seed) -> {
                     Item item = itemStack.getItem();
                     return (item instanceof ActivatableItem && ((ActivatableItem)item).isActive(itemStack))?1.f:0.f;
                 });
-                ItemProperties.registerGeneric(ResourceLocation.fromNamespaceAndPath(MODID, "working"), (itemStack, level, entity, seed) -> {
+                ItemProperties.registerGeneric(EPAPI.id("working"), (itemStack, level, entity, seed) -> {
                     Item item = itemStack.getItem();
                     return (item instanceof WorkingItem && ((WorkingItem)item).isWorking(itemStack))?1.f:0.f;
                 });

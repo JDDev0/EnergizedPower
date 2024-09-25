@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.EnergizerBlockEntity;
 import me.jddev0.ep.recipe.EnergizerRecipe;
@@ -24,14 +24,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class EnergizerCategory implements IRecipeCategory<RecipeHolder<EnergizerRecipe>> {
-    public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "energizer");
+    public static final ResourceLocation UID = EPAPI.id("energizer");
     public static final RecipeType<RecipeHolder<EnergizerRecipe>> TYPE = RecipeType.createFromVanilla(EnergizerRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public EnergizerCategory(IGuiHelper helper) {
-        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/container/energizer.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/energizer.png");
         background = helper.createDrawable(texture, 31, 18, 114, 50);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.ENERGIZER_ITEM.get()));

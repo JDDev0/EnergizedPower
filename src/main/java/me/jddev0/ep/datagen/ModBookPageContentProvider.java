@@ -1,7 +1,7 @@
 package me.jddev0.ep.datagen;
 
 import com.mojang.datafixers.util.Pair;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.datagen.generators.PageContent;
 import me.jddev0.ep.datagen.generators.PageContentProvider;
@@ -39,7 +39,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
 
     public ModBookPageContentProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
                                       ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, EnergizedPowerMod.MODID, existingFileHelper);
+        super(output, lookupProvider, EPAPI.MOD_ID, existingFileHelper);
     }
 
     @Override
@@ -169,7 +169,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                         Component.literal("\n\n").
                                 withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).
                                 append(backToTableOfContentComponent(mainTableOfContentPageId))
-                ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energized_copper_ingot.png"));
+                ), EPAPI.id("textures/item/energized_copper_ingot.png"));
         tableOfContentsEntries.get(mainTableOfContentPageId).add(Pair.of(resourcesChapterTitle, resourcesChapterPage));
 
         addSimplePage(pageId("cable_insulator"), Component.empty().append(
@@ -181,12 +181,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.cable_insulator.3").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/cable_insulator.png"));
+        ), EPAPI.id("textures/item/cable_insulator.png"));
 
         addSimplePage(pageId("saw_blade"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.saw_blade").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/saw_blade.png"));
+        ), EPAPI.id("textures/item/saw_blade.png"));
 
         addSimplePage(pageId("silicon"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.silicon.1").
@@ -194,7 +194,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.silicon.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/silicon.png"));
+        ), EPAPI.id("textures/item/silicon.png"));
 
         addSimplePage(pageId("sawdust"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.sawdust.1").
@@ -202,36 +202,36 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.sawdust.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/sawdust.png"));
+        ), EPAPI.id("textures/item/sawdust.png"));
 
         addSimplePage(pageId("fertilizers"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.fertilizers").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/basic_fertilizer.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/good_fertilizer.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/advanced_fertilizer.png")
+                EPAPI.id("textures/item/basic_fertilizer.png"),
+                EPAPI.id("textures/item/good_fertilizer.png"),
+                EPAPI.id("textures/item/advanced_fertilizer.png")
         });
 
         addSimplePage(pageId("ore_dusts"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.ore_dusts").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/tin_dust.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/copper_dust.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/iron_dust.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/gold_dust.png")
+                EPAPI.id("textures/item/tin_dust.png"),
+                EPAPI.id("textures/item/copper_dust.png"),
+                EPAPI.id("textures/item/iron_dust.png"),
+                EPAPI.id("textures/item/gold_dust.png")
         });
 
         addSimplePage(pageId("charcoal_dust"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.charcoal_dust").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/charcoal_dust.png"));
+        ), EPAPI.id("textures/item/charcoal_dust.png"));
 
         addSimplePage(pageId("charcoal_filter"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.charcoal_filter").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/charcoal_filter.png"));
+        ), EPAPI.id("textures/item/charcoal_filter.png"));
 
         addSimplePage(pageId("plates"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.plates.1").
@@ -240,22 +240,22 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.plates.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/tin_plate.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/copper_plate.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/iron_plate.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/gold_plate.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/advanced_alloy_plate.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energized_copper_plate.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energized_gold_plate.png")
+                EPAPI.id("textures/item/tin_plate.png"),
+                EPAPI.id("textures/item/copper_plate.png"),
+                EPAPI.id("textures/item/iron_plate.png"),
+                EPAPI.id("textures/item/gold_plate.png"),
+                EPAPI.id("textures/item/advanced_alloy_plate.png"),
+                EPAPI.id("textures/item/energized_copper_plate.png"),
+                EPAPI.id("textures/item/energized_gold_plate.png")
         });
 
         addSimplePage(pageId("alloys"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.alloys").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/steel_ingot.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/redstone_alloy_ingot.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/advanced_alloy_ingot.png")
+                EPAPI.id("textures/item/steel_ingot.png"),
+                EPAPI.id("textures/item/redstone_alloy_ingot.png"),
+                EPAPI.id("textures/item/advanced_alloy_ingot.png")
         });
 
         addSimplePage(pageId("metal_products"), Component.empty().append(
@@ -265,23 +265,23 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.metal_products.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/iron_gear.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/iron_rod.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/tin_wire.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/copper_wire.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/gold_wire.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energized_copper_wire.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energized_gold_wire.png")
+                EPAPI.id("textures/item/iron_gear.png"),
+                EPAPI.id("textures/item/iron_rod.png"),
+                EPAPI.id("textures/item/tin_wire.png"),
+                EPAPI.id("textures/item/copper_wire.png"),
+                EPAPI.id("textures/item/gold_wire.png"),
+                EPAPI.id("textures/item/energized_copper_wire.png"),
+                EPAPI.id("textures/item/energized_gold_wire.png")
         });
 
         addSimplePage(pageId("circuits"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.circuits").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/basic_circuit.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/advanced_circuit.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/processing_unit.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/teleporter_processing_unit.png")
+                EPAPI.id("textures/item/basic_circuit.png"),
+                EPAPI.id("textures/item/advanced_circuit.png"),
+                EPAPI.id("textures/item/processing_unit.png"),
+                EPAPI.id("textures/item/teleporter_processing_unit.png")
         });
 
         addSimplePage(pageId("energized_copper_ingot"), Component.empty().append(
@@ -296,17 +296,17 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.energized_copper_ingot.4").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energized_copper_ingot.png"));
+        ), EPAPI.id("textures/item/energized_copper_ingot.png"));
 
         addSimplePage(pageId("energized_gold_ingot"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.energized_gold_ingot").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energized_gold_ingot.png"));
+        ), EPAPI.id("textures/item/energized_gold_ingot.png"));
 
         addSimplePage(pageId("energized_crystal_matrix"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.energized_crystal_matrix").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energized_crystal_matrix.png"));
+        ), EPAPI.id("textures/item/energized_crystal_matrix.png"));
     }
     private void registerUpgradesChapter() {
         chapterId("upgrades");
@@ -321,40 +321,40 @@ public class ModBookPageContentProvider extends PageContentProvider {
                         Component.literal("\n\n").
                                 withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).
                                 append(backToTableOfContentComponent(mainTableOfContentPageId))
-                ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/speed_upgrade_module_1.png"));
+                ), EPAPI.id("textures/item/speed_upgrade_module_1.png"));
         tableOfContentsEntries.get(mainTableOfContentPageId).add(Pair.of(upgradesChapterTitle, upgradesChapterPage));
 
         addSimplePage(pageId("speed_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.speed_upgrades").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/speed_upgrade_module_1.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/speed_upgrade_module_2.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/speed_upgrade_module_3.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/speed_upgrade_module_4.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/speed_upgrade_module_5.png")
+                EPAPI.id("textures/item/speed_upgrade_module_1.png"),
+                EPAPI.id("textures/item/speed_upgrade_module_2.png"),
+                EPAPI.id("textures/item/speed_upgrade_module_3.png"),
+                EPAPI.id("textures/item/speed_upgrade_module_4.png"),
+                EPAPI.id("textures/item/speed_upgrade_module_5.png")
         });
 
         addSimplePage(pageId("energy_efficiency_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.energy_efficiency_upgrades").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energy_efficiency_upgrade_module_1.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energy_efficiency_upgrade_module_2.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energy_efficiency_upgrade_module_3.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energy_efficiency_upgrade_module_4.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energy_efficiency_upgrade_module_5.png")
+                EPAPI.id("textures/item/energy_efficiency_upgrade_module_1.png"),
+                EPAPI.id("textures/item/energy_efficiency_upgrade_module_2.png"),
+                EPAPI.id("textures/item/energy_efficiency_upgrade_module_3.png"),
+                EPAPI.id("textures/item/energy_efficiency_upgrade_module_4.png"),
+                EPAPI.id("textures/item/energy_efficiency_upgrade_module_5.png")
         });
 
         addSimplePage(pageId("energy_capacity_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.energy_capacity_upgrades").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energy_capacity_upgrade_module_1.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energy_capacity_upgrade_module_2.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energy_capacity_upgrade_module_3.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energy_capacity_upgrade_module_4.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energy_capacity_upgrade_module_5.png")
+                EPAPI.id("textures/item/energy_capacity_upgrade_module_1.png"),
+                EPAPI.id("textures/item/energy_capacity_upgrade_module_2.png"),
+                EPAPI.id("textures/item/energy_capacity_upgrade_module_3.png"),
+                EPAPI.id("textures/item/energy_capacity_upgrade_module_4.png"),
+                EPAPI.id("textures/item/energy_capacity_upgrade_module_5.png")
         });
 
         addSimplePage(pageId("duration_upgrades"), Component.empty().append(
@@ -364,49 +364,49 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.duration_upgrades.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/duration_upgrade_module_1.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/duration_upgrade_module_2.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/duration_upgrade_module_3.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/duration_upgrade_module_4.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/duration_upgrade_module_5.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/duration_upgrade_module_6.png")
+                EPAPI.id("textures/item/duration_upgrade_module_1.png"),
+                EPAPI.id("textures/item/duration_upgrade_module_2.png"),
+                EPAPI.id("textures/item/duration_upgrade_module_3.png"),
+                EPAPI.id("textures/item/duration_upgrade_module_4.png"),
+                EPAPI.id("textures/item/duration_upgrade_module_5.png"),
+                EPAPI.id("textures/item/duration_upgrade_module_6.png")
         });
 
         addSimplePage(pageId("range_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.range_upgrades").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/range_upgrade_module_1.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/range_upgrade_module_2.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/range_upgrade_module_3.png")
+                EPAPI.id("textures/item/range_upgrade_module_1.png"),
+                EPAPI.id("textures/item/range_upgrade_module_2.png"),
+                EPAPI.id("textures/item/range_upgrade_module_3.png")
         });
 
         addSimplePage(pageId("extraction_depth_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.extraction_depth_upgrades").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/extraction_depth_upgrade_module_1.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/extraction_depth_upgrade_module_2.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/extraction_depth_upgrade_module_3.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/extraction_depth_upgrade_module_4.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/extraction_depth_upgrade_module_5.png")
+                EPAPI.id("textures/item/extraction_depth_upgrade_module_1.png"),
+                EPAPI.id("textures/item/extraction_depth_upgrade_module_2.png"),
+                EPAPI.id("textures/item/extraction_depth_upgrade_module_3.png"),
+                EPAPI.id("textures/item/extraction_depth_upgrade_module_4.png"),
+                EPAPI.id("textures/item/extraction_depth_upgrade_module_5.png")
         });
 
         addSimplePage(pageId("furnace_mode_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.furnace_mode_upgrades").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/blast_furnace_upgrade_module.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/smoker_upgrade_module.png")
+                EPAPI.id("textures/item/blast_furnace_upgrade_module.png"),
+                EPAPI.id("textures/item/smoker_upgrade_module.png")
         });
 
         addSimplePage(pageId("moon_light_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.moon_light_upgrades").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/moon_light_upgrade_module_1.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/moon_light_upgrade_module_2.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/moon_light_upgrade_module_3.png")
+                EPAPI.id("textures/item/moon_light_upgrade_module_1.png"),
+                EPAPI.id("textures/item/moon_light_upgrade_module_2.png"),
+                EPAPI.id("textures/item/moon_light_upgrade_module_3.png")
         });
     }
     private void registerToolsChapter() {
@@ -422,19 +422,19 @@ public class ModBookPageContentProvider extends PageContentProvider {
                         Component.literal("\n\n").
                                 withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).
                                 append(backToTableOfContentComponent(mainTableOfContentPageId))
-                ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/stone_hammer.png"));
+                ), EPAPI.id("textures/item/stone_hammer.png"));
         tableOfContentsEntries.get(mainTableOfContentPageId).add(Pair.of(toolsChapterTitle, toolsChapterPage));
 
         addSimplePage(pageId("hammers"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.hammers").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/wooden_hammer.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/stone_hammer.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/iron_hammer.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/golden_hammer.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/diamond_hammer.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/netherite_hammer.png")
+                EPAPI.id("textures/item/wooden_hammer.png"),
+                EPAPI.id("textures/item/stone_hammer.png"),
+                EPAPI.id("textures/item/iron_hammer.png"),
+                EPAPI.id("textures/item/golden_hammer.png"),
+                EPAPI.id("textures/item/diamond_hammer.png"),
+                EPAPI.id("textures/item/netherite_hammer.png")
         });
 
         addSimplePage(pageId("cutters"), Component.empty().append(
@@ -443,12 +443,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.cutters.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/cutter.png"));
+        ), EPAPI.id("textures/item/cutter.png"));
 
         addSimplePage(pageId("wrench"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.wrench").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/wrench.png"));
+        ), EPAPI.id("textures/item/wrench.png"));
     }
     private void registerWorkbenchesChapter() {
         chapterId("workbenches");
@@ -510,7 +510,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.inventory_coal_engine.4").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/inventory_coal_engine_on.png"));
+        ), EPAPI.id("textures/item/inventory_coal_engine_on.png"));
 
         addSimplePage(pageId("inventory_charger"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.inventory_charger.1").
@@ -518,12 +518,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.inventory_charger.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/inventory_charger.png"));
+        ), EPAPI.id("textures/item/inventory_charger.png"));
 
         addSimplePage(pageId("inventory_teleporter"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.inventory_teleporter").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/inventory_teleporter.png"));
+        ), EPAPI.id("textures/item/inventory_teleporter.png"));
 
         addSimplePage(pageId("energy_analyzer"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.energy_analyzer.1").
@@ -531,7 +531,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.energy_analyzer.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/energy_analyzer.png"));
+        ), EPAPI.id("textures/item/energy_analyzer.png"));
 
         addSimplePage(pageId("fluid_analyzer"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.fluid_analyzer.1").
@@ -539,7 +539,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.fluid_analyzer.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/fluid_analyzer.png"));
+        ), EPAPI.id("textures/item/fluid_analyzer.png"));
 
         addSimplePage(pageId("batteries"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.batteries.1").
@@ -548,14 +548,14 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.batteries.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/battery_1.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/battery_2.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/battery_3.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/battery_4.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/battery_5.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/battery_6.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/battery_7.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/battery_8.png")
+                EPAPI.id("textures/item/battery_1.png"),
+                EPAPI.id("textures/item/battery_2.png"),
+                EPAPI.id("textures/item/battery_3.png"),
+                EPAPI.id("textures/item/battery_4.png"),
+                EPAPI.id("textures/item/battery_5.png"),
+                EPAPI.id("textures/item/battery_6.png"),
+                EPAPI.id("textures/item/battery_7.png"),
+                EPAPI.id("textures/item/battery_8.png")
         });
     }
 
@@ -757,9 +757,9 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.solar_cells.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/basic_solar_cell.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/advanced_solar_cell.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/reinforced_advanced_solar_cell.png")
+                EPAPI.id("textures/item/basic_solar_cell.png"),
+                EPAPI.id("textures/item/advanced_solar_cell.png"),
+                EPAPI.id("textures/item/reinforced_advanced_solar_cell.png")
         });
 
         addSimplePage(pageId("solar_panels"), Component.empty().append(
@@ -1057,7 +1057,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.teleporter_matrix.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/teleporter_matrix.png"));
+        ), EPAPI.id("textures/item/teleporter_matrix.png"));
 
         addSimplePage(pageId("teleporter"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.teleporter.1").
@@ -1255,7 +1255,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.dirty_water.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/dirty_water_bucket.png"));
+        ), EPAPI.id("textures/item/dirty_water_bucket.png"));
     }
     private void registerMachineConfigurationChapter() {
         chapterId("machine_configuration");
@@ -1276,7 +1276,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         addSimplePage(pageId("upgrade_configuration"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.upgrade_configuration").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/book_icons/upgrade_view.png"));
+        ), EPAPI.id("textures/gui/book_icons/upgrade_view.png"));
 
         addSimplePage(pageId("redstone_mode_configuration"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.redstone_mode_configuration.1").
@@ -1300,9 +1300,9 @@ public class ModBookPageContentProvider extends PageContentProvider {
                                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
                         )
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/book_icons/redstone_mode_ignore.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/book_icons/redstone_mode_high.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/book_icons/redstone_mode_low.png")
+                EPAPI.id("textures/gui/book_icons/redstone_mode_ignore.png"),
+                EPAPI.id("textures/gui/book_icons/redstone_mode_high.png"),
+                EPAPI.id("textures/gui/book_icons/redstone_mode_low.png")
         });
 
         addSimplePage(pageId("comparator_mode_configuration"), Component.empty().append(
@@ -1327,9 +1327,9 @@ public class ModBookPageContentProvider extends PageContentProvider {
                                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
                         )
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/book_icons/comparator_mode_item.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/book_icons/comparator_mode_fluid.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/gui/book_icons/comparator_mode_energy.png")
+                EPAPI.id("textures/gui/book_icons/comparator_mode_item.png"),
+                EPAPI.id("textures/gui/book_icons/comparator_mode_fluid.png"),
+                EPAPI.id("textures/gui/book_icons/comparator_mode_energy.png")
         });
     }
     private void registerEntitiesChapter() {
@@ -1352,8 +1352,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.battery_box_minecarts").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new ResourceLocation[] {
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/battery_box_minecart.png"),
-                ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "textures/item/advanced_battery_box_minecart.png")
+                EPAPI.id("textures/item/battery_box_minecart.png"),
+                EPAPI.id("textures/item/advanced_battery_box_minecart.png")
         });
     }
     private void registerStructuresChapter() {
@@ -1428,7 +1428,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         return Component.translatable(tableOfContentPageTitles.get(tableOfContentPageId)).
                 withStyle(ChatFormatting.DARK_GREEN, ChatFormatting.UNDERLINE).withStyle(Style.EMPTY.
                         withClickEvent(new ClickEvent(ClickEvent.Action.CHANGE_PAGE,
-                                EnergizedPowerMod.MODID + ":" + tableOfContentPageId)).
+                                EPAPI.MOD_ID + ":" + tableOfContentPageId)).
                         withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
                                 Component.translatable("book.energizedpower.tooltip.page"))));
     }

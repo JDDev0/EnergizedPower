@@ -1,10 +1,9 @@
 package me.jddev0.ep.block.entity.renderer;
 
 import com.mojang.blaze3d.vertex.*;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.block.entity.AbstractFluidTankBlockEntity;
-import me.jddev0.ep.block.entity.FluidTankBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -135,7 +134,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<Abstrac
         //Indicator bar
         {
             TextureAtlasSprite indicatorBarSprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).
-                    apply(ResourceLocation.fromNamespaceAndPath(EnergizedPowerMod.MODID, "block/fluid_tank_indicator_bar"));
+                    apply(EPAPI.id("block/fluid_tank_indicator_bar"));
 
             float translateForMinMaxIndicatorBarHeight = height < 2?(height - 2) / 16.f:(height > 12?(height - 12) / 16.f:0.f);
 
