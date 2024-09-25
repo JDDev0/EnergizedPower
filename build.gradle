@@ -149,14 +149,14 @@ dependencies {
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:12.+"
 
     // JEI integration
-    compileOnly "mezz.jei:jei-1.21.1-common-api:19.18.8.216"
-    compileOnly "mezz.jei:jei-1.21.1-neoforge-api:19.18.8.216"
+    compileOnly "mezz.jei:jei-1.21.1-common-api:19.18.10.218"
+    compileOnly "mezz.jei:jei-1.21.1-neoforge-api:19.18.10.218"
 
     // EMI integration
     compileOnly "dev.emi:emi-neoforge:1.1.13+1.21.1:api"
 
     // Curios Continuation integration
-    compileOnly "top.theillusivec4.curios:curios-neoforge:9.0.10+1.21"
+    compileOnly "top.theillusivec4.curios:curios-neoforge:9.0.11+1.21"
 
     // CCTweaked integration
     compileOnly "cc.tweaked:cc-tweaked-1.21.1-core-api:1.113.1"
