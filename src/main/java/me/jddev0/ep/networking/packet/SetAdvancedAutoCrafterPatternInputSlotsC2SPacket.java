@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements IEnergizedPowerPacket {
-    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "set_advanced_auto_crafter_pattern_input_slots");
+    public static final Identifier ID = EPAPI.id("set_advanced_auto_crafter_pattern_input_slots");
 
     private final BlockPos pos;
     private final List<ItemStack> itemStacks;

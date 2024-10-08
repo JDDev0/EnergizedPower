@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
 import me.shedaniel.math.Point;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class AlloyFurnaceCategory implements DisplayCategory<AlloyFurnaceDisplay> {
-    public static final CategoryIdentifier<AlloyFurnaceDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "alloy_furnace");
+    public static final CategoryIdentifier<AlloyFurnaceDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "alloy_furnace");
 
     private static final int PADDING = 5;
 

@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
@@ -98,7 +98,7 @@ public class ThermalGeneratorRecipe implements Recipe<Inventory> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "thermal_generator");
+        public static final Identifier ID = EPAPI.id("thermal_generator");
 
         private void addFluidsFromJsonElement(JsonElement inputJson, List<Fluid> inputFluids) {
             if(!inputJson.isJsonPrimitive() || !inputJson.getAsJsonPrimitive().isString())

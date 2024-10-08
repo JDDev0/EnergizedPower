@@ -1,6 +1,6 @@
 package me.jddev0.ep.entity;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
@@ -15,7 +15,7 @@ public final class ModEntityTypes {
 
     @SuppressWarnings("unchecked")
     public static <T extends Entity> EntityType<T> registerEntity(String name, EntityType<? extends T> entityType) {
-        return (EntityType<T>)Registry.register(Registries.ENTITY_TYPE, new Identifier(EnergizedPowerMod.MODID, name), entityType);
+        return (EntityType<T>)Registry.register(Registries.ENTITY_TYPE, EPAPI.id(name), entityType);
     }
 
     public static final EntityType<MinecartBatteryBox> BATTERY_BOX_MINECART = registerEntity(

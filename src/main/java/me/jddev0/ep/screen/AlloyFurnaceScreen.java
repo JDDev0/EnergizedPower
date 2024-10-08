@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -18,7 +18,7 @@ public class AlloyFurnaceScreen extends EnergizedPowerBaseContainerScreen<AlloyF
     public AlloyFurnaceScreen(AlloyFurnaceMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component);
 
-        TEXTURE = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/alloy_furnace.png");
+        TEXTURE = EPAPI.id("textures/gui/container/alloy_furnace.png");
     }
 
     @Override

@@ -1,6 +1,6 @@
 package me.jddev0.ep.recipe;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -8,8 +8,6 @@ import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-
-import java.util.function.Supplier;
 
 public final class ModRecipes {
     private ModRecipes() {}
@@ -109,10 +107,10 @@ public final class ModRecipes {
             new SpecialRecipeSerializer<>(TeleporterMatrixSettingsCopyRecipe::new));
 
     private static <T extends Recipe<?>> RecipeSerializer<T> createSerializer(String name, RecipeSerializer<T> instance) {
-        return Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(EnergizedPowerMod.MODID, name), instance);
+        return Registry.register(Registries.RECIPE_SERIALIZER, EPAPI.id(name), instance);
     }
     private static <T extends Recipe<?>> RecipeType<T> createRecipeType(String name, RecipeType<T> instance) {
-        return Registry.register(Registries.RECIPE_TYPE, new Identifier(EnergizedPowerMod.MODID, name), instance);
+        return Registry.register(Registries.RECIPE_TYPE, EPAPI.id(name), instance);
     }
 
     public static void register() {

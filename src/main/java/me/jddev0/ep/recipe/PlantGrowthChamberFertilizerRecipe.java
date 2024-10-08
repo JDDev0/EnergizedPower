@@ -1,7 +1,7 @@
 package me.jddev0.ep.recipe;
 
 import com.google.gson.JsonObject;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -107,7 +107,7 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<Inventory> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "plant_growth_chamber_fertilizer");
+        public static final Identifier ID = EPAPI.id("plant_growth_chamber_fertilizer");
 
         @Override
         public PlantGrowthChamberFertilizerRecipe read(Identifier recipeID, JsonObject json) {

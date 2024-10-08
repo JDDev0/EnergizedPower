@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCreativeFluidTankFluidStackC2SPacket;
@@ -34,7 +34,7 @@ public class CreativeFluidTankScreen extends EnergizedPowerBaseContainerScreen<C
     public CreativeFluidTankScreen(CreativeFluidTankMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component);
 
-        TEXTURE = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/creative_fluid_tank.png");
+        TEXTURE = EPAPI.id("textures/gui/container/creative_fluid_tank.png");
     }
 
     @Override

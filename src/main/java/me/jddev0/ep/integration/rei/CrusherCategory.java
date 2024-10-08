@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CrusherCategory implements DisplayCategory<CrusherDisplay> {
-    public static final CategoryIdentifier<CrusherDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "crusher");
+    public static final CategoryIdentifier<CrusherDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "crusher");
 
     private static final int PADDING = 5;
 
@@ -45,7 +45,7 @@ public class CrusherCategory implements DisplayCategory<CrusherDisplay> {
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/crusher.png");
+        Identifier texture = EPAPI.id("textures/gui/container/crusher.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 47, 30, 98, 26));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().

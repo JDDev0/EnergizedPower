@@ -2,7 +2,7 @@ package me.jddev0.ep.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.inventory.Inventory;
@@ -126,7 +126,7 @@ public class AssemblingMachineRecipe implements Recipe<Inventory> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "assembling_machine");
+        public static final Identifier ID = EPAPI.id("assembling_machine");
 
         @Override
         public AssemblingMachineRecipe read(Identifier recipeID, JsonObject json) {

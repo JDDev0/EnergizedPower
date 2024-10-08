@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.CurrentRecipePacketUpdate;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
@@ -15,7 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
 public final class SyncCurrentRecipeS2CPacket<R extends Recipe<?>> implements IEnergizedPowerPacket {
-    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "sync_current_recipe");
+    public static final Identifier ID = EPAPI.id("sync_current_recipe");
 
     private final BlockPos pos;
     private final RecipeSerializer<R> recipeSerializer;

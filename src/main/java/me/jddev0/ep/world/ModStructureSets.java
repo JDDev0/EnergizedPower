@@ -1,6 +1,6 @@
 package me.jddev0.ep.world;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
@@ -39,6 +39,6 @@ public final class ModStructureSets {
 
     public static RegistryKey<StructureSet> registerKey(String name) {
         return RegistryKey.of(RegistryKeys.STRUCTURE_SET,
-                Identifier.of(EnergizedPowerMod.MODID, name));
+                EPAPI.id(name));
     }
 }

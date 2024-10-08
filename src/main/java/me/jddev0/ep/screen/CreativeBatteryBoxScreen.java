@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
@@ -26,7 +26,7 @@ public class CreativeBatteryBoxScreen extends EnergizedPowerBaseContainerScreen<
     public CreativeBatteryBoxScreen(CreativeBatteryBoxMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component);
 
-        TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/creative_battery_box.png");
+        TEXTURE = EPAPI.id("textures/gui/container/creative_battery_box.png");
     }
 
     @Override

@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.CreativeFluidTankBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
@@ -15,7 +15,7 @@ import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 
 public record SetCreativeFluidTankFluidStackC2SPacket(BlockPos pos, FluidStack fluidStack) implements IEnergizedPowerPacket {
-    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "set_creative_fluid_tank_fluid_stack");
+    public static final Identifier ID = EPAPI.id("set_creative_fluid_tank_fluid_stack");
 
     public SetCreativeFluidTankFluidStackC2SPacket(PacketByteBuf buffer) {
         this(buffer.readBlockPos(), FluidStack.fromPacket(buffer));

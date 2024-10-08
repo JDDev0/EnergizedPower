@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -23,7 +23,7 @@ public class DrainScreen extends EnergizedPowerBaseContainerScreen<DrainMenu> {
     public DrainScreen(DrainMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component);
 
-        TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/generic_fluid.png");
+        TEXTURE = EPAPI.id("textures/gui/container/generic_fluid.png");
     }
 
     @Override

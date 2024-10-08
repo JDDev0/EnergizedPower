@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
@@ -21,9 +21,8 @@ public class StoneSolidifierScreen extends SelectableRecipeMachineContainerScree
     public StoneSolidifierScreen(StoneSolidifierMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/stone_solidifier.png"),
-                new Identifier(EnergizedPowerMod.MODID,
-                        "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/stone_solidifier.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
 
         recipeSelectorPosX = 98;
 

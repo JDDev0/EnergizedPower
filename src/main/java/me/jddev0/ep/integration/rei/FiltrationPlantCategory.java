@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class FiltrationPlantCategory implements DisplayCategory<FiltrationPlantDisplay> {
-    public static final CategoryIdentifier<FiltrationPlantDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "filtration_plant");
+    public static final CategoryIdentifier<FiltrationPlantDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "filtration_plant");
 
     private static final int PADDING = 5;
 

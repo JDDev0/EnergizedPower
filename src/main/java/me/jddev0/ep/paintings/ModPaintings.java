@@ -1,6 +1,6 @@
 package me.jddev0.ep.paintings;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.entity.decoration.painting.PaintingVariant;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -10,7 +10,7 @@ public final class ModPaintings {
     private ModPaintings() {}
 
     public static PaintingVariant registerPainting(String name, PaintingVariant paintingVariant) {
-        return Registry.register(Registries.PAINTING_VARIANT, new Identifier(EnergizedPowerMod.MODID, name), paintingVariant);
+        return Registry.register(Registries.PAINTING_VARIANT, EPAPI.id(name), paintingVariant);
     }
 
     public static final PaintingVariant GEAR = registerPainting("gear", new PaintingVariant(32, 32));

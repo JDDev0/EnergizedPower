@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 public record EnergySyncS2CPacket(long energy, long capacity, BlockPos pos) implements IEnergizedPowerPacket {
-    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "energy_sync");
+    public static final Identifier ID = EPAPI.id("energy_sync");
 
     public EnergySyncS2CPacket(PacketByteBuf buffer) {
         this(buffer.readLong(), buffer.readLong(), buffer.readBlockPos());
