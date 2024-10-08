@@ -10,7 +10,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 
-public class EPCreativeModeTab {
+public final class EPCreativeModeTab {
     public static ItemGroup registerItemGroup(RegistryKey<ItemGroup> key, ItemGroup itemGroup) {
         return Registry.register(Registries.ITEM_GROUP, key.getValue(), itemGroup);
     }
