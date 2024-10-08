@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.LightningGeneratorBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
@@ -109,7 +109,7 @@ public class LightningGeneratorBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.LIGHTING_GENERATOR_ENTITY.get(), LightningGeneratorBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.LIGHTING_GENERATOR_ENTITY.get(), LightningGeneratorBlockEntity::tick);
     }
 
     @Override

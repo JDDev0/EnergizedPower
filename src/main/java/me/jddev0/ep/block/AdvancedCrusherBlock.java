@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.AdvancedCrusherBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -117,7 +117,7 @@ public class AdvancedCrusherBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.ADVANCED_CRUSHER_ENTITY.get(), AdvancedCrusherBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.ADVANCED_CRUSHER_ENTITY.get(), AdvancedCrusherBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

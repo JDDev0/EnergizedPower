@@ -29,7 +29,7 @@ public class AdvancedBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
 
     public AdvancedBatteryBoxBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.ADVANCED_BATTERY_BOX_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.ADVANCED_BATTERY_BOX_ENTITY.get(), blockPos, blockState,
 
                 "advanced_battery_box",
 

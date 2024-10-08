@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.jei;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
 import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
 import me.jddev0.ep.recipe.IngredientWithCount;
@@ -37,7 +37,7 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeHolder<AlloyF
         ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
         background = helper.createDrawable(texture, 1, 189, 147, 37);
 
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.ALLOY_FURNACE_ITEM.get()));
+        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.ALLOY_FURNACE_ITEM.get()));
     }
 
     @Override

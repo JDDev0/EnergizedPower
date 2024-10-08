@@ -1,6 +1,6 @@
 package me.jddev0.ep.item;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -94,7 +94,7 @@ public class TeleporterMatrixItem extends Item {
 
         nbt.putString("dim", level.dimension().location().toString());
 
-        if(state.is(ModBlocks.TELEPORTER.get())) {
+        if(state.is(EPBlocks.TELEPORTER.get())) {
             if(player instanceof ServerPlayer serverPlayer) {
                 serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
                         Component.translatable("tooltip.energizedpower.teleporter_matrix.set").

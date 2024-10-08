@@ -36,7 +36,7 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<FluidTank> {
 
     public DrainBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.DRAIN_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.DRAIN_ENTITY.get(), blockPos, blockState,
 
                 "drain",
 

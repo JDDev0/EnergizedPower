@@ -37,9 +37,9 @@ public class FluidTankBlock extends BaseEntityBlock {
 
     public static Block getBlockFromTier(Tier tier) {
         return switch(tier) {
-            case SMALL -> ModBlocks.FLUID_TANK_SMALL.get();
-            case MEDIUM -> ModBlocks.FLUID_TANK_MEDIUM.get();
-            case LARGE -> ModBlocks.FLUID_TANK_LARGE.get();
+            case SMALL -> EPBlocks.FLUID_TANK_SMALL.get();
+            case MEDIUM -> EPBlocks.FLUID_TANK_MEDIUM.get();
+            case LARGE -> EPBlocks.FLUID_TANK_LARGE.get();
         };
     }
 

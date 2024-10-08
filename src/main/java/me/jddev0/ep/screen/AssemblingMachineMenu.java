@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AssemblingMachineBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -35,10 +35,10 @@ public class AssemblingMachineMenu extends UpgradableEnergyStorageMenu<Assemblin
     public AssemblingMachineMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                                  ContainerData data) {
         super(
-                ModMenuTypes.ASSEMBLING_MACHINE_MENU.get(), id,
+                EPMenuTypes.ASSEMBLING_MACHINE_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.ASSEMBLING_MACHINE.get(),
+                EPBlocks.ASSEMBLING_MACHINE.get(),
                 8, 88,
 
                 upgradeModuleInventory, 3

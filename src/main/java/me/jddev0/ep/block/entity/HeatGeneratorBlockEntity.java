@@ -32,7 +32,7 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
 
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.HEAT_GENERATOR_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.HEAT_GENERATOR_ENTITY.get(), blockPos, blockState,
 
                 "heat_generator",
 

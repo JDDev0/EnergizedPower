@@ -9,15 +9,15 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
-public class ModCreativeModeTab {
-    private ModCreativeModeTab() {}
+public final class EPCreativeModeTab {
+    private EPCreativeModeTab() {}
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, EPAPI.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> ENERGIZED_POWER_TAB = CREATIVE_MODE_TABS.register("main",
             () -> CreativeModeTab.builder().
                     title(Component.translatable("itemGroup.energizedpower.tab")).
-                    icon(() -> new ItemStack(ModItems.ENERGIZED_COPPER_INGOT.get())).
+                    icon(() -> new ItemStack(EPItems.ENERGIZED_COPPER_INGOT.get())).
                     build());
 
     public static void register(IEventBus modEventBus) {

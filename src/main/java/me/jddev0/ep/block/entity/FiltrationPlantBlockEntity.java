@@ -5,11 +5,11 @@ import me.jddev0.ep.block.entity.base.SelectableRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
-import me.jddev0.ep.fluid.ModFluids;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.fluid.EPFluids;
+import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.FiltrationPlantRecipe;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.FiltrationPlantMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
@@ -39,13 +39,13 @@ public class FiltrationPlantBlockEntity
 
     public FiltrationPlantBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.FILTRATION_PLANT_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.FILTRATION_PLANT_ENTITY.get(), blockPos, blockState,
 
                 "filtration_plant", FiltrationPlantMenu::new,
 
                 4,
-                ModRecipes.FILTRATION_PLANT_TYPE.get(),
-                ModRecipes.FILTRATION_PLANT_SERIALIZER.get(),
+                EPRecipes.FILTRATION_PLANT_TYPE.get(),
+                EPRecipes.FILTRATION_PLANT_SERIALIZER.get(),
                 ModConfigs.COMMON_FILTRATION_PLANT_RECIPE_DURATION.getValue(),
 
                 ModConfigs.COMMON_FILTRATION_PLANT_CAPACITY.getValue(),
@@ -72,7 +72,7 @@ public class FiltrationPlantBlockEntity
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
-                    case 0, 1 -> stack.is(ModItems.CHARCOAL_FILTER.get());
+                    case 0, 1 -> stack.is(EPItems.CHARCOAL_FILTER.get());
                     case 2, 3 -> false;
                     default -> super.isItemValid(slot, stack);
                 };
@@ -97,7 +97,7 @@ public class FiltrationPlantBlockEntity
                     return false;
 
                 return switch(tank) {
-                    case 0 -> stack.isFluidEqual(new FluidStack(ModFluids.DIRTY_WATER.get(), 1));
+                    case 0 -> stack.isFluidEqual(new FluidStack(EPFluids.DIRTY_WATER.get(), 1));
                     case 1 -> stack.isFluidEqual(new FluidStack(Fluids.WATER, 1));
                     default -> false;
                 };
@@ -126,12 +126,12 @@ public class FiltrationPlantBlockEntity
         if(level == null || !hasRecipe())
             return;
 
-        fluidStorage.drain(new FluidStack(ModFluids.DIRTY_WATER.get(), DIRTY_WATER_CONSUMPTION_PER_RECIPE), IFluidHandler.FluidAction.EXECUTE);
+        fluidStorage.drain(new FluidStack(EPFluids.DIRTY_WATER.get(), DIRTY_WATER_CONSUMPTION_PER_RECIPE), IFluidHandler.FluidAction.EXECUTE);
         fluidStorage.fill(new FluidStack(Fluids.WATER, DIRTY_WATER_CONSUMPTION_PER_RECIPE), IFluidHandler.FluidAction.EXECUTE);
 
         for(int i = 0;i < 2;i++) {
             ItemStack charcoalFilter = itemHandler.getStackInSlot(i).copy();
-            if(charcoalFilter.isEmpty() && !charcoalFilter.is(ModItems.CHARCOAL_FILTER.get()))
+            if(charcoalFilter.isEmpty() && !charcoalFilter.is(EPItems.CHARCOAL_FILTER.get()))
                 continue;
 
             if(charcoalFilter.hurt(1, level.random, null))
@@ -159,8 +159,8 @@ public class FiltrationPlantBlockEntity
         return level != null &&
                 fluidStorage.getFluid(0).getAmount() >= DIRTY_WATER_CONSUMPTION_PER_RECIPE &&
                 fluidStorage.getCapacity(1) - fluidStorage.getFluid(1).getAmount() >= DIRTY_WATER_CONSUMPTION_PER_RECIPE &&
-                itemHandler.getStackInSlot(0).is(ModItems.CHARCOAL_FILTER.get()) &&
-                itemHandler.getStackInSlot(1).is(ModItems.CHARCOAL_FILTER.get()) &&
+                itemHandler.getStackInSlot(0).is(EPItems.CHARCOAL_FILTER.get()) &&
+                itemHandler.getStackInSlot(1).is(EPItems.CHARCOAL_FILTER.get()) &&
                 (maxOutputs[0].isEmpty() || InventoryUtils.canInsertItemIntoSlot(inventory, 2, maxOutputs[0])) &&
                 (maxOutputs[1].isEmpty() || InventoryUtils.canInsertItemIntoSlot(inventory, 3, maxOutputs[1]));
     }

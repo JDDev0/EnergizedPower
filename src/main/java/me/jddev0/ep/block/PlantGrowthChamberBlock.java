@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -121,6 +121,6 @@ public class PlantGrowthChamberBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.PLANT_GROWTH_CHAMBER_ENTITY.get(), PlantGrowthChamberBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.PLANT_GROWTH_CHAMBER_ENTITY.get(), PlantGrowthChamberBlockEntity::tick);
     }
 }

@@ -3,7 +3,7 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.core.RegistryAccess;
@@ -92,7 +92,7 @@ public class AssemblingMachineRecipe implements Recipe<Container> {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.ASSEMBLING_MACHINE_ITEM.get());
+        return new ItemStack(EPBlocks.ASSEMBLING_MACHINE_ITEM.get());
     }
 
     @Override

@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.rei;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -35,7 +35,7 @@ public class AdvancedPulverizerCategory implements DisplayCategory<AdvancedPulve
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModBlocks.ADVANCED_PULVERIZER_ITEM.get());
+        return EntryStacks.of(EPBlocks.ADVANCED_PULVERIZER_ITEM.get());
     }
 
     @Override

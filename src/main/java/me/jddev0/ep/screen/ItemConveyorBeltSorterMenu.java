@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ItemConveyorBeltSorterBlockEntity;
 import me.jddev0.ep.inventory.PatternSlot;
 import net.minecraft.network.FriendlyByteBuf;
@@ -25,7 +25,7 @@ public class ItemConveyorBeltSorterMenu extends AbstractContainerMenu {
     }
 
     public ItemConveyorBeltSorterMenu(int id, Inventory inv, BlockEntity blockEntity, Container patternSlots, ContainerData data) {
-        super(ModMenuTypes.ITEM_CONVEYOR_BELT_SORTER_MENU.get(), id);
+        super(EPMenuTypes.ITEM_CONVEYOR_BELT_SORTER_MENU.get(), id);
 
         this.patternSlots = patternSlots;
 
@@ -67,7 +67,7 @@ public class ItemConveyorBeltSorterMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, ModBlocks.ITEM_CONVEYOR_BELT_SORTER.get());
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, EPBlocks.ITEM_CONVEYOR_BELT_SORTER.get());
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

@@ -2,7 +2,7 @@ package me.jddev0.ep.datagen.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -33,7 +33,7 @@ public record HeatGeneratorFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> type() {
-        return ModRecipes.HEAT_GENERATOR_SERIALIZER.get();
+        return EPRecipes.HEAT_GENERATOR_SERIALIZER.get();
     }
 
     @Override

@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.HeatGeneratorBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -63,6 +63,6 @@ public class HeatGeneratorBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.HEAT_GENERATOR_ENTITY.get(), HeatGeneratorBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.HEAT_GENERATOR_ENTITY.get(), HeatGeneratorBlockEntity::tick);
     }
 }

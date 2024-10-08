@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.FiltrationPlantBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -117,7 +117,7 @@ public class FiltrationPlantBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.FILTRATION_PLANT_ENTITY.get(), FiltrationPlantBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.FILTRATION_PLANT_ENTITY.get(), FiltrationPlantBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

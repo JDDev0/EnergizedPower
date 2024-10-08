@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import me.jddev0.ep.codec.CodecFix;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.PulverizerRecipe;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -80,7 +80,7 @@ public record PulverizerFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> type() {
-        return ModRecipes.PULVERIZER_SERIALIZER.get();
+        return EPRecipes.PULVERIZER_SERIALIZER.get();
     }
 
     @Override

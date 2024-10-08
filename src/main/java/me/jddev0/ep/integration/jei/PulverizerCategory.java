@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.jei;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.PulverizerRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -29,7 +29,7 @@ public class PulverizerCategory implements IRecipeCategory<RecipeHolder<Pulveriz
         ResourceLocation texture = EPAPI.id("textures/gui/container/pulverizer.png");
         background = helper.createDrawable(texture, 42, 30, 109, 26);
 
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.PULVERIZER_ITEM.get()));
+        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.PULVERIZER_ITEM.get()));
     }
 
     @Override

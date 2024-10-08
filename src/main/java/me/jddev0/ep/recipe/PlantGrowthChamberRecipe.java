@@ -3,7 +3,7 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
@@ -97,7 +97,7 @@ public class PlantGrowthChamberRecipe implements Recipe<Container> {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM.get());
+        return new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get());
     }
 
     @Override

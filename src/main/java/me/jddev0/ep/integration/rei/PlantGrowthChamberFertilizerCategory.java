@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.rei;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -33,7 +33,7 @@ public class PlantGrowthChamberFertilizerCategory implements DisplayCategory<Pla
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM.get());
+        return EntryStacks.of(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get());
     }
 
     @Override
