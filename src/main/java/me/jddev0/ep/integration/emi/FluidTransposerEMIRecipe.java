@@ -6,7 +6,7 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
@@ -17,9 +17,9 @@ import net.minecraft.util.Identifier;
 import java.util.List;
 
 public class FluidTransposerEMIRecipe implements EmiRecipe {
-    public static final Identifier SIMPLIFIED_TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/block/fluid_transposer_front.png");
+    public static final Identifier SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/fluid_transposer_front.png");
     public static final EmiStack ITEM = EmiStack.of(ModBlocks.FLUID_TRANSPOSER_ITEM);
-    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new Identifier(EnergizedPowerMod.MODID, "fluid_transposer"),
+    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("fluid_transposer"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final Identifier id;
@@ -86,7 +86,7 @@ public class FluidTransposerEMIRecipe implements EmiRecipe {
     @Override
     public void addWidgets(WidgetHolder widgets) {
         if(mode == FluidTransposerBlockEntity.Mode.EMPTYING) {
-            widgets.addTexture(new Identifier(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png"),
+            widgets.addTexture(EPAPI.id("textures/gui/recipe/misc_gui.png"),
                     0, 0, 143, 26, 1, 133);
 
             widgets.addSlot(input.get(0), 0, 4).drawBack(false);
@@ -97,7 +97,7 @@ public class FluidTransposerEMIRecipe implements EmiRecipe {
             widgets.addTexture(new Identifier("minecraft", "textures/item/bucket.png"),
                     120, 5, 16, 16, 0, 0, 16, 16, 16, 16);
         }else {
-            widgets.addTexture(new Identifier(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png"),
+            widgets.addTexture(EPAPI.id("textures/gui/recipe/misc_gui.png"),
                     0, 0, 143, 26, 1, 161);
 
             widgets.addSlot(input.get(0), 0, 4).drawBack(false);

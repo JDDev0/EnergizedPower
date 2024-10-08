@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.SetCurrentRecipeIdPacketUpdate;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 public record SetCurrentRecipeIdC2SPacket(BlockPos pos, Identifier recipeId) implements IEnergizedPowerPacket {
-    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "set_current_recipe_id");
+    public static final Identifier ID = EPAPI.id("set_current_recipe_id");
 
     public SetCurrentRecipeIdC2SPacket(PacketByteBuf buffer) {
         this(buffer.readBlockPos(), buffer.readBoolean()?buffer.readIdentifier():null);

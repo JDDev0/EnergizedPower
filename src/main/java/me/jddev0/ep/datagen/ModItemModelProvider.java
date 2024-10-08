@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.datagen.model.ItemWithOverridesModelSupplier;
 import me.jddev0.ep.fluid.ModFluids;
 import me.jddev0.ep.item.ModItems;
@@ -200,7 +200,7 @@ class ModItemModelProvider {
                         new ItemWithOverridesModelSupplier.ItemPredicateOverrides(
                                 List.of(
                                         new ItemWithOverridesModelSupplier.ItemPredicateValue(
-                                                Identifier.of(EnergizedPowerMod.MODID, "active"),
+                                                EPAPI.id("active"),
                                                 1.f
                                         )
                                 ),
@@ -209,11 +209,11 @@ class ModItemModelProvider {
                         new ItemWithOverridesModelSupplier.ItemPredicateOverrides(
                                 List.of(
                                         new ItemWithOverridesModelSupplier.ItemPredicateValue(
-                                                Identifier.of(EnergizedPowerMod.MODID, "active"),
+                                                EPAPI.id("active"),
                                                 1.f
                                         ),
                                         new ItemWithOverridesModelSupplier.ItemPredicateValue(
-                                                Identifier.of(EnergizedPowerMod.MODID, "working"),
+                                                EPAPI.id("working"),
                                                 1.f
                                         )
                                 ),

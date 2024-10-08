@@ -1,7 +1,7 @@
 package me.jddev0.ep.datagen;
 
 import com.mojang.datafixers.util.Pair;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.datagen.generators.PageContent;
 import me.jddev0.ep.datagen.generators.PageContentProvider;
@@ -165,7 +165,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                         Text.literal("\n\n").
                                 formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM).
                                 append(backToTableOfContentComponent(mainTableOfContentPageId))
-                ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/energized_copper_ingot.png"));
+                ), EPAPI.id("textures/item/energized_copper_ingot.png"));
         tableOfContentsEntries.get(mainTableOfContentPageId).add(Pair.of(resourcesChapterTitle, resourcesChapterPage));
 
         addSimplePage(pageId("cable_insulator"), Text.empty().append(
@@ -177,12 +177,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Text.translatable("book.energizedpower.page.cable_insulator.3").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/cable_insulator.png"));
+        ), EPAPI.id("textures/item/cable_insulator.png"));
 
         addSimplePage(pageId("saw_blade"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.saw_blade").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/saw_blade.png"));
+        ), EPAPI.id("textures/item/saw_blade.png"));
 
         addSimplePage(pageId("silicon"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.silicon.1").
@@ -190,7 +190,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Text.translatable("book.energizedpower.page.silicon.2").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/silicon.png"));
+        ), EPAPI.id("textures/item/silicon.png"));
 
         addSimplePage(pageId("sawdust"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.sawdust.1").
@@ -198,36 +198,36 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Text.translatable("book.energizedpower.page.sawdust.2").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/sawdust.png"));
+        ), EPAPI.id("textures/item/sawdust.png"));
 
         addSimplePage(pageId("fertilizers"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.fertilizers").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/basic_fertilizer.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/good_fertilizer.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/advanced_fertilizer.png")
+                EPAPI.id("textures/item/basic_fertilizer.png"),
+                EPAPI.id("textures/item/good_fertilizer.png"),
+                EPAPI.id("textures/item/advanced_fertilizer.png")
         });
 
         addSimplePage(pageId("ore_dusts"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.ore_dusts").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/tin_dust.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/copper_dust.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/iron_dust.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/gold_dust.png")
+                EPAPI.id("textures/item/tin_dust.png"),
+                EPAPI.id("textures/item/copper_dust.png"),
+                EPAPI.id("textures/item/iron_dust.png"),
+                EPAPI.id("textures/item/gold_dust.png")
         });
 
         addSimplePage(pageId("charcoal_dust"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.charcoal_dust").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/charcoal_dust.png"));
+        ), EPAPI.id("textures/item/charcoal_dust.png"));
 
         addSimplePage(pageId("charcoal_filter"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.charcoal_filter").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/charcoal_filter.png"));
+        ), EPAPI.id("textures/item/charcoal_filter.png"));
 
         addSimplePage(pageId("plates"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.plates.1").
@@ -236,22 +236,22 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Text.translatable("book.energizedpower.page.plates.2").
                         formatted(Formatting.BLACK, Formatting.ITALIC).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/tin_plate.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/copper_plate.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/iron_plate.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/gold_plate.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/advanced_alloy_plate.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/energized_copper_plate.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/energized_gold_plate.png")
+                EPAPI.id("textures/item/tin_plate.png"),
+                EPAPI.id("textures/item/copper_plate.png"),
+                EPAPI.id("textures/item/iron_plate.png"),
+                EPAPI.id("textures/item/gold_plate.png"),
+                EPAPI.id("textures/item/advanced_alloy_plate.png"),
+                EPAPI.id("textures/item/energized_copper_plate.png"),
+                EPAPI.id("textures/item/energized_gold_plate.png")
         });
 
         addSimplePage(pageId("alloys"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.alloys").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/steel_ingot.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/redstone_alloy_ingot.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/advanced_alloy_ingot.png")
+                EPAPI.id("textures/item/steel_ingot.png"),
+                EPAPI.id("textures/item/redstone_alloy_ingot.png"),
+                EPAPI.id("textures/item/advanced_alloy_ingot.png")
         });
 
         addSimplePage(pageId("metal_products"), Text.empty().append(
@@ -261,23 +261,23 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Text.translatable("book.energizedpower.page.metal_products.2").
                         formatted(Formatting.BLACK, Formatting.ITALIC).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/iron_gear.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/iron_rod.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/tin_wire.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/copper_wire.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/gold_wire.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/energized_copper_wire.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/energized_gold_wire.png")
+                EPAPI.id("textures/item/iron_gear.png"),
+                EPAPI.id("textures/item/iron_rod.png"),
+                EPAPI.id("textures/item/tin_wire.png"),
+                EPAPI.id("textures/item/copper_wire.png"),
+                EPAPI.id("textures/item/gold_wire.png"),
+                EPAPI.id("textures/item/energized_copper_wire.png"),
+                EPAPI.id("textures/item/energized_gold_wire.png")
         });
 
         addSimplePage(pageId("circuits"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.circuits").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/basic_circuit.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/advanced_circuit.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/processing_unit.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/teleporter_processing_unit.png")
+                EPAPI.id("textures/item/basic_circuit.png"),
+                EPAPI.id("textures/item/advanced_circuit.png"),
+                EPAPI.id("textures/item/processing_unit.png"),
+                EPAPI.id("textures/item/teleporter_processing_unit.png")
         });
 
         addSimplePage(pageId("energized_copper_ingot"), Text.empty().append(
@@ -292,17 +292,17 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Text.translatable("book.energizedpower.page.energized_copper_ingot.4").
                         formatted(Formatting.BLACK, Formatting.ITALIC).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/energized_copper_ingot.png"));
+        ), EPAPI.id("textures/item/energized_copper_ingot.png"));
 
         addSimplePage(pageId("energized_gold_ingot"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.energized_gold_ingot").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/energized_gold_ingot.png"));
+        ), EPAPI.id("textures/item/energized_gold_ingot.png"));
 
         addSimplePage(pageId("energized_crystal_matrix"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.energized_crystal_matrix").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/energized_crystal_matrix.png"));
+        ), EPAPI.id("textures/item/energized_crystal_matrix.png"));
     }
     private void registerUpgradesChapter() {
         chapterId("upgrades");
@@ -317,40 +317,40 @@ public class ModBookPageContentProvider extends PageContentProvider {
                         Text.literal("\n\n").
                                 formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM).
                                 append(backToTableOfContentComponent(mainTableOfContentPageId))
-                ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/speed_upgrade_module_1.png"));
+                ), EPAPI.id("textures/item/speed_upgrade_module_1.png"));
         tableOfContentsEntries.get(mainTableOfContentPageId).add(Pair.of(upgradesChapterTitle, upgradesChapterPage));
 
         addSimplePage(pageId("speed_upgrades"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.speed_upgrades").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/speed_upgrade_module_1.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/speed_upgrade_module_2.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/speed_upgrade_module_3.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/speed_upgrade_module_4.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/speed_upgrade_module_5.png")
+                EPAPI.id("textures/item/speed_upgrade_module_1.png"),
+                EPAPI.id("textures/item/speed_upgrade_module_2.png"),
+                EPAPI.id("textures/item/speed_upgrade_module_3.png"),
+                EPAPI.id("textures/item/speed_upgrade_module_4.png"),
+                EPAPI.id("textures/item/speed_upgrade_module_5.png")
         });
 
         addSimplePage(pageId("energy_efficiency_upgrades"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.energy_efficiency_upgrades").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/energy_efficiency_upgrade_module_1.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/energy_efficiency_upgrade_module_2.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/energy_efficiency_upgrade_module_3.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/energy_efficiency_upgrade_module_4.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/energy_efficiency_upgrade_module_5.png")
+                EPAPI.id("textures/item/energy_efficiency_upgrade_module_1.png"),
+                EPAPI.id("textures/item/energy_efficiency_upgrade_module_2.png"),
+                EPAPI.id("textures/item/energy_efficiency_upgrade_module_3.png"),
+                EPAPI.id("textures/item/energy_efficiency_upgrade_module_4.png"),
+                EPAPI.id("textures/item/energy_efficiency_upgrade_module_5.png")
         });
 
         addSimplePage(pageId("energy_capacity_upgrades"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.energy_capacity_upgrades").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/energy_capacity_upgrade_module_1.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/energy_capacity_upgrade_module_2.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/energy_capacity_upgrade_module_3.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/energy_capacity_upgrade_module_4.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/energy_capacity_upgrade_module_5.png")
+                EPAPI.id("textures/item/energy_capacity_upgrade_module_1.png"),
+                EPAPI.id("textures/item/energy_capacity_upgrade_module_2.png"),
+                EPAPI.id("textures/item/energy_capacity_upgrade_module_3.png"),
+                EPAPI.id("textures/item/energy_capacity_upgrade_module_4.png"),
+                EPAPI.id("textures/item/energy_capacity_upgrade_module_5.png")
         });
 
         addSimplePage(pageId("duration_upgrades"), Text.empty().append(
@@ -360,49 +360,49 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Text.translatable("book.energizedpower.page.duration_upgrades.2").
                         formatted(Formatting.BLACK, Formatting.ITALIC).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/duration_upgrade_module_1.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/duration_upgrade_module_2.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/duration_upgrade_module_3.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/duration_upgrade_module_4.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/duration_upgrade_module_5.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/duration_upgrade_module_6.png")
+                EPAPI.id("textures/item/duration_upgrade_module_1.png"),
+                EPAPI.id("textures/item/duration_upgrade_module_2.png"),
+                EPAPI.id("textures/item/duration_upgrade_module_3.png"),
+                EPAPI.id("textures/item/duration_upgrade_module_4.png"),
+                EPAPI.id("textures/item/duration_upgrade_module_5.png"),
+                EPAPI.id("textures/item/duration_upgrade_module_6.png")
         });
 
         addSimplePage(pageId("range_upgrades"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.range_upgrades").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/range_upgrade_module_1.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/range_upgrade_module_2.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/range_upgrade_module_3.png")
+                EPAPI.id("textures/item/range_upgrade_module_1.png"),
+                EPAPI.id("textures/item/range_upgrade_module_2.png"),
+                EPAPI.id("textures/item/range_upgrade_module_3.png")
         });
 
         addSimplePage(pageId("extraction_depth_upgrades"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.extraction_depth_upgrades").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/extraction_depth_upgrade_module_1.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/extraction_depth_upgrade_module_2.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/extraction_depth_upgrade_module_3.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/extraction_depth_upgrade_module_4.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/extraction_depth_upgrade_module_5.png")
+                EPAPI.id("textures/item/extraction_depth_upgrade_module_1.png"),
+                EPAPI.id("textures/item/extraction_depth_upgrade_module_2.png"),
+                EPAPI.id("textures/item/extraction_depth_upgrade_module_3.png"),
+                EPAPI.id("textures/item/extraction_depth_upgrade_module_4.png"),
+                EPAPI.id("textures/item/extraction_depth_upgrade_module_5.png")
         });
 
         addSimplePage(pageId("furnace_mode_upgrades"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.furnace_mode_upgrades").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/blast_furnace_upgrade_module.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/smoker_upgrade_module.png")
+                EPAPI.id("textures/item/blast_furnace_upgrade_module.png"),
+                EPAPI.id("textures/item/smoker_upgrade_module.png")
         });
 
         addSimplePage(pageId("moon_light_upgrades"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.moon_light_upgrades").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/moon_light_upgrade_module_1.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/moon_light_upgrade_module_2.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/moon_light_upgrade_module_3.png")
+                EPAPI.id("textures/item/moon_light_upgrade_module_1.png"),
+                EPAPI.id("textures/item/moon_light_upgrade_module_2.png"),
+                EPAPI.id("textures/item/moon_light_upgrade_module_3.png")
         });
     }
     private void registerToolsChapter() {
@@ -418,19 +418,19 @@ public class ModBookPageContentProvider extends PageContentProvider {
                         Text.literal("\n\n").
                                 formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM).
                                 append(backToTableOfContentComponent(mainTableOfContentPageId))
-                ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/stone_hammer.png"));
+                ), EPAPI.id("textures/item/stone_hammer.png"));
         tableOfContentsEntries.get(mainTableOfContentPageId).add(Pair.of(toolsChapterTitle, toolsChapterPage));
 
         addSimplePage(pageId("hammers"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.hammers").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/wooden_hammer.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/stone_hammer.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/iron_hammer.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/golden_hammer.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/diamond_hammer.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/netherite_hammer.png")
+                EPAPI.id("textures/item/wooden_hammer.png"),
+                EPAPI.id("textures/item/stone_hammer.png"),
+                EPAPI.id("textures/item/iron_hammer.png"),
+                EPAPI.id("textures/item/golden_hammer.png"),
+                EPAPI.id("textures/item/diamond_hammer.png"),
+                EPAPI.id("textures/item/netherite_hammer.png")
         });
 
         addSimplePage(pageId("cutters"), Text.empty().append(
@@ -439,12 +439,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Text.translatable("book.energizedpower.page.cutters.2").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/cutter.png"));
+        ), EPAPI.id("textures/item/cutter.png"));
 
         addSimplePage(pageId("wrench"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.wrench").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/wrench.png"));
+        ), EPAPI.id("textures/item/wrench.png"));
     }
     private void registerWorkbenchesChapter() {
         chapterId("workbenches");
@@ -506,7 +506,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Text.translatable("book.energizedpower.page.inventory_coal_engine.4").
                         formatted(Formatting.BLACK, Formatting.ITALIC).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/inventory_coal_engine_on.png"));
+        ), EPAPI.id("textures/item/inventory_coal_engine_on.png"));
 
         addSimplePage(pageId("inventory_charger"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.inventory_charger.1").
@@ -514,12 +514,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Text.translatable("book.energizedpower.page.inventory_charger.2").
                         formatted(Formatting.BLACK, Formatting.ITALIC).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/inventory_charger.png"));
+        ), EPAPI.id("textures/item/inventory_charger.png"));
 
         addSimplePage(pageId("inventory_teleporter"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.inventory_teleporter").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/inventory_teleporter.png"));
+        ), EPAPI.id("textures/item/inventory_teleporter.png"));
 
         addSimplePage(pageId("energy_analyzer"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.energy_analyzer.1").
@@ -527,7 +527,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Text.translatable("book.energizedpower.page.energy_analyzer.2").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/energy_analyzer.png"));
+        ), EPAPI.id("textures/item/energy_analyzer.png"));
 
         addSimplePage(pageId("fluid_analyzer"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.fluid_analyzer.1").
@@ -535,7 +535,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Text.translatable("book.energizedpower.page.fluid_analyzer.2").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/fluid_analyzer.png"));
+        ), EPAPI.id("textures/item/fluid_analyzer.png"));
 
         addSimplePage(pageId("batteries"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.batteries.1").
@@ -544,14 +544,14 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Text.translatable("book.energizedpower.page.batteries.2").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/battery_1.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/battery_2.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/battery_3.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/battery_4.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/battery_5.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/battery_6.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/battery_7.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/battery_8.png")
+                EPAPI.id("textures/item/battery_1.png"),
+                EPAPI.id("textures/item/battery_2.png"),
+                EPAPI.id("textures/item/battery_3.png"),
+                EPAPI.id("textures/item/battery_4.png"),
+                EPAPI.id("textures/item/battery_5.png"),
+                EPAPI.id("textures/item/battery_6.png"),
+                EPAPI.id("textures/item/battery_7.png"),
+                EPAPI.id("textures/item/battery_8.png")
         });
     }
 
@@ -753,9 +753,9 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Text.translatable("book.energizedpower.page.solar_cells.2").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/basic_solar_cell.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/advanced_solar_cell.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/reinforced_advanced_solar_cell.png")
+                EPAPI.id("textures/item/basic_solar_cell.png"),
+                EPAPI.id("textures/item/advanced_solar_cell.png"),
+                EPAPI.id("textures/item/reinforced_advanced_solar_cell.png")
         });
 
         addSimplePage(pageId("solar_panels"), Text.empty().append(
@@ -1053,7 +1053,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Text.translatable("book.energizedpower.page.teleporter_matrix.2").
                         formatted(Formatting.BLACK, Formatting.ITALIC).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/teleporter_matrix.png"));
+        ), EPAPI.id("textures/item/teleporter_matrix.png"));
 
         addSimplePage(pageId("teleporter"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.teleporter.1").
@@ -1251,7 +1251,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Text.translatable("book.energizedpower.page.dirty_water.2").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/item/dirty_water_bucket.png"));
+        ), EPAPI.id("textures/item/dirty_water_bucket.png"));
     }
     private void registerMachineConfigurationChapter() {
         chapterId("machine_configuration");
@@ -1272,7 +1272,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         addSimplePage(pageId("upgrade_configuration"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.upgrade_configuration").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), Identifier.of(EnergizedPowerMod.MODID, "textures/gui/book_icons/upgrade_view.png"));
+        ), EPAPI.id("textures/gui/book_icons/upgrade_view.png"));
 
         addSimplePage(pageId("redstone_mode_configuration"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.redstone_mode_configuration.1").
@@ -1296,9 +1296,9 @@ public class ModBookPageContentProvider extends PageContentProvider {
                                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
                         )
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/book_icons/redstone_mode_ignore.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/book_icons/redstone_mode_high.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/book_icons/redstone_mode_low.png")
+                EPAPI.id("textures/gui/book_icons/redstone_mode_ignore.png"),
+                EPAPI.id("textures/gui/book_icons/redstone_mode_high.png"),
+                EPAPI.id("textures/gui/book_icons/redstone_mode_low.png")
         });
 
         addSimplePage(pageId("comparator_mode_configuration"), Text.empty().append(
@@ -1323,9 +1323,9 @@ public class ModBookPageContentProvider extends PageContentProvider {
                                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
                         )
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/book_icons/comparator_mode_item.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/book_icons/comparator_mode_fluid.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/book_icons/comparator_mode_energy.png")
+                EPAPI.id("textures/gui/book_icons/comparator_mode_item.png"),
+                EPAPI.id("textures/gui/book_icons/comparator_mode_fluid.png"),
+                EPAPI.id("textures/gui/book_icons/comparator_mode_energy.png")
         });
     }
     private void registerEntitiesChapter() {
@@ -1348,8 +1348,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Text.translatable("book.energizedpower.page.battery_box_minecarts").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
         ), new Identifier[] {
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/battery_box_minecart.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/item/advanced_battery_box_minecart.png")
+                EPAPI.id("textures/item/battery_box_minecart.png"),
+                EPAPI.id("textures/item/advanced_battery_box_minecart.png")
         });
     }
     private void registerStructuresChapter() {
@@ -1424,7 +1424,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         return Text.translatable(tableOfContentPageTitles.get(tableOfContentPageId)).
                 formatted(Formatting.DARK_GREEN, Formatting.UNDERLINE).fillStyle(Style.EMPTY.
                         withClickEvent(new ClickEvent(ClickEvent.Action.CHANGE_PAGE,
-                                EnergizedPowerMod.MODID + ":" + tableOfContentPageId)).
+                                EPAPI.MOD_ID + ":" + tableOfContentPageId)).
                         withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
                                 Text.translatable("book.energizedpower.tooltip.page"))));
     }

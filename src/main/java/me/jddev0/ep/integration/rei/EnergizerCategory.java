@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.EnergizerBlockEntity;
 import me.jddev0.ep.util.EnergyUtils;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnergizerCategory implements DisplayCategory<EnergizerDisplay> {
-    public static final CategoryIdentifier<EnergizerDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "energizer");
+    public static final CategoryIdentifier<EnergizerDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "energizer");
 
     private static final int PADDING = 5;
 
@@ -48,7 +48,7 @@ public class EnergizerCategory implements DisplayCategory<EnergizerDisplay> {
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/energizer.png");
+        Identifier texture = EPAPI.id("textures/gui/container/energizer.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 31, 18, 114, 50));
 
         widgets.add(Widgets.createSlot(new Point(x + 17, y + 17)).disableBackground().markInput().

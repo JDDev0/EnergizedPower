@@ -1,6 +1,6 @@
 package me.jddev0.ep.worldgen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.util.Identifier;
@@ -13,7 +13,7 @@ public class ModOreGeneration {
     private ModOreGeneration() {}
 
     public static final RegistryKey<PlacedFeature> TIN_ORE_KEY = RegistryKey.of(
-            Registry.PLACED_FEATURE_KEY, new Identifier(EnergizedPowerMod.MODID, "tin_ore")
+            Registry.PLACED_FEATURE_KEY, EPAPI.id("tin_ore")
     );
 
     public static void register() {

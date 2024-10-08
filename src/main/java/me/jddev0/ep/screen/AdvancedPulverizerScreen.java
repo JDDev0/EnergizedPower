@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
@@ -20,9 +20,8 @@ public class AdvancedPulverizerScreen extends ConfigurableUpgradableEnergyStorag
     public AdvancedPulverizerScreen(AdvancedPulverizerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/advanced_pulverizer.png"),
-                new Identifier(EnergizedPowerMod.MODID,
-                        "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/advanced_pulverizer.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
     }
 
     @Override

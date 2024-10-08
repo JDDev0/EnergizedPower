@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
@@ -29,8 +29,8 @@ public class FluidPumpScreen
     public FluidPumpScreen(FluidPumpMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.fluid_pump.process_energy_left.txt",
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/fluid_pump.png"),
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/fluid_pump.png"));
+                EPAPI.id("textures/gui/container/fluid_pump.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/fluid_pump.png"));
 
         backgroundWidth = 230;
         energyMeterU = 230;

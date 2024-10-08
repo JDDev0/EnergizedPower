@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.FurnaceRecipeTypePacketUpdate;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
@@ -15,7 +15,7 @@ import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.NotNull;
 
 public final class SyncFurnaceRecipeTypeS2CPacket implements IEnergizedPowerPacket {
-    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "sync_furnace_recipe_type");
+    public static final Identifier ID = EPAPI.id("sync_furnace_recipe_type");
 
     private final RecipeType<? extends AbstractCookingRecipe> recipeType;
     private final BlockPos pos;

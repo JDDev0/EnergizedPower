@@ -23,14 +23,9 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtLong;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import team.reborn.energy.api.base.SimpleEnergyItem;
 
 public class EnergizedPowerMod implements ModInitializer {
-    public static final String MODID = "energizedpower";
-    public static final Logger LOGGER = LoggerFactory.getLogger("energizedpower");
-
     @Override
     public void onInitialize() {
         ModConfigs.registerConfigs(true);

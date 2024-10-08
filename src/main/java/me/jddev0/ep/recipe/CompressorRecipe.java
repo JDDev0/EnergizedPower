@@ -1,7 +1,7 @@
 package me.jddev0.ep.recipe;
 
 import com.google.gson.JsonObject;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.inventory.Inventory;
@@ -11,7 +11,6 @@ import net.minecraft.recipe.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 
 public class CompressorRecipe implements Recipe<Inventory> {
@@ -105,7 +104,7 @@ public class CompressorRecipe implements Recipe<Inventory> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "compressor");
+        public static final Identifier ID = EPAPI.id("compressor");
 
         @Override
         public CompressorRecipe read(Identifier recipeID, JsonObject json) {

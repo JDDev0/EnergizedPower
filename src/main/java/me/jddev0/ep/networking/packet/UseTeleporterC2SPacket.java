@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.TeleporterBlockEntity;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,7 +14,7 @@ import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 
 public record UseTeleporterC2SPacket(BlockPos pos) implements IEnergizedPowerPacket {
-    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "use_teleporter");
+    public static final Identifier ID = EPAPI.id("use_teleporter");
 
     public UseTeleporterC2SPacket(PacketByteBuf buffer) {
         this(buffer.readBlockPos());

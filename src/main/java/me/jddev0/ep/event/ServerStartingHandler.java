@@ -2,7 +2,7 @@ package me.jddev0.ep.event;
 
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.mixin.world.village.StructurePoolElementGetterSetter;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -38,7 +38,7 @@ public class ServerStartingHandler implements ServerLifecycleEvents.ServerStarti
         ObjectArrayList<StructurePoolElement> elements = ((StructurePoolElementGetterSetter)pool).getElements();
         List<Pair<StructurePoolElement, Integer>> elementCounts = ((StructurePoolElementGetterSetter)pool).getElementCounts();
 
-        SinglePoolElement element = SinglePoolElement.ofLegacySingle(String.format("%s:village/%s/houses/%s", EnergizedPowerMod.MODID, villageType, buildingName)).
+        SinglePoolElement element = SinglePoolElement.ofLegacySingle(String.format("%s:village/%s/houses/%s", EPAPI.MOD_ID, villageType, buildingName)).
                 apply(StructurePool.Projection.RIGID);
 
         for(int i = 0;i < weight;i++)

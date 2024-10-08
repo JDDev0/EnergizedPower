@@ -1,7 +1,7 @@
 package me.jddev0.ep.recipe;
 
 import com.google.gson.JsonObject;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
@@ -113,7 +113,7 @@ public class FluidTransposerRecipe implements Recipe<Inventory> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "fluid_transposer");
+        public static final Identifier ID = EPAPI.id("fluid_transposer");
 
         @Override
         public FluidTransposerRecipe read(Identifier recipeID, JsonObject json) {

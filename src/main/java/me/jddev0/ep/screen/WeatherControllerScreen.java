@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetWeatherFromWeatherControllerC2SPacket;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageContainerScreen;
@@ -20,8 +20,8 @@ import java.util.Optional;
 public class WeatherControllerScreen extends UpgradableEnergyStorageContainerScreen<WeatherControllerMenu> {
     public WeatherControllerScreen(WeatherControllerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/weather_controller.png"),
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_duration.png"));
+                EPAPI.id("textures/gui/container/weather_controller.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/1_duration.png"));
     }
 
     @Override

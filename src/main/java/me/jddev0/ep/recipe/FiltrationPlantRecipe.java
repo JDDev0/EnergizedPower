@@ -1,7 +1,7 @@
 package me.jddev0.ep.recipe;
 
 import com.google.gson.JsonObject;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.inventory.Inventory;
@@ -121,7 +121,7 @@ public class FiltrationPlantRecipe implements Recipe<Inventory> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "filtration_plant");
+        public static final Identifier ID = EPAPI.id("filtration_plant");
 
         @Override
         public FiltrationPlantRecipe read(Identifier recipeID, JsonObject json) {

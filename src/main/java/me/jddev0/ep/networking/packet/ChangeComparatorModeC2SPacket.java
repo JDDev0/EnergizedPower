@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,7 +14,7 @@ import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 
 public record ChangeComparatorModeC2SPacket(BlockPos pos) implements IEnergizedPowerPacket {
-    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "change_comparator_mode");
+    public static final Identifier ID = EPAPI.id("change_comparator_mode");
 
     public ChangeComparatorModeC2SPacket(PacketByteBuf buffer) {
         this(buffer.readBlockPos());

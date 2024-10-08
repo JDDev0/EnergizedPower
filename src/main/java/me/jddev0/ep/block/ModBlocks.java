@@ -1,6 +1,6 @@
 package me.jddev0.ep.block;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.item.ModCreativeModeTab;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -113,7 +113,7 @@ public final class ModBlocks {
             new CreativeFluidTankBlock.Item(CREATIVE_FLUID_TANK, new Item.Settings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     private static Item createCableBlockItem(String name, CableBlock block) {
-        return Registry.register(Registry.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
+        return Registry.register(Registry.ITEM, EPAPI.id(name),
                 new CableBlock.Item(block, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), block.getTier()));
     }
     public static final CableBlock TIN_CABLE = registerBlock("tin_cable",
@@ -144,7 +144,7 @@ public final class ModBlocks {
             ENERGIZED_CRYSTAL_MATRIX_CABLE);
 
     private static Item createTransformerBlockItem(String name, TransformerBlock block) {
-        return Registry.register(Registry.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
+        return Registry.register(Registry.ITEM, EPAPI.id(name),
                 new TransformerBlock.Item(block, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), block.getTier(), block.getTransformerType()));
     }
     public static final TransformerBlock LV_TRANSFORMER_1_TO_N = registerBlock("lv_transformer_1_to_n",
@@ -427,7 +427,7 @@ public final class ModBlocks {
 
 
     private static Item createSolarPanelBlockItem(String name, SolarPanelBlock block) {
-        return Registry.register(Registry.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
+        return Registry.register(Registry.ITEM, EPAPI.id(name),
                 new SolarPanelBlock.Item(block, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), block.getTier()));
     }
     public static final SolarPanelBlock SOLAR_PANEL_1 = registerBlock("solar_panel_1",
@@ -550,15 +550,15 @@ public final class ModBlocks {
     public static final Item REINFORCED_ADVANCED_MACHINE_FRAME_ITEM = createBlockItem("reinforced_advanced_machine_frame", REINFORCED_ADVANCED_MACHINE_FRAME);
 
     private static <T extends Block> T registerBlock(String name, T block) {
-        return Registry.register(Registry.BLOCK, new Identifier(EnergizedPowerMod.MODID, name), block);
+        return Registry.register(Registry.BLOCK, EPAPI.id(name), block);
     }
 
     private static Item createBlockItem(String name, Item item) {
-        return Registry.register(Registry.ITEM, new Identifier(EnergizedPowerMod.MODID, name), item);
+        return Registry.register(Registry.ITEM, EPAPI.id(name), item);
     }
 
     private static Item createBlockItem(String name, Block block, FabricItemSettings props) {
-        return Registry.register(Registry.ITEM, new Identifier(EnergizedPowerMod.MODID, name),
+        return Registry.register(Registry.ITEM, EPAPI.id(name),
                 new BlockItem(block, props));
     }
 

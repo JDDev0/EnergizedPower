@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.*;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
@@ -18,7 +18,6 @@ import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
 import java.util.function.BiFunction;
-import java.util.function.Supplier;
 
 public final class ModBlockEntities {
     private ModBlockEntities() {}
@@ -568,7 +567,7 @@ public final class ModBlockEntities {
     @SuppressWarnings("unchecked")
     private static <T extends BlockEntity> BlockEntityType<T> createBlockEntity(String name, Block block,
             FabricBlockEntityTypeBuilder.Factory<? extends T> factory) {
-        return (BlockEntityType<T>)Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(EnergizedPowerMod.MODID, name),
+        return (BlockEntityType<T>)Registry.register(Registry.BLOCK_ENTITY_TYPE, EPAPI.id(name),
                 FabricBlockEntityTypeBuilder.create(factory, block).build(null));
     }
 

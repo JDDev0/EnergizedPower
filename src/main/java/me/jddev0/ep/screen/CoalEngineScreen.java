@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,8 +14,8 @@ public class CoalEngineScreen extends ConfigurableUpgradableEnergyStorageContain
     public CoalEngineScreen(CoalEngineMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.coal_engine.txt",
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/coal_engine.png"),
-                new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/coal_engine.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 
     @Override

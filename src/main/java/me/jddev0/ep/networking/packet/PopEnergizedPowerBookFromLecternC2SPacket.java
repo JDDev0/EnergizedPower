@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.LecternBlock;
 import net.minecraft.block.entity.BlockEntity;
@@ -16,7 +16,7 @@ import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 
 public record PopEnergizedPowerBookFromLecternC2SPacket(BlockPos pos) implements IEnergizedPowerPacket {
-    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "pop_energized_power_book_from_lectern");
+    public static final Identifier ID = EPAPI.id("pop_energized_power_book_from_lectern");
 
     public PopEnergizedPowerBookFromLecternC2SPacket(PacketByteBuf buffer) {
         this(buffer.readBlockPos());

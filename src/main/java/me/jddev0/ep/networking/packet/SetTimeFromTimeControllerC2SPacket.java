@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import team.reborn.energy.api.EnergyStorage;
 
 public record SetTimeFromTimeControllerC2SPacket(BlockPos pos, int time) implements IEnergizedPowerPacket {
-    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "set_time_from_time_controller");
+    public static final Identifier ID = EPAPI.id("set_time_from_time_controller");
 
     public SetTimeFromTimeControllerC2SPacket(PacketByteBuf buffer) {
         this(buffer.readBlockPos(), buffer.readInt());

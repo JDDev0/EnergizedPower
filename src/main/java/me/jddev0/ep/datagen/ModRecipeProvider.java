@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.datagen.recipe.*;
@@ -2509,7 +2509,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     private static void addShapedCraftingRecipe(Consumer<RecipeJsonProvider> output, InventoryChangedCriterion.Conditions hasIngredientTrigger,
                                                 Map<Character, Ingredient> key, String[] pattern, ItemStack result, String group, String recipeIdSuffix,
                                                 String recipeIdPrefix) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "crafting/" +
+        Identifier recipeId = EPAPI.id("crafting/" +
                 recipeIdPrefix + getItemPath(result.getItem()) + recipeIdSuffix);
 
         Advancement.Builder advancementBuilder = Advancement.Builder.create()
@@ -2543,7 +2543,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     private static void addShapelessCraftingRecipe(Consumer<RecipeJsonProvider> output, InventoryChangedCriterion.Conditions hasIngredientTrigger,
                                                    List<Ingredient> inputs, ItemStack result,
                                                    String group, String recipeIdSuffix, String recipeIdPrefix) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "crafting/" +
+        Identifier recipeId = EPAPI.id("crafting/" +
                 recipeIdPrefix + getItemPath(result.getItem()) + recipeIdSuffix);
 
         Advancement.Builder advancementBuilder = Advancement.Builder.create()
@@ -2562,7 +2562,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
     private static void addCustomCraftingRecipe(Consumer<RecipeJsonProvider> output, RecipeSerializer<? extends SpecialCraftingRecipe> customRecipeSerializer,
                                                 String recipeIdString) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "crafting/" +
+        Identifier recipeId = EPAPI.id("crafting/" +
                 recipeIdString);
 
         CustomFinishedRecipe recipe = new CustomFinishedRecipe(
@@ -2585,14 +2585,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     private static void addSmeltingRecipe(Consumer<RecipeJsonProvider> output, ItemConvertible ingredient, ItemStack result,
                                           int time, float xp, String group) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "smelting/" +
+        Identifier recipeId = EPAPI.id("smelting/" +
                 getItemPath(result.getItem()));
 
         addSmeltingRecipe(output, ingredient, result, time, xp, group, recipeId);
     }
     private static void addSmeltingRecipe(Consumer<RecipeJsonProvider> output, ItemConvertible ingredient, ItemStack result,
                                           int time, float xp, String group, String recipeIngredientName) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "smelting/" +
+        Identifier recipeId = EPAPI.id("smelting/" +
                 getItemPath(result.getItem()) + "_from_smelting_" + recipeIngredientName);
 
         addSmeltingRecipe(output, ingredient, result, time, xp, group, recipeId);
@@ -2617,7 +2617,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
     private static void addSmeltingRecipe(Consumer<RecipeJsonProvider> output, TagKey<Item> ingredient, ItemStack result,
                                           int time, float xp, String group, String recipeIngredientName) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "smelting/" +
+        Identifier recipeId = EPAPI.id("smelting/" +
                 getItemPath(result.getItem()) + "_from_smelting_" + recipeIngredientName);
 
         Advancement.Builder advancementBuilder = Advancement.Builder.create()
@@ -2639,7 +2639,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     private static void addBlastingRecipe(Consumer<RecipeJsonProvider> output, ItemConvertible ingredient, ItemStack result,
                                           int time, float xp, String group, String recipeIngredientName) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "blasting/" +
+        Identifier recipeId = EPAPI.id("blasting/" +
                 getItemPath(result.getItem()) + "_from_blasting_" + recipeIngredientName);
 
         Advancement.Builder advancementBuilder = Advancement.Builder.create()
@@ -2660,7 +2660,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
     private static void addBlastingRecipe(Consumer<RecipeJsonProvider> output, TagKey<Item> ingredient, ItemStack result,
                                           int time, float xp, String group, String recipeIngredientName) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "blasting/" +
+        Identifier recipeId = EPAPI.id("blasting/" +
                 getItemPath(result.getItem()) + "_from_blasting_" + recipeIngredientName);
 
         Advancement.Builder advancementBuilder = Advancement.Builder.create()
@@ -2681,7 +2681,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private static void addNetheriteSmithingUpgradeRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient base, ItemStack output) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "smithing/" +
+        Identifier recipeId = EPAPI.id("smithing/" +
                 getItemPath(output.getItem()));
 
         Advancement.Builder advancementBuilder = Advancement.Builder.create()
@@ -2706,7 +2706,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
     private static void addAlloyFurnaceRecipe(Consumer<RecipeJsonProvider> recipeOutput, IngredientWithCount[] inputs, ItemStack output,
                                               OutputItemStackWithPercentages secondaryOutput, int ticks) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "alloy_furnace/" +
+        Identifier recipeId = EPAPI.id("alloy_furnace/" +
                 getItemPath(output.getItem()));
 
         AlloyFurnaceFinishedRecipe recipe = new AlloyFurnaceFinishedRecipe(
@@ -2717,7 +2717,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private static void addPressMoldMakerRecipe(Consumer<RecipeJsonProvider> recipeOutput, int clayCount, ItemStack output) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "press_mold_maker/" +
+        Identifier recipeId = EPAPI.id("press_mold_maker/" +
                 getItemPath(output.getItem()));
 
         PressMoldMakerFinishedRecipe recipe = new PressMoldMakerFinishedRecipe(
@@ -2741,7 +2741,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
     private static void addCompressorRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient input, ItemStack output, int inputCount,
                                             String recipeIngredientName) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "compressing/" +
+        Identifier recipeId = EPAPI.id("compressing/" +
                 getItemPath(output.getItem()) + "_from_compressing_" + recipeIngredientName);
 
         CompressorFinishedRecipe recipe = new CompressorFinishedRecipe(
@@ -2753,7 +2753,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     private static void addCrusherRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient input, ItemStack output,
                                          String recipeIngredientName) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "crusher/" +
+        Identifier recipeId = EPAPI.id("crusher/" +
                 getItemPath(output.getItem()) + "_from_crushing_" + recipeIngredientName);
 
         CrusherFinishedRecipe recipe = new CrusherFinishedRecipe(
@@ -2802,7 +2802,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                                             PulverizerRecipe.OutputItemStackWithPercentages output,
                                             PulverizerRecipe.OutputItemStackWithPercentages secondaryOutput,
                                             String recipeIngredientName) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "pulverizer/" +
+        Identifier recipeId = EPAPI.id("pulverizer/" +
                 getItemPath(output.output().getItem()) + "_from_pulverizer_" + recipeIngredientName);
 
         PulverizerFinishedRecipe recipe = new PulverizerFinishedRecipe(
@@ -2855,7 +2855,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
     private static void addSawmillRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient input, ItemStack output,
                                          int sawdustAmount, String outputName, String recipeIngredientName) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "sawmill/" +
+        Identifier recipeId = EPAPI.id("sawmill/" +
                 outputName + "_from_sawing_" + recipeIngredientName);
 
         SawmillFinishedRecipe recipe = new SawmillFinishedRecipe(
@@ -2866,7 +2866,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
     private static void addSawmillRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient input, ItemStack output,
                                          ItemStack secondaryOutput, String outputName, String recipeIngredientName) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "sawmill/" +
+        Identifier recipeId = EPAPI.id("sawmill/" +
                 outputName + "_from_sawing_" + recipeIngredientName);
 
         SawmillFinishedRecipe recipe = new SawmillFinishedRecipe(
@@ -2906,7 +2906,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     private static void addPlantGrowthChamberRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient input,
                                                     OutputItemStackWithPercentages[] outputs, int ticks,
                                                     String outputName, String recipeIngredientName) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "growing/" +
+        Identifier recipeId = EPAPI.id("growing/" +
                 outputName + "_from_growing_" + recipeIngredientName);
 
         PlantGrowthChamberFinishedRecipe recipe = new PlantGrowthChamberFinishedRecipe(
@@ -2919,7 +2919,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     private static void addPlantGrowthChamberFertilizerRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient input,
                                                               double speedMultiplier, double energyConsumptionMultiplier,
                                                               String recipeIngredientName) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "growing/fertilizer/" +
+        Identifier recipeId = EPAPI.id("growing/fertilizer/" +
                 recipeIngredientName);
 
         PlantGrowthChamberFertilizerFinishedRecipe recipe = new PlantGrowthChamberFertilizerFinishedRecipe(
@@ -2944,7 +2944,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
     private static void addMetalPressRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient input, ItemStack output,
                                             ItemStack pressMold, int inputCount) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "metal_press/" +
+        Identifier recipeId = EPAPI.id("metal_press/" +
                 getItemPath(output.getItem()));
 
         MetalPressFinishedRecipe recipe = new MetalPressFinishedRecipe(
@@ -2962,7 +2962,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
     private static void addHeatGeneratorRecipe(Consumer<RecipeJsonProvider> recipeOutput, Fluid[] input, int energyProduction,
                                                String recipeIngredientName) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "heat_generator/" +
+        Identifier recipeId = EPAPI.id("heat_generator/" +
                 "energy_production_from_" + recipeIngredientName);
 
         HeatGeneratorFinishedRecipe recipe = new HeatGeneratorFinishedRecipe(
@@ -2980,7 +2980,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
     private static void addThermalGeneratorRecipe(Consumer<RecipeJsonProvider> recipeOutput, Fluid[] input, int energyProduction,
                                                   String recipeIngredientName) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "thermal_generator/" +
+        Identifier recipeId = EPAPI.id("thermal_generator/" +
                 "energy_production_from_" + recipeIngredientName);
 
         ThermalGeneratorFinishedRecipe recipe = new ThermalGeneratorFinishedRecipe(
@@ -2991,7 +2991,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private static void addStoneSolidifierRecipe(Consumer<RecipeJsonProvider> recipeOutput, int waterAmount, int lavaAmount, ItemStack output) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "stone_solidifier/" +
+        Identifier recipeId = EPAPI.id("stone_solidifier/" +
                 getItemPath(output.getItem()));
 
         StoneSolidifierFinishedRecipe recipe = new StoneSolidifierFinishedRecipe(
@@ -3002,7 +3002,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private static void addAssemblingMachineRecipe(Consumer<RecipeJsonProvider> recipeOutput, IngredientWithCount[] inputs, ItemStack output) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "assembling/" +
+        Identifier recipeId = EPAPI.id("assembling/" +
                 getItemPath(output.getItem()));
 
         AssemblingMachineFinishedRecipe recipe = new AssemblingMachineFinishedRecipe(
@@ -3025,7 +3025,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     private static void addFiltrationPlantRecipe(Consumer<RecipeJsonProvider> recipeOutput, OutputItemStackWithPercentages output,
                                                  OutputItemStackWithPercentages secondaryOutput, Identifier icon,
                                                  String recipeName) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "filtration_plant/" +
+        Identifier recipeId = EPAPI.id("filtration_plant/" +
                 recipeName);
 
         FiltrationPlantFinishedRecipe recipe = new FiltrationPlantFinishedRecipe(
@@ -3041,7 +3041,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
     private static void addFluidTransposerRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient input, ItemStack output,
                                                  FluidTransposerBlockEntity.Mode mode, FluidStack fluid) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "fluid_transposer/" +
+        Identifier recipeId = EPAPI.id("fluid_transposer/" +
                 getItemPath(output.getItem()));
 
         FluidTransposerFinishedRecipe recipe = new FluidTransposerFinishedRecipe(
@@ -3052,7 +3052,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private static void addChargerRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient input, ItemStack output, int energyConsumption) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "charger/" +
+        Identifier recipeId = EPAPI.id("charger/" +
                 getItemPath(output.getItem()));
 
         ChargerFinishedRecipe recipe = new ChargerFinishedRecipe(
@@ -3063,7 +3063,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private static void addEnergizerRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient input, ItemStack output, int energyConsumption) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "energizer/" +
+        Identifier recipeId = EPAPI.id("energizer/" +
                 getItemPath(output.getItem()));
 
         EnergizerFinishedRecipe recipe = new EnergizerFinishedRecipe(
@@ -3079,7 +3079,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
     private static void addCrystalGrowthChamberRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient input, OutputItemStackWithPercentages output,
                                                       int inputCount, int ticks) {
-        Identifier recipeId = Identifier.of(EnergizedPowerMod.MODID, "crystal_growing/" +
+        Identifier recipeId = EPAPI.id("crystal_growing/" +
                 getItemPath(output.output().getItem()));
 
         CrystalGrowthChamberFinishedRecipe recipe = new CrystalGrowthChamberFinishedRecipe(
