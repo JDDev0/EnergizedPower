@@ -4,7 +4,7 @@ import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.PulverizerRecipe;
 import me.jddev0.ep.screen.PulverizerMenu;
 import me.jddev0.ep.util.InventoryUtils;
@@ -18,11 +18,11 @@ public class PulverizerBlockEntity extends SimpleRecipeMachineBlockEntity<Pulver
 
     public PulverizerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.PULVERIZER_ENTITY, blockPos, blockState,
+                EPBlockEntities.PULVERIZER_ENTITY, blockPos, blockState,
 
                 "pulverizer", PulverizerMenu::new,
 
-                3, ModRecipes.PULVERIZER_TYPE, ModConfigs.COMMON_PULVERIZER_RECIPE_DURATION.getValue(),
+                3, EPRecipes.PULVERIZER_TYPE, ModConfigs.COMMON_PULVERIZER_RECIPE_DURATION.getValue(),
 
                 ModConfigs.COMMON_PULVERIZER_CAPACITY.getValue(),
                 ModConfigs.COMMON_PULVERIZER_TRANSFER_RATE.getValue(),

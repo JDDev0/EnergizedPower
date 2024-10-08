@@ -31,7 +31,7 @@ public class MinecartChargerBlockEntity
 
     public MinecartChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.MINECART_CHARGER_ENTITY, blockPos, blockState,
+                EPBlockEntities.MINECART_CHARGER_ENTITY, blockPos, blockState,
 
                 "minecart_charger",
 

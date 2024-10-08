@@ -8,10 +8,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 
-public final class ModEntityTypes {
-    private ModEntityTypes() {}
+public final class EPEntityTypes {
+    private EPEntityTypes() {}
 
     @SuppressWarnings("unchecked")
     public static <T extends Entity> EntityType<T> registerEntity(String name, EntityType<? extends T> entityType) {

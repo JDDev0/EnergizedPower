@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AutoPressMoldMakerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
@@ -53,10 +53,10 @@ public class AutoPressMoldMakerMenu extends UpgradableEnergyStorageMenu<AutoPres
     public AutoPressMoldMakerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
                                   UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(
-                ModMenuTypes.AUTO_PRESS_MOLD_MAKER_MENU, id,
+                EPMenuTypes.AUTO_PRESS_MOLD_MAKER_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.AUTO_PRESS_MOLD_MAKER,
+                EPBlocks.AUTO_PRESS_MOLD_MAKER,
 
                 upgradeModuleInventory, 3
         );

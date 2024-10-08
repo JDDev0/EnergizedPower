@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.behavior;
 
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.item.EPItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.ShearsDispenserBehavior;
@@ -13,7 +13,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
 public final class ModBlockBehaviors {
     private ModBlockBehaviors() {}
@@ -44,7 +43,7 @@ public final class ModBlockBehaviors {
                     level.breakBlock(blockPos, false, null);
 
                     ItemEntity itemEntity = new ItemEntity(level, blockPos.getX() + .5, blockPos.getY() + .5, blockPos.getZ() + .5,
-                            new ItemStack(ModItems.CABLE_INSULATOR, 18), 0, 0, 0);
+                            new ItemStack(EPItems.CABLE_INSULATOR, 18), 0, 0, 0);
                     itemEntity.setPickupDelay(20);
                     level.spawnEntity(itemEntity);
 

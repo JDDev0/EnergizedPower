@@ -1,6 +1,6 @@
 package me.jddev0.ep.block;
 
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.StoneSolidifierBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -125,6 +125,6 @@ public class StoneSolidifierBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.STONE_SOLIDIFIER_ENTITY, StoneSolidifierBlockEntity::tick);
+        return checkType(type, EPBlockEntities.STONE_SOLIDIFIER_ENTITY, StoneSolidifierBlockEntity::tick);
     }
 }

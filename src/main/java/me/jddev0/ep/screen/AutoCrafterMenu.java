@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.PatternResultSlot;
@@ -24,7 +24,6 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.world.World;
 
 public class AutoCrafterMenu extends UpgradableEnergyStorageMenu<AutoCrafterBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
@@ -51,10 +50,10 @@ public class AutoCrafterMenu extends UpgradableEnergyStorageMenu<AutoCrafterBloc
                            UpgradeModuleInventory upgradeModuleInventory, Inventory patternSlots,
                            Inventory patternResultSlots, PropertyDelegate data) {
         super(
-                ModMenuTypes.AUTO_CRAFTER_MENU, id,
+                EPMenuTypes.AUTO_CRAFTER_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.AUTO_CRAFTER,
+                EPBlocks.AUTO_CRAFTER,
                 8, 124,
 
                 upgradeModuleInventory, 3

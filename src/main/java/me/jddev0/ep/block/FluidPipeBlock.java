@@ -46,12 +46,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, WrenchConfigurable {
-    public static final EnumProperty<ModBlockStateProperties.PipeConnection> UP = ModBlockStateProperties.PIPE_CONNECTION_UP;
-    public static final EnumProperty<ModBlockStateProperties.PipeConnection> DOWN = ModBlockStateProperties.PIPE_CONNECTION_DOWN;
-    public static final EnumProperty<ModBlockStateProperties.PipeConnection> NORTH = ModBlockStateProperties.PIPE_CONNECTION_NORTH;
-    public static final EnumProperty<ModBlockStateProperties.PipeConnection> SOUTH = ModBlockStateProperties.PIPE_CONNECTION_SOUTH;
-    public static final EnumProperty<ModBlockStateProperties.PipeConnection> EAST = ModBlockStateProperties.PIPE_CONNECTION_EAST;
-    public static final EnumProperty<ModBlockStateProperties.PipeConnection> WEST = ModBlockStateProperties.PIPE_CONNECTION_WEST;
+    public static final EnumProperty<EPBlockStateProperties.PipeConnection> UP = EPBlockStateProperties.PIPE_CONNECTION_UP;
+    public static final EnumProperty<EPBlockStateProperties.PipeConnection> DOWN = EPBlockStateProperties.PIPE_CONNECTION_DOWN;
+    public static final EnumProperty<EPBlockStateProperties.PipeConnection> NORTH = EPBlockStateProperties.PIPE_CONNECTION_NORTH;
+    public static final EnumProperty<EPBlockStateProperties.PipeConnection> SOUTH = EPBlockStateProperties.PIPE_CONNECTION_SOUTH;
+    public static final EnumProperty<EPBlockStateProperties.PipeConnection> EAST = EPBlockStateProperties.PIPE_CONNECTION_EAST;
+    public static final EnumProperty<EPBlockStateProperties.PipeConnection> WEST = EPBlockStateProperties.PIPE_CONNECTION_WEST;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
     private static final VoxelShape SHAPE_CORE = Block.createCuboidShape(4.d, 4.d, 4.d, 12.d, 12.d, 12.d);
@@ -63,7 +63,7 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
     private static final VoxelShape SHAPE_WEST = Block.createCuboidShape(0.d, 4.d, 4.d, 4.d, 12.d, 12.d);
 
     @NotNull
-    public static EnumProperty<ModBlockStateProperties.PipeConnection> getPipeConnectionPropertyFromDirection(@NotNull Direction dir) {
+    public static EnumProperty<EPBlockStateProperties.PipeConnection> getPipeConnectionPropertyFromDirection(@NotNull Direction dir) {
         return switch(dir) {
             case UP -> UP;
             case DOWN -> DOWN;
@@ -78,8 +78,8 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
 
     public static Block getBlockFromTier(Tier tier) {
         return switch(tier) {
-            case IRON -> ModBlocks.IRON_FLUID_PIPE;
-            case GOLDEN -> ModBlocks.GOLDEN_FLUID_PIPE;
+            case IRON -> EPBlocks.IRON_FLUID_PIPE;
+            case GOLDEN -> EPBlocks.GOLDEN_FLUID_PIPE;
         };
     }
 
@@ -88,12 +88,12 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
 
         this.tier = tier;
 
-        this.setDefaultState(this.getStateManager().getDefaultState().with(UP, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
-                with(DOWN, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
-                with(NORTH, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
-                with(SOUTH, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
-                with(EAST, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
-                with(WEST, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
+        this.setDefaultState(this.getStateManager().getDefaultState().with(UP, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
+                with(DOWN, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
+                with(NORTH, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
+                with(SOUTH, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
+                with(EAST, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
+                with(WEST, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
                 with(WATERLOGGED, false));
     }
 
@@ -171,15 +171,15 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
             return ActionResult.SUCCESS;
         }
 
-        EnumProperty<ModBlockStateProperties.PipeConnection> pipeConnectionProperty =
+        EnumProperty<EPBlockStateProperties.PipeConnection> pipeConnectionProperty =
                 FluidPipeBlock.getPipeConnectionPropertyFromDirection(selectedFace);
 
         int diff = player != null && player.isSneaking()?-1:1;
 
-        ModBlockStateProperties.PipeConnection pipeConnection = state.get(pipeConnectionProperty);
-        pipeConnection = ModBlockStateProperties.PipeConnection.values()[(pipeConnection.ordinal() + diff +
-                ModBlockStateProperties.PipeConnection.values().length) %
-                ModBlockStateProperties.PipeConnection.values().length];
+        EPBlockStateProperties.PipeConnection pipeConnection = state.get(pipeConnectionProperty);
+        pipeConnection = EPBlockStateProperties.PipeConnection.values()[(pipeConnection.ordinal() + diff +
+                EPBlockStateProperties.PipeConnection.values().length) %
+                EPBlockStateProperties.PipeConnection.values().length];
 
         level.setBlockState(blockPos, state.with(pipeConnectionProperty, pipeConnection), 3);
 
@@ -324,7 +324,7 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
                     with(WEST, selfState.get(WEST)).
                     with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
         }else {
-            EnumProperty<ModBlockStateProperties.PipeConnection> pipeConnectionProperty = getPipeConnectionPropertyFromDirection(dir);
+            EnumProperty<EPBlockStateProperties.PipeConnection> pipeConnectionProperty = getPipeConnectionPropertyFromDirection(dir);
 
             newState = getDefaultState().
                     with(UP, selfState.get(UP)).
@@ -346,22 +346,22 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
         FluidPipeBlockEntity.updateConnections(level, selfPos, newState, (FluidPipeBlockEntity)blockEntity);
     }
 
-    private ModBlockStateProperties.PipeConnection shouldConnectTo(World level, BlockPos selfPos, BlockState selfState, Direction direction) {
+    private EPBlockStateProperties.PipeConnection shouldConnectTo(World level, BlockPos selfPos, BlockState selfState, Direction direction) {
         BlockPos toPos = selfPos.offset(direction);
         BlockEntity blockEntity = level.getBlockEntity(toPos);
         if(blockEntity == null)
-            return ModBlockStateProperties.PipeConnection.NOT_CONNECTED;
+            return EPBlockStateProperties.PipeConnection.NOT_CONNECTED;
 
         if(blockEntity instanceof FluidPipeBlockEntity fluidPipeBlockEntity && fluidPipeBlockEntity.getTier() != this.getTier())
-            return ModBlockStateProperties.PipeConnection.NOT_CONNECTED;
+            return EPBlockStateProperties.PipeConnection.NOT_CONNECTED;
 
-        ModBlockStateProperties.PipeConnection currentConnectionState =
+        EPBlockStateProperties.PipeConnection currentConnectionState =
                 selfState.get(getPipeConnectionPropertyFromDirection(direction));
-        if(currentConnectionState == ModBlockStateProperties.PipeConnection.NOT_CONNECTED)
-            currentConnectionState = ModBlockStateProperties.PipeConnection.CONNECTED;
+        if(currentConnectionState == EPBlockStateProperties.PipeConnection.NOT_CONNECTED)
+            currentConnectionState = EPBlockStateProperties.PipeConnection.CONNECTED;
 
         Storage<FluidVariant> fluidStorage = FluidStorage.SIDED.find(level, toPos, direction.getOpposite());
-        return fluidStorage == null?ModBlockStateProperties.PipeConnection.NOT_CONNECTED:currentConnectionState;
+        return fluidStorage == null? EPBlockStateProperties.PipeConnection.NOT_CONNECTED:currentConnectionState;
     }
 
     @Nullable

@@ -3,7 +3,7 @@ package me.jddev0.ep.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -98,7 +98,7 @@ public class PlantGrowthChamberRecipe implements Recipe<Inventory> {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM);
+        return new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM);
     }
 
     @Override

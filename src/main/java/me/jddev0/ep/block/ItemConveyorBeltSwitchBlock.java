@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.ItemConveyorBeltSwitchBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -79,6 +79,6 @@ public class ItemConveyorBeltSwitchBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.ITEM_CONVEYOR_BELT_SWITCH_ENTITY, ItemConveyorBeltSwitchBlockEntity::tick);
+        return checkType(type, EPBlockEntities.ITEM_CONVEYOR_BELT_SWITCH_ENTITY, ItemConveyorBeltSwitchBlockEntity::tick);
     }
 }

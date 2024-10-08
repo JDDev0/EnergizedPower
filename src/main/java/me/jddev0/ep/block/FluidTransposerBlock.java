@@ -1,6 +1,6 @@
 package me.jddev0.ep.block;
 
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -121,6 +121,6 @@ public class FluidTransposerBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.FLUID_TRANSPOSER_ENTITY, FluidTransposerBlockEntity::tick);
+        return checkType(type, EPBlockEntities.FLUID_TRANSPOSER_ENTITY, FluidTransposerBlockEntity::tick);
     }
 }

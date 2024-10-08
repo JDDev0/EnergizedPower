@@ -1,6 +1,6 @@
 package me.jddev0.ep.item;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -93,7 +93,7 @@ public class TeleporterMatrixItem extends Item {
 
         nbt.putString("dim", level.getRegistryKey().getValue().toString());
 
-        if(state.isOf(ModBlocks.TELEPORTER)) {
+        if(state.isOf(EPBlocks.TELEPORTER)) {
             if(player instanceof ServerPlayerEntity serverPlayer) {
                 serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
                         Text.translatable("tooltip.energizedpower.teleporter_matrix.set").

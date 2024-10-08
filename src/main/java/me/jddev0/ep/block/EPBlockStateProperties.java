@@ -8,8 +8,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
 
-public final class ModBlockStateProperties {
-    private ModBlockStateProperties() {}
+public final class EPBlockStateProperties {
+    private EPBlockStateProperties() {}
 
     public static final EnumProperty<PipeConnection> PIPE_CONNECTION_UP = EnumProperty.of("up", PipeConnection.class);
     public static final EnumProperty<PipeConnection> PIPE_CONNECTION_DOWN = EnumProperty.of("down", PipeConnection.class);

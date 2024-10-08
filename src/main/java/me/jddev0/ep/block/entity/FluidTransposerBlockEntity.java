@@ -11,7 +11,7 @@ import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.FluidTransposerRecipe;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.FluidTransposerMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.FluidUtils;
@@ -25,7 +25,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,11 +43,11 @@ public class FluidTransposerBlockEntity
 
     public FluidTransposerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.FLUID_TRANSPOSER_ENTITY, blockPos, blockState,
+                EPBlockEntities.FLUID_TRANSPOSER_ENTITY, blockPos, blockState,
 
                 "fluid_transposer", FluidTransposerMenu::new,
 
-                2, ModRecipes.FLUID_TRANSPOSER_TYPE, ModConfigs.COMMON_FLUID_TRANSPOSER_RECIPE_DURATION.getValue(),
+                2, EPRecipes.FLUID_TRANSPOSER_TYPE, ModConfigs.COMMON_FLUID_TRANSPOSER_RECIPE_DURATION.getValue(),
 
                 ModConfigs.COMMON_FLUID_TRANSPOSER_CAPACITY.getValue(),
                 ModConfigs.COMMON_FLUID_TRANSPOSER_TRANSFER_RATE.getValue(),

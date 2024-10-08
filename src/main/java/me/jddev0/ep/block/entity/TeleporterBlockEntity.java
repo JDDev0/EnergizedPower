@@ -5,7 +5,7 @@ import me.jddev0.ep.block.entity.base.MenuInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
 import me.jddev0.ep.screen.TeleporterMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -65,7 +65,7 @@ public class TeleporterBlockEntity
 
     public TeleporterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.TELEPORTER_ENTITY, blockPos, blockState,
+                EPBlockEntities.TELEPORTER_ENTITY, blockPos, blockState,
 
                 "teleporter",
 
@@ -103,7 +103,7 @@ public class TeleporterBlockEntity
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 if(slot == 0) {
-                    return stack.isOf(ModItems.TELEPORTER_MATRIX);
+                    return stack.isOf(EPItems.TELEPORTER_MATRIX);
                 }
 
                 return super.isValid(slot, stack);
@@ -137,7 +137,7 @@ public class TeleporterBlockEntity
         ItemStack teleporterMatrixItemStack = itemHandler.getStack(0);
 
         boolean powered = energyStorage.getAmount() == energyStorage.getCapacity() &&
-                teleporterMatrixItemStack.isOf(ModItems.TELEPORTER_MATRIX) &&
+                teleporterMatrixItemStack.isOf(EPItems.TELEPORTER_MATRIX) &&
                 TeleporterMatrixItem.isLinked(teleporterMatrixItemStack);
 
         if(oldPowered ^ powered)
@@ -190,7 +190,7 @@ public class TeleporterBlockEntity
             return;
         }
 
-        if(!teleporterMatrixItemStack.isOf(ModItems.TELEPORTER_MATRIX)) {
+        if(!teleporterMatrixItemStack.isOf(EPItems.TELEPORTER_MATRIX)) {
             player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
                     Text.translatable("tooltip.energizedpower.teleporter.use.no_teleporter_matrix").
                             formatted(Formatting.RED)

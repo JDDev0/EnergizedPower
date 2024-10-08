@@ -35,12 +35,12 @@ public class SolarPanelBlock extends BlockWithEntity {
 
     public static Block getBlockFromTier(SolarPanelBlock.Tier tier) {
         return switch(tier) {
-            case TIER_1 -> ModBlocks.SOLAR_PANEL_1;
-            case TIER_2 -> ModBlocks.SOLAR_PANEL_2;
-            case TIER_3 -> ModBlocks.SOLAR_PANEL_3;
-            case TIER_4 -> ModBlocks.SOLAR_PANEL_4;
-            case TIER_5 -> ModBlocks.SOLAR_PANEL_5;
-            case TIER_6 -> ModBlocks.SOLAR_PANEL_6;
+            case TIER_1 -> EPBlocks.SOLAR_PANEL_1;
+            case TIER_2 -> EPBlocks.SOLAR_PANEL_2;
+            case TIER_3 -> EPBlocks.SOLAR_PANEL_3;
+            case TIER_4 -> EPBlocks.SOLAR_PANEL_4;
+            case TIER_5 -> EPBlocks.SOLAR_PANEL_5;
+            case TIER_6 -> EPBlocks.SOLAR_PANEL_6;
         };
     }
 

@@ -23,7 +23,7 @@ public class MinecartBatteryBoxMenu extends AbstractEnergizedPowerScreenHandler 
     }
 
     public MinecartBatteryBoxMenu(int id, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
-        super(ModMenuTypes.MINECART_BATTERY_BOX_MENU, id);
+        super(EPMenuTypes.MINECART_BATTERY_BOX_MENU, id);
 
         this.inv = inv;
         checkSize(inv, 0);

@@ -2,7 +2,7 @@ package me.jddev0.ep.recipe;
 
 import com.google.gson.JsonObject;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -59,7 +59,7 @@ public class PressMoldMakerRecipe implements Recipe<Inventory> {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ModBlocks.PRESS_MOLD_MAKER_ITEM);
+        return new ItemStack(EPBlocks.PRESS_MOLD_MAKER_ITEM);
     }
 
     @Override

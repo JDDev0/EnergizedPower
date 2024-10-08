@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.rei;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -35,7 +35,7 @@ public class AlloyFurnaceCategory implements DisplayCategory<AlloyFurnaceDisplay
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModBlocks.ALLOY_FURNACE_ITEM);
+        return EntryStacks.of(EPBlocks.ALLOY_FURNACE_ITEM);
     }
 
     @Override

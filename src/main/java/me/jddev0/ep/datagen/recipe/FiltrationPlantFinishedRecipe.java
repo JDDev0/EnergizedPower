@@ -2,7 +2,7 @@ package me.jddev0.ep.datagen.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
@@ -62,7 +62,7 @@ public record FiltrationPlantFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.FILTRATION_PLANT_SERIALIZER;
+        return EPRecipes.FILTRATION_PLANT_SERIALIZER;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package me.jddev0.ep.block;
 
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -142,6 +142,6 @@ public class AlloyFurnaceBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.ALLOY_FURNACE_ENTITY, AlloyFurnaceBlockEntity::tick);
+        return checkType(type, EPBlockEntities.ALLOY_FURNACE_ENTITY, AlloyFurnaceBlockEntity::tick);
     }
 }

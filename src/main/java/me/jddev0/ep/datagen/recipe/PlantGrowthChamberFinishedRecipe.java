@@ -3,7 +3,7 @@ package me.jddev0.ep.datagen.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
@@ -55,7 +55,7 @@ public record PlantGrowthChamberFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.PLANT_GROWTH_CHAMBER_SERIALIZER;
+        return EPRecipes.PLANT_GROWTH_CHAMBER_SERIALIZER;
     }
 
     @Override
