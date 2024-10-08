@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.EnergizerBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -33,10 +33,10 @@ public class EnergizerMenu extends UpgradableEnergyStorageMenu<EnergizerBlockEnt
     public EnergizerMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                          ContainerData data) {
         super(
-                ModMenuTypes.ENERGIZER_MENU.get(), id,
+                EPMenuTypes.ENERGIZER_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.ENERGIZER.get(),
+                EPBlocks.ENERGIZER.get(),
 
                 upgradeModuleInventory, 1
         );

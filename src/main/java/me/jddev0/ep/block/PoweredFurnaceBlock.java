@@ -1,6 +1,6 @@
 package me.jddev0.ep.block;
 
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.PoweredFurnaceBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -128,6 +128,6 @@ public class PoweredFurnaceBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.POWERED_FURNACE_ENTITY.get(), PoweredFurnaceBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.POWERED_FURNACE_ENTITY.get(), PoweredFurnaceBlockEntity::tick);
     }
 }

@@ -8,8 +8,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
-public final class ModPaintings {
-    private ModPaintings() {}
+public final class EPPaintings {
+    private EPPaintings() {}
 
     public static final DeferredRegister<PaintingVariant> PAINTINGS = DeferredRegister.create(BuiltInRegistries.PAINTING_VARIANT, EPAPI.MOD_ID);
 

@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.CrystalGrowthChamberBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -38,10 +38,10 @@ public class CrystalGrowthChamberMenu extends UpgradableEnergyStorageMenu<Crysta
     public CrystalGrowthChamberMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                                     ContainerData data) {
         super(
-                ModMenuTypes.CRYSTAL_GROWTH_CHAMBER_MENU.get(), id,
+                EPMenuTypes.CRYSTAL_GROWTH_CHAMBER_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.CRYSTAL_GROWTH_CHAMBER.get(),
+                EPBlocks.CRYSTAL_GROWTH_CHAMBER.get(),
 
                 upgradeModuleInventory, 6
         );

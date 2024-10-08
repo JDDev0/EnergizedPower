@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.FluidPipeBlock;
-import me.jddev0.ep.block.ModBlockStateProperties;
+import me.jddev0.ep.block.EPBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -37,8 +37,8 @@ public class FluidPipeBlockEntity extends BlockEntity {
     
     public static BlockEntityType<FluidPipeBlockEntity> getEntityTypeFromTier(FluidPipeBlock.Tier tier) {
         return switch(tier) {
-            case IRON -> ModBlockEntities.IRON_FLUID_PIPE_ENTITY.get();
-            case GOLDEN -> ModBlockEntities.GOLDEN_FLUID_PIPE_ENTITY.get();
+            case IRON -> EPBlockEntities.IRON_FLUID_PIPE_ENTITY.get();
+            case GOLDEN -> EPBlockEntities.GOLDEN_FLUID_PIPE_ENTITY.get();
         };
     }
 
@@ -137,7 +137,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
             if(fluidStorage.getTanks() == 0)
                 continue;
 
-            ModBlockStateProperties.PipeConnection pipeConnection = state.getValue(FluidPipeBlock.getPipeConnectionPropertyFromDirection(direction));
+            EPBlockStateProperties.PipeConnection pipeConnection = state.getValue(FluidPipeBlock.getPipeConnectionPropertyFromDirection(direction));
             if(pipeConnection.isExtract())
                 blockEntity.producers.put(Pair.of(testPos, direction.getOpposite()), fluidStorage);
             else if(pipeConnection.isInsert())

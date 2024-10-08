@@ -3,7 +3,7 @@ package me.jddev0.ep.datagen.recipe;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import me.jddev0.ep.codec.CodecFix;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -28,7 +28,7 @@ public record EnergizerFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> type() {
-        return ModRecipes.ENERGIZER_SERIALIZER.get();
+        return EPRecipes.ENERGIZER_SERIALIZER.get();
     }
 
     @Override

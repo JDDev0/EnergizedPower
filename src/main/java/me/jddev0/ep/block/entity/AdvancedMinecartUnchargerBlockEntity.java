@@ -38,7 +38,7 @@ public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlock
 
     public AdvancedMinecartUnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.ADVANCED_MINECART_UNCHARGER_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.ADVANCED_MINECART_UNCHARGER_ENTITY.get(), blockPos, blockState,
 
                 "advanced_minecart_uncharger",
 

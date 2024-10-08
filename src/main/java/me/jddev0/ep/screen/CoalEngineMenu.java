@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.CoalEngineBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -33,10 +33,10 @@ public class CoalEngineMenu extends UpgradableEnergyStorageMenu<CoalEngineBlockE
     public CoalEngineMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                           ContainerData data) {
         super(
-                ModMenuTypes.COAL_ENGINE_MENU.get(), id,
+                EPMenuTypes.COAL_ENGINE_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.COAL_ENGINE.get(),
+                EPBlocks.COAL_ENGINE.get(),
 
                 upgradeModuleInventory, 1
         );

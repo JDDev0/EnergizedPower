@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.MinecartUnchargerBlockEntity;
 import me.jddev0.ep.screen.base.EnergyStorageMenu;
 import net.minecraft.network.FriendlyByteBuf;
@@ -16,10 +16,10 @@ public class MinecartUnchargerMenu extends EnergyStorageMenu<MinecartUnchargerBl
 
     public MinecartUnchargerMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(
-                ModMenuTypes.MINECART_UNCHARGER_MENU.get(), id,
+                EPMenuTypes.MINECART_UNCHARGER_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.MINECART_UNCHARGER.get()
+                EPBlocks.MINECART_UNCHARGER.get()
         );
     }
 

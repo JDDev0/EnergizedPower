@@ -2,7 +2,6 @@ package me.jddev0.ep.entity;
 
 import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.neoforged.bus.api.IEventBus;
@@ -10,8 +9,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
-public final class ModEntityTypes {
-    private ModEntityTypes() {}
+public final class EPEntityTypes {
+    private EPEntityTypes() {}
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, EPAPI.MOD_ID);

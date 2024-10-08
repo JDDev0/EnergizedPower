@@ -7,8 +7,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public final class ModItems {
-    private ModItems() {}
+public final class EPItems {
+    private EPItems() {}
     
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(EPAPI.MOD_ID);
 

@@ -5,7 +5,7 @@ import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.CrusherRecipe;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.CrusherMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,11 +27,11 @@ public class CrusherBlockEntity extends SimpleRecipeMachineBlockEntity<CrusherRe
 
     public CrusherBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.CRUSHER_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.CRUSHER_ENTITY.get(), blockPos, blockState,
 
                 "crusher", CrusherMenu::new,
 
-                2, ModRecipes.CRUSHER_TYPE.get(), ModConfigs.COMMON_CRUSHER_RECIPE_DURATION.getValue(),
+                2, EPRecipes.CRUSHER_TYPE.get(), ModConfigs.COMMON_CRUSHER_RECIPE_DURATION.getValue(),
 
                 ModConfigs.COMMON_CRUSHER_CAPACITY.getValue(),
                 ModConfigs.COMMON_CRUSHER_TRANSFER_RATE.getValue(),

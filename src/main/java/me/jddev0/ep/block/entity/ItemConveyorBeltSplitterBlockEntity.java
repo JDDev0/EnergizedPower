@@ -2,8 +2,8 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ItemConveyorBeltSplitterBlock;
-import me.jddev0.ep.block.ModBlockStateProperties;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlockStateProperties;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.config.ModConfigs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,7 +23,7 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
     private int currentOutputIndex;
 
     public ItemConveyorBeltSplitterBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.ITEM_CONVEYOR_BELT_SPLITTER_ENTITY.get(), blockPos, blockState);
+        super(EPBlockEntities.ITEM_CONVEYOR_BELT_SPLITTER_ENTITY.get(), blockPos, blockState);
     }
 
     @Override
@@ -49,11 +49,11 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
 
             BlockPos inputPos = blockPos.relative(facing);
             BlockState inputBlockState = level.getBlockState(inputPos);
-            if(!inputBlockState.is(ModBlocks.ITEM_CONVEYOR_BELT.get()))
+            if(!inputBlockState.is(EPBlocks.ITEM_CONVEYOR_BELT.get()))
                 return;
 
             //Conveyor belt must face towards Splitter and must not be ascending
-            ModBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.getValue(ItemConveyorBeltBlock.FACING);
+            EPBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.getValue(ItemConveyorBeltBlock.FACING);
             if(inputBeltFacing.isAscending() || inputBeltFacing.getDirection().getOpposite() != facing)
                 return;
 
@@ -84,7 +84,7 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
 
                 BlockPos outputPos = blockPos.relative(outputDirection);
                 BlockState outputBlockState = level.getBlockState(outputPos);
-                if(!outputBlockState.is(ModBlocks.ITEM_CONVEYOR_BELT.get()))
+                if(!outputBlockState.is(EPBlocks.ITEM_CONVEYOR_BELT.get()))
                     continue;
 
                 BlockEntity outputBlockEntity = level.getBlockEntity(outputPos);

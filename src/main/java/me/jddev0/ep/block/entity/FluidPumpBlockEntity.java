@@ -11,7 +11,6 @@ import me.jddev0.ep.screen.FluidPumpMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -62,7 +61,7 @@ public class FluidPumpBlockEntity
 
     public FluidPumpBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.FLUID_PUMP_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.FLUID_PUMP_ENTITY.get(), blockPos, blockState,
 
                 "fluid_pump",
 

@@ -3,7 +3,7 @@ package me.jddev0.ep.datagen.recipe;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import me.jddev0.ep.codec.CodecFix;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -31,7 +31,7 @@ public record MetalPressFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> type() {
-        return ModRecipes.METAL_PRESS_SERIALIZER.get();
+        return EPRecipes.METAL_PRESS_SERIALIZER.get();
     }
 
     @Override

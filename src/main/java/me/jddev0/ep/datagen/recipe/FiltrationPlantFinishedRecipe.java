@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import me.jddev0.ep.codec.CodecFix;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -61,7 +61,7 @@ public record FiltrationPlantFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> type() {
-        return ModRecipes.FILTRATION_PLANT_SERIALIZER.get();
+        return EPRecipes.FILTRATION_PLANT_SERIALIZER.get();
     }
 
     @Override

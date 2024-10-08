@@ -1,6 +1,6 @@
 package me.jddev0.ep.block;
 
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -65,6 +65,6 @@ public class WeatherControllerBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.WEATHER_CONTROLLER_ENTITY.get(), WeatherControllerBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.WEATHER_CONTROLLER_ENTITY.get(), WeatherControllerBlockEntity::tick);
     }
 }

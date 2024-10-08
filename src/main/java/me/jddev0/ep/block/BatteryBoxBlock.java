@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.BatteryBoxBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
@@ -75,7 +75,7 @@ public class BatteryBoxBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.BATTERY_BOX_ENTITY.get(), BatteryBoxBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.BATTERY_BOX_ENTITY.get(), BatteryBoxBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

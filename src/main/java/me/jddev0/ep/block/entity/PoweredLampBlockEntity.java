@@ -23,7 +23,7 @@ public class PoweredLampBlockEntity extends EnergyStorageBlockEntity<ReceiveOnly
 
     public PoweredLampBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.POWERED_LAMP_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.POWERED_LAMP_ENTITY.get(), blockPos, blockState,
 
                 MAX_RECEIVE,
                 MAX_RECEIVE

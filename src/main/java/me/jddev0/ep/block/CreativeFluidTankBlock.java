@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.CreativeFluidTankBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -87,7 +87,7 @@ public class CreativeFluidTankBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.CREATIVE_FLUID_TANK_ENTITY.get() , CreativeFluidTankBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.CREATIVE_FLUID_TANK_ENTITY.get() , CreativeFluidTankBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

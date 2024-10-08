@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.SawmillBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -35,10 +35,10 @@ public class SawmillMenu extends UpgradableEnergyStorageMenu<SawmillBlockEntity>
     public SawmillMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                        ContainerData data) {
         super(
-                ModMenuTypes.SAWMILL_MENU.get(), id,
+                EPMenuTypes.SAWMILL_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.SAWMILL.get(),
+                EPBlocks.SAWMILL.get(),
 
                 upgradeModuleInventory, 3
         );

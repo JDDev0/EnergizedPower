@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.jei;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
@@ -35,7 +35,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
         ResourceLocation texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
         background = helper.createDrawable(texture, 61, 25, 108, 48);
 
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()));
+        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()));
     }
 
     @Override

@@ -2,7 +2,7 @@ package me.jddev0.ep.datagen;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.datagen.generators.PageContent;
 import me.jddev0.ep.datagen.generators.PageContentProvider;
 import me.jddev0.ep.input.ModKeyBindings;
@@ -466,7 +466,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         addSimplePage(pageId("press_mold_maker"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.press_mold_maker").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.PRESS_MOLD_MAKER.get());
+        ), EPBlocks.PRESS_MOLD_MAKER.get());
 
         addSimplePage(pageId("alloy_furnace"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.alloy_furnace.1").
@@ -477,7 +477,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.alloy_furnace.3").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.ALLOY_FURNACE.get());
+        ), EPBlocks.ALLOY_FURNACE.get());
     }
     private void registerEnergyItemsChapter() {
         chapterId("energy_items");
@@ -609,10 +609,10 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.machine_frames.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new Block[] {
-                ModBlocks.BASIC_MACHINE_FRAME.get(),
-                ModBlocks.HARDENED_MACHINE_FRAME.get(),
-                ModBlocks.ADVANCED_MACHINE_FRAME.get(),
-                ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME.get()
+                EPBlocks.BASIC_MACHINE_FRAME.get(),
+                EPBlocks.HARDENED_MACHINE_FRAME.get(),
+                EPBlocks.ADVANCED_MACHINE_FRAME.get(),
+                EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME.get()
         });
     }
     private void registerEnergyBlocksChapterEnergyTransportationSubChapter() {
@@ -641,12 +641,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.cables.3").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
         ), new Block[] {
-                ModBlocks.TIN_CABLE.get(),
-                ModBlocks.COPPER_CABLE.get(),
-                ModBlocks.GOLD_CABLE.get(),
-                ModBlocks.ENERGIZED_COPPER_CABLE.get(),
-                ModBlocks.ENERGIZED_GOLD_CABLE.get(),
-                ModBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE.get()
+                EPBlocks.TIN_CABLE.get(),
+                EPBlocks.COPPER_CABLE.get(),
+                EPBlocks.GOLD_CABLE.get(),
+                EPBlocks.ENERGIZED_COPPER_CABLE.get(),
+                EPBlocks.ENERGIZED_GOLD_CABLE.get(),
+                EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE.get()
         });
 
         addSimplePage(pageId("transformers"), Component.empty().append(
@@ -677,18 +677,18 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.transformers.9").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
         ), new Block[] {
-                ModBlocks.LV_TRANSFORMER_1_TO_N.get(),
-                ModBlocks.LV_TRANSFORMER_3_TO_3.get(),
-                ModBlocks.LV_TRANSFORMER_N_TO_1.get(),
-                ModBlocks.MV_TRANSFORMER_1_TO_N.get(),
-                ModBlocks.MV_TRANSFORMER_3_TO_3.get(),
-                ModBlocks.MV_TRANSFORMER_N_TO_1.get(),
-                ModBlocks.HV_TRANSFORMER_1_TO_N.get(),
-                ModBlocks.HV_TRANSFORMER_3_TO_3.get(),
-                ModBlocks.HV_TRANSFORMER_N_TO_1.get(),
-                ModBlocks.EHV_TRANSFORMER_1_TO_N.get(),
-                ModBlocks.EHV_TRANSFORMER_3_TO_3.get(),
-                ModBlocks.EHV_TRANSFORMER_N_TO_1.get()
+                EPBlocks.LV_TRANSFORMER_1_TO_N.get(),
+                EPBlocks.LV_TRANSFORMER_3_TO_3.get(),
+                EPBlocks.LV_TRANSFORMER_N_TO_1.get(),
+                EPBlocks.MV_TRANSFORMER_1_TO_N.get(),
+                EPBlocks.MV_TRANSFORMER_3_TO_3.get(),
+                EPBlocks.MV_TRANSFORMER_N_TO_1.get(),
+                EPBlocks.HV_TRANSFORMER_1_TO_N.get(),
+                EPBlocks.HV_TRANSFORMER_3_TO_3.get(),
+                EPBlocks.HV_TRANSFORMER_N_TO_1.get(),
+                EPBlocks.EHV_TRANSFORMER_1_TO_N.get(),
+                EPBlocks.EHV_TRANSFORMER_3_TO_3.get(),
+                EPBlocks.EHV_TRANSFORMER_N_TO_1.get()
         });
 
         addSimplePage(pageId("minecart_charger_uncharger"), Component.empty().append(
@@ -701,10 +701,10 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.minecart_charger_uncharger.3").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new Block[] {
-                ModBlocks.MINECART_CHARGER.get(),
-                ModBlocks.MINECART_UNCHARGER.get(),
-                ModBlocks.ADVANCED_MINECART_CHARGER.get(),
-                ModBlocks.ADVANCED_MINECART_UNCHARGER.get()
+                EPBlocks.MINECART_CHARGER.get(),
+                EPBlocks.MINECART_UNCHARGER.get(),
+                EPBlocks.ADVANCED_MINECART_CHARGER.get(),
+                EPBlocks.ADVANCED_MINECART_UNCHARGER.get()
         });
     }
     private void registerEnergyBlocksChapterEnergyStorageSubChapter() {
@@ -727,8 +727,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.battery_box").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new Block[] {
-                ModBlocks.BATTERY_BOX.get(),
-                ModBlocks.ADVANCED_BATTERY_BOX.get()
+                EPBlocks.BATTERY_BOX.get(),
+                EPBlocks.ADVANCED_BATTERY_BOX.get()
         });
     }
     private void registerEnergyBlocksChapterEnergyProductionSubChapter() {
@@ -766,12 +766,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.solar_panels.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new Block[] {
-                ModBlocks.SOLAR_PANEL_1.get(),
-                ModBlocks.SOLAR_PANEL_2.get(),
-                ModBlocks.SOLAR_PANEL_3.get(),
-                ModBlocks.SOLAR_PANEL_4.get(),
-                ModBlocks.SOLAR_PANEL_5.get(),
-                ModBlocks.SOLAR_PANEL_6.get()
+                EPBlocks.SOLAR_PANEL_1.get(),
+                EPBlocks.SOLAR_PANEL_2.get(),
+                EPBlocks.SOLAR_PANEL_3.get(),
+                EPBlocks.SOLAR_PANEL_4.get(),
+                EPBlocks.SOLAR_PANEL_5.get(),
+                EPBlocks.SOLAR_PANEL_6.get()
         });
 
         addSimplePage(pageId("coal_engine"), Component.empty().append(
@@ -780,7 +780,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.coal_engine.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), ModBlocks.COAL_ENGINE.get());
+        ), EPBlocks.COAL_ENGINE.get());
 
         addSimplePage(pageId("heat_generator"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.heat_generator.1").
@@ -794,7 +794,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.heat_generator.4").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), ModBlocks.HEAT_GENERATOR.get());
+        ), EPBlocks.HEAT_GENERATOR.get());
 
         addSimplePage(pageId("thermal_generator"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.thermal_generator.1").
@@ -802,7 +802,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.thermal_generator.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), ModBlocks.THERMAL_GENERATOR.get());
+        ), EPBlocks.THERMAL_GENERATOR.get());
 
         addSimplePage(pageId("lightning_generator"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.lightning_generator.1").
@@ -810,7 +810,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.lightning_generator.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), ModBlocks.LIGHTNING_GENERATOR.get());
+        ), EPBlocks.LIGHTNING_GENERATOR.get());
     }
     private void registerEnergyBlocksChapterEnergyConsumptionSubChapter() {
         subChapterId("energy_consumption");
@@ -831,7 +831,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         addSimplePage(pageId("powered_lamp"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.powered_lamp").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.POWERED_LAMP.get());
+        ), EPBlocks.POWERED_LAMP.get());
 
         addSimplePage(pageId("powered_furnaces"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.powered_furnaces.1").
@@ -840,8 +840,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.powered_furnaces.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new Block[] {
-                ModBlocks.POWERED_FURNACE.get(),
-                ModBlocks.ADVANCED_POWERED_FURNACE.get()
+                EPBlocks.POWERED_FURNACE.get(),
+                EPBlocks.ADVANCED_POWERED_FURNACE.get()
         });
 
         addSimplePage(pageId("auto_crafters"), Component.empty().append(
@@ -857,8 +857,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.auto_crafters.4").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
         ), new Block[] {
-                ModBlocks.AUTO_CRAFTER.get(),
-                ModBlocks.ADVANCED_AUTO_CRAFTER.get()
+                EPBlocks.AUTO_CRAFTER.get(),
+                EPBlocks.ADVANCED_AUTO_CRAFTER.get()
         });
 
         addSimplePage(pageId("crushers"), Component.empty().append(
@@ -868,8 +868,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.crushers.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new Block[] {
-                ModBlocks.CRUSHER.get(),
-                ModBlocks.ADVANCED_CRUSHER.get()
+                EPBlocks.CRUSHER.get(),
+                EPBlocks.ADVANCED_CRUSHER.get()
         });
 
         addSimplePage(pageId("pulverizers"), Component.empty().append(
@@ -879,8 +879,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.pulverizers.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new Block[] {
-                ModBlocks.PULVERIZER.get(),
-                ModBlocks.ADVANCED_PULVERIZER.get()
+                EPBlocks.PULVERIZER.get(),
+                EPBlocks.ADVANCED_PULVERIZER.get()
         });
 
         addSimplePage(pageId("sawmill"), Component.empty().append(
@@ -889,12 +889,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.sawmill.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), ModBlocks.SAWMILL.get());
+        ), EPBlocks.SAWMILL.get());
 
         addSimplePage(pageId("compressor"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.compressor").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.COMPRESSOR.get());
+        ), EPBlocks.COMPRESSOR.get());
 
         addSimplePage(pageId("metal_press"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.metal_press.1").
@@ -908,17 +908,17 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.metal_press.4").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), ModBlocks.METAL_PRESS.get());
+        ), EPBlocks.METAL_PRESS.get());
 
         addSimplePage(pageId("auto_press_mold_maker"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.auto_press_mold_maker").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.AUTO_PRESS_MOLD_MAKER.get());
+        ), EPBlocks.AUTO_PRESS_MOLD_MAKER.get());
 
         addSimplePage(pageId("auto_stonecutter"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.auto_stonecutter").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.AUTO_STONECUTTER.get());
+        ), EPBlocks.AUTO_STONECUTTER.get());
 
         addSimplePage(pageId("assembling_machine"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.assembling_machine.1").
@@ -929,7 +929,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.assembling_machine.3").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), ModBlocks.ASSEMBLING_MACHINE.get());
+        ), EPBlocks.ASSEMBLING_MACHINE.get());
 
         addSimplePage(pageId("plant_growth_chamber"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.plant_growth_chamber.1").
@@ -952,7 +952,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.plant_growth_chamber.7").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.PLANT_GROWTH_CHAMBER.get());
+        ), EPBlocks.PLANT_GROWTH_CHAMBER.get());
 
         addSimplePage(pageId("stone_solidifier"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.stone_solidifier.1").
@@ -960,7 +960,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.stone_solidifier.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), ModBlocks.STONE_SOLIDIFIER.get());
+        ), EPBlocks.STONE_SOLIDIFIER.get());
 
         addSimplePage(pageId("filtration_plant"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.filtration_plant.1").
@@ -968,12 +968,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.filtration_plant.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.FILTRATION_PLANT.get());
+        ), EPBlocks.FILTRATION_PLANT.get());
 
         addSimplePage(pageId("fluid_transposer"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.fluid_transposer").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.FLUID_TRANSPOSER.get());
+        ), EPBlocks.FLUID_TRANSPOSER.get());
 
         addSimplePage(pageId("induction_smelter"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.induction_smelter.1").
@@ -984,7 +984,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.induction_smelter.3").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.INDUCTION_SMELTER.get());
+        ), EPBlocks.INDUCTION_SMELTER.get());
 
         addSimplePage(pageId("block_placer"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.block_placer.1").
@@ -992,20 +992,20 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.block_placer.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), ModBlocks.BLOCK_PLACER.get());
+        ), EPBlocks.BLOCK_PLACER.get());
 
         addSimplePage(pageId("fluid_filler_fluid_drainer"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.fluid_filler_fluid_drainer").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new Block[] {
-                ModBlocks.FLUID_FILLER.get(),
-                ModBlocks.FLUID_DRAINER.get()
+                EPBlocks.FLUID_FILLER.get(),
+                EPBlocks.FLUID_DRAINER.get()
         });
 
         addSimplePage(pageId("fluid_pump"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.fluid_pump").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.FLUID_PUMP.get());
+        ), EPBlocks.FLUID_PUMP.get());
 
         addSimplePage(pageId("charger_uncharger"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.charger_uncharger.1").
@@ -1014,31 +1014,31 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.charger_uncharger.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new Block[] {
-                ModBlocks.CHARGER.get(),
-                ModBlocks.UNCHARGER.get(),
-                ModBlocks.ADVANCED_CHARGER.get(),
-                ModBlocks.ADVANCED_UNCHARGER.get()
+                EPBlocks.CHARGER.get(),
+                EPBlocks.UNCHARGER.get(),
+                EPBlocks.ADVANCED_CHARGER.get(),
+                EPBlocks.ADVANCED_UNCHARGER.get()
         });
 
         addSimplePage(pageId("charging_station"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.charging_station").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.CHARGING_STATION.get());
+        ), EPBlocks.CHARGING_STATION.get());
 
         addSimplePage(pageId("crystal_growth_chamber"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.crystal_growth_chamber").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.CRYSTAL_GROWTH_CHAMBER.get());
+        ), EPBlocks.CRYSTAL_GROWTH_CHAMBER.get());
 
         addSimplePage(pageId("energizer"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.energizer").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.ENERGIZER.get());
+        ), EPBlocks.ENERGIZER.get());
 
         addSimplePage(pageId("weather_controller"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.weather_controller").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.WEATHER_CONTROLLER.get());
+        ), EPBlocks.WEATHER_CONTROLLER.get());
 
         addSimplePage(pageId("time_controller"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.time_controller.1").
@@ -1046,7 +1046,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.time_controller.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), ModBlocks.TIME_CONTROLLER.get());
+        ), EPBlocks.TIME_CONTROLLER.get());
 
         addSimplePage(pageId("teleporter_matrix"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.teleporter_matrix.1").
@@ -1074,7 +1074,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                         ).append(
                                 Component.translatable("book.energizedpower.page.teleporter.3.2")
                         )
-        ), ModBlocks.TELEPORTER.get());
+        ), EPBlocks.TELEPORTER.get());
     }
 
     private void registerFluidBlocksChapter() {
@@ -1106,8 +1106,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.fluid_pipes.4").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
         ), new Block[] {
-                ModBlocks.FLUID_PUMP.get(),
-                ModBlocks.GOLDEN_FLUID_PIPE.get()
+                EPBlocks.FLUID_PUMP.get(),
+                EPBlocks.GOLDEN_FLUID_PIPE.get()
         });
 
         addSimplePage(pageId("fluid_tanks"), Component.empty().append(
@@ -1117,9 +1117,9 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.fluid_tanks.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
         ), new Block[] {
-                ModBlocks.FLUID_TANK_SMALL.get(),
-                ModBlocks.FLUID_TANK_MEDIUM.get(),
-                ModBlocks.FLUID_TANK_LARGE.get()
+                EPBlocks.FLUID_TANK_SMALL.get(),
+                EPBlocks.FLUID_TANK_MEDIUM.get(),
+                EPBlocks.FLUID_TANK_LARGE.get()
         });
 
         addSimplePage(pageId("drain"), Component.empty().append(
@@ -1128,7 +1128,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.drain.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.DRAIN.get());
+        ), EPBlocks.DRAIN.get());
     }
     private void registerItemTransportationChapter() {
         chapterId("item_transportation");
@@ -1164,7 +1164,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt.6").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.ITEM_CONVEYOR_BELT.get());
+        ), EPBlocks.ITEM_CONVEYOR_BELT.get());
 
         addSimplePage(pageId("item_conveyor_belt_loader"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_loader.1").
@@ -1181,7 +1181,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_loader.5").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.ITEM_CONVEYOR_BELT_LOADER.get());
+        ), EPBlocks.ITEM_CONVEYOR_BELT_LOADER.get());
 
         addSimplePage(pageId("item_conveyor_belt_sorter"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_sorter.1").
@@ -1210,7 +1210,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_sorter.9").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.ITEM_CONVEYOR_BELT_SORTER.get());
+        ), EPBlocks.ITEM_CONVEYOR_BELT_SORTER.get());
 
         addSimplePage(pageId("item_conveyor_belt_switch"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_switch.1").
@@ -1218,17 +1218,17 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_switch.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.ITEM_CONVEYOR_BELT_SWITCH.get());
+        ), EPBlocks.ITEM_CONVEYOR_BELT_SWITCH.get());
 
         addSimplePage(pageId("item_conveyor_belt_splitter"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_splitter").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.ITEM_CONVEYOR_BELT_SPLITTER.get());
+        ), EPBlocks.ITEM_CONVEYOR_BELT_SPLITTER.get());
 
         addSimplePage(pageId("item_conveyor_belt_merger"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_merger").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), ModBlocks.ITEM_CONVEYOR_BELT_MERGER.get());
+        ), EPBlocks.ITEM_CONVEYOR_BELT_MERGER.get());
     }
     private void registerFluidsChapter() {
         chapterId("fluids");
@@ -1366,7 +1366,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                         Component.literal("\n\n").
                                 withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).
                                 append(backToTableOfContentComponent(mainTableOfContentPageId))
-                ), ModBlocks.BASIC_MACHINE_FRAME.get());
+                ), EPBlocks.BASIC_MACHINE_FRAME.get());
         tableOfContentsEntries.get(mainTableOfContentPageId).add(Pair.of(structuresChapterTitle, structuresChapterPage));
 
         addSimplePage(pageId("electrician"), Component.empty().append(

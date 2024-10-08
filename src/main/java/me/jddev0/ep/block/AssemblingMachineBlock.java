@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.AssemblingMachineBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -122,6 +122,6 @@ public class AssemblingMachineBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.ASSEMBLING_MACHINE_ENTITY.get(), AssemblingMachineBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.ASSEMBLING_MACHINE_ENTITY.get(), AssemblingMachineBlockEntity::tick);
     }
 }

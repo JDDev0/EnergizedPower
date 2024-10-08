@@ -5,10 +5,10 @@ import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
-import me.jddev0.ep.fluid.ModFluids;
+import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.CrusherRecipe;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.AdvancedCrusherMenu;
 import me.jddev0.ep.util.*;
 import net.minecraft.core.BlockPos;
@@ -44,11 +44,11 @@ public class AdvancedCrusherBlockEntity
 
     public AdvancedCrusherBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.ADVANCED_CRUSHER_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.ADVANCED_CRUSHER_ENTITY.get(), blockPos, blockState,
 
                 "advanced_crusher", AdvancedCrusherMenu::new,
 
-                2, ModRecipes.CRUSHER_TYPE.get(), ModConfigs.COMMON_ADVANCED_CRUSHER_RECIPE_DURATION.getValue(),
+                2, EPRecipes.CRUSHER_TYPE.get(), ModConfigs.COMMON_ADVANCED_CRUSHER_RECIPE_DURATION.getValue(),
 
                 ModConfigs.COMMON_ADVANCED_CRUSHER_CAPACITY.getValue(),
                 ModConfigs.COMMON_ADVANCED_CRUSHER_TRANSFER_RATE.getValue(),
@@ -116,7 +116,7 @@ public class AdvancedCrusherBlockEntity
 
                 return switch(tank) {
                     case 0 -> stack.isFluidEqual(new FluidStack(Fluids.WATER, 1));
-                    case 1 -> stack.isFluidEqual(new FluidStack(ModFluids.DIRTY_WATER.get(), 1));
+                    case 1 -> stack.isFluidEqual(new FluidStack(EPFluids.DIRTY_WATER.get(), 1));
                     default -> false;
                 };
             }
@@ -144,7 +144,7 @@ public class AdvancedCrusherBlockEntity
             return;
 
         fluidStorage.drain(new FluidStack(Fluids.WATER, WATER_CONSUMPTION_PER_RECIPE), IFluidHandler.FluidAction.EXECUTE);
-        fluidStorage.fill(new FluidStack(ModFluids.DIRTY_WATER.get(), WATER_CONSUMPTION_PER_RECIPE), IFluidHandler.FluidAction.EXECUTE);
+        fluidStorage.fill(new FluidStack(EPFluids.DIRTY_WATER.get(), WATER_CONSUMPTION_PER_RECIPE), IFluidHandler.FluidAction.EXECUTE);
 
         itemHandler.extractItem(0, 1, false);
         itemHandler.setStackInSlot(1, recipe.value().getResultItem(level.registryAccess()).

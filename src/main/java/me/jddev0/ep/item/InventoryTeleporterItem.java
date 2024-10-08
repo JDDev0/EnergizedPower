@@ -121,7 +121,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
                 @Override
                 public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
                     if(slot >= 0 && slot < getContainerSize()) {
-                        return stack.is(ModItems.TELEPORTER_MATRIX.get());
+                        return stack.is(EPItems.TELEPORTER_MATRIX.get());
                     }
 
                     return super.canPlaceItem(slot, stack);
@@ -154,7 +154,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
             @Override
             public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
                 if(slot >= 0 && slot < getContainerSize()) {
-                    return stack.is(ModItems.TELEPORTER_MATRIX.get());
+                    return stack.is(EPItems.TELEPORTER_MATRIX.get());
                 }
 
                 return super.canPlaceItem(slot, stack);

@@ -10,8 +10,8 @@ import org.joml.Vector3f;
 
 import java.util.function.Supplier;
 
-public final class ModFluidTypes {
-    private ModFluidTypes() {}
+public final class EPFluidTypes {
+    private EPFluidTypes() {}
 
     public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(NeoForgeRegistries.FLUID_TYPES, EPAPI.MOD_ID);
 
