@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity.renderer;
 
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
-import me.jddev0.ep.block.ModBlockStateProperties;
+import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.entity.ItemConveyorBeltBlockEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -37,7 +37,7 @@ public class ItemConveyorBeltBlockEntityRenderer implements BlockEntityRenderer<
         poseStack.push();
         poseStack.translate(.0f, .2f, .0f);
 
-        ModBlockStateProperties.ConveyorBeltDirection facing = blockEntity.getCachedState().get(ItemConveyorBeltBlock.FACING);
+        EPBlockStateProperties.ConveyorBeltDirection facing = blockEntity.getCachedState().get(ItemConveyorBeltBlock.FACING);
         Direction facingDirection = facing.getDirection();
         Boolean slope = facing.getSlope();
 

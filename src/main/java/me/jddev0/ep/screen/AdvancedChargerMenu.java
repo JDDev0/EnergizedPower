@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.ChargerRecipe;
@@ -65,10 +65,10 @@ public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedAut
     public AdvancedChargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
                                UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(
-                ModMenuTypes.ADVANCED_CHARGER_MENU, id,
+                EPMenuTypes.ADVANCED_CHARGER_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.ADVANCED_CHARGER,
+                EPBlocks.ADVANCED_CHARGER,
 
                 upgradeModuleInventory, 1
         );

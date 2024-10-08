@@ -5,7 +5,7 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.AutoPressMoldMakerMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.ItemStackUtils;
@@ -22,13 +22,13 @@ public class AutoPressMoldMakerBlockEntity
 
     public AutoPressMoldMakerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.AUTO_PRESS_MOLD_MAKER_ENTITY, blockPos, blockState,
+                EPBlockEntities.AUTO_PRESS_MOLD_MAKER_ENTITY, blockPos, blockState,
 
                 "auto_press_mold_maker", AutoPressMoldMakerMenu::new,
 
                 3,
-                ModRecipes.PRESS_MOLD_MAKER_TYPE,
-                ModRecipes.PRESS_MOLD_MAKER_SERIALIZER,
+                EPRecipes.PRESS_MOLD_MAKER_TYPE,
+                EPRecipes.PRESS_MOLD_MAKER_SERIALIZER,
                 ModConfigs.COMMON_AUTO_PRESS_MOLD_MAKER_RECIPE_DURATION.getValue(),
 
                 ModConfigs.COMMON_AUTO_PRESS_MOLD_MAKER_CAPACITY.getValue(),

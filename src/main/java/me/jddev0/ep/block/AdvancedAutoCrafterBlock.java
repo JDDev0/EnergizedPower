@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -119,7 +119,7 @@ public class AdvancedAutoCrafterBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.ADVANCED_AUTO_CRAFTER_ENTITY, AdvancedAutoCrafterBlockEntity::tick);
+        return checkType(type, EPBlockEntities.ADVANCED_AUTO_CRAFTER_ENTITY, AdvancedAutoCrafterBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

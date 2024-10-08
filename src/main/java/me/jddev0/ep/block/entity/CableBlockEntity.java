@@ -37,12 +37,12 @@ public class CableBlockEntity extends BlockEntity {
 
     public static BlockEntityType<CableBlockEntity> getEntityTypeFromTier(CableBlock.Tier tier) {
         return switch(tier) {
-            case TIER_TIN -> ModBlockEntities.TIN_CABLE_ENTITY;
-            case TIER_COPPER -> ModBlockEntities.COPPER_CABLE_ENTITY;
-            case TIER_GOLD -> ModBlockEntities.GOLD_CABLE_ENTITY;
-            case TIER_ENERGIZED_COPPER -> ModBlockEntities.ENERGIZED_COPPER_CABLE_ENTITY;
-            case TIER_ENERGIZED_GOLD -> ModBlockEntities.ENERGIZED_GOLD_CABLE_ENTITY;
-            case TIER_ENERGIZED_CRYSTAL_MATRIX -> ModBlockEntities.ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY;
+            case TIER_TIN -> EPBlockEntities.TIN_CABLE_ENTITY;
+            case TIER_COPPER -> EPBlockEntities.COPPER_CABLE_ENTITY;
+            case TIER_GOLD -> EPBlockEntities.GOLD_CABLE_ENTITY;
+            case TIER_ENERGIZED_COPPER -> EPBlockEntities.ENERGIZED_COPPER_CABLE_ENTITY;
+            case TIER_ENERGIZED_GOLD -> EPBlockEntities.ENERGIZED_GOLD_CABLE_ENTITY;
+            case TIER_ENERGIZED_CRYSTAL_MATRIX -> EPBlockEntities.ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY;
         };
     }
 

@@ -1,7 +1,7 @@
 package me.jddev0.ep.datagen.recipe;
 
 import com.google.gson.JsonObject;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.ItemStack;
@@ -30,7 +30,7 @@ public record ChargerFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.CHARGER_SERIALIZER;
+        return EPRecipes.CHARGER_SERIALIZER;
     }
 
     @Override

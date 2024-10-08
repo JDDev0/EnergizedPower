@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.BlockPlacerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
@@ -53,10 +53,10 @@ public class BlockPlacerMenu extends UpgradableEnergyStorageMenu<BlockPlacerBloc
     public BlockPlacerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
                            UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(
-                ModMenuTypes.BLOCK_PLACER_MENU, id,
+                EPMenuTypes.BLOCK_PLACER_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.BLOCK_PLACER,
+                EPBlocks.BLOCK_PLACER,
 
                 upgradeModuleInventory, 3
         );

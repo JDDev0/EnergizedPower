@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.item.ModCreativeModeTab;
+import me.jddev0.ep.item.EPCreativeModeTab;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
@@ -12,12 +12,11 @@ import net.minecraft.block.OreBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 
-public final class ModBlocks {
-    private ModBlocks() {}
+public final class EPBlocks {
+    private EPBlocks() {}
 
     public static final Block SILICON_BLOCK = registerBlock("silicon_block",
             new Block(FabricBlockSettings.of(Material.METAL).
@@ -54,7 +53,7 @@ public final class ModBlocks {
             new ItemConveyorBeltBlock(FabricBlockSettings.of(Material.METAL).noCollision().
                     strength(2.5f, 3.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item ITEM_CONVEYOR_BELT_ITEM = createBlockItem("item_conveyor_belt",
-            new ItemConveyorBeltBlock.Item(ITEM_CONVEYOR_BELT, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new ItemConveyorBeltBlock.Item(ITEM_CONVEYOR_BELT, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block ITEM_CONVEYOR_BELT_LOADER = registerBlock("item_conveyor_belt_loader",
             new ItemConveyorBeltLoaderBlock(FabricBlockSettings.of(Material.STONE, MapColor.STONE_GRAY).
@@ -84,37 +83,37 @@ public final class ModBlocks {
     public static final FluidPipeBlock IRON_FLUID_PIPE = registerBlock("fluid_pipe",
             new FluidPipeBlock(FluidPipeBlock.Tier.IRON));
     public static final Item IRON_FLUID_PIPE_ITEM = createBlockItem("fluid_pipe",
-            new FluidPipeBlock.Item(IRON_FLUID_PIPE, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), FluidPipeBlock.Tier.IRON));
+            new FluidPipeBlock.Item(IRON_FLUID_PIPE, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB), FluidPipeBlock.Tier.IRON));
 
     public static final FluidPipeBlock GOLDEN_FLUID_PIPE = registerBlock("golden_fluid_pipe",
             new FluidPipeBlock(FluidPipeBlock.Tier.GOLDEN));
     public static final Item GOLDEN_FLUID_PIPE_ITEM = createBlockItem("golden_fluid_pipe",
-            new FluidPipeBlock.Item(GOLDEN_FLUID_PIPE, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), FluidPipeBlock.Tier.GOLDEN));
+            new FluidPipeBlock.Item(GOLDEN_FLUID_PIPE, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB), FluidPipeBlock.Tier.GOLDEN));
 
     public static final FluidTankBlock FLUID_TANK_SMALL = registerBlock("fluid_tank_small",
             new FluidTankBlock(FluidTankBlock.Tier.SMALL));
     public static final Item FLUID_TANK_SMALL_ITEM = createBlockItem("fluid_tank_small",
-            new FluidTankBlock.Item(FLUID_TANK_SMALL, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), FluidTankBlock.Tier.SMALL));
+            new FluidTankBlock.Item(FLUID_TANK_SMALL, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB), FluidTankBlock.Tier.SMALL));
 
     public static final FluidTankBlock FLUID_TANK_MEDIUM = registerBlock("fluid_tank_medium",
             new FluidTankBlock(FluidTankBlock.Tier.MEDIUM));
     public static final Item FLUID_TANK_MEDIUM_ITEM = createBlockItem("fluid_tank_medium",
-            new FluidTankBlock.Item(FLUID_TANK_MEDIUM, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), FluidTankBlock.Tier.MEDIUM));
+            new FluidTankBlock.Item(FLUID_TANK_MEDIUM, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB), FluidTankBlock.Tier.MEDIUM));
 
     public static final FluidTankBlock FLUID_TANK_LARGE = registerBlock("fluid_tank_large",
             new FluidTankBlock(FluidTankBlock.Tier.LARGE));
     public static final Item FLUID_TANK_LARGE_ITEM = createBlockItem("fluid_tank_large",
-            new FluidTankBlock.Item(FLUID_TANK_LARGE, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), FluidTankBlock.Tier.LARGE));
+            new FluidTankBlock.Item(FLUID_TANK_LARGE, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB), FluidTankBlock.Tier.LARGE));
 
     public static final CreativeFluidTankBlock CREATIVE_FLUID_TANK = registerBlock("creative_fluid_tank",
             new CreativeFluidTankBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.PURPLE).
                     requiresTool().strength(-1.f, 3600000.f).dropsNothing()));
     public static final Item CREATIVE_FLUID_TANK_ITEM = createBlockItem("creative_fluid_tank",
-            new CreativeFluidTankBlock.Item(CREATIVE_FLUID_TANK, new Item.Settings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new CreativeFluidTankBlock.Item(CREATIVE_FLUID_TANK, new Item.Settings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     private static Item createCableBlockItem(String name, CableBlock block) {
         return Registry.register(Registry.ITEM, EPAPI.id(name),
-                new CableBlock.Item(block, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), block.getTier()));
+                new CableBlock.Item(block, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB), block.getTier()));
     }
     public static final CableBlock TIN_CABLE = registerBlock("tin_cable",
             new CableBlock(CableBlock.Tier.TIER_TIN));
@@ -145,7 +144,7 @@ public final class ModBlocks {
 
     private static Item createTransformerBlockItem(String name, TransformerBlock block) {
         return Registry.register(Registry.ITEM, EPAPI.id(name),
-                new TransformerBlock.Item(block, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), block.getTier(), block.getTransformerType()));
+                new TransformerBlock.Item(block, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB), block.getTier(), block.getTransformerType()));
     }
     public static final TransformerBlock LV_TRANSFORMER_1_TO_N = registerBlock("lv_transformer_1_to_n",
             new TransformerBlock(FabricBlockSettings.of(Material.METAL).
@@ -246,31 +245,31 @@ public final class ModBlocks {
             new AutoCrafterBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item AUTO_CRAFTER_ITEM = createBlockItem("auto_crafter",
-            new AutoCrafterBlock.Item(AUTO_CRAFTER, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new AutoCrafterBlock.Item(AUTO_CRAFTER, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block ADVANCED_AUTO_CRAFTER = registerBlock("advanced_auto_crafter",
             new AdvancedAutoCrafterBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item ADVANCED_AUTO_CRAFTER_ITEM = createBlockItem("advanced_auto_crafter",
-            new AdvancedAutoCrafterBlock.Item(ADVANCED_AUTO_CRAFTER, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new AdvancedAutoCrafterBlock.Item(ADVANCED_AUTO_CRAFTER, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block BATTERY_BOX = registerBlock("battery_box",
             new BatteryBoxBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item BATTERY_BOX_ITEM = createBlockItem("battery_box",
-            new BatteryBoxBlock.Item(BATTERY_BOX, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new BatteryBoxBlock.Item(BATTERY_BOX, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block ADVANCED_BATTERY_BOX = registerBlock("advanced_battery_box",
             new AdvancedBatteryBoxBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item ADVANCED_BATTERY_BOX_ITEM = createBlockItem("advanced_battery_box",
-            new AdvancedBatteryBoxBlock.Item(ADVANCED_BATTERY_BOX, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new AdvancedBatteryBoxBlock.Item(ADVANCED_BATTERY_BOX, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block CREATIVE_BATTERY_BOX = registerBlock("creative_battery_box",
             new CreativeBatteryBoxBlock((FabricBlockSettings)FabricBlockSettings.of(Material.METAL, MapColor.PURPLE).
                     requiresTool().strength(-1.f, 3600000.f).dropsNothing()));
     public static final Item CREATIVE_BATTERY_BOX_ITEM = createBlockItem("creative_battery_box",
-            new CreativeBatteryBoxBlock.Item(CREATIVE_BATTERY_BOX, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new CreativeBatteryBoxBlock.Item(CREATIVE_BATTERY_BOX, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block CRUSHER = registerBlock("crusher",
             new CrusherBlock(FabricBlockSettings.of(Material.METAL).
@@ -281,7 +280,7 @@ public final class ModBlocks {
             new AdvancedCrusherBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item ADVANCED_CRUSHER_ITEM = createBlockItem("advanced_crusher",
-            new AdvancedCrusherBlock.Item(ADVANCED_CRUSHER, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new AdvancedCrusherBlock.Item(ADVANCED_CRUSHER, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block PULVERIZER = registerBlock("pulverizer",
             new PulverizerBlock(FabricBlockSettings.of(Material.METAL).
@@ -292,7 +291,7 @@ public final class ModBlocks {
             new AdvancedPulverizerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item ADVANCED_PULVERIZER_ITEM = createBlockItem("advanced_pulverizer",
-            new AdvancedPulverizerBlock.Item(ADVANCED_PULVERIZER, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new AdvancedPulverizerBlock.Item(ADVANCED_PULVERIZER, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block SAWMILL = registerBlock("sawmill",
             new SawmillBlock(FabricBlockSettings.of(Material.METAL).
@@ -308,7 +307,7 @@ public final class ModBlocks {
             new MetalPressBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item METAL_PRESS_ITEM = createBlockItem("metal_press",
-            new MetalPressBlock.Item(METAL_PRESS, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new MetalPressBlock.Item(METAL_PRESS, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block AUTO_PRESS_MOLD_MAKER = registerBlock("auto_press_mold_maker",
             new AutoPressMoldMakerBlock(FabricBlockSettings.of(Material.METAL).
@@ -355,7 +354,7 @@ public final class ModBlocks {
             new FiltrationPlantBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item FILTRATION_PLANT_ITEM = createBlockItem("filtration_plant",
-            new FiltrationPlantBlock.Item(FILTRATION_PLANT, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new FiltrationPlantBlock.Item(FILTRATION_PLANT, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block FLUID_TRANSPOSER = registerBlock("fluid_transposer",
             new FluidTransposerBlock(FabricBlockSettings.of(Material.METAL).
@@ -377,19 +376,19 @@ public final class ModBlocks {
             new DrainBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item DRAIN_ITEM = createBlockItem("drain",
-            new DrainBlock.Item(DRAIN, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new DrainBlock.Item(DRAIN, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block CHARGER = registerBlock("charger",
             new ChargerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item CHARGER_ITEM = createBlockItem("charger",
-            new ChargerBlock.Item(CHARGER, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new ChargerBlock.Item(CHARGER, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block ADVANCED_CHARGER = registerBlock("advanced_charger",
             new AdvancedChargerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item ADVANCED_CHARGER_ITEM = createBlockItem("advanced_charger",
-            new AdvancedChargerBlock.Item(ADVANCED_CHARGER, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new AdvancedChargerBlock.Item(ADVANCED_CHARGER, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block UNCHARGER = registerBlock("uncharger",
             new UnchargerBlock(FabricBlockSettings.of(Material.METAL).
@@ -405,30 +404,30 @@ public final class ModBlocks {
             new MinecartChargerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item MINECART_CHARGER_ITEM = createBlockItem("minecart_charger",
-            new MinecartChargerBlock.Item(MINECART_CHARGER, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new MinecartChargerBlock.Item(MINECART_CHARGER, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block ADVANCED_MINECART_CHARGER = registerBlock("advanced_minecart_charger",
             new AdvancedMinecartChargerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item ADVANCED_MINECART_CHARGER_ITEM = createBlockItem("advanced_minecart_charger",
-            new AdvancedMinecartChargerBlock.Item(ADVANCED_MINECART_CHARGER, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new AdvancedMinecartChargerBlock.Item(ADVANCED_MINECART_CHARGER, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block MINECART_UNCHARGER = registerBlock("minecart_uncharger",
             new MinecartUnchargerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item MINECART_UNCHARGER_ITEM = createBlockItem("minecart_uncharger",
-            new MinecartUnchargerBlock.Item(MINECART_UNCHARGER, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new MinecartUnchargerBlock.Item(MINECART_UNCHARGER, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block ADVANCED_MINECART_UNCHARGER = registerBlock("advanced_minecart_uncharger",
             new AdvancedMinecartUnchargerBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item ADVANCED_MINECART_UNCHARGER_ITEM = createBlockItem("advanced_minecart_uncharger",
-            new AdvancedMinecartUnchargerBlock.Item(ADVANCED_MINECART_UNCHARGER, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new AdvancedMinecartUnchargerBlock.Item(ADVANCED_MINECART_UNCHARGER, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
 
     private static Item createSolarPanelBlockItem(String name, SolarPanelBlock block) {
         return Registry.register(Registry.ITEM, EPAPI.id(name),
-                new SolarPanelBlock.Item(block, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB), block.getTier()));
+                new SolarPanelBlock.Item(block, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB), block.getTier()));
     }
     public static final SolarPanelBlock SOLAR_PANEL_1 = registerBlock("solar_panel_1",
             new SolarPanelBlock(SolarPanelBlock.Tier.TIER_1));
@@ -493,7 +492,7 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL).
                     luminance(LightningGeneratorBlock.LIGHT_EMISSION)));
     public static final Item LIGHTNING_GENERATOR_ITEM = createBlockItem("lightning_generator",
-            new LightningGeneratorBlock.Item(LIGHTNING_GENERATOR, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new LightningGeneratorBlock.Item(LIGHTNING_GENERATOR, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block ENERGIZER = registerBlock("energizer",
             new EnergizerBlock(FabricBlockSettings.of(Material.METAL).
@@ -506,7 +505,7 @@ public final class ModBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL).
                     luminance(ChargingStationBlock.LIGHT_EMISSION)));
     public static final Item CHARGING_STATION_ITEM = createBlockItem("charging_station",
-            new ChargingStationBlock.Item(CHARGING_STATION, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new ChargingStationBlock.Item(CHARGING_STATION, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block CRYSTAL_GROWTH_CHAMBER = registerBlock("crystal_growth_chamber",
             new CrystalGrowthChamberBlock(FabricBlockSettings.of(Material.METAL).
@@ -527,7 +526,7 @@ public final class ModBlocks {
             new TeleporterBlock(FabricBlockSettings.of(Material.METAL).
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item TELEPORTER_ITEM = createBlockItem("teleporter",
-            new TeleporterBlock.Item(TELEPORTER, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            new TeleporterBlock.Item(TELEPORTER, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final Block BASIC_MACHINE_FRAME = registerBlock("basic_machine_frame",
             new Block(FabricBlockSettings.of(Material.METAL).
@@ -563,7 +562,7 @@ public final class ModBlocks {
     }
 
     private static Item createBlockItem(String name, Block block) {
-        return createBlockItem(name, block, new FabricItemSettings().group(ModCreativeModeTab.ENERGIZED_POWER_TAB));
+        return createBlockItem(name, block, new FabricItemSettings().group(EPCreativeModeTab.ENERGIZED_POWER_TAB));
     }
 
     public static void register() {

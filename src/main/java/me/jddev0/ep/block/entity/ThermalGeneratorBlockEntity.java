@@ -39,7 +39,7 @@ public class ThermalGeneratorBlockEntity
 
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.THERMAL_GENERATOR_ENTITY, blockPos, blockState,
+                EPBlockEntities.THERMAL_GENERATOR_ENTITY, blockPos, blockState,
 
                 "thermal_generator",
 

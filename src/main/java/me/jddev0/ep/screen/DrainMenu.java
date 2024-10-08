@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.DrainBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
@@ -26,7 +26,7 @@ public class DrainMenu extends AbstractEnergizedPowerScreenHandler {
     }
 
     public DrainMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, PropertyDelegate data) {
-        super(ModMenuTypes.DRAIN_MENU, id);
+        super(EPMenuTypes.DRAIN_MENU, id);
 
         this.blockEntity = (DrainBlockEntity)blockEntity;
 
@@ -59,7 +59,7 @@ public class DrainMenu extends AbstractEnergizedPowerScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.DRAIN);
+        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, EPBlocks.DRAIN);
     }
 
     private void addPlayerInventory(PlayerInventory playerInventory) {

@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ItemConveyorBeltLoaderBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
@@ -40,7 +40,7 @@ public class ItemConveyorBeltLoaderMenu extends AbstractEnergizedPowerScreenHand
     }
 
     public ItemConveyorBeltLoaderMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv) {
-        super(ModMenuTypes.ITEM_CONVEYOR_BELT_LOADER_MENU, id);
+        super(EPMenuTypes.ITEM_CONVEYOR_BELT_LOADER_MENU, id);
 
         this.blockEntity = (ItemConveyorBeltLoaderBlockEntity)blockEntity;
 
@@ -89,7 +89,7 @@ public class ItemConveyorBeltLoaderMenu extends AbstractEnergizedPowerScreenHand
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.ITEM_CONVEYOR_BELT_LOADER);
+        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, EPBlocks.ITEM_CONVEYOR_BELT_LOADER);
     }
 
     private void addPlayerInventory(PlayerInventory playerInventory) {

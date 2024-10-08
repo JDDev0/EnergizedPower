@@ -2,7 +2,7 @@ package me.jddev0.ep.recipe;
 
 import com.google.gson.*;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.Inventory;
@@ -60,7 +60,7 @@ public class HeatGeneratorRecipe implements Recipe<Inventory> {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ModBlocks.HEAT_GENERATOR_ITEM);
+        return new ItemStack(EPBlocks.HEAT_GENERATOR_ITEM);
     }
 
     @Override

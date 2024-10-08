@@ -49,7 +49,7 @@ public class PoweredFurnaceBlockEntity
 
     public PoweredFurnaceBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.POWERED_FURNACE_ENTITY, blockPos, blockState,
+                EPBlockEntities.POWERED_FURNACE_ENTITY, blockPos, blockState,
 
                 "powered_furnace",
 

@@ -3,7 +3,7 @@ package me.jddev0.ep.datagen.recipe;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.util.FluidStackUtils;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
@@ -35,7 +35,7 @@ public record FluidTransposerFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.FLUID_TRANSPOSER_SERIALIZER;
+        return EPRecipes.FLUID_TRANSPOSER_SERIALIZER;
     }
 
     @Override

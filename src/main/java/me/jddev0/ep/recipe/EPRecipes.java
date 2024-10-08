@@ -5,11 +5,10 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SpecialRecipeSerializer;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-public final class ModRecipes {
-    private ModRecipes() {}
+public final class EPRecipes {
+    private EPRecipes() {}
 
     public static final RecipeSerializer<EnergizerRecipe> ENERGIZER_SERIALIZER = createSerializer("energizer",
             EnergizerRecipe.Serializer.INSTANCE);

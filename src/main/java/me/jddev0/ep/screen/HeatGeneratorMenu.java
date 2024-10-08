@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.HeatGeneratorBlockEntity;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.block.entity.BlockEntity;
@@ -23,10 +23,10 @@ public class HeatGeneratorMenu extends UpgradableEnergyStorageMenu<HeatGenerator
     public HeatGeneratorMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory,
                              UpgradeModuleInventory upgradeModuleInventory) {
         super(
-                ModMenuTypes.HEAT_GENERATOR_MENU, id,
+                EPMenuTypes.HEAT_GENERATOR_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.HEAT_GENERATOR,
+                EPBlocks.HEAT_GENERATOR,
 
                 upgradeModuleInventory, 1
         );

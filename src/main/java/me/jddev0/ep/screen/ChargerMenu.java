@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ChargerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.ChargerRecipe;
@@ -65,10 +65,10 @@ public class ChargerMenu extends UpgradableEnergyStorageMenu<ChargerBlockEntity>
     public ChargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
                        UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(
-                ModMenuTypes.CHARGER_MENU, id,
+                EPMenuTypes.CHARGER_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.CHARGER,
+                EPBlocks.CHARGER,
 
                 upgradeModuleInventory, 1
         );

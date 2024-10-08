@@ -33,7 +33,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -71,7 +70,7 @@ public class AdvancedPoweredFurnaceBlockEntity
 
     public AdvancedPoweredFurnaceBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.ADVANCED_POWERED_FURNACE_ENTITY, blockPos, blockState,
+                EPBlockEntities.ADVANCED_POWERED_FURNACE_ENTITY, blockPos, blockState,
 
                 "advanced_powered_furnace",
 

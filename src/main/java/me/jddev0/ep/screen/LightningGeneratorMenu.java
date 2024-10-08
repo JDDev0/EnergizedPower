@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.LightningGeneratorBlockEntity;
 import me.jddev0.ep.screen.base.EnergyStorageMenu;
 import net.minecraft.block.entity.BlockEntity;
@@ -16,10 +16,10 @@ public class LightningGeneratorMenu extends EnergyStorageMenu<LightningGenerator
 
     public LightningGeneratorMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory) {
         super(
-                ModMenuTypes.LIGHTNING_GENERATOR_MENU, id,
+                EPMenuTypes.LIGHTNING_GENERATOR_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.LIGHTNING_GENERATOR
+                EPBlocks.LIGHTNING_GENERATOR
         );
     }
 

@@ -30,7 +30,7 @@ public class HeatGeneratorBlockEntity
 
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.HEAT_GENERATOR_ENTITY, blockPos, blockState,
+                EPBlockEntities.HEAT_GENERATOR_ENTITY, blockPos, blockState,
 
                 "heat_generator",
 

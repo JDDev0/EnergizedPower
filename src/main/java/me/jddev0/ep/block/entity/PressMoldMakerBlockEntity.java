@@ -37,7 +37,7 @@ public class PressMoldMakerBlockEntity
 
     public PressMoldMakerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.PRESS_MOLD_MAKER_ENTITY, blockPos, blockState,
+                EPBlockEntities.PRESS_MOLD_MAKER_ENTITY, blockPos, blockState,
 
                 "press_mold_maker",
 

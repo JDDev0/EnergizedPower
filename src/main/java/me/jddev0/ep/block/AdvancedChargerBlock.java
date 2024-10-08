@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.AdvancedChargerBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -118,7 +118,7 @@ public class AdvancedChargerBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.ADVANCED_CHARGER_ENTITY, AdvancedChargerBlockEntity::tick);
+        return checkType(type, EPBlockEntities.ADVANCED_CHARGER_ENTITY, AdvancedChargerBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

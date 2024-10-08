@@ -28,24 +28,24 @@ public class TransformerBlockEntity extends EnergyStorageBlockEntity<EnergizedPo
                                                                                        TransformerBlock.Type type) {
         return switch(tier) {
             case TIER_LV -> switch (type) {
-                case TYPE_1_TO_N -> ModBlockEntities.LV_TRANSFORMER_1_TO_N_ENTITY;
-                case TYPE_3_TO_3 -> ModBlockEntities.LV_TRANSFORMER_3_TO_3_ENTITY;
-                case TYPE_N_TO_1 -> ModBlockEntities.LV_TRANSFORMER_N_TO_1_ENTITY;
+                case TYPE_1_TO_N -> EPBlockEntities.LV_TRANSFORMER_1_TO_N_ENTITY;
+                case TYPE_3_TO_3 -> EPBlockEntities.LV_TRANSFORMER_3_TO_3_ENTITY;
+                case TYPE_N_TO_1 -> EPBlockEntities.LV_TRANSFORMER_N_TO_1_ENTITY;
             };
             case TIER_MV -> switch (type) {
-                case TYPE_1_TO_N -> ModBlockEntities.MV_TRANSFORMER_1_TO_N_ENTITY;
-                case TYPE_3_TO_3 -> ModBlockEntities.MV_TRANSFORMER_3_TO_3_ENTITY;
-                case TYPE_N_TO_1 -> ModBlockEntities.MV_TRANSFORMER_N_TO_1_ENTITY;
+                case TYPE_1_TO_N -> EPBlockEntities.MV_TRANSFORMER_1_TO_N_ENTITY;
+                case TYPE_3_TO_3 -> EPBlockEntities.MV_TRANSFORMER_3_TO_3_ENTITY;
+                case TYPE_N_TO_1 -> EPBlockEntities.MV_TRANSFORMER_N_TO_1_ENTITY;
             };
             case TIER_HV -> switch(type) {
-                case TYPE_1_TO_N -> ModBlockEntities.HV_TRANSFORMER_1_TO_N_ENTITY;
-                case TYPE_3_TO_3 -> ModBlockEntities.HV_TRANSFORMER_3_TO_3_ENTITY;
-                case TYPE_N_TO_1 -> ModBlockEntities.HV_TRANSFORMER_N_TO_1_ENTITY;
+                case TYPE_1_TO_N -> EPBlockEntities.HV_TRANSFORMER_1_TO_N_ENTITY;
+                case TYPE_3_TO_3 -> EPBlockEntities.HV_TRANSFORMER_3_TO_3_ENTITY;
+                case TYPE_N_TO_1 -> EPBlockEntities.HV_TRANSFORMER_N_TO_1_ENTITY;
             };
             case TIER_EHV -> switch(type) {
-                case TYPE_1_TO_N -> ModBlockEntities.EHV_TRANSFORMER_1_TO_N_ENTITY;
-                case TYPE_3_TO_3 -> ModBlockEntities.EHV_TRANSFORMER_3_TO_3_ENTITY;
-                case TYPE_N_TO_1 -> ModBlockEntities.EHV_TRANSFORMER_N_TO_1_ENTITY;
+                case TYPE_1_TO_N -> EPBlockEntities.EHV_TRANSFORMER_1_TO_N_ENTITY;
+                case TYPE_3_TO_3 -> EPBlockEntities.EHV_TRANSFORMER_3_TO_3_ENTITY;
+                case TYPE_N_TO_1 -> EPBlockEntities.EHV_TRANSFORMER_N_TO_1_ENTITY;
             };
         };
     }

@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import com.mojang.datafixers.util.Pair;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.PressMoldMakerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
@@ -39,7 +39,7 @@ public class PressMoldMakerMenu extends AbstractEnergizedPowerScreenHandler {
     }
 
     public PressMoldMakerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv) {
-        super(ModMenuTypes.PRESS_MOLD_MAKER_MENU, id);
+        super(EPMenuTypes.PRESS_MOLD_MAKER_MENU, id);
 
         this.blockEntity = (PressMoldMakerBlockEntity)blockEntity;
 
@@ -90,7 +90,7 @@ public class PressMoldMakerMenu extends AbstractEnergizedPowerScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.PRESS_MOLD_MAKER);
+        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, EPBlocks.PRESS_MOLD_MAKER);
     }
 
     private void addPlayerInventory(PlayerInventory playerInventory) {

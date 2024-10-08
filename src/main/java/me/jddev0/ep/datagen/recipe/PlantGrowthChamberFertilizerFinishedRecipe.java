@@ -2,7 +2,7 @@
 package me.jddev0.ep.datagen.recipe;
 
 import com.google.gson.JsonObject;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
@@ -30,7 +30,7 @@ public record PlantGrowthChamberFertilizerFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.PLANT_GROWTH_CHAMBER_FERTILIZER_SERIALIZER;
+        return EPRecipes.PLANT_GROWTH_CHAMBER_FERTILIZER_SERIALIZER;
     }
 
     @Override

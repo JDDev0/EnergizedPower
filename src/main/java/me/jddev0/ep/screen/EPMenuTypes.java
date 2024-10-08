@@ -4,11 +4,10 @@ import me.jddev0.ep.api.EPAPI;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-public final class ModMenuTypes {
-    private ModMenuTypes() {}
+public final class EPMenuTypes {
+    private EPMenuTypes() {}
 
     public static final ScreenHandlerType<ItemConveyorBeltLoaderMenu> ITEM_CONVEYOR_BELT_LOADER_MENU = createScreenHandlerType("item_conveyor_belt_loader",
             new ExtendedScreenHandlerType<>(ItemConveyorBeltLoaderMenu::new));

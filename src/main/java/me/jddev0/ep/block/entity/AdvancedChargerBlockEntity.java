@@ -70,7 +70,7 @@ public class AdvancedChargerBlockEntity
 
     public AdvancedChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.ADVANCED_CHARGER_ENTITY, blockPos, blockState,
+                EPBlockEntities.ADVANCED_CHARGER_ENTITY, blockPos, blockState,
 
                 "advanced_charger",
 

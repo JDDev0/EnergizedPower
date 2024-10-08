@@ -3,12 +3,12 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.entity.base.FluidStorageMultiTankMethods;
 import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.fluid.ModFluids;
+import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.CrusherRecipe;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.AdvancedCrusherMenu;
 import me.jddev0.ep.util.FluidUtils;
 import me.jddev0.ep.util.ItemStackUtils;
@@ -36,11 +36,11 @@ public class AdvancedCrusherBlockEntity
 
     public AdvancedCrusherBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.ADVANCED_CRUSHER_ENTITY, blockPos, blockState,
+                EPBlockEntities.ADVANCED_CRUSHER_ENTITY, blockPos, blockState,
 
                 "advanced_crusher", AdvancedCrusherMenu::new,
 
-                2, ModRecipes.CRUSHER_TYPE, ModConfigs.COMMON_ADVANCED_CRUSHER_RECIPE_DURATION.getValue(),
+                2, EPRecipes.CRUSHER_TYPE, ModConfigs.COMMON_ADVANCED_CRUSHER_RECIPE_DURATION.getValue(),
 
                 ModConfigs.COMMON_ADVANCED_CRUSHER_CAPACITY.getValue(),
                 ModConfigs.COMMON_ADVANCED_CRUSHER_TRANSFER_RATE.getValue(),
@@ -120,7 +120,7 @@ public class AdvancedCrusherBlockEntity
                     }
 
                     private boolean isFluidValid(FluidVariant variant) {
-                        return variant.isOf(ModFluids.DIRTY_WATER);
+                        return variant.isOf(EPFluids.DIRTY_WATER);
                     }
 
                     @Override
@@ -143,7 +143,7 @@ public class AdvancedCrusherBlockEntity
 
         try(Transaction transaction = Transaction.openOuter()) {
             fluidStorage.extract(FluidVariant.of(Fluids.WATER), WATER_CONSUMPTION_PER_RECIPE, transaction);
-            fluidStorage.insert(FluidVariant.of(ModFluids.DIRTY_WATER), WATER_CONSUMPTION_PER_RECIPE, transaction);
+            fluidStorage.insert(FluidVariant.of(EPFluids.DIRTY_WATER), WATER_CONSUMPTION_PER_RECIPE, transaction);
 
             transaction.commit();
         }

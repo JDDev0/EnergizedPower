@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.Inventory;
@@ -63,7 +63,7 @@ public class ThermalGeneratorRecipe implements Recipe<Inventory> {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ModBlocks.THERMAL_GENERATOR_ITEM);
+        return new ItemStack(EPBlocks.THERMAL_GENERATOR_ITEM);
     }
 
     @Override

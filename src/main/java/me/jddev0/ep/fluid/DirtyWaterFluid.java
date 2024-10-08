@@ -16,7 +16,6 @@ import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
@@ -26,17 +25,17 @@ import java.util.Optional;
 public abstract class DirtyWaterFluid extends FlowableFluid {
     @Override
     public Fluid getStill() {
-        return ModFluids.DIRTY_WATER;
+        return EPFluids.DIRTY_WATER;
     }
 
     @Override
     public Fluid getFlowing() {
-        return ModFluids.FLOWING_DIRTY_WATER;
+        return EPFluids.FLOWING_DIRTY_WATER;
     }
 
     @Override
     public Item getBucketItem() {
-        return ModFluids.DIRTY_WATER_BUCKET_ITEM;
+        return EPFluids.DIRTY_WATER_BUCKET_ITEM;
     }
 
     @Nullable
@@ -61,7 +60,7 @@ public abstract class DirtyWaterFluid extends FlowableFluid {
 
     @Override
     protected BlockState toBlockState(FluidState state) {
-        return ModFluids.DIRTY_WATER_BLOCK.getDefaultState().with(FluidBlock.LEVEL, getBlockStateLevel(state));
+        return EPFluids.DIRTY_WATER_BLOCK.getDefaultState().with(FluidBlock.LEVEL, getBlockStateLevel(state));
     }
 
     @Override

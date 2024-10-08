@@ -1,20 +1,20 @@
 package me.jddev0.ep;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.behavior.ModBlockBehaviors;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.entity.ModEntityTypes;
+import me.jddev0.ep.entity.EPEntityTypes;
 import me.jddev0.ep.entity.data.ModTrackedDataHandlers;
 import me.jddev0.ep.event.PlayerInteractHandler;
 import me.jddev0.ep.event.ServerStartingHandler;
-import me.jddev0.ep.fluid.ModFluids;
+import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.paintings.ModPaintings;
-import me.jddev0.ep.recipe.ModRecipes;
-import me.jddev0.ep.screen.ModMenuTypes;
-import me.jddev0.ep.villager.ModVillager;
+import me.jddev0.ep.paintings.EPPaintings;
+import me.jddev0.ep.recipe.EPRecipes;
+import me.jddev0.ep.screen.EPMenuTypes;
+import me.jddev0.ep.villager.EPVillager;
 import me.jddev0.ep.worldgen.ModOreGeneration;
 import net.fabricmc.api.ModInitializer;
 
@@ -30,21 +30,21 @@ public class EnergizedPowerMod implements ModInitializer {
     public void onInitialize() {
         ModConfigs.registerConfigs(true);
 
-        ModItems.register();
-        ModBlocks.register();
-        ModBlockEntities.register();
-        ModRecipes.register();
-        ModMenuTypes.register();
-        ModVillager.register();
-        ModEntityTypes.register();
+        EPItems.register();
+        EPBlocks.register();
+        EPBlockEntities.register();
+        EPRecipes.register();
+        EPMenuTypes.register();
+        EPVillager.register();
+        EPEntityTypes.register();
         ModTrackedDataHandlers.register();
-        ModPaintings.register();
+        EPPaintings.register();
 
-        ModFluids.register();
+        EPFluids.register();
 
         ModBlockBehaviors.register();
 
-        ModCreativeModeTab.register();
+        EPCreativeModeTab.register();
 
         ModOreGeneration.register();
 
@@ -53,7 +53,7 @@ public class EnergizedPowerMod implements ModInitializer {
         PlayerInteractHandler.EVENT.register(new PlayerInteractHandler());
         ServerLifecycleEvents.SERVER_STARTING.register(new ServerStartingHandler());
 
-        FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.SAWDUST_BLOCK, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(EPBlocks.SAWDUST_BLOCK, 5, 20);
     }
 
     private ItemStack getChargedItemStack(Item item, long energy) {

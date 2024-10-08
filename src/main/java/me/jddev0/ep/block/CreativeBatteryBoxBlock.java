@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.CreativeBatteryBoxBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -61,7 +61,7 @@ public class CreativeBatteryBoxBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.CREATIVE_BATTERY_BOX_ENTITY, CreativeBatteryBoxBlockEntity::tick);
+        return checkType(type, EPBlockEntities.CREATIVE_BATTERY_BOX_ENTITY, CreativeBatteryBoxBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.villager.ModVillager;
+import me.jddev0.ep.villager.EPVillager;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.tag.PointOfInterestTypeTags;
@@ -15,6 +15,6 @@ public class ModPoiTypeTagProvider extends FabricTagProvider<PointOfInterestType
     @Override
     protected void generateTags() {
         getOrCreateTagBuilder(PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE).
-                add(ModVillager.BASIC_MACHINE_FRAME_POI);
+                add(EPVillager.BASIC_MACHINE_FRAME_POI);
     }
 }

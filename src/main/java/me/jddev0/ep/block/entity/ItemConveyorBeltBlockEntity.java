@@ -1,8 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
-import me.jddev0.ep.block.ModBlockStateProperties;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlockStateProperties;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.base.InventoryStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
@@ -34,7 +34,7 @@ public class ItemConveyorBeltBlockEntity
 
     public ItemConveyorBeltBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.ITEM_CONVEYOR_BELT_ENTITY, blockPos, blockState,
+                EPBlockEntities.ITEM_CONVEYOR_BELT_ENTITY, blockPos, blockState,
 
                 4
         );
@@ -125,7 +125,7 @@ public class ItemConveyorBeltBlockEntity
 
     private static void insertItemStackIntoBlockEntity(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltBlockEntity blockEntity,
                                                        ItemStack itemStackToInsert) {
-        ModBlockStateProperties.ConveyorBeltDirection facing = blockEntity.getCachedState().get(ItemConveyorBeltBlock.FACING);
+        EPBlockStateProperties.ConveyorBeltDirection facing = blockEntity.getCachedState().get(ItemConveyorBeltBlock.FACING);
         Direction facingDirection = facing.getDirection();
 
         BlockPos testPos = blockPos.offset(facingDirection);
@@ -141,10 +141,10 @@ public class ItemConveyorBeltBlockEntity
 
             testPos = testPos.offset(Direction.DOWN);
             BlockState testBlockState = level.getBlockState(testPos);
-            if(!testBlockState.isOf(ModBlocks.ITEM_CONVEYOR_BELT))
+            if(!testBlockState.isOf(EPBlocks.ITEM_CONVEYOR_BELT))
                 return;
 
-            ModBlockStateProperties.ConveyorBeltDirection testFacing = testBlockState.get(ItemConveyorBeltBlock.FACING);
+            EPBlockStateProperties.ConveyorBeltDirection testFacing = testBlockState.get(ItemConveyorBeltBlock.FACING);
             if(!testFacing.isDescending() || testFacing.getDirection() != facingDirection)
                 return;
 

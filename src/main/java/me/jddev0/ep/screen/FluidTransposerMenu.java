@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
@@ -9,7 +9,7 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
@@ -25,7 +25,6 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.math.BlockPos;
 
 public class FluidTransposerMenu extends UpgradableEnergyStorageMenu<FluidTransposerBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
@@ -36,7 +35,7 @@ public class FluidTransposerMenu extends UpgradableEnergyStorageMenu<FluidTransp
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> RecipeUtils.isIngredientOfAny(inv.player.getWorld(), ModRecipes.FLUID_TRANSPOSER_TYPE, stack);
+                    case 0 -> RecipeUtils.isIngredientOfAny(inv.player.getWorld(), EPRecipes.FLUID_TRANSPOSER_TYPE, stack);
                     case 1 -> false;
                     default -> super.isValid(slot, stack);
                 };
@@ -51,10 +50,10 @@ public class FluidTransposerMenu extends UpgradableEnergyStorageMenu<FluidTransp
     public FluidTransposerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
                                UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(
-                ModMenuTypes.FLUID_TRANSPOSER_MENU, id,
+                EPMenuTypes.FLUID_TRANSPOSER_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.FLUID_TRANSPOSER,
+                EPBlocks.FLUID_TRANSPOSER,
 
                 upgradeModuleInventory, 3
         );

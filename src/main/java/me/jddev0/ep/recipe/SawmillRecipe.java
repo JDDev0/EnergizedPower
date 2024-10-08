@@ -2,8 +2,8 @@ package me.jddev0.ep.recipe;
 
 import com.google.gson.JsonObject;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.block.EPBlocks;
+import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -21,7 +21,7 @@ public class SawmillRecipe implements Recipe<Inventory> {
     private final Ingredient input;
 
     public SawmillRecipe(Identifier id, ItemStack output, Ingredient input, int sawdustAmount) {
-        this(id, output, new ItemStack(ModItems.SAWDUST, sawdustAmount), input);
+        this(id, output, new ItemStack(EPItems.SAWDUST, sawdustAmount), input);
     }
 
     public SawmillRecipe(Identifier id, ItemStack output, ItemStack secondaryOutput, Ingredient input) {
@@ -75,7 +75,7 @@ public class SawmillRecipe implements Recipe<Inventory> {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ModBlocks.SAWMILL_ITEM);
+        return new ItemStack(EPBlocks.SAWMILL_ITEM);
     }
 
     @Override

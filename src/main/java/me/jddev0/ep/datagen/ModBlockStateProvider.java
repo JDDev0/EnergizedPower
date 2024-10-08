@@ -22,193 +22,193 @@ class ModBlockStateProvider {
     }
 
     void registerBlocks() {
-        cubeAllBlockWithItem(ModBlocks.SILICON_BLOCK);
+        cubeAllBlockWithItem(EPBlocks.SILICON_BLOCK);
 
-        cubeAllBlockWithItem(ModBlocks.TIN_BLOCK);
+        cubeAllBlockWithItem(EPBlocks.TIN_BLOCK);
 
-        cubeAllBlockWithItem(ModBlocks.SAWDUST_BLOCK);
+        cubeAllBlockWithItem(EPBlocks.SAWDUST_BLOCK);
 
-        cubeAllBlockWithItem(ModBlocks.TIN_ORE);
-        cubeAllBlockWithItem(ModBlocks.DEEPSLATE_TIN_ORE);
+        cubeAllBlockWithItem(EPBlocks.TIN_ORE);
+        cubeAllBlockWithItem(EPBlocks.DEEPSLATE_TIN_ORE);
 
-        cubeAllBlockWithItem(ModBlocks.RAW_TIN_BLOCK);
+        cubeAllBlockWithItem(EPBlocks.RAW_TIN_BLOCK);
 
-        itemConveyorBeltBlockWithItem(ModBlocks.ITEM_CONVEYOR_BELT);
+        itemConveyorBeltBlockWithItem(EPBlocks.ITEM_CONVEYOR_BELT);
 
-        orientableSixDirsBlockWithBackItem(ModBlocks.ITEM_CONVEYOR_BELT_LOADER, false);
+        orientableSixDirsBlockWithBackItem(EPBlocks.ITEM_CONVEYOR_BELT_LOADER, false);
 
-        orientableBlockWithItem(ModBlocks.ITEM_CONVEYOR_BELT_SORTER,
-                cubeBlockModel(ModBlocks.ITEM_CONVEYOR_BELT_SORTER, "", "_top", "_top",
+        orientableBlockWithItem(EPBlocks.ITEM_CONVEYOR_BELT_SORTER,
+                cubeBlockModel(EPBlocks.ITEM_CONVEYOR_BELT_SORTER, "", "_top", "_top",
                         "_input", "_output_2", "_output_3", "_output_1"));
 
-        activatableOrientableBlockWithItem(ModBlocks.ITEM_CONVEYOR_BELT_SWITCH,
-                cubeBlockModel(ModBlocks.ITEM_CONVEYOR_BELT_SWITCH, "", "_top", "_top",
+        activatableOrientableBlockWithItem(EPBlocks.ITEM_CONVEYOR_BELT_SWITCH,
+                cubeBlockModel(EPBlocks.ITEM_CONVEYOR_BELT_SWITCH, "", "_top", "_top",
                         "_input", "_side", "_output_disabled", "_output_enabled"),
-                cubeBlockModel(ModBlocks.ITEM_CONVEYOR_BELT_SWITCH, "_powered", "_top", "_top",
+                cubeBlockModel(EPBlocks.ITEM_CONVEYOR_BELT_SWITCH, "_powered", "_top", "_top",
                         "_input", "_side", "_output_enabled", "_output_disabled"),
                 ItemConveyorBeltSwitchBlock.POWERED);
 
-        orientableBlockWithItem(ModBlocks.ITEM_CONVEYOR_BELT_SPLITTER,
-                cubeBlockModel(ModBlocks.ITEM_CONVEYOR_BELT_SPLITTER, "", "_top", "_top",
+        orientableBlockWithItem(EPBlocks.ITEM_CONVEYOR_BELT_SPLITTER,
+                cubeBlockModel(EPBlocks.ITEM_CONVEYOR_BELT_SPLITTER, "", "_top", "_top",
                         "_input", "_output", "_output", "_output"));
 
-        orientableBlockWithItem(ModBlocks.ITEM_CONVEYOR_BELT_MERGER,
-                cubeBlockModel(ModBlocks.ITEM_CONVEYOR_BELT_MERGER, "", "_top", "_top",
+        orientableBlockWithItem(EPBlocks.ITEM_CONVEYOR_BELT_MERGER,
+                cubeBlockModel(EPBlocks.ITEM_CONVEYOR_BELT_MERGER, "", "_top", "_top",
                         "_output", "_input", "_input", "_input"));
 
-        fluidPipeBlockWithItem(ModBlocks.IRON_FLUID_PIPE);
-        fluidPipeBlockWithItem(ModBlocks.GOLDEN_FLUID_PIPE);
+        fluidPipeBlockWithItem(EPBlocks.IRON_FLUID_PIPE);
+        fluidPipeBlockWithItem(EPBlocks.GOLDEN_FLUID_PIPE);
 
-        fluidTankBlockWithItem(ModBlocks.FLUID_TANK_SMALL);
-        fluidTankBlockWithItem(ModBlocks.FLUID_TANK_MEDIUM);
-        fluidTankBlockWithItem(ModBlocks.FLUID_TANK_LARGE);
-        fluidTankBlockWithItem(ModBlocks.CREATIVE_FLUID_TANK);
+        fluidTankBlockWithItem(EPBlocks.FLUID_TANK_SMALL);
+        fluidTankBlockWithItem(EPBlocks.FLUID_TANK_MEDIUM);
+        fluidTankBlockWithItem(EPBlocks.FLUID_TANK_LARGE);
+        fluidTankBlockWithItem(EPBlocks.CREATIVE_FLUID_TANK);
 
-        cableBlockWithItem(ModBlocks.TIN_CABLE);
-        cableBlockWithItem(ModBlocks.COPPER_CABLE);
-        cableBlockWithItem(ModBlocks.GOLD_CABLE);
-        cableBlockWithItem(ModBlocks.ENERGIZED_COPPER_CABLE);
-        cableBlockWithItem(ModBlocks.ENERGIZED_GOLD_CABLE);
-        cableBlockWithItem(ModBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE);
+        cableBlockWithItem(EPBlocks.TIN_CABLE);
+        cableBlockWithItem(EPBlocks.COPPER_CABLE);
+        cableBlockWithItem(EPBlocks.GOLD_CABLE);
+        cableBlockWithItem(EPBlocks.ENERGIZED_COPPER_CABLE);
+        cableBlockWithItem(EPBlocks.ENERGIZED_GOLD_CABLE);
+        cableBlockWithItem(EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE);
 
-        transformerBlockWithItem(ModBlocks.LV_TRANSFORMER_1_TO_N);
-        transformerBlockWithItem(ModBlocks.LV_TRANSFORMER_3_TO_3);
-        transformerBlockWithItem(ModBlocks.LV_TRANSFORMER_N_TO_1);
-        transformerBlockWithItem(ModBlocks.MV_TRANSFORMER_1_TO_N);
-        transformerBlockWithItem(ModBlocks.MV_TRANSFORMER_3_TO_3);
-        transformerBlockWithItem(ModBlocks.MV_TRANSFORMER_N_TO_1);
-        transformerBlockWithItem(ModBlocks.HV_TRANSFORMER_1_TO_N);
-        transformerBlockWithItem(ModBlocks.HV_TRANSFORMER_3_TO_3);
-        transformerBlockWithItem(ModBlocks.HV_TRANSFORMER_N_TO_1);
-        transformerBlockWithItem(ModBlocks.EHV_TRANSFORMER_1_TO_N);
-        transformerBlockWithItem(ModBlocks.EHV_TRANSFORMER_3_TO_3);
-        transformerBlockWithItem(ModBlocks.EHV_TRANSFORMER_N_TO_1);
+        transformerBlockWithItem(EPBlocks.LV_TRANSFORMER_1_TO_N);
+        transformerBlockWithItem(EPBlocks.LV_TRANSFORMER_3_TO_3);
+        transformerBlockWithItem(EPBlocks.LV_TRANSFORMER_N_TO_1);
+        transformerBlockWithItem(EPBlocks.MV_TRANSFORMER_1_TO_N);
+        transformerBlockWithItem(EPBlocks.MV_TRANSFORMER_3_TO_3);
+        transformerBlockWithItem(EPBlocks.MV_TRANSFORMER_N_TO_1);
+        transformerBlockWithItem(EPBlocks.HV_TRANSFORMER_1_TO_N);
+        transformerBlockWithItem(EPBlocks.HV_TRANSFORMER_3_TO_3);
+        transformerBlockWithItem(EPBlocks.HV_TRANSFORMER_N_TO_1);
+        transformerBlockWithItem(EPBlocks.EHV_TRANSFORMER_1_TO_N);
+        transformerBlockWithItem(EPBlocks.EHV_TRANSFORMER_3_TO_3);
+        transformerBlockWithItem(EPBlocks.EHV_TRANSFORMER_N_TO_1);
 
-        horizontalBlockWithItem(ModBlocks.BATTERY_BOX, true);
-        horizontalBlockWithItem(ModBlocks.ADVANCED_BATTERY_BOX, true);
-        horizontalBlockWithItem(ModBlocks.CREATIVE_BATTERY_BOX, true);
+        horizontalBlockWithItem(EPBlocks.BATTERY_BOX, true);
+        horizontalBlockWithItem(EPBlocks.ADVANCED_BATTERY_BOX, true);
+        horizontalBlockWithItem(EPBlocks.CREATIVE_BATTERY_BOX, true);
 
-        horizontalTwoSideBlockWithItem(ModBlocks.PRESS_MOLD_MAKER, true);
+        horizontalTwoSideBlockWithItem(EPBlocks.PRESS_MOLD_MAKER, true);
 
-        activatableOrientableBlockWithItem(ModBlocks.ALLOY_FURNACE,
-                orientableBlockModel(ModBlocks.ALLOY_FURNACE, false),
-                orientableOnBlockModel(ModBlocks.ALLOY_FURNACE, false),
+        activatableOrientableBlockWithItem(EPBlocks.ALLOY_FURNACE,
+                orientableBlockModel(EPBlocks.ALLOY_FURNACE, false),
+                orientableOnBlockModel(EPBlocks.ALLOY_FURNACE, false),
                 AlloyFurnaceBlock.LIT);
 
-        horizontalTwoSideBlockWithItem(ModBlocks.AUTO_CRAFTER, true);
-        horizontalTwoSideBlockWithItem(ModBlocks.ADVANCED_AUTO_CRAFTER, true);
+        horizontalTwoSideBlockWithItem(EPBlocks.AUTO_CRAFTER, true);
+        horizontalTwoSideBlockWithItem(EPBlocks.ADVANCED_AUTO_CRAFTER, true);
 
-        horizontalBlockWithItem(ModBlocks.CRUSHER, true);
-        horizontalBlockWithItem(ModBlocks.ADVANCED_CRUSHER, true);
+        horizontalBlockWithItem(EPBlocks.CRUSHER, true);
+        horizontalBlockWithItem(EPBlocks.ADVANCED_CRUSHER, true);
 
-        horizontalBlockWithItem(ModBlocks.PULVERIZER, true);
-        horizontalBlockWithItem(ModBlocks.ADVANCED_PULVERIZER, true);
+        horizontalBlockWithItem(EPBlocks.PULVERIZER, true);
+        horizontalBlockWithItem(EPBlocks.ADVANCED_PULVERIZER, true);
 
-        horizontalBlockWithItem(ModBlocks.SAWMILL, true);
+        horizontalBlockWithItem(EPBlocks.SAWMILL, true);
 
-        horizontalBlockWithItem(ModBlocks.COMPRESSOR, true);
+        horizontalBlockWithItem(EPBlocks.COMPRESSOR, true);
 
-        horizontalBlockWithItem(ModBlocks.METAL_PRESS, false);
+        horizontalBlockWithItem(EPBlocks.METAL_PRESS, false);
 
-        horizontalTwoSideBlockWithItem(ModBlocks.AUTO_PRESS_MOLD_MAKER, true);
+        horizontalTwoSideBlockWithItem(EPBlocks.AUTO_PRESS_MOLD_MAKER, true);
 
-        horizontalBlockWithItem(ModBlocks.AUTO_STONECUTTER, false);
+        horizontalBlockWithItem(EPBlocks.AUTO_STONECUTTER, false);
 
-        orientableBlockWithItem(ModBlocks.PLANT_GROWTH_CHAMBER,
-                cubeBlockModel(ModBlocks.PLANT_GROWTH_CHAMBER, "", "_top", "_top",
+        orientableBlockWithItem(EPBlocks.PLANT_GROWTH_CHAMBER,
+                cubeBlockModel(EPBlocks.PLANT_GROWTH_CHAMBER, "", "_top", "_top",
                         "_front", "_front", "_side", "_side"));
 
-        orientableSixDirsBlockWithItem(ModBlocks.BLOCK_PLACER, true);
+        orientableSixDirsBlockWithItem(EPBlocks.BLOCK_PLACER, true);
 
-        orientableBlockWithItem(ModBlocks.ASSEMBLING_MACHINE,
-                orientableBlockModel(ModBlocks.ASSEMBLING_MACHINE, false));
+        orientableBlockWithItem(EPBlocks.ASSEMBLING_MACHINE,
+                orientableBlockModel(EPBlocks.ASSEMBLING_MACHINE, false));
 
-        activatableOrientableMachineBlockWithItem(ModBlocks.INDUCTION_SMELTER, false);
+        activatableOrientableMachineBlockWithItem(EPBlocks.INDUCTION_SMELTER, false);
 
-        horizontalBlockWithItem(ModBlocks.FLUID_FILLER, true);
+        horizontalBlockWithItem(EPBlocks.FLUID_FILLER, true);
 
-        orientableBlockWithItem(ModBlocks.STONE_SOLIDIFIER,
-                orientableBlockModel(ModBlocks.STONE_SOLIDIFIER, false));
+        orientableBlockWithItem(EPBlocks.STONE_SOLIDIFIER,
+                orientableBlockModel(EPBlocks.STONE_SOLIDIFIER, false));
 
-        orientableBlockWithItem(ModBlocks.FLUID_TRANSPOSER,
-                orientableBlockModel(ModBlocks.FLUID_TRANSPOSER, false));
+        orientableBlockWithItem(EPBlocks.FLUID_TRANSPOSER,
+                orientableBlockModel(EPBlocks.FLUID_TRANSPOSER, false));
 
-        horizontalTwoSideBlockWithItem(ModBlocks.FILTRATION_PLANT, false);
+        horizontalTwoSideBlockWithItem(EPBlocks.FILTRATION_PLANT, false);
 
-        horizontalBlockWithItem(ModBlocks.FLUID_DRAINER, true);
+        horizontalBlockWithItem(EPBlocks.FLUID_DRAINER, true);
 
-        horizontalBlockWithItem(ModBlocks.FLUID_PUMP, false);
+        horizontalBlockWithItem(EPBlocks.FLUID_PUMP, false);
 
-        horizontalBlockWithItem(ModBlocks.DRAIN, true);
+        horizontalBlockWithItem(EPBlocks.DRAIN, true);
 
-        horizontalBlockWithItem(ModBlocks.CHARGER, true);
-        horizontalBlockWithItem(ModBlocks.ADVANCED_CHARGER, true);
+        horizontalBlockWithItem(EPBlocks.CHARGER, true);
+        horizontalBlockWithItem(EPBlocks.ADVANCED_CHARGER, true);
 
-        horizontalBlockWithItem(ModBlocks.UNCHARGER, true);
-        horizontalBlockWithItem(ModBlocks.ADVANCED_UNCHARGER, true);
+        horizontalBlockWithItem(EPBlocks.UNCHARGER, true);
+        horizontalBlockWithItem(EPBlocks.ADVANCED_UNCHARGER, true);
 
-        orientableSixDirsBlockWithItem(ModBlocks.MINECART_CHARGER, true);
-        orientableSixDirsBlockWithItem(ModBlocks.ADVANCED_MINECART_CHARGER, true);
+        orientableSixDirsBlockWithItem(EPBlocks.MINECART_CHARGER, true);
+        orientableSixDirsBlockWithItem(EPBlocks.ADVANCED_MINECART_CHARGER, true);
 
-        orientableSixDirsBlockWithItem(ModBlocks.MINECART_UNCHARGER, true);
-        orientableSixDirsBlockWithItem(ModBlocks.ADVANCED_MINECART_UNCHARGER, true);
+        orientableSixDirsBlockWithItem(EPBlocks.MINECART_UNCHARGER, true);
+        orientableSixDirsBlockWithItem(EPBlocks.ADVANCED_MINECART_UNCHARGER, true);
 
-        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_1);
-        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_2);
-        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_3);
-        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_4);
-        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_5);
-        solarPanelBlockWithItem(ModBlocks.SOLAR_PANEL_6);
+        solarPanelBlockWithItem(EPBlocks.SOLAR_PANEL_1);
+        solarPanelBlockWithItem(EPBlocks.SOLAR_PANEL_2);
+        solarPanelBlockWithItem(EPBlocks.SOLAR_PANEL_3);
+        solarPanelBlockWithItem(EPBlocks.SOLAR_PANEL_4);
+        solarPanelBlockWithItem(EPBlocks.SOLAR_PANEL_5);
+        solarPanelBlockWithItem(EPBlocks.SOLAR_PANEL_6);
 
-        activatableOrientableMachineBlockWithItem(ModBlocks.COAL_ENGINE, false);
+        activatableOrientableMachineBlockWithItem(EPBlocks.COAL_ENGINE, false);
 
-        poweredLampBlockWithItem(ModBlocks.POWERED_LAMP);
+        poweredLampBlockWithItem(EPBlocks.POWERED_LAMP);
 
-        activatableOrientableMachineBlockWithItem(ModBlocks.POWERED_FURNACE, false);
-        activatableOrientableMachineBlockWithItem(ModBlocks.ADVANCED_POWERED_FURNACE, false);
+        activatableOrientableMachineBlockWithItem(EPBlocks.POWERED_FURNACE, false);
+        activatableOrientableMachineBlockWithItem(EPBlocks.ADVANCED_POWERED_FURNACE, false);
 
-        activatableBlockWithItem(ModBlocks.LIGHTNING_GENERATOR,
-                cubeBlockModel(ModBlocks.LIGHTNING_GENERATOR, "", "_top", "_bottom",
+        activatableBlockWithItem(EPBlocks.LIGHTNING_GENERATOR,
+                cubeBlockModel(EPBlocks.LIGHTNING_GENERATOR, "", "_top", "_bottom",
                         "_side", "_side", "_side", "_side"),
-                cubeBlockModel(ModBlocks.LIGHTNING_GENERATOR, "_on", "_top_on", "_bottom",
+                cubeBlockModel(EPBlocks.LIGHTNING_GENERATOR, "_on", "_top_on", "_bottom",
                         "_side_on", "_side_on", "_side_on", "_side_on"),
                 LightningGeneratorBlock.HIT_BY_LIGHTNING_BOLT);
 
-        activatableOrientableBlockWithItem(ModBlocks.ENERGIZER,
-                orientableBlockModel(ModBlocks.ENERGIZER, true),
-                orientableBlockModel(ModBlocks.ENERGIZER, "_on", "_top_on", "_bottom",
+        activatableOrientableBlockWithItem(EPBlocks.ENERGIZER,
+                orientableBlockModel(EPBlocks.ENERGIZER, true),
+                orientableBlockModel(EPBlocks.ENERGIZER, "_on", "_top_on", "_bottom",
                         "_front_on", "_side_on"),
                 EnergizerBlock.LIT);
 
-        activatableBlockWithItem(ModBlocks.CHARGING_STATION,
-                cubeBlockModel(ModBlocks.CHARGING_STATION, "", "_top", "_bottom",
+        activatableBlockWithItem(EPBlocks.CHARGING_STATION,
+                cubeBlockModel(EPBlocks.CHARGING_STATION, "", "_top", "_bottom",
                         "_side", "_side", "_side", "_side"),
-                cubeBlockModel(ModBlocks.CHARGING_STATION, "_on", "_top_on", "_bottom",
+                cubeBlockModel(EPBlocks.CHARGING_STATION, "_on", "_top_on", "_bottom",
                         "_side_on", "_side_on", "_side_on", "_side_on"),
                 ChargingStationBlock.CHARGING);
 
-        horizontalBlockWithItem(ModBlocks.HEAT_GENERATOR, false);
+        horizontalBlockWithItem(EPBlocks.HEAT_GENERATOR, false);
 
-        orientableBlockWithItem(ModBlocks.THERMAL_GENERATOR,
-                orientableBlockModel(ModBlocks.THERMAL_GENERATOR, false));
+        orientableBlockWithItem(EPBlocks.THERMAL_GENERATOR,
+                orientableBlockModel(EPBlocks.THERMAL_GENERATOR, false));
 
-        horizontalBlockWithItem(ModBlocks.CRYSTAL_GROWTH_CHAMBER, false);
+        horizontalBlockWithItem(EPBlocks.CRYSTAL_GROWTH_CHAMBER, false);
 
-        horizontalTwoSideBlockWithItem(ModBlocks.WEATHER_CONTROLLER, false);
+        horizontalTwoSideBlockWithItem(EPBlocks.WEATHER_CONTROLLER, false);
 
-        horizontalTwoSideBlockWithItem(ModBlocks.TIME_CONTROLLER, false);
+        horizontalTwoSideBlockWithItem(EPBlocks.TIME_CONTROLLER, false);
 
-        activatableBlockWithItem(ModBlocks.TELEPORTER,
-                cubeBlockModel(ModBlocks.TELEPORTER, "", "_top", "_bottom",
+        activatableBlockWithItem(EPBlocks.TELEPORTER,
+                cubeBlockModel(EPBlocks.TELEPORTER, "", "_top", "_bottom",
                         "_side", "_side", "_side", "_side"),
-                cubeBlockModel(ModBlocks.TELEPORTER, "_ready", "_top_ready", "_bottom",
+                cubeBlockModel(EPBlocks.TELEPORTER, "_ready", "_top_ready", "_bottom",
                         "_side", "_side", "_side", "_side"),
                 TeleporterBlock.POWERED);
 
-        horizontalBlockWithItem(ModBlocks.BASIC_MACHINE_FRAME, false);
-        horizontalBlockWithItem(ModBlocks.HARDENED_MACHINE_FRAME, false);
-        horizontalBlockWithItem(ModBlocks.ADVANCED_MACHINE_FRAME, false);
-        horizontalBlockWithItem(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME, false);
+        horizontalBlockWithItem(EPBlocks.BASIC_MACHINE_FRAME, false);
+        horizontalBlockWithItem(EPBlocks.HARDENED_MACHINE_FRAME, false);
+        horizontalBlockWithItem(EPBlocks.ADVANCED_MACHINE_FRAME, false);
+        horizontalBlockWithItem(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME, false);
     }
 
     private void cubeAllBlockWithItem(Block block) {
@@ -442,10 +442,10 @@ class ModBlockStateProvider {
         Identifier modelDescending = ModTexturedModel.ITEM_CONVEYOR_BELT_DESCENDING.get(block).
                 upload(block, "_descending", generator.modelCollector);
 
-        BlockStateVariantMap.SingleProperty<ModBlockStateProperties.ConveyorBeltDirection> builder =
+        BlockStateVariantMap.SingleProperty<EPBlockStateProperties.ConveyorBeltDirection> builder =
                 BlockStateVariantMap.create(ItemConveyorBeltBlock.FACING);
 
-        for(ModBlockStateProperties.ConveyorBeltDirection beltDir: ModBlockStateProperties.ConveyorBeltDirection.values()) {
+        for(EPBlockStateProperties.ConveyorBeltDirection beltDir: EPBlockStateProperties.ConveyorBeltDirection.values()) {
             BlockStateVariant blockStateVariant = BlockStateVariant.create();
 
             if(beltDir.isAscending()) {
@@ -495,38 +495,38 @@ class ModBlockStateProvider {
                 MultipartBlockStateSupplier.create(block).
                         with(BlockStateVariant.create().
                                 put(VariantSettings.MODEL, fluidPipeCore)).
-                        with(When.create().set(FluidPipeBlock.UP, ModBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
+                        with(When.create().set(FluidPipeBlock.UP, EPBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
                                 put(VariantSettings.MODEL, fluidPipeSideConnected).
                                 put(VariantSettings.X, VariantSettings.Rotation.R270)).
-                        with(When.create().set(FluidPipeBlock.UP, ModBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
+                        with(When.create().set(FluidPipeBlock.UP, EPBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
                                 put(VariantSettings.MODEL, fluidPipeSideExtract).
                                 put(VariantSettings.X, VariantSettings.Rotation.R270)).
-                        with(When.create().set(FluidPipeBlock.DOWN, ModBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
+                        with(When.create().set(FluidPipeBlock.DOWN, EPBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
                                 put(VariantSettings.MODEL, fluidPipeSideConnected).
                                 put(VariantSettings.X, VariantSettings.Rotation.R90)).
-                        with(When.create().set(FluidPipeBlock.DOWN, ModBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
+                        with(When.create().set(FluidPipeBlock.DOWN, EPBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
                                 put(VariantSettings.MODEL, fluidPipeSideExtract).
                                 put(VariantSettings.X, VariantSettings.Rotation.R90)).
-                        with(When.create().set(FluidPipeBlock.NORTH, ModBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
+                        with(When.create().set(FluidPipeBlock.NORTH, EPBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
                                 put(VariantSettings.MODEL, fluidPipeSideConnected)).
-                        with(When.create().set(FluidPipeBlock.NORTH, ModBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
+                        with(When.create().set(FluidPipeBlock.NORTH, EPBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
                                 put(VariantSettings.MODEL, fluidPipeSideExtract)).
-                        with(When.create().set(FluidPipeBlock.SOUTH, ModBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
+                        with(When.create().set(FluidPipeBlock.SOUTH, EPBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
                                 put(VariantSettings.MODEL, fluidPipeSideConnected).
                                 put(VariantSettings.X, VariantSettings.Rotation.R180)).
-                        with(When.create().set(FluidPipeBlock.SOUTH, ModBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
+                        with(When.create().set(FluidPipeBlock.SOUTH, EPBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
                                 put(VariantSettings.MODEL, fluidPipeSideExtract).
                                 put(VariantSettings.X, VariantSettings.Rotation.R180)).
-                        with(When.create().set(FluidPipeBlock.EAST, ModBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
+                        with(When.create().set(FluidPipeBlock.EAST, EPBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
                                 put(VariantSettings.MODEL, fluidPipeSideConnected).
                                 put(VariantSettings.Y, VariantSettings.Rotation.R90)).
-                        with(When.create().set(FluidPipeBlock.EAST, ModBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
+                        with(When.create().set(FluidPipeBlock.EAST, EPBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
                                 put(VariantSettings.MODEL, fluidPipeSideExtract).
                                 put(VariantSettings.Y, VariantSettings.Rotation.R90)).
-                        with(When.create().set(FluidPipeBlock.WEST, ModBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
+                        with(When.create().set(FluidPipeBlock.WEST, EPBlockStateProperties.PipeConnection.CONNECTED), BlockStateVariant.create().
                                 put(VariantSettings.MODEL, fluidPipeSideConnected).
                                 put(VariantSettings.Y, VariantSettings.Rotation.R270)).
-                        with(When.create().set(FluidPipeBlock.WEST, ModBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
+                        with(When.create().set(FluidPipeBlock.WEST, EPBlockStateProperties.PipeConnection.EXTRACT), BlockStateVariant.create().
                                 put(VariantSettings.MODEL, fluidPipeSideExtract).
                                 put(VariantSettings.Y, VariantSettings.Rotation.R270))
         );

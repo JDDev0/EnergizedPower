@@ -4,7 +4,7 @@ import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
 import me.jddev0.ep.screen.PlantGrowthChamberMenu;
@@ -34,11 +34,11 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
 
     public PlantGrowthChamberBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.PLANT_GROWTH_CHAMBER_ENTITY, blockPos, blockState,
+                EPBlockEntities.PLANT_GROWTH_CHAMBER_ENTITY, blockPos, blockState,
 
                 "plant_growth_chamber", PlantGrowthChamberMenu::new,
 
-                6, ModRecipes.PLANT_GROWTH_CHAMBER_TYPE, 1,
+                6, EPRecipes.PLANT_GROWTH_CHAMBER_TYPE, 1,
 
                 ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_CAPACITY.getValue(),
                 ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_TRANSFER_RATE.getValue(),
