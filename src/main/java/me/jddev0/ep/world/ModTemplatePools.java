@@ -1,7 +1,7 @@
 package me.jddev0.ep.world;
 
 import com.mojang.datafixers.util.Pair;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -26,16 +26,16 @@ public final class ModTemplatePools {
         Holder<StructureTemplatePool> emptyTemplatePool = templatePools.getOrThrow(Pools.EMPTY);
 
         context.register(FACTORY_1_START, new StructureTemplatePool(emptyTemplatePool, List.of(
-                Pair.of(StructurePoolElement.single(EnergizedPowerMod.MODID + ":factory/factory_1"), 1)
+                Pair.of(StructurePoolElement.single(EPAPI.MOD_ID + ":factory/factory_1"), 1)
         ), StructureTemplatePool.Projection.RIGID));
 
         context.register(SMALL_SOLAR_FARM_START, new StructureTemplatePool(emptyTemplatePool, List.of(
-                Pair.of(StructurePoolElement.single(EnergizedPowerMod.MODID + ":misc/small_solar_farm"), 1)
+                Pair.of(StructurePoolElement.single(EPAPI.MOD_ID + ":misc/small_solar_farm"), 1)
         ), StructureTemplatePool.Projection.RIGID));
     }
 
     public static ResourceKey<StructureTemplatePool> registerKey(String name) {
         return ResourceKey.create(Registries.TEMPLATE_POOL,
-                new ResourceLocation(EnergizedPowerMod.MODID, name));
+                EPAPI.id(name));
     }
 }

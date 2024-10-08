@@ -1,6 +1,6 @@
 package me.jddev0.ep.paintings;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.neoforged.bus.api.IEventBus;
@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 public final class ModPaintings {
     private ModPaintings() {}
 
-    public static final DeferredRegister<PaintingVariant> PAINTINGS = DeferredRegister.create(BuiltInRegistries.PAINTING_VARIANT, EnergizedPowerMod.MODID);
+    public static final DeferredRegister<PaintingVariant> PAINTINGS = DeferredRegister.create(BuiltInRegistries.PAINTING_VARIANT, EPAPI.MOD_ID);
 
     public static final Supplier<PaintingVariant> GEAR = PAINTINGS.register("gear", () -> new PaintingVariant(32, 32));
     public static final Supplier<PaintingVariant> FACTORY = PAINTINGS.register("factory", () -> new PaintingVariant(32, 32));

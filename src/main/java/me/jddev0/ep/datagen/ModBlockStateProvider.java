@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.*;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -33,7 +33,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     private ModelFile solarPanelTemplate;
 
     public ModBlockStateProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
-        super(output, EnergizedPowerMod.MODID, existingFileHelper);
+        super(output, EPAPI.MOD_ID, existingFileHelper);
     }
 
     @Override
@@ -62,14 +62,14 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 face(Direction.UP).uvs(0, 0, 16, 16).texture("#belt").end().end();
 
         fluidPipeCoreTemplate = models().getExistingFile(
-                new ResourceLocation(EnergizedPowerMod.MODID, "fluid_pipe_core_template"));
+                EPAPI.id("fluid_pipe_core_template"));
         fluidPipeSideConnectedTemplate = models().getExistingFile(
-                new ResourceLocation(EnergizedPowerMod.MODID, "fluid_pipe_side_connected_template"));
+                EPAPI.id("fluid_pipe_side_connected_template"));
         fluidPipeSideExtractTemplate = models().getExistingFile(
-                new ResourceLocation(EnergizedPowerMod.MODID, "fluid_pipe_side_extract_template"));
+                EPAPI.id("fluid_pipe_side_extract_template"));
 
         fluidTankTemplate = models().getExistingFile(
-                new ResourceLocation(EnergizedPowerMod.MODID, "fluid_tank_template"));
+                EPAPI.id("fluid_tank_template"));
 
         cableCoreTemplate = models().
                 withExistingParent("cable_core_template", ModelProvider.BLOCK_FOLDER + "/thin_block").

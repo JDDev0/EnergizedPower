@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.CompressorRecipe;
 import mezz.jei.api.constants.VanillaTypes;
@@ -26,7 +26,7 @@ public class CompressorCategory implements IRecipeCategory<RecipeHolder<Compress
     private final IDrawable icon;
 
     public CompressorCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/compressor.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/compressor.png");
         background = helper.createDrawable(texture, 47, 30, 98, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.COMPRESSOR_ITEM.get()));

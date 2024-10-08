@@ -1,6 +1,6 @@
 package me.jddev0.ep.entity;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -14,21 +14,21 @@ public final class ModEntityTypes {
     private ModEntityTypes() {}
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
-            DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, EnergizedPowerMod.MODID);
+            DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, EPAPI.MOD_ID);
 
     public static final Supplier<EntityType<MinecartBatteryBox>> BATTERY_BOX_MINECART =
             ENTITY_TYPES.register("battery_box_minecart",
                     () -> EntityType.Builder.<MinecartBatteryBox>of(MinecartBatteryBox::new, MobCategory.MISC).
                             sized(.98f, .7f).
                             clientTrackingRange(8).
-                            build(new ResourceLocation(EnergizedPowerMod.MODID, "battery_box_minecart").
+                            build(EPAPI.id("battery_box_minecart").
                                     toString()));
     public static final Supplier<EntityType<MinecartAdvancedBatteryBox>> ADVANCED_BATTERY_BOX_MINECART =
             ENTITY_TYPES.register("advanced_battery_box_minecart",
                     () -> EntityType.Builder.<MinecartAdvancedBatteryBox>of(MinecartAdvancedBatteryBox::new, MobCategory.MISC).
                             sized(.98f, .7f).
                             clientTrackingRange(8).
-                            build(new ResourceLocation(EnergizedPowerMod.MODID, "advanced_battery_box_minecart").
+                            build(EPAPI.id("advanced_battery_box_minecart").
                                     toString()));
 
 

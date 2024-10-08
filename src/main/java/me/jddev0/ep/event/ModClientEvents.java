@@ -1,6 +1,6 @@
 package me.jddev0.ep.event;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.input.ModKeyBindings;
 import me.jddev0.ep.networking.ModMessages;
@@ -17,7 +17,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.InputEvent;
 
 @OnlyIn(Dist.CLIENT)
-@Mod.EventBusSubscriber(modid = EnergizedPowerMod.MODID, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = EPAPI.MOD_ID, value = Dist.CLIENT)
 public class ModClientEvents {
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key event) {

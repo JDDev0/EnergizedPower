@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.recipe.*;
@@ -30,7 +30,7 @@ import java.util.Arrays;
 public class EnergizedPowerJEIPlugin implements IModPlugin {
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(EnergizedPowerMod.MODID, "jei_plugin");
+        return EPAPI.id("jei_plugin");
     }
 
     @Override

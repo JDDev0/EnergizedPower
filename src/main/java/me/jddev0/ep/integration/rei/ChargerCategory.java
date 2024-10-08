@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.ChargerBlockEntity;
 import me.jddev0.ep.util.EnergyUtils;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChargerCategory implements DisplayCategory<ChargerDisplay> {
-    public static final CategoryIdentifier<ChargerDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "charger");
+    public static final CategoryIdentifier<ChargerDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "charger");
 
     private static final int PADDING = 5;
 
@@ -48,7 +48,7 @@ public class ChargerCategory implements DisplayCategory<ChargerDisplay> {
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/charger.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/charger.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 65, 20, 46, 46));
 
         widgets.add(Widgets.createArrow(new Point(x + 55, y + 15)));

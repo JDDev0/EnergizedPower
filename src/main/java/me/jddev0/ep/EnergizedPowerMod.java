@@ -1,6 +1,6 @@
 package me.jddev0.ep;
 
-import com.mojang.logging.LogUtils;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.behavior.ModBlockBehaviors;
 import me.jddev0.ep.block.entity.ModBlockEntities;
@@ -43,13 +43,9 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.slf4j.Logger;
 
-@Mod(EnergizedPowerMod.MODID)
+@Mod(EPAPI.MOD_ID)
 public class EnergizedPowerMod {
-    public static final String MODID = "energizedpower";
-    private static final Logger LOGGER = LogUtils.getLogger();
-
     public EnergizedPowerMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -346,7 +342,7 @@ public class EnergizedPowerMod {
 
     }
 
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @Mod.EventBusSubscriber(modid = EPAPI.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
@@ -419,11 +415,11 @@ public class EnergizedPowerMod {
             MenuScreens.register(ModMenuTypes.MINECART_ADVANCED_BATTERY_BOX_MENU.get(), MinecartAdvancedBatteryBoxScreen::new);
 
             event.enqueueWork(() -> {
-                ItemProperties.registerGeneric(new ResourceLocation(MODID, "active"), (itemStack, level, entity, seed) -> {
+                ItemProperties.registerGeneric(EPAPI.id("active"), (itemStack, level, entity, seed) -> {
                     Item item = itemStack.getItem();
                     return (item instanceof ActivatableItem && ((ActivatableItem)item).isActive(itemStack))?1.f:0.f;
                 });
-                ItemProperties.registerGeneric(new ResourceLocation(MODID, "working"), (itemStack, level, entity, seed) -> {
+                ItemProperties.registerGeneric(EPAPI.id("working"), (itemStack, level, entity, seed) -> {
                     Item item = itemStack.getItem();
                     return (item instanceof WorkingItem && ((WorkingItem)item).isWorking(itemStack))?1.f:0.f;
                 });

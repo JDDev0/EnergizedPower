@@ -1,6 +1,6 @@
 package me.jddev0.ep.registry.paintings;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -10,8 +10,8 @@ public final class ModPaintingVariants {
     private ModPaintingVariants() {}
 
     public static final ResourceKey<PaintingVariant> GEAR = ResourceKey.create(Registries.PAINTING_VARIANT,
-            new ResourceLocation(EnergizedPowerMod.MODID, "gear"));
+            EPAPI.id("gear"));
 
     public static final ResourceKey<PaintingVariant> FACTORY = ResourceKey.create(Registries.PAINTING_VARIANT,
-            new ResourceLocation(EnergizedPowerMod.MODID, "factory"));
+            EPAPI.id("factory"));
 }

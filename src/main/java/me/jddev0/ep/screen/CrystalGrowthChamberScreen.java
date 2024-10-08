@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -15,8 +15,8 @@ public class CrystalGrowthChamberScreen
     public CrystalGrowthChamberScreen(CrystalGrowthChamberMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/crystal_growth_chamber.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/2_speed_2_energy_efficiency_2_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/crystal_growth_chamber.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/2_speed_2_energy_efficiency_2_energy_capacity.png"));
     }
 
     @Override

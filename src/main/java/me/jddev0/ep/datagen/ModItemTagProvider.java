@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.registry.tags.CommonItemTags;
@@ -22,7 +22,7 @@ public class ModItemTagProvider extends ItemTagsProvider {
     public ModItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
                               CompletableFuture<TagsProvider.TagLookup<Block>> blockTagLookup,
                               @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, blockTagLookup, EnergizedPowerMod.MODID, existingFileHelper);
+        super(output, lookupProvider, blockTagLookup, EPAPI.MOD_ID, existingFileHelper);
     }
 
     @Override
