@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.ChangeCurrentRecipeIndexPacketUpdate;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,7 +14,7 @@ import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 
 public record ChangeCurrentRecipeIndexC2SPacket(BlockPos pos, boolean downUp) implements IEnergizedPowerPacket {
-    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "change_current_recipe_index");
+    public static final Identifier ID = EPAPI.id("change_current_recipe_index");
 
     public ChangeCurrentRecipeIndexC2SPacket(PacketByteBuf buffer) {
         this(buffer.readBlockPos(), buffer.readBoolean());

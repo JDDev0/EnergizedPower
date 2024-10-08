@@ -1,7 +1,7 @@
 package me.jddev0.ep.networking.packet;
 
 import com.mojang.datafixers.util.Pair;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.PressMoldMakerBlockEntity;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public final class SyncPressMoldMakerRecipeListS2CPacket implements IEnergizedPowerPacket {
-    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "sync_press_mold_maker_recipe_list");
+    public static final Identifier ID = EPAPI.id("sync_press_mold_maker_recipe_list");
 
     private final BlockPos pos;
     private final List<Pair<RecipeEntry<PressMoldMakerRecipe>, Boolean>> recipeList;

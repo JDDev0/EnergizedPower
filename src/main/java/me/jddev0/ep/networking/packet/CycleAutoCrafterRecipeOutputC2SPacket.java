@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
@@ -16,7 +16,7 @@ import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 
 public record CycleAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implements IEnergizedPowerPacket {
-    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "cycle_auto_crafter_recipe_output");
+    public static final Identifier ID = EPAPI.id("cycle_auto_crafter_recipe_output");
 
     public CycleAutoCrafterRecipeOutputC2SPacket(PacketByteBuf buffer) {
         this(buffer.readBlockPos());

@@ -5,7 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.logging.LogUtils;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.EnergizedPowerBookScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -18,7 +18,6 @@ import net.minecraft.util.profiler.Profiler;
 import org.slf4j.Logger;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Environment(EnvType.CLIENT)
 public class EnergizedPowerBookReloadListener extends JsonDataLoader implements IdentifiableResourceReloadListener {
@@ -26,7 +25,7 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
 
     @Override
     public Identifier getFabricId() {
-        return new Identifier(EnergizedPowerMod.MODID, "energizedpowerbook");
+        return EPAPI.id("energizedpowerbook");
     }
 
     public EnergizedPowerBookReloadListener() {

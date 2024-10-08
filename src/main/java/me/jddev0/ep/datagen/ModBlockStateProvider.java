@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.*;
 import me.jddev0.ep.datagen.model.ItemWithDisplayModelSupplier;
 import me.jddev0.ep.datagen.model.ModModels;
@@ -608,10 +608,10 @@ class ModBlockStateProvider {
                 String multipleSuffix = transformerType == TransformerBlock.Type.TYPE_1_TO_N?"_output":"_input";
 
                 Identifier transformer = TexturedModel.makeFactory(unused -> new TextureMap().
-                                put(TextureKey.TOP, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + multipleSuffix)).
-                                put(TextureKey.BOTTOM, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + multipleSuffix)).
-                                put(TextureKey.FRONT, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + singleSuffix)).
-                                put(TextureKey.SIDE, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + multipleSuffix)).
+                                put(TextureKey.TOP, EPAPI.id("block/" + textureName + multipleSuffix)).
+                                put(TextureKey.BOTTOM, EPAPI.id("block/" + textureName + multipleSuffix)).
+                                put(TextureKey.FRONT, EPAPI.id("block/" + textureName + singleSuffix)).
+                                put(TextureKey.SIDE, EPAPI.id("block/" + textureName + multipleSuffix)).
                                 copy(TextureKey.TOP, TextureKey.PARTICLE),
                         Models.ORIENTABLE_WITH_BOTTOM).get(block).upload(block, generator.modelCollector);
 
@@ -640,12 +640,12 @@ class ModBlockStateProvider {
             }
             case TYPE_3_TO_3 -> {
                 Identifier transformer = TexturedModel.makeFactory(unused -> new TextureMap().
-                                put(TextureKey.UP, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + "_input")).
-                                put(TextureKey.DOWN, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + "_output")).
-                                put(TextureKey.NORTH, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + "_input")).
-                                put(TextureKey.SOUTH, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + "_output")).
-                                put(TextureKey.EAST, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + "_output")).
-                                put(TextureKey.WEST, Identifier.of(EnergizedPowerMod.MODID, "block/" + textureName + "_input")).
+                                put(TextureKey.UP, EPAPI.id("block/" + textureName + "_input")).
+                                put(TextureKey.DOWN, EPAPI.id("block/" + textureName + "_output")).
+                                put(TextureKey.NORTH, EPAPI.id("block/" + textureName + "_input")).
+                                put(TextureKey.SOUTH, EPAPI.id("block/" + textureName + "_output")).
+                                put(TextureKey.EAST, EPAPI.id("block/" + textureName + "_output")).
+                                put(TextureKey.WEST, EPAPI.id("block/" + textureName + "_input")).
                                 copy(TextureKey.UP, TextureKey.PARTICLE),
                         Models.CUBE).get(block).upload(block, generator.modelCollector);
 

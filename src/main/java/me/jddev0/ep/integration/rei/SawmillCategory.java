@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SawmillCategory implements DisplayCategory<SawmillDisplay> {
-    public static final CategoryIdentifier<SawmillDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "sawmill");
+    public static final CategoryIdentifier<SawmillDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "sawmill");
 
     private static final int PADDING = 5;
 
@@ -45,7 +45,7 @@ public class SawmillCategory implements DisplayCategory<SawmillDisplay> {
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/sawmill.png");
+        Identifier texture = EPAPI.id("textures/gui/container/sawmill.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 42, 30, 109, 26));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().

@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen.advancement;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.BatteryItem;
 import me.jddev0.ep.item.ModItems;
@@ -36,7 +36,7 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
                         ModItems.ENERGIZED_COPPER_INGOT,
                         Text.translatable("advancements.energizedpower.energizedpower_advanced.title"),
                         Text.translatable("advancements.energizedpower.energizedpower_advanced.description"),
-                        Identifier.of(EnergizedPowerMod.MODID, "textures/block/advanced_machine_frame_top.png"),
+                        EPAPI.id("textures/block/advanced_machine_frame_top.png"),
                         AdvancementFrame.TASK,
                         true,
                         true,
@@ -46,7 +46,7 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
                         InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(
                                 CommonItemTags.ENERGIZED_COPPER_INGOTS
                         ))).
-                build(advancementOutput, EnergizedPowerMod.MODID + ":main/advanced/energizedpower_advanced");
+                build(advancementOutput, EPAPI.MOD_ID + ":main/advanced/energizedpower_advanced");
 
         AdvancementEntry advancedAlloyIngot = addAdvancement(
                 advancementOutput, energizedPowerAdvanced,
@@ -470,7 +470,7 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
                         false
                 ).
                 criterion("has_the_item", trigger).
-                build(advancementOutput, EnergizedPowerMod.MODID + ":main/advanced/" + advancementId);
+                build(advancementOutput, EPAPI.MOD_ID + ":main/advanced/" + advancementId);
     }
 
     @Override

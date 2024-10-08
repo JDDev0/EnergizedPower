@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
 import me.shedaniel.math.Point;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthChamberDisplay> {
-    public static final CategoryIdentifier<PlantGrowthChamberDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "plant_growth_chamber");
+    public static final CategoryIdentifier<PlantGrowthChamberDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "plant_growth_chamber");
 
     private static final int PADDING = 5;
 
@@ -50,7 +50,7 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
+        Identifier texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 61, 25, 108, 48));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 10)).disableBackground().markInput().

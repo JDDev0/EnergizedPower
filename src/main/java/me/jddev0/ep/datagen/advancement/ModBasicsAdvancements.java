@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen.advancement;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.registry.tags.CommonItemTags;
@@ -37,7 +37,7 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                         Items.COPPER_INGOT,
                         Text.translatable("advancements.energizedpower.energizedpower_basics.title"),
                         Text.translatable("advancements.energizedpower.energizedpower_basics.description"),
-                        Identifier.of(EnergizedPowerMod.MODID, "textures/block/basic_machine_frame_top.png"),
+                        EPAPI.id("textures/block/basic_machine_frame_top.png"),
                         AdvancementFrame.TASK,
                         true,
                         false,
@@ -47,7 +47,7 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                         InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(
                                 ConventionalItemTags.COPPER_INGOTS
                         ))).
-                build(advancementOutput, EnergizedPowerMod.MODID + ":main/basics/energizedpower_basics");
+                build(advancementOutput, EPAPI.MOD_ID + ":main/basics/energizedpower_basics");
 
         AdvancementEntry energizedPowerBook = addAdvancement(
                 advancementOutput, energizedPowerBasics,
@@ -591,7 +591,7 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                         false
                 ).
                 criterion("has_the_item", trigger).
-                build(advancementOutput, EnergizedPowerMod.MODID + ":main/basics/" + advancementId);
+                build(advancementOutput, EPAPI.MOD_ID + ":main/basics/" + advancementId);
     }
 
     @Override

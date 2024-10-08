@@ -1,6 +1,6 @@
 package me.jddev0.ep.item;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.energy.InfinityEnergyStorage;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
@@ -14,7 +14,7 @@ public final class ModItems {
     private ModItems() {}
 
     public static Item registerItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(EnergizedPowerMod.MODID, name), item);
+        return Registry.register(Registries.ITEM, EPAPI.id(name), item);
     }
 
     public static final Item ENERGIZED_COPPER_INGOT = registerItem("energized_copper_ingot",

@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -18,7 +18,7 @@ public class ItemConveyorBeltLoaderScreen extends EnergizedPowerBaseContainerScr
     public ItemConveyorBeltLoaderScreen(ItemConveyorBeltLoaderMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component);
 
-        TEXTURE = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/generic_1x1.png");
+        TEXTURE = EPAPI.id("textures/gui/container/generic_1x1.png");
     }
 
     @Override

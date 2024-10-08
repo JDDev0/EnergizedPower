@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.CrystalGrowthChamberBlockEntity;
 import me.shedaniel.math.Point;
@@ -15,10 +15,9 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class CrystalGrowthChamberCategory implements DisplayCategory<CrystalGrowthChamberDisplay> {
-    public static final CategoryIdentifier<CrystalGrowthChamberDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "crystal_growth_chamber");
+    public static final CategoryIdentifier<CrystalGrowthChamberDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "crystal_growth_chamber");
 
     private static final int PADDING = 5;
 
@@ -46,7 +45,7 @@ public class CrystalGrowthChamberCategory implements DisplayCategory<CrystalGrow
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = new Identifier(EnergizedPowerMod.MODID, "textures/gui/container/crystal_growth_chamber.png");
+        Identifier texture = EPAPI.id("textures/gui/container/crystal_growth_chamber.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 47, 30, 98, 38));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().

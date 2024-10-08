@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.EnergizedPowerBookScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 public record OpenEnergizedPowerBookS2CPacket(BlockPos pos) implements IEnergizedPowerPacket {
-    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "open_energized_power_book");
+    public static final Identifier ID = EPAPI.id("open_energized_power_book");
 
     public OpenEnergizedPowerBookS2CPacket(PacketByteBuf buffer) {
         this(buffer.readBlockPos());

@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,7 +14,7 @@ import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 
 public record SetCheckboxC2SPacket(BlockPos pos, int checkboxId, boolean checked) implements IEnergizedPowerPacket {
-    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "set_checkbox");
+    public static final Identifier ID = EPAPI.id("set_checkbox");
 
     public SetCheckboxC2SPacket(PacketByteBuf buffer) {
         this(buffer.readBlockPos(), buffer.readInt(), buffer.readBoolean());

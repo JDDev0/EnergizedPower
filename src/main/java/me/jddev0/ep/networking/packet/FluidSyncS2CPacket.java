@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 public record FluidSyncS2CPacket(int tank, FluidStack fluidStack, long capacity, BlockPos pos) implements IEnergizedPowerPacket {
-    public static final Identifier ID = new Identifier(EnergizedPowerMod.MODID, "fluid_sync");
+    public static final Identifier ID = EPAPI.id("fluid_sync");
 
     public FluidSyncS2CPacket(PacketByteBuf buffer) {
         this(buffer.readInt(), FluidStack.fromPacket(buffer), buffer.readLong(), buffer.readBlockPos());
