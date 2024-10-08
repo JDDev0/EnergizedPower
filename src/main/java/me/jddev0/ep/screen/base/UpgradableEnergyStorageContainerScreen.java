@@ -19,8 +19,7 @@ import java.util.Optional;
 public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractContainerMenu & IEnergyStorageMenu>
         extends EnergyStorageContainerScreen<T> {
     protected final ResourceLocation CONFIGURATION_ICONS_TEXTURE =
-            new ResourceLocation(EPAPI.MOD_ID,
-                    "textures/gui/machine_configuration/configuration_buttons.png");
+            EPAPI.id("textures/gui/machine_configuration/configuration_buttons.png");
     protected final ResourceLocation UPGRADE_VIEW_TEXTURE;
 
     public UpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
