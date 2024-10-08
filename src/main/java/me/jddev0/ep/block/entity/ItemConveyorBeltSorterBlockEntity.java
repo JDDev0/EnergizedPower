@@ -2,8 +2,8 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ItemConveyorBeltSorterBlock;
-import me.jddev0.ep.block.ModBlockStateProperties;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlockStateProperties;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.screen.ItemConveyorBeltSorterMenu;
@@ -58,7 +58,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
     private boolean loaded;
 
     public ItemConveyorBeltSorterBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.ITEM_CONVEYOR_BELT_SORTER_ENTITY.get(), blockPos, blockState);
+        super(EPBlockEntities.ITEM_CONVEYOR_BELT_SORTER_ENTITY.get(), blockPos, blockState);
 
         patternSlots.addListener(updatePatternListener);
 
@@ -159,7 +159,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
                 };
 
                 BlockState outputBeltState = level.getBlockState(blockPos.relative(outputBeltDirection));
-                blockEntity.setOutputBeltConnected(i, outputBeltState.is(ModBlocks.ITEM_CONVEYOR_BELT.get()));
+                blockEntity.setOutputBeltConnected(i, outputBeltState.is(EPBlocks.ITEM_CONVEYOR_BELT.get()));
             }
 
             blockEntity.loaded = true;
@@ -170,14 +170,14 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
 
             BlockPos inputPos = blockPos.relative(facing);
             BlockState inputBlockState = level.getBlockState(inputPos);
-            if(!inputBlockState.is(ModBlocks.ITEM_CONVEYOR_BELT.get())) {
+            if(!inputBlockState.is(EPBlocks.ITEM_CONVEYOR_BELT.get())) {
                 updatePoweredState(level, blockPos, state, blockEntity, false);
 
                 return;
             }
 
             //Conveyor belt must face towards sorter and must not be ascending
-            ModBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.getValue(ItemConveyorBeltBlock.FACING);
+            EPBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.getValue(ItemConveyorBeltBlock.FACING);
             if(inputBeltFacing.isAscending() || inputBeltFacing.getDirection().getOpposite() != facing) {
                 updatePoweredState(level, blockPos, state, blockEntity, false);
 
@@ -267,7 +267,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
 
         BlockPos outputPos = blockPos.relative(direction);
         BlockState outputBlockState = level.getBlockState(outputPos);
-        if(!outputBlockState.is(ModBlocks.ITEM_CONVEYOR_BELT.get()))
+        if(!outputBlockState.is(EPBlocks.ITEM_CONVEYOR_BELT.get()))
             return null;
 
         BlockEntity outputBlockEntity = level.getBlockEntity(outputPos);

@@ -9,8 +9,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.joml.Vector3f;
 
-public final class ModFluidTypes {
-    private ModFluidTypes() {}
+public final class EPFluidTypes {
+    private EPFluidTypes() {}
 
     public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(ForgeRegistries.Keys.FLUID_TYPES, EPAPI.MOD_ID);
 

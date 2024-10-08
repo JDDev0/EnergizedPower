@@ -1,7 +1,7 @@
 package me.jddev0.ep.datagen.recipe;
 
 import com.google.gson.JsonObject;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -29,7 +29,7 @@ public record StoneSolidifierFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> getType() {
-        return ModRecipes.STONE_SOLIDIFIER_SERIALIZER.get();
+        return EPRecipes.STONE_SOLIDIFIER_SERIALIZER.get();
     }
 
     @Override

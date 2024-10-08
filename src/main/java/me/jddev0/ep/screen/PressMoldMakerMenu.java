@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import com.mojang.datafixers.util.Pair;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.PressMoldMakerBlockEntity;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import net.minecraft.network.FriendlyByteBuf;
@@ -25,7 +25,7 @@ public class PressMoldMakerMenu extends AbstractContainerMenu {
     }
 
     public PressMoldMakerMenu(int id, Inventory inv, BlockEntity blockEntity) {
-        super(ModMenuTypes.PRESS_MOLD_MAKER_MENU.get(), id);
+        super(EPMenuTypes.PRESS_MOLD_MAKER_MENU.get(), id);
 
         this.blockEntity = (PressMoldMakerBlockEntity)blockEntity;
         this.level = inv.player.level();
@@ -75,7 +75,7 @@ public class PressMoldMakerMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, ModBlocks.PRESS_MOLD_MAKER.get());
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, EPBlocks.PRESS_MOLD_MAKER.get());
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltLoaderBlock;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
@@ -33,7 +33,7 @@ public class ItemConveyorBeltLoaderBlockEntity
 
     public ItemConveyorBeltLoaderBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.ITEM_CONVEYOR_BELT_LOADER_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.ITEM_CONVEYOR_BELT_LOADER_ENTITY.get(), blockPos, blockState,
 
                 "item_conveyor_belt_loader",
 
@@ -97,7 +97,7 @@ public class ItemConveyorBeltLoaderBlockEntity
 
         BlockPos testPos = blockPos.relative(direction);
         BlockState testBlockState = level.getBlockState(testPos);
-        if(!testBlockState.is(ModBlocks.ITEM_CONVEYOR_BELT.get()))
+        if(!testBlockState.is(EPBlocks.ITEM_CONVEYOR_BELT.get()))
             return;
 
         BlockEntity testBlockEntity = level.getBlockEntity(testPos);

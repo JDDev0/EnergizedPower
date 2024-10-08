@@ -48,7 +48,7 @@ public class BlockPlacerBlockEntity
 
     public BlockPlacerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.BLOCK_PLACER_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.BLOCK_PLACER_ENTITY.get(), blockPos, blockState,
 
                 "block_placer",
 

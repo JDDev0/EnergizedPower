@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.AdvancedUnchargerBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -110,6 +110,6 @@ public class AdvancedUnchargerBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.ADVANCED_UNCHARGER_ENTITY.get(), AdvancedUnchargerBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.ADVANCED_UNCHARGER_ENTITY.get(), AdvancedUnchargerBlockEntity::tick);
     }
 }

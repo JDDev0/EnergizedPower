@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.BatteryBoxBlockEntity;
 import me.jddev0.ep.screen.base.EnergyStorageMenu;
 import net.minecraft.network.FriendlyByteBuf;
@@ -16,10 +16,10 @@ public class BatteryBoxMenu extends EnergyStorageMenu<BatteryBoxBlockEntity> {
 
     public BatteryBoxMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(
-                ModMenuTypes.BATTERY_BOX_MENU.get(), id,
+                EPMenuTypes.BATTERY_BOX_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.BATTERY_BOX.get()
+                EPBlocks.BATTERY_BOX.get()
         );
     }
 

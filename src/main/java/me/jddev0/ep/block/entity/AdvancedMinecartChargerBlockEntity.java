@@ -33,7 +33,7 @@ public class AdvancedMinecartChargerBlockEntity extends MenuEnergyStorageBlockEn
 
     public AdvancedMinecartChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.ADVANCED_MINECART_CHARGER_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.ADVANCED_MINECART_CHARGER_ENTITY.get(), blockPos, blockState,
 
                 "advanced_minecart_charger",
 

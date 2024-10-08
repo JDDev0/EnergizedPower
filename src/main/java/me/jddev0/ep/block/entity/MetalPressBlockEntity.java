@@ -5,7 +5,7 @@ import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.MetalPressRecipe;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
 import me.jddev0.ep.screen.MetalPressMenu;
 import me.jddev0.ep.util.InventoryUtils;
@@ -30,11 +30,11 @@ public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<MetalP
 
     public MetalPressBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.METAL_PRESS_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.METAL_PRESS_ENTITY.get(), blockPos, blockState,
 
                 "metal_press", MetalPressMenu::new,
 
-                3, ModRecipes.METAL_PRESS_TYPE.get(), ModConfigs.COMMON_METAL_PRESS_RECIPE_DURATION.getValue(),
+                3, EPRecipes.METAL_PRESS_TYPE.get(), ModConfigs.COMMON_METAL_PRESS_RECIPE_DURATION.getValue(),
 
                 ModConfigs.COMMON_METAL_PRESS_CAPACITY.getValue(),
                 ModConfigs.COMMON_METAL_PRESS_TRANSFER_RATE.getValue(),

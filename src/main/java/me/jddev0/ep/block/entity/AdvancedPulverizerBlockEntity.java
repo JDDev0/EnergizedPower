@@ -5,9 +5,9 @@ import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
-import me.jddev0.ep.fluid.ModFluids;
+import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.PulverizerRecipe;
 import me.jddev0.ep.screen.AdvancedPulverizerMenu;
 import me.jddev0.ep.util.*;
@@ -37,11 +37,11 @@ public class AdvancedPulverizerBlockEntity
 
     public AdvancedPulverizerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.ADVANCED_PULVERIZER_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.ADVANCED_PULVERIZER_ENTITY.get(), blockPos, blockState,
 
                 "advanced_pulverizer", AdvancedPulverizerMenu::new,
 
-                3, ModRecipes.PULVERIZER_TYPE.get(), ModConfigs.COMMON_ADVANCED_PULVERIZER_RECIPE_DURATION.getValue(),
+                3, EPRecipes.PULVERIZER_TYPE.get(), ModConfigs.COMMON_ADVANCED_PULVERIZER_RECIPE_DURATION.getValue(),
 
                 ModConfigs.COMMON_ADVANCED_PULVERIZER_CAPACITY.getValue(),
                 ModConfigs.COMMON_ADVANCED_PULVERIZER_TRANSFER_RATE.getValue(),
@@ -105,7 +105,7 @@ public class AdvancedPulverizerBlockEntity
 
                 return switch(tank) {
                     case 0 -> stack.isFluidEqual(new FluidStack(Fluids.WATER, 1));
-                    case 1 -> stack.isFluidEqual(new FluidStack(ModFluids.DIRTY_WATER.get(), 1));
+                    case 1 -> stack.isFluidEqual(new FluidStack(EPFluids.DIRTY_WATER.get(), 1));
                     default -> false;
                 };
             }
@@ -136,7 +136,7 @@ public class AdvancedPulverizerBlockEntity
         ItemStack[] outputs = recipe.generateOutputs(level.random, true);
 
         fluidStorage.drain(new FluidStack(Fluids.WATER, WATER_CONSUMPTION_PER_RECIPE), IFluidHandler.FluidAction.EXECUTE);
-        fluidStorage.fill(new FluidStack(ModFluids.DIRTY_WATER.get(), WATER_CONSUMPTION_PER_RECIPE), IFluidHandler.FluidAction.EXECUTE);
+        fluidStorage.fill(new FluidStack(EPFluids.DIRTY_WATER.get(), WATER_CONSUMPTION_PER_RECIPE), IFluidHandler.FluidAction.EXECUTE);
 
         itemHandler.extractItem(0, 1, false);
         itemHandler.setStackInSlot(1, outputs[0].

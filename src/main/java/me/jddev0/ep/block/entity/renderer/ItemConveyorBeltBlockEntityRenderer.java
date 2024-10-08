@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
-import me.jddev0.ep.block.ModBlockStateProperties;
+import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.entity.ItemConveyorBeltBlockEntity;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -37,7 +37,7 @@ public class ItemConveyorBeltBlockEntityRenderer implements BlockEntityRenderer<
         poseStack.pushPose();
         poseStack.translate(.0f, .2f, .0f);
 
-        ModBlockStateProperties.ConveyorBeltDirection facing = blockEntity.getBlockState().getValue(ItemConveyorBeltBlock.FACING);
+        EPBlockStateProperties.ConveyorBeltDirection facing = blockEntity.getBlockState().getValue(ItemConveyorBeltBlock.FACING);
         Direction facingDirection = facing.getDirection();
         Boolean slope = facing.getSlope();
 

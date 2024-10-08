@@ -1,8 +1,8 @@
 package me.jddev0.ep.datagen.recipe;
 
 import com.google.gson.JsonObject;
-import me.jddev0.ep.item.ModItems;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.item.EPItems;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -18,14 +18,14 @@ public record SawmillFinishedRecipe(
         Ingredient input
 ) implements FinishedRecipe {
     public SawmillFinishedRecipe(ResourceLocation id, ItemStack output, Ingredient input, int sawdustAmount) {
-        this(id, output, new ItemStack(ModItems.SAWDUST.get(), sawdustAmount), input);
+        this(id, output, new ItemStack(EPItems.SAWDUST.get(), sawdustAmount), input);
     }
 
     @Override
     public void serializeRecipeData(JsonObject jsonObject) {
         jsonObject.add("output", ItemStackUtils.toJson(output));
 
-        if(secondaryOutput.isEmpty() || ItemStack.isSameItemSameTags(secondaryOutput, new ItemStack(ModItems.SAWDUST.get())))
+        if(secondaryOutput.isEmpty() || ItemStack.isSameItemSameTags(secondaryOutput, new ItemStack(EPItems.SAWDUST.get())))
             jsonObject.addProperty("sawdustAmount", secondaryOutput.getCount());
         else
             jsonObject.add("secondaryOutput", ItemStackUtils.toJson(secondaryOutput));
@@ -40,7 +40,7 @@ public record SawmillFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> getType() {
-        return ModRecipes.SAWMILL_SERIALIZER.get();
+        return EPRecipes.SAWMILL_SERIALIZER.get();
     }
 
     @Override

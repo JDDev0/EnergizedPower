@@ -3,7 +3,7 @@ package me.jddev0.ep.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -91,7 +91,7 @@ public class AssemblingMachineRecipe implements Recipe<Container> {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.ASSEMBLING_MACHINE_ITEM.get());
+        return new ItemStack(EPBlocks.ASSEMBLING_MACHINE_ITEM.get());
     }
 
     @Override

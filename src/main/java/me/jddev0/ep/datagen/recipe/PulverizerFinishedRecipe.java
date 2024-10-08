@@ -2,7 +2,7 @@ package me.jddev0.ep.datagen.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.PulverizerRecipe;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -81,7 +81,7 @@ public record PulverizerFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> getType() {
-        return ModRecipes.PULVERIZER_SERIALIZER.get();
+        return EPRecipes.PULVERIZER_SERIALIZER.get();
     }
 
     @Override

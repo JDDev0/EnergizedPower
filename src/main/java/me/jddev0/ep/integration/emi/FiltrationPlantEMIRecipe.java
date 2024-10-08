@@ -8,9 +8,9 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FiltrationPlantBlockEntity;
-import me.jddev0.ep.fluid.ModFluids;
+import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.recipe.FiltrationPlantRecipe;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import net.minecraft.network.chat.Component;
@@ -22,7 +22,7 @@ import java.util.Locale;
 
 public class FiltrationPlantEMIRecipe implements EmiRecipe {
     public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/filtration_plant_front.png");
-    public static final EmiStack ITEM = EmiStack.of(ModBlocks.FILTRATION_PLANT_ITEM.get());
+    public static final EmiStack ITEM = EmiStack.of(EPBlocks.FILTRATION_PLANT_ITEM.get());
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("filtration_plant"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
@@ -34,7 +34,7 @@ public class FiltrationPlantEMIRecipe implements EmiRecipe {
 
     public FiltrationPlantEMIRecipe(FiltrationPlantRecipe recipe) {
         this.id = recipe.getId();
-        this.input = List.of(EmiStack.of(ModFluids.DIRTY_WATER.get(), FiltrationPlantBlockEntity.DIRTY_WATER_CONSUMPTION_PER_RECIPE));
+        this.input = List.of(EmiStack.of(EPFluids.DIRTY_WATER.get(), FiltrationPlantBlockEntity.DIRTY_WATER_CONSUMPTION_PER_RECIPE));
 
         this.output = Arrays.stream(recipe.getMaxOutputCounts()).filter(itemStack -> !itemStack.isEmpty()).map(EmiStack::of).toList();
         this.outputWithPercentages = recipe.getOutput();

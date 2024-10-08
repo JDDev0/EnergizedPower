@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.CompressorBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -35,10 +35,10 @@ public class CompressorMenu extends UpgradableEnergyStorageMenu<CompressorBlockE
     public CompressorMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                           ContainerData data) {
         super(
-                ModMenuTypes.COMPRESSOR_MENU.get(), id,
+                EPMenuTypes.COMPRESSOR_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.COMPRESSOR.get(),
+                EPBlocks.COMPRESSOR.get(),
 
                 upgradeModuleInventory, 3
         );

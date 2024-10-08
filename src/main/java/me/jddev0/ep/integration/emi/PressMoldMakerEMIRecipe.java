@@ -7,7 +7,7 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class PressMoldMakerEMIRecipe implements EmiRecipe {
     public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/press_mold_maker_front.png");
-    public static final EmiStack ITEM = EmiStack.of(ModBlocks.PRESS_MOLD_MAKER_ITEM.get());
+    public static final EmiStack ITEM = EmiStack.of(EPBlocks.PRESS_MOLD_MAKER_ITEM.get());
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("press_mold_maker"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 

@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.BlockPlacerBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -122,6 +122,6 @@ public class BlockPlacerBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.BLOCK_PLACER_ENTITY.get(), BlockPlacerBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.BLOCK_PLACER_ENTITY.get(), BlockPlacerBlockEntity::tick);
     }
 }

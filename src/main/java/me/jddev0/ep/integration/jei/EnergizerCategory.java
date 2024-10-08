@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.jei;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.EnergizerBlockEntity;
 import me.jddev0.ep.recipe.EnergizerRecipe;
 import me.jddev0.ep.util.EnergyUtils;
@@ -33,7 +33,7 @@ public class EnergizerCategory implements IRecipeCategory<EnergizerRecipe> {
         ResourceLocation texture = EPAPI.id("textures/gui/container/energizer.png");
         background = helper.createDrawable(texture, 31, 18, 114, 50);
 
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.ENERGIZER_ITEM.get()));
+        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.ENERGIZER_ITEM.get()));
     }
 
     @Override

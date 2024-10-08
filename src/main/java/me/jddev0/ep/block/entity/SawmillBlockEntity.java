@@ -4,7 +4,7 @@ import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.SawmillRecipe;
 import me.jddev0.ep.screen.SawmillMenu;
 import me.jddev0.ep.util.InventoryUtils;
@@ -25,11 +25,11 @@ public class SawmillBlockEntity extends SimpleRecipeMachineBlockEntity<SawmillRe
 
     public SawmillBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.SAWMILL_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.SAWMILL_ENTITY.get(), blockPos, blockState,
 
                 "sawmill", SawmillMenu::new,
 
-                3, ModRecipes.SAWMILL_TYPE.get(), ModConfigs.COMMON_SAWMILL_RECIPE_DURATION.getValue(),
+                3, EPRecipes.SAWMILL_TYPE.get(), ModConfigs.COMMON_SAWMILL_RECIPE_DURATION.getValue(),
 
                 ModConfigs.COMMON_SAWMILL_CAPACITY.getValue(),
                 ModConfigs.COMMON_SAWMILL_TRANSFER_RATE.getValue(),

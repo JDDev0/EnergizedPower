@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.DrainBlockEntity;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -22,7 +22,7 @@ public class DrainMenu extends AbstractContainerMenu {
     }
 
     public DrainMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
-        super(ModMenuTypes.DRAIN_MENU.get(), id);
+        super(EPMenuTypes.DRAIN_MENU.get(), id);
 
         checkContainerDataCount(data, 4);
         this.blockEntity = (DrainBlockEntity)blockEntity;
@@ -54,7 +54,7 @@ public class DrainMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, ModBlocks.DRAIN.get());
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, EPBlocks.DRAIN.get());
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

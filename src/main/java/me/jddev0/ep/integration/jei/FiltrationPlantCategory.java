@@ -1,9 +1,9 @@
 package me.jddev0.ep.integration.jei;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FiltrationPlantBlockEntity;
-import me.jddev0.ep.fluid.ModFluids;
+import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.recipe.FiltrationPlantRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -31,7 +31,7 @@ public class FiltrationPlantCategory implements IRecipeCategory<FiltrationPlantR
         ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
         background = helper.createDrawable(texture, 1, 105, 112, 26);
 
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.FILTRATION_PLANT_ITEM.get()));
+        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.FILTRATION_PLANT_ITEM.get()));
     }
 
     @Override
@@ -56,7 +56,7 @@ public class FiltrationPlantCategory implements IRecipeCategory<FiltrationPlantR
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, FiltrationPlantRecipe recipe, IFocusGroup iFocusGroup) {
-        iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).addFluidStack(ModFluids.DIRTY_WATER.get(),
+        iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).addFluidStack(EPFluids.DIRTY_WATER.get(),
                 FiltrationPlantBlockEntity.DIRTY_WATER_CONSUMPTION_PER_RECIPE);
 
         ItemStack[] outputEntries = recipe.getMaxOutputCounts();
