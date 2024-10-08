@@ -528,7 +528,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 texture("belt", getBlockTexture(block));
 
         VariantBlockStateBuilder blockStateBuilder = getVariantBuilder(block.value());
-        for(ModBlockStateProperties.ConveyorBeltDirection beltDir:ModBlockStateProperties.ConveyorBeltDirection.values()) {
+        for(EPBlockStateProperties.ConveyorBeltDirection beltDir: EPBlockStateProperties.ConveyorBeltDirection.values()) {
             ConfiguredModel.Builder<VariantBlockStateBuilder> configuredModelBuilder = blockStateBuilder.partialState().
                     with(ItemConveyorBeltBlock.FACING, beltDir).modelForState();
             if(beltDir.isAscending()) {
@@ -583,29 +583,29 @@ public class ModBlockStateProvider extends BlockStateProvider {
         getMultipartBuilder(block.value()).part().
                 modelFile(fluidPipeCore).addModel().end().part().
                 modelFile(fluidPipeSideConnected).rotationX(270).addModel().condition(FluidPipeBlock.UP,
-                        ModBlockStateProperties.PipeConnection.CONNECTED).end().part().
+                        EPBlockStateProperties.PipeConnection.CONNECTED).end().part().
                 modelFile(fluidPipeSideExtract).rotationX(270).addModel().condition(FluidPipeBlock.UP,
-                        ModBlockStateProperties.PipeConnection.EXTRACT).end().part().
+                        EPBlockStateProperties.PipeConnection.EXTRACT).end().part().
                 modelFile(fluidPipeSideConnected).rotationX(90).addModel().condition(FluidPipeBlock.DOWN,
-                        ModBlockStateProperties.PipeConnection.CONNECTED).end().part().
+                        EPBlockStateProperties.PipeConnection.CONNECTED).end().part().
                 modelFile(fluidPipeSideExtract).rotationX(90).addModel().condition(FluidPipeBlock.DOWN,
-                        ModBlockStateProperties.PipeConnection.EXTRACT).end().part().
+                        EPBlockStateProperties.PipeConnection.EXTRACT).end().part().
                 modelFile(fluidPipeSideConnected).addModel().condition(FluidPipeBlock.NORTH,
-                        ModBlockStateProperties.PipeConnection.CONNECTED).end().part().
+                        EPBlockStateProperties.PipeConnection.CONNECTED).end().part().
                 modelFile(fluidPipeSideExtract).addModel().condition(FluidPipeBlock.NORTH,
-                        ModBlockStateProperties.PipeConnection.EXTRACT).end().part().
+                        EPBlockStateProperties.PipeConnection.EXTRACT).end().part().
                 modelFile(fluidPipeSideConnected).rotationX(180).addModel().condition(FluidPipeBlock.SOUTH,
-                        ModBlockStateProperties.PipeConnection.CONNECTED).end().part().
+                        EPBlockStateProperties.PipeConnection.CONNECTED).end().part().
                 modelFile(fluidPipeSideExtract).rotationX(180).addModel().condition(FluidPipeBlock.SOUTH,
-                        ModBlockStateProperties.PipeConnection.EXTRACT).end().part().
+                        EPBlockStateProperties.PipeConnection.EXTRACT).end().part().
                 modelFile(fluidPipeSideConnected).rotationY(90).addModel().condition(FluidPipeBlock.EAST,
-                        ModBlockStateProperties.PipeConnection.CONNECTED).end().part().
+                        EPBlockStateProperties.PipeConnection.CONNECTED).end().part().
                 modelFile(fluidPipeSideExtract).rotationY(90).addModel().condition(FluidPipeBlock.EAST,
-                        ModBlockStateProperties.PipeConnection.EXTRACT).end().part().
+                        EPBlockStateProperties.PipeConnection.EXTRACT).end().part().
                 modelFile(fluidPipeSideConnected).rotationY(270).addModel().condition(FluidPipeBlock.WEST,
-                        ModBlockStateProperties.PipeConnection.CONNECTED).end().part().
+                        EPBlockStateProperties.PipeConnection.CONNECTED).end().part().
                 modelFile(fluidPipeSideExtract).rotationY(270).addModel().condition(FluidPipeBlock.WEST,
-                        ModBlockStateProperties.PipeConnection.EXTRACT).end();
+                        EPBlockStateProperties.PipeConnection.EXTRACT).end();
 
         itemModels().
                 getBuilder(blockId.getPath()).parent(fluidPipeCore).

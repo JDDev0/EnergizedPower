@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ItemConveyorBeltSorterBlock;
-import me.jddev0.ep.block.ModBlockStateProperties;
+import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.CheckboxUpdate;
@@ -177,7 +177,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
             }
 
             //Conveyor belt must face towards sorter and must not be ascending
-            ModBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.getValue(ItemConveyorBeltBlock.FACING);
+            EPBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.getValue(ItemConveyorBeltBlock.FACING);
             if(inputBeltFacing.isAscending() || inputBeltFacing.getDirection().getOpposite() != facing) {
                 updatePoweredState(level, blockPos, state, blockEntity, false);
 

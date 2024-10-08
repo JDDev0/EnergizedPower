@@ -33,12 +33,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-import static me.jddev0.ep.block.ModBlockStateProperties.ConveyorBeltDirection;
+import static me.jddev0.ep.block.EPBlockStateProperties.ConveyorBeltDirection;
 
 public class ItemConveyorBeltBlock extends BaseEntityBlock implements WrenchConfigurable {
     public static final MapCodec<ItemConveyorBeltBlock> CODEC = simpleCodec(ItemConveyorBeltBlock::new);
 
-    public static final EnumProperty<ConveyorBeltDirection> FACING = ModBlockStateProperties.CONVEYOR_BELT_FACING;
+    public static final EnumProperty<ConveyorBeltDirection> FACING = EPBlockStateProperties.CONVEYOR_BELT_FACING;
 
     protected static final VoxelShape SHAPE_FLAT = Block.box(0., 0., 0., 16., 2., 16.);
     protected static final VoxelShape SHAPE_HALF_BLOCK = Block.box(0., 0., 0., 16., 8., 16.);
@@ -105,7 +105,7 @@ public class ItemConveyorBeltBlock extends BaseEntityBlock implements WrenchConf
 
         Player player = useOnContext.getPlayer();
 
-        ModBlockStateProperties.ConveyorBeltDirection facing = state.getValue(ItemConveyorBeltBlock.FACING);
+        EPBlockStateProperties.ConveyorBeltDirection facing = state.getValue(ItemConveyorBeltBlock.FACING);
         Boolean shape;
 
         if(nextPreviousValue) {
@@ -124,7 +124,7 @@ public class ItemConveyorBeltBlock extends BaseEntityBlock implements WrenchConf
                 shape = true;
         }
 
-        level.setBlock(blockPos, state.setValue(ItemConveyorBeltBlock.FACING, ModBlockStateProperties.ConveyorBeltDirection.of(facing.getDirection(), shape)), 3);
+        level.setBlock(blockPos, state.setValue(ItemConveyorBeltBlock.FACING, EPBlockStateProperties.ConveyorBeltDirection.of(facing.getDirection(), shape)), 3);
 
         if(player instanceof ServerPlayer serverPlayer) {
             serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(

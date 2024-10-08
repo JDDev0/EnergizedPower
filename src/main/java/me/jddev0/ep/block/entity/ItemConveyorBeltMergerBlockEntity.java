@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ItemConveyorBeltMergerBlock;
-import me.jddev0.ep.block.ModBlockStateProperties;
+import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.config.ModConfigs;
 import net.minecraft.core.BlockPos;
@@ -79,7 +79,7 @@ public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
                     continue;
 
                 //Conveyor belt must face towards Merger and must not be ascending
-                ModBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.getValue(ItemConveyorBeltBlock.FACING);
+                EPBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.getValue(ItemConveyorBeltBlock.FACING);
                 if(inputBeltFacing.isAscending() || inputBeltFacing.getDirection().getOpposite() != inputDirection)
                     continue;
 

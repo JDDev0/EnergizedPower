@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.FluidPipeBlock;
-import me.jddev0.ep.block.ModBlockStateProperties;
+import me.jddev0.ep.block.EPBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -128,7 +128,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
             if(fluidStorage == null || fluidStorage.getTanks() == 0)
                 continue;
 
-            ModBlockStateProperties.PipeConnection pipeConnection = state.getValue(FluidPipeBlock.getPipeConnectionPropertyFromDirection(direction));
+            EPBlockStateProperties.PipeConnection pipeConnection = state.getValue(FluidPipeBlock.getPipeConnectionPropertyFromDirection(direction));
             if(pipeConnection.isExtract())
                 blockEntity.producers.put(Pair.of(testPos, direction.getOpposite()), fluidStorage);
             else if(pipeConnection.isInsert())

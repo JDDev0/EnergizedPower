@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
-import me.jddev0.ep.block.ModBlockStateProperties;
+import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.base.InventoryStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
@@ -121,7 +121,7 @@ public class ItemConveyorBeltBlockEntity
 
     private static void insertItemStackIntoBlockEntity(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltBlockEntity blockEntity,
                                                        ItemStack itemStackToInsert) {
-        ModBlockStateProperties.ConveyorBeltDirection facing = blockEntity.getBlockState().getValue(ItemConveyorBeltBlock.FACING);
+        EPBlockStateProperties.ConveyorBeltDirection facing = blockEntity.getBlockState().getValue(ItemConveyorBeltBlock.FACING);
         Direction facingDirection = facing.getDirection();
 
         BlockPos testPos = blockPos.relative(facingDirection);
@@ -140,7 +140,7 @@ public class ItemConveyorBeltBlockEntity
             if(!testBlockState.is(EPBlocks.ITEM_CONVEYOR_BELT.get()))
                 return;
 
-            ModBlockStateProperties.ConveyorBeltDirection testFacing = testBlockState.getValue(ItemConveyorBeltBlock.FACING);
+            EPBlockStateProperties.ConveyorBeltDirection testFacing = testBlockState.getValue(ItemConveyorBeltBlock.FACING);
             if(!testFacing.isDescending() || testFacing.getDirection() != facingDirection)
                 return;
 

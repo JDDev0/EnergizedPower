@@ -78,7 +78,7 @@ public class EnergizedPowerMod {
 
         ModBlockBehaviors.register();
 
-        ModCreativeModeTab.register(modEventBus);
+        EPCreativeModeTab.register(modEventBus);
 
         modEventBus.addListener(this::onLoadComplete);
         modEventBus.addListener(this::addCreativeTab);
@@ -105,7 +105,7 @@ public class EnergizedPowerMod {
     }
 
     private void addCreativeTab(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTab() == ModCreativeModeTab.ENERGIZED_POWER_TAB.get()) {
+        if(event.getTab() == EPCreativeModeTab.ENERGIZED_POWER_TAB.get()) {
             event.accept(EPItems.ENERGIZED_POWER_BOOK);
             addEmptyAndFullyChargedItem(event, EPItems.ENERGY_ANALYZER, EnergyAnalyzerItem.ENERGY_CAPACITY);
             addEmptyAndFullyChargedItem(event, EPItems.FLUID_ANALYZER, FluidAnalyzerItem.ENERGY_CAPACITY);
