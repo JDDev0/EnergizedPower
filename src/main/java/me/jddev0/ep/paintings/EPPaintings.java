@@ -4,10 +4,9 @@ import me.jddev0.ep.api.EPAPI;
 import net.minecraft.entity.decoration.painting.PaintingVariant;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 
-public final class ModPaintings {
-    private ModPaintings() {}
+public final class EPPaintings {
+    private EPPaintings() {}
 
     public static PaintingVariant registerPainting(String name, PaintingVariant paintingVariant) {
         return Registry.register(Registries.PAINTING_VARIANT, EPAPI.id(name), paintingVariant);

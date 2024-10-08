@@ -5,7 +5,7 @@ import com.mojang.serialization.JsonOps;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.fluid.FluidStack;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.ItemStack;
@@ -33,7 +33,7 @@ public record FluidTransposerFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> serializer() {
-        return ModRecipes.FLUID_TRANSPOSER_SERIALIZER;
+        return EPRecipes.FLUID_TRANSPOSER_SERIALIZER;
     }
 
     @Override

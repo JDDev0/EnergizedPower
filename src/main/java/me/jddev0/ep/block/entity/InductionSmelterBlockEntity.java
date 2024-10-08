@@ -7,7 +7,7 @@ import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
 import me.jddev0.ep.recipe.IngredientWithCount;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.InductionSmelterMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -32,11 +32,11 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
 
     public InductionSmelterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.INDUCTION_SMELTER_ENTITY, blockPos, blockState,
+                EPBlockEntities.INDUCTION_SMELTER_ENTITY, blockPos, blockState,
 
                 "induction_smelter", InductionSmelterMenu::new,
 
-                5, ModRecipes.ALLOY_FURNACE_TYPE, 1,
+                5, EPRecipes.ALLOY_FURNACE_TYPE, 1,
 
                 ModConfigs.COMMON_INDUCTION_SMELTER_CAPACITY.getValue(),
                 ModConfigs.COMMON_INDUCTION_SMELTER_TRANSFER_RATE.getValue(),

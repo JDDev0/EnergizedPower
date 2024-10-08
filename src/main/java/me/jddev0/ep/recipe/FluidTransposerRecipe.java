@@ -3,7 +3,7 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.fluid.FluidStack;
@@ -80,7 +80,7 @@ public class FluidTransposerRecipe implements Recipe<Inventory> {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ModBlocks.FLUID_TRANSPOSER_ITEM);
+        return new ItemStack(EPBlocks.FLUID_TRANSPOSER_ITEM);
     }
 
     @Override

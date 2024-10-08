@@ -6,7 +6,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -104,7 +104,7 @@ public class PulverizerRecipe implements Recipe<Inventory> {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ModBlocks.PULVERIZER_ITEM);
+        return new ItemStack(EPBlocks.PULVERIZER_ITEM);
     }
 
     @Override

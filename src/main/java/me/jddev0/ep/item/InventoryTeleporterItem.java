@@ -120,7 +120,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
                 @Override
                 public boolean isValid(int slot, @NotNull ItemStack stack) {
                     if(slot >= 0 && slot < size()) {
-                        return stack.isOf(ModItems.TELEPORTER_MATRIX);
+                        return stack.isOf(EPItems.TELEPORTER_MATRIX);
                     }
 
                     return super.isValid(slot, stack);
@@ -149,7 +149,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
             @Override
             public boolean isValid(int slot, @NotNull ItemStack stack) {
                 if(slot >= 0 && slot < size()) {
-                    return stack.isOf(ModItems.TELEPORTER_MATRIX);
+                    return stack.isOf(EPItems.TELEPORTER_MATRIX);
                 }
 
                 return super.isValid(slot, stack);

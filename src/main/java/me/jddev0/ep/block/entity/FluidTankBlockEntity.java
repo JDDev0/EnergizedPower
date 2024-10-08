@@ -32,9 +32,9 @@ public class FluidTankBlockEntity
 
     public static BlockEntityType<FluidTankBlockEntity> getEntityTypeFromTier(FluidTankBlock.Tier tier) {
         return switch(tier) {
-            case SMALL -> ModBlockEntities.FLUID_TANK_SMALL_ENTITY;
-            case MEDIUM -> ModBlockEntities.FLUID_TANK_MEDIUM_ENTITY;
-            case LARGE -> ModBlockEntities.FLUID_TANK_LARGE_ENTITY;
+            case SMALL -> EPBlockEntities.FLUID_TANK_SMALL_ENTITY;
+            case MEDIUM -> EPBlockEntities.FLUID_TANK_MEDIUM_ENTITY;
+            case LARGE -> EPBlockEntities.FLUID_TANK_LARGE_ENTITY;
         };
     }
 

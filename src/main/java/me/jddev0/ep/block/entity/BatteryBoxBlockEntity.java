@@ -27,7 +27,7 @@ public class BatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<Energize
 
     public BatteryBoxBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.BATTERY_BOX_ENTITY, blockPos, blockState,
+                EPBlockEntities.BATTERY_BOX_ENTITY, blockPos, blockState,
 
                 "battery_box",
 

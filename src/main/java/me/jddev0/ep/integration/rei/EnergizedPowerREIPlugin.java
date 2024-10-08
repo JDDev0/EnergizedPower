@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.block.EPBlocks;
+import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.*;
 import me.jddev0.ep.screen.base.EnergyStorageContainerScreen;
@@ -29,78 +29,78 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
 
     @Override
     public void registerCategories(CategoryRegistry registry) {
-        registry.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(ModBlocks.AUTO_CRAFTER_ITEM));
+        registry.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(EPBlocks.AUTO_CRAFTER_ITEM));
 
-        registry.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(ModBlocks.ADVANCED_AUTO_CRAFTER_ITEM));
+        registry.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM));
 
-        registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(ModBlocks.POWERED_FURNACE_ITEM));
-        registry.addWorkstations(BuiltinPlugin.BLASTING, EntryStacks.of(ModBlocks.POWERED_FURNACE_ITEM));
-        registry.addWorkstations(BuiltinPlugin.SMOKING, EntryStacks.of(ModBlocks.POWERED_FURNACE_ITEM));
+        registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(EPBlocks.POWERED_FURNACE_ITEM));
+        registry.addWorkstations(BuiltinPlugin.BLASTING, EntryStacks.of(EPBlocks.POWERED_FURNACE_ITEM));
+        registry.addWorkstations(BuiltinPlugin.SMOKING, EntryStacks.of(EPBlocks.POWERED_FURNACE_ITEM));
 
-        registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM));
-        registry.addWorkstations(BuiltinPlugin.BLASTING, EntryStacks.of(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM));
-        registry.addWorkstations(BuiltinPlugin.SMOKING, EntryStacks.of(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM));
+        registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM));
+        registry.addWorkstations(BuiltinPlugin.BLASTING, EntryStacks.of(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM));
+        registry.addWorkstations(BuiltinPlugin.SMOKING, EntryStacks.of(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM));
 
-        registry.addWorkstations(BuiltinPlugin.STONE_CUTTING, EntryStacks.of(ModBlocks.AUTO_STONECUTTER_ITEM));
+        registry.addWorkstations(BuiltinPlugin.STONE_CUTTING, EntryStacks.of(EPBlocks.AUTO_STONECUTTER_ITEM));
 
-        registry.addWorkstations(BuiltinPlugin.FUEL, EntryStacks.of(ModBlocks.COAL_ENGINE_ITEM));
+        registry.addWorkstations(BuiltinPlugin.FUEL, EntryStacks.of(EPBlocks.COAL_ENGINE_ITEM));
 
-        registry.addWorkstations(BuiltinPlugin.FUEL, EntryStacks.of(ModItems.INVENTORY_COAL_ENGINE));
+        registry.addWorkstations(BuiltinPlugin.FUEL, EntryStacks.of(EPItems.INVENTORY_COAL_ENGINE));
 
         registry.add(new ChargerCategory());
-        registry.addWorkstations(ChargerCategory.CATEGORY, EntryStacks.of(ModBlocks.CHARGER_ITEM),
-                EntryStacks.of(ModBlocks.ADVANCED_CHARGER_ITEM));
+        registry.addWorkstations(ChargerCategory.CATEGORY, EntryStacks.of(EPBlocks.CHARGER_ITEM),
+                EntryStacks.of(EPBlocks.ADVANCED_CHARGER_ITEM));
 
         registry.add(new CrusherCategory());
-        registry.addWorkstations(CrusherCategory.CATEGORY, EntryStacks.of(ModBlocks.CRUSHER_ITEM),
-                EntryStacks.of(ModBlocks.ADVANCED_CRUSHER_ITEM));
+        registry.addWorkstations(CrusherCategory.CATEGORY, EntryStacks.of(EPBlocks.CRUSHER_ITEM),
+                EntryStacks.of(EPBlocks.ADVANCED_CRUSHER_ITEM));
 
         registry.add(new PulverizerCategory());
-        registry.addWorkstations(PulverizerCategory.CATEGORY, EntryStacks.of(ModBlocks.PULVERIZER_ITEM));
+        registry.addWorkstations(PulverizerCategory.CATEGORY, EntryStacks.of(EPBlocks.PULVERIZER_ITEM));
 
         registry.add(new AdvancedPulverizerCategory());
-        registry.addWorkstations(AdvancedPulverizerCategory.CATEGORY, EntryStacks.of(ModBlocks.ADVANCED_PULVERIZER_ITEM));
+        registry.addWorkstations(AdvancedPulverizerCategory.CATEGORY, EntryStacks.of(EPBlocks.ADVANCED_PULVERIZER_ITEM));
 
         registry.add(new SawmillCategory());
-        registry.addWorkstations(SawmillCategory.CATEGORY, EntryStacks.of(ModBlocks.SAWMILL_ITEM));
+        registry.addWorkstations(SawmillCategory.CATEGORY, EntryStacks.of(EPBlocks.SAWMILL_ITEM));
 
         registry.add(new CompressorCategory());
-        registry.addWorkstations(CompressorCategory.CATEGORY, EntryStacks.of(ModBlocks.COMPRESSOR_ITEM));
+        registry.addWorkstations(CompressorCategory.CATEGORY, EntryStacks.of(EPBlocks.COMPRESSOR_ITEM));
 
         registry.add(new MetalPressCategory());
-        registry.addWorkstations(MetalPressCategory.CATEGORY, EntryStacks.of(ModBlocks.METAL_PRESS_ITEM));
+        registry.addWorkstations(MetalPressCategory.CATEGORY, EntryStacks.of(EPBlocks.METAL_PRESS_ITEM));
 
         registry.add(new AssemblingMachineCategory());
-        registry.addWorkstations(AssemblingMachineCategory.CATEGORY, EntryStacks.of(ModBlocks.ASSEMBLING_MACHINE_ITEM));
+        registry.addWorkstations(AssemblingMachineCategory.CATEGORY, EntryStacks.of(EPBlocks.ASSEMBLING_MACHINE_ITEM));
 
         registry.add(new PlantGrowthChamberCategory());
-        registry.addWorkstations(PlantGrowthChamberCategory.CATEGORY, EntryStacks.of(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM));
+        registry.addWorkstations(PlantGrowthChamberCategory.CATEGORY, EntryStacks.of(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM));
 
         registry.add(new PlantGrowthChamberFertilizerCategory());
-        registry.addWorkstations(PlantGrowthChamberFertilizerCategory.CATEGORY, EntryStacks.of(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM));
+        registry.addWorkstations(PlantGrowthChamberFertilizerCategory.CATEGORY, EntryStacks.of(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM));
 
         registry.add(new EnergizerCategory());
-        registry.addWorkstations(EnergizerCategory.CATEGORY, EntryStacks.of(ModBlocks.ENERGIZER_ITEM));
+        registry.addWorkstations(EnergizerCategory.CATEGORY, EntryStacks.of(EPBlocks.ENERGIZER_ITEM));
 
         registry.add(new CrystalGrowthChamberCategory());
-        registry.addWorkstations(CrystalGrowthChamberCategory.CATEGORY, EntryStacks.of(ModBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM));
+        registry.addWorkstations(CrystalGrowthChamberCategory.CATEGORY, EntryStacks.of(EPBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM));
 
         registry.add(new PressMoldMakerCategory());
-        registry.addWorkstations(PressMoldMakerCategory.CATEGORY, EntryStacks.of(ModBlocks.PRESS_MOLD_MAKER_ITEM));
-        registry.addWorkstations(PressMoldMakerCategory.CATEGORY, EntryStacks.of(ModBlocks.AUTO_PRESS_MOLD_MAKER_ITEM));
+        registry.addWorkstations(PressMoldMakerCategory.CATEGORY, EntryStacks.of(EPBlocks.PRESS_MOLD_MAKER_ITEM));
+        registry.addWorkstations(PressMoldMakerCategory.CATEGORY, EntryStacks.of(EPBlocks.AUTO_PRESS_MOLD_MAKER_ITEM));
 
         registry.add(new AlloyFurnaceCategory());
-        registry.addWorkstations(AlloyFurnaceCategory.CATEGORY, EntryStacks.of(ModBlocks.ALLOY_FURNACE_ITEM));
-        registry.addWorkstations(AlloyFurnaceCategory.CATEGORY, EntryStacks.of(ModBlocks.INDUCTION_SMELTER_ITEM));
+        registry.addWorkstations(AlloyFurnaceCategory.CATEGORY, EntryStacks.of(EPBlocks.ALLOY_FURNACE_ITEM));
+        registry.addWorkstations(AlloyFurnaceCategory.CATEGORY, EntryStacks.of(EPBlocks.INDUCTION_SMELTER_ITEM));
 
         registry.add(new StoneSolidifierCategory());
-        registry.addWorkstations(StoneSolidifierCategory.CATEGORY, EntryStacks.of(ModBlocks.STONE_SOLIDIFIER_ITEM));
+        registry.addWorkstations(StoneSolidifierCategory.CATEGORY, EntryStacks.of(EPBlocks.STONE_SOLIDIFIER_ITEM));
 
         registry.add(new FiltrationPlantCategory());
-        registry.addWorkstations(FiltrationPlantCategory.CATEGORY, EntryStacks.of(ModBlocks.FILTRATION_PLANT_ITEM));
+        registry.addWorkstations(FiltrationPlantCategory.CATEGORY, EntryStacks.of(EPBlocks.FILTRATION_PLANT_ITEM));
 
         registry.add(new FluidTransposerCategory());
-        registry.addWorkstations(FluidTransposerCategory.CATEGORY, EntryStacks.of(ModBlocks.FLUID_TRANSPOSER_ITEM));
+        registry.addWorkstations(FluidTransposerCategory.CATEGORY, EntryStacks.of(EPBlocks.FLUID_TRANSPOSER_ITEM));
 
 
         registry.add(new InWorldCategory());

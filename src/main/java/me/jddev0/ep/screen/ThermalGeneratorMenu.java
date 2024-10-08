@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ThermalGeneratorBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
@@ -34,10 +34,10 @@ public class ThermalGeneratorMenu extends UpgradableEnergyStorageMenu<ThermalGen
     public ThermalGeneratorMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory,
                                 UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(
-                ModMenuTypes.THERMAL_GENERATOR_MENU, id,
+                EPMenuTypes.THERMAL_GENERATOR_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.THERMAL_GENERATOR,
+                EPBlocks.THERMAL_GENERATOR,
 
                 upgradeModuleInventory, 1
         );

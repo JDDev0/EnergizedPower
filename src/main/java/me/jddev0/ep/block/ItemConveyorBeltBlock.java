@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.ItemConveyorBeltBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
@@ -34,10 +34,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-import static me.jddev0.ep.block.ModBlockStateProperties.ConveyorBeltDirection;
+import static me.jddev0.ep.block.EPBlockStateProperties.ConveyorBeltDirection;
 
 public class ItemConveyorBeltBlock extends BlockWithEntity implements WrenchConfigurable {
-    public static final EnumProperty<ConveyorBeltDirection> FACING = ModBlockStateProperties.CONVEYOR_BELT_FACING;
+    public static final EnumProperty<ConveyorBeltDirection> FACING = EPBlockStateProperties.CONVEYOR_BELT_FACING;
 
     protected static final VoxelShape SHAPE_FLAT = Block.createCuboidShape(0., 0., 0., 16., 2., 16.);
     protected static final VoxelShape SHAPE_HALF_BLOCK = Block.createCuboidShape(0., 0., 0., 16., 8., 16.);
@@ -100,7 +100,7 @@ public class ItemConveyorBeltBlock extends BlockWithEntity implements WrenchConf
 
         PlayerEntity player = useOnContext.getPlayer();
 
-        ModBlockStateProperties.ConveyorBeltDirection facing = state.get(ItemConveyorBeltBlock.FACING);
+        EPBlockStateProperties.ConveyorBeltDirection facing = state.get(ItemConveyorBeltBlock.FACING);
         Boolean shape;
 
         if(nextPreviousValue) {
@@ -119,7 +119,7 @@ public class ItemConveyorBeltBlock extends BlockWithEntity implements WrenchConf
                 shape = true;
         }
 
-        level.setBlockState(blockPos, state.with(ItemConveyorBeltBlock.FACING, ModBlockStateProperties.ConveyorBeltDirection.of(facing.getDirection(), shape)), 3);
+        level.setBlockState(blockPos, state.with(ItemConveyorBeltBlock.FACING, EPBlockStateProperties.ConveyorBeltDirection.of(facing.getDirection(), shape)), 3);
 
         if(player instanceof ServerPlayerEntity serverPlayer) {
             serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
@@ -168,7 +168,7 @@ public class ItemConveyorBeltBlock extends BlockWithEntity implements WrenchConf
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntity::tick);
+        return validateTicker(type, EPBlockEntities.ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

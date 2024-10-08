@@ -35,7 +35,7 @@ public class MinecartUnchargerBlockEntity
 
     public MinecartUnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.MINECART_UNCHARGER_ENTITY, blockPos, blockState,
+                EPBlockEntities.MINECART_UNCHARGER_ENTITY, blockPos, blockState,
 
                 "minecart_uncharger",
 

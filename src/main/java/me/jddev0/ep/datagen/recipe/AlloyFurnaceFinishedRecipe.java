@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.recipe.IngredientWithCount;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
@@ -59,7 +59,7 @@ public record AlloyFurnaceFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> serializer() {
-        return ModRecipes.ALLOY_FURNACE_SERIALIZER;
+        return EPRecipes.ALLOY_FURNACE_SERIALIZER;
     }
 
     @Override

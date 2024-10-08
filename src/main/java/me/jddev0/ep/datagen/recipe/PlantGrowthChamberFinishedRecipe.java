@@ -5,7 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import me.jddev0.ep.codec.CodecFix;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
@@ -53,7 +53,7 @@ public record PlantGrowthChamberFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> serializer() {
-        return ModRecipes.PLANT_GROWTH_CHAMBER_SERIALIZER;
+        return EPRecipes.PLANT_GROWTH_CHAMBER_SERIALIZER;
     }
 
     @Override

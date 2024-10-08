@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.paintings.ModPaintings;
+import me.jddev0.ep.paintings.EPPaintings;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.entity.decoration.painting.PaintingVariant;
@@ -18,7 +18,7 @@ public class ModPaintingVariantTagProvider extends FabricTagProvider<PaintingVar
     @Override
     protected void configure(RegistryWrapper.WrapperLookup lookupProvider) {
         getOrCreateTagBuilder(PaintingVariantTags.PLACEABLE).
-                add(ModPaintings.GEAR,
-                        ModPaintings.FACTORY);
+                add(EPPaintings.GEAR,
+                        EPPaintings.FACTORY);
     }
 }

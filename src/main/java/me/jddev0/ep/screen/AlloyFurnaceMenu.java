@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
@@ -52,7 +52,7 @@ public class AlloyFurnaceMenu extends ScreenHandler {
 
     public AlloyFurnaceMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
                             PropertyDelegate data) {
-        super(ModMenuTypes.ALLOY_FURNACE_MENU, id);
+        super(EPMenuTypes.ALLOY_FURNACE_MENU, id);
 
         checkSize(inv, 6);
         checkDataCount(data, 8);
@@ -133,7 +133,7 @@ public class AlloyFurnaceMenu extends ScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.ALLOY_FURNACE);
+        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, EPBlocks.ALLOY_FURNACE);
     }
 
     private void addPlayerInventory(PlayerInventory playerInventory) {

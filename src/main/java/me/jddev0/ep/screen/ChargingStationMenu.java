@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ChargingStationBlockEntity;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.block.entity.BlockEntity;
@@ -24,10 +24,10 @@ public class ChargingStationMenu extends UpgradableEnergyStorageMenu<ChargingSta
     public ChargingStationMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory,
                                UpgradeModuleInventory upgradeModuleInventory) {
         super(
-                ModMenuTypes.CHARGING_STATION_MENU, id,
+                EPMenuTypes.CHARGING_STATION_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.CHARGING_STATION,
+                EPBlocks.CHARGING_STATION,
 
                 upgradeModuleInventory, 2
         );

@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -21,7 +21,7 @@ public class InventoryTeleporterMenu extends AbstractEnergizedPowerScreenHandler
             @Override
             public boolean isValid(int slot, @NotNull ItemStack stack) {
                 if(slot >= 0 && slot < size()) {
-                    return stack.isOf(ModItems.TELEPORTER_MATRIX);
+                    return stack.isOf(EPItems.TELEPORTER_MATRIX);
                 }
 
                 return super.isValid(slot, stack);
@@ -35,7 +35,7 @@ public class InventoryTeleporterMenu extends AbstractEnergizedPowerScreenHandler
     }
 
     public InventoryTeleporterMenu(int id, PlayerInventory playerInventory, SimpleInventory inv) {
-        super(ModMenuTypes.INVENTORY_TELEPORTER_MENU, id);
+        super(EPMenuTypes.INVENTORY_TELEPORTER_MENU, id);
 
         checkSize(inv, 1);
         this.inv = inv;

@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidFillerBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
@@ -52,10 +52,10 @@ public class FluidFillerMenu extends UpgradableEnergyStorageMenu<FluidFillerBloc
     public FluidFillerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
                            UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(
-                ModMenuTypes.FLUID_FILLER_MENU, id,
+                EPMenuTypes.FLUID_FILLER_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.FLUID_FILLER,
+                EPBlocks.FLUID_FILLER,
 
                 upgradeModuleInventory, 2
         );

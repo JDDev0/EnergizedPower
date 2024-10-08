@@ -17,12 +17,12 @@ import net.minecraft.screen.slot.Slot;
 public class SolarPanelMenu extends UpgradableEnergyStorageMenu<SolarPanelBlockEntity> {
     public static ScreenHandlerType<SolarPanelMenu> getMenuTypeFromTier(SolarPanelBlock.Tier tier) {
         return switch(tier) {
-            case TIER_1 -> ModMenuTypes.SOLAR_PANEL_MENU_1;
-            case TIER_2 -> ModMenuTypes.SOLAR_PANEL_MENU_2;
-            case TIER_3 -> ModMenuTypes.SOLAR_PANEL_MENU_3;
-            case TIER_4 -> ModMenuTypes.SOLAR_PANEL_MENU_4;
-            case TIER_5 -> ModMenuTypes.SOLAR_PANEL_MENU_5;
-            case TIER_6 -> ModMenuTypes.SOLAR_PANEL_MENU_6;
+            case TIER_1 -> EPMenuTypes.SOLAR_PANEL_MENU_1;
+            case TIER_2 -> EPMenuTypes.SOLAR_PANEL_MENU_2;
+            case TIER_3 -> EPMenuTypes.SOLAR_PANEL_MENU_3;
+            case TIER_4 -> EPMenuTypes.SOLAR_PANEL_MENU_4;
+            case TIER_5 -> EPMenuTypes.SOLAR_PANEL_MENU_5;
+            case TIER_6 -> EPMenuTypes.SOLAR_PANEL_MENU_6;
         };
     }
 

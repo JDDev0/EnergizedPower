@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.AdvancedMinecartChargerBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -101,7 +101,7 @@ public class AdvancedMinecartChargerBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.ADVANCED_MINECART_CHARGER_ENTITY, AdvancedMinecartChargerBlockEntity::tick);
+        return validateTicker(type, EPBlockEntities.ADVANCED_MINECART_CHARGER_ENTITY, AdvancedMinecartChargerBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

@@ -3,8 +3,8 @@ package me.jddev0.ep.datagen.recipe;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import me.jddev0.ep.codec.CodecFix;
-import me.jddev0.ep.item.ModItems;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.item.EPItems;
+import me.jddev0.ep.recipe.EPRecipes;
 import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.ItemStack;
@@ -20,7 +20,7 @@ public record SawmillFinishedRecipe(
         Ingredient input
 ) implements RecipeJsonProvider {
     public SawmillFinishedRecipe(Identifier id, ItemStack output, Ingredient input, int sawdustAmount) {
-        this(id, output, new ItemStack(ModItems.SAWDUST, sawdustAmount), input);
+        this(id, output, new ItemStack(EPItems.SAWDUST, sawdustAmount), input);
     }
 
     @Override
@@ -28,7 +28,7 @@ public record SawmillFinishedRecipe(
         jsonObject.add("output", CodecFix.ITEM_STACK_CODEC.encodeStart(JsonOps.INSTANCE, output).
                 result().orElseThrow());
 
-        if(secondaryOutput.isEmpty() || ItemStack.canCombine(secondaryOutput, new ItemStack(ModItems.SAWDUST)))
+        if(secondaryOutput.isEmpty() || ItemStack.canCombine(secondaryOutput, new ItemStack(EPItems.SAWDUST)))
             jsonObject.addProperty("sawdustAmount", secondaryOutput.getCount());
         else
             jsonObject.add("secondaryOutput", CodecFix.ITEM_STACK_CODEC.encodeStart(JsonOps.INSTANCE, secondaryOutput).
@@ -39,7 +39,7 @@ public record SawmillFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> serializer() {
-        return ModRecipes.SAWMILL_SERIALIZER;
+        return EPRecipes.SAWMILL_SERIALIZER;
     }
 
     @Override

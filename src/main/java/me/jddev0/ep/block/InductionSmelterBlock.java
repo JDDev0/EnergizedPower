@@ -1,6 +1,6 @@
 package me.jddev0.ep.block;
 
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.InductionSmelterBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -127,6 +127,6 @@ public class InductionSmelterBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.INDUCTION_SMELTER_ENTITY, InductionSmelterBlockEntity::tick);
+        return validateTicker(type, EPBlockEntities.INDUCTION_SMELTER_ENTITY, InductionSmelterBlockEntity::tick);
     }
 }

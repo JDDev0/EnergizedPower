@@ -82,7 +82,7 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableInventoryEnerg
 
     public AutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.AUTO_CRAFTER_ENTITY, blockPos, blockState,
+                EPBlockEntities.AUTO_CRAFTER_ENTITY, blockPos, blockState,
 
                 "auto_crafter",
 

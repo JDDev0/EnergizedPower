@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.CreativeBatteryBoxBlockEntity;
 import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
 import net.minecraft.block.entity.BlockEntity;
@@ -24,7 +24,7 @@ public class CreativeBatteryBoxMenu extends AbstractEnergizedPowerScreenHandler 
     }
 
     public CreativeBatteryBoxMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, PropertyDelegate data) {
-        super(ModMenuTypes.CREATIVE_BATTERY_BOX_MENU, id);
+        super(EPMenuTypes.CREATIVE_BATTERY_BOX_MENU, id);
 
         checkDataCount(data, 2);
         this.blockEntity = (CreativeBatteryBoxBlockEntity)blockEntity;
@@ -52,7 +52,7 @@ public class CreativeBatteryBoxMenu extends AbstractEnergizedPowerScreenHandler 
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.CREATIVE_BATTERY_BOX);
+        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, EPBlocks.CREATIVE_BATTERY_BOX);
     }
 
     private void addPlayerInventory(PlayerInventory playerInventory) {

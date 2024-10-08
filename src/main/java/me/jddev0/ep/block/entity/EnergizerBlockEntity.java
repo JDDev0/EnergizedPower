@@ -46,7 +46,7 @@ public class EnergizerBlockEntity
 
     public EnergizerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.ENERGIZER_ENTITY, blockPos, blockState,
+                EPBlockEntities.ENERGIZER_ENTITY, blockPos, blockState,
 
                 "energizer",
 

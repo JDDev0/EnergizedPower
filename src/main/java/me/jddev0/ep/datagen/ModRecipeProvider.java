@@ -1,13 +1,13 @@
 package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.datagen.recipe.*;
 import me.jddev0.ep.fluid.FluidStack;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.recipe.IngredientWithCount;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import me.jddev0.ep.recipe.PulverizerRecipe;
 import me.jddev0.ep.registry.tags.CommonItemTags;
@@ -97,43 +97,43 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         buildCustomCraftingRecipes(output);
     }
     private void buildItemIngredientsCraftingRecipes(RecipeExporter output) {
-        add3x3UnpackingCraftingRecipe(output, conditionsFromItem(ModBlocks.SAWDUST_BLOCK),
-                Ingredient.ofItems(ModBlocks.SAWDUST_BLOCK), ModItems.SAWDUST,
+        add3x3UnpackingCraftingRecipe(output, conditionsFromItem(EPBlocks.SAWDUST_BLOCK),
+                Ingredient.ofItems(EPBlocks.SAWDUST_BLOCK), EPItems.SAWDUST,
                 CraftingRecipeCategory.MISC, "", "_from_sawdust_block");
         add3x3PackingCraftingRecipe(output, conditionsFromTag(CommonItemTags.SAW_DUSTS),
-                Ingredient.fromTag(CommonItemTags.SAW_DUSTS), ModBlocks.SAWDUST_BLOCK_ITEM,
+                Ingredient.fromTag(CommonItemTags.SAW_DUSTS), EPBlocks.SAWDUST_BLOCK_ITEM,
                 CraftingRecipeCategory.MISC, "", "");
 
         add3x3UnpackingCraftingRecipe(output, conditionsFromTag(CommonItemTags.SILICON_BLOCKS),
-                Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS), ModItems.SILICON,
+                Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS), EPItems.SILICON,
                 CraftingRecipeCategory.MISC, "", "_from_silicon_block");
         add3x3PackingCraftingRecipe(output, conditionsFromTag(CommonItemTags.SILICON),
-                Ingredient.fromTag(CommonItemTags.SILICON), ModBlocks.SILICON_BLOCK_ITEM,
+                Ingredient.fromTag(CommonItemTags.SILICON), EPBlocks.SILICON_BLOCK_ITEM,
                 CraftingRecipeCategory.MISC, "", "");
 
-        addMetalNuggetCraftingRecipe(output, CommonItemTags.TIN_NUGGETS, ModItems.TIN_NUGGET);
+        addMetalNuggetCraftingRecipe(output, CommonItemTags.TIN_NUGGETS, EPItems.TIN_NUGGET);
         addMetalIngotCraftingRecipes(output, CommonItemTags.TIN_NUGGETS, CommonItemTags.TIN_BLOCKS,
-                ModItems.TIN_INGOT, "tin");
+                EPItems.TIN_INGOT, "tin");
 
         add3x3PackingCraftingRecipe(output, conditionsFromTag(CommonItemTags.TIN_INGOTS),
-                Ingredient.fromTag(CommonItemTags.TIN_INGOTS), ModBlocks.TIN_BLOCK_ITEM,
+                Ingredient.fromTag(CommonItemTags.TIN_INGOTS), EPBlocks.TIN_BLOCK_ITEM,
                 CraftingRecipeCategory.MISC, "", "");
 
         add3x3UnpackingCraftingRecipe(output, conditionsFromTag(CommonItemTags.RAW_TIN_BLOCKS),
-                Ingredient.fromTag(CommonItemTags.RAW_TIN_BLOCKS), ModItems.RAW_TIN,
+                Ingredient.fromTag(CommonItemTags.RAW_TIN_BLOCKS), EPItems.RAW_TIN,
                 CraftingRecipeCategory.MISC, "", "");
         add3x3PackingCraftingRecipe(output, conditionsFromTag(CommonItemTags.RAW_TIN_ORES),
-                Ingredient.fromTag(CommonItemTags.RAW_TIN_ORES), ModBlocks.RAW_TIN_BLOCK_ITEM,
+                Ingredient.fromTag(CommonItemTags.RAW_TIN_ORES), EPBlocks.RAW_TIN_BLOCK_ITEM,
                 CraftingRecipeCategory.MISC, "", "");
 
-        addMetalPlateCraftingRecipe(output, CommonItemTags.TIN_INGOTS, ModItems.TIN_PLATE);
-        addMetalPlateCraftingRecipe(output, ConventionalItemTags.COPPER_INGOTS, ModItems.COPPER_PLATE);
-        addMetalPlateCraftingRecipe(output, ConventionalItemTags.IRON_INGOTS, ModItems.IRON_PLATE);
-        addMetalPlateCraftingRecipe(output, ConventionalItemTags.GOLD_INGOTS, ModItems.GOLD_PLATE);
+        addMetalPlateCraftingRecipe(output, CommonItemTags.TIN_INGOTS, EPItems.TIN_PLATE);
+        addMetalPlateCraftingRecipe(output, ConventionalItemTags.COPPER_INGOTS, EPItems.COPPER_PLATE);
+        addMetalPlateCraftingRecipe(output, ConventionalItemTags.IRON_INGOTS, EPItems.IRON_PLATE);
+        addMetalPlateCraftingRecipe(output, ConventionalItemTags.GOLD_INGOTS, EPItems.GOLD_PLATE);
 
-        addMetalWireCraftingRecipe(output, CommonItemTags.TIN_PLATES, ModItems.TIN_WIRE);
-        addMetalWireCraftingRecipe(output, CommonItemTags.COPPER_PLATES, ModItems.COPPER_WIRE);
-        addMetalWireCraftingRecipe(output, CommonItemTags.GOLD_PLATES, ModItems.GOLD_WIRE);
+        addMetalWireCraftingRecipe(output, CommonItemTags.TIN_PLATES, EPItems.TIN_WIRE);
+        addMetalWireCraftingRecipe(output, CommonItemTags.COPPER_PLATES, EPItems.COPPER_WIRE);
+        addMetalWireCraftingRecipe(output, CommonItemTags.GOLD_PLATES, EPItems.GOLD_WIRE);
 
         addShapedCraftingRecipe(output, conditionsFromTag(CommonItemTags.SILICON), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
@@ -144,7 +144,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 " C ",
                 "SQS",
                 " T "
-        }, new ItemStack(ModItems.BASIC_SOLAR_CELL), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.BASIC_SOLAR_CELL), CraftingRecipeCategory.MISC);
 
         addShapedCraftingRecipe(output, conditionsFromTag(CommonItemTags.COPPER_WIRES), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_WIRES),
@@ -155,39 +155,39 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 "RCR",
                 "CIC",
                 "SCS"
-        }, new ItemStack(ModItems.BASIC_CIRCUIT), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.BASIC_CIRCUIT), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BASIC_CIRCUIT), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BASIC_CIRCUIT), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.GOLD_WIRES),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
-                'B', Ingredient.ofItems(ModItems.BASIC_CIRCUIT)
+                'B', Ingredient.ofItems(EPItems.BASIC_CIRCUIT)
         ), new String[] {
                 "GGG",
                 "CBC",
                 "CBC"
-        }, new ItemStack(ModItems.BASIC_UPGRADE_MODULE), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.BASIC_UPGRADE_MODULE), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.ADVANCED_CIRCUIT), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.ADVANCED_CIRCUIT), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_WIRES),
                 'C', Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_PLATES),
-                'A', Ingredient.ofItems(ModItems.ADVANCED_CIRCUIT),
-                'B', Ingredient.ofItems(ModItems.BASIC_UPGRADE_MODULE)
+                'A', Ingredient.ofItems(EPItems.ADVANCED_CIRCUIT),
+                'B', Ingredient.ofItems(EPItems.BASIC_UPGRADE_MODULE)
         ), new String[] {
                 "GGG",
                 "CBC",
                 "CAC"
-        }, new ItemStack(ModItems.ADVANCED_UPGRADE_MODULE), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.ADVANCED_UPGRADE_MODULE), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.REINFORCED_ADVANCED_UPGRADE_MODULE), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE), Map.of(
                 'g', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_WIRES),
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
-                'P', Ingredient.ofItems(ModItems.PROCESSING_UNIT),
-                'A', Ingredient.ofItems(ModItems.ADVANCED_UPGRADE_MODULE)
+                'P', Ingredient.ofItems(EPItems.PROCESSING_UNIT),
+                'A', Ingredient.ofItems(EPItems.ADVANCED_UPGRADE_MODULE)
         ), new String[] {
                 "ggg",
                 "GAG",
                 "GPG"
-        }, new ItemStack(ModItems.REINFORCED_ADVANCED_UPGRADE_MODULE), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE), CraftingRecipeCategory.MISC);
 
         addShapedCraftingRecipe(output, conditionsFromTag(ConventionalItemTags.IRON_INGOTS), Map.of(
                 'i', Ingredient.fromTag(CommonItemTags.IRON_NUGGETS),
@@ -196,7 +196,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 " i ",
                 "iIi",
                 " i "
-        }, new ItemStack(ModItems.SAW_BLADE), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.SAW_BLADE), CraftingRecipeCategory.MISC);
 
         addShapedCraftingRecipe(output, conditionsFromTag(CommonItemTags.SILICON), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS),
@@ -206,40 +206,40 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 "CIC",
                 "ISI",
                 "CIC"
-        }, new ItemStack(ModBlocks.BASIC_MACHINE_FRAME_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.BASIC_MACHINE_FRAME_ITEM), CraftingRecipeCategory.MISC);
 
         addShapedCraftingRecipe(output, conditionsFromTag(CommonItemTags.IRON_GEARS), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 's', Ingredient.fromTag(CommonItemTags.STEEL_INGOTS),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_GEARS),
                 'R', Ingredient.fromTag(CommonItemTags.IRON_RODS),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "IsR",
                 "SBS",
                 "RsI"
-        }, new ItemStack(ModBlocks.HARDENED_MACHINE_FRAME_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), CraftingRecipeCategory.MISC);
 
         addShapedCraftingRecipe(output, conditionsFromTag(CommonItemTags.ENERGIZED_COPPER_INGOTS), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'A', Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_INGOTS),
                 'E', Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_INGOTS),
-                'H', Ingredient.ofItems(ModBlocks.HARDENED_MACHINE_FRAME_ITEM)
+                'H', Ingredient.ofItems(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "ESE",
                 "AHA",
                 "ESE"
-        }, new ItemStack(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.ENERGIZED_CRYSTAL_MATRIX), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.ENERGIZED_CRYSTAL_MATRIX), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS),
-                'C', Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX),
-                'A', Ingredient.ofItems(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM)
+                'C', Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'A', Ingredient.ofItems(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CSC",
                 "SAS",
                 "CSC"
-        }, new ItemStack(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), CraftingRecipeCategory.MISC);
     }
     private void buildFertilizerCraftingRecipes(RecipeExporter output) {
         addShapedCraftingRecipe(output, conditionsFromItem(Items.BONE_MEAL), Map.of(
@@ -253,10 +253,10 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 "DBb",
                 "BLB",
                 "ABP"
-        }, new ItemStack(ModItems.BASIC_FERTILIZER, 4), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.BASIC_FERTILIZER, 4), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BASIC_FERTILIZER), Map.of(
-                'B', Ingredient.ofItems(ModItems.BASIC_FERTILIZER),
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BASIC_FERTILIZER), Map.of(
+                'B', Ingredient.ofItems(EPItems.BASIC_FERTILIZER),
                 'S', Ingredient.ofItems(Items.SUGAR_CANE),
                 'K', Ingredient.ofItems(Items.KELP),
                 's', Ingredient.ofItems(Items.SUGAR),
@@ -266,10 +266,10 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 "SBK",
                 "BsB",
                 "bBW"
-        }, new ItemStack(ModItems.GOOD_FERTILIZER, 4), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.GOOD_FERTILIZER, 4), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.GOOD_FERTILIZER), Map.of(
-                'G', Ingredient.ofItems(ModItems.GOOD_FERTILIZER),
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.GOOD_FERTILIZER), Map.of(
+                'G', Ingredient.ofItems(EPItems.GOOD_FERTILIZER),
                 'M', Ingredient.ofItems(Items.RED_MUSHROOM),
                 'S', Ingredient.ofItems(Items.SWEET_BERRIES),
                 'r', Ingredient.fromTag(ConventionalItemTags.RED_DYES),
@@ -279,412 +279,412 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 "MGS",
                 "GrG",
                 "TGR"
-        }, new ItemStack(ModItems.ADVANCED_FERTILIZER, 4), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.ADVANCED_FERTILIZER, 4), CraftingRecipeCategory.MISC);
     }
     private void buildUpgradeModuleCraftingRecipes(RecipeExporter output) {
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BASIC_UPGRADE_MODULE), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'B', Ingredient.ofItems(ModItems.BASIC_UPGRADE_MODULE)
+                'B', Ingredient.ofItems(EPItems.BASIC_UPGRADE_MODULE)
         ), new String[] {
                 "CSC",
                 "RBR",
                 "CSC"
-        }, new ItemStack(ModItems.SPEED_UPGRADE_MODULE_1), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.SPEED_UPGRADE_MODULE_1), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.SPEED_UPGRADE_MODULE_1), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.SPEED_UPGRADE_MODULE_1), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'B', Ingredient.ofItems(ModItems.BASIC_UPGRADE_MODULE),
-                's', Ingredient.ofItems(ModItems.SPEED_UPGRADE_MODULE_1)
+                'B', Ingredient.ofItems(EPItems.BASIC_UPGRADE_MODULE),
+                's', Ingredient.ofItems(EPItems.SPEED_UPGRADE_MODULE_1)
         ), new String[] {
                 "CSC",
                 "RBR",
                 "CsC"
-        }, new ItemStack(ModItems.SPEED_UPGRADE_MODULE_2), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.SPEED_UPGRADE_MODULE_2), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.SPEED_UPGRADE_MODULE_2), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.SPEED_UPGRADE_MODULE_2), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'A', Ingredient.ofItems(ModItems.ADVANCED_UPGRADE_MODULE),
-                's', Ingredient.ofItems(ModItems.SPEED_UPGRADE_MODULE_2)
+                'A', Ingredient.ofItems(EPItems.ADVANCED_UPGRADE_MODULE),
+                's', Ingredient.ofItems(EPItems.SPEED_UPGRADE_MODULE_2)
         ), new String[] {
                 "CSC",
                 "RAR",
                 "CsC"
-        }, new ItemStack(ModItems.SPEED_UPGRADE_MODULE_3), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.SPEED_UPGRADE_MODULE_3), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.SPEED_UPGRADE_MODULE_3), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.SPEED_UPGRADE_MODULE_3), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'A', Ingredient.ofItems(ModItems.ADVANCED_UPGRADE_MODULE),
-                's', Ingredient.ofItems(ModItems.SPEED_UPGRADE_MODULE_3)
+                'A', Ingredient.ofItems(EPItems.ADVANCED_UPGRADE_MODULE),
+                's', Ingredient.ofItems(EPItems.SPEED_UPGRADE_MODULE_3)
         ), new String[] {
                 "CSC",
                 "RAR",
                 "CsC"
-        }, new ItemStack(ModItems.SPEED_UPGRADE_MODULE_4), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.SPEED_UPGRADE_MODULE_4), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.SPEED_UPGRADE_MODULE_4), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.SPEED_UPGRADE_MODULE_4), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'r', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'R', Ingredient.ofItems(ModItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                's', Ingredient.ofItems(ModItems.SPEED_UPGRADE_MODULE_4)
+                'R', Ingredient.ofItems(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                's', Ingredient.ofItems(EPItems.SPEED_UPGRADE_MODULE_4)
         ), new String[] {
                 "CSC",
                 "rRr",
                 "CsC"
-        }, new ItemStack(ModItems.SPEED_UPGRADE_MODULE_5), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.SPEED_UPGRADE_MODULE_5), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BASIC_UPGRADE_MODULE), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'G', Ingredient.fromTag(ConventionalItemTags.GOLD_INGOTS),
                 'R', Ingredient.fromTag(CommonItemTags.REDSTONE_ALLOY_INGOTS),
-                'B', Ingredient.ofItems(ModItems.BASIC_UPGRADE_MODULE)
+                'B', Ingredient.ofItems(EPItems.BASIC_UPGRADE_MODULE)
         ), new String[] {
                 "CGC",
                 "RBR",
                 "CGC"
-        }, new ItemStack(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'G', Ingredient.fromTag(ConventionalItemTags.GOLD_INGOTS),
                 'R', Ingredient.fromTag(CommonItemTags.REDSTONE_ALLOY_INGOTS),
-                'B', Ingredient.ofItems(ModItems.BASIC_UPGRADE_MODULE),
-                'E', Ingredient.ofItems(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1)
+                'B', Ingredient.ofItems(EPItems.BASIC_UPGRADE_MODULE),
+                'E', Ingredient.ofItems(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1)
         ), new String[] {
                 "CGC",
                 "RBR",
                 "CEC"
-        }, new ItemStack(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'G', Ingredient.fromTag(ConventionalItemTags.GOLD_INGOTS),
                 'R', Ingredient.fromTag(CommonItemTags.REDSTONE_ALLOY_INGOTS),
-                'A', Ingredient.ofItems(ModItems.ADVANCED_UPGRADE_MODULE),
-                'E', Ingredient.ofItems(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2)
+                'A', Ingredient.ofItems(EPItems.ADVANCED_UPGRADE_MODULE),
+                'E', Ingredient.ofItems(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2)
         ), new String[] {
                 "CGC",
                 "RAR",
                 "CEC"
-        }, new ItemStack(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'G', Ingredient.fromTag(ConventionalItemTags.GOLD_INGOTS),
                 'R', Ingredient.fromTag(CommonItemTags.REDSTONE_ALLOY_INGOTS),
-                'A', Ingredient.ofItems(ModItems.ADVANCED_UPGRADE_MODULE),
-                'E', Ingredient.ofItems(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3)
+                'A', Ingredient.ofItems(EPItems.ADVANCED_UPGRADE_MODULE),
+                'E', Ingredient.ofItems(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3)
         ), new String[] {
                 "CGC",
                 "RAR",
                 "CEC"
-        }, new ItemStack(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'G', Ingredient.fromTag(ConventionalItemTags.GOLD_INGOTS),
                 'r', Ingredient.fromTag(CommonItemTags.REDSTONE_ALLOY_INGOTS),
-                'R', Ingredient.ofItems(ModItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'E', Ingredient.ofItems(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4)
+                'R', Ingredient.ofItems(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'E', Ingredient.ofItems(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4)
         ), new String[] {
                 "CGC",
                 "rRr",
                 "CEC"
-        }, new ItemStack(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BASIC_UPGRADE_MODULE), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'T', Ingredient.fromTag(CommonItemTags.TIN_PLATES),
                 'c', Ingredient.fromTag(ItemTags.COALS),
-                'B', Ingredient.ofItems(ModItems.BASIC_UPGRADE_MODULE)
+                'B', Ingredient.ofItems(EPItems.BASIC_UPGRADE_MODULE)
         ), new String[] {
                 "CTC",
                 "cBc",
                 "CTC"
-        }, new ItemStack(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_1), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_1), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'T', Ingredient.fromTag(CommonItemTags.TIN_PLATES),
                 'c', Ingredient.fromTag(ItemTags.COALS),
-                'B', Ingredient.ofItems(ModItems.BASIC_UPGRADE_MODULE),
-                'E', Ingredient.ofItems(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_1)
+                'B', Ingredient.ofItems(EPItems.BASIC_UPGRADE_MODULE),
+                'E', Ingredient.ofItems(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1)
         ), new String[] {
                 "CTC",
                 "cBc",
                 "CEC"
-        }, new ItemStack(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_2), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_2), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'T', Ingredient.fromTag(CommonItemTags.TIN_PLATES),
                 'c', Ingredient.fromTag(ItemTags.COALS),
-                'A', Ingredient.ofItems(ModItems.ADVANCED_UPGRADE_MODULE),
-                'E', Ingredient.ofItems(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_2)
+                'A', Ingredient.ofItems(EPItems.ADVANCED_UPGRADE_MODULE),
+                'E', Ingredient.ofItems(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2)
         ), new String[] {
                 "CTC",
                 "cAc",
                 "CEC"
-        }, new ItemStack(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_3), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_3), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_3), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_3), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'T', Ingredient.fromTag(CommonItemTags.TIN_PLATES),
                 'c', Ingredient.fromTag(ItemTags.COALS),
-                'A', Ingredient.ofItems(ModItems.ADVANCED_UPGRADE_MODULE),
-                'E', Ingredient.ofItems(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_3)
+                'A', Ingredient.ofItems(EPItems.ADVANCED_UPGRADE_MODULE),
+                'E', Ingredient.ofItems(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_3)
         ), new String[] {
                 "CTC",
                 "cAc",
                 "CEC"
-        }, new ItemStack(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_4), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_4), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_4), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_4), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'T', Ingredient.fromTag(CommonItemTags.TIN_PLATES),
                 'c', Ingredient.fromTag(ItemTags.COALS),
-                'R', Ingredient.ofItems(ModItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'E', Ingredient.ofItems(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_4)
+                'R', Ingredient.ofItems(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'E', Ingredient.ofItems(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_4)
         ), new String[] {
                 "CTC",
                 "cRc",
                 "CEC"
-        }, new ItemStack(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_5), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_5), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.REINFORCED_ADVANCED_UPGRADE_MODULE), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
-                'C', Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX),
+                'C', Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX),
                 'r', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'R', Ingredient.ofItems(ModItems.REINFORCED_ADVANCED_UPGRADE_MODULE)
+                'R', Ingredient.ofItems(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE)
         ), new String[] {
                 "GCG",
                 "rRr",
                 "GCG"
-        }, new ItemStack(ModItems.DURATION_UPGRADE_MODULE_1), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.DURATION_UPGRADE_MODULE_1), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.DURATION_UPGRADE_MODULE_1), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.DURATION_UPGRADE_MODULE_1), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
-                'C', Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX),
+                'C', Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX),
                 'r', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'R', Ingredient.ofItems(ModItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'D', Ingredient.ofItems(ModItems.DURATION_UPGRADE_MODULE_1)
+                'R', Ingredient.ofItems(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'D', Ingredient.ofItems(EPItems.DURATION_UPGRADE_MODULE_1)
         ), new String[] {
                 "GCG",
                 "rRr",
                 "GDG"
-        }, new ItemStack(ModItems.DURATION_UPGRADE_MODULE_2), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.DURATION_UPGRADE_MODULE_2), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.DURATION_UPGRADE_MODULE_2), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.DURATION_UPGRADE_MODULE_2), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
-                'C', Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX),
+                'C', Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX),
                 'r', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'R', Ingredient.ofItems(ModItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'D', Ingredient.ofItems(ModItems.DURATION_UPGRADE_MODULE_2)
+                'R', Ingredient.ofItems(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'D', Ingredient.ofItems(EPItems.DURATION_UPGRADE_MODULE_2)
         ), new String[] {
                 "GCG",
                 "rRr",
                 "GDG"
-        }, new ItemStack(ModItems.DURATION_UPGRADE_MODULE_3), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.DURATION_UPGRADE_MODULE_3), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.DURATION_UPGRADE_MODULE_3), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.DURATION_UPGRADE_MODULE_3), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
-                'C', Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX),
+                'C', Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX),
                 'r', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'R', Ingredient.ofItems(ModItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'D', Ingredient.ofItems(ModItems.DURATION_UPGRADE_MODULE_3)
+                'R', Ingredient.ofItems(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'D', Ingredient.ofItems(EPItems.DURATION_UPGRADE_MODULE_3)
         ), new String[] {
                 "GCG",
                 "rRr",
                 "GDG"
-        }, new ItemStack(ModItems.DURATION_UPGRADE_MODULE_4), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.DURATION_UPGRADE_MODULE_4), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.DURATION_UPGRADE_MODULE_4), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.DURATION_UPGRADE_MODULE_4), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
-                'C', Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX),
+                'C', Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX),
                 'r', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'R', Ingredient.ofItems(ModItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'D', Ingredient.ofItems(ModItems.DURATION_UPGRADE_MODULE_4)
+                'R', Ingredient.ofItems(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'D', Ingredient.ofItems(EPItems.DURATION_UPGRADE_MODULE_4)
         ), new String[] {
                 "GCG",
                 "rRr",
                 "GDG"
-        }, new ItemStack(ModItems.DURATION_UPGRADE_MODULE_5), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.DURATION_UPGRADE_MODULE_5), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.DURATION_UPGRADE_MODULE_5), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.DURATION_UPGRADE_MODULE_5), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
-                'C', Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX),
-                'R', Ingredient.ofItems(ModItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'D', Ingredient.ofItems(ModItems.DURATION_UPGRADE_MODULE_5)
+                'C', Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'R', Ingredient.ofItems(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'D', Ingredient.ofItems(EPItems.DURATION_UPGRADE_MODULE_5)
         ), new String[] {
                 "GDG",
                 "CRC",
                 "GDG"
-        }, new ItemStack(ModItems.DURATION_UPGRADE_MODULE_6), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.DURATION_UPGRADE_MODULE_6), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.ADVANCED_UPGRADE_MODULE), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.ADVANCED_UPGRADE_MODULE), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'A', Ingredient.ofItems(ModItems.ADVANCED_UPGRADE_MODULE)
+                'A', Ingredient.ofItems(EPItems.ADVANCED_UPGRADE_MODULE)
         ), new String[] {
                 "GRG",
                 "RAR",
                 "GRG"
-        }, new ItemStack(ModItems.RANGE_UPGRADE_MODULE_1), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.RANGE_UPGRADE_MODULE_1), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.RANGE_UPGRADE_MODULE_1), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.RANGE_UPGRADE_MODULE_1), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
                 'r', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'A', Ingredient.ofItems(ModItems.ADVANCED_UPGRADE_MODULE),
-                'R', Ingredient.ofItems(ModItems.RANGE_UPGRADE_MODULE_1)
+                'A', Ingredient.ofItems(EPItems.ADVANCED_UPGRADE_MODULE),
+                'R', Ingredient.ofItems(EPItems.RANGE_UPGRADE_MODULE_1)
         ), new String[] {
                 "GrG",
                 "rAr",
                 "GRG"
-        }, new ItemStack(ModItems.RANGE_UPGRADE_MODULE_2), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.RANGE_UPGRADE_MODULE_2), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.RANGE_UPGRADE_MODULE_2), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.RANGE_UPGRADE_MODULE_2), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
                 'r', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'A', Ingredient.ofItems(ModItems.ADVANCED_UPGRADE_MODULE),
-                'R', Ingredient.ofItems(ModItems.RANGE_UPGRADE_MODULE_2)
+                'A', Ingredient.ofItems(EPItems.ADVANCED_UPGRADE_MODULE),
+                'R', Ingredient.ofItems(EPItems.RANGE_UPGRADE_MODULE_2)
         ), new String[] {
                 "GrG",
                 "rAr",
                 "GRG"
-        }, new ItemStack(ModItems.RANGE_UPGRADE_MODULE_3), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.RANGE_UPGRADE_MODULE_3), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BASIC_UPGRADE_MODULE), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'B', Ingredient.ofItems(ModItems.BASIC_UPGRADE_MODULE),
-                'F', Ingredient.ofItems(ModBlocks.IRON_FLUID_PIPE_ITEM)
+                'B', Ingredient.ofItems(EPItems.BASIC_UPGRADE_MODULE),
+                'F', Ingredient.ofItems(EPBlocks.IRON_FLUID_PIPE_ITEM)
         ), new String[] {
                 "IFI",
                 "RBR",
                 "IFI"
-        }, new ItemStack(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1), Map.of(
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'B', Ingredient.ofItems(ModItems.BASIC_UPGRADE_MODULE),
-                'F', Ingredient.ofItems(ModBlocks.IRON_FLUID_PIPE_ITEM),
-                'E', Ingredient.ofItems(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1)
+                'B', Ingredient.ofItems(EPItems.BASIC_UPGRADE_MODULE),
+                'F', Ingredient.ofItems(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', Ingredient.ofItems(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1)
         ), new String[] {
                 "IFI",
                 "RBR",
                 "IEI"
-        }, new ItemStack(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2), Map.of(
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'A', Ingredient.ofItems(ModItems.ADVANCED_UPGRADE_MODULE),
-                'F', Ingredient.ofItems(ModBlocks.IRON_FLUID_PIPE_ITEM),
-                'E', Ingredient.ofItems(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2)
+                'A', Ingredient.ofItems(EPItems.ADVANCED_UPGRADE_MODULE),
+                'F', Ingredient.ofItems(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', Ingredient.ofItems(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2)
         ), new String[] {
                 "IFI",
                 "RAR",
                 "IEI"
-        }, new ItemStack(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3), Map.of(
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'A', Ingredient.ofItems(ModItems.ADVANCED_UPGRADE_MODULE),
-                'F', Ingredient.ofItems(ModBlocks.IRON_FLUID_PIPE_ITEM),
-                'E', Ingredient.ofItems(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3)
+                'A', Ingredient.ofItems(EPItems.ADVANCED_UPGRADE_MODULE),
+                'F', Ingredient.ofItems(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', Ingredient.ofItems(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3)
         ), new String[] {
                 "IFI",
                 "RAR",
                 "IEI"
-        }, new ItemStack(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4), Map.of(
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'r', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'R', Ingredient.ofItems(ModItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'F', Ingredient.ofItems(ModBlocks.IRON_FLUID_PIPE_ITEM),
-                'E', Ingredient.ofItems(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4)
+                'R', Ingredient.ofItems(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'F', Ingredient.ofItems(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', Ingredient.ofItems(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4)
         ), new String[] {
                 "IFI",
                 "rRr",
                 "IEI"
-        }, new ItemStack(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BASIC_UPGRADE_MODULE), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'B', Ingredient.ofItems(ModItems.BASIC_UPGRADE_MODULE),
+                'B', Ingredient.ofItems(EPItems.BASIC_UPGRADE_MODULE),
                 'b', Ingredient.ofItems(Items.BLAST_FURNACE)
         ), new String[] {
                 "CSC",
                 "RBR",
                 "CbC"
-        }, new ItemStack(ModItems.BLAST_FURNACE_UPGRADE_MODULE), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.BLAST_FURNACE_UPGRADE_MODULE), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BASIC_UPGRADE_MODULE), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 's', Ingredient.fromTag(CommonItemTags.SILICON),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'B', Ingredient.ofItems(ModItems.BASIC_UPGRADE_MODULE),
+                'B', Ingredient.ofItems(EPItems.BASIC_UPGRADE_MODULE),
                 'S', Ingredient.ofItems(Items.SMOKER)
         ), new String[] {
                 "CsC",
                 "RBR",
                 "CSC"
-        }, new ItemStack(ModItems.SMOKER_UPGRADE_MODULE), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.SMOKER_UPGRADE_MODULE), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BASIC_UPGRADE_MODULE), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.GOLD_PLATES),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
-                'b', Ingredient.ofItems(ModItems.BASIC_SOLAR_CELL),
-                'B', Ingredient.ofItems(ModItems.BASIC_UPGRADE_MODULE)
+                'b', Ingredient.ofItems(EPItems.BASIC_SOLAR_CELL),
+                'B', Ingredient.ofItems(EPItems.BASIC_UPGRADE_MODULE)
         ), new String[] {
                 "GSG",
                 "bBb",
                 "GSG"
-        }, new ItemStack(ModItems.MOON_LIGHT_UPGRADE_MODULE_1), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.MOON_LIGHT_UPGRADE_MODULE_1), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.MOON_LIGHT_UPGRADE_MODULE_1), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.MOON_LIGHT_UPGRADE_MODULE_1), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.GOLD_PLATES),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
-                'B', Ingredient.ofItems(ModItems.BASIC_SOLAR_CELL),
-                'A', Ingredient.ofItems(ModItems.ADVANCED_UPGRADE_MODULE),
-                'M', Ingredient.ofItems(ModItems.MOON_LIGHT_UPGRADE_MODULE_1)
+                'B', Ingredient.ofItems(EPItems.BASIC_SOLAR_CELL),
+                'A', Ingredient.ofItems(EPItems.ADVANCED_UPGRADE_MODULE),
+                'M', Ingredient.ofItems(EPItems.MOON_LIGHT_UPGRADE_MODULE_1)
         ), new String[] {
                 "GSG",
                 "BAB",
                 "GMG"
-        }, new ItemStack(ModItems.MOON_LIGHT_UPGRADE_MODULE_2), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.MOON_LIGHT_UPGRADE_MODULE_2), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.MOON_LIGHT_UPGRADE_MODULE_2), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.MOON_LIGHT_UPGRADE_MODULE_2), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.GOLD_PLATES),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
-                'B', Ingredient.ofItems(ModItems.BASIC_SOLAR_CELL),
-                'R', Ingredient.ofItems(ModItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'M', Ingredient.ofItems(ModItems.MOON_LIGHT_UPGRADE_MODULE_2)
+                'B', Ingredient.ofItems(EPItems.BASIC_SOLAR_CELL),
+                'R', Ingredient.ofItems(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'M', Ingredient.ofItems(EPItems.MOON_LIGHT_UPGRADE_MODULE_2)
         ), new String[] {
                 "GSG",
                 "BRB",
                 "GMG"
-        }, new ItemStack(ModItems.MOON_LIGHT_UPGRADE_MODULE_3), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.MOON_LIGHT_UPGRADE_MODULE_3), CraftingRecipeCategory.MISC);
     }
     private void buildToolsCraftingRecipes(RecipeExporter output) {
-        addHammerCraftingRecipe(output, ItemTags.PLANKS, ModItems.WOODEN_HAMMER);
-        addHammerCraftingRecipe(output, ItemTags.STONE_TOOL_MATERIALS, ModItems.STONE_HAMMER);
-        addHammerCraftingRecipe(output, ConventionalItemTags.IRON_INGOTS, ModItems.IRON_HAMMER);
-        addHammerCraftingRecipe(output, ConventionalItemTags.GOLD_INGOTS, ModItems.GOLDEN_HAMMER);
-        addHammerCraftingRecipe(output, ConventionalItemTags.DIAMONDS, ModItems.DIAMOND_HAMMER);
+        addHammerCraftingRecipe(output, ItemTags.PLANKS, EPItems.WOODEN_HAMMER);
+        addHammerCraftingRecipe(output, ItemTags.STONE_TOOL_MATERIALS, EPItems.STONE_HAMMER);
+        addHammerCraftingRecipe(output, ConventionalItemTags.IRON_INGOTS, EPItems.IRON_HAMMER);
+        addHammerCraftingRecipe(output, ConventionalItemTags.GOLD_INGOTS, EPItems.GOLDEN_HAMMER);
+        addHammerCraftingRecipe(output, ConventionalItemTags.DIAMONDS, EPItems.DIAMOND_HAMMER);
 
         addShapedCraftingRecipe(output, conditionsFromTag(CommonItemTags.IRON_PLATES), Map.of(
                 'i', Ingredient.fromTag(CommonItemTags.IRON_NUGGETS),
@@ -694,7 +694,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 "I I",
                 " i ",
                 "S S"
-        }, new ItemStack(ModItems.CUTTER), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.CUTTER), CraftingRecipeCategory.MISC);
 
         addShapedCraftingRecipe(output, conditionsFromTag(ConventionalItemTags.IRON_INGOTS), Map.of(
                 'i', Ingredient.fromTag(CommonItemTags.IRON_NUGGETS),
@@ -703,7 +703,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 " I ",
                 " iI",
                 "i  "
-        }, new ItemStack(ModItems.WRENCH), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.WRENCH), CraftingRecipeCategory.MISC);
     }
     private void buildEnergyItemsCraftingRecipes(RecipeExporter output) {
         addShapedCraftingRecipe(output, conditionsFromTag(ConventionalItemTags.COPPER_INGOTS), Map.of(
@@ -715,146 +715,146 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 "T T",
                 "CRC",
                 "CcC"
-        }, new ItemStack(ModItems.BATTERY_1), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.BATTERY_1), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BATTERY_1), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BATTERY_1), Map.of(
                 'T', Ingredient.fromTag(CommonItemTags.TIN_NUGGETS),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'c', Ingredient.fromTag(ItemTags.COALS),
-                'B', Ingredient.ofItems(ModItems.BATTERY_1)
+                'B', Ingredient.ofItems(EPItems.BATTERY_1)
         ), new String[] {
                 "T T",
                 "CBC",
                 "IcI"
-        }, new ItemStack(ModItems.BATTERY_2), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.BATTERY_2), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BATTERY_2), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BATTERY_2), Map.of(
                 'T', Ingredient.fromTag(CommonItemTags.TIN_NUGGETS),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
-                'B', Ingredient.ofItems(ModItems.BATTERY_2)
+                'B', Ingredient.ofItems(EPItems.BATTERY_2)
         ), new String[] {
                 "T T",
                 "BCB",
                 "CSC"
-        }, new ItemStack(ModItems.BATTERY_3), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.BATTERY_3), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BATTERY_3), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BATTERY_3), Map.of(
                 'T', Ingredient.fromTag(CommonItemTags.TIN_NUGGETS),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
-                'B', Ingredient.ofItems(ModItems.BATTERY_3)
+                'B', Ingredient.ofItems(EPItems.BATTERY_3)
         ), new String[] {
                 "T T",
                 "CBC",
                 "SIS"
-        }, new ItemStack(ModItems.BATTERY_4), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.BATTERY_4), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BATTERY_4), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BATTERY_4), Map.of(
                 'T', Ingredient.fromTag(CommonItemTags.TIN_NUGGETS),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'R', Ingredient.fromTag(CommonItemTags.REDSTONE_ALLOY_INGOTS),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
-                'B', Ingredient.ofItems(ModItems.BATTERY_4)
+                'B', Ingredient.ofItems(EPItems.BATTERY_4)
         ), new String[] {
                 "T T",
                 "BSB",
                 "IRI"
-        }, new ItemStack(ModItems.BATTERY_5), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.BATTERY_5), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BATTERY_5), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BATTERY_5), Map.of(
                 'T', Ingredient.fromTag(CommonItemTags.TIN_NUGGETS),
                 'E', Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_PLATES),
-                'B', Ingredient.ofItems(ModItems.BATTERY_5)
+                'B', Ingredient.ofItems(EPItems.BATTERY_5)
         ), new String[] {
                 "T T",
                 "EBE",
                 "EBE"
-        }, new ItemStack(ModItems.BATTERY_6), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.BATTERY_6), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BATTERY_6), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BATTERY_6), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.GOLD_NUGGETS),
                 'E', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
-                'B', Ingredient.ofItems(ModItems.BATTERY_6)
+                'B', Ingredient.ofItems(EPItems.BATTERY_6)
         ), new String[] {
                 "G G",
                 "EBE",
                 "SBS"
-        }, new ItemStack(ModItems.BATTERY_7), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.BATTERY_7), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BATTERY_7), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BATTERY_7), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.GOLD_NUGGETS),
                 'E', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
                 'A', Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_PLATES),
-                'B', Ingredient.ofItems(ModItems.BATTERY_7)
+                'B', Ingredient.ofItems(EPItems.BATTERY_7)
         ), new String[] {
                 "G G",
                 "EBE",
                 "ABA"
-        }, new ItemStack(ModItems.BATTERY_8), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.BATTERY_8), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.COAL_ENGINE_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.COAL_ENGINE_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
                 'c', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
-                'C', Ingredient.ofItems(ModBlocks.COAL_ENGINE_ITEM)
+                'C', Ingredient.ofItems(EPBlocks.COAL_ENGINE_ITEM)
         ), new String[] {
                 "SIS",
                 "RCR",
                 "cIc"
-        }, new ItemStack(ModItems.INVENTORY_COAL_ENGINE), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.INVENTORY_COAL_ENGINE), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.CHARGER_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.CHARGER_ITEM), Map.of(
                 'c', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
-                'C', Ingredient.ofItems(ModBlocks.CHARGER_ITEM)
+                'C', Ingredient.ofItems(EPBlocks.CHARGER_ITEM)
         ), new String[] {
                 "SIS",
                 "RCR",
                 "cIc"
-        }, new ItemStack(ModItems.INVENTORY_CHARGER), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.INVENTORY_CHARGER), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.TELEPORTER_ITEM), Map.of(
-                'C', Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX),
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.TELEPORTER_ITEM), Map.of(
+                'C', Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX),
                 'c', Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_PLATES),
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'T', Ingredient.ofItems(ModBlocks.TELEPORTER_ITEM)
+                'T', Ingredient.ofItems(EPBlocks.TELEPORTER_ITEM)
         ), new String[] {
                 "CcC",
                 "RTR",
                 "GcG"
-        }, new ItemStack(ModItems.INVENTORY_TELEPORTER), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.INVENTORY_TELEPORTER), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BATTERY_3), Map.of(
-                'b', Ingredient.ofItems(ModItems.BASIC_CIRCUIT),
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BATTERY_3), Map.of(
+                'b', Ingredient.ofItems(EPItems.BASIC_CIRCUIT),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'B', Ingredient.ofItems(ModItems.BATTERY_3)
+                'B', Ingredient.ofItems(EPItems.BATTERY_3)
         ), new String[] {
                 "S S",
                 "bRb",
                 "CBC"
-        }, new ItemStack(ModItems.ENERGY_ANALYZER), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.ENERGY_ANALYZER), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BATTERY_3), Map.of(
-                'b', Ingredient.ofItems(ModItems.BASIC_CIRCUIT),
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BATTERY_3), Map.of(
+                'b', Ingredient.ofItems(EPItems.BASIC_CIRCUIT),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'L', Ingredient.fromTag(ConventionalItemTags.LAPIS),
-                'B', Ingredient.ofItems(ModItems.BATTERY_3)
+                'B', Ingredient.ofItems(EPItems.BATTERY_3)
         ), new String[] {
                 "S S",
                 "bLb",
                 "CBC"
-        }, new ItemStack(ModItems.FLUID_ANALYZER), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.FLUID_ANALYZER), CraftingRecipeCategory.MISC);
     }
     private void buildItemTransportCraftingRecipes(RecipeExporter output) {
         addShapedCraftingRecipe(output, conditionsFromTag(CommonItemTags.IRON_PLATES), Map.of(
@@ -865,7 +865,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         "   ",
                         "LLL",
                         "IRI"
-                }, new ItemStack(ModBlocks.ITEM_CONVEYOR_BELT_ITEM, 6), CraftingRecipeCategory.MISC,
+                }, new ItemStack(EPBlocks.ITEM_CONVEYOR_BELT_ITEM, 6), CraftingRecipeCategory.MISC,
                 "item_conveyor_belt", "_from_leather");
 
         addShapedCraftingRecipe(output, conditionsFromTag(CommonItemTags.IRON_PLATES), Map.of(
@@ -876,63 +876,63 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         "   ",
                         "KKK",
                         "IRI"
-                }, new ItemStack(ModBlocks.ITEM_CONVEYOR_BELT_ITEM, 6), CraftingRecipeCategory.MISC,
+                }, new ItemStack(EPBlocks.ITEM_CONVEYOR_BELT_ITEM, 6), CraftingRecipeCategory.MISC,
                 "item_conveyor_belt", "_from_dried_kelp");
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ITEM_CONVEYOR_BELT_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COBBLESTONES),
-                'c', Ingredient.ofItems(ModBlocks.ITEM_CONVEYOR_BELT_ITEM),
+                'c', Ingredient.ofItems(EPBlocks.ITEM_CONVEYOR_BELT_ITEM),
                 'H', Ingredient.ofItems(Items.HOPPER)
         ), new String[] {
                 "CCC",
                 "CHC",
                 "CcC"
-        }, new ItemStack(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COBBLESTONES),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_BLOCKS),
                 'R', Ingredient.fromTag(CommonItemTags.REDSTONE_BLOCKS),
-                'L', Ingredient.ofItems(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM)
+                'L', Ingredient.ofItems(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM)
         ), new String[] {
                 "CRC",
                 "ILI",
                 "CRC"
-        }, new ItemStack(ModBlocks.ITEM_CONVEYOR_BELT_SORTER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ITEM_CONVEYOR_BELT_SORTER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COBBLESTONES),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
                 'l', Ingredient.ofItems(Items.LEVER),
-                'L', Ingredient.ofItems(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM)
+                'L', Ingredient.ofItems(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM)
         ), new String[] {
                 "ClC",
                 "ILI",
                 "CRC"
-        }, new ItemStack(ModBlocks.ITEM_CONVEYOR_BELT_SWITCH_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ITEM_CONVEYOR_BELT_SWITCH_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COBBLESTONES),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'L', Ingredient.ofItems(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM)
+                'L', Ingredient.ofItems(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM)
         ), new String[] {
                 "CIC",
                 "ILI",
                 "CRC"
-        }, new ItemStack(ModBlocks.ITEM_CONVEYOR_BELT_SPLITTER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ITEM_CONVEYOR_BELT_SPLITTER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COBBLESTONES),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'L', Ingredient.ofItems(ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM)
+                'L', Ingredient.ofItems(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM)
         ), new String[] {
                 "CRC",
                 "ILI",
                 "CIC"
-        }, new ItemStack(ModBlocks.ITEM_CONVEYOR_BELT_MERGER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ITEM_CONVEYOR_BELT_MERGER_ITEM), CraftingRecipeCategory.MISC);
     }
     private void buildFluidTransportCraftingRecipes(RecipeExporter output) {
         addShapedCraftingRecipe(output, conditionsFromTag(CommonItemTags.IRON_PLATES), Map.of(
@@ -942,7 +942,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         "IiI",
                         "IiI",
                         "IiI"
-                }, new ItemStack(ModBlocks.IRON_FLUID_PIPE_ITEM, 12), CraftingRecipeCategory.MISC,
+                }, new ItemStack(EPBlocks.IRON_FLUID_PIPE_ITEM, 12), CraftingRecipeCategory.MISC,
                 "", "", "iron_");
 
         addShapedCraftingRecipe(output, conditionsFromTag(CommonItemTags.GOLD_PLATES), Map.of(
@@ -952,7 +952,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 "GgG",
                 "GgG",
                 "GgG"
-        }, new ItemStack(ModBlocks.GOLDEN_FLUID_PIPE_ITEM, 12), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.GOLDEN_FLUID_PIPE_ITEM, 12), CraftingRecipeCategory.MISC);
 
         addShapedCraftingRecipe(output, conditionsFromTag(CommonItemTags.IRON_PLATES), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.GLASS_PANES_COLORLESS),
@@ -961,221 +961,221 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 "IGI",
                 "IGI",
                 "IGI"
-        }, new ItemStack(ModBlocks.FLUID_TANK_SMALL_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.FLUID_TANK_SMALL_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.FLUID_TANK_SMALL_ITEM), Map.of(
-                'F', Ingredient.ofItems(ModBlocks.FLUID_TANK_SMALL_ITEM),
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.FLUID_TANK_SMALL_ITEM), Map.of(
+                'F', Ingredient.ofItems(EPBlocks.FLUID_TANK_SMALL_ITEM),
                 'S', Ingredient.fromTag(CommonItemTags.STEEL_INGOTS)
         ), new String[] {
                 "SFS",
                 "SFS",
                 "SFS"
-        }, new ItemStack(ModBlocks.FLUID_TANK_MEDIUM_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.FLUID_TANK_MEDIUM_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.FLUID_TANK_MEDIUM_ITEM), Map.of(
-                'F', Ingredient.ofItems(ModBlocks.FLUID_TANK_SMALL_ITEM),
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.FLUID_TANK_MEDIUM_ITEM), Map.of(
+                'F', Ingredient.ofItems(EPBlocks.FLUID_TANK_SMALL_ITEM),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_BLOCKS)
         ), new String[] {
                 "IFI",
                 "IFI",
                 "IFI"
-        }, new ItemStack(ModBlocks.FLUID_TANK_LARGE_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.FLUID_TANK_LARGE_ITEM), CraftingRecipeCategory.MISC);
     }
     private void buildEnergyTransportCraftingRecipes(RecipeExporter output) {
         addBasicCableCraftingRecipes(output, CommonItemTags.TIN_INGOTS, CommonItemTags.TIN_WIRES,
-                new ItemStack(ModBlocks.TIN_CABLE_ITEM, 9));
+                new ItemStack(EPBlocks.TIN_CABLE_ITEM, 9));
 
         addBasicCableCraftingRecipes(output, ConventionalItemTags.COPPER_INGOTS, CommonItemTags.COPPER_WIRES,
-                new ItemStack(ModBlocks.COPPER_CABLE_ITEM, 6));
+                new ItemStack(EPBlocks.COPPER_CABLE_ITEM, 6));
         addBasicCableCraftingRecipes(output, ConventionalItemTags.GOLD_INGOTS, CommonItemTags.GOLD_WIRES,
-                new ItemStack(ModBlocks.GOLD_CABLE_ITEM, 6));
+                new ItemStack(EPBlocks.GOLD_CABLE_ITEM, 6));
 
         addBasicCableCraftingRecipes(output, CommonItemTags.ENERGIZED_COPPER_INGOTS, CommonItemTags.ENERGIZED_COPPER_WIRES,
-                new ItemStack(ModBlocks.ENERGIZED_COPPER_CABLE_ITEM, 3));
+                new ItemStack(EPBlocks.ENERGIZED_COPPER_CABLE_ITEM, 3));
         addBasicCableCraftingRecipes(output, CommonItemTags.ENERGIZED_GOLD_INGOTS, CommonItemTags.ENERGIZED_GOLD_WIRES,
-                new ItemStack(ModBlocks.ENERGIZED_GOLD_CABLE_ITEM, 3));
+                new ItemStack(EPBlocks.ENERGIZED_GOLD_CABLE_ITEM, 3));
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.ENERGIZED_CRYSTAL_MATRIX), Map.of(
-                'I', Ingredient.ofItems(ModItems.CABLE_INSULATOR),
-                'C', Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX)
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.ENERGIZED_CRYSTAL_MATRIX), Map.of(
+                'I', Ingredient.ofItems(EPItems.CABLE_INSULATOR),
+                'C', Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX)
         ), new String[] {
                 "ICI",
                 "ICI",
                 "ICI"
-        }, new ItemStack(ModBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'M', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'M', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CSI",
                 "RMR",
                 "CSI"
-        }, new ItemStack(ModBlocks.LV_TRANSFORMER_1_TO_N_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'M', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'M', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CSI",
                 "SMR",
                 "CRI"
-        }, new ItemStack(ModBlocks.LV_TRANSFORMER_3_TO_3_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'M', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'M', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CRI",
                 "SMS",
                 "CRI"
-        }, new ItemStack(ModBlocks.LV_TRANSFORMER_N_TO_1_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                         'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS),
                         'C', Ingredient.fromTag(CommonItemTags.COPPER_BLOCKS),
                         'I', Ingredient.fromTag(CommonItemTags.IRON_BLOCKS),
-                        'M', Ingredient.ofItems(ModBlocks.HARDENED_MACHINE_FRAME_ITEM),
-                        'T', Ingredient.ofItems(ModBlocks.LV_TRANSFORMER_1_TO_N_ITEM)
+                        'M', Ingredient.ofItems(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
+                        'T', Ingredient.ofItems(EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM)
                 ), new String[] {
                         "CTI",
                         "SMS",
                         "CTI"
-                }, new ItemStack(ModBlocks.MV_TRANSFORMER_1_TO_N_ITEM), CraftingRecipeCategory.MISC,
+                }, new ItemStack(EPBlocks.MV_TRANSFORMER_1_TO_N_ITEM), CraftingRecipeCategory.MISC,
                 "", "", "mv_");
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                         'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS),
                         'C', Ingredient.fromTag(CommonItemTags.COPPER_BLOCKS),
                         'I', Ingredient.fromTag(CommonItemTags.IRON_BLOCKS),
-                        'M', Ingredient.ofItems(ModBlocks.HARDENED_MACHINE_FRAME_ITEM),
-                        'T', Ingredient.ofItems(ModBlocks.LV_TRANSFORMER_3_TO_3_ITEM)
+                        'M', Ingredient.ofItems(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
+                        'T', Ingredient.ofItems(EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM)
                 ), new String[] {
                         "CTI",
                         "SMS",
                         "CTI"
-                }, new ItemStack(ModBlocks.MV_TRANSFORMER_3_TO_3_ITEM), CraftingRecipeCategory.MISC,
+                }, new ItemStack(EPBlocks.MV_TRANSFORMER_3_TO_3_ITEM), CraftingRecipeCategory.MISC,
                 "", "", "mv_");
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                         'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS),
                         'C', Ingredient.fromTag(CommonItemTags.COPPER_BLOCKS),
                         'I', Ingredient.fromTag(CommonItemTags.IRON_BLOCKS),
-                        'M', Ingredient.ofItems(ModBlocks.HARDENED_MACHINE_FRAME_ITEM),
-                        'T', Ingredient.ofItems(ModBlocks.LV_TRANSFORMER_N_TO_1_ITEM)
+                        'M', Ingredient.ofItems(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
+                        'T', Ingredient.ofItems(EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM)
                 ), new String[] {
                         "CTI",
                         "SMS",
                         "CTI"
-                }, new ItemStack(ModBlocks.MV_TRANSFORMER_N_TO_1_ITEM), CraftingRecipeCategory.MISC,
+                }, new ItemStack(EPBlocks.MV_TRANSFORMER_N_TO_1_ITEM), CraftingRecipeCategory.MISC,
                 "", "", "mv_");
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS),
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
-                'M', Ingredient.ofItems(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'T', Ingredient.ofItems(ModBlocks.MV_TRANSFORMER_1_TO_N_ITEM)
+                'M', Ingredient.ofItems(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.ofItems(EPBlocks.MV_TRANSFORMER_1_TO_N_ITEM)
         ), new String[] {
                 "GTG",
                 "SMS",
                 "GTG"
-        }, new ItemStack(ModBlocks.HV_TRANSFORMER_1_TO_N_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS),
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
-                'M', Ingredient.ofItems(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'T', Ingredient.ofItems(ModBlocks.MV_TRANSFORMER_3_TO_3_ITEM)
+                'M', Ingredient.ofItems(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.ofItems(EPBlocks.MV_TRANSFORMER_3_TO_3_ITEM)
         ), new String[] {
                 "GTG",
                 "SMS",
                 "GTG"
-        }, new ItemStack(ModBlocks.HV_TRANSFORMER_3_TO_3_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.HV_TRANSFORMER_3_TO_3_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS),
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
-                'M', Ingredient.ofItems(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'T', Ingredient.ofItems(ModBlocks.MV_TRANSFORMER_N_TO_1_ITEM)
+                'M', Ingredient.ofItems(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.ofItems(EPBlocks.MV_TRANSFORMER_N_TO_1_ITEM)
         ), new String[] {
                 "GTG",
                 "SMS",
                 "GTG"
-        }, new ItemStack(ModBlocks.HV_TRANSFORMER_N_TO_1_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.HV_TRANSFORMER_N_TO_1_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS),
-                'C', Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX),
-                'M', Ingredient.ofItems(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
-                'T', Ingredient.ofItems(ModBlocks.HV_TRANSFORMER_1_TO_N_ITEM)
+                'C', Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'M', Ingredient.ofItems(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.ofItems(EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM)
         ), new String[] {
                 "CTC",
                 "SMS",
                 "CTC"
-        }, new ItemStack(ModBlocks.EHV_TRANSFORMER_1_TO_N_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS),
-                'C', Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX),
-                'M', Ingredient.ofItems(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
-                'T', Ingredient.ofItems(ModBlocks.HV_TRANSFORMER_3_TO_3_ITEM)
+                'C', Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'M', Ingredient.ofItems(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.ofItems(EPBlocks.HV_TRANSFORMER_3_TO_3_ITEM)
         ), new String[] {
                 "CTC",
                 "SMS",
                 "CTC"
-        }, new ItemStack(ModBlocks.EHV_TRANSFORMER_3_TO_3_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.EHV_TRANSFORMER_3_TO_3_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS),
-                'C', Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX),
-                'M', Ingredient.ofItems(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
-                'T', Ingredient.ofItems(ModBlocks.HV_TRANSFORMER_N_TO_1_ITEM)
+                'C', Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'M', Ingredient.ofItems(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.ofItems(EPBlocks.HV_TRANSFORMER_N_TO_1_ITEM)
         ), new String[] {
                 "CTC",
                 "SMS",
                 "CTC"
-        }, new ItemStack(ModBlocks.EHV_TRANSFORMER_N_TO_1_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.EHV_TRANSFORMER_N_TO_1_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
-                'B', Ingredient.ofItems(ModItems.BATTERY_5),
-                'M', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'B', Ingredient.ofItems(EPItems.BATTERY_5),
+                'M', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CBC",
                 "BMB",
                 "SBS"
-        }, new ItemStack(ModBlocks.BATTERY_BOX_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.BATTERY_BOX_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS),
                 'E', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
-                'B', Ingredient.ofItems(ModItems.BATTERY_8),
-                'M', Ingredient.ofItems(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM)
+                'B', Ingredient.ofItems(EPItems.BATTERY_8),
+                'M', Ingredient.ofItems(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "EBE",
                 "BMB",
                 "BSB"
-        }, new ItemStack(ModBlocks.ADVANCED_BATTERY_BOX_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ADVANCED_BATTERY_BOX_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapelessCraftingRecipe(output, conditionsFromItem(ModBlocks.BATTERY_BOX_ITEM), List.of(
-                Ingredient.ofItems(ModBlocks.BATTERY_BOX_ITEM),
+        addShapelessCraftingRecipe(output, conditionsFromItem(EPBlocks.BATTERY_BOX_ITEM), List.of(
+                Ingredient.ofItems(EPBlocks.BATTERY_BOX_ITEM),
                 Ingredient.ofItems(Items.MINECART)
-        ), new ItemStack(ModItems.BATTERY_BOX_MINECART), CraftingRecipeCategory.MISC);
+        ), new ItemStack(EPItems.BATTERY_BOX_MINECART), CraftingRecipeCategory.MISC);
 
-        addShapelessCraftingRecipe(output, conditionsFromItem(ModBlocks.ADVANCED_BATTERY_BOX_ITEM), List.of(
-                Ingredient.ofItems(ModBlocks.ADVANCED_BATTERY_BOX_ITEM),
+        addShapelessCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_BATTERY_BOX_ITEM), List.of(
+                Ingredient.ofItems(EPBlocks.ADVANCED_BATTERY_BOX_ITEM),
                 Ingredient.ofItems(Items.MINECART)
-        ), new ItemStack(ModItems.ADVANCED_BATTERY_BOX_MINECART), CraftingRecipeCategory.MISC);
+        ), new ItemStack(EPItems.ADVANCED_BATTERY_BOX_MINECART), CraftingRecipeCategory.MISC);
     }
     private void buildMachineCraftingRecipes(RecipeExporter output) {
         addShapedCraftingRecipe(output, conditionsFromItem(Items.SMOOTH_STONE), Map.of(
@@ -1186,7 +1186,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 "BBB",
                 "BsB",
                 "SSS"
-        }, new ItemStack(ModBlocks.PRESS_MOLD_MAKER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.PRESS_MOLD_MAKER_ITEM), CraftingRecipeCategory.MISC);
 
         addShapedCraftingRecipe(output, conditionsFromItem(Items.FURNACE), Map.of(
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
@@ -1196,259 +1196,259 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 "III",
                 "FIF",
                 "BBB"
-        }, new ItemStack(ModBlocks.ALLOY_FURNACE_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ALLOY_FURNACE_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'b', Ingredient.ofItems(ModItems.BASIC_CIRCUIT),
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+                'b', Ingredient.ofItems(EPItems.BASIC_CIRCUIT),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
                 'T', Ingredient.ofItems(Items.CRAFTING_TABLE)
         ), new String[] {
                 "CTC",
                 "bBb",
                 "ITI"
-        }, new ItemStack(ModBlocks.AUTO_CRAFTER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.AUTO_CRAFTER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ADVANCED_MACHINE_FRAME), Map.of(
-                'c', Ingredient.ofItems(ModItems.ADVANCED_CIRCUIT),
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_MACHINE_FRAME), Map.of(
+                'c', Ingredient.ofItems(EPItems.ADVANCED_CIRCUIT),
                 'P', Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_PLATES),
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
-                'A', Ingredient.ofItems(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'a', Ingredient.ofItems(ModBlocks.AUTO_CRAFTER_ITEM)
+                'A', Ingredient.ofItems(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'a', Ingredient.ofItems(EPBlocks.AUTO_CRAFTER_ITEM)
         ), new String[] {
                 "GaG",
                 "cAc",
                 "PaP"
-        }, new ItemStack(ModBlocks.ADVANCED_AUTO_CRAFTER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 's', Ingredient.fromTag(CommonItemTags.SILICON),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
                 'S', Ingredient.ofItems(Items.STONECUTTER)
         ), new String[] {
                 "CsC",
                 "SBS",
                 "CIC"
-        }, new ItemStack(ModBlocks.CRUSHER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.CRUSHER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'c', Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_PLATES),
                 'a', Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_PLATES),
-                'F', Ingredient.ofItems(ModBlocks.FLUID_TANK_SMALL_ITEM),
-                'A', Ingredient.ofItems(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'C', Ingredient.ofItems(ModBlocks.CRUSHER_ITEM)
+                'F', Ingredient.ofItems(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'A', Ingredient.ofItems(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'C', Ingredient.ofItems(EPBlocks.CRUSHER_ITEM)
         ), new String[] {
                 "aCa",
                 "FAF",
                 "cCc"
-        }, new ItemStack(ModBlocks.ADVANCED_CRUSHER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ADVANCED_CRUSHER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
                 'S', Ingredient.ofItems(Items.STONECUTTER)
         ), new String[] {
                 "ISI",
                 "SBS",
                 "ISI"
-        }, new ItemStack(ModBlocks.PULVERIZER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.PULVERIZER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_PLATES),
                 'a', Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_PLATES),
-                'F', Ingredient.ofItems(ModBlocks.FLUID_TANK_SMALL_ITEM),
-                'A', Ingredient.ofItems(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'P', Ingredient.ofItems(ModBlocks.PULVERIZER_ITEM)
+                'F', Ingredient.ofItems(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'A', Ingredient.ofItems(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'P', Ingredient.ofItems(EPBlocks.PULVERIZER_ITEM)
         ), new String[] {
                 "aPa",
                 "FAF",
                 "CPC"
-        }, new ItemStack(ModBlocks.ADVANCED_PULVERIZER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ADVANCED_PULVERIZER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'S', Ingredient.ofItems(ModItems.SAW_BLADE),
-                's', Ingredient.ofItems(ModItems.SILICON),
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.ofItems(EPItems.SAW_BLADE),
+                's', Ingredient.ofItems(EPItems.SILICON),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "sSs",
                 "CBC",
                 "sIs"
-        }, new ItemStack(ModBlocks.SAWMILL_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.SAWMILL_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'P', Ingredient.ofItems(Items.PISTON),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "IPI",
                 "PBP",
                 "IPI"
-        }, new ItemStack(ModBlocks.COMPRESSOR_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.COMPRESSOR_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'P', Ingredient.ofItems(Items.PISTON),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_BLOCKS),
                 'S', Ingredient.fromTag(CommonItemTags.STEEL_INGOTS),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "SPS",
                 "IBI",
                 "SIS"
-        }, new ItemStack(ModBlocks.METAL_PRESS_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.METAL_PRESS_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'I', Ingredient.fromTag(CommonItemTags.IRON_GEARS),
                 'i', Ingredient.fromTag(CommonItemTags.IRON_RODS),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
-                'P', Ingredient.ofItems(ModBlocks.PRESS_MOLD_MAKER_ITEM)
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'P', Ingredient.ofItems(EPBlocks.PRESS_MOLD_MAKER_ITEM)
         ), new String[] {
                 "IPI",
                 "iBi",
                 "IPI"
-        }, new ItemStack(ModBlocks.AUTO_PRESS_MOLD_MAKER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.AUTO_PRESS_MOLD_MAKER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 's', Ingredient.fromTag(CommonItemTags.SILICON),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
                 'S', Ingredient.ofItems(Items.STONECUTTER)
         ), new String[] {
                 "CSC",
                 "sBs",
                 "ISI"
-        }, new ItemStack(ModBlocks.AUTO_STONECUTTER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.AUTO_STONECUTTER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.GLASS_PANES_COLORLESS),
                 'D', Ingredient.ofItems(Items.DIRT),
                 'W', Ingredient.ofItems(Items.WATER_BUCKET),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "SWS",
                 "GBG",
                 "IDI"
-        }, new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_BLOCKS),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_BLOCKS),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
                 'D', Ingredient.ofItems(Items.DISPENSER)
         ), new String[] {
                 "IDS",
                 "DBD",
                 "SDC"
-        }, new ItemStack(ModBlocks.BLOCK_PLACER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.BLOCK_PLACER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
                 's', Ingredient.fromTag(CommonItemTags.STEEL_INGOTS),
                 'i', Ingredient.fromTag(CommonItemTags.IRON_GEARS),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS),
-                'B', Ingredient.ofItems(ModItems.BASIC_CIRCUIT),
-                'H', Ingredient.ofItems(ModBlocks.HARDENED_MACHINE_FRAME_ITEM)
+                'B', Ingredient.ofItems(EPItems.BASIC_CIRCUIT),
+                'H', Ingredient.ofItems(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "iRi",
                 "BHB",
                 "SsS"
-        }, new ItemStack(ModBlocks.ASSEMBLING_MACHINE_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ASSEMBLING_MACHINE_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
-                'B', Ingredient.ofItems(ModItems.BASIC_CIRCUIT),
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
+                'B', Ingredient.ofItems(EPItems.BASIC_CIRCUIT),
                 'S', Ingredient.fromTag(CommonItemTags.STEEL_INGOTS),
-                'H', Ingredient.ofItems(ModBlocks.HARDENED_MACHINE_FRAME_ITEM),
-                'A', Ingredient.ofItems(ModBlocks.ALLOY_FURNACE_ITEM)
+                'H', Ingredient.ofItems(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
+                'A', Ingredient.ofItems(EPBlocks.ALLOY_FURNACE_ITEM)
         ), new String[] {
                 "SAS",
                 "BHB",
                 "SAS"
-        }, new ItemStack(ModBlocks.INDUCTION_SMELTER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.INDUCTION_SMELTER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
-                'F', Ingredient.ofItems(ModBlocks.FLUID_TANK_SMALL_ITEM),
+                'F', Ingredient.ofItems(EPBlocks.FLUID_TANK_SMALL_ITEM),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "SIS",
                 "IBI",
                 "CFC"
-        }, new ItemStack(ModBlocks.FLUID_FILLER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.FLUID_FILLER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
-                'F', Ingredient.ofItems(ModBlocks.FLUID_TANK_SMALL_ITEM),
+                'F', Ingredient.ofItems(EPBlocks.FLUID_TANK_SMALL_ITEM),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'i', Ingredient.fromTag(CommonItemTags.IRON_GEARS),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_BLOCKS),
-                'H', Ingredient.ofItems(ModBlocks.HARDENED_MACHINE_FRAME_ITEM)
+                'H', Ingredient.ofItems(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "iSi",
                 "FHF",
                 "CIC"
-        }, new ItemStack(ModBlocks.STONE_SOLIDIFIER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.STONE_SOLIDIFIER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'i', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_BLOCKS),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
-                'D', Ingredient.ofItems(ModBlocks.FLUID_DRAINER_ITEM),
-                'F', Ingredient.ofItems(ModBlocks.FLUID_FILLER_ITEM),
-                'f', Ingredient.ofItems(ModBlocks.FLUID_TANK_SMALL_ITEM),
-                'H', Ingredient.ofItems(ModBlocks.HARDENED_MACHINE_FRAME_ITEM)
+                'D', Ingredient.ofItems(EPBlocks.FLUID_DRAINER_ITEM),
+                'F', Ingredient.ofItems(EPBlocks.FLUID_FILLER_ITEM),
+                'f', Ingredient.ofItems(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'H', Ingredient.ofItems(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CiC",
                 "DHF",
                 "IfI"
-        }, new ItemStack(ModBlocks.FLUID_TRANSPOSER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.FLUID_TRANSPOSER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'i', Ingredient.fromTag(CommonItemTags.IRON_GEARS),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_BLOCKS),
-                'F', Ingredient.ofItems(ModBlocks.FLUID_TANK_SMALL_ITEM),
+                'F', Ingredient.ofItems(EPBlocks.FLUID_TANK_SMALL_ITEM),
                 'B', Ingredient.ofItems(Items.IRON_BARS),
-                'f', Ingredient.ofItems(ModBlocks.IRON_FLUID_PIPE_ITEM),
-                'H', Ingredient.ofItems(ModBlocks.HARDENED_MACHINE_FRAME_ITEM)
+                'f', Ingredient.ofItems(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'H', Ingredient.ofItems(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "iBi",
                 "FHF",
                 "IfI"
-        }, new ItemStack(ModBlocks.FILTRATION_PLANT_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.FILTRATION_PLANT_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
-                'F', Ingredient.ofItems(ModBlocks.FLUID_TANK_SMALL_ITEM),
+                'F', Ingredient.ofItems(EPBlocks.FLUID_TANK_SMALL_ITEM),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CFC",
                 "IBI",
                 "SIS"
-        }, new ItemStack(ModBlocks.FLUID_DRAINER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.FLUID_DRAINER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
-                'F', Ingredient.ofItems(ModBlocks.FLUID_TANK_SMALL_ITEM),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'F', Ingredient.ofItems(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
                 'P', Ingredient.ofItems(Items.PISTON),
-                'p', Ingredient.ofItems(ModBlocks.IRON_FLUID_PIPE_ITEM)
+                'p', Ingredient.ofItems(EPBlocks.IRON_FLUID_PIPE_ITEM)
         ), new String[] {
                 "RPR",
                 "FBF",
                 "IpI"
-        }, new ItemStack(ModBlocks.FLUID_PUMP_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.FLUID_PUMP_ITEM), CraftingRecipeCategory.MISC);
 
         addShapedCraftingRecipe(output, conditionsFromTag(CommonItemTags.IRON_BLOCKS), Map.of(
                 'i', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
@@ -1459,191 +1459,191 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 "IBI",
                 "iGi",
                 "IiI"
-        }, new ItemStack(ModBlocks.DRAIN_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.DRAIN_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 's', Ingredient.fromTag(CommonItemTags.SILICON),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS)
         ), new String[] {
                 "sCs",
                 "IBI",
                 "CSC"
-        }, new ItemStack(ModBlocks.CHARGER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.CHARGER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'a', Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_PLATES),
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
-                'A', Ingredient.ofItems(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'C', Ingredient.ofItems(ModBlocks.CHARGER_ITEM)
+                'A', Ingredient.ofItems(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'C', Ingredient.ofItems(EPBlocks.CHARGER_ITEM)
         ), new String[] {
                 "SGS",
                 "aAa",
                 "GCG"
-        }, new ItemStack(ModBlocks.ADVANCED_CHARGER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ADVANCED_CHARGER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 's', Ingredient.fromTag(CommonItemTags.SILICON),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS)
         ), new String[] {
                 "CSC",
                 "IBI",
                 "sCs"
-        }, new ItemStack(ModBlocks.UNCHARGER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.UNCHARGER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'a', Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_PLATES),
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
-                'A', Ingredient.ofItems(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'U', Ingredient.ofItems(ModBlocks.UNCHARGER_ITEM)
+                'A', Ingredient.ofItems(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'U', Ingredient.ofItems(EPBlocks.UNCHARGER_ITEM)
         ), new String[] {
                 "GUG",
                 "aAa",
                 "SGS"
-        }, new ItemStack(ModBlocks.ADVANCED_UNCHARGER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ADVANCED_UNCHARGER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.CHARGER_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.CHARGER_ITEM), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_BLOCKS),
                 'c', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_BLOCKS),
                 'i', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
-                'H', Ingredient.ofItems(ModBlocks.CHARGER_ITEM)
+                'H', Ingredient.ofItems(EPBlocks.CHARGER_ITEM)
         ), new String[] {
                 "cCc",
                 "SHS",
                 "iIi"
-        }, new ItemStack(ModBlocks.MINECART_CHARGER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.MINECART_CHARGER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ADVANCED_CHARGER_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_CHARGER_ITEM), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.GOLD_BLOCKS),
                 'g', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_BLOCKS),
                 'c', Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_PLATES),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
-                'H', Ingredient.ofItems(ModBlocks.ADVANCED_CHARGER_ITEM)
+                'H', Ingredient.ofItems(EPBlocks.ADVANCED_CHARGER_ITEM)
         ), new String[] {
                 "gGg",
                 "SHS",
                 "cCc"
-        }, new ItemStack(ModBlocks.ADVANCED_MINECART_CHARGER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ADVANCED_MINECART_CHARGER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.UNCHARGER_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.UNCHARGER_ITEM), Map.of(
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_BLOCKS),
                 'c', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_BLOCKS),
                 'i', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
-                'U', Ingredient.ofItems(ModBlocks.UNCHARGER_ITEM)
+                'U', Ingredient.ofItems(EPBlocks.UNCHARGER_ITEM)
         ), new String[] {
                 "iIi",
                 "SUS",
                 "cCc"
-        }, new ItemStack(ModBlocks.MINECART_UNCHARGER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.MINECART_UNCHARGER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ADVANCED_UNCHARGER_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_UNCHARGER_ITEM), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.GOLD_BLOCKS),
                 'g', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_BLOCKS),
                 'c', Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_PLATES),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
-                'U', Ingredient.ofItems(ModBlocks.ADVANCED_UNCHARGER_ITEM)
+                'U', Ingredient.ofItems(EPBlocks.ADVANCED_UNCHARGER_ITEM)
         ), new String[] {
                 "cCc",
                 "SUS",
                 "gGg"
-        }, new ItemStack(ModBlocks.ADVANCED_MINECART_UNCHARGER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ADVANCED_MINECART_UNCHARGER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.BASIC_SOLAR_CELL), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.BASIC_SOLAR_CELL), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.GLASS_PANES_COLORLESS),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
                 'I', Ingredient.fromTag(ConventionalItemTags.IRON_INGOTS),
                 'C', Ingredient.fromTag(ConventionalItemTags.COPPER_INGOTS),
-                'B', Ingredient.ofItems(ModItems.BASIC_SOLAR_CELL)
+                'B', Ingredient.ofItems(EPItems.BASIC_SOLAR_CELL)
         ), new String[] {
                 "GGG",
                 "BRB",
                 "ICI"
-        }, new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_1), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.SOLAR_PANEL_ITEM_1), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.SOLAR_PANEL_ITEM_1), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.SOLAR_PANEL_ITEM_1), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.GLASS_PANES_COLORLESS),
                 'C', Ingredient.fromTag(ConventionalItemTags.COPPER_INGOTS),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
-                'S', Ingredient.ofItems(ModBlocks.SOLAR_PANEL_ITEM_1),
-                'B', Ingredient.ofItems(ModItems.BASIC_SOLAR_CELL)
+                'S', Ingredient.ofItems(EPBlocks.SOLAR_PANEL_ITEM_1),
+                'B', Ingredient.ofItems(EPItems.BASIC_SOLAR_CELL)
         ), new String[] {
                 "GGG",
                 "SBS",
                 "CRC"
-        }, new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_2), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.SOLAR_PANEL_ITEM_2), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.SOLAR_PANEL_ITEM_2), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.SOLAR_PANEL_ITEM_2), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.GLASS_PANES_COLORLESS),
                 'R', Ingredient.fromTag(CommonItemTags.REDSTONE_ALLOY_INGOTS),
                 's', Ingredient.fromTag(CommonItemTags.SILICON),
-                'S', Ingredient.ofItems(ModBlocks.SOLAR_PANEL_ITEM_2),
-                'B', Ingredient.ofItems(ModItems.BASIC_SOLAR_CELL)
+                'S', Ingredient.ofItems(EPBlocks.SOLAR_PANEL_ITEM_2),
+                'B', Ingredient.ofItems(EPItems.BASIC_SOLAR_CELL)
         ), new String[] {
                 "GGG",
                 "SBS",
                 "sRs"
-        }, new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_3), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.SOLAR_PANEL_ITEM_3), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.SOLAR_PANEL_ITEM_3), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.SOLAR_PANEL_ITEM_3), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.GLASS_PANES_COLORLESS),
                 's', Ingredient.fromTag(CommonItemTags.SILICON),
                 'R', Ingredient.fromTag(CommonItemTags.REDSTONE_ALLOY_INGOTS),
-                'S', Ingredient.ofItems(ModBlocks.SOLAR_PANEL_ITEM_3),
-                'A', Ingredient.ofItems(ModItems.ADVANCED_SOLAR_CELL)
+                'S', Ingredient.ofItems(EPBlocks.SOLAR_PANEL_ITEM_3),
+                'A', Ingredient.ofItems(EPItems.ADVANCED_SOLAR_CELL)
         ), new String[] {
                 "GGG",
                 "SsS",
                 "ARA"
-        }, new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_4), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.SOLAR_PANEL_ITEM_4), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.SOLAR_PANEL_ITEM_4), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.SOLAR_PANEL_ITEM_4), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.GLASS_PANES_COLORLESS),
                 'a', Ingredient.fromTag(CommonItemTags.AMETHYSTS),
                 'E', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_INGOTS),
-                'S', Ingredient.ofItems(ModBlocks.SOLAR_PANEL_ITEM_4),
-                'A', Ingredient.ofItems(ModItems.ADVANCED_SOLAR_CELL)
+                'S', Ingredient.ofItems(EPBlocks.SOLAR_PANEL_ITEM_4),
+                'A', Ingredient.ofItems(EPItems.ADVANCED_SOLAR_CELL)
         ), new String[] {
                 "GGG",
                 "SaS",
                 "AEA"
-        }, new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_5), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.SOLAR_PANEL_ITEM_5), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.SOLAR_PANEL_ITEM_5), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.SOLAR_PANEL_ITEM_5), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.GLASS_PANES_COLORLESS),
                 'A', Ingredient.fromTag(CommonItemTags.AMETHYSTS),
                 'E', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_INGOTS),
-                'S', Ingredient.ofItems(ModBlocks.SOLAR_PANEL_ITEM_5),
-                'R', Ingredient.ofItems(ModItems.REINFORCED_ADVANCED_SOLAR_CELL)
+                'S', Ingredient.ofItems(EPBlocks.SOLAR_PANEL_ITEM_5),
+                'R', Ingredient.ofItems(EPItems.REINFORCED_ADVANCED_SOLAR_CELL)
         ), new String[] {
                 "GGG",
                 "SAS",
                 "RER"
-        }, new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_6), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.SOLAR_PANEL_ITEM_6), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
                 'F', Ingredient.ofItems(Items.FURNACE)
         ), new String[] {
                 "ISI",
                 "CBC",
                 "IFI"
-        }, new ItemStack(ModBlocks.COAL_ENGINE_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.COAL_ENGINE_ITEM), CraftingRecipeCategory.MISC);
 
         addShapedCraftingRecipe(output, conditionsFromItem(Items.REDSTONE_LAMP), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
@@ -1653,153 +1653,153 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 "CSC",
                 "SRS",
                 "CSC"
-        }, new ItemStack(ModBlocks.POWERED_LAMP_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.POWERED_LAMP_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
-                'B', Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
                 'F', Ingredient.ofItems(Items.FURNACE)
         ), new String[] {
                 "CFC",
                 "SBS",
                 "IFI"
-        }, new ItemStack(ModBlocks.POWERED_FURNACE_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.POWERED_FURNACE_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
                 'a', Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_PLATES),
                 'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
-                'A', Ingredient.ofItems(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'P', Ingredient.ofItems(ModBlocks.POWERED_FURNACE_ITEM)
+                'A', Ingredient.ofItems(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'P', Ingredient.ofItems(EPBlocks.POWERED_FURNACE_ITEM)
         ), new String[] {
                 "GPG",
                 "SAS",
                 "aPa"
-        }, new ItemStack(ModBlocks.ADVANCED_POWERED_FURNACE_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'G', Ingredient.fromTag(CommonItemTags.GOLD_PLATES),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
                 'E', Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_PLATES),
                 'a', Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_PLATES),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_BLOCKS),
-                'A', Ingredient.ofItems(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM)
+                'A', Ingredient.ofItems(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "RaR",
                 "GAG",
                 "ECE"
-        }, new ItemStack(ModBlocks.LIGHTNING_GENERATOR_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.LIGHTNING_GENERATOR_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS),
                 'G', Ingredient.fromTag(CommonItemTags.GOLD_PLATES),
                 'R', Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS),
                 'E', Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_PLATES),
                 'a', Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_PLATES),
-                'A', Ingredient.ofItems(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM)
+                'A', Ingredient.ofItems(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "RaR",
                 "GAG",
                 "ESE"
-        }, new ItemStack(ModBlocks.ENERGIZER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.ENERGIZER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'I', Ingredient.fromTag(CommonItemTags.IRON_BLOCKS),
                 'R', Ingredient.fromTag(CommonItemTags.REDSTONE_BLOCKS),
                 'E', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_BLOCKS),
                 'a', Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_PLATES),
-                'A', Ingredient.ofItems(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM)
+                'A', Ingredient.ofItems(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "aRa",
                 "IAI",
                 "ECE"
-        }, new ItemStack(ModBlocks.CHARGING_STATION_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.CHARGING_STATION_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.COAL_ENGINE_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.COAL_ENGINE_ITEM), Map.of(
                 's', Ingredient.fromTag(CommonItemTags.SILICON),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS),
                 'c', Ingredient.fromTag(CommonItemTags.COPPER_WIRES),
-                'C', Ingredient.ofItems(ModBlocks.COAL_ENGINE_ITEM)
+                'C', Ingredient.ofItems(EPBlocks.COAL_ENGINE_ITEM)
         ), new String[] {
                 "cSc",
                 "sCs",
                 "cSc"
-        }, new ItemStack(ModBlocks.HEAT_GENERATOR_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.HEAT_GENERATOR_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.fromTag(CommonItemTags.SILICON),
-                'F', Ingredient.ofItems(ModBlocks.FLUID_TANK_SMALL_ITEM),
+                'F', Ingredient.ofItems(EPBlocks.FLUID_TANK_SMALL_ITEM),
                 'c', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_BLOCKS),
-                'H', Ingredient.ofItems(ModBlocks.HARDENED_MACHINE_FRAME_ITEM),
-                'E', Ingredient.ofItems(ModBlocks.COAL_ENGINE_ITEM)
+                'H', Ingredient.ofItems(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
+                'E', Ingredient.ofItems(EPBlocks.COAL_ENGINE_ITEM)
         ), new String[] {
                 "cHc",
                 "SES",
                 "CFC"
-        }, new ItemStack(ModBlocks.THERMAL_GENERATOR_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.THERMAL_GENERATOR_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'a', Ingredient.ofItems(Items.AMETHYST_BLOCK),
                 'E', Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_PLATES),
                 'P', Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_PLATES),
-                'A', Ingredient.ofItems(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM)
+                'A', Ingredient.ofItems(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "aPa",
                 "EAE",
                 "aPa"
-        }, new ItemStack(ModBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'P', Ingredient.ofItems(ModItems.PROCESSING_UNIT),
-                'C', Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX),
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+                'P', Ingredient.ofItems(EPItems.PROCESSING_UNIT),
+                'C', Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX),
                 'a', Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_PLATES),
                 'E', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
                 'A', Ingredient.fromTag(CommonItemTags.AMETHYSTS),
-                'R', Ingredient.ofItems(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM)
+                'R', Ingredient.ofItems(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CAC",
                 "PRP",
                 "aEa"
-        }, new ItemStack(ModBlocks.WEATHER_CONTROLLER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.WEATHER_CONTROLLER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'P', Ingredient.ofItems(ModItems.PROCESSING_UNIT),
-                'c', Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX),
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+                'P', Ingredient.ofItems(EPItems.PROCESSING_UNIT),
+                'c', Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX),
                 'C', Ingredient.ofItems(Items.CLOCK),
                 'A', Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_PLATES),
                 'E', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
-                'R', Ingredient.ofItems(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM)
+                'R', Ingredient.ofItems(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "cCc",
                 "PRP",
                 "AEA"
-        }, new ItemStack(ModBlocks.TIME_CONTROLLER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.TIME_CONTROLLER_ITEM), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'T', Ingredient.ofItems(ModItems.TELEPORTER_PROCESSING_UNIT),
-                'C', Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX),
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+                'T', Ingredient.ofItems(EPItems.TELEPORTER_PROCESSING_UNIT),
+                'C', Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX),
                 'A', Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_PLATES),
                 'E', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
                 'S', Ingredient.fromTag(CommonItemTags.SILICON_BLOCKS),
-                'R', Ingredient.ofItems(ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM)
+                'R', Ingredient.ofItems(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CEC",
                 "TRT",
                 "ASA"
-        }, new ItemStack(ModBlocks.TELEPORTER_ITEM), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPBlocks.TELEPORTER_ITEM), CraftingRecipeCategory.MISC);
     }
     private void buildMiscCraftingRecipes(RecipeExporter output) {
         addShapelessCraftingRecipe(output, InventoryChangedCriterion.Conditions.items(
                 Items.BOOK,
-                ModBlocks.BASIC_MACHINE_FRAME_ITEM
+                EPBlocks.BASIC_MACHINE_FRAME_ITEM
         ), List.of(
                 Ingredient.ofItems(Items.BOOK),
-                Ingredient.ofItems(ModBlocks.BASIC_MACHINE_FRAME_ITEM)
-        ), new ItemStack(ModItems.ENERGIZED_POWER_BOOK), CraftingRecipeCategory.MISC);
+                Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
+        ), new ItemStack(EPItems.ENERGIZED_POWER_BOOK), CraftingRecipeCategory.MISC);
 
         addShapedCraftingRecipe(output, conditionsFromTag(CommonItemTags.CHARCOAL_DUSTS), Map.of(
                 'P', Ingredient.ofItems(Items.PAPER),
@@ -1809,30 +1809,30 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 "PCP",
                 "CIC",
                 "PCP"
-        }, new ItemStack(ModItems.CHARCOAL_FILTER), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.CHARCOAL_FILTER), CraftingRecipeCategory.MISC);
 
-        addShapedCraftingRecipe(output, conditionsFromItem(ModItems.ENERGIZED_CRYSTAL_MATRIX), Map.of(
+        addShapedCraftingRecipe(output, conditionsFromItem(EPItems.ENERGIZED_CRYSTAL_MATRIX), Map.of(
                 'A', Ingredient.fromTag(CommonItemTags.AMETHYSTS),
-                'E', Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX),
+                'E', Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX),
                 'e', Ingredient.fromTag(CommonItemTags.ENDER_PEARLS)
         ), new String[] {
                 "AEA",
                 "EeE",
                 "AEA"
-        }, new ItemStack(ModItems.TELEPORTER_MATRIX), CraftingRecipeCategory.MISC);
+        }, new ItemStack(EPItems.TELEPORTER_MATRIX), CraftingRecipeCategory.MISC);
     }
     private void buildCustomCraftingRecipes(RecipeExporter output) {
-        addCustomCraftingRecipe(output, ModRecipes.TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER, CraftingRecipeCategory.MISC,
+        addCustomCraftingRecipe(output, EPRecipes.TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER, CraftingRecipeCategory.MISC,
                 "teleporter_matrix_settings_copy");
     }
 
     private void buildCookingRecipes(RecipeExporter output) {
-        addBlastingAndSmeltingRecipes(output, CommonItemTags.RAW_TIN_ORES, new ItemStack(ModItems.TIN_INGOT), CookingRecipeCategory.MISC,
+        addBlastingAndSmeltingRecipes(output, CommonItemTags.RAW_TIN_ORES, new ItemStack(EPItems.TIN_INGOT), CookingRecipeCategory.MISC,
                 100, .7f, "tin_ingot", "raw_tin");
-        addBlastingAndSmeltingRecipes(output, CommonItemTags.TIN_ORES, new ItemStack(ModItems.TIN_INGOT), CookingRecipeCategory.MISC,
+        addBlastingAndSmeltingRecipes(output, CommonItemTags.TIN_ORES, new ItemStack(EPItems.TIN_INGOT), CookingRecipeCategory.MISC,
                 100, .7f, "tin_ingot", "tin_ores");
 
-        addBlastingAndSmeltingRecipes(output, CommonItemTags.TIN_DUSTS, new ItemStack(ModItems.TIN_INGOT), CookingRecipeCategory.MISC,
+        addBlastingAndSmeltingRecipes(output, CommonItemTags.TIN_DUSTS, new ItemStack(EPItems.TIN_INGOT), CookingRecipeCategory.MISC,
                 100, .7f, "tin_ingot", "tin_dust");
         addBlastingAndSmeltingRecipes(output, CommonItemTags.COPPER_DUSTS, new ItemStack(Items.COPPER_INGOT), CookingRecipeCategory.MISC,
                 100, .7f, "copper_ingot", "copper_dust");
@@ -1841,78 +1841,78 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         addBlastingAndSmeltingRecipes(output, CommonItemTags.GOLD_DUSTS, new ItemStack(Items.GOLD_INGOT), CookingRecipeCategory.MISC,
                 100, .7f, "gold_ingot", "gold_dust");
 
-        addBlastingAndSmeltingRecipes(output, ModItems.IRON_HAMMER, new ItemStack(Items.IRON_NUGGET), CookingRecipeCategory.MISC,
+        addBlastingAndSmeltingRecipes(output, EPItems.IRON_HAMMER, new ItemStack(Items.IRON_NUGGET), CookingRecipeCategory.MISC,
                 100, .1f, "iron_nugget", "iron_hammer");
-        addBlastingAndSmeltingRecipes(output, ModItems.GOLDEN_HAMMER, new ItemStack(Items.GOLD_NUGGET), CookingRecipeCategory.MISC,
+        addBlastingAndSmeltingRecipes(output, EPItems.GOLDEN_HAMMER, new ItemStack(Items.GOLD_NUGGET), CookingRecipeCategory.MISC,
                 100, .1f, "gold_nugget", "golden_hammer");
 
-        addBlastingAndSmeltingRecipes(output, ConventionalItemTags.QUARTZ, new ItemStack(ModItems.SILICON), CookingRecipeCategory.MISC,
+        addBlastingAndSmeltingRecipes(output, ConventionalItemTags.QUARTZ, new ItemStack(EPItems.SILICON), CookingRecipeCategory.MISC,
                 250, 4.1f, "silicon", "nether_quartz");
 
-        addSmeltingRecipe(output, ModBlocks.SAWDUST_BLOCK_ITEM, new ItemStack(Items.CHARCOAL), CookingRecipeCategory.MISC,
+        addSmeltingRecipe(output, EPBlocks.SAWDUST_BLOCK_ITEM, new ItemStack(Items.CHARCOAL), CookingRecipeCategory.MISC,
                 200, .15f, null, "sawdust_block");
 
-        addSmeltingRecipe(output, ModItems.RAW_GEAR_PRESS_MOLD, new ItemStack(ModItems.GEAR_PRESS_MOLD), CookingRecipeCategory.MISC,
+        addSmeltingRecipe(output, EPItems.RAW_GEAR_PRESS_MOLD, new ItemStack(EPItems.GEAR_PRESS_MOLD), CookingRecipeCategory.MISC,
                 200, .3f, null);
-        addSmeltingRecipe(output, ModItems.RAW_ROD_PRESS_MOLD, new ItemStack(ModItems.ROD_PRESS_MOLD), CookingRecipeCategory.MISC,
+        addSmeltingRecipe(output, EPItems.RAW_ROD_PRESS_MOLD, new ItemStack(EPItems.ROD_PRESS_MOLD), CookingRecipeCategory.MISC,
                 200, .3f, null);
-        addSmeltingRecipe(output, ModItems.RAW_WIRE_PRESS_MOLD, new ItemStack(ModItems.WIRE_PRESS_MOLD), CookingRecipeCategory.MISC,
+        addSmeltingRecipe(output, EPItems.RAW_WIRE_PRESS_MOLD, new ItemStack(EPItems.WIRE_PRESS_MOLD), CookingRecipeCategory.MISC,
                 200, .3f, null);
     }
 
     private void buildSmithingRecipes(RecipeExporter output) {
-        addNetheriteSmithingUpgradeRecipe(output, Ingredient.ofItems(ModItems.DIAMOND_HAMMER),
-                new ItemStack(ModItems.NETHERITE_HAMMER));
+        addNetheriteSmithingUpgradeRecipe(output, Ingredient.ofItems(EPItems.DIAMOND_HAMMER),
+                new ItemStack(EPItems.NETHERITE_HAMMER));
     }
 
     private void buildPressMoldMakerRecipes(RecipeExporter output) {
-        addPressMoldMakerRecipe(output, 4, new ItemStack(ModItems.RAW_GEAR_PRESS_MOLD));
-        addPressMoldMakerRecipe(output, 9, new ItemStack(ModItems.RAW_ROD_PRESS_MOLD));
-        addPressMoldMakerRecipe(output, 6, new ItemStack(ModItems.RAW_WIRE_PRESS_MOLD));
+        addPressMoldMakerRecipe(output, 4, new ItemStack(EPItems.RAW_GEAR_PRESS_MOLD));
+        addPressMoldMakerRecipe(output, 9, new ItemStack(EPItems.RAW_ROD_PRESS_MOLD));
+        addPressMoldMakerRecipe(output, 6, new ItemStack(EPItems.RAW_WIRE_PRESS_MOLD));
     }
 
     private void buildAlloyFurnaceRecipes(RecipeExporter output) {
         addAlloyFurnaceRecipe(output, new IngredientWithCount[] {
                 new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.IRON_INGOTS)),
                 new IngredientWithCount(Ingredient.fromTag(ItemTags.COALS), 3)
-        }, new ItemStack(ModItems.STEEL_INGOT), 500);
+        }, new ItemStack(EPItems.STEEL_INGOT), 500);
 
         addAlloyFurnaceRecipe(output, new IngredientWithCount[] {
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.TIN_INGOTS)),
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.SILICON)),
                 new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS), 2)
-        }, new ItemStack(ModItems.REDSTONE_ALLOY_INGOT), 2500);
+        }, new ItemStack(EPItems.REDSTONE_ALLOY_INGOT), 2500);
 
         addAlloyFurnaceRecipe(output, new IngredientWithCount[] {
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.STEEL_INGOTS), 3),
                 new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.COPPER_INGOTS), 3),
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.TIN_INGOTS), 3)
-        }, new ItemStack(ModItems.ADVANCED_ALLOY_INGOT), 10000);
+        }, new ItemStack(EPItems.ADVANCED_ALLOY_INGOT), 10000);
     }
 
     private void buildCompressorRecipes(RecipeExporter output) {
-        addCompressorRecipe(output, Ingredient.ofItems(ModItems.STONE_PEBBLE), new ItemStack(Items.COBBLESTONE),
+        addCompressorRecipe(output, Ingredient.ofItems(EPItems.STONE_PEBBLE), new ItemStack(Items.COBBLESTONE),
                 16, "stone_pebbles");
 
         addPlateCompressorRecipes(output, Ingredient.fromTag(CommonItemTags.TIN_INGOTS),
-                Ingredient.fromTag(CommonItemTags.TIN_BLOCKS), new ItemStack(ModItems.TIN_PLATE),
+                Ingredient.fromTag(CommonItemTags.TIN_BLOCKS), new ItemStack(EPItems.TIN_PLATE),
                 "tin");
         addPlateCompressorRecipes(output, Ingredient.fromTag(ConventionalItemTags.COPPER_INGOTS),
-                Ingredient.fromTag(CommonItemTags.COPPER_BLOCKS), new ItemStack(ModItems.COPPER_PLATE),
+                Ingredient.fromTag(CommonItemTags.COPPER_BLOCKS), new ItemStack(EPItems.COPPER_PLATE),
                 "copper");
         addPlateCompressorRecipes(output, Ingredient.fromTag(ConventionalItemTags.IRON_INGOTS),
-                Ingredient.fromTag(CommonItemTags.IRON_BLOCKS), new ItemStack(ModItems.IRON_PLATE),
+                Ingredient.fromTag(CommonItemTags.IRON_BLOCKS), new ItemStack(EPItems.IRON_PLATE),
                 "iron");
         addPlateCompressorRecipes(output, Ingredient.fromTag(ConventionalItemTags.GOLD_INGOTS),
-                Ingredient.fromTag(CommonItemTags.GOLD_BLOCKS), new ItemStack(ModItems.GOLD_PLATE),
+                Ingredient.fromTag(CommonItemTags.GOLD_BLOCKS), new ItemStack(EPItems.GOLD_PLATE),
                 "gold");
 
         addPlateCompressorIngotRecipe(output, Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_INGOTS),
-                new ItemStack(ModItems.ADVANCED_ALLOY_PLATE), "advanced_alloy");
+                new ItemStack(EPItems.ADVANCED_ALLOY_PLATE), "advanced_alloy");
         addPlateCompressorIngotRecipe(output, Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_INGOTS),
-                new ItemStack(ModItems.ENERGIZED_COPPER_PLATE), "energized_copper");
+                new ItemStack(EPItems.ENERGIZED_COPPER_PLATE), "energized_copper");
         addPlateCompressorIngotRecipe(output, Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_INGOTS),
-                new ItemStack(ModItems.ENERGIZED_GOLD_PLATE), "energized_gold");
+                new ItemStack(EPItems.ENERGIZED_GOLD_PLATE), "energized_gold");
     }
 
     private void buildCrusherRecipes(RecipeExporter output) {
@@ -1969,28 +1969,28 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         addBasicMetalPulverizerRecipes(output,
                 Ingredient.fromTag(CommonItemTags.TIN_ORES), Ingredient.fromTag(CommonItemTags.RAW_TIN_ORES),
                 Ingredient.fromTag(CommonItemTags.RAW_TIN_BLOCKS), Ingredient.fromTag(CommonItemTags.TIN_INGOTS),
-                new ItemStack(ModItems.TIN_DUST), "tin");
+                new ItemStack(EPItems.TIN_DUST), "tin");
         addBasicMetalPulverizerRecipes(output,
                 Ingredient.fromTag(CommonItemTags.IRON_ORES), Ingredient.fromTag(ConventionalItemTags.RAW_IRON_ORES),
                 Ingredient.fromTag(ConventionalItemTags.RAW_IRON_BLOCKS), Ingredient.fromTag(ConventionalItemTags.IRON_INGOTS),
-                new ItemStack(ModItems.IRON_DUST), "iron");
+                new ItemStack(EPItems.IRON_DUST), "iron");
         addBasicMetalPulverizerRecipes(output,
                 Ingredient.fromTag(CommonItemTags.GOLD_ORES), Ingredient.fromTag(ConventionalItemTags.RAW_GOLD_ORES),
                 Ingredient.fromTag(ConventionalItemTags.RAW_GOLD_BLOCKS), Ingredient.fromTag(ConventionalItemTags.GOLD_INGOTS),
-                new ItemStack(ModItems.GOLD_DUST), "gold");
+                new ItemStack(EPItems.GOLD_DUST), "gold");
 
         addPulverizerRecipe(output, Ingredient.fromTag(CommonItemTags.COPPER_ORES),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(ModItems.COPPER_DUST), new double[] {
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(EPItems.COPPER_DUST), new double[] {
                         1., 1., 1., 1., .5, .5
                 }, new double[] {
                         1., 1., 1., 1., .75, .5, .25
                 }),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(ModItems.GOLD_DUST),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(EPItems.GOLD_DUST),
                         .1, .2), "copper_ores");
         addRawMetalAndIngotPulverizerRecipes(output,
                 Ingredient.fromTag(ConventionalItemTags.RAW_COPPER_ORES),
                 Ingredient.fromTag(ConventionalItemTags.RAW_COPPER_BLOCKS), Ingredient.fromTag(ConventionalItemTags.COPPER_INGOTS),
-                new ItemStack(ModItems.COPPER_DUST), "copper");
+                new ItemStack(EPItems.COPPER_DUST), "copper");
 
         addPulverizerRecipe(output, Ingredient.fromTag(CommonItemTags.COAL_ORES),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.COAL), new double[] {
@@ -2042,7 +2042,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 }), "ancient_debris");
 
         addPulverizerRecipe(output, Ingredient.ofItems(Items.CHARCOAL),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(ModItems.CHARCOAL_DUST),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(EPItems.CHARCOAL_DUST),
                         1., 1.), "charcoal");
     }
 
@@ -2162,7 +2162,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 2, "oak_planks", "wooden_axe");
         addSawmillRecipe(output, Ingredient.ofItems(Items.WOODEN_HOE), new ItemStack(Items.OAK_PLANKS, 2),
                 2, "oak_planks", "wooden_hoe");
-        addSawmillRecipe(output, Ingredient.ofItems(ModItems.WOODEN_HAMMER), new ItemStack(Items.OAK_PLANKS, 2),
+        addSawmillRecipe(output, Ingredient.ofItems(EPItems.WOODEN_HAMMER), new ItemStack(Items.OAK_PLANKS, 2),
                 2, "oak_planks", "wooden_hammer");
 
         addSawmillRecipe(output, Ingredient.fromTag(ItemTags.PLANKS), new ItemStack(Items.STICK, 3),
@@ -2189,7 +2189,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         addSawmillRecipe(output, Ingredient.ofItems(Items.FISHING_ROD), new ItemStack(Items.STICK, 3),
                 new ItemStack(Items.STRING, 2), "sticks", "fishing_rod");
 
-        addSawmillRecipe(output, Ingredient.fromTag(CommonItemTags.WOODEN_RODS), new ItemStack(ModItems.SAWDUST),
+        addSawmillRecipe(output, Ingredient.fromTag(CommonItemTags.WOODEN_RODS), new ItemStack(EPItems.SAWDUST),
                 0, "sawdust", "sticks");
     }
 
@@ -2297,27 +2297,27 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         addPlantGrowthChamberFertilizerRecipe(output, Ingredient.ofItems(Items.BONE_MEAL),
                 1.5, 3., "bone_meal");
 
-        addPlantGrowthChamberFertilizerRecipe(output, Ingredient.ofItems(ModItems.BASIC_FERTILIZER),
+        addPlantGrowthChamberFertilizerRecipe(output, Ingredient.ofItems(EPItems.BASIC_FERTILIZER),
                 2.5, 3.5, "basic_fertilizer");
 
-        addPlantGrowthChamberFertilizerRecipe(output, Ingredient.ofItems(ModItems.GOOD_FERTILIZER),
+        addPlantGrowthChamberFertilizerRecipe(output, Ingredient.ofItems(EPItems.GOOD_FERTILIZER),
                 3.5, 5., "good_fertilizer");
 
-        addPlantGrowthChamberFertilizerRecipe(output, Ingredient.ofItems(ModItems.ADVANCED_FERTILIZER),
+        addPlantGrowthChamberFertilizerRecipe(output, Ingredient.ofItems(EPItems.ADVANCED_FERTILIZER),
                 5., 6.5, "advanced_fertilizer");
     }
 
     private void buildMetalPressRecipes(RecipeExporter output) {
-        addGearMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.IRON_PLATES), new ItemStack(ModItems.IRON_GEAR));
+        addGearMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.IRON_PLATES), new ItemStack(EPItems.IRON_GEAR));
 
-        addRodMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.IRON_PLATES), new ItemStack(ModItems.IRON_ROD));
+        addRodMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.IRON_PLATES), new ItemStack(EPItems.IRON_ROD));
 
-        addWireMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.TIN_PLATES), new ItemStack(ModItems.TIN_WIRE));
-        addWireMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.COPPER_PLATES), new ItemStack(ModItems.COPPER_WIRE));
-        addWireMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.GOLD_PLATES), new ItemStack(ModItems.GOLD_WIRE));
+        addWireMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.TIN_PLATES), new ItemStack(EPItems.TIN_WIRE));
+        addWireMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.COPPER_PLATES), new ItemStack(EPItems.COPPER_WIRE));
+        addWireMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.GOLD_PLATES), new ItemStack(EPItems.GOLD_WIRE));
 
-        addWireMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_PLATES), new ItemStack(ModItems.ENERGIZED_COPPER_WIRE));
-        addWireMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES), new ItemStack(ModItems.ENERGIZED_GOLD_WIRE));
+        addWireMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_PLATES), new ItemStack(EPItems.ENERGIZED_COPPER_WIRE));
+        addWireMetalPressRecipe(output, Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES), new ItemStack(EPItems.ENERGIZED_GOLD_WIRE));
     }
 
     private void buildHeatGeneratorRecipes(RecipeExporter output) {
@@ -2331,45 +2331,45 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     private void buildAssemblingMachineRecipes(RecipeExporter output) {
         addAssemblingMachineRecipe(output, new IngredientWithCount[] {
-                new IngredientWithCount(Ingredient.ofItems(ModItems.BASIC_SOLAR_CELL), 2),
+                new IngredientWithCount(Ingredient.ofItems(EPItems.BASIC_SOLAR_CELL), 2),
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_INGOTS), 4),
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.TIN_INGOTS), 2),
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.REDSTONE_ALLOY_INGOTS), 1)
-        }, new ItemStack(ModItems.ADVANCED_SOLAR_CELL));
+        }, new ItemStack(EPItems.ADVANCED_SOLAR_CELL));
 
         addAssemblingMachineRecipe(output, new IngredientWithCount[] {
-                new IngredientWithCount(Ingredient.ofItems(ModItems.ADVANCED_SOLAR_CELL), 2),
-                new IngredientWithCount(Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX), 4),
+                new IngredientWithCount(Ingredient.ofItems(EPItems.ADVANCED_SOLAR_CELL), 2),
+                new IngredientWithCount(Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX), 4),
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.SILICON), 2),
                 new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS), 2)
-        }, new ItemStack(ModItems.REINFORCED_ADVANCED_SOLAR_CELL));
+        }, new ItemStack(EPItems.REINFORCED_ADVANCED_SOLAR_CELL));
 
         addAssemblingMachineRecipe(output, new IngredientWithCount[] {
-                new IngredientWithCount(Ingredient.ofItems(ModItems.BASIC_CIRCUIT), 4),
+                new IngredientWithCount(Ingredient.ofItems(EPItems.BASIC_CIRCUIT), 4),
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.ENERGIZED_COPPER_WIRES), 4),
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.SILICON), 4),
                 new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.REDSTONE_DUSTS), 2)
-        }, new ItemStack(ModItems.ADVANCED_CIRCUIT));
+        }, new ItemStack(EPItems.ADVANCED_CIRCUIT));
 
         addAssemblingMachineRecipe(output, new IngredientWithCount[] {
-                new IngredientWithCount(Ingredient.ofItems(ModItems.ADVANCED_CIRCUIT), 4),
+                new IngredientWithCount(Ingredient.ofItems(EPItems.ADVANCED_CIRCUIT), 4),
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_WIRES), 6),
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.SILICON), 6)
-        }, new ItemStack(ModItems.PROCESSING_UNIT));
+        }, new ItemStack(EPItems.PROCESSING_UNIT));
 
         addAssemblingMachineRecipe(output, new IngredientWithCount[] {
-                new IngredientWithCount(Ingredient.ofItems(ModItems.PROCESSING_UNIT), 4),
-                new IngredientWithCount(Ingredient.ofItems(ModItems.TELEPORTER_MATRIX), 4),
-                new IngredientWithCount(Ingredient.ofItems(ModItems.ENERGIZED_CRYSTAL_MATRIX), 2),
+                new IngredientWithCount(Ingredient.ofItems(EPItems.PROCESSING_UNIT), 4),
+                new IngredientWithCount(Ingredient.ofItems(EPItems.TELEPORTER_MATRIX), 4),
+                new IngredientWithCount(Ingredient.ofItems(EPItems.ENERGIZED_CRYSTAL_MATRIX), 2),
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.SILICON), 2)
-        }, new ItemStack(ModItems.TELEPORTER_PROCESSING_UNIT));
+        }, new ItemStack(EPItems.TELEPORTER_PROCESSING_UNIT));
 
         addAssemblingMachineRecipe(output, new IngredientWithCount[] {
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.AMETHYSTS), 6),
                 new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.DIAMONDS), 2),
                 new IngredientWithCount(Ingredient.fromTag(ConventionalItemTags.EMERALDS), 2),
                 new IngredientWithCount(Ingredient.fromTag(CommonItemTags.REDSTONE_ALLOY_INGOTS), 1)
-        }, new ItemStack(ModItems.CRYSTAL_MATRIX));
+        }, new ItemStack(EPItems.CRYSTAL_MATRIX));
     }
 
     private void buildStoneSolidifierRecipes(RecipeExporter output) {
@@ -2393,7 +2393,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private void buildFiltrationPlantRecipes(RecipeExporter output) {
-        addOreFiltrationRecipe(output, new ItemStack(ModItems.RAW_TIN), 0.05, "tin");
+        addOreFiltrationRecipe(output, new ItemStack(EPItems.RAW_TIN), 0.05, "tin");
         addOreFiltrationRecipe(output, new ItemStack(Items.RAW_COPPER), 0.05, "copper");
         addOreFiltrationRecipe(output, new ItemStack(Items.RAW_IRON), 0.05, "iron");
         addOreFiltrationRecipe(output, new ItemStack(Items.RAW_GOLD), 0.005, "gold");
@@ -2428,16 +2428,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     private void buildChargerRecipes(RecipeExporter output) {
         addChargerRecipe(output, Ingredient.fromTag(ConventionalItemTags.COPPER_INGOTS),
-                new ItemStack(ModItems.ENERGIZED_COPPER_INGOT), 4194304);
+                new ItemStack(EPItems.ENERGIZED_COPPER_INGOT), 4194304);
     }
 
     private void buildEnergizerRecipes(RecipeExporter output) {
         addEnergizerRecipe(output, Ingredient.fromTag(ConventionalItemTags.COPPER_INGOTS),
-                new ItemStack(ModItems.ENERGIZED_COPPER_INGOT), 32768);
+                new ItemStack(EPItems.ENERGIZED_COPPER_INGOT), 32768);
         addEnergizerRecipe(output, Ingredient.fromTag(ConventionalItemTags.GOLD_INGOTS),
-                new ItemStack(ModItems.ENERGIZED_GOLD_INGOT), 131072);
-        addEnergizerRecipe(output, Ingredient.ofItems(ModItems.CRYSTAL_MATRIX),
-                new ItemStack(ModItems.ENERGIZED_CRYSTAL_MATRIX), 524288);
+                new ItemStack(EPItems.ENERGIZED_GOLD_INGOT), 131072);
+        addEnergizerRecipe(output, Ingredient.ofItems(EPItems.CRYSTAL_MATRIX),
+                new ItemStack(EPItems.ENERGIZED_CRYSTAL_MATRIX), 524288);
     }
 
     private void buildCrystalGrowthChamberRecipes(RecipeExporter output) {
@@ -2511,7 +2511,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                                                         ItemStack cableItem) {
         addShapedCraftingRecipe(output, conditionsFromTag(wireInput), Map.of(
                 'W', Ingredient.fromTag(wireInput),
-                'I', Ingredient.ofItems(ModItems.CABLE_INSULATOR)
+                'I', Ingredient.ofItems(EPItems.CABLE_INSULATOR)
         ), new String[] {
                 "IWI",
                 "IWI",
@@ -2522,7 +2522,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                                                ItemStack cableItem) {
         addShapedCraftingRecipe(output, conditionsFromTag(ingotInput), Map.of(
                 'I', Ingredient.fromTag(ingotInput),
-                'i', Ingredient.ofItems(ModItems.CABLE_INSULATOR)
+                'i', Ingredient.ofItems(EPItems.CABLE_INSULATOR)
         ), new String[] {
                 "iIi",
                 "iIi",
@@ -2968,13 +2968,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private static void addGearMetalPressRecipe(RecipeExporter RecipeExporter, Ingredient input, ItemStack output) {
-        addMetalPressRecipe(RecipeExporter, input, output, new ItemStack(ModItems.GEAR_PRESS_MOLD), 2);
+        addMetalPressRecipe(RecipeExporter, input, output, new ItemStack(EPItems.GEAR_PRESS_MOLD), 2);
     }
     private static void addRodMetalPressRecipe(RecipeExporter RecipeExporter, Ingredient input, ItemStack output) {
-        addMetalPressRecipe(RecipeExporter, input, output.copyWithCount(2), new ItemStack(ModItems.ROD_PRESS_MOLD));
+        addMetalPressRecipe(RecipeExporter, input, output.copyWithCount(2), new ItemStack(EPItems.ROD_PRESS_MOLD));
     }
     private static void addWireMetalPressRecipe(RecipeExporter RecipeExporter, Ingredient input, ItemStack output) {
-        addMetalPressRecipe(RecipeExporter, input, output.copyWithCount(3), new ItemStack(ModItems.WIRE_PRESS_MOLD));
+        addMetalPressRecipe(RecipeExporter, input, output.copyWithCount(3), new ItemStack(EPItems.WIRE_PRESS_MOLD));
     }
     private static void addMetalPressRecipe(RecipeExporter RecipeExporter, Ingredient input, ItemStack output,
                                             ItemStack pressMold) {
@@ -3052,7 +3052,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     private static void addOreFiltrationRecipe(RecipeExporter RecipeExporter, ItemStack oreOutput, double oreOutputPercentage,
                                                String oreName) {
-        addFiltrationPlantRecipe(RecipeExporter, new OutputItemStackWithPercentages(new ItemStack(ModItems.STONE_PEBBLE), .33),
+        addFiltrationPlantRecipe(RecipeExporter, new OutputItemStackWithPercentages(new ItemStack(EPItems.STONE_PEBBLE), .33),
                 new OutputItemStackWithPercentages(oreOutput, oreOutputPercentage), Registries.ITEM.getId(oreOutput.getItem()),
                 oreName + "_ore_filtration");
     }

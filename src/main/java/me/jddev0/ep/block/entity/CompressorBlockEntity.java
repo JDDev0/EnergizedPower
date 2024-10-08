@@ -5,7 +5,7 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.CompressorRecipe;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.CompressorMenu;
 import net.minecraft.block.BlockState;
 import net.minecraft.recipe.RecipeEntry;
@@ -16,11 +16,11 @@ public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<Compre
 
     public CompressorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.COMPRESSOR_ENTITY, blockPos, blockState,
+                EPBlockEntities.COMPRESSOR_ENTITY, blockPos, blockState,
 
                 "compressor", CompressorMenu::new,
 
-                2, ModRecipes.COMPRESSOR_TYPE, ModConfigs.COMMON_COMPRESSOR_RECIPE_DURATION.getValue(),
+                2, EPRecipes.COMPRESSOR_TYPE, ModConfigs.COMMON_COMPRESSOR_RECIPE_DURATION.getValue(),
 
                 ModConfigs.COMMON_COMPRESSOR_CAPACITY.getValue(),
                 ModConfigs.COMMON_COMPRESSOR_TRANSFER_RATE.getValue(),

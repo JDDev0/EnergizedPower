@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.AutoStonecutterBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -105,6 +105,6 @@ public class AutoStonecutterBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.AUTO_STONECUTTER_ENTITY, AutoStonecutterBlockEntity::tick);
+        return validateTicker(type, EPBlockEntities.AUTO_STONECUTTER_ENTITY, AutoStonecutterBlockEntity::tick);
     }
 }

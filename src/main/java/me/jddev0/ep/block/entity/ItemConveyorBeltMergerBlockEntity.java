@@ -2,8 +2,8 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ItemConveyorBeltMergerBlock;
-import me.jddev0.ep.block.ModBlockStateProperties;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlockStateProperties;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.config.ModConfigs;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -25,7 +25,7 @@ public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
     private int currentInputIndex;
 
     public ItemConveyorBeltMergerBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlockEntities.ITEM_CONVEYOR_BELT_MERGER_ENTITY, blockPos, blockState);
+        super(EPBlockEntities.ITEM_CONVEYOR_BELT_MERGER_ENTITY, blockPos, blockState);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
 
             BlockPos outputPos = blockPos.offset(facing);
             BlockState outputBlockState = level.getBlockState(outputPos);
-            if(!outputBlockState.isOf(ModBlocks.ITEM_CONVEYOR_BELT))
+            if(!outputBlockState.isOf(EPBlocks.ITEM_CONVEYOR_BELT))
                 return;
 
             BlockEntity outputBlockEntity = level.getBlockEntity(outputPos);
@@ -76,11 +76,11 @@ public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
 
                 BlockPos inputPos = blockPos.offset(inputDirection);
                 BlockState inputBlockState = level.getBlockState(inputPos);
-                if(!inputBlockState.isOf(ModBlocks.ITEM_CONVEYOR_BELT))
+                if(!inputBlockState.isOf(EPBlocks.ITEM_CONVEYOR_BELT))
                     continue;
 
                 //Conveyor belt must face towards Merger and must not be ascending
-                ModBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.get(ItemConveyorBeltBlock.FACING);
+                EPBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.get(ItemConveyorBeltBlock.FACING);
                 if(inputBeltFacing.isAscending() || inputBeltFacing.getDirection().getOpposite() != inputDirection)
                     continue;
 

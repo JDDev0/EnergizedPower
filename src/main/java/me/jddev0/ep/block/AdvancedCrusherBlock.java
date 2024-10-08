@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.AdvancedCrusherBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -118,7 +118,7 @@ public class AdvancedCrusherBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.ADVANCED_CRUSHER_ENTITY, AdvancedCrusherBlockEntity::tick);
+        return validateTicker(type, EPBlockEntities.ADVANCED_CRUSHER_ENTITY, AdvancedCrusherBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

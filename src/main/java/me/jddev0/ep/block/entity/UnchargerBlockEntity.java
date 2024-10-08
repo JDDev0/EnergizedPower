@@ -61,7 +61,7 @@ public class UnchargerBlockEntity
 
     public UnchargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.UNCHARGER_ENTITY, blockPos, blockState,
+                EPBlockEntities.UNCHARGER_ENTITY, blockPos, blockState,
 
                 "uncharger",
 
