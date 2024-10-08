@@ -1,6 +1,6 @@
 package me.jddev0.ep.item.energy;
 
-import me.jddev0.ep.component.ModDataComponentTypes;
+import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.Tag;
@@ -15,8 +15,8 @@ public class ItemCapabilityEnergy implements IEnergyStorage {
         this.itemStack = itemStack;
         this.energyStorage = energyStorage;
 
-        if(itemStack.has(ModDataComponentTypes.ENERGY))
-            this.energyStorage.loadNBT(IntTag.valueOf(itemStack.getOrDefault(ModDataComponentTypes.ENERGY, 0)));
+        if(itemStack.has(EPDataComponentTypes.ENERGY))
+            this.energyStorage.loadNBT(IntTag.valueOf(itemStack.getOrDefault(EPDataComponentTypes.ENERGY, 0)));
     }
 
     @Override
@@ -26,7 +26,7 @@ public class ItemCapabilityEnergy implements IEnergyStorage {
         if(!simulate) {
             Tag nbt = energyStorage.saveNBT();
             if(nbt instanceof IntTag nbtInt)
-                itemStack.set(ModDataComponentTypes.ENERGY, nbtInt.getAsInt());
+                itemStack.set(EPDataComponentTypes.ENERGY, nbtInt.getAsInt());
         }
 
         return ret;
@@ -39,7 +39,7 @@ public class ItemCapabilityEnergy implements IEnergyStorage {
         if(!simulate) {
             Tag nbt = energyStorage.saveNBT();
             if(nbt instanceof IntTag nbtInt)
-                itemStack.set(ModDataComponentTypes.ENERGY, nbtInt.getAsInt());
+                itemStack.set(EPDataComponentTypes.ENERGY, nbtInt.getAsInt());
         }
 
         return ret;
@@ -70,7 +70,7 @@ public class ItemCapabilityEnergy implements IEnergyStorage {
 
         Tag nbt = energyStorage.saveNBT();
         if(nbt instanceof IntTag nbtInt)
-            itemStack.set(ModDataComponentTypes.ENERGY, nbtInt.getAsInt());
+            itemStack.set(EPDataComponentTypes.ENERGY, nbtInt.getAsInt());
     }
 
     public void setCapacity(int capacity) {

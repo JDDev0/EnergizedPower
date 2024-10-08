@@ -1,11 +1,10 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.ThermalGeneratorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -128,6 +127,6 @@ public class ThermalGeneratorBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.THERMAL_GENERATOR_ENTITY.get(), ThermalGeneratorBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.THERMAL_GENERATOR_ENTITY.get(), ThermalGeneratorBlockEntity::tick);
     }
 }

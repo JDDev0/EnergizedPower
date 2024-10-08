@@ -28,7 +28,7 @@ public class WeatherControllerBlockEntity extends UpgradableEnergyStorageBlockEn
 
     public WeatherControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.WEATHER_CONTROLLER_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.WEATHER_CONTROLLER_ENTITY.get(), blockPos, blockState,
 
                 "weather_controller",
 

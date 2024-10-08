@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.jei;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -28,7 +28,7 @@ public class PressMoldMakerCategory implements IRecipeCategory<RecipeHolder<Pres
         ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
         background = helper.createDrawable(texture, 1, 77, 85, 26);
 
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.PRESS_MOLD_MAKER_ITEM.get()));
+        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.PRESS_MOLD_MAKER_ITEM.get()));
     }
 
     @Override

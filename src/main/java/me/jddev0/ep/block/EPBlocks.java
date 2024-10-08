@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.item.EPItems;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -16,13 +16,13 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public final class ModBlocks {
-    private ModBlocks() {}
+public final class EPBlocks {
+    private EPBlocks() {}
 
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(EPAPI.MOD_ID);
 
     private static DeferredItem<Item> createBlockItem(String name, DeferredBlock<Block> blockRegistryObject, Item.Properties props) {
-        return ModItems.ITEMS.register(name, () -> new BlockItem(blockRegistryObject.get(), props));
+        return EPItems.ITEMS.register(name, () -> new BlockItem(blockRegistryObject.get(), props));
     }
     private static DeferredItem<Item> createBlockItem(String name, DeferredBlock<Block> blockRegistryObject) {
         return createBlockItem(name, blockRegistryObject, new Item.Properties());
@@ -61,7 +61,7 @@ public final class ModBlocks {
     public static final DeferredBlock<ItemConveyorBeltBlock> ITEM_CONVEYOR_BELT = BLOCKS.register("item_conveyor_belt",
             () -> new ItemConveyorBeltBlock(BlockBehaviour.Properties.of().noCollission().
                     strength(2.5f, 3.0f).sound(SoundType.METAL)));
-    public static final DeferredItem<Item> ITEM_CONVEYOR_BELT_ITEM = ModItems.ITEMS.register("item_conveyor_belt",
+    public static final DeferredItem<Item> ITEM_CONVEYOR_BELT_ITEM = EPItems.ITEMS.register("item_conveyor_belt",
             () -> new ItemConveyorBeltBlock.Item(ITEM_CONVEYOR_BELT.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> ITEM_CONVEYOR_BELT_LOADER = BLOCKS.register("item_conveyor_belt_loader",
@@ -91,70 +91,70 @@ public final class ModBlocks {
 
     public static final DeferredBlock<FluidPipeBlock> IRON_FLUID_PIPE = BLOCKS.register("fluid_pipe",
             () -> new FluidPipeBlock(FluidPipeBlock.Tier.IRON));
-    public static final DeferredItem<Item> IRON_FLUID_PIPE_ITEM = ModItems.ITEMS.register("fluid_pipe",
+    public static final DeferredItem<Item> IRON_FLUID_PIPE_ITEM = EPItems.ITEMS.register("fluid_pipe",
             () -> new FluidPipeBlock.Item(IRON_FLUID_PIPE.get(), new Item.Properties(), FluidPipeBlock.Tier.IRON));
 
     public static final DeferredBlock<FluidPipeBlock> GOLDEN_FLUID_PIPE = BLOCKS.register("golden_fluid_pipe",
             () -> new FluidPipeBlock(FluidPipeBlock.Tier.GOLDEN));
-    public static final DeferredItem<Item> GOLDEN_FLUID_PIPE_ITEM = ModItems.ITEMS.register("golden_fluid_pipe",
+    public static final DeferredItem<Item> GOLDEN_FLUID_PIPE_ITEM = EPItems.ITEMS.register("golden_fluid_pipe",
             () -> new FluidPipeBlock.Item(GOLDEN_FLUID_PIPE.get(), new Item.Properties(), FluidPipeBlock.Tier.GOLDEN));
 
     public static final DeferredBlock<FluidTankBlock> FLUID_TANK_SMALL = BLOCKS.register("fluid_tank_small",
             () -> new FluidTankBlock(FluidTankBlock.Tier.SMALL));
-    public static final DeferredItem<Item> FLUID_TANK_SMALL_ITEM = ModItems.ITEMS.register("fluid_tank_small",
+    public static final DeferredItem<Item> FLUID_TANK_SMALL_ITEM = EPItems.ITEMS.register("fluid_tank_small",
             () -> new FluidTankBlock.Item(FLUID_TANK_SMALL.get(), new Item.Properties(), FluidTankBlock.Tier.SMALL));
 
     public static final DeferredBlock<FluidTankBlock> FLUID_TANK_MEDIUM = BLOCKS.register("fluid_tank_medium",
             () -> new FluidTankBlock(FluidTankBlock.Tier.MEDIUM));
-    public static final DeferredItem<Item> FLUID_TANK_MEDIUM_ITEM = ModItems.ITEMS.register("fluid_tank_medium",
+    public static final DeferredItem<Item> FLUID_TANK_MEDIUM_ITEM = EPItems.ITEMS.register("fluid_tank_medium",
             () -> new FluidTankBlock.Item(FLUID_TANK_MEDIUM.get(), new Item.Properties(), FluidTankBlock.Tier.MEDIUM));
 
     public static final DeferredBlock<FluidTankBlock> FLUID_TANK_LARGE = BLOCKS.register("fluid_tank_large",
             () -> new FluidTankBlock(FluidTankBlock.Tier.LARGE));
-    public static final DeferredItem<Item> FLUID_TANK_LARGE_ITEM = ModItems.ITEMS.register("fluid_tank_large",
+    public static final DeferredItem<Item> FLUID_TANK_LARGE_ITEM = EPItems.ITEMS.register("fluid_tank_large",
             () -> new FluidTankBlock.Item(FLUID_TANK_LARGE.get(), new Item.Properties(), FluidTankBlock.Tier.LARGE));
 
     public static final DeferredBlock<CreativeFluidTankBlock> CREATIVE_FLUID_TANK = BLOCKS.register("creative_fluid_tank",
             () -> new CreativeFluidTankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).
                     requiresCorrectToolForDrops().strength(-1.f, 3600000.f).noLootTable()));
-    public static final DeferredItem<Item> CREATIVE_FLUID_TANK_ITEM = ModItems.ITEMS.register("creative_fluid_tank",
+    public static final DeferredItem<Item> CREATIVE_FLUID_TANK_ITEM = EPItems.ITEMS.register("creative_fluid_tank",
             () -> new CreativeFluidTankBlock.Item(CREATIVE_FLUID_TANK.get(), new Item.Properties()));
 
     public static final DeferredBlock<CableBlock> TIN_CABLE = BLOCKS.register("tin_cable",
             () -> new CableBlock(CableBlock.Tier.TIER_TIN));
-    public static final DeferredItem<Item> TIN_CABLE_ITEM = ModItems.ITEMS.register("tin_cable",
+    public static final DeferredItem<Item> TIN_CABLE_ITEM = EPItems.ITEMS.register("tin_cable",
             () -> new CableBlock.Item(TIN_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_TIN));
 
     public static final DeferredBlock<CableBlock> COPPER_CABLE = BLOCKS.register("copper_cable",
             () -> new CableBlock(CableBlock.Tier.TIER_COPPER));
-    public static final DeferredItem<Item> COPPER_CABLE_ITEM = ModItems.ITEMS.register("copper_cable",
+    public static final DeferredItem<Item> COPPER_CABLE_ITEM = EPItems.ITEMS.register("copper_cable",
             () -> new CableBlock.Item(COPPER_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_COPPER));
 
     public static final DeferredBlock<CableBlock> GOLD_CABLE = BLOCKS.register("gold_cable",
             () -> new CableBlock(CableBlock.Tier.TIER_GOLD));
-    public static final DeferredItem<Item> GOLD_CABLE_ITEM = ModItems.ITEMS.register("gold_cable",
+    public static final DeferredItem<Item> GOLD_CABLE_ITEM = EPItems.ITEMS.register("gold_cable",
             () -> new CableBlock.Item(GOLD_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_GOLD));
 
     public static final DeferredBlock<CableBlock> ENERGIZED_COPPER_CABLE = BLOCKS.register("energized_copper_cable",
             () -> new CableBlock(CableBlock.Tier.TIER_ENERGIZED_COPPER));
-    public static final DeferredItem<Item> ENERGIZED_COPPER_CABLE_ITEM = ModItems.ITEMS.register("energized_copper_cable",
+    public static final DeferredItem<Item> ENERGIZED_COPPER_CABLE_ITEM = EPItems.ITEMS.register("energized_copper_cable",
             () -> new CableBlock.Item(ENERGIZED_COPPER_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_ENERGIZED_COPPER));
 
     public static final DeferredBlock<CableBlock> ENERGIZED_GOLD_CABLE = BLOCKS.register("energized_gold_cable",
             () -> new CableBlock(CableBlock.Tier.TIER_ENERGIZED_GOLD));
-    public static final DeferredItem<Item> ENERGIZED_GOLD_CABLE_ITEM = ModItems.ITEMS.register("energized_gold_cable",
+    public static final DeferredItem<Item> ENERGIZED_GOLD_CABLE_ITEM = EPItems.ITEMS.register("energized_gold_cable",
             () -> new CableBlock.Item(ENERGIZED_GOLD_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_ENERGIZED_GOLD));
 
     public static final DeferredBlock<CableBlock> ENERGIZED_CRYSTAL_MATRIX_CABLE = BLOCKS.register("energized_crystal_matrix_cable",
             () -> new CableBlock(CableBlock.Tier.TIER_ENERGIZED_CRYSTAL_MATRIX));
-    public static final DeferredItem<Item> ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM = ModItems.ITEMS.register("energized_crystal_matrix_cable",
+    public static final DeferredItem<Item> ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM = EPItems.ITEMS.register("energized_crystal_matrix_cable",
             () -> new CableBlock.Item(ENERGIZED_CRYSTAL_MATRIX_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_ENERGIZED_CRYSTAL_MATRIX));
 
     public static final DeferredBlock<TransformerBlock> LV_TRANSFORMER_1_TO_N = BLOCKS.register("lv_transformer_1_to_n",
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
                     TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_1_TO_N));
-    public static final DeferredItem<Item> LV_TRANSFORMER_1_TO_N_ITEM = ModItems.ITEMS.register("lv_transformer_1_to_n",
+    public static final DeferredItem<Item> LV_TRANSFORMER_1_TO_N_ITEM = EPItems.ITEMS.register("lv_transformer_1_to_n",
             () -> new TransformerBlock.Item(LV_TRANSFORMER_1_TO_N.get(), new Item.Properties(),
                     TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_1_TO_N));
 
@@ -162,7 +162,7 @@ public final class ModBlocks {
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
                     TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_3_TO_3));
-    public static final DeferredItem<Item> LV_TRANSFORMER_3_TO_3_ITEM = ModItems.ITEMS.register("lv_transformer_3_to_3",
+    public static final DeferredItem<Item> LV_TRANSFORMER_3_TO_3_ITEM = EPItems.ITEMS.register("lv_transformer_3_to_3",
             () -> new TransformerBlock.Item(LV_TRANSFORMER_3_TO_3.get(), new Item.Properties(),
                     TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_3_TO_3));
 
@@ -170,7 +170,7 @@ public final class ModBlocks {
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
                     TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_N_TO_1));
-    public static final DeferredItem<Item> LV_TRANSFORMER_N_TO_1_ITEM = ModItems.ITEMS.register("lv_transformer_n_to_1",
+    public static final DeferredItem<Item> LV_TRANSFORMER_N_TO_1_ITEM = EPItems.ITEMS.register("lv_transformer_n_to_1",
             () -> new TransformerBlock.Item(LV_TRANSFORMER_N_TO_1.get(), new Item.Properties(),
                     TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_N_TO_1));
 
@@ -178,7 +178,7 @@ public final class ModBlocks {
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
                     TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_1_TO_N));
-    public static final DeferredItem<Item> MV_TRANSFORMER_1_TO_N_ITEM = ModItems.ITEMS.register("transformer_1_to_n",
+    public static final DeferredItem<Item> MV_TRANSFORMER_1_TO_N_ITEM = EPItems.ITEMS.register("transformer_1_to_n",
             () -> new TransformerBlock.Item(MV_TRANSFORMER_1_TO_N.get(), new Item.Properties(),
                     TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_1_TO_N));
 
@@ -186,7 +186,7 @@ public final class ModBlocks {
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
                     TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_3_TO_3));
-    public static final DeferredItem<Item> MV_TRANSFORMER_3_TO_3_ITEM = ModItems.ITEMS.register("transformer_3_to_3",
+    public static final DeferredItem<Item> MV_TRANSFORMER_3_TO_3_ITEM = EPItems.ITEMS.register("transformer_3_to_3",
             () -> new TransformerBlock.Item(MV_TRANSFORMER_3_TO_3.get(), new Item.Properties(),
                     TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_3_TO_3));
 
@@ -194,7 +194,7 @@ public final class ModBlocks {
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
                     TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_N_TO_1));
-    public static final DeferredItem<Item> MV_TRANSFORMER_N_TO_1_ITEM = ModItems.ITEMS.register("transformer_n_to_1",
+    public static final DeferredItem<Item> MV_TRANSFORMER_N_TO_1_ITEM = EPItems.ITEMS.register("transformer_n_to_1",
             () -> new TransformerBlock.Item(MV_TRANSFORMER_N_TO_1.get(), new Item.Properties(),
                     TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_N_TO_1));
 
@@ -202,7 +202,7 @@ public final class ModBlocks {
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
                     TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_1_TO_N));
-    public static final DeferredItem<Item> HV_TRANSFORMER_1_TO_N_ITEM = ModItems.ITEMS.register("hv_transformer_1_to_n",
+    public static final DeferredItem<Item> HV_TRANSFORMER_1_TO_N_ITEM = EPItems.ITEMS.register("hv_transformer_1_to_n",
             () -> new TransformerBlock.Item(HV_TRANSFORMER_1_TO_N.get(), new Item.Properties(),
                     TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_1_TO_N));
 
@@ -210,7 +210,7 @@ public final class ModBlocks {
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
                     TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_3_TO_3));
-    public static final DeferredItem<Item> HV_TRANSFORMER_3_TO_3_ITEM = ModItems.ITEMS.register("hv_transformer_3_to_3",
+    public static final DeferredItem<Item> HV_TRANSFORMER_3_TO_3_ITEM = EPItems.ITEMS.register("hv_transformer_3_to_3",
             () -> new TransformerBlock.Item(HV_TRANSFORMER_3_TO_3.get(), new Item.Properties(),
                     TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_3_TO_3));
 
@@ -218,7 +218,7 @@ public final class ModBlocks {
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
                     TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_N_TO_1));
-    public static final DeferredItem<Item> HV_TRANSFORMER_N_TO_1_ITEM = ModItems.ITEMS.register("hv_transformer_n_to_1",
+    public static final DeferredItem<Item> HV_TRANSFORMER_N_TO_1_ITEM = EPItems.ITEMS.register("hv_transformer_n_to_1",
             () -> new TransformerBlock.Item(HV_TRANSFORMER_N_TO_1.get(), new Item.Properties(),
                     TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_N_TO_1));
 
@@ -226,7 +226,7 @@ public final class ModBlocks {
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
                     TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_1_TO_N));
-    public static final DeferredItem<Item> EHV_TRANSFORMER_1_TO_N_ITEM = ModItems.ITEMS.register("ehv_transformer_1_to_n",
+    public static final DeferredItem<Item> EHV_TRANSFORMER_1_TO_N_ITEM = EPItems.ITEMS.register("ehv_transformer_1_to_n",
             () -> new TransformerBlock.Item(EHV_TRANSFORMER_1_TO_N.get(), new Item.Properties(),
                     TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_1_TO_N));
 
@@ -234,7 +234,7 @@ public final class ModBlocks {
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
                     TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_3_TO_3));
-    public static final DeferredItem<Item> EHV_TRANSFORMER_3_TO_3_ITEM = ModItems.ITEMS.register("ehv_transformer_3_to_3",
+    public static final DeferredItem<Item> EHV_TRANSFORMER_3_TO_3_ITEM = EPItems.ITEMS.register("ehv_transformer_3_to_3",
             () -> new TransformerBlock.Item(EHV_TRANSFORMER_3_TO_3.get(), new Item.Properties(),
                     TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_3_TO_3));
 
@@ -242,26 +242,26 @@ public final class ModBlocks {
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
                     TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_N_TO_1));
-    public static final DeferredItem<Item> EHV_TRANSFORMER_N_TO_1_ITEM = ModItems.ITEMS.register("ehv_transformer_n_to_1",
+    public static final DeferredItem<Item> EHV_TRANSFORMER_N_TO_1_ITEM = EPItems.ITEMS.register("ehv_transformer_n_to_1",
             () -> new TransformerBlock.Item(EHV_TRANSFORMER_N_TO_1.get(), new Item.Properties(),
                     TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_N_TO_1));
 
     public static final DeferredBlock<Block> BATTERY_BOX = BLOCKS.register("battery_box",
             () -> new BatteryBoxBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final DeferredItem<Item> BATTERY_BOX_ITEM = ModItems.ITEMS.register("battery_box",
+    public static final DeferredItem<Item> BATTERY_BOX_ITEM = EPItems.ITEMS.register("battery_box",
             () -> new BatteryBoxBlock.Item(BATTERY_BOX.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> ADVANCED_BATTERY_BOX = BLOCKS.register("advanced_battery_box",
             () -> new AdvancedBatteryBoxBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final DeferredItem<Item> ADVANCED_BATTERY_BOX_ITEM = ModItems.ITEMS.register("advanced_battery_box",
+    public static final DeferredItem<Item> ADVANCED_BATTERY_BOX_ITEM = EPItems.ITEMS.register("advanced_battery_box",
             () -> new AdvancedBatteryBoxBlock.Item(ADVANCED_BATTERY_BOX.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> CREATIVE_BATTERY_BOX = BLOCKS.register("creative_battery_box",
             () -> new CreativeBatteryBoxBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).
                     requiresCorrectToolForDrops().strength(-1.f, 3600000.f).noLootTable()));
-    public static final DeferredItem<Item> CREATIVE_BATTERY_BOX_ITEM = ModItems.ITEMS.register("creative_battery_box",
+    public static final DeferredItem<Item> CREATIVE_BATTERY_BOX_ITEM = EPItems.ITEMS.register("creative_battery_box",
             () -> new CreativeBatteryBoxBlock.Item(CREATIVE_BATTERY_BOX.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> PRESS_MOLD_MAKER = BLOCKS.register("press_mold_maker",
@@ -278,13 +278,13 @@ public final class ModBlocks {
     public static final DeferredBlock<Block> AUTO_CRAFTER = BLOCKS.register("auto_crafter",
             () -> new AutoCrafterBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final DeferredItem<Item> AUTO_CRAFTER_ITEM = ModItems.ITEMS.register("auto_crafter",
+    public static final DeferredItem<Item> AUTO_CRAFTER_ITEM = EPItems.ITEMS.register("auto_crafter",
             () -> new AutoCrafterBlock.Item(AUTO_CRAFTER.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> ADVANCED_AUTO_CRAFTER = BLOCKS.register("advanced_auto_crafter",
             () -> new AdvancedAutoCrafterBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final DeferredItem<Item> ADVANCED_AUTO_CRAFTER_ITEM = ModItems.ITEMS.register("advanced_auto_crafter",
+    public static final DeferredItem<Item> ADVANCED_AUTO_CRAFTER_ITEM = EPItems.ITEMS.register("advanced_auto_crafter",
             () -> new AdvancedAutoCrafterBlock.Item(ADVANCED_AUTO_CRAFTER.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> CRUSHER = BLOCKS.register("crusher",
@@ -295,7 +295,7 @@ public final class ModBlocks {
     public static final DeferredBlock<Block> ADVANCED_CRUSHER = BLOCKS.register("advanced_crusher",
             () -> new AdvancedCrusherBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final DeferredItem<Item> ADVANCED_CRUSHER_ITEM = ModItems.ITEMS.register("advanced_crusher",
+    public static final DeferredItem<Item> ADVANCED_CRUSHER_ITEM = EPItems.ITEMS.register("advanced_crusher",
             () -> new AdvancedCrusherBlock.Item(ADVANCED_CRUSHER.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> PULVERIZER = BLOCKS.register("pulverizer",
@@ -306,7 +306,7 @@ public final class ModBlocks {
     public static final DeferredBlock<Block> ADVANCED_PULVERIZER = BLOCKS.register("advanced_pulverizer",
             () -> new AdvancedPulverizerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final DeferredItem<Item> ADVANCED_PULVERIZER_ITEM = ModItems.ITEMS.register("advanced_pulverizer",
+    public static final DeferredItem<Item> ADVANCED_PULVERIZER_ITEM = EPItems.ITEMS.register("advanced_pulverizer",
             () -> new AdvancedPulverizerBlock.Item(ADVANCED_PULVERIZER.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> SAWMILL = BLOCKS.register("sawmill",
@@ -322,7 +322,7 @@ public final class ModBlocks {
     public static final DeferredBlock<Block> METAL_PRESS = BLOCKS.register("metal_press",
             () -> new MetalPressBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final DeferredItem<Item> METAL_PRESS_ITEM = ModItems.ITEMS.register("metal_press",
+    public static final DeferredItem<Item> METAL_PRESS_ITEM = EPItems.ITEMS.register("metal_press",
             () -> new MetalPressBlock.Item(METAL_PRESS.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> AUTO_PRESS_MOLD_MAKER = BLOCKS.register("auto_press_mold_maker",
@@ -369,7 +369,7 @@ public final class ModBlocks {
     public static final DeferredBlock<Block> FILTRATION_PLANT = BLOCKS.register("filtration_plant",
             () -> new FiltrationPlantBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final DeferredItem<Item> FILTRATION_PLANT_ITEM = ModItems.ITEMS.register("filtration_plant",
+    public static final DeferredItem<Item> FILTRATION_PLANT_ITEM = EPItems.ITEMS.register("filtration_plant",
             () -> new FiltrationPlantBlock.Item(FILTRATION_PLANT.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> FLUID_TRANSPOSER = BLOCKS.register("fluid_transposer",
@@ -391,19 +391,19 @@ public final class ModBlocks {
     public static final DeferredBlock<Block> DRAIN = BLOCKS.register("drain",
             () -> new DrainBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final DeferredItem<Item> DRAIN_ITEM = ModItems.ITEMS.register("drain",
+    public static final DeferredItem<Item> DRAIN_ITEM = EPItems.ITEMS.register("drain",
             () -> new DrainBlock.Item(DRAIN.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> CHARGER = BLOCKS.register("charger",
             () -> new ChargerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final DeferredItem<Item> CHARGER_ITEM = ModItems.ITEMS.register("charger",
+    public static final DeferredItem<Item> CHARGER_ITEM = EPItems.ITEMS.register("charger",
             () -> new ChargerBlock.Item(CHARGER.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> ADVANCED_CHARGER = BLOCKS.register("advanced_charger",
             () -> new AdvancedChargerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final DeferredItem<Item> ADVANCED_CHARGER_ITEM = ModItems.ITEMS.register("advanced_charger",
+    public static final DeferredItem<Item> ADVANCED_CHARGER_ITEM = EPItems.ITEMS.register("advanced_charger",
             () -> new AdvancedChargerBlock.Item(ADVANCED_CHARGER.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> UNCHARGER = BLOCKS.register("uncharger",
@@ -419,30 +419,30 @@ public final class ModBlocks {
     public static final DeferredBlock<Block> MINECART_CHARGER = BLOCKS.register("minecart_charger",
             () -> new MinecartChargerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final DeferredItem<Item> MINECART_CHARGER_ITEM = ModItems.ITEMS.register("minecart_charger",
+    public static final DeferredItem<Item> MINECART_CHARGER_ITEM = EPItems.ITEMS.register("minecart_charger",
             () -> new MinecartChargerBlock.Item(MINECART_CHARGER.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> ADVANCED_MINECART_CHARGER = BLOCKS.register("advanced_minecart_charger",
             () -> new AdvancedMinecartChargerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final DeferredItem<Item> ADVANCED_MINECART_CHARGER_ITEM = ModItems.ITEMS.register("advanced_minecart_charger",
+    public static final DeferredItem<Item> ADVANCED_MINECART_CHARGER_ITEM = EPItems.ITEMS.register("advanced_minecart_charger",
             () -> new AdvancedMinecartChargerBlock.Item(ADVANCED_MINECART_CHARGER.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> MINECART_UNCHARGER = BLOCKS.register("minecart_uncharger",
             () -> new MinecartUnchargerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final DeferredItem<Item> MINECART_UNCHARGER_ITEM = ModItems.ITEMS.register("minecart_uncharger",
+    public static final DeferredItem<Item> MINECART_UNCHARGER_ITEM = EPItems.ITEMS.register("minecart_uncharger",
             () -> new MinecartUnchargerBlock.Item(MINECART_UNCHARGER.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> ADVANCED_MINECART_UNCHARGER = BLOCKS.register("advanced_minecart_uncharger",
             () -> new AdvancedMinecartUnchargerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final DeferredItem<Item> ADVANCED_MINECART_UNCHARGER_ITEM = ModItems.ITEMS.register("advanced_minecart_uncharger",
+    public static final DeferredItem<Item> ADVANCED_MINECART_UNCHARGER_ITEM = EPItems.ITEMS.register("advanced_minecart_uncharger",
             () -> new AdvancedMinecartUnchargerBlock.Item(ADVANCED_MINECART_UNCHARGER.get(), new Item.Properties()));
 
 
     private static DeferredItem<Item> createSolarPanelBlockItem(String name, DeferredBlock<SolarPanelBlock> blockRegistryObject) {
-        return ModItems.ITEMS.register(name, () -> new SolarPanelBlock.Item(blockRegistryObject.get(), new Item.Properties(),
+        return EPItems.ITEMS.register(name, () -> new SolarPanelBlock.Item(blockRegistryObject.get(), new Item.Properties(),
                 blockRegistryObject.get().getTier()));
     }
     public static final DeferredBlock<SolarPanelBlock> SOLAR_PANEL_1 = BLOCKS.register("solar_panel_1",
@@ -507,7 +507,7 @@ public final class ModBlocks {
             () -> new LightningGeneratorBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).
                     lightLevel(LightningGeneratorBlock.LIGHT_EMISSION)));
-    public static final DeferredItem<Item> LIGHTNING_GENERATOR_ITEM = ModItems.ITEMS.register("lightning_generator",
+    public static final DeferredItem<Item> LIGHTNING_GENERATOR_ITEM = EPItems.ITEMS.register("lightning_generator",
             () -> new LightningGeneratorBlock.Item(LIGHTNING_GENERATOR.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> ENERGIZER = BLOCKS.register("energizer",
@@ -520,7 +520,7 @@ public final class ModBlocks {
             () -> new ChargingStationBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).
                     lightLevel(ChargingStationBlock.LIGHT_EMISSION)));
-    public static final DeferredItem<Item> CHARGING_STATION_ITEM = ModItems.ITEMS.register("charging_station",
+    public static final DeferredItem<Item> CHARGING_STATION_ITEM = EPItems.ITEMS.register("charging_station",
             () -> new ChargingStationBlock.Item(CHARGING_STATION.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> CRYSTAL_GROWTH_CHAMBER = BLOCKS.register("crystal_growth_chamber",
@@ -541,7 +541,7 @@ public final class ModBlocks {
     public static final DeferredBlock<Block> TELEPORTER = BLOCKS.register("teleporter",
             () -> new TeleporterBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
-    public static final DeferredItem<Item> TELEPORTER_ITEM = ModItems.ITEMS.register("teleporter",
+    public static final DeferredItem<Item> TELEPORTER_ITEM = EPItems.ITEMS.register("teleporter",
             () -> new TeleporterBlock.Item(TELEPORTER.get(), new Item.Properties()));
 
     public static final DeferredBlock<Block> BASIC_MACHINE_FRAME = BLOCKS.register("basic_machine_frame",

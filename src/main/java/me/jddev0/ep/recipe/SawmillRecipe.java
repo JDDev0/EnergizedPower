@@ -3,9 +3,9 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.CodecFix;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.item.EPItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -24,7 +24,7 @@ public class SawmillRecipe implements Recipe<RecipeInput> {
     private final Ingredient input;
 
     public SawmillRecipe(ItemStack output, Ingredient input, int sawdustAmount) {
-        this(output, new ItemStack(ModItems.SAWDUST.get(), sawdustAmount), input);
+        this(output, new ItemStack(EPItems.SAWDUST.get(), sawdustAmount), input);
     }
 
     public SawmillRecipe(ItemStack output, ItemStack secondaryOutput, Ingredient input) {
@@ -77,7 +77,7 @@ public class SawmillRecipe implements Recipe<RecipeInput> {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.SAWMILL_ITEM.get());
+        return new ItemStack(EPBlocks.SAWMILL_ITEM.get());
     }
 
     @Override
@@ -117,13 +117,13 @@ public class SawmillRecipe implements Recipe<RecipeInput> {
                 if(recipe.secondaryOutput.isEmpty())
                     return Optional.of(0);
 
-                return ItemStack.isSameItemSameComponents(recipe.secondaryOutput, new ItemStack(ModItems.SAWDUST.get()))?
+                return ItemStack.isSameItemSameComponents(recipe.secondaryOutput, new ItemStack(EPItems.SAWDUST.get()))?
                         Optional.of(recipe.secondaryOutput.getCount()):Optional.empty();
             }), CodecFix.ITEM_STACK_CODEC.optionalFieldOf("secondaryOutput").forGetter((recipe) -> {
                 if(recipe.secondaryOutput.isEmpty())
                     return Optional.empty();
 
-                return ItemStack.isSameItemSameComponents(recipe.secondaryOutput, new ItemStack(ModItems.SAWDUST.get()))?
+                return ItemStack.isSameItemSameComponents(recipe.secondaryOutput, new ItemStack(EPItems.SAWDUST.get()))?
                         Optional.empty():Optional.of(recipe.secondaryOutput);
             })).apply(instance, (output, ingredient, sawdustAmount, secondaryOutput) -> {
                 return secondaryOutput.map(o -> new SawmillRecipe(output, o, ingredient)).

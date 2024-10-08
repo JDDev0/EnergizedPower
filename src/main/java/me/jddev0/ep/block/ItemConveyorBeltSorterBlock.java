@@ -2,10 +2,9 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.ItemConveyorBeltSorterBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -126,7 +125,7 @@ public class ItemConveyorBeltSorterBlock extends BaseEntityBlock {
             return;
 
         BlockState outputBeltState = level.getBlockState(blockPos.relative(outputBeltDirection));
-        itemConveyorBeltSorterBlockEntity.setOutputBeltConnected(index, outputBeltState.is(ModBlocks.ITEM_CONVEYOR_BELT.get()));
+        itemConveyorBeltSorterBlockEntity.setOutputBeltConnected(index, outputBeltState.is(EPBlocks.ITEM_CONVEYOR_BELT.get()));
     }
 
     @Override
@@ -152,6 +151,6 @@ public class ItemConveyorBeltSorterBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.ITEM_CONVEYOR_BELT_SORTER_ENTITY.get(), ItemConveyorBeltSorterBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.ITEM_CONVEYOR_BELT_SORTER_ENTITY.get(), ItemConveyorBeltSorterBlockEntity::tick);
     }
 }

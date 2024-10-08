@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidDrainerBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
@@ -34,10 +34,10 @@ public class FluidDrainerMenu extends UpgradableEnergyStorageMenu<FluidDrainerBl
     public FluidDrainerMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                             ContainerData data) {
         super(
-                ModMenuTypes.FLUID_DRAINER_MENU.get(), id,
+                EPMenuTypes.FLUID_DRAINER_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.FLUID_DRAINER.get(),
+                EPBlocks.FLUID_DRAINER.get(),
 
                 upgradeModuleInventory, 2
         );

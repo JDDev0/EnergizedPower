@@ -1,7 +1,7 @@
 package me.jddev0.ep.event;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.input.ModKeyBindings;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.UseTeleporterC2SPacket;
@@ -33,7 +33,7 @@ public class ModClientEvents {
             BlockPos blockPos = player.getOnPos();
             BlockState state = level.getBlockState(blockPos);
 
-            if(!state.is(ModBlocks.TELEPORTER.get()))
+            if(!state.is(EPBlocks.TELEPORTER.get()))
                 return;
 
             ModMessages.sendToServer(new UseTeleporterC2SPacket(blockPos));

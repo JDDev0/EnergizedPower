@@ -3,7 +3,7 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -88,7 +88,7 @@ public class FiltrationPlantRecipe implements Recipe<RecipeInput> {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.FILTRATION_PLANT.get());
+        return new ItemStack(EPBlocks.FILTRATION_PLANT.get());
     }
 
     @Override

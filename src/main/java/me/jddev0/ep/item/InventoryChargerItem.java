@@ -1,7 +1,7 @@
 package me.jddev0.ep.item;
 
 import me.jddev0.ep.component.InventoryComponent;
-import me.jddev0.ep.component.ModDataComponentTypes;
+import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.integration.curios.CuriosCompatUtils;
 import me.jddev0.ep.screen.InventoryChargerMenu;
@@ -9,7 +9,6 @@ import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.*;
@@ -257,7 +256,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
     }
 
     public static SimpleContainer getInventory(ItemStack itemStack) {
-        InventoryComponent inventory = itemStack.get(ModDataComponentTypes.INVENTORY);
+        InventoryComponent inventory = itemStack.get(EPDataComponentTypes.INVENTORY);
 
         if(inventory != null) {
             NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
@@ -276,7 +275,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
                     for(int i = 0;i < getContainerSize();i++)
                         items.set(i, getItem(i));
 
-                    itemStack.set(ModDataComponentTypes.INVENTORY, new InventoryComponent(items));
+                    itemStack.set(EPDataComponentTypes.INVENTORY, new InventoryComponent(items));
                 }
 
                 @Override
@@ -310,7 +309,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
                 for(int i = 0;i < getContainerSize();i++)
                     items.set(i, getItem(i));
 
-                itemStack.set(ModDataComponentTypes.INVENTORY, new InventoryComponent(items));
+                itemStack.set(EPDataComponentTypes.INVENTORY, new InventoryComponent(items));
             }
 
             @Override

@@ -54,7 +54,7 @@ public class CoalEngineBlockEntity
 
     public CoalEngineBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.COAL_ENGINE_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.COAL_ENGINE_ENTITY.get(), blockPos, blockState,
 
                 "coal_engine",
 

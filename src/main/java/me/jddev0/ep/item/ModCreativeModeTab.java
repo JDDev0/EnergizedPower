@@ -17,7 +17,7 @@ public class ModCreativeModeTab {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ENERGIZED_POWER_TAB = CREATIVE_MODE_TABS.register("main",
             () -> CreativeModeTab.builder().
                     title(Component.translatable("itemGroup.energizedpower.tab")).
-                    icon(() -> new ItemStack(ModItems.ENERGIZED_COPPER_INGOT.get())).
+                    icon(() -> new ItemStack(EPItems.ENERGIZED_COPPER_INGOT.get())).
                     build());
 
     public static void register(IEventBus modEventBus) {

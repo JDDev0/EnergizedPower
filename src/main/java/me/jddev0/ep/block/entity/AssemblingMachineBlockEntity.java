@@ -8,7 +8,7 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.IngredientWithCount;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.AssemblingMachineMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
@@ -36,11 +36,11 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
 
     public AssemblingMachineBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.ASSEMBLING_MACHINE_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.ASSEMBLING_MACHINE_ENTITY.get(), blockPos, blockState,
 
                 "assembling_machine", AssemblingMachineMenu::new,
 
-                5, ModRecipes.ASSEMBLING_MACHINE_TYPE.get(), ModConfigs.COMMON_ASSEMBLING_MACHINE_RECIPE_DURATION.getValue(),
+                5, EPRecipes.ASSEMBLING_MACHINE_TYPE.get(), ModConfigs.COMMON_ASSEMBLING_MACHINE_RECIPE_DURATION.getValue(),
 
                 ModConfigs.COMMON_ASSEMBLING_MACHINE_CAPACITY.getValue(),
                 ModConfigs.COMMON_ASSEMBLING_MACHINE_TRANSFER_RATE.getValue(),

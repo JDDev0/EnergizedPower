@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -69,7 +69,7 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<RecipeInput> {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM.get());
+        return new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get());
     }
 
     @Override

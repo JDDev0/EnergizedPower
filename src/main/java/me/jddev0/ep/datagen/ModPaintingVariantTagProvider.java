@@ -1,7 +1,7 @@
 package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.paintings.ModPaintingVariants;
+import me.jddev0.ep.paintings.EPPaintingVariants;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.PaintingVariantTagsProvider;
@@ -20,7 +20,7 @@ public class ModPaintingVariantTagProvider extends PaintingVariantTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider lookupProvider) {
         tag(PaintingVariantTags.PLACEABLE).
-                add(ModPaintingVariants.GEAR,
-                        ModPaintingVariants.FACTORY);
+                add(EPPaintingVariants.GEAR,
+                        EPPaintingVariants.FACTORY);
     }
 }

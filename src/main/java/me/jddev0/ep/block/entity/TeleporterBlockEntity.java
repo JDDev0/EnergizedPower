@@ -1,12 +1,11 @@
 package me.jddev0.ep.block.entity;
 
-import com.mojang.logging.LogUtils;
 import me.jddev0.ep.block.TeleporterBlock;
 import me.jddev0.ep.block.entity.base.MenuInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
 import me.jddev0.ep.screen.TeleporterMenu;
 import me.jddev0.ep.util.InventoryUtils;
@@ -70,7 +69,7 @@ public class TeleporterBlockEntity
 
     public TeleporterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.TELEPORTER_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.TELEPORTER_ENTITY.get(), blockPos, blockState,
 
                 "teleporter",
 
@@ -103,7 +102,7 @@ public class TeleporterBlockEntity
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 if(slot == 0) {
-                    return stack.is(ModItems.TELEPORTER_MATRIX.get());
+                    return stack.is(EPItems.TELEPORTER_MATRIX.get());
                 }
 
                 return super.isItemValid(slot, stack);
@@ -146,7 +145,7 @@ public class TeleporterBlockEntity
         ItemStack teleporterMatrixItemStack = itemHandler.getStackInSlot(0);
 
         boolean powered = energyStorage.getEnergy() == energyStorage.getCapacity() &&
-                teleporterMatrixItemStack.is(ModItems.TELEPORTER_MATRIX.get()) &&
+                teleporterMatrixItemStack.is(EPItems.TELEPORTER_MATRIX.get()) &&
                 TeleporterMatrixItem.isLinked(teleporterMatrixItemStack);
 
         if(oldPowered ^ powered)
@@ -193,7 +192,7 @@ public class TeleporterBlockEntity
             return;
         }
 
-        if(!teleporterMatrixItemStack.is(ModItems.TELEPORTER_MATRIX.get())) {
+        if(!teleporterMatrixItemStack.is(EPItems.TELEPORTER_MATRIX.get())) {
             player.connection.send(new ClientboundSetActionBarTextPacket(
                     Component.translatable("tooltip.energizedpower.teleporter.use.no_teleporter_matrix").
                             withStyle(ChatFormatting.RED)

@@ -10,8 +10,8 @@ import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 
 import java.util.function.Supplier;
 
-public final class ModRecipes {
-    private ModRecipes() {}
+public final class EPRecipes {
+    private EPRecipes() {}
 
     public static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(BuiltInRegistries.RECIPE_SERIALIZER, EPAPI.MOD_ID);
     public static final DeferredRegister<RecipeType<?>> TYPES = DeferredRegister.create(BuiltInRegistries.RECIPE_TYPE, EPAPI.MOD_ID);

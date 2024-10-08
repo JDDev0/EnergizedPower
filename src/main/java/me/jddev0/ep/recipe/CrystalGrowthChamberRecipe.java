@@ -3,7 +3,7 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -82,7 +82,7 @@ public class CrystalGrowthChamberRecipe implements Recipe<RecipeInput> {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM.get());
+        return new ItemStack(EPBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM.get());
     }
 
     @Override

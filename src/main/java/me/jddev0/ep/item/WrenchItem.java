@@ -1,12 +1,11 @@
 package me.jddev0.ep.item;
 
 import me.jddev0.ep.block.*;
-import me.jddev0.ep.component.ModDataComponentTypes;
+import me.jddev0.ep.component.EPDataComponentTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -31,7 +30,7 @@ public class WrenchItem extends Item {
     }
 
     public static Direction getCurrentFace(ItemStack itemStack) {
-        return itemStack.getOrDefault(ModDataComponentTypes.CURRENT_FACE, Direction.DOWN);
+        return itemStack.getOrDefault(EPDataComponentTypes.CURRENT_FACE, Direction.DOWN);
     }
 
     public static void cycleCurrentFace(ItemStack itemStack, ServerPlayer player) {
@@ -40,7 +39,7 @@ public class WrenchItem extends Item {
         currentFace = Direction.values()[(currentFace.ordinal() + diff + Direction.values().length) %
                 Direction.values().length];
 
-        itemStack.set(ModDataComponentTypes.CURRENT_FACE, currentFace);
+        itemStack.set(EPDataComponentTypes.CURRENT_FACE, currentFace);
 
         player.connection.send(new ClientboundSetActionBarTextPacket(
                 Component.translatable("tooltip.energizedpower.wrench.select_face",
@@ -102,12 +101,12 @@ public class WrenchItem extends Item {
 
         ItemStack itemStack = player.getMainHandItem();
 
-        if(itemStack.has(ModDataComponentTypes.ACTION_COOLDOWN))
+        if(itemStack.has(EPDataComponentTypes.ACTION_COOLDOWN))
             return false;
 
         cycleCurrentFace(itemStack, (ServerPlayer)player);
 
-        itemStack.set(ModDataComponentTypes.ACTION_COOLDOWN, 5);
+        itemStack.set(EPDataComponentTypes.ACTION_COOLDOWN, 5);
 
         return false;
     }
@@ -138,12 +137,12 @@ public class WrenchItem extends Item {
         if(!(entity instanceof Player))
             return;
 
-        if(itemStack.has(ModDataComponentTypes.ACTION_COOLDOWN)) {
-            int attackingCycleCooldown = itemStack.getOrDefault(ModDataComponentTypes.ACTION_COOLDOWN, 0) - 1;
+        if(itemStack.has(EPDataComponentTypes.ACTION_COOLDOWN)) {
+            int attackingCycleCooldown = itemStack.getOrDefault(EPDataComponentTypes.ACTION_COOLDOWN, 0) - 1;
             if(attackingCycleCooldown <= 0)
-                itemStack.remove(ModDataComponentTypes.ACTION_COOLDOWN);
+                itemStack.remove(EPDataComponentTypes.ACTION_COOLDOWN);
             else
-                itemStack.set(ModDataComponentTypes.ACTION_COOLDOWN, attackingCycleCooldown);
+                itemStack.set(EPDataComponentTypes.ACTION_COOLDOWN, attackingCycleCooldown);
         }
     }
 }

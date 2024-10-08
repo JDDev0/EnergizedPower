@@ -2,7 +2,7 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.AutoPressMoldMakerBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -115,6 +115,6 @@ public class AutoPressMoldMakerBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.AUTO_PRESS_MOLD_MAKER_ENTITY.get(), AutoPressMoldMakerBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.AUTO_PRESS_MOLD_MAKER_ENTITY.get(), AutoPressMoldMakerBlockEntity::tick);
     }
 }

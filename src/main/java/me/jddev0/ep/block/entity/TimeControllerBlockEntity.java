@@ -18,7 +18,7 @@ public class TimeControllerBlockEntity extends MenuEnergyStorageBlockEntity<Rece
 
     public TimeControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.TIME_CONTROLLER_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.TIME_CONTROLLER_ENTITY.get(), blockPos, blockState,
 
                 "time_controller",
 

@@ -2,7 +2,7 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.ChargingStationBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -10,7 +10,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -96,7 +95,7 @@ public class ChargingStationBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.CHARGING_STATION_ENTITY.get(), ChargingStationBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.CHARGING_STATION_ENTITY.get(), ChargingStationBlockEntity::tick);
     }
 
     @Override

@@ -35,8 +35,8 @@ public class FluidPipeBlockEntity extends BlockEntity {
     
     public static BlockEntityType<FluidPipeBlockEntity> getEntityTypeFromTier(FluidPipeBlock.Tier tier) {
         return switch(tier) {
-            case IRON -> ModBlockEntities.IRON_FLUID_PIPE_ENTITY.get();
-            case GOLDEN -> ModBlockEntities.GOLDEN_FLUID_PIPE_ENTITY.get();
+            case IRON -> EPBlockEntities.IRON_FLUID_PIPE_ENTITY.get();
+            case GOLDEN -> EPBlockEntities.GOLDEN_FLUID_PIPE_ENTITY.get();
         };
     }
 

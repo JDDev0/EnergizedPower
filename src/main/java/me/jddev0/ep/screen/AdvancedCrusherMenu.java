@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AdvancedCrusherBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
@@ -36,10 +36,10 @@ public class AdvancedCrusherMenu extends UpgradableEnergyStorageMenu<AdvancedCru
     public AdvancedCrusherMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                                ContainerData data) {
         super(
-                ModMenuTypes.ADVANCED_CRUSHER_MENU.get(), id,
+                EPMenuTypes.ADVANCED_CRUSHER_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.ADVANCED_CRUSHER.get(),
+                EPBlocks.ADVANCED_CRUSHER.get(),
 
                 upgradeModuleInventory, 3
         );

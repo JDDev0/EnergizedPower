@@ -2,12 +2,11 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.ChargerBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -122,7 +121,7 @@ public class ChargerBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.CHARGER_ENTITY.get(), ChargerBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.CHARGER_ENTITY.get(), ChargerBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

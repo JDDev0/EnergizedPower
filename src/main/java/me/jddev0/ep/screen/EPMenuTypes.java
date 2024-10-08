@@ -12,8 +12,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
-public final class ModMenuTypes {
-    private ModMenuTypes() {}
+public final class EPMenuTypes {
+    private EPMenuTypes() {}
 
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(BuiltInRegistries.MENU, EPAPI.MOD_ID);
 

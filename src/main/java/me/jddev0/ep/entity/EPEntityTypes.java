@@ -9,8 +9,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
-public final class ModEntityTypes {
-    private ModEntityTypes() {}
+public final class EPEntityTypes {
+    private EPEntityTypes() {}
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, EPAPI.MOD_ID);

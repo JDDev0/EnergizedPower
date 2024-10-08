@@ -64,7 +64,7 @@ public class AdvancedChargerBlockEntity
 
     public AdvancedChargerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.ADVANCED_CHARGER_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.ADVANCED_CHARGER_ENTITY.get(), blockPos, blockState,
 
                 "advanced_charger",
 

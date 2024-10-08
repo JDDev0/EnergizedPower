@@ -3,7 +3,7 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -63,7 +63,7 @@ public class CrusherRecipe implements Recipe<RecipeInput> {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.CRUSHER_ITEM.get());
+        return new ItemStack(EPBlocks.CRUSHER_ITEM.get());
     }
 
     @Override

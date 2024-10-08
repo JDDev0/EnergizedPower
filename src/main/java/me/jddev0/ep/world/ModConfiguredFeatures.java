@@ -1,11 +1,10 @@
 package me.jddev0.ep.world;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -26,8 +25,8 @@ public final class ModConfiguredFeatures {
         RuleTest DEEPSLATE_ORE_REPLACEABLES = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
 
         register(context, TIN_ORE_KEY, Feature.ORE, new OreConfiguration(List.of(
-                OreConfiguration.target(STONE_ORE_REPLACEABLES, ModBlocks.TIN_ORE.get().defaultBlockState()),
-                OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLES, ModBlocks.DEEPSLATE_TIN_ORE.get().defaultBlockState())
+                OreConfiguration.target(STONE_ORE_REPLACEABLES, EPBlocks.TIN_ORE.get().defaultBlockState()),
+                OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLES, EPBlocks.DEEPSLATE_TIN_ORE.get().defaultBlockState())
         ), 8));
     }
 

@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FiltrationPlantBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
@@ -40,10 +40,10 @@ public class FiltrationPlantMenu extends UpgradableEnergyStorageMenu<FiltrationP
     public FiltrationPlantMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                                ContainerData data) {
         super(
-                ModMenuTypes.FILTRATION_PLANT_MENU.get(), id,
+                EPMenuTypes.FILTRATION_PLANT_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.FILTRATION_PLANT.get(),
+                EPBlocks.FILTRATION_PLANT.get(),
 
                 upgradeModuleInventory, 3
         );

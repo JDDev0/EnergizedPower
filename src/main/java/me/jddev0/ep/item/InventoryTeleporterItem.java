@@ -3,7 +3,7 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.block.entity.TeleporterBlockEntity;
 import me.jddev0.ep.component.DimensionalPositionComponent;
 import me.jddev0.ep.component.InventoryComponent;
-import me.jddev0.ep.component.ModDataComponentTypes;
+import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
@@ -71,7 +71,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
         SimpleContainer inventory = getInventory(itemStack);
         ItemStack teleporterMatrixItemStack = inventory.getItem(0);
 
-        DimensionalPositionComponent dimPos = teleporterMatrixItemStack.get(ModDataComponentTypes.DIMENSIONAL_POSITION);
+        DimensionalPositionComponent dimPos = teleporterMatrixItemStack.get(EPDataComponentTypes.DIMENSIONAL_POSITION);
         boolean linked = TeleporterMatrixItem.isLinked(teleporterMatrixItemStack) && dimPos != null;
 
         components.add(Component.translatable("tooltip.energizedpower.teleporter_matrix.status").withStyle(ChatFormatting.GRAY).
@@ -100,7 +100,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
     }
 
     public static SimpleContainer getInventory(ItemStack itemStack) {
-        InventoryComponent inventory = itemStack.get(ModDataComponentTypes.INVENTORY);
+        InventoryComponent inventory = itemStack.get(EPDataComponentTypes.INVENTORY);
 
         if(inventory != null) {
             NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
@@ -119,13 +119,13 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
                     for(int i = 0;i < getContainerSize();i++)
                         items.set(i, getItem(i));
 
-                    itemStack.set(ModDataComponentTypes.INVENTORY, new InventoryComponent(items));
+                    itemStack.set(EPDataComponentTypes.INVENTORY, new InventoryComponent(items));
                 }
 
                 @Override
                 public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
                     if(slot >= 0 && slot < getContainerSize()) {
-                        return stack.is(ModItems.TELEPORTER_MATRIX.get());
+                        return stack.is(EPItems.TELEPORTER_MATRIX.get());
                     }
 
                     return super.canPlaceItem(slot, stack);
@@ -152,13 +152,13 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
                 for(int i = 0;i < getContainerSize();i++)
                     items.set(i, getItem(i));
 
-                itemStack.set(ModDataComponentTypes.INVENTORY, new InventoryComponent(items));
+                itemStack.set(EPDataComponentTypes.INVENTORY, new InventoryComponent(items));
             }
 
             @Override
             public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
                 if(slot >= 0 && slot < getContainerSize()) {
-                    return stack.is(ModItems.TELEPORTER_MATRIX.get());
+                    return stack.is(EPItems.TELEPORTER_MATRIX.get());
                 }
 
                 return super.canPlaceItem(slot, stack);

@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.InductionSmelterBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
@@ -37,10 +37,10 @@ public class InductionSmelterMenu extends UpgradableEnergyStorageMenu<InductionS
     public InductionSmelterMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                                 ContainerData data) {
         super(
-                ModMenuTypes.INDUCTION_SMELTER_MENU.get(), id,
+                EPMenuTypes.INDUCTION_SMELTER_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.INDUCTION_SMELTER.get(),
+                EPBlocks.INDUCTION_SMELTER.get(),
 
                 upgradeModuleInventory, 3
         );

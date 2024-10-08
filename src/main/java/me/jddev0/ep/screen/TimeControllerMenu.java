@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
 import me.jddev0.ep.screen.base.EnergyStorageMenu;
 import net.minecraft.network.FriendlyByteBuf;
@@ -16,10 +16,10 @@ public class TimeControllerMenu extends EnergyStorageMenu<TimeControllerBlockEnt
 
     public TimeControllerMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(
-                ModMenuTypes.TIME_CONTROLLER_MENU.get(), id,
+                EPMenuTypes.TIME_CONTROLLER_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.TIME_CONTROLLER.get()
+                EPBlocks.TIME_CONTROLLER.get()
         );
     }
 

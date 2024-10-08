@@ -10,7 +10,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.ExtraCodecs;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -46,12 +45,12 @@ public class SolarPanelBlock extends BaseEntityBlock {
 
     public static Block getBlockFromTier(SolarPanelBlock.Tier tier) {
         return switch(tier) {
-            case TIER_1 -> ModBlocks.SOLAR_PANEL_1.get();
-            case TIER_2 -> ModBlocks.SOLAR_PANEL_2.get();
-            case TIER_3 -> ModBlocks.SOLAR_PANEL_3.get();
-            case TIER_4 -> ModBlocks.SOLAR_PANEL_4.get();
-            case TIER_5 -> ModBlocks.SOLAR_PANEL_5.get();
-            case TIER_6 -> ModBlocks.SOLAR_PANEL_6.get();
+            case TIER_1 -> EPBlocks.SOLAR_PANEL_1.get();
+            case TIER_2 -> EPBlocks.SOLAR_PANEL_2.get();
+            case TIER_3 -> EPBlocks.SOLAR_PANEL_3.get();
+            case TIER_4 -> EPBlocks.SOLAR_PANEL_4.get();
+            case TIER_5 -> EPBlocks.SOLAR_PANEL_5.get();
+            case TIER_6 -> EPBlocks.SOLAR_PANEL_6.get();
         };
     }
 

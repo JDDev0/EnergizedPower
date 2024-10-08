@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.jei;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.recipe.FluidTransposerRecipe;
 import mezz.jei.api.constants.VanillaTypes;
@@ -34,7 +34,7 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
         backgroundEmptying = helper.createDrawable(texture, 1, 133, 143, 26);
         backgroundFilling = helper.createDrawable(texture, 1, 161, 143, 26);
 
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.FLUID_TRANSPOSER_ITEM.get()));
+        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.FLUID_TRANSPOSER_ITEM.get()));
     }
 
     @Override

@@ -27,7 +27,7 @@ public class AutoStonecutterBlockEntity
 
     public AutoStonecutterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.AUTO_STONECUTTER_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.AUTO_STONECUTTER_ENTITY.get(), blockPos, blockState,
 
                 "auto_stonecutter", AutoStonecutterMenu::new,
 

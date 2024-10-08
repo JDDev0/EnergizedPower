@@ -2,12 +2,12 @@ package me.jddev0.ep.event;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.item.EnergizedPowerBookItem;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.OpenEnergizedPowerBookS2CPacket;
-import me.jddev0.ep.villager.ModVillager;
+import me.jddev0.ep.villager.EPVillager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -43,134 +43,134 @@ public class ModEvents {
     @SubscribeEvent
     public static void addCustomTrades(VillagerTradesEvent event) {
         Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
-        if(event.getType() == ModVillager.ELECTRICIAN_PROFESSION.get()) {
+        if(event.getType() == EPVillager.ELECTRICIAN_PROFESSION.get()) {
             //Level 1
             addOffer(trades, 1,
                     new ItemCost(Items.EMERALD, 6),
                     new ItemCost(Items.BOOK),
-                    new ItemStack(ModItems.ENERGIZED_POWER_BOOK.get()),
+                    new ItemStack(EPItems.ENERGIZED_POWER_BOOK.get()),
                     3, 3, .02f);
             addOffer(trades, 1,
                     new ItemCost(Items.COPPER_INGOT, 2),
                     new ItemStack(Items.EMERALD, 1),
                     25, 1, .02f);
             addOffer(trades, 1,
-                    new ItemCost(ModItems.SILICON.get(), 3),
+                    new ItemCost(EPItems.SILICON.get(), 3),
                     new ItemStack(Items.EMERALD, 2),
                     15, 2, .02f);
             addOffer(trades, 1,
                     new ItemCost(Items.EMERALD, 6),
-                    new ItemStack(ModItems.CABLE_INSULATOR.get(), 16),
+                    new ItemStack(EPItems.CABLE_INSULATOR.get(), 16),
                     5, 3, .02f);
             addOffer(trades, 1,
                     new ItemCost(Items.EMERALD, 9),
-                    new ItemStack(ModItems.IRON_HAMMER.get()),
+                    new ItemStack(EPItems.IRON_HAMMER.get()),
                     2, 3, .02f);
 
             //Level 2
             addOffer(trades, 2,
                     new ItemCost(Items.EMERALD, 35),
-                    new ItemStack(ModBlocks.COPPER_CABLE_ITEM.get(), 6),
+                    new ItemStack(EPBlocks.COPPER_CABLE_ITEM.get(), 6),
                     3, 5, .02f);
             addOffer(trades, 2,
                     new ItemCost(Items.EMERALD, 6),
                     new ItemCost(Items.COPPER_INGOT, 4),
-                    new ItemStack(ModItems.BATTERY_2.get()),
+                    new ItemStack(EPItems.BATTERY_2.get()),
                     3, 7, .02f);
             addOffer(trades, 2,
                     new ItemCost(Items.EMERALD, 6),
                     new ItemCost(Items.COPPER_INGOT, 12),
-                    new ItemStack(ModItems.ENERGY_ANALYZER.get()),
+                    new ItemStack(EPItems.ENERGY_ANALYZER.get()),
                     2, 8, .02f);
             addOffer(trades, 2,
                     new ItemCost(Items.EMERALD, 6),
                     new ItemCost(Items.COPPER_INGOT, 12),
-                    new ItemStack(ModItems.FLUID_ANALYZER.get()),
+                    new ItemStack(EPItems.FLUID_ANALYZER.get()),
                     2, 8, .02f);
             addOffer(trades, 2,
-                    new ItemCost(ModItems.COPPER_PLATE.get(), 3),
+                    new ItemCost(EPItems.COPPER_PLATE.get(), 3),
                     new ItemStack(Items.EMERALD, 8),
                     15, 6, .02f);
             addOffer(trades, 2,
                     new ItemCost(Items.EMERALD, 12),
-                    new ItemStack(ModItems.CUTTER.get()),
+                    new ItemStack(EPItems.CUTTER.get()),
                     2, 8, .02f);
 
             //Level 3
             addOffer(trades, 3,
                     new ItemCost(Items.EMERALD, 21),
-                    new ItemCost(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
-                    new ItemStack(ModBlocks.COAL_ENGINE_ITEM.get()),
+                    new ItemCost(EPBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(EPBlocks.COAL_ENGINE_ITEM.get()),
                     3, 10, .02f);
             addOffer(trades, 3,
                     new ItemCost(Items.EMERALD, 31),
-                    new ItemCost(ModItems.BASIC_SOLAR_CELL.get(), 2),
-                    new ItemStack(ModBlocks.SOLAR_PANEL_ITEM_1.get()),
+                    new ItemCost(EPItems.BASIC_SOLAR_CELL.get(), 2),
+                    new ItemStack(EPBlocks.SOLAR_PANEL_ITEM_1.get()),
                     3, 10, .02f);
             addOffer(trades, 3,
                     new ItemCost(Items.EMERALD, 33),
-                    new ItemCost(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
-                    new ItemStack(ModBlocks.FLUID_FILLER_ITEM.get()),
+                    new ItemCost(EPBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(EPBlocks.FLUID_FILLER_ITEM.get()),
                     3, 10, .02f);
             addOffer(trades, 3,
                     new ItemCost(Items.EMERALD, 38),
-                    new ItemCost(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
-                    new ItemStack(ModBlocks.AUTO_CRAFTER_ITEM.get()),
+                    new ItemCost(EPBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(EPBlocks.AUTO_CRAFTER_ITEM.get()),
                     3, 10, .02f);
             addOffer(trades, 3,
                     new ItemCost(Items.EMERALD, 46),
-                    new ItemCost(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
-                    new ItemStack(ModBlocks.CHARGER_ITEM.get()),
+                    new ItemCost(EPBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(EPBlocks.CHARGER_ITEM.get()),
                     3, 10, .02f);
             addOffer(trades, 3,
-                    new ItemCost(ModItems.BASIC_SOLAR_CELL.get(), 3),
+                    new ItemCost(EPItems.BASIC_SOLAR_CELL.get(), 3),
                     new ItemStack(Items.EMERALD, 9),
                     15, 9, .02f);
 
             //Level 4
             addOffer(trades, 4,
                     new ItemCost(Items.EMERALD, 34),
-                    new ItemCost(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
-                    new ItemStack(ModBlocks.SAWMILL_ITEM.get()),
+                    new ItemCost(EPBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(EPBlocks.SAWMILL_ITEM.get()),
                     3, 20, .02f);
             addOffer(trades, 4,
                     new ItemCost(Items.EMERALD, 39),
-                    new ItemCost(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
-                    new ItemStack(ModBlocks.CRUSHER_ITEM.get()),
+                    new ItemCost(EPBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(EPBlocks.CRUSHER_ITEM.get()),
                     3, 20, .02f);
             addOffer(trades, 4,
                     new ItemCost(Items.EMERALD, 52),
-                    new ItemCost(ModBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
-                    new ItemStack(ModBlocks.COMPRESSOR_ITEM.get()),
+                    new ItemCost(EPBlocks.BASIC_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(EPBlocks.COMPRESSOR_ITEM.get()),
                     3, 20, .02f);
             addOffer(trades, 4,
                     new ItemCost(Items.EMERALD, 29),
                     new ItemCost(Items.COPPER_INGOT, 9),
-                    new ItemStack(ModItems.BATTERY_4.get()),
+                    new ItemStack(EPItems.BATTERY_4.get()),
                     2, 19, .02f);
             addOffer(trades, 4,
-                    new ItemCost(ModItems.SAWDUST.get(), 17),
+                    new ItemCost(EPItems.SAWDUST.get(), 17),
                     new ItemStack(Items.EMERALD, 4),
                     20, 18, .02f);
 
             //Level 5
             addOffer(trades, 5,
                     new ItemCost(Items.EMERALD, 32),
-                    new ItemCost(ModBlocks.HARDENED_MACHINE_FRAME_ITEM.get()),
-                    new ItemStack(ModBlocks.THERMAL_GENERATOR_ITEM.get()),
+                    new ItemCost(EPBlocks.HARDENED_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(EPBlocks.THERMAL_GENERATOR_ITEM.get()),
                     1, 30, .02f);
             addOffer(trades, 5,
                     new ItemCost(Items.EMERALD_BLOCK, 9),
-                    new ItemCost(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM.get()),
-                    new ItemStack(ModBlocks.ENERGIZER_ITEM.get()),
+                    new ItemCost(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(EPBlocks.ENERGIZER_ITEM.get()),
                     1, 30, .02f);
             addOffer(trades, 5,
                     new ItemCost(Items.EMERALD_BLOCK, 12),
-                    new ItemCost(ModBlocks.ADVANCED_MACHINE_FRAME_ITEM.get()),
-                    new ItemStack(ModBlocks.LIGHTNING_GENERATOR_ITEM.get()),
+                    new ItemCost(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM.get()),
+                    new ItemStack(EPBlocks.LIGHTNING_GENERATOR_ITEM.get()),
                     1, 30, .02f);
             addOffer(trades, 5,
-                    new ItemCost(ModItems.ENERGIZED_COPPER_INGOT.get()),
+                    new ItemCost(EPItems.ENERGIZED_COPPER_INGOT.get()),
                     new ItemStack(Items.EMERALD, 23),
                     15, 30, .02f);
         }
@@ -209,7 +209,7 @@ public class ModEvents {
             return;
 
         ItemStack bookItemStack = lecternBlockEntity.getBook();
-        if(!bookItemStack.is(ModItems.ENERGIZED_POWER_BOOK.get()))
+        if(!bookItemStack.is(EPItems.ENERGIZED_POWER_BOOK.get()))
             return;
 
         Item bookItem = bookItemStack.getItem();
@@ -247,7 +247,7 @@ public class ModEvents {
             level.destroyBlock(blockPos, false, player);
 
             ItemEntity itemEntity = new ItemEntity(level, blockPos.getX() + .5, blockPos.getY() + .5, blockPos.getZ() + .5,
-                    new ItemStack(ModItems.CABLE_INSULATOR.get(), 18), 0, 0, 0);
+                    new ItemStack(EPItems.CABLE_INSULATOR.get(), 18), 0, 0, 0);
             itemEntity.setPickUpDelay(20);
             level.addFreshEntity(itemEntity);
 

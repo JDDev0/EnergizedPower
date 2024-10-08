@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import me.jddev0.ep.inventory.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -44,10 +44,10 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
     public AdvancedAutoCrafterMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                                    Container[] patternSlots, Container[] patternResultSlots, ContainerData data) {
         super(
-                ModMenuTypes.ADVANCED_AUTO_CRAFTER_MENU.get(), id,
+                EPMenuTypes.ADVANCED_AUTO_CRAFTER_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.ADVANCED_AUTO_CRAFTER.get(),
+                EPBlocks.ADVANCED_AUTO_CRAFTER.get(),
                 8, 142,
 
                 upgradeModuleInventory, 3

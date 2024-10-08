@@ -4,11 +4,10 @@ import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 
-public final class ModPaintingVariants {
-    private ModPaintingVariants() {}
+public final class EPPaintingVariants {
+    private EPPaintingVariants() {}
 
     public static final ResourceKey<PaintingVariant> GEAR = registerKey("gear");
     public static final ResourceKey<PaintingVariant> FACTORY = registerKey("factory");

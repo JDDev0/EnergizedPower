@@ -54,7 +54,7 @@ public class FluidPumpBlockEntity
 
     public FluidPumpBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.FLUID_PUMP_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.FLUID_PUMP_ENTITY.get(), blockPos, blockState,
 
                 "fluid_pump",
 

@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.item.EPItems;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -22,7 +22,7 @@ public class InventoryTeleporterMenu extends AbstractContainerMenu {
             @Override
             public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
                 if(slot >= 0 && slot < getContainerSize()) {
-                    return stack.is(ModItems.TELEPORTER_MATRIX.get());
+                    return stack.is(EPItems.TELEPORTER_MATRIX.get());
                 }
 
                 return super.canPlaceItem(slot, stack);
@@ -36,7 +36,7 @@ public class InventoryTeleporterMenu extends AbstractContainerMenu {
     }
 
     public InventoryTeleporterMenu(int id, Inventory inv, Container container) {
-        super(ModMenuTypes.INVENTORY_TELEPORTER_MENU.get(), id);
+        super(EPMenuTypes.INVENTORY_TELEPORTER_MENU.get(), id);
 
         checkContainerSize(inv, 1);
         this.container = container;

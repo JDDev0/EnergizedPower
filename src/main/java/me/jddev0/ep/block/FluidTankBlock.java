@@ -11,7 +11,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.ExtraCodecs;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -44,9 +43,9 @@ public class FluidTankBlock extends BaseEntityBlock {
 
     public static Block getBlockFromTier(Tier tier) {
         return switch(tier) {
-            case SMALL -> ModBlocks.FLUID_TANK_SMALL.get();
-            case MEDIUM -> ModBlocks.FLUID_TANK_MEDIUM.get();
-            case LARGE -> ModBlocks.FLUID_TANK_LARGE.get();
+            case SMALL -> EPBlocks.FLUID_TANK_SMALL.get();
+            case MEDIUM -> EPBlocks.FLUID_TANK_MEDIUM.get();
+            case LARGE -> EPBlocks.FLUID_TANK_LARGE.get();
         };
     }
 

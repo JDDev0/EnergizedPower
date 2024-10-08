@@ -23,7 +23,7 @@ import java.util.List;
 public class LightningGeneratorBlockEntity extends MenuEnergyStorageBlockEntity<ExtractOnlyEnergyStorage> {
     public LightningGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.LIGHTING_GENERATOR_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.LIGHTING_GENERATOR_ENTITY.get(), blockPos, blockState,
 
                 "lightning_generator",
 

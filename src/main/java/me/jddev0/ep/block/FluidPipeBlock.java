@@ -83,8 +83,8 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
 
     public static Block getBlockFromTier(Tier tier) {
         return switch(tier) {
-            case IRON -> ModBlocks.IRON_FLUID_PIPE.get();
-            case GOLDEN -> ModBlocks.GOLDEN_FLUID_PIPE.get();
+            case IRON -> EPBlocks.IRON_FLUID_PIPE.get();
+            case GOLDEN -> EPBlocks.GOLDEN_FLUID_PIPE.get();
         };
     }
 

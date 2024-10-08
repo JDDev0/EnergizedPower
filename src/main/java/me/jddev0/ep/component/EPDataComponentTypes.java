@@ -14,8 +14,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
-public final class ModDataComponentTypes {
-    private ModDataComponentTypes() {}
+public final class EPDataComponentTypes {
+    private EPDataComponentTypes() {}
 
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, EPAPI.MOD_ID);
 

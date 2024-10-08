@@ -8,7 +8,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.PulverizerRecipe;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -20,7 +20,7 @@ import java.util.Locale;
 
 public class PulverizerEMIRecipe implements EmiRecipe {
     public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/pulverizer_side.png");
-    public static final EmiStack ITEM = EmiStack.of(ModBlocks.PULVERIZER_ITEM.get());
+    public static final EmiStack ITEM = EmiStack.of(EPBlocks.PULVERIZER_ITEM.get());
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("pulverizer"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 

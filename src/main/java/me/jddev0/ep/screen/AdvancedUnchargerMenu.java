@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AdvancedUnchargerBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
@@ -33,10 +33,10 @@ public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedU
     public AdvancedUnchargerMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                                  ContainerData data) {
         super(
-                ModMenuTypes.ADVANCED_UNCHARGER_MENU.get(), id,
+                EPMenuTypes.ADVANCED_UNCHARGER_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.ADVANCED_UNCHARGER.get(),
+                EPBlocks.ADVANCED_UNCHARGER.get(),
 
                 upgradeModuleInventory, 1
         );

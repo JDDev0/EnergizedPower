@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
@@ -38,10 +38,10 @@ public class FluidTransposerMenu extends UpgradableEnergyStorageMenu<FluidTransp
     public FluidTransposerMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                                ContainerData data) {
         super(
-                ModMenuTypes.FLUID_TRANSPOSER_MENU.get(), id,
+                EPMenuTypes.FLUID_TRANSPOSER_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.FLUID_TRANSPOSER.get(),
+                EPBlocks.FLUID_TRANSPOSER.get(),
 
                 upgradeModuleInventory, 3
         );

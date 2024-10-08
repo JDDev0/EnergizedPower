@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.behavior;
 
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.item.EPItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
@@ -43,7 +43,7 @@ public final class ModBlockBehaviors {
                     level.destroyBlock(blockPos, false, null);
 
                     ItemEntity itemEntity = new ItemEntity(level, blockPos.getX() + .5, blockPos.getY() + .5, blockPos.getZ() + .5,
-                            new ItemStack(ModItems.CABLE_INSULATOR.get(), 18), 0, 0, 0);
+                            new ItemStack(EPItems.CABLE_INSULATOR.get(), 18), 0, 0, 0);
                     itemEntity.setPickUpDelay(20);
                     level.addFreshEntity(itemEntity);
 

@@ -3,7 +3,7 @@ package me.jddev0.ep.integration.jei;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetAdvancedAutoCrafterPatternInputSlotsC2SPacket;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
-import me.jddev0.ep.screen.ModMenuTypes;
+import me.jddev0.ep.screen.EPMenuTypes;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -37,7 +37,7 @@ public class AdvancedAutoCrafterTransferHandler implements IRecipeTransferHandle
 
     @Override
     public Optional<MenuType<AdvancedAutoCrafterMenu>> getMenuType() {
-        return Optional.of(ModMenuTypes.ADVANCED_AUTO_CRAFTER_MENU.get());
+        return Optional.of(EPMenuTypes.ADVANCED_AUTO_CRAFTER_MENU.get());
     }
 
     @Override

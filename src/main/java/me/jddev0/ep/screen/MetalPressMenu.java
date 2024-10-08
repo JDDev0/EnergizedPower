@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.MetalPressBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
@@ -35,10 +35,10 @@ public class MetalPressMenu extends UpgradableEnergyStorageMenu<MetalPressBlockE
     public MetalPressMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                           ContainerData data) {
         super(
-                ModMenuTypes.METAL_PRESS_MENU.get(), id,
+                EPMenuTypes.METAL_PRESS_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.METAL_PRESS.get(),
+                EPBlocks.METAL_PRESS.get(),
 
                 upgradeModuleInventory, 3
         );

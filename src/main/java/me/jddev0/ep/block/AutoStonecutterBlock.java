@@ -2,7 +2,7 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.AutoStonecutterBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -115,6 +115,6 @@ public class AutoStonecutterBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.AUTO_STONECUTTER_ENTITY.get(), AutoStonecutterBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.AUTO_STONECUTTER_ENTITY.get(), AutoStonecutterBlockEntity::tick);
     }
 }

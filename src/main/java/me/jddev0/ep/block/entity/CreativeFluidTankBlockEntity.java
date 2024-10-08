@@ -15,7 +15,7 @@ public class CreativeFluidTankBlockEntity
         extends AbstractFluidTankBlockEntity<InfinityFluidStorage> {
     public CreativeFluidTankBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.CREATIVE_FLUID_TANK_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.CREATIVE_FLUID_TANK_ENTITY.get(), blockPos, blockState,
 
                 "creative_fluid_tank",
 

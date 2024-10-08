@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.InductionSmelterBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -133,6 +133,6 @@ public class InductionSmelterBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.INDUCTION_SMELTER_ENTITY.get(), InductionSmelterBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.INDUCTION_SMELTER_ENTITY.get(), InductionSmelterBlockEntity::tick);
     }
 }
