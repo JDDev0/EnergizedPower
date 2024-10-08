@@ -5,7 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.core.NonNullList;
@@ -133,7 +133,7 @@ public class PulverizerRecipe implements Recipe<Container> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "pulverizer");
+        public static final ResourceLocation ID = EPAPI.id("pulverizer");
 
         private final Codec<PulverizerRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
             return instance.group(OutputItemStackWithPercentages.createCodec(true).fieldOf("output").forGetter((recipe) -> {

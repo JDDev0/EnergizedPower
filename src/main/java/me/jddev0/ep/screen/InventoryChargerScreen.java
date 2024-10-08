@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.item.InventoryChargerItem;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
@@ -19,7 +19,7 @@ public class InventoryChargerScreen extends EnergizedPowerBaseContainerScreen<In
     public InventoryChargerScreen(InventoryChargerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
 
-        TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/generic_1x" + InventoryChargerItem.SLOT_COUNT + ".png");
+        TEXTURE = EPAPI.id("textures/gui/container/generic_1x" + InventoryChargerItem.SLOT_COUNT + ".png");
     }
 
     @Override

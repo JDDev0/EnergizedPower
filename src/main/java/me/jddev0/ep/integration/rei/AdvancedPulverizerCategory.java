@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class AdvancedPulverizerCategory implements DisplayCategory<AdvancedPulverizerDisplay> {
-    public static final CategoryIdentifier<AdvancedPulverizerDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "advanced_pulverizer");
+    public static final CategoryIdentifier<AdvancedPulverizerDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "advanced_pulverizer");
 
     private static final int PADDING = 5;
 
@@ -47,7 +47,7 @@ public class AdvancedPulverizerCategory implements DisplayCategory<AdvancedPulve
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/pulverizer.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/pulverizer.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 42, 30, 109, 26));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().

@@ -3,7 +3,7 @@ package me.jddev0.ep.recipe;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
 import net.minecraft.core.RegistryAccess;
@@ -17,9 +17,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class ThermalGeneratorRecipe implements Recipe<Container> {
     private final Fluid[] input;
@@ -89,7 +86,7 @@ public class ThermalGeneratorRecipe implements Recipe<Container> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "thermal_generator");
+        public static final ResourceLocation ID = EPAPI.id("thermal_generator");
 
         private final Codec<ThermalGeneratorRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
             return instance.group(Codec.either(new ArrayCodec<>(ForgeRegistries.FLUIDS.getCodec(), Fluid[]::new),

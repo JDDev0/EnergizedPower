@@ -2,7 +2,7 @@ package me.jddev0.ep.recipe;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
@@ -97,7 +97,7 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<Container> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "plant_growth_chamber_fertilizer");
+        public static final ResourceLocation ID = EPAPI.id("plant_growth_chamber_fertilizer");
 
         private final Codec<PlantGrowthChamberFertilizerRecipe> CODEC = RecordCodecBuilder.create((instance) -> {
             return instance.group(Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {

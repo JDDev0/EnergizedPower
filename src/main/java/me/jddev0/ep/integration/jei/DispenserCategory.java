@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -16,14 +16,14 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class DispenserCategory implements IRecipeCategory<DispenserCategory.DispenserRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "dispenser");
+    public static final ResourceLocation UID = EPAPI.id("dispenser");
     public static final RecipeType<DispenserRecipe> TYPE = new RecipeType<>(UID, DispenserRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public DispenserCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
         background = helper.createDrawable(texture, 1, 1, 103, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(Items.DISPENSER));

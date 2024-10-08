@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.packet.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
@@ -21,7 +21,7 @@ public final class ModMessages {
     }
 
     public static void register() {
-        SimpleChannel net = ChannelBuilder.named(new ResourceLocation(EnergizedPowerMod.MODID, "messages")).
+        SimpleChannel net = ChannelBuilder.named(EPAPI.id("messages")).
                 networkProtocolVersion(1).
                 simpleChannel();
 

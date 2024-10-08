@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -15,8 +15,8 @@ public class EnergizerScreen
     public EnergizerScreen(EnergizerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/energizer.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/energizer.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 
     @Override

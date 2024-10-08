@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.fluid.ModFluids;
 import me.jddev0.ep.item.ModItems;
 import net.minecraft.data.PackOutput;
@@ -14,7 +14,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModItemModelProvider extends ItemModelProvider {
     public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
-        super(output, EnergizedPowerMod.MODID, existingFileHelper);
+        super(output, EPAPI.MOD_ID, existingFileHelper);
     }
 
     @Override
@@ -199,12 +199,12 @@ public class ModItemModelProvider extends ItemModelProvider {
                 texture("layer0", new ResourceLocation(inventoryCoalEngineItemId.getNamespace(),
                         "item/" + inventoryCoalEngineItemId.getPath())).
                 override().
-                predicate(new ResourceLocation(EnergizedPowerMod.MODID, "active"), 1.f).
+                predicate(EPAPI.id("active"), 1.f).
                 model(inventoryCoalEngineActive).
                 end().
                 override().
-                predicate(new ResourceLocation(EnergizedPowerMod.MODID, "active"), 1.f).
-                predicate(new ResourceLocation(EnergizedPowerMod.MODID, "working"), 1.f).
+                predicate(EPAPI.id("active"), 1.f).
+                predicate(EPAPI.id("working"), 1.f).
                 model(inventoryCoalEngineOn).
                 end();
     }

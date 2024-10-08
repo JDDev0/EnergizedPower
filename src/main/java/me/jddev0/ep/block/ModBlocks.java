@@ -1,6 +1,6 @@
 package me.jddev0.ep.block;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.item.ModItems;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.item.BlockItem;
@@ -19,7 +19,7 @@ import net.minecraftforge.registries.RegistryObject;
 public final class ModBlocks {
     private ModBlocks() {}
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, EnergizedPowerMod.MODID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, EPAPI.MOD_ID);
 
     private static RegistryObject<Item> createBlockItem(String name, RegistryObject<Block> blockRegistryObject, Item.Properties props) {
         return ModItems.ITEMS.register(name, () -> new BlockItem(blockRegistryObject.get(), props));

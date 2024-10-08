@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen.advancement;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.registry.tags.CommonItemTags;
@@ -36,7 +36,7 @@ public class ModBasicsAdvancements implements ForgeAdvancementProvider.Advanceme
                         Items.COPPER_INGOT,
                         Component.translatable("advancements.energizedpower.energizedpower_basics.title"),
                         Component.translatable("advancements.energizedpower.energizedpower_basics.description"),
-                        new ResourceLocation(EnergizedPowerMod.MODID, "textures/block/basic_machine_frame_top.png"),
+                        EPAPI.id("textures/block/basic_machine_frame_top.png"),
                         FrameType.TASK,
                         true,
                         false,
@@ -46,8 +46,7 @@ public class ModBasicsAdvancements implements ForgeAdvancementProvider.Advanceme
                         InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
                                 Tags.Items.INGOTS_COPPER
                         ))).
-                save(advancementOutput, new ResourceLocation(EnergizedPowerMod.MODID,
-                                "main/basics/energizedpower_basics"));
+                save(advancementOutput, EPAPI.id(        "main/basics/energizedpower_basics"));
 
         AdvancementHolder energizedPowerBook = addAdvancement(
                 advancementOutput, existingFileHelper, energizedPowerBasics,
@@ -610,7 +609,6 @@ public class ModBasicsAdvancements implements ForgeAdvancementProvider.Advanceme
                         false
                 ).
                 addCriterion("has_the_item", trigger).
-                save(advancementOutput, new ResourceLocation(EnergizedPowerMod.MODID,
-                        "main/basics/" + advancementId));
+                save(advancementOutput, EPAPI.id("main/basics/" + advancementId));
     }
 }

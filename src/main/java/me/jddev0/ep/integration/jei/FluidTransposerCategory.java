@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.recipe.FluidTransposerRecipe;
@@ -32,7 +32,7 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
     private final IDrawable icon;
 
     public FluidTransposerCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
         backgroundEmptying = helper.createDrawable(texture, 1, 133, 143, 26);
         backgroundFilling = helper.createDrawable(texture, 1, 161, 143, 26);
 

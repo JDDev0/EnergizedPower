@@ -1,6 +1,6 @@
 package me.jddev0.ep.item;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -12,7 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModCreativeModeTab {
     private ModCreativeModeTab() {}
 
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, EnergizedPowerMod.MODID);
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, EPAPI.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> ENERGIZED_POWER_TAB = CREATIVE_MODE_TABS.register("main",
             () -> CreativeModeTab.builder().

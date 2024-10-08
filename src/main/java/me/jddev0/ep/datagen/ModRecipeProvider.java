@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.datagen.recipe.*;
@@ -2570,7 +2570,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                                                 Map<Character, Ingredient> key, String[] pattern,
                                                 ItemStack result, CraftingBookCategory category,
                                                 String group, String recipeIdSuffix, String recipeIdPrefix) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "crafting/" +
+        ResourceLocation recipeId = EPAPI.id("crafting/" +
                 recipeIdPrefix + getItemName(result.getItem()) + recipeIdSuffix);
 
         Advancement.Builder advancementBuilder = output.advancement()
@@ -2603,7 +2603,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     private static void addShapelessCraftingRecipe(RecipeOutput output, Criterion<InventoryChangeTrigger.TriggerInstance> hasIngredientTrigger,
                                                    List<Ingredient> inputs, ItemStack result, CraftingBookCategory category,
                                                    String group, String recipeIdSuffix, String recipeIdPrefix) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "crafting/" +
+        ResourceLocation recipeId = EPAPI.id("crafting/" +
                 recipeIdPrefix + getItemName(result.getItem()) + recipeIdSuffix);
 
         Advancement.Builder advancementBuilder = output.advancement()
@@ -2621,7 +2621,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
     private static void addCustomCraftingRecipe(RecipeOutput output, RecipeSerializer<? extends CustomRecipe> customRecipeSerializer,
                                                 CraftingBookCategory category, String recipeIdString) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "crafting/" +
+        ResourceLocation recipeId = EPAPI.id("crafting/" +
                 recipeIdString);
 
         CustomFinishedRecipe recipe = new CustomFinishedRecipe(
@@ -2647,14 +2647,14 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     private static void addSmeltingRecipe(RecipeOutput output, ItemLike ingredient, ItemStack result, CookingBookCategory category,
                                           int time, float xp, String group) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "smelting/" +
+        ResourceLocation recipeId = EPAPI.id("smelting/" +
                 getItemName(result.getItem()));
 
         addSmeltingRecipe(output, ingredient, result, category, time, xp, group, recipeId);
     }
     private static void addSmeltingRecipe(RecipeOutput output, ItemLike ingredient, ItemStack result, CookingBookCategory category,
                                           int time, float xp, String group, String recipeIngredientName) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "smelting/" +
+        ResourceLocation recipeId = EPAPI.id("smelting/" +
                 getItemName(result.getItem()) + "_from_smelting_" + recipeIngredientName);
 
         addSmeltingRecipe(output, ingredient, result, category, time, xp, group, recipeId);
@@ -2678,7 +2678,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
     private static void addSmeltingRecipe(RecipeOutput output, TagKey<Item> ingredient, ItemStack result, CookingBookCategory category,
                                           int time, float xp, String group, String recipeIngredientName) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "smelting/" +
+        ResourceLocation recipeId = EPAPI.id("smelting/" +
                 getItemName(result.getItem()) + "_from_smelting_" + recipeIngredientName);
 
         Advancement.Builder advancementBuilder = output.advancement()
@@ -2699,7 +2699,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     private static void addBlastingRecipe(RecipeOutput output, ItemLike ingredient, ItemStack result, CookingBookCategory category,
                                           int time, float xp, String group, String recipeIngredientName) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "blasting/" +
+        ResourceLocation recipeId = EPAPI.id("blasting/" +
                 getItemName(result.getItem()) + "_from_blasting_" + recipeIngredientName);
 
         Advancement.Builder advancementBuilder = output.advancement()
@@ -2719,7 +2719,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
     private static void addBlastingRecipe(RecipeOutput output, TagKey<Item> ingredient, ItemStack result, CookingBookCategory category,
                                           int time, float xp, String group, String recipeIngredientName) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "blasting/" +
+        ResourceLocation recipeId = EPAPI.id("blasting/" +
                 getItemName(result.getItem()) + "_from_blasting_" + recipeIngredientName);
 
         Advancement.Builder advancementBuilder = output.advancement()
@@ -2739,7 +2739,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private static void addNetheriteSmithingUpgradeRecipe(RecipeOutput recipeOutput, Ingredient base, ItemStack output) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "smithing/" +
+        ResourceLocation recipeId = EPAPI.id("smithing/" +
                 getItemName(output.getItem()));
 
         Advancement.Builder advancementBuilder = recipeOutput.advancement()
@@ -2765,7 +2765,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
     private static void addAlloyFurnaceRecipe(RecipeOutput recipeOutput, IngredientWithCount[] inputs, ItemStack output,
                                               OutputItemStackWithPercentages secondaryOutput, int ticks) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "alloy_furnace/" +
+        ResourceLocation recipeId = EPAPI.id("alloy_furnace/" +
                 getItemName(output.getItem()));
 
         AlloyFurnaceFinishedRecipe recipe = new AlloyFurnaceFinishedRecipe(
@@ -2776,7 +2776,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private static void addPressMoldMakerRecipe(RecipeOutput recipeOutput, int clayCount, ItemStack output) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "press_mold_maker/" +
+        ResourceLocation recipeId = EPAPI.id("press_mold_maker/" +
                 getItemName(output.getItem()));
 
         PressMoldMakerFinishedRecipe recipe = new PressMoldMakerFinishedRecipe(
@@ -2800,7 +2800,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
     private static void addCompressorRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output, int inputCount,
                                             String recipeIngredientName) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "compressing/" +
+        ResourceLocation recipeId = EPAPI.id("compressing/" +
                 getItemName(output.getItem()) + "_from_compressing_" + recipeIngredientName);
 
         CompressorFinishedRecipe recipe = new CompressorFinishedRecipe(
@@ -2812,7 +2812,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     private static void addCrusherRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output,
                                          String recipeIngredientName) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "crusher/" +
+        ResourceLocation recipeId = EPAPI.id("crusher/" +
                 getItemName(output.getItem()) + "_from_crushing_" + recipeIngredientName);
 
         CrusherFinishedRecipe recipe = new CrusherFinishedRecipe(
@@ -2861,7 +2861,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                                             PulverizerRecipe.OutputItemStackWithPercentages output,
                                             PulverizerRecipe.OutputItemStackWithPercentages secondaryOutput,
                                             String recipeIngredientName) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "pulverizer/" +
+        ResourceLocation recipeId = EPAPI.id("pulverizer/" +
                 getItemName(output.output().getItem()) + "_from_pulverizer_" + recipeIngredientName);
 
         PulverizerFinishedRecipe recipe = new PulverizerFinishedRecipe(
@@ -2914,7 +2914,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
     private static void addSawmillRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output,
                                          int sawdustAmount, String outputName, String recipeIngredientName) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "sawmill/" +
+        ResourceLocation recipeId = EPAPI.id("sawmill/" +
                 outputName + "_from_sawing_" + recipeIngredientName);
 
         SawmillFinishedRecipe recipe = new SawmillFinishedRecipe(
@@ -2925,7 +2925,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
     private static void addSawmillRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output,
                                          ItemStack secondaryOutput, String outputName, String recipeIngredientName) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "sawmill/" +
+        ResourceLocation recipeId = EPAPI.id("sawmill/" +
                 outputName + "_from_sawing_" + recipeIngredientName);
 
         SawmillFinishedRecipe recipe = new SawmillFinishedRecipe(
@@ -2965,7 +2965,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     private static void addPlantGrowthChamberRecipe(RecipeOutput recipeOutput, Ingredient input,
                                                     OutputItemStackWithPercentages[] outputs, int ticks,
                                                     String outputName, String recipeIngredientName) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "growing/" +
+        ResourceLocation recipeId = EPAPI.id("growing/" +
                 outputName + "_from_growing_" + recipeIngredientName);
 
         PlantGrowthChamberFinishedRecipe recipe = new PlantGrowthChamberFinishedRecipe(
@@ -2978,7 +2978,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     private static void addPlantGrowthChamberFertilizerRecipe(RecipeOutput recipeOutput, Ingredient input,
                                                               double speedMultiplier, double energyConsumptionMultiplier,
                                                               String recipeIngredientName) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "growing/fertilizer/" +
+        ResourceLocation recipeId = EPAPI.id("growing/fertilizer/" +
                 recipeIngredientName);
 
         PlantGrowthChamberFertilizerFinishedRecipe recipe = new PlantGrowthChamberFertilizerFinishedRecipe(
@@ -3003,7 +3003,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
     private static void addMetalPressRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output,
                                             ItemStack pressMold, int inputCount) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "metal_press/" +
+        ResourceLocation recipeId = EPAPI.id("metal_press/" +
                 getItemName(output.getItem()));
 
         MetalPressFinishedRecipe recipe = new MetalPressFinishedRecipe(
@@ -3021,7 +3021,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
     private static void addHeatGeneratorRecipe(RecipeOutput recipeOutput, Fluid[] input, int energyProduction,
                                                String recipeIngredientName) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "heat_generator/" +
+        ResourceLocation recipeId = EPAPI.id("heat_generator/" +
                 "energy_production_from_" + recipeIngredientName);
 
         HeatGeneratorFinishedRecipe recipe = new HeatGeneratorFinishedRecipe(
@@ -3039,7 +3039,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
     private static void addThermalGeneratorRecipe(RecipeOutput recipeOutput, Fluid[] input, int energyProduction,
                                                   String recipeIngredientName) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "thermal_generator/" +
+        ResourceLocation recipeId = EPAPI.id("thermal_generator/" +
                 "energy_production_from_" + recipeIngredientName);
 
         ThermalGeneratorFinishedRecipe recipe = new ThermalGeneratorFinishedRecipe(
@@ -3050,7 +3050,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private static void addStoneSolidifierRecipe(RecipeOutput recipeOutput, int waterAmount, int lavaAmount, ItemStack output) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "stone_solidifier/" +
+        ResourceLocation recipeId = EPAPI.id("stone_solidifier/" +
                 getItemName(output.getItem()));
 
         StoneSolidifierFinishedRecipe recipe = new StoneSolidifierFinishedRecipe(
@@ -3061,7 +3061,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private static void addAssemblingMachineRecipe(RecipeOutput recipeOutput, IngredientWithCount[] inputs, ItemStack output) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "assembling/" +
+        ResourceLocation recipeId = EPAPI.id("assembling/" +
                 getItemName(output.getItem()));
 
         AssemblingMachineFinishedRecipe recipe = new AssemblingMachineFinishedRecipe(
@@ -3084,7 +3084,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     private static void addFiltrationPlantRecipe(RecipeOutput recipeOutput, OutputItemStackWithPercentages output,
                                                  OutputItemStackWithPercentages secondaryOutput, ResourceLocation icon,
                                                  String recipeName) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "filtration_plant/" +
+        ResourceLocation recipeId = EPAPI.id("filtration_plant/" +
                 recipeName);
 
         FiltrationPlantFinishedRecipe recipe = new FiltrationPlantFinishedRecipe(
@@ -3100,7 +3100,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
     private static void addFluidTransposerRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output,
                                                  FluidTransposerBlockEntity.Mode mode, FluidStack fluid) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "fluid_transposer/" +
+        ResourceLocation recipeId = EPAPI.id("fluid_transposer/" +
                 getItemName(output.getItem()));
 
         FluidTransposerFinishedRecipe recipe = new FluidTransposerFinishedRecipe(
@@ -3111,7 +3111,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private static void addChargerRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output, int energyConsumption) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "charger/" +
+        ResourceLocation recipeId = EPAPI.id("charger/" +
                 getItemName(output.getItem()));
 
         ChargerFinishedRecipe recipe = new ChargerFinishedRecipe(
@@ -3122,7 +3122,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private static void addEnergizerRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output, int energyConsumption) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "energizer/" +
+        ResourceLocation recipeId = EPAPI.id("energizer/" +
                 getItemName(output.getItem()));
 
         EnergizerFinishedRecipe recipe = new EnergizerFinishedRecipe(
@@ -3138,7 +3138,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
     private static void addCrystalGrowthChamberRecipe(RecipeOutput recipeOutput, Ingredient input, OutputItemStackWithPercentages output,
                                                       int inputCount, int ticks) {
-        ResourceLocation recipeId = new ResourceLocation(EnergizedPowerMod.MODID, "crystal_growing/" +
+        ResourceLocation recipeId = EPAPI.id("crystal_growing/" +
                 getItemName(output.output().getItem()));
 
         CrystalGrowthChamberFinishedRecipe recipe = new CrystalGrowthChamberFinishedRecipe(

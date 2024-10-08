@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -23,9 +23,8 @@ public class AutoStonecutterScreen
     public AutoStonecutterScreen(AutoStonecutterMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/auto_stonecutter.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID,
-                        "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/auto_stonecutter.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
     }
 
     @Override
