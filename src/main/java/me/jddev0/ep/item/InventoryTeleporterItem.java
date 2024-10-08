@@ -3,7 +3,7 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.block.entity.TeleporterBlockEntity;
 import me.jddev0.ep.component.DimensionalPositionComponent;
 import me.jddev0.ep.component.InventoryComponent;
-import me.jddev0.ep.component.ModDataComponentTypes;
+import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.screen.InventoryTeleporterMenu;
@@ -74,7 +74,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
         SimpleInventory inventory = getInventory(stack);
         ItemStack teleporterMatrixItemStack = inventory.getStack(0);
 
-        DimensionalPositionComponent dimPos = teleporterMatrixItemStack.get(ModDataComponentTypes.DIMENSIONAL_POSITION);
+        DimensionalPositionComponent dimPos = teleporterMatrixItemStack.get(EPDataComponentTypes.DIMENSIONAL_POSITION);
         boolean linked = TeleporterMatrixItem.isLinked(teleporterMatrixItemStack) && dimPos != null;
 
         tooltip.add(Text.translatable("tooltip.energizedpower.teleporter_matrix.status").formatted(Formatting.GRAY).
@@ -103,7 +103,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
     }
 
     public static SimpleInventory getInventory(ItemStack itemStack) {
-        InventoryComponent inventory = itemStack.get(ModDataComponentTypes.INVENTORY);
+        InventoryComponent inventory = itemStack.get(EPDataComponentTypes.INVENTORY);
 
         if(inventory != null) {
             DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
@@ -118,13 +118,13 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
                 public void markDirty() {
                     super.markDirty();
 
-                    itemStack.set(ModDataComponentTypes.INVENTORY, new InventoryComponent(heldStacks));
+                    itemStack.set(EPDataComponentTypes.INVENTORY, new InventoryComponent(heldStacks));
                 }
 
                 @Override
                 public boolean isValid(int slot, @NotNull ItemStack stack) {
                     if(slot >= 0 && slot < size()) {
-                        return stack.isOf(ModItems.TELEPORTER_MATRIX);
+                        return stack.isOf(EPItems.TELEPORTER_MATRIX);
                     }
 
                     return super.isValid(slot, stack);
@@ -147,13 +147,13 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
             public void markDirty() {
                 super.markDirty();
 
-                itemStack.set(ModDataComponentTypes.INVENTORY, new InventoryComponent(heldStacks));
+                itemStack.set(EPDataComponentTypes.INVENTORY, new InventoryComponent(heldStacks));
             }
 
             @Override
             public boolean isValid(int slot, @NotNull ItemStack stack) {
                 if(slot >= 0 && slot < size()) {
-                    return stack.isOf(ModItems.TELEPORTER_MATRIX);
+                    return stack.isOf(EPItems.TELEPORTER_MATRIX);
                 }
 
                 return super.isValid(slot, stack);

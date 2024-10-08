@@ -1,10 +1,10 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FiltrationPlantBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
@@ -38,7 +38,7 @@ public class FiltrationPlantMenu extends UpgradableEnergyStorageMenu<FiltrationP
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0, 1 -> stack.isOf(ModItems.CHARCOAL_FILTER);
+                    case 0, 1 -> stack.isOf(EPItems.CHARCOAL_FILTER);
                     case 2, 3 -> false;
                     default -> super.isValid(slot, stack);
                 };
@@ -53,10 +53,10 @@ public class FiltrationPlantMenu extends UpgradableEnergyStorageMenu<FiltrationP
     public FiltrationPlantMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
                                UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(
-                ModMenuTypes.FILTRATION_PLANT_MENU, id,
+                EPMenuTypes.FILTRATION_PLANT_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.FILTRATION_PLANT,
+                EPBlocks.FILTRATION_PLANT,
 
                 upgradeModuleInventory, 3
         );

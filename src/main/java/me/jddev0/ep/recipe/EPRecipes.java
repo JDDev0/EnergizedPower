@@ -7,10 +7,9 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 
-public final class ModRecipes {
-    private ModRecipes() {}
+public final class EPRecipes {
+    private EPRecipes() {}
 
     public static final RecipeSerializer<EnergizerRecipe> ENERGIZER_SERIALIZER = createSerializer("energizer",
             EnergizerRecipe.Serializer.INSTANCE);

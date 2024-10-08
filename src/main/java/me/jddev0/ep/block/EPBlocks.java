@@ -11,11 +11,10 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 
-public final class ModBlocks {
-    private ModBlocks() {}
+public final class EPBlocks {
+    private EPBlocks() {}
 
     public static final Block SILICON_BLOCK = registerBlock("silicon_block",
             new Block(AbstractBlock.Settings.create().

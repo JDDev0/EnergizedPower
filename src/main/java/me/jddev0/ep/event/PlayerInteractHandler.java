@@ -1,9 +1,8 @@
 package me.jddev0.ep.event;
 
 import me.jddev0.ep.item.EnergizedPowerBookItem;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.networking.packet.OpenEnergizedPowerBookS2CPacket;
-import me.jddev0.ep.registry.tags.CommonItemTags;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
@@ -48,7 +47,7 @@ public class PlayerInteractHandler implements UseBlockCallback {
             return ActionResult.PASS;
 
         ItemStack bookItemStack = lecternBlockEntity.getBook();
-        if(!bookItemStack.isOf(ModItems.ENERGIZED_POWER_BOOK))
+        if(!bookItemStack.isOf(EPItems.ENERGIZED_POWER_BOOK))
             return ActionResult.PASS;
 
         Item bookItem = bookItemStack.getItem();
@@ -78,7 +77,7 @@ public class PlayerInteractHandler implements UseBlockCallback {
             level.breakBlock(blockPos, false, player);
 
             ItemEntity itemEntity = new ItemEntity(level, blockPos.getX() + .5, blockPos.getY() + .5, blockPos.getZ() + .5,
-                    new ItemStack(ModItems.CABLE_INSULATOR, 18), 0, 0, 0);
+                    new ItemStack(EPItems.CABLE_INSULATOR, 18), 0, 0, 0);
             itemEntity.setPickupDelay(20);
             level.spawnEntity(itemEntity);
 

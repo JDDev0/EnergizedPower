@@ -19,9 +19,9 @@ public class FluidTankMenu extends ScreenHandler {
 
     public static ScreenHandlerType<FluidTankMenu> getMenuTypeFromTier(FluidTankBlock.Tier tier) {
         return switch(tier) {
-            case SMALL -> ModMenuTypes.FLUID_TANK_SMALL;
-            case MEDIUM -> ModMenuTypes.FLUID_TANK_MEDIUM;
-            case LARGE -> ModMenuTypes.FLUID_TANK_LARGE;
+            case SMALL -> EPMenuTypes.FLUID_TANK_SMALL;
+            case MEDIUM -> EPMenuTypes.FLUID_TANK_MEDIUM;
+            case LARGE -> EPMenuTypes.FLUID_TANK_LARGE;
         };
     }
 

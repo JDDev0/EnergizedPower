@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.StoneSolidifierBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
@@ -51,10 +51,10 @@ public class StoneSolidifierMenu extends UpgradableEnergyStorageMenu<StoneSolidi
     public StoneSolidifierMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
                                UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(
-                ModMenuTypes.STONE_SOLIDIFIER_MENU, id,
+                EPMenuTypes.STONE_SOLIDIFIER_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.STONE_SOLIDIFIER,
+                EPBlocks.STONE_SOLIDIFIER,
 
                 upgradeModuleInventory, 3
         );

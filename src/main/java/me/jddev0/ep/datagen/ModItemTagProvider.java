@@ -1,7 +1,7 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.block.EPBlocks;
+import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.registry.tags.CompatibilityItemTags;
 import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
@@ -22,67 +22,67 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup lookupProvider) {
         getOrCreateTagBuilder(ItemTags.BOOKSHELF_BOOKS).
-                add(ModItems.ENERGIZED_POWER_BOOK);
+                add(EPItems.ENERGIZED_POWER_BOOK);
 
         getOrCreateTagBuilder(ItemTags.LECTERN_BOOKS).
-                add(ModItems.ENERGIZED_POWER_BOOK);
+                add(EPItems.ENERGIZED_POWER_BOOK);
 
         getOrCreateTagBuilder(ItemTags.PIGLIN_LOVED).
-                add(ModItems.GOLD_DUST,
-                        ModItems.GOLD_PLATE,
-                        ModItems.GOLDEN_HAMMER);
+                add(EPItems.GOLD_DUST,
+                        EPItems.GOLD_PLATE,
+                        EPItems.GOLDEN_HAMMER);
 
         getOrCreateTagBuilder(EnergizedPowerItemTags.RAW_METAL_PRESS_MOLDS).
-                add(ModItems.RAW_GEAR_PRESS_MOLD,
-                        ModItems.RAW_ROD_PRESS_MOLD,
-                        ModItems.RAW_WIRE_PRESS_MOLD);
+                add(EPItems.RAW_GEAR_PRESS_MOLD,
+                        EPItems.RAW_ROD_PRESS_MOLD,
+                        EPItems.RAW_WIRE_PRESS_MOLD);
 
         getOrCreateTagBuilder(EnergizedPowerItemTags.METAL_PRESS_MOLDS).
-                add(ModItems.GEAR_PRESS_MOLD,
-                        ModItems.ROD_PRESS_MOLD,
-                        ModItems.WIRE_PRESS_MOLD);
+                add(EPItems.GEAR_PRESS_MOLD,
+                        EPItems.ROD_PRESS_MOLD,
+                        EPItems.WIRE_PRESS_MOLD);
 
         getOrCreateTagBuilder(CompatibilityItemTags.AE2_ITEM_P2P_TUNNEL_ATTUNEMENTS).
                 add(
-                        ModBlocks.ITEM_CONVEYOR_BELT_ITEM,
-                        ModBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM
+                        EPBlocks.ITEM_CONVEYOR_BELT_ITEM,
+                        EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM
                 );
 
         getOrCreateTagBuilder(CompatibilityItemTags.AE2_FLUID_P2P_TUNNEL_ATTUNEMENTS).
                 add(
-                        ModBlocks.IRON_FLUID_PIPE_ITEM,
-                        ModBlocks.GOLDEN_FLUID_PIPE_ITEM,
+                        EPBlocks.IRON_FLUID_PIPE_ITEM,
+                        EPBlocks.GOLDEN_FLUID_PIPE_ITEM,
 
-                        ModBlocks.FLUID_TANK_SMALL_ITEM,
-                        ModBlocks.FLUID_TANK_MEDIUM_ITEM,
-                        ModBlocks.FLUID_TANK_LARGE_ITEM
+                        EPBlocks.FLUID_TANK_SMALL_ITEM,
+                        EPBlocks.FLUID_TANK_MEDIUM_ITEM,
+                        EPBlocks.FLUID_TANK_LARGE_ITEM
                 );
 
         getOrCreateTagBuilder(CompatibilityItemTags.AE2_FE_P2P_TUNNEL_ATTUNEMENTS).
                 add(
-                        ModBlocks.TIN_CABLE_ITEM,
-                        ModBlocks.COPPER_CABLE_ITEM,
-                        ModBlocks.GOLD_CABLE_ITEM,
-                        ModBlocks.ENERGIZED_COPPER_CABLE_ITEM,
-                        ModBlocks.ENERGIZED_GOLD_CABLE_ITEM,
-                        ModBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM,
+                        EPBlocks.TIN_CABLE_ITEM,
+                        EPBlocks.COPPER_CABLE_ITEM,
+                        EPBlocks.GOLD_CABLE_ITEM,
+                        EPBlocks.ENERGIZED_COPPER_CABLE_ITEM,
+                        EPBlocks.ENERGIZED_GOLD_CABLE_ITEM,
+                        EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM,
 
-                        ModBlocks.LV_TRANSFORMER_1_TO_N_ITEM,
-                        ModBlocks.LV_TRANSFORMER_3_TO_3_ITEM,
-                        ModBlocks.LV_TRANSFORMER_N_TO_1_ITEM,
-                        ModBlocks.MV_TRANSFORMER_1_TO_N_ITEM,
-                        ModBlocks.MV_TRANSFORMER_3_TO_3_ITEM,
-                        ModBlocks.MV_TRANSFORMER_N_TO_1_ITEM,
-                        ModBlocks.HV_TRANSFORMER_1_TO_N_ITEM,
-                        ModBlocks.HV_TRANSFORMER_3_TO_3_ITEM,
-                        ModBlocks.HV_TRANSFORMER_N_TO_1_ITEM,
-                        ModBlocks.EHV_TRANSFORMER_1_TO_N_ITEM,
-                        ModBlocks.EHV_TRANSFORMER_3_TO_3_ITEM,
-                        ModBlocks.EHV_TRANSFORMER_N_TO_1_ITEM,
+                        EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM,
+                        EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM,
+                        EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM,
+                        EPBlocks.MV_TRANSFORMER_1_TO_N_ITEM,
+                        EPBlocks.MV_TRANSFORMER_3_TO_3_ITEM,
+                        EPBlocks.MV_TRANSFORMER_N_TO_1_ITEM,
+                        EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM,
+                        EPBlocks.HV_TRANSFORMER_3_TO_3_ITEM,
+                        EPBlocks.HV_TRANSFORMER_N_TO_1_ITEM,
+                        EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM,
+                        EPBlocks.EHV_TRANSFORMER_3_TO_3_ITEM,
+                        EPBlocks.EHV_TRANSFORMER_N_TO_1_ITEM,
 
-                        ModBlocks.BATTERY_BOX_ITEM,
-                        ModBlocks.ADVANCED_BATTERY_BOX_ITEM,
-                        ModBlocks.CREATIVE_BATTERY_BOX_ITEM
+                        EPBlocks.BATTERY_BOX_ITEM,
+                        EPBlocks.ADVANCED_BATTERY_BOX_ITEM,
+                        EPBlocks.CREATIVE_BATTERY_BOX_ITEM
                 );
 
         getOrCreateTagBuilder(CommonItemTags.COBBLESTONES_NORMAL).
@@ -104,8 +104,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(CommonItemTags.ORES_COAL).
                 addOptionalTag(ItemTags.COAL_ORES);
         getOrCreateTagBuilder(CommonItemTags.ORES_TIN).
-                add(ModBlocks.TIN_ORE_ITEM,
-                        ModBlocks.DEEPSLATE_TIN_ORE_ITEM);
+                add(EPBlocks.TIN_ORE_ITEM,
+                        EPBlocks.DEEPSLATE_TIN_ORE_ITEM);
         getOrCreateTagBuilder(CommonItemTags.ORES_COPPER).
                 addOptionalTag(ItemTags.COPPER_ORES);
         getOrCreateTagBuilder(CommonItemTags.ORES_IRON).
@@ -122,25 +122,25 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 addOptionalTag(ItemTags.DIAMOND_ORES);
 
         getOrCreateTagBuilder(CommonItemTags.ORES_IN_GROUND_STONE).
-                add(ModBlocks.TIN_ORE_ITEM);
+                add(EPBlocks.TIN_ORE_ITEM);
         getOrCreateTagBuilder(CommonItemTags.ORES_IN_GROUND_DEEPSLATE).
-                add(ModBlocks.DEEPSLATE_TIN_ORE_ITEM);
+                add(EPBlocks.DEEPSLATE_TIN_ORE_ITEM);
 
         getOrCreateTagBuilder(ConventionalItemTags.STORAGE_BLOCKS).
                 addTag(CommonItemTags.STORAGE_BLOCKS_SILICON).
                 addTag(CommonItemTags.STORAGE_BLOCKS_RAW_TIN).
                 addTag(CommonItemTags.STORAGE_BLOCKS_TIN);
         getOrCreateTagBuilder(CommonItemTags.STORAGE_BLOCKS_SILICON).
-                add(ModBlocks.SILICON_BLOCK_ITEM);
+                add(EPBlocks.SILICON_BLOCK_ITEM);
         getOrCreateTagBuilder(CommonItemTags.STORAGE_BLOCKS_RAW_TIN).
-                add(ModBlocks.RAW_TIN_BLOCK_ITEM);
+                add(EPBlocks.RAW_TIN_BLOCK_ITEM);
         getOrCreateTagBuilder(CommonItemTags.STORAGE_BLOCKS_TIN).
-                add(ModBlocks.TIN_BLOCK_ITEM);
+                add(EPBlocks.TIN_BLOCK_ITEM);
 
         getOrCreateTagBuilder(ConventionalItemTags.RAW_MATERIALS).
                 addTag(CommonItemTags.RAW_MATERIALS_TIN);
         getOrCreateTagBuilder(CommonItemTags.RAW_MATERIALS_TIN).
-                add(ModItems.RAW_TIN);
+                add(EPItems.RAW_TIN);
 
         getOrCreateTagBuilder(ConventionalItemTags.DUSTS).
                 addTag(CommonItemTags.DUSTS_WOOD).
@@ -150,25 +150,25 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 addTag(CommonItemTags.DUSTS_IRON).
                 addTag(CommonItemTags.DUSTS_GOLD);
         getOrCreateTagBuilder(CommonItemTags.DUSTS_WOOD).
-                add(ModItems.SAWDUST);
+                add(EPItems.SAWDUST);
         getOrCreateTagBuilder(CommonItemTags.DUSTS_CHARCOAL).
-                add(ModItems.CHARCOAL_DUST);
+                add(EPItems.CHARCOAL_DUST);
         getOrCreateTagBuilder(CommonItemTags.DUSTS_TIN).
-                add(ModItems.TIN_DUST);
+                add(EPItems.TIN_DUST);
         getOrCreateTagBuilder(CommonItemTags.DUSTS_COPPER).
-                add(ModItems.COPPER_DUST);
+                add(EPItems.COPPER_DUST);
         getOrCreateTagBuilder(CommonItemTags.DUSTS_IRON).
-                add(ModItems.IRON_DUST);
+                add(EPItems.IRON_DUST);
         getOrCreateTagBuilder(CommonItemTags.DUSTS_GOLD).
-                add(ModItems.GOLD_DUST);
+                add(EPItems.GOLD_DUST);
 
         getOrCreateTagBuilder(ConventionalItemTags.NUGGETS).
                 addTag(CommonItemTags.NUGGETS_TIN);
         getOrCreateTagBuilder(CommonItemTags.NUGGETS_TIN).
-                add(ModItems.TIN_NUGGET);
+                add(EPItems.TIN_NUGGET);
 
         getOrCreateTagBuilder(CommonItemTags.SILICON).
-                add(ModItems.SILICON);
+                add(EPItems.SILICON);
 
         getOrCreateTagBuilder(ConventionalItemTags.INGOTS).
                 addTag(CommonItemTags.INGOTS_TIN).
@@ -178,17 +178,17 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 addTag(CommonItemTags.INGOTS_ENERGIZED_COPPER).
                 addTag(CommonItemTags.INGOTS_ENERGIZED_GOLD);
         getOrCreateTagBuilder(CommonItemTags.INGOTS_TIN).
-                add(ModItems.TIN_INGOT);
+                add(EPItems.TIN_INGOT);
         getOrCreateTagBuilder(CommonItemTags.INGOTS_STEEL).
-                add(ModItems.STEEL_INGOT);
+                add(EPItems.STEEL_INGOT);
         getOrCreateTagBuilder(CommonItemTags.INGOTS_REDSTONE_ALLOY).
-                add(ModItems.REDSTONE_ALLOY_INGOT);
+                add(EPItems.REDSTONE_ALLOY_INGOT);
         getOrCreateTagBuilder(CommonItemTags.INGOTS_ADVANCED_ALLOY).
-                add(ModItems.ADVANCED_ALLOY_INGOT);
+                add(EPItems.ADVANCED_ALLOY_INGOT);
         getOrCreateTagBuilder(CommonItemTags.INGOTS_ENERGIZED_COPPER).
-                add(ModItems.ENERGIZED_COPPER_INGOT);
+                add(EPItems.ENERGIZED_COPPER_INGOT);
         getOrCreateTagBuilder(CommonItemTags.INGOTS_ENERGIZED_GOLD).
-                add(ModItems.ENERGIZED_GOLD_INGOT);
+                add(EPItems.ENERGIZED_GOLD_INGOT);
 
         getOrCreateTagBuilder(CommonItemTags.PLATES).
                 addTag(CommonItemTags.PLATES_TIN).
@@ -199,29 +199,29 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 addTag(CommonItemTags.PLATES_ENERGIZED_COPPER).
                 addTag(CommonItemTags.PLATES_ENERGIZED_GOLD);
         getOrCreateTagBuilder(CommonItemTags.PLATES_TIN).
-                add(ModItems.TIN_PLATE);
+                add(EPItems.TIN_PLATE);
         getOrCreateTagBuilder(CommonItemTags.PLATES_COPPER).
-                add(ModItems.COPPER_PLATE);
+                add(EPItems.COPPER_PLATE);
         getOrCreateTagBuilder(CommonItemTags.PLATES_IRON).
-                add(ModItems.IRON_PLATE);
+                add(EPItems.IRON_PLATE);
         getOrCreateTagBuilder(CommonItemTags.PLATES_GOLD).
-                add(ModItems.GOLD_PLATE);
+                add(EPItems.GOLD_PLATE);
         getOrCreateTagBuilder(CommonItemTags.PLATES_ADVANCED_ALLOY).
-                add(ModItems.ADVANCED_ALLOY_PLATE);
+                add(EPItems.ADVANCED_ALLOY_PLATE);
         getOrCreateTagBuilder(CommonItemTags.PLATES_ENERGIZED_COPPER).
-                add(ModItems.ENERGIZED_COPPER_PLATE);
+                add(EPItems.ENERGIZED_COPPER_PLATE);
         getOrCreateTagBuilder(CommonItemTags.PLATES_ENERGIZED_GOLD).
-                add(ModItems.ENERGIZED_GOLD_PLATE);
+                add(EPItems.ENERGIZED_GOLD_PLATE);
 
         getOrCreateTagBuilder(CommonItemTags.GEARS).
                 addTag(CommonItemTags.GEARS_IRON);
         getOrCreateTagBuilder(CommonItemTags.GEARS_IRON).
-                add(ModItems.IRON_GEAR);
+                add(EPItems.IRON_GEAR);
 
         getOrCreateTagBuilder(ConventionalItemTags.RODS).
                 addTag(CommonItemTags.RODS_IRON);
         getOrCreateTagBuilder(CommonItemTags.RODS_IRON).
-                add(ModItems.IRON_ROD);
+                add(EPItems.IRON_ROD);
 
         getOrCreateTagBuilder(CommonItemTags.WIRES).
                 addTag(CommonItemTags.WIRES_TIN).
@@ -230,29 +230,29 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 addTag(CommonItemTags.WIRES_ENERGIZED_COPPER).
                 addTag(CommonItemTags.WIRES_ENERGIZED_GOLD);
         getOrCreateTagBuilder(CommonItemTags.WIRES_TIN).
-                add(ModItems.TIN_WIRE);
+                add(EPItems.TIN_WIRE);
         getOrCreateTagBuilder(CommonItemTags.WIRES_COPPER).
-                add(ModItems.COPPER_WIRE);
+                add(EPItems.COPPER_WIRE);
         getOrCreateTagBuilder(CommonItemTags.WIRES_GOLD).
-                add(ModItems.GOLD_WIRE);
+                add(EPItems.GOLD_WIRE);
         getOrCreateTagBuilder(CommonItemTags.WIRES_ENERGIZED_COPPER).
-                add(ModItems.ENERGIZED_COPPER_WIRE);
+                add(EPItems.ENERGIZED_COPPER_WIRE);
         getOrCreateTagBuilder(CommonItemTags.WIRES_ENERGIZED_GOLD).
-                add(ModItems.ENERGIZED_GOLD_WIRE);
+                add(EPItems.ENERGIZED_GOLD_WIRE);
 
         getOrCreateTagBuilder(ConventionalItemTags.TOOLS).
                 addTag(CommonItemTags.TOOLS_HAMMERS).
                 addTag(CommonItemTags.TOOLS_CUTTERS);
 
         getOrCreateTagBuilder(CommonItemTags.TOOLS_HAMMERS).
-                add(ModItems.WOODEN_HAMMER).
-                add(ModItems.STONE_HAMMER).
-                add(ModItems.IRON_HAMMER).
-                add(ModItems.GOLDEN_HAMMER).
-                add(ModItems.DIAMOND_HAMMER).
-                add(ModItems.NETHERITE_HAMMER);
+                add(EPItems.WOODEN_HAMMER).
+                add(EPItems.STONE_HAMMER).
+                add(EPItems.IRON_HAMMER).
+                add(EPItems.GOLDEN_HAMMER).
+                add(EPItems.DIAMOND_HAMMER).
+                add(EPItems.NETHERITE_HAMMER);
 
         getOrCreateTagBuilder(CommonItemTags.TOOLS_CUTTERS).
-                add(ModItems.CUTTER);
+                add(EPItems.CUTTER);
     }
 }

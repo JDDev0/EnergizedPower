@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AutoStonecutterBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
@@ -55,10 +55,10 @@ public class AutoStonecutterMenu extends UpgradableEnergyStorageMenu<AutoStonecu
     public AutoStonecutterMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
                                UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(
-                ModMenuTypes.AUTO_STONECUTTER_MENU, id,
+                EPMenuTypes.AUTO_STONECUTTER_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.AUTO_STONECUTTER,
+                EPBlocks.AUTO_STONECUTTER,
 
                 upgradeModuleInventory, 3
         );

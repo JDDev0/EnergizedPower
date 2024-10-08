@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.PulverizerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.recipe.PulverizerRecipe;
@@ -49,10 +49,10 @@ public class PulverizerMenu extends UpgradableEnergyStorageMenu<PulverizerBlockE
     public PulverizerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
                           UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(
-                ModMenuTypes.PULVERIZER_MENU, id,
+                EPMenuTypes.PULVERIZER_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.PULVERIZER,
+                EPBlocks.PULVERIZER,
 
                 upgradeModuleInventory, 3
         );

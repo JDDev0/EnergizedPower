@@ -3,7 +3,7 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
@@ -71,7 +71,7 @@ public class CompressorRecipe implements Recipe<RecipeInput> {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ModBlocks.COMPRESSOR_ITEM);
+        return new ItemStack(EPBlocks.COMPRESSOR_ITEM);
     }
 
     @Override

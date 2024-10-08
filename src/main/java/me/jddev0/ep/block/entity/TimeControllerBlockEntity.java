@@ -19,7 +19,7 @@ public class TimeControllerBlockEntity
 
     public TimeControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.TIME_CONTROLLER_ENTITY, blockPos, blockState,
+                EPBlockEntities.TIME_CONTROLLER_ENTITY, blockPos, blockState,
 
                 "time_controller",
 

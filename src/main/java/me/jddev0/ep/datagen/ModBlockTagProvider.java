@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.registry.tags.CommonBlockTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -18,286 +18,286 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup lookupProvider) {
         getOrCreateTagBuilder(BlockTags.AXE_MINEABLE).
-                add(ModBlocks.SAWDUST_BLOCK);
+                add(EPBlocks.SAWDUST_BLOCK);
 
         getOrCreateTagBuilder(BlockTags.PREVENT_MOB_SPAWNING_INSIDE).
-                add(ModBlocks.ITEM_CONVEYOR_BELT);
+                add(EPBlocks.ITEM_CONVEYOR_BELT);
 
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).
                 add(
-                        ModBlocks.SILICON_BLOCK,
-                        ModBlocks.TIN_BLOCK,
+                        EPBlocks.SILICON_BLOCK,
+                        EPBlocks.TIN_BLOCK,
 
-                        ModBlocks.TIN_ORE,
-                        ModBlocks.DEEPSLATE_TIN_ORE,
+                        EPBlocks.TIN_ORE,
+                        EPBlocks.DEEPSLATE_TIN_ORE,
 
-                        ModBlocks.RAW_TIN_BLOCK,
+                        EPBlocks.RAW_TIN_BLOCK,
 
-                        ModBlocks.ITEM_CONVEYOR_BELT,
-                        ModBlocks.ITEM_CONVEYOR_BELT_LOADER,
-                        ModBlocks.ITEM_CONVEYOR_BELT_SORTER,
-                        ModBlocks.ITEM_CONVEYOR_BELT_SWITCH,
-                        ModBlocks.ITEM_CONVEYOR_BELT_SPLITTER,
-                        ModBlocks.ITEM_CONVEYOR_BELT_MERGER,
+                        EPBlocks.ITEM_CONVEYOR_BELT,
+                        EPBlocks.ITEM_CONVEYOR_BELT_LOADER,
+                        EPBlocks.ITEM_CONVEYOR_BELT_SORTER,
+                        EPBlocks.ITEM_CONVEYOR_BELT_SWITCH,
+                        EPBlocks.ITEM_CONVEYOR_BELT_SPLITTER,
+                        EPBlocks.ITEM_CONVEYOR_BELT_MERGER,
 
-                        ModBlocks.IRON_FLUID_PIPE,
-                        ModBlocks.GOLDEN_FLUID_PIPE,
+                        EPBlocks.IRON_FLUID_PIPE,
+                        EPBlocks.GOLDEN_FLUID_PIPE,
 
-                        ModBlocks.FLUID_TANK_SMALL,
-                        ModBlocks.FLUID_TANK_MEDIUM,
-                        ModBlocks.FLUID_TANK_LARGE,
+                        EPBlocks.FLUID_TANK_SMALL,
+                        EPBlocks.FLUID_TANK_MEDIUM,
+                        EPBlocks.FLUID_TANK_LARGE,
 
-                        ModBlocks.AUTO_CRAFTER,
-                        ModBlocks.ADVANCED_AUTO_CRAFTER,
+                        EPBlocks.AUTO_CRAFTER,
+                        EPBlocks.ADVANCED_AUTO_CRAFTER,
 
-                        ModBlocks.PRESS_MOLD_MAKER,
+                        EPBlocks.PRESS_MOLD_MAKER,
 
-                        ModBlocks.ALLOY_FURNACE,
+                        EPBlocks.ALLOY_FURNACE,
 
-                        ModBlocks.CHARGER,
-                        ModBlocks.ADVANCED_CHARGER,
+                        EPBlocks.CHARGER,
+                        EPBlocks.ADVANCED_CHARGER,
 
-                        ModBlocks.UNCHARGER,
-                        ModBlocks.ADVANCED_UNCHARGER,
+                        EPBlocks.UNCHARGER,
+                        EPBlocks.ADVANCED_UNCHARGER,
 
-                        ModBlocks.MINECART_CHARGER,
-                        ModBlocks.ADVANCED_MINECART_CHARGER,
+                        EPBlocks.MINECART_CHARGER,
+                        EPBlocks.ADVANCED_MINECART_CHARGER,
 
-                        ModBlocks.MINECART_UNCHARGER,
-                        ModBlocks.ADVANCED_MINECART_UNCHARGER,
+                        EPBlocks.MINECART_UNCHARGER,
+                        EPBlocks.ADVANCED_MINECART_UNCHARGER,
 
-                        ModBlocks.SOLAR_PANEL_1,
-                        ModBlocks.SOLAR_PANEL_2,
-                        ModBlocks.SOLAR_PANEL_3,
-                        ModBlocks.SOLAR_PANEL_4,
-                        ModBlocks.SOLAR_PANEL_5,
-                        ModBlocks.SOLAR_PANEL_6,
+                        EPBlocks.SOLAR_PANEL_1,
+                        EPBlocks.SOLAR_PANEL_2,
+                        EPBlocks.SOLAR_PANEL_3,
+                        EPBlocks.SOLAR_PANEL_4,
+                        EPBlocks.SOLAR_PANEL_5,
+                        EPBlocks.SOLAR_PANEL_6,
 
-                        ModBlocks.COAL_ENGINE,
+                        EPBlocks.COAL_ENGINE,
 
-                        ModBlocks.HEAT_GENERATOR,
+                        EPBlocks.HEAT_GENERATOR,
 
-                        ModBlocks.THERMAL_GENERATOR,
+                        EPBlocks.THERMAL_GENERATOR,
 
-                        ModBlocks.POWERED_FURNACE,
-                        ModBlocks.ADVANCED_POWERED_FURNACE,
+                        EPBlocks.POWERED_FURNACE,
+                        EPBlocks.ADVANCED_POWERED_FURNACE,
 
-                        ModBlocks.LV_TRANSFORMER_1_TO_N,
-                        ModBlocks.LV_TRANSFORMER_3_TO_3,
-                        ModBlocks.LV_TRANSFORMER_N_TO_1,
-                        ModBlocks.MV_TRANSFORMER_1_TO_N,
-                        ModBlocks.MV_TRANSFORMER_3_TO_3,
-                        ModBlocks.MV_TRANSFORMER_N_TO_1,
-                        ModBlocks.HV_TRANSFORMER_1_TO_N,
-                        ModBlocks.HV_TRANSFORMER_3_TO_3,
-                        ModBlocks.HV_TRANSFORMER_N_TO_1,
-                        ModBlocks.EHV_TRANSFORMER_1_TO_N,
-                        ModBlocks.EHV_TRANSFORMER_3_TO_3,
-                        ModBlocks.EHV_TRANSFORMER_N_TO_1,
+                        EPBlocks.LV_TRANSFORMER_1_TO_N,
+                        EPBlocks.LV_TRANSFORMER_3_TO_3,
+                        EPBlocks.LV_TRANSFORMER_N_TO_1,
+                        EPBlocks.MV_TRANSFORMER_1_TO_N,
+                        EPBlocks.MV_TRANSFORMER_3_TO_3,
+                        EPBlocks.MV_TRANSFORMER_N_TO_1,
+                        EPBlocks.HV_TRANSFORMER_1_TO_N,
+                        EPBlocks.HV_TRANSFORMER_3_TO_3,
+                        EPBlocks.HV_TRANSFORMER_N_TO_1,
+                        EPBlocks.EHV_TRANSFORMER_1_TO_N,
+                        EPBlocks.EHV_TRANSFORMER_3_TO_3,
+                        EPBlocks.EHV_TRANSFORMER_N_TO_1,
 
-                        ModBlocks.BATTERY_BOX,
-                        ModBlocks.ADVANCED_BATTERY_BOX,
+                        EPBlocks.BATTERY_BOX,
+                        EPBlocks.ADVANCED_BATTERY_BOX,
 
-                        ModBlocks.CRUSHER,
-                        ModBlocks.ADVANCED_CRUSHER,
+                        EPBlocks.CRUSHER,
+                        EPBlocks.ADVANCED_CRUSHER,
 
-                        ModBlocks.PULVERIZER,
-                        ModBlocks.ADVANCED_PULVERIZER,
+                        EPBlocks.PULVERIZER,
+                        EPBlocks.ADVANCED_PULVERIZER,
 
-                        ModBlocks.SAWMILL,
+                        EPBlocks.SAWMILL,
 
-                        ModBlocks.COMPRESSOR,
+                        EPBlocks.COMPRESSOR,
 
-                        ModBlocks.METAL_PRESS,
+                        EPBlocks.METAL_PRESS,
 
-                        ModBlocks.AUTO_PRESS_MOLD_MAKER,
+                        EPBlocks.AUTO_PRESS_MOLD_MAKER,
 
-                        ModBlocks.AUTO_STONECUTTER,
+                        EPBlocks.AUTO_STONECUTTER,
 
-                        ModBlocks.ASSEMBLING_MACHINE,
+                        EPBlocks.ASSEMBLING_MACHINE,
 
-                        ModBlocks.INDUCTION_SMELTER,
+                        EPBlocks.INDUCTION_SMELTER,
 
-                        ModBlocks.PLANT_GROWTH_CHAMBER,
+                        EPBlocks.PLANT_GROWTH_CHAMBER,
 
-                        ModBlocks.BLOCK_PLACER,
+                        EPBlocks.BLOCK_PLACER,
 
-                        ModBlocks.FLUID_FILLER,
+                        EPBlocks.FLUID_FILLER,
 
-                        ModBlocks.FLUID_DRAINER,
+                        EPBlocks.FLUID_DRAINER,
 
-                        ModBlocks.FLUID_PUMP,
+                        EPBlocks.FLUID_PUMP,
 
-                        ModBlocks.DRAIN,
+                        EPBlocks.DRAIN,
 
-                        ModBlocks.STONE_SOLIDIFIER,
+                        EPBlocks.STONE_SOLIDIFIER,
 
-                        ModBlocks.FILTRATION_PLANT,
+                        EPBlocks.FILTRATION_PLANT,
 
-                        ModBlocks.FLUID_TRANSPOSER,
+                        EPBlocks.FLUID_TRANSPOSER,
 
-                        ModBlocks.LIGHTNING_GENERATOR,
+                        EPBlocks.LIGHTNING_GENERATOR,
 
-                        ModBlocks.ENERGIZER,
+                        EPBlocks.ENERGIZER,
 
-                        ModBlocks.CHARGING_STATION,
+                        EPBlocks.CHARGING_STATION,
 
-                        ModBlocks.CRYSTAL_GROWTH_CHAMBER,
+                        EPBlocks.CRYSTAL_GROWTH_CHAMBER,
 
-                        ModBlocks.WEATHER_CONTROLLER,
+                        EPBlocks.WEATHER_CONTROLLER,
 
-                        ModBlocks.TIME_CONTROLLER,
+                        EPBlocks.TIME_CONTROLLER,
 
-                        ModBlocks.TELEPORTER,
+                        EPBlocks.TELEPORTER,
 
-                        ModBlocks.BASIC_MACHINE_FRAME,
-                        ModBlocks.HARDENED_MACHINE_FRAME,
-                        ModBlocks.ADVANCED_MACHINE_FRAME,
-                        ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME
+                        EPBlocks.BASIC_MACHINE_FRAME,
+                        EPBlocks.HARDENED_MACHINE_FRAME,
+                        EPBlocks.ADVANCED_MACHINE_FRAME,
+                        EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME
                 );
 
         getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL).
                 add(
-                        ModBlocks.SILICON_BLOCK,
-                        ModBlocks.TIN_BLOCK,
+                        EPBlocks.SILICON_BLOCK,
+                        EPBlocks.TIN_BLOCK,
 
-                        ModBlocks.TIN_ORE,
-                        ModBlocks.DEEPSLATE_TIN_ORE,
+                        EPBlocks.TIN_ORE,
+                        EPBlocks.DEEPSLATE_TIN_ORE,
 
-                        ModBlocks.RAW_TIN_BLOCK,
+                        EPBlocks.RAW_TIN_BLOCK,
 
-                        ModBlocks.IRON_FLUID_PIPE,
-                        ModBlocks.GOLDEN_FLUID_PIPE,
+                        EPBlocks.IRON_FLUID_PIPE,
+                        EPBlocks.GOLDEN_FLUID_PIPE,
 
-                        ModBlocks.FLUID_TANK_SMALL,
-                        ModBlocks.FLUID_TANK_MEDIUM,
-                        ModBlocks.FLUID_TANK_LARGE,
+                        EPBlocks.FLUID_TANK_SMALL,
+                        EPBlocks.FLUID_TANK_MEDIUM,
+                        EPBlocks.FLUID_TANK_LARGE,
 
-                        ModBlocks.AUTO_CRAFTER,
-                        ModBlocks.ADVANCED_AUTO_CRAFTER,
+                        EPBlocks.AUTO_CRAFTER,
+                        EPBlocks.ADVANCED_AUTO_CRAFTER,
 
-                        ModBlocks.CHARGER,
-                        ModBlocks.ADVANCED_CHARGER,
+                        EPBlocks.CHARGER,
+                        EPBlocks.ADVANCED_CHARGER,
 
-                        ModBlocks.UNCHARGER,
-                        ModBlocks.ADVANCED_UNCHARGER,
+                        EPBlocks.UNCHARGER,
+                        EPBlocks.ADVANCED_UNCHARGER,
 
-                        ModBlocks.MINECART_CHARGER,
-                        ModBlocks.ADVANCED_MINECART_CHARGER,
+                        EPBlocks.MINECART_CHARGER,
+                        EPBlocks.ADVANCED_MINECART_CHARGER,
 
-                        ModBlocks.MINECART_UNCHARGER,
-                        ModBlocks.ADVANCED_MINECART_UNCHARGER,
+                        EPBlocks.MINECART_UNCHARGER,
+                        EPBlocks.ADVANCED_MINECART_UNCHARGER,
 
-                        ModBlocks.SOLAR_PANEL_1,
-                        ModBlocks.SOLAR_PANEL_2,
-                        ModBlocks.SOLAR_PANEL_3,
-                        ModBlocks.SOLAR_PANEL_4,
-                        ModBlocks.SOLAR_PANEL_5,
-                        ModBlocks.SOLAR_PANEL_6,
+                        EPBlocks.SOLAR_PANEL_1,
+                        EPBlocks.SOLAR_PANEL_2,
+                        EPBlocks.SOLAR_PANEL_3,
+                        EPBlocks.SOLAR_PANEL_4,
+                        EPBlocks.SOLAR_PANEL_5,
+                        EPBlocks.SOLAR_PANEL_6,
 
-                        ModBlocks.COAL_ENGINE,
+                        EPBlocks.COAL_ENGINE,
 
-                        ModBlocks.HEAT_GENERATOR,
+                        EPBlocks.HEAT_GENERATOR,
 
-                        ModBlocks.THERMAL_GENERATOR,
+                        EPBlocks.THERMAL_GENERATOR,
 
-                        ModBlocks.POWERED_FURNACE,
-                        ModBlocks.ADVANCED_POWERED_FURNACE,
+                        EPBlocks.POWERED_FURNACE,
+                        EPBlocks.ADVANCED_POWERED_FURNACE,
 
-                        ModBlocks.LV_TRANSFORMER_1_TO_N,
-                        ModBlocks.LV_TRANSFORMER_3_TO_3,
-                        ModBlocks.LV_TRANSFORMER_N_TO_1,
-                        ModBlocks.MV_TRANSFORMER_1_TO_N,
-                        ModBlocks.MV_TRANSFORMER_3_TO_3,
-                        ModBlocks.MV_TRANSFORMER_N_TO_1,
-                        ModBlocks.HV_TRANSFORMER_1_TO_N,
-                        ModBlocks.HV_TRANSFORMER_3_TO_3,
-                        ModBlocks.HV_TRANSFORMER_N_TO_1,
-                        ModBlocks.EHV_TRANSFORMER_1_TO_N,
-                        ModBlocks.EHV_TRANSFORMER_3_TO_3,
-                        ModBlocks.EHV_TRANSFORMER_N_TO_1,
+                        EPBlocks.LV_TRANSFORMER_1_TO_N,
+                        EPBlocks.LV_TRANSFORMER_3_TO_3,
+                        EPBlocks.LV_TRANSFORMER_N_TO_1,
+                        EPBlocks.MV_TRANSFORMER_1_TO_N,
+                        EPBlocks.MV_TRANSFORMER_3_TO_3,
+                        EPBlocks.MV_TRANSFORMER_N_TO_1,
+                        EPBlocks.HV_TRANSFORMER_1_TO_N,
+                        EPBlocks.HV_TRANSFORMER_3_TO_3,
+                        EPBlocks.HV_TRANSFORMER_N_TO_1,
+                        EPBlocks.EHV_TRANSFORMER_1_TO_N,
+                        EPBlocks.EHV_TRANSFORMER_3_TO_3,
+                        EPBlocks.EHV_TRANSFORMER_N_TO_1,
 
-                        ModBlocks.BATTERY_BOX,
-                        ModBlocks.ADVANCED_BATTERY_BOX,
+                        EPBlocks.BATTERY_BOX,
+                        EPBlocks.ADVANCED_BATTERY_BOX,
 
-                        ModBlocks.CRUSHER,
-                        ModBlocks.ADVANCED_CRUSHER,
+                        EPBlocks.CRUSHER,
+                        EPBlocks.ADVANCED_CRUSHER,
 
-                        ModBlocks.PULVERIZER,
-                        ModBlocks.ADVANCED_PULVERIZER,
+                        EPBlocks.PULVERIZER,
+                        EPBlocks.ADVANCED_PULVERIZER,
 
-                        ModBlocks.SAWMILL,
+                        EPBlocks.SAWMILL,
 
-                        ModBlocks.COMPRESSOR,
+                        EPBlocks.COMPRESSOR,
 
-                        ModBlocks.METAL_PRESS,
+                        EPBlocks.METAL_PRESS,
 
-                        ModBlocks.AUTO_PRESS_MOLD_MAKER,
+                        EPBlocks.AUTO_PRESS_MOLD_MAKER,
 
-                        ModBlocks.AUTO_STONECUTTER,
+                        EPBlocks.AUTO_STONECUTTER,
 
-                        ModBlocks.ASSEMBLING_MACHINE,
+                        EPBlocks.ASSEMBLING_MACHINE,
 
-                        ModBlocks.INDUCTION_SMELTER,
+                        EPBlocks.INDUCTION_SMELTER,
 
-                        ModBlocks.PLANT_GROWTH_CHAMBER,
+                        EPBlocks.PLANT_GROWTH_CHAMBER,
 
-                        ModBlocks.BLOCK_PLACER,
+                        EPBlocks.BLOCK_PLACER,
 
-                        ModBlocks.FLUID_FILLER,
+                        EPBlocks.FLUID_FILLER,
 
-                        ModBlocks.FLUID_DRAINER,
+                        EPBlocks.FLUID_DRAINER,
 
-                        ModBlocks.FLUID_PUMP,
+                        EPBlocks.FLUID_PUMP,
 
-                        ModBlocks.DRAIN,
+                        EPBlocks.DRAIN,
 
-                        ModBlocks.STONE_SOLIDIFIER,
+                        EPBlocks.STONE_SOLIDIFIER,
 
-                        ModBlocks.FILTRATION_PLANT,
+                        EPBlocks.FILTRATION_PLANT,
 
-                        ModBlocks.FLUID_TRANSPOSER,
+                        EPBlocks.FLUID_TRANSPOSER,
 
-                        ModBlocks.LIGHTNING_GENERATOR,
+                        EPBlocks.LIGHTNING_GENERATOR,
 
-                        ModBlocks.ENERGIZER,
+                        EPBlocks.ENERGIZER,
 
-                        ModBlocks.CHARGING_STATION,
+                        EPBlocks.CHARGING_STATION,
 
-                        ModBlocks.CRYSTAL_GROWTH_CHAMBER,
+                        EPBlocks.CRYSTAL_GROWTH_CHAMBER,
 
-                        ModBlocks.WEATHER_CONTROLLER,
+                        EPBlocks.WEATHER_CONTROLLER,
 
-                        ModBlocks.TIME_CONTROLLER,
+                        EPBlocks.TIME_CONTROLLER,
 
-                        ModBlocks.TELEPORTER,
+                        EPBlocks.TELEPORTER,
 
-                        ModBlocks.BASIC_MACHINE_FRAME,
-                        ModBlocks.HARDENED_MACHINE_FRAME,
-                        ModBlocks.ADVANCED_MACHINE_FRAME,
-                        ModBlocks.REINFORCED_ADVANCED_MACHINE_FRAME
+                        EPBlocks.BASIC_MACHINE_FRAME,
+                        EPBlocks.HARDENED_MACHINE_FRAME,
+                        EPBlocks.ADVANCED_MACHINE_FRAME,
+                        EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME
                 );
 
         getOrCreateTagBuilder(ConventionalBlockTags.ORES).
                 addTag(CommonBlockTags.ORES_TIN);
         getOrCreateTagBuilder(CommonBlockTags.ORES_TIN).
-                add(ModBlocks.TIN_ORE,
-                        ModBlocks.DEEPSLATE_TIN_ORE);
+                add(EPBlocks.TIN_ORE,
+                        EPBlocks.DEEPSLATE_TIN_ORE);
 
         getOrCreateTagBuilder(CommonBlockTags.ORES_IN_GROUND_STONE).
-                add(ModBlocks.TIN_ORE);
+                add(EPBlocks.TIN_ORE);
         getOrCreateTagBuilder(CommonBlockTags.ORES_IN_GROUND_DEEPSLATE).
-                add(ModBlocks.DEEPSLATE_TIN_ORE);
+                add(EPBlocks.DEEPSLATE_TIN_ORE);
 
         getOrCreateTagBuilder(ConventionalBlockTags.STORAGE_BLOCKS).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_SILICON).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_TIN).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN);
         getOrCreateTagBuilder(CommonBlockTags.STORAGE_BLOCKS_SILICON).
-                add(ModBlocks.SILICON_BLOCK);
+                add(EPBlocks.SILICON_BLOCK);
         getOrCreateTagBuilder(CommonBlockTags.STORAGE_BLOCKS_TIN).
-                add(ModBlocks.TIN_BLOCK);
+                add(EPBlocks.TIN_BLOCK);
         getOrCreateTagBuilder(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN).
-                add(ModBlocks.RAW_TIN_BLOCK);
+                add(EPBlocks.RAW_TIN_BLOCK);
     }
 }

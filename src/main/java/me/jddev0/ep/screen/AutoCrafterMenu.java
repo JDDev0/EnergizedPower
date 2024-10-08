@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.PatternResultSlot;
@@ -50,10 +50,10 @@ public class AutoCrafterMenu extends UpgradableEnergyStorageMenu<AutoCrafterBloc
                            UpgradeModuleInventory upgradeModuleInventory, Inventory patternSlots,
                            Inventory patternResultSlots, PropertyDelegate data) {
         super(
-                ModMenuTypes.AUTO_CRAFTER_MENU, id,
+                EPMenuTypes.AUTO_CRAFTER_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.AUTO_CRAFTER,
+                EPBlocks.AUTO_CRAFTER,
                 8, 124,
 
                 upgradeModuleInventory, 3

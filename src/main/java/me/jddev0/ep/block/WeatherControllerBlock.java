@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockRenderType;
@@ -71,6 +71,6 @@ public class WeatherControllerBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.WEATHER_CONTROLLER_ENTITY, WeatherControllerBlockEntity::tick);
+        return validateTicker(type, EPBlockEntities.WEATHER_CONTROLLER_ENTITY, WeatherControllerBlockEntity::tick);
     }
 }

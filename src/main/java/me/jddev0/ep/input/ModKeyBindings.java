@@ -1,6 +1,6 @@
 package me.jddev0.ep.input;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.UseTeleporterC2SPacket;
 import net.fabricmc.api.EnvType;
@@ -43,7 +43,7 @@ public final class ModKeyBindings {
             BlockPos blockPos = player.getSteppingPos();
             BlockState state = level.getBlockState(blockPos);
 
-            if(!state.isOf(ModBlocks.TELEPORTER))
+            if(!state.isOf(EPBlocks.TELEPORTER))
                 return;
 
             ModMessages.sendClientPacketToServer(new UseTeleporterC2SPacket(blockPos));

@@ -8,7 +8,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
 import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 public class AlloyFurnaceEMIRecipe implements EmiRecipe {
     public static final Identifier SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/alloy_furnace_front.png");
-    public static final EmiStack ITEM = EmiStack.of(ModBlocks.ALLOY_FURNACE_ITEM);
+    public static final EmiStack ITEM = EmiStack.of(EPBlocks.ALLOY_FURNACE_ITEM);
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("alloy_furnace"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 

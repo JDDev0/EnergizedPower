@@ -2,7 +2,7 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.BlockPlacerBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -128,6 +128,6 @@ public class BlockPlacerBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.BLOCK_PLACER_ENTITY, BlockPlacerBlockEntity::tick);
+        return validateTicker(type, EPBlockEntities.BLOCK_PLACER_ENTITY, BlockPlacerBlockEntity::tick);
     }
 }

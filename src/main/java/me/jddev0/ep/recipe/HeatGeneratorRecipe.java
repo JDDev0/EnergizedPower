@@ -5,7 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
@@ -59,7 +59,7 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ModBlocks.HEAT_GENERATOR_ITEM);
+        return new ItemStack(EPBlocks.HEAT_GENERATOR_ITEM);
     }
 
     @Override

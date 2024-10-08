@@ -2,7 +2,7 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.AdvancedMinecartChargerBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -105,7 +105,7 @@ public class AdvancedMinecartChargerBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.ADVANCED_MINECART_CHARGER_ENTITY, AdvancedMinecartChargerBlockEntity::tick);
+        return validateTicker(type, EPBlockEntities.ADVANCED_MINECART_CHARGER_ENTITY, AdvancedMinecartChargerBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

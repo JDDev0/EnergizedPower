@@ -44,7 +44,7 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidSto
 
     public DrainBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.DRAIN_ENTITY, blockPos, blockState,
+                EPBlockEntities.DRAIN_ENTITY, blockPos, blockState,
 
                 "drain",
 

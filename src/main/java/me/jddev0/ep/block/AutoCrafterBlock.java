@@ -2,7 +2,7 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -11,7 +11,6 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
@@ -122,7 +121,7 @@ public class AutoCrafterBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.AUTO_CRAFTER_ENTITY, AutoCrafterBlockEntity::tick);
+        return validateTicker(type, EPBlockEntities.AUTO_CRAFTER_ENTITY, AutoCrafterBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

@@ -23,7 +23,7 @@ public class MinecartAdvancedBatteryBoxMenu extends ScreenHandler implements IEn
     }
 
     public MinecartAdvancedBatteryBoxMenu(int id, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
-        super(ModMenuTypes.MINECART_ADVANCED_BATTERY_BOX_MENU, id);
+        super(EPMenuTypes.MINECART_ADVANCED_BATTERY_BOX_MENU, id);
 
         this.inv = inv;
         checkSize(inv, 0);

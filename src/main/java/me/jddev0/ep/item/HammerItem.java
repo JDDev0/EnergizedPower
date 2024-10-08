@@ -1,11 +1,10 @@
 package me.jddev0.ep.item;
 
-import me.jddev0.ep.component.ModDataComponentTypes;
+import me.jddev0.ep.component.EPDataComponentTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.item.ToolMaterials;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.random.Random;
 
@@ -13,7 +12,7 @@ public class HammerItem extends ToolItem {
     private final Random random = Random.create();
 
     public HammerItem(ToolMaterials tier, Item.Settings props) {
-        super(tier, props.component(ModDataComponentTypes.NO_REPAIR, Unit.INSTANCE));
+        super(tier, props.component(EPDataComponentTypes.NO_REPAIR, Unit.INSTANCE));
     }
 
     @Override

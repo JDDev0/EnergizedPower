@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.rei;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.EnergizerBlockEntity;
 import me.jddev0.ep.util.EnergyUtils;
 import me.shedaniel.math.Point;
@@ -36,7 +36,7 @@ public class EnergizerCategory implements DisplayCategory<EnergizerDisplay> {
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModBlocks.ENERGIZER_ITEM);
+        return EntryStacks.of(EPBlocks.ENERGIZER_ITEM);
     }
 
     @Override

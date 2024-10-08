@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.PoweredFurnaceBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
@@ -53,10 +53,10 @@ public class PoweredFurnaceMenu extends UpgradableEnergyStorageMenu<PoweredFurna
     public PoweredFurnaceMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
                               UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(
-                ModMenuTypes.POWERED_FURNACE_MENU, id,
+                EPMenuTypes.POWERED_FURNACE_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.POWERED_FURNACE,
+                EPBlocks.POWERED_FURNACE,
 
                 upgradeModuleInventory, 4
         );

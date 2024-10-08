@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.UnchargerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
@@ -60,10 +60,10 @@ public class UnchargerMenu extends UpgradableEnergyStorageMenu<UnchargerBlockEnt
     public UnchargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
                          UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(
-                ModMenuTypes.UNCHARGER_MENU, id,
+                EPMenuTypes.UNCHARGER_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.UNCHARGER,
+                EPBlocks.UNCHARGER,
 
                 upgradeModuleInventory, 1
         );

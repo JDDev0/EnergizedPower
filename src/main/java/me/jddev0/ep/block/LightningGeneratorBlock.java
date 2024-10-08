@@ -2,7 +2,7 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.LightningGeneratorBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.block.*;
@@ -119,7 +119,7 @@ public class LightningGeneratorBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.LIGHTING_GENERATOR_ENTITY, LightningGeneratorBlockEntity::tick);
+        return validateTicker(type, EPBlockEntities.LIGHTING_GENERATOR_ENTITY, LightningGeneratorBlockEntity::tick);
     }
 
     @Override

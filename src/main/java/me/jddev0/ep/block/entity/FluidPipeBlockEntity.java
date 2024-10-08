@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.FluidPipeBlock;
-import me.jddev0.ep.block.ModBlockStateProperties;
+import me.jddev0.ep.block.EPBlockStateProperties;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -33,8 +33,8 @@ public class FluidPipeBlockEntity extends BlockEntity {
     
     public static BlockEntityType<FluidPipeBlockEntity> getEntityTypeFromTier(FluidPipeBlock.Tier tier) {
         return switch(tier) {
-            case IRON -> ModBlockEntities.IRON_FLUID_PIPE_ENTITY;
-            case GOLDEN -> ModBlockEntities.GOLDEN_FLUID_PIPE_ENTITY;
+            case IRON -> EPBlockEntities.IRON_FLUID_PIPE_ENTITY;
+            case GOLDEN -> EPBlockEntities.GOLDEN_FLUID_PIPE_ENTITY;
         };
     }
 
@@ -96,7 +96,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
             if(!fluidStorage.iterator().hasNext())
                 continue;
 
-            ModBlockStateProperties.PipeConnection pipeConnection = state.get(FluidPipeBlock.getPipeConnectionPropertyFromDirection(direction));
+            EPBlockStateProperties.PipeConnection pipeConnection = state.get(FluidPipeBlock.getPipeConnectionPropertyFromDirection(direction));
             if(pipeConnection.isExtract())
                 blockEntity.producers.put(Pair.of(testPos, direction.getOpposite()), fluidStorage);
             else if(pipeConnection.isInsert())

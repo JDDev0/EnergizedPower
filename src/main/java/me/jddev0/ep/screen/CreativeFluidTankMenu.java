@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.CreativeFluidTankBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import net.minecraft.block.entity.BlockEntity;
@@ -22,7 +22,7 @@ public class CreativeFluidTankMenu extends ScreenHandler {
     }
 
     public CreativeFluidTankMenu(int id, PlayerInventory inv, BlockEntity blockEntity) {
-        super(ModMenuTypes.CREATIVE_FLUID_TANK, id);
+        super(EPMenuTypes.CREATIVE_FLUID_TANK, id);
 
         this.blockEntity = (CreativeFluidTankBlockEntity)blockEntity;
         this.level = inv.player.getWorld();
@@ -46,7 +46,7 @@ public class CreativeFluidTankMenu extends ScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.CREATIVE_FLUID_TANK);
+        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, EPBlocks.CREATIVE_FLUID_TANK);
     }
 
     private void addPlayerInventory(PlayerInventory playerInventory) {

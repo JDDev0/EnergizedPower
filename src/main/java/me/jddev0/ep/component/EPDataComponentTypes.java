@@ -8,15 +8,14 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.Unit;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.Direction;
 
 import java.util.function.UnaryOperator;
 
-public final class ModDataComponentTypes {
-    private ModDataComponentTypes() {}
+public final class EPDataComponentTypes {
+    private EPDataComponentTypes() {}
 
     public static <T> ComponentType<T> registerDataComponentType(String name, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         return Registry.register(Registries.DATA_COMPONENT_TYPE, EPAPI.id(name),

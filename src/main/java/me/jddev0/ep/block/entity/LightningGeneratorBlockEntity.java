@@ -25,7 +25,7 @@ public class LightningGeneratorBlockEntity
         extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
     public LightningGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.LIGHTING_GENERATOR_ENTITY, blockPos, blockState,
+                EPBlockEntities.LIGHTING_GENERATOR_ENTITY, blockPos, blockState,
 
                 "lightning_generator",
 

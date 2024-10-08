@@ -1,8 +1,8 @@
 package me.jddev0.ep.entity;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.screen.MinecartBatteryBoxMenu;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.BlockState;
@@ -55,16 +55,16 @@ public class MinecartBatteryBox extends AbstractMinecartBatteryBox {
     }
 
     public MinecartBatteryBox(World level, double x, double y, double z) {
-        super(ModEntityTypes.BATTERY_BOX_MINECART, level, x, y, z);
+        super(EPEntityTypes.BATTERY_BOX_MINECART, level, x, y, z);
     }
 
     @Override
     protected Item asItem() {
-        return ModItems.BATTERY_BOX_MINECART;
+        return EPItems.BATTERY_BOX_MINECART;
     }
 
     public BlockState getDefaultContainedBlock() {
-        return ModBlocks.BATTERY_BOX.getDefaultState();
+        return EPBlocks.BATTERY_BOX.getDefaultState();
     }
 
     @Nullable
@@ -100,6 +100,6 @@ public class MinecartBatteryBox extends AbstractMinecartBatteryBox {
 
     @Override
     public ItemStack getPickBlockStack() {
-        return new ItemStack(ModItems.BATTERY_BOX_MINECART);
+        return new ItemStack(EPItems.BATTERY_BOX_MINECART);
     }
 }

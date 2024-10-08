@@ -1,7 +1,7 @@
 package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.datagen.loot.ModBlockLootTables;
-import me.jddev0.ep.paintings.ModPaintingVariants;
+import me.jddev0.ep.paintings.EPPaintingVariants;
 import me.jddev0.ep.world.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -36,6 +36,6 @@ public class EnergizedPowerDataGenerators implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.TEMPLATE_POOL, ModTemplatePools::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.STRUCTURE, ModStructures::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.STRUCTURE_SET, ModStructureSets::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.PAINTING_VARIANT, ModPaintingVariants::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.PAINTING_VARIANT, EPPaintingVariants::bootstrap);
     }
 }

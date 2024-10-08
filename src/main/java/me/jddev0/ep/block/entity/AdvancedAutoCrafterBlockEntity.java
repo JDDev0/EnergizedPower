@@ -125,7 +125,7 @@ public class AdvancedAutoCrafterBlockEntity
 
     public AdvancedAutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.ADVANCED_AUTO_CRAFTER_ENTITY, blockPos, blockState,
+                EPBlockEntities.ADVANCED_AUTO_CRAFTER_ENTITY, blockPos, blockState,
 
                 "advanced_auto_crafter",
 

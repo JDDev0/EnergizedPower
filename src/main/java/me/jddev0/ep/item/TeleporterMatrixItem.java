@@ -1,8 +1,8 @@
 package me.jddev0.ep.item;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.component.DimensionalPositionComponent;
-import me.jddev0.ep.component.ModDataComponentTypes;
+import me.jddev0.ep.component.EPDataComponentTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.Screen;
@@ -29,7 +29,7 @@ public class TeleporterMatrixItem extends Item {
     }
 
     public static boolean isLinked(ItemStack itemStack) {
-        return itemStack.contains(ModDataComponentTypes.DIMENSIONAL_POSITION);
+        return itemStack.contains(EPDataComponentTypes.DIMENSIONAL_POSITION);
     }
 
     public static BlockPos getBlockPos(World level, ItemStack itemStack) {
@@ -39,7 +39,7 @@ public class TeleporterMatrixItem extends Item {
         if(!isLinked(itemStack))
             return null;
 
-        DimensionalPositionComponent dimPos = itemStack.get(ModDataComponentTypes.DIMENSIONAL_POSITION);
+        DimensionalPositionComponent dimPos = itemStack.get(EPDataComponentTypes.DIMENSIONAL_POSITION);
         if(dimPos == null)
             return null;
 
@@ -53,7 +53,7 @@ public class TeleporterMatrixItem extends Item {
         if(!isLinked(itemStack))
             return null;
 
-        DimensionalPositionComponent dimPos = itemStack.get(ModDataComponentTypes.DIMENSIONAL_POSITION);
+        DimensionalPositionComponent dimPos = itemStack.get(EPDataComponentTypes.DIMENSIONAL_POSITION);
         if(dimPos == null)
             return null;
 
@@ -74,11 +74,11 @@ public class TeleporterMatrixItem extends Item {
         Block block = state.getBlock();
 
         ItemStack itemStack = useOnContext.getStack();
-        itemStack.set(ModDataComponentTypes.DIMENSIONAL_POSITION,
+        itemStack.set(EPDataComponentTypes.DIMENSIONAL_POSITION,
                 new DimensionalPositionComponent(blockPos.getX(), blockPos.getY(), blockPos.getZ(),
                         level.getRegistryKey().getValue()));
 
-        if(state.isOf(ModBlocks.TELEPORTER)) {
+        if(state.isOf(EPBlocks.TELEPORTER)) {
             if(player instanceof ServerPlayerEntity serverPlayer) {
                 serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
                         Text.translatable("tooltip.energizedpower.teleporter_matrix.set").
@@ -104,8 +104,8 @@ public class TeleporterMatrixItem extends Item {
         if(level.isClient())
             return TypedActionResult.success(itemStack);
 
-        if(itemStack.contains(ModDataComponentTypes.DIMENSIONAL_POSITION))
-            itemStack.remove(ModDataComponentTypes.DIMENSIONAL_POSITION);
+        if(itemStack.contains(EPDataComponentTypes.DIMENSIONAL_POSITION))
+            itemStack.remove(EPDataComponentTypes.DIMENSIONAL_POSITION);
 
         if(player instanceof ServerPlayerEntity serverPlayer) {
             serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
@@ -119,7 +119,7 @@ public class TeleporterMatrixItem extends Item {
 
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
-        DimensionalPositionComponent dimPos = stack.get(ModDataComponentTypes.DIMENSIONAL_POSITION);
+        DimensionalPositionComponent dimPos = stack.get(EPDataComponentTypes.DIMENSIONAL_POSITION);
         boolean linked = isLinked(stack) && dimPos != null;
 
 

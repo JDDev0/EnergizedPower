@@ -2,7 +2,7 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.HeatGeneratorBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -71,6 +71,6 @@ public class HeatGeneratorBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.HEAT_GENERATOR_ENTITY, HeatGeneratorBlockEntity::tick);
+        return validateTicker(type, EPBlockEntities.HEAT_GENERATOR_ENTITY, HeatGeneratorBlockEntity::tick);
     }
 }

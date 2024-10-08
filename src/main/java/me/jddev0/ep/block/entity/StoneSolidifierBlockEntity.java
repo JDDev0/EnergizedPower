@@ -6,7 +6,7 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.screen.StoneSolidifierMenu;
 import me.jddev0.ep.util.FluidUtils;
@@ -33,13 +33,13 @@ public class StoneSolidifierBlockEntity
 
     public StoneSolidifierBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.STONE_SOLIDIFIER_ENTITY, blockPos, blockState,
+                EPBlockEntities.STONE_SOLIDIFIER_ENTITY, blockPos, blockState,
 
                 "stone_solidifier", StoneSolidifierMenu::new,
 
                 1,
-                ModRecipes.STONE_SOLIDIFIER_TYPE,
-                ModRecipes.STONE_SOLIDIFIER_SERIALIZER,
+                EPRecipes.STONE_SOLIDIFIER_TYPE,
+                EPRecipes.STONE_SOLIDIFIER_SERIALIZER,
                 ModConfigs.COMMON_STONE_SOLIDIFIER_RECIPE_DURATION.getValue(),
 
                 ModConfigs.COMMON_STONE_SOLIDIFIER_CAPACITY.getValue(),

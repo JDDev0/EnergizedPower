@@ -3,12 +3,12 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.entity.base.FluidStorageMultiTankMethods;
 import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.fluid.ModFluids;
+import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.PulverizerRecipe;
 import me.jddev0.ep.screen.AdvancedPulverizerMenu;
 import me.jddev0.ep.util.*;
@@ -36,11 +36,11 @@ public class AdvancedPulverizerBlockEntity
 
     public AdvancedPulverizerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.ADVANCED_PULVERIZER_ENTITY, blockPos, blockState,
+                EPBlockEntities.ADVANCED_PULVERIZER_ENTITY, blockPos, blockState,
 
                 "advanced_pulverizer", AdvancedPulverizerMenu::new,
 
-                3, ModRecipes.PULVERIZER_TYPE, ModConfigs.COMMON_ADVANCED_PULVERIZER_RECIPE_DURATION.getValue(),
+                3, EPRecipes.PULVERIZER_TYPE, ModConfigs.COMMON_ADVANCED_PULVERIZER_RECIPE_DURATION.getValue(),
 
                 ModConfigs.COMMON_ADVANCED_PULVERIZER_CAPACITY.getValue(),
                 ModConfigs.COMMON_ADVANCED_PULVERIZER_TRANSFER_RATE.getValue(),
@@ -120,7 +120,7 @@ public class AdvancedPulverizerBlockEntity
                     }
 
                     private boolean isFluidValid(FluidVariant variant) {
-                        return variant.isOf(ModFluids.DIRTY_WATER);
+                        return variant.isOf(EPFluids.DIRTY_WATER);
                     }
 
                     @Override
@@ -150,7 +150,7 @@ public class AdvancedPulverizerBlockEntity
 
         try(Transaction transaction = Transaction.openOuter()) {
             fluidStorage.extract(FluidVariant.of(Fluids.WATER), WATER_CONSUMPTION_PER_RECIPE, transaction);
-            fluidStorage.insert(FluidVariant.of(ModFluids.DIRTY_WATER), WATER_CONSUMPTION_PER_RECIPE, transaction);
+            fluidStorage.insert(FluidVariant.of(EPFluids.DIRTY_WATER), WATER_CONSUMPTION_PER_RECIPE, transaction);
 
             transaction.commit();
         }

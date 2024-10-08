@@ -1,6 +1,6 @@
 package me.jddev0.ep.item.energy;
 
-import me.jddev0.ep.component.ModDataComponentTypes;
+import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -45,11 +45,11 @@ public class EnergizedPowerEnergyItem extends Item {
     }
 
     public static long getStoredEnergyUnchecked(ItemStack stack) {
-        return stack.getOrDefault(ModDataComponentTypes.ENERGY, 0L);
+        return stack.getOrDefault(EPDataComponentTypes.ENERGY, 0L);
     }
 
     public static void setStoredEnergyUnchecked(ItemStack stack, long newAmount) {
-        stack.set(ModDataComponentTypes.ENERGY, newAmount);
+        stack.set(EPDataComponentTypes.ENERGY, newAmount);
     }
 
     @Override

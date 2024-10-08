@@ -6,7 +6,7 @@ import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.CrystalGrowthChamberRecipe;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.CrystalGrowthChamberMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.block.BlockState;
@@ -23,11 +23,11 @@ public class CrystalGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEnt
 
     public CrystalGrowthChamberBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.CRYSTAL_GROWTH_CHAMBER_ENTITY, blockPos, blockState,
+                EPBlockEntities.CRYSTAL_GROWTH_CHAMBER_ENTITY, blockPos, blockState,
 
                 "crystal_growth_chamber", CrystalGrowthChamberMenu::new,
 
-                2, ModRecipes.CRYSTAL_GROWTH_CHAMBER_TYPE, 1,
+                2, EPRecipes.CRYSTAL_GROWTH_CHAMBER_TYPE, 1,
 
                 ModConfigs.COMMON_CRYSTAL_GROWTH_CHAMBER_CAPACITY.getValue(),
                 ModConfigs.COMMON_CRYSTAL_GROWTH_CHAMBER_TRANSFER_RATE.getValue(),

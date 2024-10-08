@@ -45,7 +45,7 @@ public class InventoryChargerMenu extends ScreenHandler {
     }
 
     public InventoryChargerMenu(int id, PlayerInventory playerInventory, Inventory inv) {
-        super(ModMenuTypes.INVENTORY_CHARGER_MENU, id);
+        super(EPMenuTypes.INVENTORY_CHARGER_MENU, id);
 
         checkSize(inv, InventoryChargerItem.SLOT_COUNT);
         this.inv = inv;

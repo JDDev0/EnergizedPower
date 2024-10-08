@@ -2,7 +2,7 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.AdvancedPulverizerBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -120,7 +120,7 @@ public class AdvancedPulverizerBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.ADVANCED_PULVERIZER_ENTITY, AdvancedPulverizerBlockEntity::tick);
+        return validateTicker(type, EPBlockEntities.ADVANCED_PULVERIZER_ENTITY, AdvancedPulverizerBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

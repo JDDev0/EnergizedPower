@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.block.entity.BlockEntity;
@@ -27,10 +27,10 @@ public class WeatherControllerMenu extends UpgradableEnergyStorageMenu<WeatherCo
     public WeatherControllerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory,
                                  UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(
-                ModMenuTypes.WEATHER_CONTROLLER_MENU, id,
+                EPMenuTypes.WEATHER_CONTROLLER_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.WEATHER_CONTROLLER,
+                EPBlocks.WEATHER_CONTROLLER,
 
                 upgradeModuleInventory, 1
         );

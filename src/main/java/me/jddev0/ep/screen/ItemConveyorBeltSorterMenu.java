@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ItemConveyorBeltSorterBlockEntity;
 import me.jddev0.ep.inventory.PatternSlot;
 import net.minecraft.block.entity.BlockEntity;
@@ -29,7 +29,7 @@ public class ItemConveyorBeltSorterMenu extends ScreenHandler {
     }
 
     public ItemConveyorBeltSorterMenu(int id, PlayerInventory playerInventory, BlockEntity blockEntity, Inventory patternSlots, PropertyDelegate data) {
-        super(ModMenuTypes.ITEM_CONVEYOR_BELT_SORTER_MENU, id);
+        super(EPMenuTypes.ITEM_CONVEYOR_BELT_SORTER_MENU, id);
 
         this.patternSlots = patternSlots;
 
@@ -71,7 +71,7 @@ public class ItemConveyorBeltSorterMenu extends ScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, ModBlocks.ITEM_CONVEYOR_BELT_SORTER);
+        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, EPBlocks.ITEM_CONVEYOR_BELT_SORTER);
     }
 
     private void addPlayerInventory(PlayerInventory playerInventory) {

@@ -1,6 +1,6 @@
 package me.jddev0.ep.item;
 
-import me.jddev0.ep.component.ModDataComponentTypes;
+import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.component.InventoryComponent;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.InventoryChargerMenu;
@@ -269,7 +269,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
     }
 
     public static SimpleInventory getInventory(ItemStack itemStack) {
-        InventoryComponent inventory = itemStack.get(ModDataComponentTypes.INVENTORY);
+        InventoryComponent inventory = itemStack.get(EPDataComponentTypes.INVENTORY);
 
         if(inventory != null) {
             DefaultedList<ItemStack> items = DefaultedList.ofSize(SLOT_COUNT, ItemStack.EMPTY);
@@ -284,7 +284,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
                 public void markDirty() {
                     super.markDirty();
 
-                    itemStack.set(ModDataComponentTypes.INVENTORY, new InventoryComponent(heldStacks));
+                    itemStack.set(EPDataComponentTypes.INVENTORY, new InventoryComponent(heldStacks));
                 }
 
                 @Override
@@ -320,7 +320,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
             public void markDirty() {
                 super.markDirty();
 
-                itemStack.set(ModDataComponentTypes.INVENTORY, new InventoryComponent(heldStacks));
+                itemStack.set(EPDataComponentTypes.INVENTORY, new InventoryComponent(heldStacks));
             }
 
             @Override

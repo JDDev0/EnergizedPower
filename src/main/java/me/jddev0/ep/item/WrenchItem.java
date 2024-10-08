@@ -1,6 +1,6 @@
 package me.jddev0.ep.item;
 
-import me.jddev0.ep.component.ModDataComponentTypes;
+import me.jddev0.ep.component.EPDataComponentTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.Screen;
@@ -30,7 +30,7 @@ public class WrenchItem extends Item {
     }
 
     public static Direction getCurrentFace(ItemStack itemStack) {
-        return itemStack.getOrDefault(ModDataComponentTypes.CURRENT_FACE, Direction.DOWN);
+        return itemStack.getOrDefault(EPDataComponentTypes.CURRENT_FACE, Direction.DOWN);
     }
 
     public static void cycleCurrentFace(ItemStack itemStack, ServerPlayerEntity player) {
@@ -39,7 +39,7 @@ public class WrenchItem extends Item {
         currentFace = Direction.values()[(currentFace.ordinal() + diff + Direction.values().length) %
                 Direction.values().length];
 
-        itemStack.set(ModDataComponentTypes.CURRENT_FACE, currentFace);
+        itemStack.set(EPDataComponentTypes.CURRENT_FACE, currentFace);
 
         player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
                 Text.translatable("tooltip.energizedpower.wrench.select_face",
@@ -101,12 +101,12 @@ public class WrenchItem extends Item {
 
         ItemStack itemStack = player.getMainHandStack();
 
-        if(itemStack.contains(ModDataComponentTypes.ACTION_COOLDOWN))
+        if(itemStack.contains(EPDataComponentTypes.ACTION_COOLDOWN))
             return false;
 
         cycleCurrentFace(itemStack, (ServerPlayerEntity)player);
 
-        itemStack.set(ModDataComponentTypes.ACTION_COOLDOWN, 5);
+        itemStack.set(EPDataComponentTypes.ACTION_COOLDOWN, 5);
 
         return false;
     }
@@ -137,12 +137,12 @@ public class WrenchItem extends Item {
         if(!(entity instanceof PlayerEntity))
             return;
 
-        if(itemStack.contains(ModDataComponentTypes.ACTION_COOLDOWN)) {
-            int attackingCycleCooldown = itemStack.getOrDefault(ModDataComponentTypes.ACTION_COOLDOWN, 0) - 1;
+        if(itemStack.contains(EPDataComponentTypes.ACTION_COOLDOWN)) {
+            int attackingCycleCooldown = itemStack.getOrDefault(EPDataComponentTypes.ACTION_COOLDOWN, 0) - 1;
             if(attackingCycleCooldown <= 0)
-                itemStack.remove(ModDataComponentTypes.ACTION_COOLDOWN);
+                itemStack.remove(EPDataComponentTypes.ACTION_COOLDOWN);
             else
-                itemStack.set(ModDataComponentTypes.ACTION_COOLDOWN, attackingCycleCooldown);
+                itemStack.set(EPDataComponentTypes.ACTION_COOLDOWN, attackingCycleCooldown);
         }
     }
 }

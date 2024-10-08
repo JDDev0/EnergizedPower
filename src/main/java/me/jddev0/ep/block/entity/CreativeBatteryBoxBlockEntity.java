@@ -29,7 +29,7 @@ public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
 
     public CreativeBatteryBoxBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.CREATIVE_BATTERY_BOX_ENTITY, blockPos, blockState,
+                EPBlockEntities.CREATIVE_BATTERY_BOX_ENTITY, blockPos, blockState,
 
                 "creative_battery_box",
 

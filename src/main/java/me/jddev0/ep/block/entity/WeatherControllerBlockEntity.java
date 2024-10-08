@@ -29,7 +29,7 @@ public class WeatherControllerBlockEntity
 
     public WeatherControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.WEATHER_CONTROLLER_ENTITY, blockPos, blockState,
+                EPBlockEntities.WEATHER_CONTROLLER_ENTITY, blockPos, blockState,
 
                 "weather_controller",
 

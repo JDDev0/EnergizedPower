@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -73,7 +73,7 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<RecipeInput> {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM);
+        return new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM);
     }
 
     @Override

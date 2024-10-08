@@ -1,6 +1,6 @@
 package me.jddev0.ep.item;
 
-import me.jddev0.ep.component.ModDataComponentTypes;
+import me.jddev0.ep.component.EPDataComponentTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,7 +14,7 @@ public class CutterItem extends ToolItem {
     private final Random random = Random.create();
 
     public CutterItem(ToolMaterials tier, Item.Settings props) {
-        super(tier, props.component(ModDataComponentTypes.NO_REPAIR, Unit.INSTANCE));
+        super(tier, props.component(EPDataComponentTypes.NO_REPAIR, Unit.INSTANCE));
     }
 
     @Override

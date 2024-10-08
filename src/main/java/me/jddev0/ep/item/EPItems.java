@@ -8,11 +8,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 import team.reborn.energy.api.EnergyStorage;
 
-public final class ModItems {
-    private ModItems() {}
+public final class EPItems {
+    private EPItems() {}
 
     public static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, EPAPI.id(name), item);

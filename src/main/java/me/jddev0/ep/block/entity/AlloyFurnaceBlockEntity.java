@@ -7,7 +7,7 @@ import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.IngredientWithCount;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.AlloyFurnaceMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.InventoryUtils;
@@ -66,7 +66,7 @@ public class AlloyFurnaceBlockEntity
 
     public AlloyFurnaceBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.ALLOY_FURNACE_ENTITY, blockPos, blockState,
+                EPBlockEntities.ALLOY_FURNACE_ENTITY, blockPos, blockState,
 
                 "alloy_furnace",
 
@@ -299,7 +299,7 @@ public class AlloyFurnaceBlockEntity
     }
 
     private Optional<RecipeEntry<AlloyFurnaceRecipe>> getRecipeFor(SimpleInventory inventory) {
-        return world.getRecipeManager().getFirstMatch(ModRecipes.ALLOY_FURNACE_TYPE, getRecipeInput(inventory), world);
+        return world.getRecipeManager().getFirstMatch(EPRecipes.ALLOY_FURNACE_TYPE, getRecipeInput(inventory), world);
     }
 
     private Optional<RecipeEntry<AlloyFurnaceRecipe>> getCurrentRecipe() {

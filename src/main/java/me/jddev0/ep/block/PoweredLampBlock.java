@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.PoweredLampBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -54,6 +54,6 @@ public class PoweredLampBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.POWERED_LAMP_ENTITY, PoweredLampBlockEntity::tick);
+        return validateTicker(type, EPBlockEntities.POWERED_LAMP_ENTITY, PoweredLampBlockEntity::tick);
     }
 }

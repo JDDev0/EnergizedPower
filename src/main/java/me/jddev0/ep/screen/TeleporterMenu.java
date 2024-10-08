@@ -1,9 +1,9 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.TeleporterBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.screen.base.EnergyStorageMenu;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,7 +20,7 @@ public class TeleporterMenu extends EnergyStorageMenu<TeleporterBlockEntity> {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 if(slot == 0) {
-                    return stack.isOf(ModItems.TELEPORTER_MATRIX);
+                    return stack.isOf(EPItems.TELEPORTER_MATRIX);
                 }
 
                 return super.isValid(slot, stack);
@@ -35,10 +35,10 @@ public class TeleporterMenu extends EnergyStorageMenu<TeleporterBlockEntity> {
 
     public TeleporterMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv) {
         super(
-                ModMenuTypes.TELEPORTER_MENU, id,
+                EPMenuTypes.TELEPORTER_MENU, id,
 
                 playerInventory, blockEntity,
-                ModBlocks.TELEPORTER
+                EPBlocks.TELEPORTER
         );
 
         addSlot(new ConstraintInsertSlot(inv, 0, 80, 35));

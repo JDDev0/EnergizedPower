@@ -17,7 +17,7 @@ public class PoweredLampBlockEntity
 
     public PoweredLampBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.POWERED_LAMP_ENTITY, blockPos, blockState,
+                EPBlockEntities.POWERED_LAMP_ENTITY, blockPos, blockState,
 
                 MAX_RECEIVE,
                 MAX_RECEIVE
