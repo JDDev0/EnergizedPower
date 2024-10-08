@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
 import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
@@ -27,14 +27,14 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class AlloyFurnaceCategory implements IRecipeCategory<AlloyFurnaceRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "alloy_furnace");
+    public static final ResourceLocation UID = EPAPI.id("alloy_furnace");
     public static final RecipeType<AlloyFurnaceRecipe> TYPE = new RecipeType<>(UID, AlloyFurnaceRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public AlloyFurnaceCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
         background = helper.createDrawable(texture, 1, 189, 147, 37);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.ALLOY_FURNACE_ITEM.get()));

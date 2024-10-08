@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.networking.packet.SetFluidTankFilterC2SPacket;
@@ -34,7 +34,7 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
     public FluidTankScreen(FluidTankMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
 
-        TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/fluid_tank.png");
+        TEXTURE = EPAPI.id("textures/gui/container/fluid_tank.png");
     }
 
     @Override

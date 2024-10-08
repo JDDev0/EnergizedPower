@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
 import mezz.jei.api.constants.VanillaTypes;
@@ -20,7 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<PlantGrowthChamberFertilizerRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "plant_growth_chamber_fertilizer");
+    public static final ResourceLocation UID = EPAPI.id("plant_growth_chamber_fertilizer");
     public static final RecipeType<PlantGrowthChamberFertilizerRecipe> TYPE = new RecipeType<>(UID, PlantGrowthChamberFertilizerRecipe.class);
 
     private final IDrawable background;
@@ -28,7 +28,7 @@ public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<Pla
     private final IDrawable icon;
 
     public PlantGrowthChamberFertilizerCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
         fertlizerSlot = helper.createDrawable(texture, 34, 34, 18, 18);
         background = helper.createBlankDrawable(144, 30);
 

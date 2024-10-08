@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.shedaniel.math.Point;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FluidTransposerCategory implements DisplayCategory<FluidTransposerDisplay> {
-    public static final CategoryIdentifier<FluidTransposerDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "fluid_transposer");
+    public static final CategoryIdentifier<FluidTransposerDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "fluid_transposer");
 
     private static final int PADDING = 5;
 
@@ -47,7 +47,7 @@ public class FluidTransposerCategory implements DisplayCategory<FluidTransposerD
         int y = bounds.y + PADDING;
 
         if(display.recipe().getMode() == FluidTransposerBlockEntity.Mode.EMPTYING) {
-            ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+            ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
             widgets.add(Widgets.createTexturedWidget(texture, x, y, 1, 133, 143, 26));
 
             widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().
@@ -61,7 +61,7 @@ public class FluidTransposerCategory implements DisplayCategory<FluidTransposerD
             widgets.add(Widgets.createTexturedWidget(new ResourceLocation("minecraft", "textures/item/bucket.png"),
                     x + 120, y + 5, 16, 16, 16, 16, 16, 16, 16, 16));
         }else {
-            ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+            ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
             widgets.add(Widgets.createTexturedWidget(texture, x, y, 1, 161, 143, 26));
 
             widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().

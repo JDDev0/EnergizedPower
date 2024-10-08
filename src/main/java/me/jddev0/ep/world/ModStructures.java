@@ -1,6 +1,6 @@
 package me.jddev0.ep.world;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.registry.tags.EnergizedPowerBiomeTags;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -18,7 +18,6 @@ import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
 public final class ModStructures {
@@ -54,6 +53,6 @@ public final class ModStructures {
 
     public static ResourceKey<Structure> registerKey(String name) {
         return ResourceKey.create(Registries.STRUCTURE,
-                new ResourceLocation(EnergizedPowerMod.MODID, name));
+                EPAPI.id(name));
     }
 }

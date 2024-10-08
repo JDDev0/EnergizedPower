@@ -1,7 +1,7 @@
 package me.jddev0.ep.villager;
 
 import com.google.common.collect.ImmutableSet;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
@@ -14,8 +14,8 @@ import net.minecraftforge.registries.RegistryObject;
 public final class ModVillager {
     private ModVillager() {}
 
-    public static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(ForgeRegistries.POI_TYPES, EnergizedPowerMod.MODID);
-    public static final DeferredRegister<VillagerProfession> VILLAGER_PROFESSIONS = DeferredRegister.create(ForgeRegistries.VILLAGER_PROFESSIONS, EnergizedPowerMod.MODID);
+    public static final DeferredRegister<PoiType> POI_TYPES = DeferredRegister.create(ForgeRegistries.POI_TYPES, EPAPI.MOD_ID);
+    public static final DeferredRegister<VillagerProfession> VILLAGER_PROFESSIONS = DeferredRegister.create(ForgeRegistries.VILLAGER_PROFESSIONS, EPAPI.MOD_ID);
 
     public static final RegistryObject<PoiType> BASIC_MACHINE_FRAME_POI = POI_TYPES.register("basic_machine_frame_poi",
             () -> new PoiType(ImmutableSet.of(ModBlocks.BASIC_MACHINE_FRAME.get().defaultBlockState()), 1, 1));

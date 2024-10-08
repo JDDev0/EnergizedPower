@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StoneSolidifierCategory implements DisplayCategory<StoneSolidifierDisplay> {
-    public static final CategoryIdentifier<StoneSolidifierDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "stone_solidifier");
+    public static final CategoryIdentifier<StoneSolidifierDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "stone_solidifier");
 
     private static final int PADDING = 5;
 

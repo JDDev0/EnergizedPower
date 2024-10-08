@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DispenserCategory implements DisplayCategory<DispenserDisplay> {
-    public static final CategoryIdentifier<DispenserDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "dispenser");
+    public static final CategoryIdentifier<DispenserDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "dispenser");
 
     private static final int PADDING = 5;
 

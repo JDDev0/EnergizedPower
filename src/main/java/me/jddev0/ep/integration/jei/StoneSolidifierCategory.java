@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import mezz.jei.api.constants.VanillaTypes;
@@ -17,14 +17,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluids;
 
 public class StoneSolidifierCategory implements IRecipeCategory<StoneSolidifierRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "stone_solidifier");
+    public static final ResourceLocation UID = EPAPI.id("stone_solidifier");
     public static final RecipeType<StoneSolidifierRecipe> TYPE = new RecipeType<>(UID, StoneSolidifierRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public StoneSolidifierCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
         background = helper.createDrawable(texture, 1, 1, 103, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.STONE_SOLIDIFIER_ITEM.get()));

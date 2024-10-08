@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PressMoldMakerCategory implements DisplayCategory<PressMoldMakerDisplay> {
-    public static final CategoryIdentifier<PressMoldMakerDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "press_mold_maker");
+    public static final CategoryIdentifier<PressMoldMakerDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "press_mold_maker");
 
     private static final int PADDING = 5;
 

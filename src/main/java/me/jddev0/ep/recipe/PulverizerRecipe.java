@@ -3,7 +3,7 @@ package me.jddev0.ep.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
@@ -134,7 +134,7 @@ public class PulverizerRecipe implements Recipe<Container> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "pulverizer");
+        public static final ResourceLocation ID = EPAPI.id("pulverizer");
 
         @Override
         public PulverizerRecipe fromJson(ResourceLocation recipeID, JsonObject json) {

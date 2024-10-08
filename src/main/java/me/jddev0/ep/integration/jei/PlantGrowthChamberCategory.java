@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
@@ -25,14 +25,14 @@ import net.minecraft.world.item.ItemStack;
 import java.util.*;
 
 public class PlantGrowthChamberCategory implements IRecipeCategory<PlantGrowthChamberRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "plant_growth_chamber");
+    public static final ResourceLocation UID = EPAPI.id("plant_growth_chamber");
     public static final RecipeType<PlantGrowthChamberRecipe> TYPE = new RecipeType<>(UID, PlantGrowthChamberRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public PlantGrowthChamberCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/plant_growth_chamber.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
         background = helper.createDrawable(texture, 61, 25, 108, 48);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()));
