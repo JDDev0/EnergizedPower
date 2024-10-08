@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.jei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.recipe.FluidTransposerRecipe;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FluidTransposerCategory implements IRecipeCategory<FluidTransposerRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "fluid_transposer");
+    public static final ResourceLocation UID = EPAPI.id("fluid_transposer");
     public static final RecipeType<FluidTransposerRecipe> TYPE = new RecipeType<>(UID, FluidTransposerRecipe.class);
 
     private final IDrawable backgroundEmptying;
@@ -34,7 +34,7 @@ public class FluidTransposerCategory implements IRecipeCategory<FluidTransposerR
     private final IDrawable icon;
 
     public FluidTransposerCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
         backgroundEmptying = helper.createDrawable(texture, 1, 133, 143, 26);
         backgroundFilling = helper.createDrawable(texture, 1, 161, 143, 26);
 

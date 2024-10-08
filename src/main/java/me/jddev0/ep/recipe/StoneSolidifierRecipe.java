@@ -1,7 +1,7 @@
 package me.jddev0.ep.recipe;
 
 import com.google.gson.JsonObject;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -92,7 +92,7 @@ public class StoneSolidifierRecipe implements Recipe<Container> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "stone_solidifier");
+        public static final ResourceLocation ID = EPAPI.id("stone_solidifier");
 
         @Override
         public StoneSolidifierRecipe fromJson(ResourceLocation recipeID, JsonObject json) {

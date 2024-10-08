@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -15,9 +15,8 @@ public class SawmillScreen
     public SawmillScreen(SawmillMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/sawmill.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID,
-                        "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/sawmill.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
     }
 
     @Override

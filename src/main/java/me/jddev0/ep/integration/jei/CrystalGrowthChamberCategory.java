@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.jei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.CrystalGrowthChamberBlockEntity;
 import me.jddev0.ep.recipe.CrystalGrowthChamberRecipe;
@@ -26,14 +26,14 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class CrystalGrowthChamberCategory implements IRecipeCategory<CrystalGrowthChamberRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "crystal_growth_chamber");
+    public static final ResourceLocation UID = EPAPI.id("crystal_growth_chamber");
     public static final RecipeType<CrystalGrowthChamberRecipe> TYPE = new RecipeType<>(UID, CrystalGrowthChamberRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public CrystalGrowthChamberCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/crystal_growth_chamber.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/crystal_growth_chamber.png");
         background = helper.createDrawable(texture, 47, 30, 98, 38);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM.get()));

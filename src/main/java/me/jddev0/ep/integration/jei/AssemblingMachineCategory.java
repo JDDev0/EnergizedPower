@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
 import me.jddev0.ep.recipe.IngredientWithCount;
@@ -21,14 +21,14 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class AssemblingMachineCategory implements IRecipeCategory<AssemblingMachineRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "assembling_machine");
+    public static final ResourceLocation UID = EPAPI.id("assembling_machine");
     public static final RecipeType<AssemblingMachineRecipe> TYPE = new RecipeType<>(UID, AssemblingMachineRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public AssemblingMachineCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/assembling_machine.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/assembling_machine.png");
         background = helper.createDrawable(texture, 43, 18, 115, 54);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.ASSEMBLING_MACHINE_ITEM.get()));

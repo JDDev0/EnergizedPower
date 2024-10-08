@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.CrusherRecipe;
 import mezz.jei.api.constants.VanillaTypes;
@@ -16,14 +16,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public class CrusherCategory implements IRecipeCategory<CrusherRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "crusher");
+    public static final ResourceLocation UID = EPAPI.id("crusher");
     public static final RecipeType<CrusherRecipe> TYPE = new RecipeType<>(UID, CrusherRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public CrusherCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/crusher.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/crusher.png");
         background = helper.createDrawable(texture, 47, 30, 98, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.CRUSHER_ITEM.get()));

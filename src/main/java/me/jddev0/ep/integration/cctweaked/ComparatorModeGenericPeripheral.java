@@ -3,7 +3,7 @@ package me.jddev0.ep.integration.cctweaked;
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.GenericPeripheral;
 import dan200.computercraft.api.peripheral.PeripheralType;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.machine.configuration.IComparatorModeHandler;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +16,7 @@ public class ComparatorModeGenericPeripheral implements GenericPeripheral {
 
     @Override
     public ResourceLocation id() {
-        return new ResourceLocation(EnergizedPowerMod.MODID, "comparator_mode");
+        return EPAPI.id("comparator_mode");
     }
 
     @LuaFunction(mainThread = true)

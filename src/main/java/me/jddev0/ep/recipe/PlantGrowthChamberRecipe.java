@@ -2,7 +2,7 @@ package me.jddev0.ep.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.NonNullList;
@@ -132,7 +132,7 @@ public class PlantGrowthChamberRecipe implements Recipe<Container> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "plant_growth_chamber");
+        public static final ResourceLocation ID = EPAPI.id("plant_growth_chamber");
 
         @Override
         public PlantGrowthChamberRecipe fromJson(ResourceLocation recipeID, JsonObject json) {

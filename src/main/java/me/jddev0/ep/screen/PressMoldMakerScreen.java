@@ -2,7 +2,7 @@ package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.CraftPressMoldMakerRecipeC2SPacket;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
@@ -32,7 +32,7 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
     public PressMoldMakerScreen(PressMoldMakerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
 
-        TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/press_mold_maker.png");
+        TEXTURE = EPAPI.id("textures/gui/container/press_mold_maker.png");
     }
 
     @Override

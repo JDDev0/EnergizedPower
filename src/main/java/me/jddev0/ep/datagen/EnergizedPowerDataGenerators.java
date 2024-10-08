@@ -1,13 +1,13 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = EnergizedPowerMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = EPAPI.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class EnergizedPowerDataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {

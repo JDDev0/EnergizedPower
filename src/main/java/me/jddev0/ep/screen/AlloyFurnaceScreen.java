@@ -2,7 +2,7 @@ package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -18,7 +18,7 @@ public class AlloyFurnaceScreen extends EnergizedPowerBaseContainerScreen<AlloyF
     public AlloyFurnaceScreen(AlloyFurnaceMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
 
-        TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/alloy_furnace.png");
+        TEXTURE = EPAPI.id("textures/gui/container/alloy_furnace.png");
     }
 
     @Override

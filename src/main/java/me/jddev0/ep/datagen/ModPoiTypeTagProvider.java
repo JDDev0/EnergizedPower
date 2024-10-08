@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.villager.ModVillager;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.PoiTypeTagsProvider;
@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class ModPoiTypeTagProvider extends PoiTypeTagsProvider {
     public ModPoiTypeTagProvider(DataGenerator output, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, EnergizedPowerMod.MODID, existingFileHelper);
+        super(output, EPAPI.MOD_ID, existingFileHelper);
     }
 
     @Override

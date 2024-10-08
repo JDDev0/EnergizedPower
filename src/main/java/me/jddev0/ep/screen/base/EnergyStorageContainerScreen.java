@@ -2,7 +2,7 @@ package me.jddev0.ep.screen.base;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.GameRenderer;
@@ -38,7 +38,7 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
     public EnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                         String energyIndicatorBarTooltipComponentID) {
         this(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID,
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/generic_energy.png"));
+                EPAPI.id("textures/gui/container/generic_energy.png"));
     }
 
     public EnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,

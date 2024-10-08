@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.CycleAdvancedAutoCrafterRecipeOutputC2SPacket;
 import me.jddev0.ep.networking.packet.SetAdvancedAutoCrafterRecipeIndexC2SPacket;
@@ -24,8 +24,8 @@ public class AdvancedAutoCrafterScreen
     public AdvancedAutoCrafterScreen(AdvancedAutoCrafterMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/advanced_auto_crafter.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/advanced_auto_crafter.png"));
+                EPAPI.id("textures/gui/container/advanced_auto_crafter.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/advanced_auto_crafter.png"));
 
         imageHeight = 224;
         inventoryLabelY = imageHeight - 94;

@@ -2,7 +2,7 @@ package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -18,7 +18,7 @@ public class ItemConveyorBeltLoaderScreen extends EnergizedPowerBaseContainerScr
     public ItemConveyorBeltLoaderScreen(ItemConveyorBeltLoaderMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
 
-        TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/generic_1x1.png");
+        TEXTURE = EPAPI.id("textures/gui/container/generic_1x1.png");
     }
 
     @Override

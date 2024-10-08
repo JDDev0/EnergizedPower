@@ -2,7 +2,7 @@ package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.client.renderer.GameRenderer;
@@ -23,7 +23,7 @@ public class DrainScreen extends EnergizedPowerBaseContainerScreen<DrainMenu> {
     public DrainScreen(DrainMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
 
-        TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/generic_fluid.png");
+        TEXTURE = EPAPI.id("textures/gui/container/generic_fluid.png");
     }
 
     @Override

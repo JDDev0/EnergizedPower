@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.registry.paintings.EnergizedPowerPaintingVariants;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.PaintingVariantTagsProvider;
@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ModPaintingVariantTagProvider extends PaintingVariantTagsProvider {
     public ModPaintingVariantTagProvider(DataGenerator output, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, EnergizedPowerMod.MODID, existingFileHelper);
+        super(output, EPAPI.MOD_ID, existingFileHelper);
     }
 
     @Override

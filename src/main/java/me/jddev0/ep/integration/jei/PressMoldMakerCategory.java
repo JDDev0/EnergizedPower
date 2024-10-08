@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import mezz.jei.api.constants.VanillaTypes;
@@ -17,14 +17,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 public class PressMoldMakerCategory implements IRecipeCategory<PressMoldMakerRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "press_mold_maker");
+    public static final ResourceLocation UID = EPAPI.id("press_mold_maker");
     public static final RecipeType<PressMoldMakerRecipe> TYPE = new RecipeType<>(UID, PressMoldMakerRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public PressMoldMakerCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
         background = helper.createDrawable(texture, 1, 77, 85, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.PRESS_MOLD_MAKER_ITEM.get()));

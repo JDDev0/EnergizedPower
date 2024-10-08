@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.registry.tags.CommonItemTags;
@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 public class ModItemTagProvider extends ItemTagsProvider {
     public ModItemTagProvider(DataGenerator output, BlockTagsProvider blockTagsProvider,
                               @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, blockTagsProvider, EnergizedPowerMod.MODID, existingFileHelper);
+        super(output, blockTagsProvider, EPAPI.MOD_ID, existingFileHelper);
     }
 
     @Override

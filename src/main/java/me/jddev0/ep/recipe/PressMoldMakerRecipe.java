@@ -1,7 +1,7 @@
 package me.jddev0.ep.recipe;
 
 import com.google.gson.JsonObject;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -91,7 +91,7 @@ public class PressMoldMakerRecipe implements Recipe<Container> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "press_mold_maker");
+        public static final ResourceLocation ID = EPAPI.id("press_mold_maker");
 
         @Override
         public PressMoldMakerRecipe fromJson(ResourceLocation recipeID, JsonObject json) {

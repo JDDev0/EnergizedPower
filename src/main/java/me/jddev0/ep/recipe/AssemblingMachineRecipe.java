@@ -2,7 +2,7 @@ package me.jddev0.ep.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -124,7 +124,7 @@ public class AssemblingMachineRecipe implements Recipe<Container> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "assembling_machine");
+        public static final ResourceLocation ID = EPAPI.id("assembling_machine");
 
         @Override
         public AssemblingMachineRecipe fromJson(ResourceLocation recipeID, JsonObject json) {

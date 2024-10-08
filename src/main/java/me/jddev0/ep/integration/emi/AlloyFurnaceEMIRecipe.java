@@ -7,7 +7,7 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
 import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
@@ -23,9 +23,9 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class AlloyFurnaceEMIRecipe implements EmiRecipe {
-    public static final ResourceLocation SIMPLIFIED_TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/block/alloy_furnace_front.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/alloy_furnace_front.png");
     public static final EmiStack ITEM = EmiStack.of(ModBlocks.ALLOY_FURNACE_ITEM.get());
-    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new ResourceLocation(EnergizedPowerMod.MODID, "alloy_furnace"),
+    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("alloy_furnace"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final ResourceLocation id;

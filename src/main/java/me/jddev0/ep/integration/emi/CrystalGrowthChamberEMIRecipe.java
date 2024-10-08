@@ -7,7 +7,7 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.CrystalGrowthChamberBlockEntity;
 import me.jddev0.ep.recipe.CrystalGrowthChamberRecipe;
@@ -21,9 +21,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class CrystalGrowthChamberEMIRecipe implements EmiRecipe {
-    public static final ResourceLocation SIMPLIFIED_TEXTURE = new ResourceLocation(EnergizedPowerMod.MODID, "textures/block/crystal_growth_chamber_side.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/crystal_growth_chamber_side.png");
     public static final EmiStack ITEM = EmiStack.of(ModBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM.get());
-    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(new ResourceLocation(EnergizedPowerMod.MODID, "crystal_growth_chamber"),
+    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("crystal_growth_chamber"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final ResourceLocation id;
@@ -72,7 +72,7 @@ public class CrystalGrowthChamberEMIRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/crystal_growth_chamber.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/crystal_growth_chamber.png");
         widgets.addTexture(texture, 0, 0, 98, 38, 47, 30);
 
         widgets.addSlot(input.get(0), 0, 4).drawBack(false);

@@ -1,7 +1,7 @@
 package me.jddev0.ep.fluid;
 
 import com.mojang.math.Vector3f;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fluids.FluidType;
@@ -12,7 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 public final class ModFluidTypes {
     private ModFluidTypes() {}
 
-    public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(ForgeRegistries.Keys.FLUID_TYPES, EnergizedPowerMod.MODID);
+    public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(ForgeRegistries.Keys.FLUID_TYPES, EPAPI.MOD_ID);
 
     public static RegistryObject<FluidType> DIRTY_WATER_FLUID_TYPE = FLUID_TYPES.register("dirty_water",
             () -> new EnergizedPowerFluidType(FluidType.Properties.create().density(1200).viscosity(1200).canExtinguish(true),

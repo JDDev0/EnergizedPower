@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.block.entity.FiltrationPlantBlockEntity;
 import me.jddev0.ep.fluid.ModFluids;
@@ -21,14 +21,14 @@ import java.util.List;
 import java.util.Locale;
 
 public class FiltrationPlantCategory implements IRecipeCategory<FiltrationPlantRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "filtration_plant");
+    public static final ResourceLocation UID = EPAPI.id("filtration_plant");
     public static final RecipeType<FiltrationPlantRecipe> TYPE = new RecipeType<>(UID, FiltrationPlantRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public FiltrationPlantCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/recipe/misc_gui.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
         background = helper.createDrawable(texture, 1, 105, 112, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.FILTRATION_PLANT_ITEM.get()));

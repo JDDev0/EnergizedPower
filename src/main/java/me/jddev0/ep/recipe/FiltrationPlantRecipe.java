@@ -1,10 +1,9 @@
 package me.jddev0.ep.recipe;
 
 import com.google.gson.JsonObject;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.util.ItemStackUtils;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -120,7 +119,7 @@ public class FiltrationPlantRecipe implements Recipe<Container> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(EnergizedPowerMod.MODID, "filtration_plant");
+        public static final ResourceLocation ID = EPAPI.id("filtration_plant");
 
         @Override
         public FiltrationPlantRecipe fromJson(ResourceLocation recipeID, JsonObject json) {

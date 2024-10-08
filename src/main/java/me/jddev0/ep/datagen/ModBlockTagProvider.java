@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.registry.tags.CommonBlockTags;
 import net.minecraft.data.DataGenerator;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ModBlockTagProvider extends BlockTagsProvider {
     public ModBlockTagProvider(DataGenerator output, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, EnergizedPowerMod.MODID, existingFileHelper);
+        super(output, EPAPI.MOD_ID, existingFileHelper);
     }
 
     @Override

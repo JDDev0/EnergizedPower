@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.registry.tags.EnergizedPowerBiomeTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BiomeTagsProvider;
@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ModBiomeTagProvider extends BiomeTagsProvider {
     public ModBiomeTagProvider(DataGenerator output, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, EnergizedPowerMod.MODID, existingFileHelper);
+        super(output, EPAPI.MOD_ID, existingFileHelper);
     }
 
     @Override

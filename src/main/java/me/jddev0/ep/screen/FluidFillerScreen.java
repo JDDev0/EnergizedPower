@@ -2,7 +2,7 @@ package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.network.chat.Component;
@@ -20,8 +20,8 @@ public class FluidFillerScreen
         extends ConfigurableUpgradableEnergyStorageContainerScreen<FluidFillerMenu> {
     public FluidFillerScreen(FluidFillerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/fluid_filler.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_efficiency_1_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/fluid_filler.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/1_energy_efficiency_1_energy_capacity.png"));
     }
 
     @Override

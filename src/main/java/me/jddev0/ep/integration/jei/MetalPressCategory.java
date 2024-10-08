@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.MetalPressRecipe;
 import mezz.jei.api.constants.VanillaTypes;
@@ -19,14 +19,14 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class MetalPressCategory implements IRecipeCategory<MetalPressRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "metal_press");
+    public static final ResourceLocation UID = EPAPI.id("metal_press");
     public static final RecipeType<MetalPressRecipe> TYPE = new RecipeType<>(UID, MetalPressRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public MetalPressCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/metal_press.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/metal_press.png");
         background = helper.createDrawable(texture, 47, 22, 98, 34);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.CRUSHER_ITEM.get()));

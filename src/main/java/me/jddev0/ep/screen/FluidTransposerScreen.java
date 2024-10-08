@@ -2,7 +2,7 @@ package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
@@ -26,8 +26,8 @@ public class FluidTransposerScreen
     public FluidTransposerScreen(FluidTransposerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/fluid_transposer.png"),
-                new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/fluid_transposer.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
     }
 
     @Override

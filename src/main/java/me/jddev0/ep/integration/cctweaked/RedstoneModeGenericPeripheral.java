@@ -3,7 +3,7 @@ package me.jddev0.ep.integration.cctweaked;
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.GenericPeripheral;
 import dan200.computercraft.api.peripheral.PeripheralType;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.machine.configuration.IRedstoneModeHandler;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +16,7 @@ public class RedstoneModeGenericPeripheral implements GenericPeripheral {
 
     @Override
     public ResourceLocation id() {
-        return new ResourceLocation(EnergizedPowerMod.MODID, "redstone_mode");
+        return EPAPI.id("redstone_mode");
     }
 
     @LuaFunction(mainThread = true)

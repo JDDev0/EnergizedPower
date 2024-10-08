@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen.advancement;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.BatteryItem;
 import me.jddev0.ep.item.ModItems;
@@ -31,7 +31,7 @@ public class ModAdvancedAdvancements implements BiConsumer<Consumer<Advancement>
                         ModItems.ENERGIZED_COPPER_INGOT.get(),
                         Component.translatable("advancements.energizedpower.energizedpower_advanced.title"),
                         Component.translatable("advancements.energizedpower.energizedpower_advanced.description"),
-                        new ResourceLocation(EnergizedPowerMod.MODID, "textures/block/advanced_machine_frame_top.png"),
+                        EPAPI.id("textures/block/advanced_machine_frame_top.png"),
                         FrameType.TASK,
                         true,
                         true,
@@ -41,8 +41,7 @@ public class ModAdvancedAdvancements implements BiConsumer<Consumer<Advancement>
                         InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
                                 CommonItemTags.INGOTS_ENERGIZED_COPPER
                         ).build())).
-                save(advancementOutput, new ResourceLocation(EnergizedPowerMod.MODID,
-                        "main/advanced/energizedpower_advanced"), existingFileHelper);
+                save(advancementOutput, EPAPI.id("main/advanced/energizedpower_advanced"), existingFileHelper);
 
         Advancement advancedAlloyIngot = addAdvancement(
                 advancementOutput, existingFileHelper, energizedPowerAdvanced,
@@ -485,7 +484,6 @@ public class ModAdvancedAdvancements implements BiConsumer<Consumer<Advancement>
                         false
                 ).
                 addCriterion("has_the_item", trigger).
-                save(advancementOutput, new ResourceLocation(EnergizedPowerMod.MODID,
-                        "main/advanced/" + advancementId), existingFileHelper);
+                save(advancementOutput, EPAPI.id("main/advanced/" + advancementId), existingFileHelper);
     }
 }

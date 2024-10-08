@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.recipe.PulverizerRecipe;
 import mezz.jei.api.constants.VanillaTypes;
@@ -19,14 +19,14 @@ import java.util.List;
 import java.util.Locale;
 
 public class PulverizerCategory implements IRecipeCategory<PulverizerRecipe> {
-    public static final ResourceLocation UID = new ResourceLocation(EnergizedPowerMod.MODID, "pulverizer");
+    public static final ResourceLocation UID = EPAPI.id("pulverizer");
     public static final RecipeType<PulverizerRecipe> TYPE = new RecipeType<>(UID, PulverizerRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public PulverizerCategory(IGuiHelper helper) {
-        ResourceLocation texture = new ResourceLocation(EnergizedPowerMod.MODID, "textures/gui/container/pulverizer.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/pulverizer.png");
         background = helper.createDrawable(texture, 42, 30, 109, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.PULVERIZER_ITEM.get()));

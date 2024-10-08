@@ -1,7 +1,7 @@
 package me.jddev0.ep.world.village;
 
 import com.mojang.datafixers.util.Pair;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.config.ModConfigs;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = EnergizedPowerMod.MODID)
+@Mod.EventBusSubscriber(modid = EPAPI.MOD_ID)
 public class VillageAddition {
     @SubscribeEvent
     public static void addVillageHouses(ServerAboutToStartEvent event) {
@@ -36,7 +36,7 @@ public class VillageAddition {
         if(pool == null)
             return;
 
-        SinglePoolElement element = SinglePoolElement.legacy(String.format("%s:village/%s/houses/%s", EnergizedPowerMod.MODID, villageType, buildingName)).
+        SinglePoolElement element = SinglePoolElement.legacy(String.format("%s:village/%s/houses/%s", EPAPI.MOD_ID, villageType, buildingName)).
                 apply(StructureTemplatePool.Projection.RIGID);
 
         for(int i = 0;i < weight;i++)

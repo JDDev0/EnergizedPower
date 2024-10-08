@@ -2,7 +2,7 @@ package me.jddev0.ep.screen.base;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -20,8 +20,7 @@ import java.util.Optional;
 public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractContainerMenu & IEnergyStorageMenu>
         extends EnergyStorageContainerScreen<T> {
     protected final ResourceLocation CONFIGURATION_ICONS_TEXTURE =
-            new ResourceLocation(EnergizedPowerMod.MODID,
-                    "textures/gui/machine_configuration/configuration_buttons.png");
+            EPAPI.id("textures/gui/machine_configuration/configuration_buttons.png");
     protected final ResourceLocation UPGRADE_VIEW_TEXTURE;
 
     public UpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
