@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public record SetAdvancedAutoCrafterRecipeIndexC2SPacket(BlockPos pos, int recipeIndex) implements CustomPayload {
     public static final CustomPayload.Id<SetAdvancedAutoCrafterRecipeIndexC2SPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "set_advanced_auto_crafter_recipe_index"));
+            new CustomPayload.Id<>(EPAPI.id("set_advanced_auto_crafter_recipe_index"));
     public static final PacketCodec<RegistryByteBuf, SetAdvancedAutoCrafterRecipeIndexC2SPacket> PACKET_CODEC =
             PacketCodec.of(SetAdvancedAutoCrafterRecipeIndexC2SPacket::write, SetAdvancedAutoCrafterRecipeIndexC2SPacket::new);
 

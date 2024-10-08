@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.machine.configuration.RedstoneModeUpdate;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public record ChangeRedstoneModeC2SPacket(BlockPos pos) implements CustomPayload {
     public static final CustomPayload.Id<ChangeRedstoneModeC2SPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "change_redstone_mode"));
+            new CustomPayload.Id<>(EPAPI.id("change_redstone_mode"));
     public static final PacketCodec<RegistryByteBuf, ChangeRedstoneModeC2SPacket> PACKET_CODEC =
             PacketCodec.of(ChangeRedstoneModeC2SPacket::write, ChangeRedstoneModeC2SPacket::new);
 

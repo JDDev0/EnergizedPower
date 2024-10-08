@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public record SetCheckboxC2SPacket(BlockPos pos, int checkboxId, boolean checked) implements CustomPayload {
     public static final CustomPayload.Id<SetCheckboxC2SPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "set_checkbox"));
+            new CustomPayload.Id<>(EPAPI.id("set_checkbox"));
     public static final PacketCodec<RegistryByteBuf, SetCheckboxC2SPacket> PACKET_CODEC =
             PacketCodec.of(SetCheckboxC2SPacket::write, SetCheckboxC2SPacket::new);
 

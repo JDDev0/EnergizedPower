@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity.renderer;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.block.entity.AbstractFluidTankBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
@@ -133,7 +133,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<Abstrac
         //Indicator bar
         {
             Sprite indicatorBarSprite = MinecraftClient.getInstance().getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).
-                    apply(Identifier.of(EnergizedPowerMod.MODID, "block/fluid_tank_indicator_bar"));
+                    apply(EPAPI.id("block/fluid_tank_indicator_bar"));
 
             float translateForMinMaxIndicatorBarHeight = height < 2?(height - 2) / 16.f:(height > 12?(height - 12) / 16.f:0.f);
 

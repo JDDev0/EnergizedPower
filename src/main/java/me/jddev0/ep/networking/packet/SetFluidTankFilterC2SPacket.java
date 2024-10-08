@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.FluidTankBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 
 public record SetFluidTankFilterC2SPacket(BlockPos pos, FluidStack fluidFilter) implements CustomPayload {
     public static final CustomPayload.Id<SetFluidTankFilterC2SPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "set_fluid_tank_filter"));
+            new CustomPayload.Id<>(EPAPI.id("set_fluid_tank_filter"));
     public static final PacketCodec<RegistryByteBuf, SetFluidTankFilterC2SPacket> PACKET_CODEC =
             PacketCodec.of(SetFluidTankFilterC2SPacket::write, SetFluidTankFilterC2SPacket::new);
 

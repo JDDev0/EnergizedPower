@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.*;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
@@ -20,8 +20,8 @@ public class AutoCrafterScreen extends ConfigurableUpgradableEnergyStorageContai
     public AutoCrafterScreen(AutoCrafterMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/auto_crafter.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/auto_crafter.png"));
+                EPAPI.id("textures/gui/container/auto_crafter.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/auto_crafter.png"));
 
         backgroundHeight = 206;
         playerInventoryTitleY = backgroundHeight - 94;

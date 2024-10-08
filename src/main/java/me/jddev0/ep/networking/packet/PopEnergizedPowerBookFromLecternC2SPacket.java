@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.LecternBlock;
 import net.minecraft.block.entity.BlockEntity;
@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 public record PopEnergizedPowerBookFromLecternC2SPacket(BlockPos pos) implements CustomPayload {
     public static final CustomPayload.Id<PopEnergizedPowerBookFromLecternC2SPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "pop_energized_power_book_from_lectern"));
+            new CustomPayload.Id<>(EPAPI.id("pop_energized_power_book_from_lectern"));
     public static final PacketCodec<RegistryByteBuf, PopEnergizedPowerBookFromLecternC2SPacket> PACKET_CODEC =
             PacketCodec.of(PopEnergizedPowerBookFromLecternC2SPacket::write, PopEnergizedPowerBookFromLecternC2SPacket::new);
 

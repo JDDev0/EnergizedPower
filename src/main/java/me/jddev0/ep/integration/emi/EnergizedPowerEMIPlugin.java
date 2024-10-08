@@ -4,11 +4,10 @@ import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.stack.EmiStack;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.recipe.*;
-import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.screen.ModMenuTypes;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.item.ItemStack;
@@ -165,12 +164,12 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
             registry.addRecipe(new FluidTransposerEMIRecipe(recipe));
 
         registry.addRecipe(new DispenserEMIRecipe(new DispenserEMIRecipe.DispenserRecipe(
-                Identifier.of(EnergizedPowerMod.MODID, "dispenser/energizedpower/cable_insulator"),
+                EPAPI.id("dispenser/energizedpower/cable_insulator"),
                 Ingredient.fromTag(ConventionalItemTags.SHEAR_TOOLS), Ingredient.fromTag(ItemTags.WOOL),
                 new ItemStack(ModItems.CABLE_INSULATOR, 18))));
 
         registry.addRecipe(new InWorldEMIRecipe(new InWorldEMIRecipe.InWorldRecipe(
-                Identifier.of(EnergizedPowerMod.MODID, "in_world_crafting/energizedpower/cable_insulator"),
+                EPAPI.id("in_world_crafting/energizedpower/cable_insulator"),
                 Ingredient.fromTag(ConventionalItemTags.SHEAR_TOOLS), Ingredient.fromTag(ItemTags.WOOL),
                 new ItemStack(ModItems.CABLE_INSULATOR, 18))));
     }

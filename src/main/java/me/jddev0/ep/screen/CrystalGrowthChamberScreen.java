@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,8 +14,8 @@ public class CrystalGrowthChamberScreen extends ConfigurableUpgradableEnergyStor
     public CrystalGrowthChamberScreen(CrystalGrowthChamberMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/crystal_growth_chamber.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/2_speed_2_energy_efficiency_2_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/crystal_growth_chamber.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/2_speed_2_energy_efficiency_2_energy_capacity.png"));
     }
 
 

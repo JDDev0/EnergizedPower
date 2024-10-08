@@ -1,6 +1,6 @@
 package me.jddev0.ep.fluid;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -25,15 +25,15 @@ public final class ModFluids {
             new BucketItem(DIRTY_WATER, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1)));
 
     private static <T extends Fluid> T registerFluid(String name, T fluid) {
-        return Registry.register(Registries.FLUID, Identifier.of(EnergizedPowerMod.MODID, name), fluid);
+        return Registry.register(Registries.FLUID, EPAPI.id(name), fluid);
     }
 
     private static <T extends Block> T createBlock(String name, T block) {
-        return Registry.register(Registries.BLOCK, Identifier.of(EnergizedPowerMod.MODID, name), block);
+        return Registry.register(Registries.BLOCK, EPAPI.id(name), block);
     }
 
     public static <T extends Item> T createItem(String name, T item) {
-        return Registry.register(Registries.ITEM, Identifier.of(EnergizedPowerMod.MODID, name), item);
+        return Registry.register(Registries.ITEM, EPAPI.id(name), item);
     }
 
     public static void register() {

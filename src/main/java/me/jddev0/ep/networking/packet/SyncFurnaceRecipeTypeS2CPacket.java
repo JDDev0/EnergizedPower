@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.FurnaceRecipeTypePacketUpdate;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class SyncFurnaceRecipeTypeS2CPacket implements CustomPayload {
     public static final Id<SyncFurnaceRecipeTypeS2CPacket> ID =
-            new Id<>(Identifier.of(EnergizedPowerMod.MODID, "sync_furnace_recipe_type"));
+            new Id<>(EPAPI.id("sync_furnace_recipe_type"));
     public static final PacketCodec<RegistryByteBuf, SyncFurnaceRecipeTypeS2CPacket> PACKET_CODEC =
             PacketCodec.of(SyncFurnaceRecipeTypeS2CPacket::write, SyncFurnaceRecipeTypeS2CPacket::new);
 

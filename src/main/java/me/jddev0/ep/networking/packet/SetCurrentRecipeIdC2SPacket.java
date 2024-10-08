@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.SetCurrentRecipeIdPacketUpdate;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record SetCurrentRecipeIdC2SPacket(BlockPos pos, Identifier recipeId) implements CustomPayload {
     public static final CustomPayload.Id<SetCurrentRecipeIdC2SPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "set_current_recipe_id"));
+            new CustomPayload.Id<>(EPAPI.id("set_current_recipe_id"));
     public static final PacketCodec<RegistryByteBuf, SetCurrentRecipeIdC2SPacket> PACKET_CODEC =
             PacketCodec.of(SetCurrentRecipeIdC2SPacket::write, SetCurrentRecipeIdC2SPacket::new);
 

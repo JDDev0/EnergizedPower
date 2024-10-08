@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.PressMoldMakerBlockEntity;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public record CraftPressMoldMakerRecipeC2SPacket(BlockPos pos, Identifier recipeId) implements CustomPayload {
     public static final CustomPayload.Id<CraftPressMoldMakerRecipeC2SPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "craft_press_mold_maker_recipe"));
+            new CustomPayload.Id<>(EPAPI.id("craft_press_mold_maker_recipe"));
     public static final PacketCodec<RegistryByteBuf, CraftPressMoldMakerRecipeC2SPacket> PACKET_CODEC =
             PacketCodec.of(CraftPressMoldMakerRecipeC2SPacket::write, CraftPressMoldMakerRecipeC2SPacket::new);
 

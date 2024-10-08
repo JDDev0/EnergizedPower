@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen.model;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.data.client.Model;
 import net.minecraft.data.client.TextureKey;
 import net.minecraft.util.Identifier;
@@ -41,10 +41,10 @@ public final class ModModels {
     private ModModels() {}
 
     private static Model block(String parent, TextureKey ... requiredTextureKeys) {
-        return new Model(Optional.of(Identifier.of(EnergizedPowerMod.MODID, "block/" + parent)), Optional.empty(), requiredTextureKeys);
+        return new Model(Optional.of(EPAPI.id("block/" + parent)), Optional.empty(), requiredTextureKeys);
     }
 
     private static Model block(String parent, String variant, TextureKey... requiredTextureKeys) {
-        return new Model(Optional.of(Identifier.of(EnergizedPowerMod.MODID, "block/" + parent)), Optional.of(variant), requiredTextureKeys);
+        return new Model(Optional.of(EPAPI.id("block/" + parent)), Optional.of(variant), requiredTextureKeys);
     }
 }

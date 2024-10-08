@@ -1,6 +1,6 @@
 package me.jddev0.ep.world;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
@@ -30,7 +30,7 @@ public final class ModPlacedFeatures {
 
     public static RegistryKey<PlacedFeature> registerKey(String name) {
         return RegistryKey.of(RegistryKeys.PLACED_FEATURE,
-                Identifier.of(EnergizedPowerMod.MODID, name));
+                EPAPI.id(name));
     }
 
     private static void register(Registerable<PlacedFeature> context, RegistryKey<PlacedFeature> key,

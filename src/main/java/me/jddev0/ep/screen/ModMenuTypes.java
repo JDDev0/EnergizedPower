@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -9,8 +9,6 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-
-import java.util.function.Supplier;
 
 public final class ModMenuTypes {
     private ModMenuTypes() {}
@@ -197,7 +195,7 @@ public final class ModMenuTypes {
             new ExtendedScreenHandlerType<>(CreativeFluidTankMenu::new, BlockPos.PACKET_CODEC.cast()));
 
     private static <T extends ScreenHandler> ScreenHandlerType<T> createScreenHandlerType(String name, ScreenHandlerType<T> screenHandlerType) {
-        return Registry.register(Registries.SCREEN_HANDLER, Identifier.of(EnergizedPowerMod.MODID, name), screenHandlerType);
+        return Registry.register(Registries.SCREEN_HANDLER, EPAPI.id(name), screenHandlerType);
     }
 
     public static void register() {

@@ -6,20 +6,18 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.item.ModItems;
 import me.jddev0.ep.recipe.SawmillRecipe;
-import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
 
 public class SawmillEMIRecipe implements EmiRecipe {
-    public static final Identifier SIMPLIFIED_TEXTURE = Identifier.of(EnergizedPowerMod.MODID, "textures/block/sawmill_side.png");
+    public static final Identifier SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/sawmill_side.png");
     public static final EmiStack ITEM = EmiStack.of(ModBlocks.SAWMILL_ITEM);
-    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(Identifier.of(EnergizedPowerMod.MODID, "sawmill"),
+    public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("sawmill"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
     private final Identifier id;
@@ -70,7 +68,7 @@ public class SawmillEMIRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        Identifier texture = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/sawmill.png");
+        Identifier texture = EPAPI.id("textures/gui/container/sawmill.png");
         widgets.addTexture(texture, 0, 0, 109, 26, 42, 30);
 
         widgets.addSlot(input.get(0), 0, 4).drawBack(false);

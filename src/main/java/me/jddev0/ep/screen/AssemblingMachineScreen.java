@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,8 +14,8 @@ public class AssemblingMachineScreen extends ConfigurableUpgradableEnergyStorage
     public AssemblingMachineScreen(AssemblingMachineMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/assembling_machine.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/assembling_machine.png"));
+                EPAPI.id("textures/gui/container/assembling_machine.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/assembling_machine.png"));
 
         backgroundHeight = 170;
         playerInventoryTitleY = backgroundHeight - 94;

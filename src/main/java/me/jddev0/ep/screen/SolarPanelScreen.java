@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 public class SolarPanelScreen extends UpgradableEnergyStorageContainerScreen<SolarPanelMenu> {
     public SolarPanelScreen(SolarPanelMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity_1_moon_light.png"));
+                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity_1_moon_light.png"));
 
         energyMeterX = 80;
     }

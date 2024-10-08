@@ -5,7 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.logging.LogUtils;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.EnergizedPowerBookScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -29,7 +29,7 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
 
     @Override
     public Identifier getFabricId() {
-        return Identifier.of(EnergizedPowerMod.MODID, "energizedpowerbook");
+        return EPAPI.id("energizedpowerbook");
     }
 
     public EnergizedPowerBookReloadListener() {

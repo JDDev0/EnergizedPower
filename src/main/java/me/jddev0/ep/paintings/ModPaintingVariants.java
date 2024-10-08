@@ -1,6 +1,6 @@
 package me.jddev0.ep.paintings;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.entity.decoration.painting.PaintingVariant;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
@@ -20,7 +20,7 @@ public final class ModPaintingVariants {
 
     public static RegistryKey<PaintingVariant> registerKey(String name) {
         return RegistryKey.of(RegistryKeys.PAINTING_VARIANT,
-                Identifier.of(EnergizedPowerMod.MODID, name));
+                EPAPI.id(name));
     }
 
     private static void register(Registerable<PaintingVariant> context, RegistryKey<PaintingVariant> key,

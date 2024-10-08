@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -13,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 
 public record FluidSyncS2CPacket(int tank, FluidStack fluidStack, long capacity, BlockPos pos) implements CustomPayload {
     public static final CustomPayload.Id<FluidSyncS2CPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "fluid_sync"));
+            new CustomPayload.Id<>(EPAPI.id("fluid_sync"));
     public static final PacketCodec<RegistryByteBuf, FluidSyncS2CPacket> PACKET_CODEC =
             PacketCodec.of(FluidSyncS2CPacket::write, FluidSyncS2CPacket::new);
 

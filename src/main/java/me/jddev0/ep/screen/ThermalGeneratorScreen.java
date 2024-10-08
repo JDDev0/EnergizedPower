@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
@@ -19,8 +19,8 @@ public class ThermalGeneratorScreen extends ConfigurableUpgradableEnergyStorageC
     public ThermalGeneratorScreen(ThermalGeneratorMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.thermal_generator.txt",
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/thermal_generator.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/thermal_generator.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 
     @Override

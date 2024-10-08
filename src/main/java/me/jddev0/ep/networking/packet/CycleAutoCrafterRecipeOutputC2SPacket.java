@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 public record CycleAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implements CustomPayload {
     public static final CustomPayload.Id<CycleAutoCrafterRecipeOutputC2SPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "cycle_auto_crafter_recipe_output"));
+            new CustomPayload.Id<>(EPAPI.id("cycle_auto_crafter_recipe_output"));
     public static final PacketCodec<RegistryByteBuf, CycleAutoCrafterRecipeOutputC2SPacket> PACKET_CODEC =
             PacketCodec.of(CycleAutoCrafterRecipeOutputC2SPacket::write, CycleAutoCrafterRecipeOutputC2SPacket::new);
 

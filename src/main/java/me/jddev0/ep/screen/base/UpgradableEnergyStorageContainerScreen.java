@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen.base;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
@@ -19,7 +19,7 @@ import java.util.Optional;
 public abstract class UpgradableEnergyStorageContainerScreen<T extends ScreenHandler & IEnergyStorageMenu>
         extends EnergyStorageContainerScreen<T> {
     protected final Identifier CONFIGURATION_ICONS_TEXTURE =
-            Identifier.of(EnergizedPowerMod.MODID,
+            Identifier.of(EPAPI.MOD_ID,
                     "textures/gui/machine_configuration/configuration_buttons.png");
     protected final Identifier UPGRADE_VIEW_TEXTURE;
 

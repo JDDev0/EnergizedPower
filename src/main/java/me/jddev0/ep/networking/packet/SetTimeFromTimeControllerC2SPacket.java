@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
@@ -15,7 +15,7 @@ import team.reborn.energy.api.EnergyStorage;
 
 public record SetTimeFromTimeControllerC2SPacket(BlockPos pos, int time) implements CustomPayload {
     public static final CustomPayload.Id<SetTimeFromTimeControllerC2SPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "set_time_from_time_controller"));
+            new CustomPayload.Id<>(EPAPI.id("set_time_from_time_controller"));
     public static final PacketCodec<RegistryByteBuf, SetTimeFromTimeControllerC2SPacket> PACKET_CODEC =
             PacketCodec.of(SetTimeFromTimeControllerC2SPacket::write, SetTimeFromTimeControllerC2SPacket::new);
 

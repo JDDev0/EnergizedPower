@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -13,7 +13,7 @@ public class UnchargerScreen extends ConfigurableUpgradableEnergyStorageContaine
     public UnchargerScreen(UnchargerMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.uncharger.item_energy_left.txt",
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/uncharger.png"),
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/upgrade_view/1_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/uncharger.png"),
+                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity.png"));
     }
 }

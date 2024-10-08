@@ -1,6 +1,6 @@
 package me.jddev0.ep.item;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -17,7 +17,7 @@ public class ModCreativeModeTab {
     }
 
     public static final RegistryKey<ItemGroup> ENERGIZED_POWER_TAB_REG_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP,
-            Identifier.of(EnergizedPowerMod.MODID, "main"));
+            EPAPI.id("main"));
     public static final ItemGroup ENERGIZED_POWER_TAB = registerItemGroup(ENERGIZED_POWER_TAB_REG_KEY, FabricItemGroup.builder()
             .displayName(Text.translatable("itemGroup.energizedpower.tab"))
             .icon(() -> new ItemStack(ModItems.ENERGIZED_COPPER_INGOT))

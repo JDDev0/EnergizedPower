@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -20,7 +20,7 @@ import java.util.List;
 
 public final class SetAutoCrafterPatternInputSlotsC2SPacket implements CustomPayload {
     public static final CustomPayload.Id<SetAutoCrafterPatternInputSlotsC2SPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "set_auto_crafter_pattern_input_slots"));
+            new CustomPayload.Id<>(EPAPI.id("set_auto_crafter_pattern_input_slots"));
     public static final PacketCodec<RegistryByteBuf, SetAutoCrafterPatternInputSlotsC2SPacket> PACKET_CODEC =
             PacketCodec.of(SetAutoCrafterPatternInputSlotsC2SPacket::write, SetAutoCrafterPatternInputSlotsC2SPacket::new);
 

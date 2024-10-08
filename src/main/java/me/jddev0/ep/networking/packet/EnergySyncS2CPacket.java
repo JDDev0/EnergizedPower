@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 
 public record EnergySyncS2CPacket(long energy, long capacity, BlockPos pos) implements CustomPayload {
     public static final CustomPayload.Id<EnergySyncS2CPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "energy_sync"));
+            new CustomPayload.Id<>(EPAPI.id("energy_sync"));
     public static final PacketCodec<RegistryByteBuf, EnergySyncS2CPacket> PACKET_CODEC =
             PacketCodec.of(EnergySyncS2CPacket::write, EnergySyncS2CPacket::new);
 

@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.ChangeCurrentRecipeIndexPacketUpdate;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public record ChangeCurrentRecipeIndexC2SPacket(BlockPos pos, boolean downUp) implements CustomPayload {
     public static final CustomPayload.Id<ChangeCurrentRecipeIndexC2SPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "change_current_recipe_index"));
+            new CustomPayload.Id<>(EPAPI.id("change_current_recipe_index"));
     public static final PacketCodec<RegistryByteBuf, ChangeCurrentRecipeIndexC2SPacket> PACKET_CODEC =
             PacketCodec.of(ChangeCurrentRecipeIndexC2SPacket::write, ChangeCurrentRecipeIndexC2SPacket::new);
 

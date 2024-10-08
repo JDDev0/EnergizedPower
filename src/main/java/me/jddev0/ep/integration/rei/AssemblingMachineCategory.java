@@ -1,6 +1,6 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.ModBlocks;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AssemblingMachineCategory implements DisplayCategory<AssemblingMachineDisplay> {
-    public static final CategoryIdentifier<AssemblingMachineDisplay> CATEGORY = CategoryIdentifier.of(EnergizedPowerMod.MODID, "assembling_machine");
+    public static final CategoryIdentifier<AssemblingMachineDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "assembling_machine");
 
     private static final int PADDING = 5;
 
@@ -45,7 +45,7 @@ public class AssemblingMachineCategory implements DisplayCategory<AssemblingMach
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/assembling_machine.png");
+        Identifier texture = EPAPI.id("textures/gui/container/assembling_machine.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 43, 18, 115, 54));
 
         int len = Math.min(display.getInputEntries().size(), 4);

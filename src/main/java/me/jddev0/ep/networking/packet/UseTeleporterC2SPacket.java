@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.TeleporterBlockEntity;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public record UseTeleporterC2SPacket(BlockPos pos) implements CustomPayload {
     public static final CustomPayload.Id<UseTeleporterC2SPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "use_teleporter"));
+            new CustomPayload.Id<>(EPAPI.id("use_teleporter"));
     public static final PacketCodec<RegistryByteBuf, UseTeleporterC2SPacket> PACKET_CODEC =
             PacketCodec.of(UseTeleporterC2SPacket::write, UseTeleporterC2SPacket::new);
 

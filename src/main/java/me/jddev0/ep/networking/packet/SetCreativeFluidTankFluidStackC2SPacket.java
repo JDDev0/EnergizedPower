@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.CreativeFluidTankBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public record SetCreativeFluidTankFluidStackC2SPacket(BlockPos pos, FluidStack fluidStack) implements CustomPayload {
     public static final CustomPayload.Id<SetCreativeFluidTankFluidStackC2SPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "set_creative_fluid_tank_fluid_stack"));
+            new CustomPayload.Id<>(EPAPI.id("set_creative_fluid_tank_fluid_stack"));
     public static final PacketCodec<RegistryByteBuf, SetCreativeFluidTankFluidStackC2SPacket> PACKET_CODEC =
             PacketCodec.of(SetCreativeFluidTankFluidStackC2SPacket::write, SetCreativeFluidTankFluidStackC2SPacket::new);
 

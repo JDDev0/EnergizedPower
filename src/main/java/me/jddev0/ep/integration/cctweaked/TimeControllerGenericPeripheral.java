@@ -3,14 +3,14 @@ package me.jddev0.ep.integration.cctweaked;
 import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.GenericPeripheral;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
 import net.minecraft.server.world.ServerWorld;
 
 public class TimeControllerGenericPeripheral implements GenericPeripheral {
     @Override
     public String id() {
-        return EnergizedPowerMod.MODID + ":time_controller_peripheral";
+        return EPAPI.MOD_ID + ":time_controller_peripheral";
     }
 
     @LuaFunction(mainThread = true)

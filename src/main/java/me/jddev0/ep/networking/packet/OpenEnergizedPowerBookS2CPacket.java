@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.EnergizedPowerBookScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -16,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 
 public record OpenEnergizedPowerBookS2CPacket(BlockPos pos) implements CustomPayload {
     public static final CustomPayload.Id<OpenEnergizedPowerBookS2CPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "open_energized_power_book"));
+            new CustomPayload.Id<>(EPAPI.id("open_energized_power_book"));
     public static final PacketCodec<RegistryByteBuf, OpenEnergizedPowerBookS2CPacket> PACKET_CODEC =
             PacketCodec.of(OpenEnergizedPowerBookS2CPacket::write, OpenEnergizedPowerBookS2CPacket::new);
 

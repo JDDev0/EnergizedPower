@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
@@ -26,7 +26,7 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
     public ItemConveyorBeltSorterScreen(ItemConveyorBeltSorterMenu menu, PlayerInventory inventory, Text component) {
         super(menu, inventory, component);
 
-        TEXTURE = Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/item_conveyor_belt_sorter.png");
+        TEXTURE = EPAPI.id("textures/gui/container/item_conveyor_belt_sorter.png");
     }
 
     @Override

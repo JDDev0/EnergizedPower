@@ -26,15 +26,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.function.Consumer;
 
 public class EnergizedPowerMod implements ModInitializer {
-    public static final String MODID = "energizedpower";
-    public static final Logger LOGGER = LoggerFactory.getLogger("energizedpower");
-
     @Override
     public void onInitialize() {
         ModConfigs.registerConfigs(true);

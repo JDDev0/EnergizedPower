@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.inventory.ItemStackPacketUpdate;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
@@ -13,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 
 public record ItemStackSyncS2CPacket(int slot, ItemStack itemStack, BlockPos pos) implements CustomPayload {
     public static final CustomPayload.Id<ItemStackSyncS2CPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "item_stack_sync"));
+            new CustomPayload.Id<>(EPAPI.id("item_stack_sync"));
     public static final PacketCodec<RegistryByteBuf, ItemStackSyncS2CPacket> PACKET_CODEC =
             PacketCodec.of(ItemStackSyncS2CPacket::write, ItemStackSyncS2CPacket::new);
 

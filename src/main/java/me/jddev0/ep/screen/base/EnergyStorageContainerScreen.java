@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen.base;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -38,7 +38,7 @@ public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEn
     public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
                                         String energyIndicatorBarTooltipComponentID) {
         this(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID,
-                Identifier.of(EnergizedPowerMod.MODID, "textures/gui/container/generic_energy.png"));
+                EPAPI.id("textures/gui/container/generic_energy.png"));
     }
 
     public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,

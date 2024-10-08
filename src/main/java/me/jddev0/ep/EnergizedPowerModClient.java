@@ -1,5 +1,6 @@
 package me.jddev0.ep;
 
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.ModBlockEntities;
 import me.jddev0.ep.block.entity.renderer.FluidTankBlockEntityRenderer;
 import me.jddev0.ep.block.entity.renderer.ItemConveyorBeltBlockEntityRenderer;
@@ -18,7 +19,6 @@ import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
@@ -100,11 +100,11 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(ModMenuTypes.MINECART_BATTERY_BOX_MENU, MinecartBatteryBoxScreen::new);
         HandledScreens.register(ModMenuTypes.MINECART_ADVANCED_BATTERY_BOX_MENU, MinecartAdvancedBatteryBoxScreen::new);
 
-        ModelPredicateProviderRegistry.register(Identifier.of(EnergizedPowerMod.MODID, "active"), (itemStack, level, entity, seed) -> {
+        ModelPredicateProviderRegistry.register(EPAPI.id("active"), (itemStack, level, entity, seed) -> {
             Item item = itemStack.getItem();
             return (item instanceof ActivatableItem && ((ActivatableItem)item).isActive(itemStack))?1.f:0.f;
         });
-        ModelPredicateProviderRegistry.register(Identifier.of(EnergizedPowerMod.MODID, "working"), (itemStack, level, entity, seed) -> {
+        ModelPredicateProviderRegistry.register(EPAPI.id("working"), (itemStack, level, entity, seed) -> {
             Item item = itemStack.getItem();
             return (item instanceof WorkingItem && ((WorkingItem)item).isWorking(itemStack))?1.f:0.f;
         });

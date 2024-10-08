@@ -1,6 +1,6 @@
 package me.jddev0.ep.networking.packet;
 
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.machine.configuration.ComparatorModeUpdate;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public record ChangeComparatorModeC2SPacket(BlockPos pos) implements CustomPayload {
     public static final CustomPayload.Id<ChangeComparatorModeC2SPacket> ID =
-            new CustomPayload.Id<>(Identifier.of(EnergizedPowerMod.MODID, "change_comparator_mode"));
+            new CustomPayload.Id<>(EPAPI.id("change_comparator_mode"));
     public static final PacketCodec<RegistryByteBuf, ChangeComparatorModeC2SPacket> PACKET_CODEC =
             PacketCodec.of(ChangeComparatorModeC2SPacket::write, ChangeComparatorModeC2SPacket::new);
 

@@ -1,7 +1,7 @@
 package me.jddev0.ep.component;
 
 import com.mojang.serialization.Codec;
-import me.jddev0.ep.EnergizedPowerMod;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.component.ComponentType;
 import net.minecraft.network.codec.PacketCodec;
@@ -19,7 +19,7 @@ public final class ModDataComponentTypes {
     private ModDataComponentTypes() {}
 
     public static <T> ComponentType<T> registerDataComponentType(String name, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
-        return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(EnergizedPowerMod.MODID, name),
+        return Registry.register(Registries.DATA_COMPONENT_TYPE, EPAPI.id(name),
                 builderOperator.apply(ComponentType.builder()).build());
     }
 
