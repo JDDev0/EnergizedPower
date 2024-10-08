@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AutoPressMoldMakerBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -38,10 +38,10 @@ public class AutoPressMoldMakerMenu extends UpgradableEnergyStorageMenu<AutoPres
     public AutoPressMoldMakerMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                                   ContainerData data) {
         super(
-                ModMenuTypes.AUTO_PRESS_MOLD_MAKER_MENU.get(), id,
+                EPMenuTypes.AUTO_PRESS_MOLD_MAKER_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.AUTO_PRESS_MOLD_MAKER.get(),
+                EPBlocks.AUTO_PRESS_MOLD_MAKER.get(),
 
                 upgradeModuleInventory, 3
         );

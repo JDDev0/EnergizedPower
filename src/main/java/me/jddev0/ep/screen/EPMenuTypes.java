@@ -10,8 +10,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public final class ModMenuTypes {
-    private ModMenuTypes() {}
+public final class EPMenuTypes {
+    private EPMenuTypes() {}
 
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, EPAPI.MOD_ID);
 

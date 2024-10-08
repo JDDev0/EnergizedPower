@@ -1,8 +1,8 @@
 package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.fluid.ModFluids;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.fluid.EPFluids;
+import me.jddev0.ep.item.EPItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -24,176 +24,176 @@ public class ModItemModelProvider extends ItemModelProvider {
     }
 
     private void registerBasicModels() {
-        basicItem(ModItems.ENERGIZED_COPPER_INGOT);
-        basicItem(ModItems.ENERGIZED_GOLD_INGOT);
+        basicItem(EPItems.ENERGIZED_COPPER_INGOT);
+        basicItem(EPItems.ENERGIZED_GOLD_INGOT);
 
-        basicItem(ModItems.ENERGIZED_COPPER_PLATE);
-        basicItem(ModItems.ENERGIZED_GOLD_PLATE);
+        basicItem(EPItems.ENERGIZED_COPPER_PLATE);
+        basicItem(EPItems.ENERGIZED_GOLD_PLATE);
 
-        basicItem(ModItems.ENERGIZED_COPPER_WIRE);
-        basicItem(ModItems.ENERGIZED_GOLD_WIRE);
+        basicItem(EPItems.ENERGIZED_COPPER_WIRE);
+        basicItem(EPItems.ENERGIZED_GOLD_WIRE);
 
-        basicItem(ModItems.SILICON);
+        basicItem(EPItems.SILICON);
 
-        basicItem(ModItems.STONE_PEBBLE);
+        basicItem(EPItems.STONE_PEBBLE);
 
-        basicItem(ModItems.RAW_TIN);
+        basicItem(EPItems.RAW_TIN);
 
-        basicItem(ModItems.TIN_DUST);
-        basicItem(ModItems.COPPER_DUST);
-        basicItem(ModItems.IRON_DUST);
-        basicItem(ModItems.GOLD_DUST);
+        basicItem(EPItems.TIN_DUST);
+        basicItem(EPItems.COPPER_DUST);
+        basicItem(EPItems.IRON_DUST);
+        basicItem(EPItems.GOLD_DUST);
 
-        basicItem(ModItems.TIN_NUGGET);
+        basicItem(EPItems.TIN_NUGGET);
 
-        basicItem(ModItems.TIN_INGOT);
+        basicItem(EPItems.TIN_INGOT);
 
-        basicItem(ModItems.TIN_PLATE);
-        basicItem(ModItems.COPPER_PLATE);
-        basicItem(ModItems.IRON_PLATE);
-        basicItem(ModItems.GOLD_PLATE);
+        basicItem(EPItems.TIN_PLATE);
+        basicItem(EPItems.COPPER_PLATE);
+        basicItem(EPItems.IRON_PLATE);
+        basicItem(EPItems.GOLD_PLATE);
 
-        basicItem(ModItems.STEEL_INGOT);
+        basicItem(EPItems.STEEL_INGOT);
 
-        basicItem(ModItems.REDSTONE_ALLOY_INGOT);
+        basicItem(EPItems.REDSTONE_ALLOY_INGOT);
 
-        basicItem(ModItems.ADVANCED_ALLOY_INGOT);
+        basicItem(EPItems.ADVANCED_ALLOY_INGOT);
 
-        basicItem(ModItems.ADVANCED_ALLOY_PLATE);
+        basicItem(EPItems.ADVANCED_ALLOY_PLATE);
 
-        basicItem(ModItems.IRON_GEAR);
+        basicItem(EPItems.IRON_GEAR);
 
-        basicItem(ModItems.IRON_ROD);
+        basicItem(EPItems.IRON_ROD);
 
-        basicItem(ModItems.TIN_WIRE);
-        basicItem(ModItems.COPPER_WIRE);
-        basicItem(ModItems.GOLD_WIRE);
+        basicItem(EPItems.TIN_WIRE);
+        basicItem(EPItems.COPPER_WIRE);
+        basicItem(EPItems.GOLD_WIRE);
 
-        basicItem(ModItems.SAWDUST);
+        basicItem(EPItems.SAWDUST);
 
-        basicItem(ModItems.CHARCOAL_DUST);
+        basicItem(EPItems.CHARCOAL_DUST);
 
-        basicItem(ModItems.BASIC_FERTILIZER);
-        basicItem(ModItems.GOOD_FERTILIZER);
-        basicItem(ModItems.ADVANCED_FERTILIZER);
+        basicItem(EPItems.BASIC_FERTILIZER);
+        basicItem(EPItems.GOOD_FERTILIZER);
+        basicItem(EPItems.ADVANCED_FERTILIZER);
 
-        basicItem(ModItems.RAW_GEAR_PRESS_MOLD);
-        basicItem(ModItems.RAW_ROD_PRESS_MOLD);
-        basicItem(ModItems.RAW_WIRE_PRESS_MOLD);
+        basicItem(EPItems.RAW_GEAR_PRESS_MOLD);
+        basicItem(EPItems.RAW_ROD_PRESS_MOLD);
+        basicItem(EPItems.RAW_WIRE_PRESS_MOLD);
 
-        basicItem(ModItems.GEAR_PRESS_MOLD);
-        basicItem(ModItems.ROD_PRESS_MOLD);
-        basicItem(ModItems.WIRE_PRESS_MOLD);
+        basicItem(EPItems.GEAR_PRESS_MOLD);
+        basicItem(EPItems.ROD_PRESS_MOLD);
+        basicItem(EPItems.WIRE_PRESS_MOLD);
 
-        basicItem(ModItems.BASIC_SOLAR_CELL);
-        basicItem(ModItems.ADVANCED_SOLAR_CELL);
-        basicItem(ModItems.REINFORCED_ADVANCED_SOLAR_CELL);
+        basicItem(EPItems.BASIC_SOLAR_CELL);
+        basicItem(EPItems.ADVANCED_SOLAR_CELL);
+        basicItem(EPItems.REINFORCED_ADVANCED_SOLAR_CELL);
 
-        basicItem(ModItems.BASIC_CIRCUIT);
-        basicItem(ModItems.ADVANCED_CIRCUIT);
-        basicItem(ModItems.PROCESSING_UNIT);
+        basicItem(EPItems.BASIC_CIRCUIT);
+        basicItem(EPItems.ADVANCED_CIRCUIT);
+        basicItem(EPItems.PROCESSING_UNIT);
 
-        basicItem(ModItems.TELEPORTER_MATRIX);
-        basicItem(ModItems.TELEPORTER_PROCESSING_UNIT);
+        basicItem(EPItems.TELEPORTER_MATRIX);
+        basicItem(EPItems.TELEPORTER_PROCESSING_UNIT);
 
-        basicItem(ModItems.BASIC_UPGRADE_MODULE);
-        basicItem(ModItems.ADVANCED_UPGRADE_MODULE);
-        basicItem(ModItems.REINFORCED_ADVANCED_UPGRADE_MODULE);
+        basicItem(EPItems.BASIC_UPGRADE_MODULE);
+        basicItem(EPItems.ADVANCED_UPGRADE_MODULE);
+        basicItem(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE);
 
-        basicItem(ModItems.SPEED_UPGRADE_MODULE_1);
-        basicItem(ModItems.SPEED_UPGRADE_MODULE_2);
-        basicItem(ModItems.SPEED_UPGRADE_MODULE_3);
-        basicItem(ModItems.SPEED_UPGRADE_MODULE_4);
-        basicItem(ModItems.SPEED_UPGRADE_MODULE_5);
+        basicItem(EPItems.SPEED_UPGRADE_MODULE_1);
+        basicItem(EPItems.SPEED_UPGRADE_MODULE_2);
+        basicItem(EPItems.SPEED_UPGRADE_MODULE_3);
+        basicItem(EPItems.SPEED_UPGRADE_MODULE_4);
+        basicItem(EPItems.SPEED_UPGRADE_MODULE_5);
 
-        basicItem(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1);
-        basicItem(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2);
-        basicItem(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3);
-        basicItem(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4);
-        basicItem(ModItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5);
+        basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1);
+        basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2);
+        basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3);
+        basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4);
+        basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5);
 
-        basicItem(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_1);
-        basicItem(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_2);
-        basicItem(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_3);
-        basicItem(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_4);
-        basicItem(ModItems.ENERGY_CAPACITY_UPGRADE_MODULE_5);
+        basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1);
+        basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2);
+        basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_3);
+        basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_4);
+        basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_5);
 
-        basicItem(ModItems.DURATION_UPGRADE_MODULE_1);
-        basicItem(ModItems.DURATION_UPGRADE_MODULE_2);
-        basicItem(ModItems.DURATION_UPGRADE_MODULE_3);
-        basicItem(ModItems.DURATION_UPGRADE_MODULE_4);
-        basicItem(ModItems.DURATION_UPGRADE_MODULE_5);
-        basicItem(ModItems.DURATION_UPGRADE_MODULE_6);
+        basicItem(EPItems.DURATION_UPGRADE_MODULE_1);
+        basicItem(EPItems.DURATION_UPGRADE_MODULE_2);
+        basicItem(EPItems.DURATION_UPGRADE_MODULE_3);
+        basicItem(EPItems.DURATION_UPGRADE_MODULE_4);
+        basicItem(EPItems.DURATION_UPGRADE_MODULE_5);
+        basicItem(EPItems.DURATION_UPGRADE_MODULE_6);
 
-        basicItem(ModItems.RANGE_UPGRADE_MODULE_1);
-        basicItem(ModItems.RANGE_UPGRADE_MODULE_2);
-        basicItem(ModItems.RANGE_UPGRADE_MODULE_3);
+        basicItem(EPItems.RANGE_UPGRADE_MODULE_1);
+        basicItem(EPItems.RANGE_UPGRADE_MODULE_2);
+        basicItem(EPItems.RANGE_UPGRADE_MODULE_3);
 
-        basicItem(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1);
-        basicItem(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2);
-        basicItem(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3);
-        basicItem(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4);
-        basicItem(ModItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5);
+        basicItem(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1);
+        basicItem(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2);
+        basicItem(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3);
+        basicItem(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4);
+        basicItem(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5);
 
-        basicItem(ModItems.BLAST_FURNACE_UPGRADE_MODULE);
-        basicItem(ModItems.SMOKER_UPGRADE_MODULE);
+        basicItem(EPItems.BLAST_FURNACE_UPGRADE_MODULE);
+        basicItem(EPItems.SMOKER_UPGRADE_MODULE);
 
-        basicItem(ModItems.MOON_LIGHT_UPGRADE_MODULE_1);
-        basicItem(ModItems.MOON_LIGHT_UPGRADE_MODULE_2);
-        basicItem(ModItems.MOON_LIGHT_UPGRADE_MODULE_3);
+        basicItem(EPItems.MOON_LIGHT_UPGRADE_MODULE_1);
+        basicItem(EPItems.MOON_LIGHT_UPGRADE_MODULE_2);
+        basicItem(EPItems.MOON_LIGHT_UPGRADE_MODULE_3);
 
-        basicItem(ModItems.ENERGIZED_POWER_BOOK);
+        basicItem(EPItems.ENERGIZED_POWER_BOOK);
 
-        basicItem(ModItems.CABLE_INSULATOR);
+        basicItem(EPItems.CABLE_INSULATOR);
 
-        basicItem(ModItems.CHARCOAL_FILTER);
+        basicItem(EPItems.CHARCOAL_FILTER);
 
-        basicItem(ModItems.SAW_BLADE);
+        basicItem(EPItems.SAW_BLADE);
 
-        basicItem(ModItems.CRYSTAL_MATRIX);
+        basicItem(EPItems.CRYSTAL_MATRIX);
 
-        basicItem(ModItems.ENERGIZED_CRYSTAL_MATRIX);
+        basicItem(EPItems.ENERGIZED_CRYSTAL_MATRIX);
 
-        basicItem(ModItems.INVENTORY_CHARGER);
+        basicItem(EPItems.INVENTORY_CHARGER);
 
-        basicItem(ModItems.INVENTORY_TELEPORTER);
+        basicItem(EPItems.INVENTORY_TELEPORTER);
 
-        basicItem(ModItems.BATTERY_1);
-        basicItem(ModItems.BATTERY_2);
-        basicItem(ModItems.BATTERY_3);
-        basicItem(ModItems.BATTERY_4);
-        basicItem(ModItems.BATTERY_5);
-        basicItem(ModItems.BATTERY_6);
-        basicItem(ModItems.BATTERY_7);
-        basicItem(ModItems.BATTERY_8);
-        basicItem(ModItems.CREATIVE_BATTERY);
+        basicItem(EPItems.BATTERY_1);
+        basicItem(EPItems.BATTERY_2);
+        basicItem(EPItems.BATTERY_3);
+        basicItem(EPItems.BATTERY_4);
+        basicItem(EPItems.BATTERY_5);
+        basicItem(EPItems.BATTERY_6);
+        basicItem(EPItems.BATTERY_7);
+        basicItem(EPItems.BATTERY_8);
+        basicItem(EPItems.CREATIVE_BATTERY);
 
-        basicItem(ModItems.ENERGY_ANALYZER);
+        basicItem(EPItems.ENERGY_ANALYZER);
 
-        basicItem(ModItems.FLUID_ANALYZER);
+        basicItem(EPItems.FLUID_ANALYZER);
 
-        basicItem(ModItems.WOODEN_HAMMER);
-        basicItem(ModItems.STONE_HAMMER);
-        basicItem(ModItems.IRON_HAMMER);
-        basicItem(ModItems.GOLDEN_HAMMER);
-        basicItem(ModItems.DIAMOND_HAMMER);
-        basicItem(ModItems.NETHERITE_HAMMER);
+        basicItem(EPItems.WOODEN_HAMMER);
+        basicItem(EPItems.STONE_HAMMER);
+        basicItem(EPItems.IRON_HAMMER);
+        basicItem(EPItems.GOLDEN_HAMMER);
+        basicItem(EPItems.DIAMOND_HAMMER);
+        basicItem(EPItems.NETHERITE_HAMMER);
 
-        basicItem(ModItems.CUTTER);
+        basicItem(EPItems.CUTTER);
 
-        basicItem(ModItems.WRENCH);
+        basicItem(EPItems.WRENCH);
 
-        basicItem(ModItems.BATTERY_BOX_MINECART);
-        basicItem(ModItems.ADVANCED_BATTERY_BOX_MINECART);
+        basicItem(EPItems.BATTERY_BOX_MINECART);
+        basicItem(EPItems.ADVANCED_BATTERY_BOX_MINECART);
 
-        basicItem(ModFluids.DIRTY_WATER_BUCKET_ITEM);
+        basicItem(EPFluids.DIRTY_WATER_BUCKET_ITEM);
     }
 
     private void registerSpecialModels() {
-        ModelFile inventoryCoalEngineActive = basicItem(ModItems.INVENTORY_COAL_ENGINE, "_active");
-        ModelFile inventoryCoalEngineOn = basicItem(ModItems.INVENTORY_COAL_ENGINE, "_on");
+        ModelFile inventoryCoalEngineActive = basicItem(EPItems.INVENTORY_COAL_ENGINE, "_active");
+        ModelFile inventoryCoalEngineOn = basicItem(EPItems.INVENTORY_COAL_ENGINE, "_on");
 
-        ResourceLocation inventoryCoalEngineItemId = ModItems.INVENTORY_COAL_ENGINE.getId();
+        ResourceLocation inventoryCoalEngineItemId = EPItems.INVENTORY_COAL_ENGINE.getId();
 
         withExistingParent(inventoryCoalEngineItemId.getPath(), "generated").
                 texture("layer0", new ResourceLocation(inventoryCoalEngineItemId.getNamespace(),

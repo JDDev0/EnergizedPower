@@ -2,7 +2,7 @@ package me.jddev0.ep.recipe;
 
 import com.google.gson.JsonObject;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -57,7 +57,7 @@ public class PressMoldMakerRecipe implements Recipe<Container> {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.PRESS_MOLD_MAKER_ITEM.get());
+        return new ItemStack(EPBlocks.PRESS_MOLD_MAKER_ITEM.get());
     }
 
     @Override

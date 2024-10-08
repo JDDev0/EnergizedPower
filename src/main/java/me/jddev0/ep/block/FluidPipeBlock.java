@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -45,12 +44,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, WrenchConfigurable {
-    public static final EnumProperty<ModBlockStateProperties.PipeConnection> UP = ModBlockStateProperties.PIPE_CONNECTION_UP;
-    public static final EnumProperty<ModBlockStateProperties.PipeConnection> DOWN = ModBlockStateProperties.PIPE_CONNECTION_DOWN;
-    public static final EnumProperty<ModBlockStateProperties.PipeConnection> NORTH = ModBlockStateProperties.PIPE_CONNECTION_NORTH;
-    public static final EnumProperty<ModBlockStateProperties.PipeConnection> SOUTH = ModBlockStateProperties.PIPE_CONNECTION_SOUTH;
-    public static final EnumProperty<ModBlockStateProperties.PipeConnection> EAST = ModBlockStateProperties.PIPE_CONNECTION_EAST;
-    public static final EnumProperty<ModBlockStateProperties.PipeConnection> WEST = ModBlockStateProperties.PIPE_CONNECTION_WEST;
+    public static final EnumProperty<EPBlockStateProperties.PipeConnection> UP = EPBlockStateProperties.PIPE_CONNECTION_UP;
+    public static final EnumProperty<EPBlockStateProperties.PipeConnection> DOWN = EPBlockStateProperties.PIPE_CONNECTION_DOWN;
+    public static final EnumProperty<EPBlockStateProperties.PipeConnection> NORTH = EPBlockStateProperties.PIPE_CONNECTION_NORTH;
+    public static final EnumProperty<EPBlockStateProperties.PipeConnection> SOUTH = EPBlockStateProperties.PIPE_CONNECTION_SOUTH;
+    public static final EnumProperty<EPBlockStateProperties.PipeConnection> EAST = EPBlockStateProperties.PIPE_CONNECTION_EAST;
+    public static final EnumProperty<EPBlockStateProperties.PipeConnection> WEST = EPBlockStateProperties.PIPE_CONNECTION_WEST;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     private static final VoxelShape SHAPE_CORE = Block.box(4.d, 4.d, 4.d, 12.d, 12.d, 12.d);
@@ -62,7 +61,7 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
     private static final VoxelShape SHAPE_WEST = Block.box(0.d, 4.d, 4.d, 4.d, 12.d, 12.d);
 
     @NotNull
-    public static EnumProperty<ModBlockStateProperties.PipeConnection> getPipeConnectionPropertyFromDirection(@NotNull Direction dir) {
+    public static EnumProperty<EPBlockStateProperties.PipeConnection> getPipeConnectionPropertyFromDirection(@NotNull Direction dir) {
         return switch(dir) {
             case UP -> UP;
             case DOWN -> DOWN;
@@ -77,8 +76,8 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
 
     public static Block getBlockFromTier(Tier tier) {
         return switch(tier) {
-            case IRON -> ModBlocks.IRON_FLUID_PIPE.get();
-            case GOLDEN -> ModBlocks.GOLDEN_FLUID_PIPE.get();
+            case IRON -> EPBlocks.IRON_FLUID_PIPE.get();
+            case GOLDEN -> EPBlocks.GOLDEN_FLUID_PIPE.get();
         };
     }
 
@@ -87,12 +86,12 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
 
         this.tier = tier;
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(UP, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
-                setValue(DOWN, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
-                setValue(NORTH, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
-                setValue(SOUTH, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
-                setValue(EAST, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
-                setValue(WEST, ModBlockStateProperties.PipeConnection.NOT_CONNECTED).
+        this.registerDefaultState(this.stateDefinition.any().setValue(UP, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
+                setValue(DOWN, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
+                setValue(NORTH, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
+                setValue(SOUTH, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
+                setValue(EAST, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
+                setValue(WEST, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
                 setValue(WATERLOGGED, false));
     }
 
@@ -170,15 +169,15 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
             return InteractionResult.SUCCESS;
         }
 
-        EnumProperty<ModBlockStateProperties.PipeConnection> pipeConnectionProperty =
+        EnumProperty<EPBlockStateProperties.PipeConnection> pipeConnectionProperty =
                 FluidPipeBlock.getPipeConnectionPropertyFromDirection(selectedFace);
 
         int diff = nextPreviousValue?-1:1;
 
-        ModBlockStateProperties.PipeConnection pipeConnection = state.getValue(pipeConnectionProperty);
-        pipeConnection = ModBlockStateProperties.PipeConnection.values()[(pipeConnection.ordinal() + diff +
-                ModBlockStateProperties.PipeConnection.values().length) %
-                ModBlockStateProperties.PipeConnection.values().length];
+        EPBlockStateProperties.PipeConnection pipeConnection = state.getValue(pipeConnectionProperty);
+        pipeConnection = EPBlockStateProperties.PipeConnection.values()[(pipeConnection.ordinal() + diff +
+                EPBlockStateProperties.PipeConnection.values().length) %
+                EPBlockStateProperties.PipeConnection.values().length];
 
         level.setBlock(blockPos, state.setValue(pipeConnectionProperty, pipeConnection), 3);
 
@@ -323,7 +322,7 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
                     setValue(WEST, selfState.getValue(WEST)).
                     setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
         }else {
-            EnumProperty<ModBlockStateProperties.PipeConnection> pipeConnectionProperty = getPipeConnectionPropertyFromDirection(dir);
+            EnumProperty<EPBlockStateProperties.PipeConnection> pipeConnectionProperty = getPipeConnectionPropertyFromDirection(dir);
 
             newState = defaultBlockState().
                     setValue(UP, selfState.getValue(UP)).
@@ -345,22 +344,22 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
         FluidPipeBlockEntity.updateConnections(level, selfPos, newState, (FluidPipeBlockEntity)blockEntity);
     }
 
-    private ModBlockStateProperties.PipeConnection shouldConnectTo(Level level, BlockPos selfPos, BlockState selfState, Direction direction) {
+    private EPBlockStateProperties.PipeConnection shouldConnectTo(Level level, BlockPos selfPos, BlockState selfState, Direction direction) {
         BlockPos toPos = selfPos.relative(direction);
         BlockEntity blockEntity = level.getBlockEntity(toPos);
         if(blockEntity == null)
-            return ModBlockStateProperties.PipeConnection.NOT_CONNECTED;
+            return EPBlockStateProperties.PipeConnection.NOT_CONNECTED;
 
         if(blockEntity instanceof FluidPipeBlockEntity fluidPipeBlockEntity && fluidPipeBlockEntity.getTier() != this.getTier())
-            return ModBlockStateProperties.PipeConnection.NOT_CONNECTED;
+            return EPBlockStateProperties.PipeConnection.NOT_CONNECTED;
 
-        ModBlockStateProperties.PipeConnection currentConnectionState =
+        EPBlockStateProperties.PipeConnection currentConnectionState =
                 selfState.getValue(getPipeConnectionPropertyFromDirection(direction));
-        if(currentConnectionState == ModBlockStateProperties.PipeConnection.NOT_CONNECTED)
-            currentConnectionState = ModBlockStateProperties.PipeConnection.CONNECTED;
+        if(currentConnectionState == EPBlockStateProperties.PipeConnection.NOT_CONNECTED)
+            currentConnectionState = EPBlockStateProperties.PipeConnection.CONNECTED;
 
         LazyOptional<IFluidHandler> fluidStorageLazyOptional = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, direction.getOpposite());
-        return fluidStorageLazyOptional.isPresent()?currentConnectionState:ModBlockStateProperties.PipeConnection.NOT_CONNECTED;
+        return fluidStorageLazyOptional.isPresent()?currentConnectionState: EPBlockStateProperties.PipeConnection.NOT_CONNECTED;
     }
 
     @Nullable

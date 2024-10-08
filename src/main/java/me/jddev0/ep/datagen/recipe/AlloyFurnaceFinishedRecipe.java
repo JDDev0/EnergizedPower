@@ -3,7 +3,7 @@ package me.jddev0.ep.datagen.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.jddev0.ep.recipe.IngredientWithCount;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -65,7 +65,7 @@ public record AlloyFurnaceFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> getType() {
-        return ModRecipes.ALLOY_FURNACE_SERIALIZER.get();
+        return EPRecipes.ALLOY_FURNACE_SERIALIZER.get();
     }
 
     @Override

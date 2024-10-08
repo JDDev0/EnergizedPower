@@ -19,7 +19,7 @@ public class BatteryItem extends EnergizedPowerEnergyItem {
     private final Tier tier;
 
     public BatteryItem(Tier tier) {
-        super(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1),
+        super(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1),
                 () -> new ReceiveAndExtractEnergyStorage(0, tier.getCapacity(), tier.getMaxTransfer()));
 
         this.tier = tier;

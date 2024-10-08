@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.CreativeBatteryBoxBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -20,7 +20,7 @@ public class CreativeBatteryBoxMenu extends AbstractContainerMenu {
     }
 
     public CreativeBatteryBoxMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
-        super(ModMenuTypes.CREATIVE_BATTERY_BOX_MENU.get(), id);
+        super(EPMenuTypes.CREATIVE_BATTERY_BOX_MENU.get(), id);
 
         checkContainerDataCount(data, 2);
         this.blockEntity = (CreativeBatteryBoxBlockEntity)blockEntity;
@@ -48,7 +48,7 @@ public class CreativeBatteryBoxMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, ModBlocks.CREATIVE_BATTERY_BOX.get());
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, EPBlocks.CREATIVE_BATTERY_BOX.get());
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

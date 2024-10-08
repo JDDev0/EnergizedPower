@@ -2,7 +2,7 @@ package me.jddev0.ep.integration.jei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ChargerBlockEntity;
 import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.util.EnergyUtils;
@@ -33,7 +33,7 @@ public class ChargerCategory implements IRecipeCategory<ChargerRecipe> {
         ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
         background = helper.createDrawable(texture, 1, 29, 113, 46);
 
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.CHARGER_ITEM.get()));
+        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.CHARGER_ITEM.get()));
     }
 
     @Override

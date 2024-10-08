@@ -8,239 +8,239 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public final class ModItems {
-    private ModItems() {}
+public final class EPItems {
+    private EPItems() {}
     
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, EPAPI.MOD_ID);
 
     public static final RegistryObject<Item> ENERGIZED_COPPER_INGOT = ITEMS.register("energized_copper_ingot",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> ENERGIZED_GOLD_INGOT = ITEMS.register("energized_gold_ingot",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> ENERGIZED_COPPER_PLATE = ITEMS.register("energized_copper_plate",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> ENERGIZED_GOLD_PLATE = ITEMS.register("energized_gold_plate",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> ENERGIZED_COPPER_WIRE = ITEMS.register("energized_copper_wire",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> ENERGIZED_GOLD_WIRE = ITEMS.register("energized_gold_wire",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> SILICON = ITEMS.register("silicon",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> STONE_PEBBLE = ITEMS.register("stone_pebble",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> RAW_TIN = ITEMS.register("raw_tin",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> TIN_DUST = ITEMS.register("tin_dust",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> COPPER_DUST = ITEMS.register("copper_dust",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> IRON_DUST = ITEMS.register("iron_dust",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> GOLD_DUST = ITEMS.register("gold_dust",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> TIN_NUGGET = ITEMS.register("tin_nugget",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> TIN_INGOT = ITEMS.register("tin_ingot",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> TIN_PLATE = ITEMS.register("tin_plate",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> COPPER_PLATE = ITEMS.register("copper_plate",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> IRON_PLATE = ITEMS.register("iron_plate",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> GOLD_PLATE = ITEMS.register("gold_plate",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> STEEL_INGOT = ITEMS.register("steel_ingot",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> REDSTONE_ALLOY_INGOT = ITEMS.register("redstone_alloy_ingot",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> ADVANCED_ALLOY_INGOT = ITEMS.register("advanced_alloy_ingot",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> ADVANCED_ALLOY_PLATE = ITEMS.register("advanced_alloy_plate",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> IRON_GEAR = ITEMS.register("iron_gear",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> IRON_ROD = ITEMS.register("iron_rod",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> TIN_WIRE = ITEMS.register("tin_wire",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> COPPER_WIRE = ITEMS.register("copper_wire",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> GOLD_WIRE = ITEMS.register("gold_wire",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> SAWDUST = ITEMS.register("sawdust",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> CHARCOAL_DUST = ITEMS.register("charcoal_dust",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> BASIC_FERTILIZER = ITEMS.register("basic_fertilizer",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> GOOD_FERTILIZER = ITEMS.register("good_fertilizer",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> ADVANCED_FERTILIZER = ITEMS.register("advanced_fertilizer",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> RAW_GEAR_PRESS_MOLD = ITEMS.register("raw_gear_press_mold",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> RAW_ROD_PRESS_MOLD = ITEMS.register("raw_rod_press_mold",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> RAW_WIRE_PRESS_MOLD = ITEMS.register("raw_wire_press_mold",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> GEAR_PRESS_MOLD = ITEMS.register("gear_press_mold",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).durability(2000)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB).durability(2000)));
     public static final RegistryObject<Item> ROD_PRESS_MOLD = ITEMS.register("rod_press_mold",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).durability(2000)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB).durability(2000)));
     public static final RegistryObject<Item> WIRE_PRESS_MOLD = ITEMS.register("wire_press_mold",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).durability(2000)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB).durability(2000)));
 
     public static final RegistryObject<Item> BASIC_SOLAR_CELL = ITEMS.register("basic_solar_cell",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> ADVANCED_SOLAR_CELL = ITEMS.register("advanced_solar_cell",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> REINFORCED_ADVANCED_SOLAR_CELL = ITEMS.register("reinforced_advanced_solar_cell",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> BASIC_CIRCUIT = ITEMS.register("basic_circuit",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> ADVANCED_CIRCUIT = ITEMS.register("advanced_circuit",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> PROCESSING_UNIT = ITEMS.register("processing_unit",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> TELEPORTER_MATRIX = ITEMS.register("teleporter_matrix",
-            () -> new TeleporterMatrixItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new TeleporterMatrixItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> TELEPORTER_PROCESSING_UNIT = ITEMS.register("teleporter_processing_unit",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> BASIC_UPGRADE_MODULE = ITEMS.register("basic_upgrade_module",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> ADVANCED_UPGRADE_MODULE = ITEMS.register("advanced_upgrade_module",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> REINFORCED_ADVANCED_UPGRADE_MODULE = ITEMS.register("reinforced_advanced_upgrade_module",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> SPEED_UPGRADE_MODULE_1 = ITEMS.register("speed_upgrade_module_1",
-            () -> new SpeedUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 1));
+            () -> new SpeedUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 1));
     public static final RegistryObject<Item> SPEED_UPGRADE_MODULE_2 = ITEMS.register("speed_upgrade_module_2",
-            () -> new SpeedUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 2));
+            () -> new SpeedUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 2));
     public static final RegistryObject<Item> SPEED_UPGRADE_MODULE_3 = ITEMS.register("speed_upgrade_module_3",
-            () -> new SpeedUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 3));
+            () -> new SpeedUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 3));
     public static final RegistryObject<Item> SPEED_UPGRADE_MODULE_4 = ITEMS.register("speed_upgrade_module_4",
-            () -> new SpeedUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 4));
+            () -> new SpeedUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 4));
     public static final RegistryObject<Item> SPEED_UPGRADE_MODULE_5 = ITEMS.register("speed_upgrade_module_5",
-            () -> new SpeedUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 5));
+            () -> new SpeedUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 5));
 
     public static final RegistryObject<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_1 = ITEMS.register("energy_efficiency_upgrade_module_1",
-            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 1));
+            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 1));
     public static final RegistryObject<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_2 = ITEMS.register("energy_efficiency_upgrade_module_2",
-            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 2));
+            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 2));
     public static final RegistryObject<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_3 = ITEMS.register("energy_efficiency_upgrade_module_3",
-            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 3));
+            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 3));
     public static final RegistryObject<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_4 = ITEMS.register("energy_efficiency_upgrade_module_4",
-            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 4));
+            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 4));
     public static final RegistryObject<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_5 = ITEMS.register("energy_efficiency_upgrade_module_5",
-            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 5));
+            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 5));
 
     public static final RegistryObject<Item> ENERGY_CAPACITY_UPGRADE_MODULE_1 = ITEMS.register("energy_capacity_upgrade_module_1",
-            () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 1));
+            () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 1));
     public static final RegistryObject<Item> ENERGY_CAPACITY_UPGRADE_MODULE_2 = ITEMS.register("energy_capacity_upgrade_module_2",
-            () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 2));
+            () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 2));
     public static final RegistryObject<Item> ENERGY_CAPACITY_UPGRADE_MODULE_3 = ITEMS.register("energy_capacity_upgrade_module_3",
-            () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 3));
+            () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 3));
     public static final RegistryObject<Item> ENERGY_CAPACITY_UPGRADE_MODULE_4 = ITEMS.register("energy_capacity_upgrade_module_4",
-            () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 4));
+            () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 4));
     public static final RegistryObject<Item> ENERGY_CAPACITY_UPGRADE_MODULE_5 = ITEMS.register("energy_capacity_upgrade_module_5",
-            () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 5));
+            () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 5));
 
     public static final RegistryObject<Item> DURATION_UPGRADE_MODULE_1 = ITEMS.register("duration_upgrade_module_1",
-            () -> new DurationUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 1));
+            () -> new DurationUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 1));
     public static final RegistryObject<Item> DURATION_UPGRADE_MODULE_2 = ITEMS.register("duration_upgrade_module_2",
-            () -> new DurationUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 2));
+            () -> new DurationUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 2));
     public static final RegistryObject<Item> DURATION_UPGRADE_MODULE_3 = ITEMS.register("duration_upgrade_module_3",
-            () -> new DurationUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 3));
+            () -> new DurationUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 3));
     public static final RegistryObject<Item> DURATION_UPGRADE_MODULE_4 = ITEMS.register("duration_upgrade_module_4",
-            () -> new DurationUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 4));
+            () -> new DurationUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 4));
     public static final RegistryObject<Item> DURATION_UPGRADE_MODULE_5 = ITEMS.register("duration_upgrade_module_5",
-            () -> new DurationUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 5));
+            () -> new DurationUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 5));
     public static final RegistryObject<Item> DURATION_UPGRADE_MODULE_6 = ITEMS.register("duration_upgrade_module_6",
-            () -> new DurationUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 6));
+            () -> new DurationUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 6));
 
     public static final RegistryObject<Item> RANGE_UPGRADE_MODULE_1 = ITEMS.register("range_upgrade_module_1",
-            () -> new RangeUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 1));
+            () -> new RangeUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 1));
     public static final RegistryObject<Item> RANGE_UPGRADE_MODULE_2 = ITEMS.register("range_upgrade_module_2",
-            () -> new RangeUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 2));
+            () -> new RangeUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 2));
     public static final RegistryObject<Item> RANGE_UPGRADE_MODULE_3 = ITEMS.register("range_upgrade_module_3",
-            () -> new RangeUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 3));
+            () -> new RangeUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 3));
 
     public static final RegistryObject<Item> EXTRACTION_DEPTH_UPGRADE_MODULE_1 = ITEMS.register("extraction_depth_upgrade_module_1",
-            () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 1));
+            () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 1));
     public static final RegistryObject<Item> EXTRACTION_DEPTH_UPGRADE_MODULE_2 = ITEMS.register("extraction_depth_upgrade_module_2",
-            () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 2));
+            () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 2));
     public static final RegistryObject<Item> EXTRACTION_DEPTH_UPGRADE_MODULE_3 = ITEMS.register("extraction_depth_upgrade_module_3",
-            () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 3));
+            () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 3));
     public static final RegistryObject<Item> EXTRACTION_DEPTH_UPGRADE_MODULE_4 = ITEMS.register("extraction_depth_upgrade_module_4",
-            () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 4));
+            () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 4));
     public static final RegistryObject<Item> EXTRACTION_DEPTH_UPGRADE_MODULE_5 = ITEMS.register("extraction_depth_upgrade_module_5",
-            () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 5));
+            () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 5));
 
     public static final RegistryObject<Item> BLAST_FURNACE_UPGRADE_MODULE = ITEMS.register("blast_furnace_upgrade_module",
-            () -> new FurnaceModeUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 1));
+            () -> new FurnaceModeUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 1));
     public static final RegistryObject<Item> SMOKER_UPGRADE_MODULE = ITEMS.register("smoker_upgrade_module",
-            () -> new FurnaceModeUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 2));
+            () -> new FurnaceModeUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 2));
 
     public static final RegistryObject<Item> MOON_LIGHT_UPGRADE_MODULE_1 = ITEMS.register("moon_light_upgrade_module_1",
-            () -> new MoonLightUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 1));
+            () -> new MoonLightUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 1));
     public static final RegistryObject<Item> MOON_LIGHT_UPGRADE_MODULE_2 = ITEMS.register("moon_light_upgrade_module_2",
-            () -> new MoonLightUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 2));
+            () -> new MoonLightUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 2));
     public static final RegistryObject<Item> MOON_LIGHT_UPGRADE_MODULE_3 = ITEMS.register("moon_light_upgrade_module_3",
-            () -> new MoonLightUpgradeModuleItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB), 3));
+            () -> new MoonLightUpgradeModuleItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB), 3));
 
     public static final RegistryObject<Item> ENERGIZED_POWER_BOOK = ITEMS.register("energized_power_book",
-            () -> new EnergizedPowerBookItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
+            () -> new EnergizedPowerBookItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> CABLE_INSULATOR = ITEMS.register("cable_insulator",
-            () -> new CableInsulatorItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new CableInsulatorItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> CHARCOAL_FILTER = ITEMS.register("charcoal_filter",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).durability(200).defaultDurability(200)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB).durability(200).defaultDurability(200)));
 
     public static final RegistryObject<Item> SAW_BLADE = ITEMS.register("saw_blade",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> CRYSTAL_MATRIX = ITEMS.register("crystal_matrix",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> ENERGIZED_CRYSTAL_MATRIX = ITEMS.register("energized_crystal_matrix",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new Item(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> INVENTORY_COAL_ENGINE = ITEMS.register("inventory_coal_engine",
-            () -> new InventoryCoalEngineItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
+            () -> new InventoryCoalEngineItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> INVENTORY_CHARGER = ITEMS.register("inventory_charger",
-            () -> new InventoryChargerItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
+            () -> new InventoryChargerItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> INVENTORY_TELEPORTER = ITEMS.register("inventory_teleporter",
-            () -> new InventoryTeleporterItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
+            () -> new InventoryTeleporterItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> BATTERY_1 = ITEMS.register("battery_1",
             () -> new BatteryItem(BatteryItem.Tier.BATTERY_1));
@@ -259,37 +259,37 @@ public final class ModItems {
     public static final RegistryObject<Item> BATTERY_8 = ITEMS.register("battery_8",
             () -> new BatteryItem(BatteryItem.Tier.BATTERY_8));
     public static final RegistryObject<Item> CREATIVE_BATTERY = ITEMS.register("creative_battery",
-            () -> new CreativeBatteryItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
+            () -> new CreativeBatteryItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> ENERGY_ANALYZER = ITEMS.register("energy_analyzer",
-            () -> new EnergyAnalyzerItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
+            () -> new EnergyAnalyzerItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> FLUID_ANALYZER = ITEMS.register("fluid_analyzer",
-            () -> new FluidAnalyzerItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
+            () -> new FluidAnalyzerItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> WOODEN_HAMMER = ITEMS.register("wooden_hammer",
-            () -> new HammerItem(Tiers.WOOD, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new HammerItem(Tiers.WOOD, new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> STONE_HAMMER = ITEMS.register("stone_hammer",
-            () -> new HammerItem(Tiers.STONE, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new HammerItem(Tiers.STONE, new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> IRON_HAMMER = ITEMS.register("iron_hammer",
-            () -> new HammerItem(Tiers.IRON, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new HammerItem(Tiers.IRON, new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> GOLDEN_HAMMER = ITEMS.register("golden_hammer",
-            () -> new HammerItem(Tiers.GOLD, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new HammerItem(Tiers.GOLD, new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> DIAMOND_HAMMER = ITEMS.register("diamond_hammer",
-            () -> new HammerItem(Tiers.DIAMOND, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new HammerItem(Tiers.DIAMOND, new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
     public static final RegistryObject<Item> NETHERITE_HAMMER = ITEMS.register("netherite_hammer",
-            () -> new HammerItem(Tiers.NETHERITE, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).fireResistant()));
+            () -> new HammerItem(Tiers.NETHERITE, new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB).fireResistant()));
 
     public static final RegistryObject<Item> CUTTER = ITEMS.register("cutter",
-            () -> new CutterItem(Tiers.IRON, new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB)));
+            () -> new CutterItem(Tiers.IRON, new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB)));
 
     public static final RegistryObject<Item> WRENCH = ITEMS.register("wrench",
-            () -> new WrenchItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
+            () -> new WrenchItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> BATTERY_BOX_MINECART = ITEMS.register("battery_box_minecart",
-            () -> new BatteryBoxMinecartItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
+            () -> new BatteryBoxMinecartItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
     public static final RegistryObject<Item> ADVANCED_BATTERY_BOX_MINECART = ITEMS.register("advanced_battery_box_minecart",
-            () -> new AdvancedBatteryBoxMinecartItem(new Item.Properties().tab(ModCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
+            () -> new AdvancedBatteryBoxMinecartItem(new Item.Properties().tab(EPCreativeModeTab.ENERGIZED_POWER_TAB).stacksTo(1)));
 
     public static void register(IEventBus modEventBus) {
         ITEMS.register(modEventBus);

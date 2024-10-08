@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.jei;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.CompressorRecipe;
 import me.jddev0.ep.util.ItemStackUtils;
 import mezz.jei.api.constants.VanillaTypes;
@@ -30,7 +30,7 @@ public class CompressorCategory implements IRecipeCategory<CompressorRecipe> {
         ResourceLocation texture = EPAPI.id("textures/gui/container/compressor.png");
         background = helper.createDrawable(texture, 47, 30, 98, 26);
 
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.COMPRESSOR_ITEM.get()));
+        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.COMPRESSOR_ITEM.get()));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.ItemConveyorBeltSwitchBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -74,6 +74,6 @@ public class ItemConveyorBeltSwitchBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.ITEM_CONVEYOR_BELT_SWITCH_ENTITY.get(), ItemConveyorBeltSwitchBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.ITEM_CONVEYOR_BELT_SWITCH_ENTITY.get(), ItemConveyorBeltSwitchBlockEntity::tick);
     }
 }

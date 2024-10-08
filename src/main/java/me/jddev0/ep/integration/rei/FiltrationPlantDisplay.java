@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.rei;
 
 import me.jddev0.ep.block.entity.FiltrationPlantBlockEntity;
-import me.jddev0.ep.fluid.ModFluids;
+import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.recipe.FiltrationPlantRecipe;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
@@ -15,7 +15,7 @@ public record FiltrationPlantDisplay(FiltrationPlantRecipe recipe) implements Di
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(
-                EntryIngredients.of(ModFluids.DIRTY_WATER.get(), FiltrationPlantBlockEntity.DIRTY_WATER_CONSUMPTION_PER_RECIPE)
+                EntryIngredients.of(EPFluids.DIRTY_WATER.get(), FiltrationPlantBlockEntity.DIRTY_WATER_CONSUMPTION_PER_RECIPE)
         );
     }
 

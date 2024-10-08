@@ -1,10 +1,9 @@
 package me.jddev0.ep.recipe;
 
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.*;
@@ -25,7 +24,7 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
         for(int i = 0;i < container.getContainerSize();i++) {
             ItemStack itemStack = container.getItem(i);
             if(!itemStack.isEmpty()) {
-                if(!itemStack.is(ModItems.TELEPORTER_MATRIX.get()))
+                if(!itemStack.is(EPItems.TELEPORTER_MATRIX.get()))
                     return false;
 
                 if(TeleporterMatrixItem.isLinked(itemStack)) {
@@ -54,7 +53,7 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
         for(int i = 0;i < container.getContainerSize();i++) {
             ItemStack itemStack = container.getItem(i);
             if(!itemStack.isEmpty()) {
-                if(!itemStack.is(ModItems.TELEPORTER_MATRIX.get()))
+                if(!itemStack.is(EPItems.TELEPORTER_MATRIX.get()))
                     return ItemStack.EMPTY;
 
                 if(TeleporterMatrixItem.isLinked(itemStack)) {
@@ -78,7 +77,7 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
 
     @Override
     public ItemStack getResultItem() {
-        return new ItemStack(ModItems.TELEPORTER_MATRIX.get(), 2);
+        return new ItemStack(EPItems.TELEPORTER_MATRIX.get(), 2);
     }
 
     @Override
@@ -90,7 +89,7 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
             if(!itemstack.isEmpty()) {
                 if(itemstack.hasCraftingRemainingItem()) {
                     remainders.set(i, itemstack.getCraftingRemainingItem());
-                }else if(itemstack.is(ModItems.TELEPORTER_MATRIX.get()) && TeleporterMatrixItem.isLinked(itemstack)) {
+                }else if(itemstack.is(EPItems.TELEPORTER_MATRIX.get()) && TeleporterMatrixItem.isLinked(itemstack)) {
                     remainders.set(i, ItemStackUtils.copyWithCount(itemstack, 1));
                 }
             }
@@ -101,12 +100,12 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModItems.TELEPORTER_MATRIX.get());
+        return new ItemStack(EPItems.TELEPORTER_MATRIX.get());
     }
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER.get();
+        return EPRecipes.TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER.get();
     }
 
     @Override

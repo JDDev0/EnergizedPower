@@ -21,7 +21,7 @@ public class MinecartBatteryBoxMenu extends AbstractContainerMenu implements IEn
     }
 
     public MinecartBatteryBoxMenu(int id, Inventory inv, Container container, ContainerData data) {
-        super(ModMenuTypes.MINECART_BATTERY_BOX_MENU.get(), id);
+        super(EPMenuTypes.MINECART_BATTERY_BOX_MENU.get(), id);
 
         checkContainerDataCount(data, 4);
         this.container = container;

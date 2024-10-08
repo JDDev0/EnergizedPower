@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.AutoStonecutterBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -110,6 +110,6 @@ public class AutoStonecutterBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.AUTO_STONECUTTER_ENTITY.get(), AutoStonecutterBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.AUTO_STONECUTTER_ENTITY.get(), AutoStonecutterBlockEntity::tick);
     }
 }

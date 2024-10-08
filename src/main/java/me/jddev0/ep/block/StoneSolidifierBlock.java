@@ -1,6 +1,6 @@
 package me.jddev0.ep.block;
 
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.StoneSolidifierBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -122,6 +122,6 @@ public class StoneSolidifierBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.STONE_SOLIDIFIER_ENTITY.get(), StoneSolidifierBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.STONE_SOLIDIFIER_ENTITY.get(), StoneSolidifierBlockEntity::tick);
     }
 }

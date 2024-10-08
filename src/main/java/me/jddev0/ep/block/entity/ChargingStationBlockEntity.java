@@ -35,7 +35,7 @@ public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEnti
 
     public ChargingStationBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.CHARGING_STATION_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.CHARGING_STATION_ENTITY.get(), blockPos, blockState,
 
                 "charging_station",
 

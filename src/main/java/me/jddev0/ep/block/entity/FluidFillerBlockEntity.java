@@ -68,7 +68,7 @@ public class FluidFillerBlockEntity
 
     public FluidFillerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.FLUID_FILLER_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.FLUID_FILLER_ENTITY.get(), blockPos, blockState,
 
                 "fluid_filler",
 

@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.MinecartChargerBlockEntity;
-import me.jddev0.ep.block.entity.ModBlockEntities;
+import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
@@ -102,7 +102,7 @@ public class MinecartChargerBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.MINECART_CHARGER_ENTITY.get(), MinecartChargerBlockEntity::tick);
+        return createTickerHelper(type, EPBlockEntities.MINECART_CHARGER_ENTITY.get(), MinecartChargerBlockEntity::tick);
     }
 
     public static final class Item extends BlockItem {

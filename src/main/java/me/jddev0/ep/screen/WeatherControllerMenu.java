@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -25,10 +25,10 @@ public class WeatherControllerMenu extends UpgradableEnergyStorageMenu<WeatherCo
     public WeatherControllerMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                                  ContainerData data) {
         super(
-                ModMenuTypes.WEATHER_CONTROLLER_MENU.get(), id,
+                EPMenuTypes.WEATHER_CONTROLLER_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.WEATHER_CONTROLLER.get(),
+                EPBlocks.WEATHER_CONTROLLER.get(),
 
                 upgradeModuleInventory, 1
         );

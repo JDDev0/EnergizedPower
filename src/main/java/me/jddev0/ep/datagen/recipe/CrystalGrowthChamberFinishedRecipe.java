@@ -2,7 +2,7 @@ package me.jddev0.ep.datagen.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import me.jddev0.ep.recipe.ModRecipes;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -50,7 +50,7 @@ public record CrystalGrowthChamberFinishedRecipe(
 
     @Override
     public RecipeSerializer<?> getType() {
-        return ModRecipes.CRYSTAL_GROWTH_CHAMBER_SERIALIZER.get();
+        return EPRecipes.CRYSTAL_GROWTH_CHAMBER_SERIALIZER.get();
     }
 
     @Override

@@ -68,7 +68,7 @@ public class FluidDrainerBlockEntity
 
     public FluidDrainerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                ModBlockEntities.FLUID_DRAINER_ENTITY.get(), blockPos, blockState,
+                EPBlockEntities.FLUID_DRAINER_ENTITY.get(), blockPos, blockState,
 
                 "fluid_drainer",
 

@@ -2,8 +2,8 @@ package me.jddev0.ep.recipe;
 
 import com.google.gson.JsonObject;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.ModBlocks;
-import me.jddev0.ep.item.ModItems;
+import me.jddev0.ep.block.EPBlocks;
+import me.jddev0.ep.item.EPItems;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -20,7 +20,7 @@ public class SawmillRecipe implements Recipe<Container> {
     private final Ingredient input;
 
     public SawmillRecipe(ResourceLocation id, ItemStack output, Ingredient input, int sawdustAmount) {
-        this(id, output, new ItemStack(ModItems.SAWDUST.get(), sawdustAmount), input);
+        this(id, output, new ItemStack(EPItems.SAWDUST.get(), sawdustAmount), input);
     }
 
     public SawmillRecipe(ResourceLocation id, ItemStack output, ItemStack secondaryOutput, Ingredient input) {
@@ -74,7 +74,7 @@ public class SawmillRecipe implements Recipe<Container> {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.SAWMILL_ITEM.get());
+        return new ItemStack(EPBlocks.SAWMILL_ITEM.get());
     }
 
     @Override

@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
 import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -23,7 +23,7 @@ public class AlloyFurnaceMenu extends AbstractContainerMenu {
     }
 
     public AlloyFurnaceMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
-        super(ModMenuTypes.ALLOY_FURNACE_MENU.get(), id);
+        super(EPMenuTypes.ALLOY_FURNACE_MENU.get(), id);
 
         checkContainerDataCount(data, 8);
         this.blockEntity = (AlloyFurnaceBlockEntity)blockEntity;
@@ -105,7 +105,7 @@ public class AlloyFurnaceMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, ModBlocks.ALLOY_FURNACE.get());
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, EPBlocks.ALLOY_FURNACE.get());
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

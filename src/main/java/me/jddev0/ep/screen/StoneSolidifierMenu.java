@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.StoneSolidifierBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -39,10 +39,10 @@ public class StoneSolidifierMenu extends UpgradableEnergyStorageMenu<StoneSolidi
     public StoneSolidifierMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                                ContainerData data) {
         super(
-                ModMenuTypes.STONE_SOLIDIFIER_MENU.get(), id,
+                EPMenuTypes.STONE_SOLIDIFIER_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.STONE_SOLIDIFIER.get(),
+                EPBlocks.STONE_SOLIDIFIER.get(),
 
                 upgradeModuleInventory, 3
         );

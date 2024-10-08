@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ChargingStationBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -23,11 +23,11 @@ public class ChargingStationMenu extends UpgradableEnergyStorageMenu<ChargingSta
 
     public ChargingStationMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory) {
         super(
-                ModMenuTypes.CHARGING_STATION_MENU.get(), id,
+                EPMenuTypes.CHARGING_STATION_MENU.get(), id,
 
 
                 inv, blockEntity,
-                ModBlocks.CHARGING_STATION.get(),
+                EPBlocks.CHARGING_STATION.get(),
 
                 upgradeModuleInventory, 2
         );

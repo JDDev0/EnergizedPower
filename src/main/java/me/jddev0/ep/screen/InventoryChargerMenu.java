@@ -44,7 +44,7 @@ public class InventoryChargerMenu extends AbstractContainerMenu {
     }
 
     public InventoryChargerMenu(int id, Inventory inv, Container container) {
-        super(ModMenuTypes.INVENTORY_CHARGER_MENU.get(), id);
+        super(EPMenuTypes.INVENTORY_CHARGER_MENU.get(), id);
 
         checkContainerSize(inv, InventoryChargerItem.SLOT_COUNT);
         this.container = container;

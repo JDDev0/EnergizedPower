@@ -1,6 +1,6 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.ModBlocks;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidFillerBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -34,10 +34,10 @@ public class FluidFillerMenu extends UpgradableEnergyStorageMenu<FluidFillerBloc
     public FluidFillerMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
                            ContainerData data) {
         super(
-                ModMenuTypes.FLUID_FILLER_MENU.get(), id,
+                EPMenuTypes.FLUID_FILLER_MENU.get(), id,
 
                 inv, blockEntity,
-                ModBlocks.FLUID_FILLER.get(),
+                EPBlocks.FLUID_FILLER.get(),
 
                 upgradeModuleInventory, 2
         );
